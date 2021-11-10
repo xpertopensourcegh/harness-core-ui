@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Formik,
   FormikForm as Form,
@@ -26,7 +26,7 @@ import * as Yup from 'yup'
 import { useHistory, useParams } from 'react-router-dom'
 import copy from 'copy-to-clipboard'
 import { defaultTo } from 'lodash-es'
-import { Project, useGetCurrentGenUsers, useGetInvites, Organization, useAddUsers, AddUsers } from 'services/cd-ng'
+import { Project, useGetInvites, Organization, useAddUsers, AddUsers, useGetUsers } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGetRoleList } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -34,6 +34,8 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { InvitationStatus, UserItemRenderer, UserTagRenderer, handleInvitationResponse } from '@rbac/utils/utils'
 import { getDefaultRole, getDetailsUrl } from '@projects-orgs/utils/utils'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useMutateAsGet } from '@common/hooks'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
@@ -55,13 +57,19 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { projectIdentifier, orgIdentifier, showManage = true } = props
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
   const { showSuccess, showError } = useToaster()
   const history = useHistory()
   const [search, setSearch] = useState<string>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const initialValues: CollaboratorsData = { collaborators: [] }
-  const { data: userData } = useGetCurrentGenUsers({
-    queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
+  const { data: userData } = useMutateAsGet(useGetUsers, {
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    body: {
+      searchTerm: search,
+      parentFilter: 'STRICTLY_PARENT_SCOPES'
+    },
     debounce: 300
   })
 
@@ -85,13 +93,20 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     }
   })
 
-  const { data: roleData } = useGetRoleList({
+  const { data: roleData, refetch: fetchRoleData } = useGetRoleList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
-    }
+    },
+    lazy: true
   })
+
+  useEffect(() => {
+    if (!isCommunity) {
+      fetchRoleData()
+    }
+  }, [])
 
   const users: SelectOption[] = defaultTo(
     userData?.data?.content?.map(user => {
@@ -125,13 +140,15 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
 
     const dataToSubmit: AddUsers = {
       emails: usersToSubmit,
-      roleBindings: [
-        {
-          roleIdentifier: role.value.toString(),
-          roleName: role.label,
-          managedRole: role.managed
-        }
-      ]
+      roleBindings: isCommunity
+        ? []
+        : [
+            {
+              roleIdentifier: role.value.toString(),
+              roleName: role.label,
+              managedRole: role.managed
+            }
+          ]
     }
 
     try {
@@ -203,27 +220,29 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                 <Layout.Horizontal width="50%">
                   <Label>{getString('projectsOrgs.inviteCollab')}</Label>
                 </Layout.Horizontal>
-                <Layout.Horizontal
-                  width="50%"
-                  flex={{ alignItems: 'center', justifyContent: 'flex-end' }}
-                  padding={{ right: 'medium' }}
-                >
-                  <Label>
-                    <Layout.Horizontal flex spacing="xsmall">
-                      {getString('projectsOrgs.roleLabel')}
-                      <DropDown
-                        items={roles}
-                        value={role.value.toString()}
-                        onChange={item => {
-                          setRole(item as RoleOption)
-                        }}
-                        isLabel={true}
-                        filterable={false}
-                        width={160}
-                      />
-                    </Layout.Horizontal>
-                  </Label>
-                </Layout.Horizontal>
+                {!isCommunity && (
+                  <Layout.Horizontal
+                    width="50%"
+                    flex={{ alignItems: 'center', justifyContent: 'flex-end' }}
+                    padding={{ right: 'medium' }}
+                  >
+                    <Label>
+                      <Layout.Horizontal flex spacing="xsmall">
+                        {getString('projectsOrgs.roleLabel')}
+                        <DropDown
+                          items={roles}
+                          value={role.value.toString()}
+                          onChange={item => {
+                            setRole(item as RoleOption)
+                          }}
+                          isLabel={true}
+                          filterable={false}
+                          width={160}
+                        />
+                      </Layout.Horizontal>
+                    </Label>
+                  </Layout.Horizontal>
+                )}
               </Layout.Horizontal>
               <Layout.Horizontal spacing="small">
                 <FormInput.MultiSelect
@@ -255,7 +274,13 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                   </Text>
                   <Container className={css.pendingList}>
                     {inviteData?.data?.content.slice(0, 15).map(user => (
-                      <InviteListRenderer key={user.name} user={user} reload={reloadInvites} roles={roles} />
+                      <InviteListRenderer
+                        key={user.name}
+                        user={user}
+                        reload={reloadInvites}
+                        roles={roles}
+                        isCommunity={isCommunity}
+                      />
                     ))}
                   </Container>
                 </Layout.Vertical>

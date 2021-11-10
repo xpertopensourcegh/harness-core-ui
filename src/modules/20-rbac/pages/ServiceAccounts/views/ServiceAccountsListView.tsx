@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Avatar, Button, ButtonVariation, Color, Layout, Popover, ReactTable, Text } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
+import { noop } from 'lodash-es'
 import {
   PageServiceAccountAggregateDTO,
   RoleAssignmentMetadataDTO,
@@ -21,6 +22,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PrincipalType } from '@rbac/utils/utils'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './ServiceAccountsListView.module.scss'
 
 interface ServiceAccountsListViewProps {
@@ -213,6 +215,8 @@ const ServiceAccountsListView: React.FC<ServiceAccountsListViewProps> = ({
 }) => {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
   const history = useHistory()
   const columns: Column<ServiceAccountAggregateDTO>[] = useMemo(
     () => [
@@ -224,11 +228,11 @@ const ServiceAccountsListView: React.FC<ServiceAccountsListViewProps> = ({
         Cell: RenderColumnDetails
       },
       {
-        Header: getString('rbac.roleBinding'),
+        Header: isCommunity ? '' : getString('rbac.roleBinding'),
         id: 'roleBindings',
         accessor: row => row.roleAssignmentsMetadataDTO,
         width: '35%',
-        Cell: RenderColumnRoleAssignments,
+        Cell: isCommunity ? () => noop : RenderColumnRoleAssignments,
         openRoleAssignmentModal: openRoleAssignmentModal
       },
       {

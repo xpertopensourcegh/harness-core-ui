@@ -17,3 +17,9 @@
 .pagination {
   padding: 0 var(--spacing-xxxlarge) !important ;
 }
+
+.warning {
+  background-color: var(--white) !important;
+  box-shadow: var(--card-shadow);
+  padding: var(--spacing-small) var(--spacing-xlarge) !important ;
+}

@@ -1,111 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import { Layout, ExpandingSearchInput, ButtonVariation, PageHeader, PageBody } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
-import { useStrings } from 'framework/strings'
-import { useResourceGroupModal } from '@rbac/modals/ResourceGroupModal/useResourceGroupModal'
-import { useGetResourceGroupList } from 'services/resourcegroups'
-import ResourceGroupListView from '@rbac/components/ResourceGroupList/ResourceGroupListView'
-import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import RbacButton from '@rbac/components/Button/Button'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
-import routes from '@common/RouteDefinitions'
-import { setPageNumber } from '@common/utils/utils'
+import React from 'react'
+
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { FeatureWarningBanner } from '@common/components/FeatureWarning/FeatureWarning'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useStrings } from 'framework/strings'
+import ResourceGroupsList from '@rbac/pages/ResourceGroups/views/ResourceGroupsList'
 
 const ResourceGroups: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
+  const { licenseInformation } = useLicenseStore()
   const { getString } = useStrings()
-  const history = useHistory()
-  useDocumentTitle(getString('resourceGroups'))
-  const [searchTerm, setSearchTerm] = useState('')
-  const [page, setPage] = useState(0)
+  const isCommunity = isCDCommunity(licenseInformation)
 
-  const { data, loading, error, refetch } = useGetResourceGroupList({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier,
-      pageIndex: page,
-      pageSize: 10,
-      searchTerm: searchTerm
-    },
-    debounce: 300
-  })
-
-  useEffect(() => {
-    setPageNumber({ setPage, page, pageItemsCount: data?.data?.pageItemCount })
-  }, [data?.data])
-
-  const { openResourceGroupModal } = useResourceGroupModal({
-    onSuccess: resourceGroup => {
-      history.push(
-        routes.toResourceGroupDetails({
-          accountId,
-          orgIdentifier,
-          projectIdentifier,
-          module,
-          resourceGroupIdentifier: resourceGroup.identifier
-        })
-      )
-    }
-  })
-
-  return (
-    <>
-      <PageHeader
-        title={
-          <Layout.Horizontal>
-            <RbacButton
-              text={getString('rbac.resourceGroup.newResourceGroup')}
-              variation={ButtonVariation.PRIMARY}
-              icon="plus"
-              onClick={() => openResourceGroupModal()}
-              data-testid="addNewResourceGroup"
-              permission={{
-                permission: PermissionIdentifier.UPDATE_RESOURCEGROUP,
-                resource: {
-                  resourceType: ResourceType.RESOURCEGROUP
-                },
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
-                }
-              }}
-              featureProps={{
-                featureRequest: {
-                  featureName: FeatureIdentifier.CUSTOM_RESOURCE_GROUPS
-                }
-              }}
-            />
-          </Layout.Horizontal>
-        }
-        toolbar={
-          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-            <ExpandingSearchInput
-              alwaysExpanded
-              placeholder={getString('common.searchPlaceholder')}
-              onChange={e => {
-                setSearchTerm(e.trim())
-                setPage(0)
-              }}
-              width={250}
-            />
-          </Layout.Horizontal>
-        }
+  if (isCommunity) {
+    return (
+      <FeatureWarningBanner
+        featureName={FeatureIdentifier.CUSTOM_RESOURCE_GROUPS}
+        warningMessage={getString('rbac.communityErrorMessages.resourceGroup')}
       />
-      <PageBody loading={loading} retryOnError={() => refetch()} error={(error?.data as Error)?.message}>
-        <ResourceGroupListView
-          data={data?.data}
-          reload={refetch}
-          openResourceGroupModal={openResourceGroupModal}
-          goToPage={(pageNumber: number) => setPage(pageNumber)}
-        />
-      </PageBody>
-    </>
-  )
+    )
+  }
+  return <ResourceGroupsList />
 }
 
 export default ResourceGroups

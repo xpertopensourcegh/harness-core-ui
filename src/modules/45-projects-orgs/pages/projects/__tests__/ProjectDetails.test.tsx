@@ -36,6 +36,13 @@ const deleteProjectMock = (): Promise<{ status: string }> => {
 
 let noModule = false
 
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: userMockData, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
+
 jest.mock('services/cd-ng', () => ({
   useDeleteProject: jest.fn().mockImplementation(() => ({ mutate: deleteProjectMock })),
   usePutProject: jest.fn().mockImplementation(() => createMockData),
@@ -56,9 +63,6 @@ jest.mock('services/cd-ng', () => ({
     getOrg(args)
     return { ...OrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetCurrentGenUsers: jest
-    .fn()
-    .mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
   useAddUsers: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),

@@ -18,6 +18,7 @@ import { useStrings } from 'framework/strings'
 import type { RoleAssignmentMetadataDTO, ServiceAccountDTO, UserGroupDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getAssignments, getRBACErrorMessage, PrincipalType } from '@rbac/utils/utils'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import RoleAssignmentForm from './RoleAssignmentForm'
 import type { Assignment } from './UserRoleAssigment'
 
@@ -46,6 +47,8 @@ const RoleAssignment: React.FC<RoleAssignmentData> = ({
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { getString } = useStrings()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
   const { showSuccess } = useToaster()
   const assignments: Assignment[] = getAssignments(defaultTo(roleBindings, []))
 
@@ -101,15 +104,18 @@ const RoleAssignment: React.FC<RoleAssignmentData> = ({
               disabled={true}
               label={type === PrincipalType.USER_GROUP ? getString('common.userGroup') : getString('serviceAccount')}
             />
-            <RoleAssignmentForm
-              noRoleAssignmentsText={
-                type === PrincipalType.USER_GROUP
-                  ? getString('rbac.userGroupPage.noRoleAssignmentsText')
-                  : getString('rbac.serviceAccounts.form.noDataText')
-              }
-              formik={formik}
-              onSuccess={onSuccess}
-            />
+            {!isCommunity && (
+              <RoleAssignmentForm
+                noRoleAssignmentsText={
+                  type === PrincipalType.USER_GROUP
+                    ? getString('rbac.userGroupPage.noRoleAssignmentsText')
+                    : getString('rbac.serviceAccounts.form.noDataText')
+                }
+                formik={formik}
+                onSuccess={onSuccess}
+              />
+            )}
+
             <Layout.Horizontal spacing="small">
               <Button
                 variation={ButtonVariation.PRIMARY}

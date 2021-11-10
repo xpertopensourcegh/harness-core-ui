@@ -30,6 +30,7 @@ import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/Enti
 import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import RoleAssignmentForm from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -76,6 +77,8 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const scope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
   const { getString } = useStrings()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
   const [query, setQuery] = useState<string>()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
@@ -135,7 +138,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
         }
       }
     }),
-    getScopeBasedDefaultAssignment(scope, getString)
+    getScopeBasedDefaultAssignment(scope, getString, isCommunity)
   )
 
   const handleRoleAssignment = async (values: UserRoleAssignmentValues): Promise<void> => {
@@ -158,7 +161,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   }
 
   const handleInvitation = async (values: UserRoleAssignmentValues): Promise<void> => {
-    if (values.assignments.length === 0) {
+    if (values.assignments.length === 0 && !isCommunity) {
       modalErrorHandler?.showDanger(getString('rbac.roleAssignment.assignmentValidation'))
       return
     }
@@ -221,12 +224,16 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
       formName="userRoleAssignementForm"
       validationSchema={Yup.object().shape({
         users: Yup.array().min(1, getString('rbac.userRequired')).max(15, getString('rbac.userUpperLimit')),
-        assignments: Yup.array().of(
-          Yup.object().shape({
-            role: Yup.object().nullable().required(),
-            resourceGroup: Yup.object().nullable().required()
-          })
-        )
+        ...(isCommunity
+          ? {}
+          : {
+              assignments: Yup.array().of(
+                Yup.object().shape({
+                  role: Yup.object().nullable().required(),
+                  resourceGroup: Yup.object().nullable().required()
+                })
+              )
+            })
       })}
       onSubmit={values => {
         modalErrorHandler?.hide()
@@ -257,12 +264,14 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
               disabled={!isInvite}
             />
             {formValues.userGroupField}
-            <RoleAssignmentForm
-              noRoleAssignmentsText={getString('rbac.usersPage.noDataText')}
-              formik={formik}
-              onSuccess={onSuccess}
-            />
-            <Layout.Horizontal spacing="small">
+            {!isCommunity && (
+              <RoleAssignmentForm
+                noRoleAssignmentsText={getString('rbac.usersPage.noDataText')}
+                formik={formik}
+                onSuccess={onSuccess}
+              />
+            )}
+            <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
               <Button
                 variation={ButtonVariation.PRIMARY}
                 text={getString('common.apply')}

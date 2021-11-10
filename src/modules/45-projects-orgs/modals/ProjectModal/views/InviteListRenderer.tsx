@@ -23,6 +23,7 @@ import css from './Steps.module.scss'
 
 interface InviteListProps {
   user: Invite
+  isCommunity?: boolean
   projectIdentifier?: string
   orgIdentifier?: string
   roles: SelectOption[]
@@ -32,7 +33,7 @@ interface InviteListProps {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const InviteListRenderer: React.FC<InviteListProps> = props => {
-  const { user, reload, roles } = props
+  const { user, reload, roles, isCommunity } = props
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const [approved, setApproved] = useState<boolean>(false)
@@ -93,14 +94,16 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
               <Text className={css.email} lineClamp={1}>
                 {user.email}
               </Text>
-              <Layout.Horizontal spacing="xsmall">
-                <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
-                  {getString('projectsOrgs.roleAssigned')}
-                </Text>
-                <Text font={{ variation: FontVariation.TINY }} className={css.role} lineClamp={1}>
-                  {user.roleBindings[0]?.roleName}
-                </Text>
-              </Layout.Horizontal>
+              {!isCommunity && (
+                <Layout.Horizontal spacing="xsmall">
+                  <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
+                    {getString('projectsOrgs.roleAssigned')}
+                  </Text>
+                  <Text font={{ variation: FontVariation.TINY }} className={css.role} lineClamp={1}>
+                    {user?.roleBindings?.[0]?.roleName}
+                  </Text>
+                </Layout.Horizontal>
+              )}
             </Layout.Vertical>
           </Layout.Horizontal>
           <Layout.Horizontal width="40%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>

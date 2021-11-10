@@ -13,6 +13,7 @@ import {
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
+import { noop } from 'lodash-es'
 import {
   UserGroupAggregateDTO,
   useDeleteUserGroup,
@@ -32,6 +33,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './UserGroupsListView.module.scss'
 
 interface UserGroupsListViewProps {
@@ -262,6 +264,8 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
   const { data, gotoPage, reload, openRoleAssignmentModal, openUserGroupModal } = props
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
   const history = useHistory()
   const columns: Column<UserGroupAggregateDTO>[] = useMemo(
     () => [
@@ -281,11 +285,11 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
         Cell: RenderColumnMembers
       },
       {
-        Header: getString('rbac.roleBinding'),
+        Header: isCommunity ? '' : getString('rbac.roleBinding'),
         id: 'roleBindings',
         accessor: row => row.roleAssignmentsMetadataDTO,
         width: '35%',
-        Cell: RenderColumnRoleAssignments,
+        Cell: isCommunity ? () => noop : RenderColumnRoleAssignments,
         openRoleAssignmentModal: openRoleAssignmentModal
       },
       {

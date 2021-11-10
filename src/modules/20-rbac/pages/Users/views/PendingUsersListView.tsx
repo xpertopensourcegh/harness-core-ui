@@ -3,6 +3,7 @@ import { Text, Layout, Button, Popover, Avatar, ButtonVariation } from '@wings-s
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Tag } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
+import { noop } from 'lodash-es'
 import { Invite, useDeleteInvite, useGetPendingUsersAggregated, useUpdateInvite } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
@@ -16,6 +17,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { setPageNumber } from '@common/utils/utils'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './UserListView.module.scss'
 
 interface PendingUserListViewProps {
@@ -172,9 +174,11 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
 }
 
 const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, shouldReload }) => {
+  const { licenseInformation } = useLicenseStore()
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
+  const isCommunity = isCDCommunity(licenseInformation)
 
   const { data, loading, error, refetch } = useMutateAsGet(useGetPendingUsersAggregated, {
     body: {},
@@ -215,11 +219,11 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, s
         Cell: RenderColumnUser
       },
       {
-        Header: getString('rbac.usersPage.roleBinding'),
+        Header: isCommunity ? '' : getString('rbac.usersPage.roleBinding'),
         id: 'roleBinding',
         accessor: row => row.roleBindings,
         width: '35%',
-        Cell: RenderColumnRoleAssignments,
+        Cell: isCommunity ? () => noop : RenderColumnRoleAssignments,
         openRoleAssignmentModal: openRoleAssignmentModal
       },
       {

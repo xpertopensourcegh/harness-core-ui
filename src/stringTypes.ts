@@ -638,6 +638,8 @@ export interface StringsMap {
   'rbac.apiKey.form.editSuccess': string
   'rbac.apiKey.successMessage': string
   'rbac.categoryLabels.sharedResources': string
+  'rbac.communityErrorMessages.resourceGroup': string
+  'rbac.communityErrorMessages.role': string
   'rbac.customResourceGroups': string
   'rbac.customRoles': string
   'rbac.forUser': string

@@ -25,10 +25,14 @@ const response = {
   correlationId: ''
 }
 
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: userMockData, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
+
 jest.mock('services/cd-ng', () => ({
-  useGetCurrentGenUsers: jest
-    .fn()
-    .mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
   useAddUsers: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),

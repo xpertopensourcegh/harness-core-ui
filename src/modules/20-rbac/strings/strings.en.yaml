@@ -197,3 +197,6 @@ accessControlTitle:
   roles: 'Access Control: Roles'
 customRoles: new Roles
 customResourceGroups: new Resource Groups
+communityErrorMessages:
+  role: Requires upgrade to set up Roles
+  resourceGroup: Requires upgrade to set up Resource Groups

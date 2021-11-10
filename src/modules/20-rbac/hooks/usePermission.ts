@@ -7,6 +7,7 @@ import type { PermissionCheck, ResourceScope } from 'services/rbac'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 
 export interface Resource {
   resourceType: ResourceType
@@ -40,10 +41,13 @@ export function usePermission(permissionsRequest?: PermissionsRequest, deps: Arr
   const { requestPermission, checkPermission, cancelRequest } = usePermissionsContext()
   const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const defaultScope = { accountIdentifier, orgIdentifier, projectIdentifier }
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
 
   useDeepCompareEffect(() => {
     // generate PermissionRequest for every action user requested
     permissionsRequest &&
+      !isCommunity &&
       permissionsRequest.permissions.forEach(permission => {
         const permissionCheckDto = getDTOFromRequest(
           {
@@ -59,6 +63,7 @@ export function usePermission(permissionsRequest?: PermissionsRequest, deps: Arr
     return () => {
       // cancel above request when this hook instance is unmounting
       permissionsRequest &&
+        !isCommunity &&
         permissionsRequest.permissions.forEach(permission => {
           const permissionCheckDto = getDTOFromRequest(
             {
@@ -76,6 +81,9 @@ export function usePermission(permissionsRequest?: PermissionsRequest, deps: Arr
   // hook should return boolean for every action requested, in same order
   if (permissionsRequest !== undefined) {
     return permissionsRequest.permissions.map(permission => {
+      if (isCommunity) {
+        return true
+      }
       const permissionCheckDto = getDTOFromRequest(
         {
           permission,

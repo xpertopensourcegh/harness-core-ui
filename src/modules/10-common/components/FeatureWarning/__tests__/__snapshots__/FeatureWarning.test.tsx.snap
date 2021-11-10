@@ -34,6 +34,7 @@ exports[`FeatureWarning FeatureWarning 1`] = `
       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-help StyledProps--color StyledProps--color-primary10"
     >
       common.feature.upgradeRequired.description
+       
       <span>
         projectsOrgs.multipleOrganizations
       </span>

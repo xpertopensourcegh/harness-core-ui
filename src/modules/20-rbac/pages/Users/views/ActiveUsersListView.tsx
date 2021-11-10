@@ -3,7 +3,7 @@ import { Text, Layout, Button, Popover, Avatar, Color, Icon, ButtonVariation } f
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { defaultTo } from 'lodash-es'
+import { defaultTo, noop } from 'lodash-es'
 import {
   UserAggregate,
   useRemoveUser,
@@ -31,6 +31,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { setPageNumber } from '@common/utils/utils'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -295,6 +296,8 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
   const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const [page, setPage] = useState(0)
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
 
   const { data, loading, error, refetch } = useMutateAsGet(useGetAggregatedUsers, {
     body: {},
@@ -338,11 +341,11 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
         Cell: RenderColumnUser
       },
       {
-        Header: getString('rbac.usersPage.roleBinding'),
+        Header: isCommunity ? '' : getString('rbac.usersPage.roleBinding'),
         id: 'roleBinding',
         accessor: row => row.roleAssignmentMetadata,
         width: '45%',
-        Cell: RenderColumnRoleAssignments,
+        Cell: isCommunity ? () => noop : RenderColumnRoleAssignments,
         openRoleAssignmentModal: addRole
       },
       {

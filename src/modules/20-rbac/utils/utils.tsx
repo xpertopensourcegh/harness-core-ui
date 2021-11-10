@@ -127,8 +127,13 @@ export const handleInvitationResponse = ({
 
 export const getScopeBasedDefaultAssignment = (
   scope: Scope,
-  getString: (key: keyof StringsMap, vars?: Record<string, any>) => string
+  getString: (key: keyof StringsMap, vars?: Record<string, any>) => string,
+  isCommunity: boolean
 ): Assignment[] => {
+  if (isCommunity) {
+    return []
+  }
+
   const resourceGroup = {
     label: getString('rbac.allResources'),
     value: '_all_resources',

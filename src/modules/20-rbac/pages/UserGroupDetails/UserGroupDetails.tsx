@@ -21,12 +21,15 @@ import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import NotificationList from '@rbac/components/NotificationList/NotificationList'
+import { useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, module, userGroupIdentifier } =
     useParams<PipelineType<ProjectPathProps & { userGroupIdentifier: string }>>()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
 
   const { data, loading, error, refetch } = useGetUserGroupAggregate({
     identifier: userGroupIdentifier,
@@ -156,30 +159,32 @@ const UserGroupDetails: React.FC = () => {
           <MemberList ssoLinked={userGroup.ssoLinked} />
         </Container>
         <Container width="50%" className={css.detailsContainer}>
-          <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>
-            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
-              {getString('rbac.roleBinding')}
-            </Text>
-            <Card className={css.card}>
-              <RoleBindingsList data={userGroupAggregateResponse?.roleAssignmentsMetadataDTO} showNoData={true} />
-            </Card>
-            <Layout.Horizontal
-              flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
-              padding={{ top: 'medium' }}
-            >
-              <ManagePrincipalButton
-                data-testid={'addRole-UserGroup'}
-                text={getString('common.plusNumber', { number: getString('common.role') })}
-                variation={ButtonVariation.LINK}
-                onClick={event => {
-                  event.stopPropagation()
-                  openRoleAssignmentModal(PrincipalType.USER_GROUP, userGroup, data?.data?.roleAssignmentsMetadataDTO)
-                }}
-                resourceType={ResourceType.USERGROUP}
-                resourceIdentifier={userGroupIdentifier}
-              />
-            </Layout.Horizontal>
-          </Layout.Vertical>
+          {!isCommunity && (
+            <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>
+              <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
+                {getString('rbac.roleBinding')}
+              </Text>
+              <Card className={css.card}>
+                <RoleBindingsList data={userGroupAggregateResponse?.roleAssignmentsMetadataDTO} showNoData={true} />
+              </Card>
+              <Layout.Horizontal
+                flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                padding={{ top: 'medium' }}
+              >
+                <ManagePrincipalButton
+                  data-testid={'addRole-UserGroup'}
+                  text={getString('common.plusNumber', { number: getString('common.role') })}
+                  variation={ButtonVariation.LINK}
+                  onClick={event => {
+                    event.stopPropagation()
+                    openRoleAssignmentModal(PrincipalType.USER_GROUP, userGroup, data?.data?.roleAssignmentsMetadataDTO)
+                  }}
+                  resourceType={ResourceType.USERGROUP}
+                  resourceIdentifier={userGroupIdentifier}
+                />
+              </Layout.Horizontal>
+            </Layout.Vertical>
+          )}
           <Layout.Vertical spacing="medium">
             <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
               {getString('common.notificationPreferences')}

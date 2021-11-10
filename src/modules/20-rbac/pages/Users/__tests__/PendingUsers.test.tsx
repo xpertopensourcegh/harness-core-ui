@@ -5,7 +5,7 @@ import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/
 import type { ResponseBoolean } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
-import { mockResponse, pendingUserMock, resourceGroupsMockData, roleMockData, usersMockData } from './mock'
+import { mockResponse, pendingUserMock, resourceGroupsMockData, roleMockData } from './mock'
 import UsersPage from '../UsersPage'
 
 jest.useFakeTimers()
@@ -53,10 +53,7 @@ jest.mock('services/resourcegroups', () => ({
 jest.mock('services/cd-ng', () => ({
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: deletePendingUserMock })),
   useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => jest.fn() })),
-  useAddUsers: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
-  useGetCurrentGenUsers: jest.fn().mockImplementation(() => {
-    return { data: usersMockData, refetch: jest.fn(), error: null }
-  })
+  useAddUsers: jest.fn().mockImplementation(() => ({ mutate: createUserMock }))
 }))
 
 jest.useFakeTimers()

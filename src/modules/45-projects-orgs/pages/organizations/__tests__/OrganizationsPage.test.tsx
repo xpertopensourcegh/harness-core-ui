@@ -67,6 +67,13 @@ jest.mock('services/rbac', () => ({
   useGetRoleList: jest.fn().mockImplementation(() => ({ data: roleMockData, loading: false, refetch: jest.fn() }))
 }))
 
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: userMockData, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
+
 jest.useFakeTimers()
 
 const organization = getOrganizationAggregateDTOListMockData.data.data.content[0].organizationResponse.organization

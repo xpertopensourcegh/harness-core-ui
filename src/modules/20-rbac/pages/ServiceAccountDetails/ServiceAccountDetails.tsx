@@ -18,6 +18,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PrincipalType } from '@rbac/utils/utils'
+import { useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './ServiceAccountDetails.module.scss'
 
 const ServiceAccountDetails: React.FC = () => {
@@ -25,6 +26,8 @@ const ServiceAccountDetails: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, module, serviceAccountIdentifier } = useParams<
     ProjectPathProps & ServiceAccountPathProps & ModulePathParams
   >()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
 
   const { data, loading, error, refetch } = useListAggregatedServiceAccounts({
     queryParams: {
@@ -119,36 +122,42 @@ const ServiceAccountDetails: React.FC = () => {
         }
       />
       <Page.Body className={css.body}>
-        <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>
-          <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
-            {getString('rbac.roleBinding')}
-          </Text>
-          <Card className={css.card}>
-            <RoleBindingsList data={serviceAccountData.roleAssignmentsMetadataDTO} showNoData={true} />
-          </Card>
-          <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} padding={{ top: 'medium' }}>
-            <RbacButton
-              data-testid={'addRole-ServiceAccount'}
-              text={getString('common.plusNumber', { number: getString('common.role') })}
-              variation={ButtonVariation.LINK}
-              onClick={event => {
-                event.stopPropagation()
-                openRoleAssignmentModal(
-                  PrincipalType.SERVICE,
-                  serviceAccountData.serviceAccount,
-                  serviceAccountData.roleAssignmentsMetadataDTO
-                )
-              }}
-              permission={{
-                permission: PermissionIdentifier.EDIT_SERVICEACCOUNT,
-                resource: {
-                  resourceType: ResourceType.SERVICEACCOUNT,
-                  resourceIdentifier: serviceAccountData.serviceAccount.identifier
-                }
-              }}
-            />
-          </Layout.Horizontal>
-        </Layout.Vertical>
+        {!isCommunity && (
+          <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>
+            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
+              {getString('rbac.roleBinding')}
+            </Text>
+            <Card className={css.card}>
+              <RoleBindingsList data={serviceAccountData.roleAssignmentsMetadataDTO} showNoData={true} />
+            </Card>
+            <Layout.Horizontal
+              flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+              padding={{ top: 'medium' }}
+            >
+              <RbacButton
+                data-testid={'addRole-ServiceAccount'}
+                text={getString('common.plusNumber', { number: getString('common.role') })}
+                variation={ButtonVariation.LINK}
+                onClick={event => {
+                  event.stopPropagation()
+                  openRoleAssignmentModal(
+                    PrincipalType.SERVICE,
+                    serviceAccountData.serviceAccount,
+                    serviceAccountData.roleAssignmentsMetadataDTO
+                  )
+                }}
+                permission={{
+                  permission: PermissionIdentifier.EDIT_SERVICEACCOUNT,
+                  resource: {
+                    resourceType: ResourceType.SERVICEACCOUNT,
+                    resourceIdentifier: serviceAccountData.serviceAccount.identifier
+                  }
+                }}
+              />
+            </Layout.Horizontal>
+          </Layout.Vertical>
+        )}
+
         <ApiKeyList />
       </Page.Body>
     </>

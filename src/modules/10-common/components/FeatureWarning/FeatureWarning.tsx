@@ -116,14 +116,19 @@ export const FeatureWarningWithTooltip = ({ featureName, tooltipProps }: Feature
 
 export const FeatureWarning = ({ featureName, warningMessage, className }: FeatureWarningProps): ReactElement => {
   const { getString } = useStrings()
-  const featureDescription =
-    warningMessage || FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
+  const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
+
   return (
     <Layout.Horizontal padding="small" spacing="small" className={cx(css.expanded, className)} flex>
       <WarningText />
       <Text font={{ variation: FontVariation.FORM_HELP }} color={Color.PRIMARY_10}>
-        {getString('common.feature.upgradeRequired.description')}
-        {featureDescription}
+        {warningMessage ? (
+          warningMessage
+        ) : (
+          <>
+            {getString('common.feature.upgradeRequired.description')} {featureDescription}
+          </>
+        )}
       </Text>
       <ExplorePlansBtn size={ButtonSize.SMALL} />
     </Layout.Horizontal>
