@@ -51,7 +51,7 @@ export const getTooltip = (currPoint: TooltipFormatterContextObject): string => 
   const point: TimeBasedStats = custom?.[currPoint.key]
   const time =
     point && point?.time
-      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
+      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
       : currPoint.x
   let failureRate: string | number = 'Infinity'
   if (point?.countWithSuccessFailureDetails?.failureCount && point.countWithSuccessFailureDetails?.count) {
@@ -121,28 +121,28 @@ const getBadge = (type: string, stat: number): JSX.Element | null => {
   switch (type) {
     case 'pendingManualInterventionExecutions':
       return (
-        <div className={css.badge}>
+        <div className={css.badge} key={type}>
           <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
           <Text className={css.badgeText}>{`${stat} Pending Manual Interventions`}</Text>
         </div>
       )
     case 'pendingApprovalExecutions':
       return (
-        <div className={css.badge}>
+        <div className={css.badge} key={type}>
           <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
           <Text className={css.badgeText}>{`${stat} Pending Approvals`}</Text>
         </div>
       )
     case 'failed24HrsExecutions':
       return (
-        <div className={cx(css.badge, css.failed24HrsExecutionsBadge)}>
+        <div className={cx(css.badge, css.failed24HrsExecutionsBadge)} key={type}>
           <Icon name="warning-sign" size={12} color={Color.RED_600} />
           <Text className={css.badgeText}>{`${stat} Pipelines failed in past 24 hours`}</Text>
         </div>
       )
     case 'runningExecutions':
       return (
-        <div className={cx(css.badge, css.runningExecutions)}>
+        <div className={cx(css.badge, css.runningExecutions)} key={type}>
           <Icon name="status-running" size={16} color={Color.PRIMARY_7} />
           <Text className={css.badgeText}>{`${stat} Currently running pipelines`}</Text>
         </div>
@@ -168,7 +168,7 @@ const getFormattedNumber = (givenNumber?: number | string): string => {
 
 const summaryCardRenderer = (cardData: SummaryCardData, groupByValue: string): JSX.Element => {
   return (
-    <Container className={css.summaryCard}>
+    <Container className={css.summaryCard} key={cardData.title}>
       <Text font={{ size: 'medium' }} color={Color.GREY_700} className={css.cardTitle}>
         {cardData.title}
       </Text>
@@ -285,7 +285,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const history = useHistory()
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()
-  const [range, setRange] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+  const [range, setRange] = useState([0, 0])
   const [groupByValue, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState<GetDeploymentStatsOverviewQueryParams['sortBy']>('DEPLOYMENTS')
   const [selectedView, setSelectedView] = useState<ChartType>(ChartType.BAR)
@@ -324,6 +324,9 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   }, [selectedTimeRange])
 
   useEffect(() => {
+    if (!range[0]) {
+      return
+    }
     refetch()
   }, [refetch, range, groupByValue, sortByValue])
 
@@ -461,10 +464,10 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
                 },
                 labels: {
                   formatter: function (this) {
-                    let time = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+                    let time = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
                     if (response?.deploymentsStatsSummary?.deploymentStats?.length) {
                       const val = response.deploymentsStatsSummary.deploymentStats[this.pos].time
-                      time = val ? new Date(val).toLocaleDateString('en-US', { day: 'numeric', month: 'long' }) : time
+                      time = val ? new Date(val).toLocaleDateString('en-US', { day: 'numeric', month: 'short' }) : time
                     }
                     return time
                   }
@@ -476,7 +479,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
                 }
               }
             }}
-          ></OverviewChartsWithToggle>
+          />
         </Card>
         <Card className={css.mostActiveServicesContainer}>
           <Layout.Horizontal
