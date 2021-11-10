@@ -30,12 +30,13 @@ export enum StepActions {
   SelectStep = 'Select a Step',
   AddEditStep = 'Add/Edit Step',
   AddEditStepGroup = 'Add/Edit Step Group',
-  DeleteStep = 'Delete Step'
+  DeleteStep = 'Delete Step',
+  AddEditFailureStrategy = 'Add/Edit Failure strategy'
 }
 
 export enum PipelineActions {
   StartedExecution = 'Started Pipeline Execution',
-  CompletedExecution = 'Completed Pipeline Execution',
+  // CompletedExecution = 'Completed Pipeline Execution', // this is done from BE
   PipelineCreatedViaVisual = 'Creating/Updating a pipeline using Visual Mode',
   PipelineCreatedViaYAML = 'Creating/Updating a pipeline using YAML editor'
 }

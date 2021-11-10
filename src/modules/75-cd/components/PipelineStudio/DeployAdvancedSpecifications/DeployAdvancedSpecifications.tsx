@@ -1,7 +1,9 @@
 import React from 'react'
 import { Card, Container, HarnessDocTooltip, Layout } from '@wings-software/uicore'
 import { produce } from 'immer'
-import { set } from 'lodash-es'
+import { set, isEmpty } from 'lodash-es'
+import { StepActions } from '@common/constants/TrackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
@@ -33,6 +35,7 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { submitFormsForTab } = React.useContext(StageErrorContext)
   const { errorMap } = useValidationErrors()
+  const { trackEvent } = useTelemetry()
 
   React.useEffect(() => {
     if (errorMap.size > 0) {
@@ -89,7 +92,18 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
                     const stageData = produce(pipelineStage, draft => {
                       set(draft, 'stage.failureStrategies', failureStrategies)
                     })
-                    if (stageData.stage) updateStage(stageData.stage)
+                    if (stageData.stage) {
+                      updateStage(stageData.stage)
+                      const errors = formikRef.current?.getErrors()
+                      if (isEmpty(errors)) {
+                        const telemetryData = failureStrategies.map(strategy => ({
+                          onError: strategy.onFailure?.errors?.join(', '),
+                          action: strategy.onFailure?.action?.type
+                        }))
+                        telemetryData.length &&
+                          trackEvent(StepActions.AddEditFailureStrategy, { data: JSON.stringify(telemetryData) })
+                      }
+                    }
                   }
                 }}
                 tabName={DeployTabs.ADVANCED}

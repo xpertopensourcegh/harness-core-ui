@@ -325,6 +325,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
         if (Array.isArray(item.failureStrategies)) {
           node.failureStrategies = item.failureStrategies
+          const telemetryData = item.failureStrategies.map(strategy => ({
+            onError: strategy.onFailure?.errors?.join(', '),
+            action: strategy.onFailure?.action?.type
+          }))
+          telemetryData.length &&
+            trackEvent(StepActions.AddEditFailureStrategy, { data: JSON.stringify(telemetryData) })
         }
         if (item.delegateSelectors && item.tab === TabTypes.Advanced) {
           set(node, 'spec.delegateSelectors', item.delegateSelectors)
