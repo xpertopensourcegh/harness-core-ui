@@ -39,8 +39,8 @@ import {
 import { usePostFilter, useUpdateFilter, useDeleteFilter, useGetFilterList } from 'services/cd-ng'
 import type { FilterDTO, ResponsePageFilterDTO, Failure, DelegateFilterProperties } from 'services/cd-ng'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
-import DelegateInstallationError from '@delegates/components/CreateDelegate/K8sDelegate/DelegateInstallationError/DelegateInstallationError'
-import { Page, useToaster, StringUtils } from '@common/exports'
+import DelegateInstallationError from '@delegates/components/CreateDelegate/components/DelegateInstallationError/DelegateInstallationError'
+import { useToaster, StringUtils } from '@common/exports'
 import DelegatesEmptyState from '@delegates/images/DelegatesEmptyState.svg'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -54,11 +54,8 @@ const POLLING_INTERVAL = 10000
 const statusTypes = ['ENABLED', 'WAITING_FOR_APPROVAL', 'DISABLED', 'DELETED']
 
 const fullSizeContentStyle: React.CSSProperties = {
-  position: 'fixed',
-  top: '135px',
-  left: '270px',
-  width: 'calc(100% - 270px)',
-  height: 'calc(100% - 135px)'
+  width: '100%',
+  height: '100%'
 }
 
 interface DelegatesListProps {
@@ -455,10 +452,12 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
     }
   }
 
+  const hideHeader = delegateGroups.length === 0 && !appliedFilter && !searchTerm
+
   const newDelegateBtn = (
     <RbacButton
       intent="primary"
-      text={getString('delegates.newDelegate')}
+      text={hideHeader ? getString('delegates.createDelegate') : getString('delegates.newDelegate')}
       icon="plus"
       permission={permissionRequestNewDelegate}
       onClick={() => openDelegateModal()}
@@ -467,10 +466,8 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
     />
   )
 
-  const hideHeader = delegateGroups.length === 0 && !appliedFilter && !searchTerm
-
   return (
-    <Container>
+    <Container height="100%">
       <Dialog
         isOpen={!!troubleshoterOpen}
         enforceFocus={false}
@@ -511,7 +508,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
           </Layout.Horizontal>
         </Layout.Horizontal>
       )}
-      <Page.Body>
+      <Layout.Vertical className={css.listBody}>
         {showDelegateLoader ? (
           <Container style={fullSizeContentStyle}>
             <ContainerSpinner />
@@ -530,7 +527,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
         ) : (
           <Container className={css.delegateListContainer}>
             {delegateGroups.length ? (
-              <Container>
+              <Container width="100%">
                 <DelegateListingHeader />
                 {delegateGroups.map((delegate: DelegateGroupDetails) => (
                   <DelegateListingItem
@@ -555,7 +552,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
             )}
           </Container>
         )}
-      </Page.Body>
+      </Layout.Vertical>
     </Container>
   )
 }

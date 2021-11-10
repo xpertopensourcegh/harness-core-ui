@@ -22,7 +22,6 @@ declare const styles: {
   readonly medium: string
   readonly large: string
   readonly footer: string
-  readonly formFooter: string
   readonly backBtn: string
   readonly footerBtn: string
   readonly submitBtn: string

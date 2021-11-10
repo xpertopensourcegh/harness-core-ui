@@ -44,9 +44,9 @@ export enum TroubleShootingTypes {
   CONTACT_HARNESS_SUPPORT = 'CONTACT_HARNESS_SUPPORT'
 }
 
-export enum DelegateSize {
-  LAPTOP = 'LAPTOP',
-  SMALL = 'SMALL',
-  MEDIUM = 'MEDIUM',
-  LARGE = 'LARGE'
+export const DelegateSize = {
+  LAPTOP: 'LAPTOP',
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE'
 }

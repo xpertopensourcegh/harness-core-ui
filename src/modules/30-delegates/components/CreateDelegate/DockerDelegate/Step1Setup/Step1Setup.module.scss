@@ -1,0 +1,31 @@
+.baseContainer {
+  height: 500px;
+  display: flex;
+}
+
+.leftPanel {
+  overflow-y: auto;
+  flex: 1 !important;
+}
+
+.rightPanel {
+  flex: 1;
+}
+
+.delegateForm {
+  padding: var(--spacing-xsmall) !important;
+  min-height: 580px;
+  overflow: auto;
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+}
+
+.verificationField {
+  box-shadow: 0px 0px 5px rgba(40, 41, 61, 0.0348285);
+  background: #effbff !important;
+  border-radius: 4px !important;
+}

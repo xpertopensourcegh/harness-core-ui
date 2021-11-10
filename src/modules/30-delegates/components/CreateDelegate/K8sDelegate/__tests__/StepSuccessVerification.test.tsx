@@ -33,18 +33,6 @@ describe('Create Step Verification Script Delegate', () => {
     })
     await waitFor(() => expect(container).toMatchSnapshot())
   })
-  test('Click Verify button', async () => {
-    const { container, getByText } = render(
-      <TestWrapper>
-        <StepSuccessVerifcation />
-      </TestWrapper>
-    )
-    const stepReviewScriptVerifyButton = getByText('verify')
-    act(() => {
-      fireEvent.click(stepReviewScriptVerifyButton!)
-    })
-    expect(container).toMatchSnapshot()
-  })
   test('Click Done button', async () => {
     const { getAllByText } = render(
       <TestWrapper>

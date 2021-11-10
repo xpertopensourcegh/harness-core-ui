@@ -31,9 +31,11 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
     Partial<DelegateConfigProps & ProjectPathProps & ModulePathParams> & AccountPathProps
   >()
 
-  const tags = Object.entries(delegate?.groupImplicitSelectors || {})
+  let tags = Object.entries(delegate?.groupImplicitSelectors || {})
     .filter(([, tag]) => tag !== 'PROFILE_SELECTORS')
     .map(([tag]) => tag)
+
+  tags = tags.concat(delegate?.groupCustomSelectors || [])
 
   const delSize = delegate.sizeDetails?.ram && (Number(delegate.sizeDetails?.ram) / 1024).toFixed(2)
 
@@ -97,12 +99,14 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
           <SectionLabelValuePair label={getString('description')} value={delegate.delegateDescription} />
         )}
 
-        <SectionLabelValuePair
-          label={getString('delegate.delegateSize')}
-          value={`${delegate.sizeDetails?.cpu}${getString('delegate.delegateCPU')}, ${delSize}${getString(
-            'delegates.GBRam'
-          )}`}
-        />
+        {delegate.sizeDetails && (
+          <SectionLabelValuePair
+            label={getString('delegate.delegateSize')}
+            value={`${delegate.sizeDetails?.cpu}${getString('delegate.delegateCPU')}, ${delSize}${getString(
+              'delegates.GBRam'
+            )}`}
+          />
+        )}
       </Container>
 
       <Container className={css.tagsContainer}>

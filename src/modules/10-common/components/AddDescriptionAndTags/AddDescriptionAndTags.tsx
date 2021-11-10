@@ -25,6 +25,7 @@ export interface DescriptionAndKVTagsInputProps {
   formComponent: JSX.Element
   formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
   className?: string
+  forceOpenTags?: boolean
 }
 
 export interface AddDescriptionAndTagsWithIdentifier {
@@ -43,6 +44,7 @@ export interface AddDescriptionAndKVTagsWithIdentifier {
   identifierProps: Omit<InputWithIdentifierProps, 'formik'>
   className?: string
   formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
+  forceOpenTags?: boolean
 }
 
 interface FieldLabelWithHideOptionProps {
@@ -147,20 +149,20 @@ export function AddDescriptionAndTags<T>(props: DescriptionAndTagsInputProps<T>)
 }
 
 export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): JSX.Element {
-  const { formComponent, className, formikProps } = props
+  const { formComponent, className, formikProps, forceOpenTags = false } = props
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(
     formikProps?.values.description && formikProps.values.description.length > 0
   )
   const [isTagsOpen, setIsTagsOpen] = useState(
-    formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0
+    (formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0) || forceOpenTags
   )
 
   React.useEffect(() => {
     setIsDescriptionOpen(formikProps?.values.description && formikProps.values.description.length > 0)
-    setIsTagsOpen(formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0)
+    setIsTagsOpen((formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0) || forceOpenTags)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formikProps?.values?.description, formikProps?.values?.tags])
+  }, [formikProps?.values?.description, formikProps?.values?.tags, forceOpenTags])
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.connectorFormNameWrapper}>

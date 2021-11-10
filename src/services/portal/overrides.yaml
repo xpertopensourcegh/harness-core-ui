@@ -11,6 +11,9 @@ allowpaths:
   - '/setup/delegates/ng/v2/{identifier}.get'
   - '/setup/delegates/v3/groups/{identifier}.delete'
   - '/setup/delegates/downloadUrl.get'
+  - '/setup/delegates/v3/ng/validate-docker-delegate-details.get'
+  - '/setup/delegates/v3/ng/docker.post'
+  - '/setup/delegates/v3/ng/delegate-group.post'
   - '/delegate-profiles.get'
   - '/delegate-profiles/v2.get'
   - '/delegate-profiles/{delegateProfileId}.get'
@@ -55,6 +58,9 @@ operationIdOverrides:
   /setup/delegates/ng/v2/{identifier}.get: getDelegateGroupByIdentifier
   /setup/delegates/v3/groups/{identifier}.delete: deleteDelegateGroupByIdentifier
   /setup/delegates/downloadUrl.get: getDelegatesDownloadUrl
+  /setup/delegates/v3/ng/validate-docker-delegate-details.get: validateDockerDelegate
+  /setup/delegates/v3/ng/docker.post: generateDockerDelegateYAML
+  /setup/delegates/v3/ng/delegate-group.post: createDelegateGroup
   /delegate-profiles/v2/{delegateProfileId}: updateDelegateConfiguration
   /delegate-profiles.get: getDelegateProfiles
   /delegate-profiles/v2.get: getDelegateProfilesV2

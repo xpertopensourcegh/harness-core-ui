@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
-import { get, set } from 'lodash-es'
+import { set } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
 import { Button, Container, Text, Layout, Popover, Color, Card, useToaster } from '@wings-software/uicore'
 import { Menu, MenuItem, Classes, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { useDeleteDelegateGroupByIdentifier, DelegateGroupDetails, DelegateInsightsBarDetails } from 'services/portal'
+import { useDeleteDelegateGroupByIdentifier, DelegateGroupDetails } from 'services/portal'
 import { useConfirmationDialog } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
@@ -22,85 +22,34 @@ type delTroubleshoterProps = {
   setOpenTroubleshoter: (prop: { isConnected: boolean | undefined }) => void
 }
 
+const columnWidths = {
+  icon: '38px',
+  name: '30%',
+  tags: '25%',
+  heartbeat: 'calc(20% - 18px)',
+  status: 'calc(20% - 20px)',
+  actions: '5%'
+}
+
 export const DelegateListingHeader = () => {
   const { getString } = useStrings()
   return (
     <Layout.Horizontal className={css.delegateListHeader}>
-      <div key="icon" style={{ width: '30px' }}></div>
-      <div key="del-name" style={{ width: '25%' }}>
+      <div key="icon" style={{ width: columnWidths.icon }}></div>
+      <div key="del-name" style={{ width: columnWidths.name }}>
         {getString('delegate.DelegateName')}
       </div>
-      <div key="tags" style={{ width: '25%' }}>
+      <div key="tags" style={{ width: columnWidths.tags }}>
         {getString('tagsLabel')}
       </div>
-      <div key="activity" style={{ width: 'calc(15% - 8px)' }}>
-        {getString('activity')}
-      </div>
-      <div key="heartbeat" style={{ width: 'calc(15% - 8px)' }}>
+      <div key="heartbeat" style={{ width: columnWidths.heartbeat }}>
         {getString('delegate.LastHeartBeat')}
       </div>
-      <div key="status" style={{ width: 'calc(15% - 14px)' }}>
+      <div key="status" style={{ width: columnWidths.status }}>
         {getString('connectivityStatus')}
       </div>
-      <div key="actions" style={{ width: '5%' }} />
+      <div key="actions" style={{ width: columnWidths.actions }} />
     </Layout.Horizontal>
-  )
-}
-
-const RenderActivityColumn = (delegate: DelegateGroupDetails) => {
-  const insights = get(delegate, 'delegateInsightsDetails.insights', [])
-  if (!insights.length) {
-    return null
-  }
-  let maxHeight = 0
-
-  const sortedInsights = insights.sort((insA: DelegateInsightsBarDetails, insB: DelegateInsightsBarDetails) =>
-    (insA?.timeStamp || 0) > (insB?.timeStamp || 0) ? 1 : -1
-  )
-
-  sortedInsights.forEach((insight: any) => {
-    let maxPerInsight = 0
-    insight.counts.forEach((count: any) => {
-      maxPerInsight +=
-        get(count, 'SUCCESSFUL', 0) +
-        get(count, 'FAILED', 0) +
-        get(count, 'IN_PROGRESS', 0) +
-        get(count, 'PERPETUAL_TASK_ASSIGNED', 0)
-    })
-    maxHeight = Math.max(maxPerInsight, maxHeight)
-  })
-
-  return (
-    <Container className={css.activity}>
-      {insights.map((insight: any, index: number) => {
-        let inProgressCount = 0
-        let failedCount = 0
-        let successfulCount = 0
-        let perpetualCount = 0
-        insight.counts.forEach((count: any) => {
-          inProgressCount += get(count, 'IN_PROGRESS', 0)
-          failedCount += get(count, 'FAILED', 0)
-          successfulCount += get(count, 'SUCCESSFUL', 0)
-          perpetualCount = get(count, 'PERPETUAL_TASK_ASSIGNED', 0)
-        })
-        const freeSpace = maxHeight - inProgressCount - failedCount - successfulCount - perpetualCount
-        return (
-          <div className={css.activityInsight} key={index}>
-            <>
-              <div style={{ flex: `${freeSpace}` }} key="blockSpace" />
-              <div
-                key="blockInProgress"
-                style={{ flex: `${inProgressCount}` }}
-                className={css.activityBlockInProgress}
-              />
-              <div style={{ flex: `${failedCount}` }} className={css.activityBlockFailed} key="blockFailed" />
-              <div key="blockPerpetual" style={{ flex: `${perpetualCount}` }} className={css.activityBlockPerpetual} />
-              <div key="blockSuccess" style={{ flex: `${successfulCount}` }} className={css.activityBlockSuccessful} />
-            </>
-          </div>
-        )
-      })}
-    </Container>
   )
 }
 
@@ -195,14 +144,16 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
             text={getString('delete')}
             onClick={handleForceDelete}
           />
-          <MenuItem
-            text={getString('delegates.openTroubleshooter')}
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation()
-              setOpenTroubleshoter({ isConnected: activelyConnected })
-            }}
-            icon="book"
-          />
+          {delegate.delegateType === 'KUBERNETES' && (
+            <MenuItem
+              text={getString('delegates.openTroubleshooter')}
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation()
+                setOpenTroubleshoter({ isConnected: activelyConnected })
+              }}
+              icon="book"
+            />
+          )}
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -256,8 +207,12 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
   return (
     <Card elevation={2} interactive={true} onClick={onDelegateClick} className={css.delegateItemContainer}>
       <Layout.Horizontal className={css.delegateItemSubcontainer}>
-        <Text width="30px" icon={delegateTypeToIcon(delegate.delegateType as string)} iconProps={{ size: 24 }} />
-        <Layout.Horizontal width="25%" data-testid={delegate.groupHostName}>
+        <Text
+          width={columnWidths.icon}
+          icon={delegateTypeToIcon(delegate.delegateType as string)}
+          iconProps={{ size: 24 }}
+        />
+        <Layout.Horizontal width={columnWidths.name} data-testid={delegate.groupHostName}>
           <Layout.Vertical padding={{ left: 'small' }}>
             <Layout.Horizontal spacing="small" data-testid={delegate.groupName}>
               <Text color={Color.BLACK}>{delegate.groupName}</Text>
@@ -266,7 +221,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
           </Layout.Vertical>
         </Layout.Horizontal>
 
-        <Container className={css.connectivity} width="25%">
+        <Container className={css.connectivity} width={columnWidths.tags}>
           {delegate.groupImplicitSelectors && (
             <>
               <TagsViewer key="tags" tags={allSelectors.slice(0, 3)} />
@@ -275,17 +230,15 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
           )}
         </Container>
 
-        <Layout.Horizontal width="calc(15% - 8px)">{RenderActivityColumn(delegate)}</Layout.Horizontal>
-
-        <Layout.Horizontal width="calc(15% - 8px)">
+        <Layout.Horizontal width={columnWidths.heartbeat}>
           {delegate.lastHeartBeat ? <ReactTimeago date={delegate.lastHeartBeat} live /> : getString('na')}
         </Layout.Horizontal>
 
-        <Layout.Vertical width="calc(15% - 14px)">
+        <Layout.Vertical width={columnWidths.status}>
           <Text icon="full-circle" iconProps={{ size: 6, color, padding: 'small' }}>
             {text}
           </Text>
-          {!isConnected && (
+          {!isConnected && delegate.delegateType === 'KUBERNETES' && (
             <div
               className={css.troubleshootLink}
               onClick={e => {
@@ -299,7 +252,9 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
           )}
         </Layout.Vertical>
 
-        <Layout.Vertical width="5%">{RenderColumnMenu({ delegate, setOpenTroubleshoter })}</Layout.Vertical>
+        <Layout.Vertical width={columnWidths.actions}>
+          {RenderColumnMenu({ delegate, setOpenTroubleshoter })}
+        </Layout.Vertical>
       </Layout.Horizontal>
     </Card>
   )

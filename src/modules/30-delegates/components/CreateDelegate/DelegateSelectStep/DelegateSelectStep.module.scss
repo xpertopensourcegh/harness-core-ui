@@ -1,0 +1,30 @@
+.delegateSelectStep {
+  display: flex;
+  height: 100%;
+  padding: var(--spacing-xxxlarge) !important;
+
+  .verticalLine {
+    border: none;
+    height: auto;
+    margin: 0 var(--spacing-xxxlarge);
+    border-right: 0.5px solid #d9dae6;
+  }
+  .detailsSectionRow {
+    width: 518px;
+    height: 60px;
+  }
+}
+
+.section1 {
+  flex: 1;
+}
+.section2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.continueBtn {
+  margin-top: var(--spacing-large) !important;
+}

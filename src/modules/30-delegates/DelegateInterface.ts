@@ -1,5 +1,3 @@
-import type { DelegateSetupDetails } from 'services/portal'
-
 export interface DelegateInfoDTO {
   name: string
   identifier: string
@@ -27,9 +25,4 @@ export interface DelegateProfile {
   selectors?: string[]
   lastUpdatedAt?: number
   scopingRules?: string[]
-}
-
-export interface StepK8Data {
-  delegateYaml: DelegateSetupDetails | undefined
-  replicas: number | undefined
 }

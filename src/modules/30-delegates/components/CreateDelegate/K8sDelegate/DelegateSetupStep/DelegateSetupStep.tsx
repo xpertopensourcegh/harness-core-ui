@@ -9,10 +9,8 @@ import {
   FormInput,
   Container,
   CardSelect,
-  SelectOption,
   Text,
-  StepProps,
-  Color
+  StepProps
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -24,17 +22,25 @@ import {
 } from 'services/portal'
 
 import { useStrings } from 'framework/strings'
-import type { StepK8Data } from '@delegates/DelegateInterface'
+
 import { useToaster } from '@common/exports'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 
 import { DelegateSize } from '@delegates/constants'
+import DelegateSizes from '../../components/DelegateSizes/DelegateSizes'
+
 import css from './DelegateSetupStep.module.scss'
 
 interface DelegateSetupStepProps {
   onBack?: any
+}
+
+export interface K8sDelegateWizardData {
+  delegateYaml?: DelegateSetupDetails
+  name: string
+  replicas?: number
 }
 
 enum k8sPermissionType {
@@ -43,36 +49,10 @@ enum k8sPermissionType {
   NAMESPACE_ADMIN = 'NAMESPACE_ADMIN'
 }
 
-const delegateSizeUpto = {
-  [DelegateSize.LAPTOP]: 2,
-  [DelegateSize.SMALL]: 10,
-  [DelegateSize.MEDIUM]: 20,
-  [DelegateSize.LARGE]: 40
-}
-
+//this regex is retrieved from kubernetes
 const delegateNameRegex = /^[a-z]([-a-z0-9]*[a-z])?(\.[a-z0-9]([-a-z0-9]*[a-z])?)*$/g
 
-const filterDelegatesize = (delegateSizes: any, size: any) => {
-  return delegateSizes.find((item: any) => item.size === size.value)
-}
-
-const formatDelegateSizeArr = (delegateSizes: any) => {
-  if (!delegateSizes) {
-    return []
-  }
-  return delegateSizes.map((item: any) => ({
-    label: item.label,
-    value: item.size
-  }))
-}
-
-const getDefaultDelegateSize = (delegateSizes: DelegateSizeDetails[]) => {
-  return delegateSizes
-    ? delegateSizes.find((item: DelegateSizeDetails) => item.size === DelegateSize.LAPTOP)
-    : undefined
-}
-
-const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = props => {
+const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupStepProps> = props => {
   let initialValues
   if (props?.prevStepData?.delegateYaml) {
     const tags = {}
@@ -106,13 +86,8 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
     queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource
-  const selectCardData = formatDelegateSizeArr(delegateSizeMappings)
+
   const { showError } = useToaster()
-  const defaultSize: DelegateSizeDetails | undefined = delegateSizeMappings
-    ? getDefaultDelegateSize(delegateSizeMappings)
-    : undefined
-  // const [configurations, setConfigOptions] = React.useState(profileOptions)
-  const [selectedCard, setSelectedCard] = React.useState<SelectOption | undefined>()
 
   const [formData, setInitValues] = React.useState<DelegateSetupDetails>(initialValues as DelegateSetupDetails)
 
@@ -131,6 +106,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
     if (orgIdentifier) {
       set(createParams, 'orgIdentifier', orgIdentifier)
     }
+    set(createParams, 'delegateType', 'KUBERNETES')
     const response = await createKubernetesYaml({
       ...createParams,
       k8sConfigDetails: {
@@ -149,6 +125,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
         if (delegateSize) {
           const stepPrevData = {
             delegateYaml,
+            name: values.name,
             replicas: delegateSize?.replicas
           }
           props?.nextStep?.(stepPrevData)
@@ -157,24 +134,6 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
     }
   }
 
-  React.useEffect(() => {
-    if (defaultSize) {
-      const defaultCard: SelectOption = selectCardData.find((item: SelectOption) => item.value === defaultSize.size)
-      setSelectedCard(defaultCard)
-    }
-  }, [defaultSize])
-
-  const getTagClsName = (size: string) => {
-    if (size === DelegateSize.SMALL) {
-      return css.small
-    } else if (size === DelegateSize.LAPTOP) {
-      return css.extraSmall
-    } else if (size === DelegateSize.MEDIUM) {
-      return css.medium
-    } else if (size === DelegateSize.LARGE) {
-      return css.large
-    }
-  }
   return (
     <Layout.Vertical padding="xxlarge">
       <Container padding="small">
@@ -216,71 +175,11 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                         />
                       </div>
                       {delegateSizeMappings && (
-                        <Layout.Vertical className={css.delegateSizeField}>
-                          <label className={css.delegateSizeLabel}>{getString('delegate.delegateSize')}</label>
-                          <div className={css.formGroup}>
-                            <CardSelect
-                              cornerSelected={true}
-                              data={selectCardData}
-                              selected={
-                                selectCardData[
-                                  selectCardData.findIndex((card: any) => card.value === selectedCard?.value)
-                                ]
-                              }
-                              renderItem={item => {
-                                const cardData = filterDelegatesize(delegateSizeMappings, item)
-
-                                const tagClsName = getTagClsName(cardData.size)
-                                return (
-                                  <Container className={`${css.cardWrapper}`}>
-                                    <div className={`${tagClsName} ${css.sizeTag}`}>{cardData.label}</div>
-                                    <Layout.Vertical className={css.textCenter}>
-                                      <div className={css.uptoText}>
-                                        {getString('delegates.delegateSizeUpTo', {
-                                          count: delegateSizeUpto[cardData.size as DelegateSize]
-                                        })}
-                                      </div>
-                                      <Text className={css.replicaText}>
-                                        {getString('delegates.replicaText')}
-                                        {cardData.replicas}{' '}
-                                      </Text>
-                                    </Layout.Vertical>
-
-                                    <Container className={css.footer}>
-                                      <Layout.Vertical className={css.textCenter}>
-                                        <Text className={css.footerHeader}>
-                                          {' '}
-                                          {getString('delegate.totalMem').toLocaleUpperCase()}
-                                        </Text>
-                                        <Text className={css.footerContent}>
-                                          {(Number(cardData.ram) / 1000).toFixed(1)}
-                                          {getString('delegates.totalMemUnit')}
-                                        </Text>
-                                      </Layout.Vertical>
-
-                                      <Layout.Vertical className={css.textCenter}>
-                                        <Text className={css.footerHeader}>
-                                          {getString('delegate.totalCpu').toLocaleUpperCase()}
-                                        </Text>
-                                        <Text className={css.footerContent}>{cardData.cpu}</Text>
-                                      </Layout.Vertical>
-                                    </Container>
-                                  </Container>
-                                )
-                              }}
-                              onChange={size => {
-                                /* istanbul ignore next */
-                                setSelectedCard(size)
-                                formikProps.setFieldValue('size', size.value)
-                              }}
-                              className={`grid ${css.delegateSizeWrapper}`}
-                            />
-                          </div>
-
-                          <Container className={css.workloadSeparator}>
-                            <Text color={Color.ORANGE_500}>{getString('delegate.productionWorkloads')}</Text>
-                          </Container>
-                        </Layout.Vertical>
+                        <DelegateSizes
+                          onSizeSelect={(size: string) => {
+                            formikProps.setFieldValue('size', size)
+                          }}
+                        />
                       )}
                     </Layout.Vertical>
                     <Layout.Vertical className={css.rightPanel}>
@@ -334,7 +233,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                     </Layout.Vertical>
                   </Layout.Horizontal>
                 </Container>
-                <Layout.Horizontal className={css.formFooter}>
+                <Layout.Horizontal>
                   <Button
                     id="delegateSetupBackBtn"
                     className={`${css.backBtn} ${css.footerBtn}`}
@@ -349,14 +248,6 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                     text={getString('continue')}
                     intent="primary"
                     rightIcon="chevron-right"
-                    // onClick={() => {
-                    //   if (props?.nextStep) {
-                    //     props?.nextStep?.()
-                    //   }
-                    //   // const selectedIdx = selectedTabIndex
-                    //   // setSelectedTabId(panels[selectedIdx + 1].id)
-                    //   // setSelectedTabIndex(selectedIdx + 1)
-                    // }}
                   />
                 </Layout.Horizontal>
               </FormikForm>

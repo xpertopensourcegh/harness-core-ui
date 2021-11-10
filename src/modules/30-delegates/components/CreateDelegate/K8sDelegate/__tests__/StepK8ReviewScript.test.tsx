@@ -43,7 +43,7 @@ describe('Create Step Review Script Delegate', () => {
       fireEvent.click(stepReviewScriptContinueButton!)
     })
     await waitFor(() => {
-      expect(nextStep).not.toBeCalled()
+      expect(nextStep).toBeCalled()
     })
   })
   test('Click back button', async () => {

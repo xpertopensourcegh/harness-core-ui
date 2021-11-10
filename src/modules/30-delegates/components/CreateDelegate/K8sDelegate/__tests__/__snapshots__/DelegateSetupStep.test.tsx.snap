@@ -182,7 +182,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                             class="StyledProps--font StyledProps--main cardWrapper"
                           >
                             <div
-                              class="undefined sizeTag"
+                              class=" sizeTag"
                             >
                               Extra Small
                             </div>
@@ -520,7 +520,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
               </div>
             </div>
             <div
-              class="Layout--horizontal StyledProps--main formFooter"
+              class="Layout--horizontal StyledProps--main"
             >
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main backBtn footerBtn StyledProps--margin-right-small Button--with-current-color Button--withLeftIcon"

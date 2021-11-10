@@ -26,9 +26,6 @@
     margin-right: var(--spacing-small);
   }
 
-  .checkIcon {
-    margin-right: var(--spacing-xxsmall) !important;
-  }
   .verificationField {
     box-shadow: 0px 0px 5px rgba(40, 41, 61, 0.0348285);
     background: #effbff !important;
@@ -47,10 +44,6 @@
   .verificationFieldWrapper {
     align-items: center !important;
     padding: var(--spacing-large) 0px !important;
-  }
-  .checkItemsWrapper {
-    align-items: center !important;
-    padding: 0px var(--spacing-xxxlarge) !important;
   }
 }
 

@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
+import set from 'lodash-es/set'
 import { Button, Layout, StepProps, Heading, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { DelegateSetupDetails, GenerateKubernetesYamlQueryParams } from 'services/portal'
-import { useToaster } from '@common/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { useGenerateKubernetesYaml } from 'services/portal'
-import type { StepK8Data } from '@delegates/DelegateInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { K8sDelegateWizardData } from '../DelegateSetupStep/DelegateSetupStep'
+
 import css from '../CreateK8sDelegate.module.scss'
 
-const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
+const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const [isYAMLDownloaded, setIsYAMLDownloaded] = useState(false)
-  const { showError } = useToaster()
   const { mutate: downloadYaml } = useGenerateKubernetesYaml({
     queryParams: {
       accountId,
@@ -27,7 +26,8 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const [generatedYaml, setGeneratedYaml] = React.useState<Record<string, any>>()
 
   const onGenYaml = async (): Promise<void> => {
-    const data = props?.prevStepData?.delegateYaml
+    const data = props?.prevStepData?.delegateYaml || {}
+    set(data, 'delegateType', 'KUBERNETES')
     const response = await downloadYaml(data as DelegateSetupDetails)
     setGeneratedYaml(response as any)
   }
@@ -37,7 +37,6 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   }, [])
 
   const onDownload = (): void => {
-    setIsYAMLDownloaded(true)
     if (linkRef?.current) {
       const content = new Blob([generatedYaml as BlobPart], { type: 'data:text/plain;charset=utf-8' })
       linkRef.current.href = window.URL.createObjectURL(content)
@@ -89,11 +88,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
               text={getString('continue')}
               rightIcon="chevron-right"
               onClick={() => {
-                if (isYAMLDownloaded) {
-                  props.nextStep?.(props?.prevStepData)
-                } else {
-                  showError(getString('delegates.reviewScript.copyYamlError'))
-                }
+                props.nextStep?.(props?.prevStepData)
               }}
             />
           </Layout.Horizontal>

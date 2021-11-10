@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom'
 import { TabNavigation } from '@wings-software/uicore'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
-import { useStrings } from 'framework/strings'
+import ScopedTitle from '@common/components/Title/ScopedTitle'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/strings'
 
 const DelegatesPage: React.FC = ({ children }) => {
   const params = useParams<PipelineType<ProjectPathProps>>()
@@ -16,7 +18,15 @@ const DelegatesPage: React.FC = ({ children }) => {
     <>
       <Page.Header
         breadcrumbs={<NGBreadcrumbs />}
-        title={getString('delegate.delegates')}
+        title={
+          <ScopedTitle
+            title={{
+              [Scope.PROJECT]: getString('delegate.delegates'),
+              [Scope.ORG]: getString('delegates.delegatesTitle'),
+              [Scope.ACCOUNT]: getString('delegates.delegatesTitle')
+            }}
+          />
+        }
         toolbar={
           <TabNavigation
             size={'small'}

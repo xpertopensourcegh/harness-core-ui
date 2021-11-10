@@ -3,6 +3,7 @@ import { act, fireEvent, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import CreateK8sDelegate from '../CreateK8sDelegate'
 import DelegateSizesmock from './DelegateSizesmock.json'
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
@@ -25,7 +26,14 @@ jest.mock('services/cd-ng', () => ({
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })
 }))
+jest.mock('@common/exports', () => ({
+  useToaster: () => ({
+    showSuccess: jest.fn(),
+    showError: jest.fn()
+  })
+}))
 const onBack = jest.fn()
+
 describe('Create K8s Delegate', () => {
   test('render data', () => {
     const { container } = render(

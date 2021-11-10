@@ -8,11 +8,6 @@ declare const styles: {
   readonly delegateContainer: string
   readonly delegateTable: string
   readonly activity: string
-  readonly activityInsight: string
-  readonly activityBlockSuccessful: string
-  readonly activityBlockFailed: string
-  readonly activityBlockInProgress: string
-  readonly activityBlockPerpetual: string
   readonly connectivity: string
   readonly search: string
   readonly successIcon: string

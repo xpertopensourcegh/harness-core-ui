@@ -972,12 +972,30 @@ export interface StringsMap {
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
   'delegates.GBRam': string
+  'delegates.createDelegate': string
   'delegates.delGroupStatus.DISABLED': string
   'delegates.delGroupStatus.WAITING_FOR_APPROVAL': string
   'delegates.delSetup': string
+  'delegates.delegateCreation.docker.docLink': string
+  'delegates.delegateCreation.docker.docLinkBefore': string
+  'delegates.delegateCreation.docker.scriptCommandGetIds': string
+  'delegates.delegateCreation.docker.scriptRunInShell': string
+  'delegates.delegateCreation.docker.scriptSeeLogs': string
+  'delegates.delegateCreation.docker.scriptText': string
+  'delegates.delegateCreation.docker.scriptTitle': string
+  'delegates.delegateCreation.docker.verifyDesc1': string
+  'delegates.delegateCreation.docker.verifyDesc2': string
+  'delegates.delegateCreation.docker.verifyTitle': string
+  'delegates.delegateCreation.dockerPrerequisites.ensureInst': string
+  'delegates.delegateCreation.dockerPrerequisites.minCPU': string
+  'delegates.delegateCreation.dockerPrerequisites.minMem': string
+  'delegates.delegateCreation.dockerPrerequisites.sysReq': string
+  'delegates.delegateCreation.dockerPrerequisites.title': string
+  'delegates.delegateCreation.downloadScript': string
   'delegates.delegateDeleted': string
   'delegates.delegateIdentifier': string
   'delegates.delegateInstances': string
+  'delegates.delegateNameNotUnique': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string
   'delegates.delegateNotInstalled.CPUorMemError': string
@@ -1022,6 +1040,7 @@ export interface StringsMap {
   'delegates.delegatePermissions.specificNamespaceTitle': string
   'delegates.delegatePermissions.title': string
   'delegates.delegateSizeUpTo': string
+  'delegates.delegatesTitle': string
   'delegates.downloadYAMLFile': string
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
@@ -1037,7 +1056,6 @@ export interface StringsMap {
   'delegates.permissionRequired': string
   'delegates.questionForceDeleteDelegate': string
   'delegates.replicaText': string
-  'delegates.reviewScript.copyYamlError': string
   'delegates.reviewScript.docLink': string
   'delegates.reviewScript.docLinkAfter': string
   'delegates.reviewScript.docLinkBefore': string

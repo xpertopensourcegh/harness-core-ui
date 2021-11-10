@@ -236,6 +236,18 @@ exports[`Delegates Overview Page render data 1`] = `
           >
             PROFILE_NAME
           </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="display: inline-block; border-radius: 4px; font-size: 10px;"
+          >
+            sel-1
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="display: inline-block; border-radius: 4px; font-size: 10px;"
+          >
+            sel-2
+          </p>
         </div>
       </div>
     </div>

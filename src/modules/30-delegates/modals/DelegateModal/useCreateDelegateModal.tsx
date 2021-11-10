@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { CreateDelegateWizard } from '@delegates/components/CreateDelegateWizard/CreateDelegateWizard'
+import { CreateDelegateWizard } from '@delegates/components/CreateDelegate/CreateDelegateWizard'
 import css from './useCreateDelegateModal.module.scss'
 
 export interface UseCreateDelegateModalProps {
@@ -21,7 +21,7 @@ const useCreateDelegateModal = (
     enforceFocus: false,
     style: {
       width: 1268,
-      height: 786,
+      height: '100%',
       minHeight: 'auto',
       borderLeft: 0,
       paddingBottom: 0,

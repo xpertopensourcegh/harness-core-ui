@@ -10,6 +10,22 @@ import {
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
+jest.mock('@common/exports', () => ({
+  useToaster: () => ({
+    showSuccess: jest.fn(),
+    showError: jest.fn()
+  }),
+  StringUtils: {
+    getIdentifierFromName: (name: string) => name
+  },
+  Page: {
+    Body: ({ children }: { children: React.ReactNode }) => <div>{children}</div>
+  },
+  useConfirmationDialog: jest.fn().mockImplementation(async ({ onCloseDialog }) => {
+    await onCloseDialog(true)
+  })
+}))
+
 const fetchDelFn = jest.fn().mockImplementation((_sanitizedFilterRequest, { queryParams: { accountId } }) => {
   let data
   if (accountId === 'singleDelegateWithoutTags') {

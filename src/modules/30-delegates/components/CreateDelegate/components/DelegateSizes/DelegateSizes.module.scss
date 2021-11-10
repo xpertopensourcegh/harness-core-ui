@@ -1,0 +1,122 @@
+.delegateSizeWrapper {
+  margin-bottom: var(--spacing-small) !important;
+  :global {
+    .bp3-card {
+      margin-right: var(--spacing-small);
+    }
+  }
+}
+
+.delegateSizeLabel {
+  margin-bottom: var(--spacing-small);
+  letter-spacing: 0.2px;
+  color: var(--pipeline-color-dark-grey) !important;
+  font-size: 12px !important;
+}
+
+.delegateSizeField {
+  margin-bottom: var(--spacing-large) !important;
+  :global {
+    .bp3-card {
+      width: 119px;
+      height: 177px;
+      padding: 20px 7px;
+    }
+  }
+}
+
+.workloadSeparator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: orange;
+  width: 75%;
+  margin-left: 130px !important;
+  margin-top: 5px !important;
+}
+
+.workloadSeparator:before,
+.workloadSeparator:after {
+  content: '';
+  width: 25%;
+  border-bottom: 1px solid orange;
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+}
+
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.sizeTag {
+  border-radius: 10px;
+  width: 100px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 13px;
+  align-self: center;
+}
+.replicaText {
+  font-size: 10px !important;
+  letter-spacing: 0.233333px;
+}
+.uptoText {
+  font-size: 10px !important;
+  letter-spacing: 0.233333px;
+  margin-bottom: var(--spacing-small);
+}
+.footerHeader {
+  font-weight: 500 !important;
+  font-size: 8px !important;
+  line-height: 10px !important;
+  color: #6b6d85 !important;
+}
+.footerContent {
+  font-size: 10px !important;
+  line-height: 12px !important;
+  letter-spacing: 0.375px !important;
+
+  color: #000000 !important;
+}
+
+.small {
+  background: #b1beff;
+  color: #0278d5;
+}
+.extraSmall {
+  background: #cdf4fe;
+  color: #39478f;
+}
+.medium {
+  background: #cfb4ff;
+  color: #4d0b8f;
+}
+
+.large {
+  background: #39478f;
+  color: var(--grey-50);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardWrapper:not(:first-child) {
+  margin-right: var(--spacing-small);
+}
+
+.textCenter {
+  text-align: center;
+}

@@ -11,7 +11,8 @@ module.exports = {
     file: 'src/services/portal/swagger.json',
     validation: false,
     transformer: 'scripts/swagger-transform.js',
-    customImport: `import { getConfig } from "../config";`,
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customGenerator: arg => customGenerator(arg, "getConfig('api')"),
     customProps: {
       base: `{getConfig("api")}`
     }
