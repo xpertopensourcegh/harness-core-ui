@@ -28,7 +28,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
       >
         <div
           class="stepGroup"
-          style="left: 840px; cursor: pointer; top: 8px; pointer-events: auto; position: absolute; height: 160px;"
+          style="left: 840px; cursor: pointer; top: 8px; pointer-events: none; position: absolute; height: 160px;"
         >
           <div
             class="groupLayer"
@@ -596,7 +596,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
       >
         <div
           class="stepGroup"
-          style="left: 656px; cursor: pointer; top: -34px; pointer-events: auto; position: absolute; height: 216px;"
+          style="left: 656px; cursor: pointer; top: -34px; pointer-events: none; position: absolute; height: 216px;"
         >
           <div
             class="groupLayer"

@@ -138,7 +138,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           left: config.minX,
           cursor: 'pointer',
           top: config.minY - childrenDistance * headerDepth,
-          pointerEvents: allowAdd ? 'all' : 'auto',
+          pointerEvents: allowAdd ? 'all' : 'none',
           position: 'absolute',
           height: height
         }}
