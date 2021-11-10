@@ -62,7 +62,7 @@ import { inputSetTemplatePromise } from 'services/cv'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { CVChanges } from '@cv/pages/changes/CVChanges'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
-import { editParams } from './utils/routeUtils'
+import { editParams, isVerifyStepPresent } from './utils/routeUtils'
 import CVSLOsListingPage from './pages/slos/CVSLOsListingPage'
 import CVCreateSLO from './pages/slos/components/CVCreateSLO/CVCreateSLO'
 
@@ -72,14 +72,16 @@ PubSubPipelineActions.subscribe(
     let response = { ...template }
     const payload = { pipelineYaml: yamlStringify({ pipeline }), templateYaml: yamlStringify(template) }
 
-    const updatedResponse = await inputSetTemplatePromise({
-      queryParams: { accountId: accountPathParams?.accountId },
-      body: payload
-    })
-    if (updatedResponse?.data?.inputSetTemplateYaml) {
-      response = { ...parse(updatedResponse.data.inputSetTemplateYaml)?.pipeline }
+    // Making the BE call to get the updated template, only if the stage contains verify step then
+    if (isVerifyStepPresent(pipeline)) {
+      const updatedResponse = await inputSetTemplatePromise({
+        queryParams: { accountId: accountPathParams?.accountId },
+        body: payload
+      })
+      if (updatedResponse?.data?.inputSetTemplateYaml) {
+        response = { ...parse(updatedResponse.data.inputSetTemplateYaml)?.pipeline }
+      }
     }
-
     return Promise.resolve(response)
   }
 )
