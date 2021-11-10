@@ -9,6 +9,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
+import MonacoDiffEditor from '@common/components/MonacoDiffEditor/MonacoDiffEditor'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 
 import ChildAppError from './ChildAppError'
@@ -56,7 +57,8 @@ export class ChildAppMounter extends React.Component<ChildAppMounterProps, Child
             RbacButton,
             NGBreadcrumbs,
             MonacoEditor,
-            YAMLBuilder
+            YAMLBuilder,
+            MonacoDiffEditor
           }}
           hooks={{
             useDocumentTitle

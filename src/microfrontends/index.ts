@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/order
 import type React from 'react'
 import type ReactMonacoEditor from 'react-monaco-editor'
+import type { MonacoDiffEditor } from 'react-monaco-editor'
 import type { PermissionsContextProps } from 'framework/rbac/PermissionsContext'
 import type { LicenseStoreContextProps } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
@@ -10,6 +11,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ButtonProps } from '@rbac/components/Button/Button'
 import type { Title, UseDocumentTitleReturn } from '@common/hooks/useDocumentTitle'
 import type { ExtendedMonacoEditorProps } from '@common/components/MonacoEditor/MonacoEditor'
+import type { ExtendedMonacoDiffEditorProps } from '@common/components/MonacoDiffEditor/MonacoDiffEditor'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 
 export interface Scope {
@@ -23,6 +25,9 @@ export interface CommonComponents {
   RbacButton: React.ComponentType<ButtonProps>
   MonacoEditor: React.ForwardRefExoticComponent<ExtendedMonacoEditorProps & React.RefAttributes<ReactMonacoEditor>>
   YAMLBuilder: React.FC<YamlBuilderProps>
+  MonacoDiffEditor: React.ForwardRefExoticComponent<
+    ExtendedMonacoDiffEditorProps & React.RefAttributes<MonacoDiffEditor>
+  >
 }
 
 export interface Hooks {
