@@ -30,6 +30,8 @@ import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
 import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
 import css from './ConnectorDetailsPage.module.scss'
@@ -128,16 +130,21 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   }
 
   const RenderBreadCrumb: React.FC = () => {
-    return (
-      <NGBreadcrumbs
-        links={[
-          {
-            url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
-            label: getString('connectorsLabel')
-          }
-        ]}
-      />
-    )
+    const breadCrumbs = [
+      {
+        url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
+        label: getString('connectorsLabel')
+      }
+    ]
+
+    if (getScopeFromDTO({ accountId, orgIdentifier, projectIdentifier }) === Scope.ACCOUNT) {
+      breadCrumbs.unshift({
+        url: routes.toAccountResources({ accountId }),
+        label: getString('common.accountResources')
+      })
+    }
+
+    return <NGBreadcrumbs links={breadCrumbs} />
   }
 
   const handleBranchClick = (selected: string): void => {

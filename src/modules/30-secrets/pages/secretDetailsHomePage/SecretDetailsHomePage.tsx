@@ -9,6 +9,8 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { ResponseSecretResponseWrapper, SecretDTOV2, useGetSecretV2 } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 
 interface OptionalIdentifiers {
   module?: Module
@@ -60,6 +62,14 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
         label: selectedProject ? selectedProject.name : ''
       })
     }
+
+    if (getScopeFromDTO({ accountId, orgIdentifier, projectIdentifier }) === Scope.ACCOUNT) {
+      breadCrumbArray.unshift({
+        url: routes.toAccountResources({ accountId }),
+        label: getString('common.accountResources')
+      })
+    }
+
     return <NGBreadcrumbs links={breadCrumbArray} />
   }
 

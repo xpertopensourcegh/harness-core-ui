@@ -14,6 +14,8 @@ import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
 import { useGetDelegateGroupByIdentifier, useGetV2 } from 'services/portal'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { DelegateOverview } from './DelegateOverview'
 import css from './DelegateDetails.module.scss'
 
@@ -38,6 +40,13 @@ export default function DelegateDetails(): JSX.Element {
       })
     }
   ]
+
+  if (getScopeFromDTO({ accountId, orgIdentifier, projectIdentifier }) === Scope.ACCOUNT) {
+    breadcrumbs.unshift({
+      url: routes.toAccountResources({ accountId }),
+      label: getString('common.accountResources')
+    })
+  }
 
   const delegate = data?.resource
 
