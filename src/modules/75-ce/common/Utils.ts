@@ -56,8 +56,8 @@ export class Utils {
 
   static hyphenatedToSpacedString = (str: string) => (str || '').trim().split('-').join(' ')
 
-  static isK8sRule = (details: GatewayDetails) =>
-    !_isEmpty(details.routing.k8s?.RuleJson || details.metadata.kubernetes_connector_id)
+  static isK8sRule = (details: GatewayDetails | Service) =>
+    !_isEmpty(details?.routing?.k8s?.RuleJson || details?.metadata?.kubernetes_connector_id)
 
   static accountHasConnectors = (data: CcmMetaData): boolean => {
     return (

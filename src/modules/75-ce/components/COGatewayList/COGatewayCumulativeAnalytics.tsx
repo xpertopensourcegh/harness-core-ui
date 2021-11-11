@@ -6,10 +6,6 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { useStrings } from 'framework/strings'
 import { useCumulativeServiceSavings } from 'services/lw'
-import {
-  StoppedStatusIndicator,
-  RunningStatusIndicator
-} from '@ce/common/InstanceStatusIndicator/InstanceStatusIndicator'
 import { geGaugeChartOptionsWithoutLabel, getDay } from './Utils'
 import css from './COGatewayCumulativeAnalytics.module.scss'
 
@@ -142,38 +138,6 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
           className={css.analyticsContainer}
           // style={{ margin: '0px var(--spacing-medium) !important' }}
         >
-          <Layout.Vertical spacing="small" style={{ flex: 1.2 }}>
-            <Layout.Vertical spacing="medium" padding="small">
-              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
-                <Layout.Vertical spacing="small">
-                  <Text className={css.analyticsColHeader} style={{ color: '#05AAB6' }}>
-                    TOTAL SAVINGS TILL DATE
-                  </Text>
-                  {graphLoading ? (
-                    <Icon name="spinner" size={24} color="blue500" />
-                  ) : (
-                    <Heading level={1} style={{ color: '#05AAB6' }}>
-                      ${(Math.round(graphData?.response?.total_savings as number) * 100) / 100}
-                    </Heading>
-                  )}
-                </Layout.Vertical>
-              </Container>
-              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(124, 77, 211,0.05)' }}>
-                <Layout.Vertical spacing="small">
-                  <Text className={css.analyticsColHeader} style={{ color: '#592BAA' }}>
-                    TOTAL SPEND TILL DATE
-                  </Text>
-                  {graphLoading ? (
-                    <Icon name="spinner" size={24} color="blue500" />
-                  ) : (
-                    <Heading level={1} style={{ color: '#592BAA' }}>
-                      ${(Math.round(graphData?.response?.total_cost as number) * 100) / 100}
-                    </Heading>
-                  )}
-                </Layout.Vertical>
-              </Container>
-            </Layout.Vertical>
-          </Layout.Vertical>
           <Layout.Vertical
             spacing="large"
             style={{ textAlign: 'center', flex: 3, marginRight: 'var(--spacing-xxlarge)' }}
@@ -232,54 +196,38 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
               <Text style={{ alignSelf: 'center' }}>Rules</Text>
             </Layout.Horizontal>
           </Layout.Vertical>
-          <Layout.Vertical spacing="large" style={{ flex: 1 }}>
-            <Text className={css.analyticsColHeader}>INSTANCES MANAGED</Text>
-            <Layout.Horizontal spacing="medium">
-              <Heading level={1}>{props.activeServicesCount}</Heading>
-              <Text style={{ alignSelf: 'center' }}>Instances</Text>
-            </Layout.Horizontal>
-            <div className={css.instanceManager}>
-              <Text className={css.instanceCount}>{props.activeServicesCount % 2}</Text>
-              <RunningStatusIndicator />
-            </div>
-            <div className={css.instanceManager}>
-              <Text className={css.instanceCount}>{props.activeServicesCount - (props.activeServicesCount % 2)}</Text>
-              <StoppedStatusIndicator />
-            </div>
+          <Layout.Vertical spacing="small" style={{ flex: 1.2 }}>
+            <Layout.Vertical spacing="medium" padding="small">
+              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
+                <Layout.Vertical spacing="small">
+                  <Text className={css.analyticsColHeader} style={{ color: '#05AAB6' }}>
+                    TOTAL SAVINGS TILL DATE
+                  </Text>
+                  {graphLoading ? (
+                    <Icon name="spinner" size={24} color="blue500" />
+                  ) : (
+                    <Heading level={1} style={{ color: '#05AAB6' }}>
+                      ${(Math.round(graphData?.response?.total_savings as number) * 100) / 100}
+                    </Heading>
+                  )}
+                </Layout.Vertical>
+              </Container>
+              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(124, 77, 211,0.05)' }}>
+                <Layout.Vertical spacing="small">
+                  <Text className={css.analyticsColHeader} style={{ color: '#592BAA' }}>
+                    TOTAL SPEND TILL DATE
+                  </Text>
+                  {graphLoading ? (
+                    <Icon name="spinner" size={24} color="blue500" />
+                  ) : (
+                    <Heading level={1} style={{ color: '#592BAA' }}>
+                      ${(Math.round(graphData?.response?.total_cost as number) * 100) / 100}
+                    </Heading>
+                  )}
+                </Layout.Vertical>
+              </Container>
+            </Layout.Vertical>
           </Layout.Vertical>
-          {/* <Layout.Vertical spacing="large" style={{ flex: 1 }}>
-            <Heading level={2}>USAGE TIMING</Heading>
-            <Layout.Horizontal padding={'medium'} style={{ paddingLeft: 0, alignItems: 'flex-end' }}>
-              <Heading level={1} style={{ marginBottom: '-5px' }}>
-                {'19'}
-              </Heading>
-              <Text>{'d'}</Text>
-              <Heading level={1} style={{ marginBottom: '-5px' }}>
-                {'4'}
-              </Heading>
-              <Text>{'h'}</Text>
-              <Heading level={1} style={{ marginBottom: '-5px' }}>
-                {'31'}
-              </Heading>
-              <Text>{'m'}</Text>
-            </Layout.Horizontal>
-            <div>
-              <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
-                <Text>66%</Text>
-                <Text>300h 55m</Text>
-              </Layout.Horizontal>
-              <ProgressBar intent={Intent.PRIMARY} value={0.66} stripes={false} />
-              <Heading level={2}>On-demand</Heading>
-            </div>
-            <div className={css.spotUsage}>
-              <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
-                <Text>33%</Text>
-                <Text>975h 36m</Text>
-              </Layout.Horizontal>
-              <ProgressBar intent={Intent.PRIMARY} value={0.33} stripes={false} />
-              <Heading level={2}>Spot</Heading>
-            </div>
-          </Layout.Vertical> */}
         </Layout.Horizontal>
       </div>
     </Container>

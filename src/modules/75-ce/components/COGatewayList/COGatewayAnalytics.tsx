@@ -17,6 +17,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
+import { Utils } from '@ce/common/Utils'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
@@ -227,6 +228,9 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     setIdleHourSeries(newIdleHours)
     setActualHoursSeries(newActualHours)
   }, [graphData])
+
+  const isK8sRule = Utils.isK8sRule(props.service?.data as Service)
+
   return (
     <Container>
       <Layout.Vertical spacing="large" padding="xlarge">
@@ -274,7 +278,10 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             </Layout.Horizontal>
             <Text>Compute type</Text>
             <Layout.Horizontal spacing="xsmall">
-              <img src={props.service?.data.fulfilment == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
+              {isK8sRule && <Icon name="app-kubernetes" size={18} />}
+              {!isK8sRule && (
+                <img src={props.service?.data.fulfilment == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
+              )}
               <Text>{props.service?.data.fulfilment}</Text>
             </Layout.Horizontal>
           </Layout.Vertical>
