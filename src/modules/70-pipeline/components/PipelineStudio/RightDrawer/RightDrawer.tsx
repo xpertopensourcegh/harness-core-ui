@@ -1,6 +1,14 @@
 import React, { SyntheticEvent } from 'react'
 import { Dialog, Drawer, Position } from '@blueprintjs/core'
-import { Button, Icon, Text, Color, MultiTypeInputType, useModalHook } from '@wings-software/uicore'
+import {
+  Button,
+  Icon,
+  Text,
+  Color,
+  MultiTypeInputType,
+  useModalHook,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { cloneDeep, defaultTo, get, isEmpty, isNil, merge, omit, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -8,7 +16,6 @@ import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionElementConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { StepActions } from '@common/constants/TrackingConstants'
 import { StageType } from '@pipeline/utils/stageHelpers'

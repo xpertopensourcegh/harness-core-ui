@@ -1,14 +1,22 @@
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Color, Layout, Text, Button, Container, PageError, ReactTable } from '@wings-software/uicore'
+import {
+  Color,
+  Layout,
+  Text,
+  Button,
+  Container,
+  PageError,
+  ReactTable,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useGetBatchUserGroupList, useRemoveMember, UserGroupDTO } from 'services/cd-ng'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import css from '@rbac/pages/UserDetails/UserDetails.module.scss'
 
 const RenderColumnDetails: Renderer<CellProps<UserGroupDTO>> = ({ row }) => {

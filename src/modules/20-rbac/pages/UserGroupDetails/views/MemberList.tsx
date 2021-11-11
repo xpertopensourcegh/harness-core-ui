@@ -1,12 +1,21 @@
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Layout, Button, Text, Avatar, Popover, Container, NoDataCard, ReactTable } from '@wings-software/uicore'
+import {
+  Layout,
+  Button,
+  Text,
+  Avatar,
+  Popover,
+  Container,
+  NoDataCard,
+  ReactTable,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import type { ProjectPathProps, UserGroupPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetUsersInUserGroup, useRemoveMember, UserInfo } from 'services/cd-ng'
 import { useToaster } from '@common/components'
-import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { useMutateAsGet } from '@common/hooks'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'

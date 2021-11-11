@@ -1,11 +1,22 @@
 /* eslint-disable react/display-name */
 import React, { useState, useMemo } from 'react'
 import * as moment from 'moment'
-import { ButtonVariation, Layout, Button, Text, Color, Utils, PageHeader } from '@wings-software/uicore'
+import {
+  ButtonVariation,
+  Layout,
+  Button,
+  Text,
+  Color,
+  Utils,
+  PageHeader,
+  useConfirmationDialog,
+  useToaster,
+  Page
+} from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
-import { useToaster, useConfirmationDialog, Page, StringUtils } from '@common/exports'
+import { StringUtils } from '@common/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Policy, useDeletePolicy, useGetPolicyList } from 'services/pm'
 import { OptionsMenuButton } from '@common/components'

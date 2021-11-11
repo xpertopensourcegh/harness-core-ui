@@ -13,7 +13,6 @@ import * as rsql from './utils/rsql'
 export type DynamicPopoverHandlerBinding<T> = _DynamicPopoverHandlerBinding<T>
 export { DynamicPopover } from './components/DynamicPopover/DynamicPopover'
 export { StringUtils, rsql /*, YamlUtils */ }
-export { useConfirmationDialog } from './modals/ConfirmDialog/useConfirmationDialog'
 export { NavigationCheck } from './components/NavigationCheck/NavigationCheck'
 export { EntityReference } from './components/EntityReference/EntityReference'
 export { MultiSelectEntityReference } from './components/MultiSelectEntityReference/MultiSelectEntityReference'

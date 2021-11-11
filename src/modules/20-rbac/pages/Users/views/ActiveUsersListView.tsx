@@ -1,5 +1,17 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Button, Popover, Avatar, Color, Icon, ButtonVariation } from '@wings-software/uicore'
+import {
+  Text,
+  Layout,
+  Button,
+  Popover,
+  Avatar,
+  Color,
+  Icon,
+  ButtonVariation,
+  useConfirmationDialog,
+  useToaster,
+  Page
+} from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -16,7 +28,6 @@ import {
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
-import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { getUserName, PrincipalType } from '@rbac/utils/utils'

@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Color, Layout, Switch, Collapse } from '@wings-software/uicore'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { Color, Layout, Switch, Collapse, useConfirmationDialog } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'

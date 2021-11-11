@@ -11,7 +11,8 @@ import {
   Button,
   Popover,
   ButtonVariation,
-  Utils
+  Utils,
+  useConfirmationDialog
 } from '@wings-software/uicore'
 import { Menu, MenuItem } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
@@ -19,7 +20,6 @@ import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { AuthenticationSettingsResponse, SamlSettings } from 'services/cd-ng'
 import { useDeleteSamlMetaData, useUpdateAuthMechanism, useGetSamlLoginTest } from 'services/cd-ng'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
 import { useSAMLProviderModal } from '@auth-settings/modals/SAMLProvider/useSAMLProvider'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'

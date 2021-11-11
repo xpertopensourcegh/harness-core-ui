@@ -14,7 +14,8 @@ import {
   useToaster,
   TagsPopover,
   ReactTable,
-  FontVariation
+  FontVariation,
+  useConfirmationDialog
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea, Tooltip } from '@blueprintjs/core'
@@ -35,7 +36,6 @@ import {
   EntityGitDetails
 } from 'services/cd-ng'
 
-import { useConfirmationDialog } from '@common/exports'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { StepDetails, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'

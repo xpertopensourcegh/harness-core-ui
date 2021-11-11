@@ -10,12 +10,15 @@ import {
   Color,
   useModalHook,
   PageHeader,
-  Utils
+  Utils,
+  useConfirmationDialog,
+  useToaster,
+  Page
 } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { useToaster, useConfirmationDialog, StringUtils, Page } from '@common/exports'
+import { StringUtils } from '@common/exports'
 import { useUpdatePolicySet, useDeletePolicySet, useGetPolicySetList, PolicySetWithLinkedPolicies } from 'services/pm'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'

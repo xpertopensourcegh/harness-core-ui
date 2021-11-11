@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { Layout, FormInput, Utils, Intent } from '@wings-software/uicore'
+import { Layout, FormInput, Utils, Intent, useConfirmationDialog } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
-import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import type { MonitoredServiceDTO } from 'services/cv'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'

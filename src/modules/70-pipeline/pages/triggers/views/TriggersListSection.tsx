@@ -13,7 +13,9 @@ import {
   Container,
   SparkChart,
   TagsPopover,
-  tagsType
+  tagsType,
+  useConfirmationDialog,
+  useToaster
 } from '@wings-software/uicore'
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
@@ -21,7 +23,6 @@ import { isUndefined, isEmpty, sum } from 'lodash-es'
 import cx from 'classnames'
 import Table from '@common/components/Table/Table'
 import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTrigger } from 'services/pipeline-ng'
-import { useConfirmationDialog, useToaster } from '@common/exports'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'

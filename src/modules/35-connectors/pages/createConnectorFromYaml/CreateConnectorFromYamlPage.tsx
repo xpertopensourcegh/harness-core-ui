@@ -15,7 +15,9 @@ import {
   ButtonVariation,
   PageBody,
   PageHeader,
-  shouldShowError
+  shouldShowError,
+  useConfirmationDialog,
+  useToaster
 } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
@@ -23,7 +25,6 @@ import { useHistory, useParams } from 'react-router-dom'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { Connector, EntityGitDetails, useCreateConnector, useGetYamlSchema } from 'services/cd-ng'
-import { useToaster, useConfirmationDialog } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { NameIdDescriptionTags, PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'

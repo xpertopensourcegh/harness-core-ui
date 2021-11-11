@@ -1,12 +1,20 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, Switch, Collapse, Color, Button, ButtonVariation } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Switch,
+  Collapse,
+  Color,
+  Button,
+  ButtonVariation,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import type { LoginSettings } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePasswordStrengthModal } from '@auth-settings/modals/PasswordStrength/usePasswordStrength'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { usePutLoginSettings } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'

@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Container, Button, Layout, ButtonVariation, PageHeader } from '@wings-software/uicore'
+import {
+  Container,
+  Button,
+  Layout,
+  ButtonVariation,
+  PageHeader,
+  useConfirmationDialog,
+  useToaster
+} from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -13,7 +21,6 @@ import {
   useGetYamlSnippetMetadata,
   useGetYamlSnippet
 } from 'services/cd-ng'
-import { useConfirmationDialog, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'

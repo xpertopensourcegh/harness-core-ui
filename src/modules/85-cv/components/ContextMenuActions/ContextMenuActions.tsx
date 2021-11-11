@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
-import { Color, Button, ButtonVariation } from '@wings-software/uicore'
-import { useConfirmationDialog } from '@common/exports'
+import { Color, Button, ButtonVariation, useConfirmationDialog } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/strings'
 import type { ContextMenuActionsProps } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.types'
 

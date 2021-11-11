@@ -11,7 +11,8 @@ import {
   SelectOption,
   Text,
   useModalHook,
-  VisualYamlSelectedView as SelectedView
+  VisualYamlSelectedView as SelectedView,
+  useConfirmationDialog
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { defaultTo, isEmpty, isNil, merge } from 'lodash-es'
@@ -44,7 +45,6 @@ import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { DefaultNewTemplateId, DefaultNewVersionLabel } from 'framework/Templates/templates'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import StudioGitPopover from '@pipeline/components/PipelineStudio/StudioGitPopover'
 import css from './TemplateStudioSubHeaderLeftView.module.scss'
 

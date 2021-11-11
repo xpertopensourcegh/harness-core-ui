@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Prompt } from 'react-router-dom'
+import { useConfirmationDialog } from '@wings-software/uicore'
 import type * as History from 'history'
 import { useStrings } from 'framework/strings'
-import { useConfirmationDialog } from '../../modals/ConfirmDialog/useConfirmationDialog'
 
 interface Props {
   when?: boolean

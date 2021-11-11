@@ -2,10 +2,16 @@ import React from 'react'
 import { matchPath, useParams, useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
 import { defaultTo, isEmpty, merge } from 'lodash-es'
-import { Container, Layout, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
+import {
+  Container,
+  Layout,
+  VisualYamlSelectedView as SelectedView,
+  useConfirmationDialog,
+  useToaster
+} from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
-import { NavigationCheck, Page, useConfirmationDialog, useToaster } from '@common/exports'
+import { NavigationCheck, Page } from '@common/exports'
 import { RightDrawer } from '@templates-library/components/TemplateStudio/RightDrawer/RightDrawer'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { TemplateStudioSubHeader } from '@templates-library/components/TemplateStudio/TemplateStudioSubHeader/TemplateStudioSubHeader'

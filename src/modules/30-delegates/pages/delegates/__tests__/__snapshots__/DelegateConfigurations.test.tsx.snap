@@ -133,7 +133,10 @@ exports[`Delegates Configurations Page check filter panel 1`] = `
       class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
       style="width: calc(100vw - 270px); overflow: hidden; min-height: calc(100vh - 205px);"
     >
-      <div>
+      <div
+        class="StyledProps--font StyledProps--main PageBody--pageBody"
+        data-name="page-body"
+      >
         <div
           class="delegateProfilesContainer"
         >
@@ -505,7 +508,10 @@ exports[`Delegates Configurations Page render data 1`] = `
       class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
       style="width: calc(100vw - 270px); overflow: hidden; min-height: calc(100vh - 205px);"
     >
-      <div>
+      <div
+        class="StyledProps--font StyledProps--main PageBody--pageBody"
+        data-name="page-body"
+      >
         <div
           class="delegateProfilesContainer"
         />
@@ -676,7 +682,10 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
       class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
       style="width: calc(100vw - 270px); overflow: hidden; min-height: calc(100vh - 205px);"
     >
-      <div>
+      <div
+        class="StyledProps--font StyledProps--main PageBody--pageBody"
+        data-name="page-body"
+      >
         <div
           class="delegateProfilesContainer"
         />
@@ -844,7 +853,10 @@ exports[`Delegates Configurations Page test name search configs 1`] = `
       class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
       style="width: calc(100vw - 270px); overflow: hidden; min-height: calc(100vh - 205px);"
     >
-      <div>
+      <div
+        class="StyledProps--font StyledProps--main PageBody--pageBody"
+        data-name="page-body"
+      >
         <div
           class="delegateProfilesContainer"
         >

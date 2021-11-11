@@ -8,7 +8,9 @@ import {
   ButtonVariation,
   Icon,
   FontVariation,
-  ReactTable
+  ReactTable,
+  useConfirmationDialog,
+  useToaster
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent, PopoverInteractionKind } from '@blueprintjs/core'
@@ -23,7 +25,6 @@ import {
   RoleAssignmentMetadataDTO
 } from 'services/cd-ng'
 import { useStrings, String } from 'framework/strings'
-import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/utils/utils'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'

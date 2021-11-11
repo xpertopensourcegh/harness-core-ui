@@ -1,6 +1,15 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Intent, Layout, Text, Button, Table, ButtonVariation } from '@wings-software/uicore'
+import {
+  Color,
+  Intent,
+  Layout,
+  Text,
+  Button,
+  Table,
+  ButtonVariation,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 import type { CellProps, Column, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
@@ -9,7 +18,6 @@ import { String, useStrings } from 'framework/strings'
 import { TokenAggregateDTO, TokenDTO, useDeleteToken, useListAggregatedTokens } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner, TagsPopover, useToaster } from '@common/components'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'

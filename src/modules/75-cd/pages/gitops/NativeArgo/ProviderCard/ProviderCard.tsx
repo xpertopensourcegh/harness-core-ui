@@ -9,10 +9,10 @@ import {
   Popover,
   Color,
   ButtonVariation,
-  Container
+  Container,
+  useConfirmationDialog
 } from '@wings-software/uicore'
 import { Menu, Classes, Position, Dialog, Intent } from '@blueprintjs/core'
-import { useConfirmationDialog } from '@common/exports'
 import type { ConnectedArgoGitOpsInfoDTO, GitopsProviderResponse } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { TagsPopover } from '@common/components'

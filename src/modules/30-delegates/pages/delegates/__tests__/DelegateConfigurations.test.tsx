@@ -47,18 +47,8 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('@common/exports', () => ({
   TimeAgo: jest.fn().mockImplementation(() => <div />),
-  useConfirmationDialog: jest.fn().mockImplementation(async ({ onCloseDialog }) => {
-    await onCloseDialog(true)
-  }),
-  useToaster: () => ({
-    showError: jest.fn(),
-    showSuccess: jest.fn()
-  }),
   StringUtils: {
     getIdentifierFromName: (name: string) => name
-  },
-  Page: {
-    Body: ({ children }: { children: React.ReactNode }) => <div>{children}</div>
   }
 }))
 

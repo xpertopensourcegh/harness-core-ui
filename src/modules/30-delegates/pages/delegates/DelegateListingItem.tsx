@@ -2,11 +2,20 @@ import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { set } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
-import { Button, Container, Text, Layout, Popover, Color, Card, useToaster } from '@wings-software/uicore'
+import {
+  Button,
+  Container,
+  Text,
+  Layout,
+  Popover,
+  Color,
+  Card,
+  useToaster,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { Menu, MenuItem, Classes, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useDeleteDelegateGroupByIdentifier, DelegateGroupDetails } from 'services/portal'
-import { useConfirmationDialog } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'

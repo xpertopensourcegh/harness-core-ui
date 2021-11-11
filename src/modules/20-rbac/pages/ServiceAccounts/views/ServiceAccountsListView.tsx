@@ -1,6 +1,16 @@
 import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Avatar, Button, ButtonVariation, Color, Layout, Popover, ReactTable, Text } from '@wings-software/uicore'
+import {
+  Avatar,
+  Button,
+  ButtonVariation,
+  Color,
+  Layout,
+  Popover,
+  ReactTable,
+  Text,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
 import { noop } from 'lodash-es'
@@ -12,7 +22,6 @@ import {
   useDeleteServiceAccount
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { TagsPopover, useToaster } from '@common/components'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import routes from '@common/RouteDefinitions'

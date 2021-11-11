@@ -9,7 +9,9 @@ import {
   ButtonVariation,
   PageHeader,
   VisualYamlSelectedView as SelectedView,
-  VisualYamlToggle
+  VisualYamlToggle,
+  useConfirmationDialog,
+  useToaster
 } from '@wings-software/uicore'
 
 import {
@@ -25,7 +27,6 @@ import {
 import { useStrings } from 'framework/strings'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { useConfirmationDialog, useToaster } from '@common/exports'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'

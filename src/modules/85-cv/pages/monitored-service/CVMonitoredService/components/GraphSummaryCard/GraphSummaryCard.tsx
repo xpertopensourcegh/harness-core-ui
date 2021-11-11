@@ -1,7 +1,15 @@
 import React from 'react'
-import { Container, Layout, Text, Color, FontVariation, ButtonVariation, Button } from '@wings-software/uicore'
+import {
+  Container,
+  Layout,
+  Text,
+  Color,
+  FontVariation,
+  ButtonVariation,
+  Button,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useConfirmationDialog } from '@common/exports'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import IconGrid from '../IconGrid/IconGrid'
 import { ServiceDeleteContext, ServiceHealthTrend, RiskTagWithLabel } from '../../CVMonitoredService.utils'

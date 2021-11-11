@@ -1,13 +1,21 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Card, Switch, Text, Color, Button, ButtonVariation } from '@wings-software/uicore'
+import {
+  Container,
+  Card,
+  Switch,
+  Text,
+  Color,
+  Button,
+  ButtonVariation,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/components'
 import { useUpdateWhitelistedDomains } from 'services/cd-ng'
 import { useRestrictEmailDomains } from '@auth-settings/modals/RestrictEmailDomains/useRestrictEmailDomains'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import css from './RestrictEmailDomains.module.scss'
 
 interface Props {

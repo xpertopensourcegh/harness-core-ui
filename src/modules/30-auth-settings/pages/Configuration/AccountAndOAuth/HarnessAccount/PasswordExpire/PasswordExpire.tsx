@@ -1,10 +1,19 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, Color, Container, Switch, Collapse, Button, ButtonVariation } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Color,
+  Container,
+  Switch,
+  Collapse,
+  Button,
+  ButtonVariation,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import type { LoginSettings } from 'services/cd-ng'
 import { usePasswordExpirationModal } from '@auth-settings/modals/PasswordExpiration/usePasswordExpiration'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'

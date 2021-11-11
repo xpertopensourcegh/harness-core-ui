@@ -1,9 +1,8 @@
-import { Card, Color, Container, Icon, Layout, Text, CardBody } from '@wings-software/uicore'
+import { Card, Color, Container, Icon, Layout, Text, CardBody, useConfirmationDialog } from '@wings-software/uicore'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Menu, Classes, Intent } from '@blueprintjs/core'
 import { OrganizationAggregateDTO, useDeleteOrganization } from 'services/cd-ng'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 
 import { useToaster } from '@common/exports'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'

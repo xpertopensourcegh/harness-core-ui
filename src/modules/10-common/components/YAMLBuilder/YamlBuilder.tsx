@@ -19,14 +19,13 @@ import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import cx from 'classnames'
 import { scalarOptions, defaultOptions } from 'yaml'
-import { Tag, Icon, Container } from '@wings-software/uicore'
+import { Tag, Icon, Container, useConfirmationDialog } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
   YamlBuilderHandlerBinding,
   CompletionItemInterface,
   Theme
 } from '@common/interfaces/YAMLBuilderProps'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
 import { validateYAMLWithSchema, getSchemaWithLanguageSettings } from '@common/utils/YamlUtils'
 import { sanitize } from '@common/utils/JSONUtils'

@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Layout, Color, Button, Icon, ButtonVariation } from '@wings-software/uicore'
+import { Text, Layout, Color, Button, Icon, ButtonVariation, useConfirmationDialog } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useSourceCodeModal } from '@user-profile/modals/SourceCodeManager/useSourceCodeManager'
 import { useStrings } from 'framework/strings'
 import { SourceCodeManagerDTO, useDeleteSourceCodeManagers, useGetSourceCodeManagers } from 'services/cd-ng'
 import { Table, useToaster } from '@common/components'
 import { getIconBySCM, SourceCodeTypes } from '@user-profile/utils/utils'
-import { useConfirmationDialog } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 const RenderColumnName: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row }) => {

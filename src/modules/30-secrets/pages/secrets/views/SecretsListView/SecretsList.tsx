@@ -3,10 +3,19 @@ import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { Menu, Position, Classes } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Text, Color, Layout, Icon, Button, Popover, TagsPopover } from '@wings-software/uicore'
+import {
+  Text,
+  Color,
+  Layout,
+  Icon,
+  Button,
+  Popover,
+  TagsPopover,
+  useConfirmationDialog,
+  useToaster
+} from '@wings-software/uicore'
 import { String, useStrings } from 'framework/strings'
 import Table from '@common/components/Table/Table'
-import { useToaster, useConfirmationDialog } from '@common/exports'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
 import type { PageSecretResponseWrapper, SecretTextSpecDTO } from 'services/cd-ng'
 import { getStringForType } from '@secrets/utils/SSHAuthUtils'

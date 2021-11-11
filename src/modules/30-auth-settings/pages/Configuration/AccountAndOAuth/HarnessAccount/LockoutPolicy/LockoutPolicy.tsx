@@ -1,9 +1,18 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, Color, Container, Switch, Collapse, Button, ButtonVariation } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Color,
+  Container,
+  Switch,
+  Collapse,
+  Button,
+  ButtonVariation,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { useLockoutPolicyModal } from '@auth-settings/modals/LockoutPolicy/useLockoutPolicy'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useToaster } from '@common/components'
 import type { LoginSettings } from 'services/cd-ng'
 import { usePutLoginSettings } from 'services/cd-ng'

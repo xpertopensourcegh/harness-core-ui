@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { Card, CardBody, Color, Icon, Layout, Text } from '@wings-software/uicore'
+import { Card, CardBody, Color, Icon, Layout, Text, useConfirmationDialog, useToaster } from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { Role, RoleResponse, useDeleteRole } from 'services/rbac'
 import routes from '@common/RouteDefinitions'
-import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { getRoleIcon } from '@rbac/utils/utils'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'

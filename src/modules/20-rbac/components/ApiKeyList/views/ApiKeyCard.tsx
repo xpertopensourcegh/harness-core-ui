@@ -9,7 +9,8 @@ import {
   Intent,
   Layout,
   Popover,
-  Text
+  Text,
+  useConfirmationDialog
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
 import { Classes, Menu, Position } from '@blueprintjs/core'
@@ -17,7 +18,6 @@ import { ApiKeyAggregateDTO, ApiKeyDTO, TokenDTO, useDeleteApiKey } from 'servic
 import { useStrings } from 'framework/strings'
 import { TagsPopover, useToaster } from '@common/components'
 import TokenList from '@rbac/components/TokenList/TokenList'
-import { useConfirmationDialog } from '@common/exports'
 import { useApiKeyModal } from '@rbac/modals/ApiKeyModal/useApiKeyModal'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'

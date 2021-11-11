@@ -1,8 +1,18 @@
 import React, { useState } from 'react'
 import { defaultTo, isEmpty } from 'lodash-es'
-import { Button, Card, Layout, Text, Popover, Color, ButtonVariation, Container, Icon } from '@wings-software/uicore'
+import {
+  Button,
+  Card,
+  Layout,
+  Text,
+  Popover,
+  Color,
+  ButtonVariation,
+  Container,
+  Icon,
+  useConfirmationDialog
+} from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
-import { useConfirmationDialog } from '@common/exports'
 import type { GitopsProviderResponse } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { TagsPopover } from '@common/components'

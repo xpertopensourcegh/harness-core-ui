@@ -11,10 +11,12 @@ import {
   ButtonVariation,
   shouldShowError,
   VisualYamlSelectedView as SelectedView,
-  VisualYamlToggle
+  VisualYamlToggle,
+  useConfirmationDialog,
+  useToaster
 } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
+import { StringUtils } from '@common/exports'
 import {
   ConnectorInfoDTO,
   ConnectorResponse,

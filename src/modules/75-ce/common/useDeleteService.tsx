@@ -1,5 +1,5 @@
 import { Intent } from '@blueprintjs/core'
-import { useConfirmationDialog } from '@common/exports'
+import { useConfirmationDialog } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Service, useDeleteService } from 'services/lw'
 

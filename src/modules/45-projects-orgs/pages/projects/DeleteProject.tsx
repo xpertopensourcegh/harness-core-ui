@@ -1,7 +1,6 @@
 import { Intent } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { useToaster } from '@wings-software/uicore'
-import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { useToaster, useConfirmationDialog } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Project, useDeleteProject } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
