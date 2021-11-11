@@ -34,7 +34,7 @@ const instanceTypeCardData: CardData[] = [
     text: 'Spot',
     value: 'spot',
     icon: spotIcon,
-    providers: ['aws']
+    providers: ['aws', 'azure']
   },
   {
     text: 'On demand',
