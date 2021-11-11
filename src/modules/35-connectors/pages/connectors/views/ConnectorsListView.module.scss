@@ -50,6 +50,11 @@
   }
 }
 
+.invalidConnector {
+  background: var(--red-50) !important;
+  border-radius: 4px;
+}
+
 .viewDetails {
   cursor: pointer;
 }

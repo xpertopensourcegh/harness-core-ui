@@ -23,6 +23,7 @@ export interface YamlBuilderProps {
   width?: React.CSSProperties['width']
   fileName: string
   existingJSON?: Record<string, any>
+  existingYaml?: string
   entityType: GetYamlSchemaQueryParams['entityType']
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
   invocationMap?: Map<RegExp, InvocationMapFunction>

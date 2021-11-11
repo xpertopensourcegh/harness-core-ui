@@ -104,6 +104,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     fileName,
     entityType,
     existingJSON,
+    existingYaml,
     isReadOnlyMode,
     isEditModeSupported = true,
     showSnippetSection = true,
@@ -123,7 +124,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   } = props
   setUpEditor(theme)
   const params = useParams()
-  const [currentYaml, setCurrentYaml] = useState<string>('')
+  const [currentYaml, setCurrentYaml] = useState<string>(existingYaml || '')
   const [currentJSON, setCurrentJSON] = useState<object>()
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<number, string> | undefined>()
   const { innerWidth } = window
@@ -192,13 +193,20 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     //for optimization, restrict setting value to editor if previous and current json inputs are the same.
     //except when editor is reset/cleared, by setting empty json object as input
     if (
-      (isEmpty(existingJSON) && isEmpty(currentJSON)) ||
+      (existingJSON && isEmpty(existingJSON) && isEmpty(currentJSON)) ||
       JSON.stringify(existingJSON) !== JSON.stringify(currentJSON)
     ) {
       verifyIncomingJSON(existingJSON)
       setCurrentJSON(existingJSON)
     }
   }, [existingJSON])
+
+  useEffect(() => {
+    if (existingYaml) {
+      yamlRef.current = existingYaml
+      verifyYAML(existingYaml)
+    }
+  }, [existingYaml, schema])
 
   useEffect(() => {
     if (schema) {

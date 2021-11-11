@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { parse } from 'yaml'
 import { defaultTo } from 'lodash-es'
 import { Drawer, Position } from '@blueprintjs/core'
 import {
@@ -186,7 +185,7 @@ export const GitSyncErrorsPanel: React.FC = () => {
           fileName={getString('gitsync.fileContent')}
           isReadOnlyMode
           isEditModeSupported={false}
-          existingJSON={parse(selectedYaml)}
+          existingYaml={selectedYaml}
           showSnippetSection={false}
         />
       </Drawer>

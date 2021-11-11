@@ -82,8 +82,11 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   const { mutate: updateConnector, loading: updating } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
+  const isEntityInvalid = props.response.entityValidityDetails?.valid === false
   const [enableEdit, setEnableEdit] = useState(false)
-  const [selectedView, setSelectedView] = useState<SelectedView>(SelectedView.VISUAL)
+  const [selectedView, setSelectedView] = useState<SelectedView>(
+    isEntityInvalid ? SelectedView.YAML : SelectedView.VISUAL
+  )
   const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
   const [connectorForYaml, setConnectorForYaml] = useState<ConnectorInfoDTO>(
     props.response?.connector || ({} as ConnectorInfoDTO)
@@ -338,7 +341,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connectorForYaml?.name ?? 'Connector'}.yaml`,
     entityType: 'Connectors',
-    existingJSON: { connector: connectorForYaml },
+    ...(!isEntityInvalid
+      ? { existingJSON: { connector: connectorForYaml } }
+      : { existingYaml: props.response.entityValidityDetails?.invalidYaml }),
     isReadOnlyMode: true,
     height: 'calc(100vh - 350px)',
     yamlSanityConfig: {
@@ -352,7 +357,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         <Container className={css.buttonContainer}>
           {state.enableEdit ? null : (
             <VisualYamlToggle
-              initialSelectedView={SelectedView.VISUAL}
+              initialSelectedView={isEntityInvalid ? SelectedView.YAML : SelectedView.VISUAL}
+              disableYaml={isEntityInvalid} /* Todo - Update the name of this prop to disableSwitch */
               beforeOnChange={(nextMode, callback) => {
                 const shouldSwitchMode = handleModeSwitch(nextMode)
                 shouldSwitchMode && callback(nextMode)

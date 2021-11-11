@@ -13,10 +13,11 @@ import {
   ButtonSize,
   useToaster,
   TagsPopover,
-  ReactTable
+  ReactTable,
+  FontVariation
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
+import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea, Tooltip } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
@@ -209,6 +210,40 @@ export const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ 
           {`${getString('common.ID')}: ${data.connector?.identifier}`}
         </div>
       </div>
+      {data.entityValidityDetails?.valid === false ? (
+        <Layout.Vertical flex={{ justifyContent: 'center' }} margin={{ right: 'small' }}>
+          <Tooltip
+            position="bottom"
+            content={
+              <Layout.Horizontal flex={{ alignItems: 'baseline' }}>
+                <Icon name="warning-sign" color={Color.RED_600} size={12} margin={{ right: 'small' }} />
+                <Layout.Vertical>
+                  <Text color={Color.WHITE} font={{ variation: FontVariation.SMALL }}>
+                    {getString('connectors.outOfSync', { name: data.connector?.name })}
+                  </Text>
+                  <Text color={Color.WHITE} font={{ variation: FontVariation.SMALL }}>
+                    {getString('connectors.fixAllErrors')}
+                  </Text>
+                </Layout.Vertical>
+              </Layout.Horizontal>
+            }
+          >
+            <Layout.Horizontal
+              width="70px"
+              height="20px"
+              flex={{ justifyContent: 'center', alignItems: 'center' }}
+              className={css.invalidConnector}
+            >
+              <Icon name="warning-sign" color={Color.RED_600} size={10} padding={{ right: 'xsmall' }} />
+              <Text color={Color.RED_600} font={{ variation: FontVariation.SMALL_BOLD }}>
+                {getString('invalidText').toLocaleUpperCase()}
+              </Text>
+            </Layout.Horizontal>
+          </Tooltip>
+        </Layout.Vertical>
+      ) : (
+        <></>
+      )}
     </Layout.Horizontal>
   )
 }
@@ -457,6 +492,8 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
 }
 
 const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column }) => {
+  const history = useHistory()
+  const params = useParams<PipelineType<ProjectPathProps>>()
   const data = row.original
   const gitDetails = data?.gitDetails ?? {}
   const isHarnessManaged = data.harnessManaged
@@ -546,13 +583,18 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   }
 
   const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    const isEntityInvalid = data.entityValidityDetails?.valid === false
     e.stopPropagation()
     setMenuOpen(false)
     if (!data?.connector?.identifier) return
-    ;(column as any).openConnectorModal(true, row?.original?.connector?.type as ConnectorInfoDTO['type'], {
-      connectorInfo: row.original.connector,
-      gitDetails: row.original?.gitDetails
-    })
+    if (!isEntityInvalid) {
+      ;(column as any).openConnectorModal(true, row?.original?.connector?.type as ConnectorInfoDTO['type'], {
+        connectorInfo: row.original.connector,
+        gitDetails: row.original?.gitDetails
+      })
+    } else {
+      history.push(routes.toConnectorDetails({ ...params, connectorId: data.connector?.identifier }))
+    }
   }
 
   return (
@@ -598,7 +640,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         Header: getString('connector').toUpperCase(),
         accessor: row => row.connector?.name,
         id: 'name',
-        width: isGitSyncEnabled ? '17%' : '25%',
+        width: isGitSyncEnabled ? '19%' : '25%',
         Cell: RenderColumnConnector
       },
       {
@@ -633,7 +675,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         Header: getString('lastUpdated').toUpperCase(),
         accessor: 'lastModifiedAt',
         id: 'lastModifiedAt',
-        width: isGitSyncEnabled ? '8%' : '15%',
+        width: isGitSyncEnabled ? '6%' : '15%',
         Cell: RenderColumnLastUpdated
       },
       {

@@ -11678,7 +11678,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         class="ReactTable--cell"
         colspan="1"
         role="columnheader"
-        style="width: 17%;"
+        style="width: 19%;"
       >
         <div
           class="Text--withDocsTooltip"
@@ -11763,7 +11763,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         class="ReactTable--cell"
         colspan="1"
         role="columnheader"
-        style="width: 8%;"
+        style="width: 6%;"
       >
         <div
           class="Text--withDocsTooltip"
@@ -11804,7 +11804,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 17%;"
+          style="width: 19%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -11990,7 +11990,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 8%;"
+          style="width: 6%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12048,7 +12048,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 17%;"
+          style="width: 19%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12270,7 +12270,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 8%;"
+          style="width: 6%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12328,7 +12328,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 17%;"
+          style="width: 19%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12474,7 +12474,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 8%;"
+          style="width: 6%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12495,7 +12495,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 17%;"
+          style="width: 19%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12686,7 +12686,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 8%;"
+          style="width: 6%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12707,7 +12707,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 17%;"
+          style="width: 19%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12879,7 +12879,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 8%;"
+          style="width: 6%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -12900,7 +12900,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 17%;"
+          style="width: 19%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -13062,7 +13062,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 8%;"
+          style="width: 6%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -13081,7 +13081,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 17%;"
+          style="width: 19%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -13288,7 +13288,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         <div
           class="ReactTable--cell"
           role="cell"
-          style="width: 8%;"
+          style="width: 6%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"

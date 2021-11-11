@@ -1554,6 +1554,7 @@ export interface StringsMap {
   'connectors.editConnector': string
   'connectors.encryptedAPIKeyLabel': string
   'connectors.encryptedAPIKeyValidation': string
+  'connectors.fixAllErrors': string
   'connectors.gcpKms.credentialsFile': string
   'connectors.gcpKms.credentialsFileRequired': string
   'connectors.gcpKms.keyName': string
@@ -1640,6 +1641,7 @@ export interface StringsMap {
   'connectors.newRelicConnectorDetails': string
   'connectors.newRelicLabel': string
   'connectors.nexus.nexusServerUrl': string
+  'connectors.outOfSync': string
   'connectors.pagerDutyConnectorDetails': string
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
