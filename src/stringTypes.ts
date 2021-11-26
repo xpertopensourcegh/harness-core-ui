@@ -1015,6 +1015,7 @@ export interface StringsMap {
   'delegates.delegatePermissions.specificNamespaceContent': string
   'delegates.delegatePermissions.specificNamespaceTitle': string
   'delegates.delegatePermissions.title': string
+  'delegates.delegateProfilesDepricated': string
   'delegates.delegateSizeUpTo': string
   'delegates.delegatesTitle': string
   'delegates.downloadYAMLFile': string

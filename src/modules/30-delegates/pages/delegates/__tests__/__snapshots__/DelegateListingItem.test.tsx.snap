@@ -1,5 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DelegateListingHeader test render DelegateListingHeader 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main delegateListHeader"
+  >
+    <div
+      style="width: 80px;"
+    />
+    <div
+      style="width: 30%;"
+    >
+      delegate.DelegateName
+    </div>
+    <div
+      style="width: 25%;"
+    >
+      tagsLabel
+    </div>
+    <div
+      style="width: 10%;"
+    >
+      instanceFieldOptions.instances
+    </div>
+    <div
+      style="width: calc(15% - 40px);"
+    >
+      delegate.LastHeartBeat
+    </div>
+    <div
+      style="width: calc(15% - 40px);"
+    >
+      connectivityStatus
+    </div>
+    <div
+      style="width: 5%;"
+    />
+  </div>
+</div>
+`;
+
+exports[`Delegates Listing With Groups Click on item 1`] = `
+<div>
+  <div>
+    <h1>
+      Not Found
+    </h1>
+    <div
+      data-testid="location"
+    >
+      /account/undefined/settings/resources/delegate/delGroupIdentifier1
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Delegates Listing With Groups click on delegate item action 1`] = `
 <div>
   <div
