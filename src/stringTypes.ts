@@ -1028,6 +1028,7 @@ export interface StringsMap {
   'delegates.noDelegatesInAccount': string
   'delegates.noDelegatesInOrganization': string
   'delegates.noDelegatesInProject': string
+  'delegates.noInstances': string
   'delegates.openTroubleshooter': string
   'delegates.permissionRequired': string
   'delegates.questionForceDeleteDelegate': string
