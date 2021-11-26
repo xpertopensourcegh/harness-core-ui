@@ -103,6 +103,7 @@ export interface TemplateDrawerData extends Omit<IDrawerProps, 'isOpen'> {
       childTypes?: string[]
       onCopyTemplate?: (template: TemplateSummaryResponse) => void
       onUseTemplate?: (templateConfig: TemplateConfig) => void
+      selectedTemplateRef?: string
     }
   }
 }

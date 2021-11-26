@@ -101,12 +101,28 @@ export enum SortFields {
   Name = 'name'
 }
 
+export const getTypeForTemplate = (
+  template: TemplateSummaryResponse,
+  getString: UseStringsReturn['getString']
+): string => {
+  const entityType = template.templateEntityType as TemplateType
+  const type = parse(template.yaml || '')?.template?.spec?.type || ''
+  switch (entityType) {
+    case TemplateType.Step:
+      return factory.getStepName(type) || ''
+    case TemplateType.Stage:
+      return stagesCollection.getStageAttributes(type, getString)?.name ?? ''
+    default:
+      return ''
+  }
+}
+
 export const getIconForTemplate = (
   template: TemplateSummaryResponse,
   getString: UseStringsReturn['getString']
 ): IconName => {
   const entityType = template.templateEntityType as TemplateType
-  const type = parse(template.yaml || '')?.template?.spec?.type || 'Deployment'
+  const type = parse(template.yaml || '')?.template?.spec?.type || ''
   switch (entityType) {
     case TemplateType.Step:
       return factory.getStepIcon(type)

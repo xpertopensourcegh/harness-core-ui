@@ -215,7 +215,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                         }
                       }}
                     />
-                    <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
+                    <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onClose} />
                   </Layout.Horizontal>
                 </Container>
               </Layout.Vertical>

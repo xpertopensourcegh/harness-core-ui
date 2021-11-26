@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useMutateAsGet } from '@common/hooks'
 import MonacoEditor from '@common/components/MonacoEditor/__mocks__/MonacoEditor'
-import { mockTemplatesSuccessResponse } from '@templates-library/TemplatesTestHelper'
+import { mockTemplates, mockTemplatesSuccessResponse } from '@templates-library/TemplatesTestHelper'
 import { TemplateDetails } from '../TemplateDetails'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -27,11 +27,7 @@ function ComponentWrapper(): React.ReactElement {
   const location = useLocation()
   return (
     <React.Fragment>
-      <TemplateDetails
-        accountId={'kmpySmUISimoRrJL6NL73w'}
-        templateIdentifier={'manjutesttemplate'}
-        versionLabel={'v4'}
-      />
+      <TemplateDetails template={mockTemplates?.data?.content?.[0] || {}} />
       <div data-testid="location">{`${location.pathname}${location.search}`}</div>
     </React.Fragment>
   )
@@ -66,7 +62,7 @@ describe('<TemplateDetails /> tests', () => {
       <div
         data-testid="location"
       >
-        /account/kmpySmUISimoRrJL6NL73w/settings/resources/template-studio/Step/template/manjutesttemplate/?versionLabel=v4
+        /account/kmpySmUISimoRrJL6NL73w/home/orgs/default/projects/Templateproject/setup/resources/template-studio/Step/template/manjutesttemplate/?versionLabel=v4
       </div>
     `)
   })

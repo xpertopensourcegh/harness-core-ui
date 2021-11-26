@@ -11,7 +11,7 @@ exports[`<TemplateSelector /> tests snapshot test 1`] = `
       style="height: 100%;"
     >
       <div
-        class="StyledProps--font StyledProps--main selectorContainer StyledProps--background-form"
+        class="StyledProps--font StyledProps--main container StyledProps--background-form"
         style="width: 762px;"
       >
         <div
@@ -566,15 +566,25 @@ exports[`<TemplateSelector /> tests snapshot test 1`] = `
             class="Layout--vertical Layout--layout-spacing-large StyledProps--main empty StyledProps--flex StyledProps--flex-align-center-center"
             style="height: 100%;"
           >
-            <img
-              class="illustration"
-              src="test-file-stub"
-            />
-            <p
-              class="StyledProps--font StyledProps--main placeholder StyledProps--color StyledProps--color-grey700"
+            <div
+              class="StyledProps--font StyledProps--main main"
+              style="height: 100%;"
             >
-              templatesLibrary.selectTemplateToPreview
-            </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-large StyledProps--main minimal StyledProps--flex StyledProps--flex-align-center-center"
+                style="height: 100%;"
+              >
+                <img
+                  class="illustration"
+                  src="test-file-stub"
+                />
+                <p
+                  class="StyledProps--font StyledProps--main infoText StyledProps--color StyledProps--color-grey700"
+                >
+                  templatesLibrary.selectTemplateToPreview
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -8,7 +8,9 @@ import {
   Views,
   Container,
   ExpandingSearchInputHandle,
-  PageError
+  PageError,
+  Icon,
+  Color
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
@@ -173,6 +175,7 @@ export default function TemplatesPage(): React.ReactElement {
                 )}
               </Layout.Horizontal>
               <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+                <Icon name="main-share" color={Color.GREY_100} />
                 <ExpandingSearchInput
                   alwaysExpanded
                   width={200}
@@ -226,16 +229,10 @@ export default function TemplatesPage(): React.ReactElement {
       </Page.Body>
       {selectedTemplate && (
         <TemplateDetailsDrawer
-          templateIdentifier={selectedTemplate.identifier || ''}
-          versionLabel={selectedTemplate.versionLabel || ''}
-          gitDetails={selectedTemplate?.gitDetails}
+          template={selectedTemplate}
           onClose={() => {
             setSelectedTemplate(undefined)
           }}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-          module={module}
         />
       )}
     </>

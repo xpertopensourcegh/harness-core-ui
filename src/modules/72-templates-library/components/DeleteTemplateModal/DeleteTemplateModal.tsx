@@ -234,7 +234,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
                           variation={ButtonVariation.PRIMARY}
                           disabled={!options.some(item => item.checked)}
                         />
-                        <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
+                        <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onClose} />
                       </Layout.Horizontal>
                     </Container>
                     <Container>

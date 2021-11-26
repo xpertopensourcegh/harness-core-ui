@@ -64,7 +64,7 @@ export const CommentModal = (props: CommentModalProps) => {
                   <Container>
                     <Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
                       <Button text={getString('save')} type="submit" variation={ButtonVariation.PRIMARY} />
-                      <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onReject} />
+                      <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onReject} />
                     </Layout.Horizontal>
                   </Container>
                 </Layout.Vertical>

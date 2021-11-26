@@ -2706,6 +2706,7 @@ export interface StringsMap {
   'pipeline.verificationResult': string
   'pipeline.viewLatestExecution': string
   'templatesLibrary.addNewTemplate': string
+  'templatesLibrary.alwaysUseStableVersion': string
   'templatesLibrary.copyToNewPipeline': string
   'templatesLibrary.copyToPipeline': string
   'templatesLibrary.createNewModal.editHeading': string

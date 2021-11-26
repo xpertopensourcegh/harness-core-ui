@@ -269,7 +269,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
                 withoutCurrentColor
                 onClick={() => {
                   setModalProps({
-                    title: getString('templatesLibrary.createNewModal.editHeading'),
+                    title: getString('templatesLibrary.createNewModal.editHeading', { entity: template.type }),
                     promise: onSubmit,
                     onSuccess: () => {
                       hideConfigModal()
