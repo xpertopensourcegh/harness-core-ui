@@ -809,6 +809,15 @@ export interface StringsMap {
   'rbac.usersPage.validation.role': string
   'rbac.youAreMissingTheFollowingPermission': string
   'rbac.youAreNotAuthorizedTo': string
+  'resourceCenter.bottomlayout.community.text': string
+  'resourceCenter.bottomlayout.desc': string
+  'resourceCenter.bottomlayout.docs.text': string
+  'resourceCenter.bottomlayout.sitestatus.text': string
+  'resourceCenter.ticketmenu.submit': string
+  'resourceCenter.ticketmenu.submitDesc': string
+  'resourceCenter.ticketmenu.tickets': string
+  'resourceCenter.ticketmenu.ticketsDesc': string
+  'resourceCenter.title': string
   'authSettings.SAMLProvider': string
   'authSettings.WhitelistedDomainsUpdated': string
   'authSettings.accountOrOAuthLogin': string
