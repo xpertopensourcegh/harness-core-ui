@@ -3722,10 +3722,17 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.environmentRequired': string
   'cf.pipeline.flagConfiguration.fixedInput': string
   'cf.pipeline.flagConfiguration.flagChanges': string
+  'cf.pipeline.flagConfiguration.flagChangesRuntime': string
+  'cf.pipeline.flagConfiguration.flagChangesRuntimeServePercentageRollout': string
+  'cf.pipeline.flagConfiguration.flagChangesRuntimeServeVariationToTargetGroups': string
+  'cf.pipeline.flagConfiguration.flagChangesRuntimeServeVariationToTargets': string
+  'cf.pipeline.flagConfiguration.flagChangesRuntimeSetDefaultRules': string
+  'cf.pipeline.flagConfiguration.flagChangesRuntimeSetFlagSwitch': string
   'cf.pipeline.flagConfiguration.flagRequired': string
   'cf.pipeline.flagConfiguration.flagState': string
   'cf.pipeline.flagConfiguration.flagSwitch': string
   'cf.pipeline.flagConfiguration.flagSwitchRuntime': string
+  'cf.pipeline.flagConfiguration.pleaseSelectAFeatureFlag': string
   'cf.pipeline.flagConfiguration.remove': string
   'cf.pipeline.flagConfiguration.removeMapping': string
   'cf.pipeline.flagConfiguration.runtimeInput': string
