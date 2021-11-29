@@ -199,10 +199,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     //for optimization, restrict setting value to editor if previous and current json inputs are the same.
     //except when editor is reset/cleared, by setting empty json object as input
     if (
-      defaultTo(
-        every([existingJSON, isEmpty(existingJSON), isEmpty(currentJSON)]),
-        JSON.stringify(existingJSON) !== JSON.stringify(currentJSON)
-      )
+      every([existingJSON, isEmpty(existingJSON), isEmpty(currentJSON)]) ||
+      JSON.stringify(existingJSON) !== JSON.stringify(currentJSON)
     ) {
       attempt(verifyIncomingJSON, existingJSON)
       setCurrentJSON(existingJSON)
