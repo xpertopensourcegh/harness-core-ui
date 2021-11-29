@@ -7,7 +7,10 @@ import {
   Color,
   MultiTypeInputType,
   useModalHook,
-  useConfirmationDialog
+  useConfirmationDialog,
+  FontVariation,
+  ButtonVariation,
+  ButtonSize
 } from '@wings-software/uicore'
 import { cloneDeep, defaultTo, get, isEmpty, isNil, merge, omit, set } from 'lodash-es'
 import cx from 'classnames'
@@ -211,12 +214,19 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             lineClamp={1}
             color={Color.BLACK}
             tooltipProps={{ dataTooltipId: `${stepType}_stepName${toolTipType}` }}
+            font={{ variation: FontVariation.H4 }}
           >
             {stepData ? stepData?.name : stepsFactory.getStepName(stepType || '')}
           </Text>
         </div>
         <div>
-          <Button minimal className={css.applyChanges} text={getString('applyChanges')} onClick={applyChanges} />
+          <Button
+            variation={ButtonVariation.SECONDARY}
+            size={ButtonSize.SMALL}
+            className={css.applyChanges}
+            text={getString('applyChanges')}
+            onClick={applyChanges}
+          />
           <Button minimal className={css.discard} text={getString('pipeline.discard')} onClick={discardChanges} />
         </div>
       </div>
