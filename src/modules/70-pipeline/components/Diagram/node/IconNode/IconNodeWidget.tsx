@@ -174,7 +174,8 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
           style={{
             cursor: 'pointer',
             lineHeight: '1.6',
-            overflowWrap: 'break-word',
+            overflowWrap: 'normal',
+            wordBreak: 'keep-all',
             marginLeft: '0px',
             marginRight: '0px'
           }}

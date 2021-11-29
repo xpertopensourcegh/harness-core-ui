@@ -162,7 +162,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         </div>
         <Text
           font={{ size: 'normal', align: 'center' }}
-          style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'break-word' }}
+          style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'normal', wordBreak: 'keep-all' }}
           margin={{ top: 'xsmall' }}
           padding="xsmall"
           width={125}
