@@ -320,8 +320,8 @@ export class ExecutionStepModel extends DiagramModel {
               iconStyle: {
                 color:
                   this.selectedNodeId === node.step.identifier
-                    ? 'var(--white)'
-                    : stepIconColor ?? 'var(--primary-brand)'
+                    ? Utils.getRealCSSColor(Color.WHITE)
+                    : stepIconColor ?? Utils.getRealCSSColor(Color.PRIMARY_5)
               },
               selected: this.selectedNodeId === node.step.identifier
             })
@@ -349,7 +349,7 @@ export class ExecutionStepModel extends DiagramModel {
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
               iconStyle: {
-                color: this.selectedNodeId === node.step.identifier ? 'var(--white)' : stepIconColor
+                color: this.selectedNodeId === node.step.identifier ? Utils.getRealCSSColor(Color.WHITE) : stepIconColor
               },
               allowAdd: allowAdd === true && !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,

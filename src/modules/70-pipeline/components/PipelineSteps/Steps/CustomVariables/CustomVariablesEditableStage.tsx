@@ -8,7 +8,9 @@ import {
   MultiTypeInputType,
   getMultiTypeFromValue,
   ButtonSize,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation,
+  Text
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -127,10 +129,9 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                   />
                   {values.variables?.length > 0 ? (
                     <div className={cx(css.tableRow, css.headerRow)}>
-                      <String stringID="name" />
-                      <String stringID="typeLabel" />
-                      <String stringID="valueLabel" />
-                      <div />
+                      <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('name')}</Text>
+                      <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('typeLabel')}</Text>
+                      <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('valueLabel')}</Text>
                     </div>
                   ) : null}
                   {values.variables.map?.((variable, index) => {
