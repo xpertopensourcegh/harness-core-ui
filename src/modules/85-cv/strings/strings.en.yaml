@@ -696,7 +696,6 @@ slos:
   sloCreated: SLO created successfully
   sloUpdated: SLO updated successfully
   noData: No SLOs Present.
-  nameValidation: SLO name is a required field
   confirmDeleteSLO: 'Are you sure you want to delete SLO: {{ name }}'
   sloDeleted: '{{ name }} successfully deleted'
   sli: SLI
@@ -712,6 +711,10 @@ slos:
   sliType: SLI Type
   latencySLI: Latency SLI measures the proportion of requests that were faster than some threshold.
   pickMetricsSLI: Pick metrics powering the SLI
+  validations:
+    nameValidation: SLO name is required
+    userJourneyRequired: User journey is required
+    healthSourceRequired: Health Source is required
   sloTargetAndBudget:
     periodType: Period Type
     periodTypeOptions:

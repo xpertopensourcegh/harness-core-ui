@@ -4504,7 +4504,6 @@ export interface StringsMap {
   'cv.slos.healthSource': string
   'cv.slos.healthSourceForSLI': string
   'cv.slos.latencySLI': string
-  'cv.slos.nameValidation': string
   'cv.slos.newSLO': string
   'cv.slos.noData': string
   'cv.slos.pickMetricsSLI': string
@@ -4538,6 +4537,9 @@ export interface StringsMap {
   'cv.slos.userJourney': string
   'cv.slos.userJourneyCreated': string
   'cv.slos.userJourneyPlaceholder': string
+  'cv.slos.validations.healthSourceRequired': string
+  'cv.slos.validations.nameValidation': string
+  'cv.slos.validations.userJourneyRequired': string
   'cv.statusCode': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
