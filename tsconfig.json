@@ -3,6 +3,7 @@
     "baseUrl": "./src",
     "target": "ES2018",
     "module": "ESNext",
+    "lib": ["dom", "dom.iterable"],
     "moduleResolution": "node",
     "allowJs": true,
     "checkJs": false,

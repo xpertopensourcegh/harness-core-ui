@@ -3,6 +3,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { returnUrlParams } from '@common/utils/routeUtils'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { useStrings } from 'framework/strings'
 import AppStorage from 'framework/utils/AppStorage'
@@ -35,6 +36,9 @@ export const GovernanceRemoteComponentMounter = props => {
               pathname: routes.toRedirect(),
               search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
             })
+          }}
+          components={{
+            NGBreadcrumbs
           }}
         >
           {component}
