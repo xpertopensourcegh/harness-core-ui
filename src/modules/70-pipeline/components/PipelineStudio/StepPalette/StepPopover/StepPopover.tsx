@@ -77,11 +77,10 @@ export const StepPopover: React.FC<StepPopoverProps> = props => {
           )}
 
           <Icon
-            name={!isNil(step) ? stepsFactory.getStepIcon(stepData.type || '') : iconMap[stepData.name || '']}
+            name={!isNil(step) ? step.getIconName?.() : iconMap[stepData.name || '']}
             size={25}
-            {...(stepsFactory.getStepIconColor(stepData.type || '') !== undefined
-              ? { color: stepsFactory.getStepIconColor(stepData.type || '') }
-              : {})}
+            {...(!isNil(step) && !isNil(step?.getIconColor?.()) ? { color: step.getIconColor() } : {})}
+            style={{ color: step?.getIconColor?.() }}
           />
         </Card>
         <TooltipContent description={description} stepData={stepData} stepsFactory={stepsFactory} />

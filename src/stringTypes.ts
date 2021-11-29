@@ -2819,13 +2819,24 @@ export interface StringsMap {
   'cd.noGitOpsServerText': string
   'cd.notReachable': string
   'cd.pathCannotBeEmpty': string
+  'cd.pipelineSteps.environmentTab.environmentIsRequired': string
+  'cd.pipelineSteps.environmentTab.newEnvironment': string
+  'cd.pipelineSteps.environmentTab.plusNewEnvironment': string
+  'cd.pipelineSteps.environmentTab.selectEnvironment': string
+  'cd.pipelineSteps.environmentTab.specifyYourEnvironment': string
   'cd.pipelineSteps.infraTab.clusterError': string
   'cd.pipelineSteps.infraTab.deploymentType': string
+  'cd.pipelineSteps.serviceTab.aboutYourService': string
   'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string
   'cd.pipelineSteps.serviceTab.differentService': string
+  'cd.pipelineSteps.serviceTab.newService': string
   'cd.pipelineSteps.serviceTab.overrideChanges': string
+  'cd.pipelineSteps.serviceTab.plusNewService': string
   'cd.pipelineSteps.serviceTab.propagateFrom': string
   'cd.pipelineSteps.serviceTab.propagateStage': string
+  'cd.pipelineSteps.serviceTab.selectService': string
+  'cd.pipelineSteps.serviceTab.serviceIsRequired': string
+  'cd.pipelineSteps.serviceTab.specifyYourService': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
   'cd.releaseNameValidation': string
   'cd.requiredPermissions': string
@@ -6948,22 +6959,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.environmentTab.environmentIsRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.environmentTab.newEnvironment': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.environmentTab.selectEnvironment': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.environmentTab.specifyYourEnvironment': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.feature.create.featureStageName': string
   /**
    * @deprecated migrate this string to module level file
@@ -7180,10 +7175,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.serviceTab.aboutYourService': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.serviceTab.artifactList.addPrimary': string
   /**
    * @deprecated migrate this string to module level file
@@ -7205,22 +7196,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.serviceTab.manifestList.manifestType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.serviceTab.newService': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.serviceTab.selectService': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.serviceTab.serviceIsRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.serviceTab.specifyYourService': string
   /**
    * @deprecated migrate this string to module level file
    */

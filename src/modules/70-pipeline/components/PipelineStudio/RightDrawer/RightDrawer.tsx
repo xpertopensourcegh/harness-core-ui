@@ -209,7 +209,13 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     title = (
       <div className={css.stepConfig}>
         <div className={css.title}>
-          <Icon name={stepsFactory.getStepIcon(stepType || '')} />
+          <Icon
+            name={stepsFactory.getStepIcon(stepType || '')}
+            {...(stepsFactory.getStepIconColor(stepType || '')
+              ? { color: stepsFactory.getStepIconColor(stepType || '') }
+              : {})}
+            style={{ color: stepsFactory.getStepIconColor(stepType || '') }}
+          />
           <Text
             lineClamp={1}
             color={Color.BLACK}
