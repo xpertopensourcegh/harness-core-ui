@@ -184,6 +184,7 @@ export interface StringsMap {
   'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
   'common.filters.unsavedFilter': string
+  'common.findOutMore': string
   'common.frequency': string
   'common.friendlyMessage': string
   'common.genericErrors.inviteExpired': string
@@ -2195,7 +2196,12 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
+  'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit': string
+  'pipeline.featureRestriction.maxTotalBuilds90PercentLimit': string
+  'pipeline.featureRestriction.numMonthlyBuilds': string
   'pipeline.featureRestriction.serviceLimitExceeded': string
+  'pipeline.featureRestriction.subscription90PercentLimit': string
+  'pipeline.featureRestriction.subscriptionExceededLimit': string
   'pipeline.filters.builtTypePlaceholder': string
   'pipeline.filters.deploymentTypePlaceholder': string
   'pipeline.filters.environmentPlaceholder': string
@@ -2498,20 +2504,16 @@ export interface StringsMap {
   'pipeline.testsReports.filename': string
   'pipeline.testsReports.hangTight': string
   'pipeline.testsReports.indirectCall': string
-  'pipeline.testsReports.learnMore': string
   'pipeline.testsReports.newTests': string
   'pipeline.testsReports.noFailedTestsFound': string
-  'pipeline.testsReports.notfound': string
-  'pipeline.testsReports.nothing': string
+  'pipeline.testsReports.noTestResults': string
   'pipeline.testsReports.numberOfSelectedTests': string
   'pipeline.testsReports.onlyUncoveredFiles': string
   'pipeline.testsReports.resource': string
   'pipeline.testsReports.result': string
-  'pipeline.testsReports.resultInfo': string
   'pipeline.testsReports.resultLabel': string
   'pipeline.testsReports.selectedTestMethods': string
   'pipeline.testsReports.selectionBreakdown': string
-  'pipeline.testsReports.selectionBreakdownInfo': string
   'pipeline.testsReports.showOnlyFailedTests': string
   'pipeline.testsReports.skipped': string
   'pipeline.testsReports.skippedWithColon': string
@@ -2523,11 +2525,16 @@ export interface StringsMap {
   'pipeline.testsReports.successWithColon': string
   'pipeline.testsReports.testCaseName': string
   'pipeline.testsReports.testCasesExecution': string
-  'pipeline.testsReports.testCasesExecutionInfo': string
   'pipeline.testsReports.testDuration': string
   'pipeline.testsReports.testExecutions': string
   'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
+  'pipeline.testsReports.testsWillAppear': string
+  'pipeline.testsReports.tiCallToAction.addRunTestsStep': string
+  'pipeline.testsReports.tiCallToAction.header': string
+  'pipeline.testsReports.tiCallToAction.requiresEnterprisePlan': string
+  'pipeline.testsReports.tiCallToAction.upsellSubText': string
+  'pipeline.testsReports.tiCallToAction.utilizeTISubText': string
   'pipeline.testsReports.timeSaved': string
   'pipeline.testsReports.totalDuration': string
   'pipeline.testsReports.totalExecutedTest': string

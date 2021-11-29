@@ -30,8 +30,9 @@ const TooltipContent = ({ description, stepsFactory, stepData }: StepTooltipCont
   // Component renders the tooltip over steps in the palette.
   // If the step is disabled, show the enforcement tooltip
   const { getString } = useStrings()
-  if (stepData?.disabled && stepData?.featureRestrictionName) {
-    return <FeatureWarningTooltip featureName={stepData.featureRestrictionName as FeatureIdentifier} />
+  const { disabled, featureRestrictionName = '' } = stepData || {}
+  if (disabled && featureRestrictionName) {
+    return <FeatureWarningTooltip featureName={featureRestrictionName as FeatureIdentifier} />
   }
   if (description) {
     return (
