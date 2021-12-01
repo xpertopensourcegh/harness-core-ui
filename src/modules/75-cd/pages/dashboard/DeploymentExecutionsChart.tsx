@@ -3,6 +3,7 @@ import { Container, Text, Color } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
+import type { TooltipFormatterContextObject } from 'highcharts'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetDeploymentExecution } from 'services/cd-ng'
@@ -10,8 +11,39 @@ import NoDeployments from '@pipeline/components/Dashboards/images/NoDeployments.
 
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
-import { getTooltip } from '@pipeline/components/LandingDashboardDeploymentsWidget/LandingDashboardDeploymentsWidget'
+import { renderTooltipContent } from '@pipeline/components/LandingDashboardDeploymentsWidget/LandingDashboardDeploymentsWidget'
 import styles from './CDDashboardPage.module.scss'
+
+interface PointStats {
+  deployments?: {
+    failure?: number
+    success?: number
+    total?: number
+  }
+  time?: number
+}
+const getTooltip = (currPoint: TooltipFormatterContextObject): string => {
+  const custom = currPoint?.series?.userOptions?.custom
+  const point: PointStats = custom?.[currPoint.key]
+  const time =
+    point && point?.time
+      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+      : currPoint.x
+  let failureRate: string | number = 'Infinity'
+  if (point?.deployments?.failure && point.deployments?.total) {
+    failureRate = ((point.deployments.failure / point.deployments.total) * 100).toFixed(1) + '%'
+  }
+  if (point?.deployments?.failure === 0) {
+    failureRate = '0'
+  }
+  return renderTooltipContent({
+    time,
+    failureRate,
+    count: point?.deployments?.total,
+    successCount: point?.deployments?.success,
+    failureCount: point?.deployments?.failure
+  })
+}
 
 export default function DeploymentExecutionsChart(props: any) {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -61,7 +93,6 @@ export default function DeploymentExecutionsChart(props: any) {
 
   const chartSuccessData = chartData?.find(item => item.name === 'Success') as any
   const allSuccessCount = chartSuccessData?.data?.every((item: any) => item === 0)
-
   return (
     <>
       <Text className={styles.healthCardTitle}>{title}</Text>
@@ -86,6 +117,26 @@ export default function DeploymentExecutionsChart(props: any) {
                 backgroundColor: Color.BLACK,
                 outside: true,
                 borderColor: 'black'
+              },
+              xAxis: {
+                title: {
+                  text: 'Date'
+                },
+                labels: {
+                  formatter: function (this) {
+                    let time = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
+                    if (data?.data?.executionDeploymentList?.length) {
+                      const val = data?.data?.executionDeploymentList[this.pos].time
+                      time = val ? new Date(val).toLocaleDateString('en-US', { day: 'numeric', month: 'short' }) : time
+                    }
+                    return time
+                  }
+                }
+              },
+              yAxis: {
+                title: {
+                  text: '# of Deployments'
+                }
               }
             }}
           />
