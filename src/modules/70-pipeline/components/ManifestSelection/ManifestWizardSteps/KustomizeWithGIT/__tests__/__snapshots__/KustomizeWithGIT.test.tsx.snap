@@ -3,7 +3,7 @@
 exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced section 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main manifestStore"
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
@@ -516,7 +516,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
 exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in edit case 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main manifestStore"
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
@@ -962,7 +962,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
 exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding step first time 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main manifestStore"
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
@@ -1408,7 +1408,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
 exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main manifestStore"
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"

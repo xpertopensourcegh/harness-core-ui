@@ -160,8 +160,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
   }
 
   return (
-    <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
+    <Layout.Vertical spacing="medium" className={css.manifestStore}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'small' }}>
         {stepName}
       </Text>
       <Formik

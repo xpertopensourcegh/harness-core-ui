@@ -3,10 +3,10 @@
 exports[`Open shift template with git tests expand advanced section 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main manifestStore"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-small"
     >
       Manifest details
     </p>
@@ -445,10 +445,10 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
 exports[`Open shift template with git tests renders correctly in edit case 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main manifestStore"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-small"
     >
       Manifest details
     </p>
@@ -820,10 +820,10 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
 exports[`Open shift template with git tests renders without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main manifestStore"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-small"
     >
       Manifest details
     </p>

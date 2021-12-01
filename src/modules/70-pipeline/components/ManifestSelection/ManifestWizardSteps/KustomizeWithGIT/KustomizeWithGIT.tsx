@@ -164,7 +164,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
   }
 
   return (
-    <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
+    <Layout.Vertical spacing="medium" className={css.manifestStore}>
       <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
