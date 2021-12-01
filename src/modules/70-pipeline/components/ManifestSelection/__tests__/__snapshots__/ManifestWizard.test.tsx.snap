@@ -81,7 +81,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
         style="height: inherit;"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           first step
         </p>
@@ -299,7 +299,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
         style="height: inherit;"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           Specify Manifest Type
         </p>
@@ -581,7 +581,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
         style="height: inherit;"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           Specify Manifest Type
         </p>
@@ -866,7 +866,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
         style="height: inherit;"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           Specify Manifest Store
         </p>
@@ -1292,7 +1292,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
         style="height: inherit;"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           first step
         </p>
@@ -1559,7 +1559,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
         style="height: inherit;"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey1000 StyledProps--margin-bottom-medium"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           first step
         </p>

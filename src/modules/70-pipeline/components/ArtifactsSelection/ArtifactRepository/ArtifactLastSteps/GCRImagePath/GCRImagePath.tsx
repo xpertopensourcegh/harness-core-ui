@@ -11,7 +11,8 @@ import {
   Text,
   RUNTIME_INPUT_VALUE,
   SelectOption,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
@@ -225,8 +226,11 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       formik.setFieldValue('tag', '')
   }
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
+    <Layout.Vertical spacing="medium" className={css.firstep}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
+        {getString('pipeline.artifactsSelection.artifactDetails')}
+      </Text>
+
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
@@ -415,7 +419,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 </div>
               ) : null}
             </div>
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+            <Layout.Horizontal spacing="medium" className={css.saveBtn}>
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

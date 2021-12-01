@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-  Text,
   Accordion,
   Layout,
   Button,
@@ -9,10 +8,11 @@ import {
   StepProps,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color,
+  Text,
   SelectOption,
   ButtonVariation,
-  getErrorInfoFromErrorObject
+  getErrorInfoFromErrorObject,
+  FontVariation
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 
@@ -186,7 +186,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       {error && showError(getErrorInfoFromErrorObject(error as any))}
-      <Text font="large" color={Color.GREY_800}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
       <Formik

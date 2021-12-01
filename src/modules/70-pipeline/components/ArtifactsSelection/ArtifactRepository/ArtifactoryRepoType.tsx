@@ -2,14 +2,14 @@ import React, { useMemo } from 'react'
 import {
   Button,
   ButtonVariation,
-  Color,
+  Text,
   Container,
   Formik,
-  Heading,
   IconName,
   Layout,
   StepProps,
-  ThumbnailSelect
+  ThumbnailSelect,
+  FontVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -65,9 +65,9 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
   )
   return (
     <Container className={css.optionsViewContainer}>
-      <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
-      </Heading>
+      </Text>
       <Formik
         initialValues={{ artifactType: selectedArtifactType }}
         formName="artifactType"

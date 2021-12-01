@@ -7,10 +7,10 @@ import {
   StepProps,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color,
   Formik,
   ButtonVariation,
-  Icon
+  Icon,
+  FontVariation
 } from '@wings-software/uicore'
 
 import { Form, FieldArray, FieldArrayRenderProps } from 'formik'
@@ -27,6 +27,8 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import type { KustomizePatchDataType, ManifestTypes } from '../../ManifestInterface'
 
 import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
+import { getRepositoryName } from '../ManifestUtils'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -40,31 +42,6 @@ interface KustomizePathPropTypes {
   manifestIdsList: Array<string>
   selectedManifest: ManifestTypes | null
   isReadonly?: boolean
-}
-
-const getInitValues = (initialValues: any) => {
-  const specValues = get(initialValues, 'spec.store.spec', null)
-
-  if (specValues) {
-    return {
-      ...specValues,
-      identifier: initialValues.identifier,
-      paths:
-        typeof specValues.paths === 'string'
-          ? specValues.paths
-          : specValues.paths.map((path: string) => ({
-              id: uuid('', nameSpace()),
-              path: path
-            }))
-    }
-  }
-  return {
-    identifier: '',
-    branch: undefined,
-    commitId: undefined,
-    gitFetchType: 'Branch',
-    paths: [{ path: '', id: uuid('', nameSpace()) }]
-  }
 }
 
 const submitKustomizePatchData = (
@@ -266,19 +243,49 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
     []
   )
 
+  const accountUrl =
+    connectionType === GitRepoName.Account
+      ? prevStepData?.connectorRef
+        ? prevStepData?.connectorRef?.connector?.spec?.url
+        : prevStepData?.url
+      : null
+
   const submitFormData = (formData: KustomizePatchDataType & { store?: string; connectorRef?: string }): void => {
     const manifestObj = submitKustomizePatchData(formData, connectionType)
     handleSubmit(manifestObj)
   }
 
   const getInitialValues = React.useCallback((): KustomizePatchDataType => {
-    return getInitValues(initialValues)
+    const specValues = get(initialValues, 'spec.store.spec', null)
+
+    if (specValues) {
+      return {
+        ...specValues,
+        identifier: initialValues.identifier,
+        repoName: getRepositoryName(prevStepData, initialValues),
+        paths:
+          typeof specValues.paths === 'string'
+            ? specValues.paths
+            : specValues.paths.map((path: string) => ({
+                id: uuid('', nameSpace()),
+                path: path
+              }))
+      }
+    }
+    return {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      repoName: getRepositoryName(prevStepData, initialValues),
+      gitFetchType: 'Branch',
+      paths: [{ path: '', id: uuid('', nameSpace()) }]
+    }
   }, [])
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
       <Formik
@@ -310,6 +317,15 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
                   />
                 </div>
               </Layout.Horizontal>
+              {!!(connectionType === GitRepoName.Account && accountUrl) && (
+                <GitRepositoryName
+                  accountUrl={accountUrl}
+                  expressions={expressions}
+                  fieldValue={formik.values?.repoName}
+                  changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                  isReadonly={isReadonly}
+                />
+              )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select

@@ -2,15 +2,15 @@ import React from 'react'
 import {
   Layout,
   Button,
-  Text,
   FormInput,
   Formik,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color,
+  Text,
   StepProps,
   Accordion,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form } from 'formik'
@@ -173,7 +173,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   }
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
       <Formik

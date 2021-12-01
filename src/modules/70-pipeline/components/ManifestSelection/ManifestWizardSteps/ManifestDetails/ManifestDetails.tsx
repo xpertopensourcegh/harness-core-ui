@@ -3,14 +3,14 @@ import {
   Accordion,
   Layout,
   Button,
-  Text,
   FormInput,
   Formik,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color,
+  Text,
   StepProps,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form } from 'formik'
@@ -171,9 +171,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   return (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.optionsViewContainer}>
-      <Text font="large" color={Color.GREY_1000} margin={{ bottom: 'medium' }}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
+
       <Formik
         initialValues={getInitialValues()}
         formName="manifestDetails"

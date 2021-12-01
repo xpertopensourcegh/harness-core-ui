@@ -93,13 +93,11 @@ exports[`Artifact WizardStep tests last step data without initial values 1`] = `
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           first step
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -377,11 +375,11 @@ exports[`Artifact WizardStep tests new connector view works correctly 1`] = `
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
       >
-        <div
-          class="heading"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           second step
-        </div>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -521,7 +519,7 @@ exports[`Artifact WizardStep tests new connector view works correctly 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -688,13 +686,11 @@ exports[`Artifact WizardStep tests renders correctly with connector Data 1`] = `
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           first step
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -891,13 +887,11 @@ exports[`Artifact WizardStep tests renders correctly with differnet artifact typ
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           first step
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1210,13 +1204,11 @@ exports[`Artifact WizardStep tests renders without crashing 1`] = `
       <div
         class="StyledProps--font StyledProps--main optionsViewContainer"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
-          level="2"
-          style="color: black; font-size: 24px;"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
         >
           first step
-        </h2>
+        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >

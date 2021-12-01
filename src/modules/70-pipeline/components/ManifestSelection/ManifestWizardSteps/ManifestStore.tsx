@@ -5,7 +5,6 @@ import {
   Button,
   Text,
   Formik,
-  Color,
   StepProps,
   getMultiTypeFromValue,
   MultiTypeInputType,
@@ -13,7 +12,8 @@ import {
   IconName,
   ButtonVariation,
   FormikForm,
-  ButtonSize
+  ButtonSize,
+  FontVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -117,7 +117,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
 
   return (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.optionsViewContainer}>
-      <Text font="large" color={Color.GREY_1000} margin={{ bottom: 'medium' }}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
 

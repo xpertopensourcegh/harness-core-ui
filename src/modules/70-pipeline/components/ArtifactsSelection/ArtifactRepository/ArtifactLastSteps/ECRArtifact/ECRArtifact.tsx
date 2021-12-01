@@ -11,7 +11,8 @@ import {
   StepProps,
   RUNTIME_INPUT_VALUE,
   Text,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import { useParams } from 'react-router-dom'
@@ -240,8 +241,10 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       formik.setFieldValue('tag', '')
   }
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
+    <Layout.Vertical spacing="medium" className={css.firstep}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
+        {getString('pipeline.artifactsSelection.artifactDetails')}
+      </Text>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sideCarSchema : ecrSchema}
@@ -433,7 +436,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               ) : null}
             </div>
 
-            <Layout.Horizontal spacing="xxlarge">
+            <Layout.Horizontal spacing="medium">
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

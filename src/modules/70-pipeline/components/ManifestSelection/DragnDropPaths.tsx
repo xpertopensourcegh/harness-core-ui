@@ -1,4 +1,13 @@
-import { Layout, FormInput, MultiTypeInputType, ButtonVariation, Text, Button, Icon } from '@wings-software/uicore'
+import {
+  Layout,
+  FormInput,
+  MultiTypeInputType,
+  ButtonVariation,
+  Text,
+  Button,
+  Icon,
+  ButtonSize
+} from '@wings-software/uicore'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import React, { useCallback } from 'react'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
@@ -139,6 +148,8 @@ const DragnDropPaths: React.FC<{
                     <span>
                       <Button
                         text={getString('addFileText')}
+                        icon="plus"
+                        size={ButtonSize.SMALL}
                         variation={ButtonVariation.LINK}
                         className={css.addFileButton}
                         onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}

@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react'
 import {
   Button,
-  Color,
-  Formik,
   Text,
+  Formik,
   IconName,
   Layout,
   StepProps,
   ThumbnailSelect,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -57,7 +57,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
 
   return (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.optionsViewContainer}>
-      <Text font="large" color={Color.GREY_1000} margin={{ bottom: 'medium' }}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
       <Formik

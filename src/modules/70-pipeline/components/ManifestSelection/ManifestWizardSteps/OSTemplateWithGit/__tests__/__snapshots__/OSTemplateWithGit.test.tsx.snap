@@ -6,7 +6,7 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey800"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       Manifest details
     </p>
@@ -448,7 +448,7 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey800"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       Manifest details
     </p>
@@ -823,7 +823,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey800"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       Manifest details
     </p>

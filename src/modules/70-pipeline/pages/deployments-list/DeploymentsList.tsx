@@ -51,7 +51,7 @@ export default function DeploymentsList(): React.ReactElement {
       {module === 'cd' && (
         <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
       )}
-      <div className={css.content}>
+      <div>
         <PipelineDeploymentList onRunPipeline={openModal} />
       </div>
     </div>

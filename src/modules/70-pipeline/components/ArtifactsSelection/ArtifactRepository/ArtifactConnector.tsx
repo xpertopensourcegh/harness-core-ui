@@ -3,12 +3,14 @@ import {
   Button,
   ButtonSize,
   ButtonVariation,
+  Text,
   Formik,
   FormikForm,
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  StepProps
+  StepProps,
+  FontVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -83,7 +85,9 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{stepName}</div>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
+        {stepName}
+      </Text>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={primarySchema}
@@ -147,7 +151,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                 )}
               </Layout.Horizontal>
             </div>
-            <Layout.Horizontal spacing="xxlarge">
+            <Layout.Horizontal spacing="medium">
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

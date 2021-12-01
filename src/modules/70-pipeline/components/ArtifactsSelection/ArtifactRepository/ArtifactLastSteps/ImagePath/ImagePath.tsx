@@ -10,7 +10,8 @@ import {
   StepProps,
   Text,
   RUNTIME_INPUT_VALUE,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import memoize from 'lodash-es/memoize'
@@ -199,8 +200,10 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     </div>
   ))
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
+    <Layout.Vertical spacing="medium" className={css.firstep}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
+        {getString('pipeline.artifactsSelection.artifactDetails')}
+      </Text>
       <Formik
         initialValues={getInitialValues()}
         formName="imagePath"
@@ -359,7 +362,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                 </div>
               ) : null}
             </div>
-            <Layout.Horizontal spacing="xxlarge">
+            <Layout.Horizontal spacing="medium">
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

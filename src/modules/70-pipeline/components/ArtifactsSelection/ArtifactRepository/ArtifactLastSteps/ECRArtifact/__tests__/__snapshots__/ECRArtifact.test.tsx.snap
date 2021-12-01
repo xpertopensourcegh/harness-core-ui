@@ -3,13 +3,13 @@
 exports[`ECR Artifact tests renders correctly in edit case 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main firstep"
   >
-    <div
-      class="heading"
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       pipeline.artifactsSelection.artifactDetails
-    </div>
+    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -379,7 +379,7 @@ exports[`ECR Artifact tests renders correctly in edit case 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -449,13 +449,13 @@ exports[`ECR Artifact tests renders correctly in edit case 1`] = `
 exports[`ECR Artifact tests renders while adding step first time 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main firstep"
   >
-    <div
-      class="heading"
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       pipeline.artifactsSelection.artifactDetails
-    </div>
+    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -825,7 +825,7 @@ exports[`ECR Artifact tests renders while adding step first time 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -895,13 +895,13 @@ exports[`ECR Artifact tests renders while adding step first time 1`] = `
 exports[`ECR Artifact tests renders without crashing 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main firstep"
   >
-    <div
-      class="heading"
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       pipeline.artifactsSelection.artifactDetails
-    </div>
+    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -1271,7 +1271,7 @@ exports[`ECR Artifact tests renders without crashing 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"

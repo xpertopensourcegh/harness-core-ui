@@ -15,9 +15,9 @@ import {
   StepProps,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color,
   SelectOption,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 
 import { Menu } from '@blueprintjs/core'
@@ -207,7 +207,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
       <Formik

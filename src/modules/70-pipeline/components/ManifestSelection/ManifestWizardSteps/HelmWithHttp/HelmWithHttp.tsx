@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-  Text,
   Accordion,
   Layout,
   Button,
@@ -9,8 +8,9 @@ import {
   StepProps,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color,
-  ButtonVariation
+  Text,
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -116,7 +116,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
       <Formik
