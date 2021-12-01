@@ -34,6 +34,8 @@ import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
+const k8sClusterKeyRef = 'connectors.title.k8sCluster'
+const namespaceKeyRef = 'pipelineSteps.build.infraSpecifications.namespace'
 
 const getInitialMapValues: (value: MultiTypeMapType) => MultiTypeMapUIType = value => {
   const map =
@@ -69,23 +71,47 @@ const testLabelKey = (value: string): boolean => {
   )
 }
 
-const getValidationSchema = (getString?: UseStringsReturn['getString']): yup.Schema<unknown> =>
+const getValidationSchema = (getString?: UseStringsReturn['getString'], currentMode?: Modes): yup.Schema<unknown> =>
   yup.object().shape({
-    connectorRef: yup.mixed().when(['useFromStage'], {
-      is: isEmpty,
-      then: yup.mixed().required(getString?.('fieldRequired', { field: getString?.('connectors.title.k8sCluster') })),
-      otherwise: yup.mixed()
-    }),
-    namespace: yup.string().when(['useFromStage'], {
-      is: isEmpty,
-      then: yup
-        .string()
-        .trim()
-        .required(
-          getString?.('fieldRequired', { field: getString?.('pipelineSteps.build.infraSpecifications.namespace') })
-        ),
-      otherwise: yup.string().nullable()
-    }),
+    connectorRef: yup
+      .string()
+      .nullable()
+      .test(
+        'connectorRef required only for New configuration',
+        getString?.('fieldRequired', { field: getString?.(k8sClusterKeyRef) }) || '',
+        function (connectorRef) {
+          if (isEmpty(connectorRef) && currentMode === Modes.NewConfiguration) {
+            return false
+          }
+          return true
+        }
+      ),
+    namespace: yup
+      .string()
+      .nullable()
+      .test(
+        'namespace required only for New configuration',
+        getString?.('fieldRequired', { field: getString?.(namespaceKeyRef) }) || '',
+        function (namespace) {
+          if (isEmpty(namespace) && currentMode === Modes.NewConfiguration) {
+            return false
+          }
+          return true
+        }
+      ),
+    useFromStage: yup
+      .string()
+      .nullable()
+      .test(
+        'useFromStage required only when Propagate from an existing stage',
+        getString?.('pipeline.infraSpecifications.validation.requiredExistingStage') || '',
+        function (useFromStage) {
+          if (isEmpty(useFromStage) && currentMode === Modes.Propagate) {
+            return false
+          }
+          return true
+        }
+      ),
     runAsUser: yup.string().test(
       'Must be a number and allows runtimeinput or expression',
       getString?.('pipeline.stepCommonFields.validation.mustBeANumber', {
@@ -242,7 +268,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         return {
           useFromStage: (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
         }
-      } else if (!isEmpty(connectorId)) {
+      }
+      // else if(){}
+      else if (!isEmpty(connectorId)) {
         return {
           connectorRef: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
           namespace: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
@@ -348,7 +376,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       <div className={css.contentSection} ref={scrollRef}>
         <Formik
           initialValues={getInitialValues}
-          validationSchema={getValidationSchema(getString)}
+          validationSchema={getValidationSchema(getString, currentMode)}
           validate={handleValidate}
           formName="ciBuildInfra"
           onSubmit={values => logger.info(JSON.stringify(values))}
@@ -369,7 +397,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         <div
                           className={cx(css.card, { [css.active]: currentMode === Modes.Propagate })}
                           style={{ width: 410 }}
-                          onClick={() => setCurrentMode(Modes.Propagate)}
+                          onClick={() => {
+                            setCurrentMode(Modes.Propagate)
+                          }}
                         >
                           <Text className={css.cardTitle} color="black" margin={{ bottom: 'large' }}>
                             {getString('pipelineSteps.build.infraSpecifications.propagate')}
@@ -381,9 +411,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           />
                           {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef && (
                             <>
-                              <Text margin={{ top: 'large', bottom: 'xsmall' }}>
-                                {getString('connectors.title.k8sCluster')}
-                              </Text>
+                              <Text margin={{ top: 'large', bottom: 'xsmall' }}>{getString(k8sClusterKeyRef)}</Text>
                               <Text color="black" margin={{ bottom: 'medium' }}>
                                 {
                                   (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
@@ -395,7 +423,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace && (
                             <>
                               <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}>
-                                {getString('pipelineSteps.build.infraSpecifications.namespace')}
+                                {getString(namespaceKeyRef)}
                               </Text>
                               <Text color="black">
                                 {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace}
@@ -548,7 +576,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                   })
                                 }
                               })
-                              setFieldValue('useFromStage', undefined)
+                              setFieldValue('useFromStage', '')
 
                               if (newStageData?.stage) {
                                 updateStage(newStageData.stage)
@@ -562,7 +590,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           <FormMultiTypeConnectorField
                             width={300}
                             name="connectorRef"
-                            label={<Text>{getString('connectors.title.k8sCluster')}</Text>}
+                            label={<Text>{getString(k8sClusterKeyRef)}</Text>}
                             placeholder={getString(
                               'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
                             )}
@@ -575,9 +603,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                             <FormInput.MultiTextInput
                               label={
-                                <Text tooltipProps={{ dataTooltipId: 'namespace' }}>
-                                  {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                                </Text>
+                                <Text tooltipProps={{ dataTooltipId: 'namespace' }}>{getString(namespaceKeyRef)}</Text>
                               }
                               name={'namespace'}
                               placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
@@ -675,7 +701,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         <FormMultiTypeConnectorField
                           width={300}
                           name="connectorRef"
-                          label={getString('connectors.title.k8sCluster')}
+                          label={getString(k8sClusterKeyRef)}
                           placeholder={getString(
                             'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
                           )}
@@ -688,9 +714,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                           <MultiTypeTextField
                             label={
-                              <Text tooltipProps={{ dataTooltipId: 'namespace' }}>
-                                {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                              </Text>
+                              <Text tooltipProps={{ dataTooltipId: 'namespace' }}>{getString(namespaceKeyRef)}</Text>
                             }
                             name={'namespace'}
                             style={{ width: 300 }}

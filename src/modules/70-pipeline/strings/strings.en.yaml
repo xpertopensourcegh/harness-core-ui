@@ -657,6 +657,8 @@ infraSpecifications:
   serviceAccountNamePlaceholder: Enter Service Account Name
   initTimeout: Init Timeout
   initTimeoutPlaceholder: Enter Init Timeout
+  validation:
+    requiredExistingStage: Existing stage is a required field
 imagePathLabel: Image Path
 artifactsSelection:
   artifactDetails: Artifact Details

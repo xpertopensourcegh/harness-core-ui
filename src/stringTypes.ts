@@ -2223,6 +2223,7 @@ export interface StringsMap {
   'pipeline.infraSpecifications.namespacePlaceholder': string
   'pipeline.infraSpecifications.serviceAccountName': string
   'pipeline.infraSpecifications.serviceAccountNamePlaceholder': string
+  'pipeline.infraSpecifications.validation.requiredExistingStage': string
   'pipeline.inputSets.aboutInputSets': string
   'pipeline.inputSets.applyInputSet': string
   'pipeline.inputSets.applyInputSets': string
