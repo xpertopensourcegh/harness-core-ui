@@ -32,6 +32,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
+import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { getIconsForPipeline } from '../../PipelineListUtils'
@@ -228,10 +229,15 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         />
         <Container>
           {!isEmpty(pipelineIcons) && (
-            <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }}>
-              {pipelineIcons.map(iconObj => (
-                <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
-              ))}
+            <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }} flex>
+              <>
+                {pipelineIcons.map(iconObj => (
+                  <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
+                ))}
+              </>
+              {pipeline.entityValidityDetails?.valid === false && (
+                <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={pipeline.name} />
+              )}
             </Layout.Horizontal>
           )}
           <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>

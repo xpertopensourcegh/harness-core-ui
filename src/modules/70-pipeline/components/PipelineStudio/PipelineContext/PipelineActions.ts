@@ -3,7 +3,7 @@ import type { IDrawerProps } from '@blueprintjs/core'
 import type { YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type * as Diagram from '@pipeline/components/Diagram'
-import type { EntityGitDetails } from 'services/pipeline-ng'
+import type { EntityGitDetails, EntityValidityDetails } from 'services/pipeline-ng'
 import type { DependencyElement } from 'services/ci'
 import type { TemplateType } from '@common/interfaces/RouteInterfaces'
 import type { TemplateSummaryResponse } from 'services/template-ng'
@@ -140,6 +140,7 @@ export interface PipelineReducerState {
   schemaErrors: boolean
   templateTypes: { [key: string]: string }
   gitDetails: EntityGitDetails
+  entityValidityDetails: EntityValidityDetails
   isDBInitialized: boolean
   isLoading: boolean
   isInitialized: boolean
@@ -159,6 +160,7 @@ export interface ActionResponse {
   schemaErrors?: boolean
   isUpdated?: boolean
   gitDetails?: EntityGitDetails
+  entityValidityDetails?: EntityValidityDetails
   pipeline?: PipelineInfoConfig
   pipelineIdentifier?: string
   yamlHandler?: YamlBuilderHandlerBinding
@@ -245,6 +247,7 @@ export const initialState: PipelineReducerState = {
   },
   schemaErrors: false,
   gitDetails: {},
+  entityValidityDetails: {},
   templateTypes: {},
   isLoading: false,
   isBEPipelineUpdated: false,

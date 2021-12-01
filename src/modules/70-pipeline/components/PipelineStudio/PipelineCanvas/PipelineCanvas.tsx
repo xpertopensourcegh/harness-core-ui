@@ -153,7 +153,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     originalPipeline,
     yamlHandler,
     isBEPipelineUpdated,
-    gitDetails
+    gitDetails,
+    entityValidityDetails
   } = state
 
   const { getString } = useStrings()
@@ -193,6 +194,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const [isYamlError, setYamlError] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
+  const [disableVisualView, setDisableVisualView] = React.useState(entityValidityDetails.valid === false)
   const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const [governanceMetadata, setGovernanceMetadata] = useState<GovernanceMetadata>()
   const shouldShowGovernanceEvaluation =
@@ -464,9 +466,21 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     // for new pipeline always use UI as default view
     if (pipelineIdentifier === DefaultNewPipelineId) {
       setView(SelectedView.VISUAL)
+    } else if (entityValidityDetails.valid === false || view === SelectedView.YAML) {
+      setView(SelectedView.YAML)
+    } else {
+      setView(SelectedView.VISUAL)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pipelineIdentifier])
+  }, [pipelineIdentifier, entityValidityDetails.valid])
+
+  React.useEffect(() => {
+    if (entityValidityDetails.valid === false) {
+      setDisableVisualView(true)
+    } else {
+      setDisableVisualView(false)
+    }
+  }, [entityValidityDetails.valid])
 
   React.useEffect(() => {
     if (isInitialized) {
@@ -831,7 +845,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           </div>
           <VisualYamlToggle
             className={css.visualYamlToggle}
-            initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
+            initialSelectedView={isYaml || disableVisualView ? SelectedView.YAML : SelectedView.VISUAL}
+            disableYaml={disableVisualView}
             beforeOnChange={(nextMode, callback) => {
               const shoudSwitchcMode = handleViewChange(nextMode)
               shoudSwitchcMode && callback(nextMode)

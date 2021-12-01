@@ -37,12 +37,14 @@ const PipelineYamlView: React.FC = () => {
       pipeline,
       pipelineView: { isDrawerOpened, isYamlEditable },
       pipelineView,
-      gitDetails
+      gitDetails,
+      entityValidityDetails
     },
     updatePipelineView,
     stepsFactory,
     isReadonly,
     updatePipeline,
+    updateEntityValidityDetails,
     setYamlHandler: setYamlHandlerContext
   } = usePipelineContext()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
@@ -72,7 +74,11 @@ const PipelineYamlView: React.FC = () => {
               !isEqual(omit(pipeline, 'repo', 'branch'), pipelineFromYaml) &&
               yamlHandler.getYAMLValidationErrorMap()?.size === 0 // Don't update for Invalid Yaml
             ) {
-              updatePipeline(pipelineFromYaml)
+              updatePipeline(pipelineFromYaml).then(() => {
+                if (entityValidityDetails.valid === false) {
+                  updateEntityValidityDetails({ ...entityValidityDetails, valid: true })
+                }
+              })
             }
           } catch (e) {
             // Ignore Error

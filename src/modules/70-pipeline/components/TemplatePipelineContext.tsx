@@ -186,6 +186,7 @@ export const TemplatePipelineProvider: React.FC<{
         renderPipelineStage,
         fetchPipeline: Promise.resolve,
         updateGitDetails: Promise.resolve,
+        updateEntityValidityDetails: Promise.resolve,
         updatePipeline,
         updateStage,
         updatePipelineView,

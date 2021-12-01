@@ -21,7 +21,8 @@ import {
   EntityGitDetails,
   ResponsePMSPipelineResponseDTO,
   CreatePipelineQueryParams,
-  PutPipelineQueryParams
+  PutPipelineQueryParams,
+  EntityValidityDetails
 } from 'services/pipeline-ng'
 import { useGlobalEventListener, useLocalStorage, useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
@@ -60,6 +61,7 @@ import {
 
 interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
   gitDetails?: EntityGitDetails
+  entityValidityDetails?: EntityValidityDetails
 }
 
 const logger = loggerFor(ModuleName.CD)
@@ -224,6 +226,7 @@ export interface PipelineContextInterface {
   setTemplateTypes: (data: { [key: string]: string }) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
+  updateEntityValidityDetails: (entityValidityDetails: EntityValidityDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   updateTemplateView: (data: TemplateViewData) => void
   deletePipelineCache: (gitDetails?: EntityGitDetails) => Promise<void>
@@ -250,6 +253,7 @@ interface PipelinePayload {
   originalPipeline?: PipelineInfoConfig
   isUpdated: boolean
   gitDetails: EntityGitDetails
+  entityValidityDetails?: EntityValidityDetails
 }
 
 const getId = (
@@ -325,7 +329,16 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
       pipelineId,
       signal
     )
-    const pipeline: PipelineInfoConfig = omit(pipelineWithGitDetails, 'gitDetails', 'repo', 'branch')
+    pipelineWithGitDetails.entityValidityDetails = {
+      valid: false
+    }
+    const pipeline: PipelineInfoConfig = omit(
+      pipelineWithGitDetails,
+      'gitDetails',
+      'entityValidityDetails',
+      'repo',
+      'branch'
+    )
     const payload: PipelinePayload = {
       [KeyPath]: id,
       pipeline,
@@ -333,7 +346,11 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
       isUpdated: false,
       gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
         ? pipelineWithGitDetails.gitDetails
-        : data?.gitDetails ?? {}
+        : data?.gitDetails ?? {},
+      entityValidityDetails: defaultTo(
+        pipelineWithGitDetails?.entityValidityDetails,
+        defaultTo(data?.entityValidityDetails, {})
+      )
     }
     if (data && !forceUpdate) {
       const templateTypes = data.pipeline ? await getTemplateType(data.pipeline, queryParams) : {}
@@ -347,7 +364,11 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
             ? pipelineWithGitDetails.gitDetails
             : defaultTo(data?.gitDetails, {}),
-          templateTypes
+          templateTypes,
+          entityValidityDetails: defaultTo(
+            pipelineWithGitDetails?.entityValidityDetails,
+            defaultTo(data?.entityValidityDetails, {})
+          )
         })
       )
     } else if (IdbPipeline) {
@@ -361,6 +382,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           isBEPipelineUpdated: false,
           isUpdated: false,
           gitDetails: payload.gitDetails,
+          entityValidityDetails: payload.entityValidityDetails,
           templateTypes
         })
       )
@@ -374,6 +396,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           isBEPipelineUpdated: false,
           isUpdated: false,
           gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {},
+          entityValidityDetails: defaultTo(pipelineWithGitDetails?.entityValidityDetails, {}),
           templateTypes
         })
       )
@@ -398,7 +421,8 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
         ),
         isUpdated: true,
         isBEPipelineUpdated: false,
-        gitDetails: defaultTo(data?.gitDetails, {})
+        gitDetails: defaultTo(data?.gitDetails, {}),
+        entityValidityDetails: defaultTo(data?.entityValidityDetails, {})
       })
     )
     dispatch(PipelineContextActions.initialized())
@@ -490,6 +514,43 @@ const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityG
     await IdbPipeline.put(IdbPipelineStoreName, payload)
   }
   dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, gitDetails }))
+}
+
+interface UpdateEntityValidityDetailsArgs {
+  dispatch: React.Dispatch<ActionReturnType>
+  queryParams: GetPipelineQueryParams
+  identifier: string
+  originalPipeline: PipelineInfoConfig
+  pipeline: PipelineInfoConfig
+  gitDetails: EntityGitDetails
+}
+
+const _updateEntityValidityDetails = async (
+  args: UpdateEntityValidityDetailsArgs,
+  entityValidityDetails: EntityValidityDetails
+): Promise<void> => {
+  const { dispatch, queryParams, identifier, originalPipeline, pipeline, gitDetails } = args
+  await _deletePipelineCache(queryParams, identifier, {})
+  const id = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    identifier,
+    gitDetails.repoIdentifier || '',
+    gitDetails.branch || ''
+  )
+  if (IdbPipeline) {
+    const payload: PipelinePayload = {
+      [KeyPath]: id,
+      pipeline,
+      originalPipeline,
+      isUpdated: false,
+      gitDetails,
+      entityValidityDetails
+    }
+    await IdbPipeline.put(IdbPipelineStoreName, payload)
+  }
+  dispatch(PipelineContextActions.success({ error: '', pipeline, entityValidityDetails }))
 }
 
 interface UpdatePipelineArgs {
@@ -634,6 +695,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   view: SelectedView.VISUAL,
   contextType: undefined,
   updateGitDetails: () => new Promise<void>(() => undefined),
+  updateEntityValidityDetails: () => new Promise<void>(() => undefined),
   setView: () => void 0,
   runPipeline: () => undefined,
   // eslint-disable-next-line react/display-name
@@ -688,7 +750,10 @@ export const PipelineProvider: React.FC<{
       initialState
     )
   )
-  const [view, setView] = useLocalStorage<SelectedView>('pipeline_studio_view', SelectedView.VISUAL)
+  const [view, setView] = useLocalStorage<SelectedView>(
+    'pipeline_studio_view',
+    state.entityValidityDetails.valid === false ? SelectedView.YAML : SelectedView.VISUAL
+  )
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, {
     dispatch,
@@ -705,6 +770,14 @@ export const PipelineProvider: React.FC<{
     identifier: pipelineIdentifier,
     originalPipeline: state.originalPipeline,
     pipeline: state.pipeline
+  })
+  const updateEntityValidityDetails = _updateEntityValidityDetails.bind(null, {
+    dispatch,
+    queryParams,
+    identifier: pipelineIdentifier,
+    originalPipeline: state.originalPipeline,
+    pipeline: state.pipeline,
+    gitDetails: state.gitDetails
   })
   const updatePipeline = _updatePipeline.bind(null, {
     dispatch,
@@ -893,6 +966,7 @@ export const PipelineProvider: React.FC<{
         renderPipelineStage,
         fetchPipeline,
         updateGitDetails,
+        updateEntityValidityDetails,
         updatePipeline,
         updateStage,
         updatePipelineView,

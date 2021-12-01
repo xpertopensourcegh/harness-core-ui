@@ -124,6 +124,7 @@ const pipelineContext: PipelineContextInterface = {
   renderPipelineStage: jest.fn(),
   setView: jest.fn(),
   updateGitDetails: jest.fn(),
+  updateEntityValidityDetails: jest.fn(),
   updatePipelineView: jest.fn(),
   updateTemplateView: jest.fn(),
   fetchPipeline: jest.fn(),

@@ -10,7 +10,8 @@ import {
   Icon,
   ButtonVariation,
   TagsPopover,
-  TableV2
+  TableV2,
+  Container
 } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -28,6 +29,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
+import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
@@ -182,27 +184,34 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
         ))}
       </span>
       <div>
-        <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
-          <Layout.Horizontal spacing="medium">
-            <Text
-              color={Color.GREY_800}
-              tooltipProps={{ position: Position.BOTTOM }}
-              tooltip={
-                <Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}>
-                  <Text>{getString('nameLabel', { name: data.name })}</Text>
-                  <Text>{getString('idLabel', { id: data.identifier })}</Text>
-                  <Text>{getString('descriptionLabel', { description: data.description })}</Text>
-                </Layout.Vertical>
-              }
-            >
-              {data.name}
+        <Layout.Horizontal flex={{ alignItems: 'center' }}>
+          <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
+            <Layout.Horizontal spacing="medium">
+              <Text
+                color={Color.GREY_800}
+                tooltipProps={{ position: Position.BOTTOM }}
+                tooltip={
+                  <Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}>
+                    <Text>{getString('nameLabel', { name: data.name })}</Text>
+                    <Text>{getString('idLabel', { id: data.identifier })}</Text>
+                    <Text>{getString('descriptionLabel', { description: data.description })}</Text>
+                  </Layout.Vertical>
+                }
+              >
+                {data.name}
+              </Text>
+              {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
+            </Layout.Horizontal>
+            <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400}>
+              {getString('idLabel', { id: data.identifier })}
             </Text>
-            {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
-          </Layout.Horizontal>
-          <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400}>
-            {getString('idLabel', { id: data.identifier })}
-          </Text>
-        </Layout.Vertical>
+          </Layout.Vertical>
+          {data.entityValidityDetails?.valid === false && (
+            <Container padding={{ left: 'large' }}>
+              <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={data.name} />
+            </Container>
+          )}
+        </Layout.Horizontal>
       </div>
     </Layout.Horizontal>
   )

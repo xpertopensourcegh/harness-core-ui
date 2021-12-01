@@ -251,6 +251,9 @@ gitSync:
   creatingPR: 'Creating a Pull Request from {{fromBranch}} to branch {{toBranch}}'
   unableToCreatePR: Unable to create PR
   settingUpNewBranch: 'Setting up new branch {{branch}}'
+  outOfSync: '{{entityType}} {{name}} is out of sync with Git.'
+  fixAllErrors: Fix all the errors indicated in the YAML Editor to resolve the issue.
+
 git:
   branchName: 'Branch name'
   urlType: 'URL Type'
@@ -651,3 +654,4 @@ duration:
 exploreSaaSPlans: Explore SaaS plans
 onPremSaaSPlansMsg: Did you know, Harness also offers a range of exciting SaaS plans?
 manageSubscription: Manage subscription
+invalid: INVALID

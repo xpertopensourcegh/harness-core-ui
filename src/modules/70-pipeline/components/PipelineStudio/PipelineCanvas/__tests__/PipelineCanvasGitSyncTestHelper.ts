@@ -153,6 +153,7 @@ const stateMock = {
     repoIdentifier: 'gitSyncRepo',
     rootFolder: 'rootFolderTest/.harness/'
   },
+  entityValidityDetails: { valid: true },
   isLoading: false,
   isBEPipelineUpdated: false,
   isDBInitialized: true,
@@ -200,6 +201,7 @@ const pipelineContextMock: PipelineContextInterface = {
   isReadonly: false,
   view: 'VISUAL',
   updateGitDetails: () => new Promise<void>(() => undefined),
+  updateEntityValidityDetails: () => new Promise<void>(() => undefined),
   setView: () => void 0,
   runPipeline: () => undefined,
   // eslint-disable-next-line react/display-name

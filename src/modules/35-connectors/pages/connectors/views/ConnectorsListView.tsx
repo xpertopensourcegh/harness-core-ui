@@ -219,10 +219,10 @@ export const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ 
                 <Icon name="warning-sign" color={Color.RED_600} size={12} margin={{ right: 'small' }} />
                 <Layout.Vertical>
                   <Text color={Color.WHITE} font={{ variation: FontVariation.SMALL }}>
-                    {getString('connectors.outOfSync', { name: data.connector?.name })}
+                    {getString('common.gitSync.outOfSync', { entityType: 'Connector', name: data.connector?.name })}
                   </Text>
                   <Text color={Color.WHITE} font={{ variation: FontVariation.SMALL }}>
-                    {getString('connectors.fixAllErrors')}
+                    {getString('common.gitSync.fixAllErrors')}
                   </Text>
                 </Layout.Vertical>
               </Layout.Horizontal>

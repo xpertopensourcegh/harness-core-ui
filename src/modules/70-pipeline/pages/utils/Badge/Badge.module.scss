@@ -1,0 +1,24 @@
+.badge {
+  display: flex;
+  background-color: var(--red-50) !important;
+  width: 69px;
+  height: 16px;
+  border-radius: 4px;
+  align-items: center;
+  margin-right: 12px !important;
+  .badgeIcon {
+    margin-left: 6px !important;
+    margin-right: 4px !important;
+  }
+  .badgeText {
+    font-size: 10px !important;
+  }
+  .tooltipIcon {
+    padding-top: 14px;
+  }
+  .tooltipContentText {
+    font-size: 12px;
+    font-weight: 'normal';
+    line-height: 18px;
+  }
+}

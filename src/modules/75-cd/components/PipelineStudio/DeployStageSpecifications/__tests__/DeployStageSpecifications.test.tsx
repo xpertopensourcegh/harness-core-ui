@@ -49,6 +49,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isInitialized: true,
     isLoading: false,
     gitDetails: {},
+    entityValidityDetails: {},
     isUpdated: true,
     templateTypes: {}
   },
@@ -56,6 +57,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSchemaErrorView: jest.fn(),
   stagesMap: {},
   updateGitDetails: jest.fn(),
+  updateEntityValidityDetails: jest.fn(),
   isReadonly: false,
   renderPipelineStage: jest.fn(),
   fetchPipeline: jest.fn(),

@@ -459,7 +459,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small StyledProps--flex"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -889,7 +889,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small StyledProps--flex"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -1292,7 +1292,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small StyledProps--flex"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -2288,32 +2288,36 @@ exports[`CD Pipeline Page List render list view 1`] = `
               </span>
               <div>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-                  data-testid="pipeline1"
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
                 >
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                    data-testid="pipeline1"
                   >
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <span
-                        class="bp3-popover-target Text--targetClass"
+                        class="bp3-popover-wrapper"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                          tabindex="0"
+                        <span
+                          class="bp3-popover-target Text--targetClass"
                         >
-                          pipeline1
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                            tabindex="0"
+                          >
+                            pipeline1
+                          </p>
+                        </span>
                       </span>
-                    </span>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    >
+                      idLabel
+                    </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                  >
-                    idLabel
-                  </p>
                 </div>
               </div>
             </div>
@@ -2661,32 +2665,36 @@ exports[`CD Pipeline Page List render list view 1`] = `
               </span>
               <div>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-                  data-testid="First_pipeline"
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
                 >
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                    data-testid="First_pipeline"
                   >
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <span
-                        class="bp3-popover-target Text--targetClass"
+                        class="bp3-popover-wrapper"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                          tabindex="0"
+                        <span
+                          class="bp3-popover-target Text--targetClass"
                         >
-                          First pipeline
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                            tabindex="0"
+                          >
+                            First pipeline
+                          </p>
+                        </span>
                       </span>
-                    </span>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    >
+                      idLabel
+                    </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                  >
-                    idLabel
-                  </p>
                 </div>
               </div>
             </div>
@@ -3034,32 +3042,36 @@ exports[`CD Pipeline Page List render list view 1`] = `
               </span>
               <div>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-                  data-testid="Second_Pipeline"
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
                 >
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                    data-testid="Second_Pipeline"
                   >
-                    <span
-                      class="bp3-popover-wrapper"
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <span
-                        class="bp3-popover-target Text--targetClass"
+                        class="bp3-popover-wrapper"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                          tabindex="0"
+                        <span
+                          class="bp3-popover-target Text--targetClass"
                         >
-                          Second Pipeline
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                            tabindex="0"
+                          >
+                            Second Pipeline
+                          </p>
+                        </span>
                       </span>
-                    </span>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    >
+                      idLabel
+                    </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                  >
-                    idLabel
-                  </p>
                 </div>
               </div>
             </div>

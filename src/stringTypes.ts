@@ -241,8 +241,10 @@ export interface StringsMap {
   'common.gitSync.createResource': string
   'common.gitSync.creatingPR': string
   'common.gitSync.defaultBranches': string
+  'common.gitSync.fixAllErrors': string
   'common.gitSync.gitRepositoryDetails': string
   'common.gitSync.harnessFolderLabel': string
+  'common.gitSync.outOfSync': string
   'common.gitSync.pushingChangestoBranch': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string
@@ -281,6 +283,7 @@ export interface StringsMap {
   'common.instanceValidation.minimumCountInstance': string
   'common.instanceValidation.minimumCountPercentage': string
   'common.instanceValidation.required': string
+  'common.invalid': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
   'common.last7days': string
@@ -1544,7 +1547,6 @@ export interface StringsMap {
   'connectors.editConnector': string
   'connectors.encryptedAPIKeyLabel': string
   'connectors.encryptedAPIKeyValidation': string
-  'connectors.fixAllErrors': string
   'connectors.gcpKms.credentialsFile': string
   'connectors.gcpKms.credentialsFileRequired': string
   'connectors.gcpKms.keyName': string
@@ -1631,7 +1633,6 @@ export interface StringsMap {
   'connectors.newRelicConnectorDetails': string
   'connectors.newRelicLabel': string
   'connectors.nexus.nexusServerUrl': string
-  'connectors.outOfSync': string
   'connectors.pagerDutyConnectorDetails': string
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string

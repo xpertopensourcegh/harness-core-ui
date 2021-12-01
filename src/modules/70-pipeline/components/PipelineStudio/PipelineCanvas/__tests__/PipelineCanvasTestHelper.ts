@@ -107,7 +107,8 @@ export const getPipelineContextMockData = (
     isUpdated,
     isInitialized: true,
     error: '',
-    gitDetails
+    gitDetails,
+    entityValidityDetails: { valid: true }
   },
   isReadonly,
   stepsFactory: stepFactory,

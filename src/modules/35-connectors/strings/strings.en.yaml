@@ -710,5 +710,3 @@ ceGcp:
     heading: '{{ $.common.labelTestConnection }}'
     step1: 'Verifying GCP connector setup'
     error: 'Could not verify connectivity'
-outOfSync: Connector {{name}} is out of sync with Git.
-fixAllErrors: Fix all the errors indicated in the YAML Editor to resolve the issue.
