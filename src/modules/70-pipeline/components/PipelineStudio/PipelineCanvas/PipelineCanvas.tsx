@@ -835,6 +835,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     isReadonly={isReadonly}
                     entityData={{ ...pipeline, versionLabel: '', type: 'Step' }} // Just to avoid type issues
                     onGitBranchChange={onGitBranchChange}
+                    entityType={'Pipeline'}
                   />
                 )}
                 {isYaml || isReadonly ? null : (

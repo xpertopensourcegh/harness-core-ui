@@ -257,6 +257,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
                 isReadonly={isReadonly}
                 entityData={template}
                 onGitBranchChange={onGitBranchChange}
+                entityType={getString('common.template.label')}
               />
             )}
             {!isYaml && !isReadonly && (

@@ -19,16 +19,21 @@ interface StudioGitPopoverProps {
   isReadonly: boolean
   entityData: PipelineInfoConfig & NGTemplateInfoConfig
   onGitBranchChange: (selectedFilter: GitFilterScope) => void
+  entityType: string
 }
 
 const breakWord = 'break-word'
 
 export const GitDetails = (props: StudioGitPopoverProps): JSX.Element => {
-  const { gitDetails, identifier, isReadonly, onGitBranchChange } = props
+  const { gitDetails, identifier, isReadonly, onGitBranchChange, entityType } = props
 
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const { getString } = useStrings()
+
+  const getDisabledOptionTitleText = (): string => {
+    return getString('common.gitSync.branchSyncNotAllowed', { entityType })
+  }
 
   if (gitDetails?.objectId || (identifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
     const repoName: string = defaultTo(getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name, '')
@@ -94,6 +99,8 @@ export const GitDetails = (props: StudioGitPopoverProps): JSX.Element => {
                   showRepoSelector={false}
                   defaultValue={{ repo: defaultTo(repoIdentifier, ''), branch, getDefaultFromOtherRepo: true }}
                   showBranchIcon={false}
+                  shouldAllowBranchSync={false}
+                  getDisabledOptionTitleText={getDisabledOptionTitleText}
                 />
               </>
             )}

@@ -237,6 +237,7 @@ export interface StringsMap {
   'common.git.validation.sameBranches': string
   'common.git.validation.targetBranch': string
   'common.gitSync.allRepositories': string
+  'common.gitSync.branchSyncNotAllowed': string
   'common.gitSync.commitDetailsLabel': string
   'common.gitSync.createResource': string
   'common.gitSync.creatingPR': string

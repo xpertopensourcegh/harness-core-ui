@@ -251,6 +251,7 @@ gitSync:
   creatingPR: 'Creating a Pull Request from {{fromBranch}} to branch {{toBranch}}'
   unableToCreatePR: Unable to create PR
   settingUpNewBranch: 'Setting up new branch {{branch}}'
+  branchSyncNotAllowed: Syncing a branch is not allowed from here. Please go to {{entityType}} list page.
   outOfSync: '{{entityType}} {{name}} is out of sync with Git.'
   fixAllErrors: Fix all the errors indicated in the YAML Editor to resolve the issue.
 

@@ -36,6 +36,8 @@ export interface GitFiltersProps {
   showRepoSelector?: boolean
   showBranchSelector?: boolean
   showBranchIcon?: boolean
+  shouldAllowBranchSync?: boolean
+  getDisabledOptionTitleText?: () => string
 }
 
 interface BranchSelectOption extends SelectOption {
@@ -53,7 +55,9 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
     defaultValue = { repo: '', branch: '' },
     showRepoSelector = true,
     showBranchSelector = true,
-    showBranchIcon = true
+    showBranchIcon = true,
+    shouldAllowBranchSync = true,
+    getDisabledOptionTitleText
   } = props
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
@@ -292,10 +296,13 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
             className={cx(props.branchSelectClassName)}
             onQueryChange={(query: string) => setSearchTerm(query)}
             itemRenderer={(item: BranchSelectOption): React.ReactElement => {
+              const isDisabled = !shouldAllowBranchSync && item.branchSyncStatus === branchSyncStatus.UNSYNCED
               return (
                 <Menu.Item
                   key={item.value as string}
                   active={item.value === selectedGitBranch}
+                  disabled={isDisabled}
+                  title={isDisabled && getDisabledOptionTitleText ? getDisabledOptionTitleText?.() : undefined}
                   onClick={() => handleBranchClick(item)}
                   text={
                     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
