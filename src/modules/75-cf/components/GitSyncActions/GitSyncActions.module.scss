@@ -1,9 +1,3 @@
-.vertical-divider {
-  width: 1px;
-  height: var(--spacing-6);
-  background: var(--grey-300) !important;
-}
-
 .branch-action-button-wrapper {
   display: flex;
   justify-content: space-between;
@@ -82,9 +76,13 @@
 
 .git-repo-text {
   display: flex;
-  flex: 0.5;
   gap: 10px;
   padding: 5px 5px 5px 0 !important;
   align-items: center;
   color: var(--grey-1000);
+
+  p {
+    border-right: 1px solid var(--grey-300);
+    padding-right: var(--spacing-4) !important;
+  }
 }

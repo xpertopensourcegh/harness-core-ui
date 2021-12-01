@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-import { Text, Color, Container, Icon } from '@wings-software/uicore'
+import { Text, Color, Container, Icon, Layout } from '@wings-software/uicore'
 
 import BranchSettingsButton from './BranchSettingsButton'
 import css from './GitSyncActions.module.scss'
@@ -20,18 +20,18 @@ const GitSyncActions = (props: GitSyncActionsProps): ReactElement => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
   return (
-    <>
+    <Layout.Horizontal spacing="small" width={400}>
       <Container className={css.gitRepoText}>
         <Icon name="repository" />
-        <Text color={Color.BLACK}>{repository}</Text>
+        <Text lineClamp={1} color={Color.BLACK}>
+          {repository}
+        </Text>
       </Container>
-
-      <Container className={css.verticalDivider} />
 
       <Container>
         <BranchSettingsButton isSettingsOpen={isSettingsOpen} setIsSettingsOpen={setIsSettingsOpen} {...props} />
       </Container>
-    </>
+    </Layout.Horizontal>
   )
 }
 

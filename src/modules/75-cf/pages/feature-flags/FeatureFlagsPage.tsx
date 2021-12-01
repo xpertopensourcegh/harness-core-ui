@@ -652,23 +652,21 @@ const FeatureFlagsPage: React.FC = () => {
       header={header}
       headerStyle={{ display: 'flex' }}
       toolbar={
-        <Layout.Horizontal>
-          <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={400}>
-            <Container>
-              <FlagDialog environment={activeEnvironment} />
-            </Container>
-            {gitSync?.isGitSyncActionsEnabled && (
-              <GitSyncActions
-                isLoading={gitSync.gitSyncLoading || gitSyncing}
-                branch={gitSync.gitRepoDetails?.branch || ''}
-                repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
-                isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
-                isGitSyncPaused={gitSync.isGitSyncPaused}
-                handleToggleAutoCommit={gitSync.handleAutoCommit}
-                handleGitPause={gitSync.handleGitPause}
-              />
-            )}
+        <Layout.Horizontal flex={{ alignItems: 'center' }}>
+          <Container margin={{ right: 'small' }}>
+            <FlagDialog environment={activeEnvironment} />
           </Container>
+          {gitSync?.isGitSyncActionsEnabled && (
+            <GitSyncActions
+              isLoading={gitSync.gitSyncLoading || gitSyncing}
+              branch={gitSync.gitRepoDetails?.branch || ''}
+              repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
+              isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
+              isGitSyncPaused={gitSync.isGitSyncPaused}
+              handleToggleAutoCommit={gitSync.handleAutoCommit}
+              handleGitPause={gitSync.handleGitPause}
+            />
+          )}
           <FlexExpander />
           <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
         </Layout.Horizontal>
