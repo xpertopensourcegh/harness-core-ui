@@ -8,4 +8,5 @@ export type SelectHealthSourceServicesProps = {
   }
   metricPackResponse: ReturnType<typeof useGetMetricPacks>
   labelNamesResponse: ReturnType<typeof useGetLabelNames>
+  hideServiceIdentifier?: boolean
 }

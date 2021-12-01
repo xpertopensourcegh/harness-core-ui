@@ -1,6 +1,12 @@
 import type { IOptionProps } from '@blueprintjs/core'
 import { isNumber, isEmpty } from 'lodash-es'
-import type { StackdriverMetricHealthSourceSpec, RiskProfile, MetricPackDTO, TimeSeriesSampleDTO } from 'services/cv'
+import type {
+  RiskProfile,
+  MetricPackDTO,
+  TimeSeriesSampleDTO,
+  MetricDefinition,
+  StackdriverMetricHealthSourceSpec
+} from 'services/cv'
 import type { StringKeys } from 'framework/strings'
 import type { GCOMetricInfo, GCOMetricSetupSource } from './GCOMetricsHealthSource.type'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
@@ -86,7 +92,10 @@ export function transformGCOMetricHealthSourceToGCOMetricSetupSource(sourceData:
       riskCategory: `${metricDefinition.riskProfile?.category}/${metricDefinition.riskProfile?.metricType}`,
       higherBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_HIGHER'),
       lowerBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER'),
-      query: JSON.stringify(metricDefinition.jsonMetricDefinition, null, 2)
+      query: JSON.stringify(metricDefinition.jsonMetricDefinition, null, 2),
+      sli: metricDefinition.sli?.enabled,
+      continuousVerification: metricDefinition?.analysis?.deploymentVerification?.enabled,
+      healthScore: metricDefinition?.analysis?.liveMonitoring?.enabled
     })
   }
 
@@ -129,6 +138,19 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
         metricType: metricType as RiskProfile['metricType'],
         category: category as RiskProfile['category'],
         thresholdTypes
+      },
+      sli: { enabled: metricInfo?.sli || false },
+      analysis: {
+        riskProfile: {
+          category: category as RiskProfile['category'],
+          metricType: metricType as MetricDefinition['type'],
+          thresholdTypes
+        },
+        liveMonitoring: { enabled: metricInfo?.healthScore || false },
+        deploymentVerification: {
+          enabled: metricInfo?.continuousVerification || false,
+          serviceInstanceFieldName: metricInfo?.serviceInstance || ''
+        }
       }
     })
   }
@@ -144,12 +166,21 @@ export function ensureFieldsAreFilled(
   if (!values?.query?.length) {
     ret.query = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.query')
   }
-  if (!values.riskCategory) {
-    ret.riskCategory = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.riskCategory')
+
+  // values.sli, values.continuousVerification , values.healthScore
+  if (![values.sli, values.continuousVerification, values.healthScore].some(i => i)) {
+    ret.sli = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')
   }
-  if (!(values.higherBaselineDeviation || values.lowerBaselineDeviation)) {
-    ret.higherBaselineDeviation = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')
+
+  if (values.continuousVerification || values.healthScore) {
+    if (!values.riskCategory) {
+      ret.riskCategory = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.riskCategory')
+    }
+    if (!(values.higherBaselineDeviation || values.lowerBaselineDeviation)) {
+      ret.higherBaselineDeviation = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')
+    }
   }
+
   if (!values.metricName?.length) {
     ret.metricName = getString('cv.monitoringSources.metricNameValidation')
   }

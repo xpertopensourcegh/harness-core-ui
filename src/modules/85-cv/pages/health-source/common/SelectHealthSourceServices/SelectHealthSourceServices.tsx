@@ -9,7 +9,8 @@ import css from './SelectHealthSourceServices.module.scss'
 export default function SelectHealthSourceServices({
   values,
   metricPackResponse,
-  labelNamesResponse
+  labelNamesResponse,
+  hideServiceIdentifier = false
 }: SelectHealthSourceServicesProps): JSX.Element {
   const { getString } = useStrings()
   const { continuousVerification, healthScore } = values
@@ -28,7 +29,7 @@ export default function SelectHealthSourceServices({
         <RiskProfile
           metricPackResponse={metricPackResponse}
           labelNamesResponse={labelNamesResponse}
-          continuousVerificationEnabled={continuousVerification}
+          continuousVerificationEnabled={continuousVerification && !hideServiceIdentifier}
         />
       )}
     </Container>

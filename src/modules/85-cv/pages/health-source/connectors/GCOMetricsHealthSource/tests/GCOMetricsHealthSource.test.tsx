@@ -216,6 +216,9 @@ const DefaultObject = {
 describe('Unit tests for MapGCOMetricsToServices', () => {
   beforeAll(() => {
     jest.useFakeTimers()
+    jest.spyOn(cvService, 'useGetLabelNames').mockReturnValue({ data: { data: [] } } as any)
+    jest.spyOn(cvService, 'useGetMetricNames').mockReturnValue({ data: { data: [] } } as any)
+    jest.spyOn(cvService, 'useGetMetricPacks').mockReturnValue({ data: { data: [] } } as any)
   })
   beforeEach(() => {
     jest.clearAllMocks()
@@ -491,6 +494,10 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     )
     await waitFor(() => expect(container.querySelector('input[value="metric_1"]')).not.toBeNull())
 
+    await fillAtForm([
+      { container, type: InputTypes.CHECKBOX, fieldId: 'continuousVerification', value: 'continuousVerification' }
+    ])
+
     // fill out parts of the form
     await fillAtForm([
       { container, type: InputTypes.TEXTAREA, fieldId: FieldNames.QUERY, value: MockQuery },
@@ -573,5 +580,19 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(2))
     expect(container.querySelector('[class*="highcharts"]')).not.toBeNull()
     await waitFor(() => expect(container.querySelector('[class*="tooManyRecords"]')).toBeNull())
+  })
+
+  test('Ensure error is thrown when assign component has no service selected', async () => {
+    const { container, getByText } = render(<WrapperComponent onSubmit={jest.fn()} data={cloneDeep(DefaultObject)} />)
+    fireEvent.click(getByText('submit'))
+    // Error is show below sli checkbox
+    await waitFor(() => expect(container.querySelector('div[data-id="sli-5"] .bp3-form-helper-text')).not.toBeNull())
+    await waitFor(() =>
+      expect(getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')).toBeInTheDocument()
+    )
+    await fillAtForm([
+      { container, type: InputTypes.CHECKBOX, fieldId: 'continuousVerification', value: 'continuousVerification' }
+    ])
+    await waitFor(() => expect(container.querySelector('div[data-id="sli-5"] .bp3-form-helper-text')).toBeNull())
   })
 })

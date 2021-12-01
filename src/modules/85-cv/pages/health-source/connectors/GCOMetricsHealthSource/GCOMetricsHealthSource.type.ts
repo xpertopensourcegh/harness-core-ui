@@ -15,6 +15,10 @@ export interface GCOMetricInfo {
   lowerBaselineDeviation?: boolean
   isManualQuery?: boolean
   tooManyMetrics?: boolean
+  sli?: boolean
+  continuousVerification?: boolean
+  healthScore?: boolean
+  serviceInstance?: string
 }
 
 export interface GCOMetricSetupSource {

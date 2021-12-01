@@ -18,11 +18,11 @@ import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import { Drawer, IOptionProps } from '@blueprintjs/core'
+import { Drawer } from '@blueprintjs/core'
 import isEmpty from 'lodash-es/isEmpty'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
+import { useGetLabelNames, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
@@ -33,7 +33,6 @@ import { MANUAL_INPUT_QUERY } from './components/ManualInputQueryModal/ManualInp
 import {
   getManuallyCreatedQueries,
   formatJSON,
-  getRiskCategoryOptions,
   initializeSelectedMetrics,
   transformSampleDataIntoHighchartOptions,
   validate,
@@ -44,53 +43,10 @@ import {
 import DrawerFooter from '../../common/DrawerFooter/DrawerFooter'
 import type { GCOMetricInfo, GCOMetricsHealthSourceProps, ValidationChartProps } from './GCOMetricsHealthSource.type'
 import { OVERALL, FieldNames, DrawerOptions } from './GCOMetricsHealthSource.constants'
+import SelectHealthSourceServices from '../../common/SelectHealthSourceServices/SelectHealthSourceServices'
 import css from './GCOMetricsHealthSource.module.scss'
 
 const GroupByClause = 'groupByFields'
-
-function ConfigureRiskProfile(): JSX.Element {
-  const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const { data } = useGetMetricPacks({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
-  })
-  const [riskCategoryOptions, setRiskCategoryOptions] = useState<IOptionProps[]>([])
-
-  useEffect(() => {
-    setRiskCategoryOptions(getRiskCategoryOptions(data?.resource))
-  }, [data])
-
-  return (
-    <Container className={css.configureRiskProfileContainer}>
-      <Heading level={3} color={Color.BLACK} className={css.sectionHeading}>
-        {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.configureRiskProfile')}
-      </Heading>
-      <FormInput.RadioGroup
-        name={FieldNames.RISK_CATEGORY}
-        items={riskCategoryOptions}
-        className={css.inlineRadio}
-        label={getString('cv.monitoringSources.riskCategoryLabel')}
-      />
-      <Container className={css.deviation}>
-        <Text color={Color.BLACK} className={css.checkboxLabel}>
-          {getString('cv.monitoringSources.baselineDeviation')}
-        </Text>
-        <Container className={css.checkbox}>
-          <FormInput.CheckBox
-            name={FieldNames.HIGHER_BASELINE_DEVIATION}
-            value="higher"
-            label={getString('cv.monitoringSources.higherCounts')}
-          />
-          <FormInput.CheckBox
-            name={FieldNames.LOWER_BASELINE_DEVIATION}
-            value="lower"
-            label={getString('cv.monitoringSources.lowerCounts')}
-          />
-        </Container>
-      </Container>
-    </Container>
-  )
-}
 
 function ValidationChart(props: ValidationChartProps): JSX.Element {
   const { loading, error, queryValue, onRetry, sampleData, setAsTooManyMetrics, isQueryExecuted = false } = props
@@ -242,6 +198,21 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
       setUpdatedData(new Map(updatedData))
     }
   }
+
+  const metricPackResponse = useGetMetricPacks({
+    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
+  })
+  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
+  const labelNamesResponse = useGetLabelNames({
+    queryParams: {
+      projectIdentifier,
+      orgIdentifier,
+      accountId,
+      connectorIdentifier: data.connectorRef,
+      tracingId: labelNameTracingId
+    }
+  })
+
   return (
     <Formik<GCOMetricInfo>
       enableReinitialize={true}
@@ -257,6 +228,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
       }}
     >
       {formikProps => {
+        const { sli = false, healthScore = false, continuousVerification = false } = formikProps?.values
         return (
           <SetupSourceLayout
             content={
@@ -348,8 +320,16 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     </Drawer>
                   )}
                 </Container>
+                <SelectHealthSourceServices
+                  values={{
+                    sli,
+                    healthScore,
+                    continuousVerification
+                  }}
+                  metricPackResponse={metricPackResponse}
+                  labelNamesResponse={labelNamesResponse}
+                />
 
-                <ConfigureRiskProfile />
                 <FormInput.Text name={OVERALL} className={css.hiddenField} />
                 <DrawerFooter
                   onPrevious={onPrevious}
@@ -358,6 +338,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     formikProps.setTouched({
                       ...formikProps.touched,
                       [OVERALL]: true,
+                      [FieldNames.SLI]: true,
                       [FieldNames.RISK_CATEGORY]: true,
                       [FieldNames.HIGHER_BASELINE_DEVIATION]: true,
                       [FieldNames.LOWER_BASELINE_DEVIATION]: true
