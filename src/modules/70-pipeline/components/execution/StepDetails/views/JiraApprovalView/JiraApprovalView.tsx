@@ -48,7 +48,7 @@ export function JiraApprovalView(props: JiraApprovalViewProps): React.ReactEleme
     if (approvalInstanceId) {
       refetch()
     }
-  }, [])
+  }, [approvalInstanceId])
 
   if (error) {
     return (

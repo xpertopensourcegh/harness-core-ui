@@ -69,7 +69,7 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
     if (approvalInstanceId) {
       refetch()
     }
-  }, [])
+  }, [approvalInstanceId])
 
   useDeepCompareEffect(() => {
     setApprovalData(data?.data as ApprovalData)
