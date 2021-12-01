@@ -329,9 +329,6 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
       pipelineId,
       signal
     )
-    pipelineWithGitDetails.entityValidityDetails = {
-      valid: false
-    }
     const pipeline: PipelineInfoConfig = omit(
       pipelineWithGitDetails,
       'gitDetails',
