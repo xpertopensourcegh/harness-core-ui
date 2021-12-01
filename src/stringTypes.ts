@@ -3961,6 +3961,10 @@ export interface StringsMap {
   'cv.Dependency.noData': string
   'cv.Dependency.serviceChanges': string
   'cv.Dependency.serviceList': string
+  'cv.SLIMetricRatio': string
+  'cv.SLIRequestRatio': string
+  'cv.SLIValueIsGoodIf': string
+  'cv.SLOTarget': string
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string
   'cv.abbreviatedCategories.performance': string
@@ -4430,6 +4434,7 @@ export interface StringsMap {
   'cv.noAnalysis': string
   'cv.noAnomalies': string
   'cv.nonAnomalous': string
+  'cv.objectiveValue': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
   'cv.onboarding.activitySources.changeSourceInfo': string
@@ -4563,12 +4568,14 @@ export interface StringsMap {
   'cv.slos.validations.nameValidation': string
   'cv.slos.validations.userJourneyRequired': string
   'cv.statusCode': string
+  'cv.thanObjectiveValue': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
   'cv.thirdPartyCalls.requestMade': string
   'cv.thirdPartyCalls.timeTaken': string
   'cv.throughput': string
   'cv.timeline': string
+  'cv.toObjectiveValue': string
   'cv.trafficSplit': string
   'cv.trend': string
   'cv.turnService': string

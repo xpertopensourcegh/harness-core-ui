@@ -2,8 +2,9 @@ import type { IOptionProps } from '@blueprintjs/core'
 import type { SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
-import type { UseStringsReturn } from 'framework/strings'
+import type { UseStringsReturn, StringKeys } from 'framework/strings'
 import type { ResponseListMonitoredServiceWithHealthSources } from 'services/cv'
+import { Comparators } from './SLI.types'
 import type { SLOForm } from '../../CreateSLO.types'
 import { SLIMetricEnum, SLITypeEnum } from './SLI.constants'
 
@@ -56,4 +57,26 @@ export const getSliMetricOptions = (getString: UseStringsReturn['getString']): I
     { label: getString('cv.slos.slis.metricOptions.thresholdBased'), value: SLIMetricEnum.THRESHOLD },
     { label: getString('cv.slos.slis.metricOptions.ratioBased'), value: SLIMetricEnum.RATIO }
   ]
+}
+
+// PickMetric
+
+export const getEventTypeOptions = (): SelectOption[] => {
+  return [{ label: 'Good', value: 'good' }]
+}
+
+export const getGoodRequestMetricOptions = (): SelectOption[] => {
+  return [{ label: 'Metric 1', value: 'metric1' }]
+}
+
+export const getValidRequestMetricOptions = (): SelectOption[] => {
+  return [{ label: 'Metric 2', value: 'metric2' }]
+}
+
+export const getComparatorSuffixLabelId = (comparator?: Comparators): StringKeys => {
+  if (comparator === Comparators.LESS_EQUAL || comparator === Comparators.GREATER_EQUAL) {
+    return 'cv.toObjectiveValue'
+  }
+
+  return 'cv.thanObjectiveValue'
 }

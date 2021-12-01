@@ -216,16 +216,18 @@ exports[`Test SLI component should render SLI component 1`] = `
           </p>
         </div>
       </div>
-      <p
-        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-black"
-      >
-        cv.slos.pickMetricsSLI
-      </p>
       <div
-        class="Layout--vertical StyledProps--main sliElement StyledProps--margin-xxlarge"
+        class="StyledProps--font StyledProps--main StyledProps--margin-xxlarge"
+        style="width: 80%;"
       >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-form-title StyledProps--margin-bottom-xsmall"
+          level="2"
+        >
+          cv.slos.pickMetricsSLI
+        </h2>
         <div
-          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+          class="bp3-card bp3-elevation-0 Card--card card"
         >
           <div
             class="bp3-form-group"
@@ -259,6 +261,7 @@ exports[`Test SLI component should render SLI component 1`] = `
                     class="RadioButton--radio StyledProps--main"
                   >
                     <input
+                      checked=""
                       class="RadioButton--input"
                       name="serviceLevelIndicators.spec.type"
                       type="radio"
@@ -274,70 +277,312 @@ exports[`Test SLI component should render SLI component 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main"
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
           >
             <div
-              class="bp3-form-group dropdown"
-              data-id="serviceLevelIndicators.spec.spec.metric2-4"
+              class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right"
             >
-              <label
-                class="bp3-label"
-                for="serviceLevelIndicators.spec.spec.metric2"
-              >
-                cv.slos.slis.ratioMetricType.validRequestsMetrics
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
               <div
-                class="bp3-form-content"
+                class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main"
               >
                 <div
-                  class="bp3-popover-wrapper Select--main bp3-fill"
+                  class="bp3-form-group eventType"
+                  data-id="serviceLevelIndicators.spec.spec.eventType-4"
                 >
+                  <label
+                    class="bp3-label"
+                    for="serviceLevelIndicators.spec.spec.eventType"
+                  >
+                    cv.slos.slis.ratioMetricType.eventType
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
                   <div
-                    class="bp3-popover-target"
+                    class="bp3-form-content"
                   >
                     <div
-                      class="bp3-input-group"
+                      class="bp3-popover-wrapper Select--main bp3-fill"
                     >
-                      <input
-                        autocomplete="off"
-                        class="bp3-input"
-                        name="serviceLevelIndicators.spec.spec.metric2"
-                        placeholder="- cv.slos.slis.ratioMetricType.selectMetric2 -"
-                        style="padding-right: 0px;"
-                        type="text"
-                        value=""
-                      />
-                      <span
-                        class="bp3-input-action"
+                      <div
+                        class="bp3-popover-target"
                       >
-                        <span
-                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                          icon="chevron-down"
+                        <div
+                          class="bp3-input-group"
                         >
-                          <svg
-                            data-icon="chevron-down"
-                            height="14"
-                            viewBox="0 0 16 16"
-                            width="14"
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="serviceLevelIndicators.spec.spec.eventType"
+                            placeholder="- Select -"
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
                           >
-                            <desc>
-                              chevron-down
-                            </desc>
-                            <path
-                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </span>
+                            <span
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
+                            >
+                              <svg
+                                data-icon="chevron-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  chevron-down
+                                </desc>
+                                <path
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group metricSelect"
+                  data-id="serviceLevelIndicators.spec.spec.metric1-5"
+                >
+                  <label
+                    class="bp3-label"
+                    for="serviceLevelIndicators.spec.spec.metric1"
+                  >
+                    cv.slos.slis.ratioMetricType.goodRequestsMetrics
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="serviceLevelIndicators.spec.spec.metric1"
+                            placeholder="- Select -"
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
+                            >
+                              <svg
+                                data-icon="chevron-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  chevron-down
+                                </desc>
+                                <path
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div
+                class="bp3-form-group metricSelect"
+                data-id="serviceLevelIndicators.spec.spec.metric2-6"
+              >
+                <label
+                  class="bp3-label"
+                  for="serviceLevelIndicators.spec.spec.metric2"
+                >
+                  cv.slos.slis.ratioMetricType.validRequestsMetrics
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="serviceLevelIndicators.spec.spec.metric2"
+                          placeholder="- Select -"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group objectiveValue"
+                data-id="serviceLevelIndicators.spec.objectiveValue-7"
+              >
+                <label
+                  class="bp3-label"
+                  for="serviceLevelIndicators.spec.objectiveValue"
+                >
+                  cv.objectiveValue
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      max="100"
+                      min="0"
+                      name="serviceLevelIndicators.spec.objectiveValue"
+                      type="number"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                style="width: 320px;"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-grey600"
+                >
+                  cv.SLIValueIsGoodIf
+                </p>
+                <div
+                  class="bp3-form-group comparatorOptions"
+                  data-id="serviceLevelIndicators.spec.comparator-8"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="serviceLevelIndicators.spec.comparator"
+                            placeholder="- Select -"
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
+                            >
+                              <svg
+                                data-icon="chevron-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  chevron-down
+                                </desc>
+                                <path
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-grey600"
+                >
+                  cv.thanObjectiveValue
+                </p>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-center StyledProps--margin-left-xxlarge"
+              style="width: 360px; height: inherit;"
+            >
+              <span
+                data-testid="SLO-target-chart"
+              />
             </div>
           </div>
         </div>

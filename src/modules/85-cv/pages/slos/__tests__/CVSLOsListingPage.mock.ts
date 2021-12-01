@@ -1,3 +1,5 @@
+import { SLIMetricEnum } from '../components/CVCreateSLO/components/CreateSLOForm/components/SLI/SLI.constants'
+
 export const initialFormData = {
   name: '',
   identifier: '',
@@ -11,7 +13,7 @@ export const initialFormData = {
     identifier: '',
     type: 'latency',
     spec: {
-      type: 'ratio',
+      type: SLIMetricEnum.RATIO,
       spec: {
         eventType: '',
         metric1: '',

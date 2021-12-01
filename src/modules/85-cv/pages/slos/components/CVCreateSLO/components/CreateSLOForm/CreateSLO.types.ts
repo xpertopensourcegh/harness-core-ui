@@ -1,6 +1,7 @@
 import type { FormikProps } from 'formik'
 import type { SLIMetricSpec, SLOTargetSpec } from 'services/cv'
 import type { SLITypeEnum } from './components/SLI/SLI.constants'
+import type { Comparators } from './components/SLI/SLI.types'
 
 export interface SLOForm {
   name: string
@@ -15,6 +16,8 @@ export interface SLOForm {
     spec: {
       type?: 'Threshold' | 'Ratio'
       spec: SLIMetricSpec
+      objectiveValue?: number
+      comparator?: Comparators
     }
   }
   target: {

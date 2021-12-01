@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Color, FormInput, Text, useToaster } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -8,25 +8,16 @@ import { useGetAllMonitoredServicesWithTimeSeriesHealthSources } from 'services/
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { SLIProps } from './SLI.types'
-import {
-  getHealthSourcesOptions,
-  getMonitoredServicesOptions,
-  getSliMetricOptions,
-  getSliTypeOptions
-} from './SLI.utils'
-import { SLIMetricEnum } from './SLI.constants'
-import RatioMetricType from './components/RatioMetricType/RatioMetricType'
-import ThresholdMetricType from './components/ThresholdMetricType/ThresholdMetricType'
+import PickMetric from './views/PickMetric'
+import { getHealthSourcesOptions, getMonitoredServicesOptions, getSliTypeOptions } from './SLI.utils'
 import css from './SLI.module.scss'
 
 export default function SLI(props: SLIProps): JSX.Element {
-  const {
-    formikProps: { values },
-    children
-  } = props
+  const { formikProps, children } = props
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
+  const { values } = formikProps
 
   const {
     data: monitoredServicesData,
@@ -47,13 +38,6 @@ export default function SLI(props: SLIProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monitoredServicesDataError])
 
-  const renderSelectedMetricTypeLayout = useCallback(() => {
-    if (values?.serviceLevelIndicators?.spec?.type === SLIMetricEnum.RATIO) {
-      return <RatioMetricType />
-    }
-    return <ThresholdMetricType />
-  }, [values?.serviceLevelIndicators?.spec?.type])
-
   const monitoredServicesOptions = useMemo(
     () => getMonitoredServicesOptions(monitoredServicesData),
     [monitoredServicesData]
@@ -63,9 +47,6 @@ export default function SLI(props: SLIProps): JSX.Element {
     () => getHealthSourcesOptions(monitoredServicesData, values?.monitoredServiceRef),
     [values?.monitoredServiceRef, monitoredServicesData]
   )
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sliMetricOptions = useMemo(() => getSliMetricOptions(getString), [])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const sliTypeOptions = useMemo(() => getSliTypeOptions(getString), [])
@@ -103,17 +84,8 @@ export default function SLI(props: SLIProps): JSX.Element {
         <Text font={{ size: 'small' }}>{getString('cv.slos.latencySLI')}</Text>
       </CardWithOuterTitle>
 
-      <Text color={Color.BLACK} className={css.label}>
-        {getString('cv.slos.pickMetricsSLI')}
-      </Text>
-      <CardWithOuterTitle className={css.sliElement}>
-        <FormInput.RadioGroup
-          name="serviceLevelIndicators.spec.type"
-          radioGroup={{ inline: true }}
-          items={sliMetricOptions}
-        />
-        {renderSelectedMetricTypeLayout()}
-      </CardWithOuterTitle>
+      <PickMetric formikProps={formikProps} />
+
       {children}
     </>
   )

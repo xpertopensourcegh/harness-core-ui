@@ -155,6 +155,14 @@ exports[`Test SLOTargetAndBudgetPolicy component should render SLOTargetAndBudge
               </div>
             </div>
           </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--padding-bottom-small"
+          >
+            cv.SLOTarget
+          </p>
+          <span
+            data-testid="SLO-target-chart"
+          />
         </div>
       </div>
     </div>

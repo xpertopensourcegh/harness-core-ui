@@ -13,3 +13,26 @@
   margin-top: var(--spacing-large) !important;
   margin-left: var(--spacing-xxlarge) !important;
 }
+
+// PickMetric
+
+.card {
+  width: 100%;
+
+  .eventType {
+    width: 100px;
+  }
+
+  .metricSelect {
+    width: 300px;
+  }
+
+  .objectiveValue {
+    width: fit-content;
+  }
+
+  .comparatorOptions {
+    width: 60px;
+    margin-bottom: var(--spacing-0);
+  }
+}

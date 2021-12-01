@@ -1,7 +1,9 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Formik } from 'formik'
 import { FormikForm } from '@wings-software/uicore'
+import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import { initialFormData } from '@cv/pages/slos/__tests__/CVSLOsListingPage.mock'
 import type { StringKeys } from 'framework/strings'
@@ -14,6 +16,14 @@ import {
   getSliTypeOptions
 } from '../SLI.utils'
 import { expectedHealthSourcesOptions, expectedMonitoredServiceOptions, mockedMonitoredServiceData } from './SLI.mock'
+import { Comparators } from '../SLI.types'
+
+jest.mock('@cv/pages/slos/components/SLOTargetChart/SLOTargetChart', () => ({
+  __esModule: true,
+  default: function SLOTargetChart() {
+    return <span data-testid="SLO-target-chart" />
+  }
+}))
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props
@@ -57,6 +67,7 @@ describe('Test SLI component', () => {
 
   test('should render SLI component', async () => {
     const { container } = render(<WrapperComponent initialValues={initialFormData} />)
+    expect(screen.getByTestId('SLO-target-chart')).toBeInTheDocument()
     expect(container).toMatchSnapshot()
   })
 
@@ -93,5 +104,57 @@ describe('Test SLI component', () => {
         value: 'Ratio'
       }
     ])
+  })
+})
+
+describe('PickMetric', () => {
+  test('Event type and Good request metrics dropdowns should not be in the document for Threshold', () => {
+    render(<WrapperComponent initialValues={initialFormData} />)
+
+    const ratioMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.ratioBased')
+
+    expect(ratioMetricRadio).toBeChecked()
+    expect(screen.queryByText('cv.slos.slis.ratioMetricType.eventType')).toBeInTheDocument()
+    expect(screen.queryByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
+
+    const thresholdMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.thresholdBased')
+
+    userEvent.click(thresholdMetricRadio)
+
+    expect(thresholdMetricRadio).toBeChecked()
+    expect(screen.queryByText('cv.slos.slis.ratioMetricType.eventType')).not.toBeInTheDocument()
+    expect(screen.queryByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).not.toBeInTheDocument()
+  })
+
+  test('Suffix "than" should be in the document for operators < and >', () => {
+    const { container } = render(<WrapperComponent initialValues={initialFormData} />)
+
+    fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'serviceLevelIndicators.spec.comparator',
+        value: Comparators.LESS
+      }
+    ])
+
+    expect(screen.getByText('cv.thanObjectiveValue')).toBeInTheDocument()
+    expect(screen.queryByText('cv.toObjectiveValue')).not.toBeInTheDocument()
+  })
+
+  test('Suffix "to" should be in the document for operators <= and >=', () => {
+    const { container } = render(<WrapperComponent initialValues={initialFormData} />)
+
+    fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'serviceLevelIndicators.spec.comparator',
+        value: Comparators.LESS_EQUAL
+      }
+    ])
+
+    expect(screen.getByText('cv.toObjectiveValue')).toBeInTheDocument()
+    expect(screen.queryByText('cv.thanObjectiveValue')).not.toBeInTheDocument()
   })
 })

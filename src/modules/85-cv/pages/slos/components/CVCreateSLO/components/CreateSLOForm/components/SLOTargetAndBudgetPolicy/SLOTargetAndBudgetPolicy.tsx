@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo } from 'react'
-import { Color, Container, FormInput, Text } from '@wings-software/uicore'
+import { Color, Container, FontVariation, FormInput, Text } from '@wings-software/uicore'
 
 import { DateRangePicker } from '@blueprintjs/datetime'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import { useStrings } from 'framework/strings'
+import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import type { SLOTargetAndBudgetPolicyProps } from './SLOTargetAndBudgetPolicy.types'
 import {
   getDefaultDateRange,
@@ -79,6 +80,23 @@ export default function SLOTargetAndBudgetPolicy(props: SLOTargetAndBudgetPolicy
           />
           {renderPeriodLength()}
         </Container>
+
+        <Text font={{ variation: FontVariation.FORM_LABEL }} padding={{ bottom: 'small' }}>
+          {getString('cv.SLOTarget')}
+        </Text>
+        <SLOTargetChart
+          bottomLabel={
+            <Text
+              color={Color.GREY_500}
+              font={{ variation: FontVariation.SMALL_SEMI }}
+              margin={{ top: 'large', left: 'xxxlarge' }}
+              icon="symbol-square"
+              iconProps={{ color: Color.PRIMARY_4 }}
+            >
+              {getString('cv.SLIMetricRatio')}
+            </Text>
+          }
+        />
       </CardWithOuterTitle>
       {children}
     </>

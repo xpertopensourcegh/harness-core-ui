@@ -738,6 +738,13 @@ slos:
       validRequestsMetrics: Metric for valid requests
       selectMetric1: Select metric 1
       selectMetric2: Select metric 2
+SLOTarget: SLO Target
+SLIMetricRatio: SLI - Latency (Metric1 / Metric2 X 100)
+SLIRequestRatio: SLI = (Good requests/ Valid requests) X 100
+objectiveValue: Objective Value
+SLIValueIsGoodIf: SLI value is good if
+thanObjectiveValue: than objective value
+toObjectiveValue: to objective value
 cvChanges:
   changeTypeFilterDefault: 'Change Types'
   sourceFilterDefault: 'Sources'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { Formik } from 'formik'
 import { FormikForm } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -9,6 +9,13 @@ import SLOTargetAndBudgetPolicy from '../SLOTargetAndBudgetPolicy'
 import { getPeriodLengthOptions, getPeriodTypeOptions, getUpdatedTarget } from '../SLOTargetAndBudgetPolicy.utils'
 import type { SLOForm } from '../../../CreateSLO.types'
 import { periodLengthOptions } from './SLOTargetAndBudgetPolicy.mock'
+
+jest.mock('@cv/pages/slos/components/SLOTargetChart/SLOTargetChart', () => ({
+  __esModule: true,
+  default: function SLOTargetChart() {
+    return <span data-testid="SLO-target-chart" />
+  }
+}))
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props
@@ -40,6 +47,7 @@ describe('Test SLOTargetAndBudgetPolicy component', () => {
 
   test('should render SLOTargetAndBudgetPolicy component', async () => {
     const { container } = render(<WrapperComponent initialValues={initialFormData} />)
+    expect(screen.getByTestId('SLO-target-chart')).toBeInTheDocument()
     expect(container).toMatchSnapshot()
   })
 
