@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { defaultTo } from 'lodash-es'
 import { ButtonVariation, Color, Container, HarnessDocTooltip, Layout, Text } from '@wings-software/uicore'
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -154,10 +155,10 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
       return ((data as RestResponseDelegateGroupListing)?.resource?.delegateGroupDetails || []).map(
         delegateGroupDetails => ({
           ...delegateGroupDetails,
-          checked: shouldDelegateBeChecked(
-            delegateSelectors,
-            Object.keys(delegateGroupDetails?.groupImplicitSelectors || {})
-          )
+          checked: shouldDelegateBeChecked(delegateSelectors, [
+            ...Object.keys(defaultTo(delegateGroupDetails.groupImplicitSelectors, {})),
+            ...defaultTo(delegateGroupDetails.groupCustomSelectors, [])
+          ])
         })
       )
     } else {

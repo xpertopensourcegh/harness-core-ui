@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import type { CellProps, Renderer } from 'react-table'
+import { defaultTo } from 'lodash-es'
 import type { GetDataError } from 'restful-react'
 import ReactTimeago from 'react-timeago'
 import { Tooltip } from '@blueprintjs/core'
@@ -132,7 +133,11 @@ const RenderTags: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerC
   let delegateTags = []
   const { NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
   if (NG_CG_TASK_ASSIGNMENT_ISOLATION) {
-    delegateTags = Object.keys((row.original as DelegateGroupDetailsCustom).groupImplicitSelectors || {})
+    const delegateTagData = row.original as DelegateGroupDetailsCustom
+    delegateTags = [
+      ...Object.keys(defaultTo(delegateTagData.groupImplicitSelectors, {})),
+      ...defaultTo(delegateTagData.groupCustomSelectors, [])
+    ]
   } else {
     const { tags, implicitSelectors } = row.original as DelegateInnerCustom
     delegateTags = [...(tags || []), ...Object.keys(implicitSelectors || {})]
