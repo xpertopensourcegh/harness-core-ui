@@ -1,6 +1,7 @@
 import produce from 'immer'
 import { mapValues, range } from 'lodash-es'
 
+import { sanitizeHTML } from '@common/utils/StringUtils'
 import { getRegexForSearch } from './utils'
 import type { Action, ActionType, TextKeys, State } from './types'
 
@@ -9,7 +10,7 @@ const dataKeys: TextKeys[] = ['level', 'time', 'out']
 
 export function search(state: State, action: Action<ActionType.Search>): State {
   const { payload } = action
-  const searchRegex = getRegexForSearch(payload)
+  const searchRegex = getRegexForSearch(sanitizeHTML(payload))
 
   return produce(state, draft => {
     const linesWithResults: number[] = []
