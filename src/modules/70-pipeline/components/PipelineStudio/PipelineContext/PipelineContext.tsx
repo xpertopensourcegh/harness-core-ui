@@ -137,7 +137,11 @@ export const getPipelineByIdentifier = (
       obj = response
     }
     if (obj.status === 'SUCCESS' && obj.data?.yamlPipeline) {
-      return { ...parse(obj.data.yamlPipeline).pipeline, gitDetails: obj.data.gitDetails ?? {} }
+      return {
+        ...parse(obj.data.yamlPipeline).pipeline,
+        gitDetails: obj.data.gitDetails ?? {},
+        entityValidityDetails: obj.data.entityValidityDetails ?? {}
+      }
     }
     return obj
   })
