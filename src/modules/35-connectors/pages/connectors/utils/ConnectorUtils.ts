@@ -836,7 +836,7 @@ export const buildDockerPayload = (formData: FormData) => {
     type: Connectors.DOCKER,
     spec: {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
-      dockerRegistryUrl: formData.dockerRegistryUrl,
+      dockerRegistryUrl: formData.dockerRegistryUrl.trim(),
       providerType: formData.dockerProviderType,
       auth:
         formData.authType === AuthTypes.USER_PASSWORD
