@@ -33,17 +33,49 @@ const layouts: ExecutionLayoutState[] = [
   ExecutionLayoutState.MINIMIZE
 ]
 
+const SCROLL_OFFSET = 45
+
 export default function ExecutionLayoutToggle(props: ExecutionLayoutToggleProps): React.ReactElement {
   const { layout, setLayout } = useExecutionLayoutContext()
   const { getString } = useStrings()
+  const ref = React.useRef<HTMLDivElement | null>(null)
+  const isMounted = React.useRef(false)
 
   function handleViewChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const newLayout = e.target.value
     setLayout(newLayout as ExecutionLayoutState)
   }
 
+  // this effect should not run on mount
+  React.useLayoutEffect(() => {
+    let timer: number | null = null
+    if (isMounted.current && layout === ExecutionLayoutState.BOTTOM) {
+      timer = window.setTimeout(() => {
+        if (ref.current) {
+          const rect = ref.current.getBoundingClientRect()
+          const isOutOfView = rect.top > window.innerHeight
+          const container = document.getElementById('pipeline-execution-container')
+
+          if (isOutOfView && container) {
+            container.scrollTo({ top: Math.abs(rect.bottom + SCROLL_OFFSET - window.innerHeight), behavior: 'smooth' })
+          }
+        }
+      }, 200)
+    }
+
+    return () => {
+      if (timer) {
+        window.clearTimeout(timer)
+      }
+    }
+  }, [layout])
+
+  React.useLayoutEffect(() => {
+    isMounted.current = true
+  }, [])
+
   return (
-    <div className={cx(css.toggle, props.className)}>
+    <div ref={ref} className={cx(css.toggle, props.className)}>
       {layouts.map(key => (
         <label key={key} className={css.label} title={getString(labelMap[key])}>
           <input type="radio" name="layout" value={key} onChange={handleViewChange} checked={layout === key} />
