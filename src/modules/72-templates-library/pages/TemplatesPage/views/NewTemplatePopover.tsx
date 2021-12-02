@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Position } from '@blueprintjs/core'
 import { ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
@@ -15,7 +15,7 @@ import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
+import { usePermission } from '@rbac/hooks/usePermission'
 
 export function NewTemplatePopover(): React.ReactElement {
   const handleAddTemplate = () => undefined
@@ -24,7 +24,16 @@ export function NewTemplatePopover(): React.ReactElement {
   const allowedTemplateTypes = getAllowedTemplateTypes(getString)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const { isReadonly } = useContext(TemplateContext)
+
+  const rbacResourcePermission = {
+    resource: {
+      resourceType: ResourceType.TEMPLATE
+    }
+  }
+  const [canEdit] = usePermission({
+    ...rbacResourcePermission,
+    permissions: [PermissionIdentifier.EDIT_TEMPLATE]
+  })
 
   const goToTemplateStudio = React.useCallback(
     (templateType: TemplateType) => {
@@ -56,7 +65,7 @@ export function NewTemplatePopover(): React.ReactElement {
       minimal={true}
       items={getMenu()}
       position={Position.BOTTOM}
-      disabled={isReadonly}
+      disabled={!canEdit}
       setMenuOpen={setMenuOpen}
       usePortal={false}
     >
@@ -67,10 +76,8 @@ export function NewTemplatePopover(): React.ReactElement {
         text={getString('templatesLibrary.addNewTemplate')}
         onClick={handleAddTemplate}
         permission={{
-          permission: PermissionIdentifier.EDIT_TEMPLATE,
-          resource: {
-            resourceType: ResourceType.TEMPLATE
-          }
+          ...rbacResourcePermission,
+          permission: PermissionIdentifier.EDIT_TEMPLATE
         }}
       />
     </TemplatesActionPopover>

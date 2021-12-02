@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonSize, ButtonVariation, Color, Container, Tab, Tabs } from '@wings-software/uicore'
+import { Button, ButtonSize, ButtonVariation, Color, Container, Tab, Tabs } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -223,7 +223,7 @@ export function StepCommands(
               <>
                 <Expander />
                 <div>
-                  <RbacButton
+                  <Button
                     text={getString('common.useTemplate')}
                     variation={ButtonVariation.SECONDARY}
                     size={ButtonSize.SMALL}
@@ -233,12 +233,6 @@ export function StepCommands(
                       onUseTemplate?.(step)
                     }}
                     margin={{ right: 'small' }}
-                    permission={{
-                      permission: PermissionIdentifier.ACCESS_TEMPLATE,
-                      resource: {
-                        resourceType: ResourceType.TEMPLATE
-                      }
-                    }}
                   />
                   <RbacButton
                     withoutCurrentColor

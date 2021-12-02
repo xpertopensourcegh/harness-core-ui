@@ -29,7 +29,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     setLoading,
     fetchTemplate,
     deleteTemplateCache,
-    view
+    view,
+    isReadonly
   } = React.useContext(TemplateContext)
   const { getString } = useStrings()
   const { getErrors } = props
@@ -133,16 +134,18 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
         : [
             {
               label: getString('save'),
-              disabled: !isUpdated,
+              disabled: !isUpdated || isReadonly,
               onClick: onUpdate
             },
             {
               label: getString('templatesLibrary.saveAsNewLabelModal.heading'),
-              onClick: onSaveAsNewLabel
+              onClick: onSaveAsNewLabel,
+              disabled: isReadonly
             },
             {
               label: getString('common.template.saveAsNewTemplateHeading'),
-              onClick: onSaveAsNewTemplate
+              onClick: onSaveAsNewTemplate,
+              disabled: isReadonly
             }
           ]
     )

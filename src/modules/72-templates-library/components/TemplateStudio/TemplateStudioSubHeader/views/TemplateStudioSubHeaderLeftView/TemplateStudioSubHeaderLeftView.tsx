@@ -296,7 +296,6 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
             items={versionOptions}
             value={template.versionLabel}
             filterable={false}
-            disabled={isReadonly}
             className={css.versionDropDown}
           />
         )}
