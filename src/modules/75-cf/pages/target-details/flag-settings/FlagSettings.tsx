@@ -5,7 +5,6 @@ import {
   ExpandingSearchInput,
   FlexExpander,
   Layout,
-  Pagination,
   Select,
   SelectOption,
   Text,
@@ -29,6 +28,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
+import ResponsivePagination from '@cf/components/ResponsivePagination/ResponsivePagination'
 
 import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
@@ -191,7 +191,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
 
             {(data?.itemCount || 0) > CF_DEFAULT_PAGE_SIZE && (
               <Container className={css.pagination}>
-                <Pagination
+                <ResponsivePagination
                   itemCount={data?.itemCount || 0}
                   pageSize={data?.pageSize || 0}
                   pageCount={data?.pageCount || 0}
