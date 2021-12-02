@@ -272,7 +272,9 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
             onNext={async () => {
               formikProps.setTouched({
                 ...formikProps.touched,
-                sli: true
+                [PrometheusMonitoringSourceFieldNames.SLI]: true,
+                [PrometheusMonitoringSourceFieldNames.RISK_CATEGORY]: true,
+                [PrometheusMonitoringSourceFieldNames.LOWER_BASELINE_DEVIATION]: true
               })
 
               if (Object.keys(formikProps.errors || {})?.length > 0) {

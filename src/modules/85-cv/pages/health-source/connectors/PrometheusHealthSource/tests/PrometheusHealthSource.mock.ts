@@ -23,6 +23,7 @@ export const MockManualQueryData = {
             envFilter: [{ labelName: 'namespace', labelValue: 'cv-demo', queryFilterString: 'namespace="cv-demo"' }],
             additionalFilters: null,
             aggregation: 'count',
+            sli: { enabled: true },
             analysis: {
               liveMonitoring: { enabled: true },
               deploymentVerification: { enabled: true, serviceInstanceFieldName: 'serviceInstanceFieldName' },

@@ -115,7 +115,7 @@ describe('Unit tests for PrometheusHealthSource', () => {
               prometheusMetric: undefined,
               query: 'count(container_cpu_load_average_10s{container="cv-demo",namespace="cv-demo"})',
               serviceFilter: [],
-              sli: { enabled: undefined }
+              sli: { enabled: true }
             }
           ]
         },
@@ -130,6 +130,8 @@ describe('Unit tests for PrometheusHealthSource', () => {
     cloneMockManualQueryData.healthSourceList[0].spec.metricDefinitions[0].analysis.deploymentVerification.enabled =
       false
     cloneMockManualQueryData.healthSourceList[0].spec.metricDefinitions[0].analysis.liveMonitoring.enabled = false
+    cloneMockManualQueryData.healthSourceList[0].spec.metricDefinitions[0].sli.enabled = false
+    cloneMockManualQueryData.healthSourceList[0].spec.metricDefinitions[0].analysis.riskProfile = {} as any
     const { container, getByText } = render(
       <WrapperComponent data={cloneMockManualQueryData} onSubmit={onSubmitMock} />
     )
@@ -167,9 +169,9 @@ describe('Unit tests for PrometheusHealthSource', () => {
                 deploymentVerification: { enabled: false, serviceInstanceFieldName: 'serviceInstanceFieldName' },
                 liveMonitoring: { enabled: false },
                 riskProfile: {
-                  category: 'Infrastructure',
-                  metricType: 'INFRA',
-                  thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
+                  category: '',
+                  metricType: undefined,
+                  thresholdTypes: []
                 }
               },
               envFilter: [
@@ -184,7 +186,7 @@ describe('Unit tests for PrometheusHealthSource', () => {
               prometheusMetric: 'container_cpu_load_average_10s',
               query: 'count(container_cpu_load_average_10s{container="cv-demo",namespace="cv-demo"})',
               serviceFilter: [{ labelName: 'container:cv-demo', labelValue: 'cv-demo' }],
-              sli: { enabled: undefined }
+              sli: { enabled: false }
             }
           ]
         },
