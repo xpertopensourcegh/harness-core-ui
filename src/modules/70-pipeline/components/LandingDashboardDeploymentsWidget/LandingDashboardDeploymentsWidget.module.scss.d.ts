@@ -25,5 +25,7 @@ declare const styles: {
   readonly loaderContainer: string
   readonly loaderCard: string
   readonly apiErrorWidget: string
+  readonly noDataContainer: string
+  readonly noDataIcon: string
 }
 export default styles

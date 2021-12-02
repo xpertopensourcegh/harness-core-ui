@@ -551,7 +551,7 @@ exports[`<TemplateStudioSubHeaderLeftView /> tests snapshot test 1`] = `
 exports[`<TemplateStudioSubHeaderLeftView /> tests update stable template test 1`] = `
 <div
   class="bp3-dialog useConfirmationDialog--dialog"
-  style="width: 500px; min-height: 200px;"
+  style="width: 500px; min-height: 218px;"
 >
   <div
     class="StyledProps--font StyledProps--main useConfirmationDialog--iconContainer StyledProps--flex"
@@ -612,7 +612,7 @@ exports[`<TemplateStudioSubHeaderLeftView /> tests update stable template test 1
     </p>
   </div>
   <div
-    class="Layout--vertical StyledProps--main useConfirmationDialog--body StyledProps--font StyledProps--font-variation-body StyledProps--color StyledProps--color-black StyledProps--margin-top-large StyledProps--margin-bottom-medium"
+    class="Layout--vertical StyledProps--main useConfirmationDialog--body StyledProps--font StyledProps--font-variation-body StyledProps--color StyledProps--color-black StyledProps--margin-top-large StyledProps--margin-bottom-xxlarge"
   >
     templatesLibrary.setAsStableText
   </div>

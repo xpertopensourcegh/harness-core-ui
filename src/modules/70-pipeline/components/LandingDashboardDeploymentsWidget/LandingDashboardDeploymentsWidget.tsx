@@ -6,7 +6,11 @@ import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
 import type { GetDataError, UseGetProps } from 'restful-react'
 import type { Error, Failure } from 'services/template-ng'
-import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
+import {
+  useLandingDashboardContext,
+  TimeRangeToDays,
+  DashboardTimeRange
+} from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
@@ -462,6 +466,24 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     )
   }
 
+  const noDataRenderer = () => {
+    const TIME_RANGE_TO_LABEL_STRING = {
+      [DashboardTimeRange['30Days']]: getString('projectsOrgs.landingDashboard.last30Days'),
+      [DashboardTimeRange['60Days']]: getString('projectsOrgs.landingDashboard.last60Days'),
+      [DashboardTimeRange['90Days']]: getString('projectsOrgs.landingDashboard.last90Days'),
+      [DashboardTimeRange['1Year']]: getString('projectsOrgs.landingDashboard.last1Year')
+    }
+    if (sortByValue === 'INSTANCES') {
+      return (
+        <div className={css.noDataContainer}>
+          <Icon name="no-instances" size={55} className={css.noDataIcon} />
+          No Service Instances in {TIME_RANGE_TO_LABEL_STRING[selectedTimeRange]}
+        </div>
+      )
+    }
+    return <div className={css.noDataContainer}>No Deployments in {TIME_RANGE_TO_LABEL_STRING[selectedTimeRange]}</div>
+  }
+
   return (
     <div className={css.main}>
       {response?.deploymentsOverview && showBadgesCard(response?.deploymentsOverview) && (
@@ -538,6 +560,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
               barLength={185}
               columnHeaders={['SERVICES', sortByValue]}
               summaryData={defaultTo(mostActiveServicesData, [])}
+              noDataRenderer={noDataRenderer}
             />
           </div>
         </Card>

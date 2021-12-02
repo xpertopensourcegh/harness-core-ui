@@ -26,13 +26,17 @@ export interface StackedSummaryTableProps {
   columnHeaders: (JSX.Element | string)[]
   summaryData: Array<StackedSummaryInterface>
   barLength?: number
+  noDataRenderer?: () => JSX.Element
 }
 
 export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => {
-  const { columnHeaders, summaryData, barLength } = props
+  const { columnHeaders, summaryData, barLength, noDataRenderer } = props
 
   if (!summaryData[0]?.barSectionsData?.length) {
     logger.error(`Ivalid data for StackedSummaryTable, summaryData:${{ summaryData }}`)
+    if (noDataRenderer) {
+      return noDataRenderer()
+    }
     return null
   }
 
