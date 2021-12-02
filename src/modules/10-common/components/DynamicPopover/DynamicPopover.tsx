@@ -15,11 +15,9 @@ export interface DynamicPopoverHandlerBinding<T> {
     ref: Element | PopperJS.VirtualElement | string,
     data?: T,
     options?: { darkMode?: boolean; useArrows?: boolean; fixedPosition?: boolean; placement?: PopperJS.Placement },
-    onHideCallBack?: () => void,
-    isHoverView?: boolean
+    onHideCallBack?: () => void
   ) => void
   hide: () => void
-  isHoverView?: () => boolean
 }
 
 export interface DynamicPopoverProps<T> {
@@ -54,10 +52,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
   const [hideCallback, setHideCallBack] = useState<() => void | undefined>()
   const [placement, setPlacement] = useState<PopperJS.Placement>('auto')
   const timerRef = React.useRef<number | null>(null)
-  const showTimerRef = React.useRef<number | null>(null)
   const mouseInRef = React.useRef<boolean>(false)
-  const [isShowTimerExecuting, setIsShowTimerExecuting] = React.useState<boolean>()
-  const [isHoverView, setIsHoverView] = React.useState<boolean>()
 
   const { styles, attributes, forceUpdate } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
@@ -71,53 +66,41 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
   const handler = useMemo(
     () =>
       ({
-        show: (ref, dataTemp, options, callback, hoverView) => {
+        show: (ref, dataTemp, options, callback) => {
           if (timerRef.current) {
             window.clearTimeout(timerRef.current)
           }
-          if (showTimerRef.current) {
-            window.clearTimeout(showTimerRef.current)
+          setVisibility(true)
+          setData(dataTemp)
+
+          if (typeof ref === 'string') {
+            setReferenceElement(document.querySelector(ref))
+          } else {
+            setReferenceElement(ref)
           }
-          setIsShowTimerExecuting(true)
-          setIsHoverView(hoverView)
-          showTimerRef.current = window.setTimeout(
-            () => {
-              setVisibility(true)
-              setIsShowTimerExecuting(false)
-              setData(dataTemp)
-              if (typeof ref === 'string') {
-                setReferenceElement(document.querySelector(ref))
-              } else {
-                setReferenceElement(ref)
-              }
-              if (options) {
-                typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
-                typeof options.useArrows === 'boolean' && setArrowVisibility(options.useArrows)
-                typeof options.fixedPosition === 'boolean' && setFixedPosition(options.fixedPosition)
-                options.placement ? setPlacement(options.placement) : setPlacement('auto')
-              }
-              setHideCallBack(prev => {
-                prev?.()
-                return callback
-              })
-            },
-            hoverView ? 500 : 0
-          )
+
+          if (options) {
+            typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
+            typeof options.useArrows === 'boolean' && setArrowVisibility(options.useArrows)
+            typeof options.fixedPosition === 'boolean' && setFixedPosition(options.fixedPosition)
+            options.placement ? setPlacement(options.placement) : setPlacement('auto')
+          }
+          setHideCallBack(prev => {
+            prev?.()
+            return callback
+          })
         },
         hide: () => {
           if (timerRef.current) {
             window.clearTimeout(timerRef.current)
           }
-          if (showTimerRef.current) {
-            window.clearTimeout(showTimerRef.current)
-          }
-          if (!isShowTimerExecuting && !mouseInRef.current) {
+
+          if (!mouseInRef.current) {
             timerRef.current = window.setTimeout(() => setVisibility(false), 300)
           }
-        },
-        isHoverView: () => isHoverView
+        }
       } as DynamicPopoverHandlerBinding<T>),
-    [setVisibility, isShowTimerExecuting, isHoverView]
+    [setVisibility]
   )
 
   React.useEffect(() => {
