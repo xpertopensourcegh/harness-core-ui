@@ -1,9 +1,8 @@
 import { Button, ButtonVariation, Layout } from '@wings-software/uicore'
 import React from 'react'
-import { isEmpty } from 'lodash-es'
 import { CreateSLOEnum, TabsOrder } from '../CreateSLOForm/CreateSLO.constants'
 import type { NavButtonsProps } from './NavButtons.types'
-import { validateSLOForm } from '../CreateSLOForm/CreateSLO.utils'
+import { isFormDataValid } from '../CreateSLOForm/CreateSLO.utils'
 import css from '../CreateSLOForm/CreateSLO.module.scss'
 
 export const NavButtons = ({
@@ -25,13 +24,10 @@ export const NavButtons = ({
         variation={ButtonVariation.PRIMARY}
         rightIcon="chevron-right"
         onClick={() => {
-          const errors = validateSLOForm(formikProps, selectedTabId, getString)
-          if (isEmpty(errors)) {
-            if (selectedTabId === CreateSLOEnum.SLO_TARGET_BUDGET_POLICY) {
-              formikProps.submitForm()
-            } else {
-              setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
-            }
+          if (selectedTabId === CreateSLOEnum.SLO_TARGET_BUDGET_POLICY) {
+            formikProps.submitForm()
+          } else if (isFormDataValid(formikProps, selectedTabId)) {
+            setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
           }
         }}
       />

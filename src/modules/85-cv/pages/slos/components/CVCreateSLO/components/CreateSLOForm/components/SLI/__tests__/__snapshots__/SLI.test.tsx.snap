@@ -508,7 +508,7 @@ exports[`Test SLI component should render SLI component 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
                 style="width: 320px;"
               >
                 <p

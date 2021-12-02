@@ -745,6 +745,8 @@ objectiveValue: Objective Value
 SLIValueIsGoodIf: SLI value is good if
 thanObjectiveValue: than objective value
 toObjectiveValue: to objective value
+metricIsRequired: Metric is required
+required: Required
 cvChanges:
   changeTypeFilterDefault: 'Change Types'
   sourceFilterDefault: 'Sources'

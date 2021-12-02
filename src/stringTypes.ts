@@ -4200,6 +4200,7 @@ export interface StringsMap {
   'cv.logsCluster': string
   'cv.messageFrequency': string
   'cv.methodLabel': string
+  'cv.metricIsRequired': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
@@ -4496,6 +4497,7 @@ export interface StringsMap {
   'cv.queries': string
   'cv.query': string
   'cv.request': string
+  'cv.required': string
   'cv.response': string
   'cv.responseBody': string
   'cv.responseTime': string

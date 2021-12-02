@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react'
 import { Container, Tab, Tabs } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { CreateSLOEnum } from './CreateSLO.constants'
 
@@ -9,7 +8,7 @@ import SLOName from './components/SLOName/SLOName'
 import SLI from './components/SLI/SLI'
 import SLOTargetAndBudgetPolicy from './components/SLOTargetAndBudgetPolicy/SLOTargetAndBudgetPolicy'
 import type { CreateSLOFormProps } from './CreateSLO.types'
-import { validateSLOForm } from './CreateSLO.utils'
+import { isFormDataValid } from './CreateSLO.utils'
 import css from './CreateSLO.module.scss'
 
 export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
@@ -35,8 +34,7 @@ export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
           id="createSLOTabs"
           selectedTabId={selectedTabId}
           onChange={nextTab => {
-            const errors = validateSLOForm(formikProps, selectedTabId, getString)
-            if (isEmpty(errors)) {
+            if (isFormDataValid(formikProps, selectedTabId)) {
               setSelectedTabId(nextTab as CreateSLOEnum)
             }
           }}

@@ -63,7 +63,11 @@ const PickMetric: React.FC<PickMetricProps> = ({ formikProps }) => {
               }}
               className={css.objectiveValue}
             />
-            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="small" width={320}>
+            <Layout.Horizontal
+              flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}
+              spacing="small"
+              width={320}
+            >
               <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_600}>
                 {getString('cv.SLIValueIsGoodIf')}
               </Text>

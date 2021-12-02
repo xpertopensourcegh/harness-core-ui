@@ -1,5 +1,4 @@
 import type { FormikProps } from 'formik'
-import type { StringKeys } from 'framework/strings'
 import type { ServiceLevelIndicatorDTO, ServiceLevelObjectiveDTO } from 'services/cv'
 import { CreateSLOEnum } from './CreateSLO.constants'
 import type { SLOForm } from './CreateSLO.types'
@@ -21,53 +20,33 @@ export const createSLORequestPayload = (
   }
 }
 
-export function validateSLOForm(
-  formikProps: FormikProps<SLOForm>,
-  selectedTabId: CreateSLOEnum,
-  getString: (key: StringKeys) => string
-): { [key: string]: string } | undefined {
-  let errors = {}
-
+export const isFormDataValid = (formikProps: FormikProps<SLOForm>, selectedTabId: CreateSLOEnum): boolean => {
   if (selectedTabId === CreateSLOEnum.NAME) {
-    errors = validateFieldsInNameTab(formikProps, getString)
-  } else if (selectedTabId === CreateSLOEnum.SLI) {
-    errors = validateFieldsInSLITab(formikProps, getString)
+    formikProps.setFieldTouched('name')
+    formikProps.setFieldTouched('userJourneyRef')
+
+    const { name, userJourneyRef } = formikProps.values
+
+    if (!name || !userJourneyRef) {
+      return false
+    }
   }
-  return errors
-}
 
-export function validateFieldsInNameTab(
-  formikProps: FormikProps<SLOForm>,
-  getString: (key: StringKeys) => string
-): { [key: string]: string } {
-  const errorsInNameTab: { [key: string]: string } = {}
+  if (selectedTabId === CreateSLOEnum.SLI) {
+    formikProps.setFieldTouched('monitoredServiceRef')
+    formikProps.setFieldTouched('healthSourceRef')
+    formikProps.setFieldTouched('serviceLevelIndicators.spec.spec.eventType')
+    formikProps.setFieldTouched('serviceLevelIndicators.spec.spec.metric1')
+    formikProps.setFieldTouched('serviceLevelIndicators.spec.spec.metric2')
+    formikProps.setFieldTouched('serviceLevelIndicators.spec.objectiveValue')
+    formikProps.setFieldTouched('serviceLevelIndicators.spec.comparator')
 
-  formikProps.setFieldTouched('name', true)
-  formikProps.setFieldTouched('userJourneyRef', true)
+    const { monitoredServiceRef, healthSourceRef, serviceLevelIndicators } = formikProps.errors
 
-  if (!formikProps?.values?.name) {
-    errorsInNameTab.name = getString('cv.slos.validations.nameValidation')
+    if (monitoredServiceRef || healthSourceRef || serviceLevelIndicators) {
+      return false
+    }
   }
-  if (!formikProps?.values.userJourneyRef) {
-    errorsInNameTab.userJourneyRef = getString('cv.slos.validations.userJourneyRequired')
-  }
-  return errorsInNameTab
-}
 
-export function validateFieldsInSLITab(
-  formikProps: FormikProps<SLOForm>,
-  getString: (key: StringKeys) => string
-): { [key: string]: string } {
-  const errorsInSLITab: { [key: string]: string } = {}
-
-  formikProps.setFieldTouched('monitoredServiceRef', true)
-  formikProps.setFieldTouched('healthSourceRef', true)
-
-  if (!formikProps?.values?.monitoredServiceRef) {
-    errorsInSLITab.monitoredServiceRef = getString('connectors.cdng.validations.monitoringServiceRequired')
-  }
-  if (!formikProps?.values?.healthSourceRef) {
-    errorsInSLITab.healthSourceRef = getString('cv.slos.validations.userJourneyRequired')
-  }
-  return errorsInSLITab
+  return true
 }

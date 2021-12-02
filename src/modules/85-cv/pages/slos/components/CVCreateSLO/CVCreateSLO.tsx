@@ -12,10 +12,13 @@ import type { SLOForm } from './components/CreateSLOForm/CreateSLO.types'
 import { createSLORequestPayload } from './components/CreateSLOForm/CreateSLO.utils'
 import CreateSLOForm from './components/CreateSLOForm/CreateSLOForm'
 import { getInitialValuesSLO } from './CVCreateSLO.utils'
+import { SLIMetricEnum } from './components/CreateSLOForm/components/SLI/SLI.constants'
 import css from './CVCreateSLO.module.scss'
 
 export default function CVCreateSLO(): JSX.Element {
   const { getString } = useStrings()
+  const REQUIRED = getString('cv.required')
+  const METRIC_IS_REQUIRED = getString('cv.metricIsRequired')
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
@@ -112,7 +115,28 @@ export default function CVCreateSLO(): JSX.Element {
             monitoredServiceRef: Yup.string()
               .nullable()
               .required(getString('connectors.cdng.validations.monitoringServiceRequired')),
-            healthSourceRef: Yup.string().nullable().required(getString('cv.slos.validations.healthSourceRequired'))
+            healthSourceRef: Yup.string().nullable().required(getString('cv.slos.validations.healthSourceRequired')),
+            serviceLevelIndicators: Yup.object().shape({
+              spec: Yup.object().shape({
+                spec: Yup.object().when(['type'], {
+                  is: SLIMetricType => SLIMetricType === SLIMetricEnum.RATIO,
+                  then: Yup.object().shape({
+                    eventType: Yup.string().required(REQUIRED),
+                    metric1: Yup.string().required(METRIC_IS_REQUIRED),
+                    metric2: Yup.string().required(METRIC_IS_REQUIRED)
+                  }),
+                  otherwise: Yup.object().shape({
+                    metric2: Yup.string().required(METRIC_IS_REQUIRED)
+                  })
+                }),
+                objectiveValue: Yup.number()
+                  .typeError(getString('common.validation.valueMustBeANumber'))
+                  .min(0, getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: 0 }))
+                  .max(100, getString('common.validation.valueMustBeLessThanOrEqualToN', { n: 100 }))
+                  .required(REQUIRED),
+                comparator: Yup.string().required(REQUIRED)
+              })
+            })
           })}
           enableReinitialize
         >
