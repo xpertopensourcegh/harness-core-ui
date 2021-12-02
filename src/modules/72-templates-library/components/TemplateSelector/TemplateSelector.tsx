@@ -32,7 +32,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
   const { onUseTemplate, onCopyTemplate } = data?.selectorData || {}
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & ModulePathParams>()
+  const { accountId } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
   const { showError } = useToaster()
 
@@ -59,8 +59,8 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
         templateIdentifier,
         queryParams: {
           accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier,
+          orgIdentifier: selectedTemplate?.orgIdentifier,
+          projectIdentifier: selectedTemplate?.projectIdentifier,
           versionLabel:
             selectedTemplate?.versionLabel === DefaultNewVersionLabel
               ? ''
@@ -84,7 +84,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     } catch (err) {
       showError(get(err, 'data.error', get(err, 'data.message', err?.message)))
     }
-  }, [selectedTemplate, accountId, orgIdentifier, projectIdentifier, onUseTemplate])
+  }, [selectedTemplate, accountId, onUseTemplate])
 
   return (
     <Container height={'100%'} className={css.container}>

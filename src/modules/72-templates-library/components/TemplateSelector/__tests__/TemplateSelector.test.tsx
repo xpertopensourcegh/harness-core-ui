@@ -1,10 +1,15 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
+import { set } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useMutateAsGet } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
-import { mockTemplatesSuccessResponse } from '@templates-library/TemplatesTestHelper'
+import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'
+import type { TemplateSelectorLeftViewProps } from '@templates-library/components/TemplateSelector/TemplateSelectorLeftView/TemplateSelectorLeftView'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer/__tests__/stateMock'
+import { mockTemplates } from '@templates-library/TemplatesTestHelper'
+import type { TemplateDetailsProps } from '@templates-library/components/TemplateDetails/TemplateDetails'
+import { getTemplateInputSetYamlPromise } from 'services/template-ng'
 import { TemplateSelector } from '../TemplateSelector'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -17,29 +22,76 @@ jest.mock('@common/hooks', () => ({
   useMutateAsGet: jest.fn()
 }))
 
-const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
-const pathParams = {
-  accountId: 'TEST_ACCOUNT_ID',
-  orgIdentifier: 'TEST_ORG',
-  projectIdentifier: 'TEST_PROJECT',
-  pipelineIdentifier: 'TEST_PIPELINE',
-  executionIdentifier: 'TEST_EXECUTION',
-  module: 'cd',
-  stageId: 'selectedStageId'
-}
+jest.mock('services/template-ng', () => ({
+  getTemplateInputSetYamlPromise: jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      status: 'SUCCESS',
+      data: '',
+      metaData: null,
+      correlationId: 'd9df6311-b6a4-44de-a6b4-504bf0036ba2'
+    })
+  )
+}))
+
+jest.mock('@templates-library/components/TemplateSelector/TemplateSelectorLeftView/TemplateSelectorLeftView', () => ({
+  ...(jest.requireActual(
+    '@templates-library/components/TemplateSelector/TemplateSelectorLeftView/TemplateSelectorLeftView'
+  ) as any),
+  // eslint-disable-next-line react/display-name
+  TemplateSelectorLeftView: ({ setTemplate }: TemplateSelectorLeftViewProps) => {
+    React.useEffect(() => {
+      setTemplate(mockTemplates.data?.content?.[0])
+    }, [])
+    return <div className="template-selector-left-view-mock"></div>
+  }
+}))
+
+jest.mock('@templates-library/components/TemplateDetails/TemplateDetails', () => ({
+  ...(jest.requireActual('@templates-library/components/TemplateDetails/TemplateDetails') as any),
+  // eslint-disable-next-line react/display-name
+  TemplateDetails: ({ template }: TemplateDetailsProps) => {
+    // React.useEffect(() => {
+    //   setTemplate(mockTemplates.data?.content?.[0])
+    // }, [])
+    return <div className="template-details-left-view-mock">{template.identifier}</div>
+  }
+}))
 
 describe('<TemplateSelector /> tests', () => {
-  beforeEach(() => {
-    // eslint-disable-next-line
-    // @ts-ignore
-    useMutateAsGet.mockReturnValue(mockTemplatesSuccessResponse)
-  })
   test('snapshot test', async () => {
-    const { container } = render(
-      <TestWrapper path={TEST_PATH} pathParams={pathParams} defaultAppStoreValues={{ isGitSyncEnabled: false }}>
-        <TemplateSelector />
-      </TestWrapper>
+    const context = { ...pipelineContextMock }
+    set(context, 'state.templateView.templateDrawerData.data.selectorData.onUseTemplate', jest.fn())
+    set(context, 'state.templateView.templateDrawerData.data.selectorData.onCopyTemplate', jest.fn())
+    const { container, getByRole } = render(
+      <PipelineContext.Provider value={context}>
+        <TestWrapper
+          path={routes.toTemplateStudio({ ...accountPathProps, ...templatePathProps, ...pipelineModuleParams })}
+          pathParams={{
+            templateIdentifier: 'Test_Http_Template',
+            accountId: 'accountId',
+            orgIdentifier: 'default',
+            projectIdentifier: 'Yogesh_Test',
+            module: 'cd',
+            templateType: 'Step'
+          }}
+        >
+          <TemplateSelector />
+        </TestWrapper>
+      </PipelineContext.Provider>
     )
     expect(container).toMatchSnapshot()
+    const copyTemplateBtn = getByRole('button', { name: 'templatesLibrary.copyToPipeline' })
+    await act(async () => {
+      fireEvent.click(copyTemplateBtn)
+    })
+
+    expect(context.state.templateView.templateDrawerData.data?.selectorData?.onCopyTemplate).toBeCalled()
+
+    const useTemplateBtn = getByRole('button', { name: 'templatesLibrary.useTemplate' })
+    await act(async () => {
+      fireEvent.click(useTemplateBtn)
+    })
+    expect(getTemplateInputSetYamlPromise).toBeCalled()
+    expect(context.state.templateView.templateDrawerData.data?.selectorData?.onUseTemplate).toBeCalled()
   })
 })
