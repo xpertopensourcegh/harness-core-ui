@@ -63,6 +63,20 @@ export default function Steps(props: StepsProps): React.ReactElement {
         header: getString('pipeline.executionStrategy.strategies.canary.steps.step3.title'),
         description: getString('pipeline.executionStrategy.strategies.canary.steps.step3.description')
       }
+    ],
+    Basic: [
+      {
+        header: getString('pipeline.executionStrategy.strategies.common.steps.step1.title'),
+        description: getString('pipeline.executionStrategy.strategies.rolling.steps.step1.description')
+      },
+      {
+        header: getString('pipeline.executionStrategy.strategies.common.steps.step2.title'),
+        description: getString('pipeline.executionStrategy.strategies.rolling.steps.step2.description')
+      },
+      {
+        header: getString('pipeline.executionStrategy.strategies.common.steps.step3.title'),
+        description: getString('pipeline.executionStrategy.strategies.rolling.steps.step3.description')
+      }
     ]
   }
 

@@ -120,8 +120,12 @@ export default function ManifestSelection({
   }
 
   const getDeploymentType = (): string => {
-    // Default deployment type needs to be changed to null, after native helm integration
-    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+    if (isPropagating) {
+      const parentStageId = get(stage, 'stage.spec.serviceConfig.useFromStage.stage', null)
+      const parentStage = getStageFromPipeline<DeploymentStageElementConfig>(parentStageId || '')
+      return get(parentStage, 'stage.stage.spec.serviceConfig.serviceDefinition.type', null)
+    }
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import YAML from 'yaml'
 import { Classes, Switch } from '@blueprintjs/core'
 import { Text, Icon, Layout, Button, Card, IconName, Color, ButtonVariation, Container } from '@wings-software/uicore'
@@ -14,6 +14,7 @@ import {
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import Default from './resources/BlankCanvas.png'
@@ -35,20 +36,23 @@ const iconMap: { [key: string]: IconName } = {
   Rolling: 'rolling-update',
   Canary: 'canary-icon',
   BlueGreen: 'blue-green',
-  Default: 'blank-canvas-card-icon'
+  Default: 'blank-canvas-card-icon',
+  Basic: 'blank-canvas-card-icon'
 }
 
 const imageByType: { [key: string]: string } = {
   BlueGreen,
   Rolling,
   Canary,
-  Default
+  Default,
+  Basic: Rolling
 }
 
 const videoByType: { [key: string]: string } = {
   BlueGreen: BlueGreenVideo,
   Rolling: RollingUpdateVideo,
-  Canary: CanaryVideo
+  Canary: CanaryVideo,
+  Basic: RollingUpdateVideo
 }
 
 type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'BlankCanvas'
@@ -70,33 +74,43 @@ const ExecutionStrategyRef = (
   const {
     state: { pipelineView },
     updateStage,
-    updatePipelineView
+    updatePipelineView,
+    getStageFromPipeline
   } = usePipelineContext()
   const { getString } = useStrings()
   const [strategiesByDeploymentType, setStrategies] = useState([])
   const [isSubmitDisabled, disableSubmit] = useState(false)
-  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
   const [isVerifyEnabled, setIsVerifyEnabled] = useState(false)
   const [showPlayButton, setShowPlayButton] = useState<boolean>(false)
 
-  const serviceDefinitionType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] = get(
-    selectedStage,
-    'stage.spec.serviceConfig.serviceDefinition.type',
-    'Kubernetes'
+  const serviceDefinitionType = useCallback((): GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] => {
+    const isPropagating = get(selectedStage, 'stage.spec.serviceConfig.useFromStage', null)
+    if (isPropagating) {
+      const parentStageId = isPropagating.stage
+      const parentStage = getStageFromPipeline<DeploymentStageElementConfig>(parentStageId || '')
+      return get(parentStage, 'stage.stage.spec.serviceConfig.serviceDefinition.type', null)
+    }
+    return get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
+  }, [getStageFromPipeline, selectedStage])
+
+  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>(
+    serviceDefinitionType() === 'Kubernetes' ? 'Rolling' : 'Basic'
   )
 
   const infoByType: { [key: string]: string } = {
     BlueGreen: getString('pipeline.executionStrategy.strategies.blueGreen.description'),
     Rolling: getString('pipeline.executionStrategy.strategies.rolling.description'),
     Canary: getString('pipeline.executionStrategy.strategies.canary.description'),
-    Default: getString('pipeline.executionStrategy.strategies.default.description')
+    Default: getString('pipeline.executionStrategy.strategies.default.description'),
+    Basic: getString('pipeline.executionStrategy.strategies.basic.description')
   }
 
   const learnMoreLinkByType: { [key: string]: string } = {
     BlueGreen: getString('pipeline.executionStrategy.strategies.blueGreen.learnMoreLink'),
     Rolling: getString('pipeline.executionStrategy.strategies.rolling.learnMoreLink'),
     Canary: getString('pipeline.executionStrategy.strategies.canary.learnMoreLink'),
-    Default: getString('pipeline.executionStrategy.strategies.default.learnMoreLink')
+    Default: getString('pipeline.executionStrategy.strategies.default.learnMoreLink'),
+    Basic: getString('pipeline.executionStrategy.strategies.default.learnMoreLink')
   }
 
   const { data: strategies } = useGetExecutionStrategyList({})
@@ -126,13 +140,13 @@ const ExecutionStrategyRef = (
   useEffect(() => {
     const _strategies = strategies?.data
     /* istanbul ignore else */ if (_strategies) {
-      setStrategies(_strategies[serviceDefinitionType] as any)
+      setStrategies(_strategies[serviceDefinitionType()] as any)
     }
   }, [strategies?.data, serviceDefinitionType])
 
   const { data: yamlSnippet, error } = useGetExecutionStrategyYaml({
     queryParams: {
-      serviceDefinitionType,
+      serviceDefinitionType: serviceDefinitionType(),
       strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Rolling',
       ...(isVerifyEnabled && { includeVerify: true })
     }
@@ -198,7 +212,7 @@ const ExecutionStrategyRef = (
         </Layout.Horizontal>
         <section className={css.patterns}>
           <section className={css.strategies} data-section-id="strategy-selection">
-            {strategiesByDeploymentType.map((v: StrategyType) => (
+            {strategiesByDeploymentType?.map((v: StrategyType) => (
               <Card
                 className={cx(css.card, selectedStrategy === v && css.active)}
                 elevation={0}
@@ -210,7 +224,7 @@ const ExecutionStrategyRef = (
                 <Icon name={iconMap[v] as IconName} size={40} border={false} />
                 <section className={css.strategyName}>{getStrategyNameByType(v)}</section>
                 <section className={css.strategyType}>
-                  {v !== 'Default' ? startCase(serviceDefinitionType) : null}
+                  {v !== 'Default' ? startCase(serviceDefinitionType()) : null}
                 </section>
               </Card>
             ))}

@@ -4,7 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export const SPEC_VERSION = '2.0'
+export const SPEC_VERSION = '1.0'
 export interface ACLAggregateFilter {
   resourceGroupIdentifiers?: string[]
   roleIdentifiers?: string[]
@@ -1207,6 +1207,7 @@ export interface ConnectorCatalogueItem {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
   )[]
 }
 
@@ -1275,6 +1276,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
   )[]
 }
 
@@ -1320,6 +1322,7 @@ export interface ConnectorInfoDTO {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
 }
 
 export interface ConnectorResponse {
@@ -1377,6 +1380,7 @@ export interface ConnectorTypeStatistics {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
 }
 
 export interface ConnectorValidationResult {
@@ -1464,6 +1468,23 @@ export interface CriteriaSpecWrapper {
 export interface CrossAccountAccess {
   crossAccountRoleArn: string
   externalId?: string
+}
+
+export type CustomHealthConnectorDTO = ConnectorConfigDTO & {
+  baseURL: string
+  delegateSelectors?: string[]
+  headers?: CustomHealthKeyAndValue[]
+  method: 'GET' | 'POST'
+  params?: CustomHealthKeyAndValue[]
+  validationBody?: string
+  validationPath?: string
+}
+
+export interface CustomHealthKeyAndValue {
+  encryptedValueRef?: SecretRefData
+  key: string
+  value?: string
+  valueEncrypted?: boolean
 }
 
 export type CustomRestrictionDTO = RestrictionDTO & { [key: string]: any }
@@ -1863,6 +1884,7 @@ export interface EntityDetail {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -2665,6 +2687,52 @@ export interface FailureStrategyConfig {
 
 export type FeatureFlagStageConfig = StageInfoConfig & {}
 
+export interface FeatureRestrictionDetailListRequestDTO {
+  names: (
+    | 'TEST1'
+    | 'TEST2'
+    | 'TEST3'
+    | 'TEST4'
+    | 'TEST5'
+    | 'PERSPECTIVES'
+    | 'CCM_K8S_CLUSTERS'
+    | 'CCM_AUTOSTOPPING_RULES'
+    | 'MULTIPLE_ORGANIZATIONS'
+    | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
+    | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'INITIAL_DEPLOYMENTS'
+    | 'DEPLOYMENTS_PER_MONTH'
+    | 'SERVICES'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
+    | 'CUSTOM_RESOURCE_GROUPS'
+    | 'MAX_TOTAL_BUILDS'
+    | 'MAX_BUILDS_PER_MONTH'
+    | 'ACTIVE_COMMITTERS'
+    | 'TEST_INTELLIGENCE'
+    | 'K8S_BG_SWAP_SERVICES'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_APPLY'
+    | 'K8S_DELETE'
+    | 'K8S_CANARY_DELETE'
+    | 'K8S_ROLLING_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_SCALE'
+    | 'K8S_ROLLING_ROLLBACK'
+    | 'TERRAFORM_APPLY'
+    | 'TERRAFORM_PLAN'
+    | 'TERRAFORM_DESTROY'
+    | 'TERRAFORM_ROLLBACK'
+  )[]
+}
+
 export interface FeatureRestrictionDetailRequestDTO {
   name:
     | 'TEST1'
@@ -2674,12 +2742,15 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TEST5'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
+    | 'CCM_AUTOSTOPPING_RULES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
     | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
     | 'DEPLOYMENTS'
+    | 'INITIAL_DEPLOYMENTS'
+    | 'DEPLOYMENTS_PER_MONTH'
     | 'SERVICES'
     | 'BUILDS'
     | 'SAML_SUPPORT'
@@ -2719,12 +2790,15 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TEST5'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
+    | 'CCM_AUTOSTOPPING_RULES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
     | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
     | 'DEPLOYMENTS'
+    | 'INITIAL_DEPLOYMENTS'
+    | 'DEPLOYMENTS_PER_MONTH'
     | 'SERVICES'
     | 'BUILDS'
     | 'SAML_SUPPORT'
@@ -2765,12 +2839,15 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TEST5'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
+    | 'CCM_AUTOSTOPPING_RULES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
     | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
     | 'DEPLOYMENTS'
+    | 'INITIAL_DEPLOYMENTS'
+    | 'DEPLOYMENTS_PER_MONTH'
     | 'SERVICES'
     | 'BUILDS'
     | 'SAML_SUPPORT'
@@ -2982,6 +3059,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3013,6 +3091,7 @@ export interface GitEntityFilterProperties {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3043,6 +3122,25 @@ export interface GitEntityFilterProperties {
 export interface GitFileContent {
   content?: string
   objectId?: string
+}
+
+export interface GitFullSyncConfigDTO {
+  accountIdentifier?: string
+  baseBranch?: string
+  branch?: string
+  createPullRequest?: boolean
+  message?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  repoIdentifier?: string
+}
+
+export interface GitFullSyncConfigRequestDTO {
+  baseBranch?: string
+  branch: string
+  createPullRequest?: boolean
+  message?: string
+  repoIdentifier: string
 }
 
 export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
@@ -3136,6 +3234,7 @@ export interface GitSyncEntityDTO {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3169,6 +3268,7 @@ export interface GitSyncEntityListDTO {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3219,6 +3319,7 @@ export interface GitSyncErrorDTO {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3464,9 +3565,17 @@ export type HelmChartManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
 }
 
+export type HelmDeployStepInfo = StepSpecType & {
+  delegateSelectors?: string[]
+}
+
 export interface HelmManifestCommandFlag {
   commandType: 'Fetch' | 'Version' | 'Template' | 'Pull'
   flag?: string
+}
+
+export type HelmRollbackStepInfo = StepSpecType & {
+  delegateSelectors?: string[]
 }
 
 export interface HoldingScope {
@@ -3982,6 +4091,11 @@ export type KustomizeManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
 }
 
+export type KustomizePatchesManifest = ManifestAttributes & {
+  metadata?: string
+  store?: StoreConfigWrapper
+}
+
 export type LDAPSettings = NGAuthSettings & {
   connectionSettings: LdapConnectionSettings
   groupSettingsList?: LdapGroupSettings[]
@@ -4096,10 +4210,10 @@ export interface ManifestConfig {
     | 'HelmChart'
     | 'K8sManifest'
     | 'Kustomize'
+    | 'KustomizePatches'
     | 'OpenshiftParam'
     | 'OpenshiftTemplate'
     | 'Values'
-    | 'KustomizePatches'
 }
 
 export interface ManifestConfigWrapper {
@@ -4215,6 +4329,13 @@ export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
   passwordRef: string
   username?: string
   usernameRef?: string
+}
+
+export interface NgSmtpDTO {
+  accountId?: string
+  name?: string
+  uuid?: string
+  value?: SmtpConfigDTO
 }
 
 export interface Node {
@@ -4777,6 +4898,7 @@ export interface PatchInstruction {
     | 'SetFeatureFlagState'
     | 'SetOnVariation'
     | 'SetOffVariation'
+    | 'SetDefaultVariations'
     | 'AddRule'
     | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
@@ -4953,6 +5075,13 @@ export interface ProjectsDashboardInfo {
 export type PrometheusConnectorDTO = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   url: string
+}
+
+export interface RateLimitProtection {
+  incorrectAttemptTimestamps?: number[]
+  lastNotificationSentToSecOpsAt?: number
+  lastNotificationSentToUserAt?: number
+  totalIncorrectAttempts?: number
 }
 
 export type RateLimitRestrictionDTO = RestrictionDTO & {
@@ -5309,6 +5438,13 @@ export interface ResponseGitFileContent {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseGitFullSyncConfigDTO {
+  correlationId?: string
+  data?: GitFullSyncConfigDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseGitSyncErrorCountDTO {
   correlationId?: string
   data?: GitSyncErrorCountDTO
@@ -5529,7 +5665,7 @@ export interface ResponseListServiceAccountDTO {
 
 export interface ResponseListServiceDefinitionType {
   correlationId?: string
-  data?: 'Kubernetes'[]
+  data?: ('Kubernetes' | 'NativeHelm')[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5918,6 +6054,13 @@ export interface ResponseMessage {
 export interface ResponseModuleLicenseDTO {
   correlationId?: string
   data?: ModuleLicenseDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseNgSmtpDTO {
+  correlationId?: string
+  data?: NgSmtpDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6356,6 +6499,13 @@ export interface ResponseTokenDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseTriggerFullSyncResponseDTO {
+  correlationId?: string
+  data?: TriggerFullSyncResponseDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseTwoFactorAuthSettingsInfo {
   correlationId?: string
   data?: TwoFactorAuthSettingsInfo
@@ -6387,6 +6537,13 @@ export interface ResponseUserGroupDTO {
 export interface ResponseUserInfo {
   correlationId?: string
   data?: UserInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseValidationResultDTO {
+  correlationId?: string
+  data?: ValidationResultDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6606,6 +6763,7 @@ export type S3StoreConfig = StoreConfig & {
 export type SAMLSettings = NGAuthSettings & {
   authorizationEnabled?: boolean
   displayName?: string
+  entityIdentifier?: string
   groupMembershipAttr?: string
   identifier: string
   logoutUrl?: string
@@ -6693,6 +6851,7 @@ export type SamlSettings = SSOSettings & {
   entityIdentifier?: string
   groupMembershipAttr?: string
   logoutUrl?: string
+  metaDataFile?: string
   origin: string
 }
 
@@ -6828,6 +6987,13 @@ export type SecretNGVariable = NGVariable & {
   value: string
 }
 
+export interface SecretRefData {
+  decryptedValue?: string[]
+  identifier?: string
+  null?: boolean
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
 export type SecretReferredByConnectorSetupUsageDetail = SetupUsageDetail & {
   fieldName?: string
 }
@@ -6932,7 +7098,7 @@ export interface ServiceDashboardInfo {
 
 export interface ServiceDefinition {
   spec: ServiceSpec
-  type: 'Kubernetes'
+  type: 'Kubernetes' | 'NativeHelm'
 }
 
 export interface ServiceDeployment {
@@ -7076,6 +7242,17 @@ export interface ServicesDashboardInfo {
   serviceDashboardInfoList?: ServiceDashboardInfo[]
 }
 
+export type SetDefaultVariationsYaml = PatchInstruction & {
+  identifier: string
+  spec: SetDefaultVariationsYamlSpec
+  type: 'SetDefaultVariations'
+}
+
+export interface SetDefaultVariationsYamlSpec {
+  off: string
+  on: string
+}
+
 export type SetFeatureFlagStateYaml = PatchInstruction & {
   identifier: string
   spec: SetFeatureFlagStateYamlSpec
@@ -7165,6 +7342,16 @@ export type SlackConfigDTO = NotificationSettingConfigDTO & {
 export interface SlackNotificationSetting {
   name?: string
   outgoingWebhookUrl: string
+}
+
+export interface SmtpConfigDTO {
+  fromAddress?: string
+  host?: string
+  password?: string[]
+  port?: number
+  startTLS?: boolean
+  useSSL?: boolean
+  username?: string
 }
 
 export interface Sort {
@@ -7274,6 +7461,8 @@ export interface StepData {
     | 'STAGE_DEPLOYMENT'
     | 'K8sRollingDeploy'
     | 'K8sRollingRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'K8sBGSwapServices'
     | 'K8sDelete'
     | 'K8sCanaryDelete'
@@ -7377,6 +7566,19 @@ export type TemplateFilterProperties = FilterProperties & {
   templateEntityTypes?: ('Step' | 'Stage')[]
   templateIdentifiers?: string[]
   templateNames?: string[]
+}
+
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
 }
 
 export interface TemplateLinkConfig {
@@ -7577,6 +7779,10 @@ export interface TrialSignupOptions {
   productsSelected?: ('CD' | 'CE' | 'CI')[]
 }
 
+export interface TriggerFullSyncResponseDTO {
+  isFullSyncTriggered?: boolean
+}
+
 export interface TwoFactorAdminOverrideSettings {
   adminOverrideTwoFactorEnabled?: boolean
 }
@@ -7635,6 +7841,7 @@ export interface User {
   password?: string[]
   passwordExpired?: boolean
   pendingAccounts?: Account[]
+  rateLimitProtection?: RateLimitProtection
   reportedSegmentTracks?: string[]
   statsFetchedOn?: number
   supportAccounts?: Account[]
@@ -7773,6 +7980,11 @@ export interface UtmInfo {
 export interface ValidationError {
   error?: string
   fieldId?: string
+}
+
+export interface ValidationResultDTO {
+  errorMessage?: string
+  valid?: boolean
 }
 
 export type ValuesManifest = ManifestAttributes & {
@@ -7914,6 +8126,8 @@ export type FilterDTORequestBody = FilterDTO
 
 export type GcrRequestDTORequestBody = GcrRequestDTO
 
+export type GitFullSyncConfigRequestDTORequestBody = GitFullSyncConfigRequestDTO
+
 export type GitOpsProviderRequestBody = GitOpsProvider
 
 export type GitSyncConfigRequestBody = GitSyncConfig
@@ -7921,6 +8135,8 @@ export type GitSyncConfigRequestBody = GitSyncConfig
 export type GitSyncSettingsDTORequestBody = GitSyncSettingsDTO
 
 export type LandingDashboardRequestCDRequestBody = LandingDashboardRequestCD
+
+export type NgSmtpDTORequestBody = NgSmtpDTO
 
 export type OrganizationRequestRequestBody = OrganizationRequest
 
@@ -7930,9 +8146,9 @@ export type RoleAssignmentFilterRequestBody = RoleAssignmentFilter
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = void
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
-export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+export type SecretRequestWrapper2RequestBody = void
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -7954,7 +8170,7 @@ export type UserGroupDTORequestBody = UserGroupDTO
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type UnsubscribeBodyRequestBody = string[]
+export type ProcessPollingResultNgBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -8178,6 +8394,7 @@ export interface ListActivitiesQueryParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -8203,6 +8420,7 @@ export interface ListActivitiesQueryParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -8332,6 +8550,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -8357,6 +8576,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -11445,6 +11665,7 @@ export interface GetConnectorListQueryParams {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
   category?:
     | 'CLOUD_PROVIDER'
     | 'SECRET_MANAGER'
@@ -11517,6 +11738,7 @@ export interface CreateConnectorQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
 }
 
@@ -11723,6 +11945,7 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
 }
 
 export type GetAllAllowedFieldValuesProps = Omit<
@@ -13857,7 +14080,7 @@ export type GetFeatureRestrictionDetailProps = Omit<
 >
 
 /**
- * Gets Feature Restriction Detail
+ * Fetch Feature Restriction Detail
  */
 export const GetFeatureRestrictionDetail = (props: GetFeatureRestrictionDetailProps) => (
   <Mutate<
@@ -13886,7 +14109,7 @@ export type UseGetFeatureRestrictionDetailProps = Omit<
 >
 
 /**
- * Gets Feature Restriction Detail
+ * Fetch Feature Restriction Detail
  */
 export const useGetFeatureRestrictionDetail = (props: UseGetFeatureRestrictionDetailProps) =>
   useMutate<
@@ -13898,7 +14121,7 @@ export const useGetFeatureRestrictionDetail = (props: UseGetFeatureRestrictionDe
   >('POST', `/enforcement`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Gets Feature Restriction Detail
+ * Fetch Feature Restriction Detail
  */
 export const getFeatureRestrictionDetailPromise = (
   props: MutateUsingFetchProps<
@@ -13918,6 +14141,83 @@ export const getFeatureRestrictionDetailPromise = (
     void
   >('POST', getConfig('ng/api'), `/enforcement`, props, signal)
 
+export interface GetFeatureRestrictionDetailsQueryParams {
+  accountIdentifier: string
+}
+
+export type GetFeatureRestrictionDetailsProps = Omit<
+  MutateProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailsQueryParams,
+    FeatureRestrictionDetailListRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Fetch List of Feature Restriction Detail
+ */
+export const GetFeatureRestrictionDetails = (props: GetFeatureRestrictionDetailsProps) => (
+  <Mutate<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailsQueryParams,
+    FeatureRestrictionDetailListRequestDTO,
+    void
+  >
+    verb="POST"
+    path={`/enforcement/details`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureRestrictionDetailsProps = Omit<
+  UseMutateProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailsQueryParams,
+    FeatureRestrictionDetailListRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Fetch List of Feature Restriction Detail
+ */
+export const useGetFeatureRestrictionDetails = (props: UseGetFeatureRestrictionDetailsProps) =>
+  useMutate<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailsQueryParams,
+    FeatureRestrictionDetailListRequestDTO,
+    void
+  >('POST', `/enforcement/details`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Fetch List of Feature Restriction Detail
+ */
+export const getFeatureRestrictionDetailsPromise = (
+  props: MutateUsingFetchProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailsQueryParams,
+    FeatureRestrictionDetailListRequestDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailsQueryParams,
+    FeatureRestrictionDetailListRequestDTO,
+    void
+  >('POST', getConfig('ng/api'), `/enforcement/details`, props, signal)
+
 export interface GetEnabledFeatureRestrictionDetailByAccountIdQueryParams {
   accountIdentifier: string
 }
@@ -13933,7 +14233,7 @@ export type GetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
 >
 
 /**
- * Gets List of Enabled Feature Restriction Detail for The Account
+ * Fetch List of Enabled Feature Restriction Detail for The Account
  */
 export const GetEnabledFeatureRestrictionDetailByAccountId = (
   props: GetEnabledFeatureRestrictionDetailByAccountIdProps
@@ -13961,7 +14261,7 @@ export type UseGetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
 >
 
 /**
- * Gets List of Enabled Feature Restriction Detail for The Account
+ * Fetch List of Enabled Feature Restriction Detail for The Account
  */
 export const useGetEnabledFeatureRestrictionDetailByAccountId = (
   props: UseGetEnabledFeatureRestrictionDetailByAccountIdProps
@@ -13974,7 +14274,7 @@ export const useGetEnabledFeatureRestrictionDetailByAccountId = (
   >(`/enforcement/enabled`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Gets List of Enabled Feature Restriction Detail for The Account
+ * Fetch List of Enabled Feature Restriction Detail for The Account
  */
 export const getEnabledFeatureRestrictionDetailByAccountIdPromise = (
   props: GetUsingFetchProps<
@@ -13998,7 +14298,7 @@ export type GetAllFeatureRestrictionMetadataProps = Omit<
 >
 
 /**
- * Gets All Feature Restriction Metadata
+ * Fetch All Feature Restriction Metadata
  */
 export const GetAllFeatureRestrictionMetadata = (props: GetAllFeatureRestrictionMetadataProps) => (
   <Get<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>
@@ -14014,7 +14314,7 @@ export type UseGetAllFeatureRestrictionMetadataProps = Omit<
 >
 
 /**
- * Gets All Feature Restriction Metadata
+ * Fetch All Feature Restriction Metadata
  */
 export const useGetAllFeatureRestrictionMetadata = (props: UseGetAllFeatureRestrictionMetadataProps) =>
   useGet<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>(`/enforcement/metadata`, {
@@ -14023,7 +14323,7 @@ export const useGetAllFeatureRestrictionMetadata = (props: UseGetAllFeatureRestr
   })
 
 /**
- * Gets All Feature Restriction Metadata
+ * Fetch All Feature Restriction Metadata
  */
 export const getAllFeatureRestrictionMetadataPromise = (
   props: GetUsingFetchProps<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>,
@@ -14047,6 +14347,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -15505,6 +15806,326 @@ export const getFilterPromise = (
     signal
   )
 
+export interface TriggerFullSyncQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type TriggerFullSyncProps = Omit<
+  MutateProps<ResponseTriggerFullSyncResponseDTO, Failure | Error, TriggerFullSyncQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Triggers Full Sync
+ */
+export const TriggerFullSync = (props: TriggerFullSyncProps) => (
+  <Mutate<ResponseTriggerFullSyncResponseDTO, Failure | Error, TriggerFullSyncQueryParams, void, void>
+    verb="POST"
+    path={`/full-sync`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseTriggerFullSyncProps = Omit<
+  UseMutateProps<ResponseTriggerFullSyncResponseDTO, Failure | Error, TriggerFullSyncQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Triggers Full Sync
+ */
+export const useTriggerFullSync = (props: UseTriggerFullSyncProps) =>
+  useMutate<ResponseTriggerFullSyncResponseDTO, Failure | Error, TriggerFullSyncQueryParams, void, void>(
+    'POST',
+    `/full-sync`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Triggers Full Sync
+ */
+export const triggerFullSyncPromise = (
+  props: MutateUsingFetchProps<
+    ResponseTriggerFullSyncResponseDTO,
+    Failure | Error,
+    TriggerFullSyncQueryParams,
+    void,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseTriggerFullSyncResponseDTO, Failure | Error, TriggerFullSyncQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/full-sync`,
+    props,
+    signal
+  )
+
+export interface DeleteGitFullSyncConfigQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteGitFullSyncConfigProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteGitFullSyncConfigQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete full sync configuration
+ */
+export const DeleteGitFullSyncConfig = (props: DeleteGitFullSyncConfigProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteGitFullSyncConfigQueryParams, void, void>
+    verb="DELETE"
+    path={`/full-sync/config`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteGitFullSyncConfigProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteGitFullSyncConfigQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete full sync configuration
+ */
+export const useDeleteGitFullSyncConfig = (props: UseDeleteGitFullSyncConfigProps) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteGitFullSyncConfigQueryParams, void, void>(
+    'DELETE',
+    `/full-sync/config`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Delete full sync configuration
+ */
+export const deleteGitFullSyncConfigPromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteGitFullSyncConfigQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteGitFullSyncConfigQueryParams, void, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/full-sync/config`,
+    props,
+    signal
+  )
+
+export interface GetGitFullSyncConfigQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetGitFullSyncConfigProps = Omit<
+  GetProps<ResponseGitFullSyncConfigDTO, Failure | Error, GetGitFullSyncConfigQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get full sync configuration
+ */
+export const GetGitFullSyncConfig = (props: GetGitFullSyncConfigProps) => (
+  <Get<ResponseGitFullSyncConfigDTO, Failure | Error, GetGitFullSyncConfigQueryParams, void>
+    path={`/full-sync/config`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetGitFullSyncConfigProps = Omit<
+  UseGetProps<ResponseGitFullSyncConfigDTO, Failure | Error, GetGitFullSyncConfigQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get full sync configuration
+ */
+export const useGetGitFullSyncConfig = (props: UseGetGitFullSyncConfigProps) =>
+  useGet<ResponseGitFullSyncConfigDTO, Failure | Error, GetGitFullSyncConfigQueryParams, void>(`/full-sync/config`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get full sync configuration
+ */
+export const getGitFullSyncConfigPromise = (
+  props: GetUsingFetchProps<ResponseGitFullSyncConfigDTO, Failure | Error, GetGitFullSyncConfigQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseGitFullSyncConfigDTO, Failure | Error, GetGitFullSyncConfigQueryParams, void>(
+    getConfig('ng/api'),
+    `/full-sync/config`,
+    props,
+    signal
+  )
+
+export interface CreateGitFullSyncConfigQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type CreateGitFullSyncConfigProps = Omit<
+  MutateProps<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    CreateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a full sync configuration
+ */
+export const CreateGitFullSyncConfig = (props: CreateGitFullSyncConfigProps) => (
+  <Mutate<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    CreateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/full-sync/config`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateGitFullSyncConfigProps = Omit<
+  UseMutateProps<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    CreateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a full sync configuration
+ */
+export const useCreateGitFullSyncConfig = (props: UseCreateGitFullSyncConfigProps) =>
+  useMutate<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    CreateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >('POST', `/full-sync/config`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Create a full sync configuration
+ */
+export const createGitFullSyncConfigPromise = (
+  props: MutateUsingFetchProps<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    CreateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    CreateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/full-sync/config`, props, signal)
+
+export interface UpdateGitFullSyncConfigQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type UpdateGitFullSyncConfigProps = Omit<
+  MutateProps<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    UpdateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update a full sync configuration
+ */
+export const UpdateGitFullSyncConfig = (props: UpdateGitFullSyncConfigProps) => (
+  <Mutate<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    UpdateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >
+    verb="PUT"
+    path={`/full-sync/config`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateGitFullSyncConfigProps = Omit<
+  UseMutateProps<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    UpdateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update a full sync configuration
+ */
+export const useUpdateGitFullSyncConfig = (props: UseUpdateGitFullSyncConfigProps) =>
+  useMutate<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    UpdateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >('PUT', `/full-sync/config`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Update a full sync configuration
+ */
+export const updateGitFullSyncConfigPromise = (
+  props: MutateUsingFetchProps<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    UpdateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseGitFullSyncConfigDTO,
+    Failure | Error,
+    UpdateGitFullSyncConfigQueryParams,
+    GitFullSyncConfigRequestDTORequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/full-sync/config`, props, signal)
+
 export interface GetClusterNamesForGcpQueryParams {
   connectorRef?: string
   accountIdentifier: string
@@ -16000,6 +16621,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -16093,6 +16715,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'Projects'
       | 'Pipelines'
       | 'PipelineSteps'
+      | 'Http'
       | 'Connectors'
       | 'Secrets'
       | 'Service'
@@ -16668,6 +17291,7 @@ export interface CreateGitOpsProviderQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
 }
 
@@ -16753,6 +17377,7 @@ export interface UpdateGitOpsProviderQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
 }
 
@@ -19367,7 +19992,7 @@ export const getServiceDefinitionTypesPromise = (
   )
 
 export interface GetStepsQueryParams {
-  serviceDefinitionType: 'Kubernetes'
+  serviceDefinitionType: 'Kubernetes' | 'NativeHelm'
 }
 
 export type GetStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>, 'path'>
@@ -19504,7 +20129,7 @@ export const getProvisionerExecutionStrategyYamlPromise = (
   )
 
 export interface GetExecutionStrategyYamlQueryParams {
-  serviceDefinitionType: 'Kubernetes'
+  serviceDefinitionType: 'Kubernetes' | 'NativeHelm'
   strategyType: 'Basic' | 'Canary' | 'BlueGreen' | 'Rolling' | 'Default'
   includeVerify?: boolean
 }
@@ -19566,7 +20191,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -19578,7 +20203,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -19593,7 +20218,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -19605,7 +20230,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -19621,7 +20246,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -19630,17 +20255,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -19649,22 +20274,28 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<
+    ResponsePollingResponseDTO,
+    Failure | Error,
+    void,
+    ProcessPollingResultNgBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -19673,12 +20304,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -19687,21 +20318,22 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+    'POST',
+    `/polling/unsubscribe`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -22289,6 +22921,320 @@ export const verifyTokenPromise = (
     'POST',
     getConfig('ng/api'),
     `/signup/verify/${token}`,
+    props,
+    signal
+  )
+
+export type CreateSmtpConfigProps = Omit<
+  MutateProps<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create SMTP config
+ */
+export const CreateSmtpConfig = (props: CreateSmtpConfigProps) => (
+  <Mutate<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>
+    verb="POST"
+    path={`/smtpConfig`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateSmtpConfigProps = Omit<
+  UseMutateProps<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create SMTP config
+ */
+export const useCreateSmtpConfig = (props: UseCreateSmtpConfigProps) =>
+  useMutate<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>('POST', `/smtpConfig`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create SMTP config
+ */
+export const createSmtpConfigPromise = (
+  props: MutateUsingFetchProps<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/smtpConfig`,
+    props,
+    signal
+  )
+
+export type UpdateSmtpProps = Omit<
+  MutateProps<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update SmtpConfig
+ */
+export const UpdateSmtp = (props: UpdateSmtpProps) => (
+  <Mutate<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>
+    verb="PUT"
+    path={`/smtpConfig`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateSmtpProps = Omit<
+  UseMutateProps<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update SmtpConfig
+ */
+export const useUpdateSmtp = (props: UseUpdateSmtpProps) =>
+  useMutate<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>('PUT', `/smtpConfig`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Update SmtpConfig
+ */
+export const updateSmtpPromise = (
+  props: MutateUsingFetchProps<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>(
+    'PUT',
+    getConfig('ng/api'),
+    `/smtpConfig`,
+    props,
+    signal
+  )
+
+export interface ValidateConnectivityQueryParams {
+  to: string
+  subject: string
+  body: string
+}
+
+export type ValidateConnectivityProps = Omit<
+  MutateProps<
+    ResponseValidationResultDTO,
+    Failure | Error,
+    ValidateConnectivityQueryParams,
+    NgSmtpDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Tests the connectivity
+ */
+export const ValidateConnectivity = (props: ValidateConnectivityProps) => (
+  <Mutate<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, NgSmtpDTORequestBody, void>
+    verb="POST"
+    path={`/smtpConfig/validate-connectivity`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateConnectivityProps = Omit<
+  UseMutateProps<
+    ResponseValidationResultDTO,
+    Failure | Error,
+    ValidateConnectivityQueryParams,
+    NgSmtpDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Tests the connectivity
+ */
+export const useValidateConnectivity = (props: UseValidateConnectivityProps) =>
+  useMutate<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, NgSmtpDTORequestBody, void>(
+    'POST',
+    `/smtpConfig/validate-connectivity`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Tests the connectivity
+ */
+export const validateConnectivityPromise = (
+  props: MutateUsingFetchProps<
+    ResponseValidationResultDTO,
+    Failure | Error,
+    ValidateConnectivityQueryParams,
+    NgSmtpDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseValidationResultDTO,
+    Failure | Error,
+    ValidateConnectivityQueryParams,
+    NgSmtpDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/smtpConfig/validate-connectivity`, props, signal)
+
+export interface ValidateNameQueryParams {
+  name?: string
+  accountId?: string
+}
+
+export type ValidateNameProps = Omit<
+  MutateProps<ResponseValidationResultDTO, Failure | Error, ValidateNameQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Checks whether other connectors exist with the same name
+ */
+export const ValidateName = (props: ValidateNameProps) => (
+  <Mutate<ResponseValidationResultDTO, Failure | Error, ValidateNameQueryParams, void, void>
+    verb="POST"
+    path={`/smtpConfig/validateName`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateNameProps = Omit<
+  UseMutateProps<ResponseValidationResultDTO, Failure | Error, ValidateNameQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Checks whether other connectors exist with the same name
+ */
+export const useValidateName = (props: UseValidateNameProps) =>
+  useMutate<ResponseValidationResultDTO, Failure | Error, ValidateNameQueryParams, void, void>(
+    'POST',
+    `/smtpConfig/validateName`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Checks whether other connectors exist with the same name
+ */
+export const validateNamePromise = (
+  props: MutateUsingFetchProps<ResponseValidationResultDTO, Failure | Error, ValidateNameQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseValidationResultDTO, Failure | Error, ValidateNameQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/smtpConfig/validateName`,
+    props,
+    signal
+  )
+
+export type DeleteSmtpConfigProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, void, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Smtp Config
+ */
+export const DeleteSmtpConfig = (props: DeleteSmtpConfigProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, void, string, void>
+    verb="DELETE"
+    path={`/smtpConfig`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteSmtpConfigProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, void, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Smtp Config
+ */
+export const useDeleteSmtpConfig = (props: UseDeleteSmtpConfigProps) =>
+  useMutate<ResponseBoolean, Failure | Error, void, string, void>('DELETE', `/smtpConfig`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete Smtp Config
+ */
+export const deleteSmtpConfigPromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, void, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, void, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/smtpConfig`,
+    props,
+    signal
+  )
+
+export interface GetSmtpConfigPathParams {
+  identifier: string
+}
+
+export type GetSmtpConfigProps = Omit<
+  GetProps<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>,
+  'path'
+> &
+  GetSmtpConfigPathParams
+
+/**
+ * Gets Smtp config by Identifier
+ */
+export const GetSmtpConfig = ({ identifier, ...props }: GetSmtpConfigProps) => (
+  <Get<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>
+    path={`/smtpConfig/${identifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetSmtpConfigProps = Omit<
+  UseGetProps<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>,
+  'path'
+> &
+  GetSmtpConfigPathParams
+
+/**
+ * Gets Smtp config by Identifier
+ */
+export const useGetSmtpConfig = ({ identifier, ...props }: UseGetSmtpConfigProps) =>
+  useGet<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>(
+    (paramsInPath: GetSmtpConfigPathParams) => `/smtpConfig/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Gets Smtp config by Identifier
+ */
+export const getSmtpConfigPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams> & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>(
+    getConfig('ng/api'),
+    `/smtpConfig/${identifier}`,
     props,
     signal
   )
@@ -25612,7 +26558,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -25622,7 +26568,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -25635,7 +26581,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -25649,7 +26595,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -25661,7 +26607,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -25670,7 +26616,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -26063,7 +27009,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -26077,7 +27023,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >
     verb="POST"
@@ -26092,7 +27038,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -26106,7 +27052,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -26118,7 +27064,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -26127,7 +27073,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -26262,7 +27208,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -26277,7 +27223,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -26292,7 +27238,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -26307,7 +27253,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -26326,7 +27272,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -26335,7 +27281,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -26354,7 +27300,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -26369,7 +27315,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -26384,7 +27330,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -26399,7 +27345,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -26418,7 +27364,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -26427,7 +27373,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 
@@ -26486,6 +27432,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -26539,6 +27486,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
@@ -26633,6 +27581,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'sumologic'
     | 'dynatrace'
     | 'pagerduty'
+    | 'customhealth'
   )[]
 }
 

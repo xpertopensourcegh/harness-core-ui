@@ -2129,6 +2129,7 @@ export interface StringsMap {
   'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
   'pipeline.executionStrategy.executionStrategies': string
+  'pipeline.executionStrategy.strategies.basic.description': string
   'pipeline.executionStrategy.strategies.blueGreen.description': string
   'pipeline.executionStrategy.strategies.blueGreen.learnMoreLink': string
   'pipeline.executionStrategy.strategies.blueGreen.steps.step1.description': string

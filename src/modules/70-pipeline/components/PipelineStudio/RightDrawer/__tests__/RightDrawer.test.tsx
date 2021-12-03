@@ -20,7 +20,13 @@ import { RightDrawer } from '../RightDrawer'
 import pipelineContextMock, { updatePipelineViewFnArg1, updateStageFnArg1 } from './stateMock'
 import { DrawerTypes } from '../../PipelineContext/PipelineActions'
 import type { StepCommandsProps } from '../../StepCommands/StepCommandTypes'
-import { blueGreenYaml, canaryYaml, defaultYaml, rollingYaml } from '../../ExecutionStrategy/__tests__/mocks/mock'
+import {
+  basicYaml,
+  blueGreenYaml,
+  canaryYaml,
+  defaultYaml,
+  rollingYaml
+} from '../../ExecutionStrategy/__tests__/mocks/mock'
 
 const { getComputedStyle } = window
 window.getComputedStyle = elt => getComputedStyle(elt)
@@ -62,6 +68,11 @@ jest.spyOn(cdng, 'useGetExecutionStrategyYaml').mockImplementation((props: cdng.
     case 'Default':
       return {
         data: defaultYaml,
+        error: null
+      } as any
+    case 'Basic':
+      return {
+        data: basicYaml,
         error: null
       } as any
     default:

@@ -332,7 +332,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 customStepProps={{ stageIdentifier }}
               />
             )}
-            {(deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' || isPropagating) && (
+            {(deploymentStage?.serviceConfig?.serviceDefinition?.type !== null || isPropagating) && (
               /* istanbul ignore next */ <StepWidget<ServiceSpec>
                 factory={factory}
                 initialValues={
@@ -359,7 +359,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   allValues:
                     isPropagating && deploymentStageInputSet
                       ? deploymentStage?.serviceConfig?.stageOverrides
-                      : deploymentStage?.serviceConfig.serviceDefinition?.spec
+                      : deploymentStage?.serviceConfig?.serviceDefinition?.spec
                 }}
                 onUpdate={(data: any) => {
                   /* istanbul ignore next */

@@ -4,7 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export const SPEC_VERSION = '2.0'
+export const SPEC_VERSION = '1.0'
 export interface AdviserIssuer {
   adviserType?:
     | 'UNKNOWN'
@@ -440,6 +440,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
   )[]
 }
 
@@ -4266,6 +4267,7 @@ export interface StepData {
     | 'TEST5'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
+    | 'CCM_AUTOSTOPPING_RULES'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
     | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
@@ -4455,6 +4457,13 @@ export interface TemplateInputsErrorDTO {
   fieldName?: string
   identifierOfErrorSource?: string
   message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
 }
 
 export interface Throwable {
@@ -5673,6 +5682,7 @@ export interface CreateInputSetForPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
 }
 
@@ -5933,6 +5943,7 @@ export interface CreateOverlayInputSetForPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
 }
 
@@ -7872,7 +7883,7 @@ export interface GetStagesExecutionListQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
-  pipelineIdentifier?: string
+  pipelineIdentifier: string
   branch?: string
   repoIdentifier?: string
   getDefaultFromOtherRepo?: boolean
@@ -8404,6 +8415,7 @@ export interface CreatePipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
 }
 
@@ -9235,6 +9247,7 @@ export interface CreatePipelineV2QueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
 }
 
@@ -11002,6 +11015,7 @@ export interface GetSchemaYamlQueryParams {
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
+    | 'Http'
     | 'Connectors'
     | 'Secrets'
     | 'Service'

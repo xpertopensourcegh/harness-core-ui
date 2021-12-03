@@ -35,6 +35,11 @@ export const defaultYaml: ResponseString = {
   data: 'failureStrategies:\n  - onFailure:\n      errors:\n        - AllErrors\n      action:\n        type: StageRollback',
   correlationId: 'd4478910-e651-4681-a21c-b0967dcd162f'
 }
+export const basicYaml: ResponseString = {
+  status: 'SUCCESS',
+  data: 'failureStrategies:\n  - onFailure:\n      errors:\n        - AllErrors\n      action:\n        type: StageRollback\nspec:\n  execution:\n    steps:\n      - step:\n          name: "Helm Deployment"\n          identifier: helmDeployment\n          type: HelmDeploy\n          timeout: 10m\n          spec:\n            skipDryRun: false\n    rollbackSteps:\n      - step:\n          name: "Helm Rollback"\n          identifier: helmRollback\n          type: HelmRollback\n          timeout: 10m\n          spec: {}',
+  correlationId: 'd4478910-e651-4681-a21c-b0967dcd162f'
+}
 
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
