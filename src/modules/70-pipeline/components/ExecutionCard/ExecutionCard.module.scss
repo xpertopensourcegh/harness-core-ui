@@ -177,12 +177,7 @@ $actions-translate: 10px;
     }
     .footer {
       .timers {
-        width: $timer-width;
-        column-gap: var(--spacing-8);
-
-        & .duration {
-          min-width: 150px;
-        }
+        column-gap: var(--spacing-4);
       }
     }
   }
