@@ -345,6 +345,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     [projectIdentifier, orgIdentifier, history, accountId]
   )
 
+  const spinner = renderSpinner({ loading, pollingRequest })
+
   return (
     <GitSyncStoreProvider>
       <Page.Body
@@ -367,7 +369,9 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           queryParams={queryParams}
         >
           {renderDeploymentListHeader({ pipelineExecutionSummary, hasFilters, onRunPipeline: props.onRunPipeline })}
-          {renderSpinner({ loading, pollingRequest }) || !pipelineExecutionSummary?.content?.length ? (
+          {spinner ? (
+            spinner
+          ) : !pipelineExecutionSummary?.content?.length ? (
             <NoDeployments
               onRunPipeline={props.onRunPipeline}
               hasFilters={hasFilters}
