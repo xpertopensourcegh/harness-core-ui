@@ -1,7 +1,7 @@
 import React from 'react'
 import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, getMultiTypeFromValue } from '@wings-software/uicore'
 import { connect } from 'formik'
-import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
+import { get, set, isEmpty, pickBy, identity, isNil } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -332,7 +332,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 customStepProps={{ stageIdentifier }}
               />
             )}
-            {(deploymentStage?.serviceConfig?.serviceDefinition?.type !== null || isPropagating) && (
+            {(!isNil(deploymentStage?.serviceConfig?.serviceDefinition?.type) || isPropagating) && (
               /* istanbul ignore next */ <StepWidget<ServiceSpec>
                 factory={factory}
                 initialValues={

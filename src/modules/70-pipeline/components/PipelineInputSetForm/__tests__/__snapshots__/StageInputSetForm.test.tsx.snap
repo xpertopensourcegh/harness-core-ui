@@ -13,11 +13,7 @@ exports[`stageinputset tests viewType DeploymentForm initial render 1`] = `
     </div>
     <div
       class="nestedAccordions"
-    >
-      <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-      />
-    </div>
+    />
   </div>
   <div
     class="accordionSummary"
@@ -371,11 +367,7 @@ exports[`stageinputset tests viewType DeploymentForm initial render2 1`] = `
     </div>
     <div
       class="nestedAccordions"
-    >
-      <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-      />
-    </div>
+    />
   </div>
   <div
     class="accordionSummary"
@@ -729,11 +721,7 @@ exports[`stageinputset tests viewType InputSet initial render 1`] = `
     </div>
     <div
       class="nestedAccordions"
-    >
-      <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-      />
-    </div>
+    />
   </div>
   <div
     class="accordionSummary"
@@ -1087,11 +1075,7 @@ exports[`stageinputset tests viewType InputSet initial render2 1`] = `
     </div>
     <div
       class="nestedAccordions"
-    >
-      <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-      />
-    </div>
+    />
   </div>
   <div
     class="accordionSummary"
