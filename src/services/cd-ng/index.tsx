@@ -2694,6 +2694,8 @@ export interface FeatureRestrictionDetailListRequestDTO {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'TEST6'
+    | 'TEST7'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
     | 'CCM_AUTOSTOPPING_RULES'
@@ -2740,6 +2742,8 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'TEST6'
+    | 'TEST7'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
     | 'CCM_AUTOSTOPPING_RULES'
@@ -2788,6 +2792,8 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'TEST6'
+    | 'TEST7'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
     | 'CCM_AUTOSTOPPING_RULES'
@@ -2825,7 +2831,14 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
   restriction?: RestrictionDTO
-  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM' | 'DURATION'
+  restrictionType?:
+    | 'AVAILABILITY'
+    | 'STATIC_LIMIT'
+    | 'RATE_LIMIT'
+    | 'CUSTOM'
+    | 'DURATION'
+    | 'LICENSE_RATE_LIMIT'
+    | 'LICENSE_STATIC_LIMIT'
 }
 
 export interface FeatureRestrictionMetadataDTO {
@@ -2837,6 +2850,8 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'TEST6'
+    | 'TEST7'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
     | 'CCM_AUTOSTOPPING_RULES'
@@ -4161,6 +4176,30 @@ export interface LicenseInfo {
   licenseUnits?: number
 }
 
+export type LicenseRateLimitRestrictionDTO = RestrictionDTO & {
+  count?: number
+  fieldName?: string
+  limit?: number
+  timeUnit?: TimeUnit
+}
+
+export type LicenseRateLimitRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  fieldName?: string
+  limit?: number
+  timeUnit?: TimeUnit
+}
+
+export type LicenseStaticLimitRestrictionDTO = RestrictionDTO & {
+  count?: number
+  fieldName?: string
+  limit?: number
+}
+
+export type LicenseStaticLimitRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  fieldName?: string
+  limit?: number
+}
+
 export interface LicensesWithSummaryDTO {
   edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   licenseType?: 'TRIAL' | 'PAID'
@@ -4397,10 +4436,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -6664,7 +6702,14 @@ export interface RestrictionDTO {
 }
 
 export interface RestrictionMetadataDTO {
-  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM' | 'DURATION'
+  restrictionType?:
+    | 'AVAILABILITY'
+    | 'STATIC_LIMIT'
+    | 'RATE_LIMIT'
+    | 'CUSTOM'
+    | 'DURATION'
+    | 'LICENSE_RATE_LIMIT'
+    | 'LICENSE_STATIC_LIMIT'
 }
 
 export type RetryFailureActionConfig = FailureStrategyActionConfig & {
@@ -7400,6 +7445,7 @@ export interface StageElementConfig {
   tags?: {
     [key: string]: string
   }
+  template?: TemplateLinkConfig
   type: string
   variables?: NGVariable[]
   when?: StageWhenCondition
@@ -8170,7 +8216,7 @@ export type UserGroupDTORequestBody = UserGroupDTO
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type ProcessPollingResultNgBodyRequestBody = string[]
+export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -12337,6 +12383,99 @@ export const getTestConnectionResultPromise = (
     void,
     GetTestConnectionResultPathParams
   >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
+
+export interface GetTestConnectionResultInternalQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetTestConnectionResultInternalPathParams {
+  identifier: string
+}
+
+export type GetTestConnectionResultInternalProps = Omit<
+  MutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultInternalQueryParams,
+    void,
+    GetTestConnectionResultInternalPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultInternalPathParams
+
+/**
+ * Test the connection internal api
+ */
+export const GetTestConnectionResultInternal = ({ identifier, ...props }: GetTestConnectionResultInternalProps) => (
+  <Mutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultInternalQueryParams,
+    void,
+    GetTestConnectionResultInternalPathParams
+  >
+    verb="POST"
+    path={`/connectors/testConnectionInternal/${identifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTestConnectionResultInternalProps = Omit<
+  UseMutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultInternalQueryParams,
+    void,
+    GetTestConnectionResultInternalPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultInternalPathParams
+
+/**
+ * Test the connection internal api
+ */
+export const useGetTestConnectionResultInternal = ({ identifier, ...props }: UseGetTestConnectionResultInternalProps) =>
+  useMutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultInternalQueryParams,
+    void,
+    GetTestConnectionResultInternalPathParams
+  >(
+    'POST',
+    (paramsInPath: GetTestConnectionResultInternalPathParams) =>
+      `/connectors/testConnectionInternal/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Test the connection internal api
+ */
+export const getTestConnectionResultInternalPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultInternalQueryParams,
+    void,
+    GetTestConnectionResultInternalPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultInternalQueryParams,
+    void,
+    GetTestConnectionResultInternalPathParams
+  >('POST', getConfig('ng/api'), `/connectors/testConnectionInternal/${identifier}`, props, signal)
 
 export interface GetTestGitRepoConnectionResultQueryParams {
   accountIdentifier?: string
@@ -19860,6 +19999,7 @@ export const putOrganizationPromise = (
   >('PUT', getConfig('ng/api'), `/organizations/${identifier}`, props, signal)
 
 export interface GetPartialYamlSchemaQueryParams {
+  accountIdentifier?: string
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
@@ -20191,7 +20331,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -20203,7 +20343,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -20218,7 +20358,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -20230,7 +20370,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -20246,7 +20386,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -20255,17 +20395,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -20274,28 +20414,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<
-    ResponsePollingResponseDTO,
-    Failure | Error,
-    void,
-    ProcessPollingResultNgBodyRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -20304,12 +20438,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -20318,22 +20452,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
-    'POST',
-    `/polling/unsubscribe`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -22925,6 +23058,54 @@ export const verifyTokenPromise = (
     signal
   )
 
+export interface GetSmtpConfigQueryParams {
+  accountId?: string
+}
+
+export type GetSmtpConfigProps = Omit<
+  GetProps<ResponseNgSmtpDTO, Failure | Error, GetSmtpConfigQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Smtp config by accountId
+ */
+export const GetSmtpConfig = (props: GetSmtpConfigProps) => (
+  <Get<ResponseNgSmtpDTO, Failure | Error, GetSmtpConfigQueryParams, void>
+    path={`/smtpConfig`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetSmtpConfigProps = Omit<
+  UseGetProps<ResponseNgSmtpDTO, Failure | Error, GetSmtpConfigQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Smtp config by accountId
+ */
+export const useGetSmtpConfig = (props: UseGetSmtpConfigProps) =>
+  useGet<ResponseNgSmtpDTO, Failure | Error, GetSmtpConfigQueryParams, void>(`/smtpConfig`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets Smtp config by accountId
+ */
+export const getSmtpConfigPromise = (
+  props: GetUsingFetchProps<ResponseNgSmtpDTO, Failure | Error, GetSmtpConfigQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseNgSmtpDTO, Failure | Error, GetSmtpConfigQueryParams, void>(
+    getConfig('ng/api'),
+    `/smtpConfig`,
+    props,
+    signal
+  )
+
 export type CreateSmtpConfigProps = Omit<
   MutateProps<ResponseNgSmtpDTO, Failure | Error, void, NgSmtpDTORequestBody, void>,
   'path' | 'verb'
@@ -23018,19 +23199,15 @@ export const updateSmtpPromise = (
   )
 
 export interface ValidateConnectivityQueryParams {
+  identifier: string
+  accountId: string
   to: string
   subject: string
   body: string
 }
 
 export type ValidateConnectivityProps = Omit<
-  MutateProps<
-    ResponseValidationResultDTO,
-    Failure | Error,
-    ValidateConnectivityQueryParams,
-    NgSmtpDTORequestBody,
-    void
-  >,
+  MutateProps<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -23038,7 +23215,7 @@ export type ValidateConnectivityProps = Omit<
  * Tests the connectivity
  */
 export const ValidateConnectivity = (props: ValidateConnectivityProps) => (
-  <Mutate<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, NgSmtpDTORequestBody, void>
+  <Mutate<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, void, void>
     verb="POST"
     path={`/smtpConfig/validate-connectivity`}
     base={getConfig('ng/api')}
@@ -23047,13 +23224,7 @@ export const ValidateConnectivity = (props: ValidateConnectivityProps) => (
 )
 
 export type UseValidateConnectivityProps = Omit<
-  UseMutateProps<
-    ResponseValidationResultDTO,
-    Failure | Error,
-    ValidateConnectivityQueryParams,
-    NgSmtpDTORequestBody,
-    void
-  >,
+  UseMutateProps<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -23061,7 +23232,7 @@ export type UseValidateConnectivityProps = Omit<
  * Tests the connectivity
  */
 export const useValidateConnectivity = (props: UseValidateConnectivityProps) =>
-  useMutate<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, NgSmtpDTORequestBody, void>(
+  useMutate<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, void, void>(
     'POST',
     `/smtpConfig/validate-connectivity`,
     { base: getConfig('ng/api'), ...props }
@@ -23075,18 +23246,18 @@ export const validateConnectivityPromise = (
     ResponseValidationResultDTO,
     Failure | Error,
     ValidateConnectivityQueryParams,
-    NgSmtpDTORequestBody,
+    void,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<
-    ResponseValidationResultDTO,
-    Failure | Error,
-    ValidateConnectivityQueryParams,
-    NgSmtpDTORequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/smtpConfig/validate-connectivity`, props, signal)
+  mutateUsingFetch<ResponseValidationResultDTO, Failure | Error, ValidateConnectivityQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/smtpConfig/validate-connectivity`,
+    props,
+    signal
+  )
 
 export interface ValidateNameQueryParams {
   name?: string
@@ -23182,59 +23353,6 @@ export const deleteSmtpConfigPromise = (
     'DELETE',
     getConfig('ng/api'),
     `/smtpConfig`,
-    props,
-    signal
-  )
-
-export interface GetSmtpConfigPathParams {
-  identifier: string
-}
-
-export type GetSmtpConfigProps = Omit<
-  GetProps<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>,
-  'path'
-> &
-  GetSmtpConfigPathParams
-
-/**
- * Gets Smtp config by Identifier
- */
-export const GetSmtpConfig = ({ identifier, ...props }: GetSmtpConfigProps) => (
-  <Get<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>
-    path={`/smtpConfig/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetSmtpConfigProps = Omit<
-  UseGetProps<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>,
-  'path'
-> &
-  GetSmtpConfigPathParams
-
-/**
- * Gets Smtp config by Identifier
- */
-export const useGetSmtpConfig = ({ identifier, ...props }: UseGetSmtpConfigProps) =>
-  useGet<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>(
-    (paramsInPath: GetSmtpConfigPathParams) => `/smtpConfig/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Gets Smtp config by Identifier
- */
-export const getSmtpConfigPromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams> & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseNgSmtpDTO, Failure | Error, void, GetSmtpConfigPathParams>(
-    getConfig('ng/api'),
-    `/smtpConfig/${identifier}`,
     props,
     signal
   )
@@ -27491,6 +27609,7 @@ export interface GetYamlSchemaQueryParams {
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
   identifier?: string
+  accountIdentifier: string
 }
 
 export type GetYamlSchemaProps = Omit<

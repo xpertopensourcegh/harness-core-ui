@@ -84,7 +84,10 @@ const YAMLSecretDetails: React.FC<YAMLSecretDetailsProps> = ({ refetch, secretDa
 
   const { data: secretSchema } = useGetYamlSchema({
     queryParams: {
-      entityType: 'Secrets'
+      entityType: 'Secrets',
+      projectIdentifier,
+      orgIdentifier,
+      accountIdentifier: accountId
     }
   })
 

@@ -94,7 +94,10 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
 
   const { data: secretSchema } = useGetYamlSchema({
     queryParams: {
-      entityType: 'Secrets'
+      entityType: 'Secrets',
+      projectIdentifier,
+      orgIdentifier,
+      accountIdentifier: accountId
     },
     mock: props.mockSchemaData
   })

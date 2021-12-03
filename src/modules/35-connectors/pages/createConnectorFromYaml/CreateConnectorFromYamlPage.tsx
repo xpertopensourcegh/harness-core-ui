@@ -113,6 +113,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       entityType: 'Connectors',
       projectIdentifier,
       orgIdentifier,
+      accountIdentifier: accountId,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })
