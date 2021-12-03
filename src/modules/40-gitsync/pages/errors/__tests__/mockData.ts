@@ -60,7 +60,7 @@ export const commitViewData: { loading: boolean; error: boolean; data: ResponseP
                 status: 'ACTIVE'
               }
             ],
-            failedCount: 2,
+            failedCount: 10,
             gitCommitId: 'commit1',
             repoId: 'repo1'
           },

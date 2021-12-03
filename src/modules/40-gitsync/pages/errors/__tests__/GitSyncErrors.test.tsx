@@ -1,4 +1,5 @@
 import React from 'react'
+import { act } from 'react-dom/test-utils'
 import { render, waitFor, fireEvent, getAllByTestId, getByTestId } from '@testing-library/react'
 import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
@@ -12,6 +13,7 @@ import {
 const useListGitToHarnessErrorsCommits = jest.fn()
 const useListGitSyncErrors = jest.fn()
 const refetch = jest.fn()
+const listGitToHarnessErrorsForCommitPromise = jest.fn()
 const mockDataWithRefetch = { ...mockData, refetch }
 
 jest.mock('services/cd-ng', () => ({
@@ -28,7 +30,11 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetGitSyncErrorsCount: jest.fn().mockImplementation(() => {
     return mockDataWithRefetch
-  })
+  }),
+  listGitToHarnessErrorsForCommitPromise: () => {
+    listGitToHarnessErrorsForCommitPromise()
+    return Promise.resolve()
+  }
 }))
 
 describe('GitSyncErrors', () => {
@@ -83,7 +89,7 @@ describe('GitSyncErrors', () => {
       expect(branch).toBe(data.branchName)
       expect(commitId).toBe(data.gitCommitId)
       expect(timestamp).toBe(data.createdAt?.toString())
-      expect(gitSyncErrorMessageItem.length).toBe(data.failedCount)
+      expect(gitSyncErrorMessageItem.length).toBe(data.errorsForSummaryView?.length)
 
       data.errorsForSummaryView?.map((messageItem, messageItemIndex) => {
         const messageItemTitle = getByTestId(
@@ -178,5 +184,31 @@ describe('GitSyncErrors', () => {
         }
       ])
     })
+  })
+
+  test('should render see more and call api to fetch files for particular commit', async () => {
+    const { container } = render(
+      <GitSyncTestWrapper
+        path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/entities"
+        pathParams={{
+          accountId: GIT_SYNC_ERROR_TEST_SCOPE.accountId,
+          orgIdentifier: GIT_SYNC_ERROR_TEST_SCOPE.orgIdentifier,
+          projectIdentifier: GIT_SYNC_ERROR_TEST_SCOPE.projectIdentifier
+        }}
+      >
+        <GitSyncErrors />
+      </GitSyncTestWrapper>
+    )
+
+    const seeMore = getByTestId(container, 'seeMore')
+    expect(seeMore).toBeTruthy()
+
+    expect(listGitToHarnessErrorsForCommitPromise).not.toHaveBeenCalled()
+
+    await act(async () => {
+      fireEvent.click(seeMore)
+    })
+
+    expect(listGitToHarnessErrorsForCommitPromise).toHaveBeenCalled()
   })
 })

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
@@ -11,7 +11,6 @@ import {
 } from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessageItem'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { GitSyncErrorState } from '@gitsync/pages/errors/GitSyncErrorContext'
 import styles from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessage.module.scss'
 
 const MESSAGE_LIMIT = 5
@@ -94,7 +93,6 @@ export const GitSyncErrorMessage: React.FC<GitSyncErrorMessageProps> = props => 
     const [isLoading, setIsLoading] = useState(false)
     const { getString } = useStrings()
     const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-    const { branch: selectedBranch, repoIdentifier } = useContext(GitSyncErrorState)
 
     const expandMode = messageItems.length <= MESSAGE_LIMIT
 
@@ -106,8 +104,8 @@ export const GitSyncErrorMessage: React.FC<GitSyncErrorMessageProps> = props => 
             accountIdentifier: accountId,
             orgIdentifier,
             projectIdentifier,
-            branch: selectedBranch,
-            repoIdentifier
+            branch,
+            repoIdentifier: repo
           },
           commitId
         })
@@ -131,7 +129,7 @@ export const GitSyncErrorMessage: React.FC<GitSyncErrorMessageProps> = props => 
     return (
       <Layout.Horizontal margin={{ top: 'small' }}>
         {!isLoading ? (
-          <Text color={Color.PRIMARY_7} onClick={onClick} className={styles.seeMore}>
+          <Text color={Color.PRIMARY_7} onClick={onClick} className={styles.seeMore} data-testid="seeMore">
             {expandMode ? getString('gitsync.seeMore') : getString('gitsync.seeLess')}
           </Text>
         ) : (
