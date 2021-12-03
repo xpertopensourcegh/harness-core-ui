@@ -21,7 +21,8 @@ export const HarnessServicetModal: React.FC<HarnessServicetModalProps> = ({
   onCreateOrUpdate,
   closeModal,
   skipServiceCreateOrUpdate,
-  name
+  name,
+  customLoading
 }): JSX.Element => {
   const { getString } = useStrings()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
@@ -47,6 +48,7 @@ export const HarnessServicetModal: React.FC<HarnessServicetModalProps> = ({
   React.useEffect(() => {
     inputRef.current?.focus()
   }, [])
+
   const { showSuccess, showError, clear } = useToaster()
 
   const onSubmit = React.useCallback(
@@ -85,7 +87,7 @@ export const HarnessServicetModal: React.FC<HarnessServicetModalProps> = ({
     [skipServiceCreateOrUpdate, isEdit, isService, orgIdentifier, projectIdentifier, formik]
   )
 
-  if (createLoading || updateLoading) {
+  if (createLoading || updateLoading || customLoading) {
     return <PageSpinner />
   }
 
@@ -152,7 +154,8 @@ export const useHarnessServicetModal = (
     className,
     modalTitle,
     skipServiceCreateOrUpdate,
-    name
+    name,
+    customLoading
   } = props
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -172,10 +175,11 @@ export const useHarnessServicetModal = (
           closeModal={onClose ? onClose : hideModal}
           name={name}
           skipServiceCreateOrUpdate={skipServiceCreateOrUpdate}
+          customLoading={customLoading}
         />
       </Dialog>
     ),
-    []
+    [customLoading]
   )
   return {
     openHarnessServiceModal: showModal,

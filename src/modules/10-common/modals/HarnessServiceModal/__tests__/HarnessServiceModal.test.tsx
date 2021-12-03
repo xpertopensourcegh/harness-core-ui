@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, render, fireEvent, waitFor } from '@testing-library/react'
+import { act, render, fireEvent, waitFor, screen } from '@testing-library/react'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import { HarnessServicetModal } from '../HarnessServiceModal'
@@ -167,5 +167,32 @@ describe('Test HarnessServicetModal', () => {
     await waitFor(() => expect(onClose).toHaveBeenCalled())
 
     expect(container).toMatchSnapshot()
+  })
+
+  describe('Test reusing HarnessServicetModal as HarnessUserJourneyModal', () => {
+    test('should show pending indicator when customLoading prop is set to true', () => {
+      const userJourneyModalProps = {
+        ...props,
+        skipServiceCreateOrUpdate: true,
+        customLoading: false
+      }
+
+      const { rerender } = render(
+        <TestWrapper>
+          <HarnessServicetModal {...userJourneyModalProps} />
+        </TestWrapper>
+      )
+
+      expect(screen.queryByText(/loading/i)).not.toBeInTheDocument()
+
+      // setting the customLoading prop to true
+      rerender(
+        <TestWrapper>
+          <HarnessServicetModal {...userJourneyModalProps} customLoading={true} />
+        </TestWrapper>
+      )
+
+      expect(screen.queryByText(/loading/i)).toBeInTheDocument()
+    })
   })
 })

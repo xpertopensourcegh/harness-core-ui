@@ -40,7 +40,7 @@ export default function SLOName(props: SLONameProps): JSX.Element {
     }
   })
 
-  const { mutate: createUserJourney } = useSaveUserJourney({
+  const { loading: saveUserJourneyLoading, mutate: createUserJourney } = useSaveUserJourney({
     queryParams: {
       orgIdentifier,
       projectIdentifier,
@@ -54,11 +54,11 @@ export default function SLOName(props: SLONameProps): JSX.Element {
         // creating new user journey
         await createUserJourney({ name: newOption.name, identifier: newOption.identifier })
 
-        // listing all user journeys
-        await fetchUserJourneys()
-
         // selecting the current user journey
         setFieldValue('userJourneyRef', newOption.identifier)
+
+        // listing all user journeys
+        await fetchUserJourneys()
 
         clear()
         showSuccess(getString('cv.slos.userJourneyCreated'))
@@ -105,6 +105,7 @@ export default function SLOName(props: SLONameProps): JSX.Element {
             loading: userJourneysLoading,
             name: userJourneyLabel
           }}
+          customLoading={saveUserJourneyLoading}
         />
       </CardWithOuterTitle>
       {children}

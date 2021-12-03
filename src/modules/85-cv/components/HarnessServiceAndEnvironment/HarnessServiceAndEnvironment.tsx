@@ -107,8 +107,9 @@ export function HarnessEnvironment(props: EnvironmentSelectOrCreateProps): JSX.E
 export function HarnessServiceAsFormField(props: {
   customRenderProps: Omit<CustomRenderProps, 'render'>
   serviceProps: ServiceSelectOrCreateProps
+  customLoading?: boolean
 }): JSX.Element {
-  const { customRenderProps, serviceProps } = props
+  const { customRenderProps, serviceProps, customLoading } = props
 
   return (
     <FormInput.CustomRender
@@ -117,6 +118,7 @@ export function HarnessServiceAsFormField(props: {
       render={formikProps => (
         <ServiceSelectOrCreate
           {...serviceProps}
+          customLoading={customLoading}
           onSelect={selectedOption => {
             formikProps.setFieldValue(customRenderProps.name, selectedOption)
             serviceProps.onSelect?.(selectedOption)

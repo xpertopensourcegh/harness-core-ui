@@ -18,4 +18,5 @@ export interface HarnessServicetModalProps {
   modalTitle?: string
   skipServiceCreateOrUpdate?: boolean
   name?: string
+  customLoading?: boolean
 }

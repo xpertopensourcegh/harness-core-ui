@@ -19,6 +19,7 @@ export interface ServiceSelectOrCreateProps {
   skipServiceCreateOrUpdate?: boolean
   loading?: boolean
   name?: string
+  customLoading?: boolean
 }
 
 const ADD_NEW_VALUE = '@@add_new'
@@ -34,7 +35,7 @@ export function generateOptions(response?: ServiceResponseDTO[]): SelectOption[]
 export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props => {
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { modalTitle, placeholder, skipServiceCreateOrUpdate, loading, name } = props
+  const { modalTitle, placeholder, skipServiceCreateOrUpdate, loading, name, customLoading } = props
 
   const selectOptions = useMemo(
     () => [
@@ -59,7 +60,8 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
     onCreateOrUpdate: onSubmit,
     modalTitle,
     skipServiceCreateOrUpdate,
-    name
+    name,
+    customLoading
   })
 
   const onSelectChange = (val: SelectOption): void => {
