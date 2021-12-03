@@ -139,7 +139,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
         validationSchema={Yup.object().shape({
           name: NameSchema({
             requiredErrorMsg: getString('common.validation.fieldIsRequired', {
-              name: getString('templatesLibrary.createNewModal.namePlaceholder')
+              name: getString('templatesLibrary.createNewModal.nameError')
             })
           }),
           identifier: IdentifierSchema(),
@@ -233,13 +233,18 @@ export const TemplateConfigModal = (props: ConfigModalProps): JSX.Element => {
   const [previewValues, setPreviewValues] = useState(props.initialValues)
   const [formInitialValues, setFormInitialValues] = React.useState(initialValues)
   const { isGitSyncEnabled } = useAppStore()
+  const { getString } = useStrings()
 
   React.useEffect(() => {
     const newInitialValues = {
       ...initialValues,
-      ...((emptyFields.includes(Fields.Name) || isEmpty(initialValues.name)) && { name: 'New Step Template' }),
+      ...((emptyFields.includes(Fields.Name) || isEmpty(initialValues.name)) && {
+        name: getString('templatesLibrary.createNewModal.namePlaceholder', { entity: initialValues.type })
+      }),
       ...((emptyFields.includes(Fields.Identifier) || initialValues.identifier === DefaultNewTemplateId) && {
-        identifier: 'new_step_template'
+        identifier: getString('templatesLibrary.createNewModal.identifierPlaceholder', {
+          entity: initialValues.type.toLowerCase()
+        })
       }),
       ...((emptyFields.includes(Fields.VersionLabel) || initialValues.versionLabel === DefaultNewVersionLabel) && {
         versionLabel: 'Version1'

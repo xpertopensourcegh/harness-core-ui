@@ -25,7 +25,9 @@ createNewModal:
   editHeading: 'Edit {{ entity }} Template'
   versionLabel: Version Label
   label: Label
-  namePlaceholder: Template Name
+  nameError: 'Template Name'
+  namePlaceholder: 'New {{entity}} Name'
+  identifierPlaceholder: 'new_{{entity}}_name'
   versionPlaceholder: 'Ex: Version1'
 saveAsNewLabelModal:
   heading: 'Save as new version'

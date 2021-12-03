@@ -3,7 +3,10 @@ import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
 import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import ExecutionGraph, {
@@ -60,6 +63,7 @@ export default function BuildStageSetupShell(): JSX.Element {
       selectionState: { selectedStageId = '', selectedStepId },
       templateTypes
     },
+    contextType,
     stepsFactory,
     getStageFromPipeline,
     updatePipelineView,
@@ -163,13 +167,15 @@ export default function BuildStageSetupShell(): JSX.Element {
         }
       />
       {selectedTabId === BuildTabs.ADVANCED ? (
-        <Button
-          text="Done"
-          intent="primary"
-          onClick={() => {
-            updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
-          }}
-        />
+        contextType === PipelineContextType.Pipeline ? (
+          <Button
+            text="Done"
+            intent="primary"
+            onClick={() => {
+              updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
+            }}
+          />
+        ) : null
       ) : (
         <Button
           text={selectedTabId === BuildTabs.EXECUTION ? getString('ci.save') : getString('ci.next')}

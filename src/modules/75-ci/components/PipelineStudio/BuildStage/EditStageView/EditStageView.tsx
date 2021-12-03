@@ -140,6 +140,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
           identifier: IdentifierSchemaWithoutHook(getString)
         }),
         ...(!codebase &&
+          contextType === PipelineContextType.Pipeline &&
           values.cloneCodebase && {
             connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
             ...(connectionType === 'Account' && {
@@ -239,7 +240,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
               </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}
-              {!codebase && formikProps.values.cloneCodebase && (
+              {!codebase && formikProps.values.cloneCodebase && contextType === PipelineContextType.Pipeline && (
                 <div className={css.configureCodebase}>
                   <Text
                     font={{ size: 'normal', weight: 'semi-bold' }}

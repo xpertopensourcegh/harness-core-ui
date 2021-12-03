@@ -11,8 +11,6 @@ import {
   Event
 } from '@pipeline/components/Diagram'
 import type { StageElementConfig } from 'services/cd-ng'
-import { useStrings } from 'framework/strings'
-import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import { DynamicPopover } from '@common/components'
 import { renderPopover } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -27,6 +25,7 @@ import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import { DefaultNewStageId } from '@templates-library/components/TemplateStudio/StageTemplateCanvas/StageTemplateForm/StageTemplateForm'
+import { SplitViewTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import stageBuilderCss from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder.module.scss'
 import css from './StageTemplateDiagram.module.scss'
 
@@ -37,12 +36,19 @@ export const StageTemplateDiagram = (): JSX.Element => {
     state: { template, gitDetails }
   } = React.useContext(TemplateContext)
   const {
-    state: { pipeline },
+    state: {
+      pipeline,
+      pipelineView,
+      selectionState: { selectedStageId }
+    },
     stagesMap,
+    updatePipeline,
+    updatePipelineView,
+    setSelection,
     renderPipelineStage,
-    updatePipeline
+    getStageFromPipeline
   } = usePipelineContext()
-  const { getString } = useStrings()
+  const selectedStage = getStageFromPipeline(selectedStageId || '')
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
@@ -58,10 +64,16 @@ export const StageTemplateDiagram = (): JSX.Element => {
     dynamicPopoverHandler?.show(
       `[data-nodeid="${nodeId}"]`,
       {
-        addStage: (newStage: StageElementWrapper) => {
+        addStage: async (newStage: StageElementWrapper) => {
           dynamicPopoverHandler?.hide()
           set(pipeline, 'stages[0].stage', { ...newStage.stage, identifier: DefaultNewStageId })
-          updatePipeline(pipeline)
+          await updatePipeline(pipeline)
+          setSelection({ stageId: DefaultNewStageId })
+          updatePipelineView({
+            ...pipelineView,
+            isSplitViewOpen: true,
+            splitViewData: { type: SplitViewTypes.StageView }
+          })
         },
         isStageView: false,
         renderPipelineStage,
@@ -97,7 +109,7 @@ export const StageTemplateDiagram = (): JSX.Element => {
       identifier: stage.identifier,
       id: stage.identifier,
       customNodeStyle: { ...getCommonStyles(false), borderColor: 'var(--primary-7)', borderStyle: 'solid' },
-      name: stage.name,
+      name: '',
       isInComplete: false,
       width: 90,
       defaultSelected: false,
@@ -124,11 +136,11 @@ export const StageTemplateDiagram = (): JSX.Element => {
   }, [template.name, gitDetails])
 
   React.useEffect(() => {
-    const stageType = (template.spec as StageElementConfig)?.type
+    const stageType = selectedStage.stage?.stage?.type || ''
     if (stageType) {
-      setStageData(stagesCollection.getStageAttributes(stageType, getString))
+      setStageData(stagesMap[stageType])
     }
-  }, [(template.spec as StageElementConfig)?.type])
+  }, [selectedStageId])
 
   return (
     <Container
@@ -152,7 +164,11 @@ export const StageTemplateDiagram = (): JSX.Element => {
           <Layout.Horizontal>
             <Container data-nodeid={CREATE_NODE_ID}>
               {stageData ? (
-                <DefaultNodeWidget node={getStageNode(template.spec as StageElementConfig)} />
+                selectedStage.stage?.stage ? (
+                  <DefaultNodeWidget node={getStageNode(selectedStage.stage?.stage)} />
+                ) : (
+                  <></>
+                )
               ) : (
                 <CreateNewWidget node={getCreateNode()} />
               )}

@@ -6,7 +6,8 @@ import type { TemplateFormRef } from '@templates-library/components/TemplateStud
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 
-export const DefaultNewStageId = 'Stage_Identifier'
+export const DefaultNewStageName = 'Stage Name'
+export const DefaultNewStageId = 'stage_name'
 
 const StageTemplateForm = (_props: unknown, formikRef: TemplateFormRef) => {
   const {
@@ -17,8 +18,7 @@ const StageTemplateForm = (_props: unknown, formikRef: TemplateFormRef) => {
       selectionState: { selectedStageId }
     },
     renderPipelineStage,
-    getStageFromPipeline,
-    setSelection
+    getStageFromPipeline
   } = usePipelineContext()
   const [key, setKey] = React.useState<string>(uuid())
   const selectedStage = getStageFromPipeline(selectedStageId || '')
@@ -34,10 +34,6 @@ const StageTemplateForm = (_props: unknown, formikRef: TemplateFormRef) => {
       return noop
     }
   }))
-
-  React.useEffect(() => {
-    setSelection({ stageId: DefaultNewStageId })
-  }, [])
 
   React.useEffect(() => {
     if (!isUpdated && !isLoading) {

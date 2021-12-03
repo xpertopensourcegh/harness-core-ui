@@ -2734,7 +2734,9 @@ export interface StringsMap {
   'templatesLibrary.copyToPipeline': string
   'templatesLibrary.createNewModal.editHeading': string
   'templatesLibrary.createNewModal.heading': string
+  'templatesLibrary.createNewModal.identifierPlaceholder': string
   'templatesLibrary.createNewModal.label': string
+  'templatesLibrary.createNewModal.nameError': string
   'templatesLibrary.createNewModal.namePlaceholder': string
   'templatesLibrary.createNewModal.versionLabel': string
   'templatesLibrary.createNewModal.versionPlaceholder': string

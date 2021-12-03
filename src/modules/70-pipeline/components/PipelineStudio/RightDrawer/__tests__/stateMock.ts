@@ -1,6 +1,5 @@
 import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type { PipelineContextInterface } from '../../PipelineContext/PipelineContext'
-import type { PipelineSelectionState } from '../../PipelineQueryParamState/usePipelineQueryParam'
 
 const stateMock = {
   pipeline: {
@@ -236,7 +235,7 @@ const pipelineContextMock: PipelineContextInterface = {
   setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
   setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
   setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
-  setSelection: (_selectedState: PipelineSelectionState) => undefined,
+  setSelection: jest.fn(),
   getStagePathFromPipeline: () => '',
   setTemplateTypes: () => undefined
 }

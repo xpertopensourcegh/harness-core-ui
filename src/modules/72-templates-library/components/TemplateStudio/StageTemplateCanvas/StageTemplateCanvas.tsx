@@ -1,13 +1,29 @@
 import React from 'react'
 import SplitPane from 'react-split-pane'
-import { debounce } from 'lodash-es'
+import { debounce, isEmpty } from 'lodash-es'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 import { StageTemplateFormWithRef } from '@templates-library/components/TemplateStudio/StageTemplateCanvas/StageTemplateForm/StageTemplateForm'
 import { StageTemplateDiagram } from '@templates-library/components/TemplateStudio/StageTemplateCanvas/StageTemplateDiagram/StageTemplateDiagram'
 import { RightDrawer } from '@pipeline/components/PipelineStudio/RightDrawer/RightDrawer'
 import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
+import { SplitViewTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 const StageTemplateCanvas = (_props: unknown, formikRef: TemplateFormRef): JSX.Element => {
+  const {
+    state: {
+      pipeline: { stages },
+      pipelineView,
+      pipelineView: {
+        isSplitViewOpen,
+        splitViewData: { type = SplitViewTypes.StageView }
+      },
+      selectionState: { selectedStageId }
+    },
+    getStageFromPipeline,
+    updatePipelineView,
+    setSelection
+  } = usePipelineContext()
   const [splitPaneSize, setSplitPaneSize] = React.useState(200)
   const setSplitPaneSizeDeb = React.useRef(debounce(setSplitPaneSize, 200))
   const handleStageResize = (size: number): void => {
@@ -16,6 +32,25 @@ const StageTemplateCanvas = (_props: unknown, formikRef: TemplateFormRef): JSX.E
   const resizerStyle = navigator.userAgent.match(/firefox/i)
     ? { display: 'flow-root list-item' }
     : { display: 'inline-table' }
+
+  const selectedStage = getStageFromPipeline(selectedStageId || '')
+  const openSplitView = isSplitViewOpen && !!selectedStage?.stage
+
+  React.useEffect(() => {
+    if (selectedStageId) {
+      updatePipelineView({
+        ...pipelineView,
+        isSplitViewOpen: true,
+        splitViewData: { type: SplitViewTypes.StageView }
+      })
+    }
+  }, [selectedStageId])
+
+  React.useEffect(() => {
+    if (!isEmpty(stages)) {
+      setSelection({ stageId: stages?.[0]?.stage?.identifier })
+    }
+  }, [stages])
 
   return (
     <>
@@ -30,7 +65,7 @@ const StageTemplateCanvas = (_props: unknown, formikRef: TemplateFormRef): JSX.E
         onChange={handleStageResize}
       >
         <StageTemplateDiagram />
-        <StageTemplateFormWithRef ref={formikRef} />
+        {openSplitView && type === SplitViewTypes.StageView ? <StageTemplateFormWithRef ref={formikRef} /> : null}
       </SplitPane>
       <RightDrawer />
       <TemplateDrawer />

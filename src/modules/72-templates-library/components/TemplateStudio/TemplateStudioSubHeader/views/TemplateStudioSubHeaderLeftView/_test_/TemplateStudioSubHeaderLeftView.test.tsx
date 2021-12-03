@@ -74,18 +74,6 @@ describe('<TemplateStudioSubHeaderLeftView /> tests', () => {
 
     const modal = findDialogContainer()
     expect(modal).toMatchSnapshot()
-    // const cancelBtn = getByRole(modal!, 'button', { name: 'cancel' })
-    // expect(cancelBtn).toBeDefined()
-    // await act(async () => {
-    //   fireEvent.click(cancelBtn)
-    // })
-    // expect(useUpdateStableTemplate).toBeCalledTimes(0)
-    //
-    // await act(async () => {
-    //   fireEvent.click(stableBtn)
-    // })
-    //
-    // modal = findDialogContainer()
     const confirmBtn = getByRole(modal!, 'button', { name: 'confirm' })
     expect(confirmBtn).toBeDefined()
     await act(async () => {

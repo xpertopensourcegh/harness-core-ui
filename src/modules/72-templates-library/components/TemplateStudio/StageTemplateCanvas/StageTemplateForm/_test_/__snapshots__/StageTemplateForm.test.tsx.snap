@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StageTemplateFormWithRef /> tests snapshot test 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--background-form"
+    style="height: 100%;"
+  />
+</div>
+`;

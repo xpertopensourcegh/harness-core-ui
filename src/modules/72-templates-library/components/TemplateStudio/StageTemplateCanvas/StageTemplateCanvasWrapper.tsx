@@ -1,8 +1,11 @@
 import produce from 'immer'
-import { get, isEmpty, omit, set } from 'lodash-es'
+import { get, isEmpty, isUndefined, omit, omitBy, set } from 'lodash-es'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { DefaultNewStageId } from '@templates-library/components/TemplateStudio/StageTemplateCanvas/StageTemplateForm/StageTemplateForm'
+import {
+  DefaultNewStageId,
+  DefaultNewStageName
+} from '@templates-library/components/TemplateStudio/StageTemplateCanvas/StageTemplateForm/StageTemplateForm'
 import { TemplatePipelineProvider } from '@pipeline/components/TemplatePipelineContext'
 import { StageTemplateCanvasWithRef } from '@templates-library/components/TemplateStudio/StageTemplateCanvas/StageTemplateCanvas'
 import type { PipelineInfoConfig } from 'services/cd-ng'
@@ -23,7 +26,7 @@ const StageTemplateCanvasWrapper = (_props: unknown, formikRef: TemplateFormRef)
     () =>
       produce({ ...DefaultPipeline }, draft => {
         if (!isEmpty(template.spec)) {
-          set(draft, 'stages[0].stage', { ...template.spec, identifier: DefaultNewStageId })
+          set(draft, 'stages[0].stage', { ...template.spec, name: DefaultNewStageName, identifier: DefaultNewStageId })
         }
       }),
     [template.spec]
@@ -38,7 +41,7 @@ const StageTemplateCanvasWrapper = (_props: unknown, formikRef: TemplateFormRef)
   }, [isLoading, isUpdated])
 
   const onUpdatePipeline = async (pipelineConfig: PipelineInfoConfig) => {
-    const stage = get(pipelineConfig, 'stages[0].stage')
+    const stage = omitBy(omitBy(get(pipelineConfig, 'stages[0].stage'), isUndefined), isEmpty)
     set(template, 'spec', omit(stage, 'name', 'identifier', 'description', 'tags'))
     await updateTemplate(template)
   }
