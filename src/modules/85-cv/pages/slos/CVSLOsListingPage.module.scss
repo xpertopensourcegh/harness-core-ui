@@ -1,85 +1,22 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  height: 80px;
-  background: var(--white);
-  border-bottom: 1px solid var(--grey-200);
-  padding: var(--spacing-medium) var(--spacing-xxxlarge) !important;
-  p {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-    margin-top: var(--spacing-small);
-    text-transform: capitalize;
-  }
-}
-
-.title {
-  display: flex;
-  flex-direction: column;
-}
-
-.slosContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.filterContainer {
-  display: flex;
-  padding: var(--spacing-medium) var(--spacing-xlarge) var(--spacing-none) var(--spacing-xlarge) !important;
-}
-
-.userJourney {
-  padding: var(--spacing-xsmall) var(--spacing-small) !important;
-  background: var(--white-color-1);
-  border: 1px solid;
-  box-sizing: border-box;
-  box-shadow: inset 0px 0.5px 4px rgba(96, 97, 112, 0.32);
-  border-radius: var(--spacing-2);
-  margin: var(--spacing-none) var(--spacing-small) var(--spacing-small) var(--spacing-none);
-}
-
-.sloCard {
-  height: 439px;
-  min-width: 49%;
-  margin: var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-none) !important;
-  border-radius: var(--spacing-3);
-  display: flex;
-  flex-direction: column;
-}
-
-.sloHeader {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--spacing-small) !important;
-}
-
-.sloBasicInfo {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-}
-
-.sloTitle {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--spacing-small) !important;
-}
-
-.seperator {
-  margin-left: var(--spacing-xsmall);
-  margin-right: var(--spacing-xsmall);
-  opacity: 0.5;
-  border: 1px solid 'var(--grey-200)';
-}
-
-.filterSelect {
-  margin-right: var(--spacing-large);
-}
+$headerHeight: 146px;
 
 .pageBody {
-  --page-header-height: 146px !important;
-  padding: var(--spacing-none) var(--spacing-xlarge) var(--spacing-medium) var(--spacing-xlarge) !important;
+  --page-header-height: #{$headerHeight} !important;
+
+  .userJourney {
+    padding: var(--spacing-small) !important;
+    margin-right: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .sloCardContainer {
+    display: grid;
+    grid-gap: var(--spacing-medium);
+    grid-template-columns: repeat(2, 1fr);
+
+    .sloCard {
+      margin-bottom: none;
+      background-color: #fcfeff;
+    }
+  }
 }
