@@ -19,6 +19,7 @@ export interface ServeVariationToItemProps {
   variations: Variation[]
   selectedVariationId?: string
   instructionType: string
+  instructionIdentifier: string
 }
 
 const ServeVariationToItem: FC<ServeVariationToItemProps> = ({
@@ -33,12 +34,13 @@ const ServeVariationToItem: FC<ServeVariationToItemProps> = ({
   items,
   selectedItems,
   setField,
-  instructionType
+  instructionType,
+  instructionIdentifier
 }) => {
   const { getString } = useStrings()
 
   useEffect(() => {
-    setField('identifier', 'SetVariationForTarget')
+    setField('identifier', instructionIdentifier)
     setField('type', instructionType)
   }, [])
 

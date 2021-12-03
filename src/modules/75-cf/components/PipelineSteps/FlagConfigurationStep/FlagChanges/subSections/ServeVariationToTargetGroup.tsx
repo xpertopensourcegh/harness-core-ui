@@ -50,6 +50,7 @@ const ServeVariationToTargetGroup: FC<ServeVariationToTargetGroupProps> = ({
         variations={variations}
         selectedVariationId={get(fieldValues, prefix('spec.variation'))}
         instructionType={CFPipelineInstructionType.ADD_SEGMENT_TO_VARIATION_TARGET_MAP}
+        instructionIdentifier="SetVariationForGroup"
       />
     </SubSection>
   )

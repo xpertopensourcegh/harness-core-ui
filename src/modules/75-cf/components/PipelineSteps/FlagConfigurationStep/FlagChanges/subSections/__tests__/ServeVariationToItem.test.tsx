@@ -33,6 +33,7 @@ const renderComponent = (props: Partial<ServeVariationToItemProps> = {}): Render
         selectedItems={[]}
         setField={jest.fn()}
         instructionType="TEST"
+        instructionIdentifier="TestIdentifier"
         {...props}
       />
     </TestWrapper>
@@ -43,6 +44,19 @@ describe('ServeVariationToItem', () => {
   beforeEach(() => {
     dialogSpy = jest.spyOn(ItemVariationDialog, 'default').mockReturnValue(<span />)
     jest.clearAllMocks()
+  })
+
+  test('it should call setField with the type and identifier', async () => {
+    const instructionType = 'TEST INSTRUCTION TYPE'
+    const instructionIdentifier = 'TEST_IDENTIFIER'
+    const setFieldMock = jest.fn()
+
+    renderComponent({ instructionType, instructionIdentifier, setField: setFieldMock })
+
+    await waitFor(() => {
+      expect(setFieldMock).toHaveBeenCalledWith('type', instructionType)
+      expect(setFieldMock).toHaveBeenCalledWith('identifier', instructionIdentifier)
+    })
   })
 
   test('it should open the dialog when the add button is pressed', async () => {

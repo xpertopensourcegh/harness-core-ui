@@ -50,6 +50,7 @@ const ServeVariationToIndividualTarget: FC<ServeVariationToIndividualTargetProps
         variations={variations}
         selectedVariationId={get(fieldValues, prefix('spec.variation'))}
         instructionType={CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP}
+        instructionIdentifier="SetVariationForTarget"
       />
     </SubSection>
   )
