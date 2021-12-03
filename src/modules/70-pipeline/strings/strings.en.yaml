@@ -733,6 +733,7 @@ stepCommonFields:
 ciCodebase:
   prCloneStrategy: Pull Request Clone Strategy
   buildType: CI Codebase Build Type
+  pullRequestNumber: Pull Request Number
 tagDependencyRequired: required to fetch the tags
 myDeploymentsText: My Deployments
 myBuildsText: My Builds

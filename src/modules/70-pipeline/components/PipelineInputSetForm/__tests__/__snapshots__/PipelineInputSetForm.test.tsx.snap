@@ -144,7 +144,7 @@ exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  pipeline.gitPullRequestNumber
+                  pipeline.gitPullRequest
                 </label>
               </div>
             </div>
@@ -221,7 +221,7 @@ exports[`CI enabled CI present in one of the stages: CI codebase input set form 
                   <span
                     class="bp3-control-indicator"
                   />
-                  pipeline.gitPullRequestNumber
+                  pipeline.gitPullRequest
                 </label>
               </div>
             </div>

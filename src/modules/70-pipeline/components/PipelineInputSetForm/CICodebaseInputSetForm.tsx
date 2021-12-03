@@ -70,10 +70,16 @@ const CICodebaseInputSetFormInternal = ({
   const formattedPath = isEmpty(path) ? '' : `${path}.`
   const codeBaseTypePath = `${formattedPath}properties.ci.codebase.build.type`
 
-  const inputLabels = {
+  const radioLabels = {
     branch: getString('gitBranch'),
     tag: getString('gitTag'),
-    PR: getString('pipeline.gitPullRequestNumber')
+    PR: getString('pipeline.gitPullRequest')
+  }
+
+  const inputLabels = {
+    branch: getString('pipeline.triggers.conditionsPanel.branchName'),
+    tag: getString('pipeline.triggers.conditionsPanel.tagName'),
+    PR: getString('pipeline.ciCodebase.pullRequestNumber')
   }
 
   const codeBaseInputFieldFormName = {
@@ -182,7 +188,7 @@ const CICodebaseInputSetFormInternal = ({
             spacing="huge"
           >
             <Radio
-              label={inputLabels['branch']}
+              label={radioLabels['branch']}
               onClick={() => handleTypeChange('branch')}
               checked={codeBaseType === 'branch'}
               disabled={readonly}
@@ -190,7 +196,7 @@ const CICodebaseInputSetFormInternal = ({
               key="branch-radio-option"
             />
             <Radio
-              label={inputLabels['tag']}
+              label={radioLabels['tag']}
               onClick={() => handleTypeChange('tag')}
               checked={codeBaseType === 'tag'}
               disabled={readonly}
@@ -199,7 +205,7 @@ const CICodebaseInputSetFormInternal = ({
             />
             {connectorType && connectorType !== 'Codecommit' ? (
               <Radio
-                label={inputLabels['PR']}
+                label={radioLabels['PR']}
                 onClick={() => handleTypeChange('PR')}
                 checked={codeBaseType === 'PR'}
                 disabled={readonly}

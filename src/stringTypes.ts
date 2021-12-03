@@ -2023,6 +2023,7 @@ export interface StringsMap {
   'pipeline.buildRepo': string
   'pipeline.ciCodebase.buildType': string
   'pipeline.ciCodebase.prCloneStrategy': string
+  'pipeline.ciCodebase.pullRequestNumber': string
   'pipeline.clickHere': string
   'pipeline.clickToExpandErrorDetails': string
   'pipeline.closeStepConfig': string
