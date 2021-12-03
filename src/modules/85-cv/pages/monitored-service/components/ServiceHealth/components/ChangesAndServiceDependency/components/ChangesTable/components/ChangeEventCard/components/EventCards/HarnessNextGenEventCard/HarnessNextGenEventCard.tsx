@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Divider } from '@blueprintjs/core'
 import { Card, Color, Container, Text } from '@wings-software/uicore'
-import type { ChangeEventDTO, VerificationResult } from 'services/cv'
+import type { ChangeEventDTO, VerifyStepSummary } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { verificationResultToIcon } from '@cv/components/ActivitiesTimelineView/TimelineTooltip'
 import VerificationStatusCard from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
@@ -65,7 +65,7 @@ export default function HarnessNextGenEventCard({
                   <Text icon={icon} className={css.summarylabel} font={{ size: 'xsmall' }} color={Color.GREY_400}>
                     {item.name}
                   </Text>
-                  <VerificationStatusCard status={item.verificationStatus as VerificationResult['status']} />
+                  <VerificationStatusCard status={item.verificationStatus as VerifyStepSummary['verificationStatus']} />
                 </Container>
               )
             })}

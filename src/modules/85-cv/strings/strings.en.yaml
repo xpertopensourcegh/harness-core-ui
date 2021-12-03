@@ -68,22 +68,6 @@ serviceDashboardPage:
   thirtyDays: 30 Days
   noServicesConfigured: No services have been configured
   goToMonitoringSources: Go to Monitoring Source Page
-activityChanges:
-  riskBeforeChange: Risk Before Change
-  riskAfterChange: Risk After Change
-  cumulative: Cumulative
-  minutesRemaining: Minutes remaining
-  preProduction: Pre Production
-  productionDeployment: Production Deployment
-  postProdDeployment: Post-Production Deployment
-  preProdVerifications: Pre Production Verifications
-  prodVerifications: Production Verifications
-  postDeployVerifications: Post Deployment Verifications
-  minRemaining: min remaining
-activityTimeline:
-  beforeChange: Before Change
-  noChanges: No Changes
-  otherChanges: Other Changes
 abbreviatedCategories:
   performance: Perf
   infrastructure: Infra
@@ -131,66 +115,8 @@ changesPage:
   eventCount: 'Event Count'
   viewKubernetesEvents: 'View Kubernetes Change Summary'
 admin:
-  mapsTo: maps to
-  notifications:
-    newNotification: 'New Notification Rule'
-    name: 'Name of the rule'
-    method: '{{$.notificationMethod}}'
-    createSuccess: Notification rule created succesfully
-    updateSuccess: 'Notification rule updated successfully'
-    deleteSuccess: 'Notification rule deleted succesfully'
-    create:
-      type: Notification Type
-      details: Detail
-      method: Configure Method
-      stepOne:
-        heading: Notification Rule Details
-        name: Give name to your notification rule
-      stepThree:
-        verification: '{{$.common.purpose.cv.verification}}'
-        headingOne: Select Condition for Notification
-        headingTwo: 'Choose the services and their corresponding conditions you’d like to be notified on.'
-        notifyVerification: Notify on completed verifications
-        activityType: Activity Type
-        verificationStatus: Verification Statuses
-        notifyRisk: Notify on reaching service risk score threshold
-        preDeployment: Pre-Deployment
-        duringDeployment: During Deployment
-        postDeployment: Post-Deployment
-        infrastructureChange: Infrastructure Change
-        configChange: Config Change
-      validation:
-        type: Select a notification type
   activitySources:
-    searchBoxPlaceholder: 'Search by Change Source name'
-    noDataMessage: 'No Change Sources onboarded'
-    addActivitySource: '+ Add Change Source(s)'
-    dialogDeleteContent: 'Are you sure you want to delete Change Source: '
     dialogDeleteTitle: 'Delete Change Source'
-    tableColumnNames:
-      createdOn: 'Created on'
-      lastUpdatedOn: 'Last Updated on'
-  monitoringSources:
-    searchPlaceholder: 'Search by name, environments, services'
-    newMonitoringSource: 'New Monitoring Source'
-    noDataMessage: 'No Monitoring Sources onboarded'
-    importStatus: 'Import Status'
-    importedOn: 'Imported On'
-    applicationsImported: '{{num}}/{{total}} applications imported'
-    environmentsImported: '{{num}}/{{total}} environments imported'
-    confirmDeleteTitle: Delete Monitoring Source
-    confirmDeleteContent: 'Are you sure you want to delete Monitoring Source: {{ name }}'
-  verificationJobs:
-    newVerificationJob: 'New Verification Job'
-    noDataMessage: 'No Verification Jobs to show'
-    cantBeCopied: 'Webhook url cant be copied for default jobs.'
-    jobTypes:
-      test: Test Verification
-      canary: Canary Verification
-      blueGreen: Blue Green Verification
-      health: Health Verification
-    confirmDeleteTitle: Delete Verification Job
-    confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
 onboarding:
   defaultChangeSource: Default change source that is already created for you
   changeSourceTypes:
@@ -472,66 +398,6 @@ activitySources:
       applicationValidation: At least one application must be selected.
       serviceValidation: At least one service mapping must be selected.
       environmentValidation: At least one environment mapping must be selected.
-  kubernetes:
-    tabNames:
-      tab1: 'Select Kubernetes Connector'
-      tab2: 'Select Kubernetes Namespace(s)'
-      tab3: 'Map Workloads to Services'
-    defaultName: My Kubernetes Change Source
-    namespaceMapping:
-      searchNamespacePlaceholder: Search for Namespaces
-      headingText: Harness CV can verify change activities by automatically sourcing them from your Kubernetes cluster. Map your Kubernetes workloads to Harness services.
-      noNamespaces: No Kubernetes Namespaces were found
-      validateNamespace: At least one namespace must be selected.
-    mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
-    noWorkloads: 'No workloads found.'
-    missingWorkloadMapping: Please add at least one workload mapping
-    searchWorkloadPlaceholder: Search for Workloads
-    selectKubernetesSource:
-      infraType: Type of Infrastructure
-      infraSpecification: Infrastructure Specification
-      connectorOptionHeading: Select the best method for Harness to reach your Kubernetes Cluster
-      nameActivitySourceValidation: Change Source name is required.
-      connectorTypeValidation: Kubernetes Connector Type is required.
-      firstTimeSetupText: First time? You can setup a new Connector to Kubernetes. It takes 2 minutes.
-      createConnectorText: + New Kubernetes Connector
-      selectConnectorHeading: Select your Connector
-      nameValidation: Connector Name is required.
-    workloadToServiceTableColumns:
-      workload: 'Kubernetes Workload'
-      mapToService: 'Map to Harness Service'
-      mapToEnvironment: 'Map to Harness Environment'
-    reviewPage:
-      heading: '{{namespaceCount}} Namespaces, {{workloadCount}} Workloads will be sourced into Harness CV'
-      reviewTableColumns:
-        namespace: 'KUBERNETES NAMESPACE'
-        workload: 'KUBERNETES WORKLOAD'
-        service: 'HARNESS SERVICE'
-verificationJobs:
-  validation:
-    type: Please select Verification Job type
-    service: Please select a service
-    environment: Please select a environment
-    duration: Please select duration
-    dataSource: Please select a Monitoring Source
-    baseline: Please select a baseline
-    changeSource: Please select a Change Source
-    sensitivity: Please select a sensitivity
-  details:
-    name: Name of your job
-    tabName: Select Verification Job Type
-    heading: Create your verification job
-    verificationMonitoringSource: Verification Monitoring Sources (select multiple that apply)
-    selectType: Select the type of verification job
-    preDeploymentTests: Pre-Deployment Tests
-    productionDep: Production Deployments
-    postDeploymentTests: Post Deployment Tests
-  configure:
-    tabName: Configure Verification Job
-    heading: Verification Specification
-    preDepText: Create a new pre-deployment test verification job
-    prodDepText: Create a new production deployment verification job
-    postDepText: Create a new post-deployment test verification job
 learnMore: Learn more about Change Intelligence
 cvTrialHomePage:
   startTrial:

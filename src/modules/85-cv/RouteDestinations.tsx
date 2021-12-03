@@ -27,7 +27,6 @@ import './components/PipelineSteps'
 import './components/ExecutionVerification'
 import CVMonitoredService from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService'
 import MonitoredServicePage from '@cv/pages/monitored-service/MonitoredServicePage'
-import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cv/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
@@ -207,13 +206,6 @@ export default (
       ]}
     >
       <MonitoredServicePage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVActivityDashboard({ ...accountPathProps, ...projectPathProps })}
-    >
-      <ActivityDashBoardPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

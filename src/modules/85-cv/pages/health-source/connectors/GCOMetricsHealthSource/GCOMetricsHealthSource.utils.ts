@@ -5,7 +5,8 @@ import type {
   MetricPackDTO,
   TimeSeriesSampleDTO,
   MetricDefinition,
-  StackdriverMetricHealthSourceSpec
+  StackdriverMetricHealthSourceSpec,
+  StackdriverDefinition
 } from 'services/cv'
 import type { StringKeys } from 'framework/strings'
 import type { GCOMetricInfo, GCOMetricSetupSource } from './GCOMetricsHealthSource.type'
@@ -152,7 +153,7 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
           serviceInstanceFieldName: metricInfo?.serviceInstance || ''
         }
       }
-    })
+    } as StackdriverDefinition)
   }
 
   return healthSource

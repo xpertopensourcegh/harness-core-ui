@@ -3973,17 +3973,6 @@ export interface StringsMap {
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string
   'cv.abbreviatedCategories.performance': string
-  'cv.activityChanges.cumulative': string
-  'cv.activityChanges.minRemaining': string
-  'cv.activityChanges.minutesRemaining': string
-  'cv.activityChanges.postDeployVerifications': string
-  'cv.activityChanges.postProdDeployment': string
-  'cv.activityChanges.preProdVerifications': string
-  'cv.activityChanges.preProduction': string
-  'cv.activityChanges.prodVerifications': string
-  'cv.activityChanges.productionDeployment': string
-  'cv.activityChanges.riskAfterChange': string
-  'cv.activityChanges.riskBeforeChange': string
   'cv.activitySources.harnessCD.application.infoText': string
   'cv.activitySources.harnessCD.application.noData': string
   'cv.activitySources.harnessCD.application.searchPlaceholder': string
@@ -4008,89 +3997,9 @@ export interface StringsMap {
   'cv.activitySources.harnessCD.validation.applicationValidation': string
   'cv.activitySources.harnessCD.validation.environmentValidation': string
   'cv.activitySources.harnessCD.validation.serviceValidation': string
-  'cv.activitySources.kubernetes.defaultName': string
-  'cv.activitySources.kubernetes.mapWorkloadsToServices': string
-  'cv.activitySources.kubernetes.missingWorkloadMapping': string
-  'cv.activitySources.kubernetes.namespaceMapping.headingText': string
-  'cv.activitySources.kubernetes.namespaceMapping.noNamespaces': string
-  'cv.activitySources.kubernetes.namespaceMapping.searchNamespacePlaceholder': string
-  'cv.activitySources.kubernetes.namespaceMapping.validateNamespace': string
-  'cv.activitySources.kubernetes.noWorkloads': string
-  'cv.activitySources.kubernetes.reviewPage.heading': string
-  'cv.activitySources.kubernetes.reviewPage.reviewTableColumns.namespace': string
-  'cv.activitySources.kubernetes.reviewPage.reviewTableColumns.service': string
-  'cv.activitySources.kubernetes.reviewPage.reviewTableColumns.workload': string
-  'cv.activitySources.kubernetes.searchWorkloadPlaceholder': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.connectorOptionHeading': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.connectorTypeValidation': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.createConnectorText': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.firstTimeSetupText': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.infraSpecification': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.infraType': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.nameActivitySourceValidation': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.nameValidation': string
-  'cv.activitySources.kubernetes.selectKubernetesSource.selectConnectorHeading': string
-  'cv.activitySources.kubernetes.tabNames.tab1': string
-  'cv.activitySources.kubernetes.tabNames.tab2': string
-  'cv.activitySources.kubernetes.tabNames.tab3': string
-  'cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToEnvironment': string
-  'cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToService': string
-  'cv.activitySources.kubernetes.workloadToServiceTableColumns.workload': string
   'cv.activitySources.name': string
-  'cv.activityTimeline.beforeChange': string
-  'cv.activityTimeline.noChanges': string
-  'cv.activityTimeline.otherChanges': string
   'cv.addNew': string
-  'cv.admin.activitySources.addActivitySource': string
-  'cv.admin.activitySources.dialogDeleteContent': string
   'cv.admin.activitySources.dialogDeleteTitle': string
-  'cv.admin.activitySources.noDataMessage': string
-  'cv.admin.activitySources.searchBoxPlaceholder': string
-  'cv.admin.activitySources.tableColumnNames.createdOn': string
-  'cv.admin.activitySources.tableColumnNames.lastUpdatedOn': string
-  'cv.admin.mapsTo': string
-  'cv.admin.monitoringSources.applicationsImported': string
-  'cv.admin.monitoringSources.confirmDeleteContent': string
-  'cv.admin.monitoringSources.confirmDeleteTitle': string
-  'cv.admin.monitoringSources.environmentsImported': string
-  'cv.admin.monitoringSources.importStatus': string
-  'cv.admin.monitoringSources.importedOn': string
-  'cv.admin.monitoringSources.newMonitoringSource': string
-  'cv.admin.monitoringSources.noDataMessage': string
-  'cv.admin.monitoringSources.searchPlaceholder': string
-  'cv.admin.notifications.create.details': string
-  'cv.admin.notifications.create.method': string
-  'cv.admin.notifications.create.stepOne.heading': string
-  'cv.admin.notifications.create.stepOne.name': string
-  'cv.admin.notifications.create.stepThree.activityType': string
-  'cv.admin.notifications.create.stepThree.configChange': string
-  'cv.admin.notifications.create.stepThree.duringDeployment': string
-  'cv.admin.notifications.create.stepThree.headingOne': string
-  'cv.admin.notifications.create.stepThree.headingTwo': string
-  'cv.admin.notifications.create.stepThree.infrastructureChange': string
-  'cv.admin.notifications.create.stepThree.notifyRisk': string
-  'cv.admin.notifications.create.stepThree.notifyVerification': string
-  'cv.admin.notifications.create.stepThree.postDeployment': string
-  'cv.admin.notifications.create.stepThree.preDeployment': string
-  'cv.admin.notifications.create.stepThree.verification': string
-  'cv.admin.notifications.create.stepThree.verificationStatus': string
-  'cv.admin.notifications.create.type': string
-  'cv.admin.notifications.create.validation.type': string
-  'cv.admin.notifications.createSuccess': string
-  'cv.admin.notifications.deleteSuccess': string
-  'cv.admin.notifications.method': string
-  'cv.admin.notifications.name': string
-  'cv.admin.notifications.newNotification': string
-  'cv.admin.notifications.updateSuccess': string
-  'cv.admin.verificationJobs.cantBeCopied': string
-  'cv.admin.verificationJobs.confirmDeleteContent': string
-  'cv.admin.verificationJobs.confirmDeleteTitle': string
-  'cv.admin.verificationJobs.jobTypes.blueGreen': string
-  'cv.admin.verificationJobs.jobTypes.canary': string
-  'cv.admin.verificationJobs.jobTypes.health': string
-  'cv.admin.verificationJobs.jobTypes.test': string
-  'cv.admin.verificationJobs.newVerificationJob': string
-  'cv.admin.verificationJobs.noDataMessage': string
   'cv.allMetrics': string
   'cv.allServices': string
   'cv.analysisScreens.totalClusters': string
@@ -4594,27 +4503,6 @@ export interface StringsMap {
   'cv.unknown': string
   'cv.urlCopied': string
   'cv.verificationErrored': string
-  'cv.verificationJobs.configure.heading': string
-  'cv.verificationJobs.configure.postDepText': string
-  'cv.verificationJobs.configure.preDepText': string
-  'cv.verificationJobs.configure.prodDepText': string
-  'cv.verificationJobs.configure.tabName': string
-  'cv.verificationJobs.details.heading': string
-  'cv.verificationJobs.details.name': string
-  'cv.verificationJobs.details.postDeploymentTests': string
-  'cv.verificationJobs.details.preDeploymentTests': string
-  'cv.verificationJobs.details.productionDep': string
-  'cv.verificationJobs.details.selectType': string
-  'cv.verificationJobs.details.tabName': string
-  'cv.verificationJobs.details.verificationMonitoringSource': string
-  'cv.verificationJobs.validation.baseline': string
-  'cv.verificationJobs.validation.changeSource': string
-  'cv.verificationJobs.validation.dataSource': string
-  'cv.verificationJobs.validation.duration': string
-  'cv.verificationJobs.validation.environment': string
-  'cv.verificationJobs.validation.sensitivity': string
-  'cv.verificationJobs.validation.service': string
-  'cv.verificationJobs.validation.type': string
   'cv.verificationStatus': string
   'cv.verifications': string
   /**

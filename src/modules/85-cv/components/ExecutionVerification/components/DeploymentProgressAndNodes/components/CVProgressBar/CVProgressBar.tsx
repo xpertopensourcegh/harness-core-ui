@@ -4,11 +4,11 @@ import { Classes } from '@blueprintjs/core'
 import classnames from 'classnames'
 import { isNumber } from 'lodash-es'
 import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
-import type { ActivityVerificationSummary } from 'services/cv'
+import type { VerifyStepSummary } from 'services/cv'
 import styles from './CVProgressBar.module.scss'
 
 export interface CVProgressBarProps {
-  status?: ActivityVerificationSummary['aggregatedStatus']
+  status?: VerifyStepSummary['verificationStatus']
   value?: number
   riskScore?: number
   className?: string

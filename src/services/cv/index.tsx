@@ -5,46 +5,11 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export const SPEC_VERSION = '1.0'
-export interface ActivityDashboardDTO {
-  activityId?: string
-  activityName?: string
-  activityStartTime?: number
-  activityType?:
-    | 'DEPLOYMENT'
-    | 'INFRASTRUCTURE'
-    | 'CONFIG'
-    | 'OTHER'
-    | 'KUBERNETES'
-    | 'HARNESS_CD'
-    | 'PAGER_DUTY'
-    | 'HARNESS_CD_CURRENT_GEN'
-  activityVerificationSummary?: ActivityVerificationSummary
-  environmentIdentifier?: string
-  environmentName?: string
-  serviceIdentifier?: string
-  verificationStatus?:
-    | 'IGNORED'
-    | 'NOT_STARTED'
-    | 'VERIFICATION_PASSED'
-    | 'VERIFICATION_FAILED'
-    | 'ERROR'
-    | 'ABORTED'
-    | 'IN_PROGRESS'
-}
-
 export interface ActivityVerificationResultDTO {
   activityId?: string
   activityName?: string
   activityStartTime?: number
-  activityType?:
-    | 'DEPLOYMENT'
-    | 'INFRASTRUCTURE'
-    | 'CONFIG'
-    | 'OTHER'
-    | 'KUBERNETES'
-    | 'HARNESS_CD'
-    | 'PAGER_DUTY'
-    | 'HARNESS_CD_CURRENT_GEN'
+  activityType?: 'DEPLOYMENT' | 'CONFIG' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY' | 'HARNESS_CD_CURRENT_GEN'
   endTime?: number
   environmentIdentifier?: string
   environmentName?: string
@@ -62,39 +27,6 @@ export interface ActivityVerificationResultDTO {
     | 'ERROR'
     | 'ABORTED'
     | 'IN_PROGRESS'
-}
-
-export interface ActivityVerificationSummary {
-  aborted?: number
-  aggregatedStatus?:
-    | 'IGNORED'
-    | 'NOT_STARTED'
-    | 'VERIFICATION_PASSED'
-    | 'VERIFICATION_FAILED'
-    | 'ERROR'
-    | 'ABORTED'
-    | 'IN_PROGRESS'
-  durationMs?: number
-  errors?: number
-  failed?: number
-  notStarted?: number
-  passed?: number
-  progress?: number
-  progressPercentage?: number
-  remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
-  startTime?: number
-  total?: number
-  verficationStatusMap?: {
-    [key: string]:
-      | 'IGNORED'
-      | 'NOT_STARTED'
-      | 'VERIFICATION_PASSED'
-      | 'VERIFICATION_FAILED'
-      | 'ERROR'
-      | 'ABORTED'
-      | 'IN_PROGRESS'
-  }
 }
 
 export interface AdditionalInfo {
@@ -133,7 +65,7 @@ export interface AnalysisDTO {
 export interface AnalysisResult {
   count?: number
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
@@ -155,6 +87,17 @@ export interface AnomaliesSummaryDTO {
   logsAnomalies?: number
   timeSeriesAnomalies?: number
   totalAnomalies?: number
+}
+
+export interface AppDMetricDefinitions {
+  analysis?: AnalysisDTO
+  baseFolder?: string
+  groupName?: string
+  identifier: string
+  metricName: string
+  metricPath?: string
+  riskProfile?: RiskProfile
+  sli?: Slidto
 }
 
 export interface AppDynamicsApplication {
@@ -181,7 +124,8 @@ export interface AppDynamicsFileDefinition {
 export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
   applicationName?: string
   feature: string
-  metricPacks: MetricPackDTO[]
+  metricDefinitions?: AppDMetricDefinitions[]
+  metricPacks?: MetricPackDTO[]
   tierName?: string
 }
 
@@ -538,16 +482,7 @@ export interface ClusterSummary {
   count?: number
   label?: number
   risk?: number
-  riskLevel?:
-    | 'NO_DATA'
-    | 'NO_ANALYSIS'
-    | 'HEALTHY'
-    | 'OBSERVE'
-    | 'NEED_ATTENTION'
-    | 'UNHEALTHY'
-    | 'LOW'
-    | 'MEDIUM'
-    | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testFrequencyData?: number[]
 }
@@ -612,6 +547,7 @@ export interface ConnectorInfoDTO {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
 }
 
 export interface ControlClusterSummary {
@@ -632,6 +568,23 @@ export interface CountServiceDTO {
 export interface CrossAccountAccess {
   crossAccountRoleArn: string
   externalId?: string
+}
+
+export type CustomHealthConnectorDTO = ConnectorConfigDTO & {
+  baseURL: string
+  delegateSelectors?: string[]
+  headers?: CustomHealthKeyAndValue[]
+  method: 'GET' | 'POST'
+  params?: CustomHealthKeyAndValue[]
+  validationBody?: string
+  validationPath?: string
+}
+
+export interface CustomHealthKeyAndValue {
+  encryptedValueRef?: SecretRefData
+  key: string
+  value?: string
+  valueEncrypted?: boolean
 }
 
 export interface DataCollectionInfo {
@@ -673,6 +626,7 @@ export interface DataCollectionRequest {
     | 'DATADOG_TIME_SERIES_POINTS'
     | 'DATADOG_LOG_SAMPLE_DATA'
     | 'DATADOG_LOG_INDEXES'
+    | 'NEWRELIC_SAMPLE_FETCH_REQUEST'
 }
 
 export interface DataCollectionTaskDTO {
@@ -715,8 +669,13 @@ export interface DatadogDashboardDTO {
 }
 
 export interface DatadogDashboardDetail {
-  dataSets?: DataSet[]
+  dataSets?: DatadogDataSet[]
   widgetName?: string
+}
+
+export interface DatadogDataSet {
+  name?: string
+  query?: string
 }
 
 export type DatadogLogHealthSourceSpec = HealthSourceSpec & {
@@ -726,16 +685,19 @@ export type DatadogLogHealthSourceSpec = HealthSourceSpec & {
 
 export interface DatadogMetricHealthDefinition {
   aggregation?: string
+  analysis?: AnalysisDTO
   dashboardId?: string
   dashboardName?: string
   groupingQuery?: string
+  identifier: string
   isManualQuery?: boolean
   metric?: string
-  metricName?: string
+  metricName: string
   metricTags?: string[]
   query?: string
   riskProfile?: RiskProfile
   serviceInstanceIdentifierTag?: string
+  sli?: Slidto
 }
 
 export type DatadogMetricHealthSourceSpec = HealthSourceSpec & {
@@ -757,22 +719,6 @@ export interface DatasourceTypeDTO {
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
-export interface DeploymentActivityPopoverResultDTO {
-  postDeploymentSummary?: DeploymentPopoverSummary
-  preProductionDeploymentSummary?: DeploymentPopoverSummary
-  productionDeploymentSummary?: DeploymentPopoverSummary
-  serviceName?: string
-  tag?: string
-}
-
-export interface DeploymentActivityResultDTO {
-  deploymentResultSummary?: DeploymentResultSummary
-  deploymentTag?: string
-  environments?: string[]
-  serviceIdentifier?: string
-  serviceName?: string
-}
-
 export interface DeploymentActivitySummaryDTO {
   deploymentTag?: string
   deploymentVerificationJobInstanceSummary?: DeploymentVerificationJobInstanceSummary
@@ -782,15 +728,6 @@ export interface DeploymentActivitySummaryDTO {
   serviceName?: string
 }
 
-export interface DeploymentActivityVerificationResultDTO {
-  postDeploymentSummary?: ActivityVerificationSummary
-  preProductionDeploymentSummary?: ActivityVerificationSummary
-  productionDeploymentSummary?: ActivityVerificationSummary
-  serviceIdentifier?: string
-  serviceName?: string
-  tag?: string
-}
-
 export interface DeploymentLogAnalysisDTO {
   clusterCoordinates?: ClusterCoordinates[]
   clusters?: Cluster[]
@@ -798,20 +735,9 @@ export interface DeploymentLogAnalysisDTO {
   resultSummary?: ResultSummary
 }
 
-export interface DeploymentPopoverSummary {
-  total?: number
-  verificationResults?: VerificationResult[]
-}
-
-export interface DeploymentResultSummary {
-  postDeploymentVerificationJobInstanceSummaries?: DeploymentVerificationJobInstanceSummary[]
-  preProductionDeploymentVerificationJobInstanceSummaries?: DeploymentVerificationJobInstanceSummary[]
-  productionDeploymentVerificationJobInstanceSummaries?: DeploymentVerificationJobInstanceSummary[]
-}
-
 export interface DeploymentTimeSeriesAnalysisDTO {
   hostSummaries?: HostInfo[]
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionMetricSummaries?: TransactionMetricHostData[]
 }
@@ -819,6 +745,7 @@ export interface DeploymentTimeSeriesAnalysisDTO {
 export interface DeploymentVerificationDTO {
   enabled?: boolean
   serviceInstanceFieldName?: string
+  serviceInstanceMetricPath?: string
 }
 
 export interface DeploymentVerificationJobInstanceSummary {
@@ -831,7 +758,7 @@ export interface DeploymentVerificationJobInstanceSummary {
   logsAnalysisSummary?: LogsAnalysisSummary
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   status?:
     | 'IGNORED'
@@ -1825,7 +1752,7 @@ export interface HostData {
   anomalous?: boolean
   controlData?: number[]
   hostName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testData?: number[]
 }
@@ -1834,7 +1761,7 @@ export interface HostInfo {
   canary?: boolean
   hostName?: string
   primary?: boolean
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
 }
 
@@ -2027,7 +1954,7 @@ export interface LiveMonitoringDTO {
 }
 
 export interface LiveMonitoringLogAnalysisClusterDTO {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   x?: number
@@ -2061,7 +1988,7 @@ export interface LogAnalysisClusterChartDTO {
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
   hostName?: string
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   text?: string
   x?: number
   y?: number
@@ -2073,7 +2000,7 @@ export interface LogAnalysisClusterDTO {
   count?: number
   label?: number
   message?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testFrequencyData?: number[]
 }
@@ -2135,16 +2062,7 @@ export interface LogData {
   count?: number
   label?: number
   riskScore?: number
-  riskStatus?:
-    | 'NO_DATA'
-    | 'NO_ANALYSIS'
-    | 'HEALTHY'
-    | 'OBSERVE'
-    | 'NEED_ATTENTION'
-    | 'UNHEALTHY'
-    | 'LOW'
-    | 'MEDIUM'
-    | 'HIGH'
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   trend?: FrequencyDTO[]
@@ -2179,8 +2097,13 @@ export interface MessageFrequency {
   time?: number
 }
 
+export interface MetricDTO {
+  identifier?: string
+  metricName?: string
+}
+
 export interface MetricData {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   timestamp?: number
   value?: number
 }
@@ -2640,8 +2563,9 @@ export interface PrometheusMetricDefinition {
   analysis?: AnalysisDTO
   envFilter?: PrometheusFilter[]
   groupName?: string
+  identifier: string
   isManualQuery?: boolean
-  metricName?: string
+  metricName: string
   prometheusMetric?: string
   query?: string
   riskProfile?: RiskProfile
@@ -3199,6 +3123,13 @@ export interface ResponseSetTimeSeriesSampleDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseString {
+  correlationId?: string
+  data?: string
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface RestResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3271,22 +3202,6 @@ export interface RestResponseChangeTimeline {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseDeploymentActivityPopoverResultDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentActivityPopoverResultDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseDeploymentActivityResultDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentActivityResultDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseDeploymentActivitySummaryDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3319,28 +3234,11 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListActivityDashboardDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivityDashboardDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListActivityType {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: (
-    | 'DEPLOYMENT'
-    | 'INFRASTRUCTURE'
-    | 'CONFIG'
-    | 'OTHER'
-    | 'KUBERNETES'
-    | 'HARNESS_CD'
-    | 'PAGER_DUTY'
-    | 'HARNESS_CD_CURRENT_GEN'
-  )[]
+  resource?: ('DEPLOYMENT' | 'CONFIG' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY' | 'HARNESS_CD_CURRENT_GEN')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3373,14 +3271,6 @@ export interface RestResponseListDataCollectionTaskDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: DataCollectionTaskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListDeploymentActivityVerificationResultDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentActivityVerificationResultDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3455,6 +3345,14 @@ export interface RestResponseListLogClusterDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: LogClusterDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListMetricDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MetricDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3755,16 +3653,7 @@ export interface RestResponseVoid {
 export interface ResultSummary {
   controlClusterSummaries?: ControlClusterSummary[]
   risk?: number
-  riskLevel?:
-    | 'NO_DATA'
-    | 'NO_ANALYSIS'
-    | 'HEALTHY'
-    | 'OBSERVE'
-    | 'NEED_ATTENTION'
-    | 'UNHEALTHY'
-    | 'LOW'
-    | 'MEDIUM'
-    | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testClusterSummaries?: ClusterSummary[]
 }
@@ -3772,16 +3661,7 @@ export interface ResultSummary {
 export interface RiskData {
   endTime?: number
   healthScore?: number
-  riskStatus?:
-    | 'NO_DATA'
-    | 'NO_ANALYSIS'
-    | 'HEALTHY'
-    | 'OBSERVE'
-    | 'NEED_ATTENTION'
-    | 'UNHEALTHY'
-    | 'LOW'
-    | 'MEDIUM'
-    | 'HIGH'
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   timeRangeParams?: TimeRangeParams
 }
@@ -3829,6 +3709,13 @@ export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
   }
 }
 
+export interface SecretRefData {
+  decryptedValue?: string[]
+  identifier?: string
+  null?: boolean
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
 export interface ServiceDependencyDTO {
   dependencyMetadata?: ServiceDependencyMetadata
   monitoredServiceIdentifier?: string
@@ -3865,7 +3752,7 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   shortTermHistory?: number[]
 }
@@ -3922,16 +3809,7 @@ export interface ServiceSummaryDetails {
   environmentRef?: string
   identifierRef?: string
   riskData?: RiskData
-  riskLevel?:
-    | 'NO_DATA'
-    | 'NO_ANALYSIS'
-    | 'HEALTHY'
-    | 'OBSERVE'
-    | 'NEED_ATTENTION'
-    | 'UNHEALTHY'
-    | 'LOW'
-    | 'MEDIUM'
-    | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
   serviceName?: string
   serviceRef?: string
@@ -3983,9 +3861,10 @@ export interface StackdriverDefinition {
   analysis?: AnalysisDTO
   dashboardName?: string
   dashboardPath?: string
+  identifier: string
   isManualQuery?: boolean
   jsonMetricDefinition?: { [key: string]: any }
-  metricName?: string
+  metricName: string
   metricTags?: string[]
   riskProfile?: RiskProfile
   serviceInstanceField?: string
@@ -4006,6 +3885,19 @@ export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
   accessKeyRef: string
   delegateSelectors?: string[]
   url: string
+}
+
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
 }
 
 export interface TestVerificationBaselineExecutionDTO {
@@ -4072,7 +3964,6 @@ export interface TimeSeriesCumulativeSums {
 
 export interface TimeSeriesDataCollectionRecord {
   accountId?: string
-  cvConfigId?: string
   host?: string
   metricValues?: TimeSeriesDataRecordMetricValue[]
   timeStamp?: number
@@ -4228,7 +4119,7 @@ export interface TimeSeriesThresholdDTO {
 
 export interface TransactionMetric {
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionName?: string
 }
@@ -4242,7 +4133,7 @@ export interface TransactionMetricHostData {
   anomalous?: boolean
   hostData?: HostData[]
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionName?: string
 }
@@ -4275,16 +4166,7 @@ export interface TransactionMetricRisk {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricName?: string
-  metricRisk?:
-    | 'NO_DATA'
-    | 'NO_ANALYSIS'
-    | 'HEALTHY'
-    | 'OBSERVE'
-    | 'NEED_ATTENTION'
-    | 'UNHEALTHY'
-    | 'LOW'
-    | 'MEDIUM'
-    | 'HIGH'
+  metricRisk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   metricScore?: number
   transactionName?: string
 }
@@ -4329,33 +4211,8 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   vaultUrl?: string
 }
 
-export interface VerificationResult {
-  jobName?: string
-  progressPercentage?: number
-  remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
-  startTime?: number
-  status?:
-    | 'IGNORED'
-    | 'NOT_STARTED'
-    | 'VERIFICATION_PASSED'
-    | 'VERIFICATION_FAILED'
-    | 'ERROR'
-    | 'ABORTED'
-    | 'IN_PROGRESS'
-}
-
 export interface VerificationsNotify {
-  activityTypes?: (
-    | 'DEPLOYMENT'
-    | 'INFRASTRUCTURE'
-    | 'CONFIG'
-    | 'OTHER'
-    | 'KUBERNETES'
-    | 'HARNESS_CD'
-    | 'PAGER_DUTY'
-    | 'HARNESS_CD_CURRENT_GEN'
-  )[]
+  activityTypes?: ('DEPLOYMENT' | 'CONFIG' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY' | 'HARNESS_CD_CURRENT_GEN')[]
   allActivityTpe?: boolean
   allVerificationStatuses?: boolean
   verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
@@ -4724,235 +4581,6 @@ export const getChangeEventDetailPromise = (
     signal
   )
 
-export interface GetVerificationsPopoverSummaryQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceIdentifier: string
-}
-
-export interface GetVerificationsPopoverSummaryPathParams {
-  deploymentTag: string
-}
-
-export type GetVerificationsPopoverSummaryProps = Omit<
-  GetProps<
-    RestResponseDeploymentActivityPopoverResultDTO,
-    unknown,
-    GetVerificationsPopoverSummaryQueryParams,
-    GetVerificationsPopoverSummaryPathParams
-  >,
-  'path'
-> &
-  GetVerificationsPopoverSummaryPathParams
-
-/**
- * get deployment activities summary for given build tag
- */
-export const GetVerificationsPopoverSummary = ({ deploymentTag, ...props }: GetVerificationsPopoverSummaryProps) => (
-  <Get<
-    RestResponseDeploymentActivityPopoverResultDTO,
-    unknown,
-    GetVerificationsPopoverSummaryQueryParams,
-    GetVerificationsPopoverSummaryPathParams
-  >
-    path={`/activity/deployment-activity-verifications-popover-summary/${deploymentTag}`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetVerificationsPopoverSummaryProps = Omit<
-  UseGetProps<
-    RestResponseDeploymentActivityPopoverResultDTO,
-    unknown,
-    GetVerificationsPopoverSummaryQueryParams,
-    GetVerificationsPopoverSummaryPathParams
-  >,
-  'path'
-> &
-  GetVerificationsPopoverSummaryPathParams
-
-/**
- * get deployment activities summary for given build tag
- */
-export const useGetVerificationsPopoverSummary = ({
-  deploymentTag,
-  ...props
-}: UseGetVerificationsPopoverSummaryProps) =>
-  useGet<
-    RestResponseDeploymentActivityPopoverResultDTO,
-    unknown,
-    GetVerificationsPopoverSummaryQueryParams,
-    GetVerificationsPopoverSummaryPathParams
-  >(
-    (paramsInPath: GetVerificationsPopoverSummaryPathParams) =>
-      `/activity/deployment-activity-verifications-popover-summary/${paramsInPath.deploymentTag}`,
-    { base: getConfig('cv/api'), pathParams: { deploymentTag }, ...props }
-  )
-
-/**
- * get deployment activities summary for given build tag
- */
-export const getVerificationsPopoverSummaryPromise = (
-  {
-    deploymentTag,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseDeploymentActivityPopoverResultDTO,
-    unknown,
-    GetVerificationsPopoverSummaryQueryParams,
-    GetVerificationsPopoverSummaryPathParams
-  > & { deploymentTag: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    RestResponseDeploymentActivityPopoverResultDTO,
-    unknown,
-    GetVerificationsPopoverSummaryQueryParams,
-    GetVerificationsPopoverSummaryPathParams
-  >(getConfig('cv/api'), `/activity/deployment-activity-verifications-popover-summary/${deploymentTag}`, props, signal)
-
-export interface GetVerificationInstancesQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceIdentifier: string
-}
-
-export interface GetVerificationInstancesPathParams {
-  deploymentTag: string
-}
-
-export type GetVerificationInstancesProps = Omit<
-  GetProps<
-    RestResponseDeploymentActivityResultDTO,
-    unknown,
-    GetVerificationInstancesQueryParams,
-    GetVerificationInstancesPathParams
-  >,
-  'path'
-> &
-  GetVerificationInstancesPathParams
-
-/**
- * get deployment activities for given build tag
- */
-export const GetVerificationInstances = ({ deploymentTag, ...props }: GetVerificationInstancesProps) => (
-  <Get<
-    RestResponseDeploymentActivityResultDTO,
-    unknown,
-    GetVerificationInstancesQueryParams,
-    GetVerificationInstancesPathParams
-  >
-    path={`/activity/deployment-activity-verifications/${deploymentTag}`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetVerificationInstancesProps = Omit<
-  UseGetProps<
-    RestResponseDeploymentActivityResultDTO,
-    unknown,
-    GetVerificationInstancesQueryParams,
-    GetVerificationInstancesPathParams
-  >,
-  'path'
-> &
-  GetVerificationInstancesPathParams
-
-/**
- * get deployment activities for given build tag
- */
-export const useGetVerificationInstances = ({ deploymentTag, ...props }: UseGetVerificationInstancesProps) =>
-  useGet<
-    RestResponseDeploymentActivityResultDTO,
-    unknown,
-    GetVerificationInstancesQueryParams,
-    GetVerificationInstancesPathParams
-  >(
-    (paramsInPath: GetVerificationInstancesPathParams) =>
-      `/activity/deployment-activity-verifications/${paramsInPath.deploymentTag}`,
-    { base: getConfig('cv/api'), pathParams: { deploymentTag }, ...props }
-  )
-
-/**
- * get deployment activities for given build tag
- */
-export const getVerificationInstancesPromise = (
-  {
-    deploymentTag,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseDeploymentActivityResultDTO,
-    unknown,
-    GetVerificationInstancesQueryParams,
-    GetVerificationInstancesPathParams
-  > & { deploymentTag: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    RestResponseDeploymentActivityResultDTO,
-    unknown,
-    GetVerificationInstancesQueryParams,
-    GetVerificationInstancesPathParams
-  >(getConfig('cv/api'), `/activity/deployment-activity-verifications/${deploymentTag}`, props, signal)
-
-export interface ListActivitiesForDashboardQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  environmentIdentifier?: string
-  serviceIdentifier?: string
-  startTime: number
-  endTime: number
-}
-
-export type ListActivitiesForDashboardProps = Omit<
-  GetProps<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>,
-  'path'
->
-
-/**
- * list all activities between a given time range for an environment, project, org
- */
-export const ListActivitiesForDashboard = (props: ListActivitiesForDashboardProps) => (
-  <Get<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>
-    path={`/activity/list`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseListActivitiesForDashboardProps = Omit<
-  UseGetProps<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>,
-  'path'
->
-
-/**
- * list all activities between a given time range for an environment, project, org
- */
-export const useListActivitiesForDashboard = (props: UseListActivitiesForDashboardProps) =>
-  useGet<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>(`/activity/list`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * list all activities between a given time range for an environment, project, org
- */
-export const listActivitiesForDashboardPromise = (
-  props: GetUsingFetchProps<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>(
-    getConfig('cv/api'),
-    `/activity/list`,
-    props,
-    signal
-  )
-
 export interface GetRecentActivityVerificationResultsQueryParams {
   accountId: string
   orgIdentifier: string
@@ -5018,78 +4646,6 @@ export const getRecentActivityVerificationResultsPromise = (
     GetRecentActivityVerificationResultsQueryParams,
     void
   >(getConfig('cv/api'), `/activity/recent-activity-verifications`, props, signal)
-
-export interface GetRecentDeploymentActivityVerificationsQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type GetRecentDeploymentActivityVerificationsProps = Omit<
-  GetProps<
-    RestResponseListDeploymentActivityVerificationResultDTO,
-    unknown,
-    GetRecentDeploymentActivityVerificationsQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * get recent deployment activity verification
- */
-export const GetRecentDeploymentActivityVerifications = (props: GetRecentDeploymentActivityVerificationsProps) => (
-  <Get<
-    RestResponseListDeploymentActivityVerificationResultDTO,
-    unknown,
-    GetRecentDeploymentActivityVerificationsQueryParams,
-    void
-  >
-    path={`/activity/recent-deployment-activity-verifications`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetRecentDeploymentActivityVerificationsProps = Omit<
-  UseGetProps<
-    RestResponseListDeploymentActivityVerificationResultDTO,
-    unknown,
-    GetRecentDeploymentActivityVerificationsQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * get recent deployment activity verification
- */
-export const useGetRecentDeploymentActivityVerifications = (props: UseGetRecentDeploymentActivityVerificationsProps) =>
-  useGet<
-    RestResponseListDeploymentActivityVerificationResultDTO,
-    unknown,
-    GetRecentDeploymentActivityVerificationsQueryParams,
-    void
-  >(`/activity/recent-deployment-activity-verifications`, { base: getConfig('cv/api'), ...props })
-
-/**
- * get recent deployment activity verification
- */
-export const getRecentDeploymentActivityVerificationsPromise = (
-  props: GetUsingFetchProps<
-    RestResponseListDeploymentActivityVerificationResultDTO,
-    unknown,
-    GetRecentDeploymentActivityVerificationsQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    RestResponseListDeploymentActivityVerificationResultDTO,
-    unknown,
-    GetRecentDeploymentActivityVerificationsQueryParams,
-    void
-  >(getConfig('cv/api'), `/activity/recent-deployment-activity-verifications`, props, signal)
 
 export interface GetActivityVerificationResultQueryParams {
   accountId: string

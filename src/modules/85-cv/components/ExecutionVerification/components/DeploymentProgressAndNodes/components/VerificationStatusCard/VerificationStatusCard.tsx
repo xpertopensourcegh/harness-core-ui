@@ -1,10 +1,10 @@
 import React from 'react'
 import { Container, Color } from '@wings-software/uicore'
-import type { VerificationResult } from 'services/cv'
+import type { VerifyStepSummary } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import css from './VerificationStatusCard.module.scss'
 
-export default function VerificationStatusCard({ status }: { status: VerificationResult['status'] }) {
+export default function VerificationStatusCard({ status }: { status: VerifyStepSummary['verificationStatus'] }) {
   let statusMessage: string | undefined = undefined
   let color: Color | undefined = undefined
   let backgroundColor: Color | undefined = undefined

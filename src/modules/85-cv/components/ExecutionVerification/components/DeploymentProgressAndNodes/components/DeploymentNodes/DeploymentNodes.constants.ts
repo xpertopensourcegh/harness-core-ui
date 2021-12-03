@@ -1,8 +1,8 @@
-import type { ActivityVerificationSummary } from 'services/cv'
+import type { AnalysisResult } from 'services/cv'
 
 export type DeploymentNodeAnalysisResult = {
   hostName: string
-  risk: ActivityVerificationSummary['risk']
+  risk: AnalysisResult['risk']
   anomalousMetricsCount: number
   anomalousLogClustersCount: number
 }
