@@ -104,3 +104,5 @@ delegateCreation:
 delegateNameNotUnique: 'Delegate with that name already exists.'
 delegateProfilesDepricated: 'Delegate profiles are depricated, please use INIT_SCRIPT instead.'
 noInstances: 'No instances'
+successfullyUpdatedConfig: 'Successfully Updated Delegate Configuration'
+configNameRequired: 'Delegate Configuration name is Required.'

@@ -10,7 +10,9 @@ import {
   Container,
   CardSelect,
   Text,
-  StepProps
+  StepProps,
+  SelectOption,
+  Tag
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -21,8 +23,10 @@ import {
   DelegateSetupDetails
 } from 'services/portal'
 
+import { useListDelegateProfilesNg } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 
+import type { DelegateProfile } from '@delegates/DelegateInterface'
 import { useToaster } from '@common/exports'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -51,6 +55,28 @@ enum k8sPermissionType {
 
 //this regex is retrieved from kubernetes
 const delegateNameRegex = /^[a-z]([-a-z0-9]*[a-z])?(\.[a-z0-9]([-a-z0-9]*[a-z])?)*$/g
+
+const formatProfileList = (data: any): Array<SelectOption> => {
+  const profiles: Array<DelegateProfile> = data?.resource?.response
+
+  const options: Array<SelectOption> = profiles
+    ? profiles.map((item: DelegateProfile) => {
+        return { label: item.name || '', value: item.uuid || '' }
+      })
+    : [{ label: '', value: '' }]
+  return options
+}
+
+const getDefaultDelegateConfiguration = (data: any) => {
+  const configurations: DelegateProfile[] = data?.resource?.response
+  return configurations ? configurations.find((item: DelegateProfile) => item.primary) : null
+}
+
+const getProfile = (data: any, configId: any) => {
+  const configs: DelegateProfile[] = data?.resource?.response
+  const selProfile = configs ? configs.find(item => item.uuid == configId) : null
+  return selProfile?.selectors
+}
 
 const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupStepProps> = props => {
   let initialValues
@@ -85,6 +111,20 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
   const { data: delegateSizes } = useGetDelegateSizes({
     queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
+
+  const { data } = useListDelegateProfilesNg({
+    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  })
+  const defaultProfile = getDefaultDelegateConfiguration(data)
+  const profileOptions: SelectOption[] = formatProfileList(data)
+
+  React.useEffect(() => {
+    if (defaultProfile) {
+      formData['delegateConfigurationId'] = defaultProfile?.uuid
+      setInitValues({ ...formData })
+    }
+  }, [defaultProfile])
+
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource
 
   const { showError } = useToaster()
@@ -162,6 +202,7 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
           })}
         >
           {(formikProps: FormikProps<DelegateSetupDetails>) => {
+            const selectors: any = getProfile(data, formikProps.values.delegateConfigurationId)
             return (
               <FormikForm>
                 <Container className={css.delegateForm}>
@@ -180,6 +221,26 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
                             formikProps.setFieldValue('size', size)
                           }}
                         />
+                      )}
+                      {profileOptions && profileOptions.length && (
+                        <div className={`${css.formGroup} ${css.profileSelect}`}>
+                          <FormInput.Select
+                            items={profileOptions}
+                            label={getString('delegate.delegateConfigurations')}
+                            name={'delegateConfigurationId'}
+                          />
+                        </div>
+                      )}
+
+                      {formikProps.values.delegateConfigurationId && selectors && (
+                        <Container className={css.profileSelectors}>
+                          <Text>{getString('delegate.tagsFromDelegateConfig')}</Text>
+                          <div className={css.profileSelectorsItemsContainer}>
+                            {selectors.map((item: string) => (
+                              <Tag key={item}>{item}</Tag>
+                            ))}
+                          </div>
+                        </Container>
                       )}
                     </Layout.Vertical>
                     <Layout.Vertical className={css.rightPanel}>

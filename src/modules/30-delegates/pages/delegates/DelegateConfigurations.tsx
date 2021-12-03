@@ -21,7 +21,6 @@ import {
   ExpandingSearchInput,
   PageError,
   shouldShowError,
-  useConfirmationDialog,
   useToaster,
   Page
 } from '@wings-software/uicore'
@@ -43,7 +42,6 @@ import type { ScopingRuleDetails, GetDelegateGroupsNGV2WithFilterQueryParams } f
 import type { FilterDTO, DelegateProfileFilterProperties, ResponsePageFilterDTO } from 'services/cd-ng'
 import {
   useListDelegateConfigsNgV2WithFilter,
-  useDeleteDelegateConfigNgV2,
   usePostFilter,
   useUpdateFilter,
   useDeleteFilter,
@@ -184,11 +182,7 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
     setIsRefreshingFilters(isFetchingFilters)
   }, [fetchedFilterResponse])
 
-  const { showSuccess, showError } = useToaster()
-  const { mutate: deleteDelegateProfile } = useDeleteDelegateConfigNgV2({
-    accountId,
-    queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
-  })
+  const { showError } = useToaster()
 
   const reset = (): void => {
     refetchDelegateProfiles(queryParams)
@@ -389,32 +383,6 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
   }, [isRefreshingFilters, filters, appliedFilter, searchParam, queryParams])
 
   const DelegateConfigItem = ({ profile }: { profile: DelegateProfileDetails }) => {
-    const { openDialog } = useConfirmationDialog({
-      contentText: `${getString('delegate.deleteDelegateConfigurationQuestion')} ${profile.name}`,
-      titleText: getString('delegate.deleteDelegateConfiguration'),
-      confirmButtonText: getString('delete'),
-      cancelButtonText: getString('cancel'),
-      onCloseDialog: async (isConfirmed: boolean) => {
-        if (isConfirmed && profile?.identifier) {
-          try {
-            const deleted = await deleteDelegateProfile(profile?.identifier)
-
-            if (deleted) {
-              showSuccess(
-                `${getString('delegate.deleteDelegateConfigurationSuccess', {
-                  profileName: profile.name
-                })}`
-              )
-              ;(delegateProfiles as any).reload?.()
-              refetchDelegateProfiles(queryParams, appliedFilter?.filterProperties)
-            }
-          } catch (e) {
-            showError(e.message)
-          }
-        }
-      }
-    })
-
     const gotoDetailPage = (): void => {
       history.push(
         routes.toDelegateConfigsDetails({
@@ -485,26 +453,34 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
                 icon="more"
                 tooltip={
                   <Menu style={{ minWidth: 'unset' }}>
-                    {!profile.primary && (
-                      <RbacMenuItem
-                        permission={{
-                          resourceScope: {
-                            accountIdentifier: accountId,
+                    <RbacMenuItem
+                      permission={{
+                        resourceScope: {
+                          accountIdentifier: accountId,
+                          orgIdentifier,
+                          projectIdentifier
+                        },
+                        resource: {
+                          resourceType: ResourceType.DELEGATECONFIGURATION,
+                          resourceIdentifier: profile.uuid
+                        },
+                        permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION
+                      }}
+                      icon="edit"
+                      text={getString('edit')}
+                      onClick={() => {
+                        history.push({
+                          pathname: routes.toEditDelegateConfigsDetails({
+                            accountId,
+                            projectIdentifier,
                             orgIdentifier,
-                            projectIdentifier
-                          },
-                          resource: {
-                            resourceType: ResourceType.DELEGATECONFIGURATION,
-                            resourceIdentifier: profile.uuid
-                          },
-                          permission: PermissionIdentifier.DELETE_DELEGATE_CONFIGURATION
-                        }}
-                        icon="cross"
-                        text={getString('delete')}
-                        onClick={() => openDialog()}
-                        className={Classes.POPOVER_DISMISS}
-                      />
-                    )}
+                            delegateConfigIdentifier: profile.identifier as string,
+                            module
+                          })
+                        })
+                      }}
+                      className={Classes.POPOVER_DISMISS}
+                    />
                   </Menu>
                 }
                 tooltipProps={{ isDark: true, interactionKind: 'click' }}

@@ -270,6 +270,12 @@ export default (
           ...projectPathProps,
           ...delegateConfigProps,
           ...cvModuleParams
+        }),
+        routes.toEditDelegateConfigsDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...delegateConfigProps,
+          ...cvModuleParams
         })
       ]}
     >

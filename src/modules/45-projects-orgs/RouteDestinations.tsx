@@ -237,6 +237,28 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toEditDelegateConfigsDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...delegateConfigProps
+      })}
+      exact
+    >
+      <DelegateProfileDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={routes.toEditDelegateConfigsDetails({
+        ...accountPathProps,
+        ...orgPathProps,
+        ...delegateConfigProps
+      })}
+      exact
+    >
+      <DelegateProfileDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toConnectorDetails({ ...accountPathProps, ...projectPathProps, ...connectorPathProps })}
       exact
     >

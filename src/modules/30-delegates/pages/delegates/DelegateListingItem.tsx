@@ -316,7 +316,13 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
                 <Container width={columnWidths.instances} className={css.instancesColumn}>
                   {instanceDetails.hostName}
                 </Container>
-                <Layout.Horizontal width={columnWidths.heartbeat} />
+                <Layout.Horizontal width={columnWidths.heartbeat}>
+                  {instanceDetails.lastHeartBeat ? (
+                    <ReactTimeago date={instanceDetails.lastHeartBeat} live />
+                  ) : (
+                    getString('na')
+                  )}
+                </Layout.Horizontal>
                 <Layout.Vertical width={columnWidths.status}>
                   <Text
                     icon="full-circle"

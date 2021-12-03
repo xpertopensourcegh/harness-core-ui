@@ -962,6 +962,7 @@ export interface StringsMap {
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
   'delegates.GBRam': string
+  'delegates.configNameRequired': string
   'delegates.createDelegate': string
   'delegates.delGroupStatus.DISABLED': string
   'delegates.delGroupStatus.WAITING_FOR_APPROVAL': string
@@ -1053,6 +1054,7 @@ export interface StringsMap {
   'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
   'delegates.selectors': string
+  'delegates.successfullyUpdatedConfig': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
   'delegates.usedBy': string

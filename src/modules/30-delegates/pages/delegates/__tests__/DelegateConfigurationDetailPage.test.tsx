@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import DelegateProfileDetails from '../DelegateConfigurationDetailPage'
 import ProfileMock from './ProfileMock.json'
@@ -35,6 +35,25 @@ describe('Delegates Profile Detail', () => {
         <DelegateProfileDetails />
       </TestWrapper>
     )
+
+    expect(container).toMatchSnapshot()
+  })
+  test('start edit mode', () => {
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/resources/delegateconfigs/:delegateConfigIdentifier/"
+        pathParams={{ accountId: 'dummy', delegateConfigIdentifier: 'delegateConfigIdentifier' }}
+      >
+        <DelegateProfileDetails />
+      </TestWrapper>
+    )
+
+    const buttons = container.getElementsByTagName('button')
+    const editBtn = buttons[0]
+
+    act(() => {
+      fireEvent.click(editBtn)
+    })
 
     expect(container).toMatchSnapshot()
   })
