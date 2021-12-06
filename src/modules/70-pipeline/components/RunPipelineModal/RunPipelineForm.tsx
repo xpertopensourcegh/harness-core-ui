@@ -1030,7 +1030,7 @@ function RunPipelineFormBasic({
                       }}
                       featureProps={{
                         featureRequest: {
-                          featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
+                          featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
                         }
                       }}
                       permission={{

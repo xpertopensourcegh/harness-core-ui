@@ -806,120 +806,130 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             history.push(newPath)
           }}
         />
-        <div className={css.titleBar}>
-          <div className={css.breadcrumbsMenu}>
-            <div className={css.pipelineMetadataContainer}>
-              <Layout.Horizontal className={css.pipelineNameContainer}>
-                <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
-                <Text
-                  className={css.pipelineName}
-                  style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: getPipelineNameTextContainerWidth()
-                  }}
-                  tooltip={pipeline?.name}
-                >
-                  {pipeline?.name}
-                </Text>
-                {!isEmpty(pipeline?.tags) && pipeline.tags && (
-                  <Container className={css.tagsContainer}>
-                    <TagsPopover tags={pipeline.tags} />
-                  </Container>
-                )}
-                {isGitSyncEnabled && (
-                  <StudioGitPopover
-                    gitDetails={gitDetails}
-                    identifier={pipelineIdentifier}
-                    isReadonly={isReadonly}
-                    entityData={{ ...pipeline, versionLabel: '', type: 'Step' }} // Just to avoid type issues
-                    onGitBranchChange={onGitBranchChange}
-                    entityType={'Pipeline'}
-                  />
-                )}
-                {isYaml || isReadonly ? null : (
-                  <Button variation={ButtonVariation.ICON} icon="Edit" onClick={showModal} />
-                )}
-              </Layout.Horizontal>
-            </div>
-          </div>
-          <VisualYamlToggle
-            className={css.visualYamlToggle}
-            initialSelectedView={isYaml || disableVisualView ? SelectedView.YAML : SelectedView.VISUAL}
-            disableYaml={disableVisualView}
-            beforeOnChange={(nextMode, callback) => {
-              const shoudSwitchcMode = handleViewChange(nextMode)
-              shoudSwitchcMode && callback(nextMode)
-            }}
-          />
-          <div>
-            <div className={css.savePublishContainer}>
-              {isReadonly && (
-                <div className={css.readonlyAccessTag}>
-                  <Icon name="eye-open" size={16} />
-                  <div className={css.readonlyAccessText}>{getString('common.readonlyPermissions')}</div>
-                </div>
-              )}
-              {isUpdated && !isReadonly && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
-              <div>
-                {!isReadonly && (
-                  <Button
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('save')}
-                    onClick={saveAndPublish}
-                    icon="send-data"
-                    className={css.saveButton}
-                  />
-                )}
-                {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
-                  <Button
-                    disabled={!isUpdated}
-                    onClick={() => {
-                      updatePipelineView({ ...pipelineView, isYamlEditable: false })
-                      fetchPipeline({ forceFetch: true, forceUpdate: true })
+        <div>
+          <div className={css.titleBar}>
+            <div className={css.breadcrumbsMenu}>
+              <div className={css.pipelineMetadataContainer}>
+                <Layout.Horizontal className={css.pipelineNameContainer}>
+                  <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
+                  <Text
+                    className={css.pipelineName}
+                    style={{
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      maxWidth: getPipelineNameTextContainerWidth()
                     }}
-                    className={css.discardBtn}
-                    variation={ButtonVariation.SECONDARY}
-                    text={getString('pipeline.discard')}
-                  />
+                    tooltip={pipeline?.name}
+                  >
+                    {pipeline?.name}
+                  </Text>
+                  {!isEmpty(pipeline?.tags) && pipeline.tags && (
+                    <Container className={css.tagsContainer}>
+                      <TagsPopover tags={pipeline.tags} />
+                    </Container>
+                  )}
+                  {isGitSyncEnabled && (
+                    <StudioGitPopover
+                      gitDetails={gitDetails}
+                      identifier={pipelineIdentifier}
+                      isReadonly={isReadonly}
+                      entityData={{ ...pipeline, versionLabel: '', type: 'Step' }} // Just to avoid type issues
+                      onGitBranchChange={onGitBranchChange}
+                      entityType={'Pipeline'}
+                    />
+                  )}
+                  {isYaml || isReadonly ? null : (
+                    <Button variation={ButtonVariation.ICON} icon="Edit" onClick={showModal} />
+                  )}
+                </Layout.Horizontal>
+              </div>
+            </div>
+            <VisualYamlToggle
+              className={css.visualYamlToggle}
+              initialSelectedView={isYaml || disableVisualView ? SelectedView.YAML : SelectedView.VISUAL}
+              disableYaml={disableVisualView}
+              beforeOnChange={(nextMode, callback) => {
+                const shoudSwitchcMode = handleViewChange(nextMode)
+                shoudSwitchcMode && callback(nextMode)
+              }}
+            />
+            <div>
+              <div className={css.savePublishContainer}>
+                {isReadonly && (
+                  <div className={css.readonlyAccessTag}>
+                    <Icon name="eye-open" size={16} />
+                    <div className={css.readonlyAccessText}>{getString('common.readonlyPermissions')}</div>
+                  </div>
                 )}
-                <RbacButton
-                  data-testid="card-run-pipeline"
-                  variation={ButtonVariation.PRIMARY}
-                  icon="run-pipeline"
-                  intent="success"
-                  disabled={isUpdated}
-                  className={css.runPipelineBtn}
-                  text={getString('runPipelineText')}
-                  tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
-                  onClick={e => {
-                    e.stopPropagation()
-                    openRunPipelineModal()
-                  }}
-                  featureProps={{
-                    featureRequest: {
-                      featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
-                    }
-                  }}
-                  permission={{
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier,
-                      projectIdentifier
-                    },
-                    resource: {
-                      resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipeline?.identifier as string
-                    },
-                    permission: PermissionIdentifier.EXECUTE_PIPELINE
-                  }}
-                />
+                {isUpdated && !isReadonly && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
+                <div>
+                  {!isReadonly && (
+                    <Button
+                      variation={ButtonVariation.PRIMARY}
+                      text={getString('save')}
+                      onClick={saveAndPublish}
+                      icon="send-data"
+                      className={css.saveButton}
+                    />
+                  )}
+                  {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
+                    <Button
+                      disabled={!isUpdated}
+                      onClick={() => {
+                        updatePipelineView({ ...pipelineView, isYamlEditable: false })
+                        fetchPipeline({ forceFetch: true, forceUpdate: true })
+                      }}
+                      className={css.discardBtn}
+                      variation={ButtonVariation.SECONDARY}
+                      text={getString('pipeline.discard')}
+                    />
+                  )}
+                  <RbacButton
+                    data-testid="card-run-pipeline"
+                    variation={ButtonVariation.PRIMARY}
+                    icon="run-pipeline"
+                    intent="success"
+                    disabled={isUpdated}
+                    className={css.runPipelineBtn}
+                    text={getString('runPipelineText')}
+                    tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
+                    onClick={e => {
+                      e.stopPropagation()
+                      openRunPipelineModal()
+                    }}
+                    featureProps={{
+                      featureRequest: {
+                        featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
+                      }
+                    }}
+                    permission={{
+                      resourceScope: {
+                        accountIdentifier: accountId,
+                        orgIdentifier,
+                        projectIdentifier
+                      },
+                      resource: {
+                        resourceType: ResourceType.PIPELINE,
+                        resourceIdentifier: pipeline?.identifier as string
+                      },
+                      permission: PermissionIdentifier.EXECUTE_PIPELINE
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
+          <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+          <PipelineFeatureLimitBreachedBanner
+            featureIdentifier={FeatureIdentifier.DEPLOYMENTS_PER_MONTH}
+            module={module}
+          />
+          <PipelineFeatureLimitBreachedBanner
+            featureIdentifier={FeatureIdentifier.INITIAL_DEPLOYMENTS}
+            module={module}
+          />
         </div>
-        <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
         {shouldShowGovernanceEvaluation && (
           <EvaluationModal

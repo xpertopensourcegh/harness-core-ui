@@ -7,6 +7,7 @@ import { useHandleInterrupt, useHandleStageInterrupt } from 'services/pipeline-n
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import RbacButton from '@rbac/components/Button/Button'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import {
   isExecutionComplete,
   isExecutionActive,
@@ -271,7 +272,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           disabled={!canExecute}
           featureProps={{
             featureRequest: {
-              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
+              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
             }
           }}
         />
@@ -313,7 +314,14 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             >
               {getString('editPipeline')}
             </Link>
-            {stageId ? null : <MenuItem text={getString(rerunText)} disabled={!canRerun} onClick={reRunPipeline} />}
+            {stageId ? null : (
+              <RbacMenuItem
+                featureProps={{ featureRequest: { featureName: FeatureIdentifier.DEPLOYMENTS_PER_MONTH } }}
+                text={getString(rerunText)}
+                disabled={!canRerun}
+                onClick={reRunPipeline}
+              />
+            )}
             <MenuItem text={getString(pauseText)} onClick={pausePipeline} disabled={!canPause} />
             <MenuItem text={getString(abortText)} onClick={abortPipeline} disabled={!canAbort} />
             <MenuItem text={getString(resumeText)} onClick={resumePipeline} disabled={!canResume} />

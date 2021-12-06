@@ -93,7 +93,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
           }}
           featureProps={{
             featureRequest: {
-              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
+              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
             }
           }}
         >

@@ -174,7 +174,12 @@ const Banner = ({
 
 export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMapValue[]>> = {
   cd: {
-    SERVICES: []
+    SERVICES: [
+      {
+        limit: 5,
+        limitCrossedMessage: 'pipeline.featureRestriction.serviceLimitExceeded'
+      }
+    ]
   },
   ci: {
     MAX_TOTAL_BUILDS: [

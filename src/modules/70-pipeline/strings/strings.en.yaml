@@ -848,7 +848,13 @@ retryHistoryDescription: List of retries for my Pipeline
 recentExecutionText: Most Recent Execution
 viewLatestExecution: You are viewing an older execution of this pipeline.
 featureRestriction:
-  serviceLimitExceeded: Service License usage has exceeded the Subscribed Services.
+  integratedApprovalsJira: Integrated Approvals with Jira
+  serviceLimitExceeded: You have reached the Service License limit.
+  serviceUsageWarning: You have reached {{ warningLimit }}% of service licence limit.
+  monthlyDeploymentLimitExceeded: You have reached the monthly deployments limit.
+  monthlyDeploymentWarning: You have reached {{ warningLimit }}% of the monthly deployments limit.
+  initialDeploymentLimitExceeded: You have reached the free deployments limit.
+  initialDeploymentWarning: You have reached {{ warningLimit }}% of the free deployments limit.
   maxTotalBuilds90PercentLimit: You have used {{usagePercent}}% of builds included in the free plan. After 2,500 builds, the free plan will be restricted to 100 builds per month.
   maxBuildsPerMonth100PercentLimit: You have used 100 / 100 free builds this month. Consider upgrading for unlimited builds.
   numMonthlyBuilds: You have used {{count}} / {{limit}} free builds this month.

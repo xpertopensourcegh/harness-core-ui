@@ -219,9 +219,15 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               <ExecutionHeader />
               <ExecutionMetadata />
             </header>
-            {module === 'cd' && (
-              <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
-            )}
+            <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+            <PipelineFeatureLimitBreachedBanner
+              featureIdentifier={FeatureIdentifier.DEPLOYMENTS_PER_MONTH}
+              module={module}
+            />
+            <PipelineFeatureLimitBreachedBanner
+              featureIdentifier={FeatureIdentifier.INITIAL_DEPLOYMENTS}
+              module={module}
+            />
             <ExecutionTabs />
             {module === 'ci' && (
               <FeatureRestrictionBanners

@@ -124,7 +124,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             }}
             featureProps={{
               featureRequest: {
-                featureName: module === 'cd' ? FeatureIdentifier.DEPLOYMENTS : FeatureIdentifier.BUILDS
+                featureName: module === 'cd' ? FeatureIdentifier.DEPLOYMENTS_PER_MONTH : FeatureIdentifier.BUILDS
               }
             }}
           />
@@ -309,7 +309,7 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
         },
         permission: PermissionIdentifier.EXECUTE_PIPELINE
       }}
-      featureProps={{ featureRequest: { featureName: FeatureIdentifier.DEPLOYMENTS } }}
+      featureProps={{ featureRequest: { featureName: FeatureIdentifier.DEPLOYMENTS_PER_MONTH } }}
       onClick={e => {
         e.stopPropagation()
         runPipeline()

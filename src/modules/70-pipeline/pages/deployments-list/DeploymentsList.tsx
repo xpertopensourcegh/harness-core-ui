@@ -48,9 +48,10 @@ export default function DeploymentsList(): React.ReactElement {
         breadcrumbs={<NGBreadcrumbs links={[]} />}
       ></Page.Header>
       {/* Should move to or use FeaturesRestrictionBanners in PipelineDeploymentList as UX requirement  */}
-      {module === 'cd' && (
-        <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
-      )}
+
+      <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+      <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.DEPLOYMENTS_PER_MONTH} module={module} />
+      <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.INITIAL_DEPLOYMENTS} module={module} />
       <div>
         <PipelineDeploymentList onRunPipeline={openModal} />
       </div>

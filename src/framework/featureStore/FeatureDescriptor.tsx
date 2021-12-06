@@ -9,7 +9,9 @@ export const FeatureDescriptor: { [key: string]: React.ReactElement } = {
   OAUTH_SUPPORT: <String stringID="authSettings.oauthSupport" />,
   TWO_FACTOR_AUTH_SUPPORT: <String stringID="authSettings.twoFactorAuthSupport" />,
   CUSTOM_ROLES: <String stringID="rbac.customRoles" />,
-  CUSTOM_RESOURCE_GROUPS: <String stringID="rbac.customResourceGroups" />
+  CUSTOM_RESOURCE_GROUPS: <String stringID="rbac.customResourceGroups" />,
+  DEPLOYMENTS_PER_MONTH: <String stringID="deploymentsText" />,
+  INTEGRATED_APPROVALS_WITH_JIRA: <String stringID="pipeline.featureRestriction.integratedApprovalsJira" />
 }
 
 // Overrides FeatureDescriptor and provides only custom with no additions
