@@ -108,6 +108,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       updateStage({ ...originalStage, variables })
                     }}
                     customStepProps={{
+                      formName: 'addEditStageCustomVariableForm',
                       variableNamePrefix: `${originalStage.identifier}.variables.`,
                       domId: `Stage.${originalStage.identifier}.Variables-panel`,
                       className: cx(css.customVariables, css.customVarPadL1, css.addVariableL1),

@@ -25,7 +25,10 @@ import {
   PipelineContextType,
   usePipelineContext
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
+import type {
+  CustomVariableEditableExtraProps,
+  CustomVariablesData
+} from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
@@ -294,7 +297,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                         </Text>
                         <div className={css.stageSection}>
                           <div className={css.stageDetails}>
-                            <StepWidget<CustomVariablesData>
+                            <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
                               factory={stepsFactory}
                               readonly={isReadonly}
                               initialValues={{
@@ -312,6 +315,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                                 handleStepWidgetUpdate({ ...stage?.stage, variables } as StageElementConfig)
                               }}
                               customStepProps={{
+                                formName: 'addEditStageCustomVariableForm',
                                 yamlProperties: defaultTo(
                                   getStageFromPipeline<BuildStageElementConfig>(
                                     stage?.stage?.identifier || '',

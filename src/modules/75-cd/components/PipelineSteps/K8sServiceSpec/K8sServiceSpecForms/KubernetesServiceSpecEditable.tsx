@@ -73,6 +73,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           <div className={css.tabSubHeading}>{getString('variablesText')}</div>
           <WorkflowVariables
             tabName={DeployTabs.SERVICE}
+            formName={'addEditServiceCustomVariableForm'}
             factory={factory as any}
             isPropagating={isPropagating}
             readonly={readonly}

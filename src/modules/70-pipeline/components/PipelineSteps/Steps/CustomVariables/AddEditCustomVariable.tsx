@@ -20,10 +20,11 @@ export interface AddEditCustomVariableProps {
   addNewVariable(variable: AllNGVariables): void
   updateVariable(index: number, variable: AllNGVariables): void
   existingVariables?: AllNGVariables[]
+  formName?: string
 }
 
 export default function AddEditCustomVariable(props: AddEditCustomVariableProps): React.ReactElement {
-  const { selectedVariable, setSelectedVariable, addNewVariable, updateVariable, existingVariables } = props
+  const { selectedVariable, setSelectedVariable, addNewVariable, updateVariable, existingVariables, formName } = props
   const { getString } = useStrings()
 
   const existingNames: string[] = Array.isArray(existingVariables) ? existingVariables.map(v => v.name || '') : []
@@ -39,6 +40,8 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
     setSelectedVariable(null)
   }
 
+  const actualFormName = formName || 'addEditCustomVariableForm'
+
   return (
     <Dialog
       className={'padded-dialog'}
@@ -48,7 +51,7 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
       onClose={closeModal}
     >
       <Formik
-        formName="addEditCustomVariableForm"
+        formName={actualFormName}
         initialValues={selectedVariable?.variable}
         enableReinitialize
         validationSchema={Yup.object().shape({

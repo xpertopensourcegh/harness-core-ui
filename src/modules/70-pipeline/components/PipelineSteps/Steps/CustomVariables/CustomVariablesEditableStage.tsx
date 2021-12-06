@@ -56,6 +56,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
     yamlProperties,
     enableValidation,
     readonly,
+    formName,
     tabName = 'OVERVIEW'
   } = props
   const uids = React.useRef<string[]>([])
@@ -126,6 +127,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                     addNewVariable={handleAdd}
                     updateVariable={handleUpdate}
                     existingVariables={values.variables}
+                    formName={formName}
                   />
                   {values.variables?.length > 0 ? (
                     <div className={cx(css.tableRow, css.headerRow)}>

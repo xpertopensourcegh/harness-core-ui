@@ -26,6 +26,7 @@ export interface WorkflowVariablesProps {
   overrideSetIdentifier?: string
   isPropagating?: boolean
   tabName?: string
+  formName?: string
   factory: AbstractStepFactory
   readonly?: boolean
 }
@@ -37,6 +38,7 @@ export default function WorkflowVariables({
   overrideSetIdentifier = '',
   isPropagating = false,
   tabName,
+  formName,
   factory,
   readonly
 }: WorkflowVariablesProps): JSX.Element {
@@ -173,6 +175,7 @@ export default function WorkflowVariables({
           }}
           customStepProps={{
             tabName,
+            formName,
             yamlProperties: getYamlPropertiesForVariables().map(
               variable => metadataMap[variable.value || '']?.yamlProperties || {}
             ),

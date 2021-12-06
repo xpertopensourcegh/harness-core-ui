@@ -43,6 +43,7 @@ export interface CustomVariableEditableExtraProps {
   variableNamePrefix?: string
   domId?: string
   tabName?: string
+  formName?: string
   heading?: React.ReactNode
   className?: string
   yamlProperties?: YamlProperties[]
@@ -59,7 +60,7 @@ export interface CustomVariableEditableProps extends CustomVariableEditableExtra
 }
 
 export function CustomVariableEditable(props: CustomVariableEditableProps): React.ReactElement {
-  const { initialValues, onUpdate, domId, heading, className, yamlProperties, readonly, path } = props
+  const { initialValues, onUpdate, domId, heading, className, yamlProperties, readonly, path, formName } = props
   const uids = React.useRef<string[]>([])
 
   const [hoveredVariable, setHoveredVariable] = useState<Record<string, boolean>>({})
@@ -131,6 +132,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   selectedVariable={selectedVariable}
                   setSelectedVariable={setSelectedVariable}
                   existingVariables={values.variables}
+                  formName={formName}
                 />
                 {values.canAddVariable ? (
                   <div className={css.headerRow}>

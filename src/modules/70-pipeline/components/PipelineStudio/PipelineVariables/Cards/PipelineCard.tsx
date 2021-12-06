@@ -78,6 +78,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
               updatePipeline({ ...pipeline, variables })
             }}
             customStepProps={{
+              formName: 'addEditPipelineCustomVariableForm',
               variableNamePrefix: 'pipeline.variables.',
               domId: 'Pipeline.Variables-panel',
               className: cx(css.customVariables, css.customVarPadL1, css.addVariableL1),

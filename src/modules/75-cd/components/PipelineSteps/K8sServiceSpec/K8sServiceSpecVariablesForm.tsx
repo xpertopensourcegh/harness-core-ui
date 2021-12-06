@@ -182,6 +182,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             allowableTypes={[]}
             readonly={readonly}
             customStepProps={{
+              formName: 'addEditServiceCustomVariableForm',
               variableNamePrefix: 'serviceConfig.variables.',
               className: cx(css.customVariables, pipelineVariableCss.customVarPadL2, pipelineVariableCss.addVariableL2),
               path: path,

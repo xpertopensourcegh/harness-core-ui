@@ -284,6 +284,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                       }}
                       customStepProps={{
                         tabName: DeployTabs.OVERVIEW,
+                        formName: 'addEditStageCustomVariableForm',
                         yamlProperties:
                           getStageFromPipeline(
                             data?.stage?.identifier || '',
