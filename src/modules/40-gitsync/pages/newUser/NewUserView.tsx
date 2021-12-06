@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Text, Container, Icon, Color } from '@wings-software/uicore'
@@ -12,20 +12,15 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import { canEnableGitExperience } from '@gitsync/common/gitSyncUtils'
+import { useCanEnableGitExperience } from '@gitsync/common/gitSyncUtils'
 import css from './NewUserView.module.scss'
 
 const NewUserView: React.FC = () => {
   const { updateAppStore } = useAppStore()
   const { refreshStore } = useGitSyncStore()
-  const [canEnableGit, setCanEnableGit] = useState<boolean>(false)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
 
-  useEffect(() => {
-    canEnableGitExperience({ projectIdentifier, orgIdentifier, accountId, module }).then((canEnable: boolean) =>
-      setCanEnableGit(canEnable)
-    )
-  }, [projectIdentifier, orgIdentifier, accountId, module])
+  const canEnableGitExperience = useCanEnableGitExperience({ projectIdentifier, orgIdentifier, accountId, module })
 
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: () => {
@@ -51,9 +46,9 @@ const NewUserView: React.FC = () => {
         font={{ size: 'medium' }}
         className={css.gitEnableBtn}
         text={getString('enableGitExperience')}
-        disabled={!canEnableGit}
+        disabled={!canEnableGitExperience}
         onClick={() => openGitSyncModal(true, false, undefined)}
-        tooltip={!canEnableGit ? getString('gitsync.gitEnabledBlockedTooltip') : undefined}
+        tooltip={!canEnableGitExperience ? getString('gitsync.gitEnabledBlockedTooltip') : undefined}
         permission={{
           permission: PermissionIdentifier.UPDATE_PROJECT,
           resource: {

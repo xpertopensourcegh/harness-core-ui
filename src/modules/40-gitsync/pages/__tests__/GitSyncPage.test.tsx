@@ -10,7 +10,7 @@ const enableText = 'enableGitExperience'
 
 describe('GitSync Page', () => {
   test('render GitSync page for new user with no pipeline created', async () => {
-    jest.spyOn(gitSyncUtils, 'canEnableGitExperience').mockImplementation(() => Promise.resolve(true))
+    jest.spyOn(gitSyncUtils, 'useCanEnableGitExperience').mockImplementation(() => true)
     const disabledProps = {
       children: <GitSyncRepoTab />
     }
@@ -39,7 +39,7 @@ describe('GitSync Page', () => {
   })
 
   test('render GitSync page for new user with pipeline created', async () => {
-    jest.spyOn(gitSyncUtils, 'canEnableGitExperience').mockImplementation(() => Promise.resolve(false))
+    jest.spyOn(gitSyncUtils, 'useCanEnableGitExperience').mockImplementation(() => false)
     const disabledProps = {
       children: <GitSyncRepoTab />
     }

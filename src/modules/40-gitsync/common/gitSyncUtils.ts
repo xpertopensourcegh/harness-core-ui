@@ -1,10 +1,12 @@
 import type { IconName } from '@wings-software/uicore'
-import { isNumber, pick } from 'lodash-es'
+import { pick } from 'lodash-es'
+import { useEffect, useState } from 'react'
 import { Connectors } from '@connectors/constants'
 import type { GitSyncConfig, ConnectorInfoDTO, GitSyncEntityDTO } from 'services/cd-ng'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getPipelineListPromise } from 'services/pipeline-ng'
 import { GitSuffixRegex, HarnessFolderNameSanityRegex } from '@common/utils/StringUtils'
+import { useGetAllFeatures } from 'services/cf'
 
 export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): IconName => {
   switch (type) {
@@ -145,28 +147,58 @@ export const getEntityUrl = (entity: GitSyncEntityDTO): string => {
 }
 
 /**
- * This method will be used to decide whether user can enable git experience for any project or not.
- * Current condition is if any pipeline is created we should not allow enabling gitExperience.
+ * This hook will be used to decide whether user can enable git experience for any project or not.
+ * Current conditions where Git Sync cannot be enabled:
+ *  - If Pipelines have been created
+ *  - If Feature Flags have been created
  * Once complete sync will be implemented, blocking user to enable the gitSync will be not required.
  */
-export const canEnableGitExperience = async (queryParam: ProjectPathProps & ModulePathParams): Promise<boolean> => {
-  const defaultQueryParamsForPiplines = {
-    ...pick(queryParam, ['projectIdentifier', 'module', 'orgIdentifier']),
-    accountIdentifier: queryParam.accountId,
-    searchTerm: '',
-    page: 0,
-    size: 10
-  }
-  try {
-    const response = await getPipelineListPromise({
-      queryParams: defaultQueryParamsForPiplines,
-      body: { filterType: 'PipelineSetup' }
-    })
 
-    return response?.status === 'SUCCESS' && isNumber(response?.data?.totalElements)
-      ? response?.data?.totalElements === 0
-      : true
-  } catch (error) {
-    return true
-  }
+export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModulePathParams): boolean => {
+  const featureFlagsResponse = useGetAllFeatures({
+    queryParams: {
+      accountIdentifier: queryParam.accountId,
+      org: queryParam.orgIdentifier,
+      project: queryParam.projectIdentifier
+    }
+  })
+
+  const [canEnableGit, setCanEnableGit] = useState<boolean>(false)
+
+  useEffect(() => {
+    const defaultQueryParamsForPipelines = {
+      ...pick(queryParam, ['projectIdentifier', 'module', 'orgIdentifier']),
+      accountIdentifier: queryParam.accountId,
+      searchTerm: '',
+      page: 0,
+      size: 1
+    }
+
+    const checkEnableGitConditions = async (): Promise<void> => {
+      try {
+        const response = await getPipelineListPromise({
+          queryParams: defaultQueryParamsForPipelines,
+          body: { filterType: 'PipelineSetup' }
+        })
+
+        const hasPipelines = !!(
+          response?.status === 'SUCCESS' &&
+          response?.data?.totalElements &&
+          response?.data?.totalElements > 0
+        )
+
+        const hasFeatureFlags = featureFlagsResponse.data && featureFlagsResponse.data?.itemCount > 0
+
+        if (hasFeatureFlags === false && hasPipelines === false) {
+          setCanEnableGit(true)
+        }
+      } catch (error) {
+        setCanEnableGit(true)
+      }
+    }
+
+    checkEnableGitConditions()
+  }, [featureFlagsResponse.data])
+
+  return canEnableGit
 }
