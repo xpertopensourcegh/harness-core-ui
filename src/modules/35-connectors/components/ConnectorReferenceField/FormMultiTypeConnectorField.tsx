@@ -52,6 +52,7 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   formik?: FormikContext<any>
   multiTypeProps?: Omit<MultiTypeReferenceInputProps<ConnectorReferenceDTO>, 'name' | 'referenceSelectProps'>
   isNewConnectorLabelVisible?: boolean
+  createNewLabel?: string
   configureOptionsProps?: MultiTypeConnectorFieldConfigureOptionsProps
   enableConfigureOptions?: boolean
   setRefValue?: boolean
@@ -87,6 +88,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     multiTypeProps = {},
     multitypeInputValue,
     connectorLabelClass: connectorLabelClassFromProps = '',
+    createNewLabel,
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
@@ -304,7 +306,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           selectedRenderer: getSelectedRenderer(selectedValue),
           ...optionalReferenceSelectProps,
           disabled: isDisabled,
-          hideModal: inlineSelection.selected && inlineSelection.inlineModalClosed
+          hideModal: inlineSelection.selected && inlineSelection.inlineModalClosed,
+          createNewLabel: createNewLabel || getString('newConnector')
         }}
         onChange={(val, valueType, type1) => {
           if (val && type1 === MultiTypeInputType.FIXED) {

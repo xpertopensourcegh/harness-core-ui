@@ -1,11 +1,14 @@
 import React from 'react'
 import { findAllByText, findByText, fireEvent, render } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import type { ManifestConfig } from 'services/cd-ng'
 import { ManifestWizard } from '../ManifestWizard/ManifestWizard'
 import type { ManifestStepInitData } from '../ManifestInterface'
 import HelmWithGIT from '../ManifestWizardSteps/HelmWithGIT/HelmWithGIT'
 
+jest.mock('services/cd-ng', () => ({
+  useGetConnector: jest.fn().mockImplementation(() => ({ data: {} }))
+}))
 describe('ManifestSelection tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(
@@ -150,17 +153,20 @@ describe('ManifestSelection tests', () => {
     expect(gitConnector).toBeDefined()
     const gitconnectorCard = container.getElementsByClassName('Thumbnail--squareCardContainer')[0]
     fireEvent.click(gitconnectorCard)
-
-    const newConnectorLabel = await findByText(container, 'newLabel pipeline.manifestType.gitConnectorLabel connector')
-    expect(newConnectorLabel).toBeDefined()
-    const newConnectorBtn = container.getElementsByClassName('addNewManifest')[0]
-    expect(newConnectorBtn).toBeDefined()
-    fireEvent.click(newConnectorLabel)
-    const nextStepButton = await findByText(container, 'continue')
-    expect(nextStepButton).toBeDefined()
-    fireEvent.click(nextStepButton)
-
     expect(container).toMatchSnapshot()
+    const newConnectorLabel = await findByText(container, 'select pipeline.manifestType.gitConnectorLabel connector')
+    expect(newConnectorLabel).toBeDefined()
+    fireEvent.click(newConnectorLabel)
+    const connectorDialog = findDialogContainer()
+    expect(connectorDialog).toBeTruthy()
+
+    if (connectorDialog) {
+      const nextStepButton = await findByText(
+        connectorDialog,
+        '+ newLabel pipeline.manifestType.gitConnectorLabel connector'
+      )
+      expect(nextStepButton).toBeDefined()
+    }
   })
 
   test(`last step data without initial values`, async () => {

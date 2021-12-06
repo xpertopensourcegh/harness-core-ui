@@ -1,6 +1,6 @@
 import React from 'react'
 import { findAllByText, findByText, fireEvent, render } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import ArtifactWizard from '../ArtifactWizard/ArtifactWizard'
 import type { ArtifactType, InitialArtifactDataType, TagTypes } from '../ArtifactInterface'
 import { ImagePath } from '../ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
@@ -134,15 +134,18 @@ describe('Artifact WizardStep tests', () => {
 
     const artifactRepoLabel = await findByText(container, 'Docker Registry connector')
     expect(artifactRepoLabel).toBeDefined()
-    const newConnectorLabel = await findByText(container, 'newLabel Docker Registry connector')
-    expect(newConnectorLabel).toBeDefined()
-
-    fireEvent.click(newConnectorLabel)
-    const nextStepButton = await findByText(container, 'continue')
-    expect(nextStepButton).toBeDefined()
-    fireEvent.click(nextStepButton)
-
     expect(container).toMatchSnapshot()
+
+    const newConnectorLabel = await findByText(container, 'select Docker Registry connector')
+    expect(newConnectorLabel).toBeDefined()
+    fireEvent.click(newConnectorLabel)
+    const connectorDialog = findDialogContainer()
+    expect(connectorDialog).toBeTruthy()
+
+    if (connectorDialog) {
+      const nextStepButton = await findByText(connectorDialog, '+ newLabel Docker Registry connector')
+      expect(nextStepButton).toBeDefined()
+    }
   })
 
   test(`last step data without initial values`, async () => {

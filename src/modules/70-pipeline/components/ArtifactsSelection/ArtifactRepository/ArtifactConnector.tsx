@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import {
   Button,
-  ButtonSize,
   ButtonVariation,
   Text,
   Formik,
@@ -39,17 +38,8 @@ interface ArtifactConnectorProps {
 }
 
 export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
-  const {
-    handleViewChange,
-    previousStep,
-    prevStepData,
-    nextStep,
-    initialValues,
-    stepName,
-    expressions,
-    selectedArtifact,
-    isReadonly
-  } = props
+  const { previousStep, prevStepData, nextStep, initialValues, stepName, expressions, selectedArtifact, isReadonly } =
+    props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
@@ -113,7 +103,13 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   orgIdentifier={orgIdentifier}
                   width={400}
                   multiTypeProps={{ expressions }}
-                  isNewConnectorLabelVisible={false}
+                  isNewConnectorLabelVisible={
+                    !(
+                      getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME &&
+                      (isReadonly || !canCreate)
+                    )
+                  }
+                  createNewLabel={newConnectorLabel}
                   type={connectorType}
                   enableConfigureOptions={false}
                   selected={formik?.values?.connectorId}
@@ -133,22 +129,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                     }}
                     isReadonly={isReadonly}
                   />
-                ) : (
-                  <Button
-                    variation={ButtonVariation.LINK}
-                    size={ButtonSize.SMALL}
-                    id="new-artifact-connector"
-                    text={newConnectorLabel}
-                    icon="plus"
-                    iconProps={{ size: 12 }}
-                    disabled={isReadonly || !canCreate}
-                    onClick={() => {
-                      handleViewChange()
-                      nextStep?.()
-                    }}
-                    className={css.addNewArtifact}
-                  />
-                )}
+                ) : null}
               </Layout.Horizontal>
             </div>
             <Layout.Horizontal spacing="medium">

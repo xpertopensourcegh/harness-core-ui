@@ -12,7 +12,6 @@ import {
   IconName,
   ButtonVariation,
   FormikForm,
-  ButtonSize,
   FontVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
@@ -47,7 +46,6 @@ interface ManifestStorePropType {
 }
 
 const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropType> = ({
-  handleConnectorViewChange,
   handleStoreChange,
   stepName,
   isReadonly,
@@ -177,7 +175,13 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                       orgIdentifier={orgIdentifier}
                       width={400}
                       multiTypeProps={{ expressions }}
-                      isNewConnectorLabelVisible={false}
+                      isNewConnectorLabelVisible={
+                        !(
+                          getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME &&
+                          (isReadonly || !canCreate)
+                        )
+                      }
+                      createNewLabel={newConnectorLabel}
                       type={ManifestToConnectorMap[formik.values.store]}
                       enableConfigureOptions={false}
                       multitypeInputValue={multitypeInputValue}
@@ -197,22 +201,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                         }}
                         isReadonly={isReadonly}
                       />
-                    ) : (
-                      <Button
-                        variation={ButtonVariation.LINK}
-                        size={ButtonSize.SMALL}
-                        disabled={isReadonly || !canCreate}
-                        id="new-manifest-connector"
-                        text={newConnectorLabel}
-                        className={css.addNewManifest}
-                        icon="plus"
-                        iconProps={{ size: 12 }}
-                        onClick={() => {
-                          handleConnectorViewChange()
-                          nextStep?.({ ...prevStepData, store: selectedStore })
-                        }}
-                      />
-                    )}
+                    ) : null}
                   </Layout.Horizontal>
                 ) : null}
               </Layout.Vertical>
