@@ -1,0 +1,13 @@
+.modalContainer {
+  padding: var(--spacing-large) !important;
+
+  .formBody {
+    min-height: 490px;
+    .input {
+      width: 260px;
+    }
+    .inputLarge {
+      width: 550px;
+    }
+  }
+}

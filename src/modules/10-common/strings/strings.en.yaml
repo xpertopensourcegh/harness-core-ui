@@ -303,6 +303,8 @@ git:
     repoRequired: Repository is required
     branchRequired: Branch is required
     targetBranch: Target branch is required for a pull request
+    baseBranchRequired: Base branch is required
+    PRTitleRequired: PR Title is required
 other: Other
 options: Options
 note: Note

@@ -24,6 +24,7 @@ interface GitConnectionStepProps {
 
 interface GitConnectionProps {
   onSuccess: (data?: GitSyncConfig) => void
+  isLastStep: boolean
 }
 
 enum Agent {
@@ -33,7 +34,7 @@ enum Agent {
 
 const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { prevStepData, onSuccess } = props
+  const { prevStepData, onSuccess, isLastStep } = props
   const [isSaaS, setIsSaaS] = useState<boolean | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [agent, setAgent] = useState<Agent | undefined>()
@@ -94,7 +95,11 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
       })
       if (status === 'SUCCESS') {
         showSuccess(getString('gitsync.successfullySavedConnectivityMode'))
-        onSuccess()
+        if (isLastStep) {
+          onSuccess()
+        } else {
+          props.nextStep?.(prevStepData)
+        }
       }
     } catch (e) {
       showError(e.data?.message || e.message)
@@ -168,7 +173,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
         <Button
           type="submit"
           intent="primary"
-          text={getString('save')}
+          text={isLastStep ? getString('save') : getString('saveAndContinue')}
           rightIcon="chevron-right"
           disabled={loading || !agent}
           onClick={onSubmit}

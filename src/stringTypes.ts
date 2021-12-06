@@ -230,6 +230,8 @@ export interface StringsMap {
   'common.git.testRepository': string
   'common.git.testRepositoryDescription': string
   'common.git.urlType': string
+  'common.git.validation.PRTitleRequired': string
+  'common.git.validation.baseBranchRequired': string
   'common.git.validation.branchRequired': string
   'common.git.validation.commitMessage': string
   'common.git.validation.filePath': string
@@ -1783,8 +1785,11 @@ export interface StringsMap {
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string
   'userProfile.yourCurrentPasswordIncorrect': string
+  'gitsync.PRTitle': string
   'gitsync.addFolder': string
   'gitsync.addNewHarnessFolderLabel': string
+  'gitsync.baseBranch': string
+  'gitsync.branchToSync': string
   'gitsync.configureHarnessFolder': string
   'gitsync.connectThroughDelegate': string
   'gitsync.connectThroughDelegateLabel': string
@@ -1794,12 +1799,15 @@ export interface StringsMap {
   'gitsync.connectivityModeLabel': string
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
+  'gitsync.enterBranchToSync': string
   'gitsync.entitiesByRepositories': string
   'gitsync.errorFixed': string
   'gitsync.failedToLoadData': string
   'gitsync.fetchingBranches': string
   'gitsync.fileContent': string
   'gitsync.folderDetails': string
+  'gitsync.fullSyncSubTitle': string
+  'gitsync.fullSyncTitle': string
   'gitsync.gitEnabledBlockedTooltip': string
   'gitsync.harnessFolderHeader': string
   'gitsync.harnessFolderText': string
@@ -1817,6 +1825,8 @@ export interface StringsMap {
   'gitsync.selectConnectivityMode': string
   'gitsync.selectDefaultBranch': string
   'gitsync.selectHarnessFolder': string
+  'gitsync.startPullRequest': string
+  'gitsync.startSync': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
   'dashboards.createFolder.folderDescriptionPlaceholder': string

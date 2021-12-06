@@ -5,8 +5,10 @@ import { useParams } from 'react-router-dom'
 import type { GitSyncConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GitSyncRepoFormStep from '@gitsync/pages/steps/GitSyncRepoFormStep'
 import GitConnection from '@gitsync/components/GitConnection/GitConnection'
+import { GitFullSyncStep } from '@gitsync/pages/steps/GitFullSyncStep/GitFullSyncStep'
 import GitSyncRepoForm from '../components/gitSyncRepoForm/GitSyncRepoForm'
 import css from './useCreateGitSyncModal.module.scss'
 
@@ -44,6 +46,8 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
+  const { NG_GIT_FULL_SYNC } = useFeatureFlags()
+
   const handleSuccess = (data?: GitSyncConfig): void => {
     props.onSuccess?.(data)
   }
@@ -77,7 +81,11 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
             onSuccess={(data?: GitSyncConfig) => {
               handleSuccess(data)
             }}
+            isLastStep={!NG_GIT_FULL_SYNC}
           />
+          {NG_GIT_FULL_SYNC ? (
+            <GitFullSyncStep name={getString('gitsync.branchToSync')} onClose={closeHandler} />
+          ) : null}
         </StepWizard>
         <Button minimal icon="cross" iconProps={{ size: 18 }} className={css.crossIcon} onClick={closeHandler} />
       </Dialog>

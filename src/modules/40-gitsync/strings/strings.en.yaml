@@ -34,3 +34,11 @@ gitEnabledBlockedTooltip: Git Experience should be enabled before creating any p
 errorFixed: Error is Fixed by
 fileContent: File Content
 failedToLoadData: Failed to load data
+fullSyncTitle: Where do you want to sync the resources?
+fullSyncSubTitle: Select a branch in your Git where you want to save resources created in Harness
+branchToSync: Select branch to sync
+enterBranchToSync: Enter new branch name
+startPullRequest: Start a pull request
+baseBranch: Base branch
+PRTitle: Pull request title
+startSync: Start sync
