@@ -21,7 +21,7 @@ import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { pick, capitalize } from 'lodash-es'
+import { pick, capitalize, defaultTo } from 'lodash-es'
 import { Menu, Classes, Position, Dialog } from '@blueprintjs/core'
 import {
   GitSyncConfig,
@@ -43,7 +43,8 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { HARNESS_FOLDER_NAME_PLACEHOLDER, HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
-import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import { StringUtils } from '@common/exports'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -218,16 +219,19 @@ const GitSyncRepoTab: React.FC = () => {
       }
     })
 
-    const testConnection = async (identifier: string, repoURL: string): Promise<void> => {
+    const testConnection = async (identifier: string, scope: Scope, repoURL: string): Promise<void> => {
+      const scopeQueryParams = {
+        accountIdentifier: accountId,
+        ...(scope !== Scope.ACCOUNT ? { orgIdentifier } : {}),
+        ...(scope === Scope.PROJECT ? { projectIdentifier } : {})
+      }
       setTestStatus(TestStatus.IN_PROGRESS)
       testRepo(undefined, {
         pathParams: {
           identifier
         },
         queryParams: {
-          accountIdentifier: accountId,
-          projectIdentifier,
-          orgIdentifier,
+          ...scopeQueryParams,
           repoURL
         }
       })
@@ -335,7 +339,8 @@ const GitSyncRepoTab: React.FC = () => {
                             testStatus={testStatus}
                             onTest={() =>
                               testConnection(
-                                getIdentifierFromValue(repoData?.gitConnectorRef || ''),
+                                getIdentifierFromValue(defaultTo(repoData?.gitConnectorRef, '')),
+                                getScopeFromValue(defaultTo(repoData.gitConnectorRef, '')),
                                 repoData?.repo || ''
                               )
                             }
