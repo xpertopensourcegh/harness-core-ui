@@ -20,6 +20,7 @@ import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import Default from './resources/BlankCanvas.png'
 import Steps from './Steps'
 import RollingUpdateVideo from './resources/Rolling-Update-deployment.mp4'
+import HelmDeploymentBasic from './resources/Helm-Deployment-basic.mp4'
 import BlueGreenVideo from './resources/Blue-Green-deployment.mp4'
 import CanaryVideo from './resources/Canary-deployment.mp4'
 import Rolling from './resources/Rolling-Update-deployment.png'
@@ -52,7 +53,7 @@ const videoByType: { [key: string]: string } = {
   BlueGreen: BlueGreenVideo,
   Rolling: RollingUpdateVideo,
   Canary: CanaryVideo,
-  Basic: RollingUpdateVideo
+  Basic: HelmDeploymentBasic
 }
 
 type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'BlankCanvas'

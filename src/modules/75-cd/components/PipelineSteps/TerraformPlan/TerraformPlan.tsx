@@ -443,8 +443,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
       provisionerIdentifier: ''
     }
   }
-  protected stepIcon: IconName = 'terraform-apply-new'
-  protected stepIconColor = '#5C4EE5'
+  protected stepIcon: IconName = 'terraform-plan'
   protected stepName = 'Terraform Plan'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformPlan'
   /* istanbul ignore next */

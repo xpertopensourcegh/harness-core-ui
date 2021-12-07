@@ -1,9 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { FieldArray } from 'formik'
+import { FieldArray, FormikProps } from 'formik'
 import { Icon, Text, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import type { FormikExtended } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import { useStrings } from 'framework/strings'
 import type { CEView } from 'services/ce/'
 import { QlceViewFieldIdentifierData, useFetchViewFieldsQuery, QlceViewFilterWrapperInput } from 'services/ce/services'
@@ -11,7 +10,7 @@ import PerspectiveBuilderFilters from '../PerspectiveBuilderFilters/PerspectiveB
 import css from './PerspectiveFilters.module.scss'
 
 interface PerspectiveFiltersProps {
-  formikProps: FormikExtended<CEView>
+  formikProps: FormikProps<CEView>
 }
 
 const PerspectiveFiltersNew: React.FC<PerspectiveFiltersProps> = ({ formikProps }) => {

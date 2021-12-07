@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { Card, Formik, FormikForm, FormInput, Icon, IconName, Layout, Text } from '@wings-software/uicore'
-import type { FormikContextProps, TextProps } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
+import type { TextProps } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import { Utils } from '@ce/common/Utils'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS } from '@ce/constants'
@@ -124,7 +124,7 @@ const ProviderDisplayCard: React.FC<ProviderDisplayCardProps> = props => {
 
 interface InputDataContainerProps {
   title: string
-  inputProps: TextProps & FormikContextProps<any>
+  inputProps: TextProps
   infoIconProps?: { name: IconName; onClick?: () => void }
 }
 

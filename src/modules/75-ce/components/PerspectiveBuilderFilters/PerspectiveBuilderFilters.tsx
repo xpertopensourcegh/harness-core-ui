@@ -1,7 +1,6 @@
 import React from 'react'
-import { FieldArray } from 'formik'
+import { FieldArray, FormikProps } from 'formik'
 import cx from 'classnames'
-import type { FormikExtended } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import type { CEView } from 'services/ce/'
 import type { QlceViewFieldIdentifierData } from 'services/ce/services'
 import { perspectiveDefaultTimeRangeMapper } from '@ce/utils/perspectiveUtils'
@@ -12,7 +11,7 @@ import css from './PerspectiveBuilderFilters.module.scss'
 
 interface FiltersProps {
   index: number
-  formikProps: FormikExtended<CEView>
+  formikProps: FormikProps<CEView>
   removePill?: (id: number) => void
   showAndOperator?: boolean
   fieldValuesList: QlceViewFieldIdentifierData[]

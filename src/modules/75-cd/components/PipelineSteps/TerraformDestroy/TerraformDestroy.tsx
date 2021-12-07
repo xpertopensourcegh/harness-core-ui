@@ -46,8 +46,7 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
       }
     }
   }
-  protected stepIcon: IconName = 'terraform-apply-new'
-  protected stepIconColor = '#5C4EE5'
+  protected stepIcon: IconName = 'terraform-destroy'
   protected stepName = 'Terraform Destroy'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformDestroy'
   /* istanbul ignore next */
