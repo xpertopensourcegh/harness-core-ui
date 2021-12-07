@@ -1,6 +1,6 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Color, Layout, TableV2, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, TableV2, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
 import { TemplateListCardContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplateListCardContextMenu/TemplateListCardContextMenu'
 import { useStrings } from 'framework/strings'
@@ -9,6 +9,7 @@ import type { TemplateSummaryResponse } from 'services/template-ng'
 import { templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import { TagsPopover } from '@common/components'
+import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import GitDetailsColumn from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import css from './TemplatesListView.module.scss'
 
@@ -67,33 +68,40 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
   const data = row.original
   const { getString } = useStrings()
   return (
-    <Layout.Vertical spacing="xsmall" data-testid={data.identifier} padding={{ right: 'medium' }}>
-      <Layout.Horizontal spacing="medium">
-        <Text
-          color={Color.GREY_800}
-          tooltipProps={{ position: Position.BOTTOM }}
-          lineClamp={1}
-          tooltip={
-            <Layout.Vertical
-              color={Color.GREY_800}
-              spacing="small"
-              padding="medium"
-              style={{ maxWidth: 400, overflowWrap: 'anywhere' }}
-            >
-              <Text color={Color.GREY_800}>{getString('nameLabel', { name: data.name })}</Text>
-              <br />
-              <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
-            </Layout.Vertical>
-          }
-        >
-          {data.name}
+    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'start' }}>
+      <Layout.Vertical spacing="xsmall" data-testid={data.identifier} padding={{ right: 'medium' }}>
+        <Layout.Horizontal spacing="medium">
+          <Text
+            color={Color.GREY_800}
+            tooltipProps={{ position: Position.BOTTOM }}
+            lineClamp={1}
+            tooltip={
+              <Layout.Vertical
+                color={Color.GREY_800}
+                spacing="small"
+                padding="medium"
+                style={{ maxWidth: 400, overflowWrap: 'anywhere' }}
+              >
+                <Text color={Color.GREY_800}>{getString('nameLabel', { name: data.name })}</Text>
+                <br />
+                <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
+              </Layout.Vertical>
+            }
+          >
+            {data.name}
+          </Text>
+          {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
+        </Layout.Horizontal>
+        <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}>
+          {getString('idLabel', { id: data.identifier })}
         </Text>
-        {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
-      </Layout.Horizontal>
-      <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}>
-        {getString('idLabel', { id: data.identifier })}
-      </Text>
-    </Layout.Vertical>
+      </Layout.Vertical>
+      {data.entityValidityDetails?.valid === false && (
+        <Container>
+          <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={data.name} />
+        </Container>
+      )}
+    </Layout.Horizontal>
   )
 }
 

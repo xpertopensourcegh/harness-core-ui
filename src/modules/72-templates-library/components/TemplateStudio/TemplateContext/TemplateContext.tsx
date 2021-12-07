@@ -13,6 +13,7 @@ import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderPr
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import {
   EntityGitDetails,
+  EntityValidityDetails,
   getTemplateListPromise,
   GetTemplateListQueryParams,
   GetTemplateQueryParams,
@@ -44,6 +45,7 @@ interface TemplatePayload {
   versions?: string[]
   stableVersion?: string
   gitDetails?: EntityGitDetails
+  entityValidityDetails?: EntityValidityDetails
 }
 
 const getId = (
@@ -107,8 +109,8 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
   const { forceFetch = false, forceUpdate = false, signal, repoIdentifier, branch } = params
   const id = getId(
     queryParams.accountIdentifier,
-    queryParams.orgIdentifier || '',
-    queryParams.projectIdentifier || '',
+    defaultTo(queryParams.orgIdentifier, ''),
+    defaultTo(queryParams.projectIdentifier, ''),
     templateIdentifier,
     versionLabel,
     defaultTo(gitDetails.repoIdentifier, ''),
@@ -127,8 +129,8 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
         templateIdentifier,
         signal
       )
-      const versions: string[] = templatesList.map(item => item.versionLabel || '')
-      const defaultVersion = templatesList.find(item => item.stableTemplate)?.versionLabel || ''
+      const versions: string[] = templatesList.map(item => defaultTo(item.versionLabel, ''))
+      const defaultVersion = defaultTo(templatesList.find(item => item.stableTemplate)?.versionLabel, '')
       const selectedVersion = versions.includes(versionLabel) ? versionLabel : defaultVersion
       const stableVersion = templatesList.find(item => item.stableTemplate)?.versionLabel
       const templateWithGitDetails = templatesList.find(item => item.versionLabel === selectedVersion)
@@ -146,7 +148,11 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
             stableVersion: data.stableVersion,
             gitDetails: templateWithGitDetails?.gitDetails?.objectId
               ? templateWithGitDetails.gitDetails
-              : defaultTo(data?.gitDetails, {})
+              : defaultTo(data?.gitDetails, {}),
+            entityValidityDetails: defaultTo(
+              templateWithGitDetails?.entityValidityDetails,
+              defaultTo(data?.entityValidityDetails, {})
+            )
           })
         )
         dispatch(TemplateContextActions.initialized())
@@ -160,7 +166,11 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
           stableVersion: stableVersion,
           gitDetails: templateWithGitDetails?.gitDetails?.objectId
             ? templateWithGitDetails.gitDetails
-            : defaultTo(data?.gitDetails, {})
+            : defaultTo(data?.gitDetails, {}),
+          entityValidityDetails: defaultTo(
+            templateWithGitDetails?.entityValidityDetails,
+            defaultTo(data?.entityValidityDetails, {})
+          )
         }
         await IdbTemplate.put(IdbTemplateStoreName, payload)
         dispatch(
@@ -172,7 +182,8 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
             isUpdated: false,
             versions: versions,
             stableVersion: stableVersion,
-            gitDetails: payload.gitDetails
+            gitDetails: payload.gitDetails,
+            entityValidityDetails: payload.entityValidityDetails
           })
         )
         dispatch(TemplateContextActions.initialized())
@@ -186,7 +197,8 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
             isUpdated: false,
             versions: versions,
             stableVersion: stableVersion,
-            gitDetails: templateWithGitDetails?.gitDetails?.objectId ? templateWithGitDetails.gitDetails : {}
+            gitDetails: templateWithGitDetails?.gitDetails?.objectId ? templateWithGitDetails.gitDetails : {},
+            entityValidityDetails: defaultTo(templateWithGitDetails?.entityValidityDetails, {})
           })
         )
         dispatch(TemplateContextActions.initialized())
@@ -195,25 +207,27 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
       dispatch(
         TemplateContextActions.success({
           error: '',
-          template: data?.template || {
+          template: defaultTo(data?.template, {
             ...DefaultTemplate,
             type: templateType as NGTemplateInfoConfig['type'],
             projectIdentifier: queryParams.projectIdentifier,
             orgIdentifier: queryParams.orgIdentifier
-          },
-          originalTemplate:
-            cloneDeep(data?.template) ||
+          }),
+          originalTemplate: defaultTo(
+            cloneDeep(data?.template),
             cloneDeep({
               ...DefaultTemplate,
               type: templateType as NGTemplateInfoConfig['type'],
               projectIdentifier: queryParams.projectIdentifier,
               orgIdentifier: queryParams.orgIdentifier
-            }),
+            })
+          ),
           isUpdated: true,
           isBETemplateUpdated: false,
           versions: [DefaultNewVersionLabel],
           stableVersion: DefaultNewVersionLabel,
-          gitDetails: defaultTo(data?.gitDetails, {})
+          gitDetails: defaultTo(data?.gitDetails, {}),
+          entityValidityDetails: defaultTo(data?.entityValidityDetails, {})
         })
       )
       dispatch(TemplateContextActions.initialized())
@@ -469,7 +483,10 @@ export const TemplateProvider: React.FC<{
       initialState
     )
   )
-  const [view, setView] = useLocalStorage<SelectedView>('pipeline_studio_view', SelectedView.VISUAL)
+  const [view, setView] = useLocalStorage<SelectedView>(
+    'pipeline_studio_view',
+    state.entityValidityDetails.valid === false ? SelectedView.YAML : SelectedView.VISUAL
+  )
   state.templateIdentifier = templateIdentifier
   const fetchTemplate = _fetchTemplate.bind(null, {
     dispatch,

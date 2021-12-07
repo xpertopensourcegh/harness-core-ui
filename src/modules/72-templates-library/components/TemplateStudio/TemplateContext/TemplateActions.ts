@@ -1,4 +1,4 @@
-import type { EntityGitDetails, NGTemplateInfoConfig } from 'services/template-ng'
+import type { EntityGitDetails, EntityValidityDetails, NGTemplateInfoConfig } from 'services/template-ng'
 import type { TemplateViewData } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 
@@ -26,6 +26,7 @@ export interface ActionResponse {
   versions?: string[]
   isLoading?: boolean
   gitDetails?: EntityGitDetails
+  entityValidityDetails?: EntityValidityDetails
 }
 
 export interface ActionReturnType {

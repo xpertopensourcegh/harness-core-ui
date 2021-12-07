@@ -52,8 +52,17 @@ export function TemplateStudio(): React.ReactElement {
     TemplateStudioPathProps & ModulePathParams
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const { template, templateView, isLoading, isUpdated, yamlHandler, isBETemplateUpdated, isInitialized, gitDetails } =
-    state
+  const {
+    template,
+    templateView,
+    isLoading,
+    isUpdated,
+    yamlHandler,
+    isBETemplateUpdated,
+    isInitialized,
+    gitDetails,
+    entityValidityDetails
+  } = state
   const { isYamlEditable } = templateView
   const { getString } = useStrings()
   const [blockNavigation, setBlockNavigation] = React.useState(false)
@@ -211,8 +220,12 @@ export function TemplateStudio(): React.ReactElement {
   React.useEffect(() => {
     if (templateIdentifier === DefaultNewTemplateId) {
       setView(SelectedView.VISUAL)
+    } else if (entityValidityDetails.valid === false || view === SelectedView.YAML) {
+      setView(SelectedView.YAML)
+    } else {
+      setView(SelectedView.VISUAL)
     }
-  }, [templateIdentifier])
+  }, [templateIdentifier, entityValidityDetails.valid])
 
   const getPathParams = React.useCallback(() => {
     const pathParams = {

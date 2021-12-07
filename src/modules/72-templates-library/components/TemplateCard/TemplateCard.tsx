@@ -12,6 +12,7 @@ import type { NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/tem
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TemplateListCardContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplateListCardContextMenu/TemplateListCardContextMenu'
+import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import type { NGTemplateInfoConfigWithGitDetails } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import { TemplateColor } from './TemplateColor/TemplateColor'
 import css from './TemplateCard.module.scss'
@@ -60,8 +61,13 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
         ) : (
           <div />
         )}
-        <Container>
-          <Icon name={getIconForTemplate(template, getString)} size={18} />
+        <Container margin={{ right: 'small' }}>
+          <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }} flex>
+            <Icon name={getIconForTemplate(template, getString)} size={18} />
+            {(template as TemplateSummaryResponse).entityValidityDetails?.valid === false && (
+              <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={template.name} />
+            )}
+          </Layout.Horizontal>
         </Container>
         <Container>
           <Text

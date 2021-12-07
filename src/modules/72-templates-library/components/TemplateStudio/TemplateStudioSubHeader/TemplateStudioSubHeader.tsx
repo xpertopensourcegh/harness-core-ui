@@ -35,10 +35,19 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
   onGitBranchChange
 }) => {
   const { state, fetchTemplate, view, isReadonly } = React.useContext(TemplateContext)
-  const { isUpdated } = state
+  const { isUpdated, entityValidityDetails } = state
   const { getString } = useStrings()
   const { templateIdentifier } = useParams<TemplateStudioPathProps>()
+  const [disableVisualView, setDisableVisualView] = React.useState(entityValidityDetails.valid === false)
   const isYaml = view === SelectedView.YAML
+
+  React.useEffect(() => {
+    if (entityValidityDetails.valid === false) {
+      setDisableVisualView(true)
+    } else {
+      setDisableVisualView(false)
+    }
+  }, [entityValidityDetails.valid])
 
   return (
     <Container
@@ -53,10 +62,11 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
         <Container>
           <VisualYamlToggle
             className={css.visualYamlToggle}
-            selectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
+            selectedView={isYaml || disableVisualView ? SelectedView.YAML : SelectedView.VISUAL}
             onChange={nextMode => {
               onViewChange(nextMode)
             }}
+            disableToggle={disableVisualView}
           />
         </Container>
         <Container>

@@ -4,7 +4,7 @@ import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOpti
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
-import type { GetDataError, UseGetProps } from 'restful-react'
+import type { GetDataError } from 'restful-react'
 import type { Error, Failure } from 'services/template-ng'
 import {
   useLandingDashboardContext,
@@ -29,7 +29,6 @@ import {
   TimeBasedStats,
   GetDeploymentStatsOverviewQueryParams,
   DeploymentsStatsOverview,
-  ResponseExecutionResponseDeploymentsStatsOverview,
   ActiveServiceInfo
 } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
@@ -242,21 +241,7 @@ interface LandingDashboardDeploymentsNoContentWidgetProps {
   error: GetDataError<Failure | Error> | null
   count: number | undefined
   accountId: string
-  refetch: (
-    options?:
-      | Partial<
-          Omit<
-            UseGetProps<
-              ResponseExecutionResponseDeploymentsStatsOverview,
-              Failure | Error,
-              GetDeploymentStatsOverviewQueryParams,
-              unknown
-            >,
-            'lazy'
-          >
-        >
-      | undefined
-  ) => Promise<void>
+  refetch: any
 }
 const LandingDashboardDeploymentsNoContentWidget = (
   props: LandingDashboardDeploymentsNoContentWidgetProps

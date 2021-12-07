@@ -269,28 +269,32 @@ exports[`<TemplateStudioSubHeaderLeftView /> tests edit btn should work as expec
         >
           <div />
           <div
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main StyledProps--margin-right-small"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="http-step"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small StyledProps--flex"
             >
-              <svg
-                height="18"
-                viewBox="0 0 32 32"
-                width="18"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="http-step"
               >
-                <path
-                  d="M5 27H2v-3H0v8h2v-3h3v3h2v-8H5v3zm4-1h2v6h2v-6h2v-2H9v2zm8 0h2v6h2v-6h2v-2h-6v2zm12-2h-4v8h2v-2h2a3 3 0 000-6zm0 4h-2v-2h2a1 1 0 010 2zM0 0v22h2V10h28v12h2V0H0zm30 8H2V2h28v6z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M6 4H4v2h2V4zm4 0H8v2h2V4zm18 0H12v2h16V4z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
+                <svg
+                  height="18"
+                  viewBox="0 0 32 32"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 27H2v-3H0v8h2v-3h3v3h2v-8H5v3zm4-1h2v6h2v-6h2v-2H9v2zm8 0h2v6h2v-6h2v-2h-6v2zm12-2h-4v8h2v-2h2a3 3 0 000-6zm0 4h-2v-2h2a1 1 0 010 2zM0 0v22h2V10h28v12h2V0H0zm30 8H2V2h28v6z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M6 4H4v2h2V4zm4 0H8v2h2V4zm18 0H12v2h16V4z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
           <div
             class="StyledProps--font StyledProps--main"

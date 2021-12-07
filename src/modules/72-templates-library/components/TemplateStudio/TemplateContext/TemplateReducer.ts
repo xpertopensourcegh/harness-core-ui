@@ -1,6 +1,6 @@
 import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
-import type { EntityGitDetails, NGTemplateInfoConfig } from 'services/template-ng'
+import type { EntityGitDetails, EntityValidityDetails, NGTemplateInfoConfig } from 'services/template-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import {
   ActionReturnType,
@@ -39,6 +39,7 @@ export interface TemplateReducerState {
   isBETemplateUpdated: boolean
   isUpdated: boolean
   gitDetails: EntityGitDetails
+  entityValidityDetails: EntityValidityDetails
 }
 
 export const initialState: TemplateReducerState = {
@@ -59,7 +60,8 @@ export const initialState: TemplateReducerState = {
   isDBInitialized: false,
   isUpdated: false,
   isInitialized: false,
-  gitDetails: {}
+  gitDetails: {},
+  entityValidityDetails: {}
 }
 
 export const TemplateReducer = (state: TemplateReducerState, data: ActionReturnType): TemplateReducerState => {

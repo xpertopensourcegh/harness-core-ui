@@ -228,18 +228,13 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           }}
         />
         <Container>
-          {!isEmpty(pipelineIcons) && (
-            <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }} flex>
-              <>
-                {pipelineIcons.map(iconObj => (
-                  <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
-                ))}
-              </>
-              {pipeline.entityValidityDetails?.valid === false && (
-                <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={pipeline.name} />
-              )}
-            </Layout.Horizontal>
-          )}
+          <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }} flex>
+            {!isEmpty(pipelineIcons) &&
+              pipelineIcons.map(iconObj => <Icon key={iconObj.icon} name={iconObj.icon} size={14} />)}
+            {pipeline.entityValidityDetails?.valid === false && (
+              <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={pipeline.name} />
+            )}
+          </Layout.Horizontal>
           <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
             <Container>
               <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}>
