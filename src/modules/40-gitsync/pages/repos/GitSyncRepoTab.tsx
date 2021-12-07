@@ -98,7 +98,6 @@ const RightMenu: React.FC<RightMenuProps> = props => {
           }}
         />
         <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item data-test="moveFolderBtn" text={getString('gitsync.moveFolder')} disabled={true} />
           <Menu.Item
             data-test="markDefaultBtn"
             text={getString('gitsync.markAsDefault')}
