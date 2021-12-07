@@ -4245,6 +4245,12 @@ export interface StringsMap {
   'cv.monitoringSources.backToMapping': string
   'cv.monitoringSources.baselineDeviation': string
   'cv.monitoringSources.buildYourQuery': string
+  'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle': string
+  'cv.monitoringSources.datadog.newDatadogGroupName': string
+  'cv.monitoringSources.datadog.selectDashboardsPage.dashboardColumnName': string
+  'cv.monitoringSources.datadog.selectDashboardsPage.noDataText': string
+  'cv.monitoringSources.datadogLogs.datadogLogsQuery': string
+  'cv.monitoringSources.datadogLogs.logIndexesLabel': string
   'cv.monitoringSources.envValidation': string
   'cv.monitoringSources.gco.addManualInputQuery': string
   'cv.monitoringSources.gco.connectToMonitoringSource': string
@@ -4310,9 +4316,11 @@ export interface StringsMap {
   'cv.monitoringSources.lowerCounts': string
   'cv.monitoringSources.mapMetricsToServices': string
   'cv.monitoringSources.mapQueriesToServices': string
+  'cv.monitoringSources.metricLabel': string
   'cv.monitoringSources.metricNameLabel': string
   'cv.monitoringSources.metricNameValidation': string
   'cv.monitoringSources.metricPackValidation': string
+  'cv.monitoringSources.metricValidation': string
   'cv.monitoringSources.nameYourMonitoringSource': string
   'cv.monitoringSources.newRelic.mapNewRelicAppsToServicesAndEnvs': string
   'cv.monitoringSources.newRelic.mappingServiceAndEnvSubheading': string

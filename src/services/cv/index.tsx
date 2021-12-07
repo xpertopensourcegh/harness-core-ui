@@ -5928,6 +5928,410 @@ export const saveCVNGLogRecordsPromise = (
     signal
   )
 
+export interface GetDatadogLogIndexesQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  tracingId: string
+}
+
+export type GetDatadogLogIndexesProps = Omit<
+  GetProps<ResponseListString, Failure | Error, GetDatadogLogIndexesQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog log indexes
+ */
+export const GetDatadogLogIndexes = (props: GetDatadogLogIndexesProps) => (
+  <Get<ResponseListString, Failure | Error, GetDatadogLogIndexesQueryParams, void>
+    path={`/datadog-logs/log-indexes`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatadogLogIndexesProps = Omit<
+  UseGetProps<ResponseListString, Failure | Error, GetDatadogLogIndexesQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog log indexes
+ */
+export const useGetDatadogLogIndexes = (props: UseGetDatadogLogIndexesProps) =>
+  useGet<ResponseListString, Failure | Error, GetDatadogLogIndexesQueryParams, void>(`/datadog-logs/log-indexes`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get datadog log indexes
+ */
+export const getDatadogLogIndexesPromise = (
+  props: GetUsingFetchProps<ResponseListString, Failure | Error, GetDatadogLogIndexesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, Failure | Error, GetDatadogLogIndexesQueryParams, void>(
+    getConfig('cv/api'),
+    `/datadog-logs/log-indexes`,
+    props,
+    signal
+  )
+
+export interface GetDatadogLogSampleDataQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  tracingId: string
+}
+
+export type GetDatadogLogSampleDataProps = Omit<
+  MutateProps<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetDatadogLogSampleDataQueryParams,
+    LogSampleRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * get sample data for a query
+ */
+export const GetDatadogLogSampleData = (props: GetDatadogLogSampleDataProps) => (
+  <Mutate<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetDatadogLogSampleDataQueryParams,
+    LogSampleRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/datadog-logs/sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatadogLogSampleDataProps = Omit<
+  UseMutateProps<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetDatadogLogSampleDataQueryParams,
+    LogSampleRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * get sample data for a query
+ */
+export const useGetDatadogLogSampleData = (props: UseGetDatadogLogSampleDataProps) =>
+  useMutate<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetDatadogLogSampleDataQueryParams,
+    LogSampleRequestDTORequestBody,
+    void
+  >('POST', `/datadog-logs/sample-data`, { base: getConfig('cv/api'), ...props })
+
+/**
+ * get sample data for a query
+ */
+export const getDatadogLogSampleDataPromise = (
+  props: MutateUsingFetchProps<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetDatadogLogSampleDataQueryParams,
+    LogSampleRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetDatadogLogSampleDataQueryParams,
+    LogSampleRequestDTORequestBody,
+    void
+  >('POST', getConfig('cv/api'), `/datadog-logs/sample-data`, props, signal)
+
+export interface GetDatadogActiveMetricsQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  tracingId: string
+}
+
+export type GetDatadogActiveMetricsProps = Omit<
+  GetProps<ResponseListString, Failure | Error, GetDatadogActiveMetricsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog active metrics
+ */
+export const GetDatadogActiveMetrics = (props: GetDatadogActiveMetricsProps) => (
+  <Get<ResponseListString, Failure | Error, GetDatadogActiveMetricsQueryParams, void>
+    path={`/datadog-metrics/active-metrics`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatadogActiveMetricsProps = Omit<
+  UseGetProps<ResponseListString, Failure | Error, GetDatadogActiveMetricsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog active metrics
+ */
+export const useGetDatadogActiveMetrics = (props: UseGetDatadogActiveMetricsProps) =>
+  useGet<ResponseListString, Failure | Error, GetDatadogActiveMetricsQueryParams, void>(
+    `/datadog-metrics/active-metrics`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get datadog active metrics
+ */
+export const getDatadogActiveMetricsPromise = (
+  props: GetUsingFetchProps<ResponseListString, Failure | Error, GetDatadogActiveMetricsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, Failure | Error, GetDatadogActiveMetricsQueryParams, void>(
+    getConfig('cv/api'),
+    `/datadog-metrics/active-metrics`,
+    props,
+    signal
+  )
+
+export interface GetDatadogDashboardDetailsQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  dashboardId: string
+  tracingId: string
+}
+
+export type GetDatadogDashboardDetailsProps = Omit<
+  GetProps<ResponseListDatadogDashboardDetail, Failure | Error, GetDatadogDashboardDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog dashboard details
+ */
+export const GetDatadogDashboardDetails = (props: GetDatadogDashboardDetailsProps) => (
+  <Get<ResponseListDatadogDashboardDetail, Failure | Error, GetDatadogDashboardDetailsQueryParams, void>
+    path={`/datadog-metrics/dashboard-details`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatadogDashboardDetailsProps = Omit<
+  UseGetProps<ResponseListDatadogDashboardDetail, Failure | Error, GetDatadogDashboardDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog dashboard details
+ */
+export const useGetDatadogDashboardDetails = (props: UseGetDatadogDashboardDetailsProps) =>
+  useGet<ResponseListDatadogDashboardDetail, Failure | Error, GetDatadogDashboardDetailsQueryParams, void>(
+    `/datadog-metrics/dashboard-details`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get datadog dashboard details
+ */
+export const getDatadogDashboardDetailsPromise = (
+  props: GetUsingFetchProps<
+    ResponseListDatadogDashboardDetail,
+    Failure | Error,
+    GetDatadogDashboardDetailsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListDatadogDashboardDetail, Failure | Error, GetDatadogDashboardDetailsQueryParams, void>(
+    getConfig('cv/api'),
+    `/datadog-metrics/dashboard-details`,
+    props,
+    signal
+  )
+
+export interface GetDatadogDashboardsQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  pageSize: number
+  offset: number
+  filter?: string
+  tracingId: string
+}
+
+export type GetDatadogDashboardsProps = Omit<
+  GetProps<ResponsePageDatadogDashboardDTO, Failure | Error, GetDatadogDashboardsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all datadog dashboards
+ */
+export const GetDatadogDashboards = (props: GetDatadogDashboardsProps) => (
+  <Get<ResponsePageDatadogDashboardDTO, Failure | Error, GetDatadogDashboardsQueryParams, void>
+    path={`/datadog-metrics/dashboards`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatadogDashboardsProps = Omit<
+  UseGetProps<ResponsePageDatadogDashboardDTO, Failure | Error, GetDatadogDashboardsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all datadog dashboards
+ */
+export const useGetDatadogDashboards = (props: UseGetDatadogDashboardsProps) =>
+  useGet<ResponsePageDatadogDashboardDTO, Failure | Error, GetDatadogDashboardsQueryParams, void>(
+    `/datadog-metrics/dashboards`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all datadog dashboards
+ */
+export const getDatadogDashboardsPromise = (
+  props: GetUsingFetchProps<ResponsePageDatadogDashboardDTO, Failure | Error, GetDatadogDashboardsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageDatadogDashboardDTO, Failure | Error, GetDatadogDashboardsQueryParams, void>(
+    getConfig('cv/api'),
+    `/datadog-metrics/dashboards`,
+    props,
+    signal
+  )
+
+export interface GetDatadogMetricTagsListQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  metric: string
+  tracingId: string
+}
+
+export type GetDatadogMetricTagsListProps = Omit<
+  GetProps<ResponseListString, Failure | Error, GetDatadogMetricTagsListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog metric tag list
+ */
+export const GetDatadogMetricTagsList = (props: GetDatadogMetricTagsListProps) => (
+  <Get<ResponseListString, Failure | Error, GetDatadogMetricTagsListQueryParams, void>
+    path={`/datadog-metrics/metric-tags`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatadogMetricTagsListProps = Omit<
+  UseGetProps<ResponseListString, Failure | Error, GetDatadogMetricTagsListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog metric tag list
+ */
+export const useGetDatadogMetricTagsList = (props: UseGetDatadogMetricTagsListProps) =>
+  useGet<ResponseListString, Failure | Error, GetDatadogMetricTagsListQueryParams, void>(
+    `/datadog-metrics/metric-tags`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get datadog metric tag list
+ */
+export const getDatadogMetricTagsListPromise = (
+  props: GetUsingFetchProps<ResponseListString, Failure | Error, GetDatadogMetricTagsListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, Failure | Error, GetDatadogMetricTagsListQueryParams, void>(
+    getConfig('cv/api'),
+    `/datadog-metrics/metric-tags`,
+    props,
+    signal
+  )
+
+export interface GetDatadogSampleDataQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  tracingId: string
+  query: string
+}
+
+export type GetDatadogSampleDataProps = Omit<
+  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetDatadogSampleDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog sample data
+ */
+export const GetDatadogSampleData = (props: GetDatadogSampleDataProps) => (
+  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, GetDatadogSampleDataQueryParams, void>
+    path={`/datadog-metrics/sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDatadogSampleDataProps = Omit<
+  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetDatadogSampleDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get datadog sample data
+ */
+export const useGetDatadogSampleData = (props: UseGetDatadogSampleDataProps) =>
+  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, GetDatadogSampleDataQueryParams, void>(
+    `/datadog-metrics/sample-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get datadog sample data
+ */
+export const getDatadogSampleDataPromise = (
+  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetDatadogSampleDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, GetDatadogSampleDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/datadog-metrics/sample-data`,
+    props,
+    signal
+  )
+
 export interface GetDeploymentTimeSeriesQueryParams {
   accountId?: string
   anomalousMetricsOnly?: boolean

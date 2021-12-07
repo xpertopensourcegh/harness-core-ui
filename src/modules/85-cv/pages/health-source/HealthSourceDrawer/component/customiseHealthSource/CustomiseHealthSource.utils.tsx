@@ -9,6 +9,9 @@ import { Connectors } from '@connectors/constants'
 import { GCOMetricsHealthSource } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource'
 import { GCOProduct } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
+import DatadogMetricsHealthSource from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource'
+import { DatadogProduct } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.utils'
+import { DatadogLogsHealthSource } from '@cv/pages/health-source/connectors/DatadogLogsHealthSource/DatadogLogsHealthSource'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 
 export const LoadSourceByType = ({
@@ -33,6 +36,16 @@ export const LoadSourceByType = ({
       return <GCOLogsMonitoringSource data={data} onSubmit={onSubmit} />
     case HealthSourceTypes.StackdriverMetrics:
       return <GCOMetricsHealthSource data={data} onSubmit={onSubmit} />
+    case Connectors.DATADOG:
+      if (data?.product?.value === DatadogProduct.CLOUD_METRICS) {
+        return <DatadogMetricsHealthSource data={data} onSubmit={onSubmit} />
+      } else {
+        return <DatadogLogsHealthSource data={data} onSubmit={onSubmit} />
+      }
+    case HealthSourceTypes.DatadogMetrics:
+      return <DatadogMetricsHealthSource data={data} onSubmit={onSubmit} />
+    case HealthSourceTypes.DatadogLog:
+      return <DatadogLogsHealthSource data={data} onSubmit={onSubmit} />
     case HealthSourceTypes.Prometheus:
       return <PrometheusHealthSource data={data} onSubmit={onSubmit} />
     case Connectors.NEW_RELIC:

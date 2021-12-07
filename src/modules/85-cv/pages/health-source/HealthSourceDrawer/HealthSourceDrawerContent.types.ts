@@ -7,8 +7,10 @@ import type {
   NewRelicHealthSourceSpec,
   StackdriverMetricHealthSourceSpec,
   SplunkHealthSourceSpec,
-  ChangeSourceDTO
+  ChangeSourceDTO,
+  DatadogMetricHealthSourceSpec
 } from 'services/cv'
+import type { DatadogLogsHealthSpec } from '@cv/pages/health-source/connectors/DatadogLogsHealthSource/DatadogLogsHealthSource.type'
 import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
 
 export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
@@ -19,6 +21,8 @@ export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
     | NewRelicHealthSourceSpec
     | StackdriverMetricHealthSourceSpec
     | SplunkHealthSourceSpec
+    | DatadogMetricHealthSourceSpec
+    | DatadogLogsHealthSpec
 }
 
 export interface RowData extends HealthSource {

@@ -13,8 +13,10 @@ export const getTypeByFeature = (feature: string, getString: UseStringsReturn['g
     case Connectors.NEW_RELIC:
     case Connectors.PROMETHEUS:
     case HealthSourceTypes.StackdriverMetrics:
+    case HealthSourceTypes.DatadogMetrics:
       return getString('pipeline.verification.analysisTab.metrics')
     case HealthSourceTypes.StackdriverLog:
+    case HealthSourceTypes.DatadogLog:
     case HealthSourceTypes.Splunk:
       return getString('pipeline.verification.analysisTab.logs')
     default:
@@ -33,6 +35,8 @@ export const getIconBySourceType = (type: string): IconName => {
       return 'harness'
     case 'STACKDRIVER':
       return 'service-stackdriver'
+    case 'DATADOG':
+      return 'service-datadog'
     case 'NEW_RELIC':
     case 'NewRelic':
       return 'service-newrelic'
@@ -52,6 +56,11 @@ export const getIconBySourceType = (type: string): IconName => {
     case 'StackdriverLog':
     case 'Stackdriver':
       return 'service-stackdriver'
+    case 'DatadogMetrics':
+    case 'DatadogLog':
+    case 'DATADOG_METRICS':
+    case 'DATADOG_LOG':
+      return 'service-datadog'
     case 'SPLUNK':
     case 'Splunk':
       return 'service-splunk'

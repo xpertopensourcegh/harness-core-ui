@@ -2,11 +2,12 @@ import React from 'react'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { object as yupObject, string as yupString } from 'yup'
 import { Button, Container, Formik, FormikForm, FormInput } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import css from './ManualInputQueryModal.module.scss'
 
 interface UseManualInputQueryModalProps {
+  title?: StringKeys
   onSubmit: (values: { metricName: string }) => void
   manuallyInputQueries?: string[]
   closeModal: () => void
@@ -49,13 +50,13 @@ function getValidatitionSchema(getString: UseStringsReturn['getString'], manuall
 }
 
 export function ManualInputQueryModal(props: UseManualInputQueryModalProps): JSX.Element {
-  const { onSubmit, manuallyInputQueries, closeModal } = props
+  const { title, onSubmit, manuallyInputQueries, closeModal } = props
   const { getString } = useStrings()
   return (
     <Dialog
       {...DialogOptions}
       onClose={closeModal}
-      title={getString('cv.monitoringSources.gco.manualInputQueryModal.modalTitle')}
+      title={getString(title || 'cv.monitoringSources.gco.manualInputQueryModal.modalTitle')}
     >
       <Container className={css.main}>
         <Formik

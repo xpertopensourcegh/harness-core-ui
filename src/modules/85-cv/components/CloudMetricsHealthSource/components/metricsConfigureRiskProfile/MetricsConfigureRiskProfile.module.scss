@@ -1,0 +1,43 @@
+.configureRiskProfileContainer {
+  .inlineRadio {
+    label {
+      color: var(--black) !important;
+    }
+
+    div > div {
+      display: flex;
+
+      label:not(:last-of-type) {
+        margin-right: var(--spacing-medium) !important;
+      }
+    }
+  }
+
+  .sectionHeading {
+    padding: var(--spacing-small) var(--spacing-xsmall) !important;
+    border-bottom: 1px solid var(--grey-250);
+    font-size: var(--font-size-medium) !important;
+    margin-bottom: var(--spacing-small) !important;
+  }
+
+  .deviation {
+    .checkboxLabel {
+      margin-bottom: var(--spacing-small) !important;
+    }
+
+    .checkbox {
+      display: flex;
+
+      div:first-child {
+        position: relative;
+        left: 13px;
+        margin-right: 25px !important;
+      }
+
+      [class*='checkBoxDocTooltipLabel'] {
+        width: 200px !important;
+        color: var(--black) !important;
+      }
+    }
+  }
+}

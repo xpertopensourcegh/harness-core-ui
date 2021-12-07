@@ -1,0 +1,41 @@
+.setupContainer {
+  margin-bottom: 80px !important;
+
+  .query {
+    flex-basis: 48%;
+    max-width: 550px;
+
+    textarea {
+      resize: none;
+      height: 200px;
+      width: 100%;
+      border: 1px solid var(--grey-250);
+      border-radius: 4px;
+      padding: var(--spacing-small);
+    }
+  }
+
+  .sectionHeading {
+    padding: var(--spacing-small) var(--spacing-xsmall) !important;
+    border-bottom: 1px solid var(--grey-250);
+    font-size: var(--font-size-medium) !important;
+    margin-bottom: var(--spacing-small) !important;
+  }
+
+  .metricsMappingContent {
+    display: flex;
+    align-items: start;
+
+    .metricsQueryBuilderContainer {
+      display: flex;
+      flex-direction: column;
+      width: 48% !important;
+      max-width: 550px;
+      margin-right: var(--spacing-medium);
+    }
+
+    .validationContainer {
+      margin-bottom: var(--spacing-large) !important;
+    }
+  }
+}

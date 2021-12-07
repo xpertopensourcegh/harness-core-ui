@@ -53,6 +53,13 @@ allowpaths:
   - /stackdriver/dashboard-detail
   - /stackdriver/sample-data
   - /stackdriver-log/sample-data
+  - /datadog-metrics/dashboards
+  - /datadog-metrics/dashboard-details
+  - /datadog-metrics/sample-data
+  - /datadog-metrics/active-metrics
+  - /datadog-metrics/metric-tags
+  - /datadog-logs/log-indexes
+  - /datadog-logs/sample-data
   - /activity-source
   - /activity-source/{identifier}
   - /activity-source/list

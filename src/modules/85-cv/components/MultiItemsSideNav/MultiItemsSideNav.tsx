@@ -4,7 +4,7 @@ import { PopoverInteractionKind } from '@blueprintjs/core'
 import { SelectedAppsSideNav } from './components/SelectedAppsSideNav/SelectedAppsSideNav'
 import css from './MultiItemsSideNav.module.scss'
 
-interface MultiItemsSideNavProps {
+export interface MultiItemsSideNavProps {
   onSelectMetric: (selectedMetric: string, updatedList: string[], selectedMetricIndex: number) => void
   onRemoveMetric: (
     removedMetric: string,

@@ -185,6 +185,7 @@ monitoringSources:
   backToMapping: Back to Mapping
   reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
   metricNameLabel: Metric Name
+  metricLabel: Metric
   queryNameLabel: Name your Query
   queryName: Query Name
   riskProfile: Risk Profile
@@ -193,6 +194,7 @@ monitoringSources:
   higherCounts: Higher value is higher risk
   lowerCounts: Lower value is higher risk
   metricNameValidation: Metric Name is required.
+  metricValidation: Metric is required.
   queryNameValidation: Query Name is required.
   envValidation: Environment is required.
   serviceValidation: Service is required.
@@ -289,6 +291,16 @@ monitoringSources:
     reviewPage:
       mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
       gcoMetrics: Google Cloud Operation metrics
+  datadog:
+    manualInputQueryModal:
+      modalTitle: 'Add your Datadog query'
+    selectDashboardsPage:
+      noDataText: 'No Datadog dashboards found.'
+      dashboardColumnName: 'Datadog Dashboards'
+    newDatadogGroupName: 'Add new Datadog group name'
+  datadogLogs:
+    datadogLogsQuery: Datadog Logs Query
+    logIndexesLabel: Log indexes
   newRelic:
     mapNewRelicAppsToServicesAndEnvs: Map New Relic Applications to Harness Environments and Services
     mappingServiceAndEnvSubheading: Select Harness Environments and Services to map to New Relic Applications

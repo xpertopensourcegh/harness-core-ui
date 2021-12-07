@@ -15,6 +15,9 @@ export function healthSourceTypeToLogo(healthSourceType: any): IconName {
     case 'STACKDRIVER':
     case 'STACKDRIVER_LOG':
       return 'service-stackdriver'
+    case 'DATADOG_METRICS':
+    case 'DATADOG_LOG':
+      return 'service-datadog'
     default:
       return 'circle'
   }

@@ -1,0 +1,9 @@
+.setupContainer {
+  margin-bottom: 80px !important;
+
+  .metricsQueryBuilderContainer {
+    width: 48% !important;
+    max-width: 550px;
+    margin-right: var(--spacing-medium);
+  }
+}

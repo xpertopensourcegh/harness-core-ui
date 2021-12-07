@@ -22,6 +22,10 @@ export const HEALTHSOURCE_LIST = [
   {
     name: HealthSourceTypes.Splunk,
     icon: getConnectorIconByType(Connectors.SPLUNK)
+  },
+  {
+    name: HealthSourceTypes.Datadog,
+    icon: getConnectorIconByType(Connectors.DATADOG)
   }
 ]
 

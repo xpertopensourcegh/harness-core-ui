@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { useStrings } from 'framework/strings'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
+import { DatadogProduct } from '../connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.utils'
+import { SelectDatadogMetricsDashboards } from '../connectors/DatadogMetricsHealthSource/components/SelectDatadogMetricsDashboards/SelectDatadogMetricsDashboards'
 import DefineHealthSource from './component/defineHealthSource/DefineHealthSource'
 import CustomiseHealthSource from './component/customiseHealthSource/CustomiseHealthSource'
 import { createHealthSourceDrawerFormData } from './HealthSourceDrawerContent.utils'
@@ -38,7 +40,13 @@ function HealthSourceDrawerContent({
 
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>(getSelectedFeature(sourceData)?.value)
   const [tabTitles, ...tabs] = useMemo(() => {
-    if (selectedProduct === GCOProduct.CLOUD_METRICS) {
+    if (selectedProduct === GCOProduct.CLOUD_METRICS || selectedProduct === DatadogProduct.CLOUD_METRICS) {
+      const dashboardsScreen =
+        selectedProduct === DatadogProduct.CLOUD_METRICS ? (
+          <SelectDatadogMetricsDashboards key="selectDatadogDashboards" />
+        ) : (
+          <SelectGCODashboards key="selectGCODashboards" />
+        )
       return [
         [
           getString('cv.healthSource.defineHealthSource'),
@@ -51,7 +59,7 @@ function HealthSourceDrawerContent({
             setSelectedProduct(values.product?.value)
           }}
         />,
-        <SelectGCODashboards key="selectGCODashboards" />,
+        dashboardsScreen,
         <CustomiseHealthSource
           key="customiseHealthSource"
           onSuccess={onSuccess}

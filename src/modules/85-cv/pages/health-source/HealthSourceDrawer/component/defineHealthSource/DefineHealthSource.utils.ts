@@ -5,6 +5,7 @@ import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
 import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
+import { DatadogProduct } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.utils'
 import { NewRelicProductNames, ConnectorRefFieldName, SplunkProduct } from './DefineHealthSource.constant'
 import type { DefineHealthSourceFormInterface } from './DefineHealthSource.types'
 
@@ -43,6 +44,17 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
         },
         {
           value: GCOProduct.CLOUD_LOGS,
+          label: getString('cv.monitoringSources.gco.product.logs')
+        }
+      ]
+    case Connectors.DATADOG:
+      return [
+        {
+          value: DatadogProduct.CLOUD_METRICS,
+          label: getString('cv.monitoringSources.gco.product.metrics')
+        },
+        {
+          value: DatadogProduct.CLOUD_LOGS,
           label: getString('cv.monitoringSources.gco.product.logs')
         }
       ]
