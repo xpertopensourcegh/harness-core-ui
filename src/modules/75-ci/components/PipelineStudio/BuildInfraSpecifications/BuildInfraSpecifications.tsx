@@ -1,7 +1,19 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@wings-software/uicore'
+import {
+  Layout,
+  Formik,
+  FormikForm,
+  FormInput,
+  Text,
+  Card,
+  Accordion,
+  FontVariation,
+  ThumbnailSelect,
+  IconName,
+  Container
+} from '@wings-software/uicore'
 import { isEmpty, isUndefined, set, uniqBy } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -13,6 +25,7 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useStrings, UseStringsReturn } from 'framework/strings'
+import type { StringsMap } from 'stringTypes'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -22,6 +35,7 @@ import {
   getFlattenedStages
 } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { Separator } from '@common/components'
 import type { MultiTypeMapType, MultiTypeMapUIType, MapType } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { useGitScope } from '@ci/services/CIUtils'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -36,6 +50,20 @@ import css from './BuildInfraSpecifications.module.scss'
 const logger = loggerFor(ModuleName.CD)
 const k8sClusterKeyRef = 'connectors.title.k8sCluster'
 const namespaceKeyRef = 'pipelineSteps.build.infraSpecifications.namespace'
+
+interface BuildInfraTypeItem {
+  label: string
+  icon: IconName
+  value: BuildInfraType
+  disabled?: boolean
+}
+
+enum BuildInfraType {
+  KUBERNETES = 'KUBERNETES',
+  AWS_VM = 'AWS_VM'
+}
+
+type FieldValueType = yup.Ref | yup.Schema<any> | yup.MixedSchema<any>
 
 const getInitialMapValues: (value: MultiTypeMapType) => MultiTypeMapUIType = value => {
   const map =
@@ -69,6 +97,38 @@ const testLabelKey = (value: string): boolean => {
       value.toLowerCase()
     ) === -1
   )
+}
+
+const getFieldSchema = (value: FieldValueType, getString?: UseStringsReturn['getString']): Record<string, any> => {
+  if (Array.isArray(value)) {
+    return yup
+      .array()
+      .of(
+        yup.object().shape(
+          {
+            key: yup.string().when('value', {
+              is: val => val?.length,
+              then: yup
+                .string()
+                .matches(regexIdentifier, getString?.('validation.validKeyRegex'))
+                .required(getString?.('validation.keyRequired'))
+            }),
+            value: yup.string().when('key', {
+              is: val => val?.length,
+              then: yup.string().required(getString?.('validation.valueRequired'))
+            })
+          },
+          [['key', 'value']]
+        )
+      )
+      .test('keysShouldBeUnique', getString?.('validation.uniqueKeys') || '', map => {
+        if (!map) return true
+
+        return uniqBy(map, 'key').length === map.length
+      })
+  } else {
+    return yup.string()
+  }
 }
 
 const getValidationSchema = (getString?: UseStringsReturn['getString'], currentMode?: Modes): yup.Schema<unknown> =>
@@ -126,68 +186,8 @@ const getValidationSchema = (getString?: UseStringsReturn['getString'], currentM
         return !isNaN(runAsUser)
       }
     ),
-    annotations: yup.lazy(value => {
-      if (Array.isArray(value)) {
-        return yup
-          .array()
-          .of(
-            yup.object().shape(
-              {
-                key: yup.string().when('value', {
-                  is: val => val?.length,
-                  then: yup
-                    .string()
-                    .matches(regexIdentifier, getString?.('validation.validKeyRegex'))
-                    .required(getString?.('validation.keyRequired'))
-                }),
-                value: yup.string().when('key', {
-                  is: val => val?.length,
-                  then: yup.string().required(getString?.('validation.valueRequired'))
-                })
-              },
-              [['key', 'value']]
-            )
-          )
-          .test('keysShouldBeUnique', getString?.('validation.uniqueKeys') || '', map => {
-            if (!map) return true
-
-            return uniqBy(map, 'key').length === map.length
-          })
-      } else {
-        return yup.string()
-      }
-    }),
-    labels: yup.lazy(value => {
-      if (Array.isArray(value)) {
-        return yup
-          .array()
-          .of(
-            yup.object().shape(
-              {
-                key: yup.string().when('value', {
-                  is: val => val?.length,
-                  then: yup
-                    .string()
-                    .matches(regexIdentifier, getString?.('validation.validKeyRegex'))
-                    .required(getString?.('validation.keyRequired'))
-                }),
-                value: yup.string().when('key', {
-                  is: val => val?.length,
-                  then: yup.string().required(getString?.('validation.valueRequired'))
-                })
-              },
-              [['key', 'value']]
-            )
-          )
-          .test('keysShouldBeUnique', getString?.('validation.uniqueKeys') || '', map => {
-            if (!map) return true
-
-            return uniqBy(map, 'key').length === map.length
-          })
-      } else {
-        return yup.string()
-      }
-    })
+    annotations: yup.lazy((value: FieldValueType) => getFieldSchema(value) as yup.Schema<FieldValueType>),
+    labels: yup.lazy((value: FieldValueType) => getFieldSchema(value) as yup.Schema<FieldValueType>)
   })
 
 interface Values {
@@ -199,6 +199,7 @@ interface Values {
   useFromStage?: string
   annotations?: MultiTypeMapUIType
   labels?: MultiTypeMapUIType
+  buildInfraType?: BuildInfraType
 }
 
 enum Modes {
@@ -207,9 +208,24 @@ enum Modes {
 }
 
 export default function BuildInfraSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
+  const [selectedBuildInfraType, setSelectedBuildInfraType] = useState<BuildInfraType>(BuildInfraType.KUBERNETES)
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const gitScope = useGitScope()
+  const enableAWSVMType = false
+
+  const buildInfraTypes: BuildInfraTypeItem[] = [
+    {
+      label: getString('serviceDeploymentTypes.kubernetes'),
+      icon: 'service-kubernetes',
+      value: BuildInfraType.KUBERNETES
+    },
+    {
+      label: getString('ci.buildInfa.awsVMs'),
+      icon: 'service-aws',
+      value: BuildInfraType.AWS_VM
+    }
+  ]
 
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
@@ -262,37 +278,38 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
   const connectorId = ((stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef as string) || ''
 
+  const getPayload = useMemo((): Values => {
+    return {
+      namespace: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
+      serviceAccountName: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.serviceAccountName,
+      runAsUser: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.runAsUser as unknown as string,
+      initTimeout: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.initTimeout,
+      annotations: getInitialMapValues(
+        (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.annotations || {}
+      ),
+      labels: getInitialMapValues((stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels || {}),
+      buildInfraType: selectedBuildInfraType
+    }
+  }, [stage])
+
   const getInitialValues = useMemo((): Values => {
     if (stage?.stage?.spec?.infrastructure) {
       if ((stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage) {
         return {
-          useFromStage: (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
+          useFromStage: (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage,
+          buildInfraType: selectedBuildInfraType
         }
       }
       // else if(){}
       else if (!isEmpty(connectorId)) {
         return {
           connectorRef: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
-          namespace: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
-          serviceAccountName: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.serviceAccountName,
-          runAsUser: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.runAsUser as unknown as string,
-          initTimeout: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.initTimeout,
-          annotations: getInitialMapValues(
-            (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.annotations || {}
-          ),
-          labels: getInitialMapValues((stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels || {})
+          ...getPayload
         }
       } else {
         return {
           connectorRef: undefined,
-          namespace: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
-          serviceAccountName: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.serviceAccountName,
-          runAsUser: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.runAsUser as unknown as string,
-          initTimeout: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.initTimeout,
-          annotations: getInitialMapValues(
-            (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.annotations || {}
-          ),
-          labels: getInitialMapValues((stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels || {})
+          ...getPayload
         }
       }
     } else {
@@ -300,7 +317,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         connectorRef: undefined,
         namespace: '',
         annotations: '',
-        labels: ''
+        labels: '',
+        buildInfraType: selectedBuildInfraType
       }
     }
   }, [stage])
@@ -370,6 +388,23 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     }
   }
 
+  const renderMultiTypeMap = (fieldName: string, stringKey: keyof StringsMap): React.ReactElement => (
+    <Container className={css.bottomMargin7}>
+      <MultiTypeMap
+        style={{ marginTop: 'var(--spacing-medium)' }}
+        appearance={'minimal'}
+        cardStyle={{ width: '50%' }}
+        name={fieldName}
+        valueMultiTextInputProps={{ expressions }}
+        multiTypeFieldSelectorProps={{
+          label: <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString(stringKey)}</Text>,
+          disableTypeSelection: true
+        }}
+        disabled={isReadonly}
+      />
+    </Container>
+  )
+
   return (
     <div className={css.wrapper}>
       <ErrorsStripBinded />
@@ -387,9 +422,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             formikRef.current = formik
             return (
               <Layout.Vertical>
-                <div className={css.tabHeading} id="infrastructureDefinition">
+                <Text font={{ variation: FontVariation.H5 }} id="infrastructureDefinition">
                   {getString('pipelineSteps.build.infraSpecifications.whereToRun')}
-                </div>
+                </Text>
                 <FormikForm>
                   {otherBuildStagesWithInfraConfigurationOptions.length ? (
                     <Card disabled={isReadonly} className={cx(css.sectionCard)}>
@@ -698,112 +733,156 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                   ) : (
                     <>
                       <Card disabled={isReadonly} className={cx(css.sectionCard)}>
-                        <FormMultiTypeConnectorField
-                          width={300}
-                          name="connectorRef"
-                          label={getString(k8sClusterKeyRef)}
-                          placeholder={getString(
-                            'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
-                          )}
-                          accountIdentifier={accountId}
-                          projectIdentifier={projectIdentifier}
-                          orgIdentifier={orgIdentifier}
-                          gitScope={gitScope}
-                          multiTypeProps={{ expressions, disabled: isReadonly }}
-                        />
-                        <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                          <MultiTypeTextField
-                            label={
-                              <Text tooltipProps={{ dataTooltipId: 'namespace' }}>{getString(namespaceKeyRef)}</Text>
-                            }
-                            name={'namespace'}
-                            style={{ width: 300 }}
-                            multiTextInputProps={{
-                              multiTextInputProps: { expressions },
-                              disabled: isReadonly,
-                              placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
-                            }}
-                          />
-                        </div>
+                        <Layout.Vertical spacing="small">
+                          {enableAWSVMType ? (
+                            <>
+                              <Text font={{ variation: FontVariation.FORM_HELP }} padding={{ bottom: 'medium' }}>
+                                {getString('ci.buildInfa.selectInfra')}
+                              </Text>
+                              <ThumbnailSelect
+                                name={'buildInfraType'}
+                                items={buildInfraTypes}
+                                isReadonly={isReadonly}
+                                onChange={val => setSelectedBuildInfraType(val as BuildInfraType)}
+                              />
+                            </>
+                          ) : null}
+                          {selectedBuildInfraType === BuildInfraType.KUBERNETES ? (
+                            <>
+                              {enableAWSVMType ? <Separator topSeparation={4} bottomSeparation={16} /> : null}
+                              <Container className={css.bottomMargin3}>
+                                <FormMultiTypeConnectorField
+                                  width={300}
+                                  name="connectorRef"
+                                  label={
+                                    <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                                      {getString(k8sClusterKeyRef)}
+                                    </Text>
+                                  }
+                                  placeholder={getString(
+                                    'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
+                                  )}
+                                  accountIdentifier={accountId}
+                                  projectIdentifier={projectIdentifier}
+                                  orgIdentifier={orgIdentifier}
+                                  gitScope={gitScope}
+                                  multiTypeProps={{ expressions, disabled: isReadonly }}
+                                />
+                              </Container>
+                              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                                <MultiTypeTextField
+                                  label={
+                                    <Text
+                                      tooltipProps={{ dataTooltipId: 'namespace' }}
+                                      font={{ variation: FontVariation.FORM_LABEL }}
+                                      margin={{ bottom: 'xsmall' }}
+                                    >
+                                      {getString(namespaceKeyRef)}
+                                    </Text>
+                                  }
+                                  name={'namespace'}
+                                  style={{ width: 300 }}
+                                  multiTextInputProps={{
+                                    multiTextInputProps: { expressions },
+                                    disabled: isReadonly,
+                                    placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
+                                  }}
+                                />
+                              </div>
+                            </>
+                          ) : selectedBuildInfraType === BuildInfraType.AWS_VM ? (
+                            <></>
+                          ) : null}
+                        </Layout.Vertical>
                       </Card>
-                      <Accordion activeId={''}>
-                        <Accordion.Panel
-                          id="advanced"
-                          addDomId={true}
-                          summary={
-                            <div
-                              className={css.tabHeading}
-                              id="advanced"
-                              style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
-                            >
-                              {getString('advancedTitle')}
-                            </div>
-                          }
-                          details={
-                            <Card disabled={isReadonly} className={css.sectionCard}>
-                              <MultiTypeTextField
-                                label={<Text>{getString('pipeline.infraSpecifications.serviceAccountName')}</Text>}
-                                name="serviceAccountName"
-                                style={{ width: 300, marginBottom: 'var(--spacing-small)' }}
-                                multiTextInputProps={{
-                                  multiTextInputProps: { expressions },
-                                  disabled: isReadonly,
-                                  placeholder: getString('pipeline.infraSpecifications.serviceAccountNamePlaceholder')
-                                }}
-                              />
-                              <MultiTypeTextField
-                                label={
-                                  <Text margin={{ bottom: 'xsmall' }}>
-                                    {getString('pipeline.stepCommonFields.runAsUser')}
-                                  </Text>
-                                }
-                                name="runAsUser"
-                                style={{ width: 300, marginBottom: 'var(--spacing-xsmall)' }}
-                                multiTextInputProps={{
-                                  multiTextInputProps: { expressions },
-                                  disabled: isReadonly,
-                                  placeholder: '1000'
-                                }}
-                              />
-                              <FormMultiTypeDurationField
-                                name="initTimeout"
-                                multiTypeDurationProps={{ expressions }}
-                                label={
-                                  <Text tooltipProps={{ dataTooltipId: 'timeout' }}>
-                                    {getString('pipeline.infraSpecifications.initTimeout')}
-                                  </Text>
-                                }
-                                disabled={isReadonly}
-                                style={{ width: 300 }}
-                              />
-                              <MultiTypeMap
-                                style={{ marginTop: 'var(--spacing-medium)' }}
-                                appearance={'minimal'}
-                                cardStyle={{ width: '50%' }}
-                                name="annotations"
-                                valueMultiTextInputProps={{ expressions }}
-                                multiTypeFieldSelectorProps={{
-                                  label: <Text>{getString('ci.annotations')}</Text>,
-                                  disableTypeSelection: true
-                                }}
-                                disabled={isReadonly}
-                              />
-                              <MultiTypeMap
-                                style={{ marginTop: 'var(--spacing-medium)' }}
-                                appearance={'minimal'}
-                                cardStyle={{ width: '50%' }}
-                                name="labels"
-                                valueMultiTextInputProps={{ expressions }}
-                                multiTypeFieldSelectorProps={{
-                                  label: <Text>{getString('ci.labels')}</Text>,
-                                  disableTypeSelection: true
-                                }}
-                                disabled={isReadonly}
-                              />
-                            </Card>
-                          }
-                        />
-                      </Accordion>
+                      {selectedBuildInfraType === BuildInfraType.KUBERNETES ||
+                      selectedBuildInfraType === BuildInfraType.AWS_VM ? (
+                        <Accordion activeId={''}>
+                          <Accordion.Panel
+                            id="advanced"
+                            addDomId={true}
+                            summary={
+                              <div
+                                className={css.tabHeading}
+                                id="advanced"
+                                style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
+                              >
+                                {getString('advancedTitle')}
+                              </div>
+                            }
+                            details={
+                              selectedBuildInfraType === BuildInfraType.KUBERNETES ? (
+                                <Card disabled={isReadonly} className={css.sectionCard}>
+                                  <Container className={css.bottomMargin7}>
+                                    <MultiTypeTextField
+                                      label={
+                                        <Text
+                                          font={{ variation: FontVariation.FORM_LABEL }}
+                                          margin={{ bottom: 'xsmall' }}
+                                        >
+                                          {getString('pipeline.infraSpecifications.serviceAccountName')}
+                                        </Text>
+                                      }
+                                      name="serviceAccountName"
+                                      style={{ width: 300, marginBottom: 'var(--spacing-small)' }}
+                                      multiTextInputProps={{
+                                        multiTextInputProps: { expressions },
+                                        disabled: isReadonly,
+                                        placeholder: getString(
+                                          'pipeline.infraSpecifications.serviceAccountNamePlaceholder'
+                                        )
+                                      }}
+                                    />
+                                  </Container>
+                                  <Container className={css.bottomMargin7}>
+                                    <MultiTypeTextField
+                                      label={
+                                        <Text
+                                          font={{ variation: FontVariation.FORM_LABEL }}
+                                          margin={{ bottom: 'xsmall' }}
+                                        >
+                                          {getString('pipeline.stepCommonFields.runAsUser')}
+                                        </Text>
+                                      }
+                                      name="runAsUser"
+                                      style={{ width: 300, marginBottom: 'var(--spacing-xsmall)' }}
+                                      multiTextInputProps={{
+                                        multiTextInputProps: { expressions },
+                                        disabled: isReadonly,
+                                        placeholder: '1000'
+                                      }}
+                                    />
+                                  </Container>
+                                  <Container className={css.bottomMargin7}>
+                                    <FormMultiTypeDurationField
+                                      name="initTimeout"
+                                      multiTypeDurationProps={{ expressions }}
+                                      label={
+                                        <Text
+                                          font={{ variation: FontVariation.FORM_LABEL }}
+                                          tooltipProps={{ dataTooltipId: 'timeout' }}
+                                        >
+                                          {getString('pipeline.infraSpecifications.initTimeout')}
+                                        </Text>
+                                      }
+                                      disabled={isReadonly}
+                                      style={{ width: 300 }}
+                                    />
+                                  </Container>
+                                  <Container className={css.bottomMargin7}>
+                                    {renderMultiTypeMap('annotations', 'ci.annotations')}
+                                  </Container>
+                                  <Container className={css.bottomMargin7}>
+                                    {renderMultiTypeMap('labels', 'ci.labels')}
+                                  </Container>
+                                </Card>
+                              ) : selectedBuildInfraType === BuildInfraType.AWS_VM ? (
+                                <></>
+                              ) : null
+                            }
+                          />
+                        </Accordion>
+                      ) : null}
                     </>
                   )}
                 </FormikForm>

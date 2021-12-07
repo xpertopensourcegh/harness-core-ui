@@ -16,5 +16,7 @@ declare const styles: {
   readonly cardTitle: string
   readonly active: string
   readonly plainList: string
+  readonly bottomMargin3: string
+  readonly bottomMargin7: string
 }
 export default styles

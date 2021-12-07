@@ -80,3 +80,6 @@ commitsTab:
   youHaveNoCommits: You have no commits
   youWillSeeYourCommitsHere: You will see your commits here
 artifactoryConnectorLabel: Artifactory Connector
+buildInfa:
+  awsVMs: AWS VMs
+  selectInfra: Select the infrastructure where you want your builds to run
