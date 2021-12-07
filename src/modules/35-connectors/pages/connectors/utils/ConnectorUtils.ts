@@ -872,6 +872,7 @@ export const buildJiraPayload = (formData: FormData) => {
     identifier: formData.identifier,
     projectIdentifier: formData.projectIdentifier,
     orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
     type: Connectors.Jira,
     spec: {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
