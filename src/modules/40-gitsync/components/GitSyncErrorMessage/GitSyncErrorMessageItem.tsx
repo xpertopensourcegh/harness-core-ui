@@ -73,11 +73,12 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
       flex={{ justifyContent: 'space-between' }}
       data-testid="gitSyncErrorMessageItem"
     >
-      <Layout.Vertical>
+      <Layout.Vertical width="100%">
         {title ? (
           <Text
             font={{ size: 'small', weight: 'semi-bold' }}
             className={styles.errorItemTitle}
+            lineClamp={2}
             data-testid="gitSyncErrorMessageItemTitle"
           >
             {title}
@@ -87,7 +88,12 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
           <Text font={{ size: 'small' }} color={Color.RED_600} margin={{ right: 'large' }}>
             {getString('failed')}
           </Text>
-          <Text font={{ size: 'small' }} color={Color.GREY_900} data-testid="gitSyncErrorMessageItemReason">
+          <Text
+            font={{ size: 'small' }}
+            color={Color.GREY_900}
+            lineClamp={2}
+            data-testid="gitSyncErrorMessageItemReason"
+          >
             {reason}
           </Text>
         </Layout.Horizontal>
