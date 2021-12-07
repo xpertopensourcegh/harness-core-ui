@@ -121,9 +121,18 @@ export default function CVCreateSLO(): JSX.Element {
                 spec: Yup.object().when(['type'], {
                   is: SLIMetricType => SLIMetricType === SLIMetricEnum.RATIO,
                   then: Yup.object().shape({
-                    eventType: Yup.string().required(REQUIRED),
-                    metric1: Yup.string().required(METRIC_IS_REQUIRED),
-                    metric2: Yup.string().required(METRIC_IS_REQUIRED)
+                    eventType: Yup.string().nullable().required(REQUIRED),
+                    metric1: Yup.string().nullable().required(METRIC_IS_REQUIRED),
+                    metric2: Yup.string()
+                      .nullable()
+                      .required(METRIC_IS_REQUIRED)
+                      .test(
+                        'bothMetricsShouldBeDifferent',
+                        getString('cv.metricForGoodAndValidRequestsShouldBeDifferent'),
+                        function (metric2) {
+                          return metric2 ? metric2 !== this.parent.metric1 : true
+                        }
+                      )
                   }),
                   otherwise: Yup.object().shape({
                     metric2: Yup.string().required(METRIC_IS_REQUIRED)

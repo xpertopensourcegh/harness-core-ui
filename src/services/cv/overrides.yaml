@@ -113,6 +113,7 @@ allowpaths:
   - /slo/create
   - /slo/{identifier}
   - /monitored-service/all/time-series-health-sources
+  - /monitored-service/{monitoredServiceIdentifier}/health-source/{healthSourceIdentifier}/slo-metrics
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -142,3 +143,4 @@ operationIdOverrides:
   /activity/source.post: saveActivitySource
   /verification-job/eligible-cdng-verification-jobs.get: CDNGVerificationJobs
   /activity-source.post: createActivitySource
+  /monitored-service/{monitoredServiceIdentifier}/health-source/{healthSourceIdentifier}/slo-metrics.get: getSloMetrics

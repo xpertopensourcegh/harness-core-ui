@@ -29,3 +29,8 @@ export const comparatorOptions: SelectOption[] = [
     value: Comparators.GREATER_EQUAL
   }
 ]
+
+export const defaultOption: SelectOption = {
+  label: '',
+  value: ''
+}

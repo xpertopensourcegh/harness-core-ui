@@ -53,7 +53,8 @@ jest.mock('services/cv', () => ({
   })),
   useGetAllMonitoredServicesWithTimeSeriesHealthSources: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useGetSloMetrics: jest.fn().mockImplementation(() => ({ refetch: jest.fn() }))
 }))
 
 function getString(key: StringKeys): StringKeys {

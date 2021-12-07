@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Color, FormInput, Text, useToaster } from '@wings-software/uicore'
+import { Color, FormInput, Text, useToaster, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 
@@ -10,6 +10,7 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { SLIProps } from './SLI.types'
 import PickMetric from './views/PickMetric'
 import { getHealthSourcesOptions, getMonitoredServicesOptions, getSliTypeOptions } from './SLI.utils'
+import { defaultOption } from './SLI.constants'
 import css from './SLI.module.scss'
 
 export default function SLI(props: SLIProps): JSX.Element {
@@ -48,6 +49,11 @@ export default function SLI(props: SLIProps): JSX.Element {
     [values?.monitoredServiceRef, monitoredServicesData]
   )
 
+  const activeHealthSource: SelectOption = useMemo(
+    () => healthSourcesOptions.find(healthSource => healthSource.value === values.healthSourceRef) ?? defaultOption,
+    [healthSourcesOptions, values.healthSourceRef]
+  )
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const sliTypeOptions = useMemo(() => getSliTypeOptions(getString), [])
 
@@ -63,6 +69,11 @@ export default function SLI(props: SLIProps): JSX.Element {
           placeholder={monitoredServicesLoading ? getString('loading') : getString('cv.slos.selectMonitoredService')}
           items={monitoredServicesOptions}
           className={css.dropdown}
+          onChange={() => {
+            formikProps.setFieldValue('healthSourceRef', undefined)
+            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric1', undefined)
+            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric2', undefined)
+          }}
         />
       </CardWithOuterTitle>
       <Text color={Color.BLACK} className={css.label}>
@@ -74,6 +85,13 @@ export default function SLI(props: SLIProps): JSX.Element {
           placeholder={monitoredServicesLoading ? getString('loading') : getString('cv.slos.selectHealthsource')}
           items={healthSourcesOptions}
           className={css.dropdown}
+          disabled={!values.monitoredServiceRef}
+          value={activeHealthSource}
+          onChange={healthSource => {
+            formikProps.setFieldValue('healthSourceRef', healthSource.value)
+            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric1', undefined)
+            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric2', undefined)
+          }}
         />
       </CardWithOuterTitle>
       <Text color={Color.BLACK} className={css.label}>

@@ -4140,6 +4140,7 @@ export interface StringsMap {
   'cv.logsCluster': string
   'cv.messageFrequency': string
   'cv.methodLabel': string
+  'cv.metricForGoodAndValidRequestsShouldBeDifferent': string
   'cv.metricIsRequired': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string

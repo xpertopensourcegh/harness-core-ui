@@ -8602,6 +8602,75 @@ export const getMonitoredServiceOverAllHealthScorePromise = (
     GetMonitoredServiceOverAllHealthScorePathParams
   >(getConfig('cv/api'), `/monitored-service/${identifier}/overall-health-score`, props, signal)
 
+export interface GetSloMetricsQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetSloMetricsPathParams {
+  monitoredServiceIdentifier: string
+  healthSourceIdentifier: string
+}
+
+export type GetSloMetricsProps = Omit<
+  GetProps<RestResponseListMetricDTO, unknown, GetSloMetricsQueryParams, GetSloMetricsPathParams>,
+  'path'
+> &
+  GetSloMetricsPathParams
+
+/**
+ * get slo metrics in a healthSource
+ */
+export const GetSloMetrics = ({ monitoredServiceIdentifier, healthSourceIdentifier, ...props }: GetSloMetricsProps) => (
+  <Get<RestResponseListMetricDTO, unknown, GetSloMetricsQueryParams, GetSloMetricsPathParams>
+    path={`/monitored-service/${monitoredServiceIdentifier}/health-source/${healthSourceIdentifier}/slo-metrics`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetSloMetricsProps = Omit<
+  UseGetProps<RestResponseListMetricDTO, unknown, GetSloMetricsQueryParams, GetSloMetricsPathParams>,
+  'path'
+> &
+  GetSloMetricsPathParams
+
+/**
+ * get slo metrics in a healthSource
+ */
+export const useGetSloMetrics = ({
+  monitoredServiceIdentifier,
+  healthSourceIdentifier,
+  ...props
+}: UseGetSloMetricsProps) =>
+  useGet<RestResponseListMetricDTO, unknown, GetSloMetricsQueryParams, GetSloMetricsPathParams>(
+    (paramsInPath: GetSloMetricsPathParams) =>
+      `/monitored-service/${paramsInPath.monitoredServiceIdentifier}/health-source/${paramsInPath.healthSourceIdentifier}/slo-metrics`,
+    { base: getConfig('cv/api'), pathParams: { monitoredServiceIdentifier, healthSourceIdentifier }, ...props }
+  )
+
+/**
+ * get slo metrics in a healthSource
+ */
+export const getSloMetricsPromise = (
+  {
+    monitoredServiceIdentifier,
+    healthSourceIdentifier,
+    ...props
+  }: GetUsingFetchProps<RestResponseListMetricDTO, unknown, GetSloMetricsQueryParams, GetSloMetricsPathParams> & {
+    monitoredServiceIdentifier: string
+    healthSourceIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListMetricDTO, unknown, GetSloMetricsQueryParams, GetSloMetricsPathParams>(
+    getConfig('cv/api'),
+    `/monitored-service/${monitoredServiceIdentifier}/health-source/${healthSourceIdentifier}/slo-metrics`,
+    props,
+    signal
+  )
+
 export interface GetNewRelicApplicationsQueryParams {
   accountId: string
   connectorIdentifier: string

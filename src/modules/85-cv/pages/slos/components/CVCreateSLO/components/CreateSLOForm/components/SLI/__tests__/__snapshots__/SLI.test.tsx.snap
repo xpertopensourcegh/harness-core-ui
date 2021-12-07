@@ -98,7 +98,7 @@ exports[`Test SLI component should render SLI component 1`] = `
           class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
         >
           <div
-            class="bp3-form-group dropdown"
+            class="bp3-form-group bp3-disabled dropdown"
             data-id="healthSourceRef-1"
           >
             <div
@@ -111,11 +111,12 @@ exports[`Test SLI component should render SLI component 1`] = `
                   class="bp3-popover-target"
                 >
                   <div
-                    class="bp3-input-group"
+                    class="bp3-input-group bp3-disabled"
                   >
                     <input
                       autocomplete="off"
                       class="bp3-input"
+                      disabled=""
                       name="healthSourceRef"
                       placeholder="- cv.slos.selectHealthsource -"
                       style="padding-right: 0px;"
@@ -349,7 +350,7 @@ exports[`Test SLI component should render SLI component 1`] = `
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group metricSelect"
+                  class="bp3-form-group bp3-disabled metricSelect"
                   data-id="serviceLevelIndicators.spec.spec.metric1-5"
                 >
                   <label
@@ -372,11 +373,12 @@ exports[`Test SLI component should render SLI component 1`] = `
                         class="bp3-popover-target"
                       >
                         <div
-                          class="bp3-input-group"
+                          class="bp3-input-group bp3-disabled"
                         >
                           <input
                             autocomplete="off"
                             class="bp3-input"
+                            disabled=""
                             name="serviceLevelIndicators.spec.spec.metric1"
                             placeholder="- Select -"
                             style="padding-right: 0px;"
@@ -413,7 +415,7 @@ exports[`Test SLI component should render SLI component 1`] = `
                 </div>
               </div>
               <div
-                class="bp3-form-group metricSelect"
+                class="bp3-form-group bp3-disabled metricSelect"
                 data-id="serviceLevelIndicators.spec.spec.metric2-6"
               >
                 <label
@@ -436,11 +438,12 @@ exports[`Test SLI component should render SLI component 1`] = `
                       class="bp3-popover-target"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-disabled"
                       >
                         <input
                           autocomplete="off"
                           class="bp3-input"
+                          disabled=""
                           name="serviceLevelIndicators.spec.spec.metric2"
                           placeholder="- Select -"
                           style="padding-right: 0px;"

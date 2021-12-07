@@ -1,5 +1,6 @@
 import type { FormikProps } from 'formik'
-import type { ServiceLevelIndicatorDTO, ServiceLevelObjectiveDTO } from 'services/cv'
+import type { ServiceLevelObjectiveDTO, SLIMetricSpec } from 'services/cv'
+import { SLIMetricEnum } from './components/SLI/SLI.constants'
 import { CreateSLOEnum } from './CreateSLO.constants'
 import type { SLOForm } from './CreateSLO.types'
 
@@ -8,15 +9,28 @@ export const createSLORequestPayload = (
   orgIdentifier: string,
   projectIdentifier: string
 ): ServiceLevelObjectiveDTO => {
-  const {
-    serviceLevelIndicators: { type = '', spec = {} }
-  } = values
+  const serviceLevelIndicatorSpec = values.serviceLevelIndicators.spec
+  const serviceLevelIndicatorMetricSpec = values.serviceLevelIndicators.spec.spec as any // Forced type should be removed after BE changes
+  const isRatioBasedMetric = serviceLevelIndicatorSpec.type === SLIMetricEnum.RATIO
 
   return {
     ...values,
     orgIdentifier,
     projectIdentifier,
-    serviceLevelIndicators: [{ type, spec }] as ServiceLevelIndicatorDTO[]
+    serviceLevelIndicators: [
+      {
+        type: values.serviceLevelIndicators.type,
+        spec: {
+          ...serviceLevelIndicatorSpec,
+          spec: {
+            ...serviceLevelIndicatorMetricSpec,
+            eventType: isRatioBasedMetric ? serviceLevelIndicatorMetricSpec.eventType : undefined,
+            metric1: isRatioBasedMetric ? serviceLevelIndicatorMetricSpec.metric1 : undefined,
+            metricName: serviceLevelIndicatorMetricSpec.metric1
+          } as SLIMetricSpec // Forced type should be removed after BE changes
+        }
+      }
+    ]
   }
 }
 

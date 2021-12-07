@@ -624,6 +624,7 @@ SLIValueIsGoodIf: SLI value is good if
 thanObjectiveValue: than objective value
 toObjectiveValue: to objective value
 metricIsRequired: Metric is required
+metricForGoodAndValidRequestsShouldBeDifferent: Metric for good and valid requests should be different
 required: Required
 cvChanges:
   changeTypeFilterDefault: 'Change Types'

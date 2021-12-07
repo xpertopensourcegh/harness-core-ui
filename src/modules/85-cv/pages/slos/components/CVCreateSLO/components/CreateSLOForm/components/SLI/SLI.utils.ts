@@ -3,7 +3,7 @@ import type { SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 import type { UseStringsReturn, StringKeys } from 'framework/strings'
-import type { ResponseListMonitoredServiceWithHealthSources } from 'services/cv'
+import type { MetricDTO, ResponseListMonitoredServiceWithHealthSources } from 'services/cv'
 import { Comparators } from './SLI.types'
 import type { SLOForm } from '../../CreateSLO.types'
 import { SLIMetricEnum, SLITypeEnum } from './SLI.constants'
@@ -65,12 +65,20 @@ export const getEventTypeOptions = (): SelectOption[] => {
   return [{ label: 'Good', value: 'good' }]
 }
 
-export const getGoodRequestMetricOptions = (): SelectOption[] => {
-  return [{ label: 'Metric 1', value: 'metric1' }]
-}
+export const getSLOMetricOptions = (SLOMetricList?: MetricDTO[]): SelectOption[] => {
+  // TODO: Adding this for unblock the create flow. This should be removed, once we are able to cerate and use SLO metrics.
+  const dummyOptions = [
+    { label: 'Metric One', value: 'metric1' },
+    { label: 'Metric Two', value: 'metric2' }
+  ]
 
-export const getValidRequestMetricOptions = (): SelectOption[] => {
-  return [{ label: 'Metric 2', value: 'metric2' }]
+  return [
+    ...(SLOMetricList?.map(metric => ({
+      label: metric.metricName ?? '',
+      value: metric.identifier ?? ''
+    })) ?? []),
+    ...dummyOptions
+  ]
 }
 
 export const getComparatorSuffixLabelId = (comparator?: Comparators): StringKeys => {
