@@ -154,7 +154,7 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                           data-tooltip-id="ciBuildInfra_connectorRef"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                           >
                             connectors.title.k8sCluster
                           </p>
@@ -314,7 +314,7 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                               data-tooltip-id="namespace"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main"
+                                class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                               >
                                 pipelineSteps.build.infraSpecifications.namespace
                               </p>
@@ -471,7 +471,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                           data-tooltip-id="ciBuildInfra_connectorRef"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                           >
                             connectors.title.k8sCluster
                           </p>
@@ -783,7 +783,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                           data-tooltip-id="ciBuildInfra_connectorRef"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                           >
                             connectors.title.k8sCluster
                           </p>
