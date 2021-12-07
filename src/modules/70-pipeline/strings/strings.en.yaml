@@ -877,3 +877,5 @@ approvalTypeRequired: Approval type is required
 commentModal:
   heading: 'Save {{ name }} ({{ version }})'
   info: 'By saving, all pipelines referencing the stable version will receive your changes.'
+replacedExpressions: Replaced Expressions
+expressionRequired: Expression value is required.

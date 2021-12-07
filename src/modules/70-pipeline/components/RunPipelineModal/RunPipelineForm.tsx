@@ -163,6 +163,7 @@ function RunPipelineFormBasic({
     selectedStages: [getAllStageData(getString)],
     selectedStageItems: [getAllStageItem(getString)]
   })
+
   const { data: stageExecutionData, refetch: getStagesExecutionList } = useGetStagesExecutionList({
     queryParams: {
       accountIdentifier: accountId,
@@ -685,6 +686,25 @@ function RunPipelineFormBasic({
     }
   }, [yamlHandler, lastYaml])
 
+  const updateExpressionValue = (e: FormEvent<HTMLElement>): void => {
+    const keyName: string = (e as any)?.target?.name
+    const exprValue: string = defaultTo((e as any)?.target?.value, '').trim()
+    setExpressionFormState(
+      (oldState: KVPair): KVPair => ({
+        ...oldState,
+        [keyName]: exprValue
+      })
+    )
+    const formErrorsUpdated = { ...formErrors }
+    if (!(formErrors as any)?.[keyName] && isEmpty(exprValue)) {
+      ;(formErrorsUpdated as any)[keyName] = getString('pipeline.expressionRequired')
+    } else if ((formErrors as any)[keyName] && !isEmpty(exprValue)) {
+      delete (formErrorsUpdated as any)[keyName]
+    }
+
+    setFormErrors(formErrorsUpdated)
+  }
+
   const getFormErrors = async (
     latestPipeline: { pipeline: PipelineInfoConfig },
     latestYamlTemplate: PipelineInfoConfig,
@@ -708,7 +728,16 @@ function RunPipelineFormBasic({
     }
     if (latestPipeline?.pipeline && latestYamlTemplate && orgPipeline) {
       errors = await validateErrors()
-      setFormErrors(errors)
+      const expressionErrors: KVPair = {}
+
+      // vaidate replacedExpressions
+      if (template?.data?.replacedExpressions?.length) {
+        template?.data?.replacedExpressions?.forEach((value: string) => {
+          const currValue = defaultTo(expressionFormState[value], '')
+          if (currValue.trim() === '') expressionErrors[value] = getString('pipeline.expressionRequired')
+        })
+      }
+      setFormErrors({ ...errors, ...expressionErrors })
     }
     return errors
   }
@@ -815,7 +844,6 @@ function RunPipelineFormBasic({
     }
     setSkipPreFlightCheck(true)
   }
-
   const child = (
     <>
       <Formik<Values>
@@ -917,10 +945,7 @@ function RunPipelineFormBasic({
               {RUN_INDIVIDUAL_STAGE && <ExpressionsInfo template={template} getString={getString} />}
               {RUN_INDIVIDUAL_STAGE && (
                 <ReplacedExpressionInputForm
-                  expressionFormState={expressionFormState}
-                  setExpressionFormState={setExpressionFormState}
-                  formErrors={formErrors}
-                  setFormErrors={setFormErrors}
+                  updateExpressionValue={updateExpressionValue}
                   expressions={template?.data?.replacedExpressions}
                 />
               )}

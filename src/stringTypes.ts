@@ -2177,6 +2177,7 @@ export interface StringsMap {
   'pipeline.executionStrategy.strategies.rolling.steps.step3.description': string
   'pipeline.executionStrategy.useStrategy': string
   'pipeline.executionTarget': string
+  'pipeline.expressionRequired': string
   'pipeline.expressionsEvaluation': string
   'pipeline.expressionsReplaced': string
   'pipeline.failureStrategies.addedAllStrategies': string
@@ -2430,6 +2431,7 @@ export interface StringsMap {
   'pipeline.provisionerSteps': string
   'pipeline.recentExecutionText': string
   'pipeline.regionPlaceholder': string
+  'pipeline.replacedExpressions': string
   'pipeline.repositoryUrlPlaceholder': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
