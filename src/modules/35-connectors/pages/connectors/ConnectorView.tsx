@@ -167,16 +167,15 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         <Container className={css.buttonContainer}>
           {state.enableEdit ? null : (
             <VisualYamlToggle
-              initialSelectedView={isEntityInvalid ? SelectedView.YAML : SelectedView.VISUAL}
-              disableYaml={isEntityInvalid} /* Todo - Update the name of this prop to disableSwitch */
-              beforeOnChange={(nextMode, callback) => {
-                const shouldSwitchMode = handleModeSwitch(
-                  nextMode,
-                  selectedView,
-                  getInitialConnectorData(props.response),
-                  { setSelectedView, setConnector, setConnectorForYaml, showError }
-                )
-                shouldSwitchMode && callback(nextMode)
+              selectedView={isEntityInvalid ? SelectedView.YAML : SelectedView.VISUAL}
+              disableToggle={isEntityInvalid}
+              onChange={nextMode => {
+                handleModeSwitch(nextMode, selectedView, getInitialConnectorData(props.response), {
+                  setSelectedView,
+                  setConnector,
+                  setConnectorForYaml,
+                  showError
+                })
               }}
             />
           )}

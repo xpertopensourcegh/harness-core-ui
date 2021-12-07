@@ -646,10 +646,9 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
               )}
               <div className={css.optionBtns}>
                 <VisualYamlToggle
-                  initialSelectedView={selectedView}
-                  beforeOnChange={(nextMode, callback) => {
+                  selectedView={selectedView}
+                  onChange={nextMode => {
                     handleModeSwitch(nextMode)
-                    callback(nextMode)
                   }}
                 />
               </div>

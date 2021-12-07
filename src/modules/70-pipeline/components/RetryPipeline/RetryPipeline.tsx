@@ -633,12 +633,11 @@ const RetryPipeline = ({
                 )}
                 <div className={css.optionBtns}>
                   <VisualYamlToggle
-                    initialSelectedView={selectedView}
-                    beforeOnChange={(nextMode, callback) => {
+                    selectedView={selectedView}
+                    onChange={nextMode => {
                       handleModeSwitch(nextMode)
-                      callback(nextMode)
                     }}
-                    disableYaml={!inputSetTemplateYaml}
+                    disableToggle={!inputSetTemplateYaml}
                   />
                 </div>
               </div>

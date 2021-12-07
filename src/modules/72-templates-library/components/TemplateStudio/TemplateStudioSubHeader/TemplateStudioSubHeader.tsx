@@ -53,10 +53,9 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
         <Container>
           <VisualYamlToggle
             className={css.visualYamlToggle}
-            initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
-            beforeOnChange={(nextMode, callback) => {
-              const shouldSwitchMode = onViewChange(nextMode)
-              shouldSwitchMode && callback(nextMode)
+            selectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
+            onChange={nextMode => {
+              onViewChange(nextMode)
             }}
           />
         </Container>

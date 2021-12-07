@@ -847,11 +847,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             </div>
             <VisualYamlToggle
               className={css.visualYamlToggle}
-              initialSelectedView={isYaml || disableVisualView ? SelectedView.YAML : SelectedView.VISUAL}
-              disableYaml={disableVisualView}
-              beforeOnChange={(nextMode, callback) => {
-                const shoudSwitchcMode = handleViewChange(nextMode)
-                shoudSwitchcMode && callback(nextMode)
+              selectedView={isYaml || disableVisualView ? SelectedView.YAML : SelectedView.VISUAL}
+              disableToggle={disableVisualView}
+              onChange={nextMode => {
+                handleViewChange(nextMode)
               }}
             />
             <div>

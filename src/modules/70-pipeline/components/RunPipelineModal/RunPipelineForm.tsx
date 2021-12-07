@@ -877,12 +877,11 @@ function RunPipelineFormBasic({
 
                     <div className={css.optionBtns}>
                       <VisualYamlToggle
-                        initialSelectedView={selectedView}
-                        beforeOnChange={(nextMode, callback) => {
+                        selectedView={selectedView}
+                        onChange={nextMode => {
                           handleModeSwitch(nextMode)
-                          callback(nextMode)
                         }}
-                        disableYaml={!template?.data?.inputSetTemplateYaml}
+                        disableToggle={!template?.data?.inputSetTemplateYaml}
                       />
                     </div>
                   </div>

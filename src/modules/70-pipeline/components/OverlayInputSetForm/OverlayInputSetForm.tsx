@@ -551,10 +551,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
         <Layout.Vertical spacing="medium">
           <div className={css.optionBtns}>
             <VisualYamlToggle
-              initialSelectedView={selectedView}
-              beforeOnChange={(nextMode, callback) => {
+              selectedView={selectedView}
+              onChange={nextMode => {
                 handleModeSwitch(nextMode)
-                callback(nextMode)
               }}
             />
           </div>

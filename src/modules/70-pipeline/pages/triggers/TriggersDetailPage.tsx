@@ -416,10 +416,9 @@ export default function TriggersDetailPage(): JSX.Element {
           <Layout.Vertical spacing="medium" className={css.information}>
             <Layout.Horizontal flex={{ distribution: 'space-between' }}>
               <VisualYamlToggle
-                initialSelectedView={selectedView}
-                beforeOnChange={(nextMode, callback) => {
+                selectedView={selectedView}
+                onChange={nextMode => {
                   setSelectedView(nextMode)
-                  callback(nextMode)
                 }}
               />
               <Button

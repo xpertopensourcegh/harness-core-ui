@@ -283,10 +283,9 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
           {edit ? null : (
             <Layout.Horizontal flex>
               <VisualYamlToggle
-                initialSelectedView={mode}
-                beforeOnChange={(nextMode, callback) => {
+                selectedView={mode}
+                onChange={nextMode => {
                   setMode(nextMode)
-                  callback(nextMode)
                 }}
               />
               <RbacButton

@@ -131,9 +131,8 @@ const GitErrorExperienceToggle: React.FC<{
           value: GitErrorExperienceSubTab.ALL_ERRORS_FILE_VIEW
         }
       ],
-      beforeOnChange: (view, callback) => {
+      onChange: view => {
         setView(view)
-        callback(view)
       },
       className: styles.toggle
     }

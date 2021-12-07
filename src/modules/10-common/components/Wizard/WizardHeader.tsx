@@ -48,7 +48,8 @@ export const WizardHeader = ({
         {showVisualYaml ? (
           <VisualYamlToggle
             className={cx(positionInHeader && css.positionInHeader)}
-            beforeOnChange={(mode, callback) => {
+            selectedView={selectedView}
+            onChange={mode => {
               try {
                 const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
                 parse(latestYaml)
@@ -60,7 +61,6 @@ export const WizardHeader = ({
                 }
                 handleModeSwitch?.(mode, yamlHandler)
                 setSelectedView(mode)
-                callback(mode)
               } catch (e) {
                 showError(getString('invalidYamlText'))
                 return

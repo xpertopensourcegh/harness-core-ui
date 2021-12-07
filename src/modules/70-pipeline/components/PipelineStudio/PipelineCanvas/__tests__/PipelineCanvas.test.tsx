@@ -117,7 +117,8 @@ describe('Pipeline Canvas - new pipeline', () => {
     act(() => {
       fireEvent.click(getByText('VISUAL'))
     })
-    expect(contextValue.setView).toHaveBeenLastCalledWith('VISUAL')
+    // Now component is state less so visual click will not happen
+    // expect(contextValue.setView).toHaveBeenLastCalledWith('VISUAL')
     expect(queryByText('save')).toBeTruthy()
 
     act(() => {
