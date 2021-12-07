@@ -218,23 +218,12 @@ const COGatewayList: React.FC = () => {
       debounce: 300
     })
 
-    const {
-      data: resources,
-      loading: resourcesLoading,
-      error: resourcesError
-    } = useAllServiceResources({
+    const { data: resources, loading: resourcesLoading } = useAllServiceResources({
       account_id: accountId,
       rule_id: tableProps.row.original.id as number, // eslint-disable-line
       debounce: 300,
       lazy: isK8sRule
     })
-    if (!isK8sRule && resourcesError) {
-      showError(
-        `could not load resources for rule ${tableProps.row.original.name}`,
-        undefined,
-        'ce.get.svc.resource.error'
-      )
-    }
 
     const hasCustomDomains = (tableProps.row.original.custom_domains?.length as number) > 0
     const isSubmittedRule = tableProps.row.original.status === 'submitted'
