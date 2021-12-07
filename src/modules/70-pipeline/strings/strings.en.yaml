@@ -620,6 +620,7 @@ testsReports:
   willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
   resultLabel: Test Execution Result
   sortBy: 'Sort by:'
+  poweredByTI: 'Powered by Test Intelligence'
   tiCallToAction:
     header: Did you know you can save time using Test Intelligence?
     upsellSubText: 'Optimize your tests cycle and reduce build time by using machine learning based Test Intelligence.'

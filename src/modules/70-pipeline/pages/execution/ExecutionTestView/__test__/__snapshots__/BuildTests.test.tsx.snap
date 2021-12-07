@@ -1212,58 +1212,63 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-bottom-small StyledProps--margin-bottom-medium"
-      style="border-bottom: 1px solid #D9DAE6; justify-content: initial;"
+      style="border-bottom: 1px solid #D9DAE6; justify-content: space-between;"
     >
-      <h5
-        class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
-        level="5"
-        style="font-weight: 600;"
-      >
-        pipeline.testsReports.testExecutions
-      </h5>
       <div
-        style="width: 375px;"
+        class="StyledProps--font StyledProps--main StyledProps--flex"
+        style="justify-content: initial;"
       >
+        <h5
+          class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
+          level="5"
+          style="font-weight: 600;"
+        >
+          pipeline.testsReports.testExecutions
+        </h5>
         <div
-          class="bp3-popover-wrapper Select--main bp3-fill"
+          style="width: 375px;"
         >
           <div
-            class="bp3-popover-target"
+            class="bp3-popover-wrapper Select--main bp3-fill"
           >
             <div
-              class="bp3-input-group bp3-fill"
+              class="bp3-popover-target"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="- Select -"
-                style="padding-right: 0px;"
-                type="text"
-                value="Step: 0 (Stage: 0)"
-              />
-              <span
-                class="bp3-input-action"
+              <div
+                class="bp3-input-group bp3-fill"
               >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="- Select -"
+                  style="padding-right: 0px;"
+                  type="text"
+                  value="Step: 0 (Stage: 0)"
+                />
                 <span
-                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                  icon="chevron-down"
+                  class="bp3-input-action"
                 >
-                  <svg
-                    data-icon="chevron-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
-                    <desc>
-                      chevron-down
-                    </desc>
-                    <path
-                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
+                    <svg
+                      data-icon="chevron-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
           </div>
         </div>
@@ -13927,62 +13932,92 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-bottom-small StyledProps--margin-bottom-medium"
-      style="border-bottom: 1px solid #D9DAE6; justify-content: initial;"
+      style="border-bottom: 1px solid #D9DAE6; justify-content: space-between;"
     >
-      <h5
-        class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
-        level="5"
-        style="font-weight: 600;"
-      >
-        pipeline.testsReports.testExecutions
-      </h5>
       <div
-        style="width: 375px;"
+        class="StyledProps--font StyledProps--main StyledProps--flex"
+        style="justify-content: initial;"
       >
+        <h5
+          class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
+          level="5"
+          style="font-weight: 600;"
+        >
+          pipeline.testsReports.testExecutions
+        </h5>
         <div
-          class="bp3-popover-wrapper Select--main bp3-fill"
+          style="width: 375px;"
         >
           <div
-            class="bp3-popover-target"
+            class="bp3-popover-wrapper Select--main bp3-fill"
           >
             <div
-              class="bp3-input-group bp3-fill"
+              class="bp3-popover-target"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="- Select -"
-                style="padding-right: 0px;"
-                type="text"
-                value="Step: 0 (Stage: 0)"
-              />
-              <span
-                class="bp3-input-action"
+              <div
+                class="bp3-input-group bp3-fill"
               >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="- Select -"
+                  style="padding-right: 0px;"
+                  type="text"
+                  value="Step: 0 (Stage: 0)"
+                />
                 <span
-                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                  icon="chevron-down"
+                  class="bp3-input-action"
                 >
-                  <svg
-                    data-icon="chevron-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
-                    <desc>
-                      chevron-down
-                    </desc>
-                    <path
-                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
+                    <svg
+                      data-icon="chevron-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <p
+        class="StyledProps--font StyledProps--main poweredByTi StyledProps--font-variation-tiny StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-primary8"
+        style="display: flex; align-items: center;"
+      >
+        <span
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--intent-primary StyledProps--color StyledProps--color-primary8"
+          data-icon="upgrade-bolt"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 33 28"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M3.773 17.341L20.885 1.75l-2.297 8.909h8.184L9.66 26.25l2.297-8.909H3.773z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        pipeline.testsReports.poweredByTI
+      </p>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--margin-bottom-xlarge"
@@ -14224,62 +14259,92 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-bottom-small StyledProps--margin-bottom-medium"
-      style="border-bottom: 1px solid #D9DAE6; justify-content: initial;"
+      style="border-bottom: 1px solid #D9DAE6; justify-content: space-between;"
     >
-      <h5
-        class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
-        level="5"
-        style="font-weight: 600;"
-      >
-        pipeline.testsReports.testExecutions
-      </h5>
       <div
-        style="width: 375px;"
+        class="StyledProps--font StyledProps--main StyledProps--flex"
+        style="justify-content: initial;"
       >
+        <h5
+          class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
+          level="5"
+          style="font-weight: 600;"
+        >
+          pipeline.testsReports.testExecutions
+        </h5>
         <div
-          class="bp3-popover-wrapper Select--main bp3-fill"
+          style="width: 375px;"
         >
           <div
-            class="bp3-popover-target"
+            class="bp3-popover-wrapper Select--main bp3-fill"
           >
             <div
-              class="bp3-input-group bp3-fill"
+              class="bp3-popover-target"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="- Select -"
-                style="padding-right: 0px;"
-                type="text"
-                value="Step: 0 (Stage: 0)"
-              />
-              <span
-                class="bp3-input-action"
+              <div
+                class="bp3-input-group bp3-fill"
               >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="- Select -"
+                  style="padding-right: 0px;"
+                  type="text"
+                  value="Step: 0 (Stage: 0)"
+                />
                 <span
-                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                  icon="chevron-down"
+                  class="bp3-input-action"
                 >
-                  <svg
-                    data-icon="chevron-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
-                    <desc>
-                      chevron-down
-                    </desc>
-                    <path
-                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
+                    <svg
+                      data-icon="chevron-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <p
+        class="StyledProps--font StyledProps--main poweredByTi StyledProps--font-variation-tiny StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-primary8"
+        style="display: flex; align-items: center;"
+      >
+        <span
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--intent-primary StyledProps--color StyledProps--color-primary8"
+          data-icon="upgrade-bolt"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 33 28"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M3.773 17.341L20.885 1.75l-2.297 8.909h8.184L9.66 26.25l2.297-8.909H3.773z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        pipeline.testsReports.poweredByTI
+      </p>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--margin-bottom-xlarge"

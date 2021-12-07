@@ -147,6 +147,12 @@
   }
 }
 
+.poweredByTi {
+  svg path {
+    fill: var(--primary-8) !important;
+  }
+}
+
 .reportsOverview {
   .stats {
     border-radius: 5px;

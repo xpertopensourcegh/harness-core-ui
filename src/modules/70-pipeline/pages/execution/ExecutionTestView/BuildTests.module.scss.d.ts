@@ -18,6 +18,7 @@ declare const styles: {
   readonly linesWrapper: string
   readonly line: string
   readonly selected: string
+  readonly poweredByTi: string
   readonly reportsOverview: string
   readonly graphWrapper: string
   readonly graphContainer: string

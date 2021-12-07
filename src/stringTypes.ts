@@ -2541,6 +2541,7 @@ export interface StringsMap {
   'pipeline.testsReports.noTestResults': string
   'pipeline.testsReports.numberOfSelectedTests': string
   'pipeline.testsReports.onlyUncoveredFiles': string
+  'pipeline.testsReports.poweredByTI': string
   'pipeline.testsReports.resource': string
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultLabel': string

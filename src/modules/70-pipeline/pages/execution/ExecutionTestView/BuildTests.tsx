@@ -1,4 +1,14 @@
-import { Layout, Select, Color, Heading, Container, SelectOption, PageError } from '@wings-software/uicore'
+import {
+  Layout,
+  Select,
+  Color,
+  Heading,
+  Container,
+  Text,
+  SelectOption,
+  PageError,
+  FontVariation
+} from '@wings-software/uicore'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, uniqWith, isEqual } from 'lodash-es'
@@ -445,15 +455,32 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       flex
       padding={{ bottom: 'small' }}
       margin={{ bottom: 'medium' }}
-      style={{ borderBottom: '1px solid #D9DAE6', justifyContent: 'initial' }}
+      style={{ borderBottom: '1px solid #D9DAE6', justifyContent: 'space-between' }}
     >
-      <Heading level={5} color={Color.BLACK} style={{ fontWeight: 600 }}>
-        {getString('pipeline.testsReports.testExecutions')}
-      </Heading>
-      {selectItems && selectValue && (
-        <div style={{ width: '375px', marginLeft: 'var(--spacing-5)' }}>
-          <Select fill value={selectValue} items={selectItems} onChange={value => setSelectValue(value as any)} />
-        </div>
+      <Container flex style={{ justifyContent: 'initial' }}>
+        <Heading level={5} color={Color.BLACK} style={{ fontWeight: 600 }}>
+          {getString('pipeline.testsReports.testExecutions')}
+        </Heading>
+        {selectItems && selectValue && (
+          <div style={{ width: '375px', marginLeft: 'var(--spacing-5)' }}>
+            <Select fill value={selectValue} items={selectItems} onChange={value => setSelectValue(value as any)} />
+          </div>
+        )}
+      </Container>
+      {testOverviewHasTests && (
+        <Text
+          className={css.poweredByTi}
+          font={{ variation: FontVariation.TINY, weight: 'semi-bold' }}
+          icon="upgrade-bolt"
+          iconProps={{
+            intent: 'primary',
+            size: 16,
+            color: Color.PRIMARY_8
+          }}
+          color={Color.PRIMARY_8}
+        >
+          {getString('pipeline.testsReports.poweredByTI')}
+        </Text>
       )}
     </Container>
   )
