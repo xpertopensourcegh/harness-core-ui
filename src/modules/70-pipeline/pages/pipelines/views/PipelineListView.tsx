@@ -208,7 +208,13 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
           </Layout.Vertical>
           {data.entityValidityDetails?.valid === false && (
             <Container padding={{ left: 'large' }}>
-              <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={data.name} />
+              <Badge
+                text={'common.invalid'}
+                iconName="warning-sign"
+                showTooltip={true}
+                entityName={data.name}
+                entityType={'Pipeline'}
+              />
             </Container>
           )}
         </Layout.Horizontal>

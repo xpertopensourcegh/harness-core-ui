@@ -261,7 +261,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         orgIdentifier,
         projectIdentifier,
         pipeline: clearRuntimeInput(parsedPipelineWithValues),
-        gitDetails: inputSetObj.gitDetails ?? {}
+        gitDetails: inputSetObj.gitDetails ?? {},
+        entityValidityDetails: inputSetObj.entityValidityDetails ?? {}
       }
     }
     return getDefaultInputSet(
@@ -270,6 +271,24 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       projectIdentifier
     )
   }, [mergeTemplate, inputSetResponse?.data, template?.data?.inputSetTemplateYaml])
+
+  const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails?.valid === false)
+
+  React.useEffect(() => {
+    if (inputSet.entityValidityDetails?.valid === false || selectedView === SelectedView.YAML) {
+      setSelectedView(SelectedView.YAML)
+    } else {
+      setSelectedView(SelectedView.VISUAL)
+    }
+  }, [inputSet, inputSet.entityValidityDetails?.valid])
+
+  React.useEffect(() => {
+    if (inputSet.entityValidityDetails?.valid === false) {
+      setDisableVisualView(true)
+    } else {
+      setDisableVisualView(false)
+    }
+  }, [inputSet.entityValidityDetails?.valid])
 
   React.useEffect(() => {
     if (inputSetIdentifier !== '-1') {
@@ -422,7 +441,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
         <Formik<InputSetDTO & GitContextProps>
-          initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
+          initialValues={{
+            ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
+            repo: repoIdentifier || '',
+            branch: branch || ''
+          }}
           enableReinitialize={true}
           formName="inputSetForm"
           validationSchema={NameIdSchema}
@@ -606,6 +629,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       inputSet={inputSet}
       pipeline={pipeline}
       isGitSyncEnabled={isGitSyncEnabled}
+      disableVisualView={disableVisualView}
     >
       {child}
     </InputSetFormWrapper>
@@ -621,10 +645,21 @@ export interface InputSetFormWrapperProps {
   inputSet: InputSetDTO
   pipeline: ResponsePMSPipelineResponseDTO | null
   isGitSyncEnabled?: boolean
+  disableVisualView: boolean
 }
 
 export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.ReactElement {
-  const { isEdit, children, selectedView, handleModeSwitch, loading, inputSet, pipeline, isGitSyncEnabled } = props
+  const {
+    isEdit,
+    children,
+    selectedView,
+    handleModeSwitch,
+    loading,
+    inputSet,
+    pipeline,
+    isGitSyncEnabled,
+    disableVisualView
+  } = props
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
@@ -650,6 +685,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                   onChange={nextMode => {
                     handleModeSwitch(nextMode)
                   }}
+                  disableToggle={disableVisualView}
                 />
               </div>
             </Layout.Horizontal>

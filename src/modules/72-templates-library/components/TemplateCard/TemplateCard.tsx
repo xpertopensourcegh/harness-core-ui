@@ -65,7 +65,13 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
           <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }} flex>
             <Icon name={getIconForTemplate(template, getString)} size={18} />
             {(template as TemplateSummaryResponse).entityValidityDetails?.valid === false && (
-              <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={template.name} />
+              <Badge
+                text={'common.invalid'}
+                iconName="warning-sign"
+                showTooltip={true}
+                entityName={template.name}
+                entityType={'Template'}
+              />
             )}
           </Layout.Horizontal>
         </Container>

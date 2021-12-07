@@ -232,7 +232,13 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             {!isEmpty(pipelineIcons) &&
               pipelineIcons.map(iconObj => <Icon key={iconObj.icon} name={iconObj.icon} size={14} />)}
             {pipeline.entityValidityDetails?.valid === false && (
-              <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={pipeline.name} />
+              <Badge
+                text={'common.invalid'}
+                iconName="warning-sign"
+                showTooltip={true}
+                entityName={pipeline.name}
+                entityType={'Pipeline'}
+              />
             )}
           </Layout.Horizontal>
           <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>

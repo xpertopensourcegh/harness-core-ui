@@ -193,22 +193,26 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   />
                 </svg>
               </span>
-              <div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                  data-testid="OverLayInput"
-                >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
+              >
+                <div>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    data-testid="OverLayInput"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    >
+                      OverLayInput
+                    </p>
+                  </div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                   >
                     OverLayInput
                   </p>
                 </div>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                >
-                  OverLayInput
-                </p>
               </div>
             </div>
           </div>
@@ -350,22 +354,26 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   </g>
                 </svg>
               </span>
-              <div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                  data-testid="asd"
-                >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
+              >
+                <div>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    data-testid="asd"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    >
+                      asd
+                    </p>
+                  </div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                   >
                     asd
                   </p>
                 </div>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                >
-                  asd
-                </p>
               </div>
             </div>
           </div>

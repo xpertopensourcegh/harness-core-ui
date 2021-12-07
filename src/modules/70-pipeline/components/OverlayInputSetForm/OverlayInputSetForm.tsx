@@ -250,11 +250,30 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
         projectIdentifier,
         pipelineIdentifier,
         inputSetReferences: inputSetObj?.inputSetReferences || /* istanbul ignore next */ [],
-        gitDetails: inputSetObj.gitDetails ?? {}
+        gitDetails: inputSetObj.gitDetails ?? {},
+        entityValidityDetails: inputSetObj.entityValidityDetails ?? {}
       }
     }
     return getDefaultInputSet(orgIdentifier, projectIdentifier, pipelineIdentifier)
   }, [overlayInputSetResponse?.data])
+
+  const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails?.valid === false)
+
+  React.useEffect(() => {
+    if (inputSet.entityValidityDetails?.valid === false || selectedView === SelectedView.YAML) {
+      setSelectedView(SelectedView.YAML)
+    } else {
+      setSelectedView(SelectedView.VISUAL)
+    }
+  }, [inputSet, inputSet.entityValidityDetails?.valid])
+
+  React.useEffect(() => {
+    if (inputSet.entityValidityDetails?.valid === false) {
+      setDisableVisualView(true)
+    } else {
+      setDisableVisualView(false)
+    }
+  }, [inputSet.entityValidityDetails?.valid])
 
   const inputSetListOptions: InputSetSelectOption[] = React.useMemo(() => {
     return (
@@ -555,11 +574,16 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
               onChange={nextMode => {
                 handleModeSwitch(nextMode)
               }}
+              disableToggle={disableVisualView}
             />
           </div>
 
           <Formik<OverlayInputSetDTO & GitContextProps>
-            initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
+            initialValues={{
+              ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
+              repo: repoIdentifier || '',
+              branch: branch || ''
+            }}
             formName="overlayInputSet"
             enableReinitialize={true}
             validationSchema={Yup.object().shape({

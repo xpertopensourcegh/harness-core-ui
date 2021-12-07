@@ -11,15 +11,17 @@ export interface BadgeProps {
   iconName: IconName
   showTooltip?: boolean
   entityName?: string
+  entityType: string
 }
 
 interface BadgeTooltipContentInterface {
   iconName: IconName
-  entityName?: string
+  entityName: string
+  entityType: string
 }
 
 const TooltipContent: React.FC<BadgeTooltipContentInterface> = (props: BadgeTooltipContentInterface): JSX.Element => {
-  const { iconName, entityName = '' } = props
+  const { iconName, entityName = '', entityType } = props
   const { getString } = useStrings()
 
   return (
@@ -30,7 +32,7 @@ const TooltipContent: React.FC<BadgeTooltipContentInterface> = (props: BadgeTool
         </div>
         <Layout.Vertical padding={{ left: 'small' }}>
           <Text width={244} color={Color.GREY_0} margin={{ bottom: 'small' }} className={css.tooltipContentText}>
-            {getString('common.gitSync.outOfSync', { entityType: 'Pipeline', name: entityName })}
+            {getString('common.gitSync.outOfSync', { entityType, name: entityName })}
           </Text>
           <Text width={244} color={Color.GREY_0} className={css.tooltipContentText}>
             {getString('common.gitSync.fixAllErrors')}
@@ -42,7 +44,7 @@ const TooltipContent: React.FC<BadgeTooltipContentInterface> = (props: BadgeTool
 }
 
 export const Badge: React.FC<BadgeProps> = (props: BadgeProps): JSX.Element => {
-  const { text, iconName, showTooltip, entityName = '' } = props
+  const { text, iconName, showTooltip, entityName = '', entityType } = props
   const { getString } = useStrings()
 
   const badgeUI = (
@@ -56,7 +58,7 @@ export const Badge: React.FC<BadgeProps> = (props: BadgeProps): JSX.Element => {
   return showTooltip ? (
     <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM} className={Classes.DARK}>
       {badgeUI}
-      <TooltipContent iconName={iconName} entityName={entityName} />
+      <TooltipContent iconName={iconName} entityName={entityName} entityType={entityType} />
     </Popover>
   ) : (
     badgeUI

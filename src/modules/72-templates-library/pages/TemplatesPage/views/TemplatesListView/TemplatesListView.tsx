@@ -98,7 +98,13 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
       </Layout.Vertical>
       {data.entityValidityDetails?.valid === false && (
         <Container>
-          <Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={data.name} />
+          <Badge
+            text={'common.invalid'}
+            iconName="warning-sign"
+            showTooltip={true}
+            entityName={data.name}
+            entityType={'Template'}
+          />
         </Container>
       )}
     </Layout.Horizontal>

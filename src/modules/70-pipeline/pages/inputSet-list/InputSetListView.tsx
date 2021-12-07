@@ -1,4 +1,15 @@
-import { Button, ButtonVariation, Color, Icon, IconName, Layout, Popover, TableV2, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Container,
+  Icon,
+  IconName,
+  Layout,
+  Popover,
+  TableV2,
+  Text
+} from '@wings-software/uicore'
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
@@ -16,6 +27,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useDeleteConfirmationDialog from '../utils/DeleteConfirmDialog'
+import { Badge } from '../utils/Badge/Badge'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
@@ -58,13 +70,26 @@ const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         color={data.inputSetType === 'INPUT_SET' ? Color.BLACK : Color.BLUE_500}
         size={30}
       />
-      <div>
-        <Layout.Horizontal spacing="small" data-testid={data.identifier}>
-          <Text color={Color.BLACK}>{data.name}</Text>
-          {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
-        </Layout.Horizontal>
-        <Text color={Color.GREY_400}>{data.identifier}</Text>
-      </div>
+      <Layout.Horizontal flex={{ alignItems: 'center' }} spacing="small">
+        <div>
+          <Layout.Horizontal spacing="small" data-testid={data.identifier}>
+            <Text color={Color.BLACK}>{data.name}</Text>
+            {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
+          </Layout.Horizontal>
+          <Text color={Color.GREY_400}>{data.identifier}</Text>
+        </div>
+        {data.entityValidityDetails?.valid === false && (
+          <Container padding={{ left: 'large' }}>
+            <Badge
+              text={'common.invalid'}
+              iconName="warning-sign"
+              showTooltip={true}
+              entityName={data.name}
+              entityType={data.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
+            />
+          </Container>
+        )}
+      </Layout.Horizontal>
     </Layout.Horizontal>
   )
 }
