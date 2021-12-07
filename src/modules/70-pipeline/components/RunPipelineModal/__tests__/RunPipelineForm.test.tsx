@@ -12,6 +12,7 @@ import {
   mockInputSetsList,
   mockMergeInputSetResponse,
   mockPipelineTemplateYaml,
+  mockPipelineTemplateYamlErrorResponse,
   mockPipelineTemplateYamlForRerun,
   mockPipelineVariablesResponse,
   mockPostPipelineExecuteYaml,
@@ -261,6 +262,30 @@ describe('STUDIO MODE', () => {
 
     // Save the snapshot - value is present from merge input set API
     expect(container).toMatchSnapshot('after applying input sets')
+  })
+})
+
+describe('STUDIO MODE - template API error', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useQueryParams.mockImplementation(() => ({ executionId: '' }))
+    // eslint-disable-next-line
+    // @ts-ignore
+
+    useMutateAsGet.mockImplementation(() => {
+      return mockPipelineTemplateYamlErrorResponse
+    })
+  })
+
+  test('should display template api error', async () => {
+    const { queryByText } = render(
+      <TestWrapper>
+        <RunPipelineForm {...commonProps} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText('error')).toBeTruthy())
   })
 })
 

@@ -61,7 +61,7 @@ describe('GIT SYNC DISABLED', () => {
     cy.get('[data-name="toggle-option-two"]').click()
 
     // Enable YAML editing
-    cy.contains('span', 'Edit Yaml').click({ force: true })
+    cy.contains('span', 'Edit YAML').click({ force: true })
 
     cy.get('[data-name="toggle-option-one"]').click()
 

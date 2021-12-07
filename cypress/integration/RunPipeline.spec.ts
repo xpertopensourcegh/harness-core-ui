@@ -33,7 +33,7 @@ describe('RUN PIPELINE MODAL', () => {
 
   it('should display the field errors if run pipeline form is invalid', () => {
     cy.intercept('POST', pipelineSave, { fixture: 'pipeline/api/pipelines.postsuccess' })
-    cy.intercept('GET', inputSetsTemplateCall, { fixture: 'pipeline/api/runpipeline/inputsettemplate' })
+    cy.intercept('POST', inputSetsTemplateCall, { fixture: 'pipeline/api/runpipeline/inputsettemplate' })
     cy.intercept('GET', pipelineDetailsCall, { fixture: 'pipeline/api/runpipeline/getpipeline' })
     cy.intercept('GET', inputSetsGetCall, { fixture: 'pipeline/api/runpipeline/getinputsets' })
 

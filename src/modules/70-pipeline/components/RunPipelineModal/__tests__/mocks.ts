@@ -40,6 +40,21 @@ export const mockPipelineTemplateYaml: UseGetMockDataWithMutateAndRefetch<Respon
   }
 }
 
+export const mockPipelineTemplateYamlErrorResponse: UseGetMockDataWithMutateAndRefetch<ResponseInputSetTemplateResponse> =
+  {
+    loading: false,
+    refetch: jest.fn(),
+    mutate: jest.fn(),
+    // eslint-disable-next-line
+    // @ts-ignore
+    error: 'template api failed error message',
+    data: {
+      correlationId: '',
+      status: 'SUCCESS',
+      metaData: null as unknown as undefined
+    }
+  }
+
 export const mockPipelineTemplateYamlForRerun: UseGetMockDataWithMutateAndRefetch<ResponseInputSetTemplateResponse> = {
   loading: false,
   refetch: jest.fn(),

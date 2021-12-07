@@ -1,0 +1,14 @@
+{
+  "status": "FAILURE",
+  "message": "Invalid pipeline template",
+  "correlationId": "d174366f-e2dd-4e9a-8474-df2d47c12bec",
+  "detailedMessage": null,
+  "responseMessages": [
+    {
+      "level": "FAILURE",
+      "message": "Invalid pipeline template",
+      "exception": null,
+      "failureTypes": []
+    }
+  ]
+}

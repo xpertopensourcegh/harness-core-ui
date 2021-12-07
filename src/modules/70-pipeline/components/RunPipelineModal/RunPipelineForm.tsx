@@ -235,6 +235,7 @@ function RunPipelineFormBasic({
   const {
     data: template,
     loading: loadingTemplate,
+    error: getTemplateError,
     refetch: getTemplateFromPipeline
   } = useMutateAsGet(useGetTemplateFromPipeline, {
     queryParams: {
@@ -396,6 +397,12 @@ function RunPipelineFormBasic({
   React.useEffect(() => {
     setSelectedInputSets(inputSetSelected)
   }, [inputSetSelected])
+
+  useEffect(() => {
+    if (getTemplateError) {
+      showError(getTemplateError.message)
+    }
+  }, [getTemplateError])
 
   const [loadingInputSetUpdate, setLoadingInputSetUpdate] = useState(false)
   React.useEffect(() => {
@@ -721,7 +728,18 @@ function RunPipelineFormBasic({
   const checkIfRuntimeInputsNotPresent = (): string | undefined => {
     if (executionView && !executionInputSetTemplateYaml) {
       return getString('pipeline.inputSets.noRuntimeInputsWhileExecution')
-    } else if (!executionView && pipeline && currentPipeline && !template?.data?.inputSetTemplateYaml) {
+    } else if (
+      !executionView &&
+      pipeline &&
+      currentPipeline &&
+      !template?.data?.inputSetTemplateYaml &&
+      !getTemplateError
+    ) {
+      /*
+      We don't have any runtime inputs required for running this pipeline
+        - if API doesn't fail and
+        - the inputSetTemplateYaml is not present
+      */
       return getString('runPipelineForm.noRuntimeInput')
     }
   }
