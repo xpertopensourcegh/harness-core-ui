@@ -6,13 +6,15 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
 
 import { GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import CreateGithubConnector from '../CreateGithubConnector'
 import {
   mockResponse,
   mockSecret,
   usernameTokenWithAPIAccessGithubApp,
   usernameTokenWithAPIAccessToken,
-  backButtonMock
+  backButtonMock,
+  usernameTokenWithAPIAccessGithubAppManager
 } from './githubMocks'
 import { backButtonTest } from '../../commonTest'
 
@@ -49,6 +51,9 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 describe('Create Github connector Wizard', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   test('Creating Github step one', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
@@ -149,6 +154,7 @@ describe('Create Github connector Wizard', () => {
           isEditMode={true}
           connectorInfo={usernameTokenWithAPIAccessGithubApp}
           mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
         />
       </TestWrapper>
     )
@@ -162,11 +168,16 @@ describe('Create Github connector Wizard', () => {
     expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
-    //updating connector
+    //connectivity mode step
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    // delegate selector step
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    // test connection
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
@@ -188,6 +199,7 @@ describe('Create Github connector Wizard', () => {
           isEditMode={true}
           connectorInfo={usernameTokenWithAPIAccessToken}
           mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
         />
       </TestWrapper>
     )
@@ -201,6 +213,10 @@ describe('Create Github connector Wizard', () => {
     // step 3
     expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
+
+    await act(async () => {
+      clickSubmit(container)
+    })
 
     await act(async () => {
       clickSubmit(container)
@@ -262,5 +278,44 @@ describe('Create Github connector Wizard', () => {
       clickSubmit(container)
     })
     await waitFor(() => expect(() => queryByText(document.body, 'validation.urlIsNotValid')).toBeDefined())
+  })
+
+  test('should render form for edit http and authtype username-token with API access connectivity mode Manager', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGithubConnector
+          {...commonProps}
+          isEditMode={true}
+          connectorInfo={usernameTokenWithAPIAccessGithubAppManager}
+          mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Manager}
+        />
+      </TestWrapper>
+    )
+    await act(async () => {
+      clickSubmit(container)
+    })
+    await act(async () => {
+      clickSubmit(container)
+    })
+    // step 3
+    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
+    expect(container).toMatchSnapshot()
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    expect(updateConnector).toBeCalledTimes(1)
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernameTokenWithAPIAccessGithubAppManager
+      },
+      { queryParams: {} } // gitSync disabled for account level
+    )
   })
 })

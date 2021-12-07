@@ -35,6 +35,34 @@ export const usernameTokenWithAPIAccessGithubApp: ConnectorInfoDTO = {
   type: 'Github',
   spec: {
     delegateSelectors: ['dummyDelegateSelector'],
+    executeOnDelegate: true,
+    url: 'https://github.com/dev',
+    authentication: {
+      type: 'Http',
+      spec: {
+        type: 'UsernameToken',
+        spec: { username: 'dev', usernameRef: undefined, tokenRef }
+      }
+    },
+    apiAccess: {
+      type: 'GithubApp',
+      spec: { installationId: '1234', applicationId: '1234', privateKeyRef: tokenRef }
+    },
+    type: 'Account',
+    validationRepo: 'test'
+  }
+}
+
+export const usernameTokenWithAPIAccessGithubAppManager: ConnectorInfoDTO = {
+  name: 'GithubWorking1',
+  identifier: 'asasas',
+  description: 'connector before demo',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
+  tags: {},
+  type: 'Github',
+  spec: {
+    executeOnDelegate: false,
     url: 'https://github.com/dev',
     authentication: {
       type: 'Http',
@@ -62,6 +90,7 @@ export const usernameTokenWithAPIAccessToken: ConnectorInfoDTO = {
   type: 'Github',
   spec: {
     delegateSelectors: ['dummyDelegateSelector'],
+    executeOnDelegate: true,
     url: 'https://github.com/dev',
     authentication: {
       type: 'Http',

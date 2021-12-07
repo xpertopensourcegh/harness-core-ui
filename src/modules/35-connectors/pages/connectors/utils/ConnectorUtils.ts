@@ -24,6 +24,7 @@ import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
 import { setSecretField } from '@secrets/utils/SecretField'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 
 export interface DelegateCardInterface {
@@ -71,6 +72,14 @@ export const GitConnectionType = {
 export const AppDynamicsAuthType = {
   USERNAME_PASSWORD: 'UsernamePassword',
   API_CLIENT_TOKEN: 'ApiClientToken'
+}
+
+export const getExecuteOnDelegateValue = (type: ConnectivityModeType) => {
+  return type === undefined ? true : type === ConnectivityModeType.Delegate
+}
+
+export const getConnectivityMode = (executeOnDelegate = true) => {
+  return executeOnDelegate === false ? ConnectivityModeType.Manager : ConnectivityModeType.Delegate
 }
 
 const buildAuthTypePayload = (formData: FormData) => {
@@ -179,6 +188,7 @@ export const buildGithubPayload = (formData: FormData) => {
     type: Connectors.GITHUB,
     spec: {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      executeOnDelegate: getExecuteOnDelegateValue(formData.connectivityMode),
       type: formData.urlType,
       url: formData.url,
       ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
@@ -333,7 +343,7 @@ export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accou
   }
 
   const authData = connectorInfo?.spec?.authentication
-  const formData = {
+  return {
     sshKey: await setSecretField(authData?.spec?.sshKeyRef, scopeQueryParams),
     authType: authData?.spec?.type,
     username:
@@ -355,10 +365,9 @@ export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accou
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
     installationId: connectorInfo?.spec?.apiAccess?.spec?.installationId,
     applicationId: connectorInfo?.spec?.apiAccess?.spec?.applicationId,
-    privateKey: connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef
+    privateKey: connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef,
+    connectivityMode: getConnectivityMode(connectorInfo?.spec?.executeOnDelegate)
   }
-
-  return formData
 }
 
 export const setupBitbucketFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {

@@ -662,6 +662,7 @@ describe('Connector Utils', () => {
           type: 'Github',
           spec: {
             delegateSelectors: [],
+            executeOnDelegate: true,
             type: 'Repo',
             url: 'git@github.com:wings-software/nextgenui.git',
             authentication: {
@@ -721,6 +722,7 @@ describe('Connector Utils', () => {
           type: 'Github',
           spec: {
             delegateSelectors: [],
+            executeOnDelegate: true,
             type: 'Account',
             url: 'https://github.com/wings-software',
             validationRepo: 'https://github.com/wings-software/nextgenui',

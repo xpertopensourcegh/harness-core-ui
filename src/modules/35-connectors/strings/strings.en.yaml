@@ -19,6 +19,7 @@ successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
 scopeError: 'Cannot create a Connector at {{createdAtScope}} scope from {{createdFromScope}} scope.'
 createFromYaml: 'Create New Connector from YAML'
+selectConnectivityMode: 'Select Connectivity Mode'
 successfullyCreated: 'Connector created successfully'
 secretManagerDetails: 'Secret Manager Details'
 gcrConnectorDetails: 'Google Container Registry Overview'
@@ -63,6 +64,10 @@ createConnector: 'Create a Connector'
 connectorEmptyState: 'There are no connectors in your project'
 readMore: 'Read more'
 connectorsTitle: 'Resources: Connectors'
+connectivityMode:
+  validation: 'Please select connectivity mode'
+  connectToProvider: 'Connect to the provider'
+  selectText: 'Select how you would like to connect to the provider'
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'

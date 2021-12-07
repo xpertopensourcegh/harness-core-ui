@@ -7,6 +7,8 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import { getConnectivityMode } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 
 export interface UseCreateConnectorModalProps {
@@ -34,6 +36,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [type, setType] = useState(Connectors.KUBERNETES_CLUSTER)
   const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO | undefined>()
   const [gitDetails, setGitDetails] = useState<IGitContextFormProps | undefined>()
+  const [connectivityMode, setConnectivityMode] = useState<ConnectivityModeType | undefined>(
+    ConnectivityModeType.Manager
+  )
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     enforceFocus: false,
@@ -63,6 +68,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           type={type}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
+          connectivityMode={connectivityMode}
+          setConnectivityMode={setConnectivityMode}
           connectorInfo={connectorInfo}
           gitDetails={gitDetails}
           onSuccess={data => {
@@ -85,7 +92,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
         />
       </Dialog>
     ),
-    [type, isEditMode, connectorInfo, gitDetails]
+    [type, isEditMode, connectorInfo, gitDetails, connectivityMode]
   )
 
   return {
@@ -99,6 +106,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       setGitDetails(connector?.gitDetails)
       setIsEditMode(isEditing)
       setType(connectorType)
+      setConnectivityMode(
+        isEditing ? getConnectivityMode(connector?.connectorInfo?.spec?.executeOnDelegate) : undefined
+      )
       setModalProps(_modalProps || modalProps)
       showModal()
     },
