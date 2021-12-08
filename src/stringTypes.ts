@@ -655,6 +655,9 @@ export interface StringsMap {
   'rbac.addResourceModal.selectedText': string
   'rbac.addRole': string
   'rbac.addUser': string
+  'rbac.allAccountResources': string
+  'rbac.allOrgResources': string
+  'rbac.allProjectResources': string
   'rbac.allResources': string
   'rbac.apiKey.confirmDelete': string
   'rbac.apiKey.confirmDeleteTitle': string

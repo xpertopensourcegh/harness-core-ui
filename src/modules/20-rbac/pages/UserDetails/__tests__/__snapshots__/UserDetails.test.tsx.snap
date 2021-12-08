@@ -279,7 +279,7 @@ exports[`UserDetails Test render data 1`] = `
                - 
               <a
                 class="link"
-                href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
+                href="/account/testAcc/settings/access-control/resource-groups/_all_account_level_resources"
               >
                 All Resources
               </a>
@@ -300,7 +300,7 @@ exports[`UserDetails Test render data 1`] = `
                - 
               <a
                 class="link"
-                href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
+                href="/account/testAcc/settings/access-control/resource-groups/_all_account_level_resources"
               >
                 All Resources
               </a>
@@ -321,7 +321,7 @@ exports[`UserDetails Test render data 1`] = `
                - 
               <a
                 class="link"
-                href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
+                href="/account/testAcc/settings/access-control/resource-groups/_all_account_level_resources"
               >
                 All Resources
               </a>
@@ -342,7 +342,7 @@ exports[`UserDetails Test render data 1`] = `
                - 
               <a
                 class="link"
-                href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
+                href="/account/testAcc/settings/access-control/resource-groups/_all_account_level_resources"
               >
                 All Resources
               </a>
@@ -363,7 +363,7 @@ exports[`UserDetails Test render data 1`] = `
                - 
               <a
                 class="link"
-                href="/account/testAcc/settings/access-control/resource-groups/_all_resources"
+                href="/account/testAcc/settings/access-control/resource-groups/_all_account_level_resources"
               >
                 All Resources
               </a>

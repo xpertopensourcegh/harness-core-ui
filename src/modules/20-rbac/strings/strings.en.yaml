@@ -59,6 +59,9 @@ addRole: Add Role
 addUser: Add User
 pendingUsers: Pending Users
 allResources: All Resources
+allProjectResources: All Project Level Resources
+allOrgResources: All Organization Level Resources
+allAccountResources: All Account Level Resources
 userGroupPage:
   newUserGroup: New {{ $.common.userGroup}}
   editUserGroup: Edit {{ $.common.userGroup}}

@@ -21,7 +21,7 @@ export const userGroupInfo = {
         identifier: 'role_assignment_YQthy4XoyNVcN0tNz2Qf',
         roleIdentifier: '_account_viewer',
         roleName: 'Account Viewer',
-        resourceGroupIdentifier: '_all_resources',
+        resourceGroupIdentifier: '_all_account_level_resources',
         resourceGroupName: 'All Resources',
         managedRole: true
       }
@@ -59,7 +59,7 @@ export const userGroupInfoSSOLinked = {
         identifier: 'role_assignment_YQthy4XoyNVcN0tNz2Qf',
         roleIdentifier: '_account_viewer',
         roleName: 'Account Viewer',
-        resourceGroupIdentifier: '_all_resources',
+        resourceGroupIdentifier: '_all_account_level_resources',
         resourceGroupName: 'All Resources',
         managedRole: true
       }

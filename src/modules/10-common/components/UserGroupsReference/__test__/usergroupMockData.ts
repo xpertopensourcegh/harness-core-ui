@@ -176,7 +176,7 @@ export const userGroupMockData = {
             identifier: 'role_assignment_ml7KVIciBqLSlfncDRvL',
             roleIdentifier: '_account_admin',
             roleName: 'Account Admin',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false

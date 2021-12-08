@@ -1,5 +1,13 @@
-import React, { useMemo, useRef } from 'react'
-import { Container, Layout, Text, FieldArray, Select, SelectOption } from '@wings-software/uicore'
+import React, { useMemo } from 'react'
+import {
+  Container,
+  Layout,
+  Text,
+  FieldArray,
+  Select,
+  SelectOption,
+  getErrorInfoFromErrorObject
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import { defaultTo } from 'lodash-es'
@@ -9,7 +17,8 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetResourceGroupList } from 'services/resourcegroups'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { useToaster } from '@common/components'
-import { isAssignmentFieldDisabled } from '@rbac/utils/utils'
+import { getScopeBasedManagedResourceGroup, isAssignmentFieldDisabled } from '@rbac/utils/utils'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import type { Assignment, RoleOption, UserRoleAssignmentValues } from './UserRoleAssigment'
 import type { RoleAssignmentValues } from './RoleAssignment'
 import css from './RoleAssignmentForm.module.scss'
@@ -28,8 +37,9 @@ interface RoleAssignmentFormProps {
 const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmentsText, formik, onSuccess }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  const scope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
   const { showSuccess, showError } = useToaster()
-  const defaultResourceGroup = useRef<SelectOption>()
+  const defaultResourceGroup = getScopeBasedManagedResourceGroup(scope, getString)
 
   const { mutate: deleteRoleAssignment } = useDeleteRoleAssignment({
     queryParams: {
@@ -61,17 +71,10 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
 
   const resourceGroups: SelectOption[] = useMemo(
     () =>
-      resourceGroupList?.data?.content?.map(response => {
-        if (response.harnessManaged)
-          defaultResourceGroup.current = {
-            label: defaultTo(response.resourceGroup.name, ''),
-            value: defaultTo(response.resourceGroup.identifier, '')
-          }
-        return {
-          label: defaultTo(response.resourceGroup.name, ''),
-          value: defaultTo(response.resourceGroup.identifier, '')
-        }
-      }) || [],
+      resourceGroupList?.data?.content?.map(response => ({
+        label: defaultTo(response.resourceGroup.name, ''),
+        value: defaultTo(response.resourceGroup.identifier, '')
+      })) || [],
     [resourceGroupList]
   )
 
@@ -89,7 +92,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
       }
     } catch (err) {
       /* istanbul ignore next */
-      showError(err.data?.message || err.message)
+      showError(getErrorInfoFromErrorObject(err))
     }
     return false
   }
@@ -139,7 +142,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
           {
             name: 'resourceGroup',
             label: getString('resourceGroups'),
-            defaultValue: defaultResourceGroup.current,
+            defaultValue: defaultResourceGroup,
             // eslint-disable-next-line react/display-name
             renderer: (value, _index, handleChange, error) => {
               return (

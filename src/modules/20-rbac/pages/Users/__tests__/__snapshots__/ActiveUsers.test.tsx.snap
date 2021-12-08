@@ -508,7 +508,7 @@ exports[`UsersPage Test Add Roles 1`] = `
                                 placeholder="rbac.usersPage.selectResourceGroup"
                                 style="padding-right: 0px;"
                                 type="text"
-                                value=""
+                                value="rbac.allAccountResources"
                               />
                               <span
                                 class="bp3-input-action"
@@ -536,11 +536,6 @@ exports[`UsersPage Test Add Roles 1`] = `
                             </div>
                           </div>
                         </div>
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--intent-danger StyledProps--font-xsmall"
-                        >
-                          rbac.usersPage.validation.resourceGroup
-                        </p>
                       </div>
                     </td>
                     <td
@@ -1010,7 +1005,7 @@ exports[`UsersPage Test Invite a User 1`] = `
                                 placeholder="rbac.usersPage.selectResourceGroup"
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="rbac.allResources"
+                                value="rbac.allAccountResources"
                               />
                               <span
                                 class="bp3-input-action"
@@ -1337,7 +1332,7 @@ exports[`UsersPage Test render data 1`] = `
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_account_level_resources"
                   >
                     All Resources
                   </a>
@@ -1358,7 +1353,7 @@ exports[`UsersPage Test render data 1`] = `
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_account_level_resources"
                   >
                     All Resources
                   </a>
@@ -1509,7 +1504,7 @@ exports[`UsersPage Test render data 1`] = `
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_account_level_resources"
                   >
                     All Resources
                   </a>
@@ -1530,7 +1525,7 @@ exports[`UsersPage Test render data 1`] = `
                    - 
                   <a
                     class="link"
-                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_resources"
+                    href="/account/testAcc/settings/organizations/org/setup/access-control/resource-groups/_all_account_level_resources"
                   >
                     All Resources
                   </a>

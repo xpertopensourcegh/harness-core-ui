@@ -27,7 +27,7 @@ export const serviceAccountsAggregate: ResponsePageServiceAccountAggregateDTO = 
             identifier: 'role_assignment_a0VMVTLTyuWOjixKZdVB',
             roleIdentifier: '_feature_flag_viewer',
             roleName: 'Feature Flag View Only Role',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false
@@ -51,7 +51,7 @@ export const serviceAccountsAggregate: ResponsePageServiceAccountAggregateDTO = 
             identifier: 'role_assignment_iTQkgwI9vIbc2kKTxR7G',
             roleIdentifier: '_account_viewer',
             roleName: 'Account Viewer',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false
@@ -60,7 +60,7 @@ export const serviceAccountsAggregate: ResponsePageServiceAccountAggregateDTO = 
             identifier: 'role_assignment_qe05tHOVkBsxFRmVWvKd',
             roleIdentifier: 'create_org',
             roleName: 'create org',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: false,
             managedRoleAssignment: false
@@ -98,7 +98,7 @@ export const serviceAccountsAggregate: ResponsePageServiceAccountAggregateDTO = 
             identifier: 'role_assignment_apJs11jQh0IJ0OumJjih',
             roleIdentifier: '_account_admin',
             roleName: 'Account Admin',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false
@@ -122,7 +122,7 @@ export const serviceAccountsAggregate: ResponsePageServiceAccountAggregateDTO = 
             identifier: 'role_assignment_1lBuJ2y8nu8f8mgV8fK8',
             roleIdentifier: '_account_admin',
             roleName: 'Account Admin',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false
@@ -146,7 +146,7 @@ export const serviceAccountsAggregate: ResponsePageServiceAccountAggregateDTO = 
             identifier: 'role_assignment_dwJ7dsZm0VqQFmx8WArJ',
             roleIdentifier: '_account_admin',
             roleName: 'Account Admin',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false
@@ -297,7 +297,7 @@ export const resourceGroupsMockData: ResponsePageResourceGroupResponse = {
       {
         resourceGroup: {
           accountIdentifier: 'testAcc',
-          identifier: '_all_resources',
+          identifier: '_all_account_level_resources',
           name: 'All Resources',
           resourceSelectors: [],
           fullScopeSelected: true,

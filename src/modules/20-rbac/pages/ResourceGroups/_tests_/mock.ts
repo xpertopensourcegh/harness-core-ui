@@ -178,7 +178,7 @@ export const resourceGroupListResponse = {
           description: 'fdfdf'
         },
         createdAt: 1613443175193,
-        harnessManaged: true,
+        harnessManaged: false,
         lastModifiedAt: 1614060106616
       },
       {

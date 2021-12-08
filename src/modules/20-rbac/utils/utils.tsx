@@ -9,7 +9,8 @@ import {
   Avatar,
   Color,
   ModalErrorHandlerBinding,
-  getErrorInfoFromErrorObject
+  getErrorInfoFromErrorObject,
+  SelectOption
 } from '@wings-software/uicore'
 import { defaultTo } from 'lodash-es'
 import type { StringsMap } from 'stringTypes'
@@ -28,6 +29,7 @@ import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { FeatureRequest } from 'framework/featureStore/featureStoreUtil'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
+import type { UseStringsReturn } from 'framework/strings'
 import css from './utils.module.scss'
 
 export interface UserItem extends MultiSelectOption {
@@ -125,69 +127,86 @@ export const handleInvitationResponse = ({
   }
 }
 
+export const getScopeBasedManagedResourceGroup = (
+  scope: Scope,
+  getString: UseStringsReturn['getString']
+): SelectOption => {
+  switch (scope) {
+    case Scope.ACCOUNT:
+      return {
+        label: getString('rbac.allAccountResources'),
+        value: '_all_account_level_resources'
+      }
+    case Scope.ORG:
+      return {
+        label: getString('rbac.allOrgResources'),
+        value: '_all_organization_level_resources'
+      }
+    case Scope.PROJECT:
+      return {
+        label: getString('rbac.allProjectResources'),
+        value: '_all_project_level_resources'
+      }
+    default:
+      return {
+        label: getString('rbac.allResources'),
+        value: '_all_resources'
+      }
+  }
+}
+
 export const getScopeBasedDefaultAssignment = (
   scope: Scope,
-  getString: (key: keyof StringsMap, vars?: Record<string, any>) => string,
+  getString: UseStringsReturn['getString'],
   isCommunity: boolean
 ): Assignment[] => {
   if (isCommunity) {
     return []
-  }
-
-  const resourceGroup = {
-    label: getString('rbac.allResources'),
-    value: '_all_resources',
-    managedRoleAssignment: true
-  }
-  switch (scope) {
-    case Scope.ACCOUNT:
-      return [
-        {
-          role: {
-            label: getString('common.accViewer'),
-            value: '_account_viewer',
-            managed: true,
-            managedRoleAssignment: true
-          },
-          resourceGroup
-        }
-      ]
-    case Scope.ORG:
-      return [
-        {
-          role: {
-            label: getString('common.orgViewer'),
-            value: '_organization_viewer',
-            managed: true,
-            managedRoleAssignment: true
-          },
-          resourceGroup
-        }
-      ]
-    case Scope.PROJECT:
-      return [
-        {
-          role: {
-            label: getString('common.projectViewer'),
-            value: '_project_viewer',
-            managed: true,
-            managedRoleAssignment: true
-          },
-          resourceGroup
-        }
-      ]
-    default:
-      return [
-        {
-          role: {
-            label: '',
-            value: '',
-            managed: true,
-            managedRoleAssignment: true
-          },
-          resourceGroup
-        }
-      ]
+  } else {
+    const resourceGroup: ResourceGroupOption = {
+      managedRoleAssignment: true,
+      ...getScopeBasedManagedResourceGroup(scope, getString)
+    }
+    switch (scope) {
+      case Scope.ACCOUNT:
+        return [
+          {
+            role: {
+              label: getString('common.accViewer'),
+              value: '_account_viewer',
+              managed: true,
+              managedRoleAssignment: true
+            },
+            resourceGroup
+          }
+        ]
+      case Scope.ORG:
+        return [
+          {
+            role: {
+              label: getString('common.orgViewer'),
+              value: '_organization_viewer',
+              managed: true,
+              managedRoleAssignment: true
+            },
+            resourceGroup
+          }
+        ]
+      case Scope.PROJECT:
+        return [
+          {
+            role: {
+              label: getString('common.projectViewer'),
+              value: '_project_viewer',
+              managed: true,
+              managedRoleAssignment: true
+            },
+            resourceGroup
+          }
+        ]
+      default:
+        return []
+    }
   }
 }
 

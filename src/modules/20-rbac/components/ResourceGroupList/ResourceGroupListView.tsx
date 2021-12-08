@@ -17,7 +17,6 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { isDynamicResourceSelector } from '@rbac/utils/utils'
 import ResourceGroupColumnMenu from './ResourceGroupColumnMenu'
-
 import css from './ResourceGroupList.module.scss'
 
 interface ResourceGroupListViewProps {
@@ -78,7 +77,9 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
     }
     return get(resource, 'type')
   }
-  if (harnessManaged) return <Text color={Color.BLACK}>{getString('rbac.allResources')}</Text>
+  if (harnessManaged) {
+    return <Text color={Color.BLACK}>{resourceGroup.name}</Text>
+  }
   return resourceSelectors?.length ? (
     <Text
       color={Color.BLACK}

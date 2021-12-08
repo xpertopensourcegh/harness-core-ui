@@ -130,7 +130,7 @@ export const resourceGroupsMockData = {
           accountIdentifier: 'testAcc',
           orgIdentifier: null,
           projectIdentifier: null,
-          identifier: '_all_resources',
+          identifier: '_all_account_level_resources',
           name: 'All Resources',
           resourceSelectors: [],
           fullScopeSelected: true,
@@ -227,7 +227,7 @@ export const activeUserMock: ResponsePageUserAggregate = {
             identifier: 'role_assignment_vawmAV0YuQ9HlxmljpAu',
             roleIdentifier: '_account_admin',
             roleName: 'Account Admin',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false
@@ -236,7 +236,7 @@ export const activeUserMock: ResponsePageUserAggregate = {
             identifier: 'role_assignment_obm6QvdxtfqrlDzug31t',
             roleIdentifier: '_account_viewer',
             roleName: 'Account Viewer',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: true
@@ -255,7 +255,7 @@ export const activeUserMock: ResponsePageUserAggregate = {
             identifier: 'role_assignment_vawmAV0YuQ9HlxmljpAu',
             roleIdentifier: '_account_admin',
             roleName: 'Account Admin',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: false
@@ -264,7 +264,7 @@ export const activeUserMock: ResponsePageUserAggregate = {
             identifier: 'role_assignment_obm6QvdxtfqrlDzug31t',
             roleIdentifier: '_account_viewer',
             roleName: 'Account Viewer',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: true,
             managedRoleAssignment: true

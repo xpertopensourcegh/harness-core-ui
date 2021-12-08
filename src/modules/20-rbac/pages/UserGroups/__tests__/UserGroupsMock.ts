@@ -33,7 +33,7 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
             identifier: 'RG1',
             roleIdentifier: 'Custom_Role',
             roleName: 'Custom Role',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: false,
             managedRoleAssignment: false
@@ -82,7 +82,7 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
             identifier: 'RG1',
             roleIdentifier: 'Custom_Role',
             roleName: 'Custom Role',
-            resourceGroupIdentifier: '_all_resources',
+            resourceGroupIdentifier: '_all_account_level_resources',
             resourceGroupName: 'All Resources',
             managedRole: false,
             managedRoleAssignment: false
@@ -275,7 +275,7 @@ export const resourceGroupsMockData = {
           accountIdentifier: 'testAcc',
           orgIdentifier: null,
           projectIdentifier: null,
-          identifier: '_all_resources',
+          identifier: '_all_account_level_resources',
           name: 'All Resources',
           resourceSelectors: [],
           fullScopeSelected: true,

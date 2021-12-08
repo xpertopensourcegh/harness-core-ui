@@ -9,7 +9,7 @@ export const userInfo: ResponseUserAggregate = {
         identifier: 'role_assignment_JZcId0QnciEQsfOtUYlo',
         roleIdentifier: 'New_Role',
         roleName: 'New Role',
-        resourceGroupIdentifier: '_all_resources',
+        resourceGroupIdentifier: '_all_account_level_resources',
         resourceGroupName: 'All Resources',
         managedRole: false,
         managedRoleAssignment: false
@@ -18,7 +18,7 @@ export const userInfo: ResponseUserAggregate = {
         identifier: 'role_assignment_wHQ0QnLTID3MSVGzKchN',
         roleIdentifier: 'TestRole',
         roleName: 'TestRole',
-        resourceGroupIdentifier: '_all_resources',
+        resourceGroupIdentifier: '_all_account_level_resources',
         resourceGroupName: 'All Resources',
         managedRole: false,
         managedRoleAssignment: false
@@ -27,7 +27,7 @@ export const userInfo: ResponseUserAggregate = {
         identifier: 'role_assignment_VSS2NofHI92c9TibXh03',
         roleIdentifier: '_account_dummy',
         roleName: 'Account dummy',
-        resourceGroupIdentifier: '_all_resources',
+        resourceGroupIdentifier: '_all_account_level_resources',
         resourceGroupName: 'All Resources',
         managedRole: true,
         managedRoleAssignment: false
@@ -36,7 +36,7 @@ export const userInfo: ResponseUserAggregate = {
         identifier: 'role_assignment_gfLKLhqViVlNahxOfks7',
         roleIdentifier: '_account_viewer',
         roleName: 'Account Viewer',
-        resourceGroupIdentifier: '_all_resources',
+        resourceGroupIdentifier: '_all_account_level_resources',
         resourceGroupName: 'All Resources',
         managedRole: true,
         managedRoleAssignment: false
@@ -45,7 +45,7 @@ export const userInfo: ResponseUserAggregate = {
         identifier: 'role_assignment_RkYa8Hrtp2CZJIJbUE7C',
         roleIdentifier: 'ufbvfbvbfv',
         roleName: 'ufbvfbvbfv',
-        resourceGroupIdentifier: '_all_resources',
+        resourceGroupIdentifier: '_all_account_level_resources',
         resourceGroupName: 'All Resources',
         managedRole: false,
         managedRoleAssignment: false
