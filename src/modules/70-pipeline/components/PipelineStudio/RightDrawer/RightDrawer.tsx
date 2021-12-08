@@ -215,6 +215,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               ? { color: stepsFactory.getStepIconColor(stepType || '') }
               : {})}
             style={{ color: stepsFactory.getStepIconColor(stepType || '') }}
+            size={24}
           />
           <Text
             lineClamp={1}
