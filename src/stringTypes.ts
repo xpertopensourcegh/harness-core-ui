@@ -3941,7 +3941,13 @@ export interface StringsMap {
   'ci.advancedLabel': string
   'ci.annotations': string
   'ci.artifactoryConnectorLabel': string
+  'ci.buildInfa.awsHelpText': string
+  'ci.buildInfa.awsVM.architecture': string
+  'ci.buildInfa.awsVM.os': string
+  'ci.buildInfa.awsVM.poolId': string
   'ci.buildInfa.awsVMs': string
+  'ci.buildInfa.kubernetesHelpText': string
+  'ci.buildInfa.kubernetesVSaws': string
   'ci.buildInfa.selectInfra': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string

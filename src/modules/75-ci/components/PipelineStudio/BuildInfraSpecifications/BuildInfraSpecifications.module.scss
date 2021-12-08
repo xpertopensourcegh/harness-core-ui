@@ -165,3 +165,10 @@
 .bottomMargin7 {
   margin-bottom: var(--spacing-7) !important;
 }
+
+.helptext {
+  height: 240px;
+  width: 350px;
+  border-radius: 8px;
+  background-color: var(--blue-50) !important;
+}

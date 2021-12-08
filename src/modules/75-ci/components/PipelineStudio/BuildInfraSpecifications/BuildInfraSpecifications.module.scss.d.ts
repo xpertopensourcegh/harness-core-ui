@@ -18,5 +18,6 @@ declare const styles: {
   readonly plainList: string
   readonly bottomMargin3: string
   readonly bottomMargin7: string
+  readonly helptext: string
 }
 export default styles

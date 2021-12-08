@@ -12,7 +12,8 @@ import {
   FontVariation,
   ThumbnailSelect,
   IconName,
-  Container
+  Container,
+  Icon
 } from '@wings-software/uicore'
 import { isEmpty, isUndefined, set, uniqBy } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -473,57 +474,411 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                   {getString('pipelineSteps.build.infraSpecifications.whereToRun')}
                 </Text>
                 <FormikForm>
-                  {otherBuildStagesWithInfraConfigurationOptions.length ? (
-                    <Card disabled={isReadonly} className={cx(css.sectionCard)}>
-                      <Layout.Horizontal spacing="xxlarge">
-                        <div
-                          className={cx(css.card, { [css.active]: currentMode === Modes.Propagate })}
-                          style={{ width: 410 }}
-                          onClick={() => {
-                            setCurrentMode(Modes.Propagate)
-                          }}
-                        >
-                          <Text className={css.cardTitle} color="black" margin={{ bottom: 'large' }}>
-                            {getString('pipelineSteps.build.infraSpecifications.propagate')}
-                          </Text>
-                          <FormInput.Select
-                            name="useFromStage"
-                            items={otherBuildStagesWithInfraConfigurationOptions}
-                            disabled={isReadonly}
-                          />
-                          {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef && (
-                            <>
-                              <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
-                                {getString(k8sClusterKeyRef)}
+                  <Layout.Horizontal spacing="large">
+                    <Layout.Vertical>
+                      {otherBuildStagesWithInfraConfigurationOptions.length ? (
+                        <Card disabled={isReadonly} className={cx(css.sectionCard)}>
+                          <Layout.Horizontal spacing="xxlarge">
+                            <div
+                              className={cx(css.card, { [css.active]: currentMode === Modes.Propagate })}
+                              style={{ width: 410 }}
+                              onClick={() => {
+                                setCurrentMode(Modes.Propagate)
+                              }}
+                            >
+                              <Text className={css.cardTitle} color="black" margin={{ bottom: 'large' }}>
+                                {getString('pipelineSteps.build.infraSpecifications.propagate')}
                               </Text>
-                              <Text color="black" margin={{ bottom: 'medium' }}>
-                                {
-                                  (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                    ?.connectorRef
+                              <FormInput.Select
+                                name="useFromStage"
+                                items={otherBuildStagesWithInfraConfigurationOptions}
+                                disabled={isReadonly}
+                              />
+                              {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                ?.connectorRef && (
+                                <>
+                                  <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
+                                    {getString(k8sClusterKeyRef)}
+                                  </Text>
+                                  <Text color="black" margin={{ bottom: 'medium' }}>
+                                    {
+                                      (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                        ?.connectorRef
+                                    }
+                                  </Text>
+                                </>
+                              )}
+                              {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                ?.namespace && (
+                                <>
+                                  <Text
+                                    font={{ variation: FontVariation.FORM_LABEL }}
+                                    margin={{ bottom: 'xsmall' }}
+                                    tooltipProps={{ dataTooltipId: 'namespace' }}
+                                  >
+                                    {getString(namespaceKeyRef)}
+                                  </Text>
+                                  <Text color="black">
+                                    {
+                                      (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                        ?.namespace
+                                    }
+                                  </Text>
+                                </>
+                              )}
+                              {((propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                ?.serviceAccountName ||
+                                (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.runAsUser ||
+                                (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                  ?.initTimeout ||
+                                (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                  ?.annotations ||
+                                (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels) && (
+                                <Accordion activeId={''}>
+                                  <Accordion.Panel
+                                    id="advanced"
+                                    addDomId={true}
+                                    summary={
+                                      <div
+                                        className={css.tabHeading}
+                                        id="advanced"
+                                        style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
+                                      >
+                                        {getString('advancedTitle')}
+                                      </div>
+                                    }
+                                    details={
+                                      <>
+                                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                          ?.serviceAccountName && (
+                                          <>
+                                            <Text
+                                              font={{ variation: FontVariation.FORM_LABEL }}
+                                              margin={{ bottom: 'xsmall' }}
+                                              tooltipProps={{ dataTooltipId: 'serviceAccountName' }}
+                                            >
+                                              {getString('pipeline.infraSpecifications.serviceAccountName')}
+                                            </Text>
+                                            <Text color="black" margin={{ bottom: 'medium' }}>
+                                              {
+                                                (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                                  ?.spec?.serviceAccountName
+                                              }
+                                            </Text>
+                                          </>
+                                        )}
+                                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                          ?.runAsUser && (
+                                          <>
+                                            <Text
+                                              font={{ variation: FontVariation.FORM_LABEL }}
+                                              margin={{ bottom: 'xsmall' }}
+                                              tooltipProps={{ dataTooltipId: 'runAsUser' }}
+                                            >
+                                              {getString('pipeline.stepCommonFields.runAsUser')}
+                                            </Text>
+                                            <Text color="black" margin={{ bottom: 'medium' }}>
+                                              {
+                                                (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                                  ?.spec?.runAsUser
+                                              }
+                                            </Text>
+                                          </>
+                                        )}
+                                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                          ?.initTimeout && (
+                                          <>
+                                            <Text
+                                              font={{ variation: FontVariation.FORM_LABEL }}
+                                              margin={{ bottom: 'xsmall' }}
+                                              tooltipProps={{ dataTooltipId: 'timeout' }}
+                                            >
+                                              {getString('pipeline.infraSpecifications.initTimeout')}
+                                            </Text>
+                                            <Text color="black" margin={{ bottom: 'medium' }}>
+                                              {
+                                                (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                                  ?.spec?.initTimeout
+                                              }
+                                            </Text>
+                                          </>
+                                        )}
+                                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                          ?.annotations && (
+                                          <>
+                                            <Text
+                                              font={{ variation: FontVariation.FORM_LABEL }}
+                                              margin={{ bottom: 'xsmall' }}
+                                            >
+                                              {getString('ci.annotations')}
+                                            </Text>
+                                            {typeof (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                              ?.spec?.annotations === 'string' ? (
+                                              <Text color="black">
+                                                {
+                                                  (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                                    ?.spec.annotations
+                                                }
+                                              </Text>
+                                            ) : (
+                                              <ul className={css.plainList}>
+                                                {Object.entries(
+                                                  (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                                    ?.spec?.annotations || {}
+                                                ).map((entry, idx) => (
+                                                  <li key={idx}>
+                                                    <Text color="black">
+                                                      {entry[0]}:{entry[1]}
+                                                    </Text>
+                                                  </li>
+                                                ))}
+                                              </ul>
+                                            )}
+                                          </>
+                                        )}
+                                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                          ?.labels && (
+                                          <>
+                                            <Text
+                                              font={{ variation: FontVariation.FORM_LABEL }}
+                                              margin={{ bottom: 'xsmall' }}
+                                            >
+                                              {getString('ci.labels')}
+                                            </Text>
+                                            {typeof (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                              ?.spec?.labels === 'string' ? (
+                                              <Text color="black">
+                                                {
+                                                  (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                                    ?.spec?.labels
+                                                }
+                                              </Text>
+                                            ) : (
+                                              <ul className={css.plainList}>
+                                                {Object.entries(
+                                                  (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
+                                                    ?.spec?.labels || {}
+                                                ).map((entry, idx) => (
+                                                  <li key={idx}>
+                                                    <Text color="black">
+                                                      {entry[0]}:{entry[1]}
+                                                    </Text>
+                                                  </li>
+                                                ))}
+                                              </ul>
+                                            )}
+                                          </>
+                                        )}
+                                      </>
+                                    }
+                                  />
+                                </Accordion>
+                              )}
+                            </div>
+
+                            <div
+                              className={cx(css.card, { [css.active]: currentMode === Modes.NewConfiguration })}
+                              style={{ width: 460 }}
+                              onClick={() => {
+                                setCurrentMode(Modes.NewConfiguration)
+
+                                if (currentMode === Modes.Propagate) {
+                                  const newStageData = produce(stage, draft => {
+                                    if (draft) {
+                                      set(draft, 'stage.spec.infrastructure', {
+                                        type: 'KubernetesDirect',
+                                        spec: {
+                                          connectorRef: '',
+                                          namespace: '',
+                                          annotations: {},
+                                          labels: {}
+                                        }
+                                      })
+                                    }
+                                  })
+                                  setFieldValue('useFromStage', '')
+
+                                  if (newStageData?.stage) {
+                                    updateStage(newStageData.stage)
+                                  }
                                 }
+                              }}
+                            >
+                              <Text className={css.cardTitle} color="black" margin={{ bottom: 'large' }}>
+                                {getString('pipelineSteps.build.infraSpecifications.newConfiguration')}
                               </Text>
-                            </>
-                          )}
-                          {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace && (
-                            <>
-                              <Text
-                                font={{ variation: FontVariation.FORM_LABEL }}
-                                margin={{ bottom: 'xsmall' }}
-                                tooltipProps={{ dataTooltipId: 'namespace' }}
-                              >
-                                {getString(namespaceKeyRef)}
-                              </Text>
-                              <Text color="black">
-                                {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace}
-                              </Text>
-                            </>
-                          )}
-                          {((propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                            ?.serviceAccountName ||
-                            (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.runAsUser ||
-                            (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.initTimeout ||
-                            (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.annotations ||
-                            (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels) && (
+                              <FormMultiTypeConnectorField
+                                width={300}
+                                name="connectorRef"
+                                label={
+                                  <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
+                                    {getString(k8sClusterKeyRef)}
+                                  </Text>
+                                }
+                                placeholder={getString(
+                                  'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
+                                )}
+                                accountIdentifier={accountId}
+                                projectIdentifier={projectIdentifier}
+                                orgIdentifier={orgIdentifier}
+                                gitScope={gitScope}
+                                multiTypeProps={{ expressions, disabled: isReadonly }}
+                              />
+                              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                                <FormInput.MultiTextInput
+                                  label={
+                                    <Text
+                                      font={{ variation: FontVariation.FORM_LABEL }}
+                                      margin={{ bottom: 'xsmall' }}
+                                      tooltipProps={{ dataTooltipId: 'namespace' }}
+                                    >
+                                      {getString(namespaceKeyRef)}
+                                    </Text>
+                                  }
+                                  name={'namespace'}
+                                  placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
+                                  style={{ width: 300 }}
+                                  multiTextInputProps={{ expressions, disabled: isReadonly }}
+                                />
+                              </div>
+                              <Accordion activeId={''}>
+                                <Accordion.Panel
+                                  id="advanced"
+                                  addDomId={true}
+                                  summary={
+                                    <div
+                                      className={css.tabHeading}
+                                      id="advanced"
+                                      style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
+                                    >
+                                      {getString('advancedTitle')}
+                                    </div>
+                                  }
+                                  details={
+                                    <>
+                                      <Container className={css.bottomMargin7}>
+                                        <FormInput.MultiTextInput
+                                          label={
+                                            <Text
+                                              font={{ variation: FontVariation.FORM_LABEL }}
+                                              margin={{ bottom: 'xsmall' }}
+                                              tooltipProps={{ dataTooltipId: 'serviceAccountName' }}
+                                            >
+                                              {getString('pipeline.infraSpecifications.serviceAccountName')}
+                                            </Text>
+                                          }
+                                          name="serviceAccountName"
+                                          placeholder={getString(
+                                            'pipeline.infraSpecifications.serviceAccountNamePlaceholder'
+                                          )}
+                                          style={{
+                                            width: 300
+                                          }}
+                                          multiTextInputProps={{ expressions, disabled: isReadonly }}
+                                        />
+                                      </Container>
+                                      {renderUserAndTimeOutFields()}
+                                      <Container className={css.bottomMargin7}>
+                                        {renderMultiTypeMap('annotations', 'ci.annotations')}
+                                      </Container>
+                                      <Container className={css.bottomMargin7}>
+                                        {renderMultiTypeMap('labels', 'ci.labels')}
+                                      </Container>
+                                    </>
+                                  }
+                                />
+                              </Accordion>
+                            </div>
+                          </Layout.Horizontal>
+                        </Card>
+                      ) : (
+                        <>
+                          <Card disabled={isReadonly} className={cx(css.sectionCard)}>
+                            <Layout.Vertical spacing="small">
+                              {enableAWSVMType ? (
+                                <>
+                                  <Text font={{ variation: FontVariation.FORM_HELP }} padding={{ bottom: 'medium' }}>
+                                    {getString('ci.buildInfa.selectInfra')}
+                                  </Text>
+                                  <ThumbnailSelect
+                                    name={'buildInfraType'}
+                                    items={buildInfraTypes}
+                                    isReadonly={isReadonly}
+                                    onChange={val => setSelectedBuildInfraType(val as BuildInfraType)}
+                                  />
+                                </>
+                              ) : null}
+                              {selectedBuildInfraType === BuildInfraType.KUBERNETES ? (
+                                <>
+                                  {enableAWSVMType ? <Separator topSeparation={4} bottomSeparation={16} /> : null}
+                                  <Container className={css.bottomMargin3}>
+                                    <FormMultiTypeConnectorField
+                                      width={300}
+                                      name="connectorRef"
+                                      label={
+                                        <Text
+                                          font={{ variation: FontVariation.FORM_LABEL }}
+                                          margin={{ bottom: 'xsmall' }}
+                                        >
+                                          {getString(k8sClusterKeyRef)}
+                                        </Text>
+                                      }
+                                      placeholder={getString(
+                                        'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
+                                      )}
+                                      accountIdentifier={accountId}
+                                      projectIdentifier={projectIdentifier}
+                                      orgIdentifier={orgIdentifier}
+                                      gitScope={gitScope}
+                                      multiTypeProps={{ expressions, disabled: isReadonly }}
+                                    />
+                                  </Container>
+                                  <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                                    <MultiTypeTextField
+                                      label={
+                                        <Text
+                                          tooltipProps={{ dataTooltipId: 'namespace' }}
+                                          font={{ variation: FontVariation.FORM_LABEL }}
+                                          margin={{ bottom: 'xsmall' }}
+                                        >
+                                          {getString(namespaceKeyRef)}
+                                        </Text>
+                                      }
+                                      name={'namespace'}
+                                      style={{ width: 300 }}
+                                      multiTextInputProps={{
+                                        multiTextInputProps: { expressions },
+                                        disabled: isReadonly,
+                                        placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
+                                      }}
+                                    />
+                                  </div>
+                                </>
+                              ) : selectedBuildInfraType === BuildInfraType.AWS_VM ? (
+                                <>
+                                  {enableAWSVMType ? <Separator topSeparation={4} bottomSeparation={16} /> : null}
+                                  <MultiTypeTextField
+                                    label={
+                                      <Text
+                                        tooltipProps={{ dataTooltipId: 'poolId' }}
+                                        font={{ variation: FontVariation.FORM_LABEL }}
+                                        margin={{ bottom: 'xsmall' }}
+                                      >
+                                        {getString('ci.buildInfa.awsVM.poolId')}
+                                      </Text>
+                                    }
+                                    name={'poolId'}
+                                    style={{ width: 300 }}
+                                    multiTextInputProps={{
+                                      multiTextInputProps: { expressions },
+                                      disabled: isReadonly
+                                    }}
+                                  />
+                                </>
+                              ) : null}
+                            </Layout.Vertical>
+                          </Card>
+                          {selectedBuildInfraType === BuildInfraType.KUBERNETES ? (
                             <Accordion activeId={''}>
                               <Accordion.Panel
                                 id="advanced"
@@ -538,371 +893,64 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                   </div>
                                 }
                                 details={
-                                  <>
-                                    {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                      ?.serviceAccountName && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                          tooltipProps={{ dataTooltipId: 'serviceAccountName' }}
-                                        >
-                                          {getString('pipeline.infraSpecifications.serviceAccountName')}
-                                        </Text>
-                                        <Text color="black" margin={{ bottom: 'medium' }}>
-                                          {
-                                            (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                              ?.serviceAccountName
-                                          }
-                                        </Text>
-                                      </>
-                                    )}
-                                    {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                      ?.runAsUser && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                          tooltipProps={{ dataTooltipId: 'runAsUser' }}
-                                        >
-                                          {getString('pipeline.stepCommonFields.runAsUser')}
-                                        </Text>
-                                        <Text color="black" margin={{ bottom: 'medium' }}>
-                                          {
-                                            (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                              ?.runAsUser
-                                          }
-                                        </Text>
-                                      </>
-                                    )}
-                                    {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                      ?.initTimeout && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                          tooltipProps={{ dataTooltipId: 'timeout' }}
-                                        >
-                                          {getString('pipeline.infraSpecifications.initTimeout')}
-                                        </Text>
-                                        <Text color="black" margin={{ bottom: 'medium' }}>
-                                          {
-                                            (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                              ?.initTimeout
-                                          }
-                                        </Text>
-                                      </>
-                                    )}
-                                    {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                      ?.annotations && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                        >
-                                          {getString('ci.annotations')}
-                                        </Text>
-                                        {typeof (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
-                                          ?.spec?.annotations === 'string' ? (
-                                          <Text color="black">
-                                            {
-                                              (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                                .annotations
-                                            }
+                                  <Card disabled={isReadonly} className={css.sectionCard}>
+                                    <Container className={css.bottomMargin7}>
+                                      <MultiTypeTextField
+                                        label={
+                                          <Text
+                                            font={{ variation: FontVariation.FORM_LABEL }}
+                                            margin={{ bottom: 'xsmall' }}
+                                            tooltipProps={{ dataTooltipId: 'serviceAccountName' }}
+                                          >
+                                            {getString('pipeline.infraSpecifications.serviceAccountName')}
                                           </Text>
-                                        ) : (
-                                          <ul className={css.plainList}>
-                                            {Object.entries(
-                                              (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                                ?.annotations || {}
-                                            ).map((entry, idx) => (
-                                              <li key={idx}>
-                                                <Text color="black">
-                                                  {entry[0]}:{entry[1]}
-                                                </Text>
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        )}
-                                      </>
-                                    )}
-                                    {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                      ?.labels && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                        >
-                                          {getString('ci.labels')}
-                                        </Text>
-                                        {typeof (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)
-                                          ?.spec?.labels === 'string' ? (
-                                          <Text color="black">
-                                            {
-                                              (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                                ?.labels
-                                            }
-                                          </Text>
-                                        ) : (
-                                          <ul className={css.plainList}>
-                                            {Object.entries(
-                                              (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
-                                                ?.labels || {}
-                                            ).map((entry, idx) => (
-                                              <li key={idx}>
-                                                <Text color="black">
-                                                  {entry[0]}:{entry[1]}
-                                                </Text>
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        )}
-                                      </>
-                                    )}
-                                  </>
+                                        }
+                                        name="serviceAccountName"
+                                        style={{ width: 300 }}
+                                        multiTextInputProps={{
+                                          multiTextInputProps: { expressions },
+                                          disabled: isReadonly,
+                                          placeholder: getString(
+                                            'pipeline.infraSpecifications.serviceAccountNamePlaceholder'
+                                          )
+                                        }}
+                                      />
+                                    </Container>
+                                    {renderUserAndTimeOutFields()}
+                                    <Container className={css.bottomMargin7}>
+                                      {renderMultiTypeMap('annotations', 'ci.annotations')}
+                                    </Container>
+                                    <Container className={css.bottomMargin7}>
+                                      {renderMultiTypeMap('labels', 'ci.labels')}
+                                    </Container>
+                                  </Card>
                                 }
                               />
                             </Accordion>
-                          )}
-                        </div>
-
-                        <div
-                          className={cx(css.card, { [css.active]: currentMode === Modes.NewConfiguration })}
-                          style={{ width: 460 }}
-                          onClick={() => {
-                            setCurrentMode(Modes.NewConfiguration)
-
-                            if (currentMode === Modes.Propagate) {
-                              const newStageData = produce(stage, draft => {
-                                if (draft) {
-                                  set(draft, 'stage.spec.infrastructure', {
-                                    type: 'KubernetesDirect',
-                                    spec: {
-                                      connectorRef: '',
-                                      namespace: '',
-                                      annotations: {},
-                                      labels: {}
-                                    }
-                                  })
-                                }
-                              })
-                              setFieldValue('useFromStage', '')
-
-                              if (newStageData?.stage) {
-                                updateStage(newStageData.stage)
-                              }
-                            }
-                          }}
-                        >
-                          <Text className={css.cardTitle} color="black" margin={{ bottom: 'large' }}>
-                            {getString('pipelineSteps.build.infraSpecifications.newConfiguration')}
+                          ) : null}
+                        </>
+                      )}
+                    </Layout.Vertical>
+                    {enableAWSVMType ? (
+                      <Container className={css.helptext} margin={{ top: 'medium' }} padding="large">
+                        <Layout.Horizontal spacing="xsmall" flex={{ justifyContent: 'start' }}>
+                          <Icon name="info-messaging" size={20} />
+                          <Text font={{ variation: FontVariation.FORM_HELP }}>
+                            {getString('ci.buildInfa.kubernetesVSaws')}
                           </Text>
-                          <FormMultiTypeConnectorField
-                            width={300}
-                            name="connectorRef"
-                            label={
-                              <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
-                                {getString(k8sClusterKeyRef)}
-                              </Text>
-                            }
-                            placeholder={getString(
-                              'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
-                            )}
-                            accountIdentifier={accountId}
-                            projectIdentifier={projectIdentifier}
-                            orgIdentifier={orgIdentifier}
-                            gitScope={gitScope}
-                            multiTypeProps={{ expressions, disabled: isReadonly }}
-                          />
-                          <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                            <FormInput.MultiTextInput
-                              label={
-                                <Text
-                                  font={{ variation: FontVariation.FORM_LABEL }}
-                                  margin={{ bottom: 'xsmall' }}
-                                  tooltipProps={{ dataTooltipId: 'namespace' }}
-                                >
-                                  {getString(namespaceKeyRef)}
-                                </Text>
-                              }
-                              name={'namespace'}
-                              placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
-                              style={{ width: 300 }}
-                              multiTextInputProps={{ expressions, disabled: isReadonly }}
-                            />
-                          </div>
-                          <Accordion activeId={''}>
-                            <Accordion.Panel
-                              id="advanced"
-                              addDomId={true}
-                              summary={
-                                <div
-                                  className={css.tabHeading}
-                                  id="advanced"
-                                  style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
-                                >
-                                  {getString('advancedTitle')}
-                                </div>
-                              }
-                              details={
-                                <>
-                                  <Container className={css.bottomMargin7}>
-                                    <FormInput.MultiTextInput
-                                      label={
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                          tooltipProps={{ dataTooltipId: 'serviceAccountName' }}
-                                        >
-                                          {getString('pipeline.infraSpecifications.serviceAccountName')}
-                                        </Text>
-                                      }
-                                      name="serviceAccountName"
-                                      placeholder={getString(
-                                        'pipeline.infraSpecifications.serviceAccountNamePlaceholder'
-                                      )}
-                                      style={{
-                                        width: 300
-                                      }}
-                                      multiTextInputProps={{ expressions, disabled: isReadonly }}
-                                    />
-                                  </Container>
-                                  {renderUserAndTimeOutFields()}
-                                  <Container className={css.bottomMargin7}>
-                                    {renderMultiTypeMap('annotations', 'ci.annotations')}
-                                  </Container>
-                                  <Container className={css.bottomMargin7}>
-                                    {renderMultiTypeMap('labels', 'ci.labels')}
-                                  </Container>
-                                </>
-                              }
-                            />
-                          </Accordion>
-                        </div>
-                      </Layout.Horizontal>
-                    </Card>
-                  ) : (
-                    <>
-                      <Card disabled={isReadonly} className={cx(css.sectionCard)}>
-                        <Layout.Vertical spacing="small">
-                          {enableAWSVMType ? (
-                            <>
-                              <Text font={{ variation: FontVariation.FORM_HELP }} padding={{ bottom: 'medium' }}>
-                                {getString('ci.buildInfa.selectInfra')}
-                              </Text>
-                              <ThumbnailSelect
-                                name={'buildInfraType'}
-                                items={buildInfraTypes}
-                                isReadonly={isReadonly}
-                                onChange={val => setSelectedBuildInfraType(val as BuildInfraType)}
-                              />
-                            </>
-                          ) : null}
-                          {selectedBuildInfraType === BuildInfraType.KUBERNETES ? (
-                            <>
-                              {enableAWSVMType ? <Separator topSeparation={4} bottomSeparation={16} /> : null}
-                              <Container className={css.bottomMargin3}>
-                                <FormMultiTypeConnectorField
-                                  width={300}
-                                  name="connectorRef"
-                                  label={
-                                    <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
-                                      {getString(k8sClusterKeyRef)}
-                                    </Text>
-                                  }
-                                  placeholder={getString(
-                                    'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
-                                  )}
-                                  accountIdentifier={accountId}
-                                  projectIdentifier={projectIdentifier}
-                                  orgIdentifier={orgIdentifier}
-                                  gitScope={gitScope}
-                                  multiTypeProps={{ expressions, disabled: isReadonly }}
-                                />
-                              </Container>
-                              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                                <MultiTypeTextField
-                                  label={
-                                    <Text
-                                      tooltipProps={{ dataTooltipId: 'namespace' }}
-                                      font={{ variation: FontVariation.FORM_LABEL }}
-                                      margin={{ bottom: 'xsmall' }}
-                                    >
-                                      {getString(namespaceKeyRef)}
-                                    </Text>
-                                  }
-                                  name={'namespace'}
-                                  style={{ width: 300 }}
-                                  multiTextInputProps={{
-                                    multiTextInputProps: { expressions },
-                                    disabled: isReadonly,
-                                    placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
-                                  }}
-                                />
-                              </div>
-                            </>
-                          ) : selectedBuildInfraType === BuildInfraType.AWS_VM ? (
-                            <></>
-                          ) : null}
-                        </Layout.Vertical>
-                      </Card>
-                      {selectedBuildInfraType === BuildInfraType.KUBERNETES ||
-                      selectedBuildInfraType === BuildInfraType.AWS_VM ? (
-                        <Accordion activeId={''}>
-                          <Accordion.Panel
-                            id="advanced"
-                            addDomId={true}
-                            summary={
-                              <div
-                                className={css.tabHeading}
-                                id="advanced"
-                                style={{ paddingLeft: 'var(--spacing-small)', marginBottom: 0 }}
-                              >
-                                {getString('advancedTitle')}
-                              </div>
-                            }
-                            details={
-                              selectedBuildInfraType === BuildInfraType.KUBERNETES ? (
-                                <Card disabled={isReadonly} className={css.sectionCard}>
-                                  <Container className={css.bottomMargin7}>
-                                    <MultiTypeTextField
-                                      label={
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                          tooltipProps={{ dataTooltipId: 'serviceAccountName' }}
-                                        >
-                                          {getString('pipeline.infraSpecifications.serviceAccountName')}
-                                        </Text>
-                                      }
-                                      name="serviceAccountName"
-                                      style={{ width: 300 }}
-                                      multiTextInputProps={{
-                                        multiTextInputProps: { expressions },
-                                        disabled: isReadonly,
-                                        placeholder: getString(
-                                          'pipeline.infraSpecifications.serviceAccountNamePlaceholder'
-                                        )
-                                      }}
-                                    />
-                                  </Container>
-                                  {renderUserAndTimeOutFields()}
-                                  <Container className={css.bottomMargin7}>
-                                    {renderMultiTypeMap('annotations', 'ci.annotations')}
-                                  </Container>
-                                  <Container className={css.bottomMargin7}>
-                                    {renderMultiTypeMap('labels', 'ci.labels')}
-                                  </Container>
-                                </Card>
-                              ) : selectedBuildInfraType === BuildInfraType.AWS_VM ? (
-                                <></>
-                              ) : null
-                            }
-                          />
-                        </Accordion>
-                      ) : null}
-                    </>
-                  )}
+                        </Layout.Horizontal>
+                        <Text
+                          font={{ variation: FontVariation.FORM_HELP }}
+                          padding={{ top: 'xlarge', bottom: 'xlarge' }}
+                        >
+                          {getString('ci.buildInfa.kubernetesHelpText')}
+                        </Text>
+                        <Text font={{ variation: FontVariation.FORM_HELP }}>
+                          {getString('ci.buildInfa.awsHelpText')}
+                        </Text>
+                      </Container>
+                    ) : null}
+                  </Layout.Horizontal>
                 </FormikForm>
               </Layout.Vertical>
             )
