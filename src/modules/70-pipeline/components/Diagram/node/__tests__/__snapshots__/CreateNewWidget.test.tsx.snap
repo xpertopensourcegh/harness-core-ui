@@ -43,6 +43,7 @@ exports[`CreateNewWidget snapshot tests renders properly 1`] = `
     </div>
     <p
       class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-align-center StyledProps--padding-top-small"
+      data-name="node-name"
       style="margin-left: -30px; margin-right: -30px; --text-line-clamp: 2;"
     >
       name

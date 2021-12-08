@@ -89,6 +89,7 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
       </div>
       {!isEmpty(options.name) && (
         <Text
+          data-name="node-name"
           font={{ align: 'center' }}
           padding={{ top: 'small' }}
           lineClamp={2}

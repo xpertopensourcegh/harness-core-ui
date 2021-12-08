@@ -13,4 +13,8 @@
       cursor: not-allowed;
     }
   }
+
+  [data-name*='node-name'] {
+    word-break: break-word;
+  }
 }
