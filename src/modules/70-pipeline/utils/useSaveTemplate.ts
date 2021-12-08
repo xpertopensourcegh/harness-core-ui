@@ -39,23 +39,33 @@ interface UseSaveTemplateReturnType {
   saveAndPublish: (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<void>
 }
 
-interface TemplateContextMetadata {
+export interface TemplateContextMetadata {
   template: NGTemplateInfoConfig
   yamlHandler?: YamlBuilderHandlerBinding
-  gitDetails: EntityGitDetails
+  gitDetails?: EntityGitDetails
   setLoading?: (loading: boolean) => void
   fetchTemplate?: (args: FetchTemplateUnboundProps) => Promise<void>
   deleteTemplateCache?: (gitDetails?: EntityGitDetails) => Promise<void>
   view?: string
   isPipelineStudio?: boolean
+  stableVersion?: string
 }
 
 export function useSaveTemplate(
   TemplateContextMetadata: TemplateContextMetadata,
   hideConfigModal?: () => void
 ): UseSaveTemplateReturnType {
-  const { template, yamlHandler, gitDetails, setLoading, fetchTemplate, deleteTemplateCache, view, isPipelineStudio } =
-    TemplateContextMetadata
+  const {
+    template,
+    yamlHandler,
+    gitDetails,
+    setLoading,
+    fetchTemplate,
+    deleteTemplateCache,
+    view,
+    isPipelineStudio,
+    stableVersion
+  } = TemplateContextMetadata
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const { templateIdentifier, templateType, projectIdentifier, orgIdentifier, accountId, module } = useParams<
     TemplateStudioPathProps & ModulePathParams
@@ -247,7 +257,7 @@ export function useSaveTemplate(
 
       // if Git sync enabled then display modal
       if (isGitSyncEnabled) {
-        if (isEmpty(gitDetails.repoIdentifier) || isEmpty(gitDetails.branch)) {
+        if (isEmpty(gitDetails?.repoIdentifier) || isEmpty(gitDetails?.branch)) {
           clear()
           showError(getString('pipeline.gitExperience.selectRepoBranch'))
           return
@@ -281,12 +291,22 @@ export function useSaveTemplate(
             name: latestTemplate.name,
             version: latestTemplate.versionLabel
           }),
-          getString('pipeline.commentModal.info')
+          stableVersion === latestTemplate.versionLabel ? getString('pipeline.commentModal.info') : undefined
         )
         await saveAndPublishTemplate(latestTemplate, comments, isEdit)
       }
     },
-    [template, templateIdentifier, gitDetails, isGitSyncEnabled, isYaml, yamlHandler, showError, showSuccess]
+    [
+      template,
+      templateIdentifier,
+      gitDetails,
+      isGitSyncEnabled,
+      isYaml,
+      yamlHandler,
+      showError,
+      showSuccess,
+      stableVersion
+    ]
   )
 
   return {

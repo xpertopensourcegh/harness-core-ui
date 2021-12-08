@@ -25,7 +25,7 @@ export interface SaveTemplatePopoverProps {
 
 export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.ReactElement {
   const {
-    state: { template, yamlHandler, gitDetails, isUpdated },
+    state: { template, yamlHandler, gitDetails, isUpdated, stableVersion },
     setLoading,
     fetchTemplate,
     deleteTemplateCache,
@@ -66,7 +66,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
       setLoading,
       fetchTemplate,
       deleteTemplateCache,
-      view
+      view,
+      stableVersion
     },
     hideConfigModal
   )

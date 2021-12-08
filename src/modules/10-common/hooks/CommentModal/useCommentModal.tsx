@@ -13,6 +13,7 @@ import {
 import { Formik } from 'formik'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import { WarningInfo } from '@common/components/FeatureWarning/featureWarningUtil'
 import css from './useCommentModal.module.scss'
 
 export interface CommentModalProps {
@@ -56,11 +57,7 @@ export const CommentModal = (props: CommentModalProps) => {
               </Container>
               <Container>
                 <Layout.Vertical spacing="xxlarge">
-                  {infoText && (
-                    <Text className={css.infoText} color={Color.GREY_900}>
-                      {infoText}
-                    </Text>
-                  )}
+                  {infoText && <WarningInfo message={infoText} />}
                   <Container>
                     <Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
                       <Button text={getString('save')} type="submit" variation={ButtonVariation.PRIMARY} />
