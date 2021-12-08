@@ -1,0 +1,18 @@
+.basePath--dropdown {
+  margin-bottom: var(--spacing-medium);
+}
+
+.basePathContainer {
+  background-color: var(--grey-100) !important;
+  padding: var(--spacing-small) !important;
+  display: flex;
+}
+
+.basePathLabel {
+  background-color: var(--grey-100) !important;
+}
+
+.basePathValue {
+  color: var(--black-100) !important;
+  padding-left: var(--spacing-small) !important;
+}

@@ -69,7 +69,14 @@ export default function VerifyStepHealthSourceTable(tableProps: VerifyStepHealth
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [serviceIdentifier, envIdentifier, healthSourcesList, monitoredServiceRef, isRunTimeInput]
+    [
+      serviceIdentifier,
+      envIdentifier,
+      healthSourcesList,
+      monitoredServiceRef.name,
+      monitoredServiceRef.identifier,
+      isRunTimeInput
+    ]
   )
 
   const onEdit = useCallback(
@@ -90,8 +97,8 @@ export default function VerifyStepHealthSourceTable(tableProps: VerifyStepHealth
 
   const onAddNewHealthSource = useCallback(() => {
     const drawerProps = getHealthSourceDrawerProps()
+    showHealthSourceDrawer(drawerProps)
     setDrawerHeaderProps?.(healthSourceDrawerHeaderProps())
-    return showHealthSourceDrawer(drawerProps)
   }, [
     serviceIdentifier,
     envIdentifier,

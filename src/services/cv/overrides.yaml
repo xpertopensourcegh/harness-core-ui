@@ -2,6 +2,9 @@ allowpaths:
   - /appdynamics/applications
   - /appdynamics/metric-data
   - /appdynamics/tiers
+  - /appdynamics/base-folders
+  - /appdynamics/metric-structure
+  - /appdynamics/service-instance-metric-path
   - /cv-config/datasource-types
   - /ds-config
   - /ds-config/{identifier}

@@ -328,6 +328,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                   }}
                   metricPackResponse={metricPackResponse}
                   labelNamesResponse={labelNamesResponse}
+                  hideServiceIdentifier
                 />
 
                 <FormInput.Text name={OVERALL} className={css.hiddenField} />

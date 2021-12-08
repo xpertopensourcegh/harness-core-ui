@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { noop } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import * as Yup from 'yup'
 import {
   Color,
   Text,
+  Button,
   Container,
   Formik,
   FormikForm,
@@ -33,16 +34,33 @@ import {
   validateMetrics,
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
-import MetricPack from '../MetrickPack'
+import MetricPackAppDynamics from '../MetricPackAppDynamics'
 import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
+import AppDMappedMetric from './Components/AppDMappedMetric/AppDMappedMetric'
+import {
+  createAppDFormData,
+  initializeCreatedMetrics,
+  initializeNonCustomFields,
+  initializeSelectedMetricsMap,
+  setAppDynamicsApplication,
+  setAppDynamicsTier,
+  submitData,
+  validateMapping
+} from './AppDHealthSource.utils'
+import type {
+  AppDynamicsData,
+  CreatedMetricsWithSelectedIndex,
+  AppDynamicsFomikFormInterface,
+  SelectedAndMappedMetrics
+} from './AppDHealthSource.types'
 import css from './AppDHealthSource.module.scss'
 
 export default function AppDMonitoredSource({
-  data,
+  data: appDynamicsData,
   onSubmit,
   onPrevious
 }: {
-  data: any
+  data: AppDynamicsData
   onSubmit: (healthSourcePayload: any) => void
   onPrevious: () => void
 }): JSX.Element {
@@ -60,7 +78,8 @@ export default function AppDMonitoredSource({
   })
   const [guidMap, setGuidMap] = useState(new Map())
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const connectorIdentifier = data?.connectorRef?.connector?.identifier || data?.connectorRef
+  const connectorIdentifier = (appDynamicsData?.connectorRef?.connector?.identifier ||
+    appDynamicsData?.connectorRef) as string
 
   const {
     data: applicationsData,
@@ -88,10 +107,10 @@ export default function AppDMonitoredSource({
   })
 
   useEffect(() => {
-    if (data?.applicationName) {
+    if (appDynamicsData?.applicationName) {
       refetchTier({
         queryParams: {
-          appName: data?.applicationName,
+          appName: appDynamicsData?.applicationName,
           accountId,
           connectorIdentifier,
           orgIdentifier,
@@ -102,7 +121,7 @@ export default function AppDMonitoredSource({
         }
       })
     }
-  }, [data?.applicationName])
+  }, [appDynamicsData?.applicationName])
 
   const onValidate = async (appName: string, tierName: string, metricObject: { [key: string]: any }): Promise<void> => {
     setAppDValidation({ status: StatusOfValidation.IN_PROGRESS, result: [] })
@@ -155,38 +174,56 @@ export default function AppDMonitoredSource({
     [tierLoading]
   )
 
-  const initPayload = {
-    ...data,
-    appdApplication: data?.applicationName || '',
-    appDTier: data?.tierName || ''
-  }
-
   useEffect(() => {
-    if (data.isEdit && selectedMetricPacks.length && appDValidation.status !== StatusOfValidation.IN_PROGRESS) {
-      onValidate(data?.applicationName, data?.tierName, createMetricDataFormik(data?.metricPacks))
+    if (
+      appDynamicsData.isEdit &&
+      selectedMetricPacks.length &&
+      appDValidation.status !== StatusOfValidation.IN_PROGRESS
+    ) {
+      onValidate(
+        appDynamicsData?.applicationName,
+        appDynamicsData?.tierName,
+        createMetricDataFormik(appDynamicsData?.metricPacks)
+      )
     }
-  }, [selectedMetricPacks, tierLoading, data.isEdit])
+  }, [selectedMetricPacks, tierLoading, appDynamicsData.isEdit])
+
+  const [showCustomMetric, setShowCustomMetric] = useState(!!Array.from(appDynamicsData?.mappedServicesAndEnvs)?.length)
+
+  const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<SelectedAndMappedMetrics>(
+    initializeSelectedMetricsMap(
+      getString('cv.monitoringSources.appD.defaultAppDMetricName'),
+      appDynamicsData?.mappedServicesAndEnvs
+    )
+  )
+
+  const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
+    initializeCreatedMetrics(
+      getString('cv.monitoringSources.appD.defaultAppDMetricName'),
+      selectedMetric,
+      mappedMetrics
+    )
+  )
+
+  const [nonCustomFeilds, setNonCustomFeilds] = useState(initializeNonCustomFields(appDynamicsData))
+
+  const initPayload = useMemo(
+    () => createAppDFormData(appDynamicsData, mappedMetrics, selectedMetric, nonCustomFeilds, showCustomMetric),
+    [appDynamicsData, mappedMetrics, selectedMetric, nonCustomFeilds, showCustomMetric]
+  )
 
   return (
-    <Formik
+    <Formik<AppDynamicsFomikFormInterface>
       enableReinitialize
       formName={'appDHealthSourceform'}
+      isInitialValid={(args: any) =>
+        Object.keys(validateMapping(args.initialValues, createdMetrics, selectedMetricIndex, getString)).length === 0
+      }
       validate={values => {
-        const metricValueList = Object.values(values?.metricData).filter(val => val)
-        if (!metricValueList.length) {
-          return { metricData: getString('cv.monitoringSources.appD.validations.selectMetricPack') }
-        }
+        return validateMapping(values, createdMetrics, selectedMetricIndex, getString)
       }}
-      validationSchema={Yup.object().shape({
-        appDTier: Yup.string().required(getString('cv.healthSource.connectors.AppDynamics.validation.tier')),
-        appdApplication: Yup.string().required(
-          getString('cv.healthSource.connectors.AppDynamics.validation.application')
-        )
-      })}
       initialValues={initPayload}
-      onSubmit={async values => {
-        await onSubmit(values)
-      }}
+      onSubmit={noop}
     >
       {formik => {
         return (
@@ -208,16 +245,13 @@ export default function AppDMonitoredSource({
                           pageSize: 10000
                         }
                       })
-                      formik.setFieldValue('appdApplication', item.label)
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        appdApplication: item.label
+                      })
                       setAppDValidation({ status: '', result: [] })
                     }}
-                    value={
-                      !formik?.values?.appdApplication
-                        ? { label: '', value: '' }
-                        : applicationOptions.find(
-                            (item: SelectOption) => item.label === formik?.values?.appdApplication
-                          )
-                    }
+                    value={setAppDynamicsApplication(formik?.values?.appdApplication, applicationOptions)}
                     name={'appdApplication'}
                     placeholder={
                       applicationLoading
@@ -226,7 +260,12 @@ export default function AppDMonitoredSource({
                     }
                     items={applicationOptions}
                     label={getString('cv.healthSource.connectors.AppDynamics.applicationLabel')}
-                    {...getInputGroupProps(() => formik.setFieldValue('appdApplication', ''))}
+                    {...getInputGroupProps(() =>
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        appdApplication: ''
+                      })
+                    )}
                   />
                 </Container>
                 {!!formik.values.appdApplication && (
@@ -239,18 +278,22 @@ export default function AppDMonitoredSource({
                           ? getString('loading')
                           : getString('cv.healthSource.connectors.AppDynamics.tierPlaceholder')
                       }
-                      value={
-                        tierLoading || !formik?.values?.appDTier
-                          ? { label: '', value: '' }
-                          : tierOptions.find((item: SelectOption) => item.label === formik?.values?.appDTier)
-                      }
+                      value={setAppDynamicsTier(tierLoading, formik?.values?.appDTier, tierOptions)}
                       onChange={async item => {
-                        formik.setFieldValue('appDTier', item.label)
+                        setNonCustomFeilds({
+                          ...nonCustomFeilds,
+                          appDTier: item.label
+                        })
                         await onValidate(formik.values.appdApplication, item.label as string, formik.values.metricData)
                       }}
                       items={tierOptions}
                       label={getString('cv.healthSource.connectors.AppDynamics.trierLabel')}
-                      {...getInputGroupProps(() => formik.setFieldValue('appDTier', ''))}
+                      {...getInputGroupProps(() =>
+                        setNonCustomFeilds({
+                          ...nonCustomFeilds,
+                          appDTier: ''
+                        })
+                      )}
                     />
                   </Container>
                 )}
@@ -273,12 +316,22 @@ export default function AppDMonitoredSource({
               <Layout.Vertical>
                 <Text color={Color.BLACK}>{getString('cv.healthSource.connectors.AppDynamics.metricPackLabel')}</Text>
                 <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
-                  <MetricPack
-                    formik={formik}
+                  <MetricPackAppDynamics
+                    setMetricDataValue={value => {
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        metricData: value
+                      })
+                    }}
+                    metricPackValue={formik.values.metricPacks}
+                    metricDataValue={formik.values.metricData}
                     setSelectedMetricPacks={setSelectedMetricPacks}
                     connector={HealthSoureSupportedConnectorTypes.APP_DYNAMICS}
-                    value={formik.values.metricPacks}
                     onChange={async metricValue => {
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        metricData: metricValue
+                      })
                       await onValidate(formik?.values?.appdApplication, formik?.values?.appDTier, metricValue)
                     }}
                   />
@@ -293,7 +346,46 @@ export default function AppDMonitoredSource({
                 </Layout.Horizontal>
               </Layout.Vertical>
             </CardWithOuterTitle>
-            <DrawerFooter isSubmit onPrevious={onPrevious} onNext={formik.submitForm} />
+            {showCustomMetric ? (
+              <AppDMappedMetric
+                isValidInput={formik.isValid}
+                setMappedMetrics={setMappedMetrics}
+                selectedMetric={selectedMetric}
+                formikValues={formik.values}
+                formikSetField={formik.setFieldValue}
+                connectorIdentifier={connectorIdentifier}
+                mappedMetrics={mappedMetrics}
+                createdMetrics={createdMetrics}
+                setCreatedMetrics={setCreatedMetrics}
+              />
+            ) : (
+              <CardWithOuterTitle>
+                <Button
+                  disabled={!(!!formik?.values?.appdApplication && !!formik?.values?.appDTier)}
+                  icon="plus"
+                  minimal
+                  intent="primary"
+                  onClick={() => setShowCustomMetric(true)}
+                >
+                  {getString('cv.monitoringSources.addMetric')}
+                </Button>
+              </CardWithOuterTitle>
+            )}
+            <DrawerFooter
+              isSubmit
+              onPrevious={onPrevious}
+              onNext={() =>
+                submitData(
+                  formik,
+                  mappedMetrics,
+                  selectedMetric,
+                  selectedMetricIndex,
+                  createdMetrics,
+                  getString,
+                  onSubmit
+                )
+              }
+            />
           </FormikForm>
         )
       }}

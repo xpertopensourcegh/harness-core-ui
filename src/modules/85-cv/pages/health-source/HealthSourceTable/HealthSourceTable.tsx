@@ -100,7 +100,7 @@ export default function HealthSourceTable({
         </CardWithOuterTitle>
       )
     },
-    [isRunTimeInput, value, onAddNewHealthSource, editRow]
+    [isRunTimeInput, value, onAddNewHealthSource, editRow, onEdit]
   )
 
   const renderHealthSourceTableInCV = useCallback(
@@ -146,7 +146,7 @@ export default function HealthSourceTable({
         </Container>
       )
     },
-    [value, onAddNewHealthSource, editRow]
+    [value, onAddNewHealthSource, editRow, onEdit]
   )
 
   return renderHealthSourceTable(!!shouldRenderAtVerifyStep, tableData)

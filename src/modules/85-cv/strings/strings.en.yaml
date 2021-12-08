@@ -205,6 +205,15 @@ monitoringSources:
   addQuery: Add Query
   totalMappedQueries: '{{total}} {{query}} mapped'
   appD:
+    appdPathTitle: AppDynamics Path
+    appdChartTitle: Chart & Record
+    appdPathDetail: Select base path for AppD Metric
+    appdMetricDetail: Select metric path for AppD Metric
+    defaultAppDMetricName: appdMetric
+    basePathPlaceholder: Please select value to append to base path
+    metricPathPlaceholder: Please select value to append to metric path
+    noValueBasePath: No value for selected base path
+    noValueMetricPath: No value for selected base path and metric path
     envDescription: An Environment is the representation of your production or non-production infrastructure.
     appDApplications: APPDYNAMICS APPLICATIONS
     appDTier: APPDYNAMICS TIER
@@ -228,6 +237,7 @@ monitoringSources:
     searchPlaceholderApplications: Search for Applications
     validationsPassed: Validation passed
     validationsFailed: Validation failed
+    newGroupName: New AppDynamics Group Name
     validations:
       selectApp: Please select application and its environment
       selectTier: Please select tier and its service
@@ -563,6 +573,9 @@ healthSource:
       validation:
         application: Please select applications
         tier: Please select tier
+        basePath: Please select base path
+        metricPath: Please select metric path
+        metricPathWithoutLeafNode: Please select metric in metric path
     gco:
       selectDashboardTab: 'Select Dashboards'
 slos:

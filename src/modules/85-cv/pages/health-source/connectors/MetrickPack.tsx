@@ -17,7 +17,7 @@ export default function MetricPack({
 }: {
   formik: FormikContext<any>
   connector: GetMetricPacksQueryParams['dataSourceType']
-  value: any[]
+  value: MetricPackDTO[] | undefined
   onChange: (data: { [key: string]: boolean }) => void
   setSelectedMetricPacks: React.Dispatch<React.SetStateAction<MetricPackDTO[]>>
 }): JSX.Element {

@@ -1,9 +1,7 @@
 import React, { useContext, useCallback } from 'react'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
-import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
-import { createPayloadByConnectorType } from '../MonitoredServiceConnector.utils'
-import { createAppDynamicsData } from './AppDHealthSource.utils'
+import { createAppDynamicsData, createAppDynamicsPayload } from './AppDHealthSource.utils'
 import AppDMonitoredSource from './AppDHealthSource'
 
 interface AppDynamicsHealthSource {
@@ -17,7 +15,7 @@ export default function AppDHealthSourceContainer(props: AppDynamicsHealthSource
 
   const handleSubmit = useCallback(
     async (value: UpdatedHealthSource) => {
-      const appDynamicsPayload = createPayloadByConnectorType(value, HealthSoureSupportedConnectorTypes.APP_DYNAMICS)
+      const appDynamicsPayload = createAppDynamicsPayload(value)
       appDynamicsPayload && (await onSubmit(sourceData, appDynamicsPayload))
     },
     [sourceData]

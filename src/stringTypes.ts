@@ -4117,6 +4117,9 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.tierPlaceholder': string
   'cv.healthSource.connectors.AppDynamics.trierLabel': string
   'cv.healthSource.connectors.AppDynamics.validation.application': string
+  'cv.healthSource.connectors.AppDynamics.validation.basePath': string
+  'cv.healthSource.connectors.AppDynamics.validation.metricPath': string
+  'cv.healthSource.connectors.AppDynamics.validation.metricPathWithoutLeafNode': string
   'cv.healthSource.connectors.AppDynamics.validation.tier': string
   'cv.healthSource.connectors.NewRelic.applicationLabel': string
   'cv.healthSource.connectors.gco.selectDashboardTab': string
@@ -4214,8 +4217,14 @@ export interface StringsMap {
   'cv.monitoringSources.addQuery': string
   'cv.monitoringSources.appD.appDApplications': string
   'cv.monitoringSources.appD.appDTier': string
+  'cv.monitoringSources.appD.appdChartTitle': string
+  'cv.monitoringSources.appD.appdMetricDetail': string
+  'cv.monitoringSources.appD.appdPathDetail': string
+  'cv.monitoringSources.appD.appdPathTitle': string
+  'cv.monitoringSources.appD.basePathPlaceholder': string
   'cv.monitoringSources.appD.connectToMonitoringSource': string
   'cv.monitoringSources.appD.createConnectorText': string
+  'cv.monitoringSources.appD.defaultAppDMetricName': string
   'cv.monitoringSources.appD.envDescription': string
   'cv.monitoringSources.appD.errorsFound': string
   'cv.monitoringSources.appD.firstTimeSetupText': string
@@ -4231,9 +4240,13 @@ export interface StringsMap {
   'cv.monitoringSources.appD.mappedToHarnessEnvironment': string
   'cv.monitoringSources.appD.mappedToHarnessService': string
   'cv.monitoringSources.appD.mappingToHarnessService': string
+  'cv.monitoringSources.appD.metricPathPlaceholder': string
+  'cv.monitoringSources.appD.newGroupName': string
   'cv.monitoringSources.appD.noAppsMsg': string
   'cv.monitoringSources.appD.noData': string
   'cv.monitoringSources.appD.noTiersMsg': string
+  'cv.monitoringSources.appD.noValueBasePath': string
+  'cv.monitoringSources.appD.noValueMetricPath': string
   'cv.monitoringSources.appD.product.applicationMonitoring': string
   'cv.monitoringSources.appD.product.businessMonitoring': string
   'cv.monitoringSources.appD.product.endUserMonitoring': string

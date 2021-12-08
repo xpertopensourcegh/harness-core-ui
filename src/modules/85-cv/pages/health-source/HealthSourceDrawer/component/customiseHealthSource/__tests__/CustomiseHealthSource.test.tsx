@@ -41,7 +41,18 @@ jest.mock('services/cv', () => ({
   useGetAppDynamicsApplications: () =>
     jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
   useGetAppDynamicsTiers: () =>
-    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() }))
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetLabelNames: () =>
+    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetAppdynamicsBaseFolders: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetAppdynamicsMetricDataByPath: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetAppdynamicsMetricStructure: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() }))
 }))
 describe('CustomiseHealthSource', () => {
   test('Validate AppDynamics loads', () => {

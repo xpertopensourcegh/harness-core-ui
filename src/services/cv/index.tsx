@@ -5576,6 +5576,59 @@ export const getAppDynamicsApplicationsPromise = (
     signal
   )
 
+export interface GetAppdynamicsBaseFoldersQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  appName: string
+  path?: string
+}
+
+export type GetAppdynamicsBaseFoldersProps = Omit<
+  GetProps<ResponseListString, Failure | Error, GetAppdynamicsBaseFoldersQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics base folders for an application
+ */
+export const GetAppdynamicsBaseFolders = (props: GetAppdynamicsBaseFoldersProps) => (
+  <Get<ResponseListString, Failure | Error, GetAppdynamicsBaseFoldersQueryParams, void>
+    path={`/appdynamics/base-folders`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAppdynamicsBaseFoldersProps = Omit<
+  UseGetProps<ResponseListString, Failure | Error, GetAppdynamicsBaseFoldersQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics base folders for an application
+ */
+export const useGetAppdynamicsBaseFolders = (props: UseGetAppdynamicsBaseFoldersProps) =>
+  useGet<ResponseListString, Failure | Error, GetAppdynamicsBaseFoldersQueryParams, void>(`/appdynamics/base-folders`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get all appdynamics base folders for an application
+ */
+export const getAppdynamicsBaseFoldersPromise = (
+  props: GetUsingFetchProps<ResponseListString, Failure | Error, GetAppdynamicsBaseFoldersQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, Failure | Error, GetAppdynamicsBaseFoldersQueryParams, void>(
+    getConfig('cv/api'),
+    `/appdynamics/base-folders`,
+    props,
+    signal
+  )
+
 export interface GetAppdynamicsMetricDataByPathQueryParams {
   accountId?: string
   orgIdentifier?: string
@@ -5718,6 +5771,121 @@ export const getAppDynamicsMetricDataPromise = (
     MetricPackDTOArrayRequestBody,
     void
   >('POST', getConfig('cv/api'), `/appdynamics/metric-data`, props, signal)
+
+export interface GetAppdynamicsMetricStructureQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  appName: string
+  baseFolder: string
+  tier: string
+  metricPath: string
+}
+
+export type GetAppdynamicsMetricStructureProps = Omit<
+  GetProps<ResponseListAppDynamicsFileDefinition, Failure | Error, GetAppdynamicsMetricStructureQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics metric structure for an application
+ */
+export const GetAppdynamicsMetricStructure = (props: GetAppdynamicsMetricStructureProps) => (
+  <Get<ResponseListAppDynamicsFileDefinition, Failure | Error, GetAppdynamicsMetricStructureQueryParams, void>
+    path={`/appdynamics/metric-structure`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAppdynamicsMetricStructureProps = Omit<
+  UseGetProps<ResponseListAppDynamicsFileDefinition, Failure | Error, GetAppdynamicsMetricStructureQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics metric structure for an application
+ */
+export const useGetAppdynamicsMetricStructure = (props: UseGetAppdynamicsMetricStructureProps) =>
+  useGet<ResponseListAppDynamicsFileDefinition, Failure | Error, GetAppdynamicsMetricStructureQueryParams, void>(
+    `/appdynamics/metric-structure`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all appdynamics metric structure for an application
+ */
+export const getAppdynamicsMetricStructurePromise = (
+  props: GetUsingFetchProps<
+    ResponseListAppDynamicsFileDefinition,
+    Failure | Error,
+    GetAppdynamicsMetricStructureQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListAppDynamicsFileDefinition, Failure | Error, GetAppdynamicsMetricStructureQueryParams, void>(
+    getConfig('cv/api'),
+    `/appdynamics/metric-structure`,
+    props,
+    signal
+  )
+
+export interface GetServiceInstanceMetricPathQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  appName: string
+  baseFolder: string
+  tier: string
+  metricPath: string
+}
+
+export type GetServiceInstanceMetricPathProps = Omit<
+  GetProps<ResponseString, Failure | Error, GetServiceInstanceMetricPathQueryParams, void>,
+  'path'
+>
+
+/**
+ * get service instance metric path for an application and a metric path
+ */
+export const GetServiceInstanceMetricPath = (props: GetServiceInstanceMetricPathProps) => (
+  <Get<ResponseString, Failure | Error, GetServiceInstanceMetricPathQueryParams, void>
+    path={`/appdynamics/service-instance-metric-path`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceInstanceMetricPathProps = Omit<
+  UseGetProps<ResponseString, Failure | Error, GetServiceInstanceMetricPathQueryParams, void>,
+  'path'
+>
+
+/**
+ * get service instance metric path for an application and a metric path
+ */
+export const useGetServiceInstanceMetricPath = (props: UseGetServiceInstanceMetricPathProps) =>
+  useGet<ResponseString, Failure | Error, GetServiceInstanceMetricPathQueryParams, void>(
+    `/appdynamics/service-instance-metric-path`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get service instance metric path for an application and a metric path
+ */
+export const getServiceInstanceMetricPathPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, GetServiceInstanceMetricPathQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, GetServiceInstanceMetricPathQueryParams, void>(
+    getConfig('cv/api'),
+    `/appdynamics/service-instance-metric-path`,
+    props,
+    signal
+  )
 
 export interface GetAppDynamicsTiersQueryParams {
   accountId: string
