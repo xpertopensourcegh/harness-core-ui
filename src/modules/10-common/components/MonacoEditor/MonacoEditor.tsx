@@ -1,6 +1,10 @@
 import React, { MutableRefObject } from 'react'
 import ReactMonacoEditor from 'react-monaco-editor'
 import type { MonacoEditorProps } from 'react-monaco-editor'
+//@ts-ignore
+import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
+//@ts-ignore
+import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 
 export type ReactMonacoEditorRef =
   | ((instance: ReactMonacoEditor | null) => void)
@@ -38,6 +42,15 @@ const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRe
         'editor.background': '#f3f3fa'
       }
     })
+    //@ts-ignore
+    window.MonacoEnvironment = {
+      getWorker(_workerId: unknown, label: string) {
+        if (label === 'yaml') {
+          return new YamlWorker()
+        }
+        return new EditorWorker()
+      }
+    }
   }
 
   const theme = props.options?.readOnly ? 'disable-theme' : 'vs'

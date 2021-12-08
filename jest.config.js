@@ -50,6 +50,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.s?css$': 'identity-obj-proxy',
     'monaco-editor': '<rootDir>/node_modules/react-monaco-editor',
+    'worker-loader!.+': '<rootDir>/scripts/jest/file-mock.js',
     '\\.(jpg|jpeg|png|gif|svg|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/scripts/jest/file-mock.js',
     ...pathsToModuleNameMapper(compilerOptions.paths)

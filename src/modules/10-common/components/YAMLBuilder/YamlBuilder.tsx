@@ -6,10 +6,6 @@ import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { IKeyboardEvent, languages } from 'monaco-editor/esm/vs/editor/editor.api'
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
-//@ts-ignore
-import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
-//@ts-ignore
-import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 import { debounce, isEmpty, truncate, throttle, defaultTo, attempt, every } from 'lodash-es'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
@@ -83,16 +79,6 @@ const setUpEditor = (theme: Theme): void => {
   })
   //@ts-ignore
   monaco.editor.setTheme(getTheme(theme))
-
-  //@ts-ignore
-  window.MonacoEnvironment = {
-    getWorker(_workerId: unknown, label: string) {
-      if (label === 'yaml') {
-        return new YamlWorker()
-      }
-      return new EditorWorker()
-    }
-  }
 }
 
 const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.Element => {
