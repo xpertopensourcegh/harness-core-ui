@@ -169,20 +169,6 @@ const RedirectToCDProject = (): React.ReactElement => {
   }
 }
 
-const CDDashboardPageOrRedirect = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
-  const { selectedProject } = useAppStore()
-  const { CD_OVERVIEW_PAGE } = useFeatureFlags()
-
-  if (CD_OVERVIEW_PAGE) {
-    return <CDDashboardPage />
-  } else if (selectedProject?.modules?.includes(ModuleName.CD)) {
-    return <Redirect to={routes.toDeployments({ ...params, module: 'cd' })} />
-  } else {
-    return <Redirect to={routes.toCDHome(params)} />
-  }
-}
-
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
   const params = useParams<PipelineType<PipelinePathProps>>()
 
@@ -301,7 +287,7 @@ export default (
       path={routes.toProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
-      <CDDashboardPageOrRedirect />
+      <CDDashboardPage />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
