@@ -1,6 +1,8 @@
 import React from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 
+import { loggerFor } from 'framework/logging/logging'
+import { ModuleName } from 'framework/types/ModuleName'
 import { PermissionsContext } from 'framework/rbac/PermissionsContext'
 import { LicenseStoreContext } from 'framework/LicenseStore/LicenseStoreContext'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
@@ -15,6 +17,8 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import ChildAppError from './ChildAppError'
 import type { ChildAppProps, Scope } from './index'
 
+const logger = loggerFor(ModuleName.FRAMEWORK)
+
 export interface ChildAppMounterProps extends RouteComponentProps<Scope> {
   ChildApp: React.LazyExoticComponent<React.ComponentType<ChildAppProps>>
 }
@@ -28,7 +32,9 @@ export class ChildAppMounter extends React.Component<ChildAppMounterProps, Child
     hasError: false
   }
 
-  static getDerivedStateFromError(): ChildAppMounterState {
+  static getDerivedStateFromError(e: Error): ChildAppMounterState {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    logger.error(e.message, e as any)
     return { hasError: true }
   }
 
