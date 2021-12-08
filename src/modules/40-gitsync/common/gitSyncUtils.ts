@@ -167,7 +167,7 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModuleP
 
   useEffect(() => {
     const defaultQueryParamsForPipelines = {
-      ...pick(queryParam, ['projectIdentifier', 'module', 'orgIdentifier']),
+      ...pick(queryParam, ['projectIdentifier', 'orgIdentifier']),
       accountIdentifier: queryParam.accountId,
       searchTerm: '',
       page: 0,
