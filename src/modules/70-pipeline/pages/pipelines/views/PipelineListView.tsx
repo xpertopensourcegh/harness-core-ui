@@ -30,6 +30,7 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { Badge } from '@pipeline/pages/utils/Badge/Badge'
+import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
@@ -315,7 +316,7 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
         },
         permission: PermissionIdentifier.EXECUTE_PIPELINE
       }}
-      featuresProps={{ featuresRequest: { featureNames: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH] } }}
+      featuresProps={getFeaturePropsForRunPipelineButton(row.original.modules)}
       onClick={e => {
         e.stopPropagation()
         runPipeline()

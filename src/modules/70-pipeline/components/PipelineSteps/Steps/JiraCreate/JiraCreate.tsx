@@ -14,6 +14,7 @@ import type { JiraCreateVariableListModeProps, JiraCreateData } from './types'
 import { processFormData, processInitialValues } from './helper'
 import JiraCreateStepModeWithRef from './JiraCreateStepMode'
 import JiraCreateDeploymentMode from './JiraCreateDeploymentMode'
+import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 const JiraCreateDeploymentModeWithFormik = connect(JiraCreateDeploymentMode)
 export class JiraCreate extends PipelineStep<JiraCreateData> {
@@ -156,6 +157,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
           data={flatObject(customStepPropsTyped.variablesData)}
           originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
+          className={pipelineVariablesCss.variablePaddingL3}
         />
       )
     }

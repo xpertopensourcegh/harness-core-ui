@@ -119,6 +119,7 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
               stageId={stageNode?.uuid}
               canEdit={canEdit}
               canExecute={canExecute}
+              modules={pipelineExecutionDetail?.pipelineExecutionSummary?.modules}
             />
           </div>
           {times}

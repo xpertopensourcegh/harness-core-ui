@@ -456,7 +456,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
 exports[`Jira Create tests Basic snapshot - input variable view: jira-create-input variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL3"
   >
     <div
       class="variableListRow variable-list-row"

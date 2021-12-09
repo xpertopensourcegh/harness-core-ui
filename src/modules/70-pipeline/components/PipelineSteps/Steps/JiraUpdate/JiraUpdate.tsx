@@ -14,6 +14,7 @@ import type { JiraUpdateData, JiraUpdateVariableListModeProps } from './types'
 import { processFormData, processInitialValues } from './helper'
 import JiraUpdateStepModeWithRef from './JiraUpdateStepMode'
 import JiraUpdateDeploymentMode from './JiraUpdateDeploymentMode'
+import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 const JiraUpdateDeploymentModeWithFormik = connect(JiraUpdateDeploymentMode)
 export class JiraUpdate extends PipelineStep<JiraUpdateData> {
@@ -133,6 +134,7 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
           data={flatObject(customStepPropsTyped.variablesData)}
           originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
+          className={pipelineVariablesCss.variablePaddingL3}
         />
       )
     }

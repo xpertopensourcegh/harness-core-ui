@@ -22,7 +22,6 @@ import { TimeAgoPopover } from '@common/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
@@ -35,6 +34,7 @@ import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDial
 import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
+import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 
 import css from './PipelineCard.module.scss'
@@ -171,7 +171,6 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       accountId: string
     }>
   >()
-  const isCIModule = module === 'ci'
   const { isGitSyncEnabled } = { isGitSyncEnabled: true }
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const history = useHistory()
@@ -461,11 +460,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                 },
                 permission: PermissionIdentifier.EXECUTE_PIPELINE
               }}
-              featuresProps={{
-                featuresRequest: {
-                  featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
-                }
-              }}
+              featuresProps={getFeaturePropsForRunPipelineButton(pipeline.modules)}
               onClick={e => {
                 e.stopPropagation()
                 runPipeline()

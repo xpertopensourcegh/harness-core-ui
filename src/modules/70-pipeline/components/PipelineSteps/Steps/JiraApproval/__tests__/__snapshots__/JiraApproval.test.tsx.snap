@@ -192,7 +192,7 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
 exports[`Jira Approval tests Basic snapshot - input variable view: jira-approval-input variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL3"
   >
     <div
       class="variableListRow variable-list-row"

@@ -16,6 +16,7 @@ import {
   ExecutionStatus,
   isRetryPipelineAllowed
 } from '@pipeline/utils/statusHelpers'
+import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
@@ -52,6 +53,7 @@ export interface ExecutionActionsProps {
   canEdit?: boolean
   canExecute?: boolean
   canRetry?: boolean
+  modules?: string[]
 }
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
@@ -63,7 +65,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     canEdit = true,
     canExecute = true,
     stageName,
-    canRetry = false
+    canRetry = false,
+    modules
   } = props
   const {
     orgIdentifier,
@@ -76,7 +79,6 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     repoIdentifier,
     stagesExecuted
   } = params
-  const isCIModule = module === 'ci'
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
   const { mutate: stageInterrupt } = useHandleStageInterrupt({
     planExecutionId: executionIdentifier,
@@ -270,11 +272,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           onClick={reRunPipeline}
           {...commonButtonProps}
           disabled={!canExecute}
-          featuresProps={{
-            featuresRequest: {
-              featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
-            }
-          }}
+          featuresProps={getFeaturePropsForRunPipelineButton(modules)}
         />
       ) : null}
       {canPause ? (

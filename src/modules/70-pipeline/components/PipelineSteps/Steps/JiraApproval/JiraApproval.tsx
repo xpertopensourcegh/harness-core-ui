@@ -14,6 +14,7 @@ import type { JiraApprovalData, JiraApprovalVariableListModeProps } from './type
 import { getDefaultCriterias, processFormData, processInitialValues } from './helper'
 import JiraApprovalDeploymentMode from './JiraApprovalDeploymentMode'
 import JiraApprovalStepModeWithRef from './JiraApprovalStepMode'
+import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 const JiraApprovalDeploymentModeWithFormik = connect(JiraApprovalDeploymentMode)
 export class JiraApproval extends PipelineStep<JiraApprovalData> {
@@ -139,6 +140,7 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
           data={flatObject(customStepPropsTyped.variablesData)}
           originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
+          className={pipelineVariablesCss.variablePaddingL3}
         />
       )
     }

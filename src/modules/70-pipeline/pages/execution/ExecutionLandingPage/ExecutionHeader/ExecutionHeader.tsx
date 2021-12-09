@@ -117,6 +117,7 @@ export function ExecutionHeader(): React.ReactElement {
             canEdit={canEdit}
             canExecute={canExecute}
             canRetry={pipelineExecutionSummary.canRetry}
+            modules={pipelineExecutionSummary.modules}
           />
         </div>
       </div>

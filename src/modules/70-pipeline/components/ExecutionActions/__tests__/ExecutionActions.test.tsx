@@ -2,7 +2,9 @@ import React from 'react'
 import { render, fireEvent, findByText, act, RenderResult, waitFor } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
+import * as useFeaturesLib from '@common/hooks/useFeatures'
 import routes from '@common/RouteDefinitions'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { HandleInterruptQueryParams, useHandleInterrupt } from 'services/pipeline-ng'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
@@ -114,5 +116,39 @@ describe('<ExecutionActions /> tests', () => {
         }
       )
     })
+  })
+
+  test('if feature restriction is applied on rerun button', () => {
+    const mockFeaturesReturnMap = new Map()
+    mockFeaturesReturnMap.set(FeatureIdentifier.DEPLOYMENTS_PER_MONTH, { enabled: false })
+    mockFeaturesReturnMap.set(FeatureIdentifier.BUILDS, { enabled: false })
+
+    jest.spyOn(useFeaturesLib, 'useFeatures').mockReturnValue({
+      features: mockFeaturesReturnMap
+    })
+
+    const mutate = jest.fn()
+    ;(useHandleInterrupt as jest.Mock).mockImplementation(() => ({
+      mutate,
+      loading: true,
+      data: null
+    }))
+
+    let result: RenderResult
+
+    act(() => {
+      result = render(
+        <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+          <ExecutionActions
+            params={pathParams as any}
+            executionStatus="Expired"
+            refetch={jest.fn()}
+            modules={['cd', 'ci']}
+          />
+        </TestWrapper>
+      )
+    })
+
+    expect(result!.container).toMatchSnapshot('repeat button should be disabled as cd, ci are not allowed')
   })
 })

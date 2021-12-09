@@ -1,5 +1,6 @@
 import type { AllNGVariables } from '@pipeline/utils/types'
-import { mergeTemplateWithInputSetData } from '../runPipelineUtils'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { getFeaturePropsForRunPipelineButton, mergeTemplateWithInputSetData } from '../runPipelineUtils'
 import pipelineTemplate from './mockJson/pipelineTemplate.json'
 import pipelineInputSetPortion from './mockJson/pipelineInputSetPortion.json'
 describe('RunPipelineHelper', () => {
@@ -86,5 +87,53 @@ describe('RunPipelineHelper', () => {
     expect((output.pipeline.stages?.[0].stage?.variables?.[0] as AllNGVariables)?.value).toEqual('<+input>')
     expect((output.pipeline.stages?.[0].stage?.variables?.[1] as AllNGVariables)?.value).toEqual('v2_test')
     expect(output.pipeline.stages?.length).toEqual(1)
+  })
+})
+
+describe('getFeaturePropsForRunPipelineButton tests', () => {
+  test('if no modules supplied, returns undefined', () => {
+    const result = getFeaturePropsForRunPipelineButton()
+    expect(result).toBeUndefined()
+  })
+
+  test('if empty modules supplied, returns undefined', () => {
+    const result = getFeaturePropsForRunPipelineButton([])
+    expect(result).toBeUndefined()
+  })
+
+  test('if only cd module supplied', () => {
+    const result = getFeaturePropsForRunPipelineButton(['cd'])
+    expect(result).toStrictEqual({
+      featuresRequest: {
+        featureNames: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
+      }
+    })
+  })
+
+  test('if only ci module supplied', () => {
+    const result = getFeaturePropsForRunPipelineButton(['ci'])
+    expect(result).toStrictEqual({
+      featuresRequest: {
+        featureNames: [FeatureIdentifier.BUILDS]
+      }
+    })
+  })
+
+  test('if cd and ci modules supplied', () => {
+    const result = getFeaturePropsForRunPipelineButton(['cd', 'ci'])
+    expect(result).toStrictEqual({
+      featuresRequest: {
+        featureNames: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH, FeatureIdentifier.BUILDS]
+      }
+    })
+  })
+
+  test('if a random module supplied', () => {
+    const result = getFeaturePropsForRunPipelineButton(['random'])
+    expect(result).toStrictEqual({
+      featuresRequest: {
+        featureNames: []
+      }
+    })
   })
 })

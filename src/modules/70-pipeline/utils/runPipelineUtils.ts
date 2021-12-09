@@ -1,5 +1,7 @@
 import { getStageFromPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/helpers'
 import type { AllNGVariables } from '@pipeline/utils/types'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { FeaturesProps } from 'framework/featureStore/featureStoreUtil'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 
@@ -115,4 +117,25 @@ export const getMergedVariables = (
     return variable
   })
   return finalVariables as AllNGVariables[]
+}
+
+/*
+  Get features restriction to pass to 'run' pipeline button based on the modules the pipeline supports
+*/
+export const getFeaturePropsForRunPipelineButton = (modules?: string[]): FeaturesProps | undefined => {
+  if (!modules || !modules?.length) {
+    return undefined
+  }
+  const featureIdentifiers: FeatureIdentifier[] = []
+  if (modules.includes('cd')) {
+    featureIdentifiers.push(FeatureIdentifier.DEPLOYMENTS_PER_MONTH)
+  }
+  if (modules.includes('ci')) {
+    featureIdentifiers.push(FeatureIdentifier.BUILDS)
+  }
+  return {
+    featuresRequest: {
+      featureNames: featureIdentifiers
+    }
+  }
 }

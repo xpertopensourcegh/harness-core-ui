@@ -359,7 +359,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
 exports[`Jira Update tests Basic snapshot - input variable view: jira-update-input variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL3"
   >
     <div
       class="variableListRow variable-list-row"

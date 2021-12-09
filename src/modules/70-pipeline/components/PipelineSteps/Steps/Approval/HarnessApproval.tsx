@@ -20,6 +20,7 @@ import { processFormData, processForInitialValues } from './helper'
 import HarnessApprovalDeploymentMode from './HarnessApprovalDeploymentMode'
 import HarnessApprovalStepModeWithRef from './HarnessApprovalStepMode'
 import type { HarnessApprovalData, HarnessApprovalVariableListModeProps } from './types'
+import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 const UserGroupRegex = /^.+step\.spec\.approvers\.userGroups$/
 const logger = loggerFor(ModuleName.CD)
@@ -226,6 +227,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
           data={flatObject(customStepPropsTyped.variablesData)}
           originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
+          className={pipelineVariablesCss.variablePaddingL3}
         />
       )
     }
