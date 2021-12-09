@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test cases for Workload details Page should be able to render the details page 1`] = `
+exports[`test cases for Node details Page should be able to render the details page 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
@@ -148,7 +148,7 @@ exports[`test cases for Workload details Page should be able to render the detai
           <p
             class="StyledProps--font StyledProps--main headingText"
           >
-            ce.perspectives.workloadDetails.workloadDetailsText
+            ce.perspectives.nodeDetails.nodeDetailsText
           </p>
           <div
             class="Layout--horizontal StyledProps--main"
@@ -162,14 +162,14 @@ exports[`test cases for Workload details Page should be able to render the detai
                   style="--text-line-clamp: 1; width: 132px;"
                 >
                   <span>
-                    ce.perspectives.workloadDetails.fieldNames.workload
+                    ce.perspectives.workloadDetails.fieldNames.node
                   </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                   style="--text-line-clamp: 1; width: 160px;"
                 >
-                  aks-cd-ddbksb
+                  name
                 </p>
               </div>
               <div
@@ -180,32 +180,14 @@ exports[`test cases for Workload details Page should be able to render the detai
                   style="--text-line-clamp: 1; width: 132px;"
                 >
                   <span>
-                    ce.perspectives.workloadDetails.fieldNames.namespace
+                    ce.perspectives.workloadDetails.fieldNames.nodepoolName
                   </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                   style="--text-line-clamp: 1; width: 160px;"
                 >
-                  harness-delegate
-                </p>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main keyValueTable"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
-                  style="--text-line-clamp: 1; width: 132px;"
-                >
-                  <span>
-                    ce.perspectives.workloadDetails.fieldNames.workloadType
-                  </span>
-                </p>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
-                  style="--text-line-clamp: 1; width: 160px;"
-                >
-                  StatefulSet
+                  ng-f925fa8a
                 </p>
               </div>
               <div
@@ -223,7 +205,135 @@ exports[`test cases for Workload details Page should be able to render the detai
                   class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                   style="--text-line-clamp: 1; width: 160px;"
                 >
-                  ce-test-dontdelete
+                  eks-custom-pricing
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main keyValueTable"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 1; width: 132px;"
+                >
+                  <span>
+                    ce.perspectives.workloadDetails.fieldNames.createTime
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                  style="--text-line-clamp: 1; width: 160px;"
+                >
+                  Apr 29, 2021 02:14 pm
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main keyValueTable"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 1; width: 132px;"
+                >
+                  <span>
+                    ce.perspectives.workloadDetails.fieldNames.deleteTime
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                  style="--text-line-clamp: 1; width: 160px;"
+                >
+                  -
+                </p>
+              </div>
+            </div>
+            <div>
+              <div
+                class="Layout--horizontal StyledProps--main keyValueTable"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 1; width: 132px;"
+                >
+                  <span>
+                    ce.perspectives.workloadDetails.fieldNames.machineType
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                  style="--text-line-clamp: 1; width: 160px;"
+                >
+                  linux
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main keyValueTable"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 1; width: 132px;"
+                >
+                  <span>
+                    ce.perspectives.workloadDetails.fieldNames.cpuAllocatable
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                  style="--text-line-clamp: 1; width: 160px;"
+                >
+                  2 vCPU
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main keyValueTable"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 1; width: 132px;"
+                >
+                  <span>
+                    ce.perspectives.workloadDetails.fieldNames.memoryAllocatable
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                  style="--text-line-clamp: 1; width: 160px;"
+                >
+                  8 GB
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main keyValueTable"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 1; width: 132px;"
+                >
+                  <span>
+                    ce.perspectives.workloadDetails.fieldNames.instanceCategory
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                  style="--text-line-clamp: 1; width: 160px;"
+                >
+                  ON_DEMAND
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main keyValueTable"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 1; width: 132px;"
+                >
+                  <span>
+                    ce.perspectives.workloadDetails.fieldNames.podCapacity
+                  </span>
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                  style="--text-line-clamp: 1; width: 160px;"
+                >
+                  29
                 </p>
               </div>
             </div>
@@ -253,7 +363,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                 class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                 style="--text-line-clamp: 1; width: 160px;"
               >
-                $3.12
+                $77.28
               </p>
             </div>
             <div
@@ -269,7 +379,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                 class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                 style="--text-line-clamp: 1; width: 160px;"
               >
-                $2.09 (66.99% of total)
+                $29.95 (38.76% of total)
               </p>
             </div>
             <div
@@ -285,7 +395,39 @@ exports[`test cases for Workload details Page should be able to render the detai
                 class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                 style="--text-line-clamp: 1; width: 160px;"
               >
-                $1.03 (33.01% of total)
+                $47.33 (61.24% of total)
+              </p>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main keyValueTable"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                style="--text-line-clamp: 1; width: 132px;"
+              >
+                Unallocated Cost
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                style="--text-line-clamp: 1; width: 160px;"
+              >
+                $0 (0.0% of total)
+              </p>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main keyValueTable"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
+                style="--text-line-clamp: 1; width: 132px;"
+              >
+                System Cost
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
+                style="--text-line-clamp: 1; width: 160px;"
+              >
+                $12.53 (16.21% of total)
               </p>
             </div>
           </div>
@@ -310,22 +452,14 @@ exports[`test cases for Workload details Page should be able to render the detai
               ce.perspectives.workloadDetails.aggregation.text
             </p>
             <div
-              class="aggregationTags active"
-            >
-              <span
-                data-tooltip-id="workloadRecommendationTimeWeighted"
-              >
-                ce.perspectives.workloadDetails.aggregation.timeWeighted
-              </span>
-            </div>
-            <div
               class="aggregationTags"
             >
-              <span
-                data-tooltip-id="workloadRecommendationAbsolute"
-              >
-                ce.perspectives.workloadDetails.aggregation.absolute
-              </span>
+              ce.perspectives.nodeDetails.aggregation.maximum
+            </div>
+            <div
+              class="aggregationTags active"
+            >
+              ce.perspectives.nodeDetails.aggregation.average
             </div>
           </div>
         </div>
@@ -525,7 +659,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                         <span
                           class="name"
                         >
-                          aks-cd-ddbksb-0
+                          eks-custom-delegate-zeaakf-0
                         </span>
                       </span>
                     </div>
@@ -539,7 +673,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                       class="cellValue"
                     >
                       <div>
-                        Jun 24, 2021 04:43 am
+                        Apr 29, 2021 02:13 pm
                       </div>
                     </div>
                   </div>
@@ -551,9 +685,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                     <div
                       class="cellValue"
                     >
-                      <div>
-                        Jul 22, 2021 11:49 am
-                      </div>
+                      -
                     </div>
                   </div>
                   <div
@@ -575,7 +707,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                     <div
                       class="cellValue"
                     >
-                      4
+                      5
                     </div>
                   </div>
                   <div
@@ -587,7 +719,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                       class="cellValue"
                     >
                       <span>
-                        $3.12
+                        $43.47
                       </span>
                     </div>
                   </div>
@@ -600,7 +732,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                       class="cellValue"
                     >
                       <span>
-                        $2.09
+                        $29.07
                       </span>
                     </div>
                   </div>
@@ -612,7 +744,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                     <div
                       class="cellValue"
                     >
-                      aks-cd-ddbksb
+                      eks-custom-delegate-zeaakf
                     </div>
                   </div>
                   <div
@@ -624,6 +756,133 @@ exports[`test cases for Workload details Page should be able to render the detai
                       class="cellValue"
                     >
                       harness-delegate
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tr"
+                  role="row"
+                  style="display: flex; width: 1850px;"
+                >
+                  <div
+                    class="td name"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 250px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      <span
+                        class="nameCell"
+                      >
+                        <span
+                          class="legendColorCtn"
+                        >
+                          <span
+                            class="legendColor"
+                            style="background: rgb(138, 119, 222);"
+                          />
+                        </span>
+                        <span
+                          class="name"
+                        >
+                          kubecost-cost-analyzer-546c584bbb-r5556
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="td"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      <div>
+                        Apr 29, 2021 02:12 pm
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="td"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      -
+                    </div>
+                  </div>
+                  <div
+                    class="td"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      0.31
+                    </div>
+                  </div>
+                  <div
+                    class="td"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      0.16
+                    </div>
+                  </div>
+                  <div
+                    class="td"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      <span>
+                        $25.21
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="td idle-cost cost-column"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      <span>
+                        $0.90
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="td workload-name"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      kubecost-cost-analyzer
+                    </div>
+                  </div>
+                  <div
+                    class="td workload-namespace"
+                    role="cell"
+                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                  >
+                    <div
+                      class="cellValue"
+                    >
+                      kubecost
                     </div>
                   </div>
                 </div>

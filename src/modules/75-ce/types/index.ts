@@ -49,7 +49,8 @@ export enum TimeRangeType {
 }
 
 export enum CCM_PAGE_TYPE {
-  Workload = 'WORKLOAD'
+  Workload = 'WORKLOAD',
+  Node = 'NODE'
 }
 
 export interface YamlDependency {

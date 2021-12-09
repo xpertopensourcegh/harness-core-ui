@@ -26,6 +26,7 @@ export interface PerspectiveGridProps {
   fetchData?: (pageIndex: number, pageSize: number) => void
   pageSize?: number
   gridPageIndex?: number
+  goToNodeDetails?: (clusterName: string, nodeId: string) => void
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -43,7 +44,8 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     totalItemCount,
     pageSize,
     gridPageIndex,
-    fetchData
+    fetchData,
+    goToNodeDetails
   } = props
 
   const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
@@ -92,6 +94,10 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
         namespace &&
         workloadName &&
         goToWorkloadDetails(clusterName, namespace, workloadName)
+    }
+    if (fieldName === 'Node' && isClusterOnly) {
+      const { clusterName, nodeId } = row.original as any
+      goToNodeDetails && clusterName && nodeId && goToNodeDetails(clusterName, nodeId)
     }
   }
 
