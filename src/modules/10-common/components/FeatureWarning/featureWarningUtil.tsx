@@ -77,23 +77,38 @@ export const ExplorePlansBtn = ({ featureName, size }: ExplorePlansBtnProps): Re
     <Button
       variation={ButtonVariation.SECONDARY}
       size={size || ButtonSize.SMALL}
-      onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: planModule, tab: 'PLANS' }))}
+      onClick={e => {
+        e.preventDefault()
+        e.stopPropagation()
+        history.push(routes.toSubscriptions({ accountId, moduleCard: planModule, tab: 'PLANS' }))
+      }}
     >
       {getString('common.explorePlans')}
     </Button>
   )
 }
 
-export const ViewUsageLink = ({ size, featureName }: ExplorePlansBtnProps): ReactElement => {
-  const { getString } = useStrings()
+function useRedirectToOverviewPage(featureName: FeatureIdentifier): (e: React.MouseEvent<Element, MouseEvent>) => void {
   const history = useHistory()
   const { accountId } = useParams<AccountPathProps>()
   const planModule = useGetFeaturePlanModule(featureName)
+  return (e: React.MouseEvent<Element, MouseEvent>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    history.push(routes.toSubscriptions({ accountId, moduleCard: planModule, tab: 'OVERVIEW' }))
+  }
+}
+
+export const ViewUsageLink = ({ size, featureName }: ExplorePlansBtnProps): ReactElement => {
+  const { getString } = useStrings()
+  const redirectToOverviewPage = useRedirectToOverviewPage(featureName)
   return (
     <Button
       variation={ButtonVariation.LINK}
       size={size || ButtonSize.SMALL}
-      onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: planModule, tab: 'OVERVIEW' }))}
+      onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
+        redirectToOverviewPage(e)
+      }}
     >
       {capitalize(getString('common.viewUsage'))}
     </Button>
@@ -121,14 +136,14 @@ export const UpgradeRequiredText = ({ message }: { message: string }): ReactElem
 
 export const ManageSubscriptionBtn = ({ featureName, size }: ExplorePlansBtnProps): ReactElement => {
   const { getString } = useStrings()
-  const history = useHistory()
-  const { accountId } = useParams<AccountPathProps>()
-  const planModule = useGetFeaturePlanModule(featureName)
+  const redirectToOverviewPage = useRedirectToOverviewPage(featureName)
   return (
     <Button
       variation={ButtonVariation.SECONDARY}
       size={size || ButtonSize.SMALL}
-      onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: planModule, tab: 'OVERVIEW' }))}
+      onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
+        redirectToOverviewPage(e)
+      }}
     >
       {getString('common.manageSubscription')}
     </Button>
@@ -142,7 +157,9 @@ export const ExploreSaasPlansBtn = ({ size }: { size?: ButtonSize }): ReactEleme
     <Button
       variation={ButtonVariation.SECONDARY}
       size={size || ButtonSize.SMALL}
-      onClick={() => {
+      onClick={e => {
+        e.preventDefault()
+        e.stopPropagation()
         window.open('https://harness.io/pricing/', '_blank')
       }}
     >

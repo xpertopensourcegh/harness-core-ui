@@ -44,9 +44,9 @@ const OrganizationsPage: React.FC = () => {
           resourceType: ResourceType.ORGANIZATION
         }
       }}
-      featureProps={{
-        featureRequest: {
-          featureName: FeatureIdentifier.MULTIPLE_ORGANIZATIONS
+      featuresProps={{
+        featuresRequest: {
+          featureNames: [FeatureIdentifier.MULTIPLE_ORGANIZATIONS]
         }
       }}
     />

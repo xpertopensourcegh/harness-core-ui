@@ -114,9 +114,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
             <Layout.Horizontal spacing="large" flex>
               <RbacButton
                 variation={ButtonVariation.PRIMARY}
-                featureProps={{
-                  featureRequest: {
-                    featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+                featuresProps={{
+                  featuresRequest: {
+                    featureNames: [FeatureIdentifier.MULTIPLE_PROJECTS]
                   }
                 }}
                 large

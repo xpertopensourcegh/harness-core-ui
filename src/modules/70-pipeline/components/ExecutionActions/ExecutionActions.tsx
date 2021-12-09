@@ -270,9 +270,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           onClick={reRunPipeline}
           {...commonButtonProps}
           disabled={!canExecute}
-          featureProps={{
-            featureRequest: {
-              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
+          featuresProps={{
+            featuresRequest: {
+              featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
             }
           }}
         />

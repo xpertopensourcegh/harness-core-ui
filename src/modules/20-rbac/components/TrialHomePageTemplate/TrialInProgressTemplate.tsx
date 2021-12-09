@@ -45,9 +45,9 @@ const TrialInProgressComponent: React.FC<TrialInProgressProps> = trialInProgress
       <Layout.Horizontal spacing="small">
         {startBtn.description === getString('createProject') ? (
           <RbacButton
-            featureProps={{
-              featureRequest: {
-                featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+            featuresProps={{
+              featuresRequest: {
+                featureNames: [FeatureIdentifier.MULTIPLE_PROJECTS]
               }
             }}
             width={200}

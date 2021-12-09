@@ -1,17 +1,18 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { pick } from 'lodash-es'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
 import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
-import { useFeature } from '@common/hooks/useFeatures'
+import { useFeatures } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { FeatureProps } from 'framework/featureStore/featureStoreUtil'
+import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { FeaturesProps } from 'framework/featureStore/featureStoreUtil'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 
 export interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
-  featureProps?: FeatureProps
+  featuresProps?: FeaturesProps
 }
 
 export interface BtnProps {
@@ -22,12 +23,12 @@ export interface BtnProps {
 
 const RbacButton: React.FC<ButtonProps> = ({
   permission: permissionRequest,
-  featureProps,
+  featuresProps,
   tooltipProps,
   ...restProps
 }) => {
-  const { enabled: featureEnabled } = useFeature({
-    featureRequest: featureProps?.featureRequest
+  const { features } = useFeatures({
+    featuresRequest: featuresProps?.featuresRequest
   })
   const [canDoAction] = usePermission(
     {
@@ -37,9 +38,23 @@ const RbacButton: React.FC<ButtonProps> = ({
     [permissionRequest]
   )
 
+  const keys = useMemo(() => {
+    return [...features.keys()]
+  }, [features])
+
+  const firstDisabledFeatureIndex: number = useMemo(() => {
+    const values = [...features.values()]
+    return values.findIndex(feature => !feature.enabled)
+  }, [features])
+
+  const featureEnabled = firstDisabledFeatureIndex === -1
+  const disabledFeatureName = useMemo(() => {
+    return !featureEnabled ? keys[firstDisabledFeatureIndex] : undefined
+  }, [featureEnabled, keys, firstDisabledFeatureIndex])
+
   function getBtnProps(): BtnProps {
     // if permission check override the priorirty
-    if (featureProps?.isPermissionPrioritized && permissionRequest && !canDoAction) {
+    if (featuresProps?.isPermissionPrioritized && permissionRequest && !canDoAction) {
       return {
         disabled: true,
         tooltip: (
@@ -53,11 +68,11 @@ const RbacButton: React.FC<ButtonProps> = ({
     }
 
     // feature check by default take priority
-    if (featureProps?.featureRequest && !featureEnabled) {
+    if (featuresProps?.featuresRequest && disabledFeatureName) {
       return {
         disabled: true,
         darkTheme: false,
-        tooltip: <FeatureWarningTooltip featureName={featureProps?.featureRequest.featureName} />
+        tooltip: <FeatureWarningTooltip featureName={disabledFeatureName as FeatureIdentifier} />
       }
     }
 
@@ -80,7 +95,7 @@ const RbacButton: React.FC<ButtonProps> = ({
     }
   }
 
-  if (!featureProps?.featureRequest && !permissionRequest) {
+  if (!featuresProps?.featuresRequest && !permissionRequest) {
     return <CoreButton {...restProps} tooltipProps={tooltipProps} />
   }
 

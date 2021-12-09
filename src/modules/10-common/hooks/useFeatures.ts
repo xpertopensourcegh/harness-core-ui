@@ -135,13 +135,18 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
     return { features }
   }
 
-  limitFeatures.forEach(featureName => {
-    features.set(featureName, checkLimitFeature(featureName))
-  })
-
-  availFeatures.forEach(featureName => {
-    features.set(featureName, checkFeature(featureName))
-  })
+  // re-order the returned features by the order they are passed in
+  if (featuresRequest) {
+    const { featureNames } = featuresRequest
+    featureNames.forEach(featureName => {
+      if (limitFeatures.includes(featureName)) {
+        features.set(featureName, checkLimitFeature(featureName))
+      }
+      if (availFeatures.includes(featureName)) {
+        features.set(featureName, checkFeature(featureName))
+      }
+    })
+  }
 
   return { features }
 }

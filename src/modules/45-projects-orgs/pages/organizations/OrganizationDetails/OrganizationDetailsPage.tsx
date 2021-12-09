@@ -148,9 +148,9 @@ const OrganizationDetailsPage: React.FC = () => {
                   </Text>
                   <Layout.Horizontal spacing="small" padding={{ left: 'xxlarge' }}>
                     <RbacButton
-                      featureProps={{
-                        featureRequest: {
-                          featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+                      featuresProps={{
+                        featuresRequest: {
+                          featureNames: [FeatureIdentifier.MULTIPLE_PROJECTS]
                         }
                       }}
                       variation={ButtonVariation.PRIMARY}

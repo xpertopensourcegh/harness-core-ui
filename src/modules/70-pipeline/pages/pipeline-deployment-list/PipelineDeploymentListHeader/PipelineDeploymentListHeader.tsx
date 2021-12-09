@@ -91,9 +91,9 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
               skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
             }
           }}
-          featureProps={{
-            featureRequest: {
-              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
+          featuresProps={{
+            featuresRequest: {
+              featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
             }
           }}
         >

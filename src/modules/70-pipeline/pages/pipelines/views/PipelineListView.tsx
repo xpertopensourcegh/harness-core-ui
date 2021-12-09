@@ -315,7 +315,7 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
         },
         permission: PermissionIdentifier.EXECUTE_PIPELINE
       }}
-      featureProps={{ featureRequest: { featureName: FeatureIdentifier.DEPLOYMENTS_PER_MONTH } }}
+      featuresProps={{ featuresRequest: { featureNames: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH] } }}
       onClick={e => {
         e.stopPropagation()
         runPipeline()

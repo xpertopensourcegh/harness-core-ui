@@ -74,9 +74,9 @@ const ResourceGroupsList: React.FC = () => {
                   projectIdentifier
                 }
               }}
-              featureProps={{
-                featureRequest: {
-                  featureName: FeatureIdentifier.CUSTOM_RESOURCE_GROUPS
+              featuresProps={{
+                featuresRequest: {
+                  featureNames: [FeatureIdentifier.CUSTOM_RESOURCE_GROUPS]
                 }
               }}
             />

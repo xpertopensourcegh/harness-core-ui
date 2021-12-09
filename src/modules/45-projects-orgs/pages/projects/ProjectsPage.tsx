@@ -132,9 +132,9 @@ const ProjectsListPage: React.FC = () => {
       {data?.data?.totalItems || searchParam || loading || error || orgIdentifier ? (
         <Layout.Horizontal spacing="large" className={css.header}>
           <RbacButton
-            featureProps={{
-              featureRequest: {
-                featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+            featuresProps={{
+              featuresRequest: {
+                featureNames: [FeatureIdentifier.MULTIPLE_PROJECTS]
               }
             }}
             variation={ButtonVariation.PRIMARY}

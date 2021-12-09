@@ -69,9 +69,9 @@ const LandingDashboardWelcomeView: React.FC<WelcomeViewProps> = props => {
             </Heading>
           </Layout.Vertical>
           <RbacButton
-            featureProps={{
-              featureRequest: {
-                featureName: FeatureIdentifier.MULTIPLE_PROJECTS
+            featuresProps={{
+              featuresRequest: {
+                featureNames: [FeatureIdentifier.MULTIPLE_PROJECTS]
               }
             }}
             variation={ButtonVariation.PRIMARY}

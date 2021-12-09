@@ -147,9 +147,9 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
         e.stopPropagation()
         runPipeline()
       }}
-      featureProps={{
-        featureRequest: {
-          featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
+      featuresProps={{
+        featuresRequest: {
+          featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
         }
       }}
       permission={{

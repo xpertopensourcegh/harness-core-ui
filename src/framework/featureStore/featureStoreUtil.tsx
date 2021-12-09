@@ -26,6 +26,11 @@ export interface FeatureProps {
   isPermissionPrioritized?: boolean
 }
 
+export interface FeaturesProps {
+  featuresRequest: FeaturesRequest
+  isPermissionPrioritized?: boolean
+}
+
 export interface CheckFeatureReturn {
   enabled: boolean
   featureDetail?: FeatureDetail

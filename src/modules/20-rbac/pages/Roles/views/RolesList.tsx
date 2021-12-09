@@ -83,9 +83,9 @@ const RolesList: React.FC = () => {
           projectIdentifier
         }
       }}
-      featureProps={{
-        featureRequest: {
-          featureName: FeatureIdentifier.CUSTOM_ROLES
+      featuresProps={{
+        featuresRequest: {
+          featureNames: [FeatureIdentifier.CUSTOM_ROLES]
         }
       }}
     />
