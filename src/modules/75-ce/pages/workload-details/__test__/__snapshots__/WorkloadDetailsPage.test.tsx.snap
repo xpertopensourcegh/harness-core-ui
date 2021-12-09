@@ -312,12 +312,20 @@ exports[`test cases for Workload details Page should be able to render the detai
             <div
               class="aggregationTags active"
             >
-              ce.perspectives.workloadDetails.aggregation.timeWeighted
+              <span
+                data-tooltip-id="workloadRecommendationTimeWeighted"
+              >
+                ce.perspectives.workloadDetails.aggregation.timeWeighted
+              </span>
             </div>
             <div
               class="aggregationTags"
             >
-              ce.perspectives.workloadDetails.aggregation.absolute
+              <span
+                data-tooltip-id="workloadRecommendationAbsolute"
+              >
+                ce.perspectives.workloadDetails.aggregation.absolute
+              </span>
             </div>
           </div>
         </div>

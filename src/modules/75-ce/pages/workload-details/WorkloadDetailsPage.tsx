@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Container, Text, FlexExpander, Layout, Color } from '@wings-software/uicore'
+import { Container, Text, FlexExpander, Layout, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import cx from 'classnames'
@@ -239,7 +239,10 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
                       setChartDataAggregation(Aggregation.TimeWeighted)
                     }}
                   >
-                    {getString('ce.perspectives.workloadDetails.aggregation.timeWeighted')}
+                    <span data-tooltip-id="workloadRecommendationTimeWeighted">
+                      {getString('ce.perspectives.workloadDetails.aggregation.timeWeighted')}
+                    </span>
+                    <HarnessDocTooltip tooltipId="workloadRecommendationTimeWeighted" useStandAlone={true} />
                   </div>
                   <div
                     className={cx(css.aggregationTags, {
@@ -249,7 +252,10 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
                       setChartDataAggregation(Aggregation.Absolute)
                     }}
                   >
-                    {getString('ce.perspectives.workloadDetails.aggregation.absolute')}
+                    <span data-tooltip-id="workloadRecommendationAbsolute">
+                      {getString('ce.perspectives.workloadDetails.aggregation.absolute')}
+                    </span>
+                    <HarnessDocTooltip tooltipId="workloadRecommendationAbsolute" useStandAlone={true} />
                   </div>
                 </Layout.Horizontal>
               </Container>
