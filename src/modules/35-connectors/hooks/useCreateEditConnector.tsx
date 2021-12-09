@@ -45,8 +45,8 @@ export default function useCreateEditConnector<T>(props: UseCreateEditConnector)
 
   const [connectorPayload, setConnectorPayload] = useState<Connector>({})
   const [connectorResponse, setConnectorResponse] = useState<UseSaveSuccessResponse>()
+  const [connectorData, setConnectorData] = useState<T & BuildPayloadProps>({} as T & BuildPayloadProps)
   let gitDetails = props.gitDetails
-  let connectorData: T & BuildPayloadProps
 
   const { mutate: createConnector, loading: creating } = useCreateConnector({
     queryParams: { accountIdentifier: props.accountId }
@@ -131,7 +131,7 @@ export default function useCreateEditConnector<T>(props: UseCreateEditConnector)
       customHandleCreate,
       customHandleUpdate
     }: OnInitiateConnectorCreateEditProps<T & BuildPayloadProps>) => {
-      connectorData = connectorFormData
+      setConnectorData(connectorFormData)
       const payload = buildPayload(connectorFormData)
       setConnectorPayload(payload)
       if (props.isGitSyncEnabled) {
