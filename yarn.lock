@@ -978,7 +978,6 @@
   version "7.14.7"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-destructuring/-/plugin-transform-destructuring-7.14.7.tgz#0ad58ed37e23e22084d109f185260835e5557576"
   integrity sha512-0mDE99nK+kVh3xlc5vKwB6wnP9ecuSj+zQCa/n0voENtP/zymdT4HH6QEb65wjjcbqr1Jb/7z9Qp7TF5FtwYGw==
-  
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
@@ -5176,10 +5175,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.476":
-  version "0.1.476"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.476/8cb2feab1227d9dae348992982194ce6db759d89b7f5cc6311333d1ff21af0c4#ea073ae9571bd8d33e71d0efe619bc03d277ee32"
-  integrity sha512-QmeAloGLQ9JrORdGAZiSK9UHVfUQu7yetwT+ochvsy3yKxKJDRU1pLG0DpCRVAF7EUaPoQ8bcIhWM9Onc/1TEw==
+"@wings-software/uicore@0.1.480":
+  version "0.1.480"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.480/f93cb14401bdac7d0b102ecdf911f7755bac7b5102c4c884a42db75424ba62a6#dff0ce032c869e41386b848c1ef1ec39106c0111"
+  integrity sha512-OvggazjQXMHWxOXuA/5tAQjZd3JvKeZLYmS+lXJugztPyYG2jyKLmky+Z9xnyne3guNCEjnOR9JG0T8JLzHzDg==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
