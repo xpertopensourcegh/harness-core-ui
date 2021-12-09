@@ -148,7 +148,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     accountId,
     isEditMode: props.isEditMode,
     isGitSyncEnabled,
-    afterSuccessHandler
+    afterSuccessHandler,
+    gitDetails: props.gitDetails
   })
 
   const isSaveButtonDisabled =

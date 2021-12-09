@@ -89,7 +89,8 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
     accountId,
     isEditMode: props.isEditMode,
     isGitSyncEnabled,
-    afterSuccessHandler
+    afterSuccessHandler,
+    gitDetails: props.gitDetails
   })
 
   let stepDataRef: ConnectorConfigDTO | null = null
