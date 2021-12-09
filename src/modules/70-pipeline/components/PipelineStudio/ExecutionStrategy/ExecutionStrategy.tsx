@@ -38,7 +38,7 @@ const iconMap: { [key: string]: IconName } = {
   Canary: 'canary-icon',
   BlueGreen: 'blue-green',
   Default: 'blank-canvas-card-icon',
-  Basic: 'blank-canvas-card-icon'
+  Basic: 'basic-deployment'
 }
 
 const imageByType: { [key: string]: string } = {

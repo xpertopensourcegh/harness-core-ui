@@ -63,7 +63,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   )
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const getDeploymentType = (): string => {
-    // Default deployment type needs to be changed to null, after native helm integration
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
   }
 

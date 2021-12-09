@@ -4,12 +4,9 @@ import {
   Button,
   FormInput,
   MultiTypeInputType,
-  Color,
-  Icon,
   getMultiTypeFromValue,
   ButtonVariation
 } from '@wings-software/uicore'
-import { Tooltip } from '@blueprintjs/core'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 
@@ -75,15 +72,6 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
             isReadonly={isReadonly}
           />
         )}
-        <Tooltip
-          position="top"
-          content={
-            <div className={helmcss.tooltipContent}>{getString('pipeline.manifestType.helmSkipResourceVersion')} </div>
-          }
-          className={cx(helmcss.tooltip, css.addmarginTop)}
-        >
-          <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-        </Tooltip>
       </Layout.Horizontal>
 
       <div className={helmcss.commandFlags}>
