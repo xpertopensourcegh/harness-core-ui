@@ -123,9 +123,9 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
               e.stopPropagation()
               runPipeline()
             }}
-            featureProps={{
-              featureRequest: {
-                featureName: module === 'cd' ? FeatureIdentifier.DEPLOYMENTS_PER_MONTH : FeatureIdentifier.BUILDS
+            featuresProps={{
+              featuresRequest: {
+                featureNames: [module === 'cd' ? FeatureIdentifier.DEPLOYMENTS_PER_MONTH : FeatureIdentifier.BUILDS]
               }
             }}
           />

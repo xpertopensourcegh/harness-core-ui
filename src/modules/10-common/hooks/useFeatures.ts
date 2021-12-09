@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { capitalize } from 'lodash-es'
 import { Editions, RestrictionType } from '@common/constants/SubscriptionTypes'
 import { useDeepCompareEffect } from '@common/hooks'
@@ -11,7 +12,8 @@ import type {
   FeaturesRequest,
   CheckFeaturesReturn,
   ModuleType,
-  RestrictionMetadataMap
+  RestrictionMetadataMap,
+  FirstDisabledFeatureReturn
 } from 'framework/featureStore/featureStoreUtil'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
@@ -154,6 +156,28 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
 export function useFeatureModule(featureName: FeatureIdentifier): ModuleType {
   const { featureMap } = useFeaturesContext()
   return featureMap.get(featureName)?.moduleType
+}
+
+export function useGetFirstDisabledFeature(featuresRequest?: FeaturesRequest): FirstDisabledFeatureReturn {
+  const { features } = useFeatures({
+    featuresRequest
+  })
+
+  const keys = useMemo(() => {
+    return [...features.keys()]
+  }, [features])
+
+  const firstDisabledFeatureIndex: number = useMemo(() => {
+    const values = [...features.values()]
+    return values.findIndex(feature => !feature.enabled)
+  }, [features])
+
+  const featureEnabled = firstDisabledFeatureIndex === -1
+  const disabledFeatureName = useMemo(() => {
+    return !featureEnabled ? keys[firstDisabledFeatureIndex] : undefined
+  }, [featureEnabled, keys, firstDisabledFeatureIndex])
+
+  return { featureEnabled, disabledFeatureName }
 }
 
 export function useFeatureRequiredPlans(featureName: FeatureIdentifier): string[] {

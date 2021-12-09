@@ -39,6 +39,11 @@ export interface CheckFeatureReturn {
 export interface CheckFeaturesReturn {
   features: Map<FeatureIdentifier, CheckFeatureReturn>
 }
+
+export interface FirstDisabledFeatureReturn {
+  featureEnabled: boolean
+  disabledFeatureName?: FeatureIdentifier
+}
 export interface FeatureMetaData {
   moduleType: ModuleType
   restrictionMetadataMap: RestrictionMetadataMap

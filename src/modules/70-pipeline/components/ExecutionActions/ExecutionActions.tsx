@@ -314,7 +314,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             </Link>
             {stageId ? null : (
               <RbacMenuItem
-                featureProps={{ featureRequest: { featureName: FeatureIdentifier.DEPLOYMENTS_PER_MONTH } }}
+                featuresProps={{ featuresRequest: { featureNames: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH] } }}
                 text={getString(rerunText)}
                 disabled={!canRerun}
                 onClick={reRunPipeline}
