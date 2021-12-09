@@ -29,7 +29,6 @@ interface JiraFormData {
   jiraUrl: string
   username: TextReferenceInterface | void
   password: SecretReferenceInterface | void
-  usernamefieldType?: string
 }
 
 interface AuthenticationProps {
@@ -50,8 +49,7 @@ interface JiraFormProps extends ConnectorInfoDTO {
 const defaultInitialFormData: JiraFormData = {
   jiraUrl: '',
   username: undefined,
-  password: undefined,
-  usernamefieldType: ValueType.TEXT
+  password: undefined
 }
 
 const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> = props => {
@@ -109,7 +107,11 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
               <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'56%'}>
                 <FormInput.Text name="jiraUrl" placeholder={getString('UrlLabel')} label={getString('UrlLabel')} />
 
-                <TextReference name="username" stringId="username" type={formik.values?.usernamefieldType} />
+                <TextReference
+                  name="username"
+                  stringId="username"
+                  type={formik.values.username ? formik.values.username.type : ValueType.TEXT}
+                />
                 <SecretInput name={'passwordRef'} label={getString('connectors.apiKey')} />
               </Layout.Vertical>
 
