@@ -1,89 +1,81 @@
-import React, { useCallback, useMemo } from 'react'
-import { Color, Container, FontVariation, FormInput, Text } from '@wings-software/uicore'
-
-import { DateRangePicker } from '@blueprintjs/datetime'
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
+import React from 'react'
+import { Card, Color, FontVariation, FormInput, Heading, Icon, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
-import type { SLOTargetAndBudgetPolicyProps } from './SLOTargetAndBudgetPolicy.types'
 import {
-  getDefaultDateRange,
   getPeriodLengthOptions,
   getPeriodTypeOptions,
-  getUpdatedTarget
-} from './SLOTargetAndBudgetPolicy.utils'
-import { PeriodTypeEnum } from './SLOTargetAndBudgetPolicy.constants'
-import css from './SLOTargetAndBudgetPolicy.module.scss'
+  getWindowEndOptionsForMonth,
+  getWindowEndOptionsForWeek
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import {
+  SLOPanelProps,
+  PeriodTypes,
+  PeriodLengthTypes,
+  SLOFormFields
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-export default function SLOTargetAndBudgetPolicy(props: SLOTargetAndBudgetPolicyProps): JSX.Element {
-  const {
-    children,
-    formikProps: { values, setFieldValue },
-    formikProps
-  } = props
-
+const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, children }) => {
   const { getString } = useStrings()
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const periodTypeOptions = useMemo(() => getPeriodTypeOptions(getString), [])
-  const periodLengthOptions = useMemo(() => getPeriodLengthOptions(), [])
-
-  const handleOnChangeDateRange = useCallback(
-    range => {
-      if (range[0] && range[1]) {
-        const updatedTarget = getUpdatedTarget(range, values)
-        setFieldValue('target', updatedTarget)
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [values?.target]
-  )
-
-  const renderPeriodLength = useCallback(() => {
-    if (values?.target?.type === PeriodTypeEnum.CALENDAR) {
-      return (
-        <DateRangePicker
-          className={css.dateRangePicker}
-          defaultValue={getDefaultDateRange(formikProps)}
-          maxDate={new Date()}
-          onChange={handleOnChangeDateRange}
-          allowSingleDayRange={true}
-        />
-      )
-    } else {
-      return (
-        <FormInput.Select
-          name="target.spec.periodLength"
-          label={<Text font={{ size: 'small' }}>{getString('cv.slos.sloTargetAndBudget.periodLength')}</Text>}
-          placeholder={getString('cv.slos.sloTargetAndBudget.selectPeriodLength')}
-          items={periodLengthOptions}
-          className={css.periodLengthDropdown}
-        />
-      )
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values?.target?.type, periodLengthOptions])
+  const { periodType, periodLengthType } = formikProps.values
 
   return (
     <>
-      <Text color={Color.BLACK} className={css.label}>
+      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ bottom: 'xsmall' }}>
         {getString('cv.slos.sloTargetAndBudget.setSLOTarget')}
-      </Text>
-      <CardWithOuterTitle className={css.sloTargetAndPolicyContainer}>
-        <Container className={css.row}>
+      </Heading>
+      <Card className={css.card}>
+        <Layout.Horizontal spacing="medium">
           <FormInput.Select
-            name="target.type"
-            label={<Text font={{ size: 'small' }}>{getString('cv.slos.sloTargetAndBudget.periodType')}</Text>}
-            placeholder={getString('cv.slos.sloTargetAndBudget.selectPeriodType')}
-            items={periodTypeOptions}
-            className={css.targetTypeDropdown}
+            name={SLOFormFields.PERIOD_TYPE}
+            label={getString('cv.slos.sloTargetAndBudget.periodType')}
+            items={getPeriodTypeOptions(getString)}
           />
-          {renderPeriodLength()}
-        </Container>
+          {periodType === PeriodTypes.CALENDAR ? (
+            <>
+              <FormInput.Select
+                name={SLOFormFields.PERIOD_LENGTH_TYPE}
+                label={getString('cv.periodLength')}
+                items={getPeriodLengthOptions(getString)}
+              />
+              {periodLengthType === PeriodLengthTypes.MONTHLY && (
+                <FormInput.Select
+                  name={SLOFormFields.DAY_OF_MONTH}
+                  label={getString('cv.windowEndsDay')}
+                  items={getWindowEndOptionsForMonth()}
+                  disabled={!periodLengthType}
+                />
+              )}
+              {periodLengthType === PeriodLengthTypes.WEEKLY && (
+                <FormInput.Select
+                  name={SLOFormFields.DAY_OF_WEEK}
+                  label={getString('cv.widowEnds')}
+                  items={getWindowEndOptionsForWeek(getString)}
+                  disabled={!periodLengthType}
+                />
+              )}
+            </>
+          ) : (
+            <FormInput.Select
+              name={SLOFormFields.PERIOD_LENGTH}
+              label={getString('cv.periodLengthDays')}
+              items={getWindowEndOptionsForMonth()}
+            />
+          )}
+        </Layout.Horizontal>
 
-        <Text font={{ variation: FontVariation.FORM_LABEL }} padding={{ bottom: 'small' }}>
-          {getString('cv.SLOTarget')}
-        </Text>
+        <FormInput.Text
+          name={SLOFormFields.SLO_TARGET_PERCENTAGE}
+          label={getString('cv.SLOTarget')}
+          inputGroup={{
+            type: 'number',
+            min: 0,
+            max: 100,
+            rightElement: <Icon name="percentage" padding="small" />
+          }}
+          className={css.sloTarget}
+        />
         <SLOTargetChart
           bottomLabel={
             <Text
@@ -97,8 +89,10 @@ export default function SLOTargetAndBudgetPolicy(props: SLOTargetAndBudgetPolicy
             </Text>
           }
         />
-      </CardWithOuterTitle>
+      </Card>
       {children}
     </>
   )
 }
+
+export default SLOTargetAndBudgetPolicy

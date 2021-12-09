@@ -1,23 +1,23 @@
 import React, { useEffect, useMemo } from 'react'
-import { Color, FormInput, Text, useToaster, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { Heading, FontVariation, Card, Color, FormInput, Text, useToaster, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import { useGetAllMonitoredServicesWithTimeSeriesHealthSources } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import type { SLIProps } from './SLI.types'
+import { defaultOption, getSLITypeOptions } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
+import { SLOPanelProps, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import {
+  getMonitoredServiceOptions,
+  getHealthSourceOptions
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import PickMetric from './views/PickMetric'
-import { getHealthSourcesOptions, getMonitoredServicesOptions, getSliTypeOptions } from './SLI.utils'
-import { defaultOption } from './SLI.constants'
-import css from './SLI.module.scss'
+import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-export default function SLI(props: SLIProps): JSX.Element {
-  const { formikProps, children } = props
+const SLI: React.FC<SLOPanelProps> = ({ formikProps, children }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { values } = formikProps
 
   const {
@@ -26,9 +26,9 @@ export default function SLI(props: SLIProps): JSX.Element {
     error: monitoredServicesDataError
   } = useGetAllMonitoredServicesWithTimeSeriesHealthSources({
     queryParams: {
+      accountId,
       orgIdentifier,
-      projectIdentifier,
-      accountId
+      projectIdentifier
     }
   })
 
@@ -40,12 +40,12 @@ export default function SLI(props: SLIProps): JSX.Element {
   }, [monitoredServicesDataError])
 
   const monitoredServicesOptions = useMemo(
-    () => getMonitoredServicesOptions(monitoredServicesData),
+    () => getMonitoredServiceOptions(monitoredServicesData?.data),
     [monitoredServicesData]
   )
 
   const healthSourcesOptions = useMemo(
-    () => getHealthSourcesOptions(monitoredServicesData, values?.monitoredServiceRef),
+    () => getHealthSourceOptions(monitoredServicesData?.data, values?.monitoredServiceRef),
     [values?.monitoredServiceRef, monitoredServicesData]
   )
 
@@ -54,53 +54,58 @@ export default function SLI(props: SLIProps): JSX.Element {
     [healthSourcesOptions, values.healthSourceRef]
   )
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sliTypeOptions = useMemo(() => getSliTypeOptions(getString), [])
-
   return (
     <>
-      <Text color={Color.BLACK} className={css.label}>
+      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ bottom: 'xsmall' }}>
         {getString('connectors.cdng.monitoredService.label')}
-      </Text>
-      <CardWithOuterTitle className={css.sliElement}>
+      </Heading>
+      <Card className={css.cardSli}>
         <FormInput.Select
-          name="monitoredServiceRef"
-          label={<Text font={{ size: 'small' }}>{getString('cv.slos.selectMonitoredServiceForSlo')}</Text>}
+          name={SLOFormFields.MONITORED_SERVICE_REF}
+          label={getString('cv.slos.selectMonitoredServiceForSlo')}
           placeholder={monitoredServicesLoading ? getString('loading') : getString('cv.slos.selectMonitoredService')}
           items={monitoredServicesOptions}
-          className={css.dropdown}
+          className={css.selectPrimary}
           onChange={() => {
-            formikProps.setFieldValue('healthSourceRef', undefined)
-            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric1', undefined)
-            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric2', undefined)
+            formikProps.setFieldValue(SLOFormFields.HEALTH_SOURCE_REF, undefined)
+            formikProps.setFieldValue(SLOFormFields.VALID_REQUEST_METRIC, undefined)
+            formikProps.setFieldValue(SLOFormFields.GOOD_REQUEST_METRIC, undefined)
           }}
         />
-      </CardWithOuterTitle>
-      <Text color={Color.BLACK} className={css.label}>
+      </Card>
+
+      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ top: 'xxlarge', bottom: 'xsmall' }}>
         {getString('cv.slos.healthSourceForSLI')}
-      </Text>
-      <CardWithOuterTitle className={css.sliElement}>
+      </Heading>
+      <Card className={css.cardSli}>
         <FormInput.Select
-          name="healthSourceRef"
+          name={SLOFormFields.HEALTH_SOURCE_REF}
           placeholder={monitoredServicesLoading ? getString('loading') : getString('cv.slos.selectHealthsource')}
           items={healthSourcesOptions}
-          className={css.dropdown}
+          className={css.selectPrimary}
           disabled={!values.monitoredServiceRef}
           value={activeHealthSource}
           onChange={healthSource => {
-            formikProps.setFieldValue('healthSourceRef', healthSource.value)
-            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric1', undefined)
-            formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric2', undefined)
+            formikProps.setFieldValue(SLOFormFields.HEALTH_SOURCE_REF, healthSource.value)
+            formikProps.setFieldValue(SLOFormFields.VALID_REQUEST_METRIC, undefined)
+            formikProps.setFieldValue(SLOFormFields.GOOD_REQUEST_METRIC, undefined)
           }}
         />
-      </CardWithOuterTitle>
-      <Text color={Color.BLACK} className={css.label}>
+      </Card>
+
+      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ top: 'xxlarge', bottom: 'xsmall' }}>
         {getString('cv.slos.sliType')}
-      </Text>
-      <CardWithOuterTitle className={css.sliElement}>
-        <FormInput.RadioGroup name="serviceLevelIndicators.type" radioGroup={{ inline: true }} items={sliTypeOptions} />
-        <Text font={{ size: 'small' }}>{getString('cv.slos.latencySLI')}</Text>
-      </CardWithOuterTitle>
+      </Heading>
+      <Card className={css.cardSli}>
+        <FormInput.RadioGroup
+          name={SLOFormFields.SLI_TYPE}
+          radioGroup={{ inline: true }}
+          items={getSLITypeOptions(getString)}
+        />
+        <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_600}>
+          {getString('cv.slos.latencySLI')}
+        </Text>
+      </Card>
 
       <PickMetric formikProps={formikProps} />
 
@@ -108,3 +113,5 @@ export default function SLI(props: SLIProps): JSX.Element {
     </>
   )
 }
+
+export default SLI

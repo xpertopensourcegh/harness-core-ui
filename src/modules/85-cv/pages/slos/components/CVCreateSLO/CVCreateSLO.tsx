@@ -1,81 +1,99 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
-import * as Yup from 'yup'
+import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Formik, Page, useToaster } from '@wings-software/uicore'
+import { Formik, Page, useToaster, Tabs, Container, Layout, Button, ButtonVariation } from '@wings-software/uicore'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import type { SLOForm } from './components/CreateSLOForm/CreateSLO.types'
-import { createSLORequestPayload } from './components/CreateSLOForm/CreateSLO.utils'
-import CreateSLOForm from './components/CreateSLOForm/CreateSLOForm'
-import { getInitialValuesSLO } from './CVCreateSLO.utils'
-import { SLIMetricEnum } from './components/CreateSLOForm/components/SLI/SLI.constants'
+import SLOName from './components/CreateSLOForm/components/SLOName/SLOName'
+import SLI from './components/CreateSLOForm/components/SLI/SLI'
+import SLOTargetAndBudgetPolicy from './components/CreateSLOForm/components/SLOTargetAndBudgetPolicy/SLOTargetAndBudgetPolicy'
+import { getSLOInitialFormData, createSLORequestPayload, isFormDataValid } from './CVCreateSLO.utils'
+import { TabsOrder, getSLOFormValidationSchema } from './CVCreateSLO.constants'
+import { SLOForm, CreateSLOTabs, NavButtonsProps } from './CVCreateSLO.types'
 import css from './CVCreateSLO.module.scss'
 
-export default function CVCreateSLO(): JSX.Element {
+const CVCreateSLO: React.FC = () => {
+  const history = useHistory()
   const { getString } = useStrings()
-  const REQUIRED = getString('cv.required')
-  const METRIC_IS_REQUIRED = getString('cv.metricIsRequired')
-  const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
+  const { showSuccess, showError } = useToaster()
+  const { accountId, orgIdentifier, projectIdentifier, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
 
-  const { showSuccess, showError } = useToaster()
-  const history = useHistory()
+  const [selectedTabId, setSelectedTabId] = useState<CreateSLOTabs>(CreateSLOTabs.NAME)
 
-  const queryParams = useMemo(
-    () => ({ accountId, orgIdentifier, projectIdentifier }),
-    [accountId, orgIdentifier, projectIdentifier]
-  )
+  const { mutate: createSLO, loading: createSLOLoading } = useSaveSLOData({
+    queryParams: { accountId }
+  })
 
-  const { mutate: createSLO, loading: createSLOLoading } = useSaveSLOData({ queryParams })
-  const { mutate: updateSLO, loading: updateSLOLoading } = useUpdateSLOData({ queryParams, identifier })
+  const { mutate: updateSLO, loading: updateSLOLoading } = useUpdateSLOData({
+    identifier,
+    queryParams: { accountId, orgIdentifier, projectIdentifier }
+  })
+
   const {
-    data: SLODataById,
-    error: SLOByIdFetchError,
-    refetch: fetchSLOById,
-    loading: getSLOLoading
-  } = useGetServiceLevelObjective({ identifier, queryParams, lazy: true })
+    data: SLODataResponse,
+    error: SLODataError,
+    refetch: refetchSLOData,
+    loading: SLODataLoading
+  } = useGetServiceLevelObjective({
+    identifier,
+    queryParams: {
+      accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    lazy: true
+  })
 
   useEffect(() => {
     if (identifier) {
-      fetchSLOById()
+      refetchSLOData()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [identifier])
+  }, [identifier, refetchSLOData])
 
-  const handleSLOSubmit = useCallback(
-    async values => {
-      const sloCreateRequestPayload = createSLORequestPayload(values, orgIdentifier, projectIdentifier)
-      try {
-        // creating/updating slo
-        if (identifier) {
-          await updateSLO(sloCreateRequestPayload)
-          showSuccess(getString('cv.slos.sloUpdated'))
-        } else {
-          await createSLO(sloCreateRequestPayload)
-          showSuccess(getString('cv.slos.sloCreated'))
-        }
+  const handleSLOSubmit = async (values: SLOForm): Promise<void> => {
+    const sloCreateRequestPayload = createSLORequestPayload(values, orgIdentifier, projectIdentifier)
 
-        // routing to list slos screen
-        history.push(routes.toCVSLOs({ orgIdentifier, projectIdentifier, accountId }))
-      } catch (e) {
-        showError(getErrorMessage(e))
+    try {
+      if (identifier) {
+        await updateSLO(sloCreateRequestPayload)
+        showSuccess(getString('cv.slos.sloUpdated'))
+      } else {
+        await createSLO(sloCreateRequestPayload)
+        showSuccess(getString('cv.slos.sloCreated'))
       }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  )
 
-  const initialValuesSLO = useMemo(() => getInitialValuesSLO(identifier, SLODataById), [SLODataById, identifier])
+      history.push(routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }))
+    } catch (e) {
+      showError(getErrorMessage(e))
+    }
+  }
 
-  const title = useMemo(
-    () => (identifier ? getString('cv.slos.editSLO') : getString('cv.slos.createSLO')),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [identifier]
+  const NavButtons: React.FC<NavButtonsProps> = ({ formikProps }) => (
+    <Layout.Horizontal spacing="small" padding={{ top: 'xxlarge' }}>
+      <Button
+        icon="chevron-left"
+        text={getString('back')}
+        variation={ButtonVariation.SECONDARY}
+        onClick={() => setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])}
+      />
+      <Button
+        rightIcon="chevron-right"
+        text={selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY ? getString('save') : getString('continue')}
+        variation={ButtonVariation.PRIMARY}
+        onClick={() => {
+          if (selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY) {
+            formikProps.submitForm()
+          } else if (isFormDataValid(formikProps, selectedTabId)) {
+            setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
+          }
+        }}
+      />
+    </Layout.Horizontal>
   )
 
   return (
@@ -85,73 +103,89 @@ export default function CVCreateSLO(): JSX.Element {
           <NGBreadcrumbs
             links={[
               {
-                url: routes.toCVSLOs({
-                  orgIdentifier: orgIdentifier,
-                  projectIdentifier: projectIdentifier,
-                  accountId: accountId
-                }),
+                url: routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }),
                 label: getString('cv.slos.title')
               }
             ]}
           />
         }
-        title={title}
+        title={identifier ? getString('cv.slos.editSLO') : getString('cv.slos.createSLO')}
       />
-      <Page.Body
-        loading={getSLOLoading || createSLOLoading || updateSLOLoading}
-        error={getErrorMessage(SLOByIdFetchError)}
-        retryOnError={() => fetchSLOById()}
-        className={css.pageBody}
+      <Formik<SLOForm>
+        initialValues={getSLOInitialFormData(SLODataResponse?.resource?.serviceLevelObjective)}
+        formName="SLO_form"
+        onSubmit={values => {
+          handleSLOSubmit(values)
+        }}
+        validationSchema={getSLOFormValidationSchema(getString)}
+        enableReinitialize
       >
-        <Formik<SLOForm>
-          initialValues={initialValuesSLO}
-          formName="sloForm"
-          onSubmit={values => {
-            handleSLOSubmit(values)
-          }}
-          validationSchema={Yup.object().shape({
-            name: Yup.string().required(getString('cv.slos.validations.nameValidation')),
-            userJourneyRef: Yup.string().required(getString('cv.slos.validations.userJourneyRequired')),
-            monitoredServiceRef: Yup.string()
-              .nullable()
-              .required(getString('connectors.cdng.validations.monitoringServiceRequired')),
-            healthSourceRef: Yup.string().nullable().required(getString('cv.slos.validations.healthSourceRequired')),
-            serviceLevelIndicators: Yup.object().shape({
-              spec: Yup.object().shape({
-                spec: Yup.object().when(['type'], {
-                  is: SLIMetricType => SLIMetricType === SLIMetricEnum.RATIO,
-                  then: Yup.object().shape({
-                    eventType: Yup.string().nullable().required(REQUIRED),
-                    metric1: Yup.string().nullable().required(METRIC_IS_REQUIRED),
-                    metric2: Yup.string()
-                      .nullable()
-                      .required(METRIC_IS_REQUIRED)
-                      .test(
-                        'bothMetricsShouldBeDifferent',
-                        getString('cv.metricForGoodAndValidRequestsShouldBeDifferent'),
-                        function (metric2) {
-                          return metric2 ? metric2 !== this.parent.metric1 : true
-                        }
-                      )
-                  }),
-                  otherwise: Yup.object().shape({
-                    metric2: Yup.string().required(METRIC_IS_REQUIRED)
-                  })
-                }),
-                objectiveValue: Yup.number()
-                  .typeError(getString('common.validation.valueMustBeANumber'))
-                  .min(0, getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: 0 }))
-                  .max(100, getString('common.validation.valueMustBeLessThanOrEqualToN', { n: 100 }))
-                  .required(REQUIRED),
-                comparator: Yup.string().required(REQUIRED)
-              })
-            })
-          })}
-          enableReinitialize
-        >
-          {formik => <CreateSLOForm formikProps={formik} identifier={identifier} />}
-        </Formik>
-      </Page.Body>
+        {formik => (
+          <Container className={css.createSloTabsContainer}>
+            <Tabs
+              id="createSLOTabs"
+              selectedTabId={selectedTabId}
+              onChange={nextTab => {
+                if (isFormDataValid(formik, selectedTabId)) {
+                  setSelectedTabId(nextTab as CreateSLOTabs)
+                }
+              }}
+              tabList={[
+                {
+                  id: CreateSLOTabs.NAME,
+                  title: getString('name'),
+                  panel: (
+                    <Page.Body
+                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      error={getErrorMessage(SLODataError)}
+                      retryOnError={() => refetchSLOData()}
+                      className={css.pageBody}
+                    >
+                      <SLOName formikProps={formik} identifier={identifier}>
+                        <NavButtons formikProps={formik} />
+                      </SLOName>
+                    </Page.Body>
+                  )
+                },
+                {
+                  id: CreateSLOTabs.SLI,
+                  title: getString('cv.slos.sli'),
+                  panel: (
+                    <Page.Body
+                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      error={getErrorMessage(SLODataError)}
+                      retryOnError={() => refetchSLOData()}
+                      className={css.pageBody}
+                    >
+                      <SLI formikProps={formik}>
+                        <NavButtons formikProps={formik} />
+                      </SLI>
+                    </Page.Body>
+                  )
+                },
+                {
+                  id: CreateSLOTabs.SLO_TARGET_BUDGET_POLICY,
+                  title: getString('cv.slos.sloTargetAndBudgetPolicy'),
+                  panel: (
+                    <Page.Body
+                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      error={getErrorMessage(SLODataError)}
+                      retryOnError={() => refetchSLOData()}
+                      className={css.pageBody}
+                    >
+                      <SLOTargetAndBudgetPolicy formikProps={formik}>
+                        <NavButtons formikProps={formik} />
+                      </SLOTargetAndBudgetPolicy>
+                    </Page.Body>
+                  )
+                }
+              ]}
+            />
+          </Container>
+        )}
+      </Formik>
     </>
   )
 }
+
+export default CVCreateSLO

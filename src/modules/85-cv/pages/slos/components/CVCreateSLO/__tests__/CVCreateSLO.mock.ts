@@ -1,4 +1,22 @@
-export const mockedSLODataById = {
+import type {
+  RestResponseServiceLevelObjectiveResponse,
+  ThresholdSLIMetricSpec,
+  RatioSLIMetricSpec,
+  ServiceLevelObjectiveDTO,
+  CalenderSLOTargetSpec,
+  RollingSLOTargetSpec
+} from 'services/cv'
+import {
+  Comparators,
+  PeriodTypes,
+  SLIEventTypes,
+  SLIMetricTypes,
+  SLIMissingDataTypes,
+  SLITypes,
+  SLOForm
+} from '../CVCreateSLO.types'
+
+export const mockedSLODataById: RestResponseServiceLevelObjectiveResponse = {
   metaData: {},
   resource: {
     serviceLevelObjective: {
@@ -16,14 +34,17 @@ export const mockedSLODataById = {
           name: 'SLO5_metric1',
           identifier: 'SLO5_metric1',
           type: 'Latency',
+          sliMissingDataType: SLIMissingDataTypes.GOOD,
           spec: {
             type: 'Ratio',
             spec: {
-              eventType: 'good',
+              eventType: SLIEventTypes.GOOD,
               metric1: 'metric1',
               metric2: 'metric2',
-              metricName: 'metric1'
-            }
+              metricName: 'metric1',
+              thresholdValue: 10,
+              thresholdType: Comparators.LESS
+            } as ThresholdSLIMetricSpec | RatioSLIMetricSpec
           }
         }
       ],
@@ -41,70 +62,45 @@ export const mockedSLODataById = {
   responseMessages: []
 }
 
-export const expectedInitialValuesEditFlow = {
-  description: 'description added',
-  healthSourceRef: 'Test_gcp',
-  identifier: 'SLO5',
-  monitoredServiceRef: 'test1_env1',
+export const expectedInitialValuesEditFlow: SLOForm = {
   name: 'SLO-5-updated',
-  orgIdentifier: 'org-1',
-  projectIdentifier: 'project-1',
-  serviceLevelIndicators: {
-    spec: {
-      spec: {
-        eventType: 'good',
-        metric1: 'metric1',
-        metric2: 'metric2',
-        metricName: 'metric1'
-      },
-      type: 'Ratio'
-    },
-    type: 'Latency'
-  },
+  identifier: 'SLO5',
+  description: 'description added',
   tags: {},
-  target: {
-    sloTargetPercentage: 0,
-    spec: {
-      periodLength: '30'
-    },
-    type: 'Rolling'
-  },
-  userJourneyRef: 'journey2'
+  userJourneyRef: 'journey2',
+  monitoredServiceRef: 'test1_env1',
+  healthSourceRef: 'Test_gcp',
+  SLIType: SLITypes.LATENCY,
+  SLIMetricType: SLIMetricTypes.RATIO,
+  eventType: SLIEventTypes.GOOD,
+  validRequestMetric: 'metric1',
+  goodRequestMetric: 'metric2',
+  objectiveValue: 10,
+  objectiveComparator: Comparators.LESS,
+  SLIMissingDataType: SLIMissingDataTypes.GOOD,
+  periodType: PeriodTypes.ROLLING,
+  periodLength: '30',
+  periodLengthType: undefined,
+  dayOfWeek: undefined,
+  dayOfMonth: undefined,
+  SLOTargetPercentage: 0
 }
 
-export const expectedInitialValuesCreateFlow = {
-  description: '',
-  healthSourceRef: '',
-  identifier: '',
-  monitoredServiceRef: '',
+export const initialFormData: SLOForm = {
   name: '',
-  serviceLevelIndicators: {
-    identifier: '',
-    name: '',
-    spec: {
-      spec: {
-        eventType: '',
-        metric1: '',
-        metric2: ''
-      },
-      type: 'Ratio'
-    },
-    type: 'Latency'
-  },
-  tags: {},
-  target: {
-    sloTargetPercentage: 0,
-    spec: {
-      endDate: '',
-      periodLength: '',
-      startDate: ''
-    },
-    type: 'Rolling'
-  },
-  userJourneyRef: ''
+  identifier: '',
+  userJourneyRef: '',
+  monitoredServiceRef: '',
+  healthSourceRef: '',
+  SLIType: SLITypes.LATENCY,
+  SLIMetricType: SLIMetricTypes.RATIO,
+  validRequestMetric: '',
+  SLIMissingDataType: SLIMissingDataTypes.GOOD,
+  periodType: PeriodTypes.ROLLING,
+  SLOTargetPercentage: 0
 }
 
-export const mockPayloadForUpdateRequest = {
+export const mockPayloadForUpdateRequest: ServiceLevelObjectiveDTO = {
   description: 'description added',
   healthSourceRef: 'Test_gcp',
   identifier: 'SLO5',
@@ -116,22 +112,25 @@ export const mockPayloadForUpdateRequest = {
     {
       spec: {
         spec: {
-          eventType: 'good',
+          eventType: SLIEventTypes.GOOD,
           metric1: 'metric1',
           metric2: 'metric2',
-          metricName: 'metric1'
-        },
+          thresholdValue: 10,
+          thresholdType: '<'
+        } as ThresholdSLIMetricSpec | RatioSLIMetricSpec,
         type: 'Ratio'
       },
-      type: 'Latency'
+      type: 'Latency',
+      sliMissingDataType: SLIMissingDataTypes.GOOD
     }
   ],
   tags: {},
   target: {
     sloTargetPercentage: 0,
     spec: {
-      periodLength: '30'
-    },
+      periodLength: '30',
+      spec: {}
+    } as CalenderSLOTargetSpec | RollingSLOTargetSpec,
     type: 'Rolling'
   },
   userJourneyRef: 'journey2'

@@ -3,11 +3,10 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Formik } from 'formik'
 import { FormikForm } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import { initialFormData } from '@cv/pages/slos/__tests__/CVSLOsListingPage.mock'
-import type { ResponsePageUserJourneyResponse } from 'services/cv'
+import { initialFormData } from '@cv/pages/slos/components/CVCreateSLO/__tests__/CVCreateSLO.mock'
+import { getUserJourneyOptions } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import SLOName from '../SLOName'
 import { expectedUserJourneyOptions, mockedUserJourneysData } from './SLOName.mock'
-import { getUserJourneysData } from '../SLOName.utils'
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props
@@ -74,7 +73,7 @@ describe('Test SLOName component', () => {
   })
 
   test('Verify getUserJourneysData method ', async () => {
-    const actualUserJourneysData = getUserJourneysData(mockedUserJourneysData as ResponsePageUserJourneyResponse)
+    const actualUserJourneysData = getUserJourneyOptions(mockedUserJourneysData.data.content)
     expect(actualUserJourneysData).toEqual(expectedUserJourneyOptions)
   })
 })

@@ -43,7 +43,7 @@ export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
             id={CreateSLOEnum.NAME}
             title={getString('name')}
             panel={
-              <SLOName formikProps={formikProps} identifier={identifier}>
+              <SLOName formikProps={formikProps as any} identifier={identifier}>
                 {navButtons}
               </SLOName>
             }
@@ -51,12 +51,12 @@ export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
           <Tab
             id={CreateSLOEnum.SLI}
             title={getString('cv.slos.sli')}
-            panel={<SLI formikProps={formikProps}>{navButtons}</SLI>}
+            panel={<SLI formikProps={formikProps as any}>{navButtons}</SLI>}
           />
           <Tab
             id={CreateSLOEnum.SLO_TARGET_BUDGET_POLICY}
             title={getString('cv.slos.sloTargetAndBudgetPolicy')}
-            panel={<SLOTargetAndBudgetPolicy formikProps={formikProps}>{navButtons}</SLOTargetAndBudgetPolicy>}
+            panel={<SLOTargetAndBudgetPolicy formikProps={formikProps as any}>{navButtons}</SLOTargetAndBudgetPolicy>}
           />
         </Tabs>
       </Container>

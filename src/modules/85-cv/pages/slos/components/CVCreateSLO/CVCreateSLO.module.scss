@@ -1,3 +1,60 @@
 .pageBody {
-  --page-header-height: 146px !important;
+  max-height: calc(100vh - 120px);
+  padding: var(--spacing-xlarge) !important;
+}
+
+.createSloTabsContainer {
+  :global {
+    .bp3-tab-list {
+      padding: var(--spacing-none) var(--spacing-xlarge);
+      align-items: center;
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .bp3-tab-panel {
+      margin-top: 0 !important;
+    }
+  }
+}
+
+// SLI
+
+.cardSli {
+  width: 80%;
+
+  .selectPrimary {
+    width: 350px;
+  }
+}
+
+// PickMetric
+
+.cardPickMetric {
+  width: 80%;
+
+  .eventType {
+    width: 100px;
+  }
+
+  .metricSelect {
+    width: 300px;
+  }
+
+  .objectiveValue {
+    width: fit-content;
+  }
+
+  .comparatorOptions {
+    width: 60px;
+  }
+}
+
+// SLOTargetAndBudgetPolicy
+
+.card {
+  width: 80%;
+
+  .sloTarget {
+    width: fit-content;
+  }
 }

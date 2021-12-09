@@ -368,6 +368,10 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
   usernameRef?: string
 }
 
+export interface BurnRate {
+  currentRatePercentage?: number
+}
+
 export type CEAwsConnector = ConnectorConfigDTO & {
   awsAccountId?: string
   crossAccountAccess: CrossAccountAccess
@@ -398,8 +402,12 @@ export interface CVNGLogDTO {
 }
 
 export type CalenderSLOTargetSpec = SLOTargetSpec & {
-  endDate: string
-  startDate: string
+  spec: CalenderSpec
+  type?: 'Weekly' | 'Monthly' | 'Quarterly'
+}
+
+export interface CalenderSpec {
+  [key: string]: any
 }
 
 export interface CategoryCountDetails {
@@ -587,6 +595,15 @@ export interface CustomHealthKeyAndValue {
   valueEncrypted?: boolean
 }
 
+export interface CustomHealthSampleDataRequest {
+  body?: string
+  method: 'GET' | 'POST'
+  requestTimestampPlaceholderAndValues: {
+    [key: string]: string
+  }
+  urlPath: string
+}
+
 export interface DataCollectionInfo {
   collectHostData?: boolean
   dataCollectionDsl?: string
@@ -609,6 +626,7 @@ export interface DataCollectionRequest {
     | 'APPDYNAMICS_FETCH_APPS'
     | 'APPDYNAMICS_FETCH_TIERS'
     | 'APPDYNAMICS_GET_METRIC_DATA'
+    | 'APPDYNAMICS_GET_SINGLE_METRIC_DATA'
     | 'APPDYNAMICS_FETCH_METRIC_STRUCTURE'
     | 'NEWRELIC_APPS_REQUEST'
     | 'NEWRELIC_VALIDATION_REQUEST'
@@ -627,6 +645,8 @@ export interface DataCollectionRequest {
     | 'DATADOG_LOG_SAMPLE_DATA'
     | 'DATADOG_LOG_INDEXES'
     | 'NEWRELIC_SAMPLE_FETCH_REQUEST'
+    | 'SYNC_DATA_COLLECTION'
+    | 'CUSTOM_HEALTH_SAMPLE_DATA'
 }
 
 export interface DataCollectionTaskDTO {
@@ -647,6 +667,11 @@ export interface DataCollectionTaskResult {
 
 export interface DataPoint {
   timestamp?: number
+  value?: number
+}
+
+export interface DataPoints {
+  timeStamp?: number
   value?: number
 }
 
@@ -716,6 +741,7 @@ export interface DatasourceTypeDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
@@ -1150,6 +1176,11 @@ export interface ErrorMetadataDTO {
   type?: string
 }
 
+export interface ExceptionInfo {
+  exception?: string
+  stackTrace?: string
+}
+
 export interface Failure {
   code?:
     | 'DEFAULT_ERROR_CODE'
@@ -1509,6 +1540,7 @@ export type GitConfigDTO = ConnectorConfigDTO & {
   branchName?: string
   connectionType: 'Account' | 'Repo'
   delegateSelectors?: string[]
+  executeOnDelegate?: boolean
   spec: GitAuthenticationDTO
   type: 'Http' | 'Ssh'
   url: string
@@ -1726,6 +1758,7 @@ export interface HealthSourceDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
@@ -1930,9 +1963,11 @@ export interface LearningEngineTask {
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
     | 'TIME_SERIES_LOAD_TEST'
   createdAt?: number
+  exception?: string
   failureUrl?: string
   lastUpdatedAt?: number
   pickedAt?: number
+  stackTrace?: string
   taskPriority?: number
   taskStatus?: 'QUEUED' | 'RUNNING' | 'FAILED' | 'SUCCESS' | 'TIMEOUT'
   type?:
@@ -2147,6 +2182,7 @@ export interface MetricPack {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   identifier?: string
   lastUpdatedAt?: number
   metrics?: MetricDefinition[]
@@ -2168,6 +2204,7 @@ export interface MetricPackDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   identifier?: string
   metrics?: MetricDefinitionDTO[]
   orgIdentifier?: string
@@ -2180,6 +2217,13 @@ export interface MetricPackValidationResponse {
   metricPackName?: string
   metricValidationResponses?: MetricValidationResponse[]
   overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
+}
+
+export interface MetricResponseMapping {
+  metricValueJsonPath?: string
+  serviceInstanceJsonPath?: string
+  timestampFormat?: string
+  timestampJsonPath?: string
 }
 
 export interface MetricSum {
@@ -2240,6 +2284,15 @@ export interface MonitoredServiceWithHealthSources {
   name?: string
 }
 
+export type MonthlyCalenderSpec = CalenderSpec & {
+  dayOfMonth: number
+}
+
+export interface NGTag {
+  key: string
+  value: string
+}
+
 export interface NewRelicApplication {
   applicationId?: number
   applicationName?: string
@@ -2257,6 +2310,18 @@ export type NewRelicHealthSourceSpec = HealthSourceSpec & {
   applicationName?: string
   feature: string
   metricPacks: MetricPackDTO[]
+  newRelicMetricDefinitions?: NewRelicMetricDefinition[]
+}
+
+export interface NewRelicMetricDefinition {
+  analysis?: AnalysisDTO
+  groupName?: string
+  identifier: string
+  metricName: string
+  nrql?: string
+  responseMapping?: MetricResponseMapping
+  riskProfile?: RiskProfile
+  sli?: Slidto
 }
 
 export interface NexusAuthCredentials {
@@ -2417,6 +2482,16 @@ export interface PageMonitoredServiceResponse {
   totalPages?: number
 }
 
+export interface PageSLODashboardWidget {
+  content?: SLODashboardWidget[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export interface PageServiceLevelObjectiveResponse {
   content?: ServiceLevelObjectiveResponse[]
   empty?: boolean
@@ -2543,6 +2618,11 @@ export interface PartialSchemaDTO {
   schema?: JsonNode
 }
 
+export interface Point {
+  timestamp?: number
+  value?: number
+}
+
 export type PrometheusConnectorDTO = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   url: string
@@ -2581,6 +2661,8 @@ export interface PrometheusSampleData {
   }
 }
 
+export type QuarterlyCalenderSpec = CalenderSpec & { [key: string]: any }
+
 export interface QueryDTO {
   indexes: string[]
   name: string
@@ -2589,9 +2671,11 @@ export interface QueryDTO {
 }
 
 export type RatioSLIMetricSpec = SLIMetricSpec & {
-  eventType: string
+  eventType: 'Good' | 'Bad'
   metric1: string
   metric2: string
+  thresholdType: '>' | '<' | '>=' | '<='
+  thresholdValue: number
 }
 
 export interface Response {
@@ -2632,6 +2716,15 @@ export interface ResponseHistoricalTrend {
 export interface ResponseInputSetTemplateResponse {
   correlationId?: string
   data?: InputSetTemplateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseLinkedHashMap {
+  correlationId?: string
+  data?: {
+    [key: string]: { [key: string]: any }
+  }
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2704,6 +2797,15 @@ export interface ResponseListString {
 export interface ResponseListTimeSeriesSampleDTO {
   correlationId?: string
   data?: TimeSeriesSampleDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseMapStringObject {
+  correlationId?: string
+  data?: {
+    [key: string]: { [key: string]: any }
+  }
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3070,6 +3172,13 @@ export interface ResponsePageMonitoredServiceListItemDTO {
 export interface ResponsePageMonitoredServiceResponse {
   correlationId?: string
   data?: PageMonitoredServiceResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageSLODashboardWidget {
+  correlationId?: string
+  data?: PageSLODashboardWidget
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3602,6 +3711,14 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseTimeGraphResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeGraphResponse
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseTimeSeriesAnomalousPatterns {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3690,7 +3807,22 @@ export interface Slidto {
 }
 
 export interface SLIMetricSpec {
-  metricName?: string
+  [key: string]: any
+}
+
+export interface SLODashboardWidget {
+  burnRate?: BurnRate
+  errorBudgetBurndown?: Point[]
+  errorBudgetRemainingPercentage?: number
+  healthSourceIdentifier?: string
+  healthSourceName?: string
+  monitoredServiceIdentifier?: string
+  monitoredServiceName?: string
+  sloPerformanceTrend?: Point[]
+  tags?: NGTag[]
+  timeRemainingDays?: number
+  title?: string
+  type?: 'Availability' | 'Latency'
 }
 
 export interface SLOTarget {
@@ -3758,8 +3890,10 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
 }
 
 export interface ServiceLevelIndicatorDTO {
+  healthSourceRef?: string
   identifier?: string
   name?: string
+  sliMissingDataType: 'Good' | 'Bad' | 'Ignore'
   spec: ServiceLevelIndicatorSpec
   type: 'Availability' | 'Latency'
 }
@@ -3907,6 +4041,8 @@ export interface TestVerificationBaselineExecutionDTO {
 
 export type ThresholdSLIMetricSpec = SLIMetricSpec & {
   metric1: string
+  thresholdType: '>' | '<' | '>=' | '<='
+  thresholdValue: number
 }
 
 export interface Throwable {
@@ -3915,6 +4051,12 @@ export interface Throwable {
   message?: string
   stackTrace?: StackTraceElement[]
   suppressed?: Throwable[]
+}
+
+export interface TimeGraphResponse {
+  dataPoints?: DataPoints[]
+  endTime?: number
+  startTime?: number
 }
 
 export interface TimeRange {
@@ -3993,6 +4135,7 @@ export interface TimeSeriesMetricDataDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   environmentIdentifier?: string
   groupName?: string
   metricDataList?: MetricData[]
@@ -4078,6 +4221,7 @@ export interface TimeSeriesThreshold {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   lastUpdatedAt?: number
   metricGroupName?: string
   metricName: string
@@ -4109,6 +4253,7 @@ export interface TimeSeriesThresholdDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   metricGroupName?: string
   metricName?: string
   metricPackIdentifier?: string
@@ -4150,6 +4295,7 @@ export interface TransactionMetricInfo {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
   nodes?: HostData[]
   transactionMetric?: TransactionMetric
 }
@@ -4232,6 +4378,10 @@ export interface VerifyStepSummary {
 
 export interface Void {
   [key: string]: any
+}
+
+export type WeeklyCalendarSpec = CalenderSpec & {
+  dayOfWeek: 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun'
 }
 
 export type AlertRuleDTORequestBody = AlertRuleDTO
@@ -7418,6 +7568,7 @@ export interface GetMetricPacksQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
 }
 
 export type GetMetricPacksProps = Omit<
@@ -7478,6 +7629,7 @@ export interface SaveMetricPacksQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
 }
 
 export type SaveMetricPacksProps = Omit<
@@ -8839,6 +8991,99 @@ export const getSloMetricsPromise = (
     signal
   )
 
+export interface GetSliGraphQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetSliGraphPathParams {
+  monitoredServiceIdentifier: string
+}
+
+export type GetSliGraphProps = Omit<
+  MutateProps<
+    RestResponseTimeGraphResponse,
+    unknown,
+    GetSliGraphQueryParams,
+    ServiceLevelIndicatorDTO,
+    GetSliGraphPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetSliGraphPathParams
+
+/**
+ * get Sli graph for onboarding UI
+ */
+export const GetSliGraph = ({ monitoredServiceIdentifier, ...props }: GetSliGraphProps) => (
+  <Mutate<
+    RestResponseTimeGraphResponse,
+    unknown,
+    GetSliGraphQueryParams,
+    ServiceLevelIndicatorDTO,
+    GetSliGraphPathParams
+  >
+    verb="POST"
+    path={`/monitored-service/${monitoredServiceIdentifier}/sli/onboarding-graph`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetSliGraphProps = Omit<
+  UseMutateProps<
+    RestResponseTimeGraphResponse,
+    unknown,
+    GetSliGraphQueryParams,
+    ServiceLevelIndicatorDTO,
+    GetSliGraphPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetSliGraphPathParams
+
+/**
+ * get Sli graph for onboarding UI
+ */
+export const useGetSliGraph = ({ monitoredServiceIdentifier, ...props }: UseGetSliGraphProps) =>
+  useMutate<
+    RestResponseTimeGraphResponse,
+    unknown,
+    GetSliGraphQueryParams,
+    ServiceLevelIndicatorDTO,
+    GetSliGraphPathParams
+  >(
+    'POST',
+    (paramsInPath: GetSliGraphPathParams) =>
+      `/monitored-service/${paramsInPath.monitoredServiceIdentifier}/sli/onboarding-graph`,
+    { base: getConfig('cv/api'), pathParams: { monitoredServiceIdentifier }, ...props }
+  )
+
+/**
+ * get Sli graph for onboarding UI
+ */
+export const getSliGraphPromise = (
+  {
+    monitoredServiceIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseTimeGraphResponse,
+    unknown,
+    GetSliGraphQueryParams,
+    ServiceLevelIndicatorDTO,
+    GetSliGraphPathParams
+  > & { monitoredServiceIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseTimeGraphResponse,
+    unknown,
+    GetSliGraphQueryParams,
+    ServiceLevelIndicatorDTO,
+    GetSliGraphPathParams
+  >('POST', getConfig('cv/api'), `/monitored-service/${monitoredServiceIdentifier}/sli/onboarding-graph`, props, signal)
+
 export interface GetNewRelicApplicationsQueryParams {
   accountId: string
   connectorIdentifier: string
@@ -9397,8 +9642,6 @@ export const getServiceLevelObjectivesPromise = (
 
 export interface SaveSLODataQueryParams {
   accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
 }
 
 export type SaveSLODataProps = Omit<
@@ -9424,7 +9667,7 @@ export const SaveSLOData = (props: SaveSLODataProps) => (
     void
   >
     verb="POST"
-    path={`/slo/create`}
+    path={`/slo`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -9451,7 +9694,7 @@ export const useSaveSLOData = (props: UseSaveSLODataProps) =>
     SaveSLODataQueryParams,
     ServiceLevelObjectiveDTORequestBody,
     void
-  >('POST', `/slo/create`, { base: getConfig('cv/api'), ...props })
+  >('POST', `/slo`, { base: getConfig('cv/api'), ...props })
 
 /**
  * saves slo data
@@ -9472,7 +9715,7 @@ export const saveSLODataPromise = (
     SaveSLODataQueryParams,
     ServiceLevelObjectiveDTORequestBody,
     void
-  >('POST', getConfig('cv/api'), `/slo/create`, props, signal)
+  >('POST', getConfig('cv/api'), `/slo`, props, signal)
 
 export interface DeleteSLODataQueryParams {
   accountId: string
@@ -10153,6 +10396,7 @@ export interface GetAnomalousMetricDashboardDataQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
 }
 
 export type GetAnomalousMetricDashboardDataProps = Omit<
@@ -10227,6 +10471,7 @@ export interface GetMetricDataQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
 }
 
 export type GetMetricDataProps = Omit<

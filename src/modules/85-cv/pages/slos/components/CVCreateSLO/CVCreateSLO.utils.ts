@@ -1,22 +1,268 @@
-import type { RestResponseServiceLevelObjectiveResponse } from 'services/cv'
-import type { SLITypeEnum } from './components/CreateSLOForm/components/SLI/SLI.constants'
-import { initialValuesSLO } from './components/CreateSLOForm/CreateSLO.constants'
-import type { SLOForm } from './components/CreateSLOForm/CreateSLO.types'
+import { omit } from 'lodash-es'
+import type { SelectOption } from '@wings-software/uicore'
+import type { FormikProps } from 'formik'
+import type { UseStringsReturn, StringKeys } from 'framework/strings'
+import type {
+  ServiceLevelObjectiveDTO,
+  ThresholdSLIMetricSpec,
+  RatioSLIMetricSpec,
+  CalenderSLOTargetSpec,
+  MonthlyCalenderSpec,
+  WeeklyCalendarSpec,
+  RollingSLOTargetSpec,
+  UserJourneyResponse,
+  MonitoredServiceWithHealthSources,
+  MetricDTO
+} from 'services/cv'
+import { initialValuesSLO } from './CVCreateSLO.constants'
+import {
+  SLOForm,
+  PeriodTypes,
+  PeriodLengthTypes,
+  Days,
+  CreateSLOTabs,
+  SLOFormFields,
+  SLIMetricTypes,
+  Comparators
+} from './CVCreateSLO.types'
 
-export const getInitialValuesSLO = (
-  identifier: string,
-  SLODataById: RestResponseServiceLevelObjectiveResponse | null
-): SLOForm => {
-  if (identifier && SLODataById?.resource?.serviceLevelObjective) {
-    const { type, spec } = SLODataById?.resource?.serviceLevelObjective.serviceLevelIndicators?.[0] || {}
+export const getSLOInitialFormData = (serviceLevelObjective?: ServiceLevelObjectiveDTO): SLOForm => {
+  if (serviceLevelObjective) {
+    const {
+      serviceLevelIndicators: [serviceLevelIndicator],
+      target,
+      ...rest
+    } = serviceLevelObjective
+    const SLIMetricSpec = serviceLevelIndicator?.spec.spec as (ThresholdSLIMetricSpec & RatioSLIMetricSpec) | undefined
+    const targetSpec = target.spec as (CalenderSLOTargetSpec & RollingSLOTargetSpec) | undefined
+    const periodLengthTypeSpec = targetSpec?.spec as (MonthlyCalenderSpec & WeeklyCalendarSpec) | undefined
+
     return {
-      ...SLODataById?.resource?.serviceLevelObjective,
-      serviceLevelIndicators: {
-        type: type as SLITypeEnum,
-        spec
-      }
+      ...omit(rest, ['orgIdentifier', 'projectIdentifier']),
+      SLIType: serviceLevelIndicator?.type,
+      SLIMetricType: serviceLevelIndicator?.spec.type,
+      eventType: SLIMetricSpec?.eventType,
+      validRequestMetric: SLIMetricSpec?.metric1 ?? '',
+      goodRequestMetric: SLIMetricSpec?.metric2,
+      objectiveValue: SLIMetricSpec?.thresholdValue,
+      objectiveComparator: SLIMetricSpec?.thresholdType,
+      SLIMissingDataType: serviceLevelIndicator?.sliMissingDataType,
+      periodType: target.type,
+      periodLength: targetSpec?.periodLength,
+      periodLengthType: targetSpec?.type,
+      dayOfWeek: periodLengthTypeSpec?.dayOfWeek,
+      dayOfMonth: periodLengthTypeSpec?.dayOfMonth?.toString(),
+      SLOTargetPercentage: target.sloTargetPercentage
     }
-  } else {
-    return initialValuesSLO
   }
+
+  return initialValuesSLO
+}
+
+export const createSLORequestPayload = (
+  values: SLOForm,
+  orgIdentifier: string,
+  projectIdentifier: string
+): ServiceLevelObjectiveDTO => {
+  return {
+    name: values.name,
+    identifier: values.identifier,
+    description: values.description,
+    tags: values.tags,
+    userJourneyRef: values.userJourneyRef,
+    monitoredServiceRef: values.monitoredServiceRef,
+    healthSourceRef: values.healthSourceRef,
+    orgIdentifier,
+    projectIdentifier,
+    serviceLevelIndicators: [
+      {
+        type: values.SLIType,
+        sliMissingDataType: values.SLIMissingDataType,
+        spec: {
+          type: values.SLIMetricType,
+          spec: {
+            eventType: values.SLIMetricType === SLIMetricTypes.RATIO ? values.eventType : undefined,
+            metric1: values.validRequestMetric,
+            metric2: values.SLIMetricType === SLIMetricTypes.RATIO ? values.goodRequestMetric : undefined,
+            thresholdValue: values.objectiveValue,
+            thresholdType: values.objectiveComparator
+          } as ThresholdSLIMetricSpec | RatioSLIMetricSpec
+        }
+      }
+    ],
+    target: {
+      type: values.periodType,
+      sloTargetPercentage: values.SLOTargetPercentage,
+      spec: {
+        type: values.periodLengthType,
+        periodLength: values.periodType === PeriodTypes.ROLLING ? values.periodLength : undefined,
+        spec: {
+          dayOfWeek: values.periodLengthType === PeriodLengthTypes.WEEKLY ? values.dayOfWeek : undefined,
+          dayOfMonth: values.periodLengthType === PeriodLengthTypes.MONTHLY ? values.dayOfMonth : undefined
+        } as MonthlyCalenderSpec | WeeklyCalendarSpec
+      } as CalenderSLOTargetSpec | RollingSLOTargetSpec
+    }
+  }
+}
+
+export const isFormDataValid = (formikProps: FormikProps<SLOForm>, selectedTabId: CreateSLOTabs): boolean => {
+  if (selectedTabId === CreateSLOTabs.NAME) {
+    formikProps.setFieldTouched(SLOFormFields.NAME)
+    formikProps.setFieldTouched(SLOFormFields.USER_JOURNEY_REF)
+
+    const { name, userJourneyRef } = formikProps.values
+
+    if (!name || !userJourneyRef) {
+      return false
+    }
+  }
+
+  if (selectedTabId === CreateSLOTabs.SLI) {
+    formikProps.setFieldTouched(SLOFormFields.MONITORED_SERVICE_REF)
+    formikProps.setFieldTouched(SLOFormFields.HEALTH_SOURCE_REF)
+    formikProps.setFieldTouched(SLOFormFields.EVENT_TYPE)
+    formikProps.setFieldTouched(SLOFormFields.GOOD_REQUEST_METRIC)
+    formikProps.setFieldTouched(SLOFormFields.VALID_REQUEST_METRIC)
+    formikProps.setFieldTouched(SLOFormFields.OBJECTIVE_VALUE)
+    formikProps.setFieldTouched(SLOFormFields.OBJECTIVE_COMPARATOR)
+    formikProps.setFieldTouched(SLOFormFields.SLI_MISSING_DATA_TYPE)
+
+    const {
+      healthSourceRef,
+      monitoredServiceRef,
+      eventType,
+      goodRequestMetric,
+      validRequestMetric,
+      objectiveValue,
+      objectiveComparator,
+      SLIMissingDataType
+    } = formikProps.errors
+
+    if (
+      healthSourceRef ||
+      monitoredServiceRef ||
+      eventType ||
+      goodRequestMetric ||
+      validRequestMetric ||
+      objectiveValue ||
+      objectiveComparator ||
+      SLIMissingDataType
+    ) {
+      return false
+    }
+  }
+
+  return true
+}
+
+// SLO Name
+
+export const getUserJourneyOptions = (userJourneyResponse?: UserJourneyResponse[]): SelectOption[] => {
+  return (
+    userJourneyResponse?.map(userJourney => ({
+      label: userJourney.userJourney.name,
+      value: userJourney.userJourney.identifier
+    })) ?? []
+  )
+}
+
+// SLI
+
+export function getMonitoredServiceOptions(
+  monitoredServiceWithHealthSources?: MonitoredServiceWithHealthSources[]
+): SelectOption[] {
+  return (
+    monitoredServiceWithHealthSources?.map(monitoredService => ({
+      label: monitoredService.name ?? '',
+      value: monitoredService.identifier ?? ''
+    })) ?? []
+  )
+}
+
+export function getHealthSourceOptions(
+  monitoredServiceWithHealthSources?: MonitoredServiceWithHealthSources[],
+  monitoredServiceRef?: string
+): SelectOption[] {
+  if (monitoredServiceWithHealthSources && monitoredServiceRef) {
+    return (
+      monitoredServiceWithHealthSources
+        .find(monitoredService => monitoredService.identifier === monitoredServiceRef)
+        ?.healthSources?.map(healthSource => ({
+          label: healthSource.name ?? '',
+          value: healthSource.identifier ?? ''
+        })) ?? []
+    )
+  }
+
+  return []
+}
+
+// PickMetric
+
+export const getSLOMetricOptions = (SLOMetricList?: MetricDTO[]): SelectOption[] => {
+  // TODO: Adding this for unblock the create flow. This should be removed, once we are able to cerate and use SLO metrics.
+  const dummyOptions = [
+    { label: 'Metric One', value: 'metric1' },
+    { label: 'Metric Two', value: 'metric2' }
+  ]
+
+  return [
+    ...(SLOMetricList?.map(metric => ({
+      label: metric.metricName ?? '',
+      value: metric.identifier ?? ''
+    })) ?? []),
+    ...dummyOptions
+  ]
+}
+
+export const getComparatorSuffixLabelId = (comparator?: ThresholdSLIMetricSpec['thresholdType']): StringKeys => {
+  if (comparator === Comparators.LESS_EQUAL || comparator === Comparators.GREATER_EQUAL) {
+    return 'cv.toObjectiveValue'
+  }
+
+  return 'cv.thanObjectiveValue'
+}
+
+// SLOTargetAndBudgetPolicy
+
+export const getPeriodTypeOptions = (getString: UseStringsReturn['getString']): SelectOption[] => {
+  return [
+    { label: getString('cv.slos.sloTargetAndBudget.periodTypeOptions.rolling'), value: PeriodTypes.ROLLING },
+    { label: getString('cv.slos.sloTargetAndBudget.periodTypeOptions.calendar'), value: PeriodTypes.CALENDAR }
+  ]
+}
+
+export const getPeriodLengthOptions = (getString: UseStringsReturn['getString']): SelectOption[] => {
+  return [
+    {
+      label: getString('pipeline.triggers.schedulePanel.weeklyTabTitle'),
+      value: PeriodLengthTypes.WEEKLY
+    },
+    {
+      label: getString('common.monthly'),
+      value: PeriodLengthTypes.MONTHLY
+    },
+    {
+      label: getString('cv.quarterly'),
+      value: PeriodLengthTypes.QUARTERLY
+    }
+  ]
+}
+
+export const getWindowEndOptionsForWeek = (getString: UseStringsReturn['getString']): SelectOption[] => {
+  return [
+    { label: getString('cv.monday'), value: Days.MONDAY },
+    { label: getString('cv.tuesday'), value: Days.TUESDAY },
+    { label: getString('cv.wednesday'), value: Days.WEDNESDAY },
+    { label: getString('cv.thursday'), value: Days.THURSDAY },
+    { label: getString('cv.friday'), value: Days.FRIDAY },
+    { label: getString('cv.saturday'), value: Days.SATURDAY },
+    { label: getString('cv.sunday'), value: Days.SUNDAY }
+  ]
+}
+
+export const getWindowEndOptionsForMonth = (): SelectOption[] => {
+  return Array(31)
+    .fill(0)
+    .map((_, i) => ({ label: `${i + 1}`, value: `${i + 1}` }))
 }

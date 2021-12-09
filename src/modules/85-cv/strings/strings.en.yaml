@@ -612,10 +612,7 @@ slos:
     periodTypeOptions:
       rolling: Rolling
       calendar: Calendar
-    selectPeriodType: Select period type
     setSLOTarget: Set SLO Target
-    selectPeriodLength: Select Period Length
-    periodLength: Period Length (days)
   slis:
     type:
       availability: Availability
@@ -636,9 +633,27 @@ objectiveValue: Objective Value
 SLIValueIsGoodIf: SLI value is good if
 thanObjectiveValue: than objective value
 toObjectiveValue: to objective value
+SLIMissingDataType: SLI Missing Data Type
 metricIsRequired: Metric is required
 metricForGoodAndValidRequestsShouldBeDifferent: Metric for good and valid requests should be different
 required: Required
+periodLength: Period Length
+periodLengthDays: Period Length (Days)
+widowEnds: Window Ends
+windowEndsDay: Window Ends (Day)
+periodLengthIsRequired: Period Length is required
+windowsEndIsRequired: Windows End is required
+quarterly: Quarterly
+monday: Monday
+tuesday: Tuesday
+wednesday: Wednesday
+thursday: Thursday
+friday: Friday
+saturday: Saturday
+sunday: Sunday
+good: Good
+bad: Bad
+ignore: Ignore
 cvChanges:
   changeTypeFilterDefault: 'Change Types'
   sourceFilterDefault: 'Sources'

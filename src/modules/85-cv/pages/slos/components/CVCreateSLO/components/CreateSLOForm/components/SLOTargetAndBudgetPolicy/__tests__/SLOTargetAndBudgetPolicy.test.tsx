@@ -3,12 +3,13 @@ import { render, screen } from '@testing-library/react'
 import { Formik } from 'formik'
 import { FormikForm } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import { initialFormData } from '@cv/pages/slos/__tests__/CVSLOsListingPage.mock'
+import { initialFormData } from '@cv/pages/slos/components/CVCreateSLO/__tests__/CVCreateSLO.mock'
 import type { StringKeys } from 'framework/strings'
+import {
+  getPeriodTypeOptions,
+  getWindowEndOptionsForMonth
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import SLOTargetAndBudgetPolicy from '../SLOTargetAndBudgetPolicy'
-import { getPeriodLengthOptions, getPeriodTypeOptions, getUpdatedTarget } from '../SLOTargetAndBudgetPolicy.utils'
-import type { SLOForm } from '../../../CreateSLO.types'
-import { periodLengthOptions } from './SLOTargetAndBudgetPolicy.mock'
 
 jest.mock('@cv/pages/slos/components/SLOTargetChart/SLOTargetChart', () => ({
   __esModule: true,
@@ -64,19 +65,11 @@ describe('Test SLOTargetAndBudgetPolicy component', () => {
     ])
   })
 
-  test('verify getPeriodLengthOptions method', async () => {
-    expect(getPeriodLengthOptions()).toEqual(periodLengthOptions)
-  })
+  test('verify getWindowEndOptionsForMonth method', async () => {
+    const periodLengthOptions = Array(31)
+      .fill(0)
+      .map((_, i) => ({ label: `${i + 1}`, value: `${i + 1}` }))
 
-  test('verify getUpdatedTarget method', async () => {
-    expect(getUpdatedTarget([1635914774678 as any, 1636001240860 as any], initialFormData as SLOForm)).toEqual({
-      sloTargetPercentage: 10,
-      spec: {
-        endDate: '2021-11-04',
-        periodLength: '',
-        startDate: '2021-11-03'
-      },
-      type: ''
-    })
+    expect(getWindowEndOptionsForMonth()).toEqual(periodLengthOptions)
   })
 })

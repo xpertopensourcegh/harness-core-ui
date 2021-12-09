@@ -4030,6 +4030,7 @@ export interface StringsMap {
   'cv.Dependency.serviceChanges': string
   'cv.Dependency.serviceList': string
   'cv.SLIMetricRatio': string
+  'cv.SLIMissingDataType': string
   'cv.SLIRequestRatio': string
   'cv.SLIValueIsGoodIf': string
   'cv.SLOTarget': string
@@ -4068,6 +4069,7 @@ export interface StringsMap {
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string
+  'cv.bad': string
   'cv.baseUrl': string
   'cv.changeSource.HarnessCDCurrentGen.applicationId': string
   'cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId': string
@@ -4129,7 +4131,9 @@ export interface StringsMap {
   'cv.evaluationPeriod': string
   'cv.failures': string
   'cv.filter': string
+  'cv.friday': string
   'cv.getRiskAssessment': string
+  'cv.good': string
   'cv.harnessEnvironment': string
   'cv.harnessService': string
   'cv.healthScore': string
@@ -4169,6 +4173,7 @@ export interface StringsMap {
   'cv.healthSource.table.environmentMapping': string
   'cv.healthSource.table.serviceMapping': string
   'cv.hostNamePlaceholder': string
+  'cv.ignore': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string
   'cv.known': string
@@ -4182,6 +4187,7 @@ export interface StringsMap {
   'cv.metricIsRequired': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
+  'cv.monday': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.assignLabel': string
   'cv.monitoredServices.changeMonitoredServiceType': string
@@ -4487,10 +4493,14 @@ export interface StringsMap {
   'cv.overall': string
   'cv.overviewPage.recentChangeVerifications': string
   'cv.perHeatMapCell': string
+  'cv.periodLength': string
+  'cv.periodLengthDays': string
+  'cv.periodLengthIsRequired': string
   'cv.pinABaseline': string
   'cv.postDeployment': string
   'cv.preProductionTests': string
   'cv.proceedToEdit': string
+  'cv.quarterly': string
   'cv.queries': string
   'cv.query': string
   'cv.request': string
@@ -4504,6 +4514,7 @@ export interface StringsMap {
   'cv.riskTimeline': string
   'cv.sampleEvent': string
   'cv.sampleMessage': string
+  'cv.saturday': string
   'cv.searchForAService': string
   'cv.seeYAML': string
   'cv.selectCreateService': string
@@ -4556,12 +4567,9 @@ export interface StringsMap {
   'cv.slos.sloCreated': string
   'cv.slos.sloDeleted': string
   'cv.slos.sloName': string
-  'cv.slos.sloTargetAndBudget.periodLength': string
   'cv.slos.sloTargetAndBudget.periodType': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.calendar': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.rolling': string
-  'cv.slos.sloTargetAndBudget.selectPeriodLength': string
-  'cv.slos.sloTargetAndBudget.selectPeriodType': string
   'cv.slos.sloTargetAndBudget.setSLOTarget': string
   'cv.slos.sloTargetAndBudgetPolicy': string
   'cv.slos.sloUpdated': string
@@ -4573,16 +4581,19 @@ export interface StringsMap {
   'cv.slos.validations.nameValidation': string
   'cv.slos.validations.userJourneyRequired': string
   'cv.statusCode': string
+  'cv.sunday': string
   'cv.thanObjectiveValue': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
   'cv.thirdPartyCalls.requestMade': string
   'cv.thirdPartyCalls.timeTaken': string
   'cv.throughput': string
+  'cv.thursday': string
   'cv.timeline': string
   'cv.toObjectiveValue': string
   'cv.trafficSplit': string
   'cv.trend': string
+  'cv.tuesday': string
   'cv.turnService': string
   'cv.unexpected': string
   'cv.unknown': string
@@ -4590,6 +4601,10 @@ export interface StringsMap {
   'cv.verificationErrored': string
   'cv.verificationStatus': string
   'cv.verifications': string
+  'cv.wednesday': string
+  'cv.widowEnds': string
+  'cv.windowEndsDay': string
+  'cv.windowsEndIsRequired': string
   /**
    * @deprecated migrate this string to module level file
    */

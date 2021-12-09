@@ -117,6 +117,7 @@ allowpaths:
   - /slo/{identifier}
   - /monitored-service/all/time-series-health-sources
   - /monitored-service/{monitoredServiceIdentifier}/health-source/{healthSourceIdentifier}/slo-metrics
+  - /monitored-service/{monitoredServiceIdentifier}/sli/onboarding-graph
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

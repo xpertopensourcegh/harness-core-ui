@@ -7,13 +7,14 @@ exports[`Test SLOName component should render SLOName component 1`] = `
   >
     <div>
       <div
-        class="Layout--vertical StyledProps--main sloNameContainer StyledProps--margin-xxlarge"
+        class="bp3-card bp3-elevation-0 Card--card card"
       >
         <div
-          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+          class="StyledProps--font StyledProps--main"
+          style="width: 350px;"
         >
           <div
-            class="StyledProps--font StyledProps--main main nameTagsDescription"
+            class="StyledProps--font StyledProps--main main"
           >
             <div
               class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -201,7 +202,7 @@ exports[`Test SLOName component should render SLOName component 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="bp3-popover-wrapper dropdown Select--main bp3-fill"
+                  class="bp3-popover-wrapper Select--main bp3-fill"
                 >
                   <div
                     class="bp3-popover-target"

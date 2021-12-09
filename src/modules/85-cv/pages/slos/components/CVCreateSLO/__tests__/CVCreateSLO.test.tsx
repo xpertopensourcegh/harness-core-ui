@@ -5,18 +5,15 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { editParams } from '@cv/utils/routeUtils'
 import { cvModuleParams } from '@cv/RouteDestinations'
-import type { RestResponseServiceLevelObjectiveResponse } from 'services/cv'
 import CVCreateSLO from '../CVCreateSLO'
 import { mockedUserJourneysData } from '../components/CreateSLOForm/components/SLOName/__tests__/SLOName.mock'
 import {
-  expectedInitialValuesCreateFlow,
+  initialFormData,
   expectedInitialValuesEditFlow,
   mockedSLODataById,
   mockPayloadForUpdateRequest
 } from './CVCreateSLO.mock'
-import { getInitialValuesSLO } from '../CVCreateSLO.utils'
-import { createSLORequestPayload } from '../components/CreateSLOForm/CreateSLO.utils'
-import type { SLOForm } from '../components/CreateSLOForm/CreateSLO.types'
+import { getSLOInitialFormData, createSLORequestPayload } from '../CVCreateSLO.utils'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVEditSLOs({ ...accountPathProps, ...projectPathProps }),
@@ -94,12 +91,7 @@ describe('Test CVCreateSLO component', () => {
         <CVCreateSLO />
       </TestWrapper>
     )
-    expect(
-      getInitialValuesSLO(
-        testWrapperProps?.pathParams?.identifier as string,
-        mockedSLODataById as RestResponseServiceLevelObjectiveResponse
-      )
-    ).toEqual(expectedInitialValuesCreateFlow)
+    expect(getSLOInitialFormData()).toEqual(initialFormData)
   })
 
   test('verify edit Flow', async () => {
@@ -120,16 +112,13 @@ describe('Test CVCreateSLO component', () => {
         <CVCreateSLO />
       </TestWrapper>
     )
-    expect(
-      getInitialValuesSLO(
-        editFlowTestWrapperProps?.pathParams?.identifier as string,
-        mockedSLODataById as RestResponseServiceLevelObjectiveResponse
-      )
-    ).toEqual(expectedInitialValuesEditFlow)
+    expect(getSLOInitialFormData(mockedSLODataById.resource?.serviceLevelObjective)).toEqual(
+      expectedInitialValuesEditFlow
+    )
   })
 
   test('verify createSLORequestPayload method', async () => {
-    expect(createSLORequestPayload(expectedInitialValuesEditFlow as SLOForm, 'org-1', 'project-1')).toEqual(
+    expect(createSLORequestPayload(expectedInitialValuesEditFlow, 'org-1', 'project-1')).toEqual(
       mockPayloadForUpdateRequest
     )
   })

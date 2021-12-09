@@ -5,18 +5,16 @@ import { Formik } from 'formik'
 import { FormikForm } from '@wings-software/uicore'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
-import { initialFormData } from '@cv/pages/slos/__tests__/CVSLOsListingPage.mock'
+import { initialFormData } from '@cv/pages/slos/components/CVCreateSLO/__tests__/CVCreateSLO.mock'
 import type { StringKeys } from 'framework/strings'
-import type { ResponseListMonitoredServiceWithHealthSources } from 'services/cv'
-import SLI from '../SLI'
 import {
-  getHealthSourcesOptions,
-  getMonitoredServicesOptions,
-  getSliMetricOptions,
-  getSliTypeOptions
-} from '../SLI.utils'
+  getHealthSourceOptions,
+  getMonitoredServiceOptions
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import { getSLIMetricOptions, getSLITypeOptions } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
+import { SLOFormFields, Comparators } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import SLI from '../SLI'
 import { expectedHealthSourcesOptions, expectedMonitoredServiceOptions, mockedMonitoredServiceData } from './SLI.mock'
-import { Comparators } from '../SLI.types'
 
 jest.mock('@cv/pages/slos/components/SLOTargetChart/SLOTargetChart', () => ({
   __esModule: true,
@@ -73,29 +71,24 @@ describe('Test SLI component', () => {
   })
 
   test('verify getMonitoredServicesOptions method', async () => {
-    const actualMonitoredServiceOptions = getMonitoredServicesOptions(
-      mockedMonitoredServiceData as ResponseListMonitoredServiceWithHealthSources
-    )
+    const actualMonitoredServiceOptions = getMonitoredServiceOptions(mockedMonitoredServiceData.data)
     expect(actualMonitoredServiceOptions).toEqual(expectedMonitoredServiceOptions)
   })
 
   test('verify healthSourcesOptions method', async () => {
-    const actualHealthSources = getHealthSourcesOptions(
-      mockedMonitoredServiceData as ResponseListMonitoredServiceWithHealthSources,
-      'Service_102_QA'
-    )
+    const actualHealthSources = getHealthSourceOptions(mockedMonitoredServiceData.data, 'Service_102_QA')
     expect(actualHealthSources).toEqual(expectedHealthSourcesOptions)
   })
 
   test('verify getSliTypeOptions method', async () => {
-    expect(getSliTypeOptions(getString)).toEqual([
+    expect(getSLITypeOptions(getString)).toEqual([
       { label: 'cv.slos.slis.type.availability', value: 'Availability' },
       { label: 'cv.slos.slis.type.latency', value: 'Latency' }
     ])
   })
 
   test('verify getSliMetricOptions method', async () => {
-    expect(getSliMetricOptions(getString)).toEqual([
+    expect(getSLIMetricOptions(getString)).toEqual([
       {
         label: 'cv.slos.slis.metricOptions.thresholdBased',
         value: 'Threshold'
@@ -134,7 +127,7 @@ describe('PickMetric', () => {
       {
         container,
         type: InputTypes.SELECT,
-        fieldId: 'serviceLevelIndicators.spec.comparator',
+        fieldId: SLOFormFields.OBJECTIVE_COMPARATOR,
         value: Comparators.LESS
       }
     ])
@@ -150,7 +143,7 @@ describe('PickMetric', () => {
       {
         container,
         type: InputTypes.SELECT,
-        fieldId: 'serviceLevelIndicators.spec.comparator',
+        fieldId: SLOFormFields.OBJECTIVE_COMPARATOR,
         value: Comparators.LESS_EQUAL
       }
     ])

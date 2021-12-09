@@ -10,26 +10,41 @@ import {
   Text,
   Color,
   useToaster,
-  SelectOption
+  SelectOption,
+  Icon
 } from '@wings-software/uicore'
 import { useGetSloMetrics } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
-import { SLIMetricEnum, comparatorOptions, defaultOption } from '../SLI.constants'
-import type { PickMetricProps } from '../SLI.types'
-import { getEventTypeOptions, getSliMetricOptions, getSLOMetricOptions, getComparatorSuffixLabelId } from '../SLI.utils'
-import css from '../SLI.module.scss'
+import {
+  getSLOMetricOptions,
+  getComparatorSuffixLabelId
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import {
+  comparatorOptions,
+  defaultOption,
+  getSLIMetricOptions,
+  getEventTypeOptions,
+  getMissingDataTypeOptions
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
+import { SLOPanelProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const PickMetric: React.FC<PickMetricProps> = ({ formikProps }) => {
+const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const { monitoredServiceRef, healthSourceRef, serviceLevelIndicators } = formikProps.values
-  const { metric1, metric2 } = serviceLevelIndicators.spec.spec as any // Forced type should be removed after BE changes
-  const isRatioBasedMetric = serviceLevelIndicators.spec.type === SLIMetricEnum.RATIO
-  const comparator = serviceLevelIndicators.spec.comparator
+  const {
+    monitoredServiceRef,
+    healthSourceRef,
+    goodRequestMetric,
+    validRequestMetric,
+    SLIMetricType,
+    objectiveComparator
+  } = formikProps.values
+  const isRatioBasedMetric = SLIMetricType === SLIMetricTypes.RATIO
 
   const {
     data: SLOMetricsData,
@@ -62,67 +77,67 @@ const PickMetric: React.FC<PickMetricProps> = ({ formikProps }) => {
   const SLOMetricOptions = getSLOMetricOptions(SLOMetricsData?.resource)
 
   const activeGoodMetric: SelectOption = useMemo(
-    () => SLOMetricOptions.find(metric => metric.value === metric1) ?? defaultOption,
-    [SLOMetricOptions, metric1]
+    () => SLOMetricOptions.find(metric => metric.value === goodRequestMetric) ?? defaultOption,
+    [SLOMetricOptions, goodRequestMetric]
   )
 
   const activeValidMetric: SelectOption = useMemo(
-    () => SLOMetricOptions.find(metric => metric.value === metric2) ?? defaultOption,
-    [SLOMetricOptions, metric2]
+    () => SLOMetricOptions.find(metric => metric.value === validRequestMetric) ?? defaultOption,
+    [SLOMetricOptions, validRequestMetric]
   )
 
   return (
-    <Container margin="xxlarge" width="80%">
-      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ bottom: 'xsmall' }}>
+    <>
+      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ top: 'xxlarge', bottom: 'xsmall' }}>
         {getString('cv.slos.pickMetricsSLI')}
       </Heading>
-      <Card className={css.card}>
+      <Card className={css.cardPickMetric}>
         <FormInput.RadioGroup
-          name="serviceLevelIndicators.spec.type"
+          name={SLOFormFields.SLI_METRIC_TYPE}
           radioGroup={{ inline: true }}
-          items={getSliMetricOptions(getString)}
+          items={getSLIMetricOptions(getString)}
         />
         <Layout.Horizontal spacing="xxlarge">
           <Container padding={{ right: 'xxlarge' }} border={{ right: true }}>
             {isRatioBasedMetric && (
               <Layout.Horizontal spacing="xlarge">
                 <FormInput.Select
-                  name="serviceLevelIndicators.spec.spec.eventType"
+                  name={SLOFormFields.EVENT_TYPE}
                   label={getString('cv.slos.slis.ratioMetricType.eventType')}
-                  items={getEventTypeOptions()}
+                  items={getEventTypeOptions(getString)}
                   className={css.eventType}
                 />
                 <FormInput.Select
-                  name="serviceLevelIndicators.spec.spec.metric1"
+                  name={SLOFormFields.GOOD_REQUEST_METRIC}
                   label={getString('cv.slos.slis.ratioMetricType.goodRequestsMetrics')}
                   placeholder={SLOMetricsLoading ? getString('loading') : undefined}
                   disabled={!healthSourceRef}
                   items={SLOMetricOptions}
                   className={css.metricSelect}
                   value={activeGoodMetric}
-                  onChange={metric =>
-                    formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric1', metric.value)
-                  }
+                  onChange={metric => formikProps.setFieldValue(SLOFormFields.GOOD_REQUEST_METRIC, metric.value)}
                 />
               </Layout.Horizontal>
             )}
             <FormInput.Select
-              name="serviceLevelIndicators.spec.spec.metric2"
+              name={SLOFormFields.VALID_REQUEST_METRIC}
               label={getString('cv.slos.slis.ratioMetricType.validRequestsMetrics')}
               placeholder={SLOMetricsLoading ? getString('loading') : undefined}
               disabled={!healthSourceRef}
               items={SLOMetricOptions}
               className={css.metricSelect}
               value={activeValidMetric}
-              onChange={metric => formikProps.setFieldValue('serviceLevelIndicators.spec.spec.metric2', metric.value)}
+              onChange={metric => formikProps.setFieldValue(SLOFormFields.VALID_REQUEST_METRIC, metric.value)}
             />
             <FormInput.Text
-              name="serviceLevelIndicators.spec.objectiveValue"
+              name={SLOFormFields.OBJECTIVE_VALUE}
               label={getString('cv.objectiveValue')}
               inputGroup={{
                 type: 'number',
                 min: 0,
-                max: 100
+                max: SLIMetricType === SLIMetricTypes.RATIO ? 100 : undefined,
+                rightElement:
+                  SLIMetricType === SLIMetricTypes.RATIO ? <Icon name="percentage" padding="small" /> : undefined
               }}
               className={css.objectiveValue}
             />
@@ -135,17 +150,23 @@ const PickMetric: React.FC<PickMetricProps> = ({ formikProps }) => {
                 {getString('cv.SLIValueIsGoodIf')}
               </Text>
               <FormInput.Select
-                name="serviceLevelIndicators.spec.comparator"
+                name={SLOFormFields.OBJECTIVE_COMPARATOR}
                 items={comparatorOptions}
                 onChange={option => {
-                  formikProps.setFieldValue('serviceLevelIndicators.spec.comparator', option.value)
+                  formikProps.setFieldValue(SLOFormFields.OBJECTIVE_COMPARATOR, option.value)
                 }}
                 className={css.comparatorOptions}
               />
               <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_600}>
-                {getString(getComparatorSuffixLabelId(comparator))}
+                {getString(getComparatorSuffixLabelId(objectiveComparator))}
               </Text>
             </Layout.Horizontal>
+            <FormInput.Select
+              name={SLOFormFields.SLI_MISSING_DATA_TYPE}
+              label={getString('cv.SLIMissingDataType')}
+              items={getMissingDataTypeOptions(getString)}
+              className={css.metricSelect}
+            />
           </Container>
 
           <Container
@@ -170,7 +191,7 @@ const PickMetric: React.FC<PickMetricProps> = ({ formikProps }) => {
           </Container>
         </Layout.Horizontal>
       </Card>
-    </Container>
+    </>
   )
 }
 

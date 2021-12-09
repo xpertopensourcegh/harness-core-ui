@@ -1,30 +1,23 @@
 import React, { useCallback, useMemo } from 'react'
-import { SelectOption, useToaster, Utils } from '@wings-software/uicore'
+import { Card, Container, SelectOption, useToaster, Utils } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
-
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import { HarnessServiceAsFormField } from '@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment'
 import { useGetAllJourneys, useSaveUserJourney } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { LIST_USER_JOURNEYS_OFFSET, LIST_USER_JOURNEYS_PAGESIZE } from '@cv/pages/slos/CVSLOsListingPage.constants'
-import type { SLONameProps } from './SLOName.types'
-import { getUserJourneysData } from './SLOName.utils'
-import css from './SLOName.module.scss'
+import { SLOPanelProps, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import { getUserJourneyOptions } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-export default function SLOName(props: SLONameProps): JSX.Element {
-  const {
-    formikProps: { values, setFieldValue },
-    formikProps,
-    children,
-    identifier
-  } = props
+const SLOName: React.FC<SLOPanelProps> = ({ formikProps, identifier, children }) => {
   const { getString } = useStrings()
-  const { showSuccess, showError, clear } = useToaster()
-  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
-  const userJourneyLabel = getString('cv.slos.userJourney')
+  const { showSuccess, showError } = useToaster()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const TEXT_USER_JOURNEY = getString('cv.slos.userJourney')
+  const { userJourneyRef } = formikProps.values
 
   const {
     data: userJourneysData,
@@ -32,9 +25,9 @@ export default function SLOName(props: SLONameProps): JSX.Element {
     loading: userJourneysLoading
   } = useGetAllJourneys({
     queryParams: {
+      accountId,
       orgIdentifier,
       projectIdentifier,
-      accountId,
       offset: LIST_USER_JOURNEYS_OFFSET,
       pageSize: LIST_USER_JOURNEYS_PAGESIZE
     }
@@ -42,9 +35,9 @@ export default function SLOName(props: SLONameProps): JSX.Element {
 
   const { loading: saveUserJourneyLoading, mutate: createUserJourney } = useSaveUserJourney({
     queryParams: {
+      accountId,
       orgIdentifier,
-      projectIdentifier,
-      accountId
+      projectIdentifier
     }
   })
 
@@ -55,12 +48,11 @@ export default function SLOName(props: SLONameProps): JSX.Element {
         await createUserJourney({ name: newOption.name, identifier: newOption.identifier })
 
         // selecting the current user journey
-        setFieldValue('userJourneyRef', newOption.identifier)
+        formikProps.setFieldValue('userJourneyRef', newOption.identifier)
 
         // listing all user journeys
         await fetchUserJourneys()
 
-        clear()
         showSuccess(getString('cv.slos.userJourneyCreated'))
       } catch (e) {
         showError(getErrorMessage(e))
@@ -69,46 +61,55 @@ export default function SLOName(props: SLONameProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const keys = useMemo(() => [Utils.randomId()], [values.userJourneyRef])
+  const key = useMemo(() => Utils.randomId(), [userJourneyRef])
 
-  const userJourneysOptions = useMemo((): SelectOption[] => {
-    return getUserJourneysData(userJourneysData)
-  }, [userJourneysData])
+  const userJourneyOptions = useMemo(
+    (): SelectOption[] => getUserJourneyOptions(userJourneysData?.data?.content),
+    [userJourneysData?.data?.content]
+  )
+
+  const activeUserJourney = useMemo(
+    () => userJourneyOptions.find(userJourney => userJourney.value === userJourneyRef),
+    [userJourneyOptions, userJourneyRef]
+  )
 
   return (
     <>
-      <CardWithOuterTitle className={css.sloNameContainer}>
-        <NameIdDescriptionTags
-          formikProps={formikProps}
-          className={css.nameTagsDescription}
-          identifierProps={{
-            inputLabel: getString('cv.slos.sloName'),
-            isIdentifierEditable: !identifier
-          }}
-        />
-        <HarnessServiceAsFormField
-          key={keys[0]}
-          customRenderProps={{
-            name: 'userJourneyRef',
-            label: userJourneyLabel
-          }}
-          serviceProps={{
-            className: css.dropdown,
-            item: userJourneysOptions.find(item => item?.value === values.userJourneyRef),
-            options: userJourneysOptions,
-            onSelect: selectedUserJourney => setFieldValue('userJourneyRef', selectedUserJourney.value),
-            modalTitle: userJourneyLabel,
-            placeholder: getString('cv.slos.userJourneyPlaceholder'),
-            skipServiceCreateOrUpdate: true,
-            onNewCreated: newOption => handleCreateUserJourney(newOption),
-            loading: userJourneysLoading,
-            name: userJourneyLabel
-          }}
-          customLoading={saveUserJourneyLoading}
-        />
-      </CardWithOuterTitle>
+      <Card className={css.card}>
+        <Container width={350}>
+          <NameIdDescriptionTags
+            formikProps={formikProps}
+            identifierProps={{
+              inputLabel: getString('cv.slos.sloName'),
+              inputName: SLOFormFields.NAME,
+              isIdentifierEditable: !identifier
+            }}
+          />
+          <HarnessServiceAsFormField
+            key={key}
+            customRenderProps={{
+              name: SLOFormFields.USER_JOURNEY_REF,
+              label: TEXT_USER_JOURNEY
+            }}
+            serviceProps={{
+              item: activeUserJourney,
+              options: userJourneyOptions,
+              onSelect: selectedUserJourney =>
+                formikProps.setFieldValue(SLOFormFields.USER_JOURNEY_REF, selectedUserJourney.value),
+              modalTitle: TEXT_USER_JOURNEY,
+              placeholder: getString('cv.slos.userJourneyPlaceholder'),
+              skipServiceCreateOrUpdate: true,
+              onNewCreated: newOption => handleCreateUserJourney(newOption),
+              loading: userJourneysLoading,
+              name: TEXT_USER_JOURNEY
+            }}
+            customLoading={saveUserJourneyLoading}
+          />
+        </Container>
+      </Card>
       {children}
     </>
   )
 }
+
+export default SLOName
