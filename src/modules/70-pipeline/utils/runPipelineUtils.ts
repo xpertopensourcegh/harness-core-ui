@@ -1,7 +1,7 @@
+import { getStageFromPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/helpers'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
-import { getStageFromPipeline } from '../PipelineStudio/PipelineContext/helpers'
 
 interface NgPipelineTemplate {
   pipeline: PipelineInfoConfig

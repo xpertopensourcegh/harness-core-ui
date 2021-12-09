@@ -11,22 +11,32 @@ import {
   Text,
   TextInput,
   ButtonVariation,
-  PageSpinner
+  PageSpinner,
+  Container
 } from '@wings-software/uicore'
 import { clone, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
+import {
+  EntityGitDetails,
+  InputSetErrorWrapper,
+  InputSetSummaryResponse,
+  useGetInputSetsListForPipeline
+} from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { Badge } from '@pipeline/pages/utils/Badge/Badge'
+import { isInputSetInvalid } from '@pipeline/utils/inputSetUtils'
 import css from './InputSetSelector.module.scss'
 
-export interface InputSetValue extends SelectOption {
+type InputSetLocal = InputSetSummaryResponse & SelectOption
+
+export interface InputSetValue extends InputSetLocal {
   type: InputSetSummaryResponse['inputSetType']
   gitDetails?: EntityGitDetails
 }
@@ -247,12 +257,21 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       label: string,
       val: string,
       type: InputSetSummaryResponse['inputSetType'],
-      gitDetails: EntityGitDetails | null
+      gitDetails: EntityGitDetails | null,
+      inputSetErrorDetails?: InputSetErrorWrapper,
+      overlaySetErrorDetails?: { [key: string]: string }
     ) => {
       const selected = clone(selectedInputSets)
       const removedItem = selected.filter(set => set.value === val)[0]
       if (checked && !removedItem) {
-        selected.push({ label, value: val, type, gitDetails: gitDetails ?? {} })
+        selected.push({
+          label,
+          value: val,
+          type,
+          gitDetails: gitDetails ?? {},
+          inputSetErrorDetails,
+          overlaySetErrorDetails
+        })
       } else if (removedItem) {
         selected.splice(selected.indexOf(removedItem), 1)
       }
@@ -318,7 +337,15 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     <li
       className={cx(css.item)}
       onClick={() => {
-        onCheckBoxHandler(false, selected.label, selected.value as string, selected.type, selected.gitDetails ?? {})
+        onCheckBoxHandler(
+          false,
+          selected.label,
+          selected.value as string,
+          selected.type,
+          selected.gitDetails ?? {},
+          selected.inputSetErrorDetails,
+          selected.overlaySetErrorDetails
+        )
       }}
       key={`${index}-${selected.value as string}`}
       draggable={true}
@@ -334,22 +361,26 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         <Checkbox
           className={css.checkbox}
           labelElement={
-            <Text font={{ size: 'small' }} icon={getIconByType(selected.type)}>
+            <Text className={css.labelText} font={{ size: 'small' }} icon={getIconByType(selected.type)}>
               {selected.label}
             </Text>
           }
           checked={true}
-          onChange={event => {
-            onCheckBoxHandler(
-              event.currentTarget.checked,
-              selected.label,
-              selected.value as string,
-              selected.type,
-              selected.gitDetails ?? null
-            )
-          }}
         />
         {selected.gitDetails?.repoIdentifier ? <InputSetGitDetails gitDetails={selected.gitDetails} /> : null}
+        {isInputSetInvalid(selected) && (
+          <Container padding={{ left: 'large' }}>
+            <Badge
+              text={'common.invalid'}
+              iconName="warning-sign"
+              showTooltip={true}
+              entityName={selected.name}
+              entityType={selected.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
+              uuidToErrorResponseMap={selected.inputSetErrorDetails?.uuidToErrorResponseMap}
+              overlaySetErrorDetails={selected.overlaySetErrorDetails}
+            />
+          </Container>
+        )}
         <span className={css.order}>
           <Text className={css.orderText}>{index + 1}</Text>
           <Icon name="main-reorder" size={12} />
@@ -381,7 +412,9 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
               inputSet.name || '',
               inputSet.identifier || '',
               inputSet.inputSetType || 'INPUT_SET',
-              inputSet.gitDetails ?? null
+              inputSet.gitDetails ?? null,
+              inputSet.inputSetErrorDetails,
+              inputSet.overlaySetErrorDetails
             )
           }}
         >
@@ -389,21 +422,25 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             <Checkbox
               className={css.checkbox}
               labelElement={
-                <Text font={{ size: 'small' }} icon={getIconByType(inputSet.inputSetType)}>
+                <Text font={{ size: 'small' }} className={css.labelText} icon={getIconByType(inputSet.inputSetType)}>
                   {inputSet.name}
                 </Text>
               }
-              onChange={event => {
-                onCheckBoxHandler(
-                  event.currentTarget.checked,
-                  inputSet.name || '',
-                  inputSet.identifier || '',
-                  inputSet.inputSetType || 'INPUT_SET',
-                  inputSet.gitDetails ?? null
-                )
-              }}
             />
             {inputSet.gitDetails?.repoIdentifier ? <InputSetGitDetails gitDetails={inputSet.gitDetails} /> : null}
+            {isInputSetInvalid(inputSet) && (
+              <Container padding={{ left: 'large' }}>
+                <Badge
+                  text={'common.invalid'}
+                  iconName="warning-sign"
+                  showTooltip={true}
+                  entityName={inputSet.name}
+                  entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
+                  uuidToErrorResponseMap={inputSet.inputSetErrorDetails?.uuidToErrorResponseMap}
+                  overlaySetErrorDetails={inputSet.overlaySetErrorDetails}
+                />
+              </Container>
+            )}
           </Layout.Horizontal>
         </li>
       ))

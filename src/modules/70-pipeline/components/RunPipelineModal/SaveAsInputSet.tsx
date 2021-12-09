@@ -18,7 +18,7 @@ import GitContextForm, { GitContextProps } from '@common/components/GitContextFo
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
-
+import { getFormattedErrors } from '@pipeline/utils/runPipelineUtils'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -27,7 +27,6 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
-import { getFormattedErrors } from './RunPipelineHelper'
 
 interface SaveAsInputSetProps {
   pipeline?: PipelineInfoConfig

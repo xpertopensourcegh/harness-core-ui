@@ -1,9 +1,11 @@
 import React from 'react'
 import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { Color, Container, Icon, Text, IconName, Popover, Layout } from '@wings-software/uicore'
+import type { InputSetErrorResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
-
+import { getErrorsList } from '@pipeline/components/PipelineStudio/StepUtil'
+import { getFormattedErrors } from '@pipeline/utils/runPipelineUtils'
 import css from './Badge.module.scss'
 
 export interface BadgeProps {
@@ -12,39 +14,74 @@ export interface BadgeProps {
   showTooltip?: boolean
   entityName?: string
   entityType: string
+  uuidToErrorResponseMap?: { [key: string]: InputSetErrorResponse }
+  overlaySetErrorDetails?: { [key: string]: string }
 }
 
 interface BadgeTooltipContentInterface {
   iconName: IconName
   entityName: string
   entityType: string
+  uuidToErrorResponseMap?: { [key: string]: InputSetErrorResponse }
+  overlaySetErrorDetails?: { [key: string]: string }
 }
 
 const TooltipContent: React.FC<BadgeTooltipContentInterface> = (props: BadgeTooltipContentInterface): JSX.Element => {
-  const { iconName, entityName = '', entityType } = props
+  const { iconName, entityName = '', entityType, uuidToErrorResponseMap, overlaySetErrorDetails } = props
   const { getString } = useStrings()
-
+  const nonGitErrors = uuidToErrorResponseMap
+    ? getFormattedErrors(uuidToErrorResponseMap)
+    : overlaySetErrorDetails
+    ? overlaySetErrorDetails
+    : {}
+  const { errorStrings: nonGitErrorStrings, errorCount: nonGitErrorsCount } = getErrorsList(nonGitErrors)
   return (
-    <Container width={292} padding="medium">
-      <Layout.Horizontal>
-        <div className={css.tooltipIcon}>
-          <Icon name={iconName} size={14} color={Color.RED_600} />
-        </div>
-        <Layout.Vertical padding={{ left: 'small' }}>
-          <Text width={244} color={Color.GREY_0} margin={{ bottom: 'small' }} className={css.tooltipContentText}>
-            {getString('common.gitSync.outOfSync', { entityType, name: entityName })}
+    <Container padding="medium">
+      {nonGitErrorsCount ? (
+        // Show non git errors
+        // i.e. input set is invalid maybe because a pipeline was updated and runtimeinputs modified
+        <Layout.Vertical spacing="medium">
+          <Text color={Color.GREY_0}>
+            {getString('common.errorCount' as keyof StringsMap, { count: nonGitErrorsCount })}
           </Text>
-          <Text width={244} color={Color.GREY_0} className={css.tooltipContentText}>
-            {getString('common.gitSync.fixAllErrors')}
-          </Text>
+          <div>
+            {nonGitErrorStrings.map((errorMessage, index) => (
+              <Text width={500} lineClamp={1} color={Color.GREY_0} key={index} font={{ weight: 'semi-bold' }}>
+                {errorMessage}
+              </Text>
+            ))}
+          </div>
         </Layout.Vertical>
-      </Layout.Horizontal>
+      ) : (
+        // Show git errors
+        <Layout.Horizontal>
+          <div className={css.tooltipIcon}>
+            <Icon name={iconName} size={14} color={Color.RED_600} />
+          </div>
+          <Layout.Vertical width={292} padding={{ left: 'small' }}>
+            <Text width={244} color={Color.GREY_0} margin={{ bottom: 'small' }} className={css.tooltipContentText}>
+              {getString('common.gitSync.outOfSync', { entityType, name: entityName })}
+            </Text>
+            <Text width={244} color={Color.GREY_0} className={css.tooltipContentText}>
+              {getString('common.gitSync.fixAllErrors')}
+            </Text>
+          </Layout.Vertical>
+        </Layout.Horizontal>
+      )}
     </Container>
   )
 }
 
 export const Badge: React.FC<BadgeProps> = (props: BadgeProps): JSX.Element => {
-  const { text, iconName, showTooltip, entityName = '', entityType } = props
+  const {
+    text,
+    iconName,
+    showTooltip,
+    entityName = '',
+    entityType,
+    uuidToErrorResponseMap,
+    overlaySetErrorDetails
+  } = props
   const { getString } = useStrings()
 
   const badgeUI = (
@@ -58,7 +95,13 @@ export const Badge: React.FC<BadgeProps> = (props: BadgeProps): JSX.Element => {
   return showTooltip ? (
     <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM} className={Classes.DARK}>
       {badgeUI}
-      <TooltipContent iconName={iconName} entityName={entityName} entityType={entityType} />
+      <TooltipContent
+        iconName={iconName}
+        entityName={entityName}
+        entityType={entityType}
+        uuidToErrorResponseMap={uuidToErrorResponseMap}
+        overlaySetErrorDetails={overlaySetErrorDetails}
+      />
     </Popover>
   ) : (
     badgeUI

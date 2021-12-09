@@ -29,6 +29,7 @@ declare const styles: {
   readonly dragOver: string
   readonly order: string
   readonly orderText: string
+  readonly labelText: string
   readonly tag: string
   readonly spinner: string
   readonly renderSelectedValue: string

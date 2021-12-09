@@ -1,5 +1,5 @@
 import type { AllNGVariables } from '@pipeline/utils/types'
-import { mergeTemplateWithInputSetData } from '../RunPipelineHelper'
+import { mergeTemplateWithInputSetData } from '../runPipelineUtils'
 import pipelineTemplate from './mockJson/pipelineTemplate.json'
 import pipelineInputSetPortion from './mockJson/pipelineInputSetPortion.json'
 describe('RunPipelineHelper', () => {

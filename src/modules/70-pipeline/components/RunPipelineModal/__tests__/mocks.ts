@@ -139,13 +139,29 @@ export const mockInputSetsList: UseGetMockDataWithMutateAndRefetch<ResponsePageI
           identifier: 'inputset1',
           inputSetType: 'INPUT_SET',
           name: 'is1',
-          pipelineIdentifier: 'PipelineId'
+          pipelineIdentifier: 'PipelineId',
+          inputSetErrorDetails: {
+            uuidToErrorResponseMap: {
+              a: {
+                errors: [{ fieldName: 'a', message: 'a field invalid' }]
+              }
+            }
+          }
         },
         {
           identifier: 'inputset2',
           inputSetType: 'INPUT_SET',
           name: 'is2',
           pipelineIdentifier: 'PipelineId'
+        },
+        {
+          identifier: 'overlay1',
+          inputSetType: 'OVERLAY_INPUT_SET',
+          name: 'ov1',
+          pipelineIdentifier: 'PipelineId',
+          overlaySetErrorDetails: {
+            b: 'overlay field invalid'
+          }
         }
       ]
     }

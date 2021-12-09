@@ -213,6 +213,47 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                     OverLayInput
                   </p>
                 </div>
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--padding-left-large"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main badge"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-warning-sign StyledProps--main badgeIcon StyledProps--color StyledProps--color-red600"
+                          icon="warning-sign"
+                        >
+                          <svg
+                            data-icon="warning-sign"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              warning-sign
+                            </desc>
+                            <path
+                              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main badgeText StyledProps--color StyledProps--color-red900 StyledProps--font-weight-bold"
+                        >
+                          common.invalid
+                        </p>
+                      </div>
+                    </span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -373,6 +414,47 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   >
                     asd
                   </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--padding-left-large"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main badge"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-warning-sign StyledProps--main badgeIcon StyledProps--color StyledProps--color-red600"
+                          icon="warning-sign"
+                        >
+                          <svg
+                            data-icon="warning-sign"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              warning-sign
+                            </desc>
+                            <path
+                              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main badgeText StyledProps--color StyledProps--color-red900 StyledProps--font-weight-bold"
+                        >
+                          common.invalid
+                        </p>
+                      </div>
+                    </span>
+                  </span>
                 </div>
               </div>
             </div>

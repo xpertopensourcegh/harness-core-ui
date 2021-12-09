@@ -24,6 +24,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { isInputSetInvalid } from '@pipeline/utils/inputSetUtils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useDeleteConfirmationDialog from '../utils/DeleteConfirmDialog'
@@ -78,7 +79,7 @@ const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
           </Layout.Horizontal>
           <Text color={Color.GREY_400}>{data.identifier}</Text>
         </div>
-        {data.entityValidityDetails?.valid === false && (
+        {isInputSetInvalid(data) && (
           <Container padding={{ left: 'large' }}>
             <Badge
               text={'common.invalid'}
@@ -86,6 +87,8 @@ const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
               showTooltip={true}
               entityName={data.name}
               entityType={data.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
+              uuidToErrorResponseMap={data.inputSetErrorDetails?.uuidToErrorResponseMap}
+              overlaySetErrorDetails={data.overlaySetErrorDetails}
             />
           </Container>
         )}

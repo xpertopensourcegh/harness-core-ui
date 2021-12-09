@@ -227,7 +227,7 @@ describe('STUDIO MODE', () => {
   })
 
   test('should accept values from input sets and submit the form', async () => {
-    const { container, getByText, queryByText } = render(
+    const { container, getByText, queryByText, queryAllByText } = render(
       <TestWrapper>
         <RunPipelineForm {...commonProps} />
       </TestWrapper>
@@ -243,6 +243,25 @@ describe('STUDIO MODE', () => {
     })
 
     await waitFor(() => expect(queryByText('is1')).toBeTruthy())
+
+    // input set is invalid should be flagged
+    const allinvalidflags = queryAllByText('common.invalid')
+
+    // one for invalid input set and one forinvalid overlay set as per the mocked data
+    expect(allinvalidflags.length).toBe(2)
+
+    act(() => {
+      fireEvent.mouseOver(allinvalidflags[0])
+    })
+    // when you hover over the invalid flag show the tooltip content
+    await waitFor(() => expect(queryByText('common.errorCount')).toBeTruthy())
+
+    // hover over the invalid flagt for overlay
+    act(() => {
+      fireEvent.mouseOver(allinvalidflags[1])
+    })
+    // when you hover over the invalid flag show the tooltip content
+    await waitFor(() => expect(queryByText('common.errorCount')).toBeTruthy())
 
     // Select the input sets - is1 and then is2
     act(() => {

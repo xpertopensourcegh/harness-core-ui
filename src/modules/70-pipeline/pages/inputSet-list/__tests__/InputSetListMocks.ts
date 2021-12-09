@@ -96,14 +96,24 @@ export const GetInputSetsResponse: UseGetReturnData<ResponsePageInputSetSummaryR
           name: 'OverLayInput',
           pipelineIdentifier: 'testqqq',
           description: 'OverLayInput',
-          inputSetType: 'OVERLAY_INPUT_SET'
+          inputSetType: 'OVERLAY_INPUT_SET',
+          overlaySetErrorDetails: {
+            b: 'overlay field invalid'
+          }
         },
         {
           identifier: 'asd',
           name: 'asd',
           pipelineIdentifier: 'testqqq',
           description: 'asd',
-          inputSetType: 'INPUT_SET'
+          inputSetType: 'INPUT_SET',
+          inputSetErrorDetails: {
+            uuidToErrorResponseMap: {
+              a: {
+                errors: [{ fieldName: 'a', message: 'a field invalid' }]
+              }
+            }
+          }
         }
       ],
       pageIndex: 0,
