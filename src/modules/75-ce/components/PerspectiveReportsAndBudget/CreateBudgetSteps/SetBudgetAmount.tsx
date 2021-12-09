@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { get } from 'lodash-es'
 import {
   Text,
@@ -12,27 +12,48 @@ import {
   FontVariation,
   FlexExpander,
   DateInput,
-  Color
+  Color,
+  Icon,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
+import moment from 'moment'
 import type { FormikProps } from 'formik'
 import Highcharts from 'highcharts/highcharts'
 import { useParams } from 'react-router-dom'
 import { Position } from '@blueprintjs/core'
-import { Budget, useGetLastMonthCost, useGetForecastCost } from 'services/ce'
+import { Budget, useGetLastPeriodCost, useGetForecastCostForPeriod } from 'services/ce'
 import formatCost from '@ce/utils/formatCost'
 import CEChart from '@ce/components/CEChart/CEChart'
 import { todayInUTC } from '@ce/utils/momentUtils'
 import { useStrings } from 'framework/strings'
+import { BudgetPeriod } from 'services/ce/services'
 import type { BudgetStepData } from '../types'
 import css from '../PerspectiveCreateBudget.module.scss'
 
 interface GrowthRateChartProps {
   growthRateVal: number
   amount: number
+  period: string
+  startTime: number
 }
 
-const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthRateVal, amount }) => {
+const IncrementStep: Record<string, any> = {
+  [BudgetPeriod.Daily]: 'd',
+  [BudgetPeriod.Weekly]: 'w',
+  [BudgetPeriod.Monthly]: 'M',
+  [BudgetPeriod.Quarterly]: 'Q',
+  [BudgetPeriod.Yearly]: 'y'
+}
+
+const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({
+  growthRateVal,
+  amount,
+  period,
+  startTime
+}) => {
   const { getString } = useStrings()
+
+  const incrementFactor = IncrementStep[period]
 
   return (
     <Container
@@ -51,13 +72,13 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthR
             {
               color: 'var(--primary-8)',
               data: [
-                [Number(todayInUTC().startOf('month').format('x')), +amount],
+                [Number(moment.utc(startTime).startOf('d').format('x')), +amount],
                 [
-                  Number(todayInUTC().startOf('month').add(1, 'month').format('x')),
+                  Number(moment.utc(startTime).startOf('d').add(1, incrementFactor).format('x')),
                   +amount * (1 + growthRateVal / 100)
                 ],
                 [
-                  Number(todayInUTC().startOf('month').add(2, 'months').format('x')),
+                  Number(moment.utc(startTime).startOf('d').add(2, incrementFactor).format('x')),
                   +amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)
                 ]
               ],
@@ -91,7 +112,7 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthR
             ordinal: true,
             labels: {
               formatter: function () {
-                return Highcharts.dateFormat('%b %Y', Number(this.value))
+                return Highcharts.dateFormat('%e %b %Y', Number(this.value))
               }
             }
           },
@@ -108,19 +129,42 @@ interface SetBudgetFormProps {
   formikProps: FormikProps<Form>
   isEditMode: boolean
   lastMonthCost: number | undefined
+  setLastCostPeriodCostVar: React.Dispatch<
+    React.SetStateAction<{
+      startTime: number
+      period: 'MONTHLY' | 'DAILY' | 'WEEKLY' | 'QUARTERLY' | 'YEARLY'
+    }>
+  >
 }
 
-const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps, isEditMode, lastMonthCost }) => {
+const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
+  formikProps,
+  isEditMode,
+  lastMonthCost,
+  setLastCostPeriodCostVar
+}) => {
   const { getString } = useStrings()
 
+  useEffect(() => {
+    if (formikProps.values.type === 'PREVIOUS_PERIOD_SPEND' && !isEditMode) {
+      formikProps.setFieldValue('budgetAmount', lastMonthCost || 0)
+    }
+  }, [lastMonthCost])
+
   const BUDGET_PERIOD = useMemo(() => {
-    return [{ label: getString('ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly'), value: 'MONTHLY' }]
+    return [
+      { label: getString('ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly'), value: 'MONTHLY' },
+      { label: 'Daily', value: 'DAILY' },
+      { label: 'Weekly', value: 'WEEKLY' },
+      { label: 'Quarterly', value: 'QUARTERLY' },
+      { label: 'Yearly', value: 'YEARLY' }
+    ]
   }, [])
 
   const BUDGET_TYPE = useMemo(() => {
     return [
       { label: getString('ce.perspectives.budgets.setBudgetAmount.specifiedAmount'), value: 'SPECIFIED_AMOUNT' },
-      { label: getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend'), value: 'PREVIOUS_MONTH_SPEND' }
+      { label: getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend'), value: 'PREVIOUS_PERIOD_SPEND' }
     ]
   }, [])
 
@@ -135,6 +179,12 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
         items={BUDGET_PERIOD}
         name={'period'}
         label={getString('ce.perspectives.budgets.setBudgetAmount.budgetPeriod')}
+        tooltipProps={{
+          dataTooltipId: 'budgetPeriod'
+        }}
+        onChange={val => {
+          setLastCostPeriodCostVar(x => ({ ...x, period: val.value as any }))
+        }}
       />
       <Text font={{ variation: FontVariation.BODY2 }} color={Color.GREY_600}>
         {getString('ce.perspectives.budgets.setBudgetAmount.monthStartsFrom')}
@@ -142,38 +192,45 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
       <DateInput
         disabled={isEditMode}
         popoverProps={{
-          position: Position.BOTTOM
+          position: Position.BOTTOM,
+          disabled: isEditMode
         }}
         value={String(formikProps.values.startTime)}
         onChange={val => {
+          const startTime = moment(Number(val)).startOf('day').format('x')
+          setLastCostPeriodCostVar(x => ({ ...x, startTime: startTime as any }))
+
           formikProps.setValues({
             ...formikProps.values,
-            startTime: Number(val)
+            startTime: Number(startTime)
           })
         }}
       />
+      <HarnessDocTooltip tooltipId="budgetStartTime" useStandAlone={true} />
       <FormInput.Select
         value={BUDGET_TYPE.find(op => op.value === formikProps.values.type)}
         items={BUDGET_TYPE}
         name={'type'}
         label={getString('ce.perspectives.budgets.setBudgetAmount.budgetType')}
         onChange={option => {
-          if (option.value === 'PREVIOUS_MONTH_SPEND') {
+          if (option.value === 'PREVIOUS_PERIOD_SPEND') {
             formikProps.setFieldValue('budgetAmount', lastMonthCost || 0)
           }
         }}
       />
       <FormInput.Text
-        disabled={formikProps.values.type === 'PREVIOUS_MONTH_SPEND'}
+        disabled={formikProps.values.type === 'PREVIOUS_PERIOD_SPEND'}
         name={'budgetAmount'}
+        inputGroup={{ type: 'number' }}
         label={
-          formikProps.values.type === 'PREVIOUS_MONTH_SPEND'
+          formikProps.values.type === 'PREVIOUS_PERIOD_SPEND'
             ? getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend')
             : getString('ce.perspectives.budgets.setBudgetAmount.specifyAmount')
         }
       />
       <FormInput.CheckBox
         name="growthRateCheck"
+        disabled={formikProps.values.type === 'PREVIOUS_PERIOD_SPEND' ? true : false}
         label={getString('ce.perspectives.budgets.setBudgetAmount.growthRateCheck')}
         tooltipProps={{
           dataTooltipId: 'growthRateCheckbox'
@@ -188,6 +245,7 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
         >
           <FormInput.Text
             name={'growthRate'}
+            inputGroup={{ type: 'number' }}
             label={getString('ce.perspectives.budgets.setBudgetAmount.growthRateLabel')}
           />
           <Text
@@ -228,26 +286,47 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
     nextStep,
     prevStepData,
     previousStep,
-    budget: { budgetAmount = 0, type, period, startTime, growthRate } = {},
+    budget: { budgetAmount = 0, period, startTime, growthRate } = {},
     isEditMode
   } = props
 
-  const { perspective } = prevStepData || {}
+  let type = props.budget?.type
 
-  const { data: lmc } = useGetLastMonthCost({
-    queryParams: { accountIdentifier: accountId, perspectiveId: perspective }
+  if (type === 'PREVIOUS_MONTH_SPEND') {
+    type = 'PREVIOUS_PERIOD_SPEND'
+  }
+
+  const [lastPeriodCostVar, setLastCostPeriodCostVar] = useState({
+    startTime: startTime || get(prevStepData, 'startTime') || Number(todayInUTC().startOf('month').format('x')),
+    period: period || get(prevStepData, 'period') || 'MONTHLY'
   })
 
-  const { data: fc } = useGetForecastCost({
-    queryParams: { accountIdentifier: accountId, perspectiveId: perspective }
+  const { perspective } = prevStepData || {}
+
+  const { data: lpc, loading: lpcLoading } = useGetLastPeriodCost({
+    queryParams: {
+      accountIdentifier: accountId,
+      perspectiveId: perspective as string,
+      period: lastPeriodCostVar.period,
+      startTime: lastPeriodCostVar.startTime
+    }
+  })
+
+  const { data: fcp, loading: fcpLoading } = useGetForecastCostForPeriod({
+    queryParams: {
+      accountIdentifier: accountId,
+      perspectiveId: perspective as string,
+      period: lastPeriodCostVar.period,
+      startTime: lastPeriodCostVar.startTime
+    }
   })
 
   const COSTS = useMemo(
     () => [
-      [getString('ce.perspectives.budgets.setBudgetAmount.lastMonthCost'), lmc?.data],
-      [getString('ce.perspectives.budgets.setBudgetAmount.projectedCost'), fc?.data]
+      [getString('ce.perspectives.budgets.setBudgetAmount.lastMonthCost'), lpc?.data],
+      [getString('ce.perspectives.budgets.setBudgetAmount.projectedCost'), fcp?.data]
     ],
-    [lmc?.data, fc?.data]
+    [lpc?.data, fcp?.data]
   )
 
   const handleSubmit = (data: Form) => {
@@ -255,8 +334,8 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
       ...((prevStepData || {}) as Budget & { perspective: string }),
       type: data.type,
       budgetAmount: data.budgetAmount,
-      lastMonthCost: lmc?.data,
-      forecastCost: fc?.data,
+      lastMonthCost: lpc?.data,
+      forecastCost: fcp?.data,
       period: data.period,
       startTime: data.startTime,
       growthRate: data.growthRate
@@ -287,6 +366,8 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
     )
   }
 
+  const formLoading = lpcLoading || fcpLoading ? true : undefined
+
   return (
     <Container>
       <Formik<Form>
@@ -307,6 +388,11 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
         {formikProps => {
           return (
             <FormikForm className={css.selectPerspectiveContainer}>
+              {formLoading ? (
+                <Container className={css.loadingContainer}>
+                  <Icon name="spinner" size={26} color={Color.BLUE_500} />
+                </Container>
+              ) : null}
               <Container className={css.selectPerspectiveContainer}>
                 <Text font={{ variation: FontVariation.H4 }}>
                   {getString('ce.perspectives.budgets.setBudgetAmount.title')}
@@ -318,7 +404,12 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
                   }}
                   className={css.setBudgetContainer}
                 >
-                  <SetBudgetForm formikProps={formikProps} isEditMode={isEditMode} lastMonthCost={lmc?.data} />
+                  <SetBudgetForm
+                    formikProps={formikProps}
+                    isEditMode={isEditMode}
+                    lastMonthCost={lpc?.data}
+                    setLastCostPeriodCostVar={setLastCostPeriodCostVar}
+                  />
                   <Container
                     padding={{
                       left: 'medium'
@@ -327,8 +418,10 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
                     {renderCosts()}
                     {formikProps.values.growthRateCheck ? (
                       <GrowthRateChart
+                        period={formikProps.values.period}
                         growthRateVal={formikProps.values.growthRate}
                         amount={formikProps.values.budgetAmount}
+                        startTime={formikProps.values.startTime}
                       />
                     ) : null}
                   </Container>

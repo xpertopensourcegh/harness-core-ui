@@ -2,16 +2,18 @@ import { Container, Text, FontVariation, Color } from '@wings-software/uicore'
 import React from 'react'
 import moment from 'moment'
 import type { CellProps, Renderer } from 'react-table'
-import type { BudgetData, BudgetCostData } from 'services/ce/services'
+import type { BudgetData, BudgetCostData, BudgetPeriod } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import Grid from '@ce/components/PerspectiveGrid/Grid'
 import formatCost from '@ce/utils/formatCost'
+import { getTimeRangeExpression } from '../BudgetDetailsChart/budgetCategoryUtil'
 
 interface BudgetDetailsGridProps {
   gridData: BudgetData
+  budgetPeriod: BudgetPeriod
 }
 
-const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null = ({ gridData }) => {
+const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null = ({ gridData, budgetPeriod }) => {
   const { getString } = useStrings()
 
   if (!gridData) {
@@ -34,13 +36,32 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
         font={{ variation: FontVariation.BODY }}
         color={cell.value > 0 ? Color.RED_600 : Color.GREEN_600}
       >
-        {cell.value}
+        {formatCost(cell.value)}
+      </Text>
+    )
+  }
+
+  const BudgetVariancePercentageCell: Renderer<CellProps<BudgetCostData>> = ({ cell }) => {
+    return (
+      <Text
+        rightIcon={cell.value > 0 ? 'caret-up' : 'caret-down'}
+        rightIconProps={{
+          color: cell.value > 0 ? Color.RED_600 : Color.GREEN_600
+        }}
+        font={{ variation: FontVariation.BODY }}
+        color={cell.value > 0 ? Color.RED_600 : Color.GREEN_600}
+      >
+        {`${cell.value}%`}
       </Text>
     )
   }
 
   const TimeCell: Renderer<CellProps<BudgetCostData>> = ({ cell }) => {
-    return <Text font={{ variation: FontVariation.BODY }}>{moment.utc(cell.value).format('MMM YYYY')}</Text>
+    const rowData = cell.row.original
+    const startTime = moment.utc(rowData.time)
+    const endTime = moment.utc(rowData.endTime)
+    const rangeText = getTimeRangeExpression(budgetPeriod, startTime, endTime)
+    return <Text font={{ variation: FontVariation.BODY }}>{rangeText}</Text>
   }
 
   const formattedData = costData.filter(e => e?.time).sort((a, b) => b?.time - a?.time) as BudgetCostData[]
@@ -72,7 +93,7 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
           {
             Header: getString('ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage'),
             accessor: 'budgetVariancePercentage',
-            Cell: BudgetVarianceCell
+            Cell: BudgetVariancePercentageCell
           }
         ]}
         data={formattedData}

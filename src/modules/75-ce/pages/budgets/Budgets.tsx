@@ -9,29 +9,62 @@ import {
   Container,
   Color,
   Popover,
-  TableV2
+  TableV2,
+  useConfirmationDialog,
+  useToaster
 } from '@wings-software/uicore'
-import { Classes, Menu, MenuItem, Position } from '@blueprintjs/core'
+import { Classes, Menu, MenuItem, Position, Intent } from '@blueprintjs/core'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useFetchBudgetQuery, BudgetSummary } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import { useDeleteBudget } from 'services/ce'
+import { useDeleteBudget, Budget } from 'services/ce'
 import { PageSpinner } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
 import BudgetStatusBar from '@ce/components/BudgetStatusBar/BudgetStatusBar'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
+import EmptyView from '@ce/images/empty-state.svg'
 import css from './Budgets.module.scss'
 
 interface BudgetMenuProps {
   onEdit: () => void
-  onDelete: () => void
+  budgetId: string
+  handleDeleteBudget: (id: string, name: string) => void
+  budgetName: string
 }
 
-const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete }) => {
+const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, handleDeleteBudget, budgetId, budgetName }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const { getString } = useStrings()
+
+  const getConfirmationDialogContent = (): JSX.Element => {
+    return (
+      <div>
+        <Text>
+          {getString('ce.budgets.confirmDeleteBudgetMsg', {
+            name: budgetName
+          })}
+        </Text>
+      </div>
+    )
+  }
+
+  const { openDialog } = useConfirmationDialog({
+    contentText: getConfirmationDialogContent(),
+    titleText: getString('ce.budgets.confirmDeleteBudgetTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        budgetId && handleDeleteBudget(budgetId, budgetName)
+      }
+    }
+  })
+
   return (
     <Popover
       isOpen={isOpen}
@@ -63,7 +96,8 @@ const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete 
           onClick={(e: any) => {
             e.stopPropagation()
             setIsOpen(false)
-            onDelete()
+            openDialog()
+            // onDelete()
           }}
         />
       </Menu>
@@ -73,7 +107,7 @@ const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete 
 
 interface BudgetsListProps {
   budgetData: BudgetSummary[]
-  handleDeleteBudget: (id: string) => void
+  handleDeleteBudget: (id: string, budgetName: string) => void
   handleEditBudget: (budget: BudgetSummary) => void
   navigateToBudgetDetailsPage: (id: string, name: string) => void
 }
@@ -91,7 +125,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
   }
 
   const CostCell: Renderer<CellProps<BudgetSummary>> = cell => {
-    return cell.value ? (
+    return cell.value || cell.value === 0 ? (
       <Text font={{ variation: FontVariation.H5 }} color={Color.GREY_800}>
         {formatCost(cell.value)}
       </Text>
@@ -136,16 +170,15 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
   const MenuCell: Renderer<CellProps<BudgetSummary>> = ({ row }) => {
     const budgetId = row.original.id
     const budget = row.original
-
-    const onDelete: () => void = () => {
-      budgetId && handleDeleteBudget(budgetId)
-    }
+    const budgetName = row.original.name
 
     const onEdit: () => void = () => {
       budgetId && handleEditBudget(budget)
     }
 
-    return <BudgetMenu onDelete={onDelete} onEdit={onEdit} />
+    return (
+      <BudgetMenu handleDeleteBudget={handleDeleteBudget} onEdit={onEdit} budgetId={budgetId} budgetName={budgetName} />
+    )
   }
 
   if (!budgetData.length) {
@@ -194,7 +227,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
 const Budgets: () => JSX.Element = () => {
   const history = useHistory()
   const { getString } = useStrings()
-  const [{ data, fetching }, refetchBudget] = useFetchBudgetQuery()
+  const [{ data, fetching, error }, refetchBudget] = useFetchBudgetQuery()
   const [searchParam, setSearchParam] = useState<string>('')
   const { accountId } = useParams<{ accountId: string }>()
   const { openModal, hideModal } = useBudgetModal({
@@ -205,17 +238,31 @@ const Budgets: () => JSX.Element = () => {
       })
     }
   })
+  const { showSuccess, showError } = useToaster()
 
   const { mutate: deleteBudget, loading } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
 
-  const handleDeleteBudget: (id: string) => void = async id => {
+  const handleDeleteBudget: (id: string, budgetName: string) => void = async (id, budgetName) => {
     try {
-      await deleteBudget(id)
-      refetchBudget({
-        requestPolicy: 'network-only'
+      const deleted = await deleteBudget(id, {
+        headers: {
+          'content-type': 'application/json'
+        }
       })
-    } catch (e) {
-      // Catch errors here
+
+      if (deleted) {
+        showSuccess(
+          getString('ce.budgets.budgetDeletedTxt', {
+            name: budgetName
+          })
+        )
+
+        refetchBudget({
+          requestPolicy: 'network-only'
+        })
+      }
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
     }
   }
 
@@ -223,7 +270,7 @@ const Budgets: () => JSX.Element = () => {
     openModal({
       isEdit: true,
       perspective: budget.perspectiveId,
-      selectedBudget: budget
+      selectedBudget: budget as unknown as Budget
     })
   }
 
@@ -246,46 +293,95 @@ const Budgets: () => JSX.Element = () => {
     return budget.name?.toLocaleLowerCase().indexOf(searchParam.toLowerCase()) < 0 ? false : true
   })
 
+  const HeaderComponent = <Page.Header title={getString('ce.budgets.listPage.title')} />
+
+  const openNewBudgetModal = () => {
+    openModal({
+      isEdit: false,
+      selectedBudget: {
+        lastMonthCost: 0,
+        forecastCost: 0
+      }
+    })
+  }
+
+  const ToolBarComponent = (
+    <Layout.Horizontal
+      padding={{
+        left: 'large',
+        right: 'large',
+        top: 'medium',
+        bottom: 'medium'
+      }}
+      background="white"
+    >
+      <Button
+        intent="primary"
+        text={getString('ce.budgets.listPage.newBudget')}
+        iconProps={{
+          size: 10
+        }}
+        onClick={openNewBudgetModal}
+        icon="plus"
+      />
+      <FlexExpander />
+      <ExpandingSearchInput
+        className={css.search}
+        onChange={text => {
+          setSearchParam(text.trim())
+        }}
+        placeholder={getString('ce.budgets.listPage.searchText')}
+      />
+    </Layout.Horizontal>
+  )
+
+  if (!fetching && !filteredBudgetData.length && !error) {
+    return (
+      <>
+        {HeaderComponent}
+        <Page.Body>
+          {ToolBarComponent}
+
+          <Container className={css.empty}>
+            <img src={EmptyView} />
+            <Text
+              margin={{
+                top: 'large',
+                bottom: 'xsmall'
+              }}
+              font="small"
+              style={{
+                fontWeight: 600
+              }}
+              color={Color.GREY_500}
+            >
+              {getString('ce.pageErrorMsg.noBudgetMsg')}
+            </Text>
+            <Text font="small">{getString('ce.pageErrorMsg.noBudgetInfo')}</Text>
+            <Button
+              margin={{
+                top: 'large'
+              }}
+              intent="primary"
+              text={getString('ce.budgets.listPage.newBudget')}
+              iconProps={{
+                size: 10
+              }}
+              onClick={openNewBudgetModal}
+              icon="plus"
+            />
+          </Container>
+        </Page.Body>
+      </>
+    )
+  }
+
   return (
     <>
-      <Page.Header title={getString('ce.budgets.listPage.title')} />
+      {HeaderComponent}
       <Page.Body>
         {loading || fetching ? <PageSpinner /> : null}
-        <Layout.Horizontal
-          padding={{
-            left: 'large',
-            right: 'large',
-            top: 'medium',
-            bottom: 'medium'
-          }}
-          background="white"
-        >
-          <Button
-            intent="primary"
-            text={getString('ce.budgets.listPage.newBudget')}
-            iconProps={{
-              size: 10
-            }}
-            onClick={() =>
-              openModal({
-                isEdit: false,
-                selectedBudget: {
-                  lastMonthCost: 0,
-                  forecastCost: 0
-                }
-              })
-            }
-            icon="plus"
-          />
-          <FlexExpander />
-          <ExpandingSearchInput
-            className={css.search}
-            onChange={text => {
-              setSearchParam(text.trim())
-            }}
-            placeholder={getString('ce.budgets.listPage.searchText')}
-          />
-        </Layout.Horizontal>
+        {ToolBarComponent}
 
         <Layout.Horizontal padding="large">
           <Text font={{ variation: FontVariation.H5 }}>

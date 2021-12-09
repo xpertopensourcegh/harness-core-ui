@@ -12,5 +12,15 @@ query FetchBudget {
     forecastCostAlerts
     forecastCost
     perspectiveId
+    growthRate
+    startTime
+    type
+    period
+    alertThresholds {
+      basedOn
+      percentage
+      emailAddresses
+      userGroupIds
+    }
   }
 }

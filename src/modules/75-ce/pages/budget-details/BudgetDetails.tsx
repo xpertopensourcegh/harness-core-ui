@@ -11,24 +11,28 @@ import {
   PageHeader,
   Button,
   Layout,
-  ButtonVariation
+  ButtonVariation,
+  Container,
+  useConfirmationDialog
 } from '@wings-software/uicore'
+import { Intent } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
-import { useDeleteBudget } from 'services/ce'
+import { Budget, useDeleteBudget } from 'services/ce'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import BudgetDetailsSummary from '@ce/components/BudgetDetailsSummary/BudgetDetailsSummary'
 import { useFetchBudgetsGridDataQuery, useFetchBudgetSummaryQuery } from 'services/ce/services'
 import BudgetDetailsGrid from '@ce/components/BudgetDetailsGrid/BudgetDetailsGrid'
 import BudgetDetailsChart from '@ce/components/BudgetDetailsChart/BudgetDetailsChart'
+import EmptyView from '@ce/images/empty-state.svg'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
 import css from './BudgetDetails.module.scss'
 
 const BudgetDetails: () => JSX.Element | null = () => {
   const { accountId, budgetName, budgetId } = useParams<{ accountId: string; budgetName: string; budgetId: string }>()
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const history = useHistory()
 
   const { mutate: deleteBudget, loading } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
@@ -55,22 +59,109 @@ const BudgetDetails: () => JSX.Element | null = () => {
     }
   })
 
-  const handleDeleteBudget = async () => {
-    try {
-      await deleteBudget(budgetId)
-      history.replace(routes.toCEBudgets({ accountId: accountId }))
-    } catch (e) {
-      const errMessage = e.data.message
-      showError(errMessage)
+  const { openDialog } = useConfirmationDialog({
+    contentText: (
+      <Text>
+        {getString('ce.budgets.confirmDeleteBudgetMsg', {
+          name: budgetName
+        })}
+      </Text>
+    ),
+    titleText: getString('ce.budgets.confirmDeleteBudgetTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deletedBudget = await deleteBudget(budgetId, {
+            headers: {
+              'content-type': 'application/json'
+            }
+          })
+          if (deletedBudget) {
+            showSuccess(
+              getString('ce.budgets.budgetDeletedTxt', {
+                name: budgetName
+              })
+            )
+            history.replace(routes.toCEBudgets({ accountId: accountId }))
+          }
+        } catch (e) {
+          const errMessage = e.data.message
+          showError(errMessage)
+        }
+      }
     }
-  }
+  })
 
   const handleEditBudget = () => {
     openModal({
       isEdit: true,
       perspective: summaryData?.perspectiveId,
-      selectedBudget: summaryData as any
+      selectedBudget: summaryData as unknown as Budget
     })
+  }
+
+  const renderBudgetsGridChart = () => {
+    if (gridFetching) {
+      return <Icon name="spinner" size={26} color={Color.BLUE_500} />
+    }
+
+    if (!gridData?.budgetCostData?.costData?.length) {
+      return (
+        <>
+          <Text
+            margin={{
+              bottom: 'medium'
+            }}
+            color={Color.GREY_500}
+            font={{ variation: FontVariation.H6 }}
+          >
+            {getString('ce.budgets.detailsPage.budgetHistoryTxt')}
+          </Text>
+          <Container className={css.empty}>
+            <img src={EmptyView} />
+            <Text
+              margin={{
+                top: 'large',
+                bottom: 'xsmall'
+              }}
+              font="small"
+              style={{
+                fontWeight: 600
+              }}
+              color={Color.GREY_500}
+            >
+              {getString('ce.pageErrorMsg.noDataMsg')}
+            </Text>
+          </Container>
+        </>
+      )
+    }
+
+    return (
+      <>
+        <Text
+          margin={{
+            bottom: 'medium'
+          }}
+          color={Color.GREY_500}
+          font={{ variation: FontVariation.H6 }}
+        >
+          {getString('ce.budgets.detailsPage.budgetHistoryTxt')}
+        </Text>
+        <BudgetDetailsChart
+          chartData={gridData?.budgetCostData as any}
+          budgetPeriod={gridData.budgetSummary?.period as any}
+        />
+        <BudgetDetailsGrid
+          budgetPeriod={gridData.budgetSummary?.period as any}
+          gridData={gridData?.budgetCostData as any}
+        />
+      </>
+    )
   }
 
   return (
@@ -100,7 +191,7 @@ const BudgetDetails: () => JSX.Element | null = () => {
               loading={loading}
               variation={ButtonVariation.TERTIARY}
               icon="trash"
-              onClick={handleDeleteBudget}
+              onClick={openDialog}
             >
               {getString('delete')}
             </Button>
@@ -124,23 +215,7 @@ const BudgetDetails: () => JSX.Element | null = () => {
       <PageBody loading={fetching}>
         <BudgetDetailsSummary summaryData={summaryData as any} />
         <Card className={cx(css.chartGridContainer, { [css.loadingContainer]: gridFetching })} elevation={1}>
-          {gridFetching ? (
-            <Icon name="spinner" size={26} color={Color.BLUE_500} />
-          ) : (
-            <>
-              <Text
-                margin={{
-                  bottom: 'medium'
-                }}
-                color={Color.GREY_500}
-                font={{ variation: FontVariation.H6 }}
-              >
-                Budget History
-              </Text>
-              <BudgetDetailsChart chartData={gridData?.budgetCostData as any} />
-              <BudgetDetailsGrid gridData={gridData?.budgetCostData as any} />
-            </>
-          )}
+          {renderBudgetsGridChart()}
         </Card>
       </PageBody>
     </>

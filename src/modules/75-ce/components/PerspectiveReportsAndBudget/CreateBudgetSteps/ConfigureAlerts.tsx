@@ -16,12 +16,13 @@ import {
   FlexExpander
 } from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
+import moment from 'moment'
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
+import { getGMTStartDateTime, CE_DATE_FORMAT_INTERNAL } from '@ce/utils/momentUtils'
 import { useCreateBudget, Budget, AlertThreshold, useUpdateBudget } from 'services/ce'
 import type { BudgetStepData } from '../types'
 import css from '../PerspectiveCreateBudget.module.scss'
-
 interface Props {
   name: string
   viewId: string
@@ -55,12 +56,16 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     perspective,
     growthRate,
     period,
+    budgetName,
     perspectiveName,
     startTime,
     budgetAmount = 0
   } = (prevStepData || {}) as BudgetStepData
 
-  const { mutate: updateBudget } = useUpdateBudget({ id: budget?.uuid || '' })
+  const { mutate: updateBudget } = useUpdateBudget({
+    id: budget?.uuid || '',
+    queryParams: { accountIdentifier: accountId }
+  })
   const { mutate: createBudget } = useCreateBudget({
     queryParams: { accountIdentifier: accountId }
   })
@@ -73,13 +78,22 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     setError(false)
     setLoading(true)
 
+    const altThresholds = alertThresholds.map(alt => {
+      return {
+        basedOn: alt.basedOn,
+        emailAddresses: alt.emailAddresses,
+        percentage: alt.percentage,
+        userGroupIds: alt.userGroupIds
+      }
+    })
+
     const emptyThresholds = (t: AlertThreshold) => (t.emailAddresses?.length || 0) > 0 && t.percentage
     const payload = {
-      name: perspectiveName,
-      alertThresholds: alertThresholds.filter(emptyThresholds),
-      type,
+      name: budgetName,
+      alertThresholds: altThresholds.filter(emptyThresholds),
+      type: type === 'PREVIOUS_MONTH_SPEND' ? 'PREVIOUS_PERIOD_SPEND' : type,
       period,
-      startTime,
+      startTime: getGMTStartDateTime(moment(startTime).format(CE_DATE_FORMAT_INTERNAL)),
       growthRate: growthRate,
       budgetAmount: +budgetAmount,
       scope: {
@@ -95,7 +109,7 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     } catch (e) {
       setError(true)
       setLoading(false)
-      modalErrorHandler?.showDanger(e.message)
+      modalErrorHandler?.showDanger(e.data.message)
     }
   }
 
@@ -279,7 +293,7 @@ const Threshold = (props: ThresholdProps): JSX.Element => {
         name={`alertThresholds.${idx}.basedOn`}
       />
       <Text className={css.pushdown7}>exceeds</Text>
-      <FormInput.Text name={`alertThresholds.${idx}.percentage`} />
+      <FormInput.Text name={`alertThresholds.${idx}.percentage`} inputGroup={{ type: 'number' }} />
       <TagInput
         addOnBlur
         className={css.tagInput}

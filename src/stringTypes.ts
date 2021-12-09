@@ -2945,8 +2945,12 @@ export interface StringsMap {
   'cd.workloadRequired': string
   'ce.allClusters': string
   'ce.allRegions': string
+  'ce.budgets.budgetDeletedTxt': string
+  'ce.budgets.confirmDeleteBudgetMsg': string
+  'ce.budgets.confirmDeleteBudgetTitle': string
   'ce.budgets.detailsPage.alertsAt': string
   'ce.budgets.detailsPage.budgetAmount': string
+  'ce.budgets.detailsPage.budgetHistoryTxt': string
   'ce.budgets.detailsPage.budgetStatus': string
   'ce.budgets.detailsPage.chartNames.actualCost': string
   'ce.budgets.detailsPage.chartNames.budgetedCost': string
@@ -3289,6 +3293,8 @@ export interface StringsMap {
   'ce.overview.title': string
   'ce.overview.totalCost': string
   'ce.overview.workload': string
+  'ce.pageErrorMsg.noBudgetInfo': string
+  'ce.pageErrorMsg.noBudgetMsg': string
   'ce.pageErrorMsg.noDataMsg': string
   'ce.pageErrorMsg.noRecommendations': string
   'ce.pageErrorMsg.perspectiveNoData': string
@@ -3308,6 +3314,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
+  'ce.perspectives.budgets.defineTarget.budgetName': string
   'ce.perspectives.budgets.defineTarget.createNewPerspective': string
   'ce.perspectives.budgets.defineTarget.selectPerspective': string
   'ce.perspectives.budgets.defineTarget.text': string
@@ -3333,6 +3340,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.thisMonth': string
   'ce.perspectives.budgets.title': string
   'ce.perspectives.budgets.wizardTitle': string
+  'ce.perspectives.budgets.wizardTitleEdit': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
   'ce.perspectives.createPerspective.filters.operator': string

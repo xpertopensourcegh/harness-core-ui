@@ -6,7 +6,11 @@ query FetchBudgetsGridData($id: String!) {
       budgeted
       budgetVariance
       budgetVariancePercentage
+      endTime
     }
     forecastCost
+  }
+  budgetSummary(budgetId: $id) {
+    period
   }
 }
