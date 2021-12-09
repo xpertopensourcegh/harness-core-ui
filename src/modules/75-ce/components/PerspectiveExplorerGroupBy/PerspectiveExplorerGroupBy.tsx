@@ -50,13 +50,15 @@ interface PerspectiveExplorerGroupByProps {
   chartType: CCM_CHART_TYPES
   groupBy: QlceViewFieldInputInput
   setGroupBy: React.Dispatch<React.SetStateAction<QlceViewFieldInputInput>>
+  timeFilter: QlceViewFilterWrapperInput[]
 }
 
 const PerspectiveExplorerGroupBy: React.FC<PerspectiveExplorerGroupByProps> = ({
   chartType,
   setChartType,
   groupBy,
-  setGroupBy
+  setGroupBy,
+  timeFilter
 }) => {
   const { perspectiveId } = useParams<{ perspectiveId: string }>()
 
@@ -80,10 +82,11 @@ const PerspectiveExplorerGroupBy: React.FC<PerspectiveExplorerGroupByProps> = ({
             operator: 'IN',
             values: []
           }
-        } as unknown as QlceViewFilterWrapperInput
+        } as unknown as QlceViewFilterWrapperInput,
+        ...timeFilter
       ],
       offset: 0,
-      limit: 100
+      limit: 1000
     }
   })
 

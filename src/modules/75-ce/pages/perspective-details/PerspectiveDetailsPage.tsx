@@ -319,6 +319,7 @@ const PerspectiveDetailsPage: React.FC = () => {
                 setChartType={setChartType}
                 groupBy={groupBy}
                 setGroupBy={setGroupBy}
+                timeFilter={getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to))}
               />
               <CloudCostInsightChart
                 showLegends={true}
