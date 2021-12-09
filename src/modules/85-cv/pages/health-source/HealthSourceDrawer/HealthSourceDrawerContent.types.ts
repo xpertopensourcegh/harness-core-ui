@@ -46,6 +46,7 @@ export interface SourceDataInterface {
   healthSourceIdentifier?: string
   healthSourceList?: Array<RowData>
   changeSources?: ChangeSourceDTO[]
+  existingMetricDetails?: HealthSource | null
 }
 
 export interface HealthSourceDrawerInterface {
@@ -61,4 +62,5 @@ export interface HealthSourceDrawerInterface {
   isEdit: boolean
   shouldRenderAtVerifyStep?: boolean
   changeSources: ChangeSourceDTO[]
+  metricDetails: HealthSource | null
 }

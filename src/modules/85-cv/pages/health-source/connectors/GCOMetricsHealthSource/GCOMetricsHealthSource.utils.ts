@@ -86,6 +86,7 @@ export function transformGCOMetricHealthSourceToGCOMetricSetupSource(sourceData:
     }
     setupSource.metricDefinition.set(metricDefinition.metricName, {
       metricName: metricDefinition.metricName,
+      identifier: metricDefinition.identifier,
       metricTags,
       dashboardName: metricDefinition.dashboardName,
       dashboardPath: metricDefinition.dashboardPath,
@@ -133,6 +134,7 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
       dashboardPath: metricInfo.dashboardPath as string,
       metricName: metricInfo.metricName as string,
       metricTags: Object.keys(metricInfo.metricTags || {}),
+      identifier: metricInfo.identifier,
       isManualQuery: metricInfo.isManualQuery,
       jsonMetricDefinition: JSON.parse(metricInfo.query || ''),
       riskProfile: {
@@ -159,9 +161,25 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
   return healthSource
 }
 
+function getIsAllIDsUnique(
+  selectedMetrics: Map<string, GCOMetricInfo>,
+  currentId: string,
+  currentMetricName: string
+): boolean {
+  // to prevent error during submit
+  if (!selectedMetrics) {
+    return false
+  }
+
+  return ![...selectedMetrics.values()].find(
+    metricData => metricData.identifier === currentId && currentMetricName !== metricData.metricName
+  )
+}
+
 export function ensureFieldsAreFilled(
   values: GCOMetricInfo,
-  getString: (key: StringKeys) => string
+  getString: (key: StringKeys, vars?: Record<string, any> | undefined) => string,
+  selectedMetrics: Map<string, GCOMetricInfo>
 ): Record<string, any> {
   const ret: any = {}
   if (!values?.query?.length) {
@@ -182,6 +200,18 @@ export function ensureFieldsAreFilled(
     }
   }
 
+  if (!values.identifier?.trim()) {
+    ret.identifier = getString('validation.identifierRequired')
+  } else {
+    const isAllIDsUnique = getIsAllIDsUnique(selectedMetrics, values.identifier.trim(), values.metricName || '')
+
+    if (!isAllIDsUnique) {
+      ret.identifier = getString('cv.monitoringSources.uniqueIdentifierValidation', {
+        idName: values.identifier.trim()
+      })
+    }
+  }
+
   if (!values.metricName?.length) {
     ret.metricName = getString('cv.monitoringSources.metricNameValidation')
   }
@@ -196,7 +226,7 @@ export function validate(
   selectedMetrics: Map<string, GCOMetricInfo>,
   getString: (key: StringKeys) => string
 ): { [key: string]: string } | undefined {
-  const errors = ensureFieldsAreFilled(values, getString)
+  const errors = ensureFieldsAreFilled(values, getString, selectedMetrics)
 
   if (selectedMetrics.size === 1) {
     return errors
@@ -205,7 +235,7 @@ export function validate(
   for (const entry of selectedMetrics) {
     const [, metricInfo] = entry
     if (metricInfo.metricName === values.metricName) continue
-    if (isEmpty(ensureFieldsAreFilled(metricInfo, getString))) {
+    if (isEmpty(ensureFieldsAreFilled(metricInfo, getString, selectedMetrics))) {
       return errors
     }
   }
@@ -281,4 +311,16 @@ export function transformSampleDataIntoHighchartOptions(sampleData?: TimeSeriesS
   }
 
   return chartsConfig(Array.from(seriesData.values()).slice(0, 5))
+}
+
+export function getPlaceholderForIdentifier(
+  metricName = '',
+  getString?: (key: StringKeys, vars?: Record<string, any> | undefined) => string
+): string {
+  if (!metricName.length && getString) {
+    return getString('cv.identifierPlaceholder')
+  }
+
+  // Default maxInput for InputWithIdentifier is 63
+  return metricName.substr(-63).replace(/[^a-zA-Z_ ]/g, '')
 }

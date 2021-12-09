@@ -4173,6 +4173,7 @@ export interface StringsMap {
   'cv.healthSource.table.environmentMapping': string
   'cv.healthSource.table.serviceMapping': string
   'cv.hostNamePlaceholder': string
+  'cv.identifierPlaceholder': string
   'cv.ignore': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string
@@ -4438,6 +4439,7 @@ export interface StringsMap {
   'cv.monitoringSources.splunk.staleRecordsWarning': string
   'cv.monitoringSources.splunk.submitQueryToSeeRecords': string
   'cv.monitoringSources.totalMappedQueries': string
+  'cv.monitoringSources.uniqueIdentifierValidation': string
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string
   'cv.navLinks.adminSideNavLinks.monitoringSources': string

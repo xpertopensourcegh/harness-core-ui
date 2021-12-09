@@ -20,7 +20,8 @@ function HealthSourceDrawerContent({
   rowData,
   tableData,
   shouldRenderAtVerifyStep,
-  changeSources
+  changeSources,
+  metricDetails
 }: HealthSourceDrawerInterface): JSX.Element {
   const { getString } = useStrings()
 
@@ -33,7 +34,8 @@ function HealthSourceDrawerContent({
         environmentRef,
         tableData,
         rowData,
-        changeSources
+        changeSources,
+        existingMetricDetails: metricDetails
       }),
     [rowData, tableData, monitoredServiceRef, serviceRef, environmentRef, isEdit, changeSources]
   )

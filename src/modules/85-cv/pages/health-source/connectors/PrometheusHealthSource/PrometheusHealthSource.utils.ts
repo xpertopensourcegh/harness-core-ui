@@ -42,7 +42,12 @@ export function updateSelectedMetricsMap({
 
   // if newly created metric create form object
   if (!updatedMap.has(updatedMetric)) {
-    updatedMap.set(updatedMetric, { metricName: updatedMetric, query: '', isManualQuery: false })
+    updatedMap.set(updatedMetric, {
+      identifier: formikProps?.values?.identifier as string,
+      metricName: updatedMetric,
+      query: '',
+      isManualQuery: false
+    })
   }
 
   // update map with current form data
@@ -60,7 +65,12 @@ export function initializeSelectedMetricsMap(
     selectedMetric: (Array.from(mappedServicesAndEnvs?.keys() || [])?.[0] as string) || defaultSelectedMetricName,
     mappedMetrics:
       mappedServicesAndEnvs ||
-      new Map([[defaultSelectedMetricName, { metricName: defaultSelectedMetricName, isManualQuery: false, query: '' }]])
+      new Map([
+        [
+          defaultSelectedMetricName,
+          { metricName: defaultSelectedMetricName, isManualQuery: false, query: '', identifier: '' }
+        ]
+      ])
   }
 }
 
@@ -114,6 +124,7 @@ export function validateMappings(
       'cv.monitoringSources.prometheus.validation.filterOnEnvironment'
     ),
     [PrometheusMonitoringSourceFieldNames.METRIC_NAME]: getString('cv.monitoringSources.metricNameValidation'),
+    [PrometheusMonitoringSourceFieldNames.METRIC_IDENTIFIER]: getString('validation.identifierRequired'),
     [PrometheusMonitoringSourceFieldNames.PROMETHEUS_METRIC]: getString(
       'cv.monitoringSources.prometheus.validation.promethusMetric'
     ),
@@ -231,7 +242,7 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
       isEdit: false,
       healthSourceIdentifier: sourceData.healthSourceIdentifier,
       mappedServicesAndEnvs: new Map([
-        ['Prometheus Metric', { metricName: 'Prometheus Metric', isManualQuery: false, query: '' }]
+        ['Prometheus Metric', { metricName: 'Prometheus Metric', isManualQuery: false, query: '', identifier: '' }]
       ]),
       healthSourceName: sourceData.healthSourceName,
       connectorRef: sourceData.connectorRef,
@@ -251,6 +262,7 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
   for (const metricDefinition of (healthSource?.spec as PrometheusHealthSourceSpec)?.metricDefinitions || []) {
     if (metricDefinition?.metricName) {
       setupSource.mappedServicesAndEnvs.set(metricDefinition.metricName, {
+        identifier: metricDefinition.identifier,
         metricName: metricDefinition.metricName,
         prometheusMetric: metricDefinition.prometheusMetric,
         query: metricDefinition.query || '',
@@ -295,6 +307,7 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
     const {
       envFilter,
       metricName,
+      identifier,
       groupName,
       prometheusMetric,
       serviceFilter,
@@ -331,6 +344,7 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
     ;(dsConfig.spec as any).metricDefinitions.push({
       prometheusMetric,
       metricName,
+      identifier,
       serviceFilter: transformLabelToPrometheusFilter(serviceFilter),
       isManualQuery,
       query,

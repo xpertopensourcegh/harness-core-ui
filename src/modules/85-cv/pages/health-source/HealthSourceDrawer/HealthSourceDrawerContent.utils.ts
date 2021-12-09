@@ -1,5 +1,5 @@
 import type { MonitoredServiceRef } from '@cv/pages/monitored-service/components/Configurations/components/Service/Service.types'
-import type { ChangeSourceDTO } from 'services/cv'
+import type { ChangeSourceDTO, HealthSource } from 'services/cv'
 import { GCOProduct } from '../connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import type { RowData, SourceDataInterface, UpdatedHealthSource } from './HealthSourceDrawerContent.types'
 
@@ -24,7 +24,8 @@ export const createHealthSourceDrawerFormData = ({
   environmentRef,
   tableData,
   rowData,
-  changeSources
+  changeSources,
+  existingMetricDetails
 }: {
   isEdit: boolean
   monitoredServiceRef: MonitoredServiceRef
@@ -33,6 +34,7 @@ export const createHealthSourceDrawerFormData = ({
   tableData: Array<RowData>
   rowData?: RowData | null
   changeSources: ChangeSourceDTO[]
+  existingMetricDetails: HealthSource | null
 }): SourceDataInterface => {
   let sourceData: SourceDataInterface = {
     isEdit,
@@ -40,7 +42,8 @@ export const createHealthSourceDrawerFormData = ({
     serviceRef,
     environmentRef,
     monitoredServiceRef,
-    changeSources
+    changeSources,
+    existingMetricDetails
   }
 
   // when user is adding healthsource in create mode
@@ -54,7 +57,8 @@ export const createHealthSourceDrawerFormData = ({
       healthSourceName: rowData?.name,
       healthSourceIdentifier: rowData?.identifier,
       sourceType: rowData?.type,
-      connectorRef: rowData?.spec?.connectorRef
+      connectorRef: rowData?.spec?.connectorRef,
+      existingMetricDetails
     }
   }
 

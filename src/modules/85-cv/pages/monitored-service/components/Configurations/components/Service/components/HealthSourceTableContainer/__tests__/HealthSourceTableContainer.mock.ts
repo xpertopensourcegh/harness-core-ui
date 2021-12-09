@@ -1,3 +1,5 @@
+import type { HealthSource } from 'services/cv'
+
 export const formFormik = {
   values: {
     type: 'application',
@@ -62,4 +64,14 @@ export const serviceFormik = {
     ]
   },
   dependencies: []
+}
+
+export const healthSourceList: HealthSource = {
+  name: 'dasdasdsa',
+  identifier: 'dasdasdsa',
+  type: 'AppDynamics',
+  spec: {
+    connectorRef: 'account.appdtest',
+    metricDefinitions: []
+  }
 }

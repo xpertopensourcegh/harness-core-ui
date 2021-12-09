@@ -1,6 +1,7 @@
 import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
 
 export const PrometheusMonitoringSourceFieldNames = {
+  METRIC_IDENTIFIER: 'identifier',
   METRIC_NAME: 'metricName',
   PROMETHEUS_METRIC: 'prometheusMetric',
   SERVICE_FILTER: 'serviceFilter',
@@ -47,6 +48,7 @@ export type MapPrometheusQueryToService = {
   sli?: boolean
   continuousVerification?: boolean
   healthScore?: boolean
+  identifier: string
 }
 
 export type RiskProfileCatgory = 'Performance' | 'Errors' | 'Infrastructure'

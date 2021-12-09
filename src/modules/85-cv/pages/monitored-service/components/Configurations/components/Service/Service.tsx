@@ -164,7 +164,10 @@ function Service({
                   value={formik?.values?.sources?.changeSources || []}
                   onSuccess={onSuccessChangeSource}
                 />
-                <HealthSourceTableContainer serviceFormFormik={formik} />
+                <HealthSourceTableContainer
+                  healthSourceListFromAPI={initialValues.sources?.healthSources}
+                  serviceFormFormik={formik}
+                />
               </>
             )}
           </div>

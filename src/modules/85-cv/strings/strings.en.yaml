@@ -47,6 +47,7 @@ trafficSplit: Traffic Split Percentage (optional)
 pinABaseline: Pin a baseline
 lastSuccessfulRun: Last Successful Job Run
 jobNamePlaceholder: Enter a Job Name
+identifierPlaceholder: Enter an Identifier
 throughput: Throughput
 responseTime: Response Time
 serviceHealthTrend: Service Health Trend
@@ -195,6 +196,7 @@ monitoringSources:
   lowerCounts: Lower value is higher risk
   metricNameValidation: Metric Name is required.
   metricValidation: Metric is required.
+  uniqueIdentifierValidation: '{{idName}} already exists. Provide a unique identifier.'
   queryNameValidation: Query Name is required.
   envValidation: Environment is required.
   serviceValidation: Service is required.

@@ -4,7 +4,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import HealthSourceTableContainer from '../HealthSourceTableContainer'
-import { formFormik, serviceFormik } from './HealthSourceTableContainer.mock'
+import { formFormik, healthSourceList, serviceFormik } from './HealthSourceTableContainer.mock'
 
 jest.mock('services/cd-ng', () => ({
   ...(jest.requireActual('services/cd-ng') as any),
@@ -25,7 +25,10 @@ describe('Validate', () => {
   test('should render HealthSourceTableContainer with no data', async () => {
     const { container, getByText } = render(
       <TestWrapper>
-        <HealthSourceTableContainer serviceFormFormik={formFormik as any} />
+        <HealthSourceTableContainer
+          healthSourceListFromAPI={[healthSourceList]}
+          serviceFormFormik={formFormik as any}
+        />
       </TestWrapper>
     )
     await waitFor(() => expect(getByText('cv.healthSource.noData')).toBeInTheDocument())
@@ -54,7 +57,10 @@ describe('Validate', () => {
     })
     const { container, getByText } = render(
       <TestWrapper>
-        <HealthSourceTableContainer serviceFormFormik={{ values: serviceFormik } as any} />
+        <HealthSourceTableContainer
+          healthSourceListFromAPI={[healthSourceList]}
+          serviceFormFormik={{ values: serviceFormik } as any}
+        />
       </TestWrapper>
     )
     expect(container.querySelectorAll('.TableV2--body div[role="row"]').length).toEqual(1)
@@ -82,7 +88,10 @@ describe('Validate', () => {
     })
     const { container, getByText } = render(
       <TestWrapper>
-        <HealthSourceTableContainer serviceFormFormik={{ values: serviceFormik } as any} />
+        <HealthSourceTableContainer
+          healthSourceListFromAPI={[healthSourceList]}
+          serviceFormFormik={{ values: serviceFormik } as any}
+        />
       </TestWrapper>
     )
     expect(container.querySelectorAll('.TableV2--body div[role="row"]').length).toEqual(1)

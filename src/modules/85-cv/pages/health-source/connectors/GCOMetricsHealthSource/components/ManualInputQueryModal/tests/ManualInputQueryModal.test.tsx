@@ -45,7 +45,8 @@ describe('Unit tests for ManualInputQueryModal', () => {
     fireEvent.click(document.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(submitFuncFn).toHaveBeenLastCalledWith({
-        metricName: 'metric5'
+        metricName: 'metric5',
+        identifier: 'metric5'
       })
     )
   })

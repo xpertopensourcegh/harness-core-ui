@@ -1,13 +1,14 @@
 import React from 'react'
 import { clone } from 'lodash-es'
 import { Container } from '@wings-software/uicore'
-import { fireEvent, render, waitFor, act } from '@testing-library/react'
+import { fireEvent, render, waitFor, act, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { PrometheusHealthSource, PrometheusHealthSourceProps } from '../PrometheusHealthSource'
 import { PrometheusMonitoringSourceFieldNames } from '../PrometheusHealthSource.constants'
-import { MockManualQueryData } from './PrometheusHealthSource.mock'
+import { MockManualQueryData, MockManualQueryDataWithoutIdentifier } from './PrometheusHealthSource.mock'
 
 jest.mock('../components/PrometheusQueryViewer/PrometheusQueryViewer', () => ({
   PrometheusQueryViewer: function MockComponent(props: any) {
@@ -110,6 +111,7 @@ describe('Unit tests for PrometheusHealthSource', () => {
               },
               envFilter: [],
               groupName: 'group1',
+              identifier: 'My Identifier',
               isManualQuery: true,
               metricName: 'NoLongerManualQuery',
               prometheusMetric: undefined,
@@ -181,6 +183,7 @@ describe('Unit tests for PrometheusHealthSource', () => {
                 }
               ],
               groupName: 'group1',
+              identifier: 'My Identifier',
               isManualQuery: false,
               metricName: 'NoLongerManualQuery',
               prometheusMetric: 'container_cpu_load_average_10s',
@@ -193,5 +196,38 @@ describe('Unit tests for PrometheusHealthSource', () => {
         type: 'Prometheus'
       })
     )
+  })
+
+  test('should render input with identifier field', () => {
+    const onSubmitMock = jest.fn()
+    const { container } = render(<WrapperComponent data={MockManualQueryData} onSubmit={onSubmitMock} />)
+
+    expect(screen.getByText(/^id$/i)).toBeInTheDocument()
+    expect(container.querySelector('.InputWithIdentifier--txtNameContainer')).toBeInTheDocument()
+  })
+
+  test('should show error when identifier is not given', async () => {
+    const onSubmitMock = jest.fn()
+    const { container, getByText } = render(
+      <WrapperComponent data={MockManualQueryDataWithoutIdentifier} onSubmit={onSubmitMock} />
+    )
+
+    await waitFor(() => expect(getByText('cv.monitoringSources.prometheus.customizeQuery')).not.toBeNull())
+    expect(container.querySelectorAll('[class*="Accordion--panel"]').length).toBe(3)
+
+    act(() => {
+      userEvent.click(container.querySelector('button[class*="manualQuery"]')!)
+    })
+    await waitFor(() => expect(getByText('cv.monitoringSources.prometheus.isManualQuery')).not.toBeNull())
+    expect(container.querySelectorAll('[class*="Accordion--panel"]').length).toBe(2)
+
+    act(() => {
+      userEvent.click(getByText('submit'))
+    })
+
+    expect(screen.getByText(/validation.identifierRequired/i)).toBeInTheDocument()
+    expect(container.querySelector('.FormError--error')).toBeInTheDocument()
+
+    expect(onSubmitMock).not.toHaveBeenCalled()
   })
 })

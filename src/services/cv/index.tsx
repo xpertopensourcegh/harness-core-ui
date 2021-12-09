@@ -1764,6 +1764,7 @@ export interface HealthSourceDTO {
 
 export interface HealthSourceSpec {
   connectorRef?: string
+  metricDefinitions?: StackdriverDefinition[]
 }
 
 export interface HealthSourceSummary {

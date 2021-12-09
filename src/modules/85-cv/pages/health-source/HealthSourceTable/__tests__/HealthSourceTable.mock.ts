@@ -40,6 +40,7 @@ export const selectedRow = {
         dashboardName: 'Prod-1 Runtime Workflow Related Mongo Metrics',
         dashboardPath: 'projects/778566137835/dashboards/026f87a1-9b32-4217-925a-03031769dddc',
         metricName: 'custom.googleapis.com/user/x_mongo_prod_workflow_executions_count',
+        identifier: 'test_id_1',
         jsonMetricDefinition: {
           dataSets: [
             {
@@ -56,8 +57,7 @@ export const selectedRow = {
         },
         metricTags: ['Workflow Executions Count'],
         riskProfile: { category: 'Infrastructure', metricType: 'INFRA', thresholdTypes: ['ACT_WHEN_HIGHER'] },
-        isManualQuery: false,
-        serviceInstanceField: null
+        isManualQuery: false
       }
     ],
     feature: 'Cloud Metrics',

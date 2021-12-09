@@ -19,6 +19,7 @@ export interface GCOMetricInfo {
   continuousVerification?: boolean
   healthScore?: boolean
   serviceInstance?: string
+  identifier?: string
 }
 
 export interface GCOMetricSetupSource {

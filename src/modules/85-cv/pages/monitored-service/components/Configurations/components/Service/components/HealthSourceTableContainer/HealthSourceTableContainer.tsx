@@ -15,9 +15,11 @@ import type { MonitoredServiceForm } from '../../Service.types'
 import { createOpenHealthSourceTableProps } from './HealthSourceTableContainer.utils'
 
 export default function HealthSourceTableContainer({
-  serviceFormFormik
+  serviceFormFormik,
+  healthSourceListFromAPI
 }: {
   serviceFormFormik: FormikContext<MonitoredServiceForm>
+  healthSourceListFromAPI: HealthSource[] | undefined
 }): JSX.Element {
   const {
     showDrawer: showHealthSourceDrawer,
@@ -67,12 +69,19 @@ export default function HealthSourceTableContainer({
           isEdit: isEditMode,
           rowData
         })
+        let metricDetails: HealthSource | null = null
+        if (isEditMode && healthSourceListFromAPI) {
+          metricDetails = healthSourceListFromAPI.find(
+            healthSource => healthSource.identifier === rowData?.identifier
+          ) as HealthSource
+        }
         setDrawerHeaderProps?.({ isEdit: isEditMode, onClick: () => hideHealthSourceDrawer() })
         showHealthSourceDrawer({
           hideDrawer: hideHealthSourceDrawer,
           ...showHealthSourceDrawerProps,
           onSuccess: (updatedHealthSource: UpdatedHealthSource) =>
-            onSuccessHealthSourceTableWrapper(updatedHealthSource, formik)
+            onSuccessHealthSourceTableWrapper(updatedHealthSource, formik),
+          metricDetails
         })
       } else {
         formik.submitForm()
@@ -84,7 +93,7 @@ export default function HealthSourceTableContainer({
 
   return (
     <HealthSourceTable
-      onEdit={values =>
+      onEdit={values => {
         openHealthSourceDrawer({
           formik: serviceFormFormik,
           isEditMode: true,
@@ -92,7 +101,7 @@ export default function HealthSourceTableContainer({
           tableData:
             createHealthsourceList(serviceFormFormik?.values?.sources?.healthSources as RowData[], values) || []
         })
-      }
+      }}
       onAddNewHealthSource={() =>
         openHealthSourceDrawer({
           formik: serviceFormFormik,

@@ -22,7 +22,8 @@ export interface GCODashboardWidgetMetricNavProps {
     query: string,
     widgetName: string,
     dashboard: string,
-    dashboardPath: string
+    dashboardPath: string,
+    identifier: string
   ) => void
   showSpinnerOnLoad?: boolean
 }
@@ -316,7 +317,8 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
           JSON.stringify(datum?.query),
           datum?.widget,
           selectedDashboard?.name as string,
-          selectedDashboard?.path as string
+          selectedDashboard?.path as string,
+          ''
         )
       }
       if (isFirstLoad) {
@@ -344,7 +346,7 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
   // when only manually input query is selected on load, run this hook
   useEffect(() => {
     if (!loading && isFirstLoad && selectedMetricPath?.toString() === '0,0') {
-      onSelectMetric(navContent[0]?.childNodes?.[0]?.id as string, MANUAL_INPUT_QUERY, '', '', '')
+      onSelectMetric(navContent[0]?.childNodes?.[0]?.id as string, MANUAL_INPUT_QUERY, '', '', '', '')
     }
   }, [])
 
@@ -378,6 +380,7 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
         onNodeClick={(node, nodePath) => {
           const { isExpanded = false, id, childNodes, nodeData } = node
           const { data: datum, type } = nodeData || {}
+
           switch (nodePath.length) {
             case NodeDepth.DASHBOARD:
               navContent.forEach(dashboard => (dashboard.isExpanded = false))
@@ -396,7 +399,7 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
                 deselectMetric(navContent, selectedMetricPath)
                 setSelectedMetricPath(nodePath)
                 setSelectedDashboard(undefined)
-                onSelectMetric(node.id as string, MANUAL_INPUT_QUERY, '', '', '')
+                onSelectMetric(node.id as string, MANUAL_INPUT_QUERY, '', '', '', '')
               } else {
                 node.isExpanded = !isExpanded
               }
@@ -413,7 +416,8 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
                 JSON.stringify(datum.query),
                 datum.widget,
                 selectedDashboard?.name as string,
-                selectedDashboard?.path as string
+                selectedDashboard?.path as string,
+                ''
               )
               break
             default:
@@ -437,7 +441,7 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
             }
             setNavContent([...navContent])
             setSelectedMetricPath([0, 0])
-            onSelectMetric(values.metricName, MANUAL_INPUT_QUERY, '', '', '')
+            onSelectMetric(values.metricName, MANUAL_INPUT_QUERY, '', '', '', values.identifier)
           }}
           closeModal={() => setIsModalOpen(false)}
         />

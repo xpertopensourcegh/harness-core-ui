@@ -1,14 +1,15 @@
 import React from 'react'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { object as yupObject, string as yupString } from 'yup'
-import { Button, Container, Formik, FormikForm, FormInput } from '@wings-software/uicore'
+import { Button, Container, Formik, FormikForm } from '@wings-software/uicore'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { StringKeys, useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import css from './ManualInputQueryModal.module.scss'
 
 interface UseManualInputQueryModalProps {
   title?: StringKeys
-  onSubmit: (values: { metricName: string }) => void
+  onSubmit: (values: { metricName: string; identifier: string }) => void
   manuallyInputQueries?: string[]
   closeModal: () => void
 }
@@ -16,7 +17,8 @@ interface UseManualInputQueryModalProps {
 export const MANUAL_INPUT_QUERY = 'ManualInputQuery'
 
 export const FieldNames = {
-  METRIC_NAME: 'metricName'
+  METRIC_NAME: 'metricName',
+  IDENTIFIER: 'identifier'
 }
 
 const DialogOptions: IDialogProps = {
@@ -65,11 +67,18 @@ export function ManualInputQueryModal(props: UseManualInputQueryModalProps): JSX
             closeModal()
           }}
           formName="manualInputQuery"
-          initialValues={{ metricName: '' }}
+          initialValues={{ metricName: '', identifier: '' }}
           validationSchema={getValidatitionSchema(getString, manuallyInputQueries)}
         >
           <FormikForm className={css.form}>
-            <FormInput.Text name={FieldNames.METRIC_NAME} label={getString('cv.monitoringSources.metricNameLabel')} />
+            <NameId
+              nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+              identifierProps={{
+                inputName: FieldNames.METRIC_NAME,
+                idName: FieldNames.IDENTIFIER
+              }}
+            />
+
             <Container className={css.buttonContainer}>
               <Button onClick={() => closeModal()}>{getString('cancel')}</Button>
               <Button type="submit" intent="primary">

@@ -1,5 +1,6 @@
 export const OVERALL = 'overall'
 export const FieldNames = {
+  IDENTIFIER: 'identifier',
   METRIC_TAGS: 'metricTags',
   METRIC_NAME: 'metricName',
   QUERY: 'query',

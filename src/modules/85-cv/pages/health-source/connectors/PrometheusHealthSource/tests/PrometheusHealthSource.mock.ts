@@ -15,6 +15,7 @@ export const MockManualQueryData = {
             isManualQuery: false,
             groupName: 'group1',
             metricName: 'NoLongerManualQuery',
+            identifier: 'My Identifier',
             serviceInstanceFieldName: 'alertname',
             prometheusMetric: 'container_cpu_load_average_10s',
             serviceFilter: [
@@ -47,4 +48,22 @@ export const MockManualQueryData = {
   sourceType: 'Prometheus',
   connectorRef: 'prometheusConnector',
   product: {}
+}
+
+export const MockManualQueryDataWithoutIdentifier = {
+  ...MockManualQueryData,
+  healthSourceList: [
+    {
+      ...MockManualQueryData.healthSourceList[0],
+      spec: {
+        ...MockManualQueryData.healthSourceList[0].spec,
+        metricDefinitions: [
+          {
+            ...MockManualQueryData.healthSourceList[0].spec.metricDefinitions[0],
+            identifier: undefined
+          }
+        ]
+      }
+    }
+  ]
 }

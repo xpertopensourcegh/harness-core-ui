@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import {
   Color,
   Container,
@@ -22,12 +22,13 @@ import { Drawer } from '@blueprintjs/core'
 import isEmpty from 'lodash-es/isEmpty'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetLabelNames, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
+import { StackdriverDefinition, useGetLabelNames, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { QueryContent } from '@cv/components/QueryViewer/QueryViewer'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { GCODashboardWidgetMetricNav } from './components/GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav'
 import { MANUAL_INPUT_QUERY } from './components/ManualInputQueryModal/ManualInputQueryModal'
 import {
@@ -38,7 +39,8 @@ import {
   validate,
   ensureFieldsAreFilled,
   transformGCOMetricSetupSourceToGCOHealthSource,
-  transformGCOMetricHealthSourceToGCOMetricSetupSource
+  transformGCOMetricHealthSourceToGCOMetricSetupSource,
+  getPlaceholderForIdentifier
 } from './GCOMetricsHealthSource.utils'
 import DrawerFooter from '../../common/DrawerFooter/DrawerFooter'
 import type { GCOMetricInfo, GCOMetricsHealthSourceProps, ValidationChartProps } from './GCOMetricsHealthSource.type'
@@ -126,17 +128,25 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
 
 export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.Element {
   const { data, onSubmit } = props
-  const { onPrevious } = useContext(SetupSourceTabsContext)
+
+  const {
+    onPrevious,
+    sourceData: { existingMetricDetails }
+  } = useContext(SetupSourceTabsContext)
+
+  const metricDefinitions = existingMetricDetails?.spec?.metricDefinitions
+
   const { getString } = useStrings()
   const transformedData = useMemo(() => transformGCOMetricHealthSourceToGCOMetricSetupSource(data), [data])
   const [updatedData, setUpdatedData] = useState(
     initializeSelectedMetrics(data.selectedDashboards || [], transformedData.metricDefinition)
   )
-  const [shouldShowChart, setShouldShowChart] = useState<boolean>(false)
+  const [shouldShowChart, setShouldShowChart] = useState(false)
+  const [isIdentifierEdited, setIsIdentifierEdited] = useState(false)
   const [selectedMetric, setSelectedMetric] = useState<string>()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [error, setError] = useState<string | undefined>()
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState(false)
   const queryParams = useMemo(
     () => ({
       orgIdentifier,
@@ -149,6 +159,10 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
   )
 
   const { mutate, cancel } = useGetStackdriverSampleData({ queryParams })
+
+  useEffect(() => {
+    setIsIdentifierEdited(false)
+  }, [selectedMetric])
 
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const [sampleData, setSampleData] = useState<Highcharts.Options | undefined>()
@@ -189,15 +203,6 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
     },
     [mutate, cancel]
   )
-  const onChangeMetric = (newMetricName: FormEvent<HTMLInputElement>) => {
-    const currentSelectedInfo = updatedData.get(selectedMetric || '')
-    if (currentSelectedInfo?.isManualQuery && newMetricName.currentTarget.value) {
-      setSelectedMetric(newMetricName.currentTarget.value)
-      updatedData.delete(selectedMetric || '')
-      updatedData.set(newMetricName.currentTarget.value, { ...currentSelectedInfo })
-      setUpdatedData(new Map(updatedData))
-    }
-  }
 
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
@@ -213,22 +218,42 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
     }
   })
 
+  const formInitialValues: GCOMetricInfo = updatedData.get(selectedMetric || '') || {}
+
   return (
     <Formik<GCOMetricInfo>
       enableReinitialize={true}
       formName="mapGCOMetrics"
-      initialValues={updatedData.get(selectedMetric || '') || {}}
+      initialValues={formInitialValues}
       onSubmit={noop}
       validate={values => {
         const newMap = new Map(updatedData)
         if (selectedMetric) {
           newMap.set(selectedMetric, { ...values })
         }
+
         return validate(values, newMap, getString)
       }}
     >
       {formikProps => {
         const { sli = false, healthScore = false, continuousVerification = false } = formikProps?.values
+
+        const currentSelectedMetricDetail = metricDefinitions?.find(
+          (metricDefinition: StackdriverDefinition) =>
+            metricDefinition.metricName === updatedData.get(selectedMetric as string)?.metricName
+        )
+
+        const shouldShowIdentifierPlaceholder =
+          !currentSelectedMetricDetail?.identifier && !formikProps.values?.identifier
+
+        if (shouldShowIdentifierPlaceholder && !isIdentifierEdited) {
+          formikProps.setFieldValue(
+            FieldNames.IDENTIFIER,
+            getPlaceholderForIdentifier(formikProps.values?.metricName, getString)
+          )
+          setIsIdentifierEdited(true)
+        }
+
         return (
           <SetupSourceLayout
             content={
@@ -253,12 +278,12 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     }}
                   />
                   <FormError errorMessage={formikProps.errors['metricTags']} />
-                  <FormInput.Text
-                    label={getString('cv.monitoringSources.metricNameLabel')}
-                    name={FieldNames.METRIC_NAME}
-                    onChange={(newMetricName: FormEvent<HTMLInputElement>) => {
-                      onChangeMetric(newMetricName)
-                      formikProps.setFieldValue(FieldNames.METRIC_NAME, newMetricName.currentTarget?.value || '')
+                  <NameId
+                    nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+                    identifierProps={{
+                      inputName: FieldNames.METRIC_NAME,
+                      idName: FieldNames.IDENTIFIER,
+                      isIdentifierEditable: Boolean(!currentSelectedMetricDetail?.identifier)
                     }}
                   />
                 </Container>
@@ -357,7 +382,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     const filteredData = new Map()
                     for (const metric of updatedData) {
                       const [metricName, metricInfo] = metric
-                      if (isEmpty(ensureFieldsAreFilled(metricInfo, getString))) {
+                      if (isEmpty(ensureFieldsAreFilled(metricInfo, getString, new Map(updatedData)))) {
                         filteredData.set(metricName, metricInfo)
                       }
                     }
@@ -379,11 +404,12 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                 manuallyInputQueries={getManuallyCreatedQueries(updatedData)}
                 gcoDashboards={data.selectedDashboards}
                 showSpinnerOnLoad={!selectedMetric}
-                onSelectMetric={(metricName, query, widget, dashboardName, dashboardPath) => {
+                onSelectMetric={(metricName, query, widget, dashboardName, dashboardPath, identifier) => {
                   let metricInfo: GCOMetricInfo | undefined = updatedData.get(metricName)
                   if (!metricInfo) {
                     metricInfo = {
                       metricName,
+                      identifier,
                       query,
                       metricTags: { [widget]: '' },
                       isManualQuery: query === MANUAL_INPUT_QUERY,
