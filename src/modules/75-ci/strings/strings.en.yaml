@@ -83,9 +83,12 @@ artifactoryConnectorLabel: Artifactory Connector
 buildInfa:
   awsVMs: AWS VMs
   selectInfra: Select the infrastructure where you want your builds to run
-  kubernetesVSaws: Running your builds in K8S vs AWS VMs
+  infrastructureTypesLabel: Infrastructure Types
   kubernetesHelpText: Use K8s based infrastructure if you would like your builds to run on a container native architecture where each build stage runs on an ephemeral k8s pod.
   awsHelpText: Use AWS VM based infrastructure for any specific use cases like Windows builds or where you'd like to run some or all of your build steps on a host VM as opposed to containers.
+  useNewInfra: Use a New Infrastructure
+  k8sLabel: Kubernetes (K8s)
+  vmLabel: Virtual Machines (VMs)
   awsVM:
     poolId: Pool ID
     os: Operating System

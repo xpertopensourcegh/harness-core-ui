@@ -19,5 +19,7 @@ declare const styles: {
   readonly bottomMargin3: string
   readonly bottomMargin7: string
   readonly helptext: string
+  readonly formGroup: string
+  readonly md: string
 }
 export default styles

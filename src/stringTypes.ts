@@ -3972,9 +3972,12 @@ export interface StringsMap {
   'ci.buildInfa.awsVM.os': string
   'ci.buildInfa.awsVM.poolId': string
   'ci.buildInfa.awsVMs': string
+  'ci.buildInfa.infrastructureTypesLabel': string
+  'ci.buildInfa.k8sLabel': string
   'ci.buildInfa.kubernetesHelpText': string
-  'ci.buildInfa.kubernetesVSaws': string
   'ci.buildInfa.selectInfra': string
+  'ci.buildInfa.useNewInfra': string
+  'ci.buildInfa.vmLabel': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.clipboardCopyFail': string

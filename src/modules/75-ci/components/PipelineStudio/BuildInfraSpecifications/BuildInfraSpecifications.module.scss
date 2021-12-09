@@ -167,8 +167,14 @@
 }
 
 .helptext {
-  height: 240px;
+  height: 350px;
   width: 350px;
   border-radius: 8px;
   background-color: var(--blue-50) !important;
+}
+
+.formGroup {
+  &.md {
+    width: 55%;
+  }
 }
