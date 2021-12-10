@@ -8,7 +8,9 @@ describe('Unit tests for MapGCPLogsQueriesToService', () => {
     onChange: jest.fn(),
     sampleRecord: null,
     isQueryExecuted: true,
-    loading: false
+    loading: false,
+    serviceInstance: 'serviceInstance',
+    messageIdentifier: 'messageIdentifier'
   }
   test('Ensure that query name is present', async () => {
     const { getByText } = render(

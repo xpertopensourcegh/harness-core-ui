@@ -32,6 +32,9 @@ export interface QueryViewerProps {
   staleRecordsWarning?: string
   isAutoFetch?: boolean
   queryContentMandatoryProps?: any[]
+  queryLabel?: string
+  recordsClassName?: string
+  fetchEntityName?: string
 }
 
 export interface QueryViewDialogProps extends RecordsProps {

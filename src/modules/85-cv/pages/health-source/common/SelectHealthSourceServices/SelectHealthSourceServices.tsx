@@ -10,7 +10,9 @@ export default function SelectHealthSourceServices({
   values,
   metricPackResponse,
   labelNamesResponse,
-  hideServiceIdentifier = false
+  hideServiceIdentifier = false,
+  hideCV,
+  hideSLIAndHealthScore
 }: SelectHealthSourceServicesProps): JSX.Element {
   const { getString } = useStrings()
   const { continuousVerification, healthScore } = values
@@ -18,12 +20,20 @@ export default function SelectHealthSourceServices({
     <Container className={css.main}>
       <Container className={css.checkBoxGroup}>
         <Text className={css.groupLabel}>{getString('cv.monitoredServices.assignLabel')}</Text>
-        <FormInput.CheckBox
-          label={getString('cv.monitoredServices.continuousVerification')}
-          name={HealthSourceServices.CONTINUOUS_VERIFICATION}
-        />
-        <FormInput.CheckBox label={getString('cv.healthScore')} name={HealthSourceServices.HEALTHSCORE} />
-        <FormInput.CheckBox label={getString('cv.slos.sli')} name={HealthSourceServices.SLI} />
+
+        {!hideCV ? (
+          <FormInput.CheckBox
+            label={getString('cv.monitoredServices.continuousVerification')}
+            name={HealthSourceServices.CONTINUOUS_VERIFICATION}
+          />
+        ) : null}
+
+        {!hideSLIAndHealthScore ? (
+          <>
+            <FormInput.CheckBox label={getString('cv.healthScore')} name={HealthSourceServices.HEALTHSCORE} />
+            <FormInput.CheckBox label={getString('cv.slos.sli')} name={HealthSourceServices.SLI} />
+          </>
+        ) : null}
       </Container>
       {(continuousVerification || healthScore) && (
         <RiskProfile

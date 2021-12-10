@@ -4,17 +4,27 @@ import { Color, Container, Icon, StackTraceList, Text, PageError, NoDataCard } f
 import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { transformGCOLogsSampleData } from './utils'
+import { transformSampleData } from './utils'
 import type { RecordsProps } from './types'
 import css from './Records.module.scss'
 
 export function Records(props: RecordsProps): JSX.Element {
-  const { data, loading, error, fetchRecords, isQueryExecuted, query, queryNotExecutedMessage } = props
+  const {
+    data,
+    loading,
+    error,
+    fetchRecords,
+    isQueryExecuted,
+    query,
+    queryNotExecutedMessage,
+    recordsClassName,
+    fetchEntityName
+  } = props
   const { getString } = useStrings()
   let content: JSX.Element = <></>
 
   const { records } = useMemo(() => {
-    return transformGCOLogsSampleData(data)
+    return transformSampleData(data)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
@@ -60,8 +70,8 @@ export function Records(props: RecordsProps): JSX.Element {
 
   return (
     <Container className={css.queryAndRecords}>
-      <Text className={css.labelText}>{getString('cv.monitoringSources.gcoLogs.records')}</Text>
-      <Container className={css.chartContainer}>{content}</Container>
+      <Text className={css.labelText}>{fetchEntityName ?? getString('cv.monitoringSources.gcoLogs.records')}</Text>
+      <Container className={cx(css.chartContainer, recordsClassName)}>{content}</Container>
     </Container>
   )
 }

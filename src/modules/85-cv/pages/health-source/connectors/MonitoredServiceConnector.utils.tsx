@@ -13,7 +13,8 @@ import {
   MetricPackDTOArrayRequestBody,
   MetricPackValidationResponse,
   ResponseMetricPackValidationResponse,
-  ResponseSetAppdynamicsValidationResponse
+  ResponseSetAppdynamicsValidationResponse,
+  HealthSource
 } from 'services/cv'
 import { StatusOfValidation } from '@cv/pages/components/ValidationStatus/ValidationStatus.constants'
 import { StatusState, HealthSoureSupportedConnectorTypes } from './MonitoredServiceConnector.constants'
@@ -21,19 +22,20 @@ import type { UpdatedHealthSource } from '../HealthSourceDrawer/HealthSourceDraw
 import css from './NewRelic/NewrelicMonitoredSource.module.scss'
 
 export const createPayloadByConnectorType = (formData: any, connector: string): UpdatedHealthSource | null => {
-  let type = null
+  let type: HealthSource['type']
   let specPayload = {}
   switch (connector) {
     case HealthSoureSupportedConnectorTypes.APP_DYNAMICS:
-      type = 'AppDynamics' as any
+      type = 'AppDynamics'
       specPayload = {
         applicationName: formData.appdApplication as string,
         tierName: formData.appDTier as string
       }
       break
     case HealthSoureSupportedConnectorTypes.NEW_RELIC:
-      type = 'NewRelic' as any
+      type = 'NewRelic'
       specPayload = {
+        ...formData,
         applicationName: formData?.newRelicApplication?.label,
         applicationId: formData?.newRelicApplication?.value
       }

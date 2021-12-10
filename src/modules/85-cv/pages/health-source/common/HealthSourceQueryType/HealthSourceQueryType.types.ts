@@ -1,4 +1,4 @@
 export enum QueryType {
-  SERVICE_BASED = 'Service Based',
-  HOST_BASED = 'Host Based'
+  SERVICE_BASED = 'SERVICE_BASED',
+  HOST_BASED = 'HOST_BASED'
 }

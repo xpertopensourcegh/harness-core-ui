@@ -34,7 +34,6 @@ import {
   validateMetrics,
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
-import MetricPackAppDynamics from '../MetricPackAppDynamics'
 import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
 import AppDMappedMetric from './Components/AppDMappedMetric/AppDMappedMetric'
 import {
@@ -53,6 +52,7 @@ import type {
   AppDynamicsFomikFormInterface,
   SelectedAndMappedMetrics
 } from './AppDHealthSource.types'
+import MetricPackCustom from '../MetricPackCustom'
 import css from './AppDHealthSource.module.scss'
 
 export default function AppDMonitoredSource({
@@ -316,7 +316,7 @@ export default function AppDMonitoredSource({
               <Layout.Vertical>
                 <Text color={Color.BLACK}>{getString('cv.healthSource.connectors.AppDynamics.metricPackLabel')}</Text>
                 <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
-                  <MetricPackAppDynamics
+                  <MetricPackCustom
                     setMetricDataValue={value => {
                       setNonCustomFeilds({
                         ...nonCustomFeilds,

@@ -1,11 +1,21 @@
 import React from 'react'
-import { Container, Formik, FormikForm, FormInput, Layout, useModalHook, Text } from '@wings-software/uicore'
-import { Button, Dialog } from '@blueprintjs/core'
+import {
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Layout,
+  useModalHook,
+  Text,
+  Button,
+  Label
+} from '@wings-software/uicore'
+import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import JsonSelector from '@cv/components/JsonSelector/JsonSelector'
 import { NoRecordForm, InputWithDynamicModalForJsonProps, DialogProps } from './types'
 import { validate } from './utils'
-import { InputIcon } from './components/InputIcon'
+import css from './InputWithDynamicModalForJson.module.scss'
 
 export function InputWithDynamicModalForJson(props: InputWithDynamicModalForJsonProps): JSX.Element {
   const {
@@ -15,10 +25,11 @@ export function InputWithDynamicModalForJson(props: InputWithDynamicModalForJson
     sampleRecord,
     inputLabel,
     inputName,
-    inputPlaceholder,
     noRecordModalHeader,
     noRecordInputLabel,
-    recordsModalHeader
+    recordsModalHeader,
+    showExactJsonPath,
+    fieldValue
   } = props
   const { getString } = useStrings()
 
@@ -69,9 +80,15 @@ export function InputWithDynamicModalForJson(props: InputWithDynamicModalForJson
           </Text>
           <JsonSelector
             json={sampleRecord as Record<string, any>}
-            onPathSelect={(value: string) => {
+            onPathSelect={(pathSelected: string) => {
               hideModalForSelectingField()
-              onChange(inputName, value)
+              let selectedValue = pathSelected
+              if (showExactJsonPath === true) {
+                selectedValue = `$.${selectedValue}`
+                // replacing the array index in the path with [*]
+                selectedValue = selectedValue.replace(/\d/g, '[*]')
+              }
+              onChange(inputName, selectedValue)
             }}
           />
         </Container>
@@ -81,13 +98,25 @@ export function InputWithDynamicModalForJson(props: InputWithDynamicModalForJson
   )
 
   return (
-    <FormInput.Text
-      disabled={true}
+    <FormInput.CustomRender
       name={inputName}
-      label={inputLabel}
-      placeholder={inputPlaceholder}
-      inputGroup={{
-        rightElement: <InputIcon isDisabled={isDisabled} onClick={handleOnClickAddField} />
+      render={() => {
+        return (
+          <Layout.Vertical spacing={'small'} style={{ marginBottom: 'var(--spacing-medium)' }}>
+            <Label style={{ fontSize: 13, fontWeight: 'normal' }}>{inputLabel}</Label>
+            <Button
+              minimal
+              className={css.container}
+              withoutCurrentColor={true}
+              rightIcon="plus"
+              iconProps={{ size: 14 }}
+              disabled={isDisabled}
+              onClick={handleOnClickAddField}
+            >
+              {fieldValue ? fieldValue : recordsModalHeader}
+            </Button>
+          </Layout.Vertical>
+        )
       }}
     />
   )

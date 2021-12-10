@@ -563,8 +563,41 @@ healthSource:
     environmentMapping: Environment Mapping
   connectors:
     selectConnector: Select {{sourceType}} Connector
+    customMetrics: Custom Metrics (optional)
+    customMetricsTooltip: Add custom metrics
+    buildChart: Build Chart
     NewRelic:
       applicationLabel: Find an NewRelic application
+      nrqlQuery: NRQL Query
+      groupName: New Relic Group Name
+      submitQueryNoRecords: Submit query to see response from New Relic
+      metricValueAndCharts: Metric values and charts
+      queryMapping: Query Specifications and mapping
+      validations:
+        application: Please select application
+        nrql: NRQL Query is required
+        queryType: Query type is required
+        serviceInstanceIdentifier: Service Instance Identifier Json Path is required
+        continuousVerification: Service selection is required
+        metricValue: Metric Value Json Path is required
+        timestamp: Timestamp Field/Locator Json Path is required
+      metricFields:
+        metricValueJsonPath:
+          label: Metric Value Json Path
+          noRecordModalHeader: New Metric Value
+          noRecordInputLabel: Add Metric Value
+          recordsModalHeader: Select path for Metric value
+        timestampJsonPath:
+          label: Timestamp Field/Locator Json Path
+          noRecordModalHeader: New Timestamp Locator
+          noRecordInputLabel: Add Timestamp Locator
+          recordsModalHeader: Select path for timestamp field
+        serviceIdentifierJsonPath:
+          label: Service Instance Identifier Json Path
+          noRecordModalHeader: New Service Instance Identifier
+          noRecordInputLabel: Add Service Instance Identifier
+          recordsModalHeader: Select path for service instance identifier field
+        timestampFormat: Timestamp Format
     AppDynamics:
       applicationsAndTiers: Applications & Tiers
       applicationLabel: Find an AppDynamics application

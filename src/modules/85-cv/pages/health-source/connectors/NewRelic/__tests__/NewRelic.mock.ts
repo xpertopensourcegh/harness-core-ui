@@ -169,6 +169,7 @@ export const newrelicInput = {
 export const expectedNewRelicData = {
   applicationId: '107019083',
   applicationName: 'My Application',
+  mappedServicesAndEnvs: new Map(),
   connectorRef: {
     connector: {
       description: null,
@@ -303,6 +304,68 @@ export const onPreviousPayload = {
 }
 
 export const onSubmitPayload = {
+  connectorRef: {
+    connector: {
+      description: null,
+      identifier: 'newrelic',
+      name: 'newrelic',
+      orgIdentifier: 'default',
+      projectIdentifier: 'Demo',
+      spec: {
+        apiKeyRef: 'newrelic_secret',
+        delegateSelectors: [],
+        newRelicAccountId: '1805869',
+        url: 'https://insights-api.newrelic.com/'
+      },
+      tags: {},
+      type: 'NewRelic'
+    },
+    label: 'newrelic',
+    live: true,
+    scope: 'project',
+    value: 'newrelic'
+  },
+  environmentRef: 'AppDTestEnv',
+  healthSourceIdentifier: 'New_relic_101',
+  healthSourceList: [
+    {
+      identifier: 'New_relic_101',
+      name: 'New relic 103',
+      spec: {
+        applicationId: '107019083',
+        applicationName: 'My Application',
+        connectorRef: 'newrelic',
+        feature: 'apm',
+        metricPacks: [
+          {
+            identifier: 'Performance'
+          }
+        ]
+      },
+      type: 'NewRelic'
+    }
+  ],
+  healthSourceName: 'heath source name',
+  isEdit: true,
+  monitoredServiceRef: {
+    description: 'monitoredService',
+    identifier: 'Test_Monitored_service',
+    name: 'Test Monitored service ',
+    tags: {
+      tag: '',
+      tag1: '',
+      tag2: ''
+    }
+  },
+  product: {
+    label: 'apm',
+    value: 'apm'
+  },
+  serviceRef: 'AppDService',
+  sourceType: 'NewRelic'
+}
+
+export const healthSourcePayload = {
   identifier: 'New_relic_101',
   name: 'heath source name',
   spec: {
@@ -310,9 +373,27 @@ export const onSubmitPayload = {
     applicationName: 'My Application',
     connectorRef: 'newrelic',
     feature: 'apm',
-    metricPacks: [{ identifier: 'Performance' }]
+    metricData: { Performance: true },
+    metricPacks: [{ identifier: 'Performance' }],
+    newRelicMetricDefinitions: []
   },
   type: 'NewRelic'
+}
+
+export const NewRelicInputFormData = {
+  name: 'New_relic',
+  identifier: 'New_relic',
+  connectorRef: 'account.new_relic',
+  isEdit: false,
+  product: {
+    value: 'apm',
+    label: 'Full Stack Observability: APM'
+  },
+  type: 'NewRelic',
+  applicationName: '',
+  applicationId: '',
+  metricPacks: [],
+  mappedServicesAndEnvs: new Map()
 }
 
 export const validationMissingApplication = {
@@ -328,4 +409,25 @@ export const validationMissingMetricData = {
 export const validationValidPayload = {
   metricData: { Performance: true },
   newRelicApplication: { label: 'manager', value: 'manager' }
+}
+
+export const mockedFormDataCreate = {
+  connectorRef: 'account.new_relic',
+  identifier: 'New_relic',
+  isEdit: false,
+  mappedServicesAndEnvs: new Map(),
+  metricData: {},
+  metricName: 'New Relic Metric',
+  metricPacks: [],
+  name: 'New_relic',
+  newRelicApplication: {
+    label: '',
+    value: ''
+  },
+  product: {
+    label: 'Full Stack Observability: APM',
+    value: 'apm'
+  },
+  showCustomMetric: false,
+  type: 'NewRelic'
 }

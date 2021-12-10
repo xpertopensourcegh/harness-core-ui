@@ -1,14 +1,108 @@
-import type { NewRelicHealthSourceSpec } from 'services/cv'
+import type { SelectOption } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
+import { v4 as uuid } from 'uuid'
+import type { UseStringsReturn } from 'framework/strings'
+import type { NewRelicHealthSourceSpec, RiskProfile } from 'services/cv'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { HealthSourceTypes } from '../../types'
+import type { NewRelicData, NewRelicMetric } from './NewRelicHealthSource.types'
 
-export const createNewRelicData = (sourceData: any) => {
+export const createNewRelicPayload = (formData: any): UpdatedHealthSource | null => {
+  const specPayload = {
+    applicationName: formData?.newRelicApplication?.label,
+    applicationId: formData?.newRelicApplication?.value,
+    metricData: formData?.metricData,
+    newRelicMetricDefinitions: [] as NewRelicMetric[]
+  }
+
+  if (formData.showCustomMetric) {
+    for (const entry of formData.mappedServicesAndEnvs.entries()) {
+      const {
+        metricName,
+        groupName,
+        queryType,
+        query,
+        metricValue,
+        timestamp,
+        timestampFormat,
+        serviceInstanceIdentifier,
+        sli,
+        continuousVerification,
+        healthScore,
+        riskCategory,
+        lowerBaselineDeviation,
+        higherBaselineDeviation
+      } = entry[1]
+
+      const [category, metricType] = riskCategory?.split('/') || []
+      const thresholdTypes: RiskProfile['thresholdTypes'] = []
+
+      if (lowerBaselineDeviation) {
+        thresholdTypes.push('ACT_WHEN_LOWER')
+      }
+      if (higherBaselineDeviation) {
+        thresholdTypes.push('ACT_WHEN_HIGHER')
+      }
+
+      specPayload?.newRelicMetricDefinitions?.push({
+        identifier: uuid(),
+        metricName,
+        groupName: groupName?.value as string,
+        nrql: query,
+        queryType,
+        responseMapping: {
+          metricValueJsonPath: metricValue,
+          serviceInstanceJsonPath: serviceInstanceIdentifier,
+          timestampFormat: timestampFormat,
+          timestampJsonPath: timestamp
+        },
+        sli: { enabled: Boolean(sli) },
+        analysis: {
+          riskProfile: {
+            category,
+            metricType,
+            thresholdTypes
+          },
+          liveMonitoring: { enabled: Boolean(healthScore) },
+          deploymentVerification: { enabled: Boolean(continuousVerification) }
+        }
+      })
+    }
+  }
+
+  return {
+    name: formData.name || (formData.healthSourceName as string),
+    identifier: formData.identifier || (formData.healthSourceIdentifier as string),
+    type: formData.type,
+    spec: {
+      ...specPayload,
+      feature: formData.product?.value as string,
+      connectorRef: (formData?.connectorRef?.connector?.identifier as string) || (formData.connectorRef as string),
+      metricPacks: Object.entries(formData?.metricData)
+        .map(item => {
+          return item[1]
+            ? {
+                identifier: item[0]
+              }
+            : {}
+        })
+        .filter(item => !isEmpty(item))
+    }
+  }
+}
+
+export const createNewRelicData = (sourceData: any): NewRelicData => {
   const payload: UpdatedHealthSource = sourceData?.healthSourceList?.find(
     (source: UpdatedHealthSource) => source.identifier === sourceData.healthSourceIdentifier
   )
 
-  const { applicationName, applicationId, metricPacks } = (payload?.spec as NewRelicHealthSourceSpec) || {}
-  return {
+  const {
+    applicationName = '',
+    applicationId = '',
+    metricPacks = []
+  } = (payload?.spec as NewRelicHealthSourceSpec) || {}
+
+  const newRelicData = {
     name: sourceData?.healthSourceName,
     identifier: sourceData?.healthSourceIdentifier,
     connectorRef: sourceData?.connectorRef,
@@ -17,6 +111,77 @@ export const createNewRelicData = (sourceData: any) => {
     type: HealthSourceTypes.NewRelic,
     applicationName,
     applicationId,
-    metricPacks
+    metricPacks,
+    mappedServicesAndEnvs: new Map()
   }
+
+  for (const metricDefinition of (payload?.spec as NewRelicHealthSourceSpec)?.newRelicMetricDefinitions || []) {
+    if (metricDefinition?.metricName) {
+      newRelicData.mappedServicesAndEnvs.set(metricDefinition.metricName, {
+        metricName: metricDefinition.metricName,
+        groupName: { label: metricDefinition.groupName || '', value: metricDefinition.groupName || '' },
+
+        queryType: (metricDefinition as any)?.queryType,
+        query: metricDefinition?.nrql,
+
+        metricValue: metricDefinition?.responseMapping?.metricValueJsonPath,
+        serviceInstanceIdentifier: metricDefinition?.responseMapping?.serviceInstanceJsonPath,
+        timestampFormat: metricDefinition?.responseMapping?.timestampFormat,
+        timestamp: metricDefinition?.responseMapping?.timestampJsonPath,
+
+        sli: metricDefinition?.sli?.enabled,
+        continuousVerification: metricDefinition?.analysis?.deploymentVerification?.enabled,
+        healthScore: metricDefinition?.analysis?.liveMonitoring?.enabled,
+        riskCategory:
+          metricDefinition?.analysis?.riskProfile?.category && metricDefinition?.analysis?.riskProfile?.metricType
+            ? `${metricDefinition?.analysis?.riskProfile?.category}/${metricDefinition?.analysis?.riskProfile?.metricType}`
+            : '',
+        lowerBaselineDeviation:
+          metricDefinition?.analysis?.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER') || false,
+        higherBaselineDeviation:
+          metricDefinition?.analysis?.riskProfile?.thresholdTypes?.includes('ACT_WHEN_HIGHER') || false
+      })
+    }
+  }
+
+  return newRelicData
+}
+
+export function updateSelectedMetricsMap({ updatedMetric, oldMetric, mappedMetrics, formikValues }: any): any {
+  const updatedMap = new Map(mappedMetrics)
+
+  // in the case where user updates metric name, update the key for current value
+  if (oldMetric !== formikValues?.metricName) {
+    updatedMap.delete(oldMetric)
+  }
+
+  // if newly created metric then create the new entry
+  if (!updatedMap.has(updatedMetric)) {
+    updatedMap.set(updatedMetric, {
+      ...{
+        sli: false,
+        healthScore: false,
+        continuousVerification: false
+      }
+    })
+  }
+
+  // update map with current form data
+  if (formikValues?.metricName) {
+    updatedMap.set(formikValues.metricName, { ...formikValues })
+  }
+  return { selectedMetric: updatedMetric, mappedMetrics: updatedMap }
+}
+
+export function initializeGroupNames(
+  mappedMetrics: Map<string, any>,
+  getString: UseStringsReturn['getString']
+): SelectOption[] {
+  const groupNames = Array.from(mappedMetrics?.entries())
+    .map(metric => {
+      const { groupName } = metric?.[1] || {}
+      return groupName || null
+    })
+    .filter(groupItem => groupItem !== null) as SelectOption[]
+  return [{ label: getString('cv.addNew'), value: '' }, ...groupNames]
 }

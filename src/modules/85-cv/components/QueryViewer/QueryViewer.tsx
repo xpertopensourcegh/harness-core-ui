@@ -24,11 +24,14 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
     staleRecordsWarning
   } = props
   const { getString } = useStrings()
+
   useEffect(() => {
     if (!isEmpty(query) && mandatoryFields.every(v => v) && isAutoFetch) {
       handleFetchRecords()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, isAutoFetch])
+
   return (
     <Container className={css.queryContainer}>
       <Layout.Horizontal className={css.queryIcons} spacing="small">
@@ -78,7 +81,10 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
     queryTextAreaProps,
     staleRecordsWarning,
     isAutoFetch,
-    queryContentMandatoryProps
+    queryContentMandatoryProps,
+    queryLabel,
+    recordsClassName,
+    fetchEntityName
   } = props
   const { getString } = useStrings()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -101,7 +107,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
 
   return (
     <Container className={cx(css.main, className)}>
-      <Text className={css.labelText}>{getString('cv.query')}</Text>
+      <Text className={css.labelText}>{queryLabel ?? getString('cv.query')}</Text>
       <QueryContent
         onClickExpand={setIsDialogOpen}
         query={query}
@@ -115,12 +121,14 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
       />
       <Records
         fetchRecords={handleFetchRecords}
+        recordsClassName={recordsClassName}
         loading={loading}
         data={records}
         error={error}
         query={query}
         isQueryExecuted={isQueryExecuted}
         queryNotExecutedMessage={queryNotExecutedMessage}
+        fetchEntityName={fetchEntityName}
       />
       <QueryViewDialog
         isOpen={isDialogOpen}

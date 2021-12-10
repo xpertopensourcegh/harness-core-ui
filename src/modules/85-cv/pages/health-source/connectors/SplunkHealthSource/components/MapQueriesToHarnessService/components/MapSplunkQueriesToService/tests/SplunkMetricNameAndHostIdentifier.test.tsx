@@ -7,6 +7,7 @@ describe('Unit tests for MapSplunkQueriesToService', () => {
   const initialProps = {
     onChange: jest.fn(),
     sampleRecord: null,
+    serviceInstance: 'serviceInstance',
     isQueryExecuted: true,
     loading: false
   }

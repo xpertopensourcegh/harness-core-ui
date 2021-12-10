@@ -15,11 +15,13 @@ import { StringKeys, useStrings, UseStringsReturn } from 'framework/strings'
 
 export interface GroupNameProps {
   fieldName: string
-  newGroupDialogTitle: StringKeys
+  newGroupDialogTitle?: StringKeys
   groupNames?: SelectOption[]
   onChange: (name: string, value: SelectOption) => void
   item?: SelectOption
   setGroupNames: Dispatch<SetStateAction<SelectOption[]>>
+  label?: string
+  title?: string
   disabled?: boolean
 }
 
@@ -52,7 +54,7 @@ export function validate(
 }
 
 export default function GroupName(props: GroupNameProps): JSX.Element {
-  const { fieldName, newGroupDialogTitle, groupNames = [], onChange, item, setGroupNames, disabled } = props
+  const { fieldName, disabled, groupNames = [], onChange, item, setGroupNames, label, title } = props
   const { getString } = useStrings()
   const addNewOption = { label: getString('cv.addNew'), value: '' }
 
@@ -73,9 +75,9 @@ export default function GroupName(props: GroupNameProps): JSX.Element {
           <FormikForm>
             <Container margin="medium">
               <Text font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'large' }}>
-                {getString(newGroupDialogTitle)}
+                {title ?? getString('cv.monitoringSources.prometheus.newPrometheusGroupName')}
               </Text>
-              <FormInput.Text name="name" label={getString('cv.monitoringSources.prometheus.groupName')} />
+              <FormInput.Text name="name" label={label ?? getString('cv.monitoringSources.prometheus.groupName')} />
               <Layout.Horizontal spacing="medium" margin={{ top: 'large', bottom: 'large' }}>
                 <Button text={getString('submit')} type="submit" intent="primary" />
                 <Button text={getString('cancel')} onClick={hideModal} />
@@ -90,10 +92,10 @@ export default function GroupName(props: GroupNameProps): JSX.Element {
 
   return (
     <FormInput.Select
+      label={label ?? getString('cv.monitoringSources.prometheus.groupName')}
       disabled={disabled}
       value={item}
       name={fieldName}
-      label={getString('cv.monitoringSources.prometheus.groupName')}
       items={groupNames || []}
       onChange={selectedItem => {
         if (selectedItem?.label === addNewOption.label) {

@@ -5,4 +5,5 @@ export interface MapSplunkQueriesToServiceProps {
   sampleRecord: Record<string, any> | null
   isQueryExecuted: boolean
   loading: boolean
+  serviceInstance: string
 }

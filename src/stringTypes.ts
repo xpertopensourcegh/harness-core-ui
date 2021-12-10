@@ -4181,6 +4181,34 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.validation.metricPathWithoutLeafNode': string
   'cv.healthSource.connectors.AppDynamics.validation.tier': string
   'cv.healthSource.connectors.NewRelic.applicationLabel': string
+  'cv.healthSource.connectors.NewRelic.groupName': string
+  'cv.healthSource.connectors.NewRelic.metricFields.metricValueJsonPath.label': string
+  'cv.healthSource.connectors.NewRelic.metricFields.metricValueJsonPath.noRecordInputLabel': string
+  'cv.healthSource.connectors.NewRelic.metricFields.metricValueJsonPath.noRecordModalHeader': string
+  'cv.healthSource.connectors.NewRelic.metricFields.metricValueJsonPath.recordsModalHeader': string
+  'cv.healthSource.connectors.NewRelic.metricFields.serviceIdentifierJsonPath.label': string
+  'cv.healthSource.connectors.NewRelic.metricFields.serviceIdentifierJsonPath.noRecordInputLabel': string
+  'cv.healthSource.connectors.NewRelic.metricFields.serviceIdentifierJsonPath.noRecordModalHeader': string
+  'cv.healthSource.connectors.NewRelic.metricFields.serviceIdentifierJsonPath.recordsModalHeader': string
+  'cv.healthSource.connectors.NewRelic.metricFields.timestampFormat': string
+  'cv.healthSource.connectors.NewRelic.metricFields.timestampJsonPath.label': string
+  'cv.healthSource.connectors.NewRelic.metricFields.timestampJsonPath.noRecordInputLabel': string
+  'cv.healthSource.connectors.NewRelic.metricFields.timestampJsonPath.noRecordModalHeader': string
+  'cv.healthSource.connectors.NewRelic.metricFields.timestampJsonPath.recordsModalHeader': string
+  'cv.healthSource.connectors.NewRelic.metricValueAndCharts': string
+  'cv.healthSource.connectors.NewRelic.nrqlQuery': string
+  'cv.healthSource.connectors.NewRelic.queryMapping': string
+  'cv.healthSource.connectors.NewRelic.submitQueryNoRecords': string
+  'cv.healthSource.connectors.NewRelic.validations.application': string
+  'cv.healthSource.connectors.NewRelic.validations.continuousVerification': string
+  'cv.healthSource.connectors.NewRelic.validations.metricValue': string
+  'cv.healthSource.connectors.NewRelic.validations.nrql': string
+  'cv.healthSource.connectors.NewRelic.validations.queryType': string
+  'cv.healthSource.connectors.NewRelic.validations.serviceInstanceIdentifier': string
+  'cv.healthSource.connectors.NewRelic.validations.timestamp': string
+  'cv.healthSource.connectors.buildChart': string
+  'cv.healthSource.connectors.customMetrics': string
+  'cv.healthSource.connectors.customMetricsTooltip': string
   'cv.healthSource.connectors.gco.selectDashboardTab': string
   'cv.healthSource.connectors.selectConnector': string
   'cv.healthSource.customizeHealthSource': string

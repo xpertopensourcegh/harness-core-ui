@@ -57,7 +57,8 @@ describe('Unit tests for InputWithDynamicModalForJson component', () => {
     inputPlaceholder: 'input-placeholder',
     noRecordModalHeader: 'norecord-modalheader',
     noRecordInputLabel: 'norecord-inputlabel',
-    recordsModalHeader: 'record-modal-header'
+    recordsModalHeader: 'record-modal-header',
+    fieldValue: 'field'
   }
   test('Verify that Valid Records state is rendering correctly for InputWithDynamicModalForJson', async () => {
     const { getByText } = render(<WrapperComponent {...initialProps} />)

@@ -62,6 +62,8 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
             summary={getString('cv.monitoringSources.mapQueriesToServices')}
             details={
               <MapGCPLogsQueriesToService
+                serviceInstance={values?.serviceInstance}
+                messageIdentifier={values?.messageIdentifier}
                 sampleRecord={sampleRecord}
                 isQueryExecuted={isQueryExecuted}
                 onChange={onChange}

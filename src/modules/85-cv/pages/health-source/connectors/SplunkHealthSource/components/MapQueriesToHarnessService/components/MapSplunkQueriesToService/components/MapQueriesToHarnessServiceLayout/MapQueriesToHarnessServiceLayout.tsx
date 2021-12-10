@@ -104,6 +104,7 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
               summary={getString('cv.monitoringSources.mapQueriesToServices')}
               details={
                 <SplunkMetricNameAndHostIdentifier
+                  serviceInstance={values?.serviceInstance}
                   sampleRecord={splunkData?.resource?.[0] || null}
                   isQueryExecuted={isQueryExecuted}
                   onChange={onChange}

@@ -209,70 +209,52 @@ exports[`test splunkHealthsource check snapshot 1`] = `
                                   </div>
                                 </div>
                                 <div
-                                  class="bp3-form-group bp3-disabled"
-                                  data-id="serviceInstance-1"
+                                  class="bp3-form-group"
+                                  data-id="undefined-1"
                                 >
-                                  <label
-                                    class="bp3-label"
-                                    for="serviceInstance"
-                                  >
-                                    <span
-                                      class="Tooltip--acenter"
-                                      data-tooltip-id="mapSplunk_serviceInstance"
-                                    >
-                                      cv.monitoringSources.gcoLogs.serviceInstance
-                                    </span>
-                                     
-                                    <span
-                                      class="bp3-text-muted"
-                                    />
-                                  </label>
                                   <div
                                     class="bp3-form-content"
                                   >
                                     <div
-                                      class="bp3-input-group bp3-disabled"
+                                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                                     >
-                                      <input
-                                        autocomplete="off"
-                                        class="bp3-input"
-                                        disabled=""
-                                        name="serviceInstance"
-                                        placeholder="cv.monitoringSources.gcoLogs.selectRecords"
-                                        style="padding-right: 0px;"
-                                        type="text"
-                                        value="_sourcetype"
-                                      />
-                                      <span
-                                        class="bp3-input-action"
+                                      <label
+                                        class="Label--main"
+                                        style="font-size: 13px; font-weight: normal;"
                                       >
-                                        <button
-                                          class="bp3-button bp3-disabled bp3-minimal iconButton"
-                                          disabled=""
-                                          tabindex="-1"
-                                          type="button"
+                                        cv.monitoringSources.gcoLogs.serviceInstance
+                                      </label>
+                                      <button
+                                        class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
+                                        disabled=""
+                                        tabindex="-1"
+                                        type="button"
+                                      >
+                                        <span
+                                          class="bp3-button-text"
                                         >
-                                          <span
-                                            class="bp3-icon bp3-icon-plus"
-                                            icon="plus"
+                                          _sourcetype
+                                        </span>
+                                        <span
+                                          class="bp3-icon bp3-icon-plus StyledProps--main"
+                                          icon="plus"
+                                        >
+                                          <svg
+                                            data-icon="plus"
+                                            height="14"
+                                            viewBox="0 0 16 16"
+                                            width="14"
                                           >
-                                            <svg
-                                              data-icon="plus"
-                                              height="16"
-                                              viewBox="0 0 16 16"
-                                              width="16"
-                                            >
-                                              <desc>
-                                                plus
-                                              </desc>
-                                              <path
-                                                d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-                                                fill-rule="evenodd"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </button>
-                                      </span>
+                                            <desc>
+                                              plus
+                                            </desc>
+                                            <path
+                                              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                                              fill-rule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </button>
                                     </div>
                                   </div>
                                 </div>

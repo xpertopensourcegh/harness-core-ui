@@ -8,5 +8,9 @@ declare const styles: {
   readonly bp3InputLeftContainer: string
   readonly tierDropdown: string
   readonly iconButton: string
+  readonly main: string
+  readonly content: string
+  readonly accordian: string
+  readonly recordsClassName: string
 }
 export default styles

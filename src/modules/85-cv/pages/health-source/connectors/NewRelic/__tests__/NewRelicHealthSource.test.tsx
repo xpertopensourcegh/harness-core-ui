@@ -14,8 +14,12 @@ import {
   sourceData,
   validationData,
   onPreviousPayload,
-  onSubmitPayload
+  onSubmitPayload,
+  healthSourcePayload,
+  NewRelicInputFormData,
+  mockedFormDataCreate
 } from './NewRelic.mock'
+import { createNewRelicFormData } from '../NewRelicHealthSource.utils'
 
 const createModeProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
@@ -81,9 +85,7 @@ describe('Unit tests for NewRelic health source', () => {
     await waitFor(() => expect(onPrevious).toHaveBeenCalledWith(expect.objectContaining(onPreviousPayload)))
 
     fireEvent.click(getByText('submit'))
-    await waitFor(() =>
-      expect(submitData).toHaveBeenCalledWith(expect.anything(), expect.objectContaining(onSubmitPayload))
-    )
+    await waitFor(() => expect(submitData).toHaveBeenCalledWith(onSubmitPayload, healthSourcePayload))
 
     expect(container).toMatchSnapshot()
   })
@@ -93,7 +95,7 @@ describe('Unit tests for NewRelic health source', () => {
     const { container, getByText } = render(
       <TestWrapper {...createModeProps}>
         <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
-          <NewRelicHealthSource data={{}} onSubmit={submitData} onPrevious={jest.fn()} />
+          <NewRelicHealthSource data={NewRelicInputFormData} onSubmit={submitData} onPrevious={jest.fn()} />
         </SetupSourceTabs>
       </TestWrapper>
     )
@@ -132,7 +134,21 @@ describe('Unit tests for NewRelic health source', () => {
     await act(() => {
       fireEvent.click(getByText('submit'))
     })
-    await waitFor(() => expect(getByText('cv.healthSource.connectors.AppDynamics.validation.application')).toBeTruthy())
+    await waitFor(() => expect(getByText('cv.healthSource.connectors.NewRelic.validations.application')).toBeTruthy())
     expect(container).toMatchSnapshot()
+  })
+
+  test('createNewRelicFormData utils method', () => {
+    const nonCustomFeilds = {
+      newRelicApplication: {
+        label: '',
+        value: ''
+      },
+      metricPacks: [],
+      metricData: {}
+    }
+    expect(
+      createNewRelicFormData(NewRelicInputFormData as any, new Map(), 'New Relic Metric', nonCustomFeilds, false)
+    ).toEqual(mockedFormDataCreate)
   })
 })

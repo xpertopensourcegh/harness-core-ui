@@ -7,10 +7,11 @@ export interface InputWithDynamicModalForJsonProps {
   sampleRecord: Record<string, any> | null
   inputLabel: string
   inputName: string
-  inputPlaceholder: string
   noRecordModalHeader: string
   noRecordInputLabel: string
   recordsModalHeader: string
+  fieldValue: string
+  showExactJsonPath?: boolean
 }
 
 export const DialogProps: IDialogProps = {

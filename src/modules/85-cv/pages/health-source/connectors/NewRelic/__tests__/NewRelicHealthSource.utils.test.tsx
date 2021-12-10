@@ -1,6 +1,6 @@
 import type { StringKeys } from 'framework/strings'
 import { createNewRelicData } from '../NewRelicHealthSourceContainer.util'
-import { validateNewRelic } from '../NewRelicHealthSource.utils'
+import { validateMapping } from '../NewRelicHealthSource.utils'
 import {
   sourceData,
   expectedNewRelicData,
@@ -19,12 +19,12 @@ describe('Test Newrelic Utils', () => {
   })
 
   test('Verify validate function', () => {
-    expect(validateNewRelic(validationMissingApplication, getString)).toEqual({
-      newRelicApplication: 'cv.healthSource.connectors.AppDynamics.validation.application'
+    expect(validateMapping(validationMissingApplication, [], 0, getString)).toEqual({
+      newRelicApplication: 'cv.healthSource.connectors.NewRelic.validations.application'
     })
-    expect(validateNewRelic(validationMissingMetricData, getString)).toEqual({
+    expect(validateMapping(validationMissingMetricData, [], 0, getString)).toEqual({
       metricData: 'cv.monitoringSources.appD.validations.selectMetricPack'
     })
-    expect(validateNewRelic(validationValidPayload, getString)).toEqual({})
+    expect(validateMapping(validationValidPayload, [], 0, getString)).toEqual({})
   })
 })

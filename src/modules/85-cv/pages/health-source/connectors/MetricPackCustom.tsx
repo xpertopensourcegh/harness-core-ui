@@ -7,7 +7,7 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useGetMetricPacks, GetMetricPacksQueryParams, MetricPackDTO } from 'services/cv'
 import css from './MonitoredServiceConnector.module.scss'
 
-export default function MetricPackAppDynamics({
+export default function MetricPackCustom({
   connector,
   metricDataValue,
   metricPackValue,

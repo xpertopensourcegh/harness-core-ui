@@ -9178,6 +9178,59 @@ export const getNewRelicEndPointsPromise = (
     signal
   )
 
+export interface GetSampleDataForNRQLQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  connectorIdentifier: string
+  requestGuid: string
+  nrql: string
+}
+
+export type GetSampleDataForNRQLProps = Omit<
+  GetProps<ResponseLinkedHashMap, Failure | Error, GetSampleDataForNRQLQueryParams, void>,
+  'path'
+>
+
+/**
+ * get sample data for given nrql
+ */
+export const GetSampleDataForNRQL = (props: GetSampleDataForNRQLProps) => (
+  <Get<ResponseLinkedHashMap, Failure | Error, GetSampleDataForNRQLQueryParams, void>
+    path={`/newrelic/fetch-sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetSampleDataForNRQLProps = Omit<
+  UseGetProps<ResponseLinkedHashMap, Failure | Error, GetSampleDataForNRQLQueryParams, void>,
+  'path'
+>
+
+/**
+ * get sample data for given nrql
+ */
+export const useGetSampleDataForNRQL = (props: UseGetSampleDataForNRQLProps) =>
+  useGet<ResponseLinkedHashMap, Failure | Error, GetSampleDataForNRQLQueryParams, void>(`/newrelic/fetch-sample-data`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get sample data for given nrql
+ */
+export const getSampleDataForNRQLPromise = (
+  props: GetUsingFetchProps<ResponseLinkedHashMap, Failure | Error, GetSampleDataForNRQLQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseLinkedHashMap, Failure | Error, GetSampleDataForNRQLQueryParams, void>(
+    getConfig('cv/api'),
+    `/newrelic/fetch-sample-data`,
+    props,
+    signal
+  )
+
 export interface GetNewRelicMetricDataQueryParams {
   accountId: string
   orgIdentifier: string
@@ -9260,6 +9313,61 @@ export const getNewRelicMetricDataPromise = (
     MetricPackDTOArrayRequestBody,
     void
   >('POST', getConfig('cv/api'), `/newrelic/metric-data`, props, signal)
+
+export interface GetParsedTimeseriesQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  jsonResponse: string
+  groupName: string
+  metricValueJsonPath: string
+  timestampJsonPath: string
+  timestampFormat: string
+}
+
+export type GetParsedTimeseriesProps = Omit<
+  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
+  'path'
+>
+
+/**
+ * parse sample data for given json response
+ */
+export const GetParsedTimeseries = (props: GetParsedTimeseriesProps) => (
+  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>
+    path={`/newrelic/parse-sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetParsedTimeseriesProps = Omit<
+  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
+  'path'
+>
+
+/**
+ * parse sample data for given json response
+ */
+export const useGetParsedTimeseries = (props: UseGetParsedTimeseriesProps) =>
+  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>(
+    `/newrelic/parse-sample-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * parse sample data for given json response
+ */
+export const getParsedTimeseriesPromise = (
+  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>(
+    getConfig('cv/api'),
+    `/newrelic/parse-sample-data`,
+    props,
+    signal
+  )
 
 export interface GetServicesFromPagerDutyQueryParams {
   accountId?: string

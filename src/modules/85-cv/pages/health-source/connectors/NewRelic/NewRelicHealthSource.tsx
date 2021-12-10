@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import * as Yup from 'yup'
 import {
   Color,
   Text,
@@ -11,10 +10,12 @@ import {
   Layout,
   SelectOption,
   Utils,
-  useToaster
+  useToaster,
+  Button
 } from '@wings-software/uicore'
+import { PopoverInteractionKind } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetNewRelicApplications, AppdynamicsValidationResponse, MetricPackDTO } from 'services/cv'
+import { useGetNewRelicApplications, MetricPackDTO, MetricPackValidationResponse } from 'services/cv'
 import { Connectors } from '@connectors/constants'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
@@ -30,9 +31,19 @@ import {
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
 
-import MetricPack from '../MetrickPack'
 import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
-import { validateNewRelic } from './NewRelicHealthSource.utils'
+import {
+  createNewRelicFormData,
+  createNewRelicPayloadBeforeSubmission,
+  initializeCreatedMetrics,
+  initializeNonCustomFields,
+  initializeSelectedMetricsMap,
+  setNewRelicApplication,
+  validateMapping
+} from './NewRelicHealthSource.utils'
+import NewRelicMappedMetric from './components/NewRelicMappedMetric/NewRelicMappedMetric'
+import type { CreatedMetricsWithSelectedIndex, SelectedAndMappedMetrics } from './NewRelicHealthSource.types'
+import MetricPackCustom from '../MetricPackCustom'
 import css from './NewrelicMonitoredSource.module.scss'
 
 const guid = Utils.randomId()
@@ -47,13 +58,13 @@ export default function NewRelicHealthSource({
   onPrevious: () => void
 }): JSX.Element {
   const { getString } = useStrings()
-  const { showError, clear } = useToaster()
+  const { showError } = useToaster()
 
   const [selectedMetricPacks, setSelectedMetricPacks] = useState<MetricPackDTO[]>([])
-  const [validationResultData, setValidationResultData] = useState<AppdynamicsValidationResponse[]>()
+  const [validationResultData, setValidationResultData] = useState<MetricPackValidationResponse[]>()
   const [newRelicValidation, setNewRelicValidation] = useState<{
     status: string
-    result: AppdynamicsValidationResponse[] | []
+    result: MetricPackValidationResponse[] | []
   }>({
     status: '',
     result: []
@@ -61,6 +72,14 @@ export default function NewRelicHealthSource({
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const connectorIdentifier = newRelicData?.connectorRef?.connector?.identifier || newRelicData?.connectorRef
+  const [showCustomMetric, setShowCustomMetric] = useState(!!Array.from(newRelicData?.mappedServicesAndEnvs)?.length)
+  const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<SelectedAndMappedMetrics>(
+    initializeSelectedMetricsMap('New Relic Metric', newRelicData?.mappedServicesAndEnvs)
+  )
+  const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
+    initializeCreatedMetrics('New Relic Metric', selectedMetric, mappedMetrics)
+  )
+  const [nonCustomFeilds, setNonCustomFeilds] = useState(initializeNonCustomFields(newRelicData))
 
   const {
     data: applicationsData,
@@ -97,7 +116,7 @@ export default function NewRelicHealthSource({
     )
     setNewRelicValidation({
       status: validationStatus as string,
-      result: validationResult as AppdynamicsValidationResponse[]
+      result: validationResult as MetricPackValidationResponse[]
     })
   }
 
@@ -120,30 +139,28 @@ export default function NewRelicHealthSource({
         createMetricDataFormik(newRelicData?.metricPacks)
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMetricPacks, applicationLoading, newRelicData.isEdit])
 
-  const initPayload = useMemo(() => {
-    return {
-      ...newRelicData,
-      newRelicApplication: { label: newRelicData?.applicationName, value: newRelicData?.applicationId }
-    }
-  }, [newRelicData?.applicationName, newRelicData?.applicationId])
+  const initPayload = useMemo(
+    () => createNewRelicFormData(newRelicData, mappedMetrics, selectedMetric, nonCustomFeilds, showCustomMetric),
+    [newRelicData, mappedMetrics, selectedMetric, nonCustomFeilds, showCustomMetric]
+  )
 
   if (applicationError) {
-    clear()
-    applicationError && showError(getErrorMessage(applicationError))
+    showError(getErrorMessage(applicationError))
   }
 
   return (
     <Formik
       enableReinitialize
       formName={'newRelicHealthSourceform'}
-      validate={values => validateNewRelic(values, getString)}
-      validationSchema={Yup.object().shape({
-        newRelicApplication: Yup.string().required(
-          getString('cv.healthSource.connectors.AppDynamics.validation.application')
-        )
-      })}
+      isInitialValid={(args: any) =>
+        Object.keys(validateMapping(args.initialValues, createdMetrics, selectedMetricIndex, getString)).length === 0
+      }
+      validate={values => {
+        return validateMapping(values, createdMetrics, selectedMetricIndex, getString)
+      }}
       initialValues={initPayload}
       onSubmit={async values => {
         await onSubmit(values)
@@ -152,23 +169,23 @@ export default function NewRelicHealthSource({
       {formik => {
         return (
           <FormikForm className={css.formFullheight}>
-            <CardWithOuterTitle title={getString('cv.healthSource.connectors.AppDynamics.applicationsAndTiers')}>
+            <CardWithOuterTitle title={'Application'}>
               <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
                 <Container margin={{ bottom: 'small' }} width={'300px'} color={Color.BLACK}>
                   <FormInput.Select
                     className={css.applicationDropdown}
                     onChange={item => {
-                      formik.setFieldValue('newRelicApplication', item)
-                      setNewRelicValidation({ status: '', result: [] })
-                      onValidate(item?.label, item?.value.toString(), formik?.values?.metricData)
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        newRelicApplication: { label: item?.label, value: item?.value as string }
+                      })
+                      onValidate(
+                        formik?.values?.newRelicApplication?.label,
+                        formik?.values?.newRelicApplication?.value,
+                        formik.values.metricData
+                      )
                     }}
-                    value={
-                      !formik?.values?.newRelicApplication
-                        ? { label: '', value: '' }
-                        : applicationOptions.find(
-                            (item: SelectOption) => item.label === formik?.values?.newRelicApplication.label
-                          )
-                    }
+                    value={setNewRelicApplication(formik?.values?.newRelicApplication?.label, applicationOptions)}
                     name={'newRelicApplication'}
                     placeholder={
                       applicationLoading
@@ -177,7 +194,12 @@ export default function NewRelicHealthSource({
                     }
                     items={applicationOptions}
                     label={getString('cv.healthSource.connectors.NewRelic.applicationLabel')}
-                    {...getInputGroupProps(() => formik.setFieldValue('newRelicApplication', ''))}
+                    {...getInputGroupProps(() =>
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        newRelicApplication: { label: '', value: '' }
+                      })
+                    )}
                   />
                 </Container>
                 <Container width={'300px'} color={Color.BLACK}>
@@ -190,7 +212,11 @@ export default function NewRelicHealthSource({
                           : undefined
                       }
                       onRetry={() =>
-                        onValidate(formik.values.appdApplication, formik.values.appDTier, formik.values.metricData)
+                        onValidate(
+                          formik?.values?.newRelicApplication?.label,
+                          formik?.values?.newRelicApplication?.value,
+                          formik.values.metricData
+                        )
                       }
                     />
                   )}
@@ -201,12 +227,22 @@ export default function NewRelicHealthSource({
               <Layout.Vertical>
                 <Text color={Color.BLACK}>{getString('cv.healthSource.connectors.AppDynamics.metricPackLabel')}</Text>
                 <Layout.Horizontal spacing={'large'} className={css.horizontalCenterAlign}>
-                  <MetricPack
-                    formik={formik}
+                  <MetricPackCustom
+                    setMetricDataValue={value => {
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        metricData: value
+                      })
+                    }}
+                    metricPackValue={formik.values.metricPacks}
+                    metricDataValue={formik.values.metricData}
                     setSelectedMetricPacks={setSelectedMetricPacks}
                     connector={HealthSoureSupportedConnectorTypes.NEW_RELIC}
-                    value={formik.values.metricPacks}
                     onChange={async metricValue => {
+                      setNonCustomFeilds({
+                        ...nonCustomFeilds,
+                        metricData: metricValue
+                      })
                       await onValidate(
                         formik?.values?.newRelicApplication?.label,
                         formik?.values?.newRelicApplication?.value,
@@ -225,7 +261,48 @@ export default function NewRelicHealthSource({
                 </Layout.Horizontal>
               </Layout.Vertical>
             </CardWithOuterTitle>
-            <DrawerFooter isSubmit onPrevious={onPrevious} onNext={formik.submitForm} />
+            {showCustomMetric ? (
+              <NewRelicMappedMetric
+                isValidInput={formik.isValid}
+                setMappedMetrics={setMappedMetrics}
+                selectedMetric={selectedMetric}
+                formikValues={formik.values}
+                formikSetField={formik.setFieldValue}
+                connectorIdentifier={connectorIdentifier}
+                mappedMetrics={mappedMetrics}
+                createdMetrics={createdMetrics}
+                setCreatedMetrics={setCreatedMetrics}
+              />
+            ) : (
+              <CardWithOuterTitle title={getString('cv.healthSource.connectors.customMetrics')}>
+                <Button
+                  icon="plus"
+                  minimal
+                  margin={{ left: 'medium' }}
+                  intent="primary"
+                  tooltip={getString('cv.healthSource.connectors.customMetricsTooltip')}
+                  tooltipProps={{ interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY }}
+                  onClick={() => setShowCustomMetric(true)}
+                >
+                  {getString('cv.monitoringSources.addMetric')}
+                </Button>
+              </CardWithOuterTitle>
+            )}
+            <DrawerFooter
+              isSubmit
+              onPrevious={onPrevious}
+              onNext={() =>
+                createNewRelicPayloadBeforeSubmission(
+                  formik,
+                  mappedMetrics,
+                  selectedMetric,
+                  selectedMetricIndex,
+                  createdMetrics,
+                  getString,
+                  onSubmit
+                )
+              }
+            />
           </FormikForm>
         )
       }}

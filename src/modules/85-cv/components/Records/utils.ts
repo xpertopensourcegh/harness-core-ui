@@ -1,15 +1,11 @@
-type GCOLogsHighchartsOptionAndRecords = {
-  records: string[]
-}
+import type { HighchartsOptionAndRecords } from './types'
 
-type GCOLogsSampleData = any
-
-export function transformGCOLogsSampleData(sampleData?: GCOLogsSampleData[]): GCOLogsHighchartsOptionAndRecords {
+export function transformSampleData(sampleData?: any[]): HighchartsOptionAndRecords {
   if (!sampleData?.length) {
     return { records: [] }
   }
 
-  const transformedValue: GCOLogsHighchartsOptionAndRecords = { records: [] }
+  const transformedValue: HighchartsOptionAndRecords = { records: [] }
   for (const sample of sampleData) {
     const formattedJson = formatJSON(sample)
     if (formattedJson) {

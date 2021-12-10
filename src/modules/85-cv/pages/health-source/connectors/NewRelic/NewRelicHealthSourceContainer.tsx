@@ -1,9 +1,7 @@
 import React, { useContext, useCallback } from 'react'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
-import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
-import { createPayloadByConnectorType } from '../MonitoredServiceConnector.utils'
-import { createNewRelicData } from './NewRelicHealthSourceContainer.util'
+import { createNewRelicData, createNewRelicPayload } from './NewRelicHealthSourceContainer.util'
 import NewRelicHealthSource from './NewRelicHealthSource'
 
 interface NewRelicHealthSource {
@@ -16,10 +14,13 @@ export default function NewrelicMonitoredSourceContainer(props: NewRelicHealthSo
   const { onPrevious } = useContext(SetupSourceTabsContext)
 
   const handleSubmit = useCallback(
-    async (value: UpdatedHealthSource) => {
-      const newRelicPayload = createPayloadByConnectorType(value, HealthSoureSupportedConnectorTypes.NEW_RELIC)
-      newRelicPayload && (await onSubmit(sourceData, newRelicPayload))
+    async (formValues: UpdatedHealthSource) => {
+      const newRelicPayload = createNewRelicPayload(formValues)
+      if (newRelicPayload) {
+        await onSubmit(sourceData, newRelicPayload)
+      }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [sourceData]
   )
 

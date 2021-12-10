@@ -5,7 +5,6 @@ import * as Yup from 'yup'
 import { TestWrapper } from '@common/utils/testUtils'
 import { HealthSourceQueryType } from '../HealthSourceQueryType'
 import { queryTypeValidation } from '../HealthSourceQueryType.constants'
-import { QueryType } from '../HealthSourceQueryType.types'
 
 const mockGetString = jest.fn().mockImplementation(() => 'cv.componentValidations.queryType')
 const SampleComponent: React.FC<{
@@ -43,18 +42,18 @@ describe('RuntimeInput Tests for RadioGroup', () => {
 
   test('should select default value as service based', async () => {
     const onSubmit = (selectedProps: any) => {
-      expect(selectedProps.queryType).toBe(QueryType.SERVICE_BASED)
+      expect(selectedProps.queryType).toBe('Service Based')
     }
-    const { getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={QueryType.SERVICE_BASED} />)
+    const { getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={'Service Based'} />)
     await act(async () => {
       fireEvent.click(getByTestId('submitButtonJest'))
     })
   })
   test('should select default value as host based', async () => {
     const onSubmit = (selectedProps: any) => {
-      expect(selectedProps.queryType).toBe(QueryType.HOST_BASED)
+      expect(selectedProps.queryType).toBe('Host Based')
     }
-    const { getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={QueryType.HOST_BASED} />)
+    const { getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={'Host Based'} />)
     await act(async () => {
       fireEvent.click(getByTestId('submitButtonJest'))
     })
@@ -62,13 +61,11 @@ describe('RuntimeInput Tests for RadioGroup', () => {
 
   test('should change to host based', async () => {
     const onSubmit = (selectedProps: any) => {
-      expect(selectedProps.queryType).toBe(QueryType.HOST_BASED)
+      expect(selectedProps.queryType).toBe('Host Based')
     }
-    const { getByTestId, getByText } = render(
-      <SampleComponent onSubmit={onSubmit} initialValue={QueryType.SERVICE_BASED} />
-    )
+    const { getByTestId, getByText } = render(<SampleComponent onSubmit={onSubmit} initialValue={'Service Based'} />)
     await act(async () => {
-      fireEvent.click(getByText(QueryType.HOST_BASED))
+      fireEvent.click(getByText('Host Based'))
       fireEvent.click(getByTestId('submitButtonJest'))
     })
   })

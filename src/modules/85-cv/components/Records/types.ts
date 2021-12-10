@@ -7,4 +7,10 @@ export interface RecordsProps {
   loading?: boolean
   error?: any
   queryNotExecutedMessage?: string
+  recordsClassName?: string
+  fetchEntityName?: string
+}
+
+export interface HighchartsOptionAndRecords {
+  records: string[]
 }
