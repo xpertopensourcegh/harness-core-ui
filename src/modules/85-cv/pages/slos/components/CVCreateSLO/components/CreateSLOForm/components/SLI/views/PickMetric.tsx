@@ -184,7 +184,7 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
                 </Text>
               }
               customChartOptions={{ chart: { height: isRatioBasedMetric ? 280 : 220 } }}
-              debounceWait={5000}
+              debounceWait={2000}
             />
           </Container>
         </Layout.Horizontal>
