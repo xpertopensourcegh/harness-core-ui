@@ -28,6 +28,10 @@ module.exports = {
   '/api': {
     target: targetLocalHost ? 'https://localhost:9090' : baseUrl
   },
+  '/template/api': {
+    pathRewrite: { '^/template/api': '/api' },
+    target: targetLocalHost ? 'http://localhost:15001' : baseUrl
+  },
   '/cv/api': {
     target: targetLocalHost ? 'https://localhost:6060' : `${baseUrl}`
   },
