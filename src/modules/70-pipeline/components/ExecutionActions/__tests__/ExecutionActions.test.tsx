@@ -119,12 +119,9 @@ describe('<ExecutionActions /> tests', () => {
   })
 
   test('if feature restriction is applied on rerun button', () => {
-    const mockFeaturesReturnMap = new Map()
-    mockFeaturesReturnMap.set(FeatureIdentifier.DEPLOYMENTS_PER_MONTH, { enabled: false })
-    mockFeaturesReturnMap.set(FeatureIdentifier.BUILDS, { enabled: false })
-
-    jest.spyOn(useFeaturesLib, 'useFeatures').mockReturnValue({
-      features: mockFeaturesReturnMap
+    jest.spyOn(useFeaturesLib, 'useGetFirstDisabledFeature').mockReturnValue({
+      featureEnabled: false,
+      disabledFeatureName: FeatureIdentifier.DEPLOYMENTS_PER_MONTH
     })
 
     const mutate = jest.fn()
