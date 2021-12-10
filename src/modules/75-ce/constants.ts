@@ -109,3 +109,17 @@ export const CONFIG_TOTAL_STEP_COUNTS = {
   DEFAULT: 4,
   MODIFIED: 3
 }
+
+export enum DaysOfWeek {
+  SUNDAY = 0,
+  MONDAY = 1,
+  TUESDAY = 2,
+  WEDNESDAY = 3,
+  THURSDAY = 4,
+  FRIDAY = 5,
+  SATURDAY = 6
+}
+
+export enum AS_RESOURCE_TYPE {
+  rule = 'autostop_rule'
+}

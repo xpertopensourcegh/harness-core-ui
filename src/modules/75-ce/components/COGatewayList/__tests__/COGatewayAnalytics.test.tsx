@@ -36,14 +36,25 @@ jest.mock('services/lw', () => ({
   useAllServiceResources: jest.fn().mockImplementation(() => ({ data: null, loading: false, errors: null })),
   useToggleAutostoppingRule: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve(() => jest.fn()) })),
   useDeleteService: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve(() => jest.fn()) })),
-  useGatewaySessionReport: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve(() => jest.fn()) }))
+  useGatewaySessionReport: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve(() => jest.fn()) })),
+  useListStaticSchedules: jest.fn().mockImplementation(() => ({
+    data: {},
+    loading: false,
+    refetch: jest.fn(() => Promise.resolve({ response: {} }))
+  })),
+  useCreateStaticSchedules: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
+  })),
+  useDeleteStaticSchedule: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
+  }))
 }))
 
 jest.mock('highcharts-react-official', () => () => <div />)
 
 describe('Autostopping rule analytics drawer', () => {
   test('render analytics drawer', () => {
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper>
         <COGatewayAnalytics
           service={{ index: 0, data: mockServiceData }}
@@ -55,13 +66,13 @@ describe('Autostopping rule analytics drawer', () => {
     )
     expect(container).toMatchSnapshot()
 
-    const editIcon = container.querySelector('span[icon="edit"]')
+    const editIcon = getByTestId('editRuleIcon')
     expect(editIcon).toBeDefined()
     act(() => {
       fireEvent.click(editIcon!)
     })
 
-    const deleteIcon = container.querySelector('span[icon="trash"]')
+    const deleteIcon = getByTestId('deleteRuleIcon')
     expect(deleteIcon).toBeDefined()
     act(() => {
       fireEvent.click(deleteIcon!)

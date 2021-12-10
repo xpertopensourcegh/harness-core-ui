@@ -1,0 +1,56 @@
+.scheduleItemContainer {
+  margin-top: var(--spacing-medium) !important;
+  &:first-child {
+    margin-top: 0 !important;
+  }
+  .shrinkCol {
+    flex-grow: 0;
+  }
+  .col1 {
+    flex: 1;
+    flex-wrap: wrap;
+    min-width: 100px;
+    text-align: left;
+    flex-shrink: 0;
+
+    > div {
+      flex-wrap: wrap;
+    }
+    .downTag {
+      padding: 2px 7px;
+      background: var(--red-500);
+      border-radius: 5px;
+      color: white;
+      font-size: 11px;
+    }
+    .upTag {
+      padding: 2px 7px;
+      background: var(--green-500);
+      border-radius: 5px;
+      color: white;
+      font-size: 11px;
+    }
+  }
+  .col2 {
+    flex: 1;
+    margin: 0 var(--spacing-medium) !important;
+  }
+  .col3 {
+    flex: 0.2;
+    > span {
+      flex: 1;
+      cursor: pointer;
+    }
+    span[data-icon='main-trash']:hover {
+      svg path {
+        fill: var(--red-800);
+      }
+    }
+  }
+}
+.description {
+  background: var(--grey-100) !important;
+  padding: var(--spacing-small) !important;
+  margin-top: var(--spacing-medium) !important;
+  border-radius: 4px;
+}

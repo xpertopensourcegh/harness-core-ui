@@ -3068,6 +3068,26 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step3.title': string
   'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration': string
   'ce.co.autoStoppingRule.configuration.step4.setup': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.deps.description': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.deps.title': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.addSchedulesBtn': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.allDay': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.beginsOn': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.deleteScheduleTitle': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.description': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.downtime': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.endsOn': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.everyday': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.neverEnds': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.newScheduleTitle': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.repeats': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.schedule': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.successfulSaveMessage': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.successfullyDeletedSchedule': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.timezone': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.title': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.unsuccessfulDeletionMessage': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.uptime': string
   'ce.co.autoStoppingRule.confirm.deleteDialogText': string
   'ce.co.autoStoppingRule.confirm.deleteServiceTitle': string
   'ce.co.autoStoppingRule.confirm.disable': string

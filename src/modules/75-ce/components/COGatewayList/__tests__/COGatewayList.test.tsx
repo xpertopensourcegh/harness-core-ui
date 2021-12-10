@@ -116,7 +116,18 @@ jest.mock('services/lw', () => ({
   useDeleteService: jest.fn().mockImplementation(() => ({
     mutate: jest.fn()
   })),
-  useGatewaySessionReport: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve(() => jest.fn()) }))
+  useGatewaySessionReport: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve(() => jest.fn()) })),
+  useListStaticSchedules: jest.fn().mockImplementation(() => ({
+    data: {},
+    loading: false,
+    refetch: jest.fn(() => Promise.resolve({ response: {} }))
+  })),
+  useCreateStaticSchedules: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
+  })),
+  useDeleteStaticSchedule: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
+  }))
 }))
 
 describe('Test COGatewayList', () => {

@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
+import { defaultTo as _defaultTo } from 'lodash-es'
 import { Layout, Tabs, Tab, Button, Container, Icon } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import COGatewayConfig from '@ce/components/COGatewayConfig/COGatewayConfig'
 import COGatewayAccess from '@ce/components/COGatewayAccess/COGatewayAccess'
 import COGatewayReview from '@ce/components/COGatewayReview/COGatewayReview'
-import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
+import type { FixedScheduleClient, GatewayDetails } from '@ce/components/COCreateGateway/models'
 import routes from '@common/RouteDefinitions'
+import { Utils } from '@ce/common/Utils'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
-import { useSaveService, Service, useGetServices } from 'services/lw'
+import { useSaveService, Service, useGetServices, useCreateStaticSchedules, useDeleteStaticSchedule } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { ASRuleTabs } from '@ce/constants'
 import { GatewayContextProvider } from '@ce/context/GatewayContext'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ConfigTabTitle, ReviewTabTitle, SetupAccessTabTitle } from './TabTitles'
 import { getServiceObjectFromgatewayDetails, isPrimaryBtnDisable, trackPrimaryBtnClick } from './helper'
 import css from './COGatewayDetails.module.scss'
@@ -29,6 +32,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const { trackEvent } = useTelemetry()
+  const { currentUserInfo } = useAppStore()
   const [selectedTabId, setSelectedTabId] = useState<string>(props.activeTab ?? ASRuleTabs.CONFIGURATION)
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
@@ -59,6 +63,86 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     }
   })
 
+  const { mutate: createStaticSchesules } = useCreateStaticSchedules({
+    account_id: accountId,
+    queryParams: {
+      accountIdentifier: accountId,
+      cloud_account_id: props.gatewayDetails.cloudAccount.id
+    }
+  })
+
+  const { mutate: deleteSchedule } = useDeleteStaticSchedule({
+    account_id: accountId,
+    queryParams: { accountIdentifier: accountId }
+  })
+
+  const saveStaticSchedules = async (ruleId: number) => {
+    const schedules = _defaultTo(
+      props.gatewayDetails.schedules
+        ?.filter(s => !s.isDeleted)
+        ?.map(s =>
+          Utils.convertScheduleClientToSchedule(s, {
+            accountId,
+            ruleId,
+            userId: _defaultTo(currentUserInfo.uuid, '')
+          })
+        ),
+      []
+    )
+    for (const sch of schedules) {
+      /* eslint-disable-next-line no-await-in-loop */
+      await saveSchedule(sch)
+    }
+  }
+
+  const saveSchedule = async (data: FixedScheduleClient) => {
+    try {
+      await createStaticSchesules({ schedule: data })
+    } catch (e) {
+      showError(
+        getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.unsuccessfulDeletionMessage', {
+          error: e.data?.errors?.join('\n') || e.data?.message
+        })
+      )
+    }
+  }
+
+  const deleteStaticSchedules = async () => {
+    const deletedSchedules = Utils.getConditionalResult(
+      props.isEditFlow,
+      _defaultTo(
+        props.gatewayDetails.schedules?.filter(s => s.isDeleted),
+        []
+      ),
+      []
+    )
+    for (const delSch of deletedSchedules) {
+      /* eslint-disable-next-line no-await-in-loop */
+      await triggerDeleteSchedule(delSch)
+    }
+  }
+
+  const triggerDeleteSchedule = async (data: FixedScheduleClient) => {
+    await deleteSchedule(data.id as number)
+    showSuccess(
+      getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.successfullyDeletedSchedule', {
+        name: data.name
+      })
+    )
+  }
+
+  const handlePostRuleSave = async (response?: Service) => {
+    if (response) {
+      await deleteStaticSchedules()
+      await saveStaticSchedules(response?.id as number)
+      history.push(
+        routes.toCECORules({
+          accountId
+        })
+      )
+    }
+  }
+
   const onSave = async (): Promise<void> => {
     try {
       setSaveInProgress(true)
@@ -74,13 +158,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       if (props.gatewayDetails.accessPointData?.status === 'submitted') {
         showSuccess('Rule will take effect once the load balancer creation is successful!!')
       }
-      if (result.response) {
-        history.push(
-          routes.toCECORules({
-            accountId
-          })
-        )
-      }
+      await handlePostRuleSave(result.response)
     } catch (e) {
       setSaveInProgress(false)
       showError(e.data?.errors?.join('\n') || e.data?.message || e.message, undefined, 'ce.savegw.error')
@@ -108,10 +186,11 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   }
   const getNextButtonText = (): string => {
     const tabIndex = tabs.findIndex(t => t == selectedTabId)
-    if (tabIndex == tabs.length - 1) {
-      return getString('ce.co.autoStoppingRule.save')
-    }
-    return getString('next')
+    return Utils.getConditionalResult(
+      tabIndex === tabs.length - 1,
+      getString('ce.co.autoStoppingRule.save'),
+      getString('next')
+    )
   }
 
   const handleReviewDetailsEdit = (tabDetails: {

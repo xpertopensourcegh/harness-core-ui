@@ -1,0 +1,16 @@
+.daysOfWeekSelectorCont {
+  .day {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25px;
+    font-size: 12px;
+    background-color: var(--grey-200);
+    cursor: pointer;
+    &.selected {
+      background-color: var(--primary-7);
+      color: var(--grey-0);
+    }
+  }
+}

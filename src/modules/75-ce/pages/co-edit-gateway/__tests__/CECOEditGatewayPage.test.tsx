@@ -133,6 +133,8 @@ const mockedAsg = {
   mixed_instance: true // eslint-disable-line
 }
 
+const mockedStaticSchedulesList = { response: [] }
+
 const mockedRouteDetails = { response: { service: mockedService } }
 
 const testPath = '/account/:accountId/ce/orgs/:orgIdentifier/projects/:projectIdentifier/autostopping-rules/edit/10'
@@ -162,7 +164,18 @@ jest.mock('services/lw', () => ({
     mutate: jest.fn(() => Promise.resolve({ response: {} })),
     loading: false
   })),
-  useGetServices: jest.fn().mockImplementation(() => ({ data: mockedData, loading: false, error: null }))
+  useGetServices: jest.fn().mockImplementation(() => ({ data: mockedData, loading: false, error: null })),
+  useListStaticSchedules: jest.fn().mockImplementation(() => ({
+    data: mockedStaticSchedulesList,
+    loading: false,
+    refetch: jest.fn(() => Promise.resolve({ response: null }))
+  })),
+  useCreateStaticSchedules: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
+  })),
+  useDeleteStaticSchedule: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
+  }))
 }))
 
 describe('Edit rule page', () => {

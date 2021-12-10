@@ -172,6 +172,12 @@ jest.mock('services/lw', () => ({
   useDescribeServiceInContainerServiceCluster: jest.fn().mockImplementation(() => ({
     data: {},
     loading: false
+  })),
+  useCreateStaticSchedules: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
+  })),
+  useDeleteStaticSchedule: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
   }))
 }))
 

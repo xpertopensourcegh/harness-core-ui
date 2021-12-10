@@ -1,5 +1,5 @@
-import { isEmpty as _isEmpty } from 'lodash-es'
-import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
+import type { FixedScheduleClient, GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import type { CcmMetaData } from 'services/ce/services'
 import type { HealthCheck, PortConfig, Service, ServiceDep } from 'services/lw'
 import type { AccessPointScreenMode, YamlDependency } from '@ce/types'
@@ -116,5 +116,69 @@ export class Utils {
 
   static getConditionalResult = (condition: boolean, result1: any, result2: any) => {
     return condition ? result1 : result2
+  }
+
+  static convertScheduleToClientSchedule = (schedule: any): FixedScheduleClient => {
+    const { name, details, id } = schedule
+    const type = !_isEmpty(details.uptime) ? 'uptime' : 'downtime'
+    const typeDetails = details[type]
+    const repeats = _defaultTo(typeDetails.days?.days, [])
+    const allDay = typeDetails.days?.all_day
+    const startTime = typeDetails.days?.start_time
+    const endTime = typeDetails.days?.end_time
+    const beginsOn = typeDetails.period?.start
+    const endsOn = typeDetails.period?.end
+    return {
+      id,
+      name,
+      type,
+      repeats,
+      allDay,
+      startTime,
+      endTime,
+      beginsOn,
+      endsOn,
+      everyday: repeats.length === 7,
+      timezone: details.timezone,
+      isDeleted: false
+    }
+  }
+
+  static convertScheduleClientToSchedule = (
+    schedule: FixedScheduleClient,
+    id: { accountId: string; userId: string; ruleId: number; scheduleId?: number }
+  ): any => {
+    return {
+      name: schedule.name,
+      id: _defaultTo(id.scheduleId, schedule.id),
+      account_id: id.accountId,
+      created_by: id.userId,
+      description: '',
+      resources: [
+        {
+          ID: `${id.ruleId}`,
+          Type: 'autostop_rule'
+        }
+      ],
+      details: {
+        timezone: schedule.timezone,
+        [schedule.type]: {
+          ...((!_isEmpty(schedule.repeats) || schedule.everyday) && {
+            days: {
+              days: schedule.repeats,
+              all_day: schedule.allDay,
+              start_time: schedule.startTime,
+              end_time: schedule.endTime
+            }
+          }),
+          ...(!_isEmpty(schedule.beginsOn) && {
+            period: {
+              start: schedule.beginsOn,
+              end: schedule.endsOn
+            }
+          })
+        }
+      }
+    }
   }
 }

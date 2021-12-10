@@ -9,7 +9,7 @@ import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS
 import DefineRule from './steps/DefineRule'
 import ManageResources from './steps/ManageResources/ManageResources'
 import ResourceFulfilment from './steps/ResourceFulfilment'
-import AdvancedConfiguration from './steps/AdvancedConfiguration'
+import AdvancedConfiguration from './steps/AdvancedConfiguration/AdvancedConfiguration'
 import { getSelectedResourceFromGatewayDetails, isActiveStep } from './helper'
 import css from './COGatewayConfig.module.scss'
 

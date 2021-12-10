@@ -71,7 +71,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/ServicesResponse"
+              "$ref": "#/definitions/ServiceResponse"
             }
           },
           "400": {
@@ -1861,6 +1861,192 @@
         }
       }
     },
+    "/accounts/{account_id}/schedules": {
+      "post": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Static schedule payload",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaveStaticSchedulesRequest"
+            }
+          }
+        ],
+        "tags": ["createStaticSchedules", "staticSchedules"],
+        "summary": "Create static schedules",
+        "description": "For creating static schedules to run resources based on the schedule",
+        "operationId": "createStaticSchedules",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/StaticSchedule"
+            }
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "res_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "res_type",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["listStaticSchedules", "staticSchedules"],
+        "summary": "List all static schedules",
+        "description": "List all static schedules",
+        "operationId": "listStaticSchedules",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/StaticSchedulesListResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/schedules/{schedule_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "schedule_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["deleteStaticSchedule"],
+        "summary": "Delete a static schedule",
+        "description": "Delete a static schedule",
+        "operationId": "deleteStaticSchedule",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/schedules/validate": {
+      "post": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of static schedules",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidateSchedulesBody"
+            }
+          }
+        ],
+        "tags": ["validateStaticScheduleList"],
+        "summary": "Validates a static schedule list",
+        "description": "Validates a static schedule list",
+        "operationId": "validateStaticScheduleList",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/app_id": {
       "get": {
         "tags": ["appId"],
@@ -2340,6 +2526,15 @@
           "items": {
             "$ref": "#/definitions/Account"
           }
+        }
+      }
+    },
+    "ServiceResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/Service"
         }
       }
     },
@@ -3461,6 +3656,183 @@
         "loadbalanced": {
           "type": "boolean",
           "description": "Whether the service is load-balanced or not. Only loadbalanced services have DNS mapping"
+        }
+      }
+    },
+    "ValidateSchedulesBody": {
+      "type": "object",
+      "properties": {
+        "schedules": {
+          "type": "array",
+          "description": "List of static schedules",
+          "items": {
+            "$ref": "#/definitions/StaticSchedule"
+          }
+        }
+      }
+    },
+    "SaveStaticSchedulesRequest": {
+      "type": "object",
+      "properties": {
+        "schedule": {
+          "type": "object",
+          "description": "static schedule",
+          "$ref": "#/definitions/StaticSchedule"
+        },
+        "id": {
+          "type": "number"
+        }
+      }
+    },
+    "StaticSchedule": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the schedule"
+        },
+        "id": {
+          "type": "number",
+          "description": "ID of static schedules",
+          "readOnly": true
+        },
+        "account": {
+          "type": "string",
+          "description": "ID of account"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of static schedule"
+        },
+        "resources": {
+          "type": "array",
+          "description": "List of resources to be controlled by the schedule",
+          "items": {
+            "$ref": "#/definitions/StaticScheduleResource"
+          }
+        },
+        "details": {
+          "type": "object",
+          "description": "Details of time schedule by which the resource should be controlled",
+          "$ref": "#/definitions/OccurrenceSchedule"
+        }
+      }
+    },
+    "StaticScheduleResource": {
+      "type": "object",
+      "description": "Details of an independent resource that can be controlled by a schedule",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the resource to be controlled by schedule. For AutoStopping rule, this would be the ID of the rule"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of the resource to be controlled",
+          "enum": ["autostop_rule"]
+        }
+      }
+    },
+    "OccurrenceSchedule": {
+      "type": "object",
+      "description": "Details of time schedule by which the resource should be controlled",
+      "properties": {
+        "uptime": {
+          "type": "object",
+          "description": "Defines the uptime schedule for the specified resources. Static schedule will ensure resource is up during this schedule",
+          "$ref": "#/definitions/TimeSchedule"
+        },
+        "downtime": {
+          "type": "object",
+          "description": "Defines the downtime schedule for the specified resources. Static schedule will ensure resource is down during this schedule",
+          "$ref": "#/definitions/TimeSchedule"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "Time zone in which the schedule should be applied"
+        }
+      }
+    },
+    "TimeSchedule": {
+      "type": "object",
+      "description": "Specifies the occurrence schedule. Occurrence schedule can either be specified as period or as days",
+      "properties": {
+        "period": {
+          "type": "object",
+          "description": "For schedules that uses an exact time period",
+          "properties": {
+            "start": {
+              "type": "string",
+              "description": "Start time of the period",
+              "example": "2021-10-19T14:05:00.92738+05:30"
+            },
+            "end": {
+              "type": "string",
+              "description": "End time of the period",
+              "example": "2021-10-19T14:07:58.92738+05:30"
+            }
+          }
+        },
+        "days": {
+          "type": "object",
+          "description": "For specifying a recurring schedule in terms of week days",
+          "properties": {
+            "days": {
+              "type": "array",
+              "description": "Days of week on which the schedule should be executed",
+              "items": {
+                "type": "number",
+                "enum": [0, 1, 2, 3, 4, 5, 6]
+              }
+            },
+            "all_day": {
+              "type": "boolean",
+              "description": "Equivalent to selecting all days"
+            },
+            "start_time": {
+              "type": "object",
+              "description": "Starting time of schedule on the selected days",
+              "$ref": "#/definitions/TimeInDay"
+            },
+            "end_time": {
+              "type": "object",
+              "description": "Ending time of schedule on the selected days",
+              "$ref": "#/definitions/TimeInDay"
+            }
+          }
+        }
+      }
+    },
+    "TimeInDay": {
+      "type": "object",
+      "properties": {
+        "hour": {
+          "type": "number",
+          "description": "Hour"
+        },
+        "min": {
+          "type": "number",
+          "description": "Minutes"
+        }
+      }
+    },
+    "StaticSchedulesListResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StaticSchedule"
+          }
+        }
+      }
+    },
+    "StaticSchedulesGetResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/StaticSchedule"
         }
       }
     }

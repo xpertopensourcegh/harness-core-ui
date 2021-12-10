@@ -339,6 +339,18 @@ export interface NetworkSecurityGroupForInstanceArray {
   [key: string]: NetworkSecurityGroup[]
 }
 
+/**
+ * Details of time schedule by which the resource should be controlled
+ */
+export interface OccurrenceSchedule {
+  downtime?: TimeSchedule
+  /**
+   * Time zone in which the schedule should be applied
+   */
+  timezone?: string
+  uptime?: TimeSchedule
+}
+
 export interface Opts {
   access_details?: { [key: string]: any }
   always_use_private_ip?: boolean
@@ -454,6 +466,11 @@ export interface SaveServiceRequest {
   service?: Service
 }
 
+export interface SaveStaticSchedulesRequest {
+  id?: number
+  schedule?: StaticSchedule
+}
+
 export interface SecurityGroupsOfInstancesResponse {
   response?: NetworkSecurityGroupForInstanceArray
 }
@@ -546,6 +563,10 @@ export interface ServiceRequestsResponse {
   response?: ServiceRequest[]
 }
 
+export interface ServiceResponse {
+  response?: Service
+}
+
 export interface ServiceSaveRequest {
   service?: Service
 }
@@ -604,6 +625,52 @@ export interface SessionReportRows {
   rows?: SessionReportRow[]
 }
 
+export interface StaticSchedule {
+  /**
+   * ID of account
+   */
+  account?: string
+  /**
+   * Description of static schedule
+   */
+  description?: string
+  details?: OccurrenceSchedule
+  /**
+   * ID of static schedules
+   */
+  id?: number
+  /**
+   * Name of the schedule
+   */
+  name?: string
+  /**
+   * List of resources to be controlled by the schedule
+   */
+  resources?: StaticScheduleResource[]
+}
+
+/**
+ * Details of an independent resource that can be controlled by a schedule
+ */
+export interface StaticScheduleResource {
+  /**
+   * ID of the resource to be controlled by schedule. For AutoStopping rule, this would be the ID of the rule
+   */
+  id?: string
+  /**
+   * Type of the resource to be controlled
+   */
+  type?: 'autostop_rule'
+}
+
+export interface StaticSchedulesGetResponse {
+  response?: StaticSchedule
+}
+
+export interface StaticSchedulesListResponse {
+  response?: StaticSchedule[]
+}
+
 export interface Subnet {
   az_id?: string
   id?: string
@@ -616,6 +683,58 @@ export interface TargetGroupMinimal {
   port?: number
   protocol?: string
   vpc?: string
+}
+
+export interface TimeInDay {
+  /**
+   * Hour
+   */
+  hour?: number
+  /**
+   * Minutes
+   */
+  min?: number
+}
+
+/**
+ * Specifies the occurrence schedule. Occurrence schedule can either be specified as period or as days
+ */
+export interface TimeSchedule {
+  /**
+   * For specifying a recurring schedule in terms of week days
+   */
+  days?: {
+    /**
+     * Equivalent to selecting all days
+     */
+    all_day?: boolean
+    /**
+     * Days of week on which the schedule should be executed
+     */
+    days?: number[]
+    end_time?: TimeInDay
+    start_time?: TimeInDay
+  }
+  /**
+   * For schedules that uses an exact time period
+   */
+  period?: {
+    /**
+     * End time of the period
+     */
+    end?: string
+    /**
+     * Start time of the period
+     */
+    start?: string
+  }
+}
+
+export interface ValidateSchedulesBody {
+  /**
+   * List of static schedules
+   */
+  schedules?: StaticSchedule[]
 }
 
 export interface Vpc {
@@ -1187,7 +1306,7 @@ export interface SaveServicePathParams {
 }
 
 export type SaveServiceProps = Omit<
-  MutateProps<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>,
+  MutateProps<ServiceResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>,
   'path' | 'verb'
 > &
   SaveServicePathParams
@@ -1196,7 +1315,7 @@ export type SaveServiceProps = Omit<
  * Create/Update Autostopping gateway
  */
 export const SaveService = ({ account_id, ...props }: SaveServiceProps) => (
-  <Mutate<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>
+  <Mutate<ServiceResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>
     verb="POST"
     path={`/accounts/${account_id}/autostopping/rules`}
     base={getConfig('lw/api')}
@@ -1205,7 +1324,7 @@ export const SaveService = ({ account_id, ...props }: SaveServiceProps) => (
 )
 
 export type UseSaveServiceProps = Omit<
-  UseMutateProps<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>,
+  UseMutateProps<ServiceResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>,
   'path' | 'verb'
 > &
   SaveServicePathParams
@@ -1214,7 +1333,7 @@ export type UseSaveServiceProps = Omit<
  * Create/Update Autostopping gateway
  */
 export const useSaveService = ({ account_id, ...props }: UseSaveServiceProps) =>
-  useMutate<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>(
+  useMutate<ServiceResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>(
     'POST',
     (paramsInPath: SaveServicePathParams) => `/accounts/${paramsInPath.account_id}/autostopping/rules`,
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
@@ -2643,6 +2762,272 @@ export const useGetAllASGs = ({ account_id, ...props }: UseGetAllASGsProps) =>
     (paramsInPath: GetAllASGsPathParams) => `/accounts/${paramsInPath.account_id}/scaling_groups`,
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
   )
+
+export interface ListStaticSchedulesQueryParams {
+  cloud_account_id: string
+  accountIdentifier: string
+  res_id: string
+  res_type: string
+}
+
+export interface ListStaticSchedulesPathParams {
+  account_id: string
+}
+
+export type ListStaticSchedulesProps = Omit<
+  GetProps<StaticSchedulesListResponse, void, ListStaticSchedulesQueryParams, ListStaticSchedulesPathParams>,
+  'path'
+> &
+  ListStaticSchedulesPathParams
+
+/**
+ * List all static schedules
+ *
+ * List all static schedules
+ */
+export const ListStaticSchedules = ({ account_id, ...props }: ListStaticSchedulesProps) => (
+  <Get<StaticSchedulesListResponse, void, ListStaticSchedulesQueryParams, ListStaticSchedulesPathParams>
+    path={`/accounts/${account_id}/schedules`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseListStaticSchedulesProps = Omit<
+  UseGetProps<StaticSchedulesListResponse, void, ListStaticSchedulesQueryParams, ListStaticSchedulesPathParams>,
+  'path'
+> &
+  ListStaticSchedulesPathParams
+
+/**
+ * List all static schedules
+ *
+ * List all static schedules
+ */
+export const useListStaticSchedules = ({ account_id, ...props }: UseListStaticSchedulesProps) =>
+  useGet<StaticSchedulesListResponse, void, ListStaticSchedulesQueryParams, ListStaticSchedulesPathParams>(
+    (paramsInPath: ListStaticSchedulesPathParams) => `/accounts/${paramsInPath.account_id}/schedules`,
+    { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
+  )
+
+export interface CreateStaticSchedulesQueryParams {
+  cloud_account_id: string
+  accountIdentifier: string
+}
+
+export interface CreateStaticSchedulesPathParams {
+  account_id: string
+}
+
+export type CreateStaticSchedulesProps = Omit<
+  MutateProps<
+    StaticSchedule,
+    void,
+    CreateStaticSchedulesQueryParams,
+    SaveStaticSchedulesRequest,
+    CreateStaticSchedulesPathParams
+  >,
+  'path' | 'verb'
+> &
+  CreateStaticSchedulesPathParams
+
+/**
+ * Create static schedules
+ *
+ * For creating static schedules to run resources based on the schedule
+ */
+export const CreateStaticSchedules = ({ account_id, ...props }: CreateStaticSchedulesProps) => (
+  <Mutate<
+    StaticSchedule,
+    void,
+    CreateStaticSchedulesQueryParams,
+    SaveStaticSchedulesRequest,
+    CreateStaticSchedulesPathParams
+  >
+    verb="POST"
+    path={`/accounts/${account_id}/schedules`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseCreateStaticSchedulesProps = Omit<
+  UseMutateProps<
+    StaticSchedule,
+    void,
+    CreateStaticSchedulesQueryParams,
+    SaveStaticSchedulesRequest,
+    CreateStaticSchedulesPathParams
+  >,
+  'path' | 'verb'
+> &
+  CreateStaticSchedulesPathParams
+
+/**
+ * Create static schedules
+ *
+ * For creating static schedules to run resources based on the schedule
+ */
+export const useCreateStaticSchedules = ({ account_id, ...props }: UseCreateStaticSchedulesProps) =>
+  useMutate<
+    StaticSchedule,
+    void,
+    CreateStaticSchedulesQueryParams,
+    SaveStaticSchedulesRequest,
+    CreateStaticSchedulesPathParams
+  >('POST', (paramsInPath: CreateStaticSchedulesPathParams) => `/accounts/${paramsInPath.account_id}/schedules`, {
+    base: getConfig('lw/api'),
+    pathParams: { account_id },
+    ...props
+  })
+
+export interface ValidateStaticScheduleListResponse {
+  response?: string
+}
+
+export interface ValidateStaticScheduleListQueryParams {
+  accountIdentifier: string
+}
+
+export interface ValidateStaticScheduleListPathParams {
+  account_id: string
+}
+
+export type ValidateStaticScheduleListProps = Omit<
+  MutateProps<
+    ValidateStaticScheduleListResponse,
+    unknown,
+    ValidateStaticScheduleListQueryParams,
+    ValidateSchedulesBody,
+    ValidateStaticScheduleListPathParams
+  >,
+  'path' | 'verb'
+> &
+  ValidateStaticScheduleListPathParams
+
+/**
+ * Validates a static schedule list
+ *
+ * Validates a static schedule list
+ */
+export const ValidateStaticScheduleList = ({ account_id, ...props }: ValidateStaticScheduleListProps) => (
+  <Mutate<
+    ValidateStaticScheduleListResponse,
+    unknown,
+    ValidateStaticScheduleListQueryParams,
+    ValidateSchedulesBody,
+    ValidateStaticScheduleListPathParams
+  >
+    verb="POST"
+    path={`/accounts/${account_id}/schedules/validate`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseValidateStaticScheduleListProps = Omit<
+  UseMutateProps<
+    ValidateStaticScheduleListResponse,
+    unknown,
+    ValidateStaticScheduleListQueryParams,
+    ValidateSchedulesBody,
+    ValidateStaticScheduleListPathParams
+  >,
+  'path' | 'verb'
+> &
+  ValidateStaticScheduleListPathParams
+
+/**
+ * Validates a static schedule list
+ *
+ * Validates a static schedule list
+ */
+export const useValidateStaticScheduleList = ({ account_id, ...props }: UseValidateStaticScheduleListProps) =>
+  useMutate<
+    ValidateStaticScheduleListResponse,
+    unknown,
+    ValidateStaticScheduleListQueryParams,
+    ValidateSchedulesBody,
+    ValidateStaticScheduleListPathParams
+  >(
+    'POST',
+    (paramsInPath: ValidateStaticScheduleListPathParams) => `/accounts/${paramsInPath.account_id}/schedules/validate`,
+    { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
+  )
+
+export interface DeleteStaticScheduleResponse {
+  response?: string
+}
+
+export interface DeleteStaticScheduleQueryParams {
+  accountIdentifier: string
+}
+
+export interface DeleteStaticSchedulePathParams {
+  account_id: string
+}
+
+export type DeleteStaticScheduleProps = Omit<
+  MutateProps<
+    DeleteStaticScheduleResponse,
+    unknown,
+    DeleteStaticScheduleQueryParams,
+    number,
+    DeleteStaticSchedulePathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteStaticSchedulePathParams
+
+/**
+ * Delete a static schedule
+ *
+ * Delete a static schedule
+ */
+export const DeleteStaticSchedule = ({ account_id, ...props }: DeleteStaticScheduleProps) => (
+  <Mutate<
+    DeleteStaticScheduleResponse,
+    unknown,
+    DeleteStaticScheduleQueryParams,
+    number,
+    DeleteStaticSchedulePathParams
+  >
+    verb="DELETE"
+    path={`/accounts/${account_id}/schedules`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteStaticScheduleProps = Omit<
+  UseMutateProps<
+    DeleteStaticScheduleResponse,
+    unknown,
+    DeleteStaticScheduleQueryParams,
+    number,
+    DeleteStaticSchedulePathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteStaticSchedulePathParams
+
+/**
+ * Delete a static schedule
+ *
+ * Delete a static schedule
+ */
+export const useDeleteStaticSchedule = ({ account_id, ...props }: UseDeleteStaticScheduleProps) =>
+  useMutate<
+    DeleteStaticScheduleResponse,
+    unknown,
+    DeleteStaticScheduleQueryParams,
+    number,
+    DeleteStaticSchedulePathParams
+  >('DELETE', (paramsInPath: DeleteStaticSchedulePathParams) => `/accounts/${paramsInPath.account_id}/schedules`, {
+    base: getConfig('lw/api'),
+    pathParams: { account_id },
+    ...props
+  })
 
 export interface AllSubnetsQueryParams {
   cloud_account_id: string

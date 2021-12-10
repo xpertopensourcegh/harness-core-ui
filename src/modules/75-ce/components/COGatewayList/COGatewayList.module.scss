@@ -37,9 +37,12 @@
 }
 
 .analyticsHeader {
-  padding: var(--spacing-medium) 0 !important;
+  padding-bottom: var(--spacing-large) !important;
   border-bottom: 1px solid var(--grey-300);
-  height: 64px;
+  .ruleToggle {
+    --layout-spacing: var(--spacing-medium);
+    margin-bottom: 0 !important;
+  }
 }
 .breadCrumb {
   background: var(--blue-100);
@@ -73,4 +76,69 @@
 
 .gatewayLogView {
   background: #151823 !important;
+}
+
+.serviceDetailsItemContainer {
+  display: flex;
+  .detailItemHeader {
+    flex: 0.4;
+    min-width: 170px;
+  }
+  .detailItemValue {
+    flex: 1;
+  }
+}
+
+.serviceAccordionContainer {
+  background: var(--primary-1);
+  padding: 0 var(--spacing-medium);
+}
+
+.scheduleAccordion {
+  padding: var(--spacing-small) !important;
+  background: white !important;
+  > h4 {
+    margin-bottom: var(--spacing-medium) !important;
+  }
+  .scheduleItemContainer {
+    margin-top: var(--spacing-medium) !important;
+    &:first-child {
+      margin-top: 0 !important;
+    }
+  }
+  .col1 {
+    flex: 1;
+    flex-wrap: wrap;
+    flex-basis: 200px;
+    .downTag {
+      padding: 2px 7px;
+      background: var(--red-500);
+      border-radius: 5px;
+      color: white;
+      font-size: 11px;
+    }
+    .upTag {
+      padding: 2px 7px;
+      background: var(--green-500);
+      border-radius: 5px;
+      color: white;
+      font-size: 11px;
+    }
+  }
+  .col2 {
+    flex: 1;
+    margin: 0 var(--spacing-medium) !important;
+  }
+  .col3 {
+    flex: 0.2;
+    > span {
+      flex: 1;
+      cursor: pointer;
+    }
+    span[data-icon='main-trash']:hover {
+      svg path {
+        fill: var(--red-800);
+      }
+    }
+  }
 }

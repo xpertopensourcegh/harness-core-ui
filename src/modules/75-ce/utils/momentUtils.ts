@@ -13,11 +13,19 @@ export const GET_DATE_RANGE = {
 }
 export const CE_DATE_FORMAT_INTERNAL = 'YYYY-MM-DD'
 export const CE_DATE_FORMAT_INTERNAL_MOMENT = `${CE_DATE_FORMAT_INTERNAL}THH:mm:ssZ`
+export const FORMAT_12_HOUR = 'hh:mm A'
+export const FORMAT_24_HOUR = 'HH:mm'
+export const STATIC_SCHEDULE_PERIOD_FORMAT = `${CE_DATE_FORMAT_INTERNAL}THH:mm:ss.SSSSSZ`
 
+export const getTimePeriodString = (value: string | number, format: string = CE_DATE_FORMAT_INTERNAL) =>
+  moment(value).format(format)
 export const getGMTStartDateTime = (str: string) => moment(`${str}T00:00:00Z`, CE_DATE_FORMAT_INTERNAL_MOMENT).valueOf()
 export const getGMTEndDateTime = (str: string) => moment(`${str}T23:59:59Z`, CE_DATE_FORMAT_INTERNAL_MOMENT).valueOf()
 export const getStartDateTime = (str: string) => moment(`${str}T00:00:00`).valueOf()
 export const getEndDateTime = (str: string) => moment(`${str}T23:59:59`).valueOf()
+export const getStaticSchedulePeriodTime = (str: string) => moment(str).valueOf()
+export const getStaticSchedulePeriodString = (timeEpoch: number) =>
+  getTimePeriodString(timeEpoch, STATIC_SCHEDULE_PERIOD_FORMAT)
 
 export const DATE_RANGE_SHORTCUTS: Record<string, moment.Moment[]> = {
   LAST_7_DAYS: [todayInUTC().subtract(6, 'days').startOf('day'), todayInUTC().endOf('day')],
@@ -59,6 +67,10 @@ export enum DATE_RANGE_SHORTCUTS_NAME {
   'LAST_QUARTER' = 'LAST_QUARTER',
   'CUSTOM' = 'CUSTOM'
 }
+
+export const getUserTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone
+
+export const get24HourTimeIn12HourFormat = (time: string) => moment(time, [FORMAT_24_HOUR]).format(FORMAT_12_HOUR)
 
 export const ALL_TIME_ZONES = [
   'Africa/Abidjan',

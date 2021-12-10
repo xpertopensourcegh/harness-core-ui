@@ -1,11 +1,13 @@
 import React from 'react'
 import type { CellProps } from 'react-table'
 import cx from 'classnames'
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Heading, Container, Layout, Text, Table, Color, Icon, IconName } from '@wings-software/uicore'
 import type { ConnectionMetadata, GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import { Utils } from '@ce/common/Utils'
 import type { ContainerSvc, HealthCheck, PortConfig, RDSDatabase, ServiceDep } from 'services/lw'
+import FixedSchedeulesList from '@ce/common/FixedSchedulesList/FixedSchedulesList'
+import { useStrings } from 'framework/strings'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
 import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
 import { DisplaySelectedEcsService } from '../COGatewayConfig/steps/ManageResources/DisplaySelectedEcsService'
@@ -58,8 +60,10 @@ const ReviewDetailsSection: React.FC<ReviewDetailsSectionProps> = props => {
 }
 
 const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
+  const { getString } = useStrings()
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
   const hasSelectedInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
+  const filteredSchedules = props.gatewayDetails.schedules?.filter(s => !s.isDeleted)
   return (
     <Layout.Vertical padding="large" className={css.page}>
       <Text className={css.reviewHeading}>Cloud account details</Text>
@@ -201,10 +205,22 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
               <Text>Allow traffic from all subdomains</Text>
               <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
             </Layout.Horizontal>
-            <Layout.Horizontal spacing={'large'} className={css.equalSpacing}>
+            <Layout.Horizontal
+              spacing={'large'}
+              padding={{ bottom: 'medium' }}
+              className={cx(css.equalSpacing, css.borderSpacing)}
+            >
               <Text>Use private IP</Text>
               <Text>{Utils.booleanToString(props.gatewayDetails.opts.alwaysUsePrivateIP as boolean)}</Text>
             </Layout.Horizontal>
+            {!_isEmpty(filteredSchedules) && (
+              <Container padding={{ top: 'medium' }}>
+                <Heading level={3}>
+                  {getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.title')}
+                </Heading>
+                <FixedSchedeulesList data={_defaultTo(filteredSchedules, [])} isEditable={false} />
+              </Container>
+            )}
           </Layout.Vertical>
           {!_isEmpty(props.gatewayDetails.deps) && (
             <Table<ServiceDep>

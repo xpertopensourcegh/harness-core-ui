@@ -82,6 +82,27 @@ export interface GatewayDetails {
   deps: ServiceDep[]
   accessPointData?: AccessPoint // only for read purpose
   resourceMeta?: Record<string, any>
+  schedules?: FixedScheduleClient[]
+}
+
+export interface ScheduleTime {
+  hour: number
+  min: number
+}
+
+export interface FixedScheduleClient {
+  name: string
+  type: 'uptime' | 'downtime'
+  beginsOn: string
+  endsOn?: string
+  startTime: ScheduleTime | null
+  endTime: ScheduleTime | null
+  allDay: boolean
+  repeats?: Array<number>
+  everyday: boolean
+  timezone: string
+  id?: number
+  isDeleted: boolean
 }
 
 interface DNSLink {

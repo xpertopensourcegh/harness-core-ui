@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { Switch, Tab } from '@blueprintjs/core'
 import copy from 'copy-to-clipboard'
 import { Layout, Container, Text, Icon, Link, Tabs, Heading } from '@wings-software/uicore'
@@ -33,7 +34,9 @@ import {
 import useToggleRuleState from './useToggleRuleState'
 // import SpotvsODChart from './SpotvsODChart'
 import DownloadCLI from '../DownloadCLI/DownloadCLI'
+import FixedScheduleAccordion from './components/FixedScheduleAccordion/FixedScheduleAccordion'
 import css from './COGatewayList.module.scss'
+
 interface COGatewayAnalyticsProps {
   service: { data: Service; index: number } | null | undefined
   handleServiceToggle: (type: 'SUCCESS' | 'FAILURE', data: Service | any, index?: number) => void
@@ -234,114 +237,151 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   return (
     <Container>
       <Layout.Vertical spacing="large" padding="xlarge">
-        <Layout.Horizontal className={css.analyticsHeader}>
-          <Layout.Horizontal width="50%">
-            <Heading level={2} font={{ weight: 'semi-bold' }}>
-              {props.service?.data.name}
-            </Heading>
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="large" width="50%" className={css.headerLayout}>
-            <Layout.Horizontal flex spacing="large">
-              <Switch checked={!props.service?.data.disabled} onChange={() => triggerToggle()}></Switch>
-              <Icon
-                name="edit"
-                style={{ marginBottom: '10px', cursor: 'pointer' }}
-                onClick={() => props.handleServiceEdit(props.service?.data as Service)}
-              ></Icon>
-              <Icon
-                name="trash"
-                style={{ marginBottom: '10px', cursor: 'pointer' }}
-                onClick={() => triggerDelete()}
-              ></Icon>
+        <Container className={css.analyticsHeader}>
+          <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+            <Layout.Horizontal flex={{ alignItems: 'center' }}>
+              <Heading level={1} font={{ weight: 'semi-bold' }}>
+                {props.service?.data.name}
+              </Heading>
+              <Switch
+                className={css.ruleToggle}
+                checked={!props.service?.data.disabled}
+                onChange={() => triggerToggle()}
+              ></Switch>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing="large" className={css.headerLayout}>
+              <Layout.Horizontal flex spacing="large">
+                <Icon
+                  name="Edit"
+                  size={20}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => props.handleServiceEdit(props.service?.data as Service)}
+                  data-testid="editRuleIcon"
+                ></Icon>
+                <Icon
+                  name="main-trash"
+                  size={20}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => triggerDelete()}
+                  data-testid="deleteRuleIcon"
+                ></Icon>
+              </Layout.Horizontal>
             </Layout.Horizontal>
           </Layout.Horizontal>
-        </Layout.Horizontal>
-        <Text>
-          {`Created ${getRelativeTime(props.service?.data.created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}`}
-          {/* <Avatar email="john.doe@harnes.io" size={'small'} />
-          {'John Doe '} */}
-        </Text>
-        <Heading level={3} className={css.analyticsSubHeader}>
-          DETAILS
-        </Heading>
-        <Layout.Horizontal spacing="large" padding="medium">
-          <Layout.Vertical spacing="large" padding="medium">
+          <Text font={{ size: 'small' }}>
+            {`Created ${getRelativeTime(props.service?.data.created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}`}
+            {/* <Avatar email="john.doe@harnes.io" size={'small'} />
+            {'John Doe '} */}
+          </Text>
+        </Container>
+        <Container className={css.analyticsHeader}>
+          <Heading level={2} font={{ weight: 'bold' }}>
+            Rule Details
+          </Heading>
+          <Layout.Vertical spacing="medium" padding={{ top: 'medium', bottom: 'medium' }}>
+            <Container className={css.serviceDetailsItemContainer}>
+              <Text className={css.detailItemHeader}>Idle time</Text>
+              <Text className={css.detailItemValue}>{`${props.service?.data.idle_time_mins} min`}</Text>
+            </Container>
+            <Container className={css.serviceDetailsItemContainer}>
+              <Text className={css.detailItemHeader}>Resources managed</Text>
+              <Layout.Horizontal spacing="medium" className={css.detailItemValue}>
+                {!resourcesLoading && resources ? (
+                  <Link
+                    href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
+                    target="_blank"
+                    style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  >
+                    {resources?.response?.length} Instances
+                  </Link>
+                ) : (
+                  <Icon name="spinner" size={12} color="blue500" />
+                )}
+                {healthData?.response?.['state'] != null ? (
+                  getStateTag(healthData?.response?.['state'])
+                ) : !healthDataLoading ? (
+                  getStateTag('down')
+                ) : (
+                  <Icon name="spinner" size={12} color="blue500" />
+                )}
+              </Layout.Horizontal>
+            </Container>
+            <Container className={css.serviceDetailsItemContainer}>
+              <Text className={css.detailItemHeader}>Host name</Text>
+              <Layout.Horizontal spacing="small" className={css.detailItemValue}>
+                <Link
+                  href={`http://${props.service?.data.host_name}`}
+                  target="_blank"
+                  style={{ maxWidth: 350, textAlign: 'left' }}
+                >
+                  {props.service?.data.host_name}
+                </Link>
+                <CopyURL textToCopy={`http://${props.service?.data.host_name}`} />
+              </Layout.Horizontal>
+            </Container>
+            {!_isEmpty(props.service?.data.custom_domains) && (
+              <Container className={css.serviceDetailsItemContainer}>
+                <Text className={css.detailItemHeader}>Custom Domain</Text>
+                <div className={css.detailItemValue}>
+                  {props.service?.data.custom_domains?.map((d, i) => {
+                    return (
+                      <Layout.Horizontal spacing="small" key={`custom_domain${i}`}>
+                        <Link key={`custom_domain${i}`} href={`http://${d}`} target="_blank">
+                          {d}
+                        </Link>
+                        <CopyURL textToCopy={d} />
+                      </Layout.Horizontal>
+                    )
+                  })}
+                </div>
+              </Container>
+            )}
+            <Container className={css.serviceDetailsItemContainer}>
+              <Text className={css.detailItemHeader}>Compute type</Text>
+              <Layout.Horizontal spacing="xsmall" className={css.detailItemValue}>
+                {isK8sRule && <Icon name="app-kubernetes" size={18} />}
+                {!isK8sRule && (
+                  <img src={props.service?.data.fulfilment === 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
+                )}
+                <Text>{props.service?.data.fulfilment}</Text>
+              </Layout.Horizontal>
+            </Container>
+            {/* <Layout.Vertical spacing="large" padding="medium">
             <Text>Connector</Text>
             <Layout.Horizontal spacing="xsmall">
               <Icon name="service-aws" />
               <Text>{props.service?.data.metadata?.cloud_provider_details?.name}</Text>
             </Layout.Horizontal>
-            <Text>Idle time</Text>
             <Layout.Horizontal spacing="xsmall">
               <Icon name="deployment-timeout-legacy" />
-              <Text>{props.service?.data.idle_time_mins}</Text>
-            </Layout.Horizontal>
-            <Text>Compute type</Text>
-            <Layout.Horizontal spacing="xsmall">
-              {isK8sRule && <Icon name="app-kubernetes" size={18} />}
-              {!isK8sRule && (
-                <img src={props.service?.data.fulfilment == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
-              )}
-              <Text>{props.service?.data.fulfilment}</Text>
             </Layout.Horizontal>
           </Layout.Vertical>
           <Layout.Vertical spacing="large" padding="medium">
             <Text>Instances managed by the Rule</Text>
-            <Layout.Horizontal spacing="xsmall">
-              {!resourcesLoading && resources ? (
-                <Link
-                  href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
-                  target="_blank"
-                  style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-                >
-                  {resources?.response?.length} Instances
-                </Link>
-              ) : (
-                <Icon name="spinner" size={12} color="blue500" />
-              )}
-              {healthData?.response?.['state'] != null ? (
-                getStateTag(healthData?.response?.['state'])
-              ) : !healthDataLoading ? (
-                getStateTag('down')
-              ) : (
-                <Icon name="spinner" size={12} color="blue500" />
-              )}
-            </Layout.Horizontal>
-            <Text>Host name</Text>
-            <Layout.Horizontal spacing="small">
-              <Link
-                href={`http://${props.service?.data.host_name}`}
-                target="_blank"
-                style={{ maxWidth: 300, textAlign: 'left' }}
-              >
-                {props.service?.data.host_name}
-              </Link>
-              <CopyURL textToCopy={`http://${props.service?.data.host_name}`} />
-            </Layout.Horizontal>
             {props.service?.data.custom_domains?.length ? (
               <>
-                <Text>Custom Domain</Text>
-                {props.service?.data.custom_domains.map((d, i) => {
-                  return (
-                    <Layout.Horizontal spacing="small" key={`custom_domain${i}`}>
-                      <Link key={`custom_domain${i}`} href={`http://${d}`} target="_blank">
-                        {d}
-                      </Link>
-                      <CopyURL textToCopy={d} />
-                    </Layout.Horizontal>
-                  )
-                })}
               </>
             ) : null}
+          </Layout.Vertical> */}
           </Layout.Vertical>
-        </Layout.Horizontal>
-        {props.service?.data.fulfilment !== 'kubernetes' && (
-          <>
-            <Heading level={3} className={css.analyticsSubHeader}>
-              {getString('ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download')}
+        </Container>
+        <Container className={css.analyticsHeader}>
+          <Layout.Vertical spacing="medium">
+            <Heading level={2} font={{ weight: 'bold' }}>
+              Advanced configuration
             </Heading>
-            <DownloadCLI />
-          </>
+            <FixedScheduleAccordion service={props.service?.data} />
+          </Layout.Vertical>
+        </Container>
+        {props.service?.data.fulfilment !== 'kubernetes' && (
+          <Container className={css.analyticsHeader}>
+            <Layout.Vertical spacing="medium">
+              <Heading level={2} font={{ weight: 'bold' }} className={css.analyticsSubHeader}>
+                {getString('ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download')}
+              </Heading>
+              <DownloadCLI />
+            </Layout.Vertical>
+          </Container>
         )}
         <Container padding="medium" style={{ backgroundColor: '#f7fbfe' }}>
           <Layout.Horizontal spacing="large">

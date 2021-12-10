@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { PageSpinner } from '@wings-software/uicore'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
 import type {
@@ -10,9 +10,18 @@ import type {
   Provider,
   ConnectionMetadata
 } from '@ce/components/COCreateGateway/models'
-import { HealthCheck, Service, ServiceDep, ServiceMetadata, useAllServiceResources, useRouteDetails } from 'services/lw'
+import {
+  HealthCheck,
+  Service,
+  ServiceDep,
+  ServiceMetadata,
+  useAllServiceResources,
+  useListStaticSchedules,
+  useRouteDetails
+} from 'services/lw'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { allProviders, GatewayKindType, PROVIDER_TYPES } from '@ce/constants'
+import { allProviders, AS_RESOURCE_TYPE, GatewayKindType, PROVIDER_TYPES } from '@ce/constants'
+import { Utils } from '@ce/common/Utils'
 import { resourceToInstanceObject } from './helper'
 
 export const CECOEditGatewayPage: React.FC = () => {
@@ -38,7 +47,29 @@ export const CECOEditGatewayPage: React.FC = () => {
     lazy: true
   })
 
+  const {
+    data: staticSchedulesData,
+    loading: staticSchedulesLoading,
+    refetch: fetchStaticSchedules
+  } = useListStaticSchedules({
+    account_id: accountId,
+    lazy: true
+  })
+
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>()
+
+  const checkAndFetchSchedules = (_service: Service) => {
+    if (_service.cloud_account_id && _isEmpty(staticSchedulesData)) {
+      fetchStaticSchedules({
+        queryParams: {
+          accountIdentifier: accountId,
+          cloud_account_id: _service.cloud_account_id,
+          res_id: _defaultTo(_service.id, '').toString(),
+          res_type: AS_RESOURCE_TYPE.rule
+        }
+      })
+    }
+  }
 
   useEffect(() => {
     if (loading) return
@@ -46,6 +77,8 @@ export const CECOEditGatewayPage: React.FC = () => {
     const deps = data?.response?.deps as ServiceDep[]
     const hasAsg = !_isEmpty(service.routing?.instance?.scale_group)
     const isK8sRule = service.kind === GatewayKindType.KUBERNETES
+
+    checkAndFetchSchedules(service)
 
     // If there is an instance kind rule, then only fetch resources
     // don't fetch resources for ASG or K8s kind rule
@@ -104,7 +137,8 @@ export const CECOEditGatewayPage: React.FC = () => {
       },
       metadata: service.metadata as ServiceMetadata,
       customDomains: service.custom_domains,
-      deps: deps
+      deps: deps,
+      schedules: staticSchedulesData?.response?.map(s => Utils.convertScheduleToClientSchedule(s))
     }
     // for just display purpose
     if (!_isEmpty(service.routing?.container_svc)) {
@@ -113,11 +147,13 @@ export const CECOEditGatewayPage: React.FC = () => {
       }
     }
     setGatewayDetails(gwDetails)
-  }, [data, resources])
+  }, [data, resources, staticSchedulesData])
+
+  const isLoading = loading || resourcesLoading || staticSchedulesLoading
 
   return (
     <>
-      {!loading && !resourcesLoading && gatewayDetails ? (
+      {!isLoading && gatewayDetails ? (
         <COGatewayDetails
           gatewayDetails={gatewayDetails as GatewayDetails}
           setGatewayDetails={setGatewayDetails}

@@ -1,0 +1,43 @@
+.fixedScheduleFormContainer {
+  form {
+    --layout-spacing: var(--spacing-xlarge);
+    :global {
+      .bp3-label,
+      label {
+        font-weight: 300;
+        color: var(--grey-500);
+      }
+      .bp3-form-group {
+        margin: 0;
+      }
+    }
+
+    .typeToggle {
+      width: 140px;
+      height: 20px;
+      > div[class*='selected'] {
+        background-color: var(--green-800);
+      }
+      > div[data-name^='toggle-option'] {
+        width: 70px;
+        height: 20px;
+        padding: 4px 5px;
+      }
+    }
+
+    .allDayCheckbox {
+      margin-top: var(--spacing-small);
+    }
+
+    .ctaContainer {
+      margin-top: var(--spacing-xxlarge);
+    }
+  }
+
+  .errorDisplayContainer {
+    padding: var(--spacing-medium) !important;
+    border-radius: 4px;
+    background: rgba(#e43326, 0.1) !important;
+    color: var(--red-500) !important;
+  }
+}
