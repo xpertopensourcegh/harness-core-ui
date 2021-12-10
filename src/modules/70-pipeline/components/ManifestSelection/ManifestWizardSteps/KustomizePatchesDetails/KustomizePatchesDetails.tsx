@@ -12,9 +12,9 @@ import {
   Icon,
   FontVariation
 } from '@wings-software/uicore'
-
+import * as Yup from 'yup'
 import { Form, FieldArray, FieldArrayRenderProps } from 'formik'
-import { get, set } from 'lodash-es'
+import { get, isEmpty, set } from 'lodash-es'
 
 import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
@@ -26,7 +26,14 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 
 import type { KustomizePatchDataType, ManifestTypes } from '../../ManifestInterface'
 
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestDataType,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import { getRepositoryName } from '../ManifestUtils'
 import css from '../ManifestWizardSteps.module.scss'
@@ -179,7 +186,8 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
   prevStepData,
   previousStep,
   isReadonly = false,
-  handleSubmit
+  handleSubmit,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
@@ -276,6 +284,40 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
       <Formik
         initialValues={getInitialValues()}
         formName="kustomizePath"
+        validationSchema={Yup.object().shape({
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          paths: Yup.lazy((value): Yup.Schema<unknown> => {
+            if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
+              return Yup.array().of(
+                Yup.object().shape({
+                  path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
+                })
+              )
+            }
+            return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
+          }),
+          repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
+            if (
+              connectionType === GitRepoName.Repo ||
+              getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
+            ) {
+              return true
+            }
+            return !isEmpty(value) && value?.length > 0
+          })
+        })}
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
@@ -398,7 +440,7 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
                 </MultiTypeFieldSelector>
               </div>
             </div>
-            <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
+            <Layout.Horizontal spacing="medium">
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}
