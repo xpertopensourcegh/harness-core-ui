@@ -8,7 +8,11 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { PrometheusHealthSource, PrometheusHealthSourceProps } from '../PrometheusHealthSource'
 import { PrometheusMonitoringSourceFieldNames } from '../PrometheusHealthSource.constants'
-import { MockManualQueryData, MockManualQueryDataWithoutIdentifier } from './PrometheusHealthSource.mock'
+import {
+  MockManualQueryData,
+  MockManualQueryDataForCreate,
+  MockManualQueryDataWithoutIdentifier
+} from './PrometheusHealthSource.mock'
 
 jest.mock('../components/PrometheusQueryViewer/PrometheusQueryViewer', () => ({
   PrometheusQueryViewer: function MockComponent(props: any) {
@@ -229,5 +233,12 @@ describe('Unit tests for PrometheusHealthSource', () => {
     expect(container.querySelector('.FormError--error')).toBeInTheDocument()
 
     expect(onSubmitMock).not.toHaveBeenCalled()
+  })
+
+  test('should have placeholder value for identifier initially during create', () => {
+    const onSubmitMock = jest.fn()
+    render(<WrapperComponent data={MockManualQueryDataForCreate} onSubmit={onSubmitMock} />)
+
+    expect(screen.getByText(/prometheus_metric/i)).toBeInTheDocument()
   })
 })

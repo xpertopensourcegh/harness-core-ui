@@ -7,6 +7,7 @@ import type {
   PrometheusHealthSourceSpec,
   TimeSeriesMetricDefinition
 } from 'services/cv'
+import type { StringsMap } from 'stringTypes'
 import type { UseStringsReturn } from 'framework/strings'
 import {
   CreatedMetricsWithSelectedIndex,
@@ -232,7 +233,10 @@ function generateMultiSelectOptionListFromPrometheusFilter(filters?: PrometheusF
   return options
 }
 
-export function transformPrometheusHealthSourceToSetupSource(sourceData: any): PrometheusSetupSource {
+export function transformPrometheusHealthSourceToSetupSource(
+  sourceData: any,
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
+): PrometheusSetupSource {
   const healthSource: UpdatedHealthSource = sourceData?.healthSourceList?.find(
     (source: UpdatedHealthSource) => source.name === sourceData.healthSourceName
   )
@@ -242,7 +246,15 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
       isEdit: false,
       healthSourceIdentifier: sourceData.healthSourceIdentifier,
       mappedServicesAndEnvs: new Map([
-        ['Prometheus Metric', { metricName: 'Prometheus Metric', isManualQuery: false, query: '', identifier: '' }]
+        [
+          getString('cv.monitoringSources.prometheus.prometheusMetric'),
+          {
+            metricName: getString('cv.monitoringSources.prometheus.prometheusMetric'),
+            isManualQuery: false,
+            query: '',
+            identifier: 'prometheus_metric'
+          }
+        ]
       ]),
       healthSourceName: sourceData.healthSourceName,
       connectorRef: sourceData.connectorRef,

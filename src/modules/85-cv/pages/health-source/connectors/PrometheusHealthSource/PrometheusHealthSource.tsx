@@ -70,7 +70,10 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
     }
   })
 
-  const transformedSourceData = useMemo(() => transformPrometheusHealthSourceToSetupSource(sourceData), [sourceData])
+  const transformedSourceData = useMemo(
+    () => transformPrometheusHealthSourceToSetupSource(sourceData, getString),
+    [sourceData]
+  )
   const [rerenderKey, setRerenderKey] = useState('')
   const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<SelectedAndMappedMetrics>(
     initializeSelectedMetricsMap(

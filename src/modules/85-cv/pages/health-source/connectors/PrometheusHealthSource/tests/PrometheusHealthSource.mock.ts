@@ -67,3 +67,9 @@ export const MockManualQueryDataWithoutIdentifier = {
     }
   ]
 }
+
+export const MockManualQueryDataForCreate = {
+  ...MockManualQueryData,
+  isEdit: false,
+  healthSourceList: []
+}
