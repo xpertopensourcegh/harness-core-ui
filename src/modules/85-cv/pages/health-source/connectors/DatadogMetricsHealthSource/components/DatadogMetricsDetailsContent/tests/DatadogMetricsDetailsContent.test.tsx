@@ -46,7 +46,7 @@ describe('DatadogMetricsDetailsContent unit tests', () => {
     jest.clearAllMocks()
   })
 
-  test('Ensure that activeMetric, aggregation and serviceInstance are filled with provided values, ', async () => {
+  test('Ensure that activeMetric, aggregation and serviceInstance are filled with provided values', async () => {
     const mockFormikProps: any = {
       initialValues: {
         ...MockDatadogMetricInfo
@@ -64,21 +64,20 @@ describe('DatadogMetricsDetailsContent unit tests', () => {
     )
     expect(container.querySelector('input[name="serviceInstanceIdentifierTag"]')).toHaveValue('host')
   })
-})
-
-test('Ensure that fields are enabled when manual query provided', async () => {
-  const mockDatadogMetricInfo: DatadogMetricInfo = { ...MockDatadogMetricInfo, isManualQuery: true }
-  const mockFormikProps: any = {
-    values: {
-      ...mockDatadogMetricInfo
-    },
-    setFieldValue: jest.fn()
-  }
-  const mockSetMetricsData = jest.fn()
-  const { container } = render(
-    <WrapperComponent {...MockMetricsContentProps(mockSetMetricsData, mockFormikProps, mockDatadogMetricInfo)} />
-  )
-  expect(container.querySelector('input[name="metricName"]')).not.toHaveAttribute('disabled')
-  expect(container.querySelector('input[name="metric"]')).not.toHaveAttribute('disabled')
-  expect(container.querySelector('input[name="aggregator"]')).not.toHaveAttribute('disabled')
+  test('Ensure that fields are enabled when manual query provided', async () => {
+    const mockDatadogMetricInfo: DatadogMetricInfo = { ...MockDatadogMetricInfo, isManualQuery: true }
+    const mockFormikProps: any = {
+      values: {
+        ...mockDatadogMetricInfo
+      },
+      setFieldValue: jest.fn()
+    }
+    const mockSetMetricsData = jest.fn()
+    const { container } = render(
+      <WrapperComponent {...MockMetricsContentProps(mockSetMetricsData, mockFormikProps, mockDatadogMetricInfo)} />
+    )
+    expect(container.querySelector('input[name="metricName"]')).not.toHaveAttribute('disabled')
+    expect(container.querySelector('input[name="metric"]')).not.toHaveAttribute('disabled')
+    expect(container.querySelector('input[name="aggregator"]')).not.toHaveAttribute('disabled')
+  })
 })

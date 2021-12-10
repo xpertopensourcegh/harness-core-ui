@@ -99,7 +99,7 @@ export default function DatadogLogsMapToService(props: DatadogLogsMapToServicePr
               id="metricToService"
               summary={getString('cv.monitoringSources.mapQueriesToServices')}
               details={
-                <>
+                <Container className={css.content}>
                   <FormInput.Text
                     label={getString('cv.monitoringSources.queryNameLabel')}
                     name={MapDatadogLogsFieldNames.METRIC_NAME}
@@ -120,11 +120,12 @@ export default function DatadogLogsMapToService(props: DatadogLogsMapToServicePr
                       formikProps.setFieldValue(MapDatadogLogsFieldNames.SERVICE_INSTANCE_IDENTIFIER_TAG, event.value)
                     }}
                   />
-                </>
+                </Container>
               }
             />
           </Accordion>
           <QueryViewer
+            queryNotExecutedMessage={getString('cv.monitoringSources.datadogLogs.submitQueryToSeeRecords')}
             isQueryExecuted={isQueryExecuted}
             className={css.validationContainer}
             records={records}

@@ -180,27 +180,29 @@ export default function DatadogMetricsDetailsContent(props: DatadogMetricsDetail
           )
         }}
       />
-      <FormInput.Select
-        disabled={!selectedMetricData}
-        label={'Service instance tag'}
-        name={DatadogMetricsHealthSourceFieldNames.SERVICE_INSTANCE_IDENTIFIER_TAG}
-        items={hostIdentifierKeysOptions}
-        isOptional={true}
-        value={currentActiveServiceInstanceIdentifierTag || { label: '', value: '' }}
-        onChange={event => {
-          formikProps.setFieldValue(DatadogMetricsHealthSourceFieldNames.SERVICE_INSTANCE_IDENTIFIER_TAG, event.value)
-          onRebuildMetricData(
-            formikProps.values.metric,
-            formikProps.values.aggregator,
-            formikProps.values.metricTags,
-            event.value as string,
-            formikProps.values.groupName
-          )
-        }}
-        selectProps={{
-          addClearBtn: true
-        }}
-      />
+      {formikProps.values.continuousVerification && (
+        <FormInput.Select
+          disabled={!selectedMetricData}
+          label={'Service instance tag'}
+          name={DatadogMetricsHealthSourceFieldNames.SERVICE_INSTANCE_IDENTIFIER_TAG}
+          items={hostIdentifierKeysOptions}
+          isOptional={true}
+          value={currentActiveServiceInstanceIdentifierTag || { label: '', value: '' }}
+          onChange={event => {
+            formikProps.setFieldValue(DatadogMetricsHealthSourceFieldNames.SERVICE_INSTANCE_IDENTIFIER_TAG, event.value)
+            onRebuildMetricData(
+              formikProps.values.metric,
+              formikProps.values.aggregator,
+              formikProps.values.metricTags,
+              event.value as string,
+              formikProps.values.groupName
+            )
+          }}
+          selectProps={{
+            addClearBtn: true
+          }}
+        />
+      )}
     </>
   )
 }

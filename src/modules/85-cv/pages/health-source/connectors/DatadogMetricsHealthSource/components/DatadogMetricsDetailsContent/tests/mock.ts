@@ -54,5 +54,6 @@ export const MockDatadogMetricInfo: DatadogMetricInfo = {
   }),
   serviceInstanceIdentifierTag: 'host',
   aggregator: MOCK_AGGREGATION,
-  isManualQuery: false
+  isManualQuery: false,
+  continuousVerification: true
 }

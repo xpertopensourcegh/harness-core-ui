@@ -24,6 +24,9 @@ export interface DatadogMetricInfo {
   lowerBaselineDeviation?: boolean
   isManualQuery?: boolean
   tooManyMetrics?: boolean
+  sli?: boolean
+  continuousVerification?: boolean
+  healthScore?: boolean
 }
 
 export interface DatadogMetricSetupSource {

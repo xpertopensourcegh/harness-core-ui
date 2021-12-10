@@ -3,7 +3,7 @@ import { Color, Container, Icon, NoDataCard, PageError, Text } from '@wings-soft
 import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import css from './MetricsValidationChart.module.scss'
 
 const GroupByClause = 'groupByFields'
@@ -16,10 +16,20 @@ export interface MetricsValidationChartProps {
   sampleData?: Highcharts.Options
   setAsTooManyMetrics?: (_: boolean) => void
   isQueryExecuted?: boolean
+  submitQueryText: StringKeys
 }
 
 export default function MetricsValidationChart(props: MetricsValidationChartProps): JSX.Element {
-  const { loading, error, queryValue, onRetry, sampleData, setAsTooManyMetrics, isQueryExecuted = false } = props
+  const {
+    loading,
+    error,
+    queryValue,
+    onRetry,
+    sampleData,
+    setAsTooManyMetrics,
+    isQueryExecuted = false,
+    submitQueryText
+  } = props
   const { getString } = useStrings()
   const isTooManyMetrics = Boolean(
     sampleData?.series?.length && sampleData.series.length > 1 && queryValue?.includes(GroupByClause)
@@ -43,10 +53,7 @@ export default function MetricsValidationChart(props: MetricsValidationChartProp
   if (!isQueryExecuted) {
     return (
       <Container className={cx(css.chartContainer, css.noDataContainer)}>
-        <NoDataCard
-          icon="timeline-line-chart"
-          message={getString('cv.monitoringSources.gcoLogs.submitQueryToSeeRecords')}
-        />
+        <NoDataCard icon="timeline-line-chart" message={getString(submitQueryText)} />
       </Container>
     )
   }

@@ -37,7 +37,9 @@ export function DatadogLogsHealthSource(props: DatadogLogsHealthSourceProps): JS
   )
 
   const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState({
-    createdMetrics: Array.from(mappedMetrics.keys()) || [getString('cv.monitoringSources.gcoLogs.gcoLogsQuery')],
+    createdMetrics: Array.from(mappedMetrics.keys()) || [
+      getString('cv.monitoringSources.datadogLogs.datadogLogsQuery')
+    ],
     selectedMetricIndex: Array.from(mappedMetrics.keys()).findIndex(metric => metric === selectedMetric)
   })
 
@@ -75,7 +77,7 @@ export function DatadogLogsHealthSource(props: DatadogLogsHealthSourceProps): JS
           <SetupSourceLayout
             leftPanelContent={
               <MultiItemsSideNav
-                defaultMetricName={getString('cv.monitoringSources.gcoLogs.gcoLogsQuery')}
+                defaultMetricName={getString('cv.monitoringSources.datadogLogs.datadogLogsQuery')}
                 tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
                 addFieldLabel={getString('cv.monitoringSources.addQuery')}
                 createdMetrics={createdMetrics}

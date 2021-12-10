@@ -6,15 +6,16 @@ import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTa
 import { testWrapperProps } from '@cv/pages/monitored-service/CVMonitoredService/__test__/CVMonitoredService.test'
 import type { MetricDashboardWidgetNavProps } from '@cv/components/MetricDashboardWidgetNav/MetricDashboardWidgetNav.type'
 import type { StringKeys } from 'framework/strings'
-import { DatasourceTypeEnum } from '@cv/pages/monitored-service/components/ServiceHealth/components/MetricsAndLogs/MetricsAndLogs.types'
 import type { MetricsValidationChartProps } from '@cv/components/CloudMetricsHealthSource/components/validationChart/MetricsValidationChart'
-import type { MetricsConfigureRiskProfileProps } from '@cv/components/CloudMetricsHealthSource/components/metricsConfigureRiskProfile/MetricsConfigureRiskProfile'
 import type { ExtendedMonacoEditorProps } from '@common/components/MonacoEditor/MonacoEditor'
 import {
   DefaultSourceData,
   mockCloudMetricHealthSourceProps,
-  mockQueryValue
+  mockQueryValue,
+  mockUseGetReturnData
 } from '@cv/components/CloudMetricsHealthSource/tests/mock'
+import type { SelectHealthSourceServicesProps } from '@cv/pages/health-source/common/SelectHealthSourceServices/SelectHealthSourceServices.types'
+import * as cvService from 'services/cv'
 import CloudMetricsHealthSource from '../CloudMetricsHealthSource'
 
 jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
@@ -44,11 +45,11 @@ jest.mock(
   }
 )
 
-const mockMetricsConfigureRiskProfile = jest.fn()
+const mockSelectHealthSourceServices = jest.fn()
 jest.mock(
-  '@cv/components/CloudMetricsHealthSource/components/metricsConfigureRiskProfile/MetricsConfigureRiskProfile.tsx',
-  () => (props: MetricsConfigureRiskProfileProps) => {
-    mockMetricsConfigureRiskProfile(props)
+  '@cv/pages/health-source/common/SelectHealthSourceServices/SelectHealthSourceServices.tsx',
+  () => (props: SelectHealthSourceServicesProps) => {
+    mockSelectHealthSourceServices(props)
     return <></>
   }
 )
@@ -71,12 +72,16 @@ function WrapperComponent(content: React.ReactElement): JSX.Element {
 describe('Unit tests for CloudMetricsHealthSource', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+
+    jest.spyOn(cvService, 'useGetMetricPacks').mockReturnValue(mockUseGetReturnData as any)
+    jest.spyOn(cvService, 'useGetLabelNames').mockReturnValue(mockUseGetReturnData as any)
   })
 
   test('Ensure props are passed properly to child component', async () => {
     const mockAddQueryTitle: StringKeys = 'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'
 
-    render(WrapperComponent(<CloudMetricsHealthSource {...mockCloudMetricHealthSourceProps(<></>)} />))
+    const mockCloudMetricHealthSourcePropsValue = { ...mockCloudMetricHealthSourceProps(<></>) }
+    render(WrapperComponent(<CloudMetricsHealthSource {...mockCloudMetricHealthSourcePropsValue} />))
     expect(mockMetricDashboardWidgetNav).toHaveBeenNthCalledWith(1, {
       connectorIdentifier: DefaultSourceData.identifier,
       addManualQueryTitle: mockAddQueryTitle,
@@ -93,10 +98,18 @@ describe('Unit tests for CloudMetricsHealthSource', () => {
       loading: true,
       onRetry: expect.any(Function),
       queryValue: mockQueryValue,
-      sampleData: {}
+      sampleData: {},
+      submitQueryText: 'cv.monitoringSources.datadogLogs.submitQueryToSeeRecords'
     })
-    expect(mockMetricsConfigureRiskProfile).toHaveBeenNthCalledWith(1, {
-      dataSourceType: DatasourceTypeEnum.DATADOG_METRICS
+    expect(mockSelectHealthSourceServices).toHaveBeenNthCalledWith(1, {
+      values: {
+        sli: mockCloudMetricHealthSourcePropsValue.formikProps.values.sli,
+        healthScore: mockCloudMetricHealthSourcePropsValue.formikProps.values.healthScore,
+        continuousVerification: mockCloudMetricHealthSourcePropsValue.formikProps.values.continuousVerification
+      },
+      metricPackResponse: mockUseGetReturnData,
+      labelNamesResponse: mockUseGetReturnData,
+      hideServiceIdentifier: true
     })
     expect(mockMonacoEditor).toHaveBeenCalledTimes(0)
   })
@@ -115,7 +128,8 @@ describe('Unit tests for CloudMetricsHealthSource', () => {
       loading: expect.any(Boolean),
       onRetry: expect.any(Function),
       queryValue: expect.any(String),
-      sampleData: expect.any(Object)
+      sampleData: expect.any(Object),
+      submitQueryText: 'cv.monitoringSources.datadogLogs.submitQueryToSeeRecords'
     })
   })
 

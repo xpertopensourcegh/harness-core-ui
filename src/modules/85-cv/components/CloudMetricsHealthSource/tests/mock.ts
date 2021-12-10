@@ -23,6 +23,14 @@ export const mockCloudMetricHealthSourceProps = (
   metricContentDetails: ReactNode
 ): CloudMetricsHealthSourceProps<DatadogDashboardDetail> => {
   return {
+    formikProps: {
+      values: {
+        sli: true,
+        healthScore: false,
+        continuousVerification: false
+      },
+      setFieldValue: jest.fn()
+    } as any,
     addManualQueryTitle: 'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle',
     dataSourceType: DatasourceTypeEnum.DATADOG_METRICS,
     selectedMetricInfo: {
@@ -44,4 +52,9 @@ export const mockCloudMetricHealthSourceProps = (
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any>
   }
+}
+
+export const mockUseGetReturnData = {
+  data: { data: [] },
+  refetch: jest.fn()
 }

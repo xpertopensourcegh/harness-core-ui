@@ -9,5 +9,6 @@ export const DatadogMetricsHealthSourceFieldNames = {
   IS_MANUAL_QUERY: 'isManualQuery',
   RISK_CATEGORY: 'riskCategory',
   HIGHER_BASELINE_DEVIATION: 'higherBaselineDeviation',
-  LOWER_BASELINE_DEVIATION: 'lowerBaselineDeviation'
+  LOWER_BASELINE_DEVIATION: 'lowerBaselineDeviation',
+  SLI: 'sli'
 }

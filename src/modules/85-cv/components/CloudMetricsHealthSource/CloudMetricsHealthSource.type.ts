@@ -1,5 +1,6 @@
 import type { UseGetReturn } from 'restful-react'
 import type { ReactNode } from 'react'
+import type { FormikProps } from 'formik'
 import type {
   MetricDashboardItem,
   MetricWidget
@@ -7,6 +8,7 @@ import type {
 import type { DatasourceTypeEnum } from '@cv/pages/monitored-service/components/ServiceHealth/components/MetricsAndLogs/MetricsAndLogs.types'
 import type { TimeSeriesSampleDTO } from 'services/cv'
 import type { StringKeys } from 'framework/strings'
+import type { DatadogMetricInfo } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.type'
 
 export interface SelectedWidgetMetricData {
   metricName: string
@@ -37,4 +39,5 @@ export interface CloudMetricsHealthSourceProps<T> {
   dataSourceType: DatasourceTypeEnum
   dashboardDetailRequest: UseGetReturn<any, any, any>
   dashboardDetailMapper: (detail: T) => MetricWidget
+  formikProps: FormikProps<DatadogMetricInfo>
 }

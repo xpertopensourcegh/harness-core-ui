@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { Color, Container, Heading } from '@wings-software/uicore'
+import { Color, Container, Heading, Utils } from '@wings-software/uicore'
 
 import { Drawer } from '@blueprintjs/core'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { transformSampleDataIntoHighchartOptions } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
@@ -15,9 +16,11 @@ import {
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import MetricsValidationChart from '@cv/components/CloudMetricsHealthSource/components/validationChart/MetricsValidationChart'
-import MetricsConfigureRiskProfile from '@cv/components/CloudMetricsHealthSource/components/metricsConfigureRiskProfile/MetricsConfigureRiskProfile'
 import MetricDashboardWidgetNav from '@cv/components/MetricDashboardWidgetNav/MetricDashboardWidgetNav'
 import type { CloudMetricsHealthSourceProps } from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource.type'
+import SelectHealthSourceServices from '@cv/pages/health-source/common/SelectHealthSourceServices/SelectHealthSourceServices'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetLabelNames, useGetMetricPacks } from 'services/cv'
 import css from '@cv/components/CloudMetricsHealthSource/CloudMetricHealthSource.module.scss'
 
 export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSourceProps<T>): JSX.Element {
@@ -35,12 +38,14 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
     addManualQueryTitle,
     dataSourceType,
     dashboardDetailRequest,
-    dashboardDetailMapper
+    dashboardDetailMapper,
+    formikProps
   } = props
   const { getString } = useStrings()
   const { onPrevious } = useContext(SetupSourceTabsContext)
   const [shouldShowChart, setShouldShowChart] = useState<boolean>(false)
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   const sampleData = useMemo(() => {
     return transformSampleDataIntoHighchartOptions(selectedMetricInfo?.timeseriesData || [])
@@ -51,7 +56,20 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
       setShouldShowChart(false)
     }
   }, [selectedMetricInfo?.timeseriesData])
-
+  const metricPackResponse = useGetMetricPacks({
+    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: dataSourceType }
+  })
+  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
+  const labelNamesResponse = useGetLabelNames({
+    queryParams: {
+      projectIdentifier,
+      orgIdentifier,
+      accountId,
+      connectorIdentifier: connectorRef,
+      tracingId: labelNameTracingId
+    }
+  })
+  const { sli = false, healthScore = false, continuousVerification = false } = formikProps?.values
   return (
     <Container>
       <SetupSourceLayout
@@ -98,6 +116,7 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
                   textAreaName={FieldNames.QUERY}
                 />
                 <MetricsValidationChart
+                  submitQueryText={'cv.monitoringSources.datadogLogs.submitQueryToSeeRecords'}
                   loading={timeseriesDataLoading}
                   error={timeseriesDataError}
                   sampleData={sampleData}
@@ -133,7 +152,16 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
                 )}
               </Container>
             </Container>
-            <MetricsConfigureRiskProfile dataSourceType={dataSourceType} />
+            <SelectHealthSourceServices
+              values={{
+                sli,
+                healthScore,
+                continuousVerification
+              }}
+              metricPackResponse={metricPackResponse}
+              labelNamesResponse={labelNamesResponse}
+              hideServiceIdentifier
+            />
             <DrawerFooter onPrevious={onPrevious} isSubmit onNext={onNextClicked} />
           </Container>
         }

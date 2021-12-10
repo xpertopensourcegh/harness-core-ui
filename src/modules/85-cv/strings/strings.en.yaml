@@ -311,6 +311,7 @@ monitoringSources:
       dashboardColumnName: 'Datadog Dashboards'
     newDatadogGroupName: 'Add new Datadog group name'
   datadogLogs:
+    submitQueryToSeeRecords: Submit query to see records from Dataodog Logs
     datadogLogsQuery: Datadog Logs Query
     logIndexesLabel: Log indexes
   newRelic:

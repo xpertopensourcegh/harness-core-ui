@@ -147,6 +147,9 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const handleOnNext = async (formikProps: FormikProps<DatadogMetricInfo>): Promise<void> => {
     formikProps.setTouched({
       ...formikProps.touched,
+      [DatadogMetricsHealthSourceFieldNames.GROUP_NAME]: true,
+      [DatadogMetricsHealthSourceFieldNames.METRIC]: true,
+      [DatadogMetricsHealthSourceFieldNames.SLI]: true,
       [DatadogMetricsHealthSourceFieldNames.RISK_CATEGORY]: true,
       [DatadogMetricsHealthSourceFieldNames.HIGHER_BASELINE_DEVIATION]: true,
       [DatadogMetricsHealthSourceFieldNames.LOWER_BASELINE_DEVIATION]: true
@@ -198,6 +201,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
       {formikProps => (
         <FormikForm>
           <CloudMetricsHealthSource
+            formikProps={formikProps}
             dashboardDetailRequest={dashboardRequest}
             dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
             dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
