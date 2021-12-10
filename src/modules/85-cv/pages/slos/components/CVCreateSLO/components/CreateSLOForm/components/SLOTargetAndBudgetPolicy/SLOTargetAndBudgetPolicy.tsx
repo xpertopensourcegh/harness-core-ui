@@ -1,12 +1,14 @@
 import React from 'react'
-import { Card, Color, FontVariation, FormInput, Heading, Icon, Layout, Text } from '@wings-software/uicore'
+import { Card, Color, FontVariation, FormInput, Heading, Icon, Layout, Text, Container } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getPeriodLengthOptions,
   getPeriodTypeOptions,
   getWindowEndOptionsForMonth,
-  getWindowEndOptionsForWeek
+  getWindowEndOptionsForWeek,
+  convertSLOFormDataToServiceLevelIndicatorDTO,
+  getErrorBudget
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
   SLOPanelProps,
@@ -76,19 +78,38 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, childr
           }}
           className={css.sloTarget}
         />
-        <SLOTargetChart
-          bottomLabel={
-            <Text
-              color={Color.GREY_500}
-              font={{ variation: FontVariation.SMALL_SEMI }}
-              margin={{ top: 'large', left: 'xxxlarge' }}
-              icon="symbol-square"
-              iconProps={{ color: Color.PRIMARY_4 }}
-            >
-              {getString('cv.SLIMetricRatio')}
+        <Layout.Horizontal spacing="xxxlarge" flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+          <Container width={450}>
+            <SLOTargetChart
+              monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
+              serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
+              bottomLabel={
+                <Text
+                  color={Color.GREY_500}
+                  font={{ variation: FontVariation.SMALL_SEMI }}
+                  margin={{ top: 'large', left: 'xxxlarge' }}
+                  icon="symbol-square"
+                  iconProps={{ color: Color.PRIMARY_4 }}
+                >
+                  {getString('cv.SLIMetricRatio')}
+                </Text>
+              }
+              customChartOptions={{ chart: { height: 200 } }}
+            />
+          </Container>
+
+          <Container height={180} background={Color.GREY_100} padding="medium" className={css.errorBudget}>
+            <Text font={{ variation: FontVariation.BODY2 }} color={Color.GREY_600}>
+              {getString('cv.errorBudget')}
             </Text>
-          }
-        />
+            <Heading inline level={1} font={{ variation: FontVariation.DISPLAY2 }}>
+              {getErrorBudget(formikProps.values)}
+            </Heading>
+            <Text inline font={{ variation: FontVariation.FORM_SUB_SECTION }}>
+              {getString('cv.mins')}
+            </Text>
+          </Container>
+        </Layout.Horizontal>
       </Card>
       {children}
     </>

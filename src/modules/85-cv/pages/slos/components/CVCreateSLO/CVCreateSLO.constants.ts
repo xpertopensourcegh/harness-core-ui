@@ -91,14 +91,16 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
   const METRIC_IS_REQUIRED = getString('cv.metricIsRequired')
 
   return Yup.object().shape({
-    [SLOFormFields.NAME]: Yup.string().required(getString('cv.slos.validations.nameValidation')),
+    [SLOFormFields.NAME]: Yup.string().trim().required(getString('cv.slos.validations.nameValidation')),
+    [SLOFormFields.IDENTIFIER]: Yup.string().when([SLOFormFields.NAME], {
+      is: name => name,
+      then: Yup.string().trim().required(getString('validation.identifierRequired'))
+    }),
     [SLOFormFields.USER_JOURNEY_REF]: Yup.string().required(getString('cv.slos.validations.userJourneyRequired')),
-    [SLOFormFields.MONITORED_SERVICE_REF]: Yup.string()
-      .nullable()
-      .required(getString('connectors.cdng.validations.monitoringServiceRequired')),
-    [SLOFormFields.HEALTH_SOURCE_REF]: Yup.string()
-      .nullable()
-      .required(getString('cv.slos.validations.healthSourceRequired')),
+    [SLOFormFields.MONITORED_SERVICE_REF]: Yup.string().required(
+      getString('connectors.cdng.validations.monitoringServiceRequired')
+    ),
+    [SLOFormFields.HEALTH_SOURCE_REF]: Yup.string().required(getString('cv.slos.validations.healthSourceRequired')),
     [SLOFormFields.EVENT_TYPE]: Yup.string().when(SLOFormFields.SLI_METRIC_TYPE, {
       is: SLIMetricType => SLIMetricType === SLIMetricTypes.RATIO,
       then: Yup.string().nullable().required(REQUIRED)
@@ -108,7 +110,6 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
       then: Yup.string().nullable().required(METRIC_IS_REQUIRED)
     }),
     [SLOFormFields.VALID_REQUEST_METRIC]: Yup.string()
-      .nullable()
       .required(METRIC_IS_REQUIRED)
       .test(
         'bothMetricsShouldBeDifferent',
@@ -120,15 +121,17 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
         }
       ),
     [SLOFormFields.OBJECTIVE_VALUE]: Yup.number()
-      .typeError(getString('common.validation.valueMustBeANumber'))
-      .min(0, getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: 0 }))
+      .typeError(REQUIRED)
+      .min(0, getString('cv.minValueN', { n: 0 }))
       .when([SLOFormFields.SLI_METRIC_TYPE], {
         is: SLIMetricType => SLIMetricType === SLIMetricTypes.RATIO,
-        then: Yup.number().max(100, getString('common.validation.valueMustBeLessThanOrEqualToN', { n: 100 }))
+        then: Yup.number()
+          .typeError(REQUIRED)
+          .max(100, getString('cv.maxValue', { n: 100 }))
       })
       .required(REQUIRED),
     [SLOFormFields.OBJECTIVE_COMPARATOR]: Yup.string().required(REQUIRED),
-    [SLOFormFields.SLI_MISSING_DATA_TYPE]: Yup.string().required('SLI Missing data type is required'),
+    [SLOFormFields.SLI_MISSING_DATA_TYPE]: Yup.string().required(getString('cv.sliMissingDataTypeIsRequired')),
     [SLOFormFields.PERIOD_LENGTH]: Yup.string().when([SLOFormFields.PERIOD_TYPE], {
       is: periodType => periodType === PeriodTypes.ROLLING,
       then: Yup.string().nullable().required(getString('cv.periodLengthIsRequired'))
@@ -146,9 +149,9 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
       then: Yup.string().nullable().required(getString('cv.windowsEndIsRequired'))
     }),
     [SLOFormFields.SLO_TARGET_PERCENTAGE]: Yup.number()
-      .typeError(getString('common.validation.valueMustBeANumber'))
-      .min(0, getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: 0 }))
-      .max(100, getString('common.validation.valueMustBeLessThanOrEqualToN', { n: 100 }))
+      .typeError(REQUIRED)
+      .min(0, getString('cv.minValueN', { n: 0 }))
+      .max(100, getString('cv.maxValue', { n: 100 }))
       .required(REQUIRED)
   })
 }

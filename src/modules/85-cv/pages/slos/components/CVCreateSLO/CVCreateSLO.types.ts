@@ -88,14 +88,7 @@ export const enum SLOFormFields {
   SLO_TARGET_PERCENTAGE = 'SLOTargetPercentage'
 }
 
-export interface SLOForm {
-  [SLOFormFields.NAME]: string
-  [SLOFormFields.IDENTIFIER]: string
-  [SLOFormFields.DESCRIPTION]?: string
-  [SLOFormFields.TAGS]?: { [key: string]: string }
-  [SLOFormFields.USER_JOURNEY_REF]: string
-  [SLOFormFields.MONITORED_SERVICE_REF]: string
-  [SLOFormFields.HEALTH_SOURCE_REF]: string
+export interface SLIForm {
   [SLOFormFields.SLI_TYPE]: ServiceLevelIndicatorDTO['type']
   [SLOFormFields.SLI_METRIC_TYPE]?: ServiceLevelIndicatorSpec['type']
   [SLOFormFields.EVENT_TYPE]?: RatioSLIMetricSpec['eventType']
@@ -104,6 +97,19 @@ export interface SLOForm {
   [SLOFormFields.OBJECTIVE_VALUE]?: number
   [SLOFormFields.OBJECTIVE_COMPARATOR]?: ThresholdSLIMetricSpec['thresholdType']
   [SLOFormFields.SLI_MISSING_DATA_TYPE]: ServiceLevelIndicatorDTO['sliMissingDataType']
+  [SLOFormFields.NAME]?: string
+  [SLOFormFields.IDENTIFIER]?: string
+  [SLOFormFields.HEALTH_SOURCE_REF]?: string
+}
+
+export interface SLOForm extends SLIForm {
+  [SLOFormFields.NAME]: string
+  [SLOFormFields.IDENTIFIER]: string
+  [SLOFormFields.DESCRIPTION]?: string
+  [SLOFormFields.TAGS]?: { [key: string]: string }
+  [SLOFormFields.USER_JOURNEY_REF]: string
+  [SLOFormFields.MONITORED_SERVICE_REF]: string
+  [SLOFormFields.HEALTH_SOURCE_REF]: string
   [SLOFormFields.PERIOD_TYPE]?: SLOTarget['type']
   [SLOFormFields.PERIOD_LENGTH]?: string
   [SLOFormFields.PERIOD_LENGTH_TYPE]?: CalenderSLOTargetSpec['type']

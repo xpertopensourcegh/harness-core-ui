@@ -636,6 +636,7 @@ SLIValueIsGoodIf: SLI value is good if
 thanObjectiveValue: than objective value
 toObjectiveValue: to objective value
 SLIMissingDataType: SLI Missing Data Type
+sliMissingDataTypeIsRequired: SLI Missing data type is required
 metricIsRequired: Metric is required
 metricForGoodAndValidRequestsShouldBeDifferent: Metric for good and valid requests should be different
 required: Required
@@ -656,6 +657,11 @@ sunday: Sunday
 good: Good
 bad: Bad
 ignore: Ignore
+errorBudget: Error Budget
+mins: mins
+minValueN: 'Min value {{n}}'
+maxValue: 'Max value {{n}}'
+pleaseFillTheRequiredDataToSeeTheSLIData: Please fill the required data to see the SLI data
 cvChanges:
   changeTypeFilterDefault: 'Change Types'
   sourceFilterDefault: 'Sources'

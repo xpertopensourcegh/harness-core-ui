@@ -12,5 +12,6 @@ declare const styles: {
   readonly comparatorOptions: string
   readonly card: string
   readonly sloTarget: string
+  readonly errorBudget: string
 }
 export default styles

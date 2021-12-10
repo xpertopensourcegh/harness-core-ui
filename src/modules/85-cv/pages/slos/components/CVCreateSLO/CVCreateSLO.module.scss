@@ -20,7 +20,7 @@
 // SLI
 
 .cardSli {
-  width: 80%;
+  width: 950px;
 
   .selectPrimary {
     width: 350px;
@@ -30,7 +30,7 @@
 // PickMetric
 
 .cardPickMetric {
-  width: 80%;
+  width: 950px;
 
   .eventType {
     width: 100px;
@@ -52,9 +52,14 @@
 // SLOTargetAndBudgetPolicy
 
 .card {
-  width: 80%;
+  width: 950px;
 
   .sloTarget {
-    width: fit-content;
+    width: 120px;
+  }
+
+  .errorBudget {
+    min-width: 180px;
+    border-radius: var(--spacing-small);
   }
 }

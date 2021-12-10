@@ -201,9 +201,39 @@ exports[`Test SLOTargetAndBudgetPolicy component should render SLOTargetAndBudge
             </div>
           </div>
         </div>
-        <span
-          data-testid="SLO-target-chart"
-        />
+        <div
+          class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-flex-start"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="width: 450px;"
+          >
+            <span
+              data-testid="SLO-target-chart"
+            />
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main errorBudget StyledProps--background-grey100 StyledProps--padding-medium"
+            style="height: 180px;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-grey600"
+            >
+              cv.errorBudget
+            </p>
+            <h1
+              class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--inline StyledProps--font-variation-display2"
+              level="1"
+            >
+              0
+            </h1>
+            <span
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-form-sub-section"
+            >
+              cv.mins
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </form>

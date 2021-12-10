@@ -12,10 +12,12 @@ import type {
   RollingSLOTargetSpec,
   UserJourneyResponse,
   MonitoredServiceWithHealthSources,
-  MetricDTO
+  MetricDTO,
+  ServiceLevelIndicatorDTO
 } from 'services/cv'
 import { initialValuesSLO } from './CVCreateSLO.constants'
 import {
+  SLIForm,
   SLOForm,
   PeriodTypes,
   PeriodLengthTypes,
@@ -25,6 +27,27 @@ import {
   SLIMetricTypes,
   Comparators
 } from './CVCreateSLO.types'
+
+export const convertServiceLevelIndicatorToSLIFormData = (serviceLevelIndicator: ServiceLevelIndicatorDTO): SLIForm => {
+  const { type: SLIType, name, identifier, healthSourceRef, sliMissingDataType, spec } = serviceLevelIndicator
+  const { type: SLIMetricType, spec: SLIMetricSpec } = spec
+  const { eventType, metric1, metric2, thresholdValue, thresholdType } = SLIMetricSpec as ThresholdSLIMetricSpec &
+    RatioSLIMetricSpec
+
+  return {
+    name,
+    identifier,
+    healthSourceRef,
+    SLIType,
+    SLIMetricType,
+    eventType,
+    validRequestMetric: metric1,
+    goodRequestMetric: metric2,
+    objectiveValue: thresholdValue,
+    objectiveComparator: thresholdType,
+    SLIMissingDataType: sliMissingDataType
+  }
+}
 
 export const getSLOInitialFormData = (serviceLevelObjective?: ServiceLevelObjectiveDTO): SLOForm => {
   if (serviceLevelObjective) {
@@ -108,11 +131,12 @@ export const createSLORequestPayload = (
 export const isFormDataValid = (formikProps: FormikProps<SLOForm>, selectedTabId: CreateSLOTabs): boolean => {
   if (selectedTabId === CreateSLOTabs.NAME) {
     formikProps.setFieldTouched(SLOFormFields.NAME)
+    formikProps.setFieldTouched(SLOFormFields.IDENTIFIER)
     formikProps.setFieldTouched(SLOFormFields.USER_JOURNEY_REF)
 
-    const { name, userJourneyRef } = formikProps.values
+    const { name, identifier, userJourneyRef } = formikProps.values
 
-    if (!name || !userJourneyRef) {
+    if (!name || !identifier || !userJourneyRef) {
       return false
     }
   }
@@ -200,19 +224,12 @@ export function getHealthSourceOptions(
 // PickMetric
 
 export const getSLOMetricOptions = (SLOMetricList?: MetricDTO[]): SelectOption[] => {
-  // TODO: Adding this for unblock the create flow. This should be removed, once we are able to cerate and use SLO metrics.
-  const dummyOptions = [
-    { label: 'Metric One', value: 'metric1' },
-    { label: 'Metric Two', value: 'metric2' }
-  ]
-
-  return [
-    ...(SLOMetricList?.map(metric => ({
+  return (
+    SLOMetricList?.map(metric => ({
       label: metric.metricName ?? '',
       value: metric.identifier ?? ''
-    })) ?? []),
-    ...dummyOptions
-  ]
+    })) ?? []
+  )
 }
 
 export const getComparatorSuffixLabelId = (comparator?: ThresholdSLIMetricSpec['thresholdType']): StringKeys => {
@@ -265,4 +282,49 @@ export const getWindowEndOptionsForMonth = (): SelectOption[] => {
   return Array(31)
     .fill(0)
     .map((_, i) => ({ label: `${i + 1}`, value: `${i + 1}` }))
+}
+
+export const getErrorBudget = (values: SLOForm): number => {
+  const { periodType, periodLength, periodLengthType, SLOTargetPercentage } = values
+
+  if (Number.isNaN(SLOTargetPercentage) || SLOTargetPercentage < 0 || SLOTargetPercentage > 100) {
+    return 0
+  }
+
+  const minutesPerDay = 60 * 24
+  let totalMinutes = 0
+
+  if (periodType === PeriodTypes.ROLLING && periodLength) {
+    totalMinutes = +periodLength * minutesPerDay
+  } else if (periodLengthType === PeriodLengthTypes.WEEKLY) {
+    totalMinutes = 7 * minutesPerDay
+  } else if (periodLengthType === PeriodLengthTypes.MONTHLY) {
+    totalMinutes = 30 * minutesPerDay
+  } else if (periodLengthType === PeriodLengthTypes.QUARTERLY) {
+    totalMinutes = 90 * minutesPerDay
+  }
+
+  return Math.round(((100 - SLOTargetPercentage) / 100) * totalMinutes)
+}
+
+//
+
+export const convertSLOFormDataToServiceLevelIndicatorDTO = (values: SLOForm): ServiceLevelIndicatorDTO => {
+  return {
+    name: values.name,
+    identifier: values.identifier,
+    type: values.SLIType,
+    healthSourceRef: values.healthSourceRef,
+    sliMissingDataType: values.SLIMissingDataType,
+    spec: {
+      type: values.SLIMetricType,
+      spec: {
+        eventType: values.SLIMetricType === SLIMetricTypes.RATIO ? values.eventType : undefined,
+        metric2: values.SLIMetricType === SLIMetricTypes.RATIO ? values.goodRequestMetric : undefined,
+        metric1: values.validRequestMetric,
+        thresholdValue: values.objectiveValue,
+        thresholdType: values.objectiveComparator
+      } as ThresholdSLIMetricSpec & RatioSLIMetricSpec
+    }
+  }
 }

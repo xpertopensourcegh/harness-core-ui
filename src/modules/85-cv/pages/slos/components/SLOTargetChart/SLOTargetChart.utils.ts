@@ -1,18 +1,16 @@
+import moment from 'moment'
 import type Highcharts from 'highcharts'
 
 export const getDefaultChartOptions = (): Highcharts.Options => ({
   chart: {
-    width: 450,
-    height: 200,
     spacing: [20, 0, 0, 0]
   },
   xAxis: {
-    min: 1,
-    tickInterval: 10,
+    tickInterval: 60 * 60 * 1000 * 4,
     allowDecimals: false,
     labels: {
       formatter: function () {
-        return `${this.value} days`
+        return moment(this.value).format('h:mm A')
       }
     }
   },

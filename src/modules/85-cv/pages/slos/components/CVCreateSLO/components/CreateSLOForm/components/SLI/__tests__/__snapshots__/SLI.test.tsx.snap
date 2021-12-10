@@ -651,8 +651,8 @@ exports[`Test SLI component should render SLI component 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-center StyledProps--margin-left-xxlarge"
-            style="width: 360px; height: inherit;"
+            class="StyledProps--font StyledProps--main StyledProps--margin-left-xxlarge"
+            style="width: 100%; height: inherit;"
           >
             <span
               data-testid="SLO-target-chart"

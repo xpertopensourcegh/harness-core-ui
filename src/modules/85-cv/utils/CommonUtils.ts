@@ -78,7 +78,7 @@ export function roundNumber(value: number, precision = 2) {
 }
 
 export function getErrorMessage(errorObj?: any): string | undefined {
-  return get(errorObj, 'message') || get(errorObj, 'data.message') || get(errorObj, 'data.detailedMessage')
+  return get(errorObj, 'data.message') || get(errorObj, 'message') || get(errorObj, 'data.detailedMessage')
 }
 
 export const getEnvironmentOptions = (

@@ -4156,6 +4156,7 @@ export interface StringsMap {
   'cv.dashboard.notStarted': string
   'cv.dashboard.subHeading': string
   'cv.dependenciesHealthWithCount': string
+  'cv.errorBudget': string
   'cv.evaluationPeriod': string
   'cv.failures': string
   'cv.filter': string
@@ -4210,12 +4211,15 @@ export interface StringsMap {
   'cv.learnMore': string
   'cv.logCluster': string
   'cv.logsCluster': string
+  'cv.maxValue': string
   'cv.messageFrequency': string
   'cv.methodLabel': string
   'cv.metricForGoodAndValidRequestsShouldBeDifferent': string
   'cv.metricIsRequired': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
+  'cv.minValueN': string
+  'cv.mins': string
   'cv.monday': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.assignLabel': string
@@ -4527,6 +4531,7 @@ export interface StringsMap {
   'cv.periodLengthDays': string
   'cv.periodLengthIsRequired': string
   'cv.pinABaseline': string
+  'cv.pleaseFillTheRequiredDataToSeeTheSLIData': string
   'cv.postDeployment': string
   'cv.preProductionTests': string
   'cv.proceedToEdit': string
@@ -4570,6 +4575,7 @@ export interface StringsMap {
   'cv.showLess': string
   'cv.showMore': string
   'cv.showYAMLChange': string
+  'cv.sliMissingDataTypeIsRequired': string
   'cv.slos.confirmDeleteSLO': string
   'cv.slos.createSLO': string
   'cv.slos.deleteSLO': string

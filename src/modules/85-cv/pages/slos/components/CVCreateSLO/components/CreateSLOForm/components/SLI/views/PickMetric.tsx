@@ -20,7 +20,8 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getSLOMetricOptions,
-  getComparatorSuffixLabelId
+  getComparatorSuffixLabelId,
+  convertSLOFormDataToServiceLevelIndicatorDTO
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
   comparatorOptions,
@@ -169,24 +170,21 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
             />
           </Container>
 
-          <Container
-            height="inherit"
-            width={isRatioBasedMetric ? 360 : 310}
-            flex={{ justifyContent: 'center', alignItems: 'center' }}
-            margin={{ left: 'xxlarge' }}
-          >
+          <Container height="inherit" width="100%" margin={{ left: 'xxlarge' }}>
             <SLOTargetChart
+              monitoredServiceIdentifier={monitoredServiceRef}
+              serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
               topLabel={
-                <Text font={{ variation: FontVariation.TINY_SEMI }} color={Color.GREY_500}>
+                <Text
+                  font={{ variation: FontVariation.TINY_SEMI }}
+                  color={Color.GREY_500}
+                  padding={{ bottom: 'medium' }}
+                >
                   {getString('cv.SLIRequestRatio')}
                 </Text>
               }
-              customChartOptions={{
-                chart: {
-                  width: isRatioBasedMetric ? 350 : 300,
-                  height: isRatioBasedMetric ? 200 : 150
-                }
-              }}
+              customChartOptions={{ chart: { height: isRatioBasedMetric ? 280 : 220 } }}
+              debounceWait={5000}
             />
           </Container>
         </Layout.Horizontal>
