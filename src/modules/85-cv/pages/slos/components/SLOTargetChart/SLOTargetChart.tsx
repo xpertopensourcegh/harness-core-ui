@@ -86,7 +86,7 @@ const SLOTargetChart: React.FC<SLOTargetChartProps> = ({
 
   const seriesData: Omit<Highcharts.SeriesColumnOptions, 'type'>[] = [
     {
-      data: sliGraphData?.dataPoints?.map(point => [point.timeStamp, point.value]),
+      data: sliGraphData?.dataPoints?.map(point => [Number(point.timeStamp) || 0, Number(point.value) || 0]),
       showInLegend: false
     }
   ]

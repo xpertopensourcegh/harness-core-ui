@@ -142,7 +142,7 @@ const FixedScheduleForm: React.FC<FixedScheduleFormProps> = props => {
               <Container>
                 <Label>{'Type*'}</Label>
                 <PillToggle
-                  initialSelectedView={_formikProps.values.type}
+                  selectedView={_formikProps.values.type}
                   options={[
                     {
                       label: getString(
@@ -157,8 +157,7 @@ const FixedScheduleForm: React.FC<FixedScheduleFormProps> = props => {
                       value: getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.downtime')
                     }
                   ]}
-                  beforeOnChange={(val, callback) => {
-                    callback(val)
+                  onChange={val => {
                     _formikProps.setFieldValue('type', val)
                   }}
                   className={css.typeToggle}

@@ -278,6 +278,12 @@ export const getWindowEndOptionsForWeek = (getString: UseStringsReturn['getStrin
   ]
 }
 
+export const getPeriodLengthOptionsForRolling = (): SelectOption[] => {
+  return Array(31)
+    .fill(0)
+    .map((_, i) => ({ label: `${i + 1}`, value: `${i + 1}d` }))
+}
+
 export const getWindowEndOptionsForMonth = (): SelectOption[] => {
   return Array(31)
     .fill(0)
@@ -285,7 +291,7 @@ export const getWindowEndOptionsForMonth = (): SelectOption[] => {
 }
 
 export const getErrorBudget = (values: SLOForm): number => {
-  const { periodType, periodLength, periodLengthType, SLOTargetPercentage } = values
+  const { periodType, periodLength = '', periodLengthType, SLOTargetPercentage } = values
 
   if (Number.isNaN(SLOTargetPercentage) || SLOTargetPercentage < 0 || SLOTargetPercentage > 100) {
     return 0
@@ -294,8 +300,8 @@ export const getErrorBudget = (values: SLOForm): number => {
   const minutesPerDay = 60 * 24
   let totalMinutes = 0
 
-  if (periodType === PeriodTypes.ROLLING && periodLength) {
-    totalMinutes = +periodLength * minutesPerDay
+  if (periodType === PeriodTypes.ROLLING && Number.parseInt(periodLength)) {
+    totalMinutes = Number.parseInt(periodLength) * minutesPerDay
   } else if (periodLengthType === PeriodLengthTypes.WEEKLY) {
     totalMinutes = 7 * minutesPerDay
   } else if (periodLengthType === PeriodLengthTypes.MONTHLY) {

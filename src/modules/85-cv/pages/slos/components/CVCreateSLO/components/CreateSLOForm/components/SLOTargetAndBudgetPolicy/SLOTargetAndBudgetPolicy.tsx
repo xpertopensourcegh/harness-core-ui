@@ -4,6 +4,7 @@ import { useStrings } from 'framework/strings'
 import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getPeriodLengthOptions,
+  getPeriodLengthOptionsForRolling,
   getPeriodTypeOptions,
   getWindowEndOptionsForMonth,
   getWindowEndOptionsForWeek,
@@ -62,7 +63,7 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, childr
             <FormInput.Select
               name={SLOFormFields.PERIOD_LENGTH}
               label={getString('cv.periodLengthDays')}
-              items={getWindowEndOptionsForMonth()}
+              items={getPeriodLengthOptionsForRolling()}
             />
           )}
         </Layout.Horizontal>

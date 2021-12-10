@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Formik, Page, useToaster, Tabs, Container, Layout, Button, ButtonVariation } from '@wings-software/uicore'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -24,6 +24,17 @@ const CVCreateSLO: React.FC = () => {
   >()
 
   const [selectedTabId, setSelectedTabId] = useState<CreateSLOTabs>(CreateSLOTabs.NAME)
+
+  const projectIdentifierRef = useRef<string>()
+
+  useEffect(() => {
+    if (projectIdentifierRef.current && projectIdentifierRef.current !== projectIdentifier) {
+      history.push(routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }))
+      return
+    }
+
+    projectIdentifierRef.current = projectIdentifier
+  }, [projectIdentifier, accountId, orgIdentifier, history])
 
   const { mutate: createSLO, loading: createSLOLoading } = useSaveSLOData({
     queryParams: { accountId }
