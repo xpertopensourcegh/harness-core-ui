@@ -120,6 +120,8 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   // NOTE: adjust x position node in order to get node box cornet at x zero position
   const marginAdjustment = -(128 - (options?.width || 64)) / 2
 
+  const isSelected = options.defaultSelected ?? props.node.isSelected()
+
   return (
     <div
       className={cx(css.defaultNode, 'default-node')}
@@ -165,7 +167,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           css.defaultCard,
           {
             [css.selected]:
-              props.node.isSelected() &&
+              isSelected &&
               !options.customNodeStyle?.background &&
               !options.customNodeStyle?.backgroundColor &&
               !(options.nodeClassName && options.nodeClassName.length > 0)
@@ -203,7 +205,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           <Icon
             size={28}
             name={options.icon}
-            inverse={options.defaultSelected ?? props.node.isSelected()}
+            inverse={isSelected}
             {...options.iconProps}
             style={{ pointerEvents: 'none', ...options.iconStyle }}
           />
@@ -263,7 +265,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             size={10}
             className={css.template}
             name={'template-library'}
-            color={props.node.isSelected() ? Color.WHITE : Color.PRIMARY_7}
+            color={isSelected ? Color.WHITE : Color.PRIMARY_7}
           />
         )}
         {options.canDelete && (
