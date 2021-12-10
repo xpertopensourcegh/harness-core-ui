@@ -115,12 +115,14 @@ const drawerProps = {
 
 const GitErrorExperienceToggle: React.FC<{
   selectedTab: GitErrorExperienceTab
+  selectedView: GitErrorExperienceSubTab | null
   setView: Dispatch<SetStateAction<GitErrorExperienceSubTab | null>>
 }> = props => {
   const { getString } = useStrings()
-  const { selectedTab, setView } = props
+  const { selectedTab, setView, selectedView } = props
   if (selectedTab === GitErrorExperienceTab.ALL_ERRORS) {
     const toggleProps: PillToggleProps<GitErrorExperienceSubTab> = {
+      selectedView: selectedView ?? GitErrorExperienceSubTab.ALL_ERRORS_COMMIT_VIEW,
       options: [
         {
           label: getString('commits'),
@@ -277,7 +279,7 @@ export const GitSyncErrorsPanel: React.FC = () => {
 
   return (
     <Layout.Vertical padding={{ left: 'large', right: 'large' }}>
-      <GitErrorExperienceToggle selectedTab={selectedTab} setView={setView} />
+      <GitErrorExperienceToggle selectedTab={selectedTab} setView={setView} selectedView={view} />
       <Component />
     </Layout.Vertical>
   )

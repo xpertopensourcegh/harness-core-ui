@@ -246,7 +246,7 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
             </div>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+            class="Layout--horizontal StyledProps--main TableV2--pagination Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
           >
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-small-semi"
@@ -564,7 +564,7 @@ exports[`ASG selection modal component should refresh the list 1`] = `
             </div>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+            class="Layout--horizontal StyledProps--main TableV2--pagination Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
           >
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-small-semi"
@@ -882,7 +882,7 @@ exports[`ASG selection modal component should render successfully 1`] = `
             </div>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+            class="Layout--horizontal StyledProps--main TableV2--pagination Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
           >
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-small-semi"
