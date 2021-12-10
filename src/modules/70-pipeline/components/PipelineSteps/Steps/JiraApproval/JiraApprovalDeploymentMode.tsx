@@ -14,7 +14,7 @@ import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
+import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import type { JiraApprovalDeploymentModeProps } from './types'
 import css from './JiraApproval.module.scss'
 
@@ -84,7 +84,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
       {getMultiTypeFromValue(template?.spec?.approvalCriteria?.spec?.expression) === MultiTypeInputType.RUNTIME ? (
         <FormMultiTypeTextAreaField
           className={css.deploymentViewMedium}
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')}
+          label={getString('pipeline.approvalCriteria.jexlExpressionLabelApproval')}
           name={`${prefix}spec.approvalCriteria.spec.expression`}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeTextArea={{
@@ -97,7 +97,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
       {getMultiTypeFromValue(template?.spec?.rejectionCriteria?.spec?.expression) === MultiTypeInputType.RUNTIME ? (
         <FormMultiTypeTextAreaField
           className={css.deploymentViewMedium}
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')}
+          label={getString('pipeline.approvalCriteria.jexlExpressionLabelRejection')}
           name={`${prefix}spec.rejectionCriteria.spec.expression`}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeTextArea={{

@@ -90,17 +90,8 @@ jiraApprovalStep:
   fetchProjectsError: Failed to fetch projects
   fetchingIssueTypePlaceholder: Fetching Issue Types...
   fetchIssueTypesError: Failed to fetch issue types
-  approvalCriteria: Approval Criteria
-  rejectionCriteria: Rejection Criteria
-  rejectionCriteriaOptional: Rejection Criteria (optional)
-  jexlExpressionLabelApproval: If the JEXL Expression evaluates to true, approve this step
-  jexlExpressionLabelRejection: If the JEXL Expression evaluates to true, reject this step
   jexlExpressionPlaceholder: |
     Example: <+issue.Status> == "Done"
-  fetchingFields: Fetching fields...
-  match: Match
-  allConditions: All conditions
-  anyCondition: Any condition
   jiraField: Jira Field
   jexlExpressionApprovalCriteria: JEXL Expression for approval criteria
   jexlExpressionRejectionCriteria: JEXL Expression for rejection criteria
@@ -121,8 +112,6 @@ jiraApprovalStep:
     project: Project is required
     issueKey: Issue Key is required
     issueType: Issue Type is required
-    approvalCriteriaCondition: At least one condition is required
-    expression: Expression value is required
 jiraCreateStep:
   fields: Jira Fields
   summaryPlaceholder: Enter a Title or Summary
@@ -148,6 +137,20 @@ jiraUpdateStep:
     values don’t match, there will be an error at runtime.
   validations:
     status: Status is required with transition.
+approvalCriteria:
+  field: Field
+  fetchingFields: Fetching fields...
+  allConditions: All conditions
+  anyCondition: Any condition
+  jexlExpressionLabelApproval: If the JEXL Expression evaluates to true, approve this step
+  jexlExpressionLabelRejection: If the JEXL Expression evaluates to true, reject this step
+  match: Match
+  approvalCriteria: Approval Criteria
+  rejectionCriteria: Rejection Criteria
+  rejectionCriteriaOptional: Rejection Criteria (optional)
+  validations:
+    approvalCriteriaCondition: At least one condition is required
+    expression: Expression value is required
 manifestType:
   manifestTyperequired: Manifest Type is required
   gitConnectorLabel: 'Git'

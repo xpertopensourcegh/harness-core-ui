@@ -42,7 +42,7 @@ exports[`<JiraApprovalTab/> tests isWaiting test 1`] = `
       >
         <div>
           <span>
-            pipeline.jiraApprovalStep.approvalCriteria
+            pipeline.approvalCriteria.approvalCriteria
           </span>
         </div>
         <button
@@ -131,7 +131,7 @@ exports[`<JiraApprovalTab/> tests isWaiting test 1`] = `
       >
         <div>
           <span>
-            pipeline.jiraApprovalStep.rejectionCriteria
+            pipeline.approvalCriteria.rejectionCriteria
           </span>
         </div>
         <button
@@ -224,7 +224,7 @@ exports[`<JiraApprovalTab/> tests not isWaiting test - rejected 1`] = `
       >
         <div>
           <span>
-            pipeline.jiraApprovalStep.approvalCriteria
+            pipeline.approvalCriteria.approvalCriteria
           </span>
         </div>
         <button
@@ -313,7 +313,7 @@ exports[`<JiraApprovalTab/> tests not isWaiting test - rejected 1`] = `
       >
         <div>
           <span>
-            pipeline.jiraApprovalStep.rejectionCriteria
+            pipeline.approvalCriteria.rejectionCriteria
           </span>
         </div>
         <button
@@ -406,7 +406,7 @@ exports[`<JiraApprovalTab/> tests not isWaiting test 1`] = `
       >
         <div>
           <span>
-            pipeline.jiraApprovalStep.approvalCriteria
+            pipeline.approvalCriteria.approvalCriteria
           </span>
         </div>
         <button
@@ -495,7 +495,7 @@ exports[`<JiraApprovalTab/> tests not isWaiting test 1`] = `
       >
         <div>
           <span>
-            pipeline.jiraApprovalStep.rejectionCriteria
+            pipeline.approvalCriteria.rejectionCriteria
           </span>
         </div>
         <button

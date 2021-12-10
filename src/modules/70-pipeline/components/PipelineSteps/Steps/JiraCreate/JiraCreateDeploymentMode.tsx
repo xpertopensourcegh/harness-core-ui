@@ -17,7 +17,7 @@ import { FormMultiTypeTextAreaField } from '@common/components'
 import { JiraProjectBasicNG, JiraProjectNG, useGetJiraIssueCreateMetadata, useGetJiraProjects } from 'services/cd-ng'
 import { getGenuineValue, setIssueTypeOptions } from '../JiraApproval/helper'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
-import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
+import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import type { JiraCreateDeploymentModeProps, JiraCreateDeploymentModeFormContentInterface } from './types'
 import css from './JiraCreate.module.scss'
 

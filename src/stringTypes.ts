@@ -1997,6 +1997,18 @@ export interface StringsMap {
   'pipeline.advancedOptions': string
   'pipeline.allStages': string
   'pipeline.and': string
+  'pipeline.approvalCriteria.allConditions': string
+  'pipeline.approvalCriteria.anyCondition': string
+  'pipeline.approvalCriteria.approvalCriteria': string
+  'pipeline.approvalCriteria.fetchingFields': string
+  'pipeline.approvalCriteria.field': string
+  'pipeline.approvalCriteria.jexlExpressionLabelApproval': string
+  'pipeline.approvalCriteria.jexlExpressionLabelRejection': string
+  'pipeline.approvalCriteria.match': string
+  'pipeline.approvalCriteria.rejectionCriteria': string
+  'pipeline.approvalCriteria.rejectionCriteriaOptional': string
+  'pipeline.approvalCriteria.validations.approvalCriteriaCondition': string
+  'pipeline.approvalCriteria.validations.expression': string
   'pipeline.approvalStage.settingUpStage': string
   'pipeline.approvalStep.addApproverInputs': string
   'pipeline.approvalStep.addUserGroups': string
@@ -2265,9 +2277,6 @@ export interface StringsMap {
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.inputSets.selectPlaceholder': string
-  'pipeline.jiraApprovalStep.allConditions': string
-  'pipeline.jiraApprovalStep.anyCondition': string
-  'pipeline.jiraApprovalStep.approvalCriteria': string
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string
   'pipeline.jiraApprovalStep.execution.allConditionsMsg': string
@@ -2282,7 +2291,6 @@ export interface StringsMap {
   'pipeline.jiraApprovalStep.execution.wasRejected': string
   'pipeline.jiraApprovalStep.fetchIssueTypesError': string
   'pipeline.jiraApprovalStep.fetchProjectsError': string
-  'pipeline.jiraApprovalStep.fetchingFields': string
   'pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder': string
   'pipeline.jiraApprovalStep.fetchingProjectsPlaceholder': string
   'pipeline.jiraApprovalStep.issueKey': string
@@ -2290,19 +2298,12 @@ export interface StringsMap {
   'pipeline.jiraApprovalStep.issueType': string
   'pipeline.jiraApprovalStep.issueTypePlaceholder': string
   'pipeline.jiraApprovalStep.jexlExpressionApprovalCriteria': string
-  'pipeline.jiraApprovalStep.jexlExpressionLabelApproval': string
-  'pipeline.jiraApprovalStep.jexlExpressionLabelRejection': string
   'pipeline.jiraApprovalStep.jexlExpressionPlaceholder': string
   'pipeline.jiraApprovalStep.jexlExpressionRejectionCriteria': string
   'pipeline.jiraApprovalStep.jiraConnectorPlaceholder': string
   'pipeline.jiraApprovalStep.jiraField': string
-  'pipeline.jiraApprovalStep.match': string
   'pipeline.jiraApprovalStep.project': string
-  'pipeline.jiraApprovalStep.rejectionCriteria': string
-  'pipeline.jiraApprovalStep.rejectionCriteriaOptional': string
-  'pipeline.jiraApprovalStep.validations.approvalCriteriaCondition': string
   'pipeline.jiraApprovalStep.validations.connectorRef': string
-  'pipeline.jiraApprovalStep.validations.expression': string
   'pipeline.jiraApprovalStep.validations.issueKey': string
   'pipeline.jiraApprovalStep.validations.issueType': string
   'pipeline.jiraApprovalStep.validations.project': string

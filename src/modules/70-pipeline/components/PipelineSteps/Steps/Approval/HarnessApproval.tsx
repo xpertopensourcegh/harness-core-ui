@@ -15,7 +15,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import type { StringsMap } from 'stringTypes'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
-import { flatObject } from '../ApprovalCommons'
+import { flatObject } from '../Common/ApprovalCommons'
 import { processFormData, processForInitialValues } from './helper'
 import HarnessApprovalDeploymentMode from './HarnessApprovalDeploymentMode'
 import HarnessApprovalStepModeWithRef from './HarnessApprovalStepMode'

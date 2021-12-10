@@ -9,7 +9,8 @@ import type {
   ResponseListJiraProjectBasicNG,
   ResponsePageConnectorResponse
 } from 'services/cd-ng'
-import { ApprovalRejectionCriteriaType, JiraApprovalDeploymentModeProps, JiraApprovalStepModeProps } from '../types'
+import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
+import type { JiraApprovalDeploymentModeProps, JiraApprovalStepModeProps } from '../types'
 import { getDefaultCriterias } from '../helper'
 
 export const getJiraApprovalEditModeProps = (): JiraApprovalStepModeProps => ({

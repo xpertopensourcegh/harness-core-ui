@@ -9,7 +9,7 @@ import { getDurationValidationSchema } from '@common/components/MultiTypeDuratio
 import type { StringsMap } from 'stringTypes'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
-import { flatObject } from '../ApprovalCommons'
+import { flatObject } from '../Common/ApprovalCommons'
 import type { JiraCreateVariableListModeProps, JiraCreateData } from './types'
 import { processFormData, processInitialValues } from './helper'
 import JiraCreateStepModeWithRef from './JiraCreateStepMode'

@@ -9,7 +9,7 @@ import { getDurationValidationSchema } from '@common/components/MultiTypeDuratio
 import type { StringsMap } from 'stringTypes'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
-import { flatObject } from '../ApprovalCommons'
+import { flatObject } from '../Common/ApprovalCommons'
 import type { JiraApprovalData, JiraApprovalVariableListModeProps } from './types'
 import { getDefaultCriterias, processFormData, processInitialValues } from './helper'
 import JiraApprovalDeploymentMode from './JiraApprovalDeploymentMode'
@@ -81,7 +81,7 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
       errors.spec = {
         ...errors.spec,
         approvalCriteria: {
-          spec: { expression: getString?.('pipeline.jiraApprovalStep.validations.expression') }
+          spec: { expression: getString?.('pipeline.approvalCriteria.validations.expression') }
         }
       }
     }

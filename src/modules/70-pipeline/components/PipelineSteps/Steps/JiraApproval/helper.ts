@@ -5,10 +5,9 @@ import type { JiraFieldAllowedValueNG, JiraFieldNG, JiraIssueTypeNG, JiraStatusN
 import {
   ApprovalRejectionCriteria,
   ApprovalRejectionCriteriaCondition,
-  ApprovalRejectionCriteriaType,
-  JiraApprovalData,
-  JiraProjectSelectOption
-} from './types'
+  ApprovalRejectionCriteriaType
+} from '@pipeline/components/PipelineSteps/Steps/Common/types'
+import type { JiraApprovalData, JiraProjectSelectOption } from './types'
 
 const getApprovalRejectionConditionValuesForSubmit = (values: string | SelectOption | MultiSelectOption[]): string => {
   // The selected values can be string, selectoption or multiselect options

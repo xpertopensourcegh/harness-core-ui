@@ -7,7 +7,7 @@ import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { FormMultiTypeUserGroupInput } from '@common/components/UserGroupsInput/FormMultitypeUserGroupInput'
-import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
+import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import type { HarnessApprovalDeploymentModeProps } from './types'
 import css from './HarnessApproval.module.scss'
 

@@ -15,8 +15,8 @@ import { Collapse } from '@pipeline/components/execution/StepDetails/common/Coll
 import css from './JiraCriteria.module.scss'
 
 const titles: Record<JiraCriteriaProps['type'], StringKeys> = {
-  approval: 'pipeline.jiraApprovalStep.approvalCriteria',
-  rejection: 'pipeline.jiraApprovalStep.rejectionCriteria'
+  approval: 'pipeline.approvalCriteria.approvalCriteria',
+  rejection: 'pipeline.approvalCriteria.rejectionCriteria'
 }
 
 const conditionStr: Record<ConditionDTO['operator'], StringKeys> = {

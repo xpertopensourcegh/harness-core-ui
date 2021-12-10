@@ -42,7 +42,7 @@ import { useQueryParams } from '@common/hooks'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { getGenuineValue, setIssueTypeOptions } from '../JiraApproval/helper'
-import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
+import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import { JiraDynamicFieldsSelector } from './JiraDynamicFieldsSelector'
 import type {
   JiraCreateData,

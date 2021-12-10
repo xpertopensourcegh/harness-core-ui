@@ -1,11 +1,9 @@
-import type { FormikErrors, FormikProps } from 'formik'
+import type { FormikProps } from 'formik'
 import type { GetDataError } from 'restful-react'
-import type { MultiSelectOption, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import type { MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { InputSetData, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type {
   Failure,
-  JiraFieldNG,
-  JiraStatusNG,
   ResponseJiraIssueCreateMetadataNG,
   ResponseListJiraProjectBasicNG,
   StepElementConfig,
@@ -13,29 +11,7 @@ import type {
   UseGetJiraProjectsProps
 } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
-
-export enum ApprovalRejectionCriteriaType {
-  Jexl = 'Jexl',
-  KeyValues = 'KeyValues'
-}
-
-export interface ApprovalRejectionCriteriaCondition {
-  key: string
-  operator: string
-  value: string | SelectOption | MultiSelectOption[]
-}
-
-export interface ApprovalRejectionCriteria {
-  type: ApprovalRejectionCriteriaType
-  spec: {
-    // if type is Jexl
-    expression?: string
-
-    // If type is KV
-    matchAnyCondition?: boolean
-    conditions?: ApprovalRejectionCriteriaCondition[]
-  }
-}
+import type { ApprovalRejectionCriteria } from '@pipeline/components/PipelineSteps/Steps/Common/types'
 
 export interface JiraApprovalData extends StepElementConfig {
   spec: {
@@ -72,29 +48,8 @@ export interface JiraApprovalStepModeProps {
   readonly?: boolean
 }
 
-export interface ApprovalRejectionCriteriaProps {
-  mode: string
-  values: ApprovalRejectionCriteria
-  onChange: (values: ApprovalRejectionCriteria) => void
-  statusList: JiraStatusNG[]
-  fieldList: JiraFieldNG[]
-  isFetchingFields?: boolean
-  formikErrors?: FormikErrors<{
-    expression?: string | undefined
-    matchAnyCondition?: boolean | undefined
-    conditions?: ApprovalRejectionCriteriaCondition[] | undefined
-  }>
-  readonly?: boolean
-  title: string
-}
-
 export interface JiraProjectSelectOption extends SelectOption {
   key: string
-}
-
-export interface ConditionsInterface extends ApprovalRejectionCriteriaProps {
-  allowedFieldKeys: SelectOption[]
-  allowedValuesForFields: Record<string, SelectOption[]>
 }
 
 export interface JiraFormContentInterface {

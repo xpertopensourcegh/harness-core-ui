@@ -1181,7 +1181,7 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
               class="stepSubSectionHeading"
               data-tooltip-id="jiraApprovalapprovalCriteria"
             >
-              pipeline.jiraApprovalStep.approvalCriteria
+              pipeline.approvalCriteria.approvalCriteria
             </div>
           </div>
           <div
@@ -1220,7 +1220,7 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
               class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main alignConditions"
             >
               <span>
-                pipeline.jiraApprovalStep.match
+                pipeline.approvalCriteria.match
               </span>
               <label
                 class="bp3-control bp3-radio bp3-disabled StyledProps--font Radio--radio StyledProps--main"
@@ -1232,7 +1232,7 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
                 <span
                   class="bp3-control-indicator"
                 />
-                pipeline.jiraApprovalStep.allConditions
+                pipeline.approvalCriteria.allConditions
               </label>
               <label
                 class="bp3-control bp3-radio bp3-disabled StyledProps--font Radio--radio StyledProps--main"
@@ -1245,7 +1245,7 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
                 <span
                   class="bp3-control-indicator"
                 />
-                pipeline.jiraApprovalStep.anyCondition
+                pipeline.approvalCriteria.anyCondition
               </label>
             </div>
             <div

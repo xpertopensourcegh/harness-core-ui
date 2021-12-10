@@ -137,16 +137,16 @@ describe('Jira Approval tests', () => {
 
     await waitFor(() => {
       expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
-      expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeTruthy()
+      expect(queryByText('pipeline.approvalCriteria.validations.approvalCriteriaCondition')).toBeTruthy()
     })
 
     fireEvent.click(getByText('add'))
     await waitFor(() =>
-      expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeNull()
+      expect(queryByText('pipeline.approvalCriteria.validations.approvalCriteriaCondition')).toBeNull()
     )
 
     fireEvent.click(getByText('common.jexlExpression'))
-    await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy())
+    await waitFor(() => expect(queryByText('pipeline.approvalCriteria.validations.expression')).toBeTruthy())
   })
 
   test('Edit stage - readonly', async () => {

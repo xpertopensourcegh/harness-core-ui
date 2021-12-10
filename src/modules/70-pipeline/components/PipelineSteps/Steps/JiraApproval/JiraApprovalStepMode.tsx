@@ -4,12 +4,12 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
-  Formik,
   Accordion,
+  Formik,
+  FormikForm,
   FormInput,
-  MultiTypeInputType,
   getMultiTypeFromValue,
-  FormikForm
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -19,12 +19,12 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
+  JiraFieldNG,
   JiraProjectBasicNG,
   JiraProjectNG,
   JiraStatusNG,
-  JiraFieldNG,
-  useGetJiraProjects,
-  useGetJiraIssueCreateMetadata
+  useGetJiraIssueCreateMetadata,
+  useGetJiraProjects
 } from 'services/cd-ng'
 import type {
   AccountPathProps,
@@ -36,16 +36,17 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useQueryParams } from '@common/hooks'
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
-import { ApprovalRejectionCriteria } from './ApprovalRejectionCriteria'
-import {
-  JiraApprovalStepModeProps,
+import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type {
   JiraApprovalData,
-  JiraProjectSelectOption,
+  JiraApprovalStepModeProps,
   JiraFormContentInterface,
-  ApprovalRejectionCriteriaType
+  JiraProjectSelectOption
 } from './types'
-import { getGenuineValue, resetForm, setIssueTypeOptions, getApprovalRejectionCriteriaForInitialValues } from './helper'
+import { getApprovalRejectionCriteriaForInitialValues, getGenuineValue, resetForm, setIssueTypeOptions } from './helper'
+import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
+import { ApprovalRejectionCriteria } from '../Common/ApprovalRejectionCriteria'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraApproval.module.scss'
 
@@ -362,13 +363,14 @@ const FormContent = ({
       <ApprovalRejectionCriteria
         statusList={statusList}
         fieldList={fieldList}
-        title={getString('pipeline.jiraApprovalStep.approvalCriteria')}
+        title={getString('pipeline.approvalCriteria.approvalCriteria')}
         isFetchingFields={fetchingProjectMetadata}
         mode="approvalCriteria"
         values={formik.values.spec.approvalCriteria}
         onChange={values => formik.setFieldValue('spec.approvalCriteria', values)}
         formikErrors={formik.errors.spec?.approvalCriteria?.spec}
         readonly={readonly}
+        stepType={StepType.JiraApproval}
       />
 
       <div className={stepCss.noLookDivider} />
@@ -381,12 +383,13 @@ const FormContent = ({
             <ApprovalRejectionCriteria
               statusList={statusList}
               fieldList={fieldList}
-              title={getString('pipeline.jiraApprovalStep.rejectionCriteria')}
+              title={getString('pipeline.approvalCriteria.rejectionCriteria')}
               isFetchingFields={fetchingProjectMetadata}
               mode="rejectionCriteria"
               values={formik.values.spec.rejectionCriteria}
               onChange={values => formik.setFieldValue('spec.rejectionCriteria', values)}
               readonly={readonly}
+              stepType={StepType.JiraApproval}
             />
           }
         />
@@ -461,11 +464,11 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
               is: ApprovalRejectionCriteriaType.KeyValues,
               then: Yup.object().shape({
                 conditions: Yup.array().required(
-                  getString('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')
+                  getString('pipeline.approvalCriteria.validations.approvalCriteriaCondition')
                 )
               }),
               otherwise: Yup.object().shape({
-                expression: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.expression'))
+                expression: Yup.string().trim().required(getString('pipeline.approvalCriteria.validations.expression'))
               })
             })
           })
