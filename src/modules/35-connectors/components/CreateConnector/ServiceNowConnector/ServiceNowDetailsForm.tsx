@@ -1,0 +1,147 @@
+import React from 'react'
+import {
+  Layout,
+  Button,
+  Formik,
+  Text,
+  FormInput,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding,
+  StepProps,
+  FontVariation,
+  ButtonVariation,
+  PageSpinner
+} from '@wings-software/uicore'
+import * as Yup from 'yup'
+import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
+
+import { useStrings } from 'framework/strings'
+import SecretInput from '@secrets/components/SecretInput/SecretInput'
+
+import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
+
+import { setupServiceNowFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
+
+import css from './ServiceNowConnector.module.scss'
+
+interface ServiceNowFormData {
+  serviceNowUrl: string
+  username: TextReferenceInterface | void
+  password: SecretReferenceInterface | void
+}
+
+interface AuthenticationProps {
+  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+  isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
+  connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+interface ServiceNowFormProps extends ConnectorInfoDTO {
+  name: string
+  isEditMode?: boolean
+}
+
+const defaultInitialFormData: ServiceNowFormData = {
+  serviceNowUrl: '',
+  username: undefined,
+  password: undefined
+}
+
+const ServiceNowDetailsForm: React.FC<StepProps<ServiceNowFormProps> & AuthenticationProps> = props => {
+  const { prevStepData, nextStep, accountId } = props
+  const [, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding | undefined>()
+  const [initialValues, setInitialValues] = React.useState(defaultInitialFormData)
+  const [loadConnector] = React.useState(false)
+
+  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = React.useState(true && props.isEditMode)
+
+  const { getString } = useStrings()
+
+  React.useEffect(() => {
+    if (loadingConnectorSecrets) {
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupServiceNowFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as ServiceNowFormData)
+            setLoadingConnectorSecrets(false)
+          })
+        } else {
+          setInitialValues(prevStepData as any)
+          setLoadingConnectorSecrets(false)
+        }
+      }
+    }
+  }, [loadingConnectorSecrets])
+
+  return loadingConnectorSecrets ? (
+    <PageSpinner />
+  ) : (
+    <Layout.Vertical spacing="small" className={css.secondStep}>
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'serviceNowConnectorDetails' }}>
+        {getString('details')}
+      </Text>
+      <Formik
+        initialValues={{
+          ...initialValues,
+          ...prevStepData
+        }}
+        formName="serviceNowDetailsForm"
+        validationSchema={Yup.object().shape({
+          serviceNowUrl: Yup.string().trim().required(getString('connectors.validation.serviceNowUrl')),
+          username: Yup.string().required(getString('validation.username')),
+          passwordRef: Yup.object().required(getString('validation.password'))
+        })}
+        onSubmit={stepData => {
+          nextStep?.({ ...props.connectorInfo, ...prevStepData, ...stepData } as ServiceNowFormProps)
+        }}
+      >
+        {formik => {
+          return (
+            <>
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'56%'}>
+                <FormInput.Text
+                  name="serviceNowUrl"
+                  placeholder={getString('UrlLabel')}
+                  label={getString('UrlLabel')}
+                />
+
+                <TextReference
+                  name="username"
+                  stringId="username"
+                  type={formik.values.username ? formik.values.username?.type : ValueType.TEXT}
+                />
+                <SecretInput name={'passwordRef'} label={getString('connectors.apiKey')} />
+              </Layout.Vertical>
+
+              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                <Button
+                  text={getString('back')}
+                  icon="chevron-left"
+                  variation={ButtonVariation.SECONDARY}
+                  onClick={() => props?.previousStep?.(props?.prevStepData)}
+                  data-name="serviceNowBackButton"
+                />
+                <Button
+                  type="submit"
+                  onClick={formik.submitForm}
+                  variation={ButtonVariation.PRIMARY}
+                  text={getString('continue')}
+                  rightIcon="chevron-right"
+                  disabled={loadConnector}
+                />
+              </Layout.Horizontal>
+            </>
+          )
+        }}
+      </Formik>
+    </Layout.Vertical>
+  )
+}
+
+export default ServiceNowDetailsForm

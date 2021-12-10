@@ -34,6 +34,7 @@ const entitySubTypeToTagMap: {
   AwsKms: 'awskms',
   Artifactory: 'artifactory',
   Jira: 'jira',
+  ServiceNow: 'servicenow',
   Nexus: 'nexus',
   Github: 'github',
   Gitlab: 'gitlab',

@@ -1661,6 +1661,7 @@ export interface StringsMap {
   'connectors.selectConnectivityMode': string
   'connectors.selectConnector': string
   'connectors.selectConnectorLabel': string
+  'connectors.serviceNow.serviceNowUrl': string
   'connectors.showInstructions': string
   'connectors.specifyArtifactRepo': string
   'connectors.specifyArtifactRepoType': string
@@ -1716,6 +1717,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.k8s': string
   'connectors.testConnectionStep.validationText.nexus': string
   'connectors.testConnectionStep.validationText.pagerduty': string
+  'connectors.testConnectionStep.validationText.serviceNow': string
   'connectors.testConnectionStep.validationText.splunk': string
   'connectors.testConnectionStep.validationText.sumologic': string
   'connectors.testConnectionStep.validationText.vault': string
@@ -1745,12 +1747,14 @@ export interface StringsMap {
   'connectors.title.k8sCluster': string
   'connectors.title.nexus': string
   'connectors.title.secretManager': string
+  'connectors.title.serviceNow': string
   'connectors.title.splunk': string
   'connectors.title.sumologic': string
   'connectors.unableToCreateConnector': string
   'connectors.unableToUpdateConnector': string
   'connectors.updatedSuccessfully': string
   'connectors.updating': string
+  'connectors.validation.serviceNowUrl': string
   'connectors.verifyConnection': string
   'userProfile.addSCM': string
   'userProfile.awsCredentials': string

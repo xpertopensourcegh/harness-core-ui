@@ -83,6 +83,8 @@ const getLabelByType = (type: string): string => {
       return 'connectors.name_labels.Splunk'
     case Connectors.Jira:
       return 'connectors.title.jira'
+    case Connectors.SERVICE_NOW:
+      return 'connectors.title.serviceNow'
     case Connectors.GCP_KMS:
       return 'connectors.name_labels.gcpKms'
     case Connectors.VAULT:
@@ -612,6 +614,24 @@ const getSumologicSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsR
   ]
 }
 
+const getServiceNowSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: 'connectors.serviceNow.serviceNowUrl',
+      value: connector?.spec?.serviceNowUrl
+    },
+
+    {
+      label: 'username',
+      value: connector?.spec?.username || connector?.spec?.usernameRef
+    },
+    {
+      label: 'password',
+      value: connector?.spec?.passwordRef
+    }
+  ]
+}
+
 const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<ActivityDetailsRowInterface> => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -653,6 +673,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getAzureKeyVaultSchema(connector)
     case Connectors.SUMOLOGIC:
       return getSumologicSchema(connector)
+    case Connectors.SERVICE_NOW:
+      return getServiceNowSchema(connector)
     default:
       return []
   }

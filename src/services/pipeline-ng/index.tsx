@@ -444,6 +444,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ServiceNow'
     | 'CustomHealth'
   )[]
 }

@@ -1377,6 +1377,48 @@ export const buildDynatracePayload = (formData: FormData) => {
   }
 }
 
+export const buildServiceNowPayload = (formData: FormData) => {
+  const savedData = {
+    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+    type: Connectors.SERVICE_NOW,
+    spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      serviceNowUrl: formData.serviceNowUrl,
+
+      username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+      usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
+      passwordRef: formData.passwordRef.referenceString
+    }
+  }
+
+  return { connector: savedData }
+}
+export const setupServiceNowFormData = async (
+  connectorInfo: ConnectorInfoDTO,
+  accountId: string
+): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    serviceNowUrl: connectorInfo.spec.serviceNowUrl,
+
+    username:
+      connectorInfo.spec.username || connectorInfo.spec.usernameRef
+        ? {
+            value: connectorInfo.spec.username || connectorInfo.spec.usernameRef,
+            type: connectorInfo.spec.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
+    passwordRef: await setSecretField(connectorInfo.spec.passwordRef, scopeQueryParams)
+  }
+  return formData
+}
+
 export const setupAzureKeyVaultFormData = async (
   connectorInfo: ConnectorInfoDTO,
   accountId: string
@@ -1503,6 +1545,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'argo'
     case Connectors.GCP_KMS:
       return 'gcp-kms'
+    case Connectors.SERVICE_NOW:
+      return 'service-servicenow'
     default:
       return 'cog'
   }
@@ -1657,6 +1701,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.azureKeyVault')
     case Connectors.PAGER_DUTY:
       return getString('connectors.testConnectionStep.validationText.pagerduty')
+    case Connectors.SERVICE_NOW:
+      return getString('connectors.testConnectionStep.validationText.serviceNow')
     default:
       return ''
   }

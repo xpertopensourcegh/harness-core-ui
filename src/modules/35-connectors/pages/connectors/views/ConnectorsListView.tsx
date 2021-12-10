@@ -163,6 +163,8 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
       return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.helmRepoUrl))
     case Connectors.Jira:
       return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.jiraUrl))
+    case Connectors.SERVICE_NOW:
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.serviceNowUrl))
     case Connectors.GIT:
     case Connectors.GITHUB:
     case Connectors.GITLAB:

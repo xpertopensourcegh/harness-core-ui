@@ -1207,6 +1207,7 @@ export interface ConnectorCatalogueItem {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ServiceNow'
     | 'CustomHealth'
   )[]
 }
@@ -1277,6 +1278,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'SumoLogic'
     | 'PagerDuty'
     | 'CustomHealth'
+    | 'ServiceNow'
   )[]
 }
 
@@ -1322,6 +1324,7 @@ export interface ConnectorInfoDTO {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ServiceNow'
     | 'CustomHealth'
 }
 
@@ -1380,6 +1383,7 @@ export interface ConnectorTypeStatistics {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ServiceNow'
     | 'CustomHealth'
 }
 
@@ -7200,6 +7204,14 @@ export interface ServiceHeaderInfo {
   name?: string
 }
 
+export type ServiceNowConnector = ConnectorConfigDTO & {
+  delegateSelectors?: string[]
+  passwordRef: string
+  serviceNowUrl: string
+  username?: string
+  usernameRef?: string
+}
+
 export interface ServiceOverrides {
   description?: string
   name?: string
@@ -11702,6 +11714,7 @@ export interface GetConnectorListQueryParams {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ServiceNow'
     | 'CustomHealth'
   category?:
     | 'CLOUD_PROVIDER'
@@ -11982,6 +11995,7 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ServiceNow'
     | 'CustomHealth'
 }
 
@@ -27595,6 +27609,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'ServiceNow'
     | 'CustomHealth'
   projectIdentifier?: string
   orgIdentifier?: string
@@ -27691,6 +27706,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'sumologic'
     | 'dynatrace'
     | 'pagerduty'
+    | 'servicenow'
     | 'customhealth'
   )[]
 }

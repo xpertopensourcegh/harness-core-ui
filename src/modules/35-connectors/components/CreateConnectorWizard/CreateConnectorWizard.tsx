@@ -20,6 +20,7 @@ import CreateArtifactoryConnector from '../CreateConnector/ArtifactoryConnector/
 import CreateGcpConnector from '../CreateConnector/GcpConnector/CreateGcpConnector'
 import HelmRepoConnector from '../CreateConnector/HelmRepoConnector/HemRepoConnector'
 import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
+import ServiceNowConnector from '../CreateConnector/ServiceNowConnector/ServiceNowConnector'
 import CreateAwsKmsConnector from '../CreateConnector/AWSKmsConnector/CreateAwsKmsConnector'
 import CreateGcpKmsConnector from '../CreateConnector/GcpKmsConnector/CreateGcpKmsConnector'
 import CreateAwsSecretManagerConnector from '../CreateConnector/AWSSecretManager/CreateAwsSecretManagerConnector'
@@ -127,6 +128,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateCeGcpConnector {...commonProps} />
     case Connectors.PAGER_DUTY:
       return <CreatePagerDutyConnector {...commonProps} />
+    case Connectors.SERVICE_NOW:
+      return <ServiceNowConnector {...commonProps} />
     default:
       return null
   }

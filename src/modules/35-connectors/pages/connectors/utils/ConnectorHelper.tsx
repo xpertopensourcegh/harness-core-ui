@@ -103,6 +103,8 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.title.nexus'
     case Connectors.Jira:
       return 'connectors.title.jira'
+    case Connectors.SERVICE_NOW:
+      return 'connectors.title.serviceNow'
     case Connectors.ARTIFACTORY:
       return 'connectors.title.artifactory'
     case Connectors.GCP:
@@ -170,6 +172,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-artifactory'
     case Connectors.Jira:
       return 'service-jira'
+    case Connectors.SERVICE_NOW:
+      return 'service-servicenow'
     case Connectors.GCP:
     case Connectors.CE_GCP:
     case 'Gcr':

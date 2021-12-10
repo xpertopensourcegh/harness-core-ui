@@ -78,6 +78,7 @@ title:
   bitbucketConnector: 'Bitbucket Connector'
   hashicorpVault: 'HashiCorp Vault'
   jira: 'Jira'
+  serviceNow: 'ServiceNow'
   secretManager: 'Secret Manager'
   appdynamics: 'AppDynamics Connector'
   splunk: 'Splunk Connector'
@@ -151,12 +152,17 @@ testConnectionStep:
     pagerduty: Validating PagerDuty authentication and permissions
     azureKeyVault: Validating Azure key vault authentication and permissions
     jira: Validating Jira authentication and permissions
+    serviceNow: Validating ServiceNow authentication and permissions
     sumologic: Validating Sumologic authentication and permissions
     gcpKms: Validating GCP Key Management Service authentication and permissions
+validation:
+  serviceNowUrl: 'ServiceNow URL is required.'
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:
   jiraUrl: 'Jira URL'
+serviceNow:
+  serviceNowUrl: 'ServiceNow URL'
 k8:
   delegateOutClusterInfo: 'Specify master URL and credentials'
   delegateInClusterInfo: '{{ $.connectors.delegateInClusterInfo }}'
