@@ -148,4 +148,36 @@ describe('<ExecutionActions /> tests', () => {
 
     expect(result!.container).toMatchSnapshot('repeat button should be disabled as cd, ci are not allowed')
   })
+
+  test('do not show the edit buttonif prop is false', () => {
+    const mutate = jest.fn()
+    ;(useHandleInterrupt as jest.Mock).mockImplementation(() => ({
+      mutate,
+      loading: true,
+      data: null
+    }))
+
+    let result: RenderResult
+
+    act(() => {
+      result = render(
+        <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+          <ExecutionActions
+            params={pathParams as any}
+            executionStatus="Expired"
+            refetch={jest.fn()}
+            showEditButton={false}
+          />
+        </TestWrapper>
+      )
+    })
+
+    const moreIcon = result!.container.querySelector('span[icon="more"]')
+    act(() => {
+      fireEvent.click(moreIcon!)
+    })
+    const menuItems = result!.baseElement.querySelectorAll('.bp3-menu-item')
+    const editPipelineMenuItem = Array.from(menuItems).find(item => item.textContent === 'editPipeline')
+    expect(editPipelineMenuItem).toBeUndefined()
+  })
 })

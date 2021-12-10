@@ -54,6 +54,7 @@ export interface ExecutionActionsProps {
   canExecute?: boolean
   canRetry?: boolean
   modules?: string[]
+  showEditButton?: boolean
 }
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
@@ -66,7 +67,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     canExecute = true,
     stageName,
     canRetry = false,
-    modules
+    modules,
+    showEditButton = true
   } = props
   const {
     orgIdentifier,
@@ -297,21 +299,23 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         <Popover position="bottom-right" minimal>
           <Button icon="more" {...commonButtonProps} className={css.more} />
           <Menu>
-            <Link
-              className={`bp3-menu-item${!canEdit ? ' bp3-disabled' : ''}`}
-              to={routes.toPipelineStudio({
-                orgIdentifier,
-                projectIdentifier,
-                pipelineIdentifier,
-                accountId,
-                module,
-                branch,
-                repoIdentifier
-              })}
-              onClick={e => !canEdit && e.preventDefault()}
-            >
-              {getString('editPipeline')}
-            </Link>
+            {showEditButton ? (
+              <Link
+                className={`bp3-menu-item${!canEdit ? ' bp3-disabled' : ''}`}
+                to={routes.toPipelineStudio({
+                  orgIdentifier,
+                  projectIdentifier,
+                  pipelineIdentifier,
+                  accountId,
+                  module,
+                  branch,
+                  repoIdentifier
+                })}
+                onClick={e => !canEdit && e.preventDefault()}
+              >
+                {getString('editPipeline')}
+              </Link>
+            ) : null}
             {stageId ? null : (
               <RbacMenuItem
                 featuresProps={{ featuresRequest: { featureNames: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH] } }}

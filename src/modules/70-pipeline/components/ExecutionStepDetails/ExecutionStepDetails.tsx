@@ -95,10 +95,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
   return (
     <div className={css.main}>
       <div className={css.header}>
-        <div className={css.title}>
-          {getString('pipeline.execution.stepTitlePrefix')}
-          {selectedStep.name}
-        </div>
+        <div className={css.title}>{selectedStep.name}</div>
         <div className={css.actions}>
           {interruptHistories.length > 0 ? (
             <Popover

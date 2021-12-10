@@ -1,6 +1,7 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
+import { ButtonSize, ButtonVariation } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Duration } from '@common/components/Duration/Duration'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -12,6 +13,7 @@ import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { usePermission } from '@rbac/hooks/usePermission'
+import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
@@ -25,9 +27,10 @@ import css from './ExecutionHeader.module.scss'
 export function ExecutionHeader(): React.ReactElement {
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } =
     useParams<PipelineType<ExecutionPathProps>>()
-  const { refetch, pipelineExecutionDetail } = useExecutionContext()
+  const { refetch, pipelineExecutionDetail, selectedStageId, selectedStepId, allNodeMap } = useExecutionContext()
   const { getString } = useStrings()
   const { pipelineExecutionSummary = {} } = pipelineExecutionDetail || {}
+  const history = useHistory()
 
   const [canEdit, canExecute] = usePermission(
     {
@@ -100,6 +103,40 @@ export function ExecutionHeader(): React.ReactElement {
               canRetry={pipelineExecutionSummary.canRetry || false}
             />
           )}
+          <RbacButton
+            variation={ButtonVariation.SECONDARY}
+            size={ButtonSize.SMALL}
+            permission={{
+              resourceScope: { orgIdentifier, projectIdentifier, accountIdentifier: accountId },
+              resource: {
+                resourceType: ResourceType.PIPELINE,
+                resourceIdentifier: pipelineIdentifier as string
+              },
+              permission: PermissionIdentifier.EDIT_PIPELINE
+            }}
+            icon="edit"
+            text={getString('edit')}
+            onClick={ev => {
+              ev.stopPropagation()
+              const allNodes = Object.values(allNodeMap)
+              const matchedStepNode = allNodes?.find(eachNode => eachNode.uuid === selectedStepId)
+              const matchedStageNode = allNodes?.find(eachNode => eachNode.setupId === selectedStageId)
+              history.push(
+                routes.toPipelineStudio({
+                  orgIdentifier,
+                  projectIdentifier,
+                  pipelineIdentifier,
+                  accountId,
+                  module,
+                  repoIdentifier: pipelineExecutionSummary?.gitDetails?.repoIdentifier,
+                  branch: pipelineExecutionSummary?.gitDetails?.branch,
+                  stageId: matchedStageNode?.identifier,
+                  stepId: matchedStepNode?.identifier
+                })
+              )
+            }}
+          />
+
           <ExecutionActions
             executionStatus={pipelineExecutionSummary.status as ExecutionStatus}
             refetch={refetch}
@@ -115,6 +152,7 @@ export function ExecutionHeader(): React.ReactElement {
               stagesExecuted: pipelineExecutionSummary?.stagesExecuted
             }}
             canEdit={canEdit}
+            showEditButton={false}
             canExecute={canExecute}
             canRetry={pipelineExecutionSummary.canRetry}
             modules={pipelineExecutionSummary.modules}

@@ -417,7 +417,6 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                   <div
                     class="title"
                   >
-                    pipeline.execution.stepTitlePrefix
                     Rollout Deployment
                   </div>
                   <div

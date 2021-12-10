@@ -116,6 +116,10 @@ export const getNodeStyles = (
         style.borderColor = 'var(--execution-pipeline-color-blue)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : Utils.getRealCSSColor(Color.WHITE)
         break
+      case ExecutionStatusEnum.Expired:
+        style.borderColor = isSelected ? 'var(--execution-pipeline-color-blue)' : Utils.getRealCSSColor(Color.WHITE)
+        break
+
       case ExecutionStatusEnum.Running:
       case ExecutionStatusEnum.AsyncWaiting:
       case ExecutionStatusEnum.TaskWaiting:
