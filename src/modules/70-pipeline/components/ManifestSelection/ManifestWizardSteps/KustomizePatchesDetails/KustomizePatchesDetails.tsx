@@ -80,21 +80,6 @@ const submitKustomizePatchData = (
   return manifestObj
 }
 
-const Footer = (previousStep: any, prevStepData: any): React.ReactElement => {
-  const { getString } = useStrings()
-  return (
-    <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
-      <Button
-        variation={ButtonVariation.SECONDARY}
-        text={getString('back')}
-        icon="chevron-left"
-        onClick={() => previousStep?.(prevStepData)}
-      />
-      <Button variation={ButtonVariation.PRIMARY} type="submit" text={getString('submit')} rightIcon="chevron-right" />
-    </Layout.Horizontal>
-  )
-}
-
 const renderBranch = (formik: any, isReadonly: boolean, label: string, placeholder: string, expressions?: any) => {
   return (
     <div
@@ -413,7 +398,20 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
                 </MultiTypeFieldSelector>
               </div>
             </div>
-            <Footer previousStep={previousStep} prevStepData={prevStepData} />
+            <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
+              <Button
+                variation={ButtonVariation.SECONDARY}
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>
