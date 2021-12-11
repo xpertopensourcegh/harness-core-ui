@@ -369,7 +369,7 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
 }
 
 export interface BurnRate {
-  currentRatePercentage?: number
+  currentRatePercentage: number
 }
 
 export type CEAwsConnector = ConnectorConfigDTO & {
@@ -556,6 +556,7 @@ export interface ConnectorInfoDTO {
     | 'SumoLogic'
     | 'PagerDuty'
     | 'CustomHealth'
+    | 'ServiceNow'
 }
 
 export interface ControlClusterSummary {
@@ -1764,7 +1765,6 @@ export interface HealthSourceDTO {
 
 export interface HealthSourceSpec {
   connectorRef?: string
-  metricDefinitions?: StackdriverDefinition[]
 }
 
 export interface HealthSourceSummary {
@@ -2289,11 +2289,6 @@ export type MonthlyCalenderSpec = CalenderSpec & {
   dayOfMonth: number
 }
 
-export interface NGTag {
-  key: string
-  value: string
-}
-
 export interface NewRelicApplication {
   applicationId?: number
   applicationName?: string
@@ -2320,6 +2315,7 @@ export interface NewRelicMetricDefinition {
   identifier: string
   metricName: string
   nrql?: string
+  queryType?: 'SERVICE_BASED' | 'HOST_BASED'
   responseMapping?: MetricResponseMapping
   riskProfile?: RiskProfile
   sli?: Slidto
@@ -2665,7 +2661,7 @@ export interface PrometheusSampleData {
 export type QuarterlyCalenderSpec = CalenderSpec & { [key: string]: any }
 
 export interface QueryDTO {
-  indexes: string[]
+  indexes?: string[]
   name: string
   query: string
   serviceInstanceIdentifier: string
@@ -3812,18 +3808,21 @@ export interface SLIMetricSpec {
 }
 
 export interface SLODashboardWidget {
-  burnRate?: BurnRate
-  errorBudgetBurndown?: Point[]
-  errorBudgetRemainingPercentage?: number
-  healthSourceIdentifier?: string
-  healthSourceName?: string
-  monitoredServiceIdentifier?: string
-  monitoredServiceName?: string
-  sloPerformanceTrend?: Point[]
-  tags?: NGTag[]
-  timeRemainingDays?: number
-  title?: string
-  type?: 'Availability' | 'Latency'
+  burnRate: BurnRate
+  errorBudgetBurndown: Point[]
+  errorBudgetRemainingPercentage: number
+  healthSourceIdentifier: string
+  healthSourceName: string
+  monitoredServiceIdentifier: string
+  monitoredServiceName: string
+  sloIdentifier: string
+  sloPerformanceTrend: Point[]
+  tags?: {
+    [key: string]: string
+  }
+  timeRemainingDays: number
+  title: string
+  type: 'Availability' | 'Latency'
 }
 
 export interface SLOTarget {
@@ -3924,6 +3923,14 @@ export interface ServiceLevelObjectiveResponse {
   createdAt?: number
   lastModifiedAt?: number
   serviceLevelObjective: ServiceLevelObjectiveDTO
+}
+
+export type ServiceNowConnector = ConnectorConfigDTO & {
+  delegateSelectors?: string[]
+  passwordRef: string
+  serviceNowUrl: string
+  username?: string
+  usernameRef?: string
 }
 
 export interface ServiceRisk {

@@ -15,7 +15,6 @@ import { QueryType } from '@cv/pages/health-source/common/HealthSourceQueryType/
 import GroupName from '@cv/components/GroupName/GroupName'
 import MetricLineChart from '@cv/pages/health-source/common/MetricLineChart/MetricLineChart'
 import { updateSelectedMetricsMap, initializeGroupNames } from '../../NewRelicHealthSourceContainer.util'
-import { mockedSampleRecord } from './NewRelicMappedMetric.constants'
 import { NewRelicHealthSourceFieldNames } from '../../NewRelicHealthSource.constants'
 import { getOptionsForChart } from './NewRelicMappedMetric.utils'
 import css from '../../NewrelicMonitoredSource.module.scss'
@@ -73,7 +72,7 @@ export default function NewRelicMappedMetric({
   )
   const {
     // Note - this will be uncommented once the api is fixed
-    // data: nrqlResponse,
+    data: nrqlResponse,
     refetch: fetchRecords,
     loading,
     error
@@ -82,8 +81,7 @@ export default function NewRelicMappedMetric({
     lazy: true
   })
 
-  // const sampleRecord = nrqlResponse?.data as Record<string, any>
-  const sampleRecord = mockedSampleRecord?.data as Record<string, any>
+  const sampleRecord = nrqlResponse?.data as Record<string, any>
 
   const queryParamsForTimeSeriesData = useMemo(
     () => ({

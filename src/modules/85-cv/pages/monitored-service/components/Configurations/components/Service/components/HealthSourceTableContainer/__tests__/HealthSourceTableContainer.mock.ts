@@ -71,7 +71,6 @@ export const healthSourceList: HealthSource = {
   identifier: 'dasdasdsa',
   type: 'AppDynamics',
   spec: {
-    connectorRef: 'account.appdtest',
-    metricDefinitions: []
+    connectorRef: 'account.appdtest'
   }
 }

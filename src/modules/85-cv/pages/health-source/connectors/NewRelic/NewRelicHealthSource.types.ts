@@ -1,5 +1,5 @@
 import type { SelectOption } from '@wings-software/uicore'
-import type { MetricPackDTO, NewRelicMetricDefinition } from 'services/cv'
+import type { MetricPackDTO } from 'services/cv'
 import type { HealthSourceTypes } from '../../types'
 
 export type MapNewRelicMetric = {
@@ -42,8 +42,4 @@ export interface NewRelicData {
   applicationId: string
   metricPacks: MetricPackDTO[]
   mappedServicesAndEnvs: Map<string, MapNewRelicMetric>
-}
-
-export interface NewRelicMetric extends NewRelicMetricDefinition {
-  queryType?: string
 }

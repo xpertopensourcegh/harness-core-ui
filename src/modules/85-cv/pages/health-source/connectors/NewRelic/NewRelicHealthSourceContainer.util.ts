@@ -2,17 +2,17 @@ import type { SelectOption } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { v4 as uuid } from 'uuid'
 import type { UseStringsReturn } from 'framework/strings'
-import type { NewRelicHealthSourceSpec, RiskProfile } from 'services/cv'
+import type { NewRelicHealthSourceSpec, NewRelicMetricDefinition, RiskProfile } from 'services/cv'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { HealthSourceTypes } from '../../types'
-import type { NewRelicData, NewRelicMetric } from './NewRelicHealthSource.types'
+import type { NewRelicData } from './NewRelicHealthSource.types'
 
 export const createNewRelicPayload = (formData: any): UpdatedHealthSource | null => {
   const specPayload = {
     applicationName: formData?.newRelicApplication?.label,
     applicationId: formData?.newRelicApplication?.value,
     metricData: formData?.metricData,
-    newRelicMetricDefinitions: [] as NewRelicMetric[]
+    newRelicMetricDefinitions: [] as NewRelicMetricDefinition[]
   }
 
   if (formData.showCustomMetric) {
