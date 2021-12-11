@@ -374,7 +374,7 @@ export const getIconStyleBasedOnStatus = (
     toReturn = { color: Utils.getRealCSSColor(Color.WHITE) }
   }
   if (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired) {
-    toReturn = { color: Utils.getRealCSSColor(Color.GREEN_500) }
+    toReturn = { color: Utils.getRealCSSColor(Color.GREY_500) }
   }
 
   if (data.stepType === StepType.HarnessApproval && !isSelected) {

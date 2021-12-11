@@ -109,6 +109,7 @@ export class RunStep extends PipelineStep<RunStepData> {
   protected type = StepType.Run
   protected stepName = 'Configure Run Step'
   protected stepIcon: IconName = 'run-step'
+  protected stepIconColor = '#4F5162'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Run'
   protected stepPaletteVisible = false
 

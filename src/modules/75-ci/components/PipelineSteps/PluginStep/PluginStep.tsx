@@ -85,6 +85,7 @@ export class PluginStep extends PipelineStep<PluginStepData> {
   protected type = StepType.Plugin
   protected stepName = 'Configure Plugin Step'
   protected stepIcon: IconName = 'plugin-step'
+  protected stepIconColor = '#4F5162'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Plugin'
 
   protected stepPaletteVisible = false

@@ -262,7 +262,6 @@ exports[`stageinputset tests viewType DeploymentForm initial render 1`] = `
             data-icon="dependency-step"
           >
             <svg
-              fill="none"
               height="16"
               viewBox="0 0 32 32"
               width="16"
@@ -270,7 +269,7 @@ exports[`stageinputset tests viewType DeploymentForm initial render 1`] = `
             >
               <path
                 d="M16 9.59A4.795 4.795 0 1016 0a4.795 4.795 0 000 9.59zM4.795 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59zm12.819-20.196c-.507.138-1.06.185-1.614.185-.553 0-1.107-.047-1.614-.185v5.81L9.36 21.625a7.448 7.448 0 011.937 2.536L16 20.473l4.703 3.735a7.448 7.448 0 011.937-2.537l-5.026-4.011v-5.856zM27.204 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59z"
-                fill="#004BA4"
+                fill="currentColor"
               />
             </svg>
           </span>
@@ -615,7 +614,6 @@ exports[`stageinputset tests viewType DeploymentForm initial render2 1`] = `
             data-icon="dependency-step"
           >
             <svg
-              fill="none"
               height="16"
               viewBox="0 0 32 32"
               width="16"
@@ -623,7 +621,7 @@ exports[`stageinputset tests viewType DeploymentForm initial render2 1`] = `
             >
               <path
                 d="M16 9.59A4.795 4.795 0 1016 0a4.795 4.795 0 000 9.59zM4.795 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59zm12.819-20.196c-.507.138-1.06.185-1.614.185-.553 0-1.107-.047-1.614-.185v5.81L9.36 21.625a7.448 7.448 0 011.937 2.536L16 20.473l4.703 3.735a7.448 7.448 0 011.937-2.537l-5.026-4.011v-5.856zM27.204 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59z"
-                fill="#004BA4"
+                fill="currentColor"
               />
             </svg>
           </span>
@@ -968,7 +966,6 @@ exports[`stageinputset tests viewType InputSet initial render 1`] = `
             data-icon="dependency-step"
           >
             <svg
-              fill="none"
               height="16"
               viewBox="0 0 32 32"
               width="16"
@@ -976,7 +973,7 @@ exports[`stageinputset tests viewType InputSet initial render 1`] = `
             >
               <path
                 d="M16 9.59A4.795 4.795 0 1016 0a4.795 4.795 0 000 9.59zM4.795 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59zm12.819-20.196c-.507.138-1.06.185-1.614.185-.553 0-1.107-.047-1.614-.185v5.81L9.36 21.625a7.448 7.448 0 011.937 2.536L16 20.473l4.703 3.735a7.448 7.448 0 011.937-2.537l-5.026-4.011v-5.856zM27.204 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59z"
-                fill="#004BA4"
+                fill="currentColor"
               />
             </svg>
           </span>
@@ -1321,7 +1318,6 @@ exports[`stageinputset tests viewType InputSet initial render2 1`] = `
             data-icon="dependency-step"
           >
             <svg
-              fill="none"
               height="16"
               viewBox="0 0 32 32"
               width="16"
@@ -1329,7 +1325,7 @@ exports[`stageinputset tests viewType InputSet initial render2 1`] = `
             >
               <path
                 d="M16 9.59A4.795 4.795 0 1016 0a4.795 4.795 0 000 9.59zM4.795 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59zm12.819-20.196c-.507.138-1.06.185-1.614.185-.553 0-1.107-.047-1.614-.185v5.81L9.36 21.625a7.448 7.448 0 011.937 2.536L16 20.473l4.703 3.735a7.448 7.448 0 011.937-2.537l-5.026-4.011v-5.856zM27.204 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59z"
-                fill="#004BA4"
+                fill="currentColor"
               />
             </svg>
           </span>
