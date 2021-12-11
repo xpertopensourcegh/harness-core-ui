@@ -102,17 +102,10 @@ describe('Unit tests for NewRelic health source', () => {
 
     // default all metrics are selected
     container.querySelectorAll('[type="checkbox"]').forEach(metricCheckbox => {
-      expect(metricCheckbox).toBeChecked()
+      expect(metricCheckbox).not.toBeChecked()
     })
 
     await waitFor(() => expect(getByText('Performance')).toBeTruthy())
-
-    // uncheck all metric pack
-    container.querySelectorAll('[type="checkbox"]').forEach(async metricCheckbox => {
-      await act(() => {
-        fireEvent.click(metricCheckbox)
-      })
-    })
 
     await act(() => {
       fireEvent.click(getByText('submit'))

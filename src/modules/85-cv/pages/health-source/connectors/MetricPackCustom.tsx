@@ -40,7 +40,7 @@ export default function MetricPackCustom({
   useEffect(() => {
     if (metricPacks) {
       const metricData: { [key: string]: boolean } = {}
-      const metricList: MetricPackDTO[] = (metricPackValue?.length ? metricPackValue : metricPacks?.resource) || []
+      const metricList: MetricPackDTO[] = (metricPackValue ? metricPackValue : metricPacks?.resource) || []
       metricList.forEach((i: MetricPackDTO) => (metricData[i.identifier as string] = true))
       if (!isEmpty(metricData)) {
         setMetricDataValue(metricData)

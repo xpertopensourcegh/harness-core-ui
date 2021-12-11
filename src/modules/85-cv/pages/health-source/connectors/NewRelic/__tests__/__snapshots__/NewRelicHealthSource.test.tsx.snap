@@ -595,7 +595,7 @@ exports[`Unit tests for NewRelic health source Validation in create mode 1`] = `
                       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main horizontalCenterAlign"
                     >
                       <div
-                        class="bp3-form-group"
+                        class="bp3-form-group bp3-intent-danger"
                         data-id="metricData.Performance-1"
                       >
                         <div
@@ -629,6 +629,36 @@ exports[`Unit tests for NewRelic health source Validation in create mode 1`] = `
                                   </span>
                                 </label>
                               </div>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-helper-text"
+                          >
+                            <div
+                              class="FormError--errorDiv"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                                data-icon="circle-cross"
+                              >
+                                <svg
+                                  height="12"
+                                  viewBox="0 0 13 13"
+                                  width="12"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                              <span
+                                class="FormError--error"
+                              >
+                                cv.monitoringSources.appD.validations.selectMetricPack
+                              </span>
                             </div>
                           </div>
                         </div>

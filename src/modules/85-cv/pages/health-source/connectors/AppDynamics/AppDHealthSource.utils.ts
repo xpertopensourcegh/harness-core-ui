@@ -59,7 +59,11 @@ export const createAppDynamicsData = (sourceData: any): AppDynamicsData => {
     (source: UpdatedHealthSource) => source.identifier === sourceData.healthSourceIdentifier
   )
 
-  const { applicationName = '', tierName = '', metricPacks = [] } = (payload?.spec as AppDynamicsHealthSourceSpec) || {}
+  const {
+    applicationName = '',
+    tierName = '',
+    metricPacks = undefined
+  } = (payload?.spec as AppDynamicsHealthSourceSpec) || {}
 
   const appdData = {
     name: sourceData?.healthSourceName,
@@ -122,7 +126,9 @@ export const validateMapping = (
     )
   }
 
-  if (!metricValueList.length) {
+  const hasMetricNameAndCustomMetricAdded = !!values.metricName && values?.showCustomMetric
+
+  if (!metricValueList.length && !hasMetricNameAndCustomMetricAdded) {
     errors[AppDynamicsMonitoringSourceFieldNames.METRIC_DATA] = getString(
       'cv.monitoringSources.appD.validations.selectMetricPack'
     )
@@ -302,6 +308,8 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
         thresholdTypes.push('ACT_WHEN_HIGHER')
       }
 
+      const ifOnlySliIsSelected = Boolean(sli) && !(Boolean(healthScore) || Boolean(continuousVerification))
+
       specPayload?.metricDefinitions?.push({
         identifier: uuid(),
         metricName,
@@ -310,11 +318,13 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
         groupName: groupName?.value as string,
         sli: { enabled: Boolean(sli) },
         analysis: {
-          riskProfile: {
-            category,
-            metricType,
-            thresholdTypes
-          },
+          riskProfile: ifOnlySliIsSelected
+            ? {}
+            : {
+                category,
+                metricType,
+                thresholdTypes
+              },
           liveMonitoring: { enabled: Boolean(healthScore) },
           deploymentVerification: { enabled: Boolean(continuousVerification), serviceInstanceMetricPath }
         }
@@ -378,7 +388,7 @@ export const submitData = (
   onSubmit(updatedValues)
 }
 
-export const convertMetricPackToMetricData = (value: MetricPackDTO[]) => {
+export const convertMetricPackToMetricData = (value?: MetricPackDTO[]) => {
   const dataObject: { [key: string]: boolean } = {}
   const metricList: MetricPackDTO[] = value || []
   metricList.forEach((i: MetricPackDTO) => (dataObject[i.identifier as string] = true))
@@ -392,7 +402,7 @@ export const createAppDFormData = (
   nonCustomFeilds: {
     appdApplication: string
     appDTier: string
-    metricPacks: MetricPackDTO[]
+    metricPacks?: MetricPackDTO[]
     metricData: {
       [key: string]: boolean
     }
@@ -418,7 +428,7 @@ export const initializeNonCustomFields = (appDynamicsData: AppDynamicsData) => {
   return {
     appdApplication: appDynamicsData.applicationName || '',
     appDTier: appDynamicsData.tierName || '',
-    metricPacks: appDynamicsData.metricPacks || null,
+    metricPacks: appDynamicsData.metricPacks || undefined,
     metricData: convertMetricPackToMetricData(appDynamicsData?.metricPacks)
   }
 }

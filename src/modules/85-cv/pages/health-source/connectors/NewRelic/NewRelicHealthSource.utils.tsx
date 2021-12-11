@@ -166,7 +166,7 @@ export function initializeCreatedMetrics(
   }
 }
 
-export const convertMetricPackToMetricData = (value: MetricPackDTO[]) => {
+export const convertMetricPackToMetricData = (value?: MetricPackDTO[]) => {
   const dataObject: { [key: string]: boolean } = {}
   const metricList: MetricPackDTO[] = value || []
   metricList.forEach((i: MetricPackDTO) => (dataObject[i.identifier as string] = true))
@@ -176,7 +176,7 @@ export const convertMetricPackToMetricData = (value: MetricPackDTO[]) => {
 export const initializeNonCustomFields = (newRelicData: NewRelicData) => {
   return {
     newRelicApplication: { label: newRelicData?.applicationName, value: newRelicData?.applicationId },
-    metricPacks: newRelicData?.metricPacks || null,
+    metricPacks: newRelicData?.metricPacks || undefined,
     metricData: convertMetricPackToMetricData(newRelicData?.metricPacks)
   }
 }
@@ -187,7 +187,7 @@ export const createNewRelicFormData = (
   selectedMetric: string,
   nonCustomFeilds: {
     newRelicApplication: SelectOption
-    metricPacks: MetricPackDTO[]
+    metricPacks?: MetricPackDTO[]
     metricData: {
       [key: string]: boolean
     }

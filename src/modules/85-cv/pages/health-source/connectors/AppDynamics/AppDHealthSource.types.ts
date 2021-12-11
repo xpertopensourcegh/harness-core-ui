@@ -42,7 +42,7 @@ export interface AppDynamicsData {
   type: HealthSourceTypes
   applicationName: string
   tierName: string
-  metricPacks: MetricPackDTO[]
+  metricPacks?: MetricPackDTO[]
   showCustomMetric?: boolean
   mappedServicesAndEnvs: Map<string, MapAppDynamicsMetric>
 }
@@ -59,7 +59,7 @@ export interface AppDynamicsFomikFormInterface {
   showCustomMetric?: boolean
   appdApplication: string
   appDTier: string
-  metricPacks: MetricPackDTO[]
+  metricPacks?: MetricPackDTO[]
   metricData: {
     [key: string]: boolean
   }

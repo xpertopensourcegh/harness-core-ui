@@ -51,6 +51,41 @@ describe('Test Util funcitons', () => {
     expect(createAppDynamicsPayload(formData)).toEqual(formDataExpectedOutput)
   })
 
+  test('should validate createAppDynamicsPayload ifOnlySliIsSelected and no metricPack selected', () => {
+    jest.spyOn(uuid, 'v4').mockReturnValue('MockedUUID')
+    // set SLI true and no MetricData as non selected
+    formData.sli = true
+    formData.continuousVerification = false
+    formData.healthScore = false
+    formData.metricData = { Performance: false, Errors: false }
+    const mappedValue = formData.mappedServicesAndEnvs.get(formData.metricName)
+    mappedValue.sli = true
+    mappedValue.continuousVerification = false
+    mappedValue.healthScore = false
+    mappedValue.metricData = { Performance: false, Errors: false }
+    formData.mappedServicesAndEnvs.set(formData.metricName, mappedValue)
+    // set riskProfile to undefined
+    formDataExpectedOutput.spec.metricPacks = []
+    formDataExpectedOutput.spec.metricData.Errors = false
+    formDataExpectedOutput.spec.metricData.Performance = false
+    formDataExpectedOutput.spec.metricDefinitions[1].sli = { enabled: true }
+    formDataExpectedOutput.spec.metricDefinitions[1].analysis.deploymentVerification = {
+      enabled: false,
+      serviceInstanceMetricPath: undefined
+    }
+    formDataExpectedOutput.spec.metricDefinitions[1].analysis.riskProfile = {} as any
+    expect(createAppDynamicsPayload(formData)).toEqual(formDataExpectedOutput)
+
+    // Metrick packs are not selected
+    validateMappingNoError.metricData = { Performance: false, Errors: true }
+    validateMappingNoError.sli = true
+    validateMappingNoError.continuousVerification = false
+    validateMappingNoError.healthScore = false
+    expect(
+      validateMapping(validateMappingNoError, ['appdMetric Two', 'appdMetric One Updated'], 0, val => val)
+    ).toEqual({})
+  })
+
   test('should validate initializeNonCustomFields', () => {
     expect(initializeNonCustomFields(expectedAppDynamicData as any)).toEqual(nonCustomFeilds)
   })

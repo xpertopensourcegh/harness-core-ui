@@ -40,6 +40,6 @@ export interface NewRelicData {
   type: HealthSourceTypes
   applicationName: string
   applicationId: string
-  metricPacks: MetricPackDTO[]
+  metricPacks?: MetricPackDTO[]
   mappedServicesAndEnvs: Map<string, MapNewRelicMetric>
 }
