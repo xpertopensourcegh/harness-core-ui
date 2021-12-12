@@ -18,21 +18,23 @@ function visit(json: Record<string, any>, rows: Array<any>, path: Array<string> 
     // for backward references - it expects "config" json.
     throw new Error('max nesting level was reached.')
   }
-  for (const entry of Object.entries(json)) {
-    if (typeof entry[1] === 'object') {
-      rows.push({
-        key: entry[0],
-        path
-      })
-      visit(entry[1], rows, [...path, entry[0]])
-      // TODO - When exactly we need to have empty rows?
-      // rows.push(null);
-    } else {
-      rows.push({
-        key: entry[0],
-        value: entry[1],
-        path
-      })
+  if (json) {
+    for (const entry of Object.entries(json)) {
+      if (typeof entry[1] === 'object') {
+        rows.push({
+          key: entry[0],
+          path
+        })
+        visit(entry[1], rows, [...path, entry[0]])
+        // TODO - When exactly we need to have empty rows?
+        // rows.push(null);
+      } else {
+        rows.push({
+          key: entry[0],
+          value: entry[1],
+          path
+        })
+      }
     }
   }
 }
