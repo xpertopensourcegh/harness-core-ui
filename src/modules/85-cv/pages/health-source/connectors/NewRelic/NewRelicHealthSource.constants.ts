@@ -3,6 +3,7 @@ export const NewRelicHealthSourceFieldNames = {
   METRIC_DATA: 'metricData',
 
   METRIC_NAME: 'metricName',
+  METRIC_IDENTIFIER: 'metricIdentifier',
   GROUP_NAME: 'groupName',
 
   NEWRELIC_QUERY: 'query',

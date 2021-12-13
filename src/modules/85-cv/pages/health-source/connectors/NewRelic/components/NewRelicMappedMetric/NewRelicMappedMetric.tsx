@@ -1,15 +1,23 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Accordion, FormInput, SelectOption, Utils, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useGetMetricPacks, useGetLabelNames, useGetSampleDataForNRQL, useGetParsedTimeseries } from 'services/cv'
+import {
+  useGetMetricPacks,
+  useGetLabelNames,
+  useGetSampleDataForNRQL,
+  useGetParsedTimeseries,
+  NewRelicMetricDefinition
+} from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import SelectHealthSourceServices from '@cv/pages/health-source/common/SelectHealthSourceServices/SelectHealthSourceServices'
 import { HealthSourceQueryType } from '@cv/pages/health-source/common/HealthSourceQueryType/HealthSourceQueryType'
 import { QueryViewer } from '@cv/components/QueryViewer/QueryViewer'
+import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { InputWithDynamicModalForJson } from '@cv/components/InputWithDynamicModalForJson/InputWithDynamicModalForJson'
 import { QueryType } from '@cv/pages/health-source/common/HealthSourceQueryType/HealthSourceQueryType.types'
 import GroupName from '@cv/components/GroupName/GroupName'
@@ -135,6 +143,15 @@ export default function NewRelicMappedMetric({
 
   const isSelectingJsonPathDisabled = !isQueryExecuted || loading || !sampleRecord
 
+  const {
+    sourceData: { existingMetricDetails }
+  } = useContext(SetupSourceTabsContext)
+  const metricDefinitions = existingMetricDetails?.spec?.newRelicMetricDefinitions
+  const currentSelectedMetricDetail = metricDefinitions?.find(
+    (metricDefinition: NewRelicMetricDefinition) =>
+      metricDefinition.metricName === mappedMetrics.get(selectedMetric || '')?.metricName
+  )
+
   return (
     <SetupSourceLayout
       leftPanelContent={
@@ -193,7 +210,14 @@ export default function NewRelicMappedMetric({
                 summary={getString('cv.monitoringSources.mapMetricsToServices')}
                 details={
                   <>
-                    <FormInput.Text label={getString('cv.monitoringSources.metricNameLabel')} name={'metricName'} />
+                    <NameId
+                      nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+                      identifierProps={{
+                        inputName: NewRelicHealthSourceFieldNames.METRIC_NAME,
+                        idName: NewRelicHealthSourceFieldNames.METRIC_IDENTIFIER,
+                        isIdentifierEditable: Boolean(!currentSelectedMetricDetail?.identifier)
+                      }}
+                    />
                     <GroupName
                       groupNames={newRelicGroupName}
                       onChange={formikSetField}

@@ -8,6 +8,7 @@ export const appdMetric = {
     basePathDropdown_1: { path: 'Overall Application Performance', value: '' }
   },
   metricName: 'appdMetric',
+  metricIdentifier: 'appdMetric',
   riskCategory: 'Errors/ERROR',
   serviceInstance: null,
   lowerBaselineDeviation: true,
@@ -27,6 +28,7 @@ const appdMetricNew = {
     basePathDropdown_1: { path: 'Application Infrastructure Performance', value: '' }
   },
   metricName: 'appdMetric new',
+  metricIdentifier: 'appdMetricNew',
   riskCategory: 'Errors/THROUGHPUT',
   serviceInstance: null,
   lowerBaselineDeviation: true,
@@ -62,6 +64,7 @@ export const formikValues = {
     basePathDropdown_1: { path: 'Overall Application Performance', value: '' }
   },
   metricName: 'appdMetric',
+  metricIdentifier: 'appdMetric',
   riskCategory: 'Errors/ERROR',
   serviceInstance: null,
   lowerBaselineDeviation: true,
@@ -92,6 +95,7 @@ const exectedMetricData = {
     basePathDropdown_1: { path: 'Overall Application Performance', value: '' }
   },
   metricName: 'appdMetric',
+  metricIdentifier: 'appdMetric',
   riskCategory: 'Errors/ERROR',
   serviceInstance: null,
   lowerBaselineDeviation: true,
@@ -112,6 +116,7 @@ const exectedNewMetricData = {
     basePathDropdown_1: { path: 'Application Infrastructure Performance', value: '' }
   },
   metricName: 'appdMetric new',
+  metricIdentifier: 'appdMetricNew',
   riskCategory: 'Errors/THROUGHPUT',
   serviceInstance: null,
   lowerBaselineDeviation: true,

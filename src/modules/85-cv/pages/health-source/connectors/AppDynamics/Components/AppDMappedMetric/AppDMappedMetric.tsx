@@ -1,14 +1,21 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Accordion, FormInput, SelectOption, Utils } from '@wings-software/uicore'
+import { Container, Accordion, SelectOption, Utils } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useGetMetricPacks, useGetLabelNames, useGetServiceInstanceMetricPath } from 'services/cv'
+import {
+  useGetMetricPacks,
+  useGetLabelNames,
+  useGetServiceInstanceMetricPath,
+  AppDMetricDefinitions
+} from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { GroupName } from '@cv/pages/health-source/common/GroupName/GroupName'
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import SelectHealthSourceServices from '@cv/pages/health-source/common/SelectHealthSourceServices/SelectHealthSourceServices'
+import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import {
   updateSelectedMetricsMap,
   getBasePathValue,
@@ -79,6 +86,16 @@ export default function AppDMappedMetric({
 
   const [appdGroupName, setAppdGroupName] = useState<SelectOption[]>(initializeGroupNames(mappedMetrics, getString))
   const basePathValue = getBasePathValue(formikValues?.basePath)
+
+  const {
+    sourceData: { existingMetricDetails }
+  } = useContext(SetupSourceTabsContext)
+  const metricDefinitions = existingMetricDetails?.spec?.metricDefinitions
+  const currentSelectedMetricDetail = metricDefinitions?.find(
+    (metricDefinition: AppDMetricDefinitions) =>
+      metricDefinition.metricName === mappedMetrics.get(selectedMetric || '')?.metricName
+  )
+
   return (
     <SetupSourceLayout
       leftPanelContent={
@@ -140,7 +157,14 @@ export default function AppDMappedMetric({
                 summary={getString('cv.monitoringSources.mapMetricsToServices')}
                 details={
                   <>
-                    <FormInput.Text label={getString('cv.monitoringSources.metricNameLabel')} name={'metricName'} />
+                    <NameId
+                      nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+                      identifierProps={{
+                        inputName: AppDynamicsMonitoringSourceFieldNames.METRIC_NAME,
+                        idName: AppDynamicsMonitoringSourceFieldNames.METRIC_IDENTIFIER,
+                        isIdentifierEditable: Boolean(!currentSelectedMetricDetail?.identifier)
+                      }}
+                    />
                     <GroupName
                       groupNames={appdGroupName}
                       onChange={formikSetField}

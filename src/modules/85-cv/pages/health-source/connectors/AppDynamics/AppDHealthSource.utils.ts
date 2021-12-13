@@ -1,5 +1,4 @@
 import { cloneDeep, isEmpty } from 'lodash-es'
-import { v4 as uuid } from 'uuid'
 import type { FormikProps } from 'formik'
 import type { StringKeys } from 'framework/strings'
 import type { AppDMetricDefinitions, AppDynamicsHealthSourceSpec, MetricPackDTO, RiskProfile } from 'services/cv'
@@ -87,6 +86,7 @@ export const createAppDynamicsData = (sourceData: any): AppDynamicsData => {
         metricPath: metricPathObj,
         basePath: basePathObj,
         metricName: metricDefinition.metricName,
+        metricIdentifier: metricDefinition.identifier,
         riskCategory:
           metricDefinition?.analysis?.riskProfile?.category && metricDefinition?.analysis?.riskProfile?.metricType
             ? `${metricDefinition?.analysis?.riskProfile?.category}/${metricDefinition?.analysis?.riskProfile?.metricType}`
@@ -295,6 +295,7 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
         healthScore,
         basePath,
         metricPath,
+        metricIdentifier,
         serviceInstanceMetricPath
       } = entry[1]
 
@@ -311,7 +312,7 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
       const ifOnlySliIsSelected = Boolean(sli) && !(Boolean(healthScore) || Boolean(continuousVerification))
 
       specPayload?.metricDefinitions?.push({
-        identifier: uuid(),
+        identifier: metricIdentifier,
         metricName,
         baseFolder: basePath[Object.keys(basePath)[Object.keys(basePath).length - 1]]?.path,
         metricPath: metricPath[Object.keys(metricPath)[Object.keys(metricPath).length - 1]]?.path,

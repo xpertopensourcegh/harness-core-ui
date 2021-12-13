@@ -383,6 +383,7 @@ export const appDMetricValue = {
   higherBaselineDeviation: true,
   lowerBaselineDeviation: true,
   metricName: 'appdMetric',
+  metricIdentifier: 'appdMetric',
   metricPath: {
     metricPathDropdown_0: {
       path: '',
@@ -797,7 +798,7 @@ export const formDataExpectedOutput = {
         },
         baseFolder: 'Application Infrastructure Performance',
         groupName: 'Two',
-        identifier: 'MockedUUID',
+        identifier: undefined,
         metricName: 'appdMetric Two',
         metricPath: 'JVM',
         sli: {
@@ -821,7 +822,7 @@ export const formDataExpectedOutput = {
         },
         baseFolder: 'Overall Application Performance',
         groupName: 'One',
-        identifier: 'MockedUUID',
+        identifier: undefined,
         metricName: 'appdMetric One Updated',
         metricPath: 'Calls per Minute',
         sli: {
@@ -879,6 +880,7 @@ const appdMetricData = {
   higherBaselineDeviation: true,
   lowerBaselineDeviation: true,
   metricName: 'appdMetric',
+  metricIdentifier: 'appdMetric',
   metricPath: {
     metricPathDropdown_0: {
       path: '',
@@ -924,6 +926,7 @@ export const formikInitialData = {
   identifier: 'AppD_Single',
   isEdit: true,
   lowerBaselineDeviation: true,
+  metricIdentifier: 'appdMetric',
   metricData: {
     Errors: true,
     Performance: true
@@ -981,7 +984,7 @@ export const onSubmitPayload = {
         },
         baseFolder: 'Overall Application Performance',
         groupName: 'Group 1',
-        identifier: 'MockedUUID',
+        identifier: 'appdMetric',
         metricName: 'appdMetric',
         metricPath: 'Calls per Minute',
         sli: { enabled: true }

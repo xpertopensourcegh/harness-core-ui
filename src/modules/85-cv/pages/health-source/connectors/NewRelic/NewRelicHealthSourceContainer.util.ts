@@ -19,6 +19,7 @@ export const createNewRelicPayload = (formData: any): UpdatedHealthSource | null
     for (const entry of formData.mappedServicesAndEnvs.entries()) {
       const {
         metricName,
+        metricIdentifier,
         groupName,
         queryType,
         query,
@@ -45,7 +46,7 @@ export const createNewRelicPayload = (formData: any): UpdatedHealthSource | null
       }
 
       specPayload?.newRelicMetricDefinitions?.push({
-        identifier: uuid(),
+        identifier: metricIdentifier || uuid(),
         metricName,
         groupName: groupName?.value as string,
         nrql: query,
@@ -119,6 +120,7 @@ export const createNewRelicData = (sourceData: any): NewRelicData => {
     if (metricDefinition?.metricName) {
       newRelicData.mappedServicesAndEnvs.set(metricDefinition.metricName, {
         metricName: metricDefinition.metricName,
+        metricIdentifier: metricDefinition.identifier,
         groupName: { label: metricDefinition.groupName || '', value: metricDefinition.groupName || '' },
 
         queryType: (metricDefinition as any)?.queryType,

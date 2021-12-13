@@ -1,5 +1,6 @@
 export const AppDynamicsMonitoringSourceFieldNames = {
   METRIC_NAME: 'metricName',
+  METRIC_IDENTIFIER: 'metricIdentifier',
   APPDYNAMICS_APPLICATION: 'appdApplication',
   APPDYNAMICS_TIER: 'appDTier',
   METRIC_DATA: 'metricData',
