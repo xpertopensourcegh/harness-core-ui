@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Accordion, FormInput, SelectOption, Utils, Button } from '@wings-software/uicore'
+import { Container, Accordion, SelectOption, Utils, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import {
   useGetMetricPacks,
