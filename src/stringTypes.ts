@@ -1502,6 +1502,7 @@ export interface StringsMap {
   'connectors.ceK8.chooseRequirements.visibility.description': string
   'connectors.ceK8.chooseRequirements.visibility.heading': string
   'connectors.ceK8.chooseRequirements.visibility.subheading': string
+  'connectors.ceK8.featureWarning': string
   'connectors.ceK8.infoText': string
   'connectors.ceK8.overview.createNewConnectorCta': string
   'connectors.ceK8.providePermissionsStep.applyDelegateText': string
@@ -3406,6 +3407,8 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.title': string
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.newPerspective': string
+  'ce.perspectives.newPerspectiveLimitWarning': string
   'ce.perspectives.nodeDetails.aggregation.average': string
   'ce.perspectives.nodeDetails.aggregation.maximum': string
   'ce.perspectives.nodeDetails.nodeDetailsText': string
@@ -3443,6 +3446,8 @@ export interface StringsMap {
   'ce.perspectives.timeRangeConstants.thisMonth': string
   'ce.perspectives.timeRangeConstants.thisQuarter': string
   'ce.perspectives.timeRangeConstants.thisYear': string
+  'ce.perspectives.timeRangeLimitWarning.currentPlanOffer': string
+  'ce.perspectives.timeRangeLimitWarning.upgradeOffer': string
   'ce.perspectives.validations.emailRequired': string
   'ce.perspectives.validations.invalidEmails': string
   'ce.perspectives.validations.reportNameRequired': string

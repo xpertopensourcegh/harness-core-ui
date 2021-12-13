@@ -44,6 +44,8 @@ import {
   getGMTEndDateTime,
   CE_DATE_FORMAT_INTERNAL
 } from '@ce/utils/momentUtils'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import EmptyView from '@ce/images/empty-state.svg'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
@@ -283,6 +285,20 @@ const PerspectiveDetailsPage: React.FC = () => {
     !chartFetching &&
     !gridFetching
 
+  // Uncomment this code when you uncomment
+  // <FeatureWarningSubscriptionInfoBanner />
+  // this flag is used to decide if we need to
+  // show the enforcement banner.
+  //
+  // const { enabled: featureEnabled } = useFeature({
+  //   featureRequest: {
+  //     featureName: FeatureIdentifier.PERSPECTIVES
+  //   }
+  // })
+
+  const { licenseInformation } = useLicenseStore()
+  const isFreeEdition = licenseInformation['CE']?.edition === ModuleLicenseType.FREE
+
   return (
     <>
       <PageHeader
@@ -296,6 +312,7 @@ const PerspectiveDetailsPage: React.FC = () => {
       <PageBody>
         {loading && <PageSpinner />}
         <PersepectiveExplorerFilters
+          featureEnabled={!isFreeEdition}
           setFilters={setFilters}
           filters={filters}
           setAggregation={setAggregation}
@@ -304,6 +321,19 @@ const PerspectiveDetailsPage: React.FC = () => {
           timeRange={timeRange}
           showHourlyAggr={isClusterOnly}
         />
+        {
+          // enable this when useGetUsageAndLimit is implemented by the GTM Team
+          // calculate the percentage utilisation and replace that value with 95%
+          // hardcoded here.
+          // Just confirm if we need to show the banner only if the utilisation
+          // reaches above certain threshold.
+          /* {!featureEnabled && (
+          <FeatureWarningSubscriptionInfoBanner
+            featureName={FeatureIdentifier.PERSPECTIVES}
+            message={`You have used ${95}% of your cloud spend subscription limit.`} // use useGetUsageAndLimit hook once it's implemented
+          />
+        )} */
+        }
         <PerspectiveSummary
           data={summaryData?.perspectiveTrendStats as any}
           fetching={summaryFetching}

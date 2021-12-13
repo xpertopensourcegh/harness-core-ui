@@ -10,5 +10,6 @@ declare const styles: {
   readonly body: string
   readonly hasBanner: string
   readonly hasNoBanner: string
+  readonly subscriptionLimitCtn: string
 }
 export default styles

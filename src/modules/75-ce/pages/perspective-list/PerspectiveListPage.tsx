@@ -5,6 +5,8 @@ import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { PageSpinner, useToaster } from '@common/components'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useCreatePerspective, useDeletePerspective, CEView } from 'services/ce'
 import {
   CcmMetaData,
@@ -16,6 +18,7 @@ import {
 } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
 import PerspectiveListView from '@ce/components/PerspectiveViews/PerspectiveListView'
+import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
 import { Utils } from '@ce/common/Utils'
@@ -146,6 +149,12 @@ const PerspectiveListPage: React.FC = () => {
     }
   }
 
+  const { enabled: featureEnabled, featureDetail } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.PERSPECTIVES
+    }
+  })
+
   const pespectiveList = data?.perspectives?.customerViews || []
 
   useMemo(() => {
@@ -194,14 +203,27 @@ const PerspectiveListPage: React.FC = () => {
         }
       />
       <Layout.Horizontal spacing="large" className={css.header}>
-        <Button
-          intent="primary"
-          text="New Perspective"
-          icon="plus"
-          onClick={async () => {
-            await createNewPerspective({}, false)
-          }}
-        />
+        <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
+          <Button
+            intent="primary"
+            text={getString('ce.perspectives.newPerspective')}
+            icon="plus"
+            disabled={!featureEnabled}
+            onClick={async () => {
+              await createNewPerspective({}, false)
+            }}
+          />
+          {!featureEnabled && (
+            <section className={css.limitWarningTooltipCtn}>
+              <FeatureWarningWithTooltip
+                featureName={FeatureIdentifier.PERSPECTIVES}
+                warningMessage={getString('ce.perspectives.newPerspectiveLimitWarning', {
+                  count: `${featureDetail?.count} / ${featureDetail?.limit}`
+                })}
+              />
+            </section>
+          )}
+        </Layout.Horizontal>
         <FlexExpander />
 
         <ExpandingSearchInput

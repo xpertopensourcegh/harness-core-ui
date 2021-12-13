@@ -15,5 +15,6 @@ declare const styles: {
   readonly loading: string
   readonly expandSearch: string
   readonly connectorEmptyStateImg: string
+  readonly limitWarningTooltipCtn: string
 }
 export default styles

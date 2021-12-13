@@ -12,6 +12,7 @@ import css from './FeatureWarning.module.scss'
 
 interface FeatureWarningTooltipProps {
   featureName: FeatureIdentifier
+  warningMessage?: string
 }
 
 export interface FeatureWarningProps {
@@ -46,7 +47,7 @@ export const WarningText = ({ tooltip }: WarningTextProps): ReactElement => {
   )
 }
 
-export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProps): ReactElement => {
+export const FeatureWarningTooltip = ({ featureName, warningMessage }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
   const customFeatureDescription = CustomFeatureDescriptor[featureName]
@@ -66,17 +67,17 @@ export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProp
       </Text>
       <Layout.Vertical spacing="small">
         <Text font={{ size: 'small' }} color={Color.GREY_700}>
-          {!customFeatureDescription && getString('common.feature.upgradeRequired.description')}
-          {customFeatureDescription || featureDescription}
+          {!warningMessage && !customFeatureDescription && getString('common.feature.upgradeRequired.description')}
+          {warningMessage || customFeatureDescription || featureDescription}
         </Text>
-        {!customFeatureDescription && getDescription()}
+        {!warningMessage && !customFeatureDescription && getDescription()}
         <ExplorePlansBtn featureName={featureName} />
       </Layout.Vertical>
     </Layout.Vertical>
   )
 }
 
-export const FeatureWarningWithTooltip = ({ featureName }: FeatureWarningProps): ReactElement => {
-  const tooltip = <FeatureWarningTooltip featureName={featureName} />
+export const FeatureWarningWithTooltip = ({ featureName, warningMessage }: FeatureWarningProps): ReactElement => {
+  const tooltip = <FeatureWarningTooltip featureName={featureName} warningMessage={warningMessage} />
   return <WarningText tooltip={tooltip} />
 }

@@ -111,6 +111,7 @@ interface PersepectiveExplorerFiltersProps {
   setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
   filters: QlceViewFilterInput[]
   showHourlyAggr?: boolean
+  featureEnabled?: boolean
 }
 
 const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = ({
@@ -120,7 +121,8 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
   setFilters,
   timeRange,
   filters,
-  showHourlyAggr
+  showHourlyAggr,
+  featureEnabled
 }) => {
   const last7DaysRange = DATE_RANGE_SHORTCUTS['LAST_7_DAYS']
   return (
@@ -129,7 +131,7 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
         <Icon name="ng-filter" size={20} />
         <ExplorerFilters timeRange={timeRange} filters={filters} setFilters={setFilters} />
         <FlexExpander />
-        <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />
+        <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} featureEnabled={featureEnabled} />
         <Text color="primary7">|</Text>
         <TimeGranularityDropDown
           aggregation={aggregation}

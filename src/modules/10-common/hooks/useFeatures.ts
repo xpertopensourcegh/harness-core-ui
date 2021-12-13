@@ -206,6 +206,7 @@ function getRequiredPlans(currentEdition?: Editions, map?: RestrictionMetadataMa
   if (!map || !currentEdition) {
     return editions
   }
+
   Object.entries(map).forEach(([key, value]) => {
     const edition = key as Editions
     if (lowerThanCurrentPlan(currentEdition, edition)) {

@@ -3,5 +3,6 @@
 declare const styles: {
   readonly header: string
   readonly search: string
+  readonly limitWarningTooltipCtn: string
 }
 export default styles

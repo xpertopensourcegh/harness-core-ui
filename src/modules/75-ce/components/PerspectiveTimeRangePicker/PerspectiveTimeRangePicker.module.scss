@@ -13,3 +13,10 @@
     background-color: var(--primary-1) !important;
   }
 }
+
+.subscriptionLimitCtn {
+  background-color: var(--grey-0) !important;
+  max-width: 300px;
+  padding: 0 var(--spacing-small) var(--spacing-small) var(--spacing-small) !important;
+  border-bottom: 1px solid var(--grey-200);
+}

@@ -12,6 +12,7 @@ declare const styles: {
   readonly steps: string
   readonly step: string
   readonly stepName: string
+  readonly limitWarning: string
   readonly drawerSubLabel: string
   readonly categoriesRenderer: string
   readonly library: string

@@ -36,6 +36,7 @@ import type { AccountPathProps, Module } from '@common/interfaces/RouteInterface
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { TrialBannerProps } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import type { Editions } from '@common/constants/SubscriptionTypes'
+import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -92,7 +93,6 @@ const NoDataOverviewPage: React.FC<NoDataOverviewPageProps> = (props: NoDataOver
 
 const OverviewPage: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
-
   const [timeRange, setTimeRange] = useState<TimeRange>({
     to: DATE_RANGE_SHORTCUTS.LAST_30_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
     from: DATE_RANGE_SHORTCUTS.LAST_30_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
@@ -185,6 +185,7 @@ const OverviewPage: React.FC = () => {
           content={<PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />}
         />
         <Page.Body>
+          <CEUsageInfo />
           <Container padding={{ top: 'medium', right: 'xlarge', bottom: 'medium', left: 'xlarge' }}>
             <div className={css.mainContainer}>
               <div className={css.columnOne}>
@@ -240,6 +241,46 @@ const OverviewPage: React.FC = () => {
       </Container>
     </>
   )
+}
+
+// enable this when useGetUsageAndLimit is implemented by the GTM Team
+// calculate the percentage utilisation
+// Just confirm if we need to show the banner only if the utilisation
+// reaches above certain threshold.
+//
+// Also, there are certain TODOs in this component, complete them
+// for full functionality
+
+// const USAGE_THRESHOLD = 90 // in percentage
+const CEUsageInfo = () => {
+  const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CE)
+  const isLoading = limitData.loadingLimit || usageData.loadingUsage
+  if (isLoading) {
+    return null
+  }
+
+  // TODO: make use of usage and limit to calculate the percentage threshold.
+  //
+  // const { usage } = usageData
+  // const { limit } = limitData
+  // const usagePercentage = (usage / limit) * 100
+  // if (usagePercentage < USAGE_THRESHOLD) {
+  //   return null
+  // }
+
+  // TODO:
+  // This is temporary
+  // once useGetUsageAndLimit(ModuleName.CE) begins to work
+  // return the actual component below.
+  // Make sure to replace the 250k/250k with actual values of `usage` and `limit`
+  return null
+
+  // return (
+  //   <FeatureWarningUpgradeBanner
+  //     featureName={FeatureIdentifier.PERSPECTIVES}
+  //     message={`You have used $250K / $250K free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
+  //   />
+  // )
 }
 
 export default OverviewPage
