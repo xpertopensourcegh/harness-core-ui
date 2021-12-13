@@ -129,10 +129,7 @@ export default function NewRelicMappedMetric({
   }, [queryParamsForTimeSeriesData])
 
   const options = useMemo(() => {
-    // Note this will be useful if we have to mock the response.
-    // return mockedOptions
     return getOptionsForChart(newRelicTimeSeriesData)
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newRelicTimeSeriesData])
 
@@ -296,10 +293,6 @@ export default function NewRelicMappedMetric({
                         showExactJsonPath={true}
                       />
                     ) : null}
-                    <FormInput.Text
-                      label={getString('cv.healthSource.connectors.NewRelic.metricFields.timestampFormat')}
-                      name={NewRelicHealthSourceFieldNames.TIMESTAMP_FORMAT}
-                    />
                     <Button
                       intent="primary"
                       text={getString('cv.healthSource.connectors.buildChart')}

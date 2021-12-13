@@ -20,7 +20,7 @@ function visit(json: Record<string, any>, rows: Array<any>, path: Array<string> 
   }
   if (json) {
     for (const entry of Object.entries(json)) {
-      if (typeof entry[1] === 'object') {
+      if (typeof entry[1] === 'object' && entry[1] !== null) {
         rows.push({
           key: entry[0],
           path
