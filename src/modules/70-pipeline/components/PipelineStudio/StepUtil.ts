@@ -8,13 +8,15 @@ import reduce from 'lodash-es/reduce'
 import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
 import get from 'lodash-es/get'
+import { defaultTo } from 'lodash-es'
 import type {
   StageElementConfig,
   ExecutionWrapperConfig,
   PipelineInfoConfig,
   DeploymentStageConfig,
   Infrastructure,
-  StageElementWrapperConfig
+  StageElementWrapperConfig,
+  StepElementConfig
 } from 'services/cd-ng'
 
 import type { UseStringsReturn } from 'framework/strings'
@@ -73,6 +75,39 @@ export function getStageFromPipeline(
 }
 
 export interface ValidateStepProps {
+  step: StepElementConfig
+  template?: StepElementConfig
+  originalSteps?: ExecutionWrapperConfig[]
+  getString?: UseStringsReturn['getString']
+  viewType: StepViewType
+}
+
+const validateStep = ({
+  step,
+  template,
+  originalSteps,
+  getString,
+  viewType
+}: ValidateStepProps): FormikErrors<StepElementConfig> => {
+  const errors = {}
+  const originalStep = getStepFromStage(defaultTo(step.identifier, ''), originalSteps)
+  const isTemplateStep = !!originalStep?.step?.template
+  const stepType = isTemplateStep ? StepType.Template : originalStep?.step?.type
+  const pipelineStep = factory.getStep(stepType)
+  const errorResponse = pipelineStep?.validateInputSet({
+    data: step,
+    template: template,
+    getString,
+    viewType
+  })
+  if (!isEmpty(errorResponse)) {
+    const suffix = isTemplateStep ? '.template.templateInputs' : ''
+    set(errors, `step${suffix}`, errorResponse)
+  }
+  return errors
+}
+
+export interface ValidateStepsProps {
   steps: ExecutionWrapperConfig[]
   template?: ExecutionWrapperConfig[]
   originalSteps?: ExecutionWrapperConfig[]
@@ -80,47 +115,45 @@ export interface ValidateStepProps {
   viewType: StepViewType
 }
 
-const validateStep = ({
+const validateSteps = ({
   steps,
   template,
   originalSteps,
   getString,
   viewType
-}: ValidateStepProps): FormikErrors<ExecutionWrapperConfig> => {
+}: ValidateStepsProps): FormikErrors<ExecutionWrapperConfig> => {
   const errors = {}
   steps.forEach((stepObj, index) => {
     if (stepObj.step) {
-      const originalStep = getStepFromStage(stepObj.step.identifier || '', originalSteps)
-      const pipelineStep = factory.getStep(originalStep?.step?.type)
-      const errorResponse = pipelineStep?.validateInputSet({
-        data: stepObj.step,
+      const errorResponse = validateStep({
+        step: stepObj.step,
         template: template?.[index].step,
+        originalSteps,
         getString,
         viewType
       })
       if (!isEmpty(errorResponse)) {
-        set(errors, `steps[${index}].step`, errorResponse)
+        set(errors, `steps[${index}]`, errorResponse)
       }
     } else if (stepObj.parallel) {
       stepObj.parallel.forEach((stepParallel, indexP) => {
         if (stepParallel.step) {
-          const originalStep = getStepFromStage(stepParallel.step.identifier || '', originalSteps)
-          const pipelineStep = factory.getStep(originalStep?.step?.type)
-          const errorResponse = pipelineStep?.validateInputSet({
-            data: stepParallel.step,
+          const errorResponse = validateStep({
+            step: stepParallel.step,
             template: template?.[index]?.parallel?.[indexP]?.step,
+            originalSteps,
             getString,
             viewType
           })
           if (!isEmpty(errorResponse)) {
-            set(errors, `steps[${index}].parallel[${indexP}].step`, errorResponse)
+            set(errors, `steps[${index}].parallel[${indexP}]`, errorResponse)
           }
         }
       })
     } else if (stepObj.stepGroup) {
       const originalStepGroup = getStepFromStage(stepObj.stepGroup.identifier, originalSteps)
       if (stepObj.stepGroup.steps) {
-        const errorResponse = validateStep({
+        const errorResponse = validateSteps({
           steps: stepObj.stepGroup.steps,
           template: template?.[index]?.stepGroup?.steps,
           originalSteps: originalStepGroup?.stepGroup?.steps,
@@ -247,7 +280,7 @@ const validateStage = ({
     }
   }
   if (stageConfig?.execution?.steps) {
-    const errorsResponse = validateStep({
+    const errorsResponse = validateSteps({
       steps: stageConfig.execution.steps as ExecutionWrapperConfig[],
       template: templateStageConfig?.execution?.steps,
       originalSteps: originalStageConfig?.execution?.steps,
@@ -259,7 +292,7 @@ const validateStage = ({
     }
   }
   if (stageConfig?.execution?.rollbackSteps) {
-    const errorsResponse = validateStep({
+    const errorsResponse = validateSteps({
       steps: stageConfig.execution.rollbackSteps as ExecutionWrapperConfig[],
       template: templateStageConfig?.execution?.rollbackSteps,
       originalSteps: originalStageConfig?.execution?.rollbackSteps,

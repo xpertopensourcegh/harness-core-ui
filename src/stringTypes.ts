@@ -343,6 +343,7 @@ export interface StringsMap {
   'common.optionalLabel': string
   'common.options': string
   'common.or': string
+  'common.org': string
   'common.orgSetup': string
   'common.orgViewer': string
   'common.other': string

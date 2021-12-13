@@ -1,16 +1,60 @@
 import React from 'react'
 import type { FormikErrors } from 'formik'
 import type { IconName } from '@wings-software/uicore'
+import { parse } from 'yaml'
+import { defaultTo, get } from 'lodash-es'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
 import TemplateInputSetStep from '@templates-library/components/PipelineSteps/TemplateStep/TemplateInputSetStep'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor } from 'framework/logging/logging'
+import { ModuleName } from 'framework/types/ModuleName'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { getTemplateListPromise, TemplateSummaryResponse } from 'services/template-ng'
+import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
+import { TemplateType } from '@templates-library/utils/templatesUtils'
+import stepFactory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { TemplateStepWidgetWithRef } from './TemplateStepWidget/TemplateStepWidget'
 
+const logger = loggerFor(ModuleName.TEMPLATES)
+
+export const TemplateRegex = /^.+step\.template\.templateRef$/
+export const VersionLabelRegex = /^.+step\.template\.versionLabel$/
+
+const getTemplateValue = (template: TemplateSummaryResponse): string => {
+  if (template.projectIdentifier) {
+    return `${template.identifier}`
+  } else if (template.orgIdentifier) {
+    return `${Scope.ORG}.${template.identifier}`
+  } else {
+    return `${Scope.ACCOUNT}.${template.identifier}`
+  }
+}
+
+const getTemplateName = (template: TemplateSummaryResponse): string => {
+  const templateType = defaultTo(parse(defaultTo(template.yaml, ''))?.template?.spec?.type, '')
+  if (template.projectIdentifier) {
+    return `${templateType}: ${template.name}`
+  } else if (template.orgIdentifier) {
+    return `${templateType}['Org']: ${template.name}`
+  } else {
+    return `${templateType}['Account']: ${template.name}`
+  }
+}
+
 export class TemplateStep extends PipelineStep<TemplateStepData> {
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
   constructor() {
     super()
+    this.invocationMap.set(TemplateRegex, this.getTemplatesListForYaml.bind(this))
+    this.invocationMap.set(VersionLabelRegex, this.getVersionsListForYaml.bind(this))
+    this._hasStepVariables = true
   }
 
   protected type = StepType.Template
@@ -23,14 +67,96 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
     template: {} as any
   }
 
+  protected getTemplatesListForYaml(
+    _path: string,
+    _yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    return getTemplateListPromise({
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        includeAllTemplatesAvailableAtScope: true,
+        templateListType: TemplateListType.Stable
+      },
+      body: { templateEntityTypes: [TemplateType.Step], filterType: 'Template' }
+    }).then(response => {
+      return defaultTo(
+        response?.data?.content?.map(template => ({
+          label: getTemplateName(template),
+          insertText: getTemplateValue(template),
+          kind: CompletionItemKind.Field
+        })),
+        []
+      )
+    })
+  }
+
+  protected getVersionsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    const templateIdentifier = get(pipelineObj, path.replace('versionLabel', 'templateRef'))
+    return getTemplateListPromise({
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        includeAllTemplatesAvailableAtScope: true,
+        templateListType: TemplateListType.All
+      },
+      body: {
+        templateEntityTypes: [TemplateType.Step],
+        filterType: 'Template',
+        templateIdentifiers: [templateIdentifier]
+      }
+    }).then(response => {
+      return defaultTo(
+        response?.data?.content?.map(template => ({
+          label: defaultTo(template.versionLabel, ''),
+          insertText: defaultTo(template.versionLabel, ''),
+          kind: CompletionItemKind.Field
+        })),
+        []
+      )
+    })
+  }
+
   validateInputSet({
-    data: _data,
-    template: _template,
-    getString: _getString,
-    viewType: _vieweType
+    data: data,
+    template: template,
+    getString: getString,
+    viewType: viewType
   }: ValidateInputSetProps<TemplateStepData>): FormikErrors<TemplateStepData> {
-    const errors = {} as any
-    return errors
+    const stepType = data.template.templateInputs?.type
+    const step = stepFactory.getStep(stepType)
+    if (step) {
+      return step.validateInputSet({
+        data: data.template.templateInputs,
+        template: template?.template.templateInputs,
+        getString,
+        viewType
+      })
+    }
+    return {}
   }
 
   processFormData(values: TemplateStepData): TemplateStepData {
