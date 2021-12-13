@@ -2419,6 +2419,7 @@ export interface StringsMap {
   'pipeline.multiStageExecution': string
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
+  'pipeline.nativeHelm': string
   'pipeline.neverRan': string
   'pipeline.newPipelineText': string
   'pipeline.noApprovalInstanceCreated': string
@@ -2503,6 +2504,8 @@ export interface StringsMap {
   'pipeline.stepDescription.GCS': string
   'pipeline.stepDescription.HTTP': string
   'pipeline.stepDescription.HarnessApproval': string
+  'pipeline.stepDescription.HelmDeploy': string
+  'pipeline.stepDescription.HelmRollback': string
   'pipeline.stepDescription.JFrogArtifactory': string
   'pipeline.stepDescription.JiraApproval': string
   'pipeline.stepDescription.JiraCreate': string
@@ -2882,7 +2885,6 @@ export interface StringsMap {
   'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
-  'cd.nativeHelm': string
   'cd.newAdapter': string
   'cd.newGitOpsServer': string
   'cd.noAdapterText': string

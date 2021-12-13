@@ -15,6 +15,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { StringsMap } from 'stringTypes'
 
 import { useStrings } from 'framework/strings'
 
@@ -221,6 +222,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
   protected type = StepType.HelmRollback
   protected stepName = 'Helm Rollback'
   protected stepIcon: IconName = 'helm-rollback'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.HelmRollback'
 
   validateInputSet({
     data,

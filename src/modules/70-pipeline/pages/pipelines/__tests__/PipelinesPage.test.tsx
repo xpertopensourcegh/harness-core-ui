@@ -15,6 +15,7 @@ import { projectPathProps, accountPathProps, pipelineModuleParams } from '@commo
 import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import CDPipelinesPage from '../PipelinesPage'
 import filters from './mocks/filters.json'
+import deploymentTypes from './mocks/deploymentTypes.json'
 import services from './mocks/services.json'
 import environments from './mocks/environments.json'
 import pipelines from './mocks/pipelines.json'
@@ -26,6 +27,9 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 
 jest.mock('services/cd-ng', () => ({
+  useGetServiceDefinitionTypes: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: deploymentTypes, refetch: jest.fn() })),
   useGetServiceListForProject: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),

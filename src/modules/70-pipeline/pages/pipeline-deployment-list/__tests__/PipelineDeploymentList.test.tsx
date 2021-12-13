@@ -19,6 +19,7 @@ import PipelineDeploymentList from '../PipelineDeploymentList'
 import data from './execution-list.json'
 import pipelines from '../../../components/PipelineModalListView/__tests__/RunPipelineListViewMocks'
 import filters from './filters.json'
+import deploymentTypes from '../../pipelines/__tests__/mocks/deploymentTypes.json'
 import services from '../../pipelines/__tests__/mocks/services.json'
 import environments from '../../pipelines/__tests__/mocks/environments.json'
 
@@ -67,6 +68,9 @@ const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMo
 const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
 
 jest.mock('services/cd-ng', () => ({
+  useGetServiceDefinitionTypes: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: deploymentTypes, refetch: jest.fn() })),
   useGetServiceListForProject: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),

@@ -42,6 +42,7 @@ jest.mock('services/pipeline-ng', () => ({
 }))
 
 jest.mock('services/cd-ng', () => ({
+  useGetServiceDefinitionTypes: jest.fn().mockImplementation(() => ({ loading: false, data: {}, refetch: jest.fn() })),
   useGetServiceListForProject: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),

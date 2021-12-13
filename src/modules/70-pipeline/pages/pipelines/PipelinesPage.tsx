@@ -36,7 +36,11 @@ import {
   useSoftDeletePipeline,
   useUpdateFilter
 } from 'services/pipeline-ng'
-import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
+import {
+  useGetServiceListForProject,
+  useGetEnvironmentListForProject,
+  useGetServiceDefinitionTypes
+} from 'services/cd-ng'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { String, useStrings } from 'framework/strings'
@@ -334,6 +338,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
   }
 
+  const { data: deploymentTypeResponse, loading: isFetchingDeploymentTypes } = useGetServiceDefinitionTypes({})
+
   const {
     data: servicesResponse,
     loading: isFetchingServices,
@@ -358,8 +364,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   }, [projectIdentifier])
 
   useEffect(() => {
-    setIsFetchingMetaData(isFetchingServices && isFetchingEnvironments)
-  }, [isFetchingServices, isFetchingEnvironments])
+    setIsFetchingMetaData(isFetchingDeploymentTypes && isFetchingServices && isFetchingEnvironments)
+  }, [isFetchingDeploymentTypes, isFetchingServices, isFetchingEnvironments])
 
   const [openFilterDrawer, hideFilterDrawer] = useModalHook(() => {
     const onApply = (inputFormData: FormikProps<PipelineFormType>['values']) => {
@@ -408,7 +414,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: [{ label: getString('kubernetesText'), value: 'Kubernetes' }]
+              deploymentType: getMultiSelectFormOptions(deploymentTypeResponse?.data)
             }}
             type="PipelineSetup"
           />

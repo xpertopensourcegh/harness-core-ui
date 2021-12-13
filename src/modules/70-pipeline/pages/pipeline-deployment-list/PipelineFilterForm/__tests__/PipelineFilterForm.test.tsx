@@ -14,6 +14,7 @@ import {
 
 import PipelineFilterForm from '../PipelineFilterForm'
 import services from '../../../pipelines/__tests__/mocks/services.json'
+import deploymentTypes from '../../../pipelines/__tests__/mocks/deploymentTypes.json'
 import environments from '../../../pipelines/__tests__/mocks/environments.json'
 
 const params = {
@@ -35,6 +36,7 @@ function WrapperComponent(): JSX.Element {
             isCDEnabled={true}
             isCIEnabled={true}
             initialValues={{
+              deploymentType: getMultiSelectFormOptions(deploymentTypes.data),
               services: getMultiSelectFormOptions(services.data.content),
               environments: getMultiSelectFormOptions(environments.data.content)
             }}

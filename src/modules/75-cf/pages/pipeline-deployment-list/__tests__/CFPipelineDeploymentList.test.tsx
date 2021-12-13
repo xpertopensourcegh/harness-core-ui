@@ -6,6 +6,7 @@ import { CurrentLocation, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import data from '@pipeline/pages/pipeline-deployment-list/__tests__/execution-list.json'
 import services from '@pipeline/pages/pipelines/__tests__/mocks/services.json'
+import deploymentTypes from '@pipeline/pages/pipelines/__tests__/mocks/deploymentTypes.json'
 import environments from '@pipeline/pages/pipelines/__tests__/mocks/environments.json'
 import filters from '@pipeline/pages/pipeline-deployment-list/__tests__/filters.json'
 import pipelines from '@pipeline/components/PipelineModalListView/__tests__/RunPipelineListViewMocks'
@@ -73,6 +74,9 @@ jest.mock('services/cd-ng', () => ({
   useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
     return { data: sourceCodeManagers, refetch: jest.fn() }
   }),
+  useGetServiceDefinitionTypes: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: deploymentTypes, refetch: jest.fn() })),
   useGetEnvironmentListForProject: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))

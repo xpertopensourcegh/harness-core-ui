@@ -131,15 +131,12 @@ export default function PipelineFilterForm<
           <Text>{getString('deploymentsText').toUpperCase()}</Text>
         </span>
 
-        <FormInput.MultiSelect
+        <FormInput.Select
           items={deploymentType || []}
           name="deploymentType"
           label={getString('deploymentTypeText')}
           placeholder={getString('pipeline.filters.deploymentTypePlaceholder')}
           key="deploymentType"
-          multiSelectProps={{
-            allowCreatingNewItems: false
-          }}
         />
         {/* <FormInput.Select
           items={[infrastructureTypeLabel]}

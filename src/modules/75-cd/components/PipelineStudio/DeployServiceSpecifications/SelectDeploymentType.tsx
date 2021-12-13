@@ -29,7 +29,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
       value: 'Kubernetes'
     },
     {
-      label: getString('cd.nativeHelm'),
+      label: getString('pipeline.nativeHelm'),
       icon: 'service-helm',
       value: 'NativeHelm',
       disabled: !localStorage.getItem('nativeHelm')

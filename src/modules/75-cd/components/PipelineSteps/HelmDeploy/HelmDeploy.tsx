@@ -15,6 +15,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { StringsMap } from 'stringTypes'
 
 import { useStrings } from 'framework/strings'
 
@@ -219,6 +220,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
   protected type = StepType.HelmDeploy
   protected stepName = 'Helm Deploy'
   protected stepIcon: IconName = 'service-helm'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.HelmDeploy'
 
   validateInputSet({
     data,

@@ -781,6 +781,8 @@ stepDescription:
   TerraformApply: Apply a Terraform plan or script.
   ResourceConstraint: Queue the number of resources Harness requests during a deployment by placing capacity limits on the requests.
   FlagConfiguration: Create a Boolean or Multivariate Feature Flag.
+  HelmDeploy: HelmDeploy
+  HelmRollback: HelmRollback
 executionStrategy:
   executionStrategies: Execution Strategies
   useStrategy: Use Strategy
@@ -883,3 +885,4 @@ commentModal:
   info: 'By saving, all pipelines referencing the stable version will receive your changes.'
 replacedExpressions: Replaced Expressions
 expressionRequired: Expression value is required.
+nativeHelm: Native Helm

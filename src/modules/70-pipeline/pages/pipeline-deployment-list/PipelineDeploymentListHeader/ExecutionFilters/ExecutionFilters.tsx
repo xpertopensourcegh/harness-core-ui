@@ -10,7 +10,11 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { FilterDTO, PipelineExecutionFilterProperties } from 'services/pipeline-ng'
 import { usePostFilter, useUpdateFilter, useDeleteFilter } from 'services/pipeline-ng'
-import { useGetEnvironmentListForProject, useGetServiceListForProject } from 'services/cd-ng'
+import {
+  useGetEnvironmentListForProject,
+  useGetServiceDefinitionTypes,
+  useGetServiceListForProject
+} from 'services/cd-ng'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
@@ -61,6 +65,10 @@ export function ExecutionFilters(): React.ReactElement {
     lazy: isFiltersDrawerOpen
   })
 
+  const { data: deploymentTypeResponse, loading: isFetchingDeploymentTypes } = useGetServiceDefinitionTypes({
+    lazy: isFiltersDrawerOpen
+  })
+
   const { data: environmentsResponse, loading: isFetchingEnvironments } = useGetEnvironmentListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: isFiltersDrawerOpen
@@ -83,7 +91,7 @@ export function ExecutionFilters(): React.ReactElement {
     }
   })
 
-  const isFetchingMetaData = isFetchingEnvironments || isFetchingServices
+  const isFetchingMetaData = isFetchingDeploymentTypes || isFetchingEnvironments || isFetchingServices
 
   const appliedFilter =
     queryParams.filterIdentifier && queryParams.filterIdentifier !== UNSAVED_FILTER_IDENTIFIER
@@ -235,7 +243,7 @@ export function ExecutionFilters(): React.ReactElement {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: [{ label: getString('kubernetesText'), value: 'Kubernetes' }]
+              deploymentType: getMultiSelectFormOptions(deploymentTypeResponse?.data)
             }}
             type="PipelineExecution"
           />

@@ -150,4 +150,3 @@ whatIsHarnessManagedGitOpsServer: 'What is a Harness Managed GitOps Server?'
 aboutHarnessManagedGitOpsServer: 'The Harness GitOps Server is a worker process that runs in your environment and performs GitOps tasks.'
 componentsInstalled: '<ul> <li> GitOps agent </li> <li> Repo server </li><li> Redis cache </li> <li> Application controller  </li> </ul>'
 requiredPermissions: '<ul> <li> Permission to create Deployment, Service, Statefulset, Network Policy, Service Account, Role, ClusterRole, RoleBinding, ClusterRoleBinding, ConfigMap, Secret (For the Harness GitOps Server) </li> <li> Permission to apply CustomResourceDefinition For the Harness GitOps Server) </li> </ul>'
-nativeHelm: Native Helm
