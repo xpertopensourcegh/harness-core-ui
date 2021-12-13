@@ -672,7 +672,6 @@ export const RightBar = (): JSX.Element => {
                                     {getString('pipelineSteps.limitMemoryLabel')}
                                   </Text>
                                 }
-                                placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
                                 style={{ flex: 1 }}
                                 disabled={isReadonly}
                               />
@@ -681,7 +680,6 @@ export const RightBar = (): JSX.Element => {
                                 label={
                                   <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitCPULabel')}</Text>
                                 }
-                                placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
                                 style={{ flex: 1 }}
                                 disabled={isReadonly}
                               />

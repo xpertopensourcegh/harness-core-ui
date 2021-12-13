@@ -7155,19 +7155,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.limitCPUPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.limitMemoryExample': string
   /**
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.limitMemoryLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.limitMemoryPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */

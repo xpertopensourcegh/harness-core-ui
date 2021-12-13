@@ -859,9 +859,7 @@ pipelineSteps:
   pomFileInfo: Path to the pom.xml file
   setContainerResources: 'Set Container Resources'
   limitMemoryLabel: 'Limit Memory'
-  limitMemoryPlaceholder: '128Mi'
   limitCPULabel: 'Limit CPU'
-  limitCPUPlaceholder: '0.2'
   limitMemoryUnitMiLabel: Mi
   limitMemoryUnitGiLabel: 'Gi'
   limitMemoryExample: 'Ex: 512 MiB, 1 GiB'

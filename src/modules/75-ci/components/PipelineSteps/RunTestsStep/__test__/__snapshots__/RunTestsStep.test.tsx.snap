@@ -1556,14 +1556,18 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
         >
           <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="runTestsArgs"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="runTestsArgs"
               >
-                argsLabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                >
+                  argsLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1661,14 +1665,18 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
         >
           <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="runTestsPackages"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="runTestsPackages"
               >
-                packagesLabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                >
+                  packagesLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -2404,14 +2412,18 @@ exports[`RunTests Step Edit View should render properly 1`] = `
         >
           <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="runTestsArgs"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="runTestsArgs"
               >
-                argsLabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                >
+                  argsLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -2478,14 +2490,18 @@ exports[`RunTests Step Edit View should render properly 1`] = `
         >
           <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="runTestsPackages"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="runTestsPackages"
               >
-                packagesLabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                >
+                  packagesLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
