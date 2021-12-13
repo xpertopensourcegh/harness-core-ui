@@ -6,7 +6,6 @@ import {
   Heading,
   FontVariation,
   PillToggle,
-  Utils,
   PillToggleProps,
   Text
 } from '@wings-software/uicore'
@@ -14,7 +13,7 @@ import { useStrings } from 'framework/strings'
 import { SLOTargetChart } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import { getDataPointsWithMinMaxXLimit } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart.utils'
 import ErrorBudgetGauge from './ErrorBudgetGauge'
-import { getErrorBudgetGaugeOptions } from '../CVSLOListingPage.utils'
+import { getErrorBudgetGaugeOptions, getSLOAndErrorBudgetGraphOptions } from '../CVSLOListingPage.utils'
 import { SLOCardContentProps, SLOCardToggleViews } from '../CVSLOsListingPage.types'
 import css from '../CVSLOsListingPage.module.scss'
 
@@ -82,23 +81,19 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
               <Container width="80%">
                 <SLOTargetChart
                   dataPoints={sloPerformanceTrendData.dataPoints}
-                  customChartOptions={{
-                    chart: { height: 200, spacing: [30, 0, 20, 0] },
-                    xAxis: {
-                      min: serviceLevelObjective.currentPeriodStartTime
-                    },
-                    yAxis: {
-                      min: sloPerformanceTrendData.minXLimit,
-                      max: sloPerformanceTrendData.maxXLimit
-                    }
-                  }}
+                  customChartOptions={getSLOAndErrorBudgetGraphOptions({
+                    type: SLOCardToggleViews.SLO,
+                    serviceLevelObjective,
+                    minXLimit: sloPerformanceTrendData.minXLimit,
+                    maxXLimit: sloPerformanceTrendData.maxXLimit
+                  })}
                 />
               </Container>
             </Layout.Horizontal>
           </>
         )}
         {toggle === SLOCardToggleViews.ERROR_BUDGET && (
-          <Layout.Horizontal spacing="medium">
+          <Layout.Horizontal>
             <Container width="30%">
               <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.errorBudgetRemaining')}</Heading>
               <ErrorBudgetGauge customChartOptions={getErrorBudgetGaugeOptions(serviceLevelObjective)} />
@@ -106,18 +101,13 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
             <Container width="70%">
               <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.errorBudgetBurnDown')}</Heading>
               <SLOTargetChart
-                customChartOptions={{
-                  chart: { height: 200, spacing: [30, 0, 20, 0] },
-                  xAxis: {
-                    min: serviceLevelObjective.currentPeriodStartTime
-                  },
-                  yAxis: {
-                    min: errorBudgetBurndownData.minXLimit,
-                    max: errorBudgetBurndownData.maxXLimit
-                  },
-                  plotOptions: { area: { color: Utils.getRealCSSColor(Color.RED_400) } }
-                }}
                 dataPoints={errorBudgetBurndownData.dataPoints}
+                customChartOptions={getSLOAndErrorBudgetGraphOptions({
+                  serviceLevelObjective,
+                  type: SLOCardToggleViews.ERROR_BUDGET,
+                  minXLimit: errorBudgetBurndownData.minXLimit,
+                  maxXLimit: errorBudgetBurndownData.maxXLimit
+                })}
               />
             </Container>
           </Layout.Horizontal>

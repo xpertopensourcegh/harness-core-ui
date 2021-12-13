@@ -2,6 +2,7 @@ import type { ResponsePageSLODashboardWidget, SLODashboardWidget, ResponsePageUs
 import type { TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps } from '@common/utils/routeUtils'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import { SLIMetricEnum } from '../components/CVCreateSLO/components/CreateSLOForm/components/SLI/SLI.constants'
 import { PeriodTypes, SLITypes } from '../components/CVCreateSLO/CVCreateSLO.types'
 
@@ -28,6 +29,7 @@ export const dashboardWidgetsContent: SLODashboardWidget = {
   errorBudgetBurndown: [],
   errorBudgetRemaining: 60,
   errorBudgetRemainingPercentage: 60,
+  errorBudgetRisk: RiskValues.HEALTHY,
   healthSourceIdentifier: 'health_source_identifier',
   healthSourceName: 'Health Source Name',
   monitoredServiceIdentifier: 'monitored_service_identifier',

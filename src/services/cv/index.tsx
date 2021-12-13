@@ -2304,8 +2304,8 @@ export type NewRelicConnectorDTO = ConnectorConfigDTO & {
 export type NewRelicHealthSourceSpec = HealthSourceSpec & {
   applicationId?: string
   applicationName?: string
-  feature: string
-  metricPacks: MetricPackDTO[]
+  feature?: string
+  metricPacks?: MetricPackDTO[]
   newRelicMetricDefinitions?: NewRelicMetricDefinition[]
 }
 
@@ -3815,6 +3815,7 @@ export interface SLODashboardWidget {
   errorBudgetBurndown: Point[]
   errorBudgetRemaining: number
   errorBudgetRemainingPercentage: number
+  errorBudgetRisk: 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   healthSourceIdentifier: string
   healthSourceName: string
   monitoredServiceIdentifier: string
@@ -4134,6 +4135,7 @@ export interface TimeSeriesDataRecordGroupValue {
 }
 
 export interface TimeSeriesDataRecordMetricValue {
+  metricIdentifier?: string
   metricName?: string
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
@@ -4177,6 +4179,7 @@ export interface TimeSeriesRecordDTO {
   epochMinute?: number
   groupName?: string
   host?: string
+  metricIdentifier?: string
   metricName?: string
   metricValue?: number
   verificationTaskId?: string

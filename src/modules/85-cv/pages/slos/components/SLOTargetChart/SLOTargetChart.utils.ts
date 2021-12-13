@@ -4,7 +4,7 @@ import type Highcharts from 'highcharts'
 import { Color, Utils } from '@wings-software/uicore'
 import type { Point } from 'services/cv'
 
-const MILLISECONDS_PER_HOUR = 1000 * 60 * 60
+const MILLISECONDS_PER_HOUR = 1000 * 60 * 60 * 4
 
 export const getDefaultChartOptions = (): Highcharts.Options => ({
   chart: { spacing: [20, 0, 20, 0] },

@@ -22,3 +22,10 @@ export enum SLOCardToggleViews {
   SLO = 'SLO',
   ERROR_BUDGET = 'ERROR_BUDGET'
 }
+
+export interface GetSLOAndErrorBudgetGraphOptions {
+  minXLimit: number
+  maxXLimit: number
+  type: SLOCardToggleViews
+  serviceLevelObjective: SLODashboardWidget
+}
