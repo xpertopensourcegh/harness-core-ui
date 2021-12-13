@@ -486,6 +486,28 @@ export interface StringsMap {
   'common.showMore': string
   'common.sidecarArtifactsText': string
   'common.slack': string
+  'common.smtp.configured': string
+  'common.smtp.conifg': string
+  'common.smtp.deleteInProgress': string
+  'common.smtp.emailSent': string
+  'common.smtp.emailSentFail': string
+  'common.smtp.enableSSL': string
+  'common.smtp.fromAddress': string
+  'common.smtp.labelBody': string
+  'common.smtp.labelSubject': string
+  'common.smtp.labelTo': string
+  'common.smtp.modalSubHeading': string
+  'common.smtp.port': string
+  'common.smtp.portPositive': string
+  'common.smtp.portRequired': string
+  'common.smtp.preConfiguredBody': string
+  'common.smtp.preConfiguredSubject': string
+  'common.smtp.smtpConnectivity': string
+  'common.smtp.startTSL': string
+  'common.smtp.testConnection': string
+  'common.smtp.validationBody': string
+  'common.smtp.validationSubject': string
+  'common.smtp.validationTo': string
   'common.specified': string
   'common.specify': string
   'common.stable': string
@@ -607,7 +629,6 @@ export interface StringsMap {
   'notifications.infoSlack': string
   'notifications.invalidPagerDutyKey': string
   'notifications.invalidWebhookURL': string
-  'notifications.labelBody': string
   'notifications.labelEmailUserGroups': string
   'notifications.labelMS': string
   'notifications.labelMSTeam': string
@@ -616,8 +637,6 @@ export interface StringsMap {
   'notifications.labelPDUserGroups': string
   'notifications.labelPagerDuty': string
   'notifications.labelSlackUserGroups': string
-  'notifications.labelSubject': string
-  'notifications.labelTo': string
   'notifications.labelWebhookUrl': string
   'notifications.msTestSuccess': string
   'notifications.name': string
@@ -640,10 +659,7 @@ export interface StringsMap {
   'notifications.titlePagerDuty': string
   'notifications.titleSlack': string
   'notifications.userGroupsPlaceholder': string
-  'notifications.validationBody': string
   'notifications.validationPDKey': string
-  'notifications.validationSubject': string
-  'notifications.validationTo': string
   'notifications.validationWebhook': string
   'rbac.accessControlTitle.resourceGroups': string
   'rbac.accessControlTitle.roles': string
@@ -1082,7 +1098,6 @@ export interface StringsMap {
   'secrets.createSSHCredWizard.validIdRegex': string
   'secrets.createSSHCredWizard.validName': string
   'secrets.createSSHCredWizard.validateKeypath': string
-  'secrets.createSSHCredWizard.validatePort': string
   'secrets.createSSHCredWizard.validatePrincipal': string
   'secrets.createSSHCredWizard.validateRealm': string
   'secrets.createSSHCredWizard.validateSshKey': string

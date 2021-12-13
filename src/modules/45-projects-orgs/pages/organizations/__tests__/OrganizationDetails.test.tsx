@@ -24,6 +24,15 @@ jest.mock('services/cd-ng', () => ({
   useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {
     return { ...getOrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
+  useGetSmtpConfig: jest.fn().mockImplementation(() => {
+    return {
+      loading: false,
+      data: {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  }),
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
   useAddUsers: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),

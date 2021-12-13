@@ -98,7 +98,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
     }
   }
   const validationSchema = Yup.object().shape({
-    port: Yup.number().required(getString('secrets.createSSHCredWizard.validatePort')),
+    port: Yup.number().required(getString('common.smtp.portRequired')),
     userName: Yup.string().when('authScheme', {
       is: 'SSH',
       then: Yup.string().trim().required(getString('secrets.createSSHCredWizard.validateUsername'))

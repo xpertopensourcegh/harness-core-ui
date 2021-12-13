@@ -662,4 +662,27 @@ duration:
 exploreSaaSPlans: Explore SaaS plans
 onPremSaaSPlansMsg: Did you know, Harness also offers a range of exciting SaaS plans?
 manageSubscription: Manage subscription
+smtp:
+  conifg: SMTP Configuration
+  modalSubHeading: Setup your smtp server by providing the below details
+  smtpConnectivity: SMTP Connectivity Test
+  port: Port
+  enableSSL: Enable SSL
+  startTSL: Start TSL
+  fromAddress: From Address
+  testConnection: Test Connection
+  portRequired: Port is required
+  portPositive: Port should be a positive number
+  configured: Configured
+  preConfiguredSubject: This is test mail
+  preConfiguredBody: This is test email
+  emailSent: Email Successfully sent
+  emailSentFail: Email failed to send
+  labelTo: To
+  labelSubject: Subject
+  labelBody: Body
+  validationTo: Recipient email is required
+  validationSubject: Subject is required
+  validationBody: Body is required
+  deleteInProgress: Deleting SMTP Configuration
 invalid: INVALID

@@ -16,7 +16,7 @@ export interface ActivityDetailsRowInterface {
 }
 
 interface RenderDetailsSectionProps {
-  title: string
+  title: string | React.ReactElement
   data: Array<ActivityDetailsRowInterface>
   className?: string
 }

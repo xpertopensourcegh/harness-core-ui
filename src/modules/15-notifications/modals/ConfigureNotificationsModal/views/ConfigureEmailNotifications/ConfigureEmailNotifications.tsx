@@ -60,8 +60,8 @@ export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
         formName="configureTestEmailNotifications"
         validationSchema={Yup.object().shape({
           to: EmailSchema(),
-          subject: Yup.string().trim().required(getString('notifications.validationSubject')),
-          body: Yup.string().trim().required(getString('notifications.validationBody'))
+          subject: Yup.string().trim().required(getString('common.smtp.validationSubject')),
+          body: Yup.string().trim().required(getString('common.smtp.validationBody'))
         })}
         initialValues={{
           to: '',
@@ -72,9 +72,9 @@ export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
         {formik => {
           return (
             <FormikForm>
-              <FormInput.Text name={'to'} label={getString('notifications.labelTo')} />
-              <FormInput.Text name={'subject'} label={getString('notifications.labelSubject')} />
-              <FormInput.Text name={'body'} label={getString('notifications.labelBody')} />
+              <FormInput.Text name={'to'} label={getString('common.smtp.labelTo')} />
+              <FormInput.Text name={'subject'} label={getString('common.smtp.labelSubject')} />
+              <FormInput.Text name={'body'} label={getString('common.smtp.labelBody')} />
               <Button
                 text={getString('notifications.buttonSend')}
                 onClick={event => {
