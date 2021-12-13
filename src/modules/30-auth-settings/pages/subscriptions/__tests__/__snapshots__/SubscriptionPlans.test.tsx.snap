@@ -451,9 +451,6 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
             data-testid="feature-summary"
           >
             <div
-              class="Accordion--chevron"
-            />
-            <div
               class=""
             >
               <p
@@ -462,6 +459,9 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                 common.plans.featureComparison
               </p>
             </div>
+            <div
+              class="Accordion--chevron"
+            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -1000,9 +1000,6 @@ exports[`Subscription Plans should render the plans for CCM 1`] = `
             data-testid="feature-summary"
           >
             <div
-              class="Accordion--chevron"
-            />
-            <div
               class=""
             >
               <p
@@ -1011,6 +1008,9 @@ exports[`Subscription Plans should render the plans for CCM 1`] = `
                 common.plans.featureComparison
               </p>
             </div>
+            <div
+              class="Accordion--chevron"
+            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -1540,9 +1540,6 @@ exports[`Subscription Plans should render the plans for CD 1`] = `
             data-testid="feature-summary"
           >
             <div
-              class="Accordion--chevron"
-            />
-            <div
               class=""
             >
               <p
@@ -1551,6 +1548,9 @@ exports[`Subscription Plans should render the plans for CD 1`] = `
                 common.plans.featureComparison
               </p>
             </div>
+            <div
+              class="Accordion--chevron"
+            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -2420,9 +2420,6 @@ exports[`Subscription Plans should render the plans for CI 1`] = `
             data-testid="feature-summary"
           >
             <div
-              class="Accordion--chevron"
-            />
-            <div
               class=""
             >
               <p
@@ -2431,6 +2428,9 @@ exports[`Subscription Plans should render the plans for CI 1`] = `
                 common.plans.featureComparison
               </p>
             </div>
+            <div
+              class="Accordion--chevron"
+            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -3006,9 +3006,6 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
             data-testid="feature-summary"
           >
             <div
-              class="Accordion--chevron"
-            />
-            <div
               class=""
             >
               <p
@@ -3017,6 +3014,9 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
                 common.plans.featureComparison
               </p>
             </div>
+            <div
+              class="Accordion--chevron"
+            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"

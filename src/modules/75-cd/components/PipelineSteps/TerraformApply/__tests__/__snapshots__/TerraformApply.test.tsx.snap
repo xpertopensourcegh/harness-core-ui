@@ -363,13 +363,13 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1337,13 +1337,13 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1723,13 +1723,13 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -3621,13 +3621,13 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4005,13 +4005,13 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4784,13 +4784,13 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"

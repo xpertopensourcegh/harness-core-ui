@@ -358,13 +358,13 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1099,13 +1099,13 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1545,13 +1545,13 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1991,13 +1991,13 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"

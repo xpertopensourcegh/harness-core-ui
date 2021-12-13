@@ -1782,13 +1782,13 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
               data-testid="optional-config-summary"
             >
               <div
-                class="Accordion--chevron"
-              />
-              <div
                 class="Accordion--label"
               >
                 common.optionalConfig
               </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
             <div
               class="bp3-collapse Accordion--collapse"
@@ -2576,13 +2576,13 @@ exports[`RunTests Step Edit View should render properly 1`] = `
               data-testid="optional-config-summary"
             >
               <div
-                class="Accordion--chevron"
-              />
-              <div
                 class="Accordion--label"
               >
                 common.optionalConfig
               </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
             <div
               class="bp3-collapse Accordion--collapse"

@@ -363,13 +363,13 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1396,13 +1396,13 @@ exports[`Test TerraformDestroy expand backend Spec config 1`] = `
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2458,13 +2458,13 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"

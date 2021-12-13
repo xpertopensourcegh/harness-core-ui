@@ -454,13 +454,13 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                 data-testid="optional-config-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.optionalConfig
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -934,13 +934,13 @@ exports[`Dependency Edit view edit mode works 1`] = `
                 data-testid="optional-config-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.optionalConfig
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1414,13 +1414,13 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                 data-testid="optional-config-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.optionalConfig
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1916,13 +1916,13 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                 data-testid="optional-config-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.optionalConfig
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -2342,13 +2342,13 @@ exports[`Dependency Edit view should render properly 1`] = `
                 data-testid="optional-config-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.optionalConfig
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"

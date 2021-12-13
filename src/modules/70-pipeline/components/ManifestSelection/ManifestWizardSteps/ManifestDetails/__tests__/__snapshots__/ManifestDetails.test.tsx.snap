@@ -422,13 +422,13 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                   data-testid="advancedTitle-summary"
                 >
                   <div
-                    class="Accordion--chevron"
-                  />
-                  <div
                     class="Accordion--label"
                   >
                     advancedTitle
                   </div>
+                  <div
+                    class="Accordion--chevron"
+                  />
                 </div>
                 <div
                   class="bp3-collapse Accordion--collapse"

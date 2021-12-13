@@ -291,13 +291,13 @@ exports[`helm with http tests expand advanced section 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -977,13 +977,13 @@ exports[`helm with http tests renders correctly in edit mode with connectorref 1
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1356,13 +1356,13 @@ exports[`helm with http tests renders without crashing 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"

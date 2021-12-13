@@ -721,13 +721,13 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                 data-testid="advanced-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.advanced
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1109,13 +1109,13 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                 data-testid="advanced-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.advanced
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1531,13 +1531,13 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                 data-testid="advanced-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   common.advanced
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"

@@ -576,13 +576,13 @@ exports[`helm with S3 tests expand advanced section 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1547,13 +1547,13 @@ exports[`helm with S3 tests load form correctly in edit mode and fill region 1`]
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -2211,13 +2211,13 @@ exports[`helm with S3 tests renders without crashing 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
-                  class="Accordion--chevron"
-                />
-                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
+                <div
+                  class="Accordion--chevron"
+                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"

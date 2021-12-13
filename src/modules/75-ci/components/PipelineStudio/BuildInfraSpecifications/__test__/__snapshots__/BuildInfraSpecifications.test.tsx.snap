@@ -113,9 +113,6 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                               data-testid="advanced-summary"
                             >
                               <div
-                                class="Accordion--chevron"
-                              />
-                              <div
                                 class=""
                               >
                                 <div
@@ -126,6 +123,9 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                                   advancedTitle
                                 </div>
                               </div>
+                              <div
+                                class="Accordion--chevron"
+                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
@@ -394,9 +394,6 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                               data-testid="advanced-summary"
                             >
                               <div
-                                class="Accordion--chevron"
-                              />
-                              <div
                                 class=""
                               >
                                 <div
@@ -407,6 +404,9 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                                   advancedTitle
                                 </div>
                               </div>
+                              <div
+                                class="Accordion--chevron"
+                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
@@ -717,9 +717,6 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                         data-testid="advanced-summary"
                       >
                         <div
-                          class="Accordion--chevron"
-                        />
-                        <div
                           class=""
                         >
                           <div
@@ -730,6 +727,9 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                             advancedTitle
                           </div>
                         </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
                       </div>
                       <div
                         class="bp3-collapse Accordion--collapse"
@@ -1037,9 +1037,6 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         data-testid="advanced-summary"
                       >
                         <div
-                          class="Accordion--chevron"
-                        />
-                        <div
                           class=""
                         >
                           <div
@@ -1050,6 +1047,9 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                             advancedTitle
                           </div>
                         </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
                       </div>
                       <div
                         class="bp3-collapse Accordion--collapse"

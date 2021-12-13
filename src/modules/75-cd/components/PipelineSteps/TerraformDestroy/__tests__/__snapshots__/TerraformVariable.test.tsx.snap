@@ -363,13 +363,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
           data-testid="step-1-summary"
         >
           <div
-            class="Accordion--chevron"
-          />
-          <div
             class="Accordion--label"
           >
             common.optionalConfig
           </div>
+          <div
+            class="Accordion--chevron"
+          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"

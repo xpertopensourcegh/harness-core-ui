@@ -452,13 +452,13 @@ exports[`GCS Step Edit View edit mode works 1`] = `
               data-testid="optional-config-summary"
             >
               <div
-                class="Accordion--chevron"
-              />
-              <div
                 class="Accordion--label"
               >
                 common.optionalConfig
               </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
             <div
               class="bp3-collapse Accordion--collapse"
@@ -947,13 +947,13 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
               data-testid="optional-config-summary"
             >
               <div
-                class="Accordion--chevron"
-              />
-              <div
                 class="Accordion--label"
               >
                 common.optionalConfig
               </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
             <div
               class="bp3-collapse Accordion--collapse"
@@ -1372,13 +1372,13 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
               data-testid="optional-config-summary"
             >
               <div
-                class="Accordion--chevron"
-              />
-              <div
                 class="Accordion--label"
               >
                 common.optionalConfig
               </div>
+              <div
+                class="Accordion--chevron"
+              />
             </div>
             <div
               class="bp3-collapse Accordion--collapse"
