@@ -159,12 +159,13 @@ export const getEntityUrl = (entity: GitSyncEntityDTO): string => {
 export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModulePathParams): boolean => {
   const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
 
-  const featureFlagsResponse = useGetAllFeatures({
+  const { refetch: refetchGetFeatureFlags, data: featureFlagsResponse } = useGetAllFeatures({
     queryParams: {
       accountIdentifier: queryParam.accountId,
       org: queryParam.orgIdentifier,
       project: queryParam.projectIdentifier
-    }
+    },
+    lazy: true
   })
 
   const [canEnableGit, setCanEnableGit] = useState<boolean>(false)
@@ -191,7 +192,12 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModuleP
           response?.data?.totalElements > 0
         )
 
-        const hasFeatureFlags = FF_GITSYNC && featureFlagsResponse.data && featureFlagsResponse.data?.itemCount > 0
+        let hasFeatureFlags = false
+
+        if (FF_GITSYNC) {
+          refetchGetFeatureFlags()
+          hasFeatureFlags = !!(featureFlagsResponse && featureFlagsResponse.itemCount > 0)
+        }
 
         if (hasFeatureFlags === false && hasPipelines === false) {
           setCanEnableGit(true)
@@ -202,7 +208,7 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModuleP
     }
 
     checkEnableGitConditions()
-  }, [featureFlagsResponse.data])
+  }, [featureFlagsResponse])
 
   return canEnableGit
 }
