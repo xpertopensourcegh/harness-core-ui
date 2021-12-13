@@ -120,6 +120,7 @@ export interface SLOForm extends SLIForm {
 
 export interface NavButtonsProps {
   formikProps: FormikProps<SLOForm>
+  loading?: boolean
 }
 
 export interface SLOPanelProps {

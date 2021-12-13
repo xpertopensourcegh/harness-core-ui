@@ -115,6 +115,7 @@ allowpaths:
   - /slo
   - /slo/create
   - /slo/{identifier}
+  - /slo-dashboard/widgets
   - /monitored-service/all/time-series-health-sources
   - /newrelic/fetch-sample-data
   - /newrelic/parse-sample-data

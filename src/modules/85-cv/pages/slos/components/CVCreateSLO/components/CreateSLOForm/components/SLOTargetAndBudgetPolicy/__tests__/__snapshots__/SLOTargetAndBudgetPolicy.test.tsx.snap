@@ -173,7 +173,7 @@ exports[`Test SLOTargetAndBudgetPolicy component should render SLOTargetAndBudge
                 name="SLOTargetPercentage"
                 style="padding-right: 0px;"
                 type="number"
-                value="0"
+                value="99"
               />
               <span
                 class="bp3-input-action"

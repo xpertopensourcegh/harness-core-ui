@@ -20,3 +20,21 @@ $headerHeight: 146px;
     }
   }
 }
+
+// SLOCardHeader
+
+.sloTags {
+  background-color: var(--grey-100) !important;
+  border: none !important;
+  font-weight: 500;
+}
+
+.sloGlanceCard {
+  border-radius: var(--spacing-small);
+}
+
+.pillToggle {
+  :global(.PillToggle--item) {
+    width: 100px !important;
+  }
+}

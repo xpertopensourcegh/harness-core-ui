@@ -4081,7 +4081,10 @@ export interface StringsMap {
   'cv.SLIMetricRatio': string
   'cv.SLIMissingDataType': string
   'cv.SLIRequestRatio': string
+  'cv.SLITriggered': string
   'cv.SLIValueIsGoodIf': string
+  'cv.SLO': string
+  'cv.SLOPerformanceTrend': string
   'cv.SLOTarget': string
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string
@@ -4120,6 +4123,7 @@ export interface StringsMap {
   'cv.anomalousMetrics': string
   'cv.bad': string
   'cv.baseUrl': string
+  'cv.burnRatePerDay': string
   'cv.changeSource.HarnessCDCurrentGen.applicationId': string
   'cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId': string
   'cv.changeSource.HarnessCDCurrentGen.selectHarnessEnv': string
@@ -4176,8 +4180,11 @@ export interface StringsMap {
   'cv.dashboard.createProject': string
   'cv.dashboard.notStarted': string
   'cv.dashboard.subHeading': string
+  'cv.days': string
   'cv.dependenciesHealthWithCount': string
   'cv.errorBudget': string
+  'cv.errorBudgetBurnDown': string
+  'cv.errorBudgetRemaining': string
   'cv.evaluationPeriod': string
   'cv.failures': string
   'cv.filter': string
@@ -4522,6 +4529,7 @@ export interface StringsMap {
   'cv.monitoringSources.splunk.submitQueryToSeeRecords': string
   'cv.monitoringSources.totalMappedQueries': string
   'cv.monitoringSources.uniqueIdentifierValidation': string
+  'cv.nDays': string
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string
   'cv.navLinks.adminSideNavLinks.monitoringSources': string
@@ -4675,6 +4683,7 @@ export interface StringsMap {
   'cv.thirdPartyCalls.timeTaken': string
   'cv.throughput': string
   'cv.thursday': string
+  'cv.timeRemaining': string
   'cv.timeline': string
   'cv.toObjectiveValue': string
   'cv.trafficSplit': string

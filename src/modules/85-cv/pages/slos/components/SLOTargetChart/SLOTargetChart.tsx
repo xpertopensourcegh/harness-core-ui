@@ -11,31 +11,49 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SLIMetricTypes } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import { getDefaultChartOptions } from './SLOTargetChart.utils'
 import { convertServiceLevelIndicatorToSLIFormData } from '../CVCreateSLO/CVCreateSLO.utils'
+import type { SLOTargetChartProps, SLOTargetChartWithAPIGetSliGraphProps } from './SLOTargetChart.types'
 
-interface SLOTargetChartProps {
-  topLabel?: JSX.Element
-  bottomLabel?: JSX.Element
-  customChartOptions?: Highcharts.Options
-  serviceLevelIndicator: ServiceLevelIndicatorDTO
-  monitoredServiceIdentifier?: string
-  debounceWait?: number
-}
-
-const SLOTargetChart: React.FC<SLOTargetChartProps> = ({
+export const SLOTargetChart: React.FC<SLOTargetChartProps> = ({
   topLabel,
   bottomLabel,
-  customChartOptions = {},
+  dataPoints,
+  customChartOptions
+}) => {
+  const finalChartOptions = useMemo(() => merge(getDefaultChartOptions(), customChartOptions), [customChartOptions])
+
+  const seriesData: Omit<Highcharts.SeriesColumnOptions, 'type'>[] = [
+    {
+      data: dataPoints,
+      showInLegend: false
+    }
+  ]
+
+  return (
+    <div>
+      {topLabel}
+      <TimeSeriesAreaChart customChartOptions={finalChartOptions} seriesData={seriesData} />
+      {bottomLabel}
+    </div>
+  )
+}
+
+const SLOTargetChartWithAPIGetSliGraph: React.FC<SLOTargetChartWithAPIGetSliGraphProps> = ({
+  topLabel,
+  bottomLabel,
+  customChartOptions,
   monitoredServiceIdentifier = '',
   serviceLevelIndicator,
   debounceWait
 }) => {
-  const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const sliFormData = convertServiceLevelIndicatorToSLIFormData(serviceLevelIndicator)
 
   const [sliGraphData, setSliGraphData] = useState<TimeGraphResponse>()
 
-  const finalChartOptions = useMemo(() => merge(getDefaultChartOptions(), customChartOptions), [customChartOptions])
+  const dataPoints = useMemo(
+    () => sliGraphData?.dataPoints?.map(point => [Number(point.timeStamp) || 0, Number(point.value) || 0]),
+    [sliGraphData?.dataPoints]
+  )
 
   const { mutate, loading, error } = useGetSliGraph({
     monitoredServiceIdentifier,
@@ -45,10 +63,6 @@ const SLOTargetChart: React.FC<SLOTargetChartProps> = ({
       projectIdentifier
     }
   })
-
-  useEffect(() => {
-    setSliGraphData(undefined)
-  }, [sliFormData.SLIMetricType])
 
   const fetchSliGraphData = async (_serviceLevelIndicator: ServiceLevelIndicatorDTO): Promise<void> => {
     try {
@@ -84,33 +98,17 @@ const SLOTargetChart: React.FC<SLOTargetChartProps> = ({
     )
   }
 
-  const seriesData: Omit<Highcharts.SeriesColumnOptions, 'type'>[] = [
-    {
-      data: sliGraphData?.dataPoints?.map(point => [Number(point.timeStamp) || 0, Number(point.value) || 0]),
-      showInLegend: false
-    }
-  ]
-
-  if (seriesData[0].data) {
-    return (
-      <div>
-        {topLabel}
-        <TimeSeriesAreaChart customChartOptions={finalChartOptions} seriesData={seriesData} />
-        {bottomLabel}
-      </div>
-    )
-  }
-
   return (
-    <Container flex={{ justifyContent: 'center' }} height="100%">
-      <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_600}>
-        {getString('cv.pleaseFillTheRequiredDataToSeeTheSLIData')}
-      </Text>
-    </Container>
+    <SLOTargetChart
+      topLabel={topLabel}
+      bottomLabel={bottomLabel}
+      customChartOptions={customChartOptions}
+      dataPoints={dataPoints}
+    />
   )
 }
 
-const SLOTargetChartWrapper: React.FC<SLOTargetChartProps> = props => {
+const SLOTargetChartWrapper: React.FC<SLOTargetChartWithAPIGetSliGraphProps> = props => {
   const { getString } = useStrings()
   const { serviceLevelIndicator, monitoredServiceIdentifier } = props
 
@@ -151,7 +149,7 @@ const SLOTargetChartWrapper: React.FC<SLOTargetChartProps> = props => {
       }
     }
 
-    return <SLOTargetChart {...props} />
+    return <SLOTargetChartWithAPIGetSliGraph {...props} />
   }
 
   return emptyState

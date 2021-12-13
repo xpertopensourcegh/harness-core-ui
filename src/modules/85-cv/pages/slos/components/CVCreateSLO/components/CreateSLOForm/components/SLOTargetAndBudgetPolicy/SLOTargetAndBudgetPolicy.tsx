@@ -95,7 +95,10 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, childr
                   {getString('cv.SLIMetricRatio')}
                 </Text>
               }
-              customChartOptions={{ chart: { height: 200 } }}
+              customChartOptions={{
+                chart: { height: 200 },
+                yAxis: { min: 0, max: 100, tickInterval: 25 }
+              }}
             />
           </Container>
 

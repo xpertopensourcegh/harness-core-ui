@@ -183,7 +183,10 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
                   {getString('cv.SLIRequestRatio')}
                 </Text>
               }
-              customChartOptions={{ chart: { height: isRatioBasedMetric ? 280 : 220 } }}
+              customChartOptions={{
+                chart: { height: isRatioBasedMetric ? 280 : 220 },
+                yAxis: { min: 0, max: 100, tickInterval: 25 }
+              }}
               debounceWait={2000}
             />
           </Container>

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   Button,
-  Container,
   Text,
   useToaster,
   ButtonVariation,
@@ -10,24 +9,27 @@ import {
   CardSelect,
   CardSelectType,
   Card,
-  NoDataCard
+  NoDataCard,
+  Pagination,
+  Layout,
+  FlexExpander
 } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import { useDeleteSLOData, useGetAllJourneys, useGetServiceLevelObjectives, UserJourneyDTO } from 'services/cv'
+import { useDeleteSLOData, useGetAllJourneys, useGetSLODashboardWidgets, UserJourneyDTO } from 'services/cv'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import {
-  LIST_SLOs_OFFSET,
-  LIST_SLOs_PAGESIZE,
+  PAGE_SIZE_DASHBOARD_WIDGETS,
   LIST_USER_JOURNEYS_OFFSET,
   LIST_USER_JOURNEYS_PAGESIZE
 } from './CVSLOsListingPage.constants'
 import type { CVSLOsListingPageProps } from './CVSLOsListingPage.types'
-import { getUserJourneys } from './components/CVCreateSLO/CVSLOsListingPage.utils'
+import { getUserJourneys } from './CVSLOListingPage.utils'
 import SLOCardHeader from './SLOCard/SLOCardHeader'
+import SLOCardContent from './SLOCard/SLOCardContent'
 import css from './CVSLOsListingPage.module.scss'
 
 const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceIdentifier }) => {
@@ -35,27 +37,38 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+
   const [selectedUserJourney, setSelectedUserJourney] = useState<UserJourneyDTO>()
+  const [pageNumber, setPageNumber] = useState(0)
 
   const {
-    data: SLOsData,
-    loading: SLOsLoading,
-    refetch: refetchSLOs,
-    error: SLOsError
-  } = useGetServiceLevelObjectives({
+    data: dashboardWidgetsResponse,
+    loading: dashboardWidgetsLoading,
+    refetch: refetchDashboardWidgets,
+    error: dashboardWidgetsError
+  } = useGetSLODashboardWidgets({
     queryParams: {
       accountId,
       orgIdentifier,
       projectIdentifier,
-      offset: LIST_SLOs_OFFSET,
-      pageSize: LIST_SLOs_PAGESIZE,
-      // monitoredServiceIdentifier, // Uncomment after BE supports this
-      userJourneys: selectedUserJourney?.identifier ? [selectedUserJourney.identifier] : undefined
+      monitoredServiceIdentifier,
+      userJourneyIdentifiers: selectedUserJourney?.identifier ? [selectedUserJourney.identifier] : undefined,
+      pageNumber,
+      pageSize: PAGE_SIZE_DASHBOARD_WIDGETS
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
     }
   })
+
+  const {
+    content,
+    totalItems = 0,
+    totalPages = 0,
+    pageIndex = 0,
+    pageItemCount = 0,
+    pageSize = 10
+  } = dashboardWidgetsResponse?.data ?? {}
 
   const {
     data: userJourneysData,
@@ -84,7 +97,11 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
     try {
       await deleteSLO(identifier)
 
-      await refetchSLOs()
+      if (pageIndex && pageItemCount === 1) {
+        setPageNumber(prevPageNumber => prevPageNumber - 1)
+      } else {
+        await refetchDashboardWidgets()
+      }
 
       showSuccess(getString('cv.slos.sloDeleted', { name }))
     } catch (e) {
@@ -92,17 +109,19 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
     }
   }
 
-  const onAddNewSLO = (): void => {
-    history.push(
-      routes.toCVCreateSLOs({
-        accountId,
-        orgIdentifier,
-        projectIdentifier
-      })
-    )
-  }
+  const addNewSLO = (
+    <Button
+      icon="plus"
+      text={getString('cv.slos.newSLO')}
+      variation={ButtonVariation.PRIMARY}
+      onClick={() => {
+        history.push(routes.toCVCreateSLOs({ accountId, orgIdentifier, projectIdentifier }))
+      }}
+    />
+  )
 
   const onFilter = (userJourney: UserJourneyDTO): void => {
+    setPageNumber(0)
     if (selectedUserJourney?.identifier === userJourney.identifier) {
       setSelectedUserJourney(undefined)
     } else {
@@ -115,38 +134,29 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
       {!monitoredServiceIdentifier && (
         <>
           <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.slos.title')} />
-          <Page.Header
-            title={
-              <Button
-                icon="plus"
-                text={getString('cv.slos.newSLO')}
-                variation={ButtonVariation.PRIMARY}
-                onClick={onAddNewSLO}
-              />
-            }
-          />
+          <Page.Header title={addNewSLO} />
         </>
       )}
 
       <Page.Body
-        loading={userJourneysLoading || SLOsLoading || deleteSLOLoading}
-        error={getErrorMessage(SLOsError || userJourneysError)}
+        loading={userJourneysLoading || dashboardWidgetsLoading || deleteSLOLoading}
+        error={getErrorMessage(dashboardWidgetsError || userJourneysError)}
         retryOnError={() => {
-          if (SLOsError) {
-            refetchSLOs()
+          if (dashboardWidgetsError) {
+            refetchDashboardWidgets()
           }
           if (userJourneysError) {
             refetchUserJourneys()
           }
         }}
         noData={{
-          when: () => !SLOsData?.data?.content?.length && !selectedUserJourney,
+          when: () => !content?.length && !selectedUserJourney,
           message: getString('cv.slos.noData'),
           icon: 'join-table'
         }}
         className={css.pageBody}
       >
-        <Container padding={{ top: 'medium', left: 'xlarge', right: 'xlarge' }}>
+        <Layout.Vertical height="100%" padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}>
           <CardSelect
             type={CardSelectType.CardView}
             data={getUserJourneys(userJourneysData?.data?.content)}
@@ -156,22 +166,35 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
             onChange={onFilter}
           />
 
-          <div className={css.sloCardContainer}>
-            {SLOsData?.data?.content?.map(({ serviceLevelObjective }) => (
-              <Card key={serviceLevelObjective.identifier} className={css.sloCard} data-testid="sloCard">
-                <SLOCardHeader
-                  {...serviceLevelObjective}
-                  monitoredServiceIdentifier={monitoredServiceIdentifier}
-                  onDelete={onDelete}
-                />
-              </Card>
-            ))}
-          </div>
+          {!!content?.length && (
+            <>
+              <div className={css.sloCardContainer} data-testid="slo-card-container">
+                {content.map(serviceLevelObjective => (
+                  <Card key={serviceLevelObjective.sloIdentifier} className={css.sloCard}>
+                    <SLOCardHeader
+                      onDelete={onDelete}
+                      serviceLevelObjective={serviceLevelObjective}
+                      monitoredServiceIdentifier={monitoredServiceIdentifier}
+                    />
+                    <SLOCardContent serviceLevelObjective={serviceLevelObjective} />
+                  </Card>
+                ))}
+              </div>
+              <FlexExpander />
+              <Pagination
+                itemCount={totalItems}
+                pageCount={totalPages}
+                pageIndex={pageIndex}
+                pageSize={pageSize}
+                gotoPage={setPageNumber}
+              />
+            </>
+          )}
 
-          {!SLOsData?.data?.content?.length && !SLOsLoading && (
+          {!content?.length && !dashboardWidgetsLoading && (
             <NoDataCard icon="join-table" message={getString('cv.slos.noData')} />
           )}
-        </Container>
+        </Layout.Vertical>
       </Page.Body>
     </>
   )

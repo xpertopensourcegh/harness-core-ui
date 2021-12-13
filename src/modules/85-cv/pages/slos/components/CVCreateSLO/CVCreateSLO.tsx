@@ -84,18 +84,20 @@ const CVCreateSLO: React.FC = () => {
     }
   }
 
-  const NavButtons: React.FC<NavButtonsProps> = ({ formikProps }) => (
+  const NavButtons: React.FC<NavButtonsProps> = ({ formikProps, loading }) => (
     <Layout.Horizontal spacing="small" padding={{ top: 'xxlarge' }}>
       <Button
         icon="chevron-left"
         text={getString('back')}
         variation={ButtonVariation.SECONDARY}
+        disabled={loading}
         onClick={() => setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])}
       />
       <Button
         rightIcon="chevron-right"
         text={selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY ? getString('save') : getString('continue')}
         variation={ButtonVariation.PRIMARY}
+        loading={loading}
         onClick={() => {
           if (selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY) {
             formikProps.submitForm()
@@ -147,7 +149,7 @@ const CVCreateSLO: React.FC = () => {
                   title: getString('name'),
                   panel: (
                     <Page.Body
-                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      loading={SLODataLoading}
                       error={getErrorMessage(SLODataError)}
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
@@ -163,7 +165,7 @@ const CVCreateSLO: React.FC = () => {
                   title: getString('cv.slos.sli'),
                   panel: (
                     <Page.Body
-                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      loading={SLODataLoading}
                       error={getErrorMessage(SLODataError)}
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
@@ -179,13 +181,13 @@ const CVCreateSLO: React.FC = () => {
                   title: getString('cv.slos.sloTargetAndBudgetPolicy'),
                   panel: (
                     <Page.Body
-                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      loading={SLODataLoading}
                       error={getErrorMessage(SLODataError)}
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
                     >
                       <SLOTargetAndBudgetPolicy formikProps={formik}>
-                        <NavButtons formikProps={formik} />
+                        <NavButtons formikProps={formik} loading={createSLOLoading || updateSLOLoading} />
                       </SLOTargetAndBudgetPolicy>
                     </Page.Body>
                   )

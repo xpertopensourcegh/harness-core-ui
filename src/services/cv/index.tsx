@@ -3809,7 +3809,11 @@ export interface SLIMetricSpec {
 
 export interface SLODashboardWidget {
   burnRate: BurnRate
+  currentPeriodEndTime: number
+  currentPeriodLengthDays: number
+  currentPeriodStartTime: number
   errorBudgetBurndown: Point[]
+  errorBudgetRemaining: number
   errorBudgetRemainingPercentage: number
   healthSourceIdentifier: string
   healthSourceName: string
@@ -3817,11 +3821,14 @@ export interface SLODashboardWidget {
   monitoredServiceName: string
   sloIdentifier: string
   sloPerformanceTrend: Point[]
+  sloTargetPercentage: number
+  sloTargetType: 'Rolling' | 'Calender'
   tags?: {
     [key: string]: string
   }
   timeRemainingDays: number
   title: string
+  totalErrorBudget: number
   type: 'Availability' | 'Latency'
 }
 
@@ -9329,7 +9336,7 @@ export interface GetParsedTimeseriesQueryParams {
   groupName: string
   metricValueJsonPath: string
   timestampJsonPath: string
-  timestampFormat: string
+  timestampFormat?: string
 }
 
 export type GetParsedTimeseriesProps = Omit<
@@ -9832,6 +9839,60 @@ export const saveSLODataPromise = (
     ServiceLevelObjectiveDTORequestBody,
     void
   >('POST', getConfig('cv/api'), `/slo`, props, signal)
+
+export interface GetSLODashboardWidgetsQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  userJourneyIdentifiers?: string[]
+  monitoredServiceIdentifier?: string
+  pageNumber?: number
+  pageSize?: number
+}
+
+export type GetSLODashboardWidgetsProps = Omit<
+  GetProps<ResponsePageSLODashboardWidget, unknown, GetSLODashboardWidgetsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get widget list
+ */
+export const GetSLODashboardWidgets = (props: GetSLODashboardWidgetsProps) => (
+  <Get<ResponsePageSLODashboardWidget, unknown, GetSLODashboardWidgetsQueryParams, void>
+    path={`/slo-dashboard/widgets`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetSLODashboardWidgetsProps = Omit<
+  UseGetProps<ResponsePageSLODashboardWidget, unknown, GetSLODashboardWidgetsQueryParams, void>,
+  'path'
+>
+
+/**
+ * get widget list
+ */
+export const useGetSLODashboardWidgets = (props: UseGetSLODashboardWidgetsProps) =>
+  useGet<ResponsePageSLODashboardWidget, unknown, GetSLODashboardWidgetsQueryParams, void>(`/slo-dashboard/widgets`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get widget list
+ */
+export const getSLODashboardWidgetsPromise = (
+  props: GetUsingFetchProps<ResponsePageSLODashboardWidget, unknown, GetSLODashboardWidgetsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageSLODashboardWidget, unknown, GetSLODashboardWidgetsQueryParams, void>(
+    getConfig('cv/api'),
+    `/slo-dashboard/widgets`,
+    props,
+    signal
+  )
 
 export interface DeleteSLODataQueryParams {
   accountId: string

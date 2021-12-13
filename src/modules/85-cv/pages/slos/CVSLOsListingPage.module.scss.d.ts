@@ -5,5 +5,8 @@ declare const styles: {
   readonly userJourney: string
   readonly sloCardContainer: string
   readonly sloCard: string
+  readonly sloTags: string
+  readonly sloGlanceCard: string
+  readonly pillToggle: string
 }
 export default styles

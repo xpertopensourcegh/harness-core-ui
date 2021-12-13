@@ -1,13 +1,17 @@
 import moment from 'moment'
+import { minBy, maxBy } from 'lodash-es'
 import type Highcharts from 'highcharts'
+import { Color, Utils } from '@wings-software/uicore'
+import type { Point } from 'services/cv'
+
+const MILLISECONDS_PER_HOUR = 1000 * 60 * 60
 
 export const getDefaultChartOptions = (): Highcharts.Options => ({
-  chart: {
-    spacing: [20, 0, 0, 0]
-  },
+  chart: { spacing: [20, 0, 20, 0] },
   xAxis: {
-    tickInterval: 60 * 60 * 1000 * 4,
+    tickInterval: MILLISECONDS_PER_HOUR,
     allowDecimals: false,
+    type: 'datetime',
     labels: {
       formatter: function () {
         return moment(this.value).format('h:mm A')
@@ -15,20 +19,16 @@ export const getDefaultChartOptions = (): Highcharts.Options => ({
     }
   },
   yAxis: {
-    max: 100,
-    tickInterval: 25,
     labels: {
       formatter: function () {
         return `${this.value}%`
       }
     }
   },
-  tooltip: {
-    enabled: false
-  },
+  tooltip: { enabled: false },
   plotOptions: {
     area: {
-      color: 'var(--primary-3)',
+      color: Utils.getRealCSSColor(Color.PRIMARY_3),
       marker: {
         enabled: false,
         states: {
@@ -40,3 +40,32 @@ export const getDefaultChartOptions = (): Highcharts.Options => ({
     }
   }
 })
+
+export const getDataPointsWithMinMaxXLimit = (
+  data: Point[]
+): {
+  dataPoints: number[][]
+  minXLimit: number
+  maxXLimit: number
+} => {
+  const divider = 10
+  const dataPoints = data.map(point => [Number(point.timestamp) || 0, Number(point.value) || 0])
+
+  const minPoint = minBy(dataPoints, point => point[1]) ?? [0, 0]
+  const maxPoint = maxBy(dataPoints, point => point[1]) ?? [0, 0]
+
+  const minValue = Math.floor(minPoint[1])
+  const maxValue = Math.ceil(maxPoint[1])
+
+  const minValueReminder = minValue % divider
+  const maxValueReminder = maxValue % divider
+
+  const minXLimit = minValue - minValueReminder
+  const maxXLimit = maxValueReminder ? maxValue + divider - maxValueReminder : maxValue
+
+  return {
+    dataPoints,
+    minXLimit: minXLimit === maxXLimit ? minXLimit - divider : minXLimit,
+    maxXLimit
+  }
+}

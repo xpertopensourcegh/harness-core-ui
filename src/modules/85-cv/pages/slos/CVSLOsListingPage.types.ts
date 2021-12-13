@@ -1,4 +1,4 @@
-import type { ServiceLevelObjectiveDTO } from 'services/cv'
+import type { SLODashboardWidget } from 'services/cv'
 
 export interface CVSLOsListingPageProps {
   monitoredServiceIdentifier?: string
@@ -6,7 +6,19 @@ export interface CVSLOsListingPageProps {
 
 // SLOCardHeader
 
-export interface SLOCardHeaderProps extends ServiceLevelObjectiveDTO {
-  monitoredServiceIdentifier?: string
+export interface SLOCardHeaderProps {
+  serviceLevelObjective: SLODashboardWidget
   onDelete: (identifier: string, name: string) => void
+  monitoredServiceIdentifier?: string
+}
+
+// SLOCardContent
+
+export interface SLOCardContentProps {
+  serviceLevelObjective: SLODashboardWidget
+}
+
+export enum SLOCardToggleViews {
+  SLO = 'SLO',
+  ERROR_BUDGET = 'ERROR_BUDGET'
 }

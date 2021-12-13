@@ -97,7 +97,7 @@ export const initialFormData: SLOForm = {
   validRequestMetric: '',
   SLIMissingDataType: SLIMissingDataTypes.GOOD,
   periodType: PeriodTypes.ROLLING,
-  SLOTargetPercentage: 0
+  SLOTargetPercentage: 99
 }
 
 export const mockPayloadForUpdateRequest: ServiceLevelObjectiveDTO = {
