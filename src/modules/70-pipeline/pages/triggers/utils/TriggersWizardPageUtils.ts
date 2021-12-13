@@ -334,11 +334,7 @@ const checkValidTriggerConfiguration = (formikValues: FlatValidWebhookFormikValu
     if (!formikValues['connectorRef'] || !formikValues['event'] || !formikValues['actions']) return false
     // onEdit case, waiting for api response
     else if (formikValues['connectorRef']?.value && !formikValues['connectorRef'].connector) return true
-    else if (
-      !connectorURLType ||
-      !!(connectorURLType === connectorUrlType.ACCOUNT && !formikValues.repoName) ||
-      (connectorURLType === connectorUrlType.REPO && formikValues.repoName)
-    )
+    else if (!connectorURLType || !!(connectorURLType === connectorUrlType.ACCOUNT && !formikValues.repoName))
       return false
   }
   return true
