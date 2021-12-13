@@ -53,6 +53,8 @@ export interface HelmDeployVariableStepProps {
   variablesData: StepElementConfig
 }
 
+const withUpdatedPayload = (values: StepElementConfig) => ({ ...values, spec: { ...values.spec, skipDryRun: false } })
+
 function HelmDeployWidget(
   props: HelmDeployProps,
   formikRef: StepFormikFowardRef<StepElementConfig>
@@ -65,10 +67,10 @@ function HelmDeployWidget(
       <Formik<StepElementConfig>
         onSubmit={(values: StepElementConfig) => {
           /* istanbul ignore next */
-          onUpdate?.({ ...values, spec: { skipDryRun: false } })
+          onUpdate?.(withUpdatedPayload(values))
         }}
         validate={(values: StepElementConfig) => {
-          onChange?.({ ...values, spec: { skipDryRun: false } })
+          onChange?.(withUpdatedPayload(values))
         }}
         formName="helmDeploy"
         initialValues={initialValues}

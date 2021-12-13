@@ -53,6 +53,8 @@ export interface HelmRollbackVariableStepProps {
   variablesData: StepElementConfig
 }
 
+const withUpdatedPayload = (values: StepElementConfig) => ({ ...values, spec: { ...values.spec, skipDryRun: false } })
+
 function HelmRollbackWidget(
   props: HelmRollbackProps,
   formikRef: StepFormikFowardRef<StepElementConfig>
@@ -65,11 +67,11 @@ function HelmRollbackWidget(
       <Formik<StepElementConfig>
         onSubmit={(values: StepElementConfig) => {
           /* istanbul ignore next */
-          onUpdate?.({ ...values, spec: { skipDryRun: false } })
+          onUpdate?.(withUpdatedPayload(values))
         }}
         validate={(values: StepElementConfig) => {
           /* istanbul ignore next */
-          onChange?.({ ...values, spec: { skipDryRun: false } })
+          onChange?.(withUpdatedPayload(values))
         }}
         initialValues={initialValues}
         formName="helmRollback"
