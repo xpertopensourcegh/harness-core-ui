@@ -6,7 +6,7 @@ import type { GitSyncConfig, ConnectorInfoDTO, GitSyncEntityDTO } from 'services
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getPipelineListPromise } from 'services/pipeline-ng'
 import { GitSuffixRegex, HarnessFolderNameSanityRegex } from '@common/utils/StringUtils'
-import { useGetAllFeatures } from 'services/cf'
+import { getAllFeaturesPromise } from 'services/cf'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 
@@ -159,15 +159,6 @@ export const getEntityUrl = (entity: GitSyncEntityDTO): string => {
 export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModulePathParams): boolean => {
   const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
 
-  const { refetch: refetchGetFeatureFlags, data: featureFlagsResponse } = useGetAllFeatures({
-    queryParams: {
-      accountIdentifier: queryParam.accountId,
-      org: queryParam.orgIdentifier,
-      project: queryParam.projectIdentifier
-    },
-    lazy: true
-  })
-
   const [canEnableGit, setCanEnableGit] = useState<boolean>(false)
 
   useEffect(() => {
@@ -181,21 +172,28 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModuleP
 
     const checkEnableGitConditions = async (): Promise<void> => {
       try {
-        const response = await getPipelineListPromise({
+        const pipelinesResponse = await getPipelineListPromise({
           queryParams: defaultQueryParamsForPipelines,
           body: { filterType: 'PipelineSetup' }
         })
 
         const hasPipelines = !!(
-          response?.status === 'SUCCESS' &&
-          response?.data?.totalElements &&
-          response?.data?.totalElements > 0
+          pipelinesResponse?.status === 'SUCCESS' &&
+          pipelinesResponse?.data?.totalElements &&
+          pipelinesResponse?.data?.totalElements > 0
         )
 
         let hasFeatureFlags = false
 
         if (FF_GITSYNC) {
-          refetchGetFeatureFlags()
+          const featureFlagsResponse = await getAllFeaturesPromise({
+            queryParams: {
+              accountIdentifier: queryParam.accountId,
+              org: queryParam.orgIdentifier,
+              project: queryParam.projectIdentifier
+            }
+          })
+
           hasFeatureFlags = !!(featureFlagsResponse && featureFlagsResponse.itemCount > 0)
         }
 
@@ -208,7 +206,7 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModuleP
     }
 
     checkEnableGitConditions()
-  }, [featureFlagsResponse])
+  }, [])
 
   return canEnableGit
 }

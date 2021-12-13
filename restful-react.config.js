@@ -142,10 +142,11 @@ module.exports = {
     output: 'src/services/cf/index.tsx',
     url: 'http://127.0.0.1:8085/docs/release/admin-v1.yaml',
     transformer: 'scripts/swagger-transform.js',
-    customImport: `import { getConfig } from "../config";`,
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {
       base: `{getConfig("cf")}`
-    }
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('cf')")
   },
   lw: {
     output: 'src/services/lw/index.tsx',
