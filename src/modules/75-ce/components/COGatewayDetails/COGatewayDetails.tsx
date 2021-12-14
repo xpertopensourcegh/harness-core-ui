@@ -16,6 +16,7 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { ASRuleTabs } from '@ce/constants'
 import { GatewayContextProvider } from '@ce/context/GatewayContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { ConfigTabTitle, ReviewTabTitle, SetupAccessTabTitle } from './TabTitles'
 import { getServiceObjectFromgatewayDetails, isPrimaryBtnDisable, trackPrimaryBtnClick } from './helper'
 import css from './COGatewayDetails.module.scss'
@@ -167,6 +168,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const nextTab = (): void => {
     const tabIndex = tabs.findIndex(t => t == selectedTabId)
     if (tabIndex == tabs.length - 1) {
+      trackEvent(USER_JOURNEY_EVENTS.SAVE_RULE_CLICK, {})
       onSave()
     } else if (tabIndex < tabs.length - 1) {
       setSelectedTabId(tabs[tabIndex + 1])

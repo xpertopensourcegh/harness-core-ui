@@ -6,6 +6,8 @@ import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import type { Service } from 'services/lw'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, RESOURCES } from '@ce/constants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import DefineRule from './steps/DefineRule'
 import ManageResources from './steps/ManageResources/ManageResources'
 import ResourceFulfilment from './steps/ResourceFulfilment'
@@ -23,6 +25,7 @@ interface COGatewayConfigProps {
 }
 
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
+  const { trackEvent } = useTelemetry()
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const [totalStepsCount, setTotalStepsCount] = useState<number>(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
   const [selectedResource, setSelectedResource] = useState<RESOURCES | null>(
@@ -46,6 +49,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     })
     setActiveDrawerIds(newActiveIds)
   }, 500)
+
+  useEffect(() => {
+    trackEvent(USER_JOURNEY_EVENTS.RULE_CREATION_STEP_1, {})
+  }, [])
 
   useLayoutEffect(() => {
     {

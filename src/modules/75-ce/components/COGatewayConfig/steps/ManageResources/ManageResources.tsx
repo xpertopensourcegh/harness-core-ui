@@ -19,6 +19,8 @@ import COAsgSelector from '@ce/components/COAsgSelector'
 import { Connectors } from '@connectors/constants'
 import { Utils } from '@ce/common/Utils'
 import CORdsSelector from '@ce/components/CORdsSelector/CORdsSelector'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import COGatewayConfigStep from '../../COGatewayConfigStep'
 import { fromResourceToInstanceDetails, isFFEnabledForResource } from '../../helper'
 import ResourceSelectionModal from '../../ResourceSelectionModal'
@@ -57,6 +59,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
+  const { trackEvent } = useTelemetry()
 
   const [allConnectors, setAllConnectors] = useState<ConnectorResponse[]>([])
   const [connectorsToShow, setConnectorsToShow] = useState<ConnectorResponse[]>([])
@@ -499,6 +502,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         <RadioGroup
           selectedValue={props.selectedResource?.valueOf()}
           onChange={e => {
+            trackEvent(USER_JOURNEY_EVENTS.SELECT_MANAGED_RESOURCES, { type: e.currentTarget.value })
             props.setSelectedResource(e.currentTarget.value as RESOURCES)
           }}
           className={css.radioGroup}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { CellProps } from 'react-table'
 import cx from 'classnames'
 import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
@@ -8,6 +8,8 @@ import { Utils } from '@ce/common/Utils'
 import type { ContainerSvc, HealthCheck, PortConfig, RDSDatabase, ServiceDep } from 'services/lw'
 import FixedSchedeulesList from '@ce/common/FixedSchedulesList/FixedSchedulesList'
 import { useStrings } from 'framework/strings'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
 import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
 import { DisplaySelectedEcsService } from '../COGatewayConfig/steps/ManageResources/DisplaySelectedEcsService'
@@ -61,9 +63,15 @@ const ReviewDetailsSection: React.FC<ReviewDetailsSectionProps> = props => {
 
 const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
-  const hasSelectedInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
   const filteredSchedules = props.gatewayDetails.schedules?.filter(s => !s.isDeleted)
+  const hasSelectedInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
+
+  useEffect(() => {
+    trackEvent(USER_JOURNEY_EVENTS.RULE_CREATION_STEP_3, {})
+  }, [])
+
   return (
     <Layout.Vertical padding="large" className={css.page}>
       <Text className={css.reviewHeading}>Cloud account details</Text>

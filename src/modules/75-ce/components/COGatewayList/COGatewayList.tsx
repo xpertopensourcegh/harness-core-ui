@@ -39,6 +39,7 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -131,8 +132,20 @@ const COGatewayList: React.FC = () => {
     debounce: 300
   })
 
+  const trackLandingPage = () => {
+    const hasData = !_isEmpty(servicesData?.response)
+    if (!loading && !hasData) {
+      trackEvent(USER_JOURNEY_EVENTS.LOAD_AS_LANDING_PAGE, {})
+    } else if (!loading && hasData) {
+      trackEvent(USER_JOURNEY_EVENTS.LOAD_AS_SUMMARY_PAGE, {})
+    }
+  }
+
   useEffect(() => {
-    if (servicesData?.response) setTableData(servicesData?.response || [])
+    if (servicesData?.response) {
+      setTableData(servicesData?.response || [])
+    }
+    trackLandingPage()
   }, [servicesData?.response])
 
   if (error) {
@@ -479,7 +492,7 @@ const COGatewayList: React.FC = () => {
                     accountId
                   })
                 )
-                trackEvent('StartedMakingAutoStoppingRule', {})
+                trackEvent(USER_JOURNEY_EVENTS.CREATE_NEW_AS_CLICK, {})
               }}
             />
           </Layout.Vertical>

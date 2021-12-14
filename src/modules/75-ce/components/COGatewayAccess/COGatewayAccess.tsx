@@ -22,6 +22,8 @@ import { DEFAULT_ACCESS_DETAILS } from '@ce/constants'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
 import { Service, useDescribeServiceInContainerServiceCluster } from 'services/lw'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
@@ -45,6 +47,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
+  const { trackEvent } = useTelemetry()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
     Utils.getConditionalResult(
@@ -73,6 +76,10 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   })
 
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
+
+  useEffect(() => {
+    trackEvent(USER_JOURNEY_EVENTS.RULE_CREATION_STEP_2, {})
+  }, [])
 
   useEffect(() => {
     let validStatus = false

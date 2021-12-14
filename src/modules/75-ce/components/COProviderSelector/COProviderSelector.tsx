@@ -19,6 +19,7 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { Utils } from '@ce/common/Utils'
 import COGatewayBasics from '../COGatewayBasics/COGatewayBasics'
 import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
@@ -68,9 +69,12 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   )
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
   const { accountId } = useParams<ProjectPathProps>()
+
   useEffect(() => {
-    if (selectedCard) trackEvent('SelectedCloudCard', { cloudProvider: selectedCard.name })
-  }, [selectedCard, trackEvent])
+    if (selectedCard) {
+      trackEvent(USER_JOURNEY_EVENTS.SELECT_CLOUD_PROVIDER, { cloudProvider: selectedCard.name })
+    }
+  }, [selectedCard])
 
   const clearCloudAccountDetails = (_gatewayDetails: GatewayDetails): void => {
     if (_gatewayDetails.cloudAccount.id) {
@@ -161,7 +165,6 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
           text="Next"
           icon="chevron-right"
           onClick={() => {
-            trackEvent('VisitedConfigPage', {})
             props.nextTab()
           }}
           disabled={!(selectedCard && cloudAccountID)}

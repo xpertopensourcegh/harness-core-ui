@@ -11,6 +11,7 @@ import { useStrings } from 'framework/strings'
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
 import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import css from './CESideNav.module.scss'
 
 const feedbackOptions = [
@@ -121,6 +122,7 @@ export const ProjectLevelFeedback = (props: ProjectLevelFeedbackProps) => {
 const SideNavItems = () => {
   const { accountId } = useParams<PipelinePathProps>()
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
   return (
     <Layout.Vertical spacing="small">
       <React.Fragment>
@@ -132,7 +134,13 @@ const SideNavItems = () => {
           label={getString('ce.recommendation.sideNavText')}
           to={routes.toCERecommendations({ accountId })}
         />
-        <SidebarLink label={getString('ce.co.breadCrumb.rules')} to={routes.toCECORules({ accountId })} />
+        <SidebarLink
+          onClick={() => {
+            trackEvent(USER_JOURNEY_EVENTS.AS_NAV_CLICK, {})
+          }}
+          label={getString('ce.co.breadCrumb.rules')}
+          to={routes.toCECORules({ accountId })}
+        />
         <NavExpandable title={getString('common.setup')} route={routes.toCECOAccessPoints({ accountId })}>
           <Layout.Vertical spacing="small">
             <SidebarLink
