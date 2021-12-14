@@ -27,6 +27,7 @@ import routes from '@common/RouteDefinitions'
 import { returnUrlParams } from '@common/utils/routeUtils'
 import { PermissionsProvider } from 'framework/rbac/PermissionsContext'
 import { FeaturesProvider } from 'framework/featureStore/FeaturesContext'
+import { identifyFullStoryUser } from '../../3rd-party/FullStory'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -91,8 +92,8 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
   }, [refreshTokenResponse])
 
   useEffect(() => {
-    // Assign TOUR_GUIDE_USER_ID to let Walkme recognize current user
-    window.TOUR_GUIDE_USER_ID = username
+    // Allow FullStory to recognize current user
+    identifyFullStoryUser({ username })
   }, [username])
 
   const checkAndRefreshToken = (): void => {
