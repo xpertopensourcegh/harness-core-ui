@@ -1,8 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly dashboardCard: string
   readonly pageContainer: string
+  readonly dashboardCard: string
   readonly search: string
   readonly customSelect: string
   readonly folderDialog: string
