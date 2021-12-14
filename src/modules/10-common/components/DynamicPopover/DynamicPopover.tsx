@@ -80,6 +80,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
       setIsHoverView(!!hoverView)
       showTimerRef.current = window.setTimeout(
         () => {
+          setVisibility(true)
           setData(dataTemp)
           if (options) {
             typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
@@ -96,7 +97,6 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
           } else {
             setReferenceElement(ref)
           }
-          setVisibility(true)
           clearTimeout()
         },
         hoverView ? 500 : 100
