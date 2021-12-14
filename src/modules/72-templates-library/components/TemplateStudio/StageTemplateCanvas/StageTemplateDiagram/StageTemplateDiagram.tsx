@@ -121,7 +121,7 @@ export const StageTemplateDiagram = (): JSX.Element => {
       allowAdd: false,
       height: 40,
       iconStyle: { color: 'var(--white)' },
-      icon: stagesMap[stage.type]?.icon,
+      icon: stage.type ? stagesMap[stage.type]?.icon : undefined,
       nodeClassName: css.createNewModal,
       ...(stage.when && {})
     })

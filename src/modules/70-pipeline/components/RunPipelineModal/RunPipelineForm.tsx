@@ -50,7 +50,6 @@ import type {
   PipelinePathProps,
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -58,7 +57,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
-import { mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
+import { getFeaturePropsForRunPipelineButton, mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
 import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -177,7 +176,6 @@ function RunPipelineFormBasic({
     debounce: 500
   })
 
-  const isCIModule = module === 'ci'
   React.useEffect(() => {
     getInputSetsList()
     getTemplateFromPipeline()
@@ -1070,13 +1068,7 @@ function RunPipelineFormBasic({
                           submitForm()
                         }
                       }}
-                      featuresProps={{
-                        featuresRequest: {
-                          featureNames: [
-                            isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH
-                          ]
-                        }
-                      }}
+                      featuresProps={getFeaturePropsForRunPipelineButton(template?.data?.modules)}
                       permission={{
                         resource: {
                           resourceIdentifier: pipeline?.identifier as string,

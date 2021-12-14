@@ -21,6 +21,7 @@ import type {
 
 import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 // eslint-disable-next-line no-restricted-imports
@@ -91,7 +92,7 @@ const validateStep = ({
 }: ValidateStepProps): FormikErrors<StepElementConfig> => {
   const errors = {}
   const originalStep = getStepFromStage(defaultTo(step.identifier, ''), originalSteps)
-  const isTemplateStep = !!originalStep?.step?.template
+  const isTemplateStep = !!(originalStep?.step as unknown as TemplateStepData)?.template
   const stepType = isTemplateStep ? StepType.Template : originalStep?.step?.type
   const pipelineStep = factory.getStep(stepType)
   const errorResponse = pipelineStep?.validateInputSet({

@@ -17,7 +17,6 @@ import {
   isRetryPipelineAllowed
 } from '@pipeline/utils/statusHelpers'
 import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
@@ -318,7 +317,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             ) : null}
             {stageId ? null : (
               <RbacMenuItem
-                featuresProps={{ featuresRequest: { featureNames: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH] } }}
+                featuresProps={getFeaturePropsForRunPipelineButton(modules)}
                 text={getString(rerunText)}
                 disabled={!canRerun}
                 onClick={reRunPipeline}

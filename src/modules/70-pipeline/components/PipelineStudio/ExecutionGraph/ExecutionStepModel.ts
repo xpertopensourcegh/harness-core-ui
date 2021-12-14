@@ -286,9 +286,12 @@ export class ExecutionStepModel extends DiagramModel {
 
     let { startX, startY, prevNodes } = props
     if (node.step) {
-      const isTemplateStep = !!(node.step as TemplateStepData)?.template
+      const isTemplateStep = !!(node.step as unknown as TemplateStepData)?.template
       const stepType = isTemplateStep
-        ? get(templateTypes, getIdentifierFromValue((node?.step as TemplateStepData)?.template.templateRef)) || ''
+        ? get(
+            templateTypes,
+            getIdentifierFromValue((node?.step as unknown as TemplateStepData)?.template.templateRef)
+          ) || ''
         : node?.step?.type
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))

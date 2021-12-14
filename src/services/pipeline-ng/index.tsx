@@ -444,8 +444,8 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
-    | 'ServiceNow'
     | 'CustomHealth'
+    | 'ServiceNow'
   )[]
 }
 
@@ -1917,33 +1917,6 @@ export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & {
   connectorRef?: string
 }
 
-export interface HttpHeaderConfig {
-  key?: string
-  value?: string
-}
-
-export interface HttpStepInfo {
-  assertion?: string
-  delegateSelectors?: string[]
-  headers?: HttpHeaderConfig[]
-  method: string
-  outputVariables?: NGVariable[]
-  requestBody?: string
-  url: string
-}
-
-export interface HttpStepNode {
-  description?: string
-  failureStrategies?: FailureStrategyConfig[]
-  identifier: string
-  name: string
-  spec?: HttpStepInfo
-  template?: TemplateLinkConfig
-  timeout?: string
-  type: 'Http'
-  when?: StepWhenCondition
-}
-
 export type IgnoreFailureActionConfig = FailureStrategyActionConfig & {
   type: 'Ignore'
 }
@@ -1995,6 +1968,7 @@ export interface InputSetSummaryResponse {
   inputSetType?: 'INPUT_SET' | 'OVERLAY_INPUT_SET'
   isOutdated?: boolean
   lastUpdatedAt?: number
+  modules?: string[]
   name?: string
   overlaySetErrorDetails?: {
     [key: string]: string
@@ -2021,6 +1995,7 @@ export interface InputSetTemplateResponse {
 
 export interface InputSetTemplateWithReplacedExpressionsResponse {
   inputSetTemplateYaml?: string
+  modules?: string[]
   replacedExpressions?: string[]
 }
 
@@ -2391,14 +2366,6 @@ export interface NGTriggerSpecV2 {
   [key: string]: any
 }
 
-export interface NGVariable {
-  description?: string
-  metadata?: string
-  name?: string
-  required?: boolean
-  type?: 'String' | 'Number' | 'Secret'
-}
-
 export interface NamePart {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -2458,13 +2425,6 @@ export interface NotificationRules {
   name?: string
   notificationMethod?: NotificationChannelWrapper
   pipelineEvents?: PipelineEvent[]
-}
-
-export type NumberNGVariable = NGVariable & {
-  default?: number
-  name?: string
-  type?: 'Number'
-  value: number
 }
 
 export interface OnFailureConfig {
@@ -2550,6 +2510,7 @@ export interface OverlayInputSetResponse {
 export interface PMSPipelineResponseDTO {
   entityValidityDetails?: EntityValidityDetails
   gitDetails?: EntityGitDetails
+  modules?: string[]
   version?: number
   yamlPipeline?: string
 }
@@ -2975,6 +2936,10 @@ export interface PipelineExecutionSummary {
   totalStagesCount?: number
 }
 
+export interface PipelineExpandedJson {
+  expandedJson?: string
+}
+
 export type PipelineFilterProperties = FilterProperties & {
   description?: string
   moduleProperties?: {
@@ -3068,6 +3033,15 @@ export interface PlanExecution {
 export interface PlanExecutionResponseDto {
   gitDetails?: EntityGitDetails
   planExecution?: PlanExecution
+}
+
+export interface PmsAbstractStepNode {
+  description?: string
+  failureStrategies?: FailureStrategyConfig[]
+  identifier: string
+  name: string
+  timeout?: string
+  when?: StepWhenCondition
 }
 
 export type PmsEmailChannel = PmsNotificationChannel & {
@@ -3389,13 +3363,6 @@ export interface ResponseFilterDTO {
 export interface ResponseHarnessApprovalInstanceAuthorization {
   correlationId?: string
   data?: HarnessApprovalInstanceAuthorization
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseHttpStepNode {
-  correlationId?: string
-  data?: HttpStepNode
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3972,6 +3939,13 @@ export interface ResponsePipelineExecutionInterrupt {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePipelineExpandedJson {
+  correlationId?: string
+  data?: PipelineExpandedJson
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePipelineOpaEvaluationContext {
   correlationId?: string
   data?: PipelineOpaEvaluationContext
@@ -3996,6 +3970,13 @@ export interface ResponsePipelinesCount {
 export interface ResponsePlanExecutionResponseDto {
   correlationId?: string
   data?: PlanExecutionResponseDto
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePmsAbstractStepNode {
+  correlationId?: string
+  data?: PmsAbstractStepNode
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4045,6 +4026,13 @@ export interface ResponseStepCategory {
 export interface ResponseString {
   correlationId?: string
   data?: string
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseTemplateStepNode {
+  correlationId?: string
+  data?: TemplateStepNode
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4238,13 +4226,6 @@ export interface ScheduledTriggerSpec {
   [key: string]: any
 }
 
-export type SecretNGVariable = NGVariable & {
-  default?: string
-  name?: string
-  type?: 'Secret'
-  value: string
-}
-
 export interface ServiceDescriptor {
   file?: FileDescriptor
   fullName?: string
@@ -4392,6 +4373,7 @@ export interface StepData {
     | 'MAX_BUILDS_PER_MONTH'
     | 'ACTIVE_COMMITTERS'
     | 'TEST_INTELLIGENCE'
+    | 'TEMPLATE_SERVICE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -4427,13 +4409,6 @@ export interface StepPalleteModuleInfo {
 export interface StepWhenCondition {
   condition?: string
   stageStatus: 'Success' | 'Failure' | 'All'
-}
-
-export type StringNGVariable = NGVariable & {
-  default?: string
-  name?: string
-  type?: 'String'
-  value: string
 }
 
 export interface SuccessHealthInfo {
@@ -4590,6 +4565,13 @@ export interface TemplateLinkConfig {
   templateInputs?: JsonNode
   templateRef: string
   versionLabel?: string
+}
+
+export interface TemplateStepNode {
+  description?: string
+  identifier: string
+  name: string
+  template: TemplateLinkConfig
 }
 
 export interface Throwable {
@@ -6901,7 +6883,7 @@ export interface GetPreflightCheckResponseQueryParams {
 }
 
 export type GetPreflightCheckResponseProps = Omit<
-  GetProps<ResponsePreFlightDTO, unknown, GetPreflightCheckResponseQueryParams, void>,
+  GetProps<ResponsePreFlightDTO, Failure | Error, GetPreflightCheckResponseQueryParams, void>,
   'path'
 >
 
@@ -6909,7 +6891,7 @@ export type GetPreflightCheckResponseProps = Omit<
  * get preflight check response
  */
 export const GetPreflightCheckResponse = (props: GetPreflightCheckResponseProps) => (
-  <Get<ResponsePreFlightDTO, unknown, GetPreflightCheckResponseQueryParams, void>
+  <Get<ResponsePreFlightDTO, Failure | Error, GetPreflightCheckResponseQueryParams, void>
     path={`/pipeline/execute/getPreflightCheckResponse`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -6917,7 +6899,7 @@ export const GetPreflightCheckResponse = (props: GetPreflightCheckResponseProps)
 )
 
 export type UseGetPreflightCheckResponseProps = Omit<
-  UseGetProps<ResponsePreFlightDTO, unknown, GetPreflightCheckResponseQueryParams, void>,
+  UseGetProps<ResponsePreFlightDTO, Failure | Error, GetPreflightCheckResponseQueryParams, void>,
   'path'
 >
 
@@ -6925,7 +6907,7 @@ export type UseGetPreflightCheckResponseProps = Omit<
  * get preflight check response
  */
 export const useGetPreflightCheckResponse = (props: UseGetPreflightCheckResponseProps) =>
-  useGet<ResponsePreFlightDTO, unknown, GetPreflightCheckResponseQueryParams, void>(
+  useGet<ResponsePreFlightDTO, Failure | Error, GetPreflightCheckResponseQueryParams, void>(
     `/pipeline/execute/getPreflightCheckResponse`,
     { base: getConfig('pipeline/api'), ...props }
   )
@@ -6934,36 +6916,36 @@ export const useGetPreflightCheckResponse = (props: UseGetPreflightCheckResponse
  * get preflight check response
  */
 export const getPreflightCheckResponsePromise = (
-  props: GetUsingFetchProps<ResponsePreFlightDTO, unknown, GetPreflightCheckResponseQueryParams, void>,
+  props: GetUsingFetchProps<ResponsePreFlightDTO, Failure | Error, GetPreflightCheckResponseQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePreFlightDTO, unknown, GetPreflightCheckResponseQueryParams, void>(
+  getUsingFetch<ResponsePreFlightDTO, Failure | Error, GetPreflightCheckResponseQueryParams, void>(
     getConfig('pipeline/api'),
     `/pipeline/execute/getPreflightCheckResponse`,
     props,
     signal
   )
 
-export type RunSchemaOnDbProps = Omit<GetProps<ResponseString, unknown, void, void>, 'path'>
+export type RunSchemaOnDbProps = Omit<GetProps<ResponseString, Failure | Error, void, void>, 'path'>
 
 /**
  * Run a schema on db.
  */
 export const RunSchemaOnDb = (props: RunSchemaOnDbProps) => (
-  <Get<ResponseString, unknown, void, void>
+  <Get<ResponseString, Failure | Error, void, void>
     path={`/pipeline/execute/internal/runSchema`}
     base={getConfig('pipeline/api')}
     {...props}
   />
 )
 
-export type UseRunSchemaOnDbProps = Omit<UseGetProps<ResponseString, unknown, void, void>, 'path'>
+export type UseRunSchemaOnDbProps = Omit<UseGetProps<ResponseString, Failure | Error, void, void>, 'path'>
 
 /**
  * Run a schema on db.
  */
 export const useRunSchemaOnDb = (props: UseRunSchemaOnDbProps) =>
-  useGet<ResponseString, unknown, void, void>(`/pipeline/execute/internal/runSchema`, {
+  useGet<ResponseString, Failure | Error, void, void>(`/pipeline/execute/internal/runSchema`, {
     base: getConfig('pipeline/api'),
     ...props
   })
@@ -6972,10 +6954,10 @@ export const useRunSchemaOnDb = (props: UseRunSchemaOnDbProps) =>
  * Run a schema on db.
  */
 export const runSchemaOnDbPromise = (
-  props: GetUsingFetchProps<ResponseString, unknown, void, void>,
+  props: GetUsingFetchProps<ResponseString, Failure | Error, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseString, unknown, void, void>(
+  getUsingFetch<ResponseString, Failure | Error, void, void>(
     getConfig('pipeline/api'),
     `/pipeline/execute/internal/runSchema`,
     props,
@@ -7004,7 +6986,13 @@ export interface HandleInterruptPathParams {
 }
 
 export type HandleInterruptProps = Omit<
-  MutateProps<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>,
+  MutateProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
   'path' | 'verb'
 > &
   HandleInterruptPathParams
@@ -7013,7 +7001,13 @@ export type HandleInterruptProps = Omit<
  * pause, resume or stop the pipeline executions
  */
 export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
-  <Mutate<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>
+  <Mutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >
     verb="PUT"
     path={`/pipeline/execute/interrupt/${planExecutionId}`}
     base={getConfig('pipeline/api')}
@@ -7024,7 +7018,7 @@ export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptPr
 export type UseHandleInterruptProps = Omit<
   UseMutateProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleInterruptQueryParams,
     void,
     HandleInterruptPathParams
@@ -7037,11 +7031,17 @@ export type UseHandleInterruptProps = Omit<
  * pause, resume or stop the pipeline executions
  */
 export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
-  useMutate<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>(
-    'PUT',
-    (paramsInPath: HandleInterruptPathParams) => `/pipeline/execute/interrupt/${paramsInPath.planExecutionId}`,
-    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
-  )
+  useMutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', (paramsInPath: HandleInterruptPathParams) => `/pipeline/execute/interrupt/${paramsInPath.planExecutionId}`, {
+    base: getConfig('pipeline/api'),
+    pathParams: { planExecutionId },
+    ...props
+  })
 
 /**
  * pause, resume or stop the pipeline executions
@@ -7052,7 +7052,7 @@ export const handleInterruptPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleInterruptQueryParams,
     void,
     HandleInterruptPathParams
@@ -7061,7 +7061,7 @@ export const handleInterruptPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleInterruptQueryParams,
     void,
     HandleInterruptPathParams
@@ -7092,7 +7092,7 @@ export interface HandleStageInterruptPathParams {
 export type HandleStageInterruptProps = Omit<
   MutateProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleStageInterruptQueryParams,
     void,
     HandleStageInterruptPathParams
@@ -7107,7 +7107,7 @@ export type HandleStageInterruptProps = Omit<
 export const HandleStageInterrupt = ({ planExecutionId, nodeExecutionId, ...props }: HandleStageInterruptProps) => (
   <Mutate<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleStageInterruptQueryParams,
     void,
     HandleStageInterruptPathParams
@@ -7122,7 +7122,7 @@ export const HandleStageInterrupt = ({ planExecutionId, nodeExecutionId, ...prop
 export type UseHandleStageInterruptProps = Omit<
   UseMutateProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleStageInterruptQueryParams,
     void,
     HandleStageInterruptPathParams
@@ -7137,7 +7137,7 @@ export type UseHandleStageInterruptProps = Omit<
 export const useHandleStageInterrupt = ({ planExecutionId, nodeExecutionId, ...props }: UseHandleStageInterruptProps) =>
   useMutate<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleStageInterruptQueryParams,
     void,
     HandleStageInterruptPathParams
@@ -7158,7 +7158,7 @@ export const handleStageInterruptPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleStageInterruptQueryParams,
     void,
     HandleStageInterruptPathParams
@@ -7167,7 +7167,7 @@ export const handleStageInterruptPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleStageInterruptQueryParams,
     void,
     HandleStageInterruptPathParams
@@ -7191,7 +7191,12 @@ export interface LatestExecutionIdPathParams {
 }
 
 export type LatestExecutionIdProps = Omit<
-  GetProps<ResponseRetryLatestExecutionResponseDto, unknown, LatestExecutionIdQueryParams, LatestExecutionIdPathParams>,
+  GetProps<
+    ResponseRetryLatestExecutionResponseDto,
+    Failure | Error,
+    LatestExecutionIdQueryParams,
+    LatestExecutionIdPathParams
+  >,
   'path'
 > &
   LatestExecutionIdPathParams
@@ -7200,7 +7205,12 @@ export type LatestExecutionIdProps = Omit<
  * Latest ExecutionId from Retry Executions
  */
 export const LatestExecutionId = ({ planExecutionId, ...props }: LatestExecutionIdProps) => (
-  <Get<ResponseRetryLatestExecutionResponseDto, unknown, LatestExecutionIdQueryParams, LatestExecutionIdPathParams>
+  <Get<
+    ResponseRetryLatestExecutionResponseDto,
+    Failure | Error,
+    LatestExecutionIdQueryParams,
+    LatestExecutionIdPathParams
+  >
     path={`/pipeline/execute/latestExecutionId/${planExecutionId}`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -7210,7 +7220,7 @@ export const LatestExecutionId = ({ planExecutionId, ...props }: LatestExecution
 export type UseLatestExecutionIdProps = Omit<
   UseGetProps<
     ResponseRetryLatestExecutionResponseDto,
-    unknown,
+    Failure | Error,
     LatestExecutionIdQueryParams,
     LatestExecutionIdPathParams
   >,
@@ -7222,7 +7232,12 @@ export type UseLatestExecutionIdProps = Omit<
  * Latest ExecutionId from Retry Executions
  */
 export const useLatestExecutionId = ({ planExecutionId, ...props }: UseLatestExecutionIdProps) =>
-  useGet<ResponseRetryLatestExecutionResponseDto, unknown, LatestExecutionIdQueryParams, LatestExecutionIdPathParams>(
+  useGet<
+    ResponseRetryLatestExecutionResponseDto,
+    Failure | Error,
+    LatestExecutionIdQueryParams,
+    LatestExecutionIdPathParams
+  >(
     (paramsInPath: LatestExecutionIdPathParams) =>
       `/pipeline/execute/latestExecutionId/${paramsInPath.planExecutionId}`,
     { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
@@ -7237,7 +7252,7 @@ export const latestExecutionIdPromise = (
     ...props
   }: GetUsingFetchProps<
     ResponseRetryLatestExecutionResponseDto,
-    unknown,
+    Failure | Error,
     LatestExecutionIdQueryParams,
     LatestExecutionIdPathParams
   > & { planExecutionId: string },
@@ -7245,7 +7260,7 @@ export const latestExecutionIdPromise = (
 ) =>
   getUsingFetch<
     ResponseRetryLatestExecutionResponseDto,
-    unknown,
+    Failure | Error,
     LatestExecutionIdQueryParams,
     LatestExecutionIdPathParams
   >(getConfig('pipeline/api'), `/pipeline/execute/latestExecutionId/${planExecutionId}`, props, signal)
@@ -7275,7 +7290,7 @@ export interface HandleManualInterventionInterruptPathParams {
 export type HandleManualInterventionInterruptProps = Omit<
   MutateProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleManualInterventionInterruptQueryParams,
     void,
     HandleManualInterventionInterruptPathParams
@@ -7294,7 +7309,7 @@ export const HandleManualInterventionInterrupt = ({
 }: HandleManualInterventionInterruptProps) => (
   <Mutate<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleManualInterventionInterruptQueryParams,
     void,
     HandleManualInterventionInterruptPathParams
@@ -7309,7 +7324,7 @@ export const HandleManualInterventionInterrupt = ({
 export type UseHandleManualInterventionInterruptProps = Omit<
   UseMutateProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleManualInterventionInterruptQueryParams,
     void,
     HandleManualInterventionInterruptPathParams
@@ -7328,7 +7343,7 @@ export const useHandleManualInterventionInterrupt = ({
 }: UseHandleManualInterventionInterruptProps) =>
   useMutate<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleManualInterventionInterruptQueryParams,
     void,
     HandleManualInterventionInterruptPathParams
@@ -7349,7 +7364,7 @@ export const handleManualInterventionInterruptPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleManualInterventionInterruptQueryParams,
     void,
     HandleManualInterventionInterruptPathParams
@@ -7358,7 +7373,7 @@ export const handleManualInterventionInterruptPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePipelineExecutionInterrupt,
-    unknown,
+    Failure | Error,
     HandleManualInterventionInterruptQueryParams,
     void,
     HandleManualInterventionInterruptPathParams
@@ -7381,7 +7396,7 @@ export interface StartPreflightCheckQueryParams {
 }
 
 export type StartPreflightCheckProps = Omit<
-  MutateProps<ResponseString, unknown, StartPreflightCheckQueryParams, void, void>,
+  MutateProps<ResponseString, Failure | Error, StartPreflightCheckQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -7389,7 +7404,7 @@ export type StartPreflightCheckProps = Omit<
  * initiate pre flight check
  */
 export const StartPreflightCheck = (props: StartPreflightCheckProps) => (
-  <Mutate<ResponseString, unknown, StartPreflightCheckQueryParams, void, void>
+  <Mutate<ResponseString, Failure | Error, StartPreflightCheckQueryParams, void, void>
     verb="POST"
     path={`/pipeline/execute/preflightCheck`}
     base={getConfig('pipeline/api')}
@@ -7398,7 +7413,7 @@ export const StartPreflightCheck = (props: StartPreflightCheckProps) => (
 )
 
 export type UseStartPreflightCheckProps = Omit<
-  UseMutateProps<ResponseString, unknown, StartPreflightCheckQueryParams, void, void>,
+  UseMutateProps<ResponseString, Failure | Error, StartPreflightCheckQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -7406,7 +7421,7 @@ export type UseStartPreflightCheckProps = Omit<
  * initiate pre flight check
  */
 export const useStartPreflightCheck = (props: UseStartPreflightCheckProps) =>
-  useMutate<ResponseString, unknown, StartPreflightCheckQueryParams, void, void>(
+  useMutate<ResponseString, Failure | Error, StartPreflightCheckQueryParams, void, void>(
     'POST',
     `/pipeline/execute/preflightCheck`,
     { base: getConfig('pipeline/api'), ...props }
@@ -7416,10 +7431,10 @@ export const useStartPreflightCheck = (props: UseStartPreflightCheckProps) =>
  * initiate pre flight check
  */
 export const startPreflightCheckPromise = (
-  props: MutateUsingFetchProps<ResponseString, unknown, StartPreflightCheckQueryParams, void, void>,
+  props: MutateUsingFetchProps<ResponseString, Failure | Error, StartPreflightCheckQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseString, unknown, StartPreflightCheckQueryParams, void, void>(
+  mutateUsingFetch<ResponseString, Failure | Error, StartPreflightCheckQueryParams, void, void>(
     'POST',
     getConfig('pipeline/api'),
     `/pipeline/execute/preflightCheck`,
@@ -7446,7 +7461,7 @@ export interface RePostPipelineExecuteWithInputSetYamlV2PathParams {
 export type RePostPipelineExecuteWithInputSetYamlV2Props = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlV2QueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlV2PathParams
@@ -7465,7 +7480,7 @@ export const RePostPipelineExecuteWithInputSetYamlV2 = ({
 }: RePostPipelineExecuteWithInputSetYamlV2Props) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlV2QueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlV2PathParams
@@ -7480,7 +7495,7 @@ export const RePostPipelineExecuteWithInputSetYamlV2 = ({
 export type UseRePostPipelineExecuteWithInputSetYamlV2Props = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlV2QueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlV2PathParams
@@ -7499,7 +7514,7 @@ export const useRePostPipelineExecuteWithInputSetYamlV2 = ({
 }: UseRePostPipelineExecuteWithInputSetYamlV2Props) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlV2QueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlV2PathParams
@@ -7520,7 +7535,7 @@ export const rePostPipelineExecuteWithInputSetYamlV2Promise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlV2QueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlV2PathParams
@@ -7529,7 +7544,7 @@ export const rePostPipelineExecuteWithInputSetYamlV2Promise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlV2QueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlV2PathParams
@@ -7554,7 +7569,7 @@ export interface RePostPipelineExecuteWithInputSetYamlPathParams {
 export type RePostPipelineExecuteWithInputSetYamlProps = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlPathParams
@@ -7573,7 +7588,7 @@ export const RePostPipelineExecuteWithInputSetYaml = ({
 }: RePostPipelineExecuteWithInputSetYamlProps) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlPathParams
@@ -7588,7 +7603,7 @@ export const RePostPipelineExecuteWithInputSetYaml = ({
 export type UseRePostPipelineExecuteWithInputSetYamlProps = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlPathParams
@@ -7607,7 +7622,7 @@ export const useRePostPipelineExecuteWithInputSetYaml = ({
 }: UseRePostPipelineExecuteWithInputSetYamlProps) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlPathParams
@@ -7628,7 +7643,7 @@ export const rePostPipelineExecuteWithInputSetYamlPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlPathParams
@@ -7637,7 +7652,7 @@ export const rePostPipelineExecuteWithInputSetYamlPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     RePostPipelineExecuteWithInputSetYamlPathParams
@@ -7662,7 +7677,7 @@ export interface RePostPipelineExecuteWithInputSetListPathParams {
 export type RePostPipelineExecuteWithInputSetListProps = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     RePostPipelineExecuteWithInputSetListPathParams
@@ -7681,7 +7696,7 @@ export const RePostPipelineExecuteWithInputSetList = ({
 }: RePostPipelineExecuteWithInputSetListProps) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     RePostPipelineExecuteWithInputSetListPathParams
@@ -7696,7 +7711,7 @@ export const RePostPipelineExecuteWithInputSetList = ({
 export type UseRePostPipelineExecuteWithInputSetListProps = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     RePostPipelineExecuteWithInputSetListPathParams
@@ -7715,7 +7730,7 @@ export const useRePostPipelineExecuteWithInputSetList = ({
 }: UseRePostPipelineExecuteWithInputSetListProps) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     RePostPipelineExecuteWithInputSetListPathParams
@@ -7736,7 +7751,7 @@ export const rePostPipelineExecuteWithInputSetListPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     RePostPipelineExecuteWithInputSetListPathParams
@@ -7745,7 +7760,7 @@ export const rePostPipelineExecuteWithInputSetListPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RePostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     RePostPipelineExecuteWithInputSetListPathParams
@@ -7776,7 +7791,7 @@ export interface RerunStagesWithRuntimeInputYamlPathParams {
 export type RerunStagesWithRuntimeInputYamlProps = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RerunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RerunStagesWithRuntimeInputYamlPathParams
@@ -7795,7 +7810,7 @@ export const RerunStagesWithRuntimeInputYaml = ({
 }: RerunStagesWithRuntimeInputYamlProps) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RerunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RerunStagesWithRuntimeInputYamlPathParams
@@ -7810,7 +7825,7 @@ export const RerunStagesWithRuntimeInputYaml = ({
 export type UseRerunStagesWithRuntimeInputYamlProps = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RerunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RerunStagesWithRuntimeInputYamlPathParams
@@ -7829,7 +7844,7 @@ export const useRerunStagesWithRuntimeInputYaml = ({
 }: UseRerunStagesWithRuntimeInputYamlProps) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RerunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RerunStagesWithRuntimeInputYamlPathParams
@@ -7850,7 +7865,7 @@ export const rerunStagesWithRuntimeInputYamlPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RerunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RerunStagesWithRuntimeInputYamlPathParams
@@ -7859,7 +7874,7 @@ export const rerunStagesWithRuntimeInputYamlPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RerunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RerunStagesWithRuntimeInputYamlPathParams
@@ -7886,7 +7901,13 @@ export interface RetryPipelinePathParams {
 }
 
 export type RetryPipelineProps = Omit<
-  MutateProps<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>,
+  MutateProps<
+    ResponsePlanExecutionResponseDto,
+    Failure | Error,
+    RetryPipelineQueryParams,
+    void,
+    RetryPipelinePathParams
+  >,
   'path' | 'verb'
 > &
   RetryPipelinePathParams
@@ -7895,7 +7916,7 @@ export type RetryPipelineProps = Omit<
  * Retry a executed pipeline with inputSet pipeline yaml
  */
 export const RetryPipeline = ({ identifier, ...props }: RetryPipelineProps) => (
-  <Mutate<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>
+  <Mutate<ResponsePlanExecutionResponseDto, Failure | Error, RetryPipelineQueryParams, void, RetryPipelinePathParams>
     verb="POST"
     path={`/pipeline/execute/retry/${identifier}`}
     base={getConfig('pipeline/api')}
@@ -7904,7 +7925,13 @@ export const RetryPipeline = ({ identifier, ...props }: RetryPipelineProps) => (
 )
 
 export type UseRetryPipelineProps = Omit<
-  UseMutateProps<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>,
+  UseMutateProps<
+    ResponsePlanExecutionResponseDto,
+    Failure | Error,
+    RetryPipelineQueryParams,
+    void,
+    RetryPipelinePathParams
+  >,
   'path' | 'verb'
 > &
   RetryPipelinePathParams
@@ -7913,7 +7940,7 @@ export type UseRetryPipelineProps = Omit<
  * Retry a executed pipeline with inputSet pipeline yaml
  */
 export const useRetryPipeline = ({ identifier, ...props }: UseRetryPipelineProps) =>
-  useMutate<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>(
+  useMutate<ResponsePlanExecutionResponseDto, Failure | Error, RetryPipelineQueryParams, void, RetryPipelinePathParams>(
     'POST',
     (paramsInPath: RetryPipelinePathParams) => `/pipeline/execute/retry/${paramsInPath.identifier}`,
     { base: getConfig('pipeline/api'), pathParams: { identifier }, ...props }
@@ -7928,20 +7955,20 @@ export const retryPipelinePromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RetryPipelineQueryParams,
     void,
     RetryPipelinePathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>(
-    'POST',
-    getConfig('pipeline/api'),
-    `/pipeline/execute/retry/${identifier}`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponsePlanExecutionResponseDto,
+    Failure | Error,
+    RetryPipelineQueryParams,
+    void,
+    RetryPipelinePathParams
+  >('POST', getConfig('pipeline/api'), `/pipeline/execute/retry/${identifier}`, props, signal)
 
 export interface RetryHistoryQueryParams {
   accountIdentifier: string
@@ -7955,7 +7982,7 @@ export interface RetryHistoryPathParams {
 }
 
 export type RetryHistoryProps = Omit<
-  GetProps<ResponseRetryHistoryResponseDto, unknown, RetryHistoryQueryParams, RetryHistoryPathParams>,
+  GetProps<ResponseRetryHistoryResponseDto, Failure | Error, RetryHistoryQueryParams, RetryHistoryPathParams>,
   'path'
 > &
   RetryHistoryPathParams
@@ -7964,7 +7991,7 @@ export type RetryHistoryProps = Omit<
  * Retry History for a given execution
  */
 export const RetryHistory = ({ planExecutionId, ...props }: RetryHistoryProps) => (
-  <Get<ResponseRetryHistoryResponseDto, unknown, RetryHistoryQueryParams, RetryHistoryPathParams>
+  <Get<ResponseRetryHistoryResponseDto, Failure | Error, RetryHistoryQueryParams, RetryHistoryPathParams>
     path={`/pipeline/execute/retryHistory/${planExecutionId}`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -7972,7 +7999,7 @@ export const RetryHistory = ({ planExecutionId, ...props }: RetryHistoryProps) =
 )
 
 export type UseRetryHistoryProps = Omit<
-  UseGetProps<ResponseRetryHistoryResponseDto, unknown, RetryHistoryQueryParams, RetryHistoryPathParams>,
+  UseGetProps<ResponseRetryHistoryResponseDto, Failure | Error, RetryHistoryQueryParams, RetryHistoryPathParams>,
   'path'
 > &
   RetryHistoryPathParams
@@ -7981,7 +8008,7 @@ export type UseRetryHistoryProps = Omit<
  * Retry History for a given execution
  */
 export const useRetryHistory = ({ planExecutionId, ...props }: UseRetryHistoryProps) =>
-  useGet<ResponseRetryHistoryResponseDto, unknown, RetryHistoryQueryParams, RetryHistoryPathParams>(
+  useGet<ResponseRetryHistoryResponseDto, Failure | Error, RetryHistoryQueryParams, RetryHistoryPathParams>(
     (paramsInPath: RetryHistoryPathParams) => `/pipeline/execute/retryHistory/${paramsInPath.planExecutionId}`,
     { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
   )
@@ -7993,12 +8020,15 @@ export const retryHistoryPromise = (
   {
     planExecutionId,
     ...props
-  }: GetUsingFetchProps<ResponseRetryHistoryResponseDto, unknown, RetryHistoryQueryParams, RetryHistoryPathParams> & {
-    planExecutionId: string
-  },
+  }: GetUsingFetchProps<
+    ResponseRetryHistoryResponseDto,
+    Failure | Error,
+    RetryHistoryQueryParams,
+    RetryHistoryPathParams
+  > & { planExecutionId: string },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseRetryHistoryResponseDto, unknown, RetryHistoryQueryParams, RetryHistoryPathParams>(
+  getUsingFetch<ResponseRetryHistoryResponseDto, Failure | Error, RetryHistoryQueryParams, RetryHistoryPathParams>(
     getConfig('pipeline/api'),
     `/pipeline/execute/retryHistory/${planExecutionId}`,
     props,
@@ -8016,7 +8046,7 @@ export interface GetStagesExecutionListQueryParams {
 }
 
 export type GetStagesExecutionListProps = Omit<
-  GetProps<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>,
+  GetProps<ResponseListStageExecutionResponse, Failure | Error, GetStagesExecutionListQueryParams, void>,
   'path'
 >
 
@@ -8024,7 +8054,7 @@ export type GetStagesExecutionListProps = Omit<
  * get list of stages for stage execution
  */
 export const GetStagesExecutionList = (props: GetStagesExecutionListProps) => (
-  <Get<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>
+  <Get<ResponseListStageExecutionResponse, Failure | Error, GetStagesExecutionListQueryParams, void>
     path={`/pipeline/execute/stagesExecutionList`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -8032,7 +8062,7 @@ export const GetStagesExecutionList = (props: GetStagesExecutionListProps) => (
 )
 
 export type UseGetStagesExecutionListProps = Omit<
-  UseGetProps<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>,
+  UseGetProps<ResponseListStageExecutionResponse, Failure | Error, GetStagesExecutionListQueryParams, void>,
   'path'
 >
 
@@ -8040,7 +8070,7 @@ export type UseGetStagesExecutionListProps = Omit<
  * get list of stages for stage execution
  */
 export const useGetStagesExecutionList = (props: UseGetStagesExecutionListProps) =>
-  useGet<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>(
+  useGet<ResponseListStageExecutionResponse, Failure | Error, GetStagesExecutionListQueryParams, void>(
     `/pipeline/execute/stagesExecutionList`,
     { base: getConfig('pipeline/api'), ...props }
   )
@@ -8049,10 +8079,15 @@ export const useGetStagesExecutionList = (props: UseGetStagesExecutionListProps)
  * get list of stages for stage execution
  */
 export const getStagesExecutionListPromise = (
-  props: GetUsingFetchProps<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>,
+  props: GetUsingFetchProps<
+    ResponseListStageExecutionResponse,
+    Failure | Error,
+    GetStagesExecutionListQueryParams,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>(
+  getUsingFetch<ResponseListStageExecutionResponse, Failure | Error, GetStagesExecutionListQueryParams, void>(
     getConfig('pipeline/api'),
     `/pipeline/execute/stagesExecutionList`,
     props,
@@ -8077,7 +8112,7 @@ export interface PostPipelineExecuteWithInputSetYamlPathParams {
 export type PostPipelineExecuteWithInputSetYamlProps = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlPathParams
@@ -8095,7 +8130,7 @@ export const PostPipelineExecuteWithInputSetYaml = ({
 }: PostPipelineExecuteWithInputSetYamlProps) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlPathParams
@@ -8110,7 +8145,7 @@ export const PostPipelineExecuteWithInputSetYaml = ({
 export type UsePostPipelineExecuteWithInputSetYamlProps = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlPathParams
@@ -8128,7 +8163,7 @@ export const usePostPipelineExecuteWithInputSetYaml = ({
 }: UsePostPipelineExecuteWithInputSetYamlProps) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlPathParams
@@ -8147,7 +8182,7 @@ export const postPipelineExecuteWithInputSetYamlPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlPathParams
@@ -8156,7 +8191,7 @@ export const postPipelineExecuteWithInputSetYamlPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlQueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlPathParams
@@ -8180,7 +8215,7 @@ export interface PostPipelineExecuteWithInputSetListPathParams {
 export type PostPipelineExecuteWithInputSetListProps = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     PostPipelineExecuteWithInputSetListPathParams
@@ -8198,7 +8233,7 @@ export const PostPipelineExecuteWithInputSetList = ({
 }: PostPipelineExecuteWithInputSetListProps) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     PostPipelineExecuteWithInputSetListPathParams
@@ -8213,7 +8248,7 @@ export const PostPipelineExecuteWithInputSetList = ({
 export type UsePostPipelineExecuteWithInputSetListProps = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     PostPipelineExecuteWithInputSetListPathParams
@@ -8231,7 +8266,7 @@ export const usePostPipelineExecuteWithInputSetList = ({
 }: UsePostPipelineExecuteWithInputSetListProps) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     PostPipelineExecuteWithInputSetListPathParams
@@ -8251,7 +8286,7 @@ export const postPipelineExecuteWithInputSetListPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     PostPipelineExecuteWithInputSetListPathParams
@@ -8260,7 +8295,7 @@ export const postPipelineExecuteWithInputSetListPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetListQueryParams,
     MergeInputSetRequestRequestBody,
     PostPipelineExecuteWithInputSetListPathParams
@@ -8284,7 +8319,7 @@ export interface RunStagesWithRuntimeInputYamlPathParams {
 export type RunStagesWithRuntimeInputYamlProps = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
@@ -8299,7 +8334,7 @@ export type RunStagesWithRuntimeInputYamlProps = Omit<
 export const RunStagesWithRuntimeInputYaml = ({ identifier, ...props }: RunStagesWithRuntimeInputYamlProps) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
@@ -8314,7 +8349,7 @@ export const RunStagesWithRuntimeInputYaml = ({ identifier, ...props }: RunStage
 export type UseRunStagesWithRuntimeInputYamlProps = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
@@ -8329,7 +8364,7 @@ export type UseRunStagesWithRuntimeInputYamlProps = Omit<
 export const useRunStagesWithRuntimeInputYaml = ({ identifier, ...props }: UseRunStagesWithRuntimeInputYamlProps) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
@@ -8348,7 +8383,7 @@ export const runStagesWithRuntimeInputYamlPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
@@ -8357,7 +8392,7 @@ export const runStagesWithRuntimeInputYamlPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     RunStagesWithRuntimeInputYamlQueryParams,
     RunStageRequestDTORequestBody,
     RunStagesWithRuntimeInputYamlPathParams
@@ -8381,7 +8416,7 @@ export interface PostPipelineExecuteWithInputSetYamlv2PathParams {
 export type PostPipelineExecuteWithInputSetYamlv2Props = Omit<
   MutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlv2QueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlv2PathParams
@@ -8399,7 +8434,7 @@ export const PostPipelineExecuteWithInputSetYamlv2 = ({
 }: PostPipelineExecuteWithInputSetYamlv2Props) => (
   <Mutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlv2QueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlv2PathParams
@@ -8414,7 +8449,7 @@ export const PostPipelineExecuteWithInputSetYamlv2 = ({
 export type UsePostPipelineExecuteWithInputSetYamlv2Props = Omit<
   UseMutateProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlv2QueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlv2PathParams
@@ -8432,7 +8467,7 @@ export const usePostPipelineExecuteWithInputSetYamlv2 = ({
 }: UsePostPipelineExecuteWithInputSetYamlv2Props) =>
   useMutate<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlv2QueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlv2PathParams
@@ -8452,7 +8487,7 @@ export const postPipelineExecuteWithInputSetYamlv2Promise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlv2QueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlv2PathParams
@@ -8461,7 +8496,7 @@ export const postPipelineExecuteWithInputSetYamlv2Promise = (
 ) =>
   mutateUsingFetch<
     ResponsePlanExecutionResponseDto,
-    unknown,
+    Failure | Error,
     PostPipelineExecuteWithInputSetYamlv2QueryParams,
     void,
     PostPipelineExecuteWithInputSetYamlv2PathParams
@@ -8482,7 +8517,7 @@ export interface GetRetryStagesPathParams {
 }
 
 export type GetRetryStagesProps = Omit<
-  GetProps<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>,
+  GetProps<ResponseRetryInfo, Failure | Error, GetRetryStagesQueryParams, GetRetryStagesPathParams>,
   'path'
 > &
   GetRetryStagesPathParams
@@ -8491,7 +8526,7 @@ export type GetRetryStagesProps = Omit<
  * Get retry stages for failed pipeline
  */
 export const GetRetryStages = ({ planExecutionId, ...props }: GetRetryStagesProps) => (
-  <Get<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>
+  <Get<ResponseRetryInfo, Failure | Error, GetRetryStagesQueryParams, GetRetryStagesPathParams>
     path={`/pipeline/execute/${planExecutionId}/retryStages`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -8499,7 +8534,7 @@ export const GetRetryStages = ({ planExecutionId, ...props }: GetRetryStagesProp
 )
 
 export type UseGetRetryStagesProps = Omit<
-  UseGetProps<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>,
+  UseGetProps<ResponseRetryInfo, Failure | Error, GetRetryStagesQueryParams, GetRetryStagesPathParams>,
   'path'
 > &
   GetRetryStagesPathParams
@@ -8508,7 +8543,7 @@ export type UseGetRetryStagesProps = Omit<
  * Get retry stages for failed pipeline
  */
 export const useGetRetryStages = ({ planExecutionId, ...props }: UseGetRetryStagesProps) =>
-  useGet<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>(
+  useGet<ResponseRetryInfo, Failure | Error, GetRetryStagesQueryParams, GetRetryStagesPathParams>(
     (paramsInPath: GetRetryStagesPathParams) => `/pipeline/execute/${paramsInPath.planExecutionId}/retryStages`,
     { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
   )
@@ -8520,12 +8555,12 @@ export const getRetryStagesPromise = (
   {
     planExecutionId,
     ...props
-  }: GetUsingFetchProps<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams> & {
+  }: GetUsingFetchProps<ResponseRetryInfo, Failure | Error, GetRetryStagesQueryParams, GetRetryStagesPathParams> & {
     planExecutionId: string
   },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseRetryInfo, unknown, GetRetryStagesQueryParams, GetRetryStagesPathParams>(
+  getUsingFetch<ResponseRetryInfo, Failure | Error, GetRetryStagesQueryParams, GetRetryStagesPathParams>(
     getConfig('pipeline/api'),
     `/pipeline/execute/${planExecutionId}/retryStages`,
     props,
@@ -8610,31 +8645,84 @@ export const createPipelinePromise = (
     void
   >('POST', getConfig('pipeline/api'), `/pipelines`, props, signal)
 
-export type GetStepNodeProps = Omit<GetProps<ResponseHttpStepNode, Failure | Error, void, void>, 'path'>
+export type DummyPmsStepsApiProps = Omit<GetProps<ResponsePmsAbstractStepNode, Failure | Error, void, void>, 'path'>
 
-export const GetStepNode = (props: GetStepNodeProps) => (
-  <Get<ResponseHttpStepNode, Failure | Error, void, void>
-    path={`/pipelines/dummy-api`}
+/**
+ * This is dummy api to expose pmsSteps
+ */
+export const DummyPmsStepsApi = (props: DummyPmsStepsApiProps) => (
+  <Get<ResponsePmsAbstractStepNode, Failure | Error, void, void>
+    path={`/pipelines/dummy-pmsSteps-api`}
     base={getConfig('pipeline/api')}
     {...props}
   />
 )
 
-export type UseGetStepNodeProps = Omit<UseGetProps<ResponseHttpStepNode, Failure | Error, void, void>, 'path'>
+export type UseDummyPmsStepsApiProps = Omit<
+  UseGetProps<ResponsePmsAbstractStepNode, Failure | Error, void, void>,
+  'path'
+>
 
-export const useGetStepNode = (props: UseGetStepNodeProps) =>
-  useGet<ResponseHttpStepNode, Failure | Error, void, void>(`/pipelines/dummy-api`, {
+/**
+ * This is dummy api to expose pmsSteps
+ */
+export const useDummyPmsStepsApi = (props: UseDummyPmsStepsApiProps) =>
+  useGet<ResponsePmsAbstractStepNode, Failure | Error, void, void>(`/pipelines/dummy-pmsSteps-api`, {
     base: getConfig('pipeline/api'),
     ...props
   })
 
-export const getStepNodePromise = (
-  props: GetUsingFetchProps<ResponseHttpStepNode, Failure | Error, void, void>,
+/**
+ * This is dummy api to expose pmsSteps
+ */
+export const dummyPmsStepsApiPromise = (
+  props: GetUsingFetchProps<ResponsePmsAbstractStepNode, Failure | Error, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseHttpStepNode, Failure | Error, void, void>(
+  getUsingFetch<ResponsePmsAbstractStepNode, Failure | Error, void, void>(
     getConfig('pipeline/api'),
-    `/pipelines/dummy-api`,
+    `/pipelines/dummy-pmsSteps-api`,
+    props,
+    signal
+  )
+
+export type DummyTemplateStepApiProps = Omit<GetProps<ResponseTemplateStepNode, Failure | Error, void, void>, 'path'>
+
+/**
+ * This is dummy api to expose templateStepNode
+ */
+export const DummyTemplateStepApi = (props: DummyTemplateStepApiProps) => (
+  <Get<ResponseTemplateStepNode, Failure | Error, void, void>
+    path={`/pipelines/dummy-templateStep-api`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseDummyTemplateStepApiProps = Omit<
+  UseGetProps<ResponseTemplateStepNode, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * This is dummy api to expose templateStepNode
+ */
+export const useDummyTemplateStepApi = (props: UseDummyTemplateStepApiProps) =>
+  useGet<ResponseTemplateStepNode, Failure | Error, void, void>(`/pipelines/dummy-templateStep-api`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * This is dummy api to expose templateStepNode
+ */
+export const dummyTemplateStepApiPromise = (
+  props: GetUsingFetchProps<ResponseTemplateStepNode, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseTemplateStepNode, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/pipelines/dummy-templateStep-api`,
     props,
     signal
   )
@@ -8969,6 +9057,142 @@ export const getInputsetYamlV2Promise = (
     GetInputsetYamlV2PathParams
   >(getConfig('pipeline/api'), `/pipelines/execution/${planExecutionId}/inputsetV2`, props, signal)
 
+export interface GetExpandedPipelineJSONQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export interface GetExpandedPipelineJSONPathParams {
+  pipelineIdentifier: string
+}
+
+export type GetExpandedPipelineJSONProps = Omit<
+  GetProps<
+    ResponsePipelineExpandedJson,
+    Failure | Error,
+    GetExpandedPipelineJSONQueryParams,
+    GetExpandedPipelineJSONPathParams
+  >,
+  'path'
+> &
+  GetExpandedPipelineJSONPathParams
+
+/**
+ * Gets Pipeline JSON with extra info for some fields
+ */
+export const GetExpandedPipelineJSON = ({ pipelineIdentifier, ...props }: GetExpandedPipelineJSONProps) => (
+  <Get<
+    ResponsePipelineExpandedJson,
+    Failure | Error,
+    GetExpandedPipelineJSONQueryParams,
+    GetExpandedPipelineJSONPathParams
+  >
+    path={`/pipelines/expandedJSON/${pipelineIdentifier}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetExpandedPipelineJSONProps = Omit<
+  UseGetProps<
+    ResponsePipelineExpandedJson,
+    Failure | Error,
+    GetExpandedPipelineJSONQueryParams,
+    GetExpandedPipelineJSONPathParams
+  >,
+  'path'
+> &
+  GetExpandedPipelineJSONPathParams
+
+/**
+ * Gets Pipeline JSON with extra info for some fields
+ */
+export const useGetExpandedPipelineJSON = ({ pipelineIdentifier, ...props }: UseGetExpandedPipelineJSONProps) =>
+  useGet<
+    ResponsePipelineExpandedJson,
+    Failure | Error,
+    GetExpandedPipelineJSONQueryParams,
+    GetExpandedPipelineJSONPathParams
+  >((paramsInPath: GetExpandedPipelineJSONPathParams) => `/pipelines/expandedJSON/${paramsInPath.pipelineIdentifier}`, {
+    base: getConfig('pipeline/api'),
+    pathParams: { pipelineIdentifier },
+    ...props
+  })
+
+/**
+ * Gets Pipeline JSON with extra info for some fields
+ */
+export const getExpandedPipelineJSONPromise = (
+  {
+    pipelineIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponsePipelineExpandedJson,
+    Failure | Error,
+    GetExpandedPipelineJSONQueryParams,
+    GetExpandedPipelineJSONPathParams
+  > & { pipelineIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponsePipelineExpandedJson,
+    Failure | Error,
+    GetExpandedPipelineJSONQueryParams,
+    GetExpandedPipelineJSONPathParams
+  >(getConfig('pipeline/api'), `/pipelines/expandedJSON/${pipelineIdentifier}`, props, signal)
+
+export interface RefreshFFCacheQueryParams {
+  accountIdentifier: string
+}
+
+export type RefreshFFCacheProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
+  'path'
+>
+
+/**
+ * Refresh the feature flag cache
+ */
+export const RefreshFFCache = (props: RefreshFFCacheProps) => (
+  <Get<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>
+    path={`/pipelines/ffCache/refresh`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseRefreshFFCacheProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
+  'path'
+>
+
+/**
+ * Refresh the feature flag cache
+ */
+export const useRefreshFFCache = (props: UseRefreshFFCacheProps) =>
+  useGet<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>(`/pipelines/ffCache/refresh`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Refresh the feature flag cache
+ */
+export const refreshFFCachePromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/pipelines/ffCache/refresh`,
+    props,
+    signal
+  )
+
 export interface GetExecutionNodeQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -9259,54 +9483,6 @@ export const getPipelinedHealthPromise = (
   getUsingFetch<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>(
     getConfig('pipeline/api'),
     `/pipelines/pipelineHealth`,
-    props,
-    signal
-  )
-
-export interface RefreshFFCacheQueryParams {
-  accountIdentifier: string
-}
-
-export type RefreshFFCacheProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
-  'path'
->
-
-/**
- * Refresh the feature flag cache
- */
-export const RefreshFFCache = (props: RefreshFFCacheProps) => (
-  <Get<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>
-    path={`/pipelines/refreshFFCache`}
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseRefreshFFCacheProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
-  'path'
->
-
-/**
- * Refresh the feature flag cache
- */
-export const useRefreshFFCache = (props: UseRefreshFFCacheProps) =>
-  useGet<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>(`/pipelines/refreshFFCache`, {
-    base: getConfig('pipeline/api'),
-    ...props
-  })
-
-/**
- * Refresh the feature flag cache
- */
-export const refreshFFCachePromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/pipelines/refreshFFCache`,
     props,
     signal
   )
@@ -11219,6 +11395,9 @@ export interface GetSchemaYamlQueryParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'

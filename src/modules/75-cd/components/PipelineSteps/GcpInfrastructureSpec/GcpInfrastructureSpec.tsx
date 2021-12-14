@@ -500,14 +500,16 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
                   item.scope === Scope.ORG || item.scope === Scope.ACCOUNT
                     ? `${item.scope}.${item?.record?.identifier}`
                     : item.record?.identifier
-                refetchClusterNames({
-                  queryParams: {
-                    accountIdentifier: accountId,
-                    projectIdentifier,
-                    orgIdentifier,
-                    connectorRef: connectorRefValue
-                  }
-                })
+                if (connectorRefValue) {
+                  refetchClusterNames({
+                    queryParams: {
+                      accountIdentifier: accountId,
+                      projectIdentifier,
+                      orgIdentifier,
+                      connectorRef: connectorRefValue
+                    }
+                  })
+                }
               } else {
                 setClusterOptions([])
               }

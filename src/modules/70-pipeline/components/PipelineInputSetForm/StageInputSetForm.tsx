@@ -97,9 +97,9 @@ function StepForm({
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { expressions } = useVariablesExpression()
-  const isTemplateStep = !!(allValues?.step as TemplateStepData)?.template
+  const isTemplateStep = !!(allValues?.step as unknown as TemplateStepData)?.template
   const type = isTemplateStep
-    ? (allValues?.step as TemplateStepData)?.template.templateInputs?.type
+    ? (allValues?.step as unknown as TemplateStepData)?.template.templateInputs?.type
     : allValues?.step?.type
 
   return (

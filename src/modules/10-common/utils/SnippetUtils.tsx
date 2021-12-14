@@ -34,6 +34,8 @@ const entitySubTypeToTagMap: {
   AwsKms: 'awskms',
   Artifactory: 'artifactory',
   Jira: 'jira',
+  // eslint-disable-next-line
+  // @ts-ignore
   ServiceNow: 'servicenow',
   Nexus: 'nexus',
   Github: 'github',

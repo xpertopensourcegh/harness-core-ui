@@ -26,7 +26,6 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { Badge } from '@pipeline/pages/utils/Badge/Badge'
@@ -61,11 +60,10 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<{
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
-    module: string
   }>()
 
   const { confirmDelete } = useDeleteConfirmationDialog(data, 'pipeline', (column as any).onDeletePipeline)
@@ -123,11 +121,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
               e.stopPropagation()
               runPipeline()
             }}
-            featuresProps={{
-              featuresRequest: {
-                featureNames: [module === 'cd' ? FeatureIdentifier.DEPLOYMENTS_PER_MONTH : FeatureIdentifier.BUILDS]
-              }
-            }}
+            featuresProps={getFeaturePropsForRunPipelineButton(data.modules)}
           />
 
           <Menu.Item

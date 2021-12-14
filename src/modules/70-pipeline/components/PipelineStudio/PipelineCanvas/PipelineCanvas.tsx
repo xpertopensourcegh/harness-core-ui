@@ -39,8 +39,14 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import routes from '@common/RouteDefinitions'
-import type { EntityGitDetails, GovernanceMetadata } from 'services/pipeline-ng'
-import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
+import {
+  EntityGitDetails,
+  GovernanceMetadata,
+  useGetTemplateFromPipeline,
+  InputSetSummaryResponse,
+  useGetInputsetYaml
+} from 'services/pipeline-ng'
+import { useMutateAsGet, useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
@@ -51,10 +57,10 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 import { EvaluationModal } from '@governance/EvaluationModal'
-import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { savePipeline, usePipelineContext } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -168,7 +174,19 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }> &
       GitQueryParams
   >()
-  const isCIModule = module === 'ci'
+
+  const { data: template } = useMutateAsGet(useGetTemplateFromPipeline, {
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    },
+    body: {}
+  })
+
   const { showSuccess, showError, clear } = useToaster()
 
   useDocumentTitle([parse(pipeline?.name || getString('pipelines'))])
@@ -897,11 +915,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                       e.stopPropagation()
                       openRunPipelineModal()
                     }}
-                    featuresProps={{
-                      featuresRequest: {
-                        featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
-                      }
-                    }}
+                    featuresProps={getFeaturePropsForRunPipelineButton(template?.data?.modules)}
                     permission={{
                       resourceScope: {
                         accountIdentifier: accountId,

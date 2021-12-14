@@ -301,6 +301,7 @@ const InputSetList: React.FC = (): JSX.Element => {
             }
           }}
           refetchInputSet={refetch}
+          template={template}
           canUpdate={canUpdateInputSet}
           onDeleteInputSet={onDeleteInputSet}
           onDelete={(inputSetSelected: InputSetSummaryResponse) => {

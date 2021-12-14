@@ -14,7 +14,11 @@ import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { Classes, Menu, Position } from '@blueprintjs/core'
-import type { PageInputSetSummaryResponse, InputSetSummaryResponse } from 'services/pipeline-ng'
+import type {
+  PageInputSetSummaryResponse,
+  InputSetSummaryResponse,
+  ResponseInputSetTemplateWithReplacedExpressionsResponse
+} from 'services/pipeline-ng'
 import { TagsPopover } from '@common/components'
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams, Module } from '@common/interfaces/RouteInterfaces'
@@ -26,7 +30,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { isInputSetInvalid } from '@pipeline/utils/inputSetUtils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import useDeleteConfirmationDialog from '../utils/DeleteConfirmDialog'
 import { Badge } from '../utils/Badge/Badge'
 import css from './InputSetList.module.scss'
@@ -41,6 +45,7 @@ interface InputSetListViewProps {
   pipelineHasRuntimeInputs?: boolean
   onDeleteInputSet: (commitMsg: string) => Promise<void>
   onDelete: (inputSet: InputSetSummaryResponse) => void
+  template?: ResponseInputSetTemplateWithReplacedExpressionsResponse | null
 }
 
 export interface InputSetLocal extends InputSetSummaryResponse {
@@ -106,62 +111,6 @@ const RenderColumnDescription: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
   )
 }
 
-const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
-  const data = row.original
-  const { getString } = useStrings()
-
-  const { pipelineIdentifier, module } = useParams<{
-    pipelineIdentifier: string
-    module: Module
-  }>()
-
-  const isCIModule = module === 'ci'
-  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-
-  const runPipeline = (): void => {
-    openRunPipelineModal()
-  }
-
-  const { openRunPipelineModal } = useRunPipelineModal({
-    inputSetSelected: [
-      {
-        type: data.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
-        value: data.identifier || /* istanbul ignore next */ '',
-        label: data.name || /* istanbul ignore next */ '',
-        gitDetails: data.gitDetails
-      }
-    ],
-    pipelineIdentifier: (data.pipelineIdentifier || '') as string,
-    repoIdentifier,
-    branch
-  })
-
-  return (
-    <RbacButton
-      disabled={!(column as any)?.pipelineHasRuntimeInputs}
-      icon="run-pipeline"
-      variation={ButtonVariation.PRIMARY}
-      intent="success"
-      text={getString('runPipeline')}
-      onClick={e => {
-        e.stopPropagation()
-        runPipeline()
-      }}
-      featuresProps={{
-        featuresRequest: {
-          featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
-        }
-      }}
-      permission={{
-        resource: {
-          resourceType: ResourceType.PIPELINE,
-          resourceIdentifier: pipelineIdentifier
-        },
-        permission: PermissionIdentifier.EXECUTE_PIPELINE
-      }}
-    />
-  )
-}
 const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
@@ -243,10 +192,63 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   canUpdate = true,
   pipelineHasRuntimeInputs,
   onDeleteInputSet,
-  onDelete
+  onDelete,
+  template
 }): JSX.Element => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
+
+  const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
+    const rowData = row.original
+
+    const { pipelineIdentifier } = useParams<{
+      pipelineIdentifier: string
+      module: Module
+    }>()
+
+    const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
+    const runPipeline = (): void => {
+      openRunPipelineModal()
+    }
+
+    const { openRunPipelineModal } = useRunPipelineModal({
+      inputSetSelected: [
+        {
+          type: rowData.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
+          value: rowData.identifier || /* istanbul ignore next */ '',
+          label: rowData.name || /* istanbul ignore next */ '',
+          gitDetails: rowData.gitDetails
+        }
+      ],
+      pipelineIdentifier: (rowData.pipelineIdentifier || '') as string,
+      repoIdentifier,
+      branch
+    })
+
+    return (
+      <RbacButton
+        disabled={!(column as any)?.pipelineHasRuntimeInputs}
+        icon="run-pipeline"
+        variation={ButtonVariation.PRIMARY}
+        intent="success"
+        text={getString('runPipeline')}
+        onClick={e => {
+          e.stopPropagation()
+          runPipeline()
+        }}
+        featuresProps={getFeaturePropsForRunPipelineButton(template?.data?.modules)}
+        permission={{
+          resource: {
+            resourceType: ResourceType.PIPELINE,
+            resourceIdentifier: pipelineIdentifier
+          },
+          permission: PermissionIdentifier.EXECUTE_PIPELINE
+        }}
+      />
+    )
+  }
+
   const columns: CustomColumn<InputSetLocal>[] = React.useMemo(
     () => [
       {
