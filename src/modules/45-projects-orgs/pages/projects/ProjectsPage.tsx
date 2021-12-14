@@ -9,7 +9,8 @@ import {
   Views,
   ButtonVariation,
   DropDown,
-  Page
+  Page,
+  ButtonSize
 } from '@wings-software/uicore'
 
 import { useQueryParams } from '@common/hooks'
@@ -180,8 +181,19 @@ const ProjectsListPage: React.FC = () => {
                 imageClassName: css.imageClassName,
                 messageTitle: getString('projectsOrgs.youHaveNoProjects'),
                 message: getString('projectDescription'),
-                buttonText: getString('projectsOrgs.createAProject'),
-                onClick: () => openProjectModal?.()
+                button: (
+                  <RbacButton
+                    featuresProps={{
+                      featuresRequest: {
+                        featureNames: [FeatureIdentifier.MULTIPLE_PROJECTS]
+                      }
+                    }}
+                    size={ButtonSize.LARGE}
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('projectsOrgs.createAProject')}
+                    onClick={() => openProjectModal?.()}
+                  />
+                )
               }
             : {
                 when: () => !data?.data?.content?.length,
