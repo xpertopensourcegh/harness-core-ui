@@ -35,6 +35,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
+import { getLinkForAccountResources } from '@common/utils/BreadcrumbUtils'
 import css from './TemplatesPage.module.scss'
 
 export default function TemplatesPage(): React.ReactElement {
@@ -152,7 +153,11 @@ export default function TemplatesPage(): React.ReactElement {
             <HarnessDocTooltip tooltipId="templatePageHeading" useStandAlone={true} />
           </div>
         }
-        breadcrumbs={<NGBreadcrumbs links={[]} />}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={getLinkForAccountResources({ accountId, orgIdentifier, projectIdentifier, getString })}
+          />
+        }
       />
 
       <Page.Body>

@@ -7,6 +7,7 @@ import ScopedTitle from '@common/components/Title/ScopedTitle'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { getLinkForAccountResources } from '@common/utils/BreadcrumbUtils'
 import type { GetDelegateGroupsNGV2WithFilterQueryParams } from 'services/portal'
 import { useListDelegateConfigsNgV2WithFilter } from 'services/cd-ng'
 import type { DelegateProfileDetailsNg } from 'services/cd-ng'
@@ -60,7 +61,11 @@ const DelegatesPage: React.FC = ({ children }) => {
   return (
     <>
       <Page.Header
-        breadcrumbs={<NGBreadcrumbs />}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={getLinkForAccountResources({ accountId, orgIdentifier, projectIdentifier, getString })}
+          />
+        }
         title={
           <ScopedTitle
             title={{

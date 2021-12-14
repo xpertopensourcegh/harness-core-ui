@@ -73,6 +73,7 @@ import { useFeature } from '@common/hooks/useFeatures'
 import type { CheckFeatureReturn } from 'framework/featureStore/featureStoreUtil'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { getLinkForAccountResources } from '@common/utils/BreadcrumbUtils'
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import {
@@ -690,7 +691,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             }}
           />
         }
-        breadcrumbs={<NGBreadcrumbs />}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={getLinkForAccountResources({ accountId, orgIdentifier, projectIdentifier, getString })}
+          />
+        }
       />
       <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
         {connectors?.content?.length || searchTerm || loading || appliedFilter ? (
