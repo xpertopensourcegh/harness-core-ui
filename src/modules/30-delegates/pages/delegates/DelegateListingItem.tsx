@@ -94,7 +94,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
             }
           }
         } catch (error) {
-          showError(error.data.responseMessages[0].message || error.message)
+          showError(error.data?.responseMessages?.[0].message || error.message)
         }
       }
     }
