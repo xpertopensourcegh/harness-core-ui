@@ -73,7 +73,7 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
       flex={{ justifyContent: 'space-between' }}
       data-testid="gitSyncErrorMessageItem"
     >
-      <Layout.Vertical width="100%">
+      <Layout.Vertical>
         {title ? (
           <Text
             font={{ size: 'small', weight: 'semi-bold' }}
