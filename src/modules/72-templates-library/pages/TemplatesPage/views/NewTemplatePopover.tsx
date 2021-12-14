@@ -32,7 +32,10 @@ export function NewTemplatePopover(): React.ReactElement {
   }
   const [canEdit] = usePermission({
     ...rbacResourcePermission,
-    permissions: [PermissionIdentifier.EDIT_TEMPLATE]
+    permissions: [PermissionIdentifier.EDIT_TEMPLATE],
+    options: {
+      skipCache: true
+    }
   })
 
   const goToTemplateStudio = React.useCallback(
