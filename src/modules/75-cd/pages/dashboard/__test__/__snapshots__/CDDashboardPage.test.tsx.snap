@@ -86,7 +86,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           <span
             class="bp3-button-text"
           >
-            23 March 2021 - 22 April 2021
+            common.duration.month
           </span>
           <span
             class="bp3-icon bp3-icon-caret-down StyledProps--main"

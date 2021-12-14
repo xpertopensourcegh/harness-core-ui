@@ -3,13 +3,18 @@ import { Container, PageHeader } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { camelCase } from 'lodash-es'
 import type { GetDataError } from 'restful-react'
+import moment from 'moment'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { Failure } from 'services/cd-ng'
 import { BuildActiveInfo, BuildFailureInfo, CIWebhookInfoDTO, useGetBuilds, useGetRepositoryBuild } from 'services/ci'
 import { useStrings } from 'framework/strings'
-import { TimeRangeSelector, TimeRangeSelectorProps } from '@common/components/TimeRangeSelector/TimeRangeSelector'
+import {
+  startOfDay,
+  TimeRangeSelector,
+  TimeRangeSelectorProps
+} from '@common/components/TimeRangeSelector/TimeRangeSelector'
 import CIDashboardSummaryCards from '@pipeline/components/Dashboards/CIDashboardSummaryCards/CIDashboardSummaryCards'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
@@ -52,10 +57,9 @@ export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const history = useHistory()
   const { getString } = useStrings()
-  const last30daysInMs = 30 * 24 * 60 * 60000
   const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
-    range: [new Date(Date.now() - last30daysInMs), new Date(Date.now())],
-    label: ''
+    range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
+    label: getString('common.duration.month')
   })
 
   const { data, loading, error, refetch } = useGetBuilds({
