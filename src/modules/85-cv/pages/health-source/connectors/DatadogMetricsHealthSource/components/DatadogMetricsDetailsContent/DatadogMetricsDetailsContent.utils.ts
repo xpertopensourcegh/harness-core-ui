@@ -76,7 +76,7 @@ export const DatadogMetricsQueryBuilder = (
 
   let groupedQuery = query
   if (serviceInstanceIdentifier) {
-    groupedQuery = `${query} by {${serviceInstanceIdentifier}'}.rollup(avg, 60)'`
+    groupedQuery = `${query} by {${serviceInstanceIdentifier}}.rollup(avg, 60)`
   }
   query = `${query}.rollup(avg,60)`
 

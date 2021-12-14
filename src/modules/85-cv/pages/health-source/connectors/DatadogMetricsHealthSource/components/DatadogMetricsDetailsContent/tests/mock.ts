@@ -32,8 +32,11 @@ export const MockDatadogMetricsHealthSource = {
 }
 
 export const MOCK_QUERY_OUTPUT = 'avg:system.cpu.user{*}.rollup(avg,60)'
+export const MOCK_GROUPING_QUERY_OUTPUT = 'avg:system.cpu.user{*} by {host}.rollup(avg, 60)'
+
 export const MOCK_ACTIVE_METRIC = 'system.cpu.user'
 export const MOCK_AGGREGATION = 'avg'
+export const MOCK_SERVICE_INSTANCE = 'host'
 export const MOCK_ACTIVE_METRICS = [MOCK_ACTIVE_METRIC, 'test.metric.1', 'test.metric.2']
 
 export const MOCK_METRIC_TAGS_WITH_DUPLICATES = ['tag_1', 'tag_2', 'tag_1', 'tag_3', 'tag_3']
