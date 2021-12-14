@@ -17,14 +17,14 @@ exports[`Base Path should render 1`] = `
       class="StyledProps--font StyledProps--main basePathContainer"
     >
       <p
-        class="StyledProps--font StyledProps--main basePathLabel StyledProps--font-variation-tiny-semi"
+        class="StyledProps--font StyledProps--main basePathLabel StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey400"
       >
         common.path
       </p>
       <p
-        class="StyledProps--font StyledProps--main basePathValue StyledProps--font-variation-tiny-semi"
+        class="StyledProps--font StyledProps--main basePathValue StyledProps--font-variation-small-semi"
       >
-        overall performane
+        
       </p>
     </div>
     <div

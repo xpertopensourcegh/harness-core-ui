@@ -1,5 +1,5 @@
 import React from 'react'
-import { FontVariation, Text, Container } from '@wings-software/uicore'
+import { FontVariation, Text, Container, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import BasePathDropdown from './Components/BasePathDropdown/BasePathDropdown'
 import type { BasePathInterface } from './BasePath.types'
@@ -11,12 +11,10 @@ export default function BasePath({
   connectorIdentifier,
   appName,
   basePathValue,
-  onChange
+  onChange,
+  fullPath
 }: BasePathInterface): JSX.Element {
   const { getString } = useStrings()
-
-  const lastItem = Object.keys(basePathValue)[Object.keys(basePathValue).length - 1]
-
   return (
     <div>
       <Text padding={{ bottom: 'medium' }} font={{ variation: FontVariation.H6 }}>
@@ -24,11 +22,11 @@ export default function BasePath({
       </Text>
       <Text padding={{ bottom: 'medium' }}>{getString('cv.monitoringSources.appD.appdPathDetail')}</Text>
       <Container className={css.basePathContainer}>
-        <Text font={{ variation: FontVariation.TINY_SEMI }} className={css.basePathLabel}>
+        <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_400} className={css.basePathLabel}>
           {getString('common.path')}
         </Text>
-        <Text className={css.basePathValue} font={{ variation: FontVariation.TINY_SEMI }}>
-          {basePathValue[lastItem]?.path}
+        <Text className={css.basePathValue} font={{ variation: FontVariation.SMALL_SEMI }}>
+          {fullPath}
         </Text>
       </Container>
       {Object.entries(basePathValue).map((item, index) => {

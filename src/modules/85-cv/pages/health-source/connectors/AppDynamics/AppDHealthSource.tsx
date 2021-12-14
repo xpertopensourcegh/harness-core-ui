@@ -359,7 +359,7 @@ export default function AppDMonitoredSource({
                 setCreatedMetrics={setCreatedMetrics}
               />
             ) : (
-              <CardWithOuterTitle>
+              <CardWithOuterTitle title={getString('cv.healthSource.connectors.customMetrics')}>
                 <Button
                   disabled={!(!!formik?.values?.appdApplication && !!formik?.values?.appDTier)}
                   icon="plus"

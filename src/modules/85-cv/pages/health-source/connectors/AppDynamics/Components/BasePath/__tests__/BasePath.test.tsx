@@ -19,6 +19,7 @@ describe('Base Path', () => {
     const { container, rerender } = render(
       <TestWrapper>
         <BasePath
+          fullPath={''}
           connectorIdentifier={'TestAppD'}
           appName={'AppDApplication'}
           basePathValue={{
@@ -34,6 +35,7 @@ describe('Base Path', () => {
     rerender(
       <TestWrapper>
         <BasePath
+          fullPath={''}
           connectorIdentifier={'TestAppD'}
           appName={'AppDApplication'}
           basePathValue={{

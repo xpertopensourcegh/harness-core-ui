@@ -86,7 +86,7 @@ export default function AppDMappedMetric({
 
   const [appdGroupName, setAppdGroupName] = useState<SelectOption[]>(initializeGroupNames(mappedMetrics, getString))
   const basePathValue = getBasePathValue(formikValues?.basePath)
-
+  const metricPathValue = getMetricPathValue(formikValues?.metricPath)
   const {
     sourceData: { existingMetricDetails }
   } = useContext(SetupSourceTabsContext)
@@ -174,6 +174,9 @@ export default function AppDMappedMetric({
                     {formikValues.appdApplication && (
                       <>
                         <BasePath
+                          fullPath={`${basePathValue}|${formikValues.appDTier}|${metricPathValue}`
+                            .split('|')
+                            .join(' / ')}
                           basePathValue={formikValues?.basePath || BasePathInitValue}
                           onChange={formikSetField}
                           appName={formikValues.appdApplication}
