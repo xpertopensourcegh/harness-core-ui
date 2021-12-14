@@ -63,22 +63,22 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
         {toggle === SLOCardToggleViews.SLO && (
           <>
             <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.SLOPerformanceTrend')}</Heading>
-            <Layout.Horizontal>
-              <Layout.Vertical width="20%" spacing="medium" margin={{ top: 'large' }}>
+            <Layout.Horizontal spacing="medium">
+              <Layout.Vertical spacing="medium" margin={{ top: 'large' }}>
                 <Container width={120} background={Color.GREY_100} padding="small" className={css.sloGlanceCard}>
-                  <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString('cv.SLOTarget')}</Text>
+                  <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString('cv.SLO')}</Text>
                   <Heading level={2} color={Color.GREY_800} font={{ variation: FontVariation.H4 }}>
                     {(Number(sloTargetPercentage) || 0).toFixed(2)}%
                   </Heading>
                 </Container>
                 <Container width={120} background={Color.GREY_100} padding="small" className={css.sloGlanceCard}>
-                  <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString('cv.SLO')}</Text>
+                  <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString('cv.slos.sli')}</Text>
                   <Heading inline level={2} color={Color.GREY_800} font={{ variation: FontVariation.H4 }}>
                     {sloPerformanceTrend[sloPerformanceTrend.length - 1]?.value?.toFixed(2) ?? 0}%
                   </Heading>
                 </Container>
               </Layout.Vertical>
-              <Container width="80%">
+              <Container className={css.flexGrowOne}>
                 <SLOTargetChart
                   dataPoints={sloPerformanceTrendData.dataPoints}
                   customChartOptions={getSLOAndErrorBudgetGraphOptions({
@@ -93,12 +93,15 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
           </>
         )}
         {toggle === SLOCardToggleViews.ERROR_BUDGET && (
-          <Layout.Horizontal>
-            <Container width="30%">
+          <Layout.Horizontal spacing="medium">
+            <Container width={185} className={css.errorBudgetGaugeContainer}>
               <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.errorBudgetRemaining')}</Heading>
               <ErrorBudgetGauge customChartOptions={getErrorBudgetGaugeOptions(serviceLevelObjective)} />
+              <Text font={{ variation: FontVariation.SMALL }} className={css.errorBudgetRemaining} width={175}>
+                {serviceLevelObjective.errorBudgetRemaining}
+              </Text>
             </Container>
-            <Container width="70%">
+            <Container className={css.flexGrowOne}>
               <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.errorBudgetBurnDown')}</Heading>
               <SLOTargetChart
                 dataPoints={errorBudgetBurndownData.dataPoints}

@@ -127,7 +127,7 @@ const SLOTargetChartWrapper: React.FC<SLOTargetChartWithAPIGetSliGraphProps> = p
   const emptyState = (
     <Container flex={{ justifyContent: 'center' }} height="100%">
       <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_600}>
-        {getString('cv.pleaseFillTheRequiredDataToSeeTheSLIData')}
+        {getString('cv.pleaseFillTheRequiredFieldsToSeeTheSLIData')}
       </Text>
     </Container>
   )

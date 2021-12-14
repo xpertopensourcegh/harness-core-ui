@@ -14,7 +14,7 @@ highchartsMore(Highcharts)
 solidGauge(Highcharts)
 
 const getDefaultChartOptions = (): Highcharts.Options => ({
-  chart: { type: 'solidgauge', height: 200, spacing: [20, 0, 0, -25] },
+  chart: { type: 'solidgauge', height: 200, spacing: [20, 0, 0, 0], width: 175 },
   title: { text: '' },
   tooltip: { enabled: false },
   pane: {

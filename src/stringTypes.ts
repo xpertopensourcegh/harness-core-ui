@@ -4081,7 +4081,6 @@ export interface StringsMap {
   'cv.Dependency.serviceChanges': string
   'cv.Dependency.serviceList': string
   'cv.SLIMetricRatio': string
-  'cv.SLIMissingDataType': string
   'cv.SLIRequestRatio': string
   'cv.SLITriggered': string
   'cv.SLIValueIsGoodIf': string
@@ -4170,6 +4169,7 @@ export interface StringsMap {
   'cv.componentValidations.queryType': string
   'cv.componentValidations.queryTypeLabel': string
   'cv.componentValidations.requestMethod': string
+  'cv.considerMissingMetricDataAs': string
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
@@ -4182,6 +4182,7 @@ export interface StringsMap {
   'cv.dashboard.createProject': string
   'cv.dashboard.notStarted': string
   'cv.dashboard.subHeading': string
+  'cv.day': string
   'cv.days': string
   'cv.dependenciesHealthWithCount': string
   'cv.errorBudget': string
@@ -4584,6 +4585,7 @@ export interface StringsMap {
   'cv.onboarding.verificationJobs.keepGoing': string
   'cv.onboarding.verificationJobs.setupInfo': string
   'cv.onboarding.verificationJobs.subHeading': string
+  'cv.oneDay': string
   'cv.overall': string
   'cv.overviewPage.recentChangeVerifications': string
   'cv.perHeatMapCell': string
@@ -4591,7 +4593,7 @@ export interface StringsMap {
   'cv.periodLengthDays': string
   'cv.periodLengthIsRequired': string
   'cv.pinABaseline': string
-  'cv.pleaseFillTheRequiredDataToSeeTheSLIData': string
+  'cv.pleaseFillTheRequiredFieldsToSeeTheSLIData': string
   'cv.postDeployment': string
   'cv.preProductionTests': string
   'cv.proceedToEdit': string

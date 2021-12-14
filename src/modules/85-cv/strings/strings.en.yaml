@@ -664,7 +664,7 @@ slos:
       selectMetric2: Select metric 2
 SLO: SLO
 SLOPerformanceTrend: SLO Performance Trend
-errorBudgetRemaining: Error Budget Remaining
+errorBudgetRemaining: Error Budget Remaining (mins)
 errorBudgetBurnDown: Error Budget Burndown
 SLITriggered: SLI Triggered
 burnRatePerDay: Burn Rate/Day
@@ -676,7 +676,7 @@ objectiveValue: Objective Value
 SLIValueIsGoodIf: SLI value is good if
 thanObjectiveValue: than objective value
 toObjectiveValue: to objective value
-SLIMissingDataType: SLI Missing Data Type
+considerMissingMetricDataAs: Consider missing metric data as
 sliMissingDataTypeIsRequired: SLI Missing data type is required
 metricIsRequired: Metric is required
 metricForGoodAndValidRequestsShouldBeDifferent: Metric for good and valid requests should be different
@@ -702,7 +702,9 @@ errorBudget: Error Budget
 mins: mins
 minValueN: 'Min value {{n}}'
 maxValue: 'Max value {{n}}'
-pleaseFillTheRequiredDataToSeeTheSLIData: Please fill the required data to see the SLI data
+pleaseFillTheRequiredFieldsToSeeTheSLIData: Please fill the required fields to see the SLI data
+day: day
+oneDay: 1 day
 days: days
 nDays: '{{ n }} days'
 cvChanges:

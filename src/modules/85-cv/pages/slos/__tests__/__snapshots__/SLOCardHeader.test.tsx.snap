@@ -6,7 +6,7 @@ exports[`Test cases for SLOCardHeader component Render sample card 1`] = `
     class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--margin-bottom-medium"
   >
     <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-card-title StyledProps--color StyledProps--color-grey600"
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-h4 StyledProps--color StyledProps--color-grey800"
       level="2"
     >
       Title

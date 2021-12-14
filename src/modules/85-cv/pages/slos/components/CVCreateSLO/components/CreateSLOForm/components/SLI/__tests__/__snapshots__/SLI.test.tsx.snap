@@ -199,11 +199,6 @@ exports[`Test SLI component should render SLI component 1`] = `
             </div>
           </div>
         </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-grey600"
-        >
-          cv.slos.latencySLI
-        </p>
       </div>
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-form-title StyledProps--margin-top-xxlarge StyledProps--margin-bottom-xsmall"
@@ -594,7 +589,7 @@ exports[`Test SLI component should render SLI component 1`] = `
                 class="bp3-label"
                 for="SLIMissingDataType"
               >
-                cv.SLIMissingDataType
+                cv.considerMissingMetricDataAs
                  
                 <span
                   class="bp3-text-muted"

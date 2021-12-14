@@ -164,7 +164,7 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
             </Layout.Horizontal>
             <FormInput.Select
               name={SLOFormFields.SLI_MISSING_DATA_TYPE}
-              label={getString('cv.SLIMissingDataType')}
+              label={getString('cv.considerMissingMetricDataAs')}
               items={getMissingDataTypeOptions(getString)}
               className={css.metricSelect}
             />

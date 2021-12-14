@@ -70,7 +70,7 @@ const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({
   return (
     <>
       <Container flex margin={{ bottom: 'medium' }}>
-        <Heading level={2} font={{ variation: FontVariation.CARD_TITLE }} color={Color.GREY_600}>
+        <Heading level={2} font={{ variation: FontVariation.H4 }} color={Color.GREY_800}>
           {serviceLevelObjective.title}
         </Heading>
         {!monitoredServiceIdentifier && (
@@ -131,7 +131,9 @@ const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({
               {getString('cv.periodLength')}:
             </Text>
             <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}>
-              {getString('cv.nDays', { n: serviceLevelObjective.currentPeriodLengthDays })}
+              {serviceLevelObjective.currentPeriodLengthDays === 1
+                ? getString('cv.oneDay')
+                : getString('cv.nDays', { n: serviceLevelObjective.currentPeriodLengthDays })}
             </Text>
           </Layout.Horizontal>
           <TagsRenderer tags={serviceLevelObjective.tags ?? {}} tagClassName={css.sloTags} />
@@ -150,7 +152,7 @@ const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({
               {serviceLevelObjective.timeRemainingDays}
             </Heading>
             <Text inline font={{ variation: FontVariation.FORM_HELP }}>
-              {getString('cv.days')}
+              {serviceLevelObjective.timeRemainingDays < 2 ? getString('cv.day') : getString('cv.days')}
             </Text>
           </Container>
         </Layout.Horizontal>

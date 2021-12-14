@@ -5,8 +5,11 @@ declare const styles: {
   readonly userJourney: string
   readonly sloCardContainer: string
   readonly sloCard: string
+  readonly flexGrowOne: string
   readonly sloTags: string
   readonly sloGlanceCard: string
   readonly pillToggle: string
+  readonly errorBudgetGaugeContainer: string
+  readonly errorBudgetRemaining: string
 }
 export default styles

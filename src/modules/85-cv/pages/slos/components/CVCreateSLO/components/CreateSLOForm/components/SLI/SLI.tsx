@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { Heading, FontVariation, Card, Color, FormInput, Text, useToaster, SelectOption } from '@wings-software/uicore'
+import { Heading, FontVariation, Card, FormInput, useToaster, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useGetAllMonitoredServicesWithTimeSeriesHealthSources } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -102,9 +102,6 @@ const SLI: React.FC<SLOPanelProps> = ({ formikProps, children }) => {
           radioGroup={{ inline: true }}
           items={getSLITypeOptions(getString)}
         />
-        <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_600}>
-          {getString('cv.slos.latencySLI')}
-        </Text>
       </Card>
 
       <PickMetric formikProps={formikProps} />

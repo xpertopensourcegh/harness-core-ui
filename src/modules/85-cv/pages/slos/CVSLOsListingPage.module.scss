@@ -21,6 +21,10 @@ $headerHeight: 146px;
   }
 }
 
+.flexGrowOne {
+  flex-grow: 1;
+}
+
 // SLOCardHeader
 
 .sloTags {
@@ -33,8 +37,20 @@ $headerHeight: 146px;
   border-radius: var(--spacing-small);
 }
 
+// SLOCardContent
+
 .pillToggle {
   :global(.PillToggle--item) {
     width: 100px !important;
+  }
+}
+
+.errorBudgetGaugeContainer {
+  position: relative;
+
+  .errorBudgetRemaining {
+    text-align: center;
+    position: absolute;
+    bottom: 40%;
   }
 }
