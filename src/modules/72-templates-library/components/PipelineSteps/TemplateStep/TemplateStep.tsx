@@ -35,7 +35,7 @@ const getTemplateValue = (template: TemplateSummaryResponse): string => {
 }
 
 const getTemplateName = (template: TemplateSummaryResponse): string => {
-  const templateType = defaultTo(parse(defaultTo(template.yaml, ''))?.template?.spec?.type, '')
+  const templateType = defaultTo(template.childType, '')
   if (template.projectIdentifier) {
     return `${templateType}: ${template.name}`
   } else if (template.orgIdentifier) {

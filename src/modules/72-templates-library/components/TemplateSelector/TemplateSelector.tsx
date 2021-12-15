@@ -68,7 +68,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
         }
       })
       if (resp?.status === 'SUCCESS') {
-        set(templateTypes, templateIdentifier, parse(defaultTo(selectedTemplate?.yaml, '')).template.spec.type)
+        set(templateTypes, templateIdentifier, selectedTemplate?.childType)
         setTemplateTypes(templateTypes)
         const templateConfig = produce({} as TemplateConfig, draft => {
           draft.templateRef = getScopeBasedTemplateRef(selectedTemplate)
