@@ -9,7 +9,8 @@ import {
   Layout,
   MultiTypeInputType,
   StepProps,
-  FontVariation
+  FontVariation,
+  ButtonSize
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -38,8 +39,17 @@ interface ArtifactConnectorProps {
 }
 
 export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
-  const { previousStep, prevStepData, nextStep, initialValues, stepName, expressions, selectedArtifact, isReadonly } =
-    props
+  const {
+    previousStep,
+    prevStepData,
+    nextStep,
+    initialValues,
+    stepName,
+    expressions,
+    selectedArtifact,
+    isReadonly,
+    handleViewChange
+  } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
@@ -129,7 +139,22 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                     }}
                     isReadonly={isReadonly}
                   />
-                ) : null}
+                ) : (
+                  <Button
+                    variation={ButtonVariation.LINK}
+                    size={ButtonSize.SMALL}
+                    id="new-artifact-connector"
+                    text={newConnectorLabel}
+                    icon="plus"
+                    iconProps={{ size: 12 }}
+                    disabled={isReadonly || !canCreate}
+                    onClick={() => {
+                      handleViewChange()
+                      nextStep?.()
+                    }}
+                    className={css.addNewArtifact}
+                  />
+                )}
               </Layout.Horizontal>
             </div>
             <Layout.Horizontal spacing="medium">

@@ -134,6 +134,58 @@ describe('Artifact WizardStep tests', () => {
 
     const artifactRepoLabel = await findByText(container, 'Docker Registry connector')
     expect(artifactRepoLabel).toBeDefined()
+    const newConnectorLabel = await findByText(container, 'newLabel Docker Registry connector')
+    expect(newConnectorLabel).toBeDefined()
+
+    fireEvent.click(newConnectorLabel)
+    const nextStepButton = await findByText(container, 'continue')
+    expect(nextStepButton).toBeDefined()
+    fireEvent.click(nextStepButton)
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test(`new connector view works correctly in select dialog`, async () => {
+    const initialValues = {
+      connectorId: 'connectorId'
+    }
+    const { container } = render(
+      <TestWrapper>
+        <ArtifactWizard
+          handleViewChange={jest.fn()}
+          artifactInitialValue={initialValues as InitialArtifactDataType}
+          types={['DockerRegistry', 'Gcr', 'Ecr']}
+          expressions={[]}
+          isReadonly={false}
+          labels={{
+            firstStepName: 'first step',
+            secondStepName: 'second step'
+          }}
+          selectedArtifact={'DockerRegistry'}
+          changeArtifactType={jest.fn()}
+          newConnectorView={true}
+          iconsProps={{ name: 'info' }}
+        />
+      </TestWrapper>
+    )
+    const artifactLabel = await findByText(container, 'connectors.artifactRepository')
+    expect(artifactLabel).toBeDefined()
+    const DockerArtifactType = await findAllByText(container, 'dockerRegistry')
+    expect(DockerArtifactType).toBeDefined()
+
+    const changeText = await findByText(container, 'Change')
+    fireEvent.click(changeText)
+
+    const GCRArtifactType = await findByText(container, 'connectors.GCR.name')
+    expect(GCRArtifactType).toBeDefined()
+    fireEvent.click(GCRArtifactType)
+
+    const continueButton = await findByText(container, 'continue')
+    expect(continueButton).toBeDefined()
+    fireEvent.click(continueButton)
+
+    const artifactRepoLabel = await findByText(container, 'Docker Registry connector')
+    expect(artifactRepoLabel).toBeDefined()
     expect(container).toMatchSnapshot()
 
     const newConnectorLabel = await findByText(container, 'select Docker Registry connector')

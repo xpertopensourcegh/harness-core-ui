@@ -12,7 +12,8 @@ import {
   IconName,
   ButtonVariation,
   FormikForm,
-  FontVariation
+  FontVariation,
+  ButtonSize
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -46,6 +47,7 @@ interface ManifestStorePropType {
 }
 
 const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropType> = ({
+  handleConnectorViewChange,
   handleStoreChange,
   stepName,
   isReadonly,
@@ -201,7 +203,22 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                         }}
                         isReadonly={isReadonly}
                       />
-                    ) : null}
+                    ) : (
+                      <Button
+                        variation={ButtonVariation.LINK}
+                        size={ButtonSize.SMALL}
+                        disabled={isReadonly || !canCreate}
+                        id="new-manifest-connector"
+                        text={newConnectorLabel}
+                        className={css.addNewManifest}
+                        icon="plus"
+                        iconProps={{ size: 12 }}
+                        onClick={() => {
+                          handleConnectorViewChange()
+                          nextStep?.({ ...prevStepData, store: selectedStore })
+                        }}
+                      />
+                    )}
                   </Layout.Horizontal>
                 ) : null}
               </Layout.Vertical>

@@ -153,6 +153,71 @@ describe('ManifestSelection tests', () => {
     expect(gitConnector).toBeDefined()
     const gitconnectorCard = container.getElementsByClassName('Thumbnail--squareCardContainer')[0]
     fireEvent.click(gitconnectorCard)
+    const newConnectorLabel = await findByText(container, 'newLabel pipeline.manifestType.gitConnectorLabel connector')
+    expect(newConnectorLabel).toBeDefined()
+    const newConnectorBtn = container.getElementsByClassName('addNewManifest')[0]
+    expect(newConnectorBtn).toBeDefined()
+    fireEvent.click(newConnectorLabel)
+    const nextStepButton = await findByText(container, 'continue')
+    expect(nextStepButton).toBeDefined()
+    fireEvent.click(nextStepButton)
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test(`new connector view works inside select dialog correctly`, async () => {
+    const initialValues = {
+      connectorRef: undefined,
+      store: ''
+    }
+
+    const { container } = render(
+      <TestWrapper>
+        <ManifestWizard
+          handleConnectorViewChange={jest.fn()}
+          handleStoreChange={jest.fn()}
+          initialValues={initialValues as ManifestStepInitData}
+          types={['K8sManifest', 'HelmChart']}
+          expressions={[]}
+          isReadonly={false}
+          manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
+          labels={{
+            firstStepName: 'Specify Manifest Type',
+            secondStepName: 'Specify Manifest Store'
+          }}
+          selectedManifest={'K8sManifest'}
+          changeManifestType={jest.fn()}
+          newConnectorView={true}
+          iconsProps={{ name: 'info' }}
+        />
+      </TestWrapper>
+    )
+    const manifestLabel = await findByText(container, 'Specify Manifest Type')
+    expect(manifestLabel).toBeDefined()
+    const K8smanifestType = await findAllByText(container, 'pipeline.manifestTypeLabels.K8sManifest')
+    expect(K8smanifestType).toBeDefined()
+
+    const changeText = await findByText(container, 'Change')
+    fireEvent.click(changeText)
+
+    const HelmmanifestType = await findByText(container, 'pipeline.manifestTypeLabels.HelmChartLabel')
+    expect(HelmmanifestType).toBeDefined()
+    fireEvent.click(HelmmanifestType)
+
+    const continueButton = await findByText(container, 'continue')
+    expect(continueButton).toBeDefined()
+    fireEvent.click(continueButton)
+
+    const manifeststoreLabel = await findByText(container, 'Specify Manifest Store')
+    expect(manifeststoreLabel).toBeDefined()
+
+    const manifestSourceLabel = await findByText(container, 'pipeline.manifestType.manifestSource')
+    expect(manifestSourceLabel).toBeDefined()
+
+    const gitConnector = await findByText(container, 'pipeline.manifestType.gitConnectorLabel')
+    expect(gitConnector).toBeDefined()
+    const gitconnectorCard = container.getElementsByClassName('Thumbnail--squareCardContainer')[0]
+    fireEvent.click(gitconnectorCard)
     expect(container).toMatchSnapshot()
     const newConnectorLabel = await findByText(container, 'select pipeline.manifestType.gitConnectorLabel connector')
     expect(newConnectorLabel).toBeDefined()
