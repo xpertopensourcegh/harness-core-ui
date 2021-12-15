@@ -1,5 +1,5 @@
 import React from 'react'
-import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { defaultTo, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import {
@@ -241,6 +241,26 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   const inputSet = React.useMemo(() => {
     if (overlayInputSetResponse?.data) {
       const inputSetObj = overlayInputSetResponse?.data
+      const parsedInputSetObj = parse(inputSetObj?.overlayInputSetYaml || '')
+      if (isGitSyncEnabled && parsedInputSetObj && parsedInputSetObj.overlayInputSet) {
+        return {
+          name: parsedInputSetObj.overlayInputSet.name as string,
+          tags: parsedInputSetObj.overlayInputSet.tags as {
+            [key: string]: string
+          },
+          identifier: parsedInputSetObj.overlayInputSet.identifier as string,
+          description: parsedInputSetObj.overlayInputSet.description as string,
+          orgIdentifier: parsedInputSetObj.overlayInputSet.orgIdentifier as string,
+          projectIdentifier: parsedInputSetObj.overlayInputSet.projectIdentifier as string,
+          pipelineIdentifier: parsedInputSetObj.overlayInputSet.pipelineIdentifier as string,
+          inputSetReferences: defaultTo(
+            parsedInputSetObj.overlayInputSet.inputSetReferences,
+            /* istanbul ignore next */ []
+          ) as string[],
+          gitDetails: defaultTo(inputSetObj.gitDetails, {}),
+          entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {})
+        }
+      }
       return {
         name: inputSetObj.name,
         tags: inputSetObj.tags,
@@ -255,7 +275,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       }
     }
     return getDefaultInputSet(orgIdentifier, projectIdentifier, pipelineIdentifier)
-  }, [overlayInputSetResponse?.data])
+  }, [overlayInputSetResponse?.data, isGitSyncEnabled])
 
   const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails?.valid === false)
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { cloneDeep, defaultTo, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import {
   Button,
   Container,
@@ -253,6 +253,19 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         ? parse(mergeTemplate || /* istanbul ignore next */ '')?.pipeline || /* istanbul ignore next */ {}
         : parsedInputSetObj?.inputSet?.pipeline
 
+      if (isGitSyncEnabled && parsedInputSetObj && parsedInputSetObj.inputSet) {
+        return {
+          name: parsedInputSetObj.inputSet.name,
+          tags: parsedInputSetObj.inputSet.tags,
+          identifier: parsedInputSetObj.inputSet.identifier,
+          description: parsedInputSetObj.inputSet.description,
+          orgIdentifier: parsedInputSetObj.inputSet.orgIdentifier,
+          projectIdentifier: parsedInputSetObj.inputSet.projectIdentifier,
+          pipeline: clearRuntimeInput(parsedInputSetObj.inputSet.pipeline),
+          gitDetails: defaultTo(inputSetObj.gitDetails, {}),
+          entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {})
+        }
+      }
       return {
         name: inputSetObj.name,
         tags: inputSetObj.tags,
@@ -270,7 +283,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       projectIdentifier
     )
-  }, [mergeTemplate, inputSetResponse?.data, template?.data?.inputSetTemplateYaml])
+  }, [mergeTemplate, inputSetResponse?.data, template?.data?.inputSetTemplateYaml, isGitSyncEnabled])
 
   const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails?.valid === false)
 
