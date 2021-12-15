@@ -36,6 +36,7 @@ import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFil
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
 import { getLinkForAccountResources } from '@common/utils/BreadcrumbUtils'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import css from './TemplatesPage.module.scss'
 
 export default function TemplatesPage(): React.ReactElement {
@@ -56,45 +57,7 @@ export default function TemplatesPage(): React.ReactElement {
   const scope = getScopeFromDTO({ projectIdentifier, orgIdentifier, accountIdentifier: accountId })
   const allowedTemplateTypes = getAllowedTemplateTypes(getString).filter(item => !item.disabled)
 
-  const reset = React.useCallback((): void => {
-    searchRef.current.clear()
-    setType(null)
-    setGitFilter(null)
-  }, [searchRef])
-
-  const [showDeleteTemplatesModal, hideDeleteTemplatesModal] = useModalHook(
-    () => (
-      <Dialog enforceFocus={false} isOpen={true} className={css.deleteTemplateDialog}>
-        <GitSyncStoreProvider>
-          <DeleteTemplateModal
-            template={templateToDelete}
-            onClose={hideDeleteTemplatesModal}
-            onSuccess={() => {
-              hideDeleteTemplatesModal()
-              reloadTemplates()
-            }}
-          />
-        </GitSyncStoreProvider>
-      </Dialog>
-    ),
-    [templateToDelete]
-  )
-
-  const [showTemplateSettingsModal, hideTemplateSettingsModal] = useModalHook(
-    () => (
-      <Dialog enforceFocus={false} isOpen={true} className={css.updateTemplateSettingsDialog}>
-        <TemplateSettingsModal
-          templateIdentifier={templateIdentifierToSettings || ''}
-          onClose={hideTemplateSettingsModal}
-          onSuccess={() => {
-            hideTemplateSettingsModal()
-            reloadTemplates()
-          }}
-        />
-      </Dialog>
-    ),
-    [templateIdentifierToSettings]
-  )
+  useDocumentTitle([getString('common.templates')])
 
   const {
     data: templateData,
@@ -123,6 +86,46 @@ export default function TemplatesPage(): React.ReactElement {
     },
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
+
+  const reset = React.useCallback((): void => {
+    searchRef.current.clear()
+    setType(null)
+    setGitFilter(null)
+  }, [searchRef.current, setType, setGitFilter])
+
+  const [showDeleteTemplatesModal, hideDeleteTemplatesModal] = useModalHook(() => {
+    const content = (
+      <DeleteTemplateModal
+        template={templateToDelete}
+        onClose={hideDeleteTemplatesModal}
+        onSuccess={() => {
+          hideDeleteTemplatesModal()
+          reloadTemplates()
+        }}
+      />
+    )
+    return (
+      <Dialog enforceFocus={false} isOpen={true} className={css.deleteTemplateDialog}>
+        {isGitSyncEnabled ? <GitSyncStoreProvider>{content}</GitSyncStoreProvider> : content}
+      </Dialog>
+    )
+  }, [templateToDelete, reloadTemplates, isGitSyncEnabled])
+
+  const [showTemplateSettingsModal, hideTemplateSettingsModal] = useModalHook(
+    () => (
+      <Dialog enforceFocus={false} isOpen={true} className={css.updateTemplateSettingsDialog}>
+        <TemplateSettingsModal
+          templateIdentifier={templateIdentifierToSettings || ''}
+          onClose={hideTemplateSettingsModal}
+          onSuccess={() => {
+            hideTemplateSettingsModal()
+            reloadTemplates()
+          }}
+        />
+      </Dialog>
+    ),
+    [templateIdentifierToSettings, reloadTemplates]
+  )
 
   React.useEffect(() => {
     reloadTemplates()
