@@ -265,7 +265,7 @@ const getK8sIngressTemplate = ({
 }: Record<string, any>) => {
   const modifiedName = Utils.getHyphenSpacedString(name)
   return {
-    apiVersion: 'lightwing.lightwing.io/v1',
+    apiVersion: 'ccm.harness.io/v1',
     kind: 'AutoStoppingRule',
     metadata: {
       name: modifiedName,
