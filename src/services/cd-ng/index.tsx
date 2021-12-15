@@ -1454,7 +1454,7 @@ export type CountInstanceSelection = InstanceSelectionBase & {
 }
 
 export interface CreateInvite {
-  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
+  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE' | 'SCIM_INITIATED_INVITE'
   roleBindings: RoleBinding[]
   userGroups?: string[]
   users: string[]
@@ -3659,7 +3659,18 @@ export type HelmDeployStepInfo = StepSpecType & {
 }
 
 export interface HelmManifestCommandFlag {
-  commandType: 'Fetch' | 'Version' | 'Template' | 'Pull'
+  commandType:
+    | 'Fetch'
+    | 'Version'
+    | 'Template'
+    | 'Pull'
+    | 'Install'
+    | 'Upgrade'
+    | 'Rollback'
+    | 'History'
+    | 'Delete'
+    | 'Uninstall'
+    | 'List'
   flag?: string
 }
 
@@ -3874,7 +3885,7 @@ export interface Invite {
   approved?: boolean
   email: string
   id: string
-  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
+  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE' | 'SCIM_INITIATED_INVITE'
   name: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -6641,6 +6652,25 @@ export interface ResponseServicesDashboardInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseSetHelmCommandFlagType {
+  correlationId?: string
+  data?: (
+    | 'Fetch'
+    | 'Version'
+    | 'Template'
+    | 'Pull'
+    | 'Install'
+    | 'Upgrade'
+    | 'Rollback'
+    | 'History'
+    | 'Delete'
+    | 'Uninstall'
+    | 'List'
+  )[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseSourceCodeManagerDTO {
   correlationId?: string
   data?: SourceCodeManagerDTO
@@ -7345,6 +7375,7 @@ export interface ServiceDeploymentListInfo {
 
 export interface ServiceDetailsDTO {
   deploymentTypeList?: string[]
+  description?: string
   failureRate?: number
   failureRateChangeRate?: number
   frequency?: number
@@ -7355,6 +7386,9 @@ export interface ServiceDetailsDTO {
   serviceName?: string
   successRate?: number
   successRateChangeRate?: number
+  tags?: {
+    [key: string]: string
+  }
   totalDeploymentChangeRate?: number
   totalDeployments?: number
 }
@@ -8095,6 +8129,7 @@ export interface UserGroup {
   createdAt?: number
   deleted?: boolean
   description: string
+  externallyManaged?: boolean
   harnessManaged?: boolean
   id?: string
   identifier?: string
@@ -8155,9 +8190,11 @@ export interface UserInfo {
   admin?: boolean
   billingFrequency?: string
   defaultAccountId?: string
+  disabled?: boolean
   edition?: string
   email?: string
   emailVerified?: boolean
+  externallyManaged?: boolean
   intent?: string
   locked?: boolean
   name?: string
@@ -8182,7 +8219,9 @@ export interface UserLockoutPolicy {
 }
 
 export interface UserMetadataDTO {
+  disabled?: boolean
   email: string
+  externallyManaged?: boolean
   locked?: boolean
   name?: string
   uuid: string
@@ -9500,7 +9539,7 @@ export type CreateApiKeyProps = Omit<
 >
 
 /**
- * Create api key
+ * Create API key
  */
 export const CreateApiKey = (props: CreateApiKeyProps) => (
   <Mutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, void>
@@ -9517,7 +9556,7 @@ export type UseCreateApiKeyProps = Omit<
 >
 
 /**
- * Create api key
+ * Create API key
  */
 export const useCreateApiKey = (props: UseCreateApiKeyProps) =>
   useMutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, void>('POST', `/apikey`, {
@@ -9526,7 +9565,7 @@ export const useCreateApiKey = (props: UseCreateApiKeyProps) =>
   })
 
 /**
- * Create api key
+ * Create API key
  */
 export const createApiKeyPromise = (
   props: MutateUsingFetchProps<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, void>,
@@ -9616,7 +9655,7 @@ export type GetAggregatedApiKeyProps = Omit<
   GetAggregatedApiKeyPathParams
 
 /**
- * Get api key
+ * Get API key
  */
 export const GetAggregatedApiKey = ({ identifier, ...props }: GetAggregatedApiKeyProps) => (
   <Get<ResponseApiKeyAggregateDTO, Failure | Error, GetAggregatedApiKeyQueryParams, GetAggregatedApiKeyPathParams>
@@ -9638,7 +9677,7 @@ export type UseGetAggregatedApiKeyProps = Omit<
   GetAggregatedApiKeyPathParams
 
 /**
- * Get api key
+ * Get API key
  */
 export const useGetAggregatedApiKey = ({ identifier, ...props }: UseGetAggregatedApiKeyProps) =>
   useGet<ResponseApiKeyAggregateDTO, Failure | Error, GetAggregatedApiKeyQueryParams, GetAggregatedApiKeyPathParams>(
@@ -9647,7 +9686,7 @@ export const useGetAggregatedApiKey = ({ identifier, ...props }: UseGetAggregate
   )
 
 /**
- * Get api key
+ * Get API key
  */
 export const getAggregatedApiKeyPromise = (
   {
@@ -9682,7 +9721,7 @@ export type DeleteApiKeyProps = Omit<
 >
 
 /**
- * Delete api key
+ * Delete API key
  */
 export const DeleteApiKey = (props: DeleteApiKeyProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteApiKeyQueryParams, string, void>
@@ -9699,7 +9738,7 @@ export type UseDeleteApiKeyProps = Omit<
 >
 
 /**
- * Delete api key
+ * Delete API key
  */
 export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
   useMutate<ResponseBoolean, Failure | Error, DeleteApiKeyQueryParams, string, void>('DELETE', `/apikey`, {
@@ -9708,7 +9747,7 @@ export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
   })
 
 /**
- * Delete api key
+ * Delete API key
  */
 export const deleteApiKeyPromise = (
   props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteApiKeyQueryParams, string, void>,
@@ -9733,7 +9772,7 @@ export type UpdateApiKeyProps = Omit<
   UpdateApiKeyPathParams
 
 /**
- * Update api key
+ * Update API key
  */
 export const UpdateApiKey = ({ identifier, ...props }: UpdateApiKeyProps) => (
   <Mutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, UpdateApiKeyPathParams>
@@ -9751,7 +9790,7 @@ export type UseUpdateApiKeyProps = Omit<
   UpdateApiKeyPathParams
 
 /**
- * Update api key
+ * Update API key
  */
 export const useUpdateApiKey = ({ identifier, ...props }: UseUpdateApiKeyProps) =>
   useMutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, UpdateApiKeyPathParams>(
@@ -9761,7 +9800,7 @@ export const useUpdateApiKey = ({ identifier, ...props }: UseUpdateApiKeyProps) 
   )
 
 /**
- * Update api key
+ * Update API key
  */
 export const updateApiKeyPromise = (
   {
@@ -11070,7 +11109,7 @@ export const validateArtifactImageForGcrPromise = (
   )
 
 export interface GetAuthenticationSettingsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type GetAuthenticationSettingsProps = Omit<
@@ -11123,7 +11162,7 @@ export const getAuthenticationSettingsPromise = (
   )
 
 export interface DeleteSamlMetaDataQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type DeleteSamlMetaDataProps = Omit<
@@ -11174,7 +11213,7 @@ export const deleteSamlMetaDataPromise = (
   )
 
 export interface GetPasswordStrengthSettingsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type GetPasswordStrengthSettingsProps = Omit<
@@ -11301,7 +11340,7 @@ export const putLoginSettingsPromise = (
   >('PUT', getConfig('ng/api'), `/authentication-settings/login-settings/${loginSettingsId}`, props, signal)
 
 export interface RemoveOauthMechanismQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type RemoveOauthMechanismProps = Omit<
@@ -11352,7 +11391,7 @@ export const removeOauthMechanismPromise = (
   )
 
 export interface UpdateOauthProvidersQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateOauthProvidersProps = Omit<
@@ -11403,7 +11442,7 @@ export const updateOauthProvidersPromise = (
   )
 
 export interface GetSamlLoginTestQueryParams {
-  accountId?: string
+  accountId: string
 }
 
 export type GetSamlLoginTestProps = Omit<
@@ -11451,7 +11490,7 @@ export const getSamlLoginTestPromise = (
   )
 
 export interface UploadSamlMetaDataQueryParams {
-  accountId?: string
+  accountId: string
 }
 
 export type UploadSamlMetaDataProps = Omit<
@@ -11508,7 +11547,7 @@ export const uploadSamlMetaDataPromise = (
   )
 
 export interface UpdateSamlMetaDataQueryParams {
-  accountId?: string
+  accountId: string
 }
 
 export type UpdateSamlMetaDataProps = Omit<
@@ -11565,7 +11604,7 @@ export const updateSamlMetaDataPromise = (
   )
 
 export interface SetTwoFactorAuthAtAccountLevelQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type SetTwoFactorAuthAtAccountLevelProps = Omit<
@@ -11636,7 +11675,7 @@ export const setTwoFactorAuthAtAccountLevelPromise = (
   >('PUT', getConfig('ng/api'), `/authentication-settings/two-factor-admin-override-settings`, props, signal)
 
 export interface UpdateAuthMechanismQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
@@ -11688,7 +11727,7 @@ export const updateAuthMechanismPromise = (
   )
 
 export interface UpdateWhitelistedDomainsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateWhitelistedDomainsProps = Omit<
@@ -12820,7 +12859,7 @@ export const validateTheIdentifierIsUniquePromise = (
   )
 
 export interface DeleteConnectorQueryParams {
-  accountIdentifier: string
+  accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
   branch?: string
@@ -16143,7 +16182,7 @@ export const postFilterPromise = (
   )
 
 export interface UpdateFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateFilterProps = Omit<
@@ -16194,7 +16233,7 @@ export const updateFilterPromise = (
   )
 
 export interface DeleteFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   type:
@@ -16255,7 +16294,7 @@ export const deleteFilterPromise = (
   )
 
 export interface GetFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   type:
@@ -20478,7 +20517,7 @@ export type PutOrganizationProps = Omit<
   PutOrganizationPathParams
 
 /**
- * Update an Organization by identifier
+ * Update an Organization by ID
  */
 export const PutOrganization = ({ identifier, ...props }: PutOrganizationProps) => (
   <Mutate<
@@ -20508,7 +20547,7 @@ export type UsePutOrganizationProps = Omit<
   PutOrganizationPathParams
 
 /**
- * Update an Organization by identifier
+ * Update an Organization by ID
  */
 export const usePutOrganization = ({ identifier, ...props }: UsePutOrganizationProps) =>
   useMutate<
@@ -20524,7 +20563,7 @@ export const usePutOrganization = ({ identifier, ...props }: UsePutOrganizationP
   })
 
 /**
- * Update an Organization by identifier
+ * Update an Organization by ID
  */
 export const putOrganizationPromise = (
   {
@@ -21204,7 +21243,7 @@ export type GetProjectProps = Omit<
   GetProjectPathParams
 
 /**
- * Gets a Project by identifier
+ * Gets a Project by ID
  */
 export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
   <Get<ResponseProjectResponse, Failure | Error, GetProjectQueryParams, GetProjectPathParams>
@@ -21221,7 +21260,7 @@ export type UseGetProjectProps = Omit<
   GetProjectPathParams
 
 /**
- * Gets a Project by identifier
+ * Gets a Project by ID
  */
 export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
   useGet<ResponseProjectResponse, Failure | Error, GetProjectQueryParams, GetProjectPathParams>(
@@ -21230,7 +21269,7 @@ export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
   )
 
 /**
- * Gets a Project by identifier
+ * Gets a Project by ID
  */
 export const getProjectPromise = (
   {
@@ -21270,7 +21309,7 @@ export type PutProjectProps = Omit<
   PutProjectPathParams
 
 /**
- * Update a Project by identifier
+ * Update a Project by ID
  */
 export const PutProject = ({ identifier, ...props }: PutProjectProps) => (
   <Mutate<
@@ -21300,7 +21339,7 @@ export type UsePutProjectProps = Omit<
   PutProjectPathParams
 
 /**
- * Update a Project by identifier
+ * Update a Project by ID
  */
 export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
   useMutate<
@@ -21316,7 +21355,7 @@ export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
   })
 
 /**
- * Update a Project by identifier
+ * Update a Project by ID
  */
 export const putProjectPromise = (
   {
@@ -23372,6 +23411,55 @@ export const createServicesPromise = (
     ServiceRequestDTOArrayRequestBody,
     void
   >('POST', getConfig('ng/api'), `/services/batch`, props, signal)
+
+export interface HelmCmdFlagsQueryParams {
+  serviceSpecType: string
+  version: 'V2' | 'V3'
+}
+
+export type HelmCmdFlagsProps = Omit<
+  GetProps<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Command flags based on Deployment Type
+ */
+export const HelmCmdFlags = (props: HelmCmdFlagsProps) => (
+  <Get<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>
+    path={`/services/helmCmdFlags`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHelmCmdFlagsProps = Omit<
+  UseGetProps<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Command flags based on Deployment Type
+ */
+export const useHelmCmdFlags = (props: UseHelmCmdFlagsProps) =>
+  useGet<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>(`/services/helmCmdFlags`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get Command flags based on Deployment Type
+ */
+export const helmCmdFlagsPromise = (
+  props: GetUsingFetchProps<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>(
+    getConfig('ng/api'),
+    `/services/helmCmdFlags`,
+    props,
+    signal
+  )
 
 export interface UpsertServiceQueryParams {
   accountId?: string
