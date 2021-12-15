@@ -319,7 +319,7 @@ co:
     advancedConfigDescription: 'Set up advanced configurations for this AutoStopping Rule'
 
   rulesTableHeaders:
-    name: '${{$.name}}'
+    name: '{{$.name}}'
     idleTime: 'IDLE TIME'
     fulfilment: 'COMPUTE TYPE'
     mangedResources: 'RESOURCES MANAGED BY THE RULE'
