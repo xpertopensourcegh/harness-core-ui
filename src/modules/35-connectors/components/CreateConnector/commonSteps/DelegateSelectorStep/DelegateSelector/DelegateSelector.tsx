@@ -11,8 +11,6 @@ import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDel
 import {
   DelegateGroupDetails,
   useGetDelegatesUpTheHierarchy,
-  useGetDelegatesStatusV2,
-  RestResponseDelegateStatus,
   RestResponseDelegateGroupListing,
   DelegateInner
 } from 'services/portal'
@@ -120,27 +118,22 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { orgIdentifier, projectIdentifier } = props
-  const { CDNG_ENABLED, NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
+  const { CDNG_ENABLED } = useFeatureFlags()
 
   const scope = { projectIdentifier, orgIdentifier }
 
-  const getDelegates = NG_CG_TASK_ASSIGNMENT_ISOLATION ? useGetDelegatesUpTheHierarchy : useGetDelegatesStatusV2
-  const queryParams = NG_CG_TASK_ASSIGNMENT_ISOLATION
-    ? {
-        accountId,
-        orgId: orgIdentifier,
-        projectId: projectIdentifier
-      }
-    : {
-        accountId
-      }
+  const queryParams = {
+    accountId,
+    orgId: orgIdentifier,
+    projectId: projectIdentifier
+  }
 
   const {
     data: apiData,
     loading,
     error,
     refetch
-  } = getDelegates({
+  } = useGetDelegatesUpTheHierarchy({
     queryParams
   })
 
@@ -151,25 +144,15 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   const { showError } = useToaster()
 
   const getParsedData = (): (DelegateInnerCustom | DelegateGroupDetailsCustom)[] => {
-    if (NG_CG_TASK_ASSIGNMENT_ISOLATION) {
-      return ((data as RestResponseDelegateGroupListing)?.resource?.delegateGroupDetails || []).map(
-        delegateGroupDetails => ({
-          ...delegateGroupDetails,
-          checked: shouldDelegateBeChecked(delegateSelectors, [
-            ...Object.keys(defaultTo(delegateGroupDetails.groupImplicitSelectors, {})),
-            ...defaultTo(delegateGroupDetails.groupCustomSelectors, [])
-          ])
-        })
-      )
-    } else {
-      return ((data as RestResponseDelegateStatus)?.resource?.delegates || []).map(delegate => ({
-        ...delegate,
+    return ((data as RestResponseDelegateGroupListing)?.resource?.delegateGroupDetails || []).map(
+      delegateGroupDetails => ({
+        ...delegateGroupDetails,
         checked: shouldDelegateBeChecked(delegateSelectors, [
-          ...(delegate.tags || []),
-          ...Object.keys(delegate?.implicitSelectors || {})
+          ...Object.keys(defaultTo(delegateGroupDetails.groupImplicitSelectors, {})),
+          ...defaultTo(delegateGroupDetails.groupCustomSelectors, [])
         ])
-      }))
-    }
+      })
+    )
   }
 
   // used to set data only if no error occurs
@@ -331,7 +314,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
           {getString('connectors.delegate.testDelegateConnectivity')}
         </Text>
-        {CDNG_ENABLED && NG_CG_TASK_ASSIGNMENT_ISOLATION ? (
+        {CDNG_ENABLED ? (
           <RbacButton
             icon="plus"
             variation={ButtonVariation.SECONDARY}

@@ -31,9 +31,7 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('services/portal', () => ({
   useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: getDelegateSelectors })),
-  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetDelegatesStatusV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Create AWS connector Wizard', () => {

@@ -36,8 +36,8 @@ jest.mock('services/portal', () => ({
   useListAwsRegions: jest.fn().mockImplementation(() => {
     return { data: mockRegions, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetDelegatesStatusV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Create Secret Manager Wizard', () => {

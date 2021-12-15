@@ -11,10 +11,6 @@ jest.mock('services/portal', () => ({
   useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
-  }),
-  useGetDelegateSelectors: jest.fn().mockImplementation(args => {
-    mockGetCallFunction(args)
-    return []
   })
 }))
 

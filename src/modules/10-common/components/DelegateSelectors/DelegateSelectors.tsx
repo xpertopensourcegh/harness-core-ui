@@ -3,9 +3,8 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useStrings } from 'framework/strings'
-import { useGetDelegateSelectorsUpTheHierarchy, useGetDelegateSelectors } from 'services/portal'
+import { useGetDelegateSelectorsUpTheHierarchy } from 'services/portal'
 
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DelegateSelectors.module.scss'
@@ -39,21 +38,13 @@ export const DelegateSelectors = (props: DelegateSelectorsProps): React.ReactEle
 
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
 
-  const getDelegateSelectors = NG_CG_TASK_ASSIGNMENT_ISOLATION
-    ? useGetDelegateSelectorsUpTheHierarchy
-    : useGetDelegateSelectors
-  const queryParams = NG_CG_TASK_ASSIGNMENT_ISOLATION
-    ? { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
-    : {
-        accountId
-      }
+  const queryParams = { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   const {
     data: apiData,
     loading,
     refetch
-  } = getDelegateSelectors({
+  } = useGetDelegateSelectorsUpTheHierarchy({
     queryParams
   })
 
