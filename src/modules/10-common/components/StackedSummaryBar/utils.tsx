@@ -1,12 +1,15 @@
 import React from 'react'
 import { Color, Container, Icon, Text } from '@wings-software/uicore'
+import { String } from 'framework/strings'
 
 export const handleZeroOrInfinityTrend = (trend: string | undefined, intentColor: Color): JSX.Element => {
   const trendChange = trend ? parseInt(trend) : 0
   return isNaN(trendChange) ? ( // handling Infinity and other unexpected trends
     <Container flex={{ alignItems: 'center' }}>
       <Icon name={'caret-up'} color={intentColor}></Icon>
-      <Icon name={'infinityTrend'} size={20} color={intentColor}></Icon>
+      <Text font="xsmall" color={intentColor}>
+        <String stringID="na" />
+      </Text>
     </Container>
   ) : (
     // handing 0 trend change
@@ -23,7 +26,7 @@ export const renderTrend = (trend: string | undefined, intentColor: Color): JSX.
         color={intentColor}
       ></Icon>
       <Text font="xsmall" color={intentColor}>
-        {trend}
+        {Math.sign(trendChange) === -1 ? trend?.substring(1) : trend}
       </Text>
     </>
   )
