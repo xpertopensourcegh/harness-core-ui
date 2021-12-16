@@ -4647,6 +4647,7 @@ export interface StringsMap {
   'cv.showMore': string
   'cv.showYAMLChange': string
   'cv.sliMissingDataTypeIsRequired': string
+  'cv.sloRecalculationInProgress': string
   'cv.slos.confirmDeleteSLO': string
   'cv.slos.createSLO': string
   'cv.slos.deleteSLO': string
