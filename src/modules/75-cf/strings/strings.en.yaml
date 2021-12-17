@@ -277,6 +277,7 @@ targetDetail:
   noFlagConfigured: No feature flags configured for this target
   searchPlaceholder: Search Feature Flags...
   deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
+  flagDisabled: This feature is currently disabled. The default variation ({{offVariation}}) will be served.
 selectSegmentModal:
   searchSegmentPlaceholder: Search for Target Group by Name or Description
   flagsUsingSegment: '{{ counter }} flag'

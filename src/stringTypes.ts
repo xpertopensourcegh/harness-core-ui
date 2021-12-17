@@ -3981,6 +3981,7 @@ export interface StringsMap {
   'cf.targetDetail.excludeTargetFromSegment': string
   'cf.targetDetail.excludefromSegment': string
   'cf.targetDetail.exclusionList': string
+  'cf.targetDetail.flagDisabled': string
   'cf.targetDetail.flagSetting': string
   'cf.targetDetail.learnMore': string
   'cf.targetDetail.manuallyAdded': string
