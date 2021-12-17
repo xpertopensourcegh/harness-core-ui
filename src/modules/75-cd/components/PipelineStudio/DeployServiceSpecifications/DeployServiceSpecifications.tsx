@@ -39,6 +39,7 @@ import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { useDeepCompareEffect } from '@common/hooks'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -83,7 +84,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   useEffect(() => {
     if (
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition &&
-      !stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+      !stage?.stage?.spec?.serviceConfig?.useFromStage?.stage &&
+      stage?.stage?.type === StageType.DEPLOY
     ) {
       setDefaultServiceSchema()
     }
