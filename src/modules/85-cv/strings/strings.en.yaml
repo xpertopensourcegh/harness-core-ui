@@ -577,27 +577,18 @@ healthSource:
       validations:
         application: Please select application
         nrql: NRQL Query is required
-        queryType: Query type is required
-        serviceInstanceIdentifier: Service Instance Identifier Json Path is required
         continuousVerification: Service selection is required
-        metricValue: Metric Value Json Path is required
-        timestamp: Timestamp Field/Locator Json Path is required
+        metricValue: Metric Value JSON Path is required
+        timestamp: Timestamp Field/Locator JSON Path is required
       metricFields:
         metricValueJsonPath:
-          label: Metric Value Json Path
+          label: Metric Value JSON Path
           noRecordModalHeader: New Metric Value
-          noRecordInputLabel: Add Metric Value
           recordsModalHeader: Select path for Metric value
         timestampJsonPath:
-          label: Timestamp Field/Locator Json Path
+          label: Timestamp Field/Locator JSON Path
           noRecordModalHeader: New Timestamp Locator
-          noRecordInputLabel: Add Timestamp Locator
           recordsModalHeader: Select path for timestamp field
-        serviceIdentifierJsonPath:
-          label: Service Instance Identifier Json Path
-          noRecordModalHeader: New Service Instance Identifier
-          noRecordInputLabel: Add Service Instance Identifier
-          recordsModalHeader: Select path for service instance identifier field
         timestampFormat: Timestamp Format
     AppDynamics:
       applicationsAndTiers: Applications & Tiers
