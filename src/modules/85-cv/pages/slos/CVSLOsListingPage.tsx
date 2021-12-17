@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   Button,
@@ -40,6 +40,11 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
 
   const [selectedUserJourney, setSelectedUserJourney] = useState<UserJourneyDTO>()
   const [pageNumber, setPageNumber] = useState(0)
+
+  useEffect(() => {
+    setPageNumber(0)
+    setSelectedUserJourney(undefined)
+  }, [projectIdentifier])
 
   const {
     data: dashboardWidgetsResponse,

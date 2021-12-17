@@ -40,6 +40,10 @@ const MonitoredService: React.FC = () => {
   const [environment, setEnvironment] = useState<SelectOption>()
   const [selectedFilter, setSelectedFilter] = useState<FilterTypes>(FilterTypes.ALL)
 
+  useEffect(() => {
+    setPage(0)
+  }, [projectIdentifier])
+
   const { data: environmentDataList, loading: loadingEnvironments } = useGetMonitoredServiceListEnvironments({
     queryParams: pathParams
   })
