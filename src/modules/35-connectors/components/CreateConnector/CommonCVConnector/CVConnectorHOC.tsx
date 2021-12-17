@@ -1,12 +1,12 @@
-import React from 'react'
-import { StepWizard } from '@wings-software/uicore'
+import React, { useEffect } from 'react'
+import { StepWizard, Container, StepProps } from '@wings-software/uicore'
 import {
   CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
   CreateConnectorModalProps,
   TESTCONNECTION_STEP_INDEX
 } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
@@ -16,12 +16,21 @@ import type { ConnectionConfigProps } from './constants'
 
 export interface CVConnectorHOCInput {
   connectorType: ConnectorInfoDTO['type']
-  ConnectorCredentialsStep: (props: ConnectionConfigProps) => JSX.Element
+  ConnectorCredentialsStep?: (props: ConnectionConfigProps) => JSX.Element
   buildSubmissionPayload: DelegateSelectorProps['buildPayload']
+  nestedStep?: (props: ConnectionConfigProps) => JSX.Element[]
+}
+
+function PlaceholderStepComponent(props: StepProps<ConnectorConfigDTO>): JSX.Element {
+  const { nextStep, prevStepData } = props
+  useEffect(() => {
+    nextStep?.(prevStepData)
+  }, [])
+  return <Container />
 }
 
 export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateConnectorModalProps) => JSX.Element {
-  const { ConnectorCredentialsStep, buildSubmissionPayload, connectorType } = hocInput
+  const { ConnectorCredentialsStep, buildSubmissionPayload, connectorType, nestedStep } = hocInput
   const ConnectorComponent = (props: CreateConnectorModalProps): JSX.Element => {
     const {
       isEditMode,
@@ -34,6 +43,16 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
       projectIdentifier
     } = props
     const { getString } = useStrings()
+    const els = nestedStep
+      ? nestedStep({
+          isEditMode,
+          connectorInfo,
+          accountId,
+          orgIdentifier,
+          projectIdentifier
+        }).map(step => React.cloneElement(step))
+      : null
+
     return (
       <StepWizard icon={getConnectorIconByType(connectorType)} iconProps={{ size: 37 }}>
         <ConnectorDetailsStep
@@ -43,15 +62,19 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
           connectorInfo={connectorInfo}
           gitDetails={props.gitDetails}
         />
-        <ConnectorCredentialsStep
-          isEditMode={isEditMode}
-          accountId={accountId}
-          identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-          name={getString('credentials')}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          connectorInfo={connectorInfo}
-        />
+        {ConnectorCredentialsStep ? (
+          <ConnectorCredentialsStep
+            isEditMode={isEditMode}
+            accountId={accountId}
+            identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
+            name={getString('credentials')}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            connectorInfo={connectorInfo}
+          />
+        ) : null}
+        {els ? <PlaceholderStepComponent name={getString('details')} /> : null}
+        {els ? <StepWizard>{els}</StepWizard> : null}
         <DelegateSelectorStep
           name={getString('delegate.DelegateselectionLabel')}
           hideModal={onClose}
