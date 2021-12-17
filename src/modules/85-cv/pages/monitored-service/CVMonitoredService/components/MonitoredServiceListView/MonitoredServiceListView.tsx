@@ -1,12 +1,25 @@
 import React from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Container, Text, Color, FontVariation, Layout, TableV2, NoDataCard, Heading } from '@wings-software/uicore'
+import {
+  Container,
+  Text,
+  Color,
+  FontVariation,
+  Layout,
+  TableV2,
+  NoDataCard,
+  Heading,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import type { MonitoredServiceListItemDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import { usePermission } from '@rbac/hooks/usePermission'
+import RbacButton from '@rbac/components/Button/Button'
+import ToggleOnOff from '@cv/pages/monitored-service/CVMonitoredService/components/ToggleOnOff/ToggleOnOff'
 import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
@@ -31,34 +44,62 @@ const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ r
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const monitoredService = row.original
 
+  const history = useHistory()
+
   return (
     <Layout.Vertical>
-      <Link
-        to={routes.toCVAddMonitoringServicesEdit({
-          accountId,
-          orgIdentifier,
-          projectIdentifier,
-          identifier: monitoredService.identifier,
-          module: 'cv'
-        })}
+      <RbacButton
+        variation={ButtonVariation.LINK}
+        className={css.linkButton}
+        permission={{
+          permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+          resource: {
+            resourceType: ResourceType.MONITOREDSERVICE,
+            resourceIdentifier: projectIdentifier
+          }
+        }}
+        onClick={() =>
+          history.push({
+            pathname: routes.toCVAddMonitoringServicesEdit({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              identifier: monitoredService.identifier,
+              module: 'cv'
+            })
+          })
+        }
       >
         <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal', weight: 'semi-bold' }}>
           {monitoredService.serviceName}
         </Text>
-      </Link>
-      <Link
-        to={routes.toCVAddMonitoringServicesEdit({
-          accountId,
-          projectIdentifier,
-          orgIdentifier,
-          identifier: monitoredService.identifier,
-          module: 'cv'
-        })}
+      </RbacButton>
+      <RbacButton
+        variation={ButtonVariation.LINK}
+        className={css.linkButton}
+        permission={{
+          permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+          resource: {
+            resourceType: ResourceType.MONITOREDSERVICE,
+            resourceIdentifier: projectIdentifier
+          }
+        }}
+        onClick={() =>
+          history.push({
+            pathname: routes.toCVAddMonitoringServicesEdit({
+              accountId,
+              projectIdentifier,
+              orgIdentifier,
+              identifier: monitoredService.identifier,
+              module: 'cv'
+            })
+          })
+        }
       >
         <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'xsmall' }}>
           {monitoredService.environmentName}
         </Text>
-      </Link>
+      </RbacButton>
     </Layout.Vertical>
   )
 }
@@ -146,15 +187,29 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
 }) => {
   const { getString } = useStrings()
 
+  const { projectIdentifier } = useParams<ProjectPathProps>()
+
   const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = monitoredServiceListData || {}
 
   const RenderStatusToggle: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const monitoredService = row.original
 
+    const [canToggle] = usePermission(
+      {
+        resource: {
+          resourceType: ResourceType.MONITOREDSERVICE,
+          resourceIdentifier: projectIdentifier
+        },
+        permissions: [PermissionIdentifier.TOGGLE_MONITORED_SERVICE]
+      },
+      [projectIdentifier]
+    )
+
     return (
       <Layout.Horizontal flex={{ alignItems: 'center' }}>
         <ToggleOnOff
-          checked={!!monitoredService.healthMonitoringEnabled}
+          disabled={!canToggle}
+          checked={Boolean(monitoredService.healthMonitoringEnabled)}
           loading={healthMonitoringFlagLoading}
           onChange={checked => {
             onToggleService(monitoredService.identifier as string, checked)
@@ -171,6 +226,22 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
           editLabel={getString('cv.monitoredServices.editService')}
           onEdit={() => {
             onEditService(monitoredService.identifier as string)
+          }}
+          RbacPermissions={{
+            edit: {
+              permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+              resource: {
+                resourceType: ResourceType.MONITOREDSERVICE,
+                resourceIdentifier: projectIdentifier
+              }
+            },
+            delete: {
+              permission: PermissionIdentifier.DELETE_MONITORED_SERVICE,
+              resource: {
+                resourceType: ResourceType.MONITOREDSERVICE,
+                resourceIdentifier: projectIdentifier
+              }
+            }
           }}
         />
       </Layout.Horizontal>

@@ -17,6 +17,8 @@ import { useStrings } from 'framework/strings'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import type { SLOCardHeaderProps } from '../CVSLOsListingPage.types'
 import css from '../CVSLOsListingPage.module.scss'
 
@@ -80,8 +82,30 @@ const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({
             position={Position.LEFT_TOP}
             content={
               <Menu style={{ minWidth: 'unset' }}>
-                <Menu.Item icon="edit" text={getString('edit')} onClick={onEdit} />
-                <Menu.Item icon="trash" text={getString('delete')} onClick={openDialog} />
+                <RbacMenuItem
+                  icon="edit"
+                  text={getString('edit')}
+                  onClick={onEdit}
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_SLO_SERVICE,
+                    resource: {
+                      resourceType: ResourceType.SLO,
+                      resourceIdentifier: projectIdentifier
+                    }
+                  }}
+                />
+                <RbacMenuItem
+                  icon="trash"
+                  text={getString('delete')}
+                  onClick={openDialog}
+                  permission={{
+                    permission: PermissionIdentifier.DELETE_SLO_SERVICE,
+                    resource: {
+                      resourceType: ResourceType.SLO,
+                      resourceIdentifier: projectIdentifier
+                    }
+                  }}
+                />
               </Menu>
             }
           >

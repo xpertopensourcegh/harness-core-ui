@@ -1,5 +1,12 @@
 import type { Color, FontVariation } from '@wings-software/uicore'
 import type { CountServiceDTO, PageMonitoredServiceListItemDTO, RiskData } from 'services/cv'
+import type { PermissionsRequest } from '@rbac/hooks/usePermission'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+
+interface ContextMenuRbacPermissions {
+  edit: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  delete: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+}
 
 export interface ContextMenuActionsProps {
   onEdit?(): void
@@ -9,6 +16,7 @@ export interface ContextMenuActionsProps {
   confirmButtonText?: string
   deleteLabel?: string
   editLabel?: string
+  RbacPermissions?: ContextMenuRbacPermissions
 }
 
 export enum FilterTypes {

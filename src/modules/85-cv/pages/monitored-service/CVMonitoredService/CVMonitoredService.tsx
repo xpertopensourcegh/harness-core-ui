@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
-import {
-  Page,
-  Button,
-  ButtonVariation,
-  Layout,
-  Select,
-  GridListToggle,
-  Views,
-  SelectOption
-} from '@wings-software/uicore'
+import { Page, ButtonVariation, Layout, Select, GridListToggle, Views, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import { useGetMonitoredServiceListEnvironments, useGetCountOfServices } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import RbacButton from '@rbac/components/Button/Button'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getCVMonitoringServicesSearchParam, getErrorMessage, getEnvironmentOptions } from '@cv/utils/CommonUtils'
 import ServiceDependencyGraph from '@cv/pages/monitored-service/CVMonitoredService/components/MonitoredServiceGraphView/MonitoredServiceGraphView'
@@ -76,7 +69,7 @@ const MonitoredService: React.FC = () => {
   }
 
   const createButton = (
-    <Button
+    <RbacButton
       variation={ButtonVariation.PRIMARY}
       icon="plus"
       text={getString('cv.monitoredServices.newMonitoredServices')}
@@ -85,6 +78,13 @@ const MonitoredService: React.FC = () => {
           pathname: routes.toCVAddMonitoringServicesSetup(pathParams),
           search: getCVMonitoringServicesSearchParam({ view: selectedView })
         })
+      }}
+      permission={{
+        permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+        resource: {
+          resourceType: ResourceType.MONITOREDSERVICE,
+          resourceIdentifier: projectIdentifier
+        }
       }}
     />
   )

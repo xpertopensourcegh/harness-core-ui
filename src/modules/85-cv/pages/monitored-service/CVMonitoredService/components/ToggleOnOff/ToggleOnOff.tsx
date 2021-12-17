@@ -18,7 +18,7 @@ export default function ToggleOnOff({
         data-name="on-btn"
         className={cx(css.item, { [css.active]: checked, [css.disabled]: checked || disabled || loading })}
         onClick={() => {
-          onChange(true)
+          !disabled && onChange(true)
         }}
         role="button"
       >
@@ -28,7 +28,7 @@ export default function ToggleOnOff({
         data-name="off-btn"
         className={cx(css.item, { [css.inactive]: !checked, [css.disabled]: !checked || disabled || loading })}
         onClick={() => {
-          onChange(false)
+          !disabled && onChange(false)
         }}
         role="button"
       >

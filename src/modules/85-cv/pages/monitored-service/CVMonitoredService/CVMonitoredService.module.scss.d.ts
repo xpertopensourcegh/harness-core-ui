@@ -12,5 +12,6 @@ declare const styles: {
   readonly noDataContainer: string
   readonly infrastructureIconPadding: string
   readonly noServiceAvailableImage: string
+  readonly linkButton: string
 }
 export default styles
