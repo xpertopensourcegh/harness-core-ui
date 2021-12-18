@@ -1,56 +1,64 @@
 import React from 'react'
-import * as Yup from 'yup'
-import { isEmpty } from 'lodash-es'
+
 import { connect, FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
+import * as Yup from 'yup'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
-import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { StringsMap } from 'stringTypes'
+import ServiceNowApprovalStepModeWithRef from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/ServiceNowApprovalStepMode'
+import {
+  getDefaultCriterias,
+  processInitialValues,
+  processFormData
+} from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/helper'
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import { flatObject } from '../Common/ApprovalCommons'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
-import { flatObject } from '../Common/ApprovalCommons'
-import type { JiraApprovalData, JiraApprovalVariableListModeProps } from './types'
-import { getDefaultCriterias, processFormData, processInitialValues } from './helper'
-import JiraApprovalDeploymentMode from './JiraApprovalDeploymentMode'
-import JiraApprovalStepModeWithRef from './JiraApprovalStepMode'
+
+import type { ServiceNowApprovalData, SnowApprovalVariableListModeProps } from './types'
+import ServiceNowApprovalDeploymentMode from './ServiceNowApprovalDeploymentMode'
 import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
-const JiraApprovalDeploymentModeWithFormik = connect(JiraApprovalDeploymentMode)
-export class JiraApproval extends PipelineStep<JiraApprovalData> {
+const SnowApprovalDeploymentModeWithFormik = connect(ServiceNowApprovalDeploymentMode)
+export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
   constructor() {
     super()
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
-
   protected isHarnessSpecific = true
-  protected type = StepType.JiraApproval
-  protected stepName = 'Jira Approval'
-  protected stepIcon: IconName = 'service-jira'
-  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.JiraApproval'
+  protected type = StepType.ServiceNowApproval
+  protected stepName = 'ServiceNow Approval'
+  protected stepIcon: IconName = 'service-servicenow'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.ServiceNowApproval'
   // initialValues on mount
-  protected defaultValues: JiraApprovalData = {
+  protected defaultValues: ServiceNowApprovalData = {
     identifier: '',
     timeout: '1d',
     name: '',
-    type: StepType.JiraApproval,
+    type: StepType.ServiceNowApproval,
     spec: {
       connectorRef: '',
-      projectKey: '',
-      issueType: '',
-      issueKey: '',
+      ticketNumber: '',
+      ticketType: '',
       approvalCriteria: getDefaultCriterias(),
       rejectionCriteria: getDefaultCriterias()
     }
+  }
+
+  processFormData(values: ServiceNowApprovalData): ServiceNowApprovalData {
+    return processFormData(values)
   }
 
   validateInputSet({
     data,
     template,
     getString
-  }: ValidateInputSetProps<JiraApprovalData>): FormikErrors<JiraApprovalData> {
-    const errors: FormikErrors<JiraApprovalData> = {}
+  }: ValidateInputSetProps<ServiceNowApprovalData>): FormikErrors<ServiceNowApprovalData> {
+    const errors: FormikErrors<ServiceNowApprovalData> = {}
 
     if (
       typeof template?.spec?.connectorRef === 'string' &&
@@ -58,18 +66,18 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
       isEmpty(data?.spec?.connectorRef)
     ) {
       errors.spec = {
-        connectorRef: getString?.('pipeline.jiraApprovalStep.validations.connectorRef')
+        connectorRef: getString?.('pipeline.serviceNowApprovalStep.validations.connectorRef')
       }
     }
 
     if (
-      typeof template?.spec?.issueKey === 'string' &&
-      getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.issueKey?.trim())
+      typeof template?.spec?.ticketNumber === 'string' &&
+      getMultiTypeFromValue(template?.spec?.ticketNumber) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.ticketNumber?.trim())
     ) {
       errors.spec = {
         ...errors.spec,
-        issueKey: getString?.('pipeline.jiraApprovalStep.validations.issueKey')
+        ticketNumber: getString?.('pipeline.serviceNowApprovalStep.validations.issueNumber')
       }
     }
 
@@ -105,11 +113,7 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     return errors
   }
 
-  processFormData(values: JiraApprovalData): JiraApprovalData {
-    return processFormData(values)
-  }
-
-  renderStep(this: JiraApproval, props: StepProps<JiraApprovalData>): JSX.Element {
+  renderStep(this: ServiceNowApproval, props: StepProps<ServiceNowApprovalData>): JSX.Element {
     const {
       initialValues,
       onUpdate,
@@ -125,16 +129,16 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <JiraApprovalDeploymentModeWithFormik
+        <SnowApprovalDeploymentModeWithFormik
           stepViewType={stepViewType}
           initialValues={initialValues}
           allowableTypes={allowableTypes}
-          onUpdate={(values: JiraApprovalData) => onUpdate?.(values)}
+          onUpdate={(values: ServiceNowApprovalData) => onUpdate?.(values)}
           inputSetData={inputSetData}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
-      const customStepPropsTyped = customStepProps as JiraApprovalVariableListModeProps
+      const customStepPropsTyped = customStepProps as SnowApprovalVariableListModeProps
       return (
         <VariablesListTable
           data={flatObject(customStepPropsTyped.variablesData)}
@@ -145,11 +149,11 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
       )
     }
     return (
-      <JiraApprovalStepModeWithRef
+      <ServiceNowApprovalStepModeWithRef
         ref={formikRef}
         stepViewType={stepViewType || StepViewType.Edit}
         initialValues={processInitialValues(initialValues)}
-        onUpdate={(values: JiraApprovalData) => {
+        onUpdate={(values: ServiceNowApprovalData) => {
           const forUpdate = this.processFormData(values)
           onUpdate?.(forUpdate)
         }}

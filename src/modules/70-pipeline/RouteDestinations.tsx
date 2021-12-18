@@ -17,6 +17,7 @@ import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/En
 import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/views/HarnessApprovalView/HarnessApprovalView'
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { ServiceNowApprovalView } from '@pipeline/components/execution/StepDetails/views/ServiceNowApprovalView/ServiceNowApprovalView'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 import { ModuleName } from '../../framework/types/ModuleName'
 
@@ -73,6 +74,10 @@ ExecFactory.registerStepDetails(StepType.HarnessApproval, {
 
 ExecFactory.registerStepDetails(StepType.JiraApproval, {
   component: JiraApprovalView
+})
+
+ExecFactory.registerStepDetails(StepType.ServiceNowApproval, {
+  component: ServiceNowApprovalView
 })
 
 /**
