@@ -253,9 +253,13 @@ const FormContent = ({
               },
               allowableTypes,
               expressions,
-              onChange: (value: unknown) => {
+              onChange: (value: unknown, _valueType, type) => {
                 // Clear dependent fields
-                if ((value as ServiceNowTicketTypeSelectOption) !== ticketTypeKeyFixedValue) {
+                if (
+                  type === MultiTypeInputType.FIXED &&
+                  !isEmpty(value) &&
+                  (value as ServiceNowTicketTypeSelectOption) !== ticketTypeKeyFixedValue
+                ) {
                   resetForm(formik, 'ticketType')
                   setCount(count + 1)
                 }

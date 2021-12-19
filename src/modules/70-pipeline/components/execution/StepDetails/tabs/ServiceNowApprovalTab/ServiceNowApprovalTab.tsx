@@ -1,10 +1,12 @@
 import React from 'react'
-
-import { FontVariation, Text } from '@wings-software/uicore'
 import type { ApprovalInstanceResponse, ServiceNowApprovalInstanceDetails } from 'services/pipeline-ng'
 import { Duration } from '@common/exports'
 import { ApprovalStatus } from '@pipeline/utils/approvalUtils'
 import { String } from 'framework/strings'
+import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
+import { ServiceNowCriteria } from './ServiceNowCriteria/ServiceNowCriteria'
+import headerCss from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/ExecutionStageDetailsHeader/ExecutionStageDetailsHeader.module.scss'
+import css from './ServiceNowApprovalTab.module.scss'
 
 export type ApprovalData =
   | (ApprovalInstanceResponse & {
@@ -17,9 +19,6 @@ export interface ServiceNowApprovalTabProps {
   isWaiting: boolean
 }
 
-import { ServiceNowCriteria } from './ServiceNowCriteria/ServiceNowCriteria'
-import css from './ServiceNowApprovalTab.module.scss'
-
 export function ServiceNowApprovalTab(props: ServiceNowApprovalTabProps): React.ReactElement {
   const { approvalData, isWaiting } = props
   const wasApproved = !isWaiting && approvalData?.status === ApprovalStatus.APPROVED
@@ -31,59 +30,65 @@ export function ServiceNowApprovalTab(props: ServiceNowApprovalTabProps): React.
 
   return (
     <React.Fragment>
-      <div className={css.info} data-type="serviceNow">
-        {wasFailed ? (
-          <Text font={{ variation: FontVariation.FORM_MESSAGE_WARNING }}>
-            <String stringID="failed" />
-          </Text>
-        ) : null}
-        {isWaiting ? (
-          <>
-            <div className={css.timer}>
-              <Duration
-                className={css.duration}
-                durationText=""
-                icon="hourglass"
-                startTime={approvalData?.deadline}
-                iconProps={{ size: 8 }}
-              />
-              <String stringID="pipeline.timeRemainingSuffix" />
-            </div>
-            {serviceNowKey && serviceNowUrl ? (
-              <div className={css.serviceNowTicket}>
-                <String stringID="pipeline.serviceNowApprovalStep.execution.serviceNowTicket" />
-
-                <a href={serviceNowUrl} target="_blank" rel="noopener noreferrer">
-                  {serviceNowKey}
-                </a>
+      {wasFailed ? (
+        <div className={headerCss.errorMsgWrapper}>
+          <ExecutionStatusLabel status={'Failed'} />
+          <div className={headerCss.errorMsg}>
+            <String className={headerCss.errorTitle} stringID="errorSummaryText" tagName="div" />
+            <p>{approvalData?.errorMessage}</p>
+          </div>
+        </div>
+      ) : (
+        <div className={css.info} data-type="serviceNow">
+          {isWaiting ? (
+            <>
+              <div className={css.timer}>
+                <Duration
+                  className={css.duration}
+                  durationText=""
+                  icon="hourglass"
+                  startTime={approvalData?.deadline}
+                  iconProps={{ size: 8 }}
+                />
+                <String stringID="pipeline.timeRemainingSuffix" />
               </div>
-            ) : null}
-          </>
-        ) : null}
-        {wasApproved && serviceNowUrl && serviceNowKey ? (
-          <div className={css.serviceNowTicket}>
-            <String stringID="pipeline.serviceNowApprovalStep.execution.wasApproved" />
+              {serviceNowKey && serviceNowUrl ? (
+                <div className={css.serviceNowTicket}>
+                  <String stringID="pipeline.serviceNowApprovalStep.execution.serviceNowTicket" />
 
-            <a href={serviceNowUrl} target="_blank" rel="noopener noreferrer">
-              {serviceNowKey}
-            </a>
-          </div>
-        ) : null}
+                  <a href={serviceNowUrl} target="_blank" rel="noopener noreferrer">
+                    {serviceNowKey}
+                  </a>
+                </div>
+              ) : null}
+            </>
+          ) : null}
+          {wasApproved && serviceNowUrl && serviceNowKey ? (
+            <div className={css.serviceNowTicket}>
+              <String stringID="pipeline.serviceNowApprovalStep.execution.wasApproved" />
 
-        {wasRejected && serviceNowUrl && serviceNowKey ? (
-          <div className={css.serviceNowTicket}>
-            {approvalData?.status === ApprovalStatus.REJECTED ? (
-              <String stringID="pipeline.serviceNowApprovalStep.execution.wasRejected" />
-            ) : null}
-            {approvalData?.status === ApprovalStatus.EXPIRED ? (
-              <String stringID="pipeline.serviceNowApprovalStep.execution.wasExpired" />
-            ) : null}
-            <a href={serviceNowUrl} target="_blank" rel="noopener noreferrer">
-              {serviceNowKey}
-            </a>
-          </div>
-        ) : null}
-      </div>
+              <a href={serviceNowUrl} target="_blank" rel="noopener noreferrer">
+                {serviceNowKey}
+              </a>
+            </div>
+          ) : null}
+
+          {wasRejected && serviceNowUrl && serviceNowKey ? (
+            <div className={css.serviceNowTicket}>
+              {approvalData?.status === ApprovalStatus.REJECTED ? (
+                <String stringID="pipeline.serviceNowApprovalStep.execution.wasRejected" />
+              ) : null}
+              {approvalData?.status === ApprovalStatus.EXPIRED ? (
+                <String stringID="pipeline.serviceNowApprovalStep.execution.wasExpired" />
+              ) : null}
+              <a href={serviceNowUrl} target="_blank" rel="noopener noreferrer">
+                {serviceNowKey}
+              </a>
+            </div>
+          ) : null}
+        </div>
+      )}
+
       <div className={css.serviceNowApproval}>
         {approvalData?.details?.approvalCriteria ? (
           <ServiceNowCriteria type="approval" criteria={approvalData.details.approvalCriteria} />

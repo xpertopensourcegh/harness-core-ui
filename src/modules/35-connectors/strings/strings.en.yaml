@@ -56,6 +56,7 @@ ifReq: if required.
 selectConnector: Select Connector
 showInstructions: Show instructions
 apiKey: '{{$.common.apikey}}'
+apiKeyOrPassword: Password/Api Key
 costVisibility: Cost Visibility
 chooseMethodForK8sConnection: Choose the method for Harness to use when connecting to the cluster.
 chooseMethodForGCPConnection: Choose the method for Harness to use when connecting to GCP.

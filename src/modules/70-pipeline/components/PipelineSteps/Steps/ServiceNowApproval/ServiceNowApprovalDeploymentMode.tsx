@@ -123,7 +123,7 @@ const FormContent = (formContentProps: SnowApprovalDeploymentModeProps): JSX.Ele
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec?.ticketNumber) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec?.ticketType) === MultiTypeInputType.RUNTIME ? (
         <FormInput.MultiTypeInput
           tooltipProps={{
             dataTooltipId: 'serviceNowApprovalTicketType'

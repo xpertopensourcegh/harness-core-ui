@@ -2,8 +2,10 @@ import React from 'react'
 
 import { connect, FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, get, isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
+import { parse } from 'yaml'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StringsMap } from 'stringTypes'
 import ServiceNowApprovalStepModeWithRef from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/ServiceNowApprovalStepMode'
@@ -14,6 +16,11 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/helper'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor } from 'framework/logging/logging'
+import { ModuleName } from 'framework/types/ModuleName'
+import { ConnectorResponse, getConnectorListV2Promise, getServiceNowTicketTypesPromise } from 'services/cd-ng'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { flatObject } from '../Common/ApprovalCommons'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
@@ -22,13 +29,41 @@ import type { ServiceNowApprovalData, SnowApprovalVariableListModeProps } from '
 import ServiceNowApprovalDeploymentMode from './ServiceNowApprovalDeploymentMode'
 import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
+const logger = loggerFor(ModuleName.CD)
+
+const getConnectorValue = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? connector?.connector?.identifier
+      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
+      ? `${Scope.ORG}.${connector?.connector?.identifier}`
+      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
+  }` || /* istanbul ignore next */ ''
+
+const getConnectorName = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
+      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
+      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
+      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
+  }` || /* istanbul ignore next */ ''
+
+const ServiceNowConnectorRegex = /^.+spec\.connectorRef$/
+const ServiceNowTicketTypeRegex = /^.+spec\.ticketType$/
 const SnowApprovalDeploymentModeWithFormik = connect(ServiceNowApprovalDeploymentMode)
 export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
   constructor() {
     super()
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
+    this.invocationMap.set(ServiceNowConnectorRegex, this.getConnectorsListForYaml.bind(this))
+    this.invocationMap.set(ServiceNowTicketTypeRegex, this.getTicketTypeListForYaml.bind(this))
   }
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
   protected isHarnessSpecific = true
   protected type = StepType.ServiceNowApproval
   protected stepName = 'ServiceNow Approval'
@@ -47,6 +82,97 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
       approvalCriteria: getDefaultCriterias(),
       rejectionCriteria: getDefaultCriterias()
     }
+  }
+
+  protected getTicketTypeListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.ticketType', ''))
+      if (obj?.type === 'ServiceNowApproval') {
+        return getServiceNowTicketTypesPromise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            connectorRef: obj?.spec?.connectorRef
+          }
+        }).then(response => {
+          const data = defaultTo(
+            response?.data?.map(ticketType => ({
+              label: ticketType.name,
+              insertText: ticketType.key,
+              kind: CompletionItemKind.Field
+            })),
+            []
+          )
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
+
+  protected getConnectorsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj?.type === 'ServiceNowApproval') {
+        return getConnectorListV2Promise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            includeAllConnectorsAvailableAtScope: true
+          },
+          body: { types: ['ServiceNow'], filterType: 'Connector' }
+        }).then(response => {
+          const data = defaultTo(
+            response?.data?.content?.map(connector => ({
+              label: getConnectorName(connector),
+              insertText: getConnectorValue(connector),
+              kind: CompletionItemKind.Field
+            })),
+            []
+          )
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
   }
 
   processFormData(values: ServiceNowApprovalData): ServiceNowApprovalData {

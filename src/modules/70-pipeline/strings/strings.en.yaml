@@ -103,6 +103,7 @@ jiraApprovalStep:
     criteriaMsg: Approval/Rejection Criteria Listed Below
     wasApproved: 'Approval Criteria was met for Jira Ticket:'
     wasRejected: 'Rejection Criteria was met for Jira Ticket:'
+    wasExpired: 'Jira approval expired for Ticket:'
     jiraTicket: 'JIRA Ticket Pending Approval:'
     allConditionsMsg: 'If all of the following conditions are met:'
     anyConditionsMsg: 'If any of the following conditions is met:'

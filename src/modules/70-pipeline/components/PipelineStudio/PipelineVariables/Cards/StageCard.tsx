@@ -124,7 +124,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                 }
               />
               {/* TODO: Temporary disable for  CI (TBD)*/}
-              {stage.type === 'Deployment' ? (
+              {stage.type === 'Deployment' || stage.type === 'Approval' ? (
                 <>
                   {stageSpec.serviceConfig && originalSpec.serviceConfig ? (
                     <ServiceCardPanel

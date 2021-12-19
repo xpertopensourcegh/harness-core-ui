@@ -86,7 +86,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
           className={cx(
             cssDefault.defaultCard,
             css.diamond,
-            { [cssDefault.selected]: props.node.isSelected() },
+            { [cssDefault.selected]: options.defaultSelected ?? props.node.isSelected() },
             options.nodeClassName
           )}
           style={{

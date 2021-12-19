@@ -65,6 +65,7 @@ export interface ApprovalInstanceResponse {
   lastModifiedAt?: number
   status: 'WAITING' | 'APPROVED' | 'REJECTED' | 'FAILED' | 'EXPIRED'
   type: 'HarnessApproval' | 'JiraApproval' | 'ServiceNowApproval'
+  errorMessage?: string
 }
 
 export interface ApproverInput {

@@ -1175,6 +1175,7 @@ export interface StringsMap {
   'connectors.S3': string
   'connectors.addConnectorDetails': string
   'connectors.apiKey': string
+  'connectors.apiKeyOrPassword': string
   'connectors.appD.accountName': string
   'connectors.appD.apiClient': string
   'connectors.appD.clientId': string
@@ -2320,6 +2321,7 @@ export interface StringsMap {
   'pipeline.jiraApprovalStep.execution.criteriaMsg': string
   'pipeline.jiraApprovalStep.execution.jiraTicket': string
   'pipeline.jiraApprovalStep.execution.wasApproved': string
+  'pipeline.jiraApprovalStep.execution.wasExpired': string
   'pipeline.jiraApprovalStep.execution.wasRejected': string
   'pipeline.jiraApprovalStep.fetchIssueTypesError': string
   'pipeline.jiraApprovalStep.fetchProjectsError': string
