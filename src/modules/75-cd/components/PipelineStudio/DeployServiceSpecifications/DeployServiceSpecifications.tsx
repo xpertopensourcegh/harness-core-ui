@@ -9,7 +9,6 @@ import {
   Container,
   Color,
   Text,
-  MultiTypeInputType,
   useToaster
 } from '@wings-software/uicore'
 
@@ -50,6 +49,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       pipeline,
       selectionState: { selectedStageId }
     },
+    allowableTypes,
     isReadonly,
     getStageFromPipeline,
     updateStage
@@ -332,7 +332,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     service: get(stage, 'stage.spec.serviceConfig.service', {}),
                     serviceRef: get(stage, 'stage.spec.serviceConfig.serviceRef', '')
                   }}
-                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+                  allowableTypes={allowableTypes}
                   onUpdate={data => updateService(data)}
                   factory={factory}
                   stepViewType={StepViewType.Edit}
@@ -354,7 +354,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     stageIndex,
                     setupModeType
                   }}
-                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+                  allowableTypes={allowableTypes}
                   type={StepType.K8sServiceSpec}
                   stepViewType={StepViewType.Edit}
                 />
@@ -370,7 +370,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   stageIndex,
                   setupModeType
                 }}
-                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+                allowableTypes={allowableTypes}
                 type={StepType.K8sServiceSpec}
                 stepViewType={StepViewType.Edit}
               />

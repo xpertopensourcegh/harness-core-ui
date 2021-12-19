@@ -44,13 +44,14 @@ export interface TemplateStepWidgetProps {
   stepViewType?: StepViewType
   readonly?: boolean
   factory: AbstractStepFactory
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function TemplateStepWidget(
   props: TemplateStepWidgetProps,
   formikRef: StepFormikFowardRef<TemplateStepData>
 ): React.ReactElement {
-  const { initialValues, factory, onUpdate, isNewStep, readonly } = props
+  const { initialValues, factory, onUpdate, isNewStep, readonly, allowableTypes } = props
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [inputSetTemplate, setInputSetTemplate] = React.useState<Omit<StepElementConfig, 'name' | 'identifier'>>()
@@ -134,11 +135,7 @@ export function TemplateStepWidget(
                       type={initialValues.template?.templateInputs?.type as StepType}
                       path={'template.templateInputs'}
                       stepViewType={StepViewType.InputSet}
-                      allowableTypes={[
-                        MultiTypeInputType.FIXED,
-                        MultiTypeInputType.EXPRESSION,
-                        MultiTypeInputType.RUNTIME
-                      ]}
+                      allowableTypes={allowableTypes}
                     />
                     {getMultiTypeFromValue(inputSetTemplate?.spec?.delegateSelectors) ===
                       MultiTypeInputType.RUNTIME && (
@@ -146,11 +143,7 @@ export function TemplateStepWidget(
                         <MultiTypeDelegateSelector
                           expressions={expressions}
                           inputProps={{ projectIdentifier, orgIdentifier }}
-                          allowableTypes={[
-                            MultiTypeInputType.FIXED,
-                            MultiTypeInputType.EXPRESSION,
-                            MultiTypeInputType.RUNTIME
-                          ]}
+                          allowableTypes={allowableTypes}
                           label={getString('delegate.DelegateSelector')}
                           name={'template.templateInputs.spec.delegateSelectors'}
                           disabled={readonly}

@@ -1,8 +1,9 @@
-import React from 'react'
-import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
+import React, { useEffect } from 'react'
+import { cloneDeep, defaultTo, isEmpty, isEqual, set } from 'lodash-es'
 import produce from 'immer'
-import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
+import { Tabs, Tab, Icon, Button, Layout, Color, useModalHook } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
+import { Classes, Dialog, Expander } from '@blueprintjs/core'
 import {
   PipelineContextType,
   usePipelineContext
@@ -16,6 +17,7 @@ import ExecutionGraph, {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import {
   generateRandomString,
+  isCustomGeneratedString,
   STATIC_SERVICE_GROUP_NAME,
   StepType
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
@@ -24,6 +26,11 @@ import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
+import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
+import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
@@ -46,7 +53,7 @@ interface StagesFilledStateFlags {
 
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
-
+  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES) && isStageTemplateEnabled()
   const [selectedTabId, setSelectedTabId] = React.useState<BuildTabs>(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
@@ -54,6 +61,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     execution: false
   })
   const layoutRef = React.useRef<HTMLDivElement>(null)
+  const pipelineContext = usePipelineContext()
   const {
     state: {
       pipeline,
@@ -71,7 +79,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     updateStage,
     setSelectedStepId,
     getStagePathFromPipeline
-  } = usePipelineContext()
+  } = pipelineContext
 
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
   const [stageData, setStageData] = React.useState<BuildStageElementConfig | undefined>()
@@ -138,6 +146,21 @@ export default function BuildStageSetupShell(): JSX.Element {
   const originalStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
   const executionHasWarning = !filledUpStages.execution
+
+  const [showNameIdModal, hideNameIdModal] = useModalHook(
+    () => (
+      <Dialog enforceFocus={false} isOpen className={Classes.DIALOG}>
+        <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
+      </Dialog>
+    ),
+    [pipelineContext]
+  )
+
+  useEffect(() => {
+    if (isCustomGeneratedString(defaultTo(selectedStage?.stage?.identifier, ''))) {
+      showNameIdModal()
+    }
+  }, [selectedStage?.stage])
 
   // NOTE: set empty arrays, required by ExecutionGraph
   const selectedStageClone = cloneDeep(selectedStage)
@@ -372,6 +395,12 @@ export default function BuildStageSetupShell(): JSX.Element {
           panel={<BuildAdvancedSpecifications>{navBtns}</BuildAdvancedSpecifications>}
           data-testid={getString('ci.advancedLabel')}
         />
+        {contextType === PipelineContextType.Pipeline && isTemplatesEnabled && selectedStage?.stage && (
+          <>
+            <Expander />
+            <SaveTemplateButton data={selectedStage?.stage} type={'Stage'} />
+          </>
+        )}
       </Tabs>
     </section>
   )

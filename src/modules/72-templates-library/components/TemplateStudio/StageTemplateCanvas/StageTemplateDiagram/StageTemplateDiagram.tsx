@@ -1,13 +1,16 @@
 import React from 'react'
 import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
-import { set } from 'lodash-es'
+import { defaultTo, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import {
   CreateNewModel,
   CreateNewWidget,
   DefaultNodeModel,
+  DefaultNodeModelOptions,
   DefaultNodeWidget,
+  DiamondNodeModel,
+  DiamondNodeWidget,
   Event
 } from '@pipeline/components/Diagram'
 import type { StageElementConfig } from 'services/cd-ng'
@@ -41,6 +44,7 @@ export const StageTemplateDiagram = (): JSX.Element => {
       pipelineView,
       selectionState: { selectedStageId }
     },
+    contextType,
     stagesMap,
     updatePipeline,
     updatePipelineView,
@@ -48,7 +52,7 @@ export const StageTemplateDiagram = (): JSX.Element => {
     renderPipelineStage,
     getStageFromPipeline
   } = usePipelineContext()
-  const selectedStage = getStageFromPipeline(selectedStageId || '')
+  const selectedStage = getStageFromPipeline(defaultTo(selectedStageId, ''))
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
@@ -77,7 +81,8 @@ export const StageTemplateDiagram = (): JSX.Element => {
         },
         isStageView: false,
         renderPipelineStage,
-        stagesMap: stagesMap
+        stagesMap: stagesMap,
+        contextType
       },
       { useArrows: true, darkMode: false, fixedPosition: false, placement: 'bottom-start' }
     )
@@ -104,14 +109,13 @@ export const StageTemplateDiagram = (): JSX.Element => {
     return createNode
   }
 
-  const getStageNode = (stage: StageElementConfig) => {
-    const stageNode = new DefaultNodeModel({
+  const getOptions = (stage: StageElementConfig): DefaultNodeModelOptions => {
+    return {
       identifier: stage.identifier,
       id: stage.identifier,
       customNodeStyle: { ...getCommonStyles(false), borderColor: 'var(--primary-7)', borderStyle: 'solid' },
       name: '',
       isInComplete: false,
-      width: 90,
       defaultSelected: false,
       draggable: false,
       canDelete: false,
@@ -119,12 +123,21 @@ export const StageTemplateDiagram = (): JSX.Element => {
         ? stage.when?.pipelineStatus !== 'Success' || !!stage.when?.condition?.trim()
         : false,
       allowAdd: false,
-      height: 40,
-      iconStyle: { color: 'var(--white)' },
-      icon: stage.type ? stagesMap[stage.type]?.icon : undefined,
+      iconStyle: { color: stagesMap[defaultTo(stage.type, '')]?.iconColor },
+      icon: stagesMap[defaultTo(stage.type, '')]?.icon,
       nodeClassName: css.createNewModal,
       ...(stage.when && {})
-    })
+    }
+  }
+
+  const getStageNode = (stage: StageElementConfig) => {
+    const stageNode = new DefaultNodeModel({ ...getOptions(stage), width: 90, height: 40 })
+    stageNode.registerListener(nodeListeners)
+    return stageNode
+  }
+
+  const getDiamondStageNode = (stage: StageElementConfig) => {
+    const stageNode = new DiamondNodeModel({ ...getOptions(stage), width: 57, height: 57, secondaryIcon: undefined })
     stageNode.registerListener(nodeListeners)
     return stageNode
   }
@@ -161,20 +174,20 @@ export const StageTemplateDiagram = (): JSX.Element => {
           Stage Type
         </Text>
         <Container>
-          <Layout.Horizontal>
+          <Layout.Horizontal className={stageData?.isApproval ? css.approvalLayout : css.normalLayout}>
             <Container data-nodeid={CREATE_NODE_ID}>
-              {stageData ? (
-                selectedStage.stage?.stage ? (
-                  <DefaultNodeWidget node={getStageNode(selectedStage.stage?.stage)} />
+              {selectedStage.stage?.stage ? (
+                stageData?.isApproval ? (
+                  <DiamondNodeWidget node={getDiamondStageNode(selectedStage.stage?.stage)} />
                 ) : (
-                  <></>
+                  <DefaultNodeWidget node={getStageNode(selectedStage.stage?.stage)} />
                 )
               ) : (
                 <CreateNewWidget node={getCreateNode()} />
               )}
             </Container>
             <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_600} className={css.stageType}>
-              {stageData?.name || ''}
+              {defaultTo(stageData?.name, '')}
             </Text>
           </Layout.Horizontal>
         </Container>

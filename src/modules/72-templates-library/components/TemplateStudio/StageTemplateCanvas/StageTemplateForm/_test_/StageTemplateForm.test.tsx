@@ -12,6 +12,7 @@ import { DefaultNewStageId, DefaultNewStageName, StageTemplateFormWithRef } from
 describe('<StageTemplateFormWithRef /> tests', () => {
   test('snapshot test', async () => {
     const context = { ...pipelineContextMock }
+    context.contextType = 'Template'
     delete context.state.pipeline.stages
     set(context, 'state.pipeline.stages[0].stage', {
       ...stageTemplateMock.spec,
@@ -36,6 +37,10 @@ describe('<StageTemplateFormWithRef /> tests', () => {
       </PipelineContext.Provider>
     )
     expect(container).toMatchSnapshot()
-    expect(context.renderPipelineStage).toBeCalledWith({ stageType: 'Deployment', minimal: false })
+    expect(context.renderPipelineStage).toBeCalledWith({
+      stageType: 'Deployment',
+      minimal: false,
+      contextType: 'Template'
+    })
   })
 })

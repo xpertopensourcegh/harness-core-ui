@@ -1,4 +1,5 @@
-import '@templates-library/components/PipelineSteps'
+import './components/PipelineSteps'
+import './components/TemplateStage'
 import React from 'react'
 import { RouteWithLayout } from '@common/router'
 import { AccountSideNavProps } from '@common/RouteDestinations'

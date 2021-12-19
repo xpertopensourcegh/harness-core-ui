@@ -18,6 +18,7 @@ import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/Advanc
 import ConditionalExecutionTooltip from '@pipeline/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import { useGlobalEventListener } from '@common/hooks'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import {
   CanvasWidget,
   createEngine,
@@ -103,7 +104,8 @@ export const renderPopover = ({
   isStageView,
   onSubmitPrimaryData,
   renderPipelineStage,
-  isHoverView
+  isHoverView,
+  contextType
 }: PopoverData): JSX.Element => {
   if (isStageView && data) {
     const stageData = {
@@ -156,7 +158,8 @@ export const renderPopover = ({
       } else {
         addStage?.(getNewStageFromType(type as any), isParallel, event)
       }
-    }
+    },
+    contextType: contextType
   })
 }
 
@@ -170,8 +173,10 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       },
       pipelineView,
       isInitialized,
-      selectionState: { selectedStageId }
+      selectionState: { selectedStageId },
+      templateTypes
     },
+    contextType = 'Pipeline',
     isReadonly,
     stagesMap,
     updatePipeline,
@@ -315,7 +320,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       getString,
       isReadonly,
       parentPath: 'pipeline.stages',
-      errorMap
+      errorMap,
+      templateTypes
     })
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
@@ -406,7 +412,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
               addStage,
               isStageView: false,
               renderPipelineStage,
-              stagesMap
+              stagesMap,
+              contextType
             },
             { useArrows: true, darkMode: false, fixedPosition: false }
           )
@@ -426,7 +433,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                   moveStageToFocusDelayed(engine, stageId, true, false)
                 },
                 stagesMap,
-                renderPipelineStage
+                renderPipelineStage,
+                contextType
               },
               { useArrows: false, darkMode: false, fixedPosition: false }
             )
@@ -449,13 +457,14 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                     setSelectionRef.current({ stageId: identifier })
                   },
                   stagesMap,
-                  renderPipelineStage
+                  renderPipelineStage,
+                  contextType
                 },
                 { useArrows: false, darkMode: false, fixedPosition: false }
               )
               setSelectionRef.current({ stageId: undefined, sectionId: undefined })
             } else {
-              setSelectionRef.current({ stageId: data?.stage?.identifier })
+              setSelectionRef.current({ stageId: data?.stage?.identifier, sectionId: undefined })
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             }
           } /* istanbul ignore else */ else if (!isSplitViewOpen) {
@@ -477,7 +486,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                     setSelectionRef.current({ stageId: identifier })
                   },
                   stagesMap,
-                  renderPipelineStage
+                  renderPipelineStage,
+                  contextType
                 },
                 { useArrows: false, darkMode: false, fixedPosition: false }
               )
@@ -514,7 +524,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             isStageView: false,
             event: eventTemp,
             stagesMap,
-            renderPipelineStage
+            renderPipelineStage,
+            contextType
           },
           { useArrows: false, darkMode: false, fixedPosition: false },
           eventTemp.callback
@@ -603,7 +614,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             isStageView: false,
             isHoverView: true,
             stagesMap,
-            renderPipelineStage
+            renderPipelineStage,
+            contextType
           },
           { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' },
           noop,
@@ -691,7 +703,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             isStageView: true,
             event: eventTemp,
             stagesMap,
-            renderPipelineStage
+            renderPipelineStage,
+            contextType
           },
           { useArrows: false, darkMode: false, fixedPosition: openSplitView }
         )
@@ -776,7 +789,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     selectedStageId,
     splitPaneSize,
     parentPath: 'pipeline.stages',
-    errorMap
+    errorMap,
+    templateTypes
   })
   const setSplitPaneSizeDeb = React.useRef(debounce(setSplitPaneSize, 200))
   // load model into engine
@@ -824,6 +838,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     ? { display: 'flow-root list-item' }
     : { display: 'inline-table' }
 
+  const stageType = selectedStage?.stage?.stage?.template ? StageType.Template : selectedStage?.stage?.stage?.type
+
   return (
     <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
       <div className={css.canvasWrapper}>
@@ -848,7 +864,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           >
             {openSplitView && type === SplitViewTypes.StageView
               ? renderPipelineStage({
-                  stageType: selectedStage?.stage?.stage?.type,
+                  stageType: stageType,
                   minimal: false
                 })
               : null}

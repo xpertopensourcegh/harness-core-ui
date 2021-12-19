@@ -166,6 +166,7 @@ export const pipelineContextMock = {
     isInitialized: true,
     error: ''
   },
+  contextType: 'Pipeline',
   stepsFactory: stepFactory,
   stagesMap
 }
@@ -221,6 +222,7 @@ export const pipelineContextMockJiraApproval = {
     isInitialized: true,
     error: ''
   },
+  contextType: 'Pipeline',
   stepsFactory: stepFactory,
   stagesMap
 }

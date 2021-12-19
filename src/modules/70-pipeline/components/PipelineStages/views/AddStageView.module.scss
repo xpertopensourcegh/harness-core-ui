@@ -67,10 +67,11 @@
     }
   }
   .stageTitle {
-    font-size: var(--font-size-medium);
-    font-weight: 600;
-    color: var(--grey-800);
-    margin-bottom: 24px;
+    justify-content: space-between;
+    align-items: baseline;
+    button {
+      padding: 0px !important;
+    }
   }
 
   .hoverTitle {

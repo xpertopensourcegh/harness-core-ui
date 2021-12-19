@@ -10,8 +10,7 @@ import {
   HarnessDocTooltip,
   ThumbnailSelect,
   Color,
-  ButtonVariation,
-  MultiTypeInputType
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import cx from 'classnames'
@@ -20,7 +19,6 @@ import produce from 'immer'
 import { omit, set } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type {
   CustomVariablesData,
@@ -42,6 +40,7 @@ import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpec
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { StringNGVariable } from 'services/cd-ng'
+import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
 import css from './EditStageView.module.scss'
 import stageCss from '../../DeployStageSetupShell/DeployStage.module.scss'
 
@@ -93,7 +92,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
       disabled: true
     }
   ]
-  const { stepsFactory, getStageFromPipeline, contextType } = usePipelineContext()
+  const { stepsFactory, getStageFromPipeline, contextType, allowableTypes } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const allNGVariables = (data?.stage?.variables || []) as AllNGVariables[]
@@ -191,12 +190,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
               }
               return errors
             }}
-            validationSchema={Yup.object().shape({
-              ...(contextType === PipelineContextType.Pipeline && {
-                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-                identifier: IdentifierSchema()
-              })
-            })}
+            validationSchema={Yup.object().shape(getNameAndIdentifierSchema(getString, contextType))}
           >
             {formikProps => {
               window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.OVERVIEW }))
@@ -274,11 +268,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                       readonly={isReadonly}
                       type={StepType.CustomVariable}
                       stepViewType={StepViewType.StageVariable}
-                      allowableTypes={[
-                        MultiTypeInputType.FIXED,
-                        MultiTypeInputType.RUNTIME,
-                        MultiTypeInputType.EXPRESSION
-                      ]}
+                      allowableTypes={allowableTypes}
                       onUpdate={({ variables }: CustomVariablesData) => {
                         onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })
                       }}

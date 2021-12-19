@@ -2,15 +2,17 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Button, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
-
 import css from './ApprovalStageMinimalMode.module.scss'
 
 const getInitialValues = (data?: StageElementWrapper<ApprovalStageElementConfig>): ApprovalStageMinimalValues => ({
@@ -26,7 +28,8 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
   const { onChange, onSubmit, data } = props
 
   const {
-    state: { pipeline }
+    state: { pipeline },
+    contextType
   } = usePipelineContext()
 
   const handleValidate = (values: ApprovalStageMinimalValues): Record<string, string | undefined> | undefined => {
@@ -57,8 +60,7 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         enableReinitialize
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
-          identifier: IdentifierSchema(),
+          ...getNameAndIdentifierSchema(getString, contextType),
           approvalType: Yup.string().required(getString('pipeline.approvalTypeRequired'))
         })}
         validate={handleValidate}
@@ -75,12 +77,14 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
               {getString('pipelineSteps.build.create.aboutYourStage')}
             </Text>
 
-            <NameIdDescriptionTags
-              formikProps={formikProps}
-              identifierProps={{
-                inputLabel: getString('stageNameLabel')
-              }}
-            />
+            {contextType === PipelineContextType.Pipeline && (
+              <NameIdDescriptionTags
+                formikProps={formikProps}
+                identifierProps={{
+                  inputLabel: getString('stageNameLabel')
+                }}
+              />
+            )}
 
             <Text
               color={Color.GREY_700}

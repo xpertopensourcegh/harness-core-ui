@@ -52,6 +52,7 @@ interface KubernetesInfraSpecEditableProps {
   template?: K8SDirectInfrastructureTemplate
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: K8SDirectInfrastructure
+  allowableTypes?: MultiTypeInputType[]
 }
 
 const getConnectorValue = (connector?: ConnectorResponse): string =>
@@ -75,7 +76,8 @@ const getConnectorName = (connector?: ConnectorResponse): string =>
 const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = ({
   initialValues,
   onUpdate,
-  readonly
+  readonly,
+  allowableTypes
 }): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -136,7 +138,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   placeholder={getString('connectors.selectConnector')}
                   disabled={readonly}
                   accountIdentifier={accountId}
-                  multiTypeProps={{ expressions, disabled: readonly }}
+                  multiTypeProps={{ expressions, disabled: readonly, allowableTypes }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={450}
@@ -176,7 +178,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   disabled={readonly}
                   label={getString('common.namespace')}
                   placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
-                  multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                  multiTextInputProps={{ expressions, textProps: { disabled: readonly }, allowableTypes }}
                 />
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
@@ -214,7 +216,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                         label={getString('common.releaseName')}
                         disabled={readonly}
                         placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
-                        multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                        multiTextInputProps={{ expressions, textProps: { disabled: readonly }, allowableTypes }}
                       />
                       {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
                         <ConfigureOptions
@@ -257,7 +259,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
 const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & { path: string }> = ({
   template,
   readonly = false,
-  path
+  path,
+  allowableTypes
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -286,7 +289,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
             disabled={readonly}
             setRefValue
             className={css.connectorMargin}
-            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
+            multiTypeProps={{ allowableTypes, expressions }}
           />
         </div>
       )}
@@ -297,7 +300,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
             label={getString('common.namespace')}
             disabled={readonly}
             multiTextInputProps={{
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              allowableTypes,
               expressions
             }}
             placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
@@ -311,7 +314,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
             label={getString('common.releaseName')}
             disabled={readonly}
             multiTextInputProps={{
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              allowableTypes,
               expressions
             }}
             placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
@@ -459,7 +462,15 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
   }
 
   renderStep(props: StepProps<K8SDirectInfrastructure>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly = false } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      customStepProps,
+      readonly = false,
+      allowableTypes
+    } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <KubernetesInfraSpecInputForm
@@ -470,6 +481,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
           readonly={inputSetData?.readonly}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -491,6 +503,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
         stepViewType={stepViewType}
         {...(customStepProps as KubernetesInfraSpecEditableProps)}
         initialValues={initialValues}
+        allowableTypes={allowableTypes}
       />
     )
   }

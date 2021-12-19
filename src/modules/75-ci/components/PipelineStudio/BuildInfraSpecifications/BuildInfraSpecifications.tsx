@@ -241,6 +241,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       pipeline,
       selectionState: { selectedStageId }
     },
+    allowableTypes,
     isReadonly,
     updateStage,
     getStageFromPipeline
@@ -406,7 +407,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             name="runAsUser"
             style={{ width: 300, marginBottom: 'var(--spacing-xsmall)' }}
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: isReadonly,
               placeholder: '1000'
             }}
@@ -415,7 +416,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         <Container className={css.bottomMargin7}>
           <FormMultiTypeDurationField
             name="initTimeout"
-            multiTypeDurationProps={{ expressions }}
+            multiTypeDurationProps={{ expressions, allowableTypes }}
             label={
               <Text
                 font={{ variation: FontVariation.FORM_LABEL }}
@@ -440,7 +441,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           appearance={'minimal'}
           cardStyle={{ width: '50%' }}
           name={fieldName}
-          valueMultiTextInputProps={{ expressions }}
+          valueMultiTextInputProps={{ expressions, allowableTypes }}
           multiTypeFieldSelectorProps={{
             label: (
               <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
@@ -526,7 +527,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         name={'poolId'}
         style={{ width: 300 }}
         multiTextInputProps={{
-          multiTextInputProps: { expressions },
+          multiTextInputProps: { expressions, allowableTypes },
           disabled: isReadonly
         }}
       />
@@ -550,7 +551,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             gitScope={gitScope}
-            multiTypeProps={{ expressions, disabled: isReadonly }}
+            multiTypeProps={{ expressions, disabled: isReadonly, allowableTypes }}
           />
         </Container>
         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
@@ -567,7 +568,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             name={'namespace'}
             style={{ width: 300 }}
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: isReadonly,
               placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
             }}
@@ -596,7 +597,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             style={{
               width: 300
             }}
-            multiTextInputProps={{ expressions, disabled: isReadonly }}
+            multiTextInputProps={{ expressions, disabled: isReadonly, allowableTypes }}
           />
         </Container>
         {renderUserAndTimeOutFields()}

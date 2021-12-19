@@ -461,6 +461,7 @@ export interface StringsMap {
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
+  'common.saveAsTemplate': string
   'common.savedSuccessfully': string
   'common.searchPlaceholder': string
   'common.seconds': string
@@ -2075,6 +2076,8 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
   'pipeline.buildRepo': string
+  'pipeline.changeTemplate': string
+  'pipeline.changeTemplateLabel': string
   'pipeline.ciCodebase.buildType': string
   'pipeline.ciCodebase.prCloneStrategy': string
   'pipeline.ciCodebase.pullRequestNumber': string
@@ -2451,6 +2454,8 @@ export interface StringsMap {
   'pipeline.pipelineSteps.customStageDescription': string
   'pipeline.pipelineSteps.deployStageDescription': string
   'pipeline.pipelineSteps.featureStageDescription': string
+  'pipeline.pipelineSteps.templateStage': string
+  'pipeline.pipelineSteps.templateStageDescription': string
   'pipeline.pipelineTimeoutHelpText': string
   'pipeline.pipelineTimeoutSettings': string
   'pipeline.policyEvaluations.emptyPolicySet': string
@@ -2466,6 +2471,8 @@ export interface StringsMap {
   'pipeline.provisionerSteps': string
   'pipeline.recentExecutionText': string
   'pipeline.regionPlaceholder': string
+  'pipeline.removeTemplate': string
+  'pipeline.removeTemplateLabel': string
   'pipeline.replacedExpressions': string
   'pipeline.repositoryUrlPlaceholder': string
   'pipeline.resourceConstraints.currentlyExecuting': string

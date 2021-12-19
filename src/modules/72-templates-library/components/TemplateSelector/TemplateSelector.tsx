@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
-import { Button, ButtonVariation, Color, Container, Layout, useToaster } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Container,
+  Layout,
+  useConfirmationDialog,
+  useToaster
+} from '@wings-software/uicore'
 import { defaultTo, get, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import produce from 'immer'
 import { parse } from 'yaml'
+import { Intent } from '@blueprintjs/core'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getTemplateInputSetYamlPromise, TemplateSummaryResponse } from 'services/template-ng'
 import { useStrings } from 'framework/strings'
@@ -29,7 +38,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     },
     setTemplateTypes
   } = usePipelineContext()
-  const { onUseTemplate, onCopyTemplate } = data?.selectorData || {}
+  const { onUseTemplate, onCopyTemplate, selectedTemplateRef } = data?.selectorData || {}
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
   const { getString } = useStrings()
   const { accountId } = useParams<ProjectPathProps & ModulePathParams>()
@@ -52,7 +61,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     }
   }, [selectedTemplate, setSelectedTemplate])
 
-  const onUseTemplateClick = React.useCallback(async () => {
+  const submit = React.useCallback(async () => {
     const templateIdentifier = defaultTo(selectedTemplate?.identifier, '')
     try {
       const resp = await getTemplateInputSetYamlPromise({
@@ -85,6 +94,34 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
       showError(get(err, 'data.error', get(err, 'data.message', err?.message)))
     }
   }, [selectedTemplate, accountId, onUseTemplate])
+
+  const { openDialog: openChangeTemplateDialog } = useConfirmationDialog({
+    intent: Intent.WARNING,
+    cancelButtonText: getString('cancel'),
+    contentText: getString('pipeline.changeTemplate', { name: selectedTemplate?.name }),
+    titleText: `Change to Template ${selectedTemplate?.name}?`,
+    confirmButtonText: getString('yes'),
+    onCloseDialog: async isConfirmed => {
+      if (isConfirmed) {
+        await submit()
+      } else {
+        timerRef.current?.('')
+      }
+    }
+  })
+
+  const timerRef = React.useRef<((reason: any) => void) | null>(null)
+
+  const onUseTemplateClick = React.useCallback(async () => {
+    if (selectedTemplateRef) {
+      openChangeTemplateDialog()
+      await new Promise(function (_resolve, reject) {
+        timerRef.current = reject
+      })
+    } else {
+      await submit()
+    }
+  }, [selectedTemplateRef, openChangeTemplateDialog, submit])
 
   return (
     <Container height={'100%'} className={css.container}>

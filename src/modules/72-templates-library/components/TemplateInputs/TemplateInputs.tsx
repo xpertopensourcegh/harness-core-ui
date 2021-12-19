@@ -38,6 +38,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
   const [count, setCount] = React.useState<number>(0)
   const { showError } = useToaster()
   const { getString } = useStrings()
+  const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
 
   const {
     data: templateInputYaml,
@@ -122,6 +123,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                           path={'stage'}
                           readonly={true}
                           viewType={StepViewType.InputSet}
+                          allowableTypes={allowableTypes}
                           hideTitle={true}
                           stageClassName={css.stageCard}
                         />
@@ -140,11 +142,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                             readonly={true}
                             type={(formikProps.values as StepElementConfig)?.type as StepType}
                             stepViewType={StepViewType.InputSet}
-                            allowableTypes={[
-                              MultiTypeInputType.FIXED,
-                              MultiTypeInputType.EXPRESSION,
-                              MultiTypeInputType.RUNTIME
-                            ]}
+                            allowableTypes={allowableTypes}
                           />
                           {getMultiTypeFromValue((formikProps.values as StepElementConfig).spec?.delegateSelectors) ===
                             MultiTypeInputType.RUNTIME && (
@@ -154,11 +152,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                                   projectIdentifier: template.projectIdentifier,
                                   orgIdentifier: template.orgIdentifier
                                 }}
-                                allowableTypes={[
-                                  MultiTypeInputType.FIXED,
-                                  MultiTypeInputType.EXPRESSION,
-                                  MultiTypeInputType.RUNTIME
-                                ]}
+                                allowableTypes={allowableTypes}
                                 label={getString('delegate.DelegateSelector')}
                                 name={'spec.delegateSelectors'}
                                 disabled={true}

@@ -14,7 +14,11 @@ stageVariables: Stage Variables
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target
+removeTemplate: The applied template will be remove from your stage.
+changeTemplate: 'Some feilds may reset when {{name}} is applied to your stage'
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
+changeTemplateLabel: Change Template
+removeTemplateLabel: Remove Template
 onlyPositiveInteger: Only positive integer values
 depth: Depth
 advancedOptions: Advanced Options
@@ -674,8 +678,10 @@ addStage:
   title: Select stage type
   description: Hover over stage type for more info.
 pipelineSteps:
+  templateStage: Template Stage
   customStage: Custom Stage
   chainedPipeline: Chained Pipeline
+  templateStageDescription: Use stage template.
   customStageDescription: A blank canvas for custom processes.
   chainedPipelineDescription: Run a Pipeline as a stage in another Pipeline.
   deployStageDescription: Deploy services, Serverless functions, or other workloads.

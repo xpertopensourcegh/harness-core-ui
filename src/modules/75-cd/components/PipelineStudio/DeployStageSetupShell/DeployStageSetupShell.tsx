@@ -1,21 +1,31 @@
-import React from 'react'
-import { Layout, Tabs, Tab, Button, Icon, ButtonVariation } from '@wings-software/uicore'
+import React, { useEffect } from 'react'
+import { Layout, Tabs, Tab, Button, Icon, ButtonVariation, useModalHook } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
+import { Classes, Dialog, Expander } from '@blueprintjs/core'
+import { defaultTo } from 'lodash-es'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
   ExecutionGraphRefObj
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/strings'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { useQueryParams } from '@common/hooks'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
+import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
+import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
+import { isCustomGeneratedString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
+import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -40,9 +50,10 @@ const TabsOrder = [
 
 export default function DeployStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
+  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES) && isStageTemplateEnabled()
   const layoutRef = React.useRef<HTMLDivElement>(null)
   const { errorMap } = useValidationErrors()
-
+  const pipelineContext = usePipelineContext()
   const {
     state: {
       originalPipeline,
@@ -50,6 +61,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       selectionState: { selectedStageId, selectedStepId },
       templateTypes
     },
+    contextType,
     stagesMap,
     isReadonly,
     stepsFactory,
@@ -59,7 +71,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     setSelectedStepId,
     getStagePathFromPipeline,
     setSelectedSectionId
-  } = usePipelineContext()
+  } = pipelineContext
   const [selectedTabId, setSelectedTabId] = React.useState<DeployTabs>(
     selectedStepId ? DeployTabs.EXECUTION : DeployTabs.SERVICE
   )
@@ -96,6 +108,21 @@ export default function DeployStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   const { stage: data } = getStageFromPipeline(selectedStageId || '')
+
+  const [showNameIdModal, hideNameIdModal] = useModalHook(
+    () => (
+      <Dialog enforceFocus={false} isOpen className={Classes.DIALOG}>
+        <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
+      </Dialog>
+    ),
+    [pipelineContext]
+  )
+
+  useEffect(() => {
+    if (isCustomGeneratedString(defaultTo(data?.stage?.identifier, ''))) {
+      showNameIdModal()
+    }
+  }, [data?.stage])
 
   React.useEffect(() => {
     if (selectedTabId === DeployTabs.EXECUTION) {
@@ -307,6 +334,16 @@ export default function DeployStageSetupShell(): JSX.Element {
           panel={<DeployAdvancedSpecifications>{navBtns}</DeployAdvancedSpecifications>}
           data-testid="advanced"
         />
+        {contextType === PipelineContextType.Pipeline && isTemplatesEnabled && selectedStage?.stage && (
+          <>
+            <Expander />
+            <SaveTemplateButton
+              data={selectedStage?.stage}
+              type={'Stage'}
+              buttonProps={{ margin: { right: 'medium' } }}
+            />
+          </>
+        )}
       </Tabs>
     </section>
   )

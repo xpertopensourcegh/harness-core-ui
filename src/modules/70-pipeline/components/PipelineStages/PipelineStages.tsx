@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDeepCompareEffect } from '@common/hooks'
 import type { PipelineInfoConfig } from 'services/cd-ng'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
@@ -13,6 +14,7 @@ export interface PipelineStagesProps<T = Record<string, unknown>> {
   stageProps?: T
   onSelectStage?: (stageType: string, stage?: T, pipeline?: PipelineInfoConfig) => void
   showSelectMenu?: boolean
+  contextType?: string
 }
 
 interface PipelineStageMap extends Omit<PipelineStageProps, 'minimal'> {
@@ -23,6 +25,7 @@ export function PipelineStages<T = Record<string, unknown>>({
   children,
   showSelectMenu,
   isParallel = false,
+  contextType,
   onSelectStage,
   getNewStageFromType,
   stageType,
@@ -71,9 +74,11 @@ export function PipelineStages<T = Record<string, unknown>>({
   return (
     <>
       {showSelectMenu && showMenu && (
-        <AddStageView
+        <AddStageView<T>
           stages={[...stages].map(item => item[1])}
           isParallel={isParallel}
+          contextType={contextType}
+          onSelectStage={(selectedStage?: T) => onSelectStage?.(StageType.Template, selectedStage)}
           callback={selectedType => {
             if (getNewStageFromType) {
               setShowMenu(false)

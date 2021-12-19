@@ -29,6 +29,7 @@ export interface StageState {
 export interface PopoverData {
   data?: StageElementWrapperConfig
   isStageView: boolean
+  contextType?: string
   groupStages?: StageElementWrapperConfig[]
   isGroupStage?: boolean
   stagesMap: StagesMap
@@ -198,11 +199,9 @@ export const removeNodeFromPipeline = (
         stageMap.delete(node.stage?.identifier || '')
 
         data.stages?.map(currentStage => {
-          if (
-            (currentStage.stage?.spec as DeploymentStageConfig)?.serviceConfig?.useFromStage?.stage ===
-            node?.stage?.identifier
-          ) {
-            ;(currentStage.stage?.spec as DeploymentStageConfig).serviceConfig = {}
+          const spec = currentStage.stage?.spec as DeploymentStageConfig
+          if (spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {
+            spec.serviceConfig = {}
           }
         })
       }
@@ -235,7 +234,8 @@ export const getDependantStages = (pipeline: PipelineInfoConfig, node?: StageEle
 
   flattenedStages?.forEach(currentStage => {
     if (
-      (currentStage.stage?.spec as DeploymentStageConfig).serviceConfig?.useFromStage?.stage === node?.stage?.identifier
+      (currentStage.stage?.spec as DeploymentStageConfig)?.serviceConfig?.useFromStage?.stage ===
+      node?.stage?.identifier
     ) {
       dependantStages.push(currentStage.stage?.name || '')
     }
@@ -336,7 +336,8 @@ export const getAffectedDependentStages = (
 
 export const resetStageServiceSpec = (stage: StageElementWrapperConfig): StageElementWrapperConfig =>
   produce(stage, draft => {
-    ;(draft.stage?.spec as DeploymentStageConfig).serviceConfig = {
+    const spec = (draft.stage?.spec as DeploymentStageConfig) || {}
+    spec.serviceConfig = {
       serviceRef: '',
       serviceDefinition: {
         type: 'Kubernetes',
