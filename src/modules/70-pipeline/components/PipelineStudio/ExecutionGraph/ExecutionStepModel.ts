@@ -156,7 +156,6 @@ export class ExecutionStepModel extends DiagramModel {
       startX += FIRST_AND_LAST_SEGMENT_LENGTH
       const nodeRender = new DefaultNodeModel({
         identifier: STATIC_SERVICE_GROUP_NAME,
-        id: STATIC_SERVICE_GROUP_NAME,
         name: getString?.('pipelines-studio.dependenciesGroupTitle') as string,
         icon: factory.getStepIcon('StepGroup'),
         secondaryIcon: 'plus',
@@ -178,7 +177,6 @@ export class ExecutionStepModel extends DiagramModel {
     } else {
       const stepGroupLayer = new StepGroupNodeLayerModel({
         identifier: STATIC_SERVICE_GROUP_NAME,
-        id: STATIC_SERVICE_GROUP_NAME,
         childrenDistance: this.gapY,
         label: getString?.('pipelines-studio.dependenciesGroupTitle') as string,
         depth: services.length + 1,
@@ -201,7 +199,6 @@ export class ExecutionStepModel extends DiagramModel {
 
       const createNode = new CreateNewModel({
         name: getString?.('pipelines-studio.addDependency') as string,
-        id: 'add-dependency',
         customNodeStyle: {
           borderColor: 'var(--pipeline-grey-border)'
         },
@@ -221,7 +218,6 @@ export class ExecutionStepModel extends DiagramModel {
       services.forEach((service: DependenciesWrapper) => {
         const nodeRender = new DefaultNodeModel({
           identifier: service.identifier,
-          id: service.identifier,
           name: service.name,
           icon: factory.getStepIcon(service.type),
           allowAdd: false,
@@ -316,7 +312,6 @@ export class ExecutionStepModel extends DiagramModel {
         nodeType === ExecutionPipelineNodeType.DIAMOND
           ? new DiamondNodeModel({
               identifier: node.step.identifier,
-              id: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType || ''),
               allowAdd: !isReadonly,
@@ -340,7 +335,6 @@ export class ExecutionStepModel extends DiagramModel {
           : nodeType === ExecutionPipelineNodeType.ICON
           ? new IconNodeModel({
               identifier: node.step.identifier,
-              id: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType || ''),
               allowAdd: allowAdd === true && !isReadonly,
@@ -359,7 +353,6 @@ export class ExecutionStepModel extends DiagramModel {
             })
           : new DefaultNodeModel({
               identifier: node.step.identifier,
-              id: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType || ''),
               iconStyle: {
@@ -401,12 +394,10 @@ export class ExecutionStepModel extends DiagramModel {
         let newX = startX
         let newY = startY
         if (prevNodes && node.parallel.length > 1) {
-          const identifier = node.parallel[0].step
-            ? `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
-            : `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`
           const emptyNode = new EmptyNodeModel({
-            identifier: identifier,
-            id: identifier,
+            identifier: node.parallel[0].step
+              ? `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
+              : `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`,
             name: 'Empty',
             hideOutPort: true
           })
@@ -460,12 +451,10 @@ export class ExecutionStepModel extends DiagramModel {
           }
         })
         if (prevNodes && node.parallel.length > 1) {
-          const identifier = node.parallel[0].step
-            ? `${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
-            : `${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`
           const emptyNodeEnd = new EmptyNodeModel({
-            identifier: identifier,
-            id: identifier,
+            identifier: node.parallel[0].step
+              ? `${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
+              : `${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`,
             name: 'Empty',
             hideInPort: true
           })
@@ -517,7 +506,6 @@ export class ExecutionStepModel extends DiagramModel {
 
         const nodeRender = new DefaultNodeModel({
           identifier: node.stepGroup.identifier,
-          id: node.stepGroup.identifier,
           name: node.stepGroup.name || '',
           icon: factory.getStepIcon('StepGroup'),
           secondaryIcon: 'plus',
@@ -547,7 +535,6 @@ export class ExecutionStepModel extends DiagramModel {
 
         const stepGroupLayer = new StepGroupNodeLayerModel({
           identifier: node.stepGroup.identifier,
-          id: node.stepGroup.identifier,
           childrenDistance: this.gapY,
           label: node.stepGroup.name,
           conditionalExecutionEnabled: node.stepGroup.when
@@ -612,11 +599,9 @@ export class ExecutionStepModel extends DiagramModel {
           })
         } else {
           // Else show Create Node
-          const identifier = `${EmptyNodeSeparator}${node.stepGroup.identifier}${EmptyNodeSeparator}`
           const createNode = new CreateNewModel({
             name: getString?.('pipelines-studio.addStep'),
-            identifier: identifier,
-            id: identifier,
+            identifier: `${EmptyNodeSeparator}${node.stepGroup.identifier}${EmptyNodeSeparator}`,
             customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
             disabled: isReadonly
           })
@@ -683,7 +668,6 @@ export class ExecutionStepModel extends DiagramModel {
     // Create Node
     const createNode = new CreateNewModel({
       name: getString('pipelines-studio.addStep'),
-      id: 'create-new',
       customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
     })
 
