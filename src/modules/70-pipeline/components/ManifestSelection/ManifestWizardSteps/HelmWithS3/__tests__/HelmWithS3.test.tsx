@@ -22,10 +22,14 @@ const mockBuckets = {
 jest.mock('services/portal', () => ({
   useListAwsRegions: jest.fn().mockImplementation(() => {
     return { data: mockRegions, refetch: jest.fn(), error: null, loading: false }
-  }),
+  })
+}))
+
+jest.mock('services/cd-ng', () => ({
   useGetBucketListForS3: jest.fn().mockImplementation(() => {
     return { data: mockBuckets, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: {}, refetch: jest.fn() }))
 }))
 
 describe('helm with S3 tests', () => {

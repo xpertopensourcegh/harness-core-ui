@@ -11,6 +11,10 @@ const props = {
   manifestIdsList: []
 }
 
+jest.mock('services/cd-ng', () => ({
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: {}, refetch: jest.fn() }))
+}))
+
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {

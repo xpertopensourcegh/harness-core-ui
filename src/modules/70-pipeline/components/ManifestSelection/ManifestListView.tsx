@@ -237,7 +237,7 @@ const ManifestListView = ({
   }
 
   const lastStepProps = useCallback((): ManifestLastStepProps => {
-    return {
+    const manifestDetailsProps: ManifestLastStepProps = {
       key: getString('pipeline.manifestType.manifestDetails'),
       name: getString('pipeline.manifestType.manifestDetails'),
       expressions,
@@ -248,6 +248,10 @@ const ManifestListView = ({
       manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) => item.manifest?.identifier as string),
       isReadonly: isReadonly
     }
+    if (selectedManifest === ManifestDataType.HelmChart) {
+      manifestDetailsProps.deploymentType = deploymentType
+    }
+    return manifestDetailsProps
   }, [selectedManifest, manifestStore, getLastStepInitialData])
 
   const getLabels = (): ConnectorRefLabelType => {

@@ -39,7 +39,6 @@ import { handleCommandFlagsSubmitData } from '../HelmWithGcs/HelmWithGcs'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
-const commandFlagOptions = [{ label: 'Template ', value: 'Template' }]
 interface HelmWithGITPropType {
   stepName: string
   expressions: string[]
@@ -47,6 +46,7 @@ interface HelmWithGITPropType {
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
   isReadonly?: boolean
+  deploymentType?: string
 }
 
 const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType> = ({
@@ -57,7 +57,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   prevStepData,
   previousStep,
   manifestIdsList,
-  isReadonly = false
+  isReadonly = false,
+  deploymentType
 }) => {
   const { getString } = useStrings()
 
@@ -103,7 +104,6 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
     }
     return repoName
   }
-
   const getInitialValues = React.useCallback((): HelmWithGITDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
@@ -359,8 +359,10 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     <HelmAdvancedStepSection
                       expressions={expressions}
                       formik={formik}
-                      commandFlagOptions={commandFlagOptions}
                       isReadonly={isReadonly}
+                      helmVersion={formik.values?.helmVersion}
+                      deploymentType={deploymentType as string}
+                      helmStore={prevStepData?.store ?? ''}
                     />
                   }
                 />

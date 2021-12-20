@@ -18,8 +18,10 @@ const mockBukcets = {
 jest.mock('services/cd-ng', () => ({
   useGetGCSBucketList: jest.fn().mockImplementation(() => {
     return { data: mockBukcets, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: {}, refetch: jest.fn() }))
 }))
+
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {

@@ -68,6 +68,7 @@ export interface ManifestLastStepProps {
   selectedManifest: ManifestTypes | null
   manifestIdsList: Array<string>
   isReadonly?: boolean
+  deploymentType?: string
 }
 export interface CommandFlags {
   commandType: string | SelectOption | undefined
@@ -81,13 +82,13 @@ export interface HelmWithGITDataType {
   repoName?: string
   gitFetchType: 'Branch' | 'Commit'
   folderPath: string
-  helmVersion: string
+  helmVersion: HelmVersionOptions
   skipResourceVersioning: boolean
   commandFlags: Array<CommandFlags>
 }
 export interface HelmWithHTTPDataType {
   identifier: string
-  helmVersion: string
+  helmVersion: HelmVersionOptions
   skipResourceVersioning: boolean
   chartName: string
   chartVersion: string
@@ -96,7 +97,7 @@ export interface HelmWithHTTPDataType {
 
 export interface HelmWithGcsDataType {
   identifier: string
-  helmVersion: string
+  helmVersion: HelmVersionOptions
   skipResourceVersioning: boolean
   chartName: string
   chartVersion: string

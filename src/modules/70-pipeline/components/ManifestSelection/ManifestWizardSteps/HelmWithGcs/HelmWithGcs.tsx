@@ -47,17 +47,8 @@ interface HelmWithGcsPropType {
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
   isReadonly?: boolean
+  deploymentType?: string
 }
-
-const commandFlagOptionsV2 = [
-  { label: 'Fetch', value: 'Fetch' },
-  { label: 'Template ', value: 'Template' }
-]
-const commandFlagOptionsV3 = [
-  { label: 'Pull', value: 'Pull' },
-  { label: 'Template ', value: 'Template' }
-]
-
 export const handleCommandFlagsSubmitData = (
   manifestObj: ManifestConfigWrapper,
   formData: (HelmWithGcsDataType | HelmWithHTTPDataType | HelmWithS3DataType | HelmWithGITDataType) & {
@@ -91,7 +82,8 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
   handleSubmit,
   previousStep,
   manifestIdsList,
-  isReadonly = false
+  isReadonly = false,
+  deploymentType
 }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -416,10 +408,10 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                     <HelmAdvancedStepSection
                       formik={formik}
                       expressions={expressions}
-                      commandFlagOptions={
-                        formik.values?.helmVersion === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3
-                      }
+                      helmVersion={formik.values?.helmVersion}
                       isReadonly={isReadonly}
+                      deploymentType={deploymentType as string}
+                      helmStore={prevStepData?.store ?? ''}
                     />
                   }
                 />

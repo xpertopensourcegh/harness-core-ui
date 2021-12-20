@@ -198,7 +198,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           serviceConfig: {
             serviceRef: '',
             serviceDefinition: {
-              type: 'Kubernetes', // Default deployment type needs to be changed to null, after native helm integration
+              type: 'Kubernetes',
               spec: {
                 variables: []
               }

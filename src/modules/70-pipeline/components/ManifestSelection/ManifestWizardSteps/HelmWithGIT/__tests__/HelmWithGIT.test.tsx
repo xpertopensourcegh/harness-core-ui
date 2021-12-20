@@ -10,6 +10,11 @@ const props = {
   handleSubmit: jest.fn(),
   manifestIdsList: []
 }
+
+jest.mock('services/cd-ng', () => ({
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: {}, refetch: jest.fn() }))
+}))
+
 describe('helm with GIT tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
