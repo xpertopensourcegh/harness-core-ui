@@ -1,24 +1,13 @@
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import {
-  Container,
-  Text,
-  Color,
-  FontVariation,
-  Layout,
-  TableV2,
-  NoDataCard,
-  Heading,
-  ButtonVariation
-} from '@wings-software/uicore'
+import { Container, Text, Color, FontVariation, Layout, TableV2, NoDataCard, Heading } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import type { MonitoredServiceListItemDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePermission } from '@rbac/hooks/usePermission'
-import RbacButton from '@rbac/components/Button/Button'
 import ToggleOnOff from '@cv/pages/monitored-service/CVMonitoredService/components/ToggleOnOff/ToggleOnOff'
 import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
@@ -44,62 +33,34 @@ const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ r
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const monitoredService = row.original
 
-  const history = useHistory()
-
   return (
     <Layout.Vertical>
-      <RbacButton
-        variation={ButtonVariation.LINK}
-        className={css.linkButton}
-        permission={{
-          permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
-          resource: {
-            resourceType: ResourceType.MONITOREDSERVICE,
-            resourceIdentifier: projectIdentifier
-          }
-        }}
-        onClick={() =>
-          history.push({
-            pathname: routes.toCVAddMonitoringServicesEdit({
-              accountId,
-              orgIdentifier,
-              projectIdentifier,
-              identifier: monitoredService.identifier,
-              module: 'cv'
-            })
-          })
-        }
+      <Link
+        to={routes.toCVAddMonitoringServicesEdit({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          identifier: monitoredService.identifier,
+          module: 'cv'
+        })}
       >
         <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal', weight: 'semi-bold' }}>
           {monitoredService.serviceName}
         </Text>
-      </RbacButton>
-      <RbacButton
-        variation={ButtonVariation.LINK}
-        className={css.linkButton}
-        permission={{
-          permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
-          resource: {
-            resourceType: ResourceType.MONITOREDSERVICE,
-            resourceIdentifier: projectIdentifier
-          }
-        }}
-        onClick={() =>
-          history.push({
-            pathname: routes.toCVAddMonitoringServicesEdit({
-              accountId,
-              projectIdentifier,
-              orgIdentifier,
-              identifier: monitoredService.identifier,
-              module: 'cv'
-            })
-          })
-        }
+      </Link>
+      <Link
+        to={routes.toCVAddMonitoringServicesEdit({
+          accountId,
+          projectIdentifier,
+          orgIdentifier,
+          identifier: monitoredService.identifier,
+          module: 'cv'
+        })}
       >
         <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'xsmall' }}>
           {monitoredService.environmentName}
         </Text>
-      </RbacButton>
+      </Link>
     </Layout.Vertical>
   )
 }
