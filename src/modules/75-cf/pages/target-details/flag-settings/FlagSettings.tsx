@@ -389,11 +389,7 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
     if (feature.envProperties?.state === 'off') {
       return (
         <Container padding="small" width={300}>
-          {getString('cf.targetDetail.flagDisabled', {
-            offVariation: feature.variations.find(
-              ({ identifier }) => identifier === feature.envProperties?.offVariation
-            )?.name
-          })}
+          {getString('cf.targetDetail.flagDisabled')}
         </Container>
       )
     }
