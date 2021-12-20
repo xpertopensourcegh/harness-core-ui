@@ -251,7 +251,7 @@ const COLUMNS: Record<string, Column> = {
     Cell: RenderCostTrendCell
   },
   UNALLOCATED_COST: {
-    Header: 'Unallocated',
+    Header: 'Unallocated Cost',
     accessor: 'unallocatedCost',
     width: 200,
     className: 'unallocated-cost cost-column',
@@ -285,15 +285,8 @@ const COLUMNS: Record<string, Column> = {
     className: 'memory-total-cost cost-column',
     Cell: RenderCostCell
   },
-  MEMORY_IDLE_COST: {
-    Header: 'Memory idle cost',
-    accessor: 'memoryIdleCost',
-    width: 200,
-    className: 'workload-memory-idle-cost cost-column',
-    Cell: RenderCostCell
-  },
   MEMORY_ACTUAL_IDLE_COST: {
-    Header: 'Memory Actual Idle Cost',
+    Header: 'Memory Idle Cost',
     accessor: 'memoryActualIdleCost',
     width: 200,
     className: 'workload-memory-idle-cost cost-column',
@@ -316,13 +309,6 @@ const COLUMNS: Record<string, Column> = {
   CPU_ACTUAL_IDLE_COST: {
     Header: 'CPU idle cost',
     accessor: 'cpuActualIdleCost',
-    width: 200,
-    className: 'workload-cpu-idle-cost cost-column',
-    Cell: RenderCostCell
-  },
-  CPU_IDLE_COST: {
-    Header: 'CPU idle cost',
-    accessor: 'cpuIdleCost',
     width: 200,
     className: 'workload-cpu-idle-cost cost-column',
     Cell: RenderCostCell
@@ -841,8 +827,8 @@ export const NODE_COLS = [
   COLUMNS.DELETION_TIME,
   COLUMNS.CPU_BILLING_AMOUNT,
   COLUMNS.MEMORY_BILLING_AMOUNT,
-  COLUMNS.MEMORY_IDLE_COST,
-  COLUMNS.CPU_IDLE_COST,
+  COLUMNS.MEMORY_ACTUAL_IDLE_COST,
+  COLUMNS.CPU_ACTUAL_IDLE_COST,
   COLUMNS.MEMORY_UNALLOCATED_COST,
   COLUMNS.CPU_UNALLOCATED_COST
 ]

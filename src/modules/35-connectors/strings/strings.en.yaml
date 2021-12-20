@@ -434,7 +434,7 @@ ceK8:
     downloadComplete: 'Download Complete'
     applyDelegateText: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster. Run the following command to apply the Harness delegate to your Kubernetes Cluster'
     successfulCommandExec: 'Command executed successfully'
-  featureWarning: You have used {{count}} free clusters incuded in your current plan. Consider upgrading for unlimited clusters.
+  featureWarning: You have used {{count}} / {{limit}} free clusters incuded in your current plan. Consider upgrading for unlimited clusters.
 azureKeyVault:
   labels:
     tenantId: '{{ $.connectors.tenantId }}'

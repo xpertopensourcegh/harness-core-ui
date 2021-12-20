@@ -505,7 +505,8 @@ const PerspectiveListPage: React.FC = () => {
               <FeatureWarningWithTooltip
                 featureName={FeatureIdentifier.PERSPECTIVES}
                 warningMessage={getString('ce.perspectives.newPerspectiveLimitWarning', {
-                  count: `${featureDetail?.count} / ${featureDetail?.limit}`
+                  count: featureDetail?.count,
+                  limit: featureDetail?.limit
                 })}
               />
             </section>

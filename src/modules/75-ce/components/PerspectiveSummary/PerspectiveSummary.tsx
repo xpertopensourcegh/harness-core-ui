@@ -272,6 +272,11 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
   isDefaultPerspective,
   hasClusterAsSource
 }) => {
+  let showForecastedCostCard = true
+  if (!fetching && !forecastedCostData?.cost?.statsValue) {
+    showForecastedCostCard = false
+  }
+
   return (
     <Layout.Horizontal margin="xlarge" spacing="large">
       <CostCard
@@ -283,14 +288,16 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
         isEmpty={!data?.cost}
       />
       {!isDefaultPerspective && <BudgetCard />}
-      <CostCard
-        fetching={fetching}
-        statsLabel={forecastedCostData?.cost?.statsLabel}
-        statsDescription={forecastedCostData?.cost?.statsDescription}
-        statsTrend={forecastedCostData?.cost?.statsTrend}
-        statsValue={forecastedCostData?.cost?.statsValue}
-        isEmpty={!forecastedCostData?.cost}
-      />
+      {showForecastedCostCard && (
+        <CostCard
+          fetching={fetching}
+          statsLabel={forecastedCostData?.cost?.statsLabel}
+          statsDescription={forecastedCostData?.cost?.statsDescription}
+          statsTrend={forecastedCostData?.cost?.statsTrend}
+          statsValue={forecastedCostData?.cost?.statsValue}
+          isEmpty={!forecastedCostData?.cost}
+        />
+      )}
       {hasClusterAsSource && <RecommendationSummaryCard />}
     </Layout.Horizontal>
   )

@@ -303,13 +303,6 @@ exports[`test cases for Perspective details Page should be able to render no dat
           </p>
         </div>
       </div>
-      <div
-        class="bp3-card bp3-elevation-1 Card--card"
-      >
-        <div
-          class="StyledProps--font StyledProps--main mainCard"
-        />
-      </div>
     </div>
     <div
       class="StyledProps--font StyledProps--main chartGridContainer emptyContainer StyledProps--margin-xlarge StyledProps--background-white"
@@ -865,13 +858,6 @@ exports[`test cases for Perspective details Page should be able to render the de
             style="width: 262px;"
           />
         </div>
-      </div>
-      <div
-        class="bp3-card bp3-elevation-1 Card--card"
-      >
-        <div
-          class="StyledProps--font StyledProps--main mainCard"
-        />
       </div>
     </div>
     <div

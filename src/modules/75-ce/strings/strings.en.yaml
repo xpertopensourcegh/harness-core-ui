@@ -468,7 +468,7 @@ savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
   newPerspective: New Perspective
-  newPerspectiveLimitWarning: You have used {{count}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
+  newPerspectiveLimitWarning: You have used {{count}} / {{limit}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
   allPerspectiveTxt: 'All ({{ count }})'
   recentPerspectiveTxt: 'Recent ({{ count }})'
   sideNavText: 'Perspectives'
@@ -546,6 +546,7 @@ perspectives:
     nextButton: '{{$.next}}'
     prevButton: '{{$.previous}}'
     validationErrors:
+      nameLengthError: The name must be between 1 and 32 characters.
       nameError: '{{$.validation.nameRequired}}'
       ruleError: 'values length should be greater than 1'
     filters:
