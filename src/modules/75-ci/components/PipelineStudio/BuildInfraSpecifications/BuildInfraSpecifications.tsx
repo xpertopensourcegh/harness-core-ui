@@ -43,7 +43,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
-import { regexIdentifier } from '@common/utils/StringUtils'
+import { regexIdentifier, k8sLabelRegex } from '@common/utils/StringUtils'
 import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
 import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildInfraSpecifications.module.scss'
@@ -100,7 +100,11 @@ const testLabelKey = (value: string): boolean => {
   )
 }
 
-const getFieldSchema = (value: FieldValueType, getString?: UseStringsReturn['getString']): Record<string, any> => {
+const getFieldSchema = (
+  value: FieldValueType,
+  regex: RegExp,
+  getString?: UseStringsReturn['getString']
+): Record<string, any> => {
   if (Array.isArray(value)) {
     return yup
       .array()
@@ -111,7 +115,7 @@ const getFieldSchema = (value: FieldValueType, getString?: UseStringsReturn['get
               is: val => val?.length,
               then: yup
                 .string()
-                .matches(regexIdentifier, getString?.('validation.validKeyRegex'))
+                .matches(regex, getString?.('validation.validKeyRegex'))
                 .required(getString?.('validation.keyRequired'))
             }),
             value: yup.string().when('key', {
@@ -187,8 +191,10 @@ const getValidationSchema = (getString?: UseStringsReturn['getString'], currentM
         return !isNaN(runAsUser)
       }
     ),
-    annotations: yup.lazy((value: FieldValueType) => getFieldSchema(value) as yup.Schema<FieldValueType>),
-    labels: yup.lazy((value: FieldValueType) => getFieldSchema(value) as yup.Schema<FieldValueType>)
+    annotations: yup.lazy(
+      (value: FieldValueType) => getFieldSchema(value, regexIdentifier) as yup.Schema<FieldValueType>
+    ),
+    labels: yup.lazy((value: FieldValueType) => getFieldSchema(value, k8sLabelRegex) as yup.Schema<FieldValueType>)
   })
 
 interface Values {
