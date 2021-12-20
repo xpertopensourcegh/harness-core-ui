@@ -235,12 +235,16 @@ exports[`ServicesList render 1`] = `
             <div
               class="Layout--vertical StyledProps--main"
             >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-bottom-xsmall"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
-                asdfasdf
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-bottom-xsmall"
+                  style="--text-line-clamp: 1;"
+                >
+                  asdfasdf
+                </p>
+              </div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
                 style="--text-line-clamp: 1;"

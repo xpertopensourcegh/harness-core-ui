@@ -3,9 +3,9 @@ import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
-import { Button, Color, Dialog, Layout, Popover, Text, useModalHook } from '@wings-software/uicore'
+import { Button, Color, Dialog, Layout, Popover, TagsPopover, Text, useModalHook } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
-import { pick } from 'lodash-es'
+import { defaultTo, pick } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DashboardList } from '@cd/components/DashboardList/DashboardList'
@@ -18,10 +18,10 @@ import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
 import { getFixed, INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import type { ServiceDetailsDTO } from 'services/cd-ng'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { NewEditServiceModal } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceStep'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
 
 export enum DeploymentStatus {
@@ -32,6 +32,9 @@ export enum DeploymentStatus {
 export interface ServiceListItem {
   name: string
   identifier: string
+  tags?: {
+    [key: string]: string
+  }
   deploymentTypeList: string[]
   serviceInstances: {
     count: number
@@ -58,46 +61,50 @@ export interface ServicesListProps {
 
 const transformServiceDetailsData = (data: ServiceDetailsDTO[]): ServiceListItem[] => {
   return data.map(item => ({
-    name: item.serviceName || '',
-    identifier: item.serviceIdentifier || '',
-    description: item.description || '',
-    tags: item.tags || {},
-    deploymentTypeList: item.deploymentTypeList || [],
+    name: defaultTo(item.serviceName, ''),
+    identifier: defaultTo(item.serviceIdentifier, ''),
+    description: defaultTo(item.description, ''),
+    tags: defaultTo(item.tags, {}),
+    deploymentTypeList: defaultTo(item.deploymentTypeList, []),
     serviceInstances: {
-      count: item.instanceCountDetails?.totalInstances || 0,
-      prodCount: item.instanceCountDetails?.prodInstances || 0,
-      nonProdCount: item.instanceCountDetails?.nonProdInstances || 0
+      count: defaultTo(item.instanceCountDetails?.totalInstances, 0),
+      prodCount: defaultTo(item.instanceCountDetails?.prodInstances, 0),
+      nonProdCount: defaultTo(item.instanceCountDetails?.nonProdInstances, 0)
     },
     deployments: {
       value: numberFormatter(item.totalDeployments),
-      change: item.totalDeploymentChangeRate || 0
+      change: defaultTo(item.totalDeploymentChangeRate, 0)
     },
     failureRate: {
       value: numberFormatter(item.failureRate),
-      change: item.failureRateChangeRate || 0
+      change: defaultTo(item.failureRateChangeRate, 0)
     },
     frequency: {
       value: numberFormatter(item.frequency),
-      change: item.frequencyChangeRate || 0
+      change: defaultTo(item.frequencyChangeRate, 0)
     },
     lastDeployment: {
-      name: item.lastPipelineExecuted?.name || '',
-      id: item.lastPipelineExecuted?.pipelineExecutionId || '',
-      timestamp: item.lastPipelineExecuted?.lastExecutedAt || 0,
-      status: item.lastPipelineExecuted?.status || ''
+      name: defaultTo(item.lastPipelineExecuted?.name, ''),
+      id: defaultTo(item.lastPipelineExecuted?.pipelineExecutionId, ''),
+      timestamp: defaultTo(item.lastPipelineExecuted?.lastExecutedAt, 0),
+      status: defaultTo(item.lastPipelineExecuted?.status, '')
     }
   }))
 }
 
 const RenderServiceName: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
-  const { name, identifier } = row.original
+  const { name, identifier, tags } = row.original
   const { getString } = useStrings()
   const idLabel = getString('idLabel', { id: identifier })
   return (
     <Layout.Vertical>
-      <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }} lineClamp={1}>
-        {name}
-      </Text>
+      <Layout.Horizontal spacing="small">
+        <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }} lineClamp={1}>
+          {name}
+        </Text>
+        {tags && Object.keys(tags).length ? <TagsPopover tags={tags} /> : null}
+      </Layout.Horizontal>
+
       <Text font={{ size: 'small' }} color={Color.GREY_500} lineClamp={1}>
         {idLabel}
       </Text>
@@ -302,17 +309,6 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
     [data, orgIdentifier, projectIdentifier]
   )
 
-  const [canUpdate] = usePermission(
-    {
-      resource: {
-        resourceType: ResourceType.SERVICE,
-        resourceIdentifier: data.identifier || ''
-      },
-      permissions: [PermissionIdentifier.EDIT_SERVICE]
-    },
-    []
-  )
-
   const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)
@@ -338,7 +334,18 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
           }}
         />
         <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item icon="edit" text="Edit" onClick={handleEdit} disabled={!canUpdate} />
+          <RbacMenuItem
+            icon="edit"
+            text={getString('edit')}
+            onClick={handleEdit}
+            permission={{
+              resource: {
+                resourceType: ResourceType.SERVICE,
+                resourceIdentifier: defaultTo(data.identifier, '')
+              },
+              permission: PermissionIdentifier.EDIT_SERVICE
+            }}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
