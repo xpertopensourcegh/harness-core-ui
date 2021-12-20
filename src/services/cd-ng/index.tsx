@@ -4479,9 +4479,9 @@ export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
 
 export interface NgSmtpDTO {
   accountId?: string
-  name?: string
+  name: string
   uuid?: string
-  value?: SmtpConfigDTO
+  value: SmtpConfigDTO
 }
 
 export interface Node {
@@ -7665,9 +7665,9 @@ export interface SlackNotificationSetting {
 
 export interface SmtpConfigDTO {
   fromAddress?: string
-  host?: string
+  host: string
   password?: string[]
-  port?: number
+  port: number
   startTLS?: boolean
   useSSL?: boolean
   username?: string

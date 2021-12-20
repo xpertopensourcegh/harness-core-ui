@@ -504,9 +504,11 @@ export interface StringsMap {
   'common.smtp.portRequired': string
   'common.smtp.preConfiguredBody': string
   'common.smtp.preConfiguredSubject': string
+  'common.smtp.savingSMTP': string
   'common.smtp.smtpConnectivity': string
   'common.smtp.startTSL': string
   'common.smtp.testConnection': string
+  'common.smtp.updatingSMTP': string
   'common.smtp.validationBody': string
   'common.smtp.validationSubject': string
   'common.smtp.validationTo': string
