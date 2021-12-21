@@ -1541,8 +1541,6 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     case Connectors.PAGER_DUTY:
       return 'service-pagerduty'
-    case Connectors.ARGO_CONNECTOR:
-      return 'argo'
     case Connectors.GCP_KMS:
       return 'gcp-kms'
     case Connectors.SERVICE_NOW:
