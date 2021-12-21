@@ -6,6 +6,8 @@ import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import { useStrings } from 'framework/strings'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './TemplateBar.module.scss'
 
 export interface TemplateBarProps {
@@ -25,12 +27,18 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
   const { step, onChangeTemplate, onRemoveTemplate } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { getString } = useStrings()
+  const { enabled: templatesEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.TEMPLATE_SERVICE
+    }
+  })
 
   const getItems = (): TemplateMenuItem[] => {
     return [
       {
         icon: 'command-switch',
         label: getString('pipeline.changeTemplateLabel'),
+        disabled: !templatesEnabled,
         onClick: () => onChangeTemplate?.(step)
       },
       {

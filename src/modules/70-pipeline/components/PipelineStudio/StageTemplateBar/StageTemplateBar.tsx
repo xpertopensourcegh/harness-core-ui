@@ -6,6 +6,8 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStageTemplateActions } from '@pipeline/utils/useStageTemplateActions'
 import { useStrings } from 'framework/strings'
 import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './StageTemplateBar.module.scss'
 
 interface TemplateMenuItem {
@@ -26,6 +28,11 @@ export const StageTemplateBar = (): JSX.Element => {
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
   const { getString } = useStrings()
+  const { enabled: templatesEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.TEMPLATE_SERVICE
+    }
+  })
 
   const { openDialog: openRemoveTemplateDialog } = useConfirmationDialog({
     intent: Intent.DANGER,
@@ -46,6 +53,7 @@ export const StageTemplateBar = (): JSX.Element => {
       {
         icon: 'command-switch',
         label: getString('pipeline.changeTemplateLabel'),
+        disabled: !templatesEnabled,
         onClick: onOpenTemplateSelector
       },
       {

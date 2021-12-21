@@ -16,6 +16,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useFeature } from '@common/hooks/useFeatures'
 
 export function NewTemplatePopover(): React.ReactElement {
   const handleAddTemplate = () => undefined
@@ -24,6 +26,11 @@ export function NewTemplatePopover(): React.ReactElement {
   const allowedTemplateTypes = getAllowedTemplateTypes(getString)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const [menuOpen, setMenuOpen] = React.useState(false)
+  const { enabled: templatesEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.TEMPLATE_SERVICE
+    }
+  })
 
   const rbacResourcePermission = {
     resource: {
@@ -68,7 +75,7 @@ export function NewTemplatePopover(): React.ReactElement {
       minimal={true}
       items={getMenu()}
       position={Position.BOTTOM}
-      disabled={!canEdit}
+      disabled={!canEdit || !templatesEnabled}
       setMenuOpen={setMenuOpen}
       usePortal={false}
     >
@@ -80,7 +87,15 @@ export function NewTemplatePopover(): React.ReactElement {
         onClick={handleAddTemplate}
         permission={{
           ...rbacResourcePermission,
-          permission: PermissionIdentifier.EDIT_TEMPLATE
+          permission: PermissionIdentifier.EDIT_TEMPLATE,
+          options: {
+            skipCache: true
+          }
+        }}
+        featuresProps={{
+          featuresRequest: {
+            featureNames: [FeatureIdentifier.TEMPLATE_SERVICE]
+          }
         }}
       />
     </TemplatesActionPopover>

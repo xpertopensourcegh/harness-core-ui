@@ -16,6 +16,7 @@ import { useQueryParams } from '@common/hooks'
 import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import type { JsonNode, StageElementConfig } from 'services/cd-ng'
 import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './SaveTemplateButton.module.scss'
 
 interface SaveTemplateButtonProps {
@@ -83,6 +84,11 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
         permission: PermissionIdentifier.EDIT_TEMPLATE,
         resource: {
           resourceType: ResourceType.TEMPLATE
+        }
+      }}
+      featuresProps={{
+        featuresRequest: {
+          featureNames: [FeatureIdentifier.TEMPLATE_SERVICE]
         }
       }}
       {...buttonProps}

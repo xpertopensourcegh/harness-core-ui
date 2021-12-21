@@ -1,15 +1,5 @@
 import React from 'react'
-import {
-  ButtonSize,
-  Button,
-  ButtonVariation,
-  Card,
-  Icon,
-  IconName,
-  Layout,
-  Heading,
-  Color
-} from '@wings-software/uicore'
+import { ButtonSize, ButtonVariation, Card, Icon, IconName, Layout, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import produce from 'immer'
 import { defaultTo, set } from 'lodash-es'
@@ -27,6 +17,8 @@ import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { generateRandomString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { PipelineStageProps } from '../PipelineStage'
 import EmptyStageView from './EmptyStageView'
 import StageHoverView from './StageHoverView'
@@ -102,11 +94,16 @@ export function AddStageView<T>({
             {getString('pipeline.addStage.title')}
           </Heading>
           {contextType === PipelineContextType.Pipeline && isTemplatesEnabled && (
-            <Button
+            <RbacButton
               text={getString('common.useTemplate')}
               variation={ButtonVariation.LINK}
               size={ButtonSize.SMALL}
               onClick={onOpenTemplateSelector}
+              featuresProps={{
+                featuresRequest: {
+                  featureNames: [FeatureIdentifier.TEMPLATE_SERVICE]
+                }
+              }}
             />
           )}
         </Layout.Horizontal>
