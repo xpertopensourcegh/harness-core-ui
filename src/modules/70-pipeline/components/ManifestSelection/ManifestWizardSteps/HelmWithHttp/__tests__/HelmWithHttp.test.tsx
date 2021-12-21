@@ -12,7 +12,7 @@ const props = {
 }
 
 jest.mock('services/cd-ng', () => ({
-  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: {}, refetch: jest.fn() }))
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: { data: ['Template', 'Pull'] }, refetch: jest.fn() }))
 }))
 
 describe('helm with http tests', () => {

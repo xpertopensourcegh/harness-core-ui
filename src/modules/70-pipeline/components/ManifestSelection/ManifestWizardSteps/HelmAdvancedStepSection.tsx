@@ -47,7 +47,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
 }) => {
   const { getString } = useStrings()
   const defaultValueToReset = [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
-  const [commandFlagOptions, setCommandFlagOptions] = useState<{ [x: string]: SelectOption[] }>({ V2: [], V3: [] })
+  const [commandFlagOptions, setCommandFlagOptions] = useState<Record<string, SelectOption[]>>({ V2: [], V3: [] })
 
   const { data: commandFlags, refetch: refetchCommandFlags } = useHelmCmdFlags({
     queryParams: {
@@ -69,7 +69,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
       ...commandFlagOptions,
       [helmVersion]: commandFlags?.data?.map(commandFlag => ({ label: commandFlag, value: commandFlag }))
     }
-    setCommandFlagOptions(commandFlagSelectOption as { [x: string]: SelectOption[] })
+    setCommandFlagOptions(commandFlagSelectOption as Record<string, SelectOption[]>)
   }, [commandFlags?.data])
 
   const commandFlagLabel = (): React.ReactElement => {
