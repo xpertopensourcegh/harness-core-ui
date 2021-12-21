@@ -28,17 +28,25 @@ import { StepType } from '../../PipelineStepInterface'
 import type { ServiceNowApprovalData, SnowApprovalVariableListModeProps } from './types'
 import ServiceNowApprovalDeploymentMode from './ServiceNowApprovalDeploymentMode'
 import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
-
 const logger = loggerFor(ModuleName.CD)
 
-const getConnectorValue = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? connector?.connector?.identifier
-      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
-      ? `${Scope.ORG}.${connector?.connector?.identifier}`
-      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
-  }` || /* istanbul ignore next */ ''
+const getConnectorValue = (connector?: ConnectorResponse): string => {
+  const connectorIdentifier = connector?.connector?.identifier
+  const orgIdentifier = connector?.connector?.orgIdentifier
+  const projectIdentifier = connector?.connector?.projectIdentifier
+  const accountIdentifierValue = `${Scope.ACCOUNT}.${connectorIdentifier}`
+  const orgIdentifierValue = `${Scope.ORG}.${connectorIdentifier}`
+
+  return (
+    `${
+      orgIdentifier && projectIdentifier
+        ? connectorIdentifier
+        : orgIdentifier
+        ? orgIdentifierValue
+        : accountIdentifierValue
+    }` || ''
+  )
+}
 
 const getConnectorName = (connector?: ConnectorResponse): string =>
   `${
@@ -111,7 +119,7 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
             connectorRef: obj?.spec?.connectorRef
           }
         }).then(response => {
-          const data = defaultTo(
+          return defaultTo(
             response?.data?.map(ticketType => ({
               label: ticketType.name,
               insertText: ticketType.key,
@@ -119,14 +127,11 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
             })),
             []
           )
-          return data
         })
       }
     }
 
-    return new Promise(resolve => {
-      resolve([])
-    })
+    return Promise.resolve([])
   }
 
   protected getConnectorsListForYaml(
@@ -157,7 +162,7 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
           },
           body: { types: ['ServiceNow'], filterType: 'Connector' }
         }).then(response => {
-          const data = defaultTo(
+          return defaultTo(
             response?.data?.content?.map(connector => ({
               label: getConnectorName(connector),
               insertText: getConnectorValue(connector),
@@ -165,14 +170,11 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
             })),
             []
           )
-          return data
         })
       }
     }
 
-    return new Promise(resolve => {
-      resolve([])
-    })
+    return Promise.resolve([])
   }
 
   processFormData(values: ServiceNowApprovalData): ServiceNowApprovalData {
