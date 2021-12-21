@@ -117,3 +117,5 @@ multipleProjects: multiple Projects
 deleteInvitation: Delete Invitation
 resendInvitation: Resend Invitation
 optional: Optional
+moduleSelectionTitle: Which Harness module would you like to start using for this project
+goToModuleBtn: Go to Module

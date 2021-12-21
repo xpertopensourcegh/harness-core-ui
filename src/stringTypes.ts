@@ -408,6 +408,7 @@ export interface StringsMap {
   'common.purpose.ce.descriptionOnly': string
   'common.purpose.ce.efficiency': string
   'common.purpose.ce.management': string
+  'common.purpose.ce.moduleSelectionSubHeading': string
   'common.purpose.ce.optimizationCard.description': string
   'common.purpose.ce.subtitle': string
   'common.purpose.ce.visibilityCard.description': string
@@ -417,6 +418,7 @@ export interface StringsMap {
   'common.purpose.cf.feature': string
   'common.purpose.cf.features': string
   'common.purpose.cf.flags': string
+  'common.purpose.cf.moduleSelectionSubHeading': string
   'common.purpose.cf.subtitle': string
   'common.purpose.change': string
   'common.purpose.changeSelection': string
@@ -430,6 +432,7 @@ export interface StringsMap {
   'common.purpose.cv.continuous': string
   'common.purpose.cv.description': string
   'common.purpose.cv.intelligence': string
+  'common.purpose.cv.moduleSelectionSubHeading': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
   'common.purpose.howToProceed': string
@@ -1924,6 +1927,7 @@ export interface StringsMap {
   'projectsOrgs.editTitle': string
   'projectsOrgs.enableModules': string
   'projectsOrgs.getStarted': string
+  'projectsOrgs.goToModuleBtn': string
   'projectsOrgs.goto': string
   'projectsOrgs.gotoBuilds': string
   'projectsOrgs.gotoCD': string
@@ -1947,6 +1951,7 @@ export interface StringsMap {
   'projectsOrgs.manageAProject': string
   'projectsOrgs.manageOrg': string
   'projectsOrgs.manageProject': string
+  'projectsOrgs.moduleSelectionTitle': string
   'projectsOrgs.moduleSuccess': string
   'projectsOrgs.modulesEnabled': string
   'projectsOrgs.multipleOrganizations': string
