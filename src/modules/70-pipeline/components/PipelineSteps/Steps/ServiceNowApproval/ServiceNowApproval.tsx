@@ -19,8 +19,8 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import { ConnectorResponse, getConnectorListV2Promise, getServiceNowTicketTypesPromise } from 'services/cd-ng'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { getConnectorListV2Promise, getServiceNowTicketTypesPromise } from 'services/cd-ng'
+import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
 import { flatObject } from '../Common/ApprovalCommons'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
@@ -29,33 +29,6 @@ import type { ServiceNowApprovalData, SnowApprovalVariableListModeProps } from '
 import ServiceNowApprovalDeploymentMode from './ServiceNowApprovalDeploymentMode'
 import pipelineVariablesCss from '../../../PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 const logger = loggerFor(ModuleName.CD)
-
-const getConnectorValue = (connector?: ConnectorResponse): string => {
-  const connectorIdentifier = connector?.connector?.identifier
-  const orgIdentifier = connector?.connector?.orgIdentifier
-  const projectIdentifier = connector?.connector?.projectIdentifier
-  const accountIdentifierValue = `${Scope.ACCOUNT}.${connectorIdentifier}`
-  const orgIdentifierValue = `${Scope.ORG}.${connectorIdentifier}`
-
-  return (
-    `${
-      orgIdentifier && projectIdentifier
-        ? connectorIdentifier
-        : orgIdentifier
-        ? orgIdentifierValue
-        : accountIdentifierValue
-    }` || ''
-  )
-}
-
-const getConnectorName = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
-      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
-      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
-      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
-  }` || /* istanbul ignore next */ ''
 
 const ServiceNowConnectorRegex = /^.+spec\.connectorRef$/
 const ServiceNowTicketTypeRegex = /^.+spec\.ticketType$/

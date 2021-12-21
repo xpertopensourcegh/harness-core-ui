@@ -22,10 +22,9 @@ import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/compon
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
-import { K8SDirectInfrastructure, getConnectorListV2Promise, ConnectorResponse } from 'services/cd-ng'
+import { K8SDirectInfrastructure, getConnectorListV2Promise } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { getIconByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { useQueryParams } from '@common/hooks'
@@ -38,6 +37,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
 import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './KubernetesInfraSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -54,24 +54,6 @@ interface KubernetesInfraSpecEditableProps {
   variablesData: K8SDirectInfrastructure
   allowableTypes?: MultiTypeInputType[]
 }
-
-const getConnectorValue = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? connector?.connector?.identifier
-      : connector?.connector?.orgIdentifier
-      ? `${Scope.ORG}.${connector?.connector?.identifier}`
-      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
-  }` || ''
-
-const getConnectorName = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
-      : connector?.connector?.orgIdentifier
-      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
-      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
-  }` || ''
 
 const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = ({
   initialValues,

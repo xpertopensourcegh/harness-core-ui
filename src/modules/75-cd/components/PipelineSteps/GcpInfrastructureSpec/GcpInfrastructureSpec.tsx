@@ -26,7 +26,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import {
   getConnectorListV2Promise,
-  ConnectorResponse,
   K8sGcpInfrastructure,
   useGetClusterNamesForGcp,
   getClusterNamesForGcpPromise
@@ -53,6 +52,7 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
 import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './GcpInfrastructureSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -91,24 +91,6 @@ interface GcpInfrastructureSpecEditableProps {
   variablesData: K8sGcpInfrastructure
   allowableTypes: MultiTypeInputType[]
 }
-
-const getConnectorValue = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? connector?.connector?.identifier
-      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
-      ? `${Scope.ORG}.${connector?.connector?.identifier}`
-      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
-  }` || /* istanbul ignore next */ ''
-
-const getConnectorName = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
-      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
-      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
-      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
-  }` || /* istanbul ignore next */ ''
 
 interface K8sGcpInfrastructureUI extends Omit<K8sGcpInfrastructure, 'cluster'> {
   cluster?: { label?: string; value?: string } | string | any
