@@ -1,7 +1,7 @@
 import React from 'react'
-import { act, fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, getByText, render } from '@testing-library/react'
 import { set } from 'lodash-es'
-import { TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'
 import type { TemplateSelectorLeftViewProps } from '@templates-library/components/TemplateSelector/TemplateSelectorLeftView/TemplateSelectorLeftView'
@@ -84,12 +84,19 @@ describe('<TemplateSelector /> tests', () => {
     await act(async () => {
       fireEvent.click(copyTemplateBtn)
     })
-
+    const copyBtn = getByText(findDialogContainer() as HTMLElement, 'yes')
+    await act(async () => {
+      fireEvent.click(copyBtn)
+    })
     expect(context.state.templateView.templateDrawerData.data?.selectorData?.onCopyTemplate).toBeCalled()
 
     const useTemplateBtn = getByRole('button', { name: 'templatesLibrary.useTemplate' })
     await act(async () => {
       fireEvent.click(useTemplateBtn)
+    })
+    const useBtn = getByText(findDialogContainer() as HTMLElement, 'yes')
+    await act(async () => {
+      fireEvent.click(useBtn)
     })
     expect(getTemplateInputSetYamlPromise).toBeCalled()
     expect(context.state.templateView.templateDrawerData.data?.selectorData?.onUseTemplate).toBeCalled()

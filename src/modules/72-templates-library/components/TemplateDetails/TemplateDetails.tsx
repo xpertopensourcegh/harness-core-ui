@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import {
+  ButtonSize,
   ButtonVariation,
   Color,
   Container,
@@ -24,7 +25,7 @@ import {
   TemplateListType
 } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
-import { useGetTemplateList, TemplateSummaryResponse } from 'services/template-ng'
+import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -198,6 +199,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                 <RbacButton
                   text={getString('templatesLibrary.openInTemplateStudio')}
                   variation={ButtonVariation.SECONDARY}
+                  size={ButtonSize.SMALL}
                   className={css.openInStudio}
                   onClick={goToTemplateStudio}
                   permission={{

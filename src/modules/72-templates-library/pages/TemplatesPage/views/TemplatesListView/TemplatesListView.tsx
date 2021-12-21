@@ -84,7 +84,7 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
               >
                 <Text color={Color.GREY_800}>{getString('nameLabel', { name: data.name })}</Text>
                 <br />
-                <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
+                <Text lineClamp={1}>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
               </Layout.Vertical>
             }
           >

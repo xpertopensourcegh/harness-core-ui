@@ -46,6 +46,7 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
       margin={'medium'}
       padding={{ top: 'small', right: 'medium', bottom: 'small', left: 'medium' }}
       background={Color.PRIMARY_6}
+      className={css.container}
       border={{ radius: 4 }}
     >
       <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>

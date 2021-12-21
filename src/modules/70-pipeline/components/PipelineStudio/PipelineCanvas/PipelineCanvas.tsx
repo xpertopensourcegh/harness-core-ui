@@ -375,6 +375,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   })
 
   const saveAndPublish = React.useCallback(async () => {
+    window.dispatchEvent(new CustomEvent('SAVE_PIPELINE_CLICKED'))
+
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {

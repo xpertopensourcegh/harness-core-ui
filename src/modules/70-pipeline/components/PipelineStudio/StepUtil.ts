@@ -179,7 +179,7 @@ interface ValidateStageProps {
   getString?: UseStringsReturn['getString']
 }
 
-const validateStage = ({
+export const validateStage = ({
   stage,
   template,
   viewType,
@@ -189,7 +189,7 @@ const validateStage = ({
   if (originalStage?.template) {
     return set(
       {},
-      `template.templateInputs`,
+      'template.templateInputs',
       validateStage({
         stage: stage.template?.templateInputs as StageElementConfig,
         template: template?.template?.templateInputs as StageElementConfig,

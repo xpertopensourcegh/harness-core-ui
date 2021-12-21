@@ -1,5 +1,5 @@
-import React from 'react'
-import { debounce, defaultTo, noop } from 'lodash-es'
+import React, { useContext } from 'react'
+import { debounce, defaultTo, noop, set } from 'lodash-es'
 import {
   Card,
   Color,
@@ -29,7 +29,18 @@ import { useGetTemplateInputSetYaml } from 'services/template-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { StageTemplateBar } from '@pipeline/components/PipelineStudio/StageTemplateBar/StageTemplateBar'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { TemplateTabs } from '@templates-library/components/TemplateStageSetupShell/TemplateStageSetupShellUtils'
+import { validateStage } from '@pipeline/components/PipelineStudio/StepUtil'
+import { useGlobalEventListener } from '@common/hooks'
+import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
 import css from './TemplateStageSpecifications.module.scss'
+
+declare global {
+  interface WindowEventMap {
+    SAVE_PIPELINE_CLICKED: CustomEvent<string>
+  }
+}
 
 export const TemplateStageSpecifications = (): JSX.Element => {
   const {
@@ -45,6 +56,9 @@ export const TemplateStageSpecifications = (): JSX.Element => {
   const [inputSetTemplate, setInputSetTemplate] = React.useState<StageElementConfig>()
   const templateIdentifier = getIdentifierFromValue(defaultTo(stage?.stage?.template?.templateRef, ''))
   const scope = getScopeFromValue(defaultTo(stage?.stage?.template?.templateRef, ''))
+  const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+  const formikRef = React.useRef<FormikProps<unknown> | null>(null)
+  const { submitFormsForTab } = useContext(StageErrorContext)
   const { showError } = useToaster()
   const { getString } = useStrings()
 
@@ -78,8 +92,30 @@ export const TemplateStageSpecifications = (): JSX.Element => {
     }
   }, [templateInputYaml?.data])
 
+  React.useEffect(() => {
+    subscribeForm({ tab: TemplateTabs.OVERVIEW, form: formikRef })
+    return () => unSubscribeForm({ tab: TemplateTabs.OVERVIEW, form: formikRef })
+  }, [])
+
+  useGlobalEventListener('SAVE_PIPELINE_CLICKED', _event => {
+    submitFormsForTab(TemplateTabs.OVERVIEW)
+  })
+
+  const validateForm = (values: StageElementConfig) => {
+    onChange?.(values)
+    const errorsResponse = validateStage({
+      stage: values.template?.templateInputs as StageElementConfig,
+      template: inputSetTemplate,
+      originalStage: stage?.stage?.template?.templateInputs as StageElementConfig,
+      getString,
+      viewType: StepViewType.DeploymentForm
+    })
+    return set({}, 'template.templateInputs', errorsResponse)
+  }
+
   return (
     <Container className={css.serviceOverrides}>
+      <ErrorsStripBinded />
       <Container className={css.contentSection}>
         <StageTemplateBar />
         <Formik
@@ -93,16 +129,15 @@ export const TemplateStageSpecifications = (): JSX.Element => {
           }}
           formName="templateStageOverview"
           onSubmit={noop}
-          validate={values => {
-            onChange?.(values)
-          }}
+          validate={validateForm}
           validationSchema={Yup.object().shape({
             name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
             identifier: IdentifierSchema()
           })}
-          enableReinitialize={true}
         >
           {(formik: FormikProps<StageElementConfig>) => {
+            window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: TemplateTabs.OVERVIEW }))
+            formikRef.current = formik
             return (
               <FormikForm>
                 <Card className={css.sectionCard}>

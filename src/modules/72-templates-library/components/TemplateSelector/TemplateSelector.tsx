@@ -14,7 +14,7 @@ import produce from 'immer'
 import { parse } from 'yaml'
 import { Intent } from '@blueprintjs/core'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { getTemplateInputSetYamlPromise, TemplateSummaryResponse } from 'services/template-ng'
+import { Failure, getTemplateInputSetYamlPromise, TemplateSummaryResponse } from 'services/template-ng'
 import { useStrings } from 'framework/strings'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -63,35 +63,30 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
 
   const submit = React.useCallback(async () => {
     const templateIdentifier = defaultTo(selectedTemplate?.identifier, '')
-    try {
-      const resp = await getTemplateInputSetYamlPromise({
-        templateIdentifier,
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier: selectedTemplate?.orgIdentifier,
-          projectIdentifier: selectedTemplate?.projectIdentifier,
-          versionLabel:
-            selectedTemplate?.versionLabel === DefaultNewVersionLabel
-              ? ''
-              : defaultTo(selectedTemplate?.versionLabel, '')
-        }
-      })
-      if (resp?.status === 'SUCCESS') {
-        set(templateTypes, templateIdentifier, selectedTemplate?.childType)
-        setTemplateTypes(templateTypes)
-        const templateConfig = produce({} as TemplateConfig, draft => {
-          draft.templateRef = getScopeBasedTemplateRef(selectedTemplate)
-          if (selectedTemplate?.versionLabel !== DefaultNewVersionLabel) {
-            draft.versionLabel = defaultTo(selectedTemplate?.versionLabel, '')
-          }
-          draft.templateInputs = parse(defaultTo(resp.data, ''))
-        })
-        onUseTemplate?.(templateConfig)
-      } else {
-        throw resp
+    const resp = await getTemplateInputSetYamlPromise({
+      templateIdentifier,
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier: selectedTemplate?.orgIdentifier,
+        projectIdentifier: selectedTemplate?.projectIdentifier,
+        versionLabel:
+          selectedTemplate?.versionLabel === DefaultNewVersionLabel ? '' : defaultTo(selectedTemplate?.versionLabel, '')
       }
-    } catch (err) {
-      showError(get(err, 'data.error', get(err, 'data.message', err?.message)))
+    })
+    if (resp.status === 'SUCCESS') {
+      set(templateTypes, templateIdentifier, selectedTemplate?.childType)
+      setTemplateTypes(templateTypes)
+      const templateConfig = produce({} as TemplateConfig, draft => {
+        draft.templateRef = getScopeBasedTemplateRef(selectedTemplate)
+        if (selectedTemplate?.versionLabel !== DefaultNewVersionLabel) {
+          draft.versionLabel = defaultTo(selectedTemplate?.versionLabel, '')
+        }
+        draft.templateInputs = parse(defaultTo(resp.data, ''))
+      })
+      onUseTemplate?.(templateConfig)
+    } else {
+      showError(get(resp, 'data.error', get(resp, 'data.message', (resp as Failure)?.message)))
+      timerRef.current?.('cancelled')
     }
   }, [selectedTemplate, accountId, onUseTemplate])
 
@@ -99,13 +94,28 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     intent: Intent.WARNING,
     cancelButtonText: getString('cancel'),
     contentText: getString('pipeline.changeTemplate', { name: selectedTemplate?.name }),
-    titleText: `Change to Template ${selectedTemplate?.name}?`,
+    titleText: selectedTemplateRef
+      ? `Change to Template ${selectedTemplate?.name}?`
+      : `Use Template ${selectedTemplate?.name}?`,
     confirmButtonText: getString('yes'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         await submit()
       } else {
-        timerRef.current?.('')
+        timerRef.current?.('cancelled')
+      }
+    }
+  })
+
+  const { openDialog: openCopyTemplateDialog } = useConfirmationDialog({
+    intent: Intent.WARNING,
+    cancelButtonText: getString('cancel'),
+    contentText: getString('pipeline.copyTemplate', { name: selectedTemplate?.name }),
+    titleText: `Copy Template ${selectedTemplate?.name}?`,
+    confirmButtonText: getString('yes'),
+    onCloseDialog: async isConfirmed => {
+      if (isConfirmed && selectedTemplate) {
+        onCopyTemplate?.(selectedTemplate)
       }
     }
   })
@@ -113,14 +123,10 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
   const timerRef = React.useRef<((reason: any) => void) | null>(null)
 
   const onUseTemplateClick = React.useCallback(async () => {
-    if (selectedTemplateRef) {
-      openChangeTemplateDialog()
-      await new Promise(function (_resolve, reject) {
-        timerRef.current = reject
-      })
-    } else {
-      await submit()
-    }
+    openChangeTemplateDialog()
+    await new Promise(function (_resolve, reject) {
+      timerRef.current = reject
+    })
   }, [selectedTemplateRef, openChangeTemplateDialog, submit])
 
   return (
@@ -152,9 +158,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
                   <Button
                     variation={ButtonVariation.LINK}
                     text={getString('templatesLibrary.copyToPipeline')}
-                    onClick={() => {
-                      onCopyTemplate?.(selectedTemplate)
-                    }}
+                    onClick={openCopyTemplateDialog}
                   />
                 </Layout.Horizontal>
               </Container>
