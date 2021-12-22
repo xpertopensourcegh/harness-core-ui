@@ -1,12 +1,13 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Accordion, SelectOption, Utils, Button } from '@wings-software/uicore'
+import type { GetDataError } from 'restful-react'
 import { useStrings } from 'framework/strings'
 import {
   useGetMetricPacks,
   useGetLabelNames,
   useGetSampleDataForNRQL,
-  useGetParsedTimeseries,
+  useFetchTimeSeries,
   NewRelicMetricDefinition
 } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -95,8 +96,8 @@ export default function NewRelicMappedMetric({
       projectIdentifier,
       jsonResponse: JSON.stringify(sampleRecord),
       groupName: formikValues?.groupName?.value,
-      metricValueJsonPath: formikValues?.metricValue,
-      timestampJsonPath: formikValues?.timestamp,
+      metricValueJSONPath: formikValues?.metricValue,
+      timestampJSONPath: formikValues?.timestamp,
       timestampFormat: formikValues?.timestampFormat
     }),
 
@@ -117,7 +118,7 @@ export default function NewRelicMappedMetric({
     refetch: fetchNewRelicTimeSeriesData,
     loading: timeSeriesDataLoading,
     error: timeseriesDataError
-  } = useGetParsedTimeseries({
+  } = useFetchTimeSeries({
     queryParams: queryParamsForTimeSeriesData,
     lazy: true
   })
@@ -286,7 +287,11 @@ export default function NewRelicMappedMetric({
                       onClick={handleBuildChart}
                     />
                     <Container padding={{ top: 'small' }}>
-                      <MetricLineChart loading={timeSeriesDataLoading} error={timeseriesDataError} options={options} />
+                      <MetricLineChart
+                        loading={timeSeriesDataLoading}
+                        error={timeseriesDataError as GetDataError<Error>}
+                        options={options}
+                      />
                     </Container>
                   </>
                 }

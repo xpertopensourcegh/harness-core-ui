@@ -1,9 +1,30 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvServices from 'services/cv'
 import NewRelicMappedMetric from '../NewRelicMappedMetric'
 import { connectorIdentifier, formikValues, mappedMetricsMap } from './NewRelicMappedMetric.mock'
+
+jest.mock('@cv/components/QueryViewer/QueryViewer', () => ({
+  ...(jest.requireActual('@cv/components/QueryViewer/QueryViewer') as any),
+  QueryViewer: function Mock(props: any) {
+    return <button className="mockFetchRecords" onClick={() => props.fetchRecords()} />
+  }
+}))
+
+jest.mock('@cv/components/MultiItemsSideNav/MultiItemsSideNav', () => ({
+  ...(jest.requireActual('@cv/components/MultiItemsSideNav/MultiItemsSideNav') as any),
+  MultiItemsSideNav: function Mock() {
+    return <div className="sideNavContainer" />
+  }
+}))
+
+jest.mock('@common/components/NameIdDescriptionTags/NameIdDescriptionTags', () => ({
+  ...(jest.requireActual('@common/components/NameIdDescriptionTags/NameIdDescriptionTags') as any),
+  NameId: function Mock() {
+    return <div className="mockNameId" />
+  }
+}))
 
 describe('NewRelicMappedMetric component', () => {
   const refetchMock = jest.fn()
@@ -11,15 +32,19 @@ describe('NewRelicMappedMetric component', () => {
   beforeAll(() => {
     jest
       .spyOn(cvServices, 'useGetMetricPacks')
-      .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: refetchMock } as any))
+      .mockReturnValue({ loading: false, error: null, data: {}, refetch: refetchMock } as any)
     jest
       .spyOn(cvServices, 'useGetLabelNames')
-      .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: refetchMock } as any))
+      .mockReturnValue({ loading: false, error: null, data: {}, refetch: refetchMock } as any)
+
+    jest.spyOn(cvServices, 'useFetchTimeSeries').mockReturnValue({ refetch: jest.fn() } as any)
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should render with data', () => {
-    const { container } = render(
+  test('should render query viewer', async () => {
+    const refetchFn = jest.fn()
+    jest.spyOn(cvServices, 'useGetSampleDataForNRQL').mockReturnValue({ refetch: refetchFn } as any)
+
+    const { container, getByText } = render(
       <TestWrapper>
         <NewRelicMappedMetric
           setMappedMetrics={jest.fn()}
@@ -34,6 +59,12 @@ describe('NewRelicMappedMetric component', () => {
         />
       </TestWrapper>
     )
-    expect(container).toMatchSnapshot()
+
+    await waitFor(() => expect(getByText('cv.healthSource.connectors.NewRelic.queryMapping')).not.toBeNull())
+
+    fireEvent.click(getByText('cv.healthSource.connectors.NewRelic.queryMapping'))
+    await waitFor(() => expect(container.querySelector('[class*="mockFetchRecords"]')).not.toBeNull())
+    fireEvent.click(container.querySelector('[class*="mockFetchRecords"]')!)
+    await waitFor(() => expect(refetchFn).toHaveBeenCalled())
   })
 })

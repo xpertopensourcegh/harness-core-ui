@@ -579,42 +579,6 @@ export interface CrossAccountAccess {
   externalId?: string
 }
 
-export interface CustomHealthCVConfig {
-  accountId: string
-  category: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
-  connectorIdentifier: string
-  createNextTaskIteration?: number
-  createdAt?: number
-  demo?: boolean
-  eligibleForDemo?: boolean
-  enabled?: boolean
-  envIdentifier: string
-  firstTimeDataCollectionStartTime?: number
-  firstTimeDataCollectionTimeRange?: TimeRange
-  groupName?: string
-  identifier: string
-  lastUpdatedAt?: number
-  metricDefinitions?: MetricDefinition[]
-  monitoringSourceName: string
-  orgIdentifier: string
-  productName?: string
-  projectIdentifier: string
-  serviceIdentifier: string
-  type?:
-    | 'APP_DYNAMICS'
-    | 'SPLUNK'
-    | 'STACKDRIVER'
-    | 'STACKDRIVER_LOG'
-    | 'KUBERNETES'
-    | 'NEW_RELIC'
-    | 'PROMETHEUS'
-    | 'DATADOG_METRICS'
-    | 'DATADOG_LOG'
-    | 'CUSTOM_HEALTH'
-  uuid?: string
-  verificationType: 'TIME_SERIES' | 'LOG'
-}
-
 export type CustomHealthConnectorDTO = ConnectorConfigDTO & {
   baseURL: string
   delegateSelectors?: string[]
@@ -634,34 +598,29 @@ export interface CustomHealthKeyAndValue {
 
 export interface CustomHealthMetricDefinition {
   analysis?: AnalysisDTO
+  endTime?: TimestampInfo
   groupName?: string
   identifier: string
   method?: 'GET' | 'POST'
   metricName: string
-  metricValueFieldPathString?: string
+  metricResponseMapping?: MetricResponseMapping
   queryType?: 'SERVICE_BASED' | 'HOST_BASED'
   requestBody?: string
   riskProfile?: RiskProfile
-  serviceInstance?: string
   sli?: Slidto
-  timestampFieldPathString?: string
-  timestampFormat?: string
+  startTime?: TimestampInfo
   urlPath?: string
 }
 
 export interface CustomHealthSampleDataRequest {
   body?: string
+  endTime: TimestampInfo
   method: 'GET' | 'POST'
-  requestTimestampPlaceholderAndValues: {
-    [key: string]: string
-  }
+  startTime: TimestampInfo
   urlPath: string
 }
 
 export type CustomHealthSourceSpec = HealthSourceSpec & {
-  cvconfigs?: {
-    [key: string]: CustomHealthCVConfig
-  }
   metricDefinitions?: CustomHealthMetricDefinition[]
 }
 
@@ -1191,6 +1150,7 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1503,6 +1463,7 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1804,6 +1765,7 @@ export interface HealthSource {
     | 'Splunk'
     | 'DatadogMetrics'
     | 'DatadogLog'
+    | 'CustomHealth'
 }
 
 export interface HealthSourceDTO {
@@ -2142,6 +2104,7 @@ export interface LogAnalysisResult {
   logAnalysisResults?: AnalysisResult[]
   overallRisk?: number
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -2205,19 +2168,12 @@ export interface MetricData {
 }
 
 export interface MetricDefinition {
-  analysis?: AnalysisDTO
-  identifier: string
-  method?: 'GET' | 'POST'
-  metricName: string
-  metricValueFieldPathString?: string
-  queryType?: 'SERVICE_BASED' | 'HOST_BASED'
-  requestBody?: string
-  riskProfile?: RiskProfile
-  serviceInstance?: string
-  sli?: Slidto
-  timestampFieldPathString?: string
-  timestampFormat?: string
-  urlPath?: string
+  included?: boolean
+  name?: string
+  responseJsonPath?: string
+  thresholds?: TimeSeriesThreshold[]
+  type: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
+  validationResponseJsonPath?: string
 }
 
 export interface MetricDefinitionDTO {
@@ -2390,7 +2346,6 @@ export interface NewRelicMetricDefinition {
   identifier: string
   metricName: string
   nrql?: string
-  queryType?: 'SERVICE_BASED' | 'HOST_BASED'
   responseMapping?: MetricResponseMapping
   riskProfile?: RiskProfile
   sli?: Slidto
@@ -2873,15 +2828,6 @@ export interface ResponseListTimeSeriesSampleDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseMapStringObject {
-  correlationId?: string
-  data?: {
-    [key: string]: { [key: string]: any }
-  }
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseMessage {
   code?:
     | 'DEFAULT_ERROR_CODE'
@@ -3143,6 +3089,7 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -3202,6 +3149,13 @@ export interface ResponseMetricPackValidationResponse {
 export interface ResponseMonitoredServiceResponse {
   correlationId?: string
   data?: MonitoredServiceResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseObject {
+  correlationId?: string
+  data?: { [key: string]: any }
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3307,6 +3261,13 @@ export interface ResponseSetTimeSeriesSampleDTO {
 export interface ResponseString {
   correlationId?: string
   data?: string
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseYamlSchemaDetailsWrapper {
+  correlationId?: string
+  data?: YamlSchemaDetailsWrapper
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4371,6 +4332,12 @@ export interface TimeSeriesThresholdDTO {
   projectIdentifier?: string
 }
 
+export interface TimestampInfo {
+  customTimestampFormat?: string
+  placeholder?: string
+  timestampFormat?: 'SECONDS' | 'MILLISECONDS' | 'CUSTOM'
+}
+
 export interface TransactionMetric {
   metricName?: string
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
@@ -4491,6 +4458,29 @@ export interface Void {
 
 export type WeeklyCalendarSpec = CalenderSpec & {
   dayOfWeek: 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun'
+}
+
+export interface YamlGroup {
+  group?: string
+}
+
+export interface YamlSchemaDetailsWrapper {
+  yamlSchemaWithDetailsList?: YamlSchemaWithDetails[]
+}
+
+export interface YamlSchemaMetadata {
+  modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
+  yamlGroup: YamlGroup
+}
+
+export interface YamlSchemaWithDetails {
+  availableAtAccountLevel?: boolean
+  availableAtOrgLevel?: boolean
+  availableAtProjectLevel?: boolean
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+  schema?: JsonNode
+  schemaClassName?: string
+  yamlSchemaMetadata?: YamlSchemaMetadata
 }
 
 export type AlertRuleDTORequestBody = AlertRuleDTO
@@ -9424,61 +9414,6 @@ export const getNewRelicMetricDataPromise = (
     void
   >('POST', getConfig('cv/api'), `/newrelic/metric-data`, props, signal)
 
-export interface GetParsedTimeseriesQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  jsonResponse: string
-  groupName: string
-  metricValueJsonPath: string
-  timestampJsonPath: string
-  timestampFormat?: string
-}
-
-export type GetParsedTimeseriesProps = Omit<
-  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
-  'path'
->
-
-/**
- * parse sample data for given json response
- */
-export const GetParsedTimeseries = (props: GetParsedTimeseriesProps) => (
-  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>
-    path={`/newrelic/parse-sample-data`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetParsedTimeseriesProps = Omit<
-  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
-  'path'
->
-
-/**
- * parse sample data for given json response
- */
-export const useGetParsedTimeseries = (props: UseGetParsedTimeseriesProps) =>
-  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>(
-    `/newrelic/parse-sample-data`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * parse sample data for given json response
- */
-export const getParsedTimeseriesPromise = (
-  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>(
-    getConfig('cv/api'),
-    `/newrelic/parse-sample-data`,
-    props,
-    signal
-  )
-
 export interface GetServicesFromPagerDutyQueryParams {
   accountId?: string
   orgIdentifier: string
@@ -9532,6 +9467,61 @@ export const getServicesFromPagerDutyPromise = (
   getUsingFetch<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>(
     getConfig('cv/api'),
     `/pagerduty/services`,
+    props,
+    signal
+  )
+
+export interface FetchTimeSeriesQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  jsonResponse: string
+  groupName: string
+  metricValueJSONPath: string
+  timestampJSONPath: string
+  timestampFormat?: string
+}
+
+export type FetchTimeSeriesProps = Omit<
+  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>,
+  'path'
+>
+
+/**
+ * parse sample data for given json response
+ */
+export const FetchTimeSeries = (props: FetchTimeSeriesProps) => (
+  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>
+    path={`/parse-sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseFetchTimeSeriesProps = Omit<
+  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>,
+  'path'
+>
+
+/**
+ * parse sample data for given json response
+ */
+export const useFetchTimeSeries = (props: UseFetchTimeSeriesProps) =>
+  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>(`/parse-sample-data`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * parse sample data for given json response
+ */
+export const fetchTimeSeriesPromise = (
+  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>(
+    getConfig('cv/api'),
+    `/parse-sample-data`,
     props,
     signal
   )
