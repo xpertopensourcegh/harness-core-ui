@@ -765,6 +765,12 @@ export interface DatasourceTypeDTO {
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
+export interface DemoChangeEventDTO {
+  changeSourceIdentifier?: string
+  changeSourceType?: 'HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD'
+  monitoredServiceIdentifier?: string
+}
+
 export interface DeploymentActivitySummaryDTO {
   deploymentTag?: string
   deploymentVerificationJobInstanceSummary?: DeploymentVerificationJobInstanceSummary
@@ -4161,6 +4167,7 @@ export interface TimeSeriesAnomalousPatterns {
   createdAt?: number
   lastUpdatedAt?: number
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -4169,6 +4176,7 @@ export interface TimeSeriesCumulativeSums {
   analysisStartTime?: number
   transactionMetricSums?: TransactionMetricSums[]
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -4243,6 +4251,7 @@ export interface TimeSeriesRiskSummary {
   overallRisk?: number
   transactionMetricRiskList?: TransactionMetricRisk[]
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -4259,6 +4268,7 @@ export interface TimeSeriesShortTermHistory {
   lastUpdatedAt?: number
   transactionMetricHistories?: TransactionMetricHistory[]
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -9471,7 +9481,7 @@ export const getServicesFromPagerDutyPromise = (
     signal
   )
 
-export interface FetchTimeSeriesQueryParams {
+export interface FetchParsedSampleDataQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
@@ -9482,44 +9492,44 @@ export interface FetchTimeSeriesQueryParams {
   timestampFormat?: string
 }
 
-export type FetchTimeSeriesProps = Omit<
-  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>,
+export type FetchParsedSampleDataProps = Omit<
+  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>,
   'path'
 >
 
 /**
  * parse sample data for given json response
  */
-export const FetchTimeSeries = (props: FetchTimeSeriesProps) => (
-  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>
+export const FetchParsedSampleData = (props: FetchParsedSampleDataProps) => (
+  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>
     path={`/parse-sample-data`}
     base={getConfig('cv/api')}
     {...props}
   />
 )
 
-export type UseFetchTimeSeriesProps = Omit<
-  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>,
+export type UseFetchParsedSampleDataProps = Omit<
+  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>,
   'path'
 >
 
 /**
  * parse sample data for given json response
  */
-export const useFetchTimeSeries = (props: UseFetchTimeSeriesProps) =>
-  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>(`/parse-sample-data`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
+export const useFetchParsedSampleData = (props: UseFetchParsedSampleDataProps) =>
+  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>(
+    `/parse-sample-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
 
 /**
  * parse sample data for given json response
  */
-export const fetchTimeSeriesPromise = (
-  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>,
+export const fetchParsedSampleDataPromise = (
+  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchTimeSeriesQueryParams, void>(
+  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>(
     getConfig('cv/api'),
     `/parse-sample-data`,
     props,

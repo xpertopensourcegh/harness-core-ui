@@ -7,7 +7,7 @@ import {
   useGetMetricPacks,
   useGetLabelNames,
   useGetSampleDataForNRQL,
-  useFetchTimeSeries,
+  useFetchParsedSampleData,
   NewRelicMetricDefinition
 } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -118,7 +118,7 @@ export default function NewRelicMappedMetric({
     refetch: fetchNewRelicTimeSeriesData,
     loading: timeSeriesDataLoading,
     error: timeseriesDataError
-  } = useFetchTimeSeries({
+  } = useFetchParsedSampleData({
     queryParams: queryParamsForTimeSeriesData,
     lazy: true
   })
