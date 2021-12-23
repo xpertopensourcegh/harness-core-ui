@@ -44,7 +44,7 @@ export default (
         ...accountPathProps,
         ...{
           templateIdentifier: ':templateIdentifier',
-          templateType: ':templateType(Step)'
+          templateType: ':templateType'
         }
       })}
       exact
@@ -60,7 +60,7 @@ export default (
         ...orgPathProps,
         ...{
           templateIdentifier: ':templateIdentifier',
-          templateType: ':templateType(Step)'
+          templateType: ':templateType'
         }
       })}
       exact

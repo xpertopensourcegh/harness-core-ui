@@ -98,6 +98,11 @@ export function useSaveTemplate(
     )
   }
 
+  const stringifyTemplate = React.useCallback(
+    (temp: NGTemplateInfoConfig) => yamlStringify(JSON.parse(JSON.stringify({ template: temp })), { version: '1.1' }),
+    []
+  )
+
   const updateExistingLabel = async (
     comments?: string,
     updatedGitDetails?: SaveToGitFormInterface,
@@ -107,7 +112,7 @@ export function useSaveTemplate(
       const response = await updateExistingTemplateLabelPromise({
         templateIdentifier: template.identifier,
         versionLabel: template.versionLabel,
-        body: yamlStringify({ template: omit(cloneDeep(template), 'repo', 'branch') }),
+        body: stringifyTemplate(omit(cloneDeep(template), 'repo', 'branch')),
         queryParams: {
           accountIdentifier: accountId,
           projectIdentifier,
@@ -160,7 +165,7 @@ export function useSaveTemplate(
       hideConfigModal?.()
       try {
         const response = await createTemplatePromise({
-          body: yamlStringify({ template: omit(cloneDeep(latestTemplate), 'repo', 'branch') }),
+          body: stringifyTemplate(omit(cloneDeep(latestTemplate), 'repo', 'branch')),
           queryParams: {
             accountIdentifier: accountId,
             projectIdentifier,
