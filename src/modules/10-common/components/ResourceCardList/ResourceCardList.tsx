@@ -11,7 +11,7 @@ import useCreateSmtpModal from '@common/components/Smtp/useCreateSmtpModal'
 import { useGetSmtpConfig } from 'services/cd-ng'
 import css from './ResourceCardList.module.scss'
 
-interface ResourceOption {
+export interface ResourceOption {
   label: JSX.Element
   icon: IconName
   route?: string

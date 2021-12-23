@@ -693,3 +693,4 @@ smtp:
   savingSMTP: Saving SMTP Configuration
   updatingSMTP: Updating SMTP Configuration
 invalid: INVALID
+auditTrail: Audit Trail

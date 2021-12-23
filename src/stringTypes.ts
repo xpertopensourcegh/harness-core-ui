@@ -34,6 +34,7 @@ export interface StringsMap {
   'common.approve': string
   'common.artifactTag': string
   'common.at': string
+  'common.auditTrail': string
   'common.aws': string
   'common.azure': string
   'common.banners.email.description': string
@@ -1966,6 +1967,7 @@ export interface StringsMap {
   'projectsOrgs.notAvailableForBeta': string
   'projectsOrgs.optional': string
   'projectsOrgs.orgAccessControl': string
+  'projectsOrgs.orgAccessCtrlAndAuditTrail': string
   'projectsOrgs.orgCreateSuccess': string
   'projectsOrgs.orgDeletedMessage': string
   'projectsOrgs.orgEditSuccess': string

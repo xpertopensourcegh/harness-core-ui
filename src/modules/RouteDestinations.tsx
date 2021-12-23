@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
+import auditTrailRoutes from '@audit-trail/RouteDestinations'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -68,6 +69,7 @@ export default function RouteDestinations(): React.ReactElement {
     <Switch>
       {...commonRoutes.props.children}
       {...secretsRoutes.props.children}
+      {...auditTrailRoutes.props.children}
       {...rbacRoutes.props.children}
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
