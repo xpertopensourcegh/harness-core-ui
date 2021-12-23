@@ -226,7 +226,7 @@ export const Jexl = (props: SnowApprovalRejectionCriteriaProps): JSX.Element => 
             : getString('pipeline.approvalCriteria.jexlExpressionLabelRejection')
         }
         className={css.jexlExpression}
-        placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
+        placeholder={getString('pipeline.serviceNowApprovalStep.jexlExpressionPlaceholder')}
         multiTypeTextArea={{
           expressions
         }}

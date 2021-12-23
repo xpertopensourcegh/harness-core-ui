@@ -169,7 +169,7 @@ serviceNowApprovalStep:
   fetchingTicketTypesPlaceholder: Fetching Ticket Types...
   fetchTicketTypesError: Failed to fetch ticket types
   jexlExpressionPlaceholder: |
-    Example: <+ticket.Status> == "Done"
+    Example: <+ticket.state.value> == "Done"
   serviceNowField: Service Now Field
   execution:
     wasApproved: 'Approval Criteria was met for ServiceNow Ticket:'
