@@ -34,9 +34,9 @@ type delTroubleshoterProps = {
 
 const columnWidths = {
   icon: '80px',
-  name: '30%',
-  tags: '25%',
-  instances: '10%',
+  name: '25%',
+  tags: '20%',
+  instances: '20%',
   heartbeat: 'calc(15% - 40px)',
   status: 'calc(15% - 40px)',
   actions: '5%'
@@ -324,11 +324,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
                   )}
                 </Layout.Horizontal>
                 <Layout.Vertical width={columnWidths.status}>
-                  <Text
-                    icon="full-circle"
-                    iconProps={{ size: 6, color: podStatusColor, padding: 'small' }}
-                    color={podStatusColor}
-                  >
+                  <Text icon="full-circle" iconProps={{ size: 6, color: podStatusColor, padding: 'small' }}>
                     {statusText}
                   </Text>
                 </Layout.Vertical>

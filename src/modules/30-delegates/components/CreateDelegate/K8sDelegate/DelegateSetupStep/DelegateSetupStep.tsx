@@ -42,6 +42,7 @@ interface DelegateSetupStepProps {
 }
 
 export interface K8sDelegateWizardData {
+  generatedYaml?: string
   delegateYaml?: DelegateSetupDetails
   name: string
   replicas?: number
