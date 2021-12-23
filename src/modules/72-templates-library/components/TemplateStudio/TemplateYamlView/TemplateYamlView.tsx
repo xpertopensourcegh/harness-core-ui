@@ -104,7 +104,6 @@ const TemplateYamlView: React.FC = () => {
         <div className={css.buttonsWrapper}>
           <Tag>{getString('common.readOnly')}</Tag>
           <RbacButton
-            disabled={true}
             permission={{
               resourceScope: {
                 accountIdentifier: accountId,
@@ -112,10 +111,10 @@ const TemplateYamlView: React.FC = () => {
                 projectIdentifier
               },
               resource: {
-                resourceType: ResourceType.PIPELINE,
+                resourceType: ResourceType.TEMPLATE,
                 resourceIdentifier: template.identifier
               },
-              permission: PermissionIdentifier.EDIT_PIPELINE
+              permission: PermissionIdentifier.EDIT_TEMPLATE
             }}
             variation={ButtonVariation.SECONDARY}
             text={getString('common.editYaml')}
