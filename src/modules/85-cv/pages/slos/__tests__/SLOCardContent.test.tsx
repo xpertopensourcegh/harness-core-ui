@@ -12,6 +12,20 @@ jest.mock('@cv/pages/slos/SLOCard/ErrorBudgetGauge', () => ({
   }
 }))
 
+jest.mock('services/cv', () => {
+  return {
+    useChangeEventTimeline: jest.fn().mockImplementation(() => {
+      return {
+        data: {},
+        refetch: jest.fn(),
+        error: null,
+        loading: false,
+        cancel: jest.fn()
+      }
+    })
+  }
+})
+
 describe('SLOCardContent', () => {
   test('Toggle the SLO and Error budget', () => {
     render(

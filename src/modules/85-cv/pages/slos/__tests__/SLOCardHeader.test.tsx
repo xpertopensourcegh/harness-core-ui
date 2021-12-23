@@ -33,12 +33,6 @@ describe('SLOCardHeader', () => {
     expect(container.querySelector('[data-icon="Options"]')).toBeInTheDocument()
   })
 
-  test('With monitoredServiceIdentifier, Options button should not be rendered', () => {
-    const { container } = render(<ComponentWrapper monitoredServiceIdentifier="monitored_service_identifier" />)
-
-    expect(container.querySelector('[data-icon="Options"]')).not.toBeInTheDocument()
-  })
-
   test('edit should go to edit page', async () => {
     const { container } = render(<ComponentWrapper />)
 

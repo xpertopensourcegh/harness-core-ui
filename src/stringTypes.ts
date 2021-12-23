@@ -4392,6 +4392,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.showingAllServices': string
   'cv.monitoredServices.showingServiceAtRisk': string
+  'cv.monitoredServices.sloErrorBudget': string
   'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string

@@ -15,7 +15,12 @@ export interface SLOCardHeaderProps {
 // SLOCardContent
 
 export interface SLOCardContentProps {
-  serviceLevelObjective: SLODashboardWidget
+  serviceLevelObjective: NewSLODashboardWidget
+}
+
+export interface NewSLODashboardWidget extends SLODashboardWidget {
+  serviceIdentifier?: string
+  environmentIdentifier?: string
 }
 
 export enum SLOCardToggleViews {

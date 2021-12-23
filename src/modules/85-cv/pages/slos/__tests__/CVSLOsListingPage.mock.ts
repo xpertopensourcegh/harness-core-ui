@@ -1,10 +1,11 @@
-import type { ResponsePageSLODashboardWidget, SLODashboardWidget, ResponsePageUserJourneyResponse } from 'services/cv'
+import type { ResponsePageSLODashboardWidget, ResponsePageUserJourneyResponse } from 'services/cv'
 import type { TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps } from '@common/utils/routeUtils'
 import { RiskValues } from '@cv/utils/CommonUtils'
 import { SLIMetricEnum } from '../components/CVCreateSLO/components/CreateSLOForm/components/SLI/SLI.constants'
 import { PeriodTypes, SLITypes } from '../components/CVCreateSLO/CVCreateSLO.types'
+import type { NewSLODashboardWidget } from '../CVSLOsListingPage.types'
 
 export const errorMessage = 'TEST ERROR MESSAGE'
 
@@ -19,7 +20,7 @@ export const testWrapperProps: TestWrapperProps = {
   pathParams
 }
 
-export const dashboardWidgetsContent: SLODashboardWidget = {
+export const dashboardWidgetsContent: NewSLODashboardWidget = {
   burnRate: {
     currentRatePercentage: 90
   },
@@ -35,14 +36,19 @@ export const dashboardWidgetsContent: SLODashboardWidget = {
   monitoredServiceIdentifier: 'monitored_service_identifier',
   monitoredServiceName: 'Monitored Service Name',
   sloIdentifier: 'slo_identifier',
-  sloPerformanceTrend: [],
+  sloPerformanceTrend: [
+    { timestamp: 1639993380000, value: 0 },
+    { timestamp: 1639993440000, value: 0 }
+  ],
   sloTargetPercentage: 60,
   sloTargetType: PeriodTypes.ROLLING,
   tags: {},
   timeRemainingDays: 10,
   title: 'Title',
   totalErrorBudget: 100,
-  type: SLITypes.AVAILABILITY
+  type: SLITypes.AVAILABILITY,
+  serviceIdentifier: 'service',
+  environmentIdentifier: 'env'
 }
 
 export const dashboardWidgetsResponse: ResponsePageSLODashboardWidget = {

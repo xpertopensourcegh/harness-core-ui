@@ -31,6 +31,7 @@ import type {
   ServiceActionsProps
 } from '../MonitoredServiceGraphView/ServiceDependencyGraph.types'
 import { GraphServiceChanges } from './GraphSummaryCard.utils'
+import SLOsIconGrid from '../SLOsIconGrid/SLOsIconGrid'
 import css from '../MonitoredServiceGraphView/ServiceDependencyGraph.module.scss'
 
 const ServiceActions: React.FC<ServiceActionsProps> = ({
@@ -183,7 +184,19 @@ const SummaryCardContent: React.FC<SummaryCardContentProps> = ({ isPageView, mon
         <Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }} padding={{ bottom: 'small' }}>
           {getString('cv.dependenciesHealthWithCount', { count: monitoredService.dependentHealthScore?.length ?? 0 })}
         </Text>
-        <IconGrid isDarkBackground iconProps={{ name: 'polygon' }} items={monitoredService.dependentHealthScore} />
+        <IconGrid
+          isDarkBackground
+          iconProps={{ name: 'polygon', size: 14 }}
+          items={monitoredService.dependentHealthScore}
+        />
+        <Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }} padding={{ bottom: 'small' }}>
+          {`${getString('cv.slos.title')} (${monitoredService?.sloHealthIndicators?.length ?? 0})`}
+        </Text>
+        <SLOsIconGrid
+          isDarkBackground
+          iconProps={{ name: 'symbol-square', size: 14 }}
+          items={monitoredService?.sloHealthIndicators}
+        />
       </Layout.Vertical>
     </>
   )

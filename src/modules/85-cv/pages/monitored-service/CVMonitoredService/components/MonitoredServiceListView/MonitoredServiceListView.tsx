@@ -4,7 +4,6 @@ import type { CellProps, Renderer } from 'react-table'
 import { Container, Text, Color, FontVariation, Layout, TableV2, NoDataCard, Heading } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { PermissionIdentifier, ResourceType } from 'microfrontends'
-import type { MonitoredServiceListItemDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -23,13 +22,15 @@ import {
 import type { MonitoredServiceListViewProps } from '../../CVMonitoredService.types'
 import MonitoredServiceCategory from '../../../components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import { getListTitle } from './MonitoredServiceListView.utils'
+import type { NewMonitoredServiceListItemDTO } from './MonitoredServiceListView.types'
+import SLOsIconGrid from '../SLOsIconGrid/SLOsIconGrid'
 import css from '../../CVMonitoredService.module.scss'
 
-const CategoryProps: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => (
+const CategoryProps: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => (
   <MonitoredServiceCategory type={row.original.type} abbrText verticalAlign />
 )
 
-const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
+const RenderServiceName: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const monitoredService = row.original
 
@@ -65,7 +66,7 @@ const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ r
   )
 }
 
-const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
+const RenderServiceChanges: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
   const { getString } = useStrings()
   const monitoredService = row.original
 
@@ -118,7 +119,7 @@ const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = (
   )
 }
 
-const RenderDependenciesHealth: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
+const RenderDependenciesHealth: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
   const monitoredService = row.original
 
   if (monitoredService.dependentHealthScore?.length) {
@@ -132,6 +133,22 @@ const RenderDependenciesHealth: Renderer<CellProps<MonitoredServiceListItemDTO>>
   }
 
   return null
+}
+
+const RenderSLOErrorBudgetData: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
+  const monitoredService = row.original
+
+  if (monitoredService.sloHealthIndicators?.length) {
+    return (
+      <SLOsIconGrid
+        iconProps={{ name: 'symbol-square', size: 14, padding: { right: 'xsmall' } }}
+        items={monitoredService.sloHealthIndicators}
+        width={100}
+      />
+    )
+  }
+
+  return <></>
 }
 
 const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
@@ -152,7 +169,7 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
 
   const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = monitoredServiceListData || {}
 
-  const RenderStatusToggle: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
+  const RenderStatusToggle: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
     const monitoredService = row.original
 
     const [canToggle] = usePermission(
@@ -239,32 +256,37 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
               },
               {
                 Header: getString('name'),
-                width: '14.5%',
+                width: '12.5%',
                 Cell: RenderServiceName
               },
               {
                 Header: getString('cv.monitoredServices.table.changes'),
-                width: '18%',
+                width: '15%',
                 Cell: RenderServiceChanges
               },
               {
                 Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-                width: '20%',
+                width: '17%',
                 Cell: RenderHealthTrend
               },
               {
                 Header: getString('cv.monitoredServices.table.serviceHealthScore'),
-                width: '18%',
+                width: '15%',
                 Cell: RenderHealthScore
               },
               {
                 Header: getString('cv.monitoredServices.dependenciesHealth'),
-                width: '18%',
+                width: '15%',
                 Cell: RenderDependenciesHealth
               },
               {
+                Header: getString('cv.monitoredServices.sloErrorBudget'),
+                width: '15%',
+                Cell: RenderSLOErrorBudgetData
+              },
+              {
                 Header: getString('enabledLabel'),
-                width: '10%',
+                width: '8%',
                 Cell: RenderStatusToggle
               }
             ]}
