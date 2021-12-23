@@ -298,7 +298,8 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                                 class="Tag--main"
                               >
                                 <span
-                                  class="bp3-tag bp3-minimal tag"
+                                  class="bp3-tag bp3-minimal"
+                                  id="tag"
                                 >
                                   <span
                                     class="bp3-text-overflow-ellipsis bp3-fill"
@@ -778,7 +779,8 @@ exports[`Dependency Edit view edit mode works 1`] = `
                                 class="Tag--main"
                               >
                                 <span
-                                  class="bp3-tag bp3-minimal tag"
+                                  class="bp3-tag bp3-minimal"
+                                  id="tag"
                                 >
                                   <span
                                     class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1258,7 +1260,8 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                                 class="Tag--main"
                               >
                                 <span
-                                  class="bp3-tag bp3-minimal tag"
+                                  class="bp3-tag bp3-minimal"
+                                  id="tag"
                                 >
                                   <span
                                     class="bp3-text-overflow-ellipsis bp3-fill"

@@ -237,7 +237,8 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                                               class="Tag--main"
                                             >
                                               <span
-                                                class="bp3-tag bp3-minimal tag"
+                                                class="bp3-tag bp3-minimal"
+                                                id="tag"
                                               >
                                                 <span
                                                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -558,7 +559,8 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                                             class="Tag--main"
                                           >
                                             <span
-                                              class="bp3-tag bp3-minimal tag"
+                                              class="bp3-tag bp3-minimal"
+                                              id="tag"
                                             >
                                               <span
                                                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -878,7 +880,8 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                                             class="Tag--main"
                                           >
                                             <span
-                                              class="bp3-tag bp3-minimal tag"
+                                              class="bp3-tag bp3-minimal"
+                                              id="tag"
                                             >
                                               <span
                                                 class="bp3-text-overflow-ellipsis bp3-fill"
