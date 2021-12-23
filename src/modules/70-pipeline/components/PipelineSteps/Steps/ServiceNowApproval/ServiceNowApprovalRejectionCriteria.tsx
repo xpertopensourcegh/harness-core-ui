@@ -193,7 +193,7 @@ export const Conditions = ({
                   intent="primary"
                   data-testid="add-conditions"
                   disabled={isApprovalStepFieldDisabled(readonly)}
-                  onClick={() => push({ key: 'Status', operator: 'equals', value: [] })}
+                  onClick={() => push({ key: 'state', operator: 'equals', value: [] })}
                 >
                   {getString('add')}
                 </Button>
