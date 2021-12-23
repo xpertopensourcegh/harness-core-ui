@@ -8,5 +8,6 @@ declare const styles: {
   readonly selected: string
   readonly disabledMode: string
   readonly count: string
+  readonly excludeSideNavOverlay: string
 }
 export default styles

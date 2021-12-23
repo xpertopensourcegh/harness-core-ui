@@ -3438,6 +3438,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.spendExceededBy': string
   'ce.perspectives.budgets.thisMonth': string
   'ce.perspectives.budgets.title': string
+  'ce.perspectives.budgets.viewText': string
   'ce.perspectives.budgets.wizardTitle': string
   'ce.perspectives.budgets.wizardTitleEdit': string
   'ce.perspectives.confirmDeletePerspectiveMsg': string

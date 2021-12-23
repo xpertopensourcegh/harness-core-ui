@@ -31,6 +31,7 @@ import {
   ViewType
 } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
+import NoData from '@ce/components/OverviewPage/OverviewNoData'
 import PerspectiveListView from '@ce/components/PerspectiveViews/PerspectiveListView'
 import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
@@ -190,19 +191,33 @@ enum Views {
   GRID
 }
 
-const NoDataPerspectivePage = () => {
+interface NoDataPerspectivePageProps {
+  showConnectorModal?: boolean
+}
+
+const NoDataPerspectivePage: (props: NoDataPerspectivePageProps) => JSX.Element = ({ showConnectorModal }) => {
   const { openModal, closeModal } = useCreateConnectorMinimal({
+    portalClassName: css.excludeSideNavOverlay,
     onSuccess: () => {
       closeModal()
     }
   })
 
+  const [showNoDataOverlay, setShowNoDataOverlay] = useState(!showConnectorModal)
+
   useEffect(() => {
-    openModal()
+    showConnectorModal && openModal()
   }, [])
 
+  const handleConnectorClick = (): void => {
+    setShowNoDataOverlay(false)
+    openModal()
+  }
+
   return (
-    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
+    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}>
+      {showNoDataOverlay && <NoData onConnectorCreateClick={handleConnectorClick} />}
+    </div>
   )
 }
 
@@ -358,6 +373,8 @@ const PerspectiveListPage: React.FC = () => {
   const [ccmMetaResult] = useFetchCcmMetaDataQuery()
   const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
 
+  const { cloudDataPresent, clusterDataPresent } = (ccmData?.ccmMetaData || {}) as CcmMetaData
+
   const createNewPerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void = async (
     values = {},
     isClone
@@ -467,6 +484,10 @@ const PerspectiveListPage: React.FC = () => {
   }
 
   if (ccmData && !Utils.accountHasConnectors(ccmData.ccmMetaData as CcmMetaData)) {
+    return <NoDataPerspectivePage showConnectorModal />
+  }
+
+  if (ccmData && !cloudDataPresent && !clusterDataPresent) {
     return <NoDataPerspectivePage />
   }
 

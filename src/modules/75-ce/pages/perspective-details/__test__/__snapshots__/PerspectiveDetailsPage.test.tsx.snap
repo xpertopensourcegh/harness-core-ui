@@ -281,10 +281,10 @@ exports[`test cases for Perspective details Page should be able to render no dat
         />
       </div>
       <div
-        class="bp3-card bp3-elevation-1 Card--card"
+        class="bp3-card bp3-elevation-1 Card--card cardContainer"
       >
         <div
-          class="StyledProps--font StyledProps--main mainCard budgetCard"
+          class="StyledProps--font StyledProps--main budgetCard"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
@@ -806,57 +806,26 @@ exports[`test cases for Perspective details Page should be able to render the de
         />
       </div>
       <div
-        class="bp3-card bp3-elevation-1 Card--card"
+        class="bp3-card bp3-elevation-1 Card--card cardContainer"
       >
         <div
-          class="StyledProps--font StyledProps--main mainCard budgetCard"
+          class="StyledProps--font StyledProps--main budgetCard"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
           >
-            ce.perspectives.budgets.budgetMonthlyTxt
+            ce.perspectives.budgets.title
           </p>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
-            style="align-items: flex-end;"
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-            >
-              $2,000,000.00
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main thisMonthText StyledProps--color StyledProps--color-grey400 StyledProps--font-xsmall"
-            >
-              ce.perspectives.budgets.thisMonth
-            </p>
-          </div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+            $---
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main addBudgetText StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
           >
-            <p
-              class="StyledProps--font StyledProps--main spendText StyledProps--color StyledProps--color-grey500 StyledProps--font-variation-tiny"
-            >
-              ce.perspectives.budgets.monthToDateSpend
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-variation-tiny-semi"
-            >
-              39%
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-variation-tiny"
-            >
-              ce.perspectives.budgets.budgetSmallTxt
-            </p>
-          </div>
-          <div
-            class="indicatorBar indicatorBarWithPattern"
-          />
-          <div
-            class="StyledProps--font StyledProps--main indicatorBar StyledProps--background-green500"
-            style="width: 262px;"
-          />
+            ce.perspectives.budgets.addBudget
+          </p>
         </div>
       </div>
     </div>

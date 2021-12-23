@@ -588,10 +588,11 @@ perspectives:
     addBudget: Add a budget to this perspective
     title: '{{ $.ce.common.budget}}'
     thisMonth: this month
+    viewText: '{{ $.common.viewText }}'
     spendExceededBy: Spend exceeded budget by
     monthToDateSpend: Spend Till Date spend is
     budgetSmallTxt: budget
-    budgetMonthlyTxt: Budget - Monthly
+    budgetMonthlyTxt: 'Budget - {{ period }}'
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
     createNew: + create new Budget
     wizardTitle: '{{ $.ce.common.newBudget }}'
