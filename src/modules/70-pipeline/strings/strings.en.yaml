@@ -164,8 +164,8 @@ serviceNowApprovalStep:
   project: ServcieNow Project
   ticketType: Ticket Type
   issueTypePlaceholder: Select Ticket Type
-  issueNumber: Issue Number
-  issueNumberPlaceholder: Enter Issue Number
+  issueNumber: Ticket Number
+  issueNumberPlaceholder: Enter Ticket Number
   fetchingTicketTypesPlaceholder: Fetching Ticket Types...
   fetchTicketTypesError: Failed to fetch ticket types
   jexlExpressionPlaceholder: |
@@ -184,7 +184,7 @@ serviceNowApprovalStep:
   validations:
     connectorRef: ServiceNow Connector is required
     ticketType: Ticket Type is required
-    issueNumber: Issue Number is required
+    issueNumber: Ticket Number is required
 manifestType:
   manifestTyperequired: Manifest Type is required
   gitConnectorLabel: 'Git'
