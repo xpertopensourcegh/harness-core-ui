@@ -390,6 +390,7 @@ export interface StringsMap {
   'common.policy.table.createdAt': string
   'common.policy.table.lastModified': string
   'common.policy.table.name': string
+  'common.powershell': string
   'common.production': string
   'common.projectSetup': string
   'common.projectViewer': string
@@ -4088,12 +4089,14 @@ export interface StringsMap {
   'ci.artifactoryConnectorLabel': string
   'ci.buildInfa.awsHelpText': string
   'ci.buildInfa.awsVM.architecture': string
+  'ci.buildInfa.awsVM.isRequiredWhen': string
   'ci.buildInfa.awsVM.os': string
   'ci.buildInfa.awsVM.poolId': string
   'ci.buildInfa.awsVMs': string
   'ci.buildInfa.infrastructureTypesLabel': string
   'ci.buildInfa.k8sLabel': string
   'ci.buildInfa.kubernetesHelpText': string
+  'ci.buildInfa.label': string
   'ci.buildInfa.selectInfra': string
   'ci.buildInfa.useNewInfra': string
   'ci.buildInfa.vmLabel': string

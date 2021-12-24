@@ -62,6 +62,7 @@ performAction: Perform Action
 jexlExpression: JEXL Expression
 bash: Bash
 shell: Shell
+powershell: Powershell
 input: Input
 refresh: Refresh
 goBack: Go Back

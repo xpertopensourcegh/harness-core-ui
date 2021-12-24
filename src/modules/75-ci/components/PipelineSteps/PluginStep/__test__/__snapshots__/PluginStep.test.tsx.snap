@@ -1453,9 +1453,6 @@ exports[`Plugin Step InputSet View should not render any fields 1`] = `
             style="min-height: 24px;"
           />
         </div>
-        <div
-          class="StyledProps--font StyledProps--main bottomMargin3"
-        />
       </div>
     </form>
     <p
@@ -2277,9 +2274,6 @@ exports[`Plugin Step InputSet View should render properly 1`] = `
             style="min-height: 24px;"
           />
         </div>
-        <div
-          class="StyledProps--font StyledProps--main bottomMargin3"
-        />
       </div>
     </form>
     <p
