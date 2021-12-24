@@ -242,6 +242,22 @@ export function useSaveTemplate(
       saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '', isEdit)
   })
 
+  const getUpdatedGitDetails = (
+    currGitDetails: EntityGitDetails,
+    latestTemplate: NGTemplateInfoConfig,
+    isEdit: boolean | undefined = false
+  ): EntityGitDetails => {
+    if (isEdit) {
+      return {
+        filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`,
+        ...currGitDetails
+      }
+    }
+    return {
+      ...currGitDetails,
+      filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`
+    }
+  }
   const saveAndPublish = React.useCallback(
     async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => {
       const { isEdit } = extraInfo
@@ -284,15 +300,7 @@ export function useSaveTemplate(
             type: 'Template',
             name: latestTemplate.name,
             identifier: latestTemplate.identifier,
-            gitDetails: gitDetails
-              ? {
-                  filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(
-                    /[^a-zA-Z0-9-_]/g,
-                    ''
-                  )}.yaml`,
-                  ...gitDetails
-                }
-              : {}
+            gitDetails: gitDetails ? getUpdatedGitDetails(gitDetails, latestTemplate, isEdit) : {}
           },
           payload: { template: omit(latestTemplate, 'repo', 'branch') }
         })
