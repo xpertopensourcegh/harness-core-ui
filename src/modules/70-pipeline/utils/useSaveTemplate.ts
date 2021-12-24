@@ -285,7 +285,13 @@ export function useSaveTemplate(
             name: latestTemplate.name,
             identifier: latestTemplate.identifier,
             gitDetails: gitDetails
-              ? { ...gitDetails, filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel}.yaml` }
+              ? {
+                  filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(
+                    /[^a-zA-Z0-9-_]/g,
+                    ''
+                  )}.yaml`,
+                  ...gitDetails
+                }
               : {}
           },
           payload: { template: omit(latestTemplate, 'repo', 'branch') }
