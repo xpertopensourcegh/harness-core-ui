@@ -31,7 +31,9 @@ const TemplateYamlView: React.FC = () => {
     state: {
       template,
       templateView: { isDrawerOpened, isYamlEditable },
-      templateView
+      templateView,
+      templateYaml,
+      entityValidityDetails: { valid }
     },
     updateTemplateView,
     isReadonly,
@@ -87,6 +89,7 @@ const TemplateYamlView: React.FC = () => {
             entityType="Template"
             isReadOnlyMode={isReadonly || !isYamlEditable}
             existingJSON={{ template }}
+            existingYaml={!valid ? templateYaml : undefined}
             bind={setYamlHandler}
             showSnippetSection={false}
             yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
