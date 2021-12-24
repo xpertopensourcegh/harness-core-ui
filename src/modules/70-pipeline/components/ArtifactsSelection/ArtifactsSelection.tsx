@@ -33,6 +33,8 @@ import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connector
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { ArtifactActions } from '@common/constants/TrackingConstants'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
@@ -88,6 +90,7 @@ export default function ArtifactsSelection({
 
   const { showError } = useToaster()
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   const getPrimaryArtifactByIdentifier = (): PrimaryArtifact => {
     return artifacts
@@ -274,6 +277,7 @@ export default function ArtifactsSelection({
   }, [stage])
 
   const addArtifact = (artifactObj: any): void => {
+    const isCreateMode = context === ModalViewFor.PRIMARY ? !primaryArtifact : sidecarIndex === sideCarArtifact.length
     artifactObj = {
       type: ENABLED_ARTIFACT_TYPES[selectedArtifact as ArtifactType],
       ...artifactObj
@@ -351,6 +355,19 @@ export default function ArtifactsSelection({
     hideConnectorModal()
     setSelectedArtifact(null)
     refetchConnectorList()
+    let telemetryEventName
+    if (isCreateMode) {
+      telemetryEventName =
+        context === ModalViewFor.PRIMARY
+          ? ArtifactActions.SavePrimaryArtifactOnPipelinePage
+          : ArtifactActions.SaveSidecarArtifactOnPipelinePage
+    } else {
+      telemetryEventName =
+        context === ModalViewFor.PRIMARY
+          ? ArtifactActions.UpdatePrimaryArtifactOnPipelinePage
+          : ArtifactActions.UpdateSidecarArtifactOnPipelinePage
+    }
+    trackEvent(telemetryEventName, {})
   }
 
   const getLastStepInitialData = (): any => {

@@ -57,6 +57,9 @@ import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnect
 
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { ManifestActions } from '@common/constants/TrackingConstants'
+
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import { getStatus, getConnectorNameFromValue } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import {
@@ -107,6 +110,7 @@ const ManifestListView = ({
   const [manifestStore, setManifestStore] = useState('')
   const [isEditMode, setIsEditMode] = useState(false)
   const [manifestIndex, setEditIndex] = useState(0)
+  const { trackEvent } = useTelemetry()
 
   const DIALOG_PROPS: IDialogProps = {
     isOpen: true,
@@ -185,6 +189,7 @@ const ManifestListView = ({
   }
 
   const handleSubmit = (manifestObj: ManifestConfigWrapper): void => {
+    const isNewManifest = manifestIndex === listOfManifests.length
     if (isPropagating) {
       if (listOfManifests?.length > 0) {
         listOfManifests.splice(manifestIndex, 1, manifestObj)
@@ -211,6 +216,13 @@ const ManifestListView = ({
       ? 'stage.spec.serviceConfig.stageOverrides.manifests'
       : 'stage.spec.serviceConfig.serviceDefinition.spec.manifests'
 
+    trackEvent(
+      isNewManifest ? ManifestActions.SaveManifestOnPipelinePage : ManifestActions.UpdateManifestOnPipelinePage,
+      {
+        manifest: manifestObj?.manifest?.type || selectedManifest || '',
+        storeType: manifestObj?.manifest?.spec?.store?.type || ''
+      }
+    )
     if (stage) {
       updateStage(
         produce(stage, draft => {
