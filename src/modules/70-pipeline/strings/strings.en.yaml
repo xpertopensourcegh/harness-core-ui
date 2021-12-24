@@ -14,8 +14,8 @@ stageVariables: Stage Variables
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target
-removeTemplate: The applied template will be remove from your stage.
-changeTemplate: 'Some fields may reset when {{name}} is applied to your stage.'
+removeTemplate: The applied template will be removed from your stage.
+changeTemplate: 'Applying {{name}} to your stage might reset some fields.'
 copyTemplate: Template configurations will be copied to your pipeline and made editable.
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 changeTemplateLabel: Change Template

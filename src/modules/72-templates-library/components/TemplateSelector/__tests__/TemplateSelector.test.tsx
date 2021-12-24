@@ -62,6 +62,7 @@ describe('<TemplateSelector /> tests', () => {
     const context = { ...pipelineContextMock }
     set(context, 'state.templateView.templateDrawerData.data.selectorData.onUseTemplate', jest.fn())
     set(context, 'state.templateView.templateDrawerData.data.selectorData.onCopyTemplate', jest.fn())
+    set(context, 'state.templateView.templateDrawerData.data.selectorData.selectedTemplateRef', 'templateRef')
     const { container, getByRole } = render(
       <PipelineContext.Provider value={context}>
         <TestWrapper
@@ -84,7 +85,7 @@ describe('<TemplateSelector /> tests', () => {
     await act(async () => {
       fireEvent.click(copyTemplateBtn)
     })
-    const copyBtn = getByText(findDialogContainer() as HTMLElement, 'yes')
+    const copyBtn = getByText(findDialogContainer() as HTMLElement, 'confirm')
     await act(async () => {
       fireEvent.click(copyBtn)
     })
@@ -94,7 +95,7 @@ describe('<TemplateSelector /> tests', () => {
     await act(async () => {
       fireEvent.click(useTemplateBtn)
     })
-    const useBtn = getByText(findDialogContainer() as HTMLElement, 'yes')
+    const useBtn = getByText(findDialogContainer() as HTMLElement, 'confirm')
     await act(async () => {
       fireEvent.click(useBtn)
     })

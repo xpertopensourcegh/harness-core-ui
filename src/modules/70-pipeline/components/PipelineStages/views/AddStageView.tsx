@@ -13,7 +13,6 @@ import type { TemplateLinkConfig } from 'services/cd-ng'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
 import { PipelineContextType } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { generateRandomString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
@@ -48,7 +47,7 @@ export function AddStageView<T>({
   contextType,
   onSelectStage
 }: AddStageViewProps<T>): JSX.Element {
-  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES) && isStageTemplateEnabled()
+  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
   const { openTemplateSelector, closeTemplateSelector } = useTemplateSelector()
@@ -96,8 +95,10 @@ export function AddStageView<T>({
           {contextType === PipelineContextType.Pipeline && isTemplatesEnabled && (
             <RbacButton
               text={getString('common.useTemplate')}
-              variation={ButtonVariation.LINK}
+              variation={ButtonVariation.SECONDARY}
               size={ButtonSize.SMALL}
+              icon="template-library"
+              iconProps={{ size: 12 }}
               onClick={onOpenTemplateSelector}
               featuresProps={{
                 featuresRequest: {

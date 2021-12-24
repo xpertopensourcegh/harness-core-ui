@@ -21,7 +21,7 @@ export default function TemplateStageSetupShell(): JSX.Element {
 
   const [showNameIdModal, hideNameIdModal] = useModalHook(
     () => (
-      <Dialog enforceFocus={false} isOpen className={Classes.DIALOG}>
+      <Dialog enforceFocus={false} isOpen className={cx(Classes.DIALOG, css.templateNameDialog)}>
         <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
       </Dialog>
     ),

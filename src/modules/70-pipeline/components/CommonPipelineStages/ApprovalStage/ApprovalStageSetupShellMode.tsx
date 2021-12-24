@@ -4,6 +4,7 @@ import produce from 'immer'
 import { Button, Color, Icon, Layout, Tab, Tabs, useModalHook } from '@wings-software/uicore'
 import { Classes, Dialog, Expander } from '@blueprintjs/core'
 import { defaultTo } from 'lodash-es'
+import cx from 'classnames'
 import {
   PipelineContextType,
   usePipelineContext
@@ -16,7 +17,6 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
-import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
 import { isCustomGeneratedString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
@@ -31,7 +31,7 @@ interface ApprovalStageElementConfig extends StageElementConfig {
 export const ApprovalStageSetupShellMode: React.FC = () => {
   const { getString } = useStrings()
   const tabHeadings = [getString('overview'), getString('executionText'), getString('advancedTitle')]
-  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES) && isStageTemplateEnabled()
+  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const layoutRef = useRef<HTMLDivElement>(null)
   const [selectedTabId, setSelectedTabId] = React.useState<string>(tabHeadings[1])
   const pipelineContext = usePipelineContext()
@@ -114,7 +114,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
 
   const [showNameIdModal, hideNameIdModal] = useModalHook(
     () => (
-      <Dialog enforceFocus={false} isOpen className={Classes.DIALOG}>
+      <Dialog enforceFocus={false} isOpen className={cx(Classes.DIALOG, css.templateNameDialog)}>
         <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
       </Dialog>
     ),

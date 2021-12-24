@@ -94,15 +94,13 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     intent: Intent.WARNING,
     cancelButtonText: getString('cancel'),
     contentText: getString('pipeline.changeTemplate', { name: selectedTemplate?.name }),
-    titleText: selectedTemplateRef
-      ? `Change to Template ${selectedTemplate?.name}?`
-      : `Use Template ${selectedTemplate?.name}?`,
-    confirmButtonText: getString('yes'),
+    titleText: `Change to Template ${selectedTemplate?.name}?`,
+    confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         await submit()
       } else {
-        timerRef.current?.('cancelled')
+        timerRef.current?.('')
       }
     }
   })
@@ -112,7 +110,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     cancelButtonText: getString('cancel'),
     contentText: getString('pipeline.copyTemplate', { name: selectedTemplate?.name }),
     titleText: `Copy Template ${selectedTemplate?.name}?`,
-    confirmButtonText: getString('yes'),
+    confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed && selectedTemplate) {
         onCopyTemplate?.(selectedTemplate)
@@ -123,11 +121,23 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
   const timerRef = React.useRef<((reason: any) => void) | null>(null)
 
   const onUseTemplateClick = React.useCallback(async () => {
-    openChangeTemplateDialog()
-    await new Promise(function (_resolve, reject) {
-      timerRef.current = reject
-    })
+    if (selectedTemplateRef) {
+      openChangeTemplateDialog()
+      await new Promise(function (_resolve, reject) {
+        timerRef.current = reject
+      })
+    } else {
+      await submit()
+    }
   }, [selectedTemplateRef, openChangeTemplateDialog, submit])
+
+  const onCopyTemplateClick = React.useCallback(async () => {
+    if (selectedTemplateRef) {
+      openCopyTemplateDialog()
+    } else if (selectedTemplate) {
+      onCopyTemplate?.(selectedTemplate)
+    }
+  }, [selectedTemplateRef, selectedTemplate, onCopyTemplate])
 
   return (
     <Container height={'100%'} className={css.container}>
@@ -158,7 +168,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
                   <Button
                     variation={ButtonVariation.LINK}
                     text={getString('templatesLibrary.copyToPipeline')}
-                    onClick={openCopyTemplateDialog}
+                    onClick={onCopyTemplateClick}
                   />
                 </Layout.Horizontal>
               </Container>

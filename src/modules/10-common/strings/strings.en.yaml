@@ -637,7 +637,7 @@ refreshPage: refresh your page.
 files: Files
 template:
   label: 'Template'
-  saveAsNewTemplateHeading: Save as New Template
+  saveAsNewTemplateHeading: Save as new Template
   saveTemplate:
     publishTemplate: Template published successfully
     errorWhileSaving: Error occurred saving Template

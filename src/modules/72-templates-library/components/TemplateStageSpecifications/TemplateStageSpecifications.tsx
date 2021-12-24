@@ -1,16 +1,6 @@
 import React, { useContext } from 'react'
 import { debounce, defaultTo, noop, set } from 'lodash-es'
-import {
-  Card,
-  Color,
-  Container,
-  Formik,
-  FormikForm,
-  Heading,
-  Layout,
-  MultiTypeInputType,
-  PageError
-} from '@wings-software/uicore'
+import { Card, Color, Container, Formik, FormikForm, Heading, Layout, PageError } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -47,6 +37,7 @@ export const TemplateStageSpecifications = (): JSX.Element => {
     state: {
       selectionState: { selectedStageId = '' }
     },
+    allowableTypes,
     updateStage,
     isReadonly,
     getStageFromPipeline
@@ -87,6 +78,7 @@ export const TemplateStageSpecifications = (): JSX.Element => {
   React.useEffect(() => {
     try {
       setInputSetTemplate(parse(defaultTo(templateInputYaml?.data, '')))
+      submitFormsForTab(TemplateTabs.OVERVIEW)
     } catch (error) {
       showError(error.message, undefined, 'template.parse.inputSet.error')
     }
@@ -95,7 +87,7 @@ export const TemplateStageSpecifications = (): JSX.Element => {
   React.useEffect(() => {
     subscribeForm({ tab: TemplateTabs.OVERVIEW, form: formikRef })
     return () => unSubscribeForm({ tab: TemplateTabs.OVERVIEW, form: formikRef })
-  }, [])
+  }, [subscribeForm, unSubscribeForm, formikRef])
 
   useGlobalEventListener('SAVE_PIPELINE_CLICKED', _event => {
     submitFormsForTab(TemplateTabs.OVERVIEW)
@@ -114,77 +106,73 @@ export const TemplateStageSpecifications = (): JSX.Element => {
   }
 
   return (
-    <Container className={css.serviceOverrides}>
-      <ErrorsStripBinded />
+    <Container className={css.serviceOverrides} height={'100%'} background={Color.FORM_BG}>
       {loading && <PageSpinner />}
-      {!loading && inputSetError && (
-        <PageError className={css.error} message={inputSetError.message} onClick={() => refetch()} />
-      )}
+      {!loading && inputSetError && <PageError message={inputSetError.message} onClick={() => refetch()} />}
       {!loading && !inputSetError && inputSetTemplate && stage?.stage?.template && (
-        <Container className={css.contentSection}>
-          <StageTemplateBar />
-          <Formik<StageElementConfig>
-            initialValues={{
-              name: defaultTo(stage?.stage?.name, ''),
-              identifier: defaultTo(stage?.stage?.identifier, ''),
-              template: defaultTo(stage?.stage?.template, {
-                templateRef: '',
-                versionLabel: ''
-              })
-            }}
-            formName="templateStageOverview"
-            onSubmit={noop}
-            validate={validateForm}
-            validationSchema={Yup.object().shape({
-              name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-              identifier: IdentifierSchema()
-            })}
-          >
-            {(formik: FormikProps<StageElementConfig>) => {
-              window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: TemplateTabs.OVERVIEW }))
-              formikRef.current = formik
-              return (
-                <FormikForm>
-                  <Card className={css.sectionCard}>
-                    <NameId
-                      identifierProps={{
-                        inputLabel: getString('stageNameLabel'),
-                        isIdentifierEditable: false,
-                        inputGroupProps: { disabled: isReadonly }
-                      }}
-                      inputGroupProps={{ placeholder: getString('common.namePlaceholder') }}
-                    />
-                  </Card>
-                  <Container className={css.inputsContainer}>
-                    <Layout.Vertical
-                      margin={{ top: 'medium' }}
-                      padding={{ top: 'large', bottom: 'large' }}
-                      spacing={'large'}
-                    >
-                      <Heading level={5} color={Color.BLACK}>
-                        {getString('templatesLibrary.templateInputs')}
-                      </Heading>
-                      <StageForm
-                        template={{ stage: inputSetTemplate }}
-                        allValues={{ stage: formik.values.template?.templateInputs as StageElementConfig }}
-                        path={'template.templateInputs'}
-                        readonly={isReadonly}
-                        viewType={StepViewType.InputSet}
-                        hideTitle={true}
-                        stageClassName={css.stageCard}
-                        allowableTypes={[
-                          MultiTypeInputType.FIXED,
-                          MultiTypeInputType.EXPRESSION,
-                          MultiTypeInputType.RUNTIME
-                        ]}
+        <>
+          <ErrorsStripBinded />
+          <Container className={css.contentSection}>
+            <StageTemplateBar />
+            <Formik<StageElementConfig>
+              initialValues={{
+                name: defaultTo(stage?.stage?.name, ''),
+                identifier: defaultTo(stage?.stage?.identifier, ''),
+                template: defaultTo(stage?.stage?.template, {
+                  templateRef: '',
+                  versionLabel: ''
+                })
+              }}
+              formName="templateStageOverview"
+              onSubmit={noop}
+              validate={validateForm}
+              validationSchema={Yup.object().shape({
+                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+                identifier: IdentifierSchema()
+              })}
+            >
+              {(formik: FormikProps<StageElementConfig>) => {
+                window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: TemplateTabs.OVERVIEW }))
+                formikRef.current = formik
+                return (
+                  <FormikForm>
+                    <Card className={css.sectionCard}>
+                      <NameId
+                        identifierProps={{
+                          inputLabel: getString('stageNameLabel'),
+                          isIdentifierEditable: false,
+                          inputGroupProps: { disabled: isReadonly }
+                        }}
+                        inputGroupProps={{ placeholder: getString('common.namePlaceholder') }}
                       />
-                    </Layout.Vertical>
-                  </Container>
-                </FormikForm>
-              )
-            }}
-          </Formik>
-        </Container>
+                    </Card>
+                    <Container className={css.inputsContainer}>
+                      <Layout.Vertical
+                        margin={{ top: 'medium' }}
+                        padding={{ top: 'large', bottom: 'large' }}
+                        spacing={'large'}
+                      >
+                        <Heading level={5} color={Color.BLACK}>
+                          {getString('templatesLibrary.templateInputs')}
+                        </Heading>
+                        <StageForm
+                          template={{ stage: inputSetTemplate }}
+                          allValues={{ stage: formik.values.template?.templateInputs as StageElementConfig }}
+                          path={'template.templateInputs'}
+                          readonly={isReadonly}
+                          viewType={StepViewType.InputSet}
+                          hideTitle={true}
+                          stageClassName={css.stageCard}
+                          allowableTypes={allowableTypes}
+                        />
+                      </Layout.Vertical>
+                    </Container>
+                  </FormikForm>
+                )
+              }}
+            </Formik>
+          </Container>
+        </>
       )}
     </Container>
   )

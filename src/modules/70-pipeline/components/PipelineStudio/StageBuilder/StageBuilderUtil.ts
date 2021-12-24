@@ -187,7 +187,7 @@ export const mayBeStripCIProps = (pipeline: PipelineInfoConfig): boolean => {
 export const removeNodeFromPipeline = (
   nodeResponse: { stage?: StageElementWrapperConfig; parent?: StageElementWrapperConfig },
   data: PipelineInfoConfig,
-  stageMap: Map<string, StageState>,
+  stageMap?: Map<string, StageState>,
   updateStateMap = true
 ): boolean => {
   const { stage: node, parent } = nodeResponse
@@ -196,7 +196,7 @@ export const removeNodeFromPipeline = (
     if (index > -1) {
       data?.stages?.splice(index, 1)
       if (updateStateMap) {
-        stageMap.delete(node.stage?.identifier || '')
+        stageMap?.delete(node.stage?.identifier || '')
 
         data.stages?.map(currentStage => {
           const spec = currentStage.stage?.spec as DeploymentStageConfig
@@ -221,7 +221,9 @@ export const removeNodeFromPipeline = (
             data?.stages?.splice(oneStageParallel, 1, parent.parallel[0])
           }
         }
-        updateStateMap && stageMap.delete(node.stage?.identifier || '')
+        if (updateStateMap) {
+          stageMap?.delete(node.stage?.identifier || '')
+        }
         return true
       }
     }

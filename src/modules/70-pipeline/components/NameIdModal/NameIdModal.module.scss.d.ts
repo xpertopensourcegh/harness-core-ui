@@ -2,5 +2,6 @@
 // this is an auto-generated file
 declare const styles: {
   readonly container: string
+  readonly addStageHeading: string
 }
 export default styles

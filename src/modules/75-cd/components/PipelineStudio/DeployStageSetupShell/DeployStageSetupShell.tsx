@@ -23,7 +23,6 @@ import { useQueryParams } from '@common/hooks'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
-import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
 import { isCustomGeneratedString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
@@ -50,7 +49,7 @@ const TabsOrder = [
 
 export default function DeployStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
-  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES) && isStageTemplateEnabled()
+  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const layoutRef = React.useRef<HTMLDivElement>(null)
   const { errorMap } = useValidationErrors()
   const pipelineContext = usePipelineContext()
@@ -111,7 +110,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const [showNameIdModal, hideNameIdModal] = useModalHook(
     () => (
-      <Dialog enforceFocus={false} isOpen className={Classes.DIALOG}>
+      <Dialog enforceFocus={false} isOpen className={cx(Classes.DIALOG, css.templateNameDialog)}>
         <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
       </Dialog>
     ),

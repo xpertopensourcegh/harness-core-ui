@@ -200,6 +200,7 @@ export const TemplatesListView: React.FC<TemplatesViewProps> = (props): JSX.Elem
       data={data?.content || []}
       onRowClick={item => onSelect(item)}
       pagination={{
+        className: css.pagination,
         itemCount: data?.totalElements || 0,
         pageSize: data?.size || 10,
         pageCount: data?.totalPages || -1,

@@ -75,7 +75,7 @@ const DEFAULT_MOVE_STAGE_DETAILS: MoveStageDetailsType = {
   direction: MoveDirection.AHEAD,
   event: undefined
 }
-const initializeStageStateMap = (pipeline: PipelineInfoConfig, mapState: StageStateMap): void => {
+export const initializeStageStateMap = (pipeline: PipelineInfoConfig, mapState: StageStateMap): void => {
   /* istanbul ignore else */ if (pipeline?.stages) {
     pipeline.stages.forEach?.(node => {
       if (node?.stage && node.stage.name !== EmptyStageName) {

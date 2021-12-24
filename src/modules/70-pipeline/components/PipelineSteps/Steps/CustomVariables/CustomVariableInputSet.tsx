@@ -70,11 +70,11 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
         template?.variables?.map((templateVariable: AllNGVariables, index: number) => {
           const pipelineVariable = allValues?.variables?.find(
             (variable: AllNGVariables) => variable.name === templateVariable.name
-          ) as AllNGVariables
+          )
 
           return {
-            name: pipelineVariable.name,
-            type: pipelineVariable.type,
+            name: pipelineVariable?.name,
+            type: pipelineVariable?.type,
             value: VariablesFromFormik?.[index]?.value || pipelineVariable?.default || ''
           }
         }) || []

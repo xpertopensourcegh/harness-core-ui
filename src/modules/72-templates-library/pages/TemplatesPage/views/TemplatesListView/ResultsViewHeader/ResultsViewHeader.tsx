@@ -2,10 +2,10 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { Color, Container, DropDown, Layout, SelectOption, Text } from '@wings-software/uicore'
 import { Sort, SortFields } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useStrings } from 'framework/strings'
-import type { ResponsePageTemplateSummaryResponse } from 'services/template-ng'
+import type { PageTemplateSummaryResponse } from 'services/template-ng'
 
 export interface ResultsViewHeaderProps {
-  templateData: ResponsePageTemplateSummaryResponse
+  templateData: PageTemplateSummaryResponse
   setSort: Dispatch<SetStateAction<string[]>>
   setPage: Dispatch<SetStateAction<number>>
 }
@@ -35,7 +35,7 @@ export default function ResultsViewHeader(props: ResultsViewHeaderProps): React.
     <Container>
       <Layout.Horizontal spacing="large" padding={{ top: 'large', bottom: 'large' }} flex={{ alignItems: 'center' }}>
         <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
-          {getString('total')}: {templateData?.data?.totalElements}
+          {getString('total')}: {templateData?.totalElements}
         </Text>
         <DropDown
           items={getSortOptions()}

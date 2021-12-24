@@ -4,6 +4,7 @@ import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color, useModalHook } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { Classes, Dialog, Expander } from '@blueprintjs/core'
+import cx from 'classnames'
 import {
   PipelineContextType,
   usePipelineContext
@@ -29,7 +30,6 @@ import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
-import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
 import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
@@ -53,7 +53,7 @@ interface StagesFilledStateFlags {
 
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
-  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES) && isStageTemplateEnabled()
+  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const [selectedTabId, setSelectedTabId] = React.useState<BuildTabs>(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
@@ -149,7 +149,7 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   const [showNameIdModal, hideNameIdModal] = useModalHook(
     () => (
-      <Dialog enforceFocus={false} isOpen className={Classes.DIALOG}>
+      <Dialog enforceFocus={false} isOpen className={cx(Classes.DIALOG, css.templateNameDialog)}>
         <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
       </Dialog>
     ),

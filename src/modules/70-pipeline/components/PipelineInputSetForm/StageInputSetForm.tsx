@@ -79,7 +79,7 @@ function ServiceDependencyForm({
   )
 }
 
-function StepForm({
+export function StepForm({
   template,
   allValues,
   values,
@@ -87,7 +87,8 @@ function StepForm({
   readonly,
   viewType,
   path,
-  allowableTypes
+  allowableTypes,
+  hideTitle = false
 }: {
   template?: ExecutionWrapperConfig
   allValues?: ExecutionWrapperConfig
@@ -97,6 +98,7 @@ function StepForm({
   viewType?: StepViewType
   path: string
   allowableTypes: MultiTypeInputType[]
+  hideTitle?: boolean
 }): JSX.Element {
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -108,16 +110,18 @@ function StepForm({
 
   return (
     <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
-      <Label>
-        <Icon
-          padding={{ right: 'small' }}
-          {...(factory.getStepIconColor(type || '') ? { color: factory.getStepIconColor(type || '') } : {})}
-          style={{ color: factory.getStepIconColor(type || '') }}
-          name={factory.getStepIcon(type || /* istanbul ignore next */ '')}
-        />
-        {getString('pipeline.execution.stepTitlePrefix')}
-        {getString('pipeline.stepLabel', allValues?.step)}
-      </Label>
+      {!hideTitle && (
+        <Label>
+          <Icon
+            padding={{ right: 'small' }}
+            {...(factory.getStepIconColor(type || '') ? { color: factory.getStepIconColor(type || '') } : {})}
+            style={{ color: factory.getStepIconColor(type || '') }}
+            name={factory.getStepIcon(type || /* istanbul ignore next */ '')}
+          />
+          {getString('pipeline.execution.stepTitlePrefix')}
+          {getString('pipeline.stepLabel', allValues?.step)}
+        </Label>
+      )}
       <div>
         <StepWidget<Partial<StepElementConfig>>
           factory={factory}
