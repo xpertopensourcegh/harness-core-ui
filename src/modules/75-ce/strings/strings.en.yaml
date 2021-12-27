@@ -6,6 +6,7 @@ common:
   budget: 'Budget'
 allRegions: 'All Regions'
 allClusters: 'All Clusters'
+noSavingsDataMessage: 'Savings data not computed yet'
 pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'

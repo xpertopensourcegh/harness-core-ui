@@ -3340,6 +3340,7 @@ export interface StringsMap {
   'ce.gridColumnSelector': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.noSavingsDataMessage': string
   'ce.nodeRecommendation.aks': string
   'ce.nodeRecommendation.compare': string
   'ce.nodeRecommendation.costPerHour': string

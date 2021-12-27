@@ -188,19 +188,20 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(5, 170, 182);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-teal800"
                     >
                       TOTAL SAVINGS TILL DATE
                     </p>
-                    <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
-                      level="1"
-                      style="color: rgb(5, 170, 182);"
-                    >
-                      $
-                      NaN
-                    </h1>
+                    <div>
+                      <img
+                        src="test-file-stub"
+                      />
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ce.noSavingsDataMessage
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -211,15 +212,13 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(89, 43, 170);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-purple700"
                     >
                       TOTAL SPEND TILL DATE
                     </p>
                     <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-purple700"
                       level="1"
-                      style="color: rgb(89, 43, 170);"
                     >
                       $
                       NaN
@@ -868,19 +867,20 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(5, 170, 182);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-teal800"
                     >
                       TOTAL SAVINGS TILL DATE
                     </p>
-                    <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
-                      level="1"
-                      style="color: rgb(5, 170, 182);"
-                    >
-                      $
-                      NaN
-                    </h1>
+                    <div>
+                      <img
+                        src="test-file-stub"
+                      />
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ce.noSavingsDataMessage
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -891,15 +891,13 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(89, 43, 170);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-purple700"
                     >
                       TOTAL SPEND TILL DATE
                     </p>
                     <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-purple700"
                       level="1"
-                      style="color: rgb(89, 43, 170);"
                     >
                       $
                       NaN
@@ -1548,19 +1546,20 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(5, 170, 182);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-teal800"
                     >
                       TOTAL SAVINGS TILL DATE
                     </p>
-                    <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
-                      level="1"
-                      style="color: rgb(5, 170, 182);"
-                    >
-                      $
-                      NaN
-                    </h1>
+                    <div>
+                      <img
+                        src="test-file-stub"
+                      />
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ce.noSavingsDataMessage
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -1571,15 +1570,13 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(89, 43, 170);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-purple700"
                     >
                       TOTAL SPEND TILL DATE
                     </p>
                     <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-purple700"
                       level="1"
-                      style="color: rgb(89, 43, 170);"
                     >
                       $
                       NaN
