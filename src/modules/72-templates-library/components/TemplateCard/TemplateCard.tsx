@@ -71,6 +71,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
                 showTooltip={true}
                 entityName={template.name}
                 entityType={'Template'}
+                showInvalidText={true}
               />
             )}
           </Layout.Horizontal>

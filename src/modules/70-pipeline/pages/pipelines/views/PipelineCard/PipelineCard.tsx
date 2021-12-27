@@ -237,6 +237,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                 showTooltip={true}
                 entityName={pipeline.name}
                 entityType={'Pipeline'}
+                showInvalidText={true}
               />
             )}
           </Layout.Horizontal>
