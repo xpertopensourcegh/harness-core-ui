@@ -10,7 +10,7 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, merge, set } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import { parse } from 'yaml'
@@ -22,12 +22,13 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import type { TemplateConfig, TemplateStepData } from '@pipeline/utils/tempates'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { PipelineGovernanceView } from '@governance/PipelineGovernanceView'
 import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
+import { getScopeBasedTemplateRef } from '@pipeline/utils/templateUtils'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -132,7 +133,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     updatePipelineView,
     getStageFromPipeline,
     stepsFactory,
-    setSelectedStepId
+    setSelectedStepId,
+    setTemplateTypes
   } = usePipelineContext()
   const { type, data, ...restDrawerProps } = drawerData
   const { trackEvent } = useTelemetry()
@@ -544,25 +546,32 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       onCopyTemplate: async (copiedTemplate: TemplateSummaryResponse) => {
         closeTemplateSelector()
         const node = drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData
-        const processNode: StepElementConfig = merge(
-          produce({} as StepElementConfig, draft => {
-            draft.name = node?.name || ''
-            draft.identifier = node?.identifier || ''
-          }),
-          parse(copiedTemplate?.yaml || '').template.spec
+        const processNode = produce(
+          defaultTo(parse(copiedTemplate?.yaml || '').template.spec, {}) as StepElementConfig,
+          draft => {
+            draft.name = defaultTo(node?.name, '')
+            draft.identifier = defaultTo(node?.identifier, '')
+          }
         )
         await updateNode(processNode)
         formikRef.current?.resetForm()
       },
-      onUseTemplate: async (templateConfig: TemplateConfig) => {
+      onUseTemplate: async (templateSummary: TemplateSummaryResponse) => {
         closeTemplateSelector()
         const node = drawerData.data?.stepConfig?.node
         const processNode = produce({} as TemplateStepData, draft => {
-          draft.name = node?.name || ''
-          draft.identifier = node?.identifier || ''
-          draft.template = templateConfig
+          draft.name = defaultTo(node?.name, '')
+          draft.identifier = defaultTo(node?.identifier, '')
+          set(draft, 'template.templateRef', getScopeBasedTemplateRef(templateSummary))
+          if (templateSummary.versionLabel) {
+            set(draft, 'template.versionLabel', templateSummary.versionLabel)
+          }
         })
         await updateNode(processNode)
+        if (templateSummary?.identifier && templateSummary?.childType) {
+          templateTypes[templateSummary.identifier] = templateSummary.childType
+          setTemplateTypes(templateTypes)
+        }
       }
     })
   }

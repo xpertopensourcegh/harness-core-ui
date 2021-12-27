@@ -24,7 +24,7 @@ import { useStrings } from 'framework/strings'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
-import { DefaultNewVersionLabel } from 'framework/Templates/templates'
+import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import css from './TemplateInputs.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -51,7 +51,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
       accountIdentifier: defaultTo(template.accountId, ''),
       orgIdentifier: template.orgIdentifier,
       projectIdentifier: template.projectIdentifier,
-      versionLabel: template.versionLabel === DefaultNewVersionLabel ? '' : defaultTo(template.versionLabel, '')
+      versionLabel: defaultTo(template.versionLabel, '')
     }
   })
 
@@ -95,8 +95,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
               <Container>
                 <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'xxxlarge'}>
                   <Text font={{ size: 'normal', weight: 'bold' }} color={Color.GREY_800}>
-                    {template.identifier}:{' '}
-                    {template.versionLabel === DefaultNewVersionLabel ? 'Stable' : template.versionLabel}
+                    {getTemplateNameWithLabel(template)}
                   </Text>
                   <Text className={css.inputsCount} font={{ size: 'small' }}>
                     {getString('templatesLibrary.inputsCount', { count })}

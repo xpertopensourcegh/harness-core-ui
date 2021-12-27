@@ -3,6 +3,7 @@ import { Color, Utils } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import produce from 'immer'
+import { parse } from 'yaml'
 import type {
   StageElementWrapperConfig,
   PageConnectorResponse,
@@ -17,6 +18,7 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import type { StageType } from '@pipeline/utils/stageHelpers'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { TemplateSummaryResponse } from 'services/template-ng'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../PipelineContext/helpers'
@@ -48,6 +50,10 @@ export interface PopoverData {
   onClickGroupStage?: (stageId: string, type: StageType) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
   isHoverView?: boolean
+  templateTypes: { [key: string]: string }
+  setTemplateTypes: (data: { [key: string]: string }) => void
+  openTemplateSelector: (selectorData: any) => void
+  closeTemplateSelector: () => void
 }
 
 export const getStageIndexByIdentifier = (
@@ -72,6 +78,19 @@ export const getStageIndexByIdentifier = (
     }
   }
   return stageDetails
+}
+
+export const getNewStageFromTemplate = (
+  template: TemplateSummaryResponse,
+  clearDefaultValues = false
+): StageElementWrapperConfig => {
+  return {
+    stage: {
+      ...parse(template?.yaml || '')?.template.spec,
+      name: clearDefaultValues ? '' : EmptyStageName,
+      identifier: clearDefaultValues ? '' : uuid()
+    }
+  }
 }
 
 export const getNewStageFromType = (type: string, clearDefaultValues = false): StageElementWrapperConfig => {

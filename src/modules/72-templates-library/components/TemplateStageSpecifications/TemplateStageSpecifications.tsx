@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { debounce, defaultTo, noop, set } from 'lodash-es'
+import { debounce, defaultTo, isEqual, merge, noop, set } from 'lodash-es'
 import { Card, Color, Container, Formik, FormikForm, Heading, Layout, PageError } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -76,13 +76,19 @@ export const TemplateStageSpecifications = (): JSX.Element => {
   })
 
   React.useEffect(() => {
-    try {
-      setInputSetTemplate(parse(defaultTo(templateInputYaml?.data, '')))
-      submitFormsForTab(TemplateTabs.OVERVIEW)
-    } catch (error) {
-      showError(error.message, undefined, 'template.parse.inputSet.error')
+    if (!loading && stage?.stage) {
+      try {
+        const templateInputs = parse(defaultTo(templateInputYaml?.data, ''))
+        setInputSetTemplate(templateInputs)
+        if (!isEqual(templateInputs, stage?.stage.template?.templateInputs)) {
+          set(stage, 'stage.template.templateInputs', merge({}, templateInputs, stage?.stage.template?.templateInputs))
+          updateStage(stage.stage)
+        }
+      } catch (error) {
+        showError(error.message, undefined, 'template.parse.inputSet.error')
+      }
     }
-  }, [templateInputYaml?.data])
+  }, [templateInputYaml?.data, loading])
 
   React.useEffect(() => {
     subscribeForm({ tab: TemplateTabs.OVERVIEW, form: formikRef })
@@ -109,7 +115,7 @@ export const TemplateStageSpecifications = (): JSX.Element => {
     <Container className={css.serviceOverrides} height={'100%'} background={Color.FORM_BG}>
       {loading && <PageSpinner />}
       {!loading && inputSetError && <PageError message={inputSetError.message} onClick={() => refetch()} />}
-      {!loading && !inputSetError && inputSetTemplate && stage?.stage?.template && (
+      {!loading && !inputSetError && inputSetTemplate && stage?.stage?.template?.templateInputs && (
         <>
           <ErrorsStripBinded />
           <Container className={css.contentSection}>
@@ -127,7 +133,9 @@ export const TemplateStageSpecifications = (): JSX.Element => {
               onSubmit={noop}
               validate={validateForm}
               validationSchema={Yup.object().shape({
-                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+                name: NameSchema({
+                  requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError')
+                }),
                 identifier: IdentifierSchema()
               })}
             >

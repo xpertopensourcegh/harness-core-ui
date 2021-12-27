@@ -1,12 +1,12 @@
-import { defaultTo, get, merge } from 'lodash-es'
+import { defaultTo, set } from 'lodash-es'
 import { parse } from 'yaml'
 import produce from 'immer'
 import { useCallback } from 'react'
 import type { StageElementConfig, TemplateLinkConfig } from 'services/cd-ng'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
+import { getScopeBasedTemplateRef, getStageType } from '@pipeline/utils/templateUtils'
 
 interface TemplateActionsReturnType {
   onUseTemplate: (templateConfig: TemplateLinkConfig) => Promise<void>
@@ -21,6 +21,7 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
       selectionState: { selectedStageId = '' },
       templateTypes
     },
+    setTemplateTypes,
     updateStage,
     getStageFromPipeline
   } = usePipelineContext()
@@ -28,29 +29,34 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
   const { stage } = getStageFromPipeline(selectedStageId)
 
   const onUseTemplate = useCallback(
-    async (templateConfig: TemplateLinkConfig) => {
+    async (template: TemplateSummaryResponse) => {
       closeTemplateSelector()
-      const node = stage?.stage
-      const processNode = produce({} as StageElementConfig, draft => {
-        draft.name = node?.name || ''
-        draft.identifier = node?.identifier || ''
-        draft.template = templateConfig
+      const processNode = produce(stage?.stage as StageElementConfig, draft => {
+        delete draft.template
+        set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
+        if (template.versionLabel) {
+          set(draft, 'template.versionLabel', template.versionLabel)
+        }
       })
       await updateStage(processNode)
+      if (template?.identifier && template?.childType) {
+        templateTypes[template.identifier] = template.childType
+        setTemplateTypes(templateTypes)
+      }
     },
     [closeTemplateSelector, stage?.stage, updateStage]
   )
 
   const onCopyTemplate = useCallback(
-    async (copiedTemplate: TemplateSummaryResponse) => {
+    async (template: TemplateSummaryResponse) => {
       closeTemplateSelector()
       const node = stage?.stage
-      const processNode = merge(
-        produce({} as StageElementConfig, draft => {
-          draft.name = node?.name || ''
-          draft.identifier = node?.identifier || ''
-        }),
-        parse(copiedTemplate?.yaml || '')?.template.spec
+      const processNode = produce(
+        defaultTo(parse(template?.yaml || '')?.template.spec, {}) as StageElementConfig,
+        draft => {
+          draft.name = defaultTo(node?.name, '')
+          draft.identifier = defaultTo(node?.identifier, '')
+        }
       )
       await updateStage(processNode)
     },
@@ -58,13 +64,10 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
   )
 
   const onOpenTemplateSelector = useCallback(() => {
-    const stageType =
-      stage?.stage?.type ||
-      get(templateTypes, getIdentifierFromValue(defaultTo(stage?.stage?.template?.templateRef, '')))
     const selectedTemplateRef = stage?.stage?.template?.templateRef || ''
     openTemplateSelector({
       templateType: 'Stage',
-      childTypes: [stageType],
+      childTypes: [getStageType(stage?.stage, templateTypes)],
       selectedTemplateRef: selectedTemplateRef,
       onUseTemplate,
       onCopyTemplate
@@ -74,9 +77,9 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
   const onRemoveTemplate = useCallback(async () => {
     const node = stage?.stage
     const processNode = produce({} as StageElementConfig, draft => {
-      draft.name = node?.name || ''
-      draft.identifier = node?.identifier || ''
-      draft.type = get(templateTypes, getIdentifierFromValue(defaultTo(node?.template?.templateRef, '')))
+      draft.name = defaultTo(node?.name, '')
+      draft.identifier = defaultTo(node?.identifier, '')
+      draft.type = getStageType(stage?.stage, templateTypes)
     })
     await updateStage(processNode)
   }, [stage?.stage, templateTypes, updateStage])

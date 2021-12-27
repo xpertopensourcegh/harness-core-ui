@@ -15,9 +15,11 @@ const StageTemplateForm = (_props: unknown, formikRef: TemplateFormRef) => {
   } = React.useContext(TemplateContext)
   const {
     state: {
-      selectionState: { selectedStageId }
+      selectionState: { selectedStageId },
+      templateTypes
     },
     contextType,
+    setTemplateTypes,
     renderPipelineStage,
     getStageFromPipeline
   } = usePipelineContext()
@@ -47,7 +49,11 @@ const StageTemplateForm = (_props: unknown, formikRef: TemplateFormRef) => {
       {renderPipelineStage({
         stageType: selectedStage?.stage?.stage?.type,
         minimal: false,
-        contextType
+        contextType,
+        templateTypes,
+        setTemplateTypes,
+        openTemplateSelector: noop,
+        closeTemplateSelector: noop
       })}
     </Container>
   )

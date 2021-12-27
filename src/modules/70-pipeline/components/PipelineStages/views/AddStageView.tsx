@@ -1,21 +1,14 @@
 import React from 'react'
 import { ButtonSize, ButtonVariation, Card, Icon, IconName, Layout, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import produce from 'immer'
-import { defaultTo, set } from 'lodash-es'
-import { parse } from 'yaml'
 import { useStrings } from 'framework/strings'
 import { ComingSoonIcon } from '@common/components/ComingSoonIcon/ComingSoonIcon'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { StageActions } from '@common/constants/TrackingConstants'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import type { TemplateLinkConfig } from 'services/cd-ng'
-import type { TemplateSummaryResponse } from 'services/template-ng'
-import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
 import { PipelineContextType } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { generateRandomString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import RbacButton from '@rbac/components/Button/Button'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { PipelineStageProps } from '../PipelineStage'
@@ -23,12 +16,12 @@ import EmptyStageView from './EmptyStageView'
 import StageHoverView from './StageHoverView'
 import css from './AddStageView.module.scss'
 
-export interface AddStageViewProps<T = Record<string, unknown>> {
+export interface AddStageViewProps {
   callback: (type: string) => void
   stages: Array<PipelineStageProps>
   isParallel?: boolean
   contextType?: string
-  onSelectStage?: (selectedStage?: T) => void
+  onOpenTemplateSelector?: () => void
 }
 
 export interface SelectedAddStageTypeData {
@@ -40,50 +33,17 @@ export interface SelectedAddStageTypeData {
   isComingSoon?: boolean
 }
 
-export function AddStageView<T>({
+export function AddStageView({
   callback,
   isParallel = false,
   stages,
   contextType,
-  onSelectStage
-}: AddStageViewProps<T>): JSX.Element {
+  onOpenTemplateSelector
+}: AddStageViewProps): JSX.Element {
   const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
-  const { openTemplateSelector, closeTemplateSelector } = useTemplateSelector()
   const [selectedType, setSelectedType] = React.useState<SelectedAddStageTypeData | undefined>(undefined)
-
-  const onUseTemplate = React.useCallback(
-    (template: TemplateLinkConfig) => {
-      closeTemplateSelector()
-      const processNode = produce({}, draft => {
-        set(draft, 'stage.identifier', generateRandomString(template.templateRef))
-        set(draft, 'stage.template', template)
-      }) as T
-      onSelectStage?.(processNode)
-    },
-    [closeTemplateSelector, onSelectStage]
-  )
-
-  const onCopyTemplate = React.useCallback(
-    (copiedTemplate: TemplateSummaryResponse) => {
-      closeTemplateSelector()
-      const processNode = produce({}, draft => {
-        set(draft, 'stage', parse(copiedTemplate?.yaml || '')?.template.spec)
-        set(draft, 'stage.identifier', generateRandomString(defaultTo(copiedTemplate.identifier, '')))
-      }) as T
-      onSelectStage?.(processNode)
-    },
-    [closeTemplateSelector, onSelectStage]
-  )
-
-  const onOpenTemplateSelector = React.useCallback(() => {
-    openTemplateSelector({
-      templateType: 'Stage',
-      onUseTemplate,
-      onCopyTemplate
-    })
-  }, [openTemplateSelector, onUseTemplate, onCopyTemplate])
 
   return (
     <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>

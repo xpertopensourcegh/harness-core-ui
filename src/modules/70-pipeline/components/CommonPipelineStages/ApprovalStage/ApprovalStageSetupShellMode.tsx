@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import YAML from 'yaml'
 import produce from 'immer'
-import { Button, Color, Icon, Layout, Tab, Tabs, useModalHook } from '@wings-software/uicore'
-import { Classes, Dialog, Expander } from '@blueprintjs/core'
-import { defaultTo } from 'lodash-es'
-import cx from 'classnames'
+import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
+import { Expander } from '@blueprintjs/core'
 import {
   PipelineContextType,
   usePipelineContext
@@ -17,8 +15,6 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
-import { isCustomGeneratedString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
-import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import ApprovalAdvancedSpecifications from './ApprovalStageAdvanced'
@@ -111,21 +107,6 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
       }
     }
   }, [yamlSnippet?.data])
-
-  const [showNameIdModal, hideNameIdModal] = useModalHook(
-    () => (
-      <Dialog enforceFocus={false} isOpen className={cx(Classes.DIALOG, css.templateNameDialog)}>
-        <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
-      </Dialog>
-    ),
-    [pipelineContext]
-  )
-
-  useEffect(() => {
-    if (isCustomGeneratedString(defaultTo(selectedStage?.stage?.identifier, ''))) {
-      showNameIdModal()
-    }
-  }, [selectedStage?.stage])
 
   return (
     <section ref={layoutRef} key={selectedStageId} className={css.approvalStageSetupShellWrapper}>

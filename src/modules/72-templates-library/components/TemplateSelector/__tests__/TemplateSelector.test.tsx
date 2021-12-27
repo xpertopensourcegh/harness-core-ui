@@ -9,7 +9,6 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer/__tests__/stateMock'
 import { mockTemplates } from '@templates-library/TemplatesTestHelper'
 import type { TemplateDetailsProps } from '@templates-library/components/TemplateDetails/TemplateDetails'
-import { getTemplateInputSetYamlPromise } from 'services/template-ng'
 import { TemplateSelector } from '../TemplateSelector'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -20,17 +19,6 @@ jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageServi
 jest.mock('@common/hooks', () => ({
   ...(jest.requireActual('@common/hooks') as any),
   useMutateAsGet: jest.fn()
-}))
-
-jest.mock('services/template-ng', () => ({
-  getTemplateInputSetYamlPromise: jest.fn().mockImplementation(() =>
-    Promise.resolve({
-      status: 'SUCCESS',
-      data: '',
-      metaData: null,
-      correlationId: 'd9df6311-b6a4-44de-a6b4-504bf0036ba2'
-    })
-  )
 }))
 
 jest.mock('@templates-library/components/TemplateSelector/TemplateSelectorLeftView/TemplateSelectorLeftView', () => ({
@@ -99,7 +87,6 @@ describe('<TemplateSelector /> tests', () => {
     await act(async () => {
       fireEvent.click(useBtn)
     })
-    expect(getTemplateInputSetYamlPromise).toBeCalled()
     expect(context.state.templateView.templateDrawerData.data?.selectorData?.onUseTemplate).toBeCalled()
   })
 })

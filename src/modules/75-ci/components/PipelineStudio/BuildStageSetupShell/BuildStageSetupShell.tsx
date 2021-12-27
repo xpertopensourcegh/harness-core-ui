@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
-import cx from 'classnames'
-import { Classes, Dialog, Expander } from '@blueprintjs/core'
-import { cloneDeep, isEmpty, isEqual, set, get, defaultTo } from 'lodash-es'
+import React from 'react'
+import { Expander } from '@blueprintjs/core'
+import { cloneDeep, isEmpty, isEqual, set, get } from 'lodash-es'
 import produce from 'immer'
-import { Tabs, Tab, Icon, Button, Layout, Color, ButtonVariation, useModalHook } from '@wings-software/uicore'
+import { Tabs, Tab, Icon, Button, Layout, Color, ButtonVariation } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { useFeatureFlags, useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import {
@@ -19,7 +18,6 @@ import ExecutionGraph, {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
 import {
   generateRandomString,
-  isCustomGeneratedString,
   STATIC_SERVICE_GROUP_NAME,
   StepType
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
@@ -30,7 +28,6 @@ import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml, VmInfraYaml, VmPoolYaml } from 'services/ci'
 import { FeatureFlag } from '@common/featureFlags'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
-import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
@@ -149,21 +146,6 @@ export default function BuildStageSetupShell(): JSX.Element {
   const originalStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
   const executionHasWarning = !filledUpStages.execution
-
-  const [showNameIdModal, hideNameIdModal] = useModalHook(
-    () => (
-      <Dialog enforceFocus={false} isOpen className={cx(Classes.DIALOG, css.templateNameDialog)}>
-        <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
-      </Dialog>
-    ),
-    [pipelineContext]
-  )
-
-  useEffect(() => {
-    if (isCustomGeneratedString(defaultTo(selectedStage?.stage?.identifier, ''))) {
-      showNameIdModal()
-    }
-  }, [selectedStage?.stage])
 
   // NOTE: set empty arrays, required by ExecutionGraph
   const selectedStageClone = cloneDeep(selectedStage)

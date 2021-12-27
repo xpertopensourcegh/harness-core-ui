@@ -1,7 +1,8 @@
 import React from 'react'
+import { defaultTo } from 'lodash-es'
 import { useDeepCompareEffect } from '@common/hooks'
 import type { PipelineInfoConfig } from 'services/cd-ng'
-import { StageType } from '@pipeline/utils/stageHelpers'
+import type { TemplateSummaryResponse } from 'services/template-ng'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
@@ -11,10 +12,15 @@ export interface PipelineStagesProps<T = Record<string, unknown>> {
   stageType?: string
   isParallel?: boolean
   getNewStageFromType?: (type: string, clearDefaultValues?: boolean) => T
+  getNewStageFromTemplate?: (template: TemplateSummaryResponse, clearDefaultValues?: boolean) => T
   stageProps?: T
   onSelectStage?: (stageType: string, stage?: T, pipeline?: PipelineInfoConfig) => void
   showSelectMenu?: boolean
   contextType?: string
+  templateTypes: { [key: string]: string }
+  setTemplateTypes: (data: { [key: string]: string }) => void
+  openTemplateSelector: (selectorData: any) => void
+  closeTemplateSelector: () => void
 }
 
 interface PipelineStageMap extends Omit<PipelineStageProps, 'minimal'> {
@@ -28,11 +34,17 @@ export function PipelineStages<T = Record<string, unknown>>({
   contextType,
   onSelectStage,
   getNewStageFromType,
+  getNewStageFromTemplate,
   stageType,
   stageProps,
-  minimal = false
+  minimal = false,
+  templateTypes,
+  setTemplateTypes,
+  openTemplateSelector,
+  closeTemplateSelector
 }: PipelineStagesProps<T>): JSX.Element {
   const [stages, setStages] = React.useState<Map<string, PipelineStageMap>>(new Map())
+  const [template, setTemplate] = React.useState<TemplateSummaryResponse>()
 
   React.useLayoutEffect(() => {
     const stagesLocal: Map<string, PipelineStageMap> = new Map()
@@ -48,6 +60,7 @@ export function PipelineStages<T = Record<string, unknown>>({
 
   const [showMenu, setShowMenu] = React.useState(showSelectMenu)
   const [type, setType] = React.useState(stageType)
+  const [stageData, setStageData] = React.useState<T>()
 
   React.useEffect(() => {
     if (stageType) {
@@ -69,24 +82,62 @@ export function PipelineStages<T = Record<string, unknown>>({
     window.dispatchEvent(new CustomEvent('UPDATE_POPOVER_POSITION'))
   }, [selected])
 
+  const onUseTemplate = React.useCallback(
+    (templateSummary: TemplateSummaryResponse) => {
+      closeTemplateSelector?.()
+      if (getNewStageFromType) {
+        setTemplate(templateSummary)
+        setShowMenu(false)
+        setType(templateSummary.childType)
+        setStageData(getNewStageFromType?.(templateSummary.childType || '', true))
+      } else {
+        onSelectStage?.(defaultTo(templateSummary.childType, ''))
+      }
+    },
+    [closeTemplateSelector, onSelectStage]
+  )
+
+  const onCopyTemplate = React.useCallback(
+    (templateSummary: TemplateSummaryResponse) => {
+      closeTemplateSelector?.()
+      if (getNewStageFromType) {
+        setShowMenu(false)
+        setType(templateSummary.childType)
+        setStageData(getNewStageFromTemplate?.(templateSummary, true))
+      } else {
+        onSelectStage?.(defaultTo(templateSummary.childType, ''))
+      }
+    },
+    [closeTemplateSelector, onSelectStage]
+  )
+
+  const onOpenTemplateSelector = React.useCallback(() => {
+    openTemplateSelector?.({
+      templateType: 'Stage',
+      onUseTemplate,
+      onCopyTemplate
+    })
+  }, [openTemplateSelector, onUseTemplate, onCopyTemplate])
+
   const selectedStageIndex = selected?.index || 0
   const stage = React.Children.toArray(children)[selectedStageIndex] as React.ReactElement<PipelineStageProps>
   return (
     <>
       {showSelectMenu && showMenu && (
-        <AddStageView<T>
+        <AddStageView
           stages={[...stages].map(item => item[1])}
           isParallel={isParallel}
           contextType={contextType}
-          onSelectStage={(selectedStage?: T) => onSelectStage?.(StageType.Template, selectedStage)}
           callback={selectedType => {
             if (getNewStageFromType) {
               setShowMenu(false)
               setType(selectedType)
+              setStageData(getNewStageFromType?.(selectedType, true))
             } else {
               onSelectStage?.(selectedType)
             }
           }}
+          onOpenTemplateSelector={onOpenTemplateSelector}
         />
       )}
       {!showSelectMenu && selected && stage && (
@@ -99,15 +150,18 @@ export function PipelineStages<T = Record<string, unknown>>({
           })}
         </>
       )}
-      {!showMenu && showSelectMenu && type && stage && (
+      {!showMenu && showSelectMenu && type && stage && stageData && (
         <>
           {React.cloneElement(stage, {
             ...selected,
             minimal: true,
             stageProps: {
-              data: getNewStageFromType?.(type, true),
-              onSubmit: (stageData: T, _id?: string, pipeline?: PipelineInfoConfig) => {
-                onSelectStage?.(type, stageData, pipeline)
+              data: stageData,
+              template: template,
+              templateTypes,
+              setTemplateTypes,
+              onSubmit: (data: T, _id?: string, pipeline?: PipelineInfoConfig) => {
+                onSelectStage?.(type, data, pipeline)
               }
             }
           })}

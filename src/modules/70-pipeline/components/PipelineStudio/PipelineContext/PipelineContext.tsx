@@ -894,18 +894,15 @@ export const PipelineProvider: React.FC<{
   }, [])
 
   const updateStage = React.useCallback(
-    async (newStage: StageElementConfig, existingStage?: StageElementConfig) => {
+    async (newStage: StageElementConfig) => {
       function _updateStages(stages: StageElementWrapperConfig[]): StageElementWrapperConfig[] {
         return stages.map(node => {
-          if (node.parallel) {
+          if (node.stage?.identifier === newStage.identifier) {
+            return { stage: newStage }
+          } else if (node.parallel) {
             return {
               parallel: _updateStages(node.parallel)
             }
-          } else if (
-            node.stage?.identifier === newStage.identifier ||
-            node.stage?.identifier === existingStage?.identifier
-          ) {
-            return { stage: newStage }
           }
 
           return node

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { set } from 'lodash-es'
+import { noop, set } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'
@@ -40,7 +40,11 @@ describe('<StageTemplateFormWithRef /> tests', () => {
     expect(context.renderPipelineStage).toBeCalledWith({
       stageType: 'Deployment',
       minimal: false,
-      contextType: 'Template'
+      contextType: 'Template',
+      templateTypes: context.state.templateTypes,
+      setTemplateTypes: context.setTemplateTypes,
+      openTemplateSelector: noop,
+      closeTemplateSelector: noop
     })
   })
 })

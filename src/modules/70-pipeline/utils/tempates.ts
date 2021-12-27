@@ -7,7 +7,7 @@ import type { UseStringsReturn } from 'framework/strings'
 export interface TemplateConfig {
   templateRef: string
   versionLabel: string
-  templateInputs?: Omit<StepElementConfig, 'name' | 'identifier'>
+  templateInputs?: Partial<StepElementConfig>
 }
 
 export interface TemplateStepData {

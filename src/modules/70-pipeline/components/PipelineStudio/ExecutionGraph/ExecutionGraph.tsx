@@ -167,7 +167,7 @@ export interface ExecutionGraphProp<T extends StageElementConfig> {
   canvasButtonsLayout?: 'horizontal' | 'vertical'
   canvasButtonsTooltipPosition?: 'top' | 'left'
   pathToStage: string
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 
 function ExecutionGraphRef<T extends StageElementConfig>(

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
-import { defaultTo, set } from 'lodash-es'
+import { defaultTo, noop, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import {
   CreateNewModel,
@@ -42,10 +42,12 @@ export const StageTemplateDiagram = (): JSX.Element => {
     state: {
       pipeline,
       pipelineView,
-      selectionState: { selectedStageId }
+      selectionState: { selectedStageId },
+      templateTypes
     },
     contextType,
     stagesMap,
+    setTemplateTypes,
     updatePipeline,
     updatePipelineView,
     setSelection,
@@ -82,7 +84,11 @@ export const StageTemplateDiagram = (): JSX.Element => {
         isStageView: false,
         renderPipelineStage,
         stagesMap: stagesMap,
-        contextType
+        contextType,
+        templateTypes,
+        setTemplateTypes,
+        openTemplateSelector: noop,
+        closeTemplateSelector: noop
       },
       { useArrows: true, darkMode: false, fixedPosition: false, placement: 'bottom-start' }
     )

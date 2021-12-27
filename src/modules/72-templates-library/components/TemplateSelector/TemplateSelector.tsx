@@ -1,28 +1,11 @@
 import React, { useState } from 'react'
-import {
-  Button,
-  ButtonVariation,
-  Color,
-  Container,
-  Layout,
-  useConfirmationDialog,
-  useToaster
-} from '@wings-software/uicore'
-import { defaultTo, get, set } from 'lodash-es'
-import { useParams } from 'react-router-dom'
-import produce from 'immer'
-import { parse } from 'yaml'
+import { Button, ButtonVariation, Color, Container, Layout, useConfirmationDialog } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
-import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { Failure, getTemplateInputSetYamlPromise, TemplateSummaryResponse } from 'services/template-ng'
+import type { TemplateSummaryResponse } from 'services/template-ng'
 import { useStrings } from 'framework/strings'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
-import type { TemplateConfig } from '@pipeline/utils/tempates'
-import { DefaultNewVersionLabel } from 'framework/Templates/templates'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateSelectorLeftView } from '@templates-library/components/TemplateSelector/TemplateSelectorLeftView/TemplateSelectorLeftView'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
@@ -33,23 +16,13 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     state: {
       templateView: {
         templateDrawerData: { data }
-      },
-      templateTypes
-    },
-    setTemplateTypes
+      }
+    }
   } = usePipelineContext()
   const { onUseTemplate, onCopyTemplate, selectedTemplateRef } = data?.selectorData || {}
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
   const { getString } = useStrings()
-  const { accountId } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
-  const { showError } = useToaster()
-
-  const getScopeBasedTemplateRef = React.useCallback((template?: TemplateSummaryResponse) => {
-    const templateIdentifier = defaultTo(template?.identifier, '')
-    const scope = getScopeFromDTO(defaultTo(template, {}))
-    return scope === Scope.PROJECT ? templateIdentifier : `${scope}.${templateIdentifier}`
-  }, [])
 
   const getTemplateDetails: React.ReactElement = React.useMemo(() => {
     if (selectedTemplate) {
@@ -61,46 +34,30 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     }
   }, [selectedTemplate, setSelectedTemplate])
 
-  const submit = React.useCallback(async () => {
-    const templateIdentifier = defaultTo(selectedTemplate?.identifier, '')
-    const resp = await getTemplateInputSetYamlPromise({
-      templateIdentifier,
-      queryParams: {
-        accountIdentifier: accountId,
-        orgIdentifier: selectedTemplate?.orgIdentifier,
-        projectIdentifier: selectedTemplate?.projectIdentifier,
-        versionLabel:
-          selectedTemplate?.versionLabel === DefaultNewVersionLabel ? '' : defaultTo(selectedTemplate?.versionLabel, '')
-      }
-    })
-    if (resp.status === 'SUCCESS') {
-      set(templateTypes, templateIdentifier, selectedTemplate?.childType)
-      setTemplateTypes(templateTypes)
-      const templateConfig = produce({} as TemplateConfig, draft => {
-        draft.templateRef = getScopeBasedTemplateRef(selectedTemplate)
-        if (selectedTemplate?.versionLabel !== DefaultNewVersionLabel) {
-          draft.versionLabel = defaultTo(selectedTemplate?.versionLabel, '')
-        }
-        draft.templateInputs = parse(defaultTo(resp.data, ''))
-      })
-      onUseTemplate?.(templateConfig)
-    } else {
-      showError(get(resp, 'data.error', get(resp, 'data.message', (resp as Failure)?.message)))
-      timerRef.current?.('cancelled')
+  const onUseTemplateConfirm = React.useCallback(() => {
+    if (selectedTemplate) {
+      onUseTemplate?.(selectedTemplate)
     }
-  }, [selectedTemplate, accountId, onUseTemplate])
+  }, [selectedTemplate, onUseTemplate])
+
+  const onCopyTemplateConfirm = React.useCallback(() => {
+    if (selectedTemplate) {
+      onCopyTemplate?.(selectedTemplate)
+    }
+  }, [selectedTemplate, onCopyTemplate])
 
   const { openDialog: openChangeTemplateDialog } = useConfirmationDialog({
     intent: Intent.WARNING,
     cancelButtonText: getString('cancel'),
-    contentText: getString('pipeline.changeTemplate', { name: selectedTemplate?.name }),
+    contentText: getString('pipeline.changeTemplate', {
+      name: selectedTemplate?.name,
+      entity: selectedTemplate?.templateEntityType?.toLowerCase()
+    }),
     titleText: `Change to Template ${selectedTemplate?.name}?`,
     confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
-        await submit()
-      } else {
-        timerRef.current?.('')
+        onUseTemplateConfirm()
       }
     }
   })
@@ -112,32 +69,27 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     titleText: `Copy Template ${selectedTemplate?.name}?`,
     confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
-      if (isConfirmed && selectedTemplate) {
-        onCopyTemplate?.(selectedTemplate)
+      if (isConfirmed) {
+        onCopyTemplateConfirm()
       }
     }
   })
 
-  const timerRef = React.useRef<((reason: any) => void) | null>(null)
-
   const onUseTemplateClick = React.useCallback(async () => {
     if (selectedTemplateRef) {
       openChangeTemplateDialog()
-      await new Promise(function (_resolve, reject) {
-        timerRef.current = reject
-      })
     } else {
-      await submit()
+      onUseTemplateConfirm()
     }
-  }, [selectedTemplateRef, openChangeTemplateDialog, submit])
+  }, [selectedTemplateRef, openChangeTemplateDialog, onUseTemplateConfirm])
 
   const onCopyTemplateClick = React.useCallback(async () => {
     if (selectedTemplateRef) {
       openCopyTemplateDialog()
-    } else if (selectedTemplate) {
-      onCopyTemplate?.(selectedTemplate)
+    } else {
+      onCopyTemplateConfirm()
     }
-  }, [selectedTemplateRef, selectedTemplate, onCopyTemplate])
+  }, [selectedTemplateRef, openCopyTemplateDialog, onCopyTemplateConfirm])
 
   return (
     <Container height={'100%'} className={css.container}>

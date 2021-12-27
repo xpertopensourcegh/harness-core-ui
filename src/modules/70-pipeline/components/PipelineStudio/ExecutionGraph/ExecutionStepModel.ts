@@ -49,7 +49,7 @@ export interface AddUpdateGraphProps {
   isReadonly: boolean
   parentPath: string
   errorMap: Map<string, string[]>
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 
 export interface RenderGraphStepNodesProps {
@@ -69,7 +69,7 @@ export interface RenderGraphStepNodesProps {
   getString?: UseStringsReturn['getString']
   parentPath: string
   errorMap: Map<string, string[]>
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 
 // VERTICAL CONFIGURATION
@@ -490,7 +490,8 @@ export class ExecutionStepModel extends DiagramModel {
           isParallelNode: true,
           isStepGroupNode,
           parentPath: `${parentPath}.parallel.${0}`,
-          errorMap
+          errorMap,
+          templateTypes
         })
       }
     } else if (node.stepGroup) {
@@ -589,7 +590,8 @@ export class ExecutionStepModel extends DiagramModel {
               isStepGroupNode: true,
               isFirstStepGroupNode: index === 0,
               parentPath: `${parentPath}.stepGroup.steps.${index}`,
-              errorMap
+              errorMap,
+              templateTypes
             })
             startX = resp.startX
             startY = resp.startY

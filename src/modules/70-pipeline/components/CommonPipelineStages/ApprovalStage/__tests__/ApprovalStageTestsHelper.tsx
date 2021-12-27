@@ -33,7 +33,11 @@ export const getPropsForMinimalStage = (): PipelineStagesProps<ApprovalStageMini
       type: '',
       key: 'approval'
     }
-  ]
+  ],
+  templateTypes: {},
+  setTemplateTypes: jest.fn(),
+  openTemplateSelector: jest.fn(),
+  closeTemplateSelector: jest.fn()
 })
 
 class StepFactory extends AbstractStepFactory {

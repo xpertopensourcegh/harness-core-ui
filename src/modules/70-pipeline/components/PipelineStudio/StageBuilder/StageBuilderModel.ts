@@ -1,8 +1,8 @@
 import { Color, IconName, Utils } from '@wings-software/uicore'
-import { defaultTo, get, isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/strings'
-import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import { getStageType } from '@pipeline/utils/templateUtils'
 import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
@@ -26,7 +26,7 @@ export interface AddUpdateGraphProps {
   splitPaneSize?: number
   parentPath: string
   errorMap: Map<string, string[]>
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 
 export interface StageBuilderConfiguration {
@@ -53,7 +53,7 @@ export interface RenderGraphNodeProps {
   isParallelNode?: boolean
   parentPath: string
   errorMap: Map<string, string[]>
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 
 export class StageBuilderModel extends DiagramModel {
@@ -104,13 +104,7 @@ export class StageBuilderModel extends DiagramModel {
     let { startX, prevNodes } = props
     if (node && node.stage) {
       const isTemplateStage = !!node.stage?.template
-      const stageType = defaultTo(
-        isTemplateStage
-          ? get(templateTypes, getIdentifierFromValue(defaultTo(node?.stage?.template?.templateRef, '')))
-          : node?.stage?.type,
-        ''
-      )
-      const type = stagesMap[stageType]
+      const type = stagesMap[getStageType(node?.stage, templateTypes)]
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
 
       startX += isFirstNode
@@ -179,7 +173,7 @@ export class StageBuilderModel extends DiagramModel {
           let isSelected = false
           const icons: Array<IconName> = []
           node.parallel.forEach(nodeP => {
-            const type = stagesMap[nodeP.stage?.type || '']
+            const type = stagesMap[getStageType(nodeP?.stage, templateTypes)]
             if (nodeP.stage?.identifier === selectedStageId) {
               parallelStageNames.unshift(nodeP.stage.name)
               icons.unshift(type.icon)

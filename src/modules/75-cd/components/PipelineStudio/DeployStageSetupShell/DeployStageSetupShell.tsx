@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
-import { Layout, Tabs, Tab, Button, Icon, ButtonVariation, useModalHook } from '@wings-software/uicore'
+import React from 'react'
+import { Layout, Tabs, Tab, Button, Icon, ButtonVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
-import { Classes, Dialog, Expander } from '@blueprintjs/core'
-import { defaultTo } from 'lodash-es'
+import { Expander } from '@blueprintjs/core'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -23,8 +22,6 @@ import { useQueryParams } from '@common/hooks'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
-import { isCustomGeneratedString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
-import { NameIdModal } from '@pipeline/components/NameIdModal/NameIdModal'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -107,21 +104,6 @@ export default function DeployStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   const { stage: data } = getStageFromPipeline(selectedStageId || '')
-
-  const [showNameIdModal, hideNameIdModal] = useModalHook(
-    () => (
-      <Dialog enforceFocus={false} isOpen className={cx(Classes.DIALOG, css.templateNameDialog)}>
-        <NameIdModal onClose={hideNameIdModal} context={pipelineContext} />
-      </Dialog>
-    ),
-    [pipelineContext]
-  )
-
-  useEffect(() => {
-    if (isCustomGeneratedString(defaultTo(data?.stage?.identifier, ''))) {
-      showNameIdModal()
-    }
-  }, [data?.stage])
 
   React.useEffect(() => {
     if (selectedTabId === DeployTabs.EXECUTION) {
