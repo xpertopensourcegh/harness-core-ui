@@ -2,12 +2,18 @@ import React from 'react'
 import { Color, Container, Icon, IconName, Layout, Popover, Text, useConfirmationDialog } from '@wings-software/uicore'
 import { Intent, Menu, Position } from '@blueprintjs/core'
 import cx from 'classnames'
+import { defaultTo } from 'lodash-es'
+import { useParams } from 'react-router-dom'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStageTemplateActions } from '@pipeline/utils/useStageTemplateActions'
 import { useStrings } from 'framework/strings'
 import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetTemplate } from 'services/template-ng'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import css from './StageTemplateBar.module.scss'
 
 interface TemplateMenuItem {
@@ -28,9 +34,21 @@ export const StageTemplateBar = (): JSX.Element => {
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const scope = getScopeFromValue(defaultTo(selectedStage?.stage?.template?.templateRef, ''))
   const { enabled: templatesEnabled } = useFeature({
     featureRequest: {
       featureName: FeatureIdentifier.TEMPLATE_SERVICE
+    }
+  })
+
+  const { data } = useGetTemplate({
+    templateIdentifier: getIdentifierFromValue(defaultTo(selectedStage?.stage?.template?.templateRef, '')),
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
+      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined,
+      versionLabel: defaultTo(selectedStage?.stage?.template?.versionLabel, '')
     }
   })
 
@@ -39,7 +57,7 @@ export const StageTemplateBar = (): JSX.Element => {
     buttonIntent: Intent.DANGER,
     cancelButtonText: getString('cancel'),
     contentText: getString('pipeline.removeTemplate'),
-    titleText: `${getString('common.remove')} ${getTemplateNameWithLabel(selectedStage?.stage?.template)}?`,
+    titleText: `${getString('common.remove')} ${getTemplateNameWithLabel(data?.data)}?`,
     confirmButtonText: getString('common.remove'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
@@ -74,7 +92,7 @@ export const StageTemplateBar = (): JSX.Element => {
       <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         <Icon size={11} color={Color.PRIMARY_7} name={'template-library'} />
         <Text style={{ flexGrow: 1 }} font={{ size: 'small' }} color={Color.BLACK}>
-          {`Using Template: ${getTemplateNameWithLabel(selectedStage?.stage?.template)}`}
+          {data?.data ? `Using Template: ${getTemplateNameWithLabel(data?.data)}` : getString('loading')}
         </Text>
         <Popover
           isOpen={menuOpen}
@@ -83,6 +101,7 @@ export const StageTemplateBar = (): JSX.Element => {
           }}
           position={Position.BOTTOM_RIGHT}
           className={css.main}
+          disabled={!data?.data}
           portalClassName={css.popover}
         >
           <Icon

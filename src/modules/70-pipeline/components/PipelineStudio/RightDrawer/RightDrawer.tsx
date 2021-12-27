@@ -538,11 +538,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     const stepType =
       (data?.stepConfig?.node as StepElementConfig)?.type ||
       get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepData).template.templateRef))
-    const selectedTemplateRef = (data?.stepConfig?.node as TemplateStepData)?.template?.templateRef || ''
     openTemplateSelector({
       templateType: 'Step',
       childTypes: [stepType],
-      selectedTemplateRef: selectedTemplateRef,
+      selectedTemplateRef: getIdentifierFromValue(
+        defaultTo((data?.stepConfig?.node as TemplateStepData)?.template?.templateRef, '')
+      ),
       onCopyTemplate: async (copiedTemplate: TemplateSummaryResponse) => {
         closeTemplateSelector()
         const node = drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData

@@ -30,7 +30,17 @@ jest.mock('services/template-ng', () => ({
   ...(jest.requireActual('services/template-ng') as any),
   useGetTemplateInputSetYaml: jest
     .fn()
-    .mockImplementation(() => ({ data: stageMockTemplatesInputYaml, refetch: jest.fn(), error: null, loading: false }))
+    .mockImplementation(() => ({ data: stageMockTemplatesInputYaml, refetch: jest.fn(), error: null, loading: false })),
+  useGetTemplate: jest.fn().mockImplementation(() => ({
+    status: 'SUCCESS',
+    data: {
+      data: {
+        name: 'New Stage Name',
+        identifier: 'new_stage_name',
+        versionLabel: 'v1'
+      }
+    }
+  }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -51,7 +61,7 @@ describe('<TemplateStageSpecifications /> tests', () => {
       identifier: DefaultNewStageId,
       template: {
         templateRef: 'new_stage_name',
-        versionLabel: 'Version2',
+        versionLabel: 'v1',
         templateInputs: {
           type: 'Deployment',
           spec: {

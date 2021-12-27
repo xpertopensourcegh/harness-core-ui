@@ -52,7 +52,7 @@ exports[`<TemplateStageSpecifications /> tests snapshot test 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
             style="flex-grow: 1;"
           >
-            Using Template: new_stage_name (Version2)
+            Using Template: New Stage Name (v1)
           </p>
           <span
             class="bp3-popover-wrapper main"

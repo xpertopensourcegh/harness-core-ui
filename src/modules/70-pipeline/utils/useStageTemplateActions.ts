@@ -7,6 +7,7 @@ import type { TemplateSummaryResponse } from 'services/template-ng'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
 import { getScopeBasedTemplateRef, getStageType } from '@pipeline/utils/templateUtils'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 
 interface TemplateActionsReturnType {
   onUseTemplate: (templateConfig: TemplateLinkConfig) => Promise<void>
@@ -64,11 +65,10 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
   )
 
   const onOpenTemplateSelector = useCallback(() => {
-    const selectedTemplateRef = stage?.stage?.template?.templateRef || ''
     openTemplateSelector({
       templateType: 'Stage',
       childTypes: [getStageType(stage?.stage, templateTypes)],
-      selectedTemplateRef: selectedTemplateRef,
+      selectedTemplateRef: getIdentifierFromValue(defaultTo(stage?.stage?.template?.templateRef, '')),
       onUseTemplate,
       onCopyTemplate
     })

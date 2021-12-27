@@ -45,7 +45,7 @@ exports[`<StageTemplateBar /> tests should match snapshot and work as expected 1
         class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
         style="flex-grow: 1;"
       >
-        Using Template: New_CD_Stage_Name (Version1)
+        Using Template: New Stage Name (v1)
       </p>
       <span
         class="bp3-popover-wrapper main"

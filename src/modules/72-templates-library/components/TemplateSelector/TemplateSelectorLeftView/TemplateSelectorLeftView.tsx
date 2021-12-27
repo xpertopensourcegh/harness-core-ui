@@ -75,7 +75,7 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
     ],
     []
   )
-  const [selectedScope, setSelectedScope] = useState<SelectOption>(scopeOptions[1])
+  const [selectedScope, setSelectedScope] = useState<SelectOption>(scopeOptions[0])
   const searchRef = React.useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
   const { orgId, projectId } = React.useMemo(() => {
     switch (selectedScope.value) {
@@ -224,6 +224,7 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
                         }}
                         items={getDropDownItems()}
                         addClearBtn={true}
+                        disabled={!!childTypes}
                         filterable={false}
                         placeholder={`${getString('typeLabel')}: ${getString('all')}`}
                         value={childType}
@@ -240,7 +241,7 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
             {!loading && error && (
               <PageError message={defaultTo((error.data as Error)?.message, error.message)} onClick={reloadTemplates} />
             )}
-            {!templateData?.data?.content?.length && (
+            {!loading && !error && !templateData?.data?.content?.length && (
               <NoResultsView
                 hasSearchParam={!!searchParam || !!childType}
                 onReset={reset}
@@ -250,7 +251,7 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
                 minimal={true}
               />
             )}
-            {!!templateData?.data?.content?.length && (
+            {!loading && !error && !!templateData?.data?.content?.length && (
               <Container style={{ flexGrow: 1 }}>
                 <TemplatesView
                   data={templateData?.data}

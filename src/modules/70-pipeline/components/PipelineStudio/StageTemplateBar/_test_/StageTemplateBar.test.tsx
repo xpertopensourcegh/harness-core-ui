@@ -19,6 +19,19 @@ jest.mock('@pipeline/utils/useStageTemplateActions', () => ({
   })
 }))
 
+jest.mock('services/template-ng', () => ({
+  useGetTemplate: jest.fn().mockImplementation(() => ({
+    status: 'SUCCESS',
+    data: {
+      data: {
+        name: 'New Stage Name',
+        identifier: 'new_stage_name',
+        versionLabel: 'v1'
+      }
+    }
+  }))
+}))
+
 describe('<StageTemplateBar /> tests', () => {
   test('should match snapshot and work as expected', async () => {
     const context = produce(pipelineContextMock, draft => {

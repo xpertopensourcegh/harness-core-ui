@@ -45,7 +45,6 @@ export const TemplateStageSpecifications = (): JSX.Element => {
   const { stage } = getStageFromPipeline(selectedStageId)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [inputSetTemplate, setInputSetTemplate] = React.useState<StageElementConfig>()
-  const templateIdentifier = getIdentifierFromValue(defaultTo(stage?.stage?.template?.templateRef, ''))
   const scope = getScopeFromValue(defaultTo(stage?.stage?.template?.templateRef, ''))
   const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
@@ -66,7 +65,7 @@ export const TemplateStageSpecifications = (): JSX.Element => {
     refetch,
     loading
   } = useGetTemplateInputSetYaml({
-    templateIdentifier,
+    templateIdentifier: getIdentifierFromValue(defaultTo(stage?.stage?.template?.templateRef, '')),
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
