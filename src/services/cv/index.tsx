@@ -738,6 +738,7 @@ export interface DatadogMetricHealthDefinition {
   isManualQuery?: boolean
   metric?: string
   metricName: string
+  metricPath?: string
   metricTags?: string[]
   query?: string
   riskProfile?: RiskProfile
@@ -2304,6 +2305,7 @@ export interface MonitoredServiceListItemDTO {
   name?: string
   serviceName?: string
   serviceRef?: string
+  sloHealthIndicators?: SloHealthIndicatorDTO[]
   tags?: {
     [key: string]: string
   }
@@ -2749,6 +2751,13 @@ export interface ResponseHistoricalTrend {
 export interface ResponseInputSetTemplateResponse {
   correlationId?: string
   data?: InputSetTemplateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseJsonNode {
+  correlationId?: string
+  data?: JsonNode
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3869,15 +3878,17 @@ export interface SLODashboardWidget {
   currentPeriodEndTime: number
   currentPeriodLengthDays: number
   currentPeriodStartTime: number
+  environmentIdentifier: string
   errorBudgetBurndown: Point[]
   errorBudgetRemaining: number
   errorBudgetRemainingPercentage: number
-  errorBudgetRisk: 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  errorBudgetRisk: 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED'
   healthSourceIdentifier: string
   healthSourceName: string
   monitoredServiceIdentifier: string
   monitoredServiceName: string
   recalculatingSLI?: boolean
+  serviceIdentifier: string
   sloIdentifier: string
   sloPerformanceTrend: Point[]
   sloTargetPercentage: number
@@ -4022,6 +4033,12 @@ export interface ServiceSummaryDetails {
   serviceName?: string
   serviceRef?: string
   type?: 'Application' | 'Infrastructure'
+}
+
+export interface SloHealthIndicatorDTO {
+  errorBudgetRemainingPercentage?: number
+  errorBudgetRisk?: 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED'
+  serviceLevelObjectiveIdentifier?: string
 }
 
 export interface Sources {

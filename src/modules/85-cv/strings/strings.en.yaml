@@ -480,6 +480,7 @@ monitoredServices:
         needsAttention: Needs attention
         observe: Observe
         healthy: Healthy
+        exhausted: Exhausted
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations

@@ -11,6 +11,7 @@ import ToggleOnOff from '@cv/pages/monitored-service/CVMonitoredService/componen
 import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
+import type { MonitoredServiceListItemDTO } from 'services/cv'
 import IconGrid from '../IconGrid/IconGrid'
 import {
   calculateChangePercentage,
@@ -22,15 +23,14 @@ import {
 import type { MonitoredServiceListViewProps } from '../../CVMonitoredService.types'
 import MonitoredServiceCategory from '../../../components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import { getListTitle } from './MonitoredServiceListView.utils'
-import type { NewMonitoredServiceListItemDTO } from './MonitoredServiceListView.types'
 import SLOsIconGrid from '../SLOsIconGrid/SLOsIconGrid'
 import css from '../../CVMonitoredService.module.scss'
 
-const CategoryProps: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => (
+const CategoryProps: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => (
   <MonitoredServiceCategory type={row.original.type} abbrText verticalAlign />
 )
 
-const RenderServiceName: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
+const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const monitoredService = row.original
 
@@ -66,7 +66,7 @@ const RenderServiceName: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = (
   )
 }
 
-const RenderServiceChanges: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
+const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
   const { getString } = useStrings()
   const monitoredService = row.original
 
@@ -119,7 +119,7 @@ const RenderServiceChanges: Renderer<CellProps<NewMonitoredServiceListItemDTO>> 
   )
 }
 
-const RenderDependenciesHealth: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
+const RenderDependenciesHealth: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
   const monitoredService = row.original
 
   if (monitoredService.dependentHealthScore?.length) {
@@ -135,7 +135,7 @@ const RenderDependenciesHealth: Renderer<CellProps<NewMonitoredServiceListItemDT
   return null
 }
 
-const RenderSLOErrorBudgetData: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
+const RenderSLOErrorBudgetData: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
   const monitoredService = row.original
 
   if (monitoredService.sloHealthIndicators?.length) {
@@ -169,7 +169,7 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
 
   const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = monitoredServiceListData || {}
 
-  const RenderStatusToggle: Renderer<CellProps<NewMonitoredServiceListItemDTO>> = ({ row }) => {
+  const RenderStatusToggle: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const monitoredService = row.original
 
     const [canToggle] = usePermission(

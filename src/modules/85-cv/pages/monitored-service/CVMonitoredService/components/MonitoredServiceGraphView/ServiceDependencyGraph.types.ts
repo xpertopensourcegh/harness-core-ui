@@ -1,7 +1,6 @@
-import type { CountServiceDTO } from 'services/cv'
+import type { CountServiceDTO, MonitoredServiceListItemDTO } from 'services/cv'
 import type { DependencyData } from '@cv/components/DependencyGraph/DependencyGraph.types'
 import type { FilterTypes } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.types'
-import type { NewMonitoredServiceListItemDTO } from '../MonitoredServiceListView/MonitoredServiceListView.types'
 
 // ServiceDependencyGraph
 
@@ -37,7 +36,7 @@ export interface SummaryCardProps {
 }
 
 export interface SummaryCardContentProps extends Omit<SummaryCardProps, 'point'> {
-  monitoredService: NewMonitoredServiceListItemDTO
+  monitoredService: MonitoredServiceListItemDTO
 }
 
 export interface ServiceActionsProps extends Omit<SummaryCardContentProps, 'isPageView'> {

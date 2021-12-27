@@ -1,6 +1,6 @@
-import type { SLOHealthIndicator } from '../../MonitoredServiceListView/MonitoredServiceListView.types'
+import type { SloHealthIndicatorDTO } from 'services/cv'
 
-export const items: SLOHealthIndicator[] = [
+export const items: SloHealthIndicatorDTO[] = [
   {
     serviceLevelObjectiveIdentifier: 'manager_http_errors',
     errorBudgetRemainingPercentage: 51.30434782608695,

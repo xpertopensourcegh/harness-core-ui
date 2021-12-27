@@ -1,11 +1,10 @@
-import type { ResponsePageSLODashboardWidget, ResponsePageUserJourneyResponse } from 'services/cv'
+import type { ResponsePageSLODashboardWidget, ResponsePageUserJourneyResponse, SLODashboardWidget } from 'services/cv'
 import type { TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps } from '@common/utils/routeUtils'
 import { RiskValues } from '@cv/utils/CommonUtils'
 import { SLIMetricEnum } from '../components/CVCreateSLO/components/CreateSLOForm/components/SLI/SLI.constants'
 import { PeriodTypes, SLITypes } from '../components/CVCreateSLO/CVCreateSLO.types'
-import type { NewSLODashboardWidget } from '../CVSLOsListingPage.types'
 
 export const errorMessage = 'TEST ERROR MESSAGE'
 
@@ -20,7 +19,7 @@ export const testWrapperProps: TestWrapperProps = {
   pathParams
 }
 
-export const dashboardWidgetsContent: NewSLODashboardWidget = {
+export const dashboardWidgetsContent: SLODashboardWidget = {
   burnRate: {
     currentRatePercentage: 90
   },

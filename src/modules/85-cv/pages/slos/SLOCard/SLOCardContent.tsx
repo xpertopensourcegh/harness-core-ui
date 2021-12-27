@@ -24,8 +24,8 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
     serviceLevelObjective
 
   const [toggle, setToggle] = useState(SLOCardToggleViews.SLO)
-  const startTime = sloPerformanceTrend[0].timestamp
-  const endTime = sloPerformanceTrend[sloPerformanceTrend.length - 1].timestamp
+  const startTime = sloPerformanceTrend[0]?.timestamp
+  const endTime = sloPerformanceTrend[sloPerformanceTrend.length - 1]?.timestamp
 
   const toggleProps: PillToggleProps<SLOCardToggleViews> = {
     options: [

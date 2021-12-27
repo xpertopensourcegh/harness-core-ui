@@ -3,11 +3,11 @@ import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Color, Layout, Text, Utils, Icon, FontVariation } from '@wings-software/uicore'
 import { getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
-import type { NewMonitoredServiceListItemDTO } from '../MonitoredServiceListView/MonitoredServiceListView.types'
+import type { MonitoredServiceListItemDTO } from 'services/cv'
 import css from './SLOsIconGrid.module.scss'
 
 interface SLOsIconGridProps {
-  items?: NewMonitoredServiceListItemDTO['sloHealthIndicators']
+  items?: MonitoredServiceListItemDTO['sloHealthIndicators']
   iconProps: IconProps
   max?: number
   width?: number

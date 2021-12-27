@@ -4388,6 +4388,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
   'cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow': string
   'cv.monitoredServices.serviceHealth.selectTimeline': string
+  'cv.monitoredServices.serviceHealth.serviceDependencies.states.exhausted': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe': string
