@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uicore'
+import type { MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type {
   ManifestConfig,
@@ -42,6 +42,7 @@ export interface ManifestListViewProps {
   listOfManifests: Array<any>
   isReadonly: boolean
   deploymentType: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 export interface ManifestStepInitData {
@@ -62,6 +63,7 @@ export interface ManifestLastStepProps {
   key: string
   name: string
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   stepName: string
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void

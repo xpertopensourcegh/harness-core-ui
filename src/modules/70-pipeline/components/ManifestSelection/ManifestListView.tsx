@@ -103,7 +103,8 @@ const ManifestListView = ({
   refetchConnectors,
   listOfManifests,
   deploymentType,
-  isReadonly
+  isReadonly,
+  allowableTypes
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = useState<ManifestTypes | null>(null)
   const [connectorView, setConnectorView] = useState(false)
@@ -253,6 +254,7 @@ const ManifestListView = ({
       key: getString('pipeline.manifestType.manifestDetails'),
       name: getString('pipeline.manifestType.manifestDetails'),
       expressions,
+      allowableTypes,
       stepName: getString('pipeline.manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
@@ -598,6 +600,7 @@ const ManifestListView = ({
             selectedManifest={selectedManifest}
             newConnectorView={connectorView}
             expressions={expressions}
+            allowableTypes={allowableTypes}
             changeManifestType={changeManifestType}
             handleConnectorViewChange={handleConnectorViewChange}
             handleStoreChange={handleStoreChange}
@@ -611,7 +614,16 @@ const ManifestListView = ({
         <Button minimal icon="cross" onClick={onClose} className={css.crossIcon} />
       </Dialog>
     )
-  }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions, isEditMode])
+  }, [
+    selectedManifest,
+    connectorView,
+    manifestIndex,
+    manifestStore,
+    expressions.length,
+    expressions,
+    allowableTypes,
+    isEditMode
+  ])
 
   return (
     <Layout.Vertical style={{ width: '100%' }}>

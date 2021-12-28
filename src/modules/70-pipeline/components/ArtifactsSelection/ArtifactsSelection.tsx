@@ -78,7 +78,8 @@ export default function ArtifactsSelection({
     },
     getStageFromPipeline,
     updateStage,
-    isReadonly
+    isReadonly,
+    allowableTypes
   } = usePipelineContext()
 
   const [isEditMode, setIsEditMode] = useState(false)
@@ -473,11 +474,12 @@ export default function ArtifactsSelection({
   }
 
   const artifactLastStepProps = (): ImagePathProps => {
-    const imagePathProps: ImagePathProps = {
+    return {
       key: getString('connectors.stepFourName'),
       name: getString('connectors.stepFourName'),
       context,
       expressions,
+      allowableTypes,
       initialValues: getLastStepInitialData(),
       handleSubmit: (data: any) => {
         addArtifact(data)
@@ -486,8 +488,6 @@ export default function ArtifactsSelection({
       isReadonly: isReadonly,
       selectedArtifact
     }
-
-    return imagePathProps
   }
 
   const getLabels = (): ConnectorRefLabelType => {
@@ -644,6 +644,7 @@ export default function ArtifactsSelection({
           iconsProps={getIconProps()}
           types={allowedArtifactTypes}
           expressions={expressions}
+          allowableTypes={allowableTypes}
           lastSteps={getLastSteps()}
           labels={getLabels()}
           isReadonly={isReadonly}
@@ -672,7 +673,7 @@ export default function ArtifactsSelection({
         {renderExistingArtifact()}
       </Dialog>
     ),
-    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions, isEditMode]
+    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions, allowableTypes, isEditMode]
   )
 
   return (

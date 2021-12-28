@@ -27,6 +27,7 @@ import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
 import css from './ManifestWizardSteps.module.scss'
 interface HelmAdvancedStepProps {
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   formik: {
     setFieldValue: (a: string, b: string) => void
     values: HelmWithGITDataType | HelmWithHTTPDataType
@@ -40,6 +41,7 @@ interface HelmAdvancedStepProps {
 const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
   formik,
   expressions,
+  allowableTypes,
   isReadonly,
   deploymentType,
   helmVersion,
@@ -87,7 +89,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
           name="skipResourceVersioning"
           label={getString('skipResourceVersion')}
           className={cx(helmcss.checkbox, helmcss.halfWidth)}
-          multiTypeTextbox={{ expressions }}
+          multiTypeTextbox={{ expressions, allowableTypes }}
         />
         {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -133,6 +135,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                               }
                             },
                             expressions,
+                            allowableTypes,
                             selectProps: {
                               addClearBtn: true,
                               items: commandFlagOptions[helmVersion]
@@ -147,11 +150,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                             name={`commandFlags[${index}].flag`}
                             multiTextInputProps={{
                               expressions,
-                              allowableTypes: [
-                                MultiTypeInputType.FIXED,
-                                MultiTypeInputType.EXPRESSION,
-                                MultiTypeInputType.RUNTIME
-                              ]
+                              allowableTypes
                             }}
                           />
                           {getMultiTypeFromValue(formik.values?.commandFlags?.[index]?.flag) ===

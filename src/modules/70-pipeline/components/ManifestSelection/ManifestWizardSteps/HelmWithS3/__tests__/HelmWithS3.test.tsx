@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import HelmWithS3 from '../HelmWithS3'
@@ -7,6 +8,7 @@ import HelmWithS3 from '../HelmWithS3'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   handleSubmit: jest.fn(),
   manifestIdsList: []
 }
