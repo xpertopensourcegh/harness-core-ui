@@ -914,6 +914,7 @@ function RunPipelineFormBasic({
             minWidth={150}
             usePortal={true}
             placeholder={selectedStageData.allStagesSelected ? getString('pipeline.allStages') : getString('stages')}
+            className={cx({ [css.stagesDropdown]: isGitSyncEnabled })}
           />
         </div>
 
@@ -975,7 +976,7 @@ function RunPipelineFormBasic({
             </Layout.Horizontal>
           ) : (
             <>
-              {inputSets?.length && (
+              {inputSets?.length ? (
                 <>
                   {executionView ? null : (
                     <Layout.Vertical
@@ -1001,7 +1002,7 @@ function RunPipelineFormBasic({
                     </Layout.Vertical>
                   )}
                 </>
-              )}
+              ) : null}
               {showPipelineInputSetForm() ? renderPipelineInputSetForm() : null}
               {showVoidPipelineInputSetForm() ? <div className={css.noPipelineInputSetForm} /> : null}
             </>
