@@ -120,6 +120,7 @@ allowpaths:
   - /monitored-service/all/time-series-health-sources
   - /monitored-service/{monitoredServiceIdentifier}/health-source/{healthSourceIdentifier}/slo-metrics
   - /monitored-service/{monitoredServiceIdentifier}/sli/onboarding-graph
+  - /custom-health/sample-data
   - /parse-sample-data
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications

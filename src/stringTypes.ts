@@ -1558,6 +1558,7 @@ export interface StringsMap {
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
   'connectors.creating': string
+  'connectors.customLabel': string
   'connectors.datadog.encryptedAPPKeyLabel': string
   'connectors.datadog.encryptedAPPKeyValidation': string
   'connectors.datadog.urlValidation': string
@@ -4248,6 +4249,17 @@ export interface StringsMap {
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
+  'cv.customHealthSource.Querymapping.fields.baseURL': string
+  'cv.customHealthSource.Querymapping.fields.parameter.title': string
+  'cv.customHealthSource.Querymapping.label': string
+  'cv.customHealthSource.Querymapping.title': string
+  'cv.customHealthSource.Querymapping.validation.endTime.placeholder': string
+  'cv.customHealthSource.Querymapping.validation.endTime.timestamp': string
+  'cv.customHealthSource.Querymapping.validation.path': string
+  'cv.customHealthSource.Querymapping.validation.startTime.placeholder': string
+  'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
+  'cv.customHealthSource.ServiceInstance.pathLabel': string
+  'cv.customHealthSource.ServiceInstance.pathModalHeader': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string
   'cv.cvChanges.monitoredSVC': string

@@ -6220,6 +6220,67 @@ export const getAppDynamicsTiersPromise = (
     signal
   )
 
+export interface FetchSampleDataQueryParams {
+  accountId: string
+  connectorIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  tracingId: string
+}
+
+export type FetchSampleDataProps = Omit<
+  MutateProps<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * get sample data
+ */
+export const FetchSampleData = (props: FetchSampleDataProps) => (
+  <Mutate<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>
+    verb="POST"
+    path={`/custom-health/sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseFetchSampleDataProps = Omit<
+  UseMutateProps<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * get sample data
+ */
+export const useFetchSampleData = (props: UseFetchSampleDataProps) =>
+  useMutate<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>(
+    'POST',
+    `/custom-health/sample-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get sample data
+ */
+export const fetchSampleDataPromise = (
+  props: MutateUsingFetchProps<
+    ResponseObject,
+    Failure | Error,
+    FetchSampleDataQueryParams,
+    CustomHealthSampleDataRequest,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/custom-health/sample-data`,
+    props,
+    signal
+  )
+
 export interface GetDataSourcetypesQueryParams {
   accountId: string
   projectIdentifier: string

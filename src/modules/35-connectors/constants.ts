@@ -82,7 +82,8 @@ export const Connectors: ConnectorType = {
   CE_GCP: 'GcpCloudCost',
   AWS_SECRET_MANAGER: 'AwsSecretManager',
   PAGER_DUTY: 'PagerDuty',
-  SERVICE_NOW: 'ServiceNow'
+  SERVICE_NOW: 'ServiceNow',
+  CUSTOM_HEALTH: 'CustomHealth'
 }
 
 export const ConnectorInfoText = {
