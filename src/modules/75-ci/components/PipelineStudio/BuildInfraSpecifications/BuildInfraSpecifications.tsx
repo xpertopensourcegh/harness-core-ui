@@ -44,7 +44,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml, VmInfraYaml, VmPoolYaml } from 'services/ci'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
-import { regexIdentifier, k8sLabelRegex } from '@common/utils/StringUtils'
+import { k8sLabelRegex, k8sAnnotationRegex } from '@common/utils/StringUtils'
 import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
 import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildInfraSpecifications.module.scss'
@@ -654,7 +654,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
               }
             ),
             annotations: yup.lazy(
-              (value: FieldValueType) => getFieldSchema(value, regexIdentifier) as yup.Schema<FieldValueType>
+              (value: FieldValueType) => getFieldSchema(value, k8sAnnotationRegex) as yup.Schema<FieldValueType>
             ),
             labels: yup.lazy(
               (value: FieldValueType) => getFieldSchema(value, k8sLabelRegex) as yup.Schema<FieldValueType>
