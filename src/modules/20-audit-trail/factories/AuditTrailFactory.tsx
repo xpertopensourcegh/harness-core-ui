@@ -1,11 +1,12 @@
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
 
 export type ResourceType = ResourceDTO['type']
 
 interface ResourceHandler {
   moduleIcon: IconProps
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => string | undefined
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => string | undefined
 }
 
 class AuditTrailFactory {
