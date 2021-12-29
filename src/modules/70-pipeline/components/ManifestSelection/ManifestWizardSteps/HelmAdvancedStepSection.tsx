@@ -106,7 +106,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
           />
         )}
       </Layout.Horizontal>
-      {commandFlagOptions[helmVersion]?.length && (
+      {commandFlagOptions[helmVersion]?.length > 0 && (
         <div className={helmcss.commandFlags}>
           <MultiTypeFieldSelector
             defaultValueToReset={defaultValueToReset}
