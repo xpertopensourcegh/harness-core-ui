@@ -4301,6 +4301,9 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.applicationPlaceholder': string
   'cv.healthSource.connectors.AppDynamics.applicationsAndTiers': string
   'cv.healthSource.connectors.AppDynamics.metricPackLabel': string
+  'cv.healthSource.connectors.AppDynamics.metricPathType.dropdown': string
+  'cv.healthSource.connectors.AppDynamics.metricPathType.text': string
+  'cv.healthSource.connectors.AppDynamics.selectedPathLabel': string
   'cv.healthSource.connectors.AppDynamics.tierPlaceholder': string
   'cv.healthSource.connectors.AppDynamics.trierLabel': string
   'cv.healthSource.connectors.AppDynamics.validation.application': string

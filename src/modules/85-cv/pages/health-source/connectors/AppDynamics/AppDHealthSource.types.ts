@@ -22,6 +22,8 @@ export type MapAppDynamicsMetric = {
   metricData: { [key: string]: boolean }
   serviceInstanceMetricPath?: string
   metricIdentifier?: string
+  fullPath?: string
+  pathType?: string
 }
 
 export type SelectedAndMappedMetrics = {
@@ -76,4 +78,6 @@ export interface AppDynamicsFomikFormInterface {
   metricPath: MetricPathData
   serviceInstanceMetricPath?: string
   metricIdentifier?: string
+  fullPath?: string
+  pathType?: string
 }

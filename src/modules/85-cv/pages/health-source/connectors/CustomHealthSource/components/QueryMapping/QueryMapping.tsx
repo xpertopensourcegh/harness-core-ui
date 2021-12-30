@@ -71,6 +71,8 @@ export default function QueryMapping({
       formikValues?.pathURL,
       formikValues?.endTime,
       formikValues?.startTime,
+      formikValues?.requestMethod,
+      formikValues?.query,
       getSampleData,
       onFetchRecordsSuccess
     )

@@ -604,6 +604,10 @@ healthSource:
         basePath: Please select base path
         metricPath: Please select metric path
         metricPathWithoutLeafNode: Please select metric in metric path
+      metricPathType:
+        text: Specify a complete metric path
+        dropdown: Select the path from the AppD metric
+      selectedPathLabel: Selected path
     gco:
       selectDashboardTab: 'Select Dashboards'
 slos:

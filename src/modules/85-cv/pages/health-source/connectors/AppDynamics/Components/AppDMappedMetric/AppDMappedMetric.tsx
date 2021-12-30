@@ -1,6 +1,17 @@
 import React, { useState, useMemo, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Accordion, SelectOption, Utils } from '@wings-software/uicore'
+import {
+  Container,
+  Accordion,
+  SelectOption,
+  Utils,
+  FormInput,
+  Text,
+  Color,
+  FontVariation,
+  Radio
+} from '@wings-software/uicore'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import {
   useGetMetricPacks,
@@ -28,7 +39,9 @@ import MetricPath from '../MetricPath/MetricPath'
 import type { AppDMappedMetricInterface } from './AppDMappedMetric.types'
 import { BasePathInitValue } from '../BasePath/BasePath.constants'
 import { AppDynamicsMonitoringSourceFieldNames } from '../../AppDHealthSource.constants'
+import { PATHTYPE } from './AppDMappedMetric.constant'
 import css from '../../AppDHealthSource.module.scss'
+import basePathStyle from '../BasePath/BasePath.module.scss'
 
 export default function AppDMappedMetric({
   setMappedMetrics,
@@ -94,6 +107,17 @@ export default function AppDMappedMetric({
   const currentSelectedMetricDetail = metricDefinitions?.find(
     (metricDefinition: AppDMetricDefinitions) =>
       metricDefinition.metricName === mappedMetrics.get(selectedMetric || '')?.metricName
+  )
+
+  useEffect(() => {
+    if (formikValues.pathType === PATHTYPE.DropdownPath) {
+      formikSetField('fullPath', '')
+    }
+  }, [formikValues.pathType])
+
+  const completeMetricPath = useMemo(
+    () => `${basePathValue}|${formikValues.appDTier}|${metricPathValue}`.split('|').join(' / '),
+    [basePathValue, formikValues.appDTier, metricPathValue]
   )
 
   return (
@@ -171,29 +195,58 @@ export default function AppDMappedMetric({
                       item={formikValues?.groupName}
                       setGroupNames={setAppdGroupName}
                     />
-                    {formikValues.appdApplication && (
-                      <>
-                        <BasePath
-                          fullPath={`${basePathValue}|${formikValues.appDTier}|${metricPathValue}`
-                            .split('|')
-                            .join(' / ')}
-                          basePathValue={formikValues?.basePath || BasePathInitValue}
+                    <Text padding={{ bottom: 'medium' }} font={{ variation: FontVariation.H6 }}>
+                      {getString('cv.monitoringSources.appD.appdPathTitle')}
+                    </Text>
+                    <Radio
+                      padding={{ bottom: 'medium', left: 'xlarge' }}
+                      label={getString('cv.healthSource.connectors.AppDynamics.metricPathType.text')}
+                      checked={formikValues?.pathType === PATHTYPE.FullPath}
+                      onChange={() => formikSetField('pathType', PATHTYPE.FullPath)}
+                    />
+                    <FormInput.Text name={'fullPath'} disabled={formikValues?.pathType !== PATHTYPE.FullPath} />
+                    <Radio
+                      padding={{ bottom: 'medium', left: 'xlarge' }}
+                      label={getString('cv.healthSource.connectors.AppDynamics.metricPathType.dropdown')}
+                      checked={formikValues?.pathType === PATHTYPE.DropdownPath}
+                      onChange={() => formikSetField('pathType', PATHTYPE.DropdownPath)}
+                    />
+                    <Container
+                      padding={{ left: 'large' }}
+                      className={cx({ [css.disabled]: formikValues?.pathType !== PATHTYPE.DropdownPath })}
+                    >
+                      <Text padding={{ bottom: 'medium' }}>
+                        {getString('cv.monitoringSources.appD.appdPathDetail')}
+                      </Text>
+                      <BasePath
+                        basePathValue={formikValues?.basePath || BasePathInitValue}
+                        onChange={formikSetField}
+                        appName={formikValues.appdApplication}
+                        connectorIdentifier={connectorIdentifier}
+                      />
+                      {basePathValue && formikValues.appDTier && (
+                        <MetricPath
                           onChange={formikSetField}
-                          appName={formikValues.appdApplication}
+                          metricPathValue={formikValues?.metricPath}
                           connectorIdentifier={connectorIdentifier}
+                          baseFolder={basePathValue}
+                          appName={formikValues.appdApplication}
+                          tier={formikValues.appDTier}
                         />
-                        {basePathValue && formikValues.appDTier && (
-                          <MetricPath
-                            onChange={formikSetField}
-                            metricPathValue={formikValues?.metricPath}
-                            connectorIdentifier={connectorIdentifier}
-                            baseFolder={basePathValue}
-                            appName={formikValues.appdApplication}
-                            tier={formikValues.appDTier}
-                          />
-                        )}
-                      </>
-                    )}
+                      )}
+                      <Container className={basePathStyle.basePathContainer}>
+                        <Text
+                          font={{ variation: FontVariation.SMALL_BOLD }}
+                          color={Color.GREY_400}
+                          className={basePathStyle.basePathLabel}
+                        >
+                          {getString('cv.healthSource.connectors.AppDynamics.selectedPathLabel')}
+                        </Text>
+                        <Text className={basePathStyle.basePathValue} font={{ variation: FontVariation.SMALL_SEMI }}>
+                          {completeMetricPath}
+                        </Text>
+                      </Container>
+                    </Container>
                   </>
                 }
               />
