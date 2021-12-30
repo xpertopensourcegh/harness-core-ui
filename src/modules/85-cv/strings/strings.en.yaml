@@ -57,7 +57,6 @@ addNew: + Add New
 turnService: Turn service
 showYAMLChange: Show YAML Change
 seeYAML: See full event YAML
-baseUrl: Base URL
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -710,13 +709,11 @@ componentValidations:
   requestMethod: Request Method is required
   queryType: Query Type is required
   queryTypeLabel: Query Type
-  httpRequestMethodLabel: Request Method
 customHealthSource:
   Querymapping:
     title: Query specifications and mapping
     label: Customize the query to get our desired output and map to Harness Service
     fields:
-      baseURL: BaseURL
       parameter:
         title: Parameter
     validation:

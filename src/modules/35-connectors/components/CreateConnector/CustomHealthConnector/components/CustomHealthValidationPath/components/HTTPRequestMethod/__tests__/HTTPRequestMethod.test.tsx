@@ -3,9 +3,9 @@ import { act, fireEvent, render } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { TestWrapper } from '@common/utils/testUtils'
-import { HealthSourceHTTPRequestMethod } from '../HealthSourceHTTPRequestMethod'
-import { httpRequestMethodValidation } from '../HealthSourceHTTPRequestMethod.constants'
-import { HTTPRequestMethod } from '../HealthSourceHTTPRequestMethod.types'
+import { HTTPRequestMethodOption } from '../HTTPRequestMethod'
+import { httpRequestMethodValidation } from '../HTTPRequestMethod.constants'
+import { HTTPRequestMethod } from '../HTTPRequestMethod.types'
 
 const mockGetString = jest.fn().mockImplementation(() => 'cv.componentValidations.requestMethod')
 const SampleComponent: React.FC<{
@@ -24,7 +24,7 @@ const SampleComponent: React.FC<{
         })}
       >
         <FormikForm>
-          <HealthSourceHTTPRequestMethod />
+          <HTTPRequestMethodOption />
           <button type="submit" data-testid={'submitButtonJest'} />
         </FormikForm>
       </Formik>

@@ -1184,6 +1184,8 @@ export interface StringsMap {
   'connectors.GCS.name': string
   'connectors.S3': string
   'connectors.addConnectorDetails': string
+  'connectors.addHeader': string
+  'connectors.addParameter': string
   'connectors.apiKey': string
   'connectors.apiKeyOrPassword': string
   'connectors.appD.accountName': string
@@ -1237,6 +1239,7 @@ export interface StringsMap {
   'connectors.azureKeyVault.validation.subscription': string
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string
+  'connectors.baseURL': string
   'connectors.cdng.artifactTag': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
@@ -1558,6 +1561,13 @@ export interface StringsMap {
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
   'connectors.creating': string
+  'connectors.customConnectorDetails': string
+  'connectors.customHealth.baseURL': string
+  'connectors.customHealth.keyRequired': string
+  'connectors.customHealth.requestBody': string
+  'connectors.customHealth.requestMethod': string
+  'connectors.customHealth.validationPath': string
+  'connectors.customHealth.valueRequired': string
   'connectors.customLabel': string
   'connectors.datadog.encryptedAPPKeyLabel': string
   'connectors.datadog.encryptedAPPKeyValidation': string
@@ -1680,11 +1690,13 @@ export interface StringsMap {
   'connectors.newRelicLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.pagerDutyConnectorDetails': string
+  'connectors.parameters': string
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
   'connectors.readMore': string
   'connectors.reportNameRequired': string
+  'connectors.requestMethod': string
   'connectors.roleARN': string
   'connectors.scopeError': string
   'connectors.secretManagerDetails': string
@@ -1785,6 +1797,7 @@ export interface StringsMap {
   'connectors.updatedSuccessfully': string
   'connectors.updating': string
   'connectors.validation.serviceNowUrl': string
+  'connectors.validationPath': string
   'connectors.verifyConnection': string
   'userProfile.addSCM': string
   'userProfile.awsCredentials': string
@@ -4199,7 +4212,6 @@ export interface StringsMap {
   'cv.anomalous': string
   'cv.anomalousMetrics': string
   'cv.bad': string
-  'cv.baseUrl': string
   'cv.burnRatePerDay': string
   'cv.changeSource.HarnessCDCurrentGen.applicationId': string
   'cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId': string
@@ -4241,7 +4253,6 @@ export interface StringsMap {
   'cv.changesPage.eventCount': string
   'cv.changesPage.viewKubernetesEvents': string
   'cv.clusterType': string
-  'cv.componentValidations.httpRequestMethodLabel': string
   'cv.componentValidations.queryType': string
   'cv.componentValidations.queryTypeLabel': string
   'cv.componentValidations.requestMethod': string
@@ -4249,7 +4260,6 @@ export interface StringsMap {
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
-  'cv.customHealthSource.Querymapping.fields.baseURL': string
   'cv.customHealthSource.Querymapping.fields.parameter.title': string
   'cv.customHealthSource.Querymapping.label': string
   'cv.customHealthSource.Querymapping.title': string

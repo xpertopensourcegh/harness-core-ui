@@ -4,11 +4,11 @@ import { Container, FormInput, Layout, Text, FontVariation, Utils, Icon } from '
 import { QueryViewer } from '@cv/components/QueryViewer/QueryViewer'
 import { Records } from '@cv/components/Records/Records'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { HealthSourceHTTPRequestMethod } from '@cv/pages/health-source/common/HealthSourceHTTPRequestMethod/HealthSourceHTTPRequestMethod'
 import { HealthSourceQueryType } from '@cv/pages/health-source/common/HealthSourceQueryType/HealthSourceQueryType'
 import Button from '@rbac/components/Button/Button'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { HTTPRequestMethodOption } from '@connectors/components/CreateConnector/CustomHealthConnector/components/CustomHealthValidationPath/components/HTTPRequestMethod/HTTPRequestMethod'
 import { useFetchSampleData } from 'services/cv'
 import { useGetConnector } from 'services/cd-ng'
 import type { QueryMappingInterface } from './QueryMapping.types'
@@ -91,14 +91,14 @@ export default function QueryMapping({
           <Icon name="spinner" margin={{ bottom: 'medium' }} size={24} />
         ) : (
           <FormInput.Text
-            label={getString('cv.customHealthSource.Querymapping.fields.baseURL')}
+            label={getString('connectors.customHealth.baseURL')}
             name={CustomHealthSourceFieldNames.BASE_URL}
             disabled
           />
         )}
       </Container>
 
-      <HealthSourceHTTPRequestMethod />
+      <HTTPRequestMethodOption />
 
       <FormInput.Text
         className={css.baseUrl}

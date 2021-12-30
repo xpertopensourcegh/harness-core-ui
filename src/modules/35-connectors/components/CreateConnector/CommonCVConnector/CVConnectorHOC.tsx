@@ -11,7 +11,6 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import DelegateSelectorStep, { DelegateSelectorProps } from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
-import { dsconfigTypetoResourcesConnectorDetailsTitle } from './utils'
 import type { ConnectionConfigProps } from './constants'
 
 export interface CVConnectorHOCInput {
@@ -57,7 +56,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
       <StepWizard icon={getConnectorIconByType(connectorType)} iconProps={{ size: 37 }}>
         <ConnectorDetailsStep
           type={connectorType}
-          name={dsconfigTypetoResourcesConnectorDetailsTitle(connectorType, getString)}
+          name={getString('overview')}
           isEditMode={isEditMode}
           connectorInfo={connectorInfo}
           gitDetails={props.gitDetails}

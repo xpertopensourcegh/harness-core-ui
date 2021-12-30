@@ -31,12 +31,13 @@ pagerDutyConnectorDetails: 'PagerDuty Connector Details'
 sumoLogicConnectorDetails: 'SumoLogic Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
+customConnectorDetails: Custom Health Connector Details
 prometheusLabel: Prometheus
 dynatraceLabel: Dynatrace
 appdLabel: AppDynamics
 newRelicLabel: New Relic
 splunkLabel: Splunk
-customLabel: Custom Connector
+customLabel: Custom Health
 stackdriverMetricsLabel: Google Cloud Operations (Metrics)
 stackdriverLogsLabel: Google Cloud Operations (Logs)
 click: 'Click'
@@ -66,6 +67,12 @@ createConnector: 'Create a Connector'
 connectorEmptyState: 'There are no connectors in your project'
 readMore: 'Read more'
 connectorsTitle: 'Resources: Connectors'
+parameters: Parameters
+validationPath: Validation Path
+addHeader: Add Header
+addParameter: Add Parameter
+baseURL: Base URL
+requestMethod: Request Method
 connectivityMode:
   validation: 'Please select connectivity mode'
   connectToProvider: 'Connect to the provider'
@@ -297,6 +304,13 @@ sumologic:
   urlValidation: SumoLogic URL is required.
   encryptedAccessIdValidation: SumoLogic Access ID is required.
   encryptedAccessKeyValidation: SumoLogic Access Key is required.
+customHealth:
+  baseURL: Base URL is required.
+  requestBody: Request Body is required for POST requests.
+  requestMethod: Request Method is required.
+  validationPath: Validation Path is required.
+  valueRequired: Value is required.
+  keyRequired: Key is required.
 cdng:
   jobName: Job Name
   continousVerificationType: Continous Verification Type

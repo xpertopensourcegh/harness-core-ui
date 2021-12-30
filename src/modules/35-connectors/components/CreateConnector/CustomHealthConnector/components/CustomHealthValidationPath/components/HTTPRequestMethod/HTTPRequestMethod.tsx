@@ -1,16 +1,17 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { StringsMap } from 'stringTypes'
-import { HTTPRequestMethod } from './HealthSourceHTTPRequestMethod.types'
+import { HTTPRequestMethod } from './HTTPRequestMethod.types'
+import { CustomHealthValidationPathFieldNames } from '../../CustomHealthValidationPath.constants'
 
-export const HealthSourceHTTPRequestMethod = () => {
+export const HTTPRequestMethodOption = ({ onChange }: { onChange?: (val: HTTPRequestMethod) => void }) => {
   const { getString } = useStrings()
   return (
     <FormInput.RadioGroup
-      label={getString('cv.componentValidations.httpRequestMethodLabel' as keyof StringsMap)}
       radioGroup={{ inline: true }}
-      name="requestMethod"
+      label={getString('connectors.requestMethod')}
+      name={CustomHealthValidationPathFieldNames.REQUEST_METHOD}
+      onChange={e => onChange?.(e.currentTarget.value as HTTPRequestMethod)}
       items={[
         {
           label: HTTPRequestMethod.GET,
