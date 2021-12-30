@@ -16,10 +16,11 @@ const renderComponent = (props: Partial<LanguageSelectionProps> = {}): void => {
 }
 
 describe('LanguageSelection', () => {
-  test('it should display six SDKs', async () => {
+  test('it should display seven SDKs', async () => {
     renderComponent()
 
     //assert buttons
+    expect(screen.getByText('.NET')).toBeInTheDocument()
     expect(screen.getByText('Android')).toBeInTheDocument()
     expect(screen.getByText('Golang')).toBeInTheDocument()
     expect(screen.getByText('iOS')).toBeInTheDocument()

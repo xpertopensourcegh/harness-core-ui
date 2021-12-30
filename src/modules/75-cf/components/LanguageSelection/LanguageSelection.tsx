@@ -60,8 +60,7 @@ export const SupportPlatforms = [
     name: '.NET',
     icon: dotnet,
     type: PlatformEntryType.SERVER,
-    readmeStringId: 'cf.onboarding.readme.dotnet',
-    disabled: true
+    readmeStringId: 'cf.onboarding.readme.dotnet'
   },
   {
     name: 'JavaScript',

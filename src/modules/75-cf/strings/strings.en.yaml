@@ -1193,8 +1193,12 @@ onboarding:
       # Install
 
       You can reference the SDK in your project using NuGet package. Package is published to default package repository (nuget.org).
-      Package name is `ff-dotnet-server-sdk`. More information can be found here:
-      [https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio)
+      Package name is 
+      ```
+      ff-netF48-server-sdk --version 1.0.8
+      ```
+
+      More information can be found <a href="https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-using-the-dotnet-cli">here</>
 
       After the dependency has been added, the SDK elements, primarily `CfClient`, should be accessible in the main application.
 
@@ -1203,6 +1207,9 @@ onboarding:
       `CfClient` is a base class that provides all features of the SDK.
 
       ```
+      using io.harness.cfsdk.client.dto;
+      using io.harness.cfsdk.client.api;
+
       /**
        * Put the API Key here from your environment
        */
@@ -1220,8 +1227,8 @@ onboarding:
        * Define the target for which you would like to evaluate
        * the featureFlag
        */
-      io.harness.cfsdk.client.dto.Target target =
-                      io.harness.cfsdk.client.dto.Target.builder()
+
+      Target target = io.harness.cfsdk.client.dto.Target.builder()
                       .Name("User1") //can change with your target name
                       .Identifier("user1@example.com") //can change with your target identifier
                       .build();
@@ -1231,47 +1238,48 @@ onboarding:
 
       `"YOUR_API_KEY"` is an authentication key, needed for access to Harness services.
 
-      **Your Harness SDK is now initialized. Congratulations!**
+      # Your Harness SDK is now initialized. Congratulations!
 
-      ### Public API Methods ###
+      # Public API Methods 
 
       The Public API exposes a few methods that you can utilize:
 
-      * `public async Task<bool> boolVariation(string key, dto.Target target, bool defaultValue)`
+      ```
+      public async Task<bool> boolVariation(string key, dto.Target target, bool defaultValue)
 
-      * `public async Task<string> stringVariation(string key, dto.Target target, string defaultValue)`
+      public async Task<string> stringVariation(string key, dto.Target target, string defaultValue)
 
-      * `public async Task<double> numberVariation(string key, dto.Target target, int defaultValue)`
+      public async Task<double> numberVariation(string key, dto.Target target, int defaultValue)
 
-      * `public async Task<JObject> jsonVariation(string key, dto.Target target, JObject defaultValue)`
+      public async Task<JObject> jsonVariation(string key, dto.Target target, JObject defaultValue)
+      ```
 
-
-      ## Fetch evaluation's value
+      # Fetch evaluation's value
 
       It is possible to fetch a value for a given evaluation. Evaluation is performed based on a different type. In case there
       is no evaluation with the provided id, the default value is returned.
 
       Use the appropriate method to fetch the desired Evaluation of a certain type.
 
-      ### Bool variation
+      # Bool variation
 
       ```
       boolean result = await cfClient.boolVariation("sample_boolean_flag", target, false);
       ```
 
-      ### Number variation
+      # Number variation
 
       ```
       double result = await cfClient.numberVariation("sample_number_flag", target, 0);
       ```
 
-      ### String variation
+      # String variation
 
       ```
       string result = await cfClient.stringVariation("sample_string_flag", target, "");
       ```
 
-      ## Using feature flags metrics
+      # Using feature flags metrics
 
       The Metrics API endpoint can be changed like this:
 
