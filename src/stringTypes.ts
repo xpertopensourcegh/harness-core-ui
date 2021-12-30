@@ -179,6 +179,9 @@ export interface StringsMap {
   'common.extendTrial.feedback.title': string
   'common.extendTrial.heading': string
   'common.failureRate': string
+  'common.feature.keepGettingShipDone.requestUpgrade': string
+  'common.feature.keepGettingShipDone.title': string
+  'common.feature.overuse.title': string
   'common.feature.upgradeRequired.description': string
   'common.feature.upgradeRequired.pleaseUpgrade': string
   'common.feature.upgradeRequired.requiredPlans': string

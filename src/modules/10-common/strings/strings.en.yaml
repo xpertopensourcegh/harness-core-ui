@@ -624,6 +624,11 @@ feature:
     description: 'Requires upgrade to setup '
     requiredPlans: Please upgrade to {{requiredPlans}}
     pleaseUpgrade: Please upgrade
+  overuse:
+    title: Overuse
+  keepGettingShipDone:
+    title: Keep Getting Ship Done!
+    requestUpgrade: Request Upgrade
 repositoryName: Repository Name
 mostActiveServices: Most active services
 allErrors: All Errors
