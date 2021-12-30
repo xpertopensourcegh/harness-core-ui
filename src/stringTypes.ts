@@ -1018,6 +1018,7 @@ export interface StringsMap {
   'delegates.delegateCreation.dockerPrerequisites.ensureInst': string
   'delegates.delegateCreation.dockerPrerequisites.minCPU': string
   'delegates.delegateCreation.dockerPrerequisites.minMem': string
+  'delegates.delegateCreation.dockerPrerequisites.minMemCommunity': string
   'delegates.delegateCreation.dockerPrerequisites.sysReq': string
   'delegates.delegateCreation.dockerPrerequisites.title': string
   'delegates.delegateCreation.downloadScript': string

@@ -24,6 +24,7 @@ import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
+import { DelegateTypes } from '@delegates/constants'
 
 import css from './DelegatesPage.module.scss'
 
@@ -314,7 +315,9 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
                 </Layout.Horizontal>
                 <Container className={css.connectivity} width={columnWidths.tags} />
                 <Container width={columnWidths.instances} className={css.instancesColumn}>
-                  {instanceDetails.hostName}
+                  {instanceDetails.delegateType === DelegateTypes.DOCKER
+                    ? `${delegate.groupHostName}-${instanceDetails.hostName}`
+                    : instanceDetails.hostName}
                 </Container>
                 <Layout.Horizontal width={columnWidths.heartbeat}>
                   {instanceDetails.lastHeartBeat ? (
