@@ -103,15 +103,23 @@ describe('Test SLI component', () => {
 
 describe('PickMetric', () => {
   test('Event type and Good request metrics dropdowns should not be in the document for Threshold', () => {
-    render(<WrapperComponent initialValues={initialFormData} />)
+    const { container } = render(<WrapperComponent initialValues={initialFormData} />)
 
-    const ratioMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.ratioBased')
+    screen.debug(container, 30000)
+
+    const ratioMetricRadio = screen.getByRole('radio', {
+      name: /cv.slos.slis.metricOptions.ratioBased/i,
+      hidden: true
+    })
 
     expect(ratioMetricRadio).toBeChecked()
     expect(screen.queryByText('cv.slos.slis.ratioMetricType.eventType')).toBeInTheDocument()
     expect(screen.queryByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
 
-    const thresholdMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.thresholdBased')
+    const thresholdMetricRadio = screen.getByRole('radio', {
+      name: /cv.slos.slis.metricOptions.thresholdBased/i,
+      hidden: true
+    })
 
     userEvent.click(thresholdMetricRadio)
 

@@ -4288,6 +4288,7 @@ export interface StringsMap {
   'cv.dependenciesHealthWithCount': string
   'cv.errorBudget': string
   'cv.errorBudgetBurnDown': string
+  'cv.errorBudgetRecalculationInProgress': string
   'cv.errorBudgetRemaining': string
   'cv.evaluationPeriod': string
   'cv.failures': string
@@ -4737,7 +4738,27 @@ export interface StringsMap {
   'cv.showYAMLChange': string
   'cv.sliMissingDataTypeIsRequired': string
   'cv.sloRecalculationInProgress': string
+  'cv.slos.configureSLIQueries': string
   'cv.slos.confirmDeleteSLO': string
+  'cv.slos.contextualHelp.sli.availabilityDescription': string
+  'cv.slos.contextualHelp.sli.healthSource': string
+  'cv.slos.contextualHelp.sli.intro': string
+  'cv.slos.contextualHelp.sli.latencyDescription': string
+  'cv.slos.contextualHelp.sli.ratioBasedDescription': string
+  'cv.slos.contextualHelp.sli.sliDefinition': string
+  'cv.slos.contextualHelp.sli.sliDefinition2': string
+  'cv.slos.contextualHelp.sli.thresholdDescription': string
+  'cv.slos.contextualHelp.sli.whatIsSli': string
+  'cv.slos.contextualHelp.target.calendarBased': string
+  'cv.slos.contextualHelp.target.calendarBasedDefinition': string
+  'cv.slos.contextualHelp.target.calendarBasedDefinition2': string
+  'cv.slos.contextualHelp.target.compliance': string
+  'cv.slos.contextualHelp.target.complianceDefinition': string
+  'cv.slos.contextualHelp.target.complianceDefinition2': string
+  'cv.slos.contextualHelp.target.complianceDefinition3': string
+  'cv.slos.contextualHelp.target.rollingWindowBased': string
+  'cv.slos.contextualHelp.target.rollingWindowDefinition': string
+  'cv.slos.contextualHelp.target.rollingWindowDefinition2': string
   'cv.slos.createSLO': string
   'cv.slos.deleteSLO': string
   'cv.slos.editSLO': string
@@ -4747,11 +4768,13 @@ export interface StringsMap {
   'cv.slos.newSLO': string
   'cv.slos.noData': string
   'cv.slos.pickMetricsSLI': string
+  'cv.slos.reviewChanges': string
   'cv.slos.selectHealthsource': string
   'cv.slos.selectMonitoredService': string
   'cv.slos.selectMonitoredServiceForSlo': string
   'cv.slos.sli': string
   'cv.slos.sliType': string
+  'cv.slos.sliTypeChooseMetric': string
   'cv.slos.slis.metricOptions.ratioBased': string
   'cv.slos.slis.metricOptions.thresholdBased': string
   'cv.slos.slis.ratioMetricType.eventType': string
@@ -4762,8 +4785,11 @@ export interface StringsMap {
   'cv.slos.slis.type.availability': string
   'cv.slos.slis.type.latency': string
   'cv.slos.sloCreated': string
+  'cv.slos.sloDefinition': string
   'cv.slos.sloDeleted': string
+  'cv.slos.sloEditWarningMessage': string
   'cv.slos.sloName': string
+  'cv.slos.sloTargetAndBudget.complianceTimePeriodTitle': string
   'cv.slos.sloTargetAndBudget.periodType': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.calendar': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.rolling': string
@@ -4771,6 +4797,7 @@ export interface StringsMap {
   'cv.slos.sloTargetAndBudgetPolicy': string
   'cv.slos.sloUpdated': string
   'cv.slos.title': string
+  'cv.slos.totalServices': string
   'cv.slos.userJourney': string
   'cv.slos.userJourneyCreated': string
   'cv.slos.userJourneyPlaceholder': string

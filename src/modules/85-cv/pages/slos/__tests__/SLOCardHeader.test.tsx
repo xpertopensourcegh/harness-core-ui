@@ -75,9 +75,9 @@ describe('SLOCardHeader', () => {
   test('monitored service should go to Service Health tab', () => {
     render(<ComponentWrapper />)
 
-    expect(screen.getByText(dashboardWidgetsContent.monitoredServiceName)).toBeInTheDocument()
+    expect(screen.getByText(dashboardWidgetsContent.serviceName as string)).toBeInTheDocument()
 
-    userEvent.click(screen.getByText(dashboardWidgetsContent.monitoredServiceName))
+    userEvent.click(screen.getByText(dashboardWidgetsContent.serviceName as string))
 
     expect(
       screen.getByText(
