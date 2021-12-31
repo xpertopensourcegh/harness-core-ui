@@ -607,6 +607,9 @@ module:
   cf: FF
   ce: CCM
   cv: CV
+  core: CORE
+  pms: PMS
+  templateService: TEMPLATESERVICE
 customPricing: for Custom Pricing
 specified: Specified
 file: File
@@ -700,3 +703,8 @@ smtp:
   updatingSMTP: Updating SMTP Configuration
 invalid: INVALID
 auditTrail: Audit Trail
+userLabel: User
+resourceLabel: Resource
+resourceTypeLabel: Resource Type
+moduleLabel: 'Module'
+timePstLabel: Time (PST)
