@@ -1,8 +1,8 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import { render, screen, waitFor, getByText } from '@testing-library/react'
+import { render, screen, getByText } from '@testing-library/react'
 import routes from '@common/RouteDefinitions'
-import { findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import SLOCardHeader from '../SLOCard/SLOCardHeader'
 import type { SLOCardHeaderProps } from '../CVSLOsListingPage.types'
 import { testWrapperProps, pathParams, dashboardWidgetsContent } from './CVSLOsListingPage.mock'
@@ -49,25 +49,24 @@ describe('SLOCardHeader', () => {
     ).toBeInTheDocument()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('delete should show the conformation dialog', async () => {
+  test('delete should show the conformation dialog', async () => {
     const onDelete = jest.fn()
 
     const { container } = render(<ComponentWrapper onDelete={onDelete} />)
 
     userEvent.click(container.querySelector('[data-icon="Options"]')!)
 
-    expect(document.querySelector('[icon="trash"]')).toBeInTheDocument()
-
-    userEvent.click(document.querySelector('[icon="trash"]')!)
-
     const popover = findPopoverContainer()
 
-    await waitFor(() => expect(popover).toBeInTheDocument())
-
-    expect(getByText(popover!, dashboardWidgetsContent.title)).toBeInTheDocument()
+    expect(getByText(popover!, 'delete')).toBeInTheDocument()
 
     userEvent.click(getByText(popover!, 'delete'))
+
+    const dialogContainer = findDialogContainer()
+
+    expect(getByText(dialogContainer!, 'delete')).toBeInTheDocument()
+
+    userEvent.click(getByText(dialogContainer!, 'delete'))
 
     expect(onDelete).toBeCalledWith(dashboardWidgetsContent.sloIdentifier, dashboardWidgetsContent.title)
   })
