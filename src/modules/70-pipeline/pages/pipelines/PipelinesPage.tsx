@@ -140,6 +140,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const { showSuccess, showError } = useToaster()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isReseting, setIsReseting] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
   const [pipelineToDelete, setPipelineToDelete] = useState<PMSPipelineSummaryResponse>()
 
@@ -241,6 +242,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         }
       }
       setIsLoading(false)
+      setIsReseting(false)
     },
     [reloadPipelines, showError, cancel, appliedFilter]
   )
@@ -252,6 +254,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     setGitFilter(null)
     setError(null)
     setSearchParam('')
+    setIsReseting(true)
   }
 
   /* #region FIlter CRUD operations */
@@ -600,7 +603,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
       <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.DEPLOYMENTS_PER_MONTH} module={module} />
       <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.INITIAL_DEPLOYMENTS} module={module} />
-      {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
+      {(isReseting || !!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
         <Page.SubHeader>
           <Layout.Horizontal>
             <RbacButton
@@ -639,6 +642,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 width={200}
                 placeholder={getString('search')}
                 onChange={(text: string) => {
+                  setIsReseting(true)
                   setSearchParam(text)
                 }}
                 className={css.expandSearch}
