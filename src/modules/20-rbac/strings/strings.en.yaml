@@ -188,7 +188,7 @@ resourceGroup:
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
 updateNotificationSuccess: Notification preferences updated successfully
-userRequired: User is Required
+userRequired: User is required
 userUpperLimit: Addition of more than 15 users is not allowed
 resourceSelectorErrorMessage: Add atleast one specific resource for the following types [{{resources}}]
 accessControlTitle:

@@ -1651,6 +1651,7 @@ export interface StringsMap {
   'connectors.hashiCorpVault.readOnlyVault': string
   'connectors.hashiCorpVault.renewal': string
   'connectors.hashiCorpVault.root': string
+  'connectors.hashiCorpVault.saveInProgress': string
   'connectors.hashiCorpVault.secretEngine': string
   'connectors.hashiCorpVault.secretId': string
   'connectors.hashiCorpVault.setupEngine': string

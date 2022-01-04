@@ -216,6 +216,7 @@ hashiCorpVault:
   defaultVault: 'Use as Default Secrets Manager'
   fetchEngines: Fetch Engines
   setupEngine: Setup Engine
+  saveInProgress: Saving Connector Details
   manuallyConfigureEngine: Manually Configure Engine
   vaultAgent: Vault Agent
   root: '/(Root)'
