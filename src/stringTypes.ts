@@ -2366,6 +2366,7 @@ export interface StringsMap {
   'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
+  'pipeline.inputSets.overlayISHelperText': string
   'pipeline.inputSets.selectPlaceholder': string
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string

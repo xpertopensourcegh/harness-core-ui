@@ -674,6 +674,8 @@ inputSets:
   inputSetPlaceholder: Enter Input Sets
   selectPlaceholder: Select Input Set(s)
   aboutInputSets: Harness Input Sets are collections of variables/values that can be provided to one or more Pipelines before execution.
+  overlayISHelperText: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
+
 provisionerSteps: Provisioner Steps
 addStage:
   title: Select stage type

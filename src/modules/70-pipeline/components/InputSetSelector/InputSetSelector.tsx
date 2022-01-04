@@ -361,9 +361,17 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         <Checkbox
           className={css.checkbox}
           labelElement={
-            <Text className={css.labelText} font={{ size: 'small' }} icon={getIconByType(selected.type)}>
-              {selected.label}
-            </Text>
+            <Layout.Horizontal flex={{ alignItems: 'center' }} padding={{ left: true }}>
+              <Icon name={getIconByType(selected.type)}></Icon>
+              <Container margin={{ left: true }} className={css.nameIdContainer}>
+                <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                  {selected.label}
+                </Text>
+                <Text font="small" lineClamp={1} margin={{ top: 'xsmall' }} color={Color.GREY_450}>
+                  {getString('idLabel', { id: selected.value })}
+                </Text>
+              </Container>
+            </Layout.Horizontal>
           }
           checked={true}
         />
@@ -381,11 +389,11 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             />
           </Container>
         )}
-        <span className={css.order}>
-          <Text className={css.orderText}>{index + 1}</Text>
-          <Icon name="main-reorder" size={12} />
-        </span>
       </Layout.Horizontal>
+      <span className={css.order}>
+        <Text className={css.orderText}>{index + 1}</Text>
+        <Icon name="drag-handle-vertical" className={css.drag} size={16} />
+      </span>
     </li>
   ))
 
@@ -407,6 +415,9 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           className={cx(css.item)}
           key={inputSet.identifier}
           onClick={() => {
+            if (isInputSetInvalid(inputSet)) {
+              return
+            }
             onCheckBoxHandler(
               true,
               inputSet.name || '',
@@ -419,28 +430,39 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           }}
         >
           <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-            <Checkbox
-              className={css.checkbox}
-              labelElement={
-                <Text font={{ size: 'small' }} className={css.labelText} icon={getIconByType(inputSet.inputSetType)}>
-                  {inputSet.name}
-                </Text>
-              }
-            />
+            <Layout.Horizontal flex={{ alignItems: 'center' }}>
+              <Checkbox
+                className={css.checkbox}
+                disabled={isInputSetInvalid(inputSet)}
+                labelElement={
+                  <Layout.Horizontal flex={{ alignItems: 'center' }} padding={{ left: true }}>
+                    <Icon name={getIconByType(inputSet.inputSetType)}></Icon>
+                    <Container margin={{ left: true }} className={css.nameIdContainer}>
+                      <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                        {inputSet.name}
+                      </Text>
+                      <Text font="small" lineClamp={1} margin={{ top: 'xsmall' }} color={Color.GREY_450}>
+                        {getString('idLabel', { id: inputSet.identifier })}
+                      </Text>
+                    </Container>
+                  </Layout.Horizontal>
+                }
+              />
+              {isInputSetInvalid(inputSet) && (
+                <Container padding={{ left: 'large' }}>
+                  <Badge
+                    text={'common.invalid'}
+                    iconName="warning-sign"
+                    showTooltip={true}
+                    entityName={inputSet.name}
+                    entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
+                    uuidToErrorResponseMap={inputSet.inputSetErrorDetails?.uuidToErrorResponseMap}
+                    overlaySetErrorDetails={inputSet.overlaySetErrorDetails}
+                  />
+                </Container>
+              )}
+            </Layout.Horizontal>
             {inputSet.gitDetails?.repoIdentifier ? <InputSetGitDetails gitDetails={inputSet.gitDetails} /> : null}
-            {isInputSetInvalid(inputSet) && (
-              <Container padding={{ left: 'large' }}>
-                <Badge
-                  text={'common.invalid'}
-                  iconName="warning-sign"
-                  showTooltip={true}
-                  entityName={inputSet.name}
-                  entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
-                  uuidToErrorResponseMap={inputSet.inputSetErrorDetails?.uuidToErrorResponseMap}
-                  overlaySetErrorDetails={inputSet.overlaySetErrorDetails}
-                />
-              </Container>
-            )}
           </Layout.Horizontal>
         </li>
       ))
@@ -479,10 +501,13 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
               }}
             />
           </div>
+          <Container className={css.overlayIsHelperTextContainer} border={{ bottom: true }}>
+            <Text className={css.overlayIsHelperText}>{getString('pipeline.inputSets.overlayISHelperText')}</Text>
+          </Container>
           {!inputSets ? (
             <PageSpinner className={css.spinner} />
           ) : (
-            <Layout.Vertical padding="small">
+            <Layout.Vertical padding={{ bottom: 'medium' }}>
               {inputSets && inputSets.length > 0 ? (
                 <>
                   <ul className={cx(Classes.MENU, css.list, { [css.multiple]: inputSets.length > 0 })}>
@@ -492,6 +517,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                     </>
                   </ul>
                   <Button
+                    margin="small"
                     text={
                       selectedInputSets?.length > 1
                         ? getString('pipeline.inputSets.applyInputSets')
