@@ -5,7 +5,6 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
   Heading,
@@ -16,31 +15,29 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { defaultTo, isEqual, merge, set } from 'lodash-es'
+import { defaultTo, get, isEmpty, isEqual, merge, noop, set } from 'lodash-es'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
-import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import type { StepElementConfig } from 'services/cd-ng'
-import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetTemplateInputSetYaml } from 'services/template-ng'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
-import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import type { TemplateStepNode } from 'services/pipeline-ng'
+import { validateStep } from '@pipeline/components/PipelineStudio/StepUtil'
+import { StepForm } from '@pipeline/components/PipelineInputSetForm/StageInputSetForm'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TemplateStepWidget.module.scss'
 
 export interface TemplateStepWidgetProps {
-  initialValues: TemplateStepData
+  initialValues: TemplateStepNode
   isNewStep?: boolean
   isDisabled?: boolean
-  onUpdate?: (data: TemplateStepData) => void
+  onUpdate?: (data: TemplateStepNode) => void
   stepViewType?: StepViewType
   readonly?: boolean
   factory: AbstractStepFactory
@@ -49,14 +46,13 @@ export interface TemplateStepWidgetProps {
 
 export function TemplateStepWidget(
   props: TemplateStepWidgetProps,
-  formikRef: StepFormikFowardRef<TemplateStepData>
+  formikRef: StepFormikFowardRef<TemplateStepNode>
 ): React.ReactElement {
-  const { initialValues, factory, onUpdate, isNewStep, readonly, allowableTypes } = props
+  const { initialValues, onUpdate, isNewStep, readonly, allowableTypes } = props
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const [inputSetTemplate, setInputSetTemplate] = React.useState<Omit<StepElementConfig, 'name' | 'identifier'>>()
+  const [inputSetTemplate, setInputSetTemplate] = React.useState<StepElementConfig>()
   const { showError } = useToaster()
-  const { expressions } = useVariablesExpression()
   const templateRef = getIdentifierFromValue(initialValues.template.templateRef)
   const scope = getScopeFromValue(initialValues.template.templateRef)
 
@@ -94,6 +90,21 @@ export function TemplateStepWidget(
     }
   }, [templateInputYaml?.data, loading])
 
+  const validateForm = (values: TemplateStepNode) => {
+    const errorsResponse = validateStep({
+      step: values.template?.templateInputs as StepElementConfig,
+      template: inputSetTemplate,
+      originalStep: { step: initialValues?.template?.templateInputs as StepElementConfig },
+      getString,
+      viewType: StepViewType.DeploymentForm
+    })
+    if (!isEmpty(errorsResponse)) {
+      return set({}, 'template.templateInputs', get(errorsResponse, 'step'))
+    } else {
+      return errorsResponse
+    }
+  }
+
   return (
     <div className={stepCss.stepPanel}>
       {loading && <PageSpinner />}
@@ -105,7 +116,7 @@ export function TemplateStepWidget(
         />
       )}
       {!loading && !inputSetError && inputSetTemplate && initialValues.template?.templateInputs && (
-        <Formik<TemplateStepData /*TemplateStepFormData*/>
+        <Formik<TemplateStepNode>
           onSubmit={values => {
             onUpdate?.(values)
           }}
@@ -114,9 +125,10 @@ export function TemplateStepWidget(
           validationSchema={Yup.object().shape({
             name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') })
           })}
+          validate={validateForm}
           enableReinitialize={true}
         >
-          {(formik: FormikProps<TemplateStepData>) => {
+          {(formik: FormikProps<TemplateStepNode>) => {
             setFormikRef(formikRef, formik)
             return (
               <FormikForm>
@@ -137,30 +149,16 @@ export function TemplateStepWidget(
                     <Heading level={5} color={Color.BLACK}>
                       {getString('templatesLibrary.templateInputs')}
                     </Heading>
-                    <StepWidget<Partial<StepElementConfig>>
-                      factory={factory}
-                      initialValues={formik.values.template?.templateInputs || {}}
-                      template={inputSetTemplate}
+                    <StepForm
+                      template={{ step: inputSetTemplate }}
+                      values={{ step: formik.values.template?.templateInputs as StepElementConfig }}
+                      allValues={{ step: formik.values.template?.templateInputs as StepElementConfig }}
                       readonly={readonly}
-                      isNewStep={isNewStep}
-                      type={initialValues.template?.templateInputs?.type as StepType}
+                      viewType={StepViewType.InputSet}
                       path={'template.templateInputs'}
-                      stepViewType={StepViewType.InputSet}
                       allowableTypes={allowableTypes}
+                      onUpdate={noop}
                     />
-                    {getMultiTypeFromValue(inputSetTemplate?.spec?.delegateSelectors) ===
-                      MultiTypeInputType.RUNTIME && (
-                      <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                        <MultiTypeDelegateSelector
-                          expressions={expressions}
-                          inputProps={{ projectIdentifier, orgIdentifier }}
-                          allowableTypes={allowableTypes}
-                          label={getString('delegate.DelegateSelector')}
-                          name={'template.templateInputs.spec.delegateSelectors'}
-                          disabled={readonly}
-                        />
-                      </div>
-                    )}
                   </Layout.Vertical>
                 </Container>
               </FormikForm>

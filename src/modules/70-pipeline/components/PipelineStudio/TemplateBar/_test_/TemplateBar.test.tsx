@@ -1,14 +1,9 @@
 import React from 'react'
 import { act, fireEvent, getByText, render } from '@testing-library/react'
-import produce from 'immer'
-import { set } from 'lodash-es'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer/__tests__/stateMock'
-import { useStageTemplateActions } from '@pipeline/utils/useStageTemplateActions'
-import { StageTemplateBar } from '../StageTemplateBar'
+import { TemplateBar } from '../TemplateBar'
 
 jest.mock('@pipeline/utils/useStageTemplateActions', () => ({
   useStageTemplateActions: jest.fn().mockReturnValue({
@@ -32,45 +27,29 @@ jest.mock('services/template-ng', () => ({
   }))
 }))
 
-describe('<StageTemplateBar /> tests', () => {
+describe('<TemplateBar /> tests', () => {
   test('should match snapshot and work as expected', async () => {
-    const context = produce(pipelineContextMock, draft => {
-      delete draft.state.pipeline.stages
-      set(draft, 'state.pipeline.stages[0].stage', {
-        name: 'Stage1',
-        identifier: 'Stage1',
-        template: {
-          templateRef: 'New_CD_Stage_Name',
-          versionLabel: 'Version1'
-        }
-      })
-    })
-
+    const props = {
+      templateLinkConfig: {
+        templateRef: 'New_CD_Stage_Name',
+        versionLabel: 'Version1'
+      },
+      onOpenTemplateSelector: jest.fn(),
+      onRemoveTemplate: jest.fn()
+    }
     const { container } = render(
-      <PipelineContext.Provider
-        value={
-          {
-            ...context,
-            getStageFromPipeline: jest.fn(() => {
-              return { stage: context.state.pipeline.stages?.[0], parent: undefined }
-            }),
-            updatePipeline: jest.fn
-          } as any
-        }
+      <TestWrapper
+        path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+        pathParams={{
+          pipelineIdentifier: 'stage1',
+          accountId: 'accountId',
+          orgIdentifier: 'CV',
+          projectIdentifier: 'Milos2',
+          module: 'cd'
+        }}
       >
-        <TestWrapper
-          path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-          pathParams={{
-            pipelineIdentifier: 'stage1',
-            accountId: 'accountId',
-            orgIdentifier: 'CV',
-            projectIdentifier: 'Milos2',
-            module: 'cd'
-          }}
-        >
-          <StageTemplateBar />
-        </TestWrapper>
-      </PipelineContext.Provider>
+        <TemplateBar {...props} />
+      </TestWrapper>
     )
     expect(container).toMatchSnapshot()
     const optionsBtn = container.querySelector('.bp3-icon-more') as HTMLElement
@@ -82,7 +61,7 @@ describe('<StageTemplateBar /> tests', () => {
     await act(async () => {
       fireEvent.click(changeBtn)
     })
-    expect(useStageTemplateActions().onOpenTemplateSelector).toBeCalled()
+    expect(props.onOpenTemplateSelector).toBeCalled()
     const removeBtn = getByText(popover as HTMLElement, 'pipeline.removeTemplateLabel')
     await act(async () => {
       fireEvent.click(removeBtn)
@@ -91,6 +70,6 @@ describe('<StageTemplateBar /> tests', () => {
     await act(async () => {
       fireEvent.click(submitBtn)
     })
-    expect(useStageTemplateActions().onRemoveTemplate).toBeCalled()
+    expect(props.onRemoveTemplate).toBeCalled()
   })
 })

@@ -1,20 +1,19 @@
 import React from 'react'
-import { Color, Container, Icon, IconName, Layout, Popover, Text } from '@wings-software/uicore'
-import { Menu, Position } from '@blueprintjs/core'
+import { Color, Container, Icon, IconName, Layout, Popover, Text, useConfirmationDialog } from '@wings-software/uicore'
+import { Intent, Menu, Position } from '@blueprintjs/core'
 import cx from 'classnames'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
-import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { defaultTo } from 'lodash-es'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
+import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetTemplate } from 'services/template-ng'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import type { TemplateLinkConfig } from 'services/pipeline-ng'
 import css from './TemplateBar.module.scss'
-
-export interface TemplateBarProps {
-  step: StepOrStepGroupOrTemplateStepData
-  onChangeTemplate?: (step: StepOrStepGroupOrTemplateStepData) => void
-  onRemoveTemplate?: () => void
-}
 
 interface TemplateMenuItem {
   icon?: IconName
@@ -23,13 +22,46 @@ interface TemplateMenuItem {
   onClick: () => void
 }
 
-export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
-  const { step, onChangeTemplate, onRemoveTemplate } = props
+export interface TemplateBarProps {
+  templateLinkConfig: TemplateLinkConfig
+  onOpenTemplateSelector: () => void
+  onRemoveTemplate: () => Promise<void>
+  className?: string
+}
+
+export const TemplateBar = (props: TemplateBarProps): JSX.Element => {
+  const { templateLinkConfig, onOpenTemplateSelector, onRemoveTemplate, className = '' } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const scope = getScopeFromValue(templateLinkConfig.templateRef)
   const { enabled: templatesEnabled } = useFeature({
     featureRequest: {
       featureName: FeatureIdentifier.TEMPLATE_SERVICE
+    }
+  })
+
+  const { data } = useGetTemplate({
+    templateIdentifier: getIdentifierFromValue(templateLinkConfig.templateRef),
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
+      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined,
+      versionLabel: defaultTo(templateLinkConfig.versionLabel, '')
+    }
+  })
+
+  const { openDialog: openRemoveTemplateDialog } = useConfirmationDialog({
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
+    cancelButtonText: getString('cancel'),
+    contentText: getString('pipeline.removeTemplate'),
+    titleText: `${getString('common.remove')} ${getTemplateNameWithLabel(data?.data)}?`,
+    confirmButtonText: getString('common.remove'),
+    onCloseDialog: async isConfirmed => {
+      if (isConfirmed) {
+        await onRemoveTemplate()
+      }
     }
   })
 
@@ -39,12 +71,12 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
         icon: 'command-switch',
         label: getString('pipeline.changeTemplateLabel'),
         disabled: !templatesEnabled,
-        onClick: () => onChangeTemplate?.(step)
+        onClick: onOpenTemplateSelector
       },
       {
         icon: 'main-trash',
         label: getString('pipeline.removeTemplateLabel'),
-        onClick: () => onRemoveTemplate?.()
+        onClick: openRemoveTemplateDialog
       }
     ]
   }
@@ -54,13 +86,13 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
       margin={'medium'}
       padding={{ top: 'small', right: 'medium', bottom: 'small', left: 'medium' }}
       background={Color.PRIMARY_6}
-      className={css.container}
       border={{ radius: 4 }}
+      className={cx(css.container, className)}
     >
       <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         <Icon size={11} color={Color.WHITE} name={'template-library'} />
         <Text style={{ flexGrow: 1 }} font={{ size: 'small' }} color={Color.WHITE}>
-          {`Using Template: ${getTemplateNameWithLabel((step as TemplateStepData)?.template)}`}
+          {data?.data ? `Using Template: ${getTemplateNameWithLabel(data?.data)}` : getString('loading')}
         </Text>
         <Popover
           isOpen={menuOpen}
@@ -69,6 +101,7 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
           }}
           position={Position.BOTTOM_RIGHT}
           className={css.main}
+          disabled={!data?.data}
           portalClassName={css.popover}
         >
           <Icon

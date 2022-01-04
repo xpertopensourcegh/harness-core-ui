@@ -18,12 +18,13 @@ import { useToaster } from '@common/exports'
 import { useGetTemplateInputSetYaml } from 'services/template-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
-import { StageTemplateBar } from '@pipeline/components/PipelineStudio/StageTemplateBar/StageTemplateBar'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { TemplateTabs } from '@templates-library/components/TemplateStageSetupShell/TemplateStageSetupShellUtils'
 import { validateStage } from '@pipeline/components/PipelineStudio/StepUtil'
 import { useGlobalEventListener } from '@common/hooks'
 import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
+import { useStageTemplateActions } from '@pipeline/utils/useStageTemplateActions'
+import { TemplateBar } from '@pipeline/components/PipelineStudio/TemplateBar/TemplateBar'
 import css from './TemplateStageSpecifications.module.scss'
 
 declare global {
@@ -110,6 +111,8 @@ export const TemplateStageSpecifications = (): JSX.Element => {
     return set({}, 'template.templateInputs', errorsResponse)
   }
 
+  const { onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
+
   return (
     <Container className={css.serviceOverrides} height={'100%'} background={Color.FORM_BG}>
       {loading && <PageSpinner />}
@@ -118,7 +121,14 @@ export const TemplateStageSpecifications = (): JSX.Element => {
         <>
           <ErrorsStripBinded />
           <Container className={css.contentSection}>
-            <StageTemplateBar />
+            {stage?.stage && (
+              <TemplateBar
+                templateLinkConfig={stage?.stage.template}
+                onRemoveTemplate={onRemoveTemplate}
+                onOpenTemplateSelector={onOpenTemplateSelector}
+                className={css.templateBar}
+              />
+            )}
             <Formik<StageElementConfig>
               initialValues={{
                 name: defaultTo(stage?.stage?.name, ''),

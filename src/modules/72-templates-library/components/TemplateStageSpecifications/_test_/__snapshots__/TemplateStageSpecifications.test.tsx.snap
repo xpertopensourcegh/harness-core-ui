@@ -10,14 +10,13 @@ exports[`<TemplateStageSpecifications /> tests snapshot test 1`] = `
       class="StyledProps--font StyledProps--main contentSection"
     >
       <div
-        class="StyledProps--font StyledProps--main container StyledProps--padding-top-small StyledProps--padding-right-medium StyledProps--padding-bottom-small StyledProps--padding-left-medium StyledProps--background-primary1"
-        style="width: 1024px;"
+        class="StyledProps--font StyledProps--main container templateBar StyledProps--margin-medium StyledProps--padding-top-small StyledProps--padding-right-medium StyledProps--padding-bottom-small StyledProps--padding-left-medium StyledProps--background-primary6 StyledProps--border"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary7"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
             data-icon="template-library"
           >
             <svg
@@ -49,7 +48,7 @@ exports[`<TemplateStageSpecifications /> tests snapshot test 1`] = `
             </svg>
           </span>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-white"
             style="flex-grow: 1;"
           >
             Using Template: New Stage Name (v1)
@@ -61,7 +60,7 @@ exports[`<TemplateStageSpecifications /> tests snapshot test 1`] = `
               class="bp3-popover-target"
             >
               <span
-                class="bp3-icon bp3-icon-more StyledProps--main actionButton StyledProps--color StyledProps--color-grey400"
+                class="bp3-icon bp3-icon-more StyledProps--main actionButton StyledProps--color StyledProps--color-white"
                 icon="more"
               >
                 <svg

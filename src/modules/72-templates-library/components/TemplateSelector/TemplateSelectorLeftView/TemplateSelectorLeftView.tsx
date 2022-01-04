@@ -245,9 +245,13 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
               <NoResultsView
                 hasSearchParam={!!searchParam || !!childType}
                 onReset={reset}
-                text={getString('templatesLibrary.templatesPage.noTemplates', {
-                  scope: selectedScope.label.toLowerCase()
-                })}
+                text={
+                  selectedScope.value === 'all'
+                    ? `There are no templates`
+                    : getString('templatesLibrary.templatesPage.noTemplates', {
+                        scope: selectedScope.label.toLowerCase()
+                      })
+                }
                 minimal={true}
               />
             )}

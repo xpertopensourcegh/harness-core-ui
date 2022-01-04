@@ -13,11 +13,11 @@ import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineSt
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepElementConfig } from 'services/cd-ng'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
-import { TemplateBar } from '@pipeline/components/PipelineStudio/StepCommands/TemplateBar/TemplateBar'
 import useCurrentModule from '@common/hooks/useCurrentModule'
 import { ModuleName } from 'framework/types/ModuleName'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
+import type { TemplateStepNode } from 'services/pipeline-ng'
+import { TemplateBar } from '@pipeline/components/PipelineStudio/TemplateBar/TemplateBar'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -69,7 +69,7 @@ export function StepCommands(
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
-  const isTemplateStep = !!(step as TemplateStepData)?.template
+  const isTemplateStep = !!(step as TemplateStepNode)?.template
 
   const { isModule } = useCurrentModule()
 
@@ -180,9 +180,13 @@ export function StepCommands(
 
   return (
     <div className={cx(css.stepCommand, className)}>
-      {stepType === StepType.Template ? (
+      {stepType === StepType.Template && onUseTemplate && onRemoveTemplate ? (
         <>
-          <TemplateBar step={step} onChangeTemplate={onUseTemplate} onRemoveTemplate={onRemoveTemplate} />
+          <TemplateBar
+            templateLinkConfig={(step as TemplateStepNode).template}
+            onOpenTemplateSelector={onUseTemplate}
+            onRemoveTemplate={onRemoveTemplate}
+          />
           <Container padding={'large'}>{getStepWidgetWithFormikRef()}</Container>
         </>
       ) : (
@@ -226,9 +230,7 @@ export function StepCommands(
                     size={ButtonSize.SMALL}
                     icon="template-library"
                     iconProps={{ size: 12 }}
-                    onClick={() => {
-                      onUseTemplate?.(step)
-                    }}
+                    onClick={onUseTemplate}
                     margin={{ right: 'small' }}
                   />
                   <SaveTemplateButton data={step} type={'Step'} buttonProps={{ variation: ButtonVariation.ICON }} />

@@ -21,7 +21,8 @@ import type {
 
 import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { TemplateStepNode } from 'services/pipeline-ng'
+import { getStepType } from '@pipeline/utils/templateUtils'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 // eslint-disable-next-line no-restricted-imports
@@ -76,24 +77,23 @@ export function getStageFromPipeline(
 }
 
 export interface ValidateStepProps {
-  step: StepElementConfig
-  template?: StepElementConfig
-  originalSteps?: ExecutionWrapperConfig[]
+  step: StepElementConfig | TemplateStepNode
+  template?: StepElementConfig | TemplateStepNode
+  originalStep?: ExecutionWrapperConfig
   getString?: UseStringsReturn['getString']
   viewType: StepViewType
 }
 
-const validateStep = ({
+export const validateStep = ({
   step,
   template,
-  originalSteps,
+  originalStep,
   getString,
   viewType
 }: ValidateStepProps): FormikErrors<StepElementConfig> => {
   const errors = {}
-  const originalStep = getStepFromStage(defaultTo(step.identifier, ''), originalSteps)
-  const isTemplateStep = !!(originalStep?.step as unknown as TemplateStepData)?.template
-  const stepType = isTemplateStep ? StepType.Template : originalStep?.step?.type
+  const isTemplateStep = !!(originalStep?.step as TemplateStepNode)?.template
+  const stepType = getStepType(originalStep?.step)
   const pipelineStep = factory.getStep(stepType)
   const errorResponse = pipelineStep?.validateInputSet({
     data: step,
@@ -129,7 +129,7 @@ const validateSteps = ({
       const errorResponse = validateStep({
         step: stepObj.step,
         template: template?.[index].step,
-        originalSteps,
+        originalStep: getStepFromStage(defaultTo(stepObj.step.identifier, ''), originalSteps),
         getString,
         viewType
       })
@@ -142,7 +142,7 @@ const validateSteps = ({
           const errorResponse = validateStep({
             step: stepParallel.step,
             template: template?.[index]?.parallel?.[indexP]?.step,
-            originalSteps,
+            originalStep: getStepFromStage(defaultTo(stepParallel.step.identifier, ''), originalSteps),
             getString,
             viewType
           })

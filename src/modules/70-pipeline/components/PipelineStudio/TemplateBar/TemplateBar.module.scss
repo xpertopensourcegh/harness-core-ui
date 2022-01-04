@@ -4,17 +4,17 @@
     transform: rotate(90deg);
     cursor: pointer;
   }
+}
 
-  .main {
-    position: relative;
-    :global {
-      .bp3-overlay {
-        display: block !important;
-      }
-      .bp3-overlay,
-      .bp3-transition-container {
-        width: 100%;
-      }
+.main {
+  position: relative;
+  :global {
+    .bp3-overlay {
+      display: block !important;
+    }
+    .bp3-overlay,
+    .bp3-transition-container {
+      width: 100%;
     }
   }
 }
