@@ -14,7 +14,8 @@ import {
   ButtonVariation,
   DropDown,
   shouldShowError,
-  PageSpinner
+  PageSpinner,
+  ExpandingSearchInputHandle
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -155,6 +156,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
   const isCIModule = module === 'ci'
+  const searchRef = useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
 
   const goToPipelineDetail = useCallback(
     (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
@@ -250,6 +252,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   useDocumentTitle([getString('pipelines')])
 
   const reset = (): void => {
+    searchRef.current.clear()
     setAppliedFilter(null)
     setGitFilter(null)
     setError(null)
@@ -645,6 +648,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                   setIsReseting(true)
                   setSearchParam(text)
                 }}
+                ref={searchRef}
                 className={css.expandSearch}
               />
               {shouldRenderFilterSelector() && (
