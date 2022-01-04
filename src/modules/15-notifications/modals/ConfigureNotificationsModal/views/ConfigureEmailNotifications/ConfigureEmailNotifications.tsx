@@ -189,7 +189,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             return (
               <FormikForm>
                 <FormInput.TextArea name={'emailIds'} label={getString('notifications.emailRecipients')} />
-                <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelEmailUserGroups')} />
                 <Layout.Horizontal style={{ alignItems: 'center' }}>
                   <TestEmailNotifications />
                 </Layout.Horizontal>
