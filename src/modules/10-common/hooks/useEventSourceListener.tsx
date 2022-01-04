@@ -32,7 +32,7 @@ interface EventSourceListenerProps<T> {
   lazy?: boolean
 }
 
-const useEventSourceListener = <T extends unknown>({
+export const useEventSourceListener = <T extends unknown>({
   url,
   event,
   lazy = false
@@ -134,5 +134,3 @@ const useEventSourceListener = <T extends unknown>({
 
   return { startListening, stopListening }
 }
-
-export default useEventSourceListener
