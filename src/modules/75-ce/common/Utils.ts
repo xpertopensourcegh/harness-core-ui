@@ -89,7 +89,7 @@ export class Utils {
       selector: {
         ruleName: services.find(_s => _s.id === _d.dep_id)?.name as string
       },
-      wait: _d.delay_secs
+      wait: _d.delay_secs as number
     }))
   }
 
