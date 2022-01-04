@@ -678,7 +678,6 @@ const FeatureFlagsPage: React.FC = () => {
       content={
         <>
           {isPlanEnforcementEnabled && <UsageLimitBanner />}
-
           {hasFeatureFlags && (
             <Container padding={{ top: 'medium', right: 'xlarge', left: 'xlarge' }}>
               <Container className={css.list}>
