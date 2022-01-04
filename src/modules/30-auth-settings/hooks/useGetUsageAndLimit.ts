@@ -14,6 +14,7 @@ import { useGetLicenseUsage as useGetFFUsage } from 'services/cf'
 import { useGetUsage as useGetCIUsage } from 'services/ci'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useGetCCMLicenseUsage } from 'services/ce'
 
 interface UsageAndLimitReturn {
   limitData: LimitReturn
@@ -39,6 +40,9 @@ interface UsageProps {
   ff?: {
     activeClientMAUs?: UsageProp
     activeFeatureFlagUsers?: UsageProp
+  }
+  ccm?: {
+    activeSpend?: UsageProp
   }
 }
 
@@ -169,9 +173,22 @@ function useGetUsage(module: ModuleName): UsageReturn {
     lazy: module !== ModuleName.CF
   })
 
+  const {
+    data: ccmUsageData,
+    loading: loadingCCMUsage,
+    error: ccmUsageError,
+    refetch: refetchCCMUsage
+  } = useGetCCMLicenseUsage({
+    queryParams: {
+      accountIdentifier: accountId,
+      timestamp
+    },
+    lazy: module !== ModuleName.CE
+  })
+
   function setUsageByModule(): void {
     switch (module) {
-      case ModuleName.CI: {
+      case ModuleName.CI:
         setUsageData({
           usage: {
             ci: {
@@ -183,8 +200,7 @@ function useGetUsage(module: ModuleName): UsageReturn {
           refetchUsage: refetchCIUsage
         })
         break
-      }
-      case ModuleName.CF: {
+      case ModuleName.CF:
         setUsageData({
           usage: {
             ff: {
@@ -197,14 +213,35 @@ function useGetUsage(module: ModuleName): UsageReturn {
           refetchUsage: refetchFFUsage
         })
         break
-      }
+      case ModuleName.CE:
+        setUsageData({
+          usage: {
+            ccm: {
+              activeSpend: ccmUsageData?.data?.activeSpend
+            }
+          },
+          loadingUsage: loadingCCMUsage,
+          usageErrorMsg: ccmUsageError?.message,
+          refetchUsage: refetchCCMUsage
+        })
+        break
     }
   }
 
   useDeepCompareEffect(() => {
     setUsageByModule()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ciUsageData, ciUsageError, loadingCIUsage, ffUsageData, ffUsageError, loadingFFUsage])
+  }, [
+    ciUsageData,
+    ciUsageError,
+    loadingCIUsage,
+    ffUsageData,
+    ffUsageError,
+    loadingFFUsage,
+    ccmUsageData,
+    ccmUsageError,
+    loadingCCMUsage
+  ])
 
   return usageData
 }
