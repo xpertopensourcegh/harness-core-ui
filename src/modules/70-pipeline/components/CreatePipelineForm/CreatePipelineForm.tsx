@@ -59,7 +59,7 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
             <Text style={{ color: Color.BLACK, paddingBottom: 8, fontWeight: 600, fontSize: 'large' }}>
               {getString('pipeline.createPipeline.setupHeader')}
             </Text>
-            <Text style={{ fontSize: 'normal', color: Color.BLACK, paddingBottom: 40 }}>
+            <Text style={{ fontSize: 'normal', color: Color.BLACK, paddingBottom: 36 }}>
               {getString('pipeline.createPipeline.setupSubtitle')}
             </Text>
             <NameIdDescriptionTags formikProps={formikProps} className={css.createPipelineNameIdDescriptionTags} />
