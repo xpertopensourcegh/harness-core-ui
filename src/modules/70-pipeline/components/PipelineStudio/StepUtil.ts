@@ -341,9 +341,9 @@ export const validateCICodebase = ({
   getString
 }: ValidatePipelineProps): FormikErrors<PipelineInfoConfig> => {
   const errors = {}
-  const shouldValidateCICodebase =
-    originalPipeline?.stages?.some(stage => get(stage, 'stage.spec.cloneCodebase')) ||
-    !isEmpty(get(originalPipeline, 'properties.ci.codebase'))
+  const shouldValidateCICodebase = originalPipeline?.stages?.some(stage =>
+    Object.is(get(stage, 'stage.spec.cloneCodebase'), true)
+  )
 
   if (
     shouldValidateCICodebase &&
