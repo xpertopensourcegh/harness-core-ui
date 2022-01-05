@@ -21,7 +21,13 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { ServiceLevelObjectiveDTO, useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
+import {
+  ServiceLevelObjectiveDTO,
+  TimeGraphResponse,
+  useGetServiceLevelObjective,
+  useSaveSLOData,
+  useUpdateSLOData
+} from 'services/cv'
 import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import sloReviewChange from '@cv/assets/sloReviewChange.svg'
@@ -47,6 +53,7 @@ const CVCreateSLO: React.FC = () => {
   >()
 
   const [selectedTabId, setSelectedTabId] = useState<CreateSLOTabs>(CreateSLOTabs.NAME)
+  const [sliGraphData, setSliGraphData] = useState<TimeGraphResponse>()
 
   const projectIdentifierRef = useRef<string>()
   const sloPayloadRef = useRef<ServiceLevelObjectiveDTO | null>(null)
@@ -277,7 +284,7 @@ const CVCreateSLO: React.FC = () => {
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
                     >
-                      <SLI formikProps={formik}>
+                      <SLI formikProps={formik} sliGraphData={sliGraphData} setSliGraphData={setSliGraphData}>
                         <NavButtons formikProps={formik} />
                       </SLI>
                     </Page.Body>
@@ -293,7 +300,7 @@ const CVCreateSLO: React.FC = () => {
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
                     >
-                      <SLOTargetAndBudgetPolicy formikProps={formik}>
+                      <SLOTargetAndBudgetPolicy formikProps={formik} sliGraphData={sliGraphData}>
                         <NavButtons formikProps={formik} loading={createSLOLoading || updateSLOLoading} />
                       </SLOTargetAndBudgetPolicy>
                     </Page.Body>

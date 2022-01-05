@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Card, Color, FontVariation, FormInput, Heading, Icon, Layout, Text, Container } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
+import { SLOTargetChart } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getPeriodLengthOptions,
   getPeriodLengthOptionsForRolling,
   getPeriodTypeOptions,
   getWindowEndOptionsForMonth,
   getWindowEndOptionsForWeek,
-  convertSLOFormDataToServiceLevelIndicatorDTO,
   getErrorBudget,
   getCustomOptionsForSLOTargetChart
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
-  SLOPanelProps,
+  SLOTargetAndBudgetPolicyProps,
   PeriodTypes,
   PeriodLengthTypes,
   SLOFormFields
@@ -24,9 +23,14 @@ import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 // SONAR recommendation
 const flexStart = 'flex-start'
 
-const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, children }) => {
+const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ children, formikProps, sliGraphData }) => {
   const { getString } = useStrings()
   const { periodType, periodLengthType } = formikProps.values
+
+  const dataPoints = useMemo(
+    () => sliGraphData?.dataPoints?.map(point => [Number(point.timeStamp) || 0, Number(point.value) || 0]),
+    [sliGraphData?.dataPoints]
+  )
 
   return (
     <>
@@ -98,8 +102,7 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, childr
                 <Container width={450}>
                   <SLOTargetChart
                     customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
-                    monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
-                    serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
+                    dataPoints={dataPoints}
                     bottomLabel={
                       <Text
                         color={Color.GREY_500}

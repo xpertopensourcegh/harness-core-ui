@@ -31,7 +31,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         {formikProps => {
           return (
             <FormikForm>
-              <SLI formikProps={formikProps}>
+              <SLI formikProps={formikProps} setSliGraphData={jest.fn()}>
                 <></>
               </SLI>
             </FormikForm>
