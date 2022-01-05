@@ -495,7 +495,7 @@ onboarding:
   testYourFlag: '3. Test Your Flag'
   letsStart: Let's start off by creating a simple flag
   inputLabel: Give your flag a memorable name
-  successLabel: 'You have created <strong>{{name}}</strong> with ID: <strong>{{identifier}}</strong>'
+  successLabel: 'You have created <strong>{{name}}</strong> with Id: <strong>{{identifier}}</strong>'
   setupLabel: Set up your application and code to communicate with our platform.
   selectLanguage: Select your language
   selectEnvironment: Select your environment
@@ -511,8 +511,8 @@ onboarding:
   listenToEvent: We’re listening for the event of your feature flag.
   toggleLabel: Toggle your flag ON/OFF and verify that the event we received has the same value.
   help:
-    heading1: The Importance of Your Flag ID
-    text1: Your flag ID is required to reference the flag in your code.
+    heading1: The Importance of Your Flag Id
+    text1: Your flag Id is required to reference the flag in your code.
     heading2: Installing an SDK to Your Environment
     text2: Your flag is automatically available for use in all environments of your project. However, you need to install our SDK to environments you wish to initiate your flag in.
     getStarted: Get started with SDKs

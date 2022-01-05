@@ -50,7 +50,7 @@ viewText: View
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
-ID: ID
+ID: Id
 org: Org
 instanceValidation:
   required: Instance is an required field
@@ -122,7 +122,7 @@ validation:
   fieldCannotbeLongerThanN: '{{ name }} cannot be longer than {{ n }} characters'
   fieldMustBeAlphanumeric: '{{ name }} can only contain alphanumerics, _ and $'
   groupAttributeIsRequired: Group Attribute is required
-  entityIdIsRequired: Entity ID is required
+  entityIdIsRequired: Entity Id is required
   valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
   valueMustBeLessThanOrEqualToN: Value must be less than or equal to {{ n }}
   valueMustBeANumber: Value must be number
@@ -288,8 +288,8 @@ git:
   testRepositoryDescription: Please provide a Repository name to test the credentials. The Connector will still be created at the Account level.
   APIAuthentication: 'API Authentication'
   gitHubApp: 'GitHub App'
-  installationId: 'GitHub Installation ID'
-  applicationId: 'GitHub Application ID'
+  installationId: 'GitHub Installation Id'
+  applicationId: 'GitHub Application Id'
   privateKey: 'GitHub Private Key'
   currentUserLabel: 'Using the Git credentials of {{user}}'
   noUserLabel: 'We don’t have your git credentials for the selected folder. Please update the credentials in user profile.'
@@ -450,7 +450,7 @@ selectVersion: Select version
 confirmText: Are you sure?
 paste: Paste
 artifactTag: tag
-clientId: Client ID
+clientId: Client Id
 filters:
   saveNewFilter: Save New Filter
   unsavedFilter: Unsaved Filter
@@ -467,7 +467,7 @@ noteAccountSwitch: 'Note: Switching Account might require re-authentication base
 accountOverview: Account Overview
 accountDetails: Account Details
 addAccountName: Add Account Name
-accountId: Account ID
+accountId: Account Id
 harnessClusterHostingAccount: Harness Cluster Hosting Account
 defaultExperience: Default Experience
 selectDefaultExperience: Select the default experience to launch after Sign-in
@@ -579,7 +579,7 @@ environmentCreated: Environment created successfully
 environmentUpdated: Environment updated successfully
 discard: Discard
 default: Default
-searchPlaceholder: Search by name or ID
+searchPlaceholder: Search by name or Id
 monthly: Monthly
 perMonth: /month
 hourly: Hourly

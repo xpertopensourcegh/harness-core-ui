@@ -275,7 +275,7 @@ co:
     rdp: 'RDP'
     backgroundTasks: 'Background Tasks'
   instanceSelector:
-    name: 'Name and ID'
+    name: 'Name and Id'
     ipAddress: '{{$.ce.co.gatewayAccess.ip}}'
     launchTime: 'Launch Time'
   gatewayReview:
@@ -381,7 +381,7 @@ connector:
       externalID: '{{$.connectors.aws.externalId}}'
       validation:
         arnRequired: '{{$.connectors.aws.validation.crossAccountRoleArn}}'
-        extIDRequired: External ID is required
+        extIDRequired: External Id is required
       submitText: Save & Continue
       templateLaunchText: Launch Template in AWS Console
     testConnection:

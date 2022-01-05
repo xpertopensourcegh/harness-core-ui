@@ -4,7 +4,7 @@ progressPercentage: 'Progress percentage:'
 discard: '{{ $.common.discard }}'
 serviceDependencyText: Service Dependency
 serviceDependenciesText: Service Dependencies
-stepLabel: '{{name}} (ID: {{identifier}})'
+stepLabel: '{{name}} (Id: {{identifier}})'
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
