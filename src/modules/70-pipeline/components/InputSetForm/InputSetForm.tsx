@@ -79,7 +79,7 @@ const getDefaultInputSet = (
   orgIdentifier: string,
   projectIdentifier: string
 ): InputSetDTO => ({
-  name: undefined,
+  name: '',
   identifier: '',
   description: undefined,
   orgIdentifier,
