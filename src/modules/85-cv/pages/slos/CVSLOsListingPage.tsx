@@ -45,6 +45,7 @@ import type {
   RiskTypes
 } from './CVSLOsListingPage.types'
 import {
+  getErrorObject,
   getFilterValueForSLODashboardParams,
   getIsSLODashboardAPIsLoading,
   getMonitoredServicesInitialValue,
@@ -52,7 +53,11 @@ import {
   getPeriodTypeOptionsForFilter,
   getSliTypeOptionsForFilter,
   getSLORiskTypeFilter,
-  getUserJourneyOptionsForFilter
+  getUserJourneyOptionsForFilter,
+  getIsWidgetDataEmpty,
+  getIsDataEmpty,
+  getIsSetPreviousPage,
+  setFilterValue
 } from './CVSLOListingPage.utils'
 import SLOCardHeader from './SLOCard/SLOCardHeader'
 import SLOCardContent from './SLOCard/SLOCardContent'
@@ -177,7 +182,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
     try {
       await deleteSLO(identifier)
 
-      if (pageIndex && pageItemCount === 1) {
+      if (getIsSetPreviousPage(pageIndex, pageItemCount)) {
         setPageNumber(prevPageNumber => prevPageNumber - 1)
       } else {
         await refetchDashboardWidgets()
@@ -227,8 +232,8 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
             placeholder={getString('all')}
             items={getUserJourneyOptionsForFilter(userJourneysData?.data?.content, getString)}
             value={selectedUserJourney}
-            onChange={val => {
-              setSelectedUserJourney(val.value as string)
+            onChange={({ value }) => {
+              setFilterValue<string>(setSelectedUserJourney, value as string)
             }}
           />
         </Layout.Vertical>
@@ -239,7 +244,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
             items={getMonitoredServicesOptionsForFilter(monitoredServicesData, getString)}
             value={selectedMonitoredServiceIdentifier}
             onChange={({ value }) => {
-              setSelectedMonitoredServiceIdentifier(value as string)
+              setFilterValue<string>(setSelectedMonitoredServiceIdentifier, value as string)
             }}
           />
         </Layout.Vertical>
@@ -250,7 +255,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
             items={getPeriodTypeOptionsForFilter(getString)}
             value={targetTypes}
             onChange={({ value }) => {
-              setSelectedTargetTypes(value as TargetTypes)
+              setFilterValue<TargetTypes>(setSelectedTargetTypes, value as TargetTypes)
             }}
           />
         </Layout.Vertical>
@@ -261,7 +266,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
             items={getSliTypeOptionsForFilter(getString)}
             value={sliTypes}
             onChange={({ value }) => {
-              setSelectedSliTypes(value as SLITypes)
+              setFilterValue<SLITypes>(setSelectedSliTypes, value as SLITypes)
             }}
           />
         </Layout.Vertical>
@@ -287,7 +292,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
           riskCountLoading
         )}
         error={getErrorMessage(
-          dashboardWidgetsError || userJourneysError || dashboardRiskCountError || monitoredServicesDataError
+          getErrorObject(dashboardWidgetsError, userJourneysError, dashboardRiskCountError, monitoredServicesDataError)
         )}
         retryOnError={() => {
           if (dashboardWidgetsError) {
@@ -305,7 +310,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
           }
         }}
         noData={{
-          when: () => !content?.length && !riskCountResponse?.data?.riskCounts?.length,
+          when: () => getIsDataEmpty(content?.length, riskCountResponse?.data?.riskCounts?.length),
           message: getString('cv.slos.noData'),
           icon: 'join-table'
         }}
@@ -354,7 +359,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
             </>
           )}
 
-          {!content?.length && !dashboardWidgetsLoading && (
+          {getIsWidgetDataEmpty(content?.length, dashboardWidgetsLoading) && (
             <NoDataCard icon="join-table" message={getString('cv.slos.noData')} />
           )}
         </Layout.Vertical>

@@ -1,6 +1,8 @@
+import type { Dispatch, SetStateAction } from 'react'
 import moment from 'moment'
 import type Highcharts from 'highcharts'
 import { Utils, Color, SelectOption } from '@wings-software/uicore'
+import type { GetDataError } from 'restful-react'
 import type { UseStringsReturn } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
 import type {
@@ -217,4 +219,33 @@ export function getMonitoredServicesInitialValue(
   monitoredServiceIdentifier?: string
 ): string {
   return monitoredServiceIdentifier ?? getString('all')
+}
+
+type ErrorType = GetDataError<unknown> | null
+// Sonar recommendation
+export const getErrorObject = (
+  dashboardWidgetsError: ErrorType,
+  userJourneysError: ErrorType,
+  dashboardRiskCountError: ErrorType,
+  monitoredServicesDataError: ErrorType
+): ErrorType => {
+  return dashboardWidgetsError || userJourneysError || dashboardRiskCountError || monitoredServicesDataError
+}
+
+export const getIsDataEmpty = (contentLength?: number, riskCountLength?: number): boolean => {
+  return !contentLength && !riskCountLength
+}
+
+export const getIsWidgetDataEmpty = (contentLength?: number, dashboardWidgetsLoading?: boolean): boolean => {
+  return !contentLength && !dashboardWidgetsLoading
+}
+
+export const getIsSetPreviousPage = (pageIndex: number, pageItemCount: number): boolean => {
+  return Boolean(pageIndex) && pageItemCount === 1
+}
+
+export function setFilterValue<T>(callback: Dispatch<SetStateAction<T>>, value: T): void {
+  if (value) {
+    callback(value)
+  }
 }

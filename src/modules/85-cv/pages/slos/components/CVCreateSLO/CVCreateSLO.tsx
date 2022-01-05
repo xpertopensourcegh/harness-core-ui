@@ -115,7 +115,7 @@ const CVCreateSLO: React.FC = () => {
               <Heading level={2} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xxlarge' }}>
                 {getString('cv.slos.reviewChanges')}
               </Heading>
-              <Text color={Color.GREY_600} font={{ weight: 'light' }} style={{ lineHeight: 'xxlarge' }}>
+              <Text color={Color.GREY_600} font={{ weight: 'light' }} style={{ lineHeight: 'var(--spacing-xlarge)' }}>
                 {getString('cv.slos.sloEditWarningMessage')}
               </Text>
             </Container>

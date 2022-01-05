@@ -147,9 +147,7 @@ describe('CVSLOsListingPage', () => {
       refetch: jest.fn()
     })
 
-    const { container } = render(<ComponentWrapper />)
-
-    screen.debug(container, 90000)
+    render(<ComponentWrapper />)
 
     expect(screen.getByText('Loading, please wait...')).toBeInTheDocument()
     expect(screen.getAllByTestId('slo-card-container')).toHaveLength(1)
