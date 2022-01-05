@@ -742,6 +742,7 @@ export interface StringsMap {
   'rbac.permissionLabels.create': string
   'rbac.permissionLabels.createEdit': string
   'rbac.permissionLabels.delete': string
+  'rbac.permissionLabels.evaluate': string
   'rbac.permissionLabels.execute': string
   'rbac.permissionLabels.invite': string
   'rbac.permissionLabels.manage': string
