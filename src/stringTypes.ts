@@ -142,6 +142,7 @@ export interface StringsMap {
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
+  'common.delegateTokenLabel': string
   'common.delete': string
   'common.descriptionPlaceholder': string
   'common.disable': string
@@ -471,9 +472,11 @@ export interface StringsMap {
   'common.reportNameRequired': string
   'common.repositoryName': string
   'common.resolveConflict': string
+  'common.resourceGroupLabel': string
   'common.resourceLabel': string
   'common.resourceTypeLabel': string
   'common.role': string
+  'common.roleAssignmentLabel': string
   'common.saveAndClose': string
   'common.saveAsTemplate': string
   'common.savedSuccessfully': string
@@ -593,6 +596,7 @@ export interface StringsMap {
   'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
+  'common.triggerLabel': string
   'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
@@ -758,7 +762,6 @@ export interface StringsMap {
   'rbac.resourceGroup.noResourceGroup': string
   'rbac.resourceGroup.noResourceGroupFound': string
   'rbac.resourceGroup.noResourceGroupTypes': string
-  'rbac.resourceGroup.resourceGroupColumn': string
   'rbac.resourceGroup.selectResourceGroup': string
   'rbac.resourceGroup.summary': string
   'rbac.resourceGroup.updateResourceGroupDialogTitle': string
@@ -2829,7 +2832,6 @@ export interface StringsMap {
   'pipeline.triggers.triggerConfigurationPanel.payloadType': string
   'pipeline.triggers.triggerConfigurationPanel.title': string
   'pipeline.triggers.triggerConfigurationPanel.triggerName': string
-  'pipeline.triggers.triggerLabel': string
   'pipeline.triggers.triggerOverviewPanel.title': string
   'pipeline.triggers.triggersLabel': string
   'pipeline.triggers.triggersSubLabel': string
