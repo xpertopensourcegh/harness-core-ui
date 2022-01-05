@@ -74,6 +74,7 @@ import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -157,6 +158,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
   const isCIModule = module === 'ci'
   const searchRef = useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 
   const goToPipelineDetail = useCallback(
     (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
@@ -421,7 +423,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
               deploymentType: getMultiSelectFormOptions(
-                deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm') //This filter will be removed once nativeHelm is enabled
+                NG_NATIVE_HELM
+                  ? deploymentTypeResponse?.data
+                  : deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm')
               )
             }}
             type="PipelineSetup"
