@@ -4,6 +4,30 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestConfig } from 'services/cd-ng'
 import { GitRepoName, ManifestStoreMap } from '../Manifesthelper'
 
+const getRepoNameBasedonScope = (initialValues: ManifestConfig, prevStepData: any): string => {
+  const connectorScope = getScopeFromValue(initialValues?.spec.store?.spec.connectorRef)
+  switch (connectorScope) {
+    case Scope.ACCOUNT:
+      return initialValues?.spec.store.spec.connectorRef === `account.${prevStepData.connectorRef.connector.identifier}`
+        ? initialValues?.spec.store?.spec.repoName
+        : ''
+
+    case Scope.PROJECT:
+      return prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec.store?.spec.connectorRef
+        ? initialValues?.spec.store?.spec.repoName
+        : ''
+
+    case Scope.ORG:
+      return `${prevStepData.connectorRef.scope}.${prevStepData.connectorRef.connector.identifier}` ===
+        initialValues?.spec.store.spec.connectorRef
+        ? initialValues?.spec.store?.spec.repoName
+        : ''
+
+    default:
+      return ''
+  }
+}
+
 export const getRepositoryName = (prevStepData: any, initialValues: ManifestConfig): string => {
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =
@@ -11,31 +35,13 @@ export const getRepositoryName = (prevStepData: any, initialValues: ManifestConf
     prevStepData?.urlType === GitRepoName.Repo
       ? GitRepoName.Repo
       : GitRepoName.Account
-  let repoName = ''
+
   if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
-    repoName = prevStepData?.connectorRef
-  } else if (prevStepData?.connectorRef) {
+    return prevStepData.connectorRef
+  } else {
     if (connectionType === GitRepoName.Repo) {
-      repoName = prevStepData?.connectorRef?.connector?.spec?.url
-    } else {
-      const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
-      if (connectorScope === Scope.ACCOUNT) {
-        if (
-          initialValues?.spec?.store.spec?.connectorRef ===
-          `account.${prevStepData?.connectorRef?.connector?.identifier}`
-        ) {
-          repoName = initialValues?.spec?.store?.spec?.repoName
-        } else {
-          repoName = ''
-        }
-      } else {
-        repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
-            ? initialValues?.spec?.store?.spec?.repoName
-            : ''
-      }
+      return prevStepData.connectorRef?.connector?.spec.url
     }
-    return repoName
+    return getRepoNameBasedonScope(initialValues, prevStepData)
   }
-  return repoName
 }
