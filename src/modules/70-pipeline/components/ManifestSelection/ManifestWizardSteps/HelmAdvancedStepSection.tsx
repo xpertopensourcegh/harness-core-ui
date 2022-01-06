@@ -9,7 +9,6 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import cx from 'classnames'
-import { isEmpty } from 'lodash-es'
 
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { FieldArray } from 'formik'
@@ -121,37 +120,18 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                   {formik.values?.commandFlags?.map((commandFlag: CommandFlags, index: number) => (
                     <Layout.Horizontal key={commandFlag.id} spacing="xxlarge" margin={{ top: 'small' }}>
                       <div className={helmcss.halfWidth}>
-                        <FormInput.MultiTypeInput
+                        <FormInput.Select
                           name={`commandFlags[${index}].commandType`}
                           label={index === 0 ? getString('pipeline.manifestType.helmCommandType') : ''}
-                          selectItems={commandFlagOptions[helmVersion]}
+                          items={commandFlagOptions[helmVersion]}
                           placeholder={getString('pipeline.manifestType.helmCommandTypePlaceholder')}
-                          multiTypeInputProps={{
-                            width: 300,
-                            onChange: value => {
-                              if (isEmpty(value)) {
-                                formik.setFieldValue(`commandFlags[${index}].commandType`, '')
-                                formik.setFieldValue(`commandFlags[${index}].flag`, '')
-                              }
-                            },
-                            expressions,
-                            allowableTypes,
-                            selectProps: {
-                              addClearBtn: true,
-                              items: commandFlagOptions[helmVersion]
-                            }
-                          }}
                         />
                       </div>
                       <div className={helmcss.halfWidth}>
                         <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                          <FormInput.MultiTextInput
+                          <FormInput.Text
                             label={index === 0 ? getString('flag') : ''}
                             name={`commandFlags[${index}].flag`}
-                            multiTextInputProps={{
-                              expressions,
-                              allowableTypes
-                            }}
                           />
                           {getMultiTypeFromValue(formik.values?.commandFlags?.[index]?.flag) ===
                             MultiTypeInputType.RUNTIME && (

@@ -1,8 +1,16 @@
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { ManifestConfig } from 'services/cd-ng'
+import type { ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { GitRepoName, ManifestStoreMap } from '../Manifesthelper'
+import type {
+  CommandFlags,
+  HelmWithGcsDataType,
+  HelmWithGITDataType,
+  HelmWithHTTPDataType,
+  HelmWithS3DataType
+} from '../ManifestInterface'
 
 const getRepoNameBasedonScope = (initialValues: ManifestConfig, prevStepData: any): string => {
   const connectorScope = getScopeFromValue(initialValues?.spec.store?.spec.connectorRef)
@@ -43,5 +51,30 @@ export const getRepositoryName = (prevStepData: any, initialValues: ManifestConf
       return prevStepData.connectorRef?.connector?.spec.url
     }
     return getRepoNameBasedonScope(initialValues, prevStepData)
+  }
+}
+
+export const handleCommandFlagsSubmitData = (
+  manifestObj: ManifestConfigWrapper,
+  formData: (HelmWithGcsDataType | HelmWithHTTPDataType | HelmWithS3DataType | HelmWithGITDataType) & {
+    store?: string
+    connectorRef?: string
+  }
+): void => {
+  if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
+    ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
+      commandFlag.commandType && commandFlag.flag
+        ? {
+            commandType: commandFlag.commandType,
+            flag: commandFlag.flag
+          }
+        : {}
+    )
+    const filteredCommandFlags = manifestObj?.manifest?.spec?.commandFlags.filter(
+      (currFlag: CommandFlags) => !isEmpty(currFlag)
+    )
+    if (filteredCommandFlags.length === 0) {
+      delete (manifestObj?.manifest?.spec as any).commandFlags
+    }
   }
 }

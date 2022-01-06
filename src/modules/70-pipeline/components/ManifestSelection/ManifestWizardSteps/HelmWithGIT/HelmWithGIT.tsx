@@ -33,8 +33,7 @@ import {
   ManifestStoreMap
 } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
-import { handleCommandFlagsSubmitData } from '../HelmWithGcs/HelmWithGcs'
-import { getRepositoryName } from '../ManifestUtils'
+import { getRepositoryName, handleCommandFlagsSubmitData } from '../ManifestUtils'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
@@ -90,7 +89,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         helmVersion: initialValues.spec?.helmVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
-          commandType: { label: commandFlag.commandType, value: commandFlag.commandType },
+          commandType: commandFlag.commandType,
           flag: commandFlag.flag
           // id: uuid(commandFlag, nameSpace())
         })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
