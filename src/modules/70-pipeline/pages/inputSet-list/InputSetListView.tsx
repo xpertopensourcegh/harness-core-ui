@@ -142,7 +142,12 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
             setMenuOpen(true)
           }}
         />
-        <Menu style={{ minWidth: 'unset' }}>
+        <Menu
+          className={css.listItemMenu}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation()
+          }}
+        >
           <Menu.Item
             icon="edit"
             text={getString('edit')}
