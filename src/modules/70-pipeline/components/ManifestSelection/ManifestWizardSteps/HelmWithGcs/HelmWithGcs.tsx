@@ -96,7 +96,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
-      const values = {
+      return {
         ...specValues,
         identifier: initialValues.identifier,
         helmVersion: initialValues.spec?.helmVersion,
@@ -109,7 +109,6 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
           // id: uuid(commandFlag, nameSpace())
         })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
       }
-      return values
     }
     return {
       identifier: '',

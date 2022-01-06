@@ -11,7 +11,7 @@ import {
 import cx from 'classnames'
 
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { FieldArray } from 'formik'
+import { FieldArray, FormikValues } from 'formik'
 
 import { String, useStrings } from 'framework/strings'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -20,17 +20,14 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 
 import { useHelmCmdFlags } from 'services/cd-ng'
 import { useDeepCompareEffect } from '@common/hooks'
-import type { CommandFlags, HelmVersionOptions, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
+import type { CommandFlags, HelmVersionOptions } from '../ManifestInterface'
 
 import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
 import css from './ManifestWizardSteps.module.scss'
 interface HelmAdvancedStepProps {
   expressions: string[]
   allowableTypes: MultiTypeInputType[]
-  formik: {
-    setFieldValue: (a: string, b: string) => void
-    values: HelmWithGITDataType | HelmWithHTTPDataType
-  }
+  formik: FormikValues
   isReadonly?: boolean
   deploymentType: string
   helmVersion: HelmVersionOptions

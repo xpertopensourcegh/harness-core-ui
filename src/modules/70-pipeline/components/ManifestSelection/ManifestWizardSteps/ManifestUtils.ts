@@ -4,13 +4,7 @@ import { getScopeFromValue } from '@common/components/EntityReference/EntityRefe
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { GitRepoName, ManifestStoreMap } from '../Manifesthelper'
-import type {
-  CommandFlags,
-  HelmWithGcsDataType,
-  HelmWithGITDataType,
-  HelmWithHTTPDataType,
-  HelmWithS3DataType
-} from '../ManifestInterface'
+import type { CommandFlags, HelmWithGcsDataType, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
 
 const getRepoNameBasedonScope = (initialValues: ManifestConfig, prevStepData: any): string => {
   const connectorScope = getScopeFromValue(initialValues?.spec.store?.spec.connectorRef)
@@ -56,25 +50,26 @@ export const getRepositoryName = (prevStepData: any, initialValues: ManifestConf
 
 export const handleCommandFlagsSubmitData = (
   manifestObj: ManifestConfigWrapper,
-  formData: (HelmWithGcsDataType | HelmWithHTTPDataType | HelmWithS3DataType | HelmWithGITDataType) & {
+  formData: (HelmWithGcsDataType | HelmWithGITDataType | HelmWithHTTPDataType) & {
     store?: string
     connectorRef?: string
   }
 ): void => {
   if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-    ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
-      commandFlag.commandType && commandFlag.flag
-        ? {
-            commandType: commandFlag.commandType,
-            flag: commandFlag.flag
-          }
-        : {}
+    ;(manifestObj.manifest as ManifestConfig).spec.commandFlags = formData?.commandFlags.map(
+      (commandFlag: CommandFlags) =>
+        commandFlag.commandType && commandFlag.flag
+          ? {
+              commandType: commandFlag.commandType,
+              flag: commandFlag.flag
+            }
+          : {}
     )
     const filteredCommandFlags = manifestObj?.manifest?.spec?.commandFlags.filter(
       (currFlag: CommandFlags) => !isEmpty(currFlag)
     )
     if (filteredCommandFlags.length === 0) {
-      delete (manifestObj?.manifest?.spec as any).commandFlags
+      delete manifestObj?.manifest?.spec?.commandFlags
     }
   }
 }
