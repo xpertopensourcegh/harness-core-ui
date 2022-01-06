@@ -483,7 +483,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
               if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
 
-            setFormErrors(errors)
+            if (!isEmpty(formErrors)) {
+              setFormErrors(errors)
+            }
+
             return errors
           }}
           onSubmit={values => {
@@ -547,7 +550,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             type="submit"
                             onClick={e => {
                               e.preventDefault()
-                              formikProps.validateForm().then(() => {
+                              formikProps.validateForm().then(errors => {
+                                setFormErrors(errors)
                                 if (
                                   formikProps?.values?.name?.length &&
                                   formikProps?.values?.identifier?.length &&
