@@ -93,7 +93,7 @@ const ServiceHealthAndConfiguration: React.FC = () => {
       }}
       className={css.pageBody}
     >
-      <CVSLOsListingPage monitoredServiceIdentifier={identifier} />
+      <CVSLOsListingPage monitoredService={monitoredService} />
     </Page.Body>
   )
 
