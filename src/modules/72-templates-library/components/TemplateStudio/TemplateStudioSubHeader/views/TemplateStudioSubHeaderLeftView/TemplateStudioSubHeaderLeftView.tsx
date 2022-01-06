@@ -83,7 +83,9 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
-      orgIdentifier
+      orgIdentifier,
+      repoIdentifier,
+      branch
     },
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })
