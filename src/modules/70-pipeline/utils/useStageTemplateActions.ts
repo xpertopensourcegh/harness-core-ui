@@ -1,4 +1,4 @@
-import { defaultTo, set } from 'lodash-es'
+import { defaultTo, set, unset } from 'lodash-es'
 import { parse } from 'yaml'
 import produce from 'immer'
 import { useCallback } from 'react'
@@ -38,7 +38,7 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
             draft.identifier = defaultTo(node?.identifier, '')
           })
         : produce(node as StageElementConfig, draft => {
-            delete draft.template
+            unset(draft, 'template')
             set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
             if (template.versionLabel) {
               set(draft, 'template.versionLabel', template.versionLabel)

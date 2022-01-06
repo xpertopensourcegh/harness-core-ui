@@ -10,7 +10,7 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
-import { cloneDeep, defaultTo, get, isEmpty, isNil, set } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, isNil, set, unset } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import { parse } from 'yaml'
@@ -552,9 +552,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               draft.name = defaultTo(node?.name, '')
               draft.identifier = defaultTo(node?.identifier, '')
             })
-          : produce({} as TemplateStepNode, draft => {
-              draft.name = defaultTo(node?.name, '')
-              draft.identifier = defaultTo(node?.identifier, '')
+          : produce(node as TemplateStepNode, draft => {
+              unset(draft, 'template')
               set(draft, 'template.templateRef', getScopeBasedTemplateRef(templateSummary))
               if (templateSummary.versionLabel) {
                 set(draft, 'template.versionLabel', templateSummary.versionLabel)

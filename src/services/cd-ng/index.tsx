@@ -4,7 +4,6 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-import type { TemplateStepNode } from '../pipeline-ng'
 export const SPEC_VERSION = '2.0'
 export interface ACLAggregateFilter {
   resourceGroupIdentifiers?: string[]
@@ -2388,7 +2387,7 @@ export interface ExecutionTarget {
 
 export interface ExecutionWrapperConfig {
   parallel?: ParallelStepElementConfig
-  step?: StepElementConfig | TemplateStepNode
+  step?: StepElementConfig
   stepGroup?: StepGroupElementConfig
 }
 
