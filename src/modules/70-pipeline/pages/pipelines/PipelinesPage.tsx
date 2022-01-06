@@ -19,7 +19,7 @@ import {
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { defaultTo, pick } from 'lodash-es'
+import { defaultTo, isEmpty, pick } from 'lodash-es'
 import { Page, StringUtils, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import {
@@ -347,6 +347,18 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   }
 
   const { data: deploymentTypeResponse, loading: isFetchingDeploymentTypes } = useGetServiceDefinitionTypes({})
+  const [deploymentTypeSelectOptions, setDeploymentTypeSelectOptions] = React.useState<SelectOption[]>([])
+
+  React.useEffect(() => {
+    if (!isEmpty(deploymentTypeResponse?.data) && deploymentTypeResponse?.data) {
+      const options: SelectOption[] = deploymentTypeResponse.data.map(type => ({
+        label: type === 'NativeHelm' ? getString('pipeline.nativeHelm') : getString('kubernetesText'),
+        value: type as string
+      }))
+      setDeploymentTypeSelectOptions(options)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploymentTypeResponse?.data])
 
   const {
     data: servicesResponse,
@@ -422,11 +434,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: getMultiSelectFormOptions(
-                NG_NATIVE_HELM
-                  ? deploymentTypeResponse?.data
-                  : deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm')
-              )
+              deploymentType: NG_NATIVE_HELM
+                ? deploymentTypeSelectOptions
+                : deploymentTypeSelectOptions.filter(deploymentType => deploymentType.value !== 'NativeHelm')
             }}
             type="PipelineSetup"
           />

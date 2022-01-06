@@ -76,6 +76,8 @@ export function ExecutionFilters(): React.ReactElement {
     lazy: isFiltersDrawerOpen
   })
 
+  const [deploymentTypeSelectOptions, setDeploymentTypeSelectOptions] = React.useState<SelectOption[]>([])
+
   const { mutate: createFilter } = usePostFilter({
     queryParams: { accountIdentifier: accountId }
   })
@@ -92,6 +94,17 @@ export function ExecutionFilters(): React.ReactElement {
       type: 'PipelineExecution'
     }
   })
+
+  React.useEffect(() => {
+    if (!isFetchingDeploymentTypes && !isEmpty(deploymentTypeResponse?.data) && deploymentTypeResponse?.data) {
+      const options: SelectOption[] = deploymentTypeResponse.data.map(type => ({
+        label: type === 'NativeHelm' ? getString('pipeline.nativeHelm') : getString('kubernetesText'),
+        value: type as string
+      }))
+      setDeploymentTypeSelectOptions(options)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploymentTypeResponse?.data, isFetchingDeploymentTypes])
 
   const isFetchingMetaData = isFetchingDeploymentTypes || isFetchingEnvironments || isFetchingServices
 
@@ -245,11 +258,9 @@ export function ExecutionFilters(): React.ReactElement {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: getMultiSelectFormOptions(
-                NG_NATIVE_HELM
-                  ? deploymentTypeResponse?.data
-                  : deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm')
-              )
+              deploymentType: NG_NATIVE_HELM
+                ? deploymentTypeSelectOptions
+                : deploymentTypeSelectOptions.filter(deploymentType => deploymentType.value !== 'NativeHelm')
             }}
             type="PipelineExecution"
           />
