@@ -55,7 +55,6 @@ import {
   useFeatureFlagTypeToStringMapping
 } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUtils'
-// import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 
@@ -65,7 +64,7 @@ import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
 import { GitDetails, GitSyncFormValues, GIT_SYNC_ERROR_CODE, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
 import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
-import imageURL from './Feature_Flags_LP.svg'
+import imageURL from './Feature_Flags_Teepee.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
 import css from './FeatureFlagsPage.module.scss'
