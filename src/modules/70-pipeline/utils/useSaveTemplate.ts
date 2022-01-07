@@ -260,7 +260,7 @@ export function useSaveTemplate(
   }
   const saveAndPublish = React.useCallback(
     async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => {
-      const { isEdit } = extraInfo
+      const { isEdit, comment } = extraInfo
       let latestTemplate: NGTemplateInfoConfig = defaultTo(updatedTemplate, template)
 
       if (isYaml && yamlHandler) {
@@ -305,13 +305,15 @@ export function useSaveTemplate(
           payload: { template: omit(latestTemplate, 'repo', 'branch') }
         })
       } else {
-        const comments = await getComments(
-          getString('pipeline.commentModal.heading', {
-            name: latestTemplate.name,
-            version: latestTemplate.versionLabel
-          }),
-          stableVersion === latestTemplate.versionLabel ? getString('pipeline.commentModal.info') : undefined
-        )
+        const comments =
+          comment ??
+          (await getComments(
+            getString('pipeline.commentModal.heading', {
+              name: latestTemplate.name,
+              version: latestTemplate.versionLabel
+            }),
+            stableVersion === latestTemplate.versionLabel ? getString('pipeline.commentModal.info') : undefined
+          ))
         await saveAndPublishTemplate(latestTemplate, comments, isEdit)
       }
     },

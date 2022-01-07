@@ -44,21 +44,28 @@ export enum Fields {
 export interface PromiseExtraArgs {
   isEdit?: boolean
   updatedGitDetails?: EntityGitDetails
+  comment?: string
 }
 
 export interface ModalProps {
   title: string
   disabledFields?: Fields[]
   emptyFields?: Fields[]
+  shouldGetComment?: boolean
   promise: (values: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<void | UseSaveSuccessResponse>
   onSuccess?: (values: NGTemplateInfoConfig) => void
   onFailure?: (error: any) => void
+}
+
+export interface TemplateConfigValues extends NGTemplateInfoConfigWithGitDetails {
+  comment: string
 }
 
 export interface NGTemplateInfoConfigWithGitDetails extends NGTemplateInfoConfig {
   repo: string
   branch: string
 }
+
 export interface ConfigModalProps {
   initialValues: NGTemplateInfoConfigWithGitDetails
   onClose: () => void
@@ -75,7 +82,7 @@ const MAX_VERSION_LABEL_LENGTH = 63
 
 const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
   const { initialValues, setPreviewValues, onClose, modalProps, showGitFields, gitDetails } = props
-  const { title, disabledFields = [], promise, onSuccess, onFailure } = modalProps
+  const { title, disabledFields = [], shouldGetComment = false, promise, onSuccess, onFailure } = modalProps
   const { getString } = useStrings()
   const [isEdit, setIsEdit] = React.useState<boolean>()
   const { isGitSyncEnabled } = useAppStore()
@@ -89,11 +96,16 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
     setIsEdit(edit)
   }, [initialValues])
 
-  const onSubmit = React.useCallback((values: NGTemplateInfoConfigWithGitDetails) => {
+  const onSubmit = React.useCallback((values: TemplateConfigValues) => {
     setLoading(true)
     const formGitDetails =
       values.repo && values.repo.trim().length > 0 ? { repoIdentifier: values.repo, branch: values.branch } : undefined
-    promise(omit(values, 'repo', 'branch'), { isEdit: false, updatedGitDetails: formGitDetails })
+    const comment = values.comment.trim()
+    promise(omit(values, 'repo', 'branch', 'comment'), {
+      isEdit: false,
+      updatedGitDetails: formGitDetails,
+      ...(comment.length > 0 && { comment: values.comment })
+    })
       .then(response => {
         setLoading(false)
         if (response && response.status === 'SUCCESS') {
@@ -130,8 +142,8 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
       >
         {title || ''}
       </Text>
-      <Formik<NGTemplateInfoConfigWithGitDetails>
-        initialValues={initialValues}
+      <Formik<TemplateConfigValues>
+        initialValues={{ ...initialValues, comment: '' }}
         onSubmit={onSubmit}
         validate={values => setPreviewValues(values)}
         formName={formName}
@@ -171,34 +183,46 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
             : {})
         })}
       >
-        {(formik: FormikProps<NGTemplateInfoConfigWithGitDetails>) => {
+        {(formik: FormikProps<TemplateConfigValues>) => {
           return (
             <FormikForm>
               <Layout.Vertical spacing={'huge'}>
                 <Container>
-                  <Layout.Vertical>
-                    <NameIdDescriptionTags
-                      tooltipProps={{ dataTooltipId: formName }}
-                      formikProps={formik}
-                      identifierProps={{
-                        isIdentifierEditable: !disabledFields.includes(Fields.Identifier) && !isReadonly,
-                        inputGroupProps: { disabled: disabledFields.includes(Fields.Name) || isReadonly }
-                      }}
-                      className={css.nameIdDescriptionTags}
-                      descriptionProps={{
-                        disabled: disabledFields.includes(Fields.Description) || isReadonly
-                      }}
-                      tagsProps={{
-                        disabled: disabledFields.includes(Fields.Tags) || isReadonly
-                      }}
-                    />
-                    <FormInput.Text
-                      name="versionLabel"
-                      placeholder={getString('templatesLibrary.createNewModal.versionPlaceholder')}
-                      label={versionLabelText}
-                      disabled={disabledFields.includes(Fields.VersionLabel) || isReadonly}
-                      className={css.versionLabel}
-                    />
+                  <Layout.Vertical spacing={'small'}>
+                    <Container>
+                      <Layout.Vertical>
+                        <NameIdDescriptionTags
+                          tooltipProps={{ dataTooltipId: formName }}
+                          formikProps={formik}
+                          identifierProps={{
+                            isIdentifierEditable: !disabledFields.includes(Fields.Identifier) && !isReadonly,
+                            inputGroupProps: { disabled: disabledFields.includes(Fields.Name) || isReadonly }
+                          }}
+                          className={css.nameIdDescriptionTags}
+                          descriptionProps={{
+                            disabled: disabledFields.includes(Fields.Description) || isReadonly
+                          }}
+                          tagsProps={{
+                            disabled: disabledFields.includes(Fields.Tags) || isReadonly
+                          }}
+                        />
+                        <FormInput.Text
+                          name="versionLabel"
+                          placeholder={getString('templatesLibrary.createNewModal.versionPlaceholder')}
+                          label={versionLabelText}
+                          disabled={disabledFields.includes(Fields.VersionLabel) || isReadonly}
+                        />
+                        {shouldGetComment && (
+                          <FormInput.TextArea
+                            name="comment"
+                            label={getString('optionalField', {
+                              name: getString('common.commentModal.commentLabel')
+                            })}
+                            className={css.comment}
+                          />
+                        )}
+                      </Layout.Vertical>
+                    </Container>
                     {isGitSyncEnabled && showGitFields && (
                       <GitSyncStoreProvider>
                         <GitContextForm formikProps={formik} gitDetails={gitDetails} />
