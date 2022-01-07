@@ -21,7 +21,6 @@ import type { GitQueryParams, ModulePathParams, TemplateStudioPathProps } from '
 import { useQueryParams } from '@common/hooks'
 import type { PromiseExtraArgs } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import useCommentModal from '@common/hooks/CommentModal/useCommentModal'
 
 export interface FetchTemplateUnboundProps {
   forceFetch?: boolean
@@ -74,8 +73,6 @@ export function useSaveTemplate(
   const { getString } = useStrings()
   const { showSuccess, showError, clear } = useToaster()
   const history = useHistory()
-  const { getComments } = useCommentModal()
-
   const isYaml = view === SelectedView.YAML
 
   const navigateToLocation = (
@@ -305,16 +302,7 @@ export function useSaveTemplate(
           payload: { template: omit(latestTemplate, 'repo', 'branch') }
         })
       } else {
-        const comments =
-          comment ??
-          (await getComments(
-            getString('pipeline.commentModal.heading', {
-              name: latestTemplate.name,
-              version: latestTemplate.versionLabel
-            }),
-            stableVersion === latestTemplate.versionLabel ? getString('pipeline.commentModal.info') : undefined
-          ))
-        await saveAndPublishTemplate(latestTemplate, comments, isEdit)
+        await saveAndPublishTemplate(latestTemplate, comment, isEdit)
       }
     },
     [

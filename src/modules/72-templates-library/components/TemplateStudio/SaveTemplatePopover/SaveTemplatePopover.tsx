@@ -16,6 +16,7 @@ import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import type { Failure } from 'services/template-ng'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
+import useCommentModal from '@common/hooks/CommentModal/useCommentModal'
 import css from './SaveTemplatePopover.module.scss'
 export interface GetErrorResponse extends Omit<Failure, 'errors'> {
   errors?: FormikErrors<unknown>
@@ -41,6 +42,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
   const [saveOptions, setSaveOptions] = React.useState<TemplateMenuItem[]>([])
   const [disabled, setDisabled] = React.useState<boolean>(false)
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
+  const { getComments } = useCommentModal()
 
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
@@ -85,17 +87,35 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     [getErrors]
   )
 
+  const onSubmit = React.useCallback(
+    (isEdit: boolean) => {
+      checkErrors(async () => {
+        try {
+          const comment = !isGitSyncEnabled
+            ? await getComments(
+                getString('pipeline.commentModal.heading', {
+                  name: template.name,
+                  version: template.versionLabel
+                }),
+                stableVersion === template.versionLabel ? getString('pipeline.commentModal.info') : undefined
+              )
+            : ''
+          await saveAndPublish(template, { isEdit, comment })
+        } catch (_err) {
+          // do nothing as user has cancelled the save operation
+        }
+      })
+    },
+    [checkErrors, isGitSyncEnabled, template, stableVersion, saveAndPublish]
+  )
+
   const onSave = React.useCallback(() => {
-    checkErrors(() => {
-      saveAndPublish(template, { isEdit: false })
-    })
-  }, [checkErrors, saveAndPublish, template])
+    onSubmit(false)
+  }, [onSubmit])
 
   const onUpdate = React.useCallback(() => {
-    checkErrors(() => {
-      saveAndPublish(template, { isEdit: true })
-    })
-  }, [checkErrors, saveAndPublish, template])
+    onSubmit(true)
+  }, [onSubmit])
 
   const onSaveAsNewLabel = React.useCallback(() => {
     checkErrors(() => {
