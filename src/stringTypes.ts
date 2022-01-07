@@ -144,6 +144,10 @@ export interface StringsMap {
   'common.delegateForTask': string
   'common.delegateTokenLabel': string
   'common.delete': string
+  'common.deleteService': string
+  'common.deleteServiceConfirmation': string
+  'common.deleteServiceFailure': string
+  'common.deleteServiceMessage': string
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
@@ -634,6 +638,7 @@ export interface StringsMap {
   'common.videoNotSupportedError': string
   'common.viewContent': string
   'common.viewLatest': string
+  'common.viewReferences': string
   'common.viewText': string
   'common.viewUsage': string
   'common.webhookURL': string

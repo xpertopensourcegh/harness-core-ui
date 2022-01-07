@@ -575,6 +575,11 @@ videoNotSupportedError: Your browser doesn't support HTML5 video.
 sidecarArtifactsText: '{{$.sidecarArtifactText}}s'
 serviceCreated: Service created successfully
 serviceUpdated: Service updated successfully
+deleteService: Delete Service?
+deleteServiceMessage: Service deleted
+deleteServiceFailure: Unable to delete Service
+deleteServiceConfirmation: 'Are you sure you want to delete service {{name}}?'
+viewReferences: View references
 environmentCreated: Environment created successfully
 environmentUpdated: Environment updated successfully
 discard: Discard
