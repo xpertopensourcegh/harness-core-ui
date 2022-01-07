@@ -38,7 +38,8 @@ import {
   getSLOInitialFormData,
   createSLORequestPayload,
   isFormDataValid,
-  getIsUserUpdatedSLOData
+  getIsUserUpdatedSLOData,
+  handleTabChange
 } from './CVCreateSLO.utils'
 import { TabsOrder, getSLOFormValidationSchema } from './CVCreateSLO.constants'
 import { SLOForm, CreateSLOTabs, NavButtonsProps } from './CVCreateSLO.types'
@@ -249,11 +250,7 @@ const CVCreateSLO: React.FC = () => {
             <Tabs
               id="createSLOTabs"
               selectedTabId={selectedTabId}
-              onChange={nextTab => {
-                if (isFormDataValid(formik, selectedTabId)) {
-                  setSelectedTabId(nextTab as CreateSLOTabs)
-                }
-              }}
+              onChange={nextTabId => handleTabChange(nextTabId, formik, setSelectedTabId)}
               tabList={[
                 {
                   id: CreateSLOTabs.NAME,
