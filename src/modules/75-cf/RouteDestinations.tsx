@@ -46,7 +46,7 @@ import { String } from 'framework/strings'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
-import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
+import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
@@ -402,7 +402,7 @@ const CFRoutes: FC = () => (
       exact
     >
       <GitSyncPage>
-        <GitSyncErrorsWithRedirect />
+        <GitSyncErrors />
       </GitSyncPage>
     </RouteWithLayout>
 
