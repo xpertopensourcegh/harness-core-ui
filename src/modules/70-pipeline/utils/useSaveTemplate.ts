@@ -246,13 +246,17 @@ export function useSaveTemplate(
   ): EntityGitDetails => {
     if (isEdit) {
       return {
-        filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`,
+        filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel
+          .toString()
+          .replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`,
         ...currGitDetails
       }
     }
     return {
       ...currGitDetails,
-      filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`
+      filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel
+        .toString()
+        .replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`
     }
   }
   const saveAndPublish = React.useCallback(
