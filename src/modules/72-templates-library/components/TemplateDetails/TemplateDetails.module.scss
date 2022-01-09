@@ -47,8 +47,16 @@
     }
   }
   .innerTabsContainer {
-    :global(.bp3-tab-panel) {
-      overflow: hidden !important;
+    :global {
+      .bp3-tab-panel {
+        overflow: unset;
+        height: auto;
+      }
+      .bp3-tab-list {
+        border-top: 1px solid var(--grey-200);
+        position: sticky;
+        top: 0;
+      }
     }
   }
   .dropdown {

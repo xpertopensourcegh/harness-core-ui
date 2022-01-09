@@ -329,7 +329,7 @@ exports[`<TemplateDetails /> tests snapshot test 1`] = `
                     </div>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main innerTabsContainer StyledProps--border StyledProps--border-top"
+                    class="StyledProps--font StyledProps--main innerTabsContainer"
                   >
                     <div
                       class="bp3-tabs Tabs--main Tabs--horizontal"

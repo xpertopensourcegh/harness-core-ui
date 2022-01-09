@@ -37,7 +37,6 @@ export const TemplateYaml: React.FC<TemplateYamlProps> = ({ templateYaml }) => {
             height={height}
             options={
               {
-                classNames: css.editor,
                 fontFamily: "'Roboto Mono', monospace",
                 fontSize: 13,
                 minimap: {

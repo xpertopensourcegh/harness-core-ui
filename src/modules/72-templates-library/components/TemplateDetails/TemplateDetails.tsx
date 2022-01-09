@@ -281,7 +281,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                             </Container>
                           </Layout.Vertical>
                         </Container>
-                        <Container border={{ top: true }} className={css.innerTabsContainer}>
+                        <Container className={css.innerTabsContainer}>
                           <Tabs id="template-details" selectedTabId={selectedTab} onChange={handleTabChange}>
                             <Tab
                               id={TemplateTabs.INPUTS}
