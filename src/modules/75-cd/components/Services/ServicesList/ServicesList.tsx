@@ -429,6 +429,7 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
             }}
           />
           <RbacMenuItem
+            className={css.hideDeleteButton}
             icon="trash"
             text={getString('delete')}
             onClick={handleDelete}
