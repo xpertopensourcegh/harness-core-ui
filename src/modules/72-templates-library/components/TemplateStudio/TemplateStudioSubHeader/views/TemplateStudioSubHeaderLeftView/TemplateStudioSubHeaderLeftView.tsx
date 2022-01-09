@@ -228,10 +228,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
       hideConfigModal()
       setModalProps({
         title: getString('templatesLibrary.createNewModal.heading', { entity: template.type }),
-        promise: onSubmit,
-        onSuccess: () => {
-          hideConfigModal()
-        }
+        promise: onSubmit
       })
       showConfigModal()
     }

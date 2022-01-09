@@ -62,19 +62,16 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     [template, modalProps]
   )
 
-  const { saveAndPublish } = useSaveTemplate(
-    {
-      template,
-      yamlHandler,
-      gitDetails,
-      setLoading,
-      fetchTemplate,
-      deleteTemplateCache,
-      view,
-      stableVersion
-    },
-    hideConfigModal
-  )
+  const { saveAndPublish } = useSaveTemplate({
+    template,
+    yamlHandler,
+    gitDetails,
+    setLoading,
+    fetchTemplate,
+    deleteTemplateCache,
+    view,
+    stableVersion
+  })
 
   const checkErrors = React.useCallback(
     (callback: () => void) => {

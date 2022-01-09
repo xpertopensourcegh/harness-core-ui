@@ -4,7 +4,7 @@ import cx from 'classnames'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { TemplateStepNode } from 'services/pipeline-ng'
@@ -28,9 +28,10 @@ export function StepCard(props: StepCardProps): React.ReactElement {
   const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly, path, allowableTypes } =
     props
   const { stepsFactory } = usePipelineContext()
-  const type = (originalStep as TemplateStepNode)?.template
-    ? StepType.Template
-    : ((originalStep as StepElementConfig).type as StepType)
+
+  if ((originalStep as TemplateStepNode)?.template) {
+    return <></>
+  }
 
   return (
     <React.Fragment>
@@ -44,7 +45,7 @@ export function StepCard(props: StepCardProps): React.ReactElement {
         factory={stepsFactory}
         initialValues={originalStep}
         allowableTypes={allowableTypes}
-        type={type}
+        type={(originalStep as StepElementConfig).type as StepType}
         stepViewType={StepViewType.InputVariable}
         onUpdate={(data: StepElementConfig) => onUpdateStep(data, stepPath)}
         readonly={readonly}

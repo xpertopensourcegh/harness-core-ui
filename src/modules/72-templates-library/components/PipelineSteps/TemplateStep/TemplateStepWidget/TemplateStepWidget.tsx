@@ -148,7 +148,7 @@ export function TemplateStepWidget(
                     />
                   </Container>
                 )}
-                {!loading && !inputSetError && (
+                {!loading && !inputSetError && formik.values.inputSetTemplate && (
                   <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} spacing={'large'}>
                     <Heading level={5} color={Color.BLACK}>
                       {getString('templatesLibrary.templateInputs')}

@@ -1,4 +1,5 @@
 import { defaultTo, get, isEmpty, set, unset } from 'lodash-es'
+import produce from 'immer'
 import type { StageElementConfig, StepElementConfig, TemplateLinkConfig } from 'services/cd-ng'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
@@ -6,6 +7,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { TemplateStepNode } from 'services/pipeline-ng'
 import type { StageType } from '@pipeline/utils/stageHelpers'
+import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 
 export const TEMPLATE_INPUT_PATH = 'template.templateInputs'
 
@@ -43,4 +45,20 @@ export const setTemplateInputs = (
   } else {
     set(data, TEMPLATE_INPUT_PATH, templateInputs)
   }
+}
+
+export const createTemplate = <T extends StageElementConfig | StepOrStepGroupOrTemplateStepData>(
+  data?: T,
+  template?: TemplateSummaryResponse
+) => {
+  return produce({} as T, draft => {
+    draft.name = defaultTo(data?.name, '')
+    draft.identifier = defaultTo(data?.identifier, '')
+    if (template) {
+      set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
+      if (template.versionLabel) {
+        set(draft, 'template.versionLabel', template.versionLabel)
+      }
+    }
+  })
 }

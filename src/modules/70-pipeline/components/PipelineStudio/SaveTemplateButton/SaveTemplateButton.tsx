@@ -47,14 +47,11 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
     ),
     [template, modalProps, repoIdentifier, branch]
   )
-  const { saveAndPublish } = useSaveTemplate(
-    {
-      template: template as NGTemplateInfoConfig,
-      gitDetails: { repoIdentifier, branch },
-      isPipelineStudio: true
-    },
-    hideConfigModal
-  )
+  const { saveAndPublish } = useSaveTemplate({
+    template: template as NGTemplateInfoConfig,
+    gitDetails: { repoIdentifier, branch },
+    isPipelineStudio: true
+  })
 
   const onSaveAsTemplate = () => {
     setTemplate(

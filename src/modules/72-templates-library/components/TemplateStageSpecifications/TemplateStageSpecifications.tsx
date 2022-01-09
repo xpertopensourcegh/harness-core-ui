@@ -182,7 +182,7 @@ export const TemplateStageSpecifications = (): JSX.Element => {
                       />
                     </Container>
                   )}
-                  {!loading && !inputSetError && (
+                  {!loading && !inputSetError && formik.values.inputSetTemplate && (
                     <Layout.Vertical
                       margin={{ top: 'medium' }}
                       padding={{ top: 'large', bottom: 'large' }}

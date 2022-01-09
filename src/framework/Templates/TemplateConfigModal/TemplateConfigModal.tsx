@@ -28,6 +28,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { regexVersionLabel } from '@common/utils/StringUtils'
+import type { Error } from 'services/cd-ng'
 import { DefaultNewTemplateId, DefaultNewVersionLabel } from '../templates'
 import css from './TemplateConfigModal.module.scss'
 
@@ -52,9 +53,9 @@ export interface ModalProps {
   disabledFields?: Fields[]
   emptyFields?: Fields[]
   shouldGetComment?: boolean
-  promise: (values: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<void | UseSaveSuccessResponse>
+  promise: (values: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<UseSaveSuccessResponse>
   onSuccess?: (values: NGTemplateInfoConfig) => void
-  onFailure?: (error: any) => void
+  onFailure?: (error: Error) => void
 }
 
 export interface TemplateConfigValues extends NGTemplateInfoConfigWithGitDetails {
@@ -110,6 +111,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
         setLoading(false)
         if (response && response.status === 'SUCCESS') {
           onSuccess?.(values)
+          onClose()
         } else {
           throw response
         }
