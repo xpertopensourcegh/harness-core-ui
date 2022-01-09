@@ -155,8 +155,8 @@ export default function CDSideNav(): React.ReactElement {
           {!isCommunity && <SidebarLink label="Overview" to={routes.toProjectOverview({ ...params, module })} />}
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
-          <SidebarLink label="Services" to={routes.toServices({ ...params, module })} />
-          {ARGO_PHASE1 && <SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} />}
+          {!isCommunity && <SidebarLink label="Services" to={routes.toServices({ ...params, module })} />}
+          {ARGO_PHASE1 && !isCommunity && <SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} />}
           <ProjectSetupMenu module={module} />
         </React.Fragment>
       ) : null}
