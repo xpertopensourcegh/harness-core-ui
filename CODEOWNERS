@@ -23,6 +23,7 @@ yarn.lock @wings-software/ui-council
 scripts/ @wings-software/ui-council
 certificates/ @wings-software/ui-council
 src/modules/15-notifications @wings-software/ui-platform
+src/modules/18-audit-trail @wings-software/ui-platform
 src/modules/20-rbac @wings-software/ui-platform
 src/modules/30-auth-settings @wings-software/ui-platform
 src/modules/30-secrets @wings-software/ui-platform
