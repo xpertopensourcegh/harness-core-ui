@@ -3940,6 +3940,7 @@ export interface StringsMap {
   'cf.onboarding.readme.java': string
   'cf.onboarding.readme.javascript': string
   'cf.onboarding.readme.nodejs': string
+  'cf.onboarding.readme.python': string
   'cf.onboarding.sdkButtonLabel': string
   'cf.onboarding.sdkKeyLabel': string
   'cf.onboarding.secret': string
