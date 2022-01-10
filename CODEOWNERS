@@ -31,4 +31,6 @@ src/modules/35-user-profile @wings-software/ui-platform
 src/modules/40-gitsync @wings-software/ui-platform
 src/modules/45-projects-orgs @wings-software/ui-platform
 src/modules/70-pipeline @wings-software/ui-pipeline
+src/modules/72-templates-library @wings-software/ui-pipeline
+src/modules/75-cd @wings-software/ui-pipeline
 src/modules/85-cv @wings-software/ui-cv
