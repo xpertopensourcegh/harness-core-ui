@@ -448,6 +448,13 @@ segmentDetail:
   noFlagsUseThisSegment: No Flags use this target group.
   addToFlag: + Add to Flag
   addSegmentToFlag: Add Target Group to Flag
+  criteria: Criteria
+  specificTargets: Specific Targets
+  targetBasedOnCondition: Target based on condition
+  noTargetDefined: No Target defined
+  includeTheFollowing: Include the following
+  excludeTheFollowing: Exclude the following
+  noConditionDefined: No Condition defined
 selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description

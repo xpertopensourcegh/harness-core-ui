@@ -6,7 +6,7 @@ import { useStrings } from 'framework/strings'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import useDeleteTargetGroupDialog from './hooks/useDeleteTargetGroupDialog'
+import useDeleteTargetGroupDialog from '../hooks/useDeleteTargetGroupDialog'
 
 import css from './TargetGroupHeader.module.scss'
 

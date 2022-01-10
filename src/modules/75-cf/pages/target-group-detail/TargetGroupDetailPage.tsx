@@ -16,7 +16,8 @@ import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
 import { DetailPageTemplate, DetailPageTemplateProps } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
-import TargetGroupHeader from './TargetGroupHeader'
+import TargetGroupHeader from './components/TargetGroupHeader'
+import TargetGroupCriteria from './components/TargetGroupCriteria'
 
 import css from './TargetGroupDetailPage.module.scss'
 
@@ -121,7 +122,8 @@ const TargetGroupDetailPage: FC = () => {
         {isPlanEnforcementEnabled && <UsageLimitBanner />}
 
         <Container className={css.layout}>
-          <aside className={css.sidebar}>Sidebar</aside>
+          <TargetGroupCriteria targetGroup={targetGroup as Segment} />
+
           <Tabs id="TargetGroupDetailPageTabs">
             <Tab
               id="FlagSettingsTab"

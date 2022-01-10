@@ -2,7 +2,7 @@ import React from 'react'
 import { render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as useDeleteTargetGroupDialog from '../hooks/useDeleteTargetGroupDialog'
+import * as useDeleteTargetGroupDialog from '../../hooks/useDeleteTargetGroupDialog'
 import TargetGroupHeader, { TargetGroupHeaderProps } from '../TargetGroupHeader'
 
 const renderComponent = (props: Partial<TargetGroupHeaderProps> = {}): RenderResult =>

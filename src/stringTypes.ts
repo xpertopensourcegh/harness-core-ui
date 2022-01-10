@@ -4034,9 +4034,16 @@ export interface StringsMap {
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
   'cf.segmentDetail.autoAdded': string
+  'cf.segmentDetail.criteria': string
   'cf.segmentDetail.directlyAdded': string
+  'cf.segmentDetail.excludeTheFollowing': string
+  'cf.segmentDetail.includeTheFollowing': string
+  'cf.segmentDetail.noConditionDefined': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
+  'cf.segmentDetail.noTargetDefined': string
   'cf.segmentDetail.removeFomFlag': string
+  'cf.segmentDetail.specificTargets': string
+  'cf.segmentDetail.targetBasedOnCondition': string
   'cf.segments.create': string
   'cf.segments.delete.message': string
   'cf.segments.delete.title': string
