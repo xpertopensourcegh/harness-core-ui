@@ -3077,6 +3077,7 @@ export interface StringsMap {
   'cd.workloadRequired': string
   'ce.allClusters': string
   'ce.allRegions': string
+  'ce.budgets.addNewBudget': string
   'ce.budgets.budgetDeletedTxt': string
   'ce.budgets.confirmDeleteBudgetMsg': string
   'ce.budgets.confirmDeleteBudgetTitle': string
@@ -3091,6 +3092,7 @@ export interface StringsMap {
   'ce.budgets.detailsPage.monthToDateCost': string
   'ce.budgets.detailsPage.tableHeaders.actualCost': string
   'ce.budgets.detailsPage.tableHeaders.budgetCost': string
+  'ce.budgets.detailsPage.tableHeaders.budgetPeriod': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariance': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage': string
   'ce.budgets.detailsPage.tableHeaders.month': string
@@ -3351,6 +3353,7 @@ export interface StringsMap {
   'ce.co.sshSetup': string
   'ce.common.budget': string
   'ce.common.newBudget': string
+  'ce.common.spendTillDate': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
   'ce.connector.AWS.crossAccountRole.instructionLabel': string
@@ -3458,6 +3461,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.addBudget': string
   'ce.perspectives.budgets.budgetMonthlyTxt': string
   'ce.perspectives.budgets.budgetSmallTxt': string
+  'ce.perspectives.budgets.budgetText': string
+  'ce.perspectives.budgets.budgetTextWithGrowthRate': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
@@ -3465,6 +3470,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.exceeds': string
   'ce.perspectives.budgets.configureAlerts.forecasted': string
   'ce.perspectives.budgets.configureAlerts.percent': string
+  'ce.perspectives.budgets.configureAlerts.sendAlertTo': string
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
@@ -3476,6 +3482,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
   'ce.perspectives.budgets.monthToDateSpend': string
+  'ce.perspectives.budgets.perspectiveCreateBudgetTitle': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriod': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly': string
@@ -3538,6 +3545,7 @@ export interface StringsMap {
   'ce.perspectives.recommendations.perMonth': string
   'ce.perspectives.recommendations.recommendationCountTxt': string
   'ce.perspectives.recommendations.viewText': string
+  'ce.perspectives.reports.addReportSchedule': string
   'ce.perspectives.reports.createNew': string
   'ce.perspectives.reports.cronLabel': string
   'ce.perspectives.reports.desc': string
