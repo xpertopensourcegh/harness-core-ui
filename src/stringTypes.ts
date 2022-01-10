@@ -6340,19 +6340,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'inputSets.inputSetName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'inputSets.inputSetSaved': string
   /**
    * @deprecated migrate this string to module level file
    */
   'inputSets.inputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.nameIsRequired': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6381,10 +6373,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'inputSets.overlayInputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.overlaySetName': string
   /**
    * @deprecated migrate this string to module level file
    */

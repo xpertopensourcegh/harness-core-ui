@@ -292,6 +292,7 @@ exports[`STUDIO MODE invalid input sets should not be applied 1`] = `
                     >
                       <li
                         class="selectedInputSetLi"
+                        data-testid="inputset3"
                         draggable="true"
                       >
                         <button
@@ -789,6 +790,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                     >
                       <li
                         class="selectedInputSetLi"
+                        data-testid="inputset2"
                         draggable="true"
                       >
                         <button
@@ -866,6 +868,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                       </li>
                       <li
                         class="selectedInputSetLi"
+                        data-testid="inputset3"
                         draggable="true"
                       >
                         <button

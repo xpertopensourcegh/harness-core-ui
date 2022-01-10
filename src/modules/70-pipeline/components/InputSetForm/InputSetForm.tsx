@@ -261,7 +261,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           description: parsedInputSetObj.inputSet.description,
           orgIdentifier: parsedInputSetObj.inputSet.orgIdentifier,
           projectIdentifier: parsedInputSetObj.inputSet.projectIdentifier,
-          pipeline: clearRuntimeInput(parsedInputSetObj.inputSet.pipeline),
+          pipeline: clearRuntimeInput(parsedPipelineWithValues),
           gitDetails: defaultTo(inputSetObj.gitDetails, {}),
           entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {})
         }
@@ -506,7 +506,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             <NameIdDescriptionTags
                               className={css.nameiddescription}
                               identifierProps={{
-                                inputLabel: getString('inputSets.inputSetName'),
+                                inputLabel: getString('name'),
                                 isIdentifierEditable: !isEdit && isEditable,
                                 inputGroupProps: {
                                   disabled: !isEditable
