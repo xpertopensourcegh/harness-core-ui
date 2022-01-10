@@ -147,11 +147,16 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                 <div
                   class="StyledProps--font StyledProps--main selectPerspectiveContainer"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="createBudgetConfigureAlerts"
                   >
-                    ce.perspectives.budgets.configureAlerts.title
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+                    >
+                      ce.perspectives.budgets.configureAlerts.title
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-xlarge"
                   >

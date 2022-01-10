@@ -129,7 +129,12 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
           return (
             <FormikForm>
               <Container className={css.selectPerspectiveContainer}>
-                <Text font={{ variation: FontVariation.H4 }}>
+                <Text
+                  font={{ variation: FontVariation.H4 }}
+                  tooltipProps={{
+                    dataTooltipId: 'createBudgetConfigureAlerts'
+                  }}
+                >
                   {getString('ce.perspectives.budgets.configureAlerts.title')}
                 </Text>
                 <ModalErrorHandler bind={setModalErrorHandler} />
