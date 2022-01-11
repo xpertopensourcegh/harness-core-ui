@@ -404,7 +404,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           <Container padding={{ left: 'large' }}>
             <Badge
               text={'common.invalid'}
-              iconName="warning-sign"
+              iconName="error-outline"
               showTooltip={true}
               entityName={selected.name}
               entityType={selected.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
@@ -476,7 +476,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                 <Container padding={{ left: 'large' }}>
                   <Badge
                     text={'common.invalid'}
-                    iconName="warning-sign"
+                    iconName="error-outline"
                     showTooltip={true}
                     entityName={inputSet.name}
                     entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}

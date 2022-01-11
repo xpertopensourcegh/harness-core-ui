@@ -235,7 +235,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             {pipeline.entityValidityDetails?.valid === false && (
               <Badge
                 text={'common.invalid'}
-                iconName="warning-sign"
+                iconName="error-outline"
                 showTooltip={true}
                 entityName={pipeline.name}
                 entityType={'Pipeline'}
