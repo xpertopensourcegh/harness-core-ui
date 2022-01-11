@@ -14,7 +14,7 @@ import { useGetConnector } from 'services/cd-ng'
 import type { QueryMappingInterface } from './QueryMapping.types'
 import { CustomHealthSourceFieldNames } from '../../CustomHealthSource.constants'
 import { timeFormatOptions } from './QueryMapping.constants'
-import { onFetchRecords } from './QueryMapping.utils'
+import { connectorParams, onFetchRecords } from './QueryMapping.utils'
 import css from './QueryMapping.module.scss'
 
 export default function QueryMapping({
@@ -31,18 +31,11 @@ export default function QueryMapping({
 
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
 
-  const {
-    data: connectorData,
-    loading: connectorLoading,
-    error: connectorError
-  } = useGetConnector({
-    identifier: connectorIdentifier,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
+  const connectorPayload = useMemo(
+    () => connectorParams(connectorIdentifier, { projectIdentifier, orgIdentifier, accountId }),
+    [connectorIdentifier, projectIdentifier, orgIdentifier, accountId]
+  )
+  const { data: connectorData, loading: connectorLoading, error: connectorError } = useGetConnector(connectorPayload)
 
   const {
     mutate: getSampleData,
