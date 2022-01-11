@@ -4315,9 +4315,12 @@ export interface StringsMap {
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
-  'cv.customHealthSource.Querymapping.fields.parameter.title': string
+  'cv.customHealthSource.Querymapping.endTimeLabel': string
   'cv.customHealthSource.Querymapping.label': string
+  'cv.customHealthSource.Querymapping.startAndEndTimeTitle': string
+  'cv.customHealthSource.Querymapping.startTimeLabel': string
   'cv.customHealthSource.Querymapping.title': string
+  'cv.customHealthSource.Querymapping.validation.body': string
   'cv.customHealthSource.Querymapping.validation.endTime.placeholder': string
   'cv.customHealthSource.Querymapping.validation.endTime.timestamp': string
   'cv.customHealthSource.Querymapping.validation.path': string
@@ -4325,6 +4328,7 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
+  'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string
   'cv.cvChanges.monitoredSVC': string
@@ -4872,6 +4876,7 @@ export interface StringsMap {
   'cv.tuesday': string
   'cv.turnService': string
   'cv.unexpected': string
+  'cv.unit': string
   'cv.unknown': string
   'cv.urlCopied': string
   'cv.verificationErrored': string
