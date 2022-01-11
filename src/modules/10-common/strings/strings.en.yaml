@@ -3,6 +3,11 @@ home: Home
 welcome: Welcome
 dashboards: Dashboards
 setup: Setup
+agent: Agent
+application: Application
+certificate: Certificate
+gpgkey: 'GPG Key'
+sync: Sync
 accountSetup: Account Setup
 projectSetup: Project Setup
 orgSetup: Org Setup
@@ -246,7 +251,7 @@ gitSync:
   selectBranchLabel: Select a Branch
   updateResource: 'Update {{type}} {{name}}'
   createResource: 'Create {{type}} {{name}}'
-  sync: Sync
+  sync: '{{$.common.sync}}'
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:
     header: Sync in progress

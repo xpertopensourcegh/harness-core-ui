@@ -27,9 +27,11 @@ export interface StringsMap {
   'common.addAccountName': string
   'common.addVariable': string
   'common.advanced': string
+  'common.agent': string
   'common.allErrors': string
   'common.apiKeys': string
   'common.apikey': string
+  'common.application': string
   'common.apply': string
   'common.approve': string
   'common.artifactTag': string
@@ -87,6 +89,7 @@ export interface StringsMap {
   'common.ce.visibility': string
   'common.ce.visibilityLaunchButton': string
   'common.ce.visibilityWarning': string
+  'common.certificate': string
   'common.cgLaunchText': string
   'common.changeDefaultAccountMessage': string
   'common.changeDefaultAccountTitle': string
@@ -280,6 +283,7 @@ export interface StringsMap {
   'common.gitSync.updateResource': string
   'common.goBack': string
   'common.governance': string
+  'common.gpgkey': string
   'common.harnessClusterHostingAccount': string
   'common.harnessFirstGeneration': string
   'common.harnessFirstGenerationDescription': string
@@ -580,6 +584,7 @@ export interface StringsMap {
   'common.switchAccount': string
   'common.switchAccountError': string
   'common.switchAccountSearch': string
+  'common.sync': string
   'common.template.deleteTemplate.errorWhileDeleting': string
   'common.template.deleteTemplate.templatesDeleted': string
   'common.template.label': string

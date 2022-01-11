@@ -526,7 +526,7 @@ changeSource:
     selectHarnessAppId: Select Application Id
     selectHarnessService: Select Harness Service
     selectHarnessEnv: Select Harness Environment
-    applicationId: Application
+    applicationId: '{{$.common.application}}'
   changeSourceCard:
     information: Information
     triggred: Triggered
