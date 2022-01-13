@@ -86,7 +86,7 @@ export default function QueryMapping({
           <Icon name="spinner" margin={{ bottom: 'medium' }} size={24} />
         ) : (
           <FormInput.Text
-            label={getString('connectors.customHealth.baseURL')}
+            label={getString('connectors.baseURL')}
             name={CustomHealthSourceFieldNames.BASE_URL}
             disabled
           />
