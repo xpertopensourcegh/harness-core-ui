@@ -6,6 +6,7 @@ uploadIdentityProvider: Upload the Identity Provider metadata XML downloaded fro
 identityProvider: Identity Provider metadata XML downloaded from your {{ selectedSAMLProvider }} app {{ $.titleOptional }}
 chooseFile: Choose a file...
 enableAuthorization: Enable Authorization
+enableClientIdAndSecret: Enable ClientId and Secret
 groupAttributeName: Group Attribute Name
 enableEntityIdLabel: Add Entity Id
 entityIdLabel: Entity Id

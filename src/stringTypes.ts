@@ -98,6 +98,7 @@ export interface StringsMap {
   'common.channel': string
   'common.clearSelection': string
   'common.clientId': string
+  'common.clientSecret': string
   'common.cluster': string
   'common.comingSoon': string
   'common.comingSoon2': string
@@ -614,6 +615,8 @@ export interface StringsMap {
   'common.userGroup': string
   'common.userGroups': string
   'common.userLabel': string
+  'common.validation.clientIdIsRequired': string
+  'common.validation.clientSecretRequired': string
   'common.validation.email.format': string
   'common.validation.email.required': string
   'common.validation.entityIdIsRequired': string
@@ -902,144 +905,6 @@ export interface StringsMap {
   'resourceCenter.ticketmenu.tickets': string
   'resourceCenter.ticketmenu.ticketsDesc': string
   'resourceCenter.title': string
-  'authSettings.SAMLProvider': string
-  'authSettings.WhitelistedDomainsUpdated': string
-  'authSettings.accountOrOAuthLogin': string
-  'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
-  'authSettings.addSAMLProvider': string
-  'authSettings.allowLoginFromTheseDomains': string
-  'authSettings.allowUsersWithEmails': string
-  'authSettings.atLeastNChars': string
-  'authSettings.authenticationSettings': string
-  'authSettings.authorizationEnabledFor': string
-  'authSettings.authorizationNotEnabled': string
-  'authSettings.azure': string
-  'authSettings.cdCommunityPlan.communityLinkText': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item1': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item2': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
-  'authSettings.cdCommunityPlan.communityPrice': string
-  'authSettings.cdCommunityPlan.communityTitle': string
-  'authSettings.cdCommunityPlan.communityTitle2': string
-  'authSettings.cdCommunityPlan.enterpriseLinkText': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item4': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item5': string
-  'authSettings.cdCommunityPlan.enterpriseTitle': string
-  'authSettings.cdCommunityPlan.enterpriseTitle2': string
-  'authSettings.cdCommunityPlan.harnessLinkText': string
-  'authSettings.cdCommunityPlan.planLink': string
-  'authSettings.cdCommunityPlan.saasLinkText': string
-  'authSettings.cdCommunityPlan.saasTitle2': string
-  'authSettings.changeLoginToHarnessAccountOrOauth': string
-  'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
-  'authSettings.chooseFile': string
-  'authSettings.confirmDisableLockoutPolicy': string
-  'authSettings.confirmDisableOAuthLogin': string
-  'authSettings.confirmDisablePasswordExpiration': string
-  'authSettings.confirmDisablePasswordStrength': string
-  'authSettings.confirmDisableUserPasswordLogin': string
-  'authSettings.confirmDisableWhitelistedDomains': string
-  'authSettings.daysBeforePasswordExpires': string
-  'authSettings.daysBeforeUserNotified': string
-  'authSettings.deleteSamlProvider': string
-  'authSettings.deleteSamlProviderDescription': string
-  'authSettings.disableLockoutPolicy': string
-  'authSettings.disableOAuthLogin': string
-  'authSettings.disablePasswordExpiration': string
-  'authSettings.disablePasswordStrength': string
-  'authSettings.disableTwoFAEnforcement': string
-  'authSettings.disableUserPasswordLogin': string
-  'authSettings.disableWhitelistedDomains': string
-  'authSettings.doYouWantToEnforceTwoFAForAllMembers': string
-  'authSettings.domainNameRequired': string
-  'authSettings.editSAMLProvider': string
-  'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
-  'authSettings.enableAuthorization': string
-  'authSettings.enableEntityIdLabel': string
-  'authSettings.enableHarnessAccountOrOauthLogin': string
-  'authSettings.enableSamlProvider': string
-  'authSettings.enableSamlProviderDescription': string
-  'authSettings.enablingAuthorization': string
-  'authSettings.enablingAuthorizationDescription': string
-  'authSettings.enforceLockoutPolicy': string
-  'authSettings.enforcePasswordStrength': string
-  'authSettings.enforceTwoFA': string
-  'authSettings.enterSAMLEndPoint': string
-  'authSettings.entityIdLabel': string
-  'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
-  'authSettings.failedLoginsBeforeLocked': string
-  'authSettings.failedLoginsBeforeLockedAccount': string
-  'authSettings.friendlyReminder': string
-  'authSettings.friendlyReminderDescription': string
-  'authSettings.goToSettings': string
-  'authSettings.groupAttributeName': string
-  'authSettings.haveOneDigit': string
-  'authSettings.haveOneLowercase': string
-  'authSettings.haveOneSpecialChar': string
-  'authSettings.haveOneUppercase': string
-  'authSettings.identityProvider': string
-  'authSettings.keepAtLeastOneProviderEnabled': string
-  'authSettings.lockoutDuration': string
-  'authSettings.lockoutPolicy': string
-  'authSettings.lockoutPolicyDisabled': string
-  'authSettings.lockoutPolicyEnabled': string
-  'authSettings.lockoutPolicyUpdated': string
-  'authSettings.loginSettingsHaveBeenUpdated': string
-  'authSettings.loginViaSAML': string
-  'authSettings.minLength': string
-  'authSettings.multipleOrganizations': string
-  'authSettings.multipleProjects': string
-  'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
-  'authSettings.notifyUsersWhenTheyLocked': string
-  'authSettings.notifyUsersWhenUserLocked': string
-  'authSettings.oauthSettingsHaveBeenUpdated': string
-  'authSettings.oauthSupport': string
-  'authSettings.okta': string
-  'authSettings.oneLogin': string
-  'authSettings.onprem': string
-  'authSettings.passwordExpiration': string
-  'authSettings.passwordExpirationDisabled': string
-  'authSettings.passwordExpirationEnabled': string
-  'authSettings.passwordExpirationUpdated': string
-  'authSettings.passwordMustFulfillReq': string
-  'authSettings.passwordStrength': string
-  'authSettings.passwordStrengthDisabled': string
-  'authSettings.passwordStrengthEnabled': string
-  'authSettings.passwordStrengthUpdated': string
-  'authSettings.periodicallyExpirePassword': string
-  'authSettings.periodicallyExpirePasswordNote': string
-  'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
-  'authSettings.plusSAMLProvider': string
-  'authSettings.publicOAuthLoginDisabled': string
-  'authSettings.publicOAuthLoginEnabled': string
-  'authSettings.restrictUsersToEmailDomains': string
-  'authSettings.saas': string
-  'authSettings.samlLoginEnabled': string
-  'authSettings.samlProviderAddedSuccessfully': string
-  'authSettings.samlProviderDeleted': string
-  'authSettings.samlProviderUpdatedSuccessfully': string
-  'authSettings.samlSupport': string
-  'authSettings.samlTestFailed': string
-  'authSettings.samlTestSuccessful': string
-  'authSettings.selectSAMLProvider': string
-  'authSettings.sureToDisableTwoFAEnforcement': string
-  'authSettings.testingSSO': string
-  'authSettings.testingSSODescription': string
-  'authSettings.twoFAEnforcementDisabled': string
-  'authSettings.twoFAEnforcementEnabled': string
-  'authSettings.twoFactorAuthSupport': string
-  'authSettings.typeAndPressEnterToAddADomain': string
-  'authSettings.updating': string
-  'authSettings.uploadIdentityProvider': string
-  'authSettings.useHarnessUsernameAndPassword': string
-  'authSettings.usePublicOAuth': string
-  'authSettings.whitelistedDomainsDisabled': string
-  'authSettings.yourAccountWillBeLockedOut': string
   'delegates.GBRam': string
   'delegates.configNameRequired': string
   'delegates.createDelegate': string
@@ -1213,6 +1078,145 @@ export interface StringsMap {
   'secrets.titleCreate': string
   'secrets.titleSelect': string
   'secrets.typeSSH': string
+  'authSettings.SAMLProvider': string
+  'authSettings.WhitelistedDomainsUpdated': string
+  'authSettings.accountOrOAuthLogin': string
+  'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
+  'authSettings.addSAMLProvider': string
+  'authSettings.allowLoginFromTheseDomains': string
+  'authSettings.allowUsersWithEmails': string
+  'authSettings.atLeastNChars': string
+  'authSettings.authenticationSettings': string
+  'authSettings.authorizationEnabledFor': string
+  'authSettings.authorizationNotEnabled': string
+  'authSettings.azure': string
+  'authSettings.cdCommunityPlan.communityLinkText': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item1': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item2': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
+  'authSettings.cdCommunityPlan.communityPrice': string
+  'authSettings.cdCommunityPlan.communityTitle': string
+  'authSettings.cdCommunityPlan.communityTitle2': string
+  'authSettings.cdCommunityPlan.enterpriseLinkText': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item4': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item5': string
+  'authSettings.cdCommunityPlan.enterpriseTitle': string
+  'authSettings.cdCommunityPlan.enterpriseTitle2': string
+  'authSettings.cdCommunityPlan.harnessLinkText': string
+  'authSettings.cdCommunityPlan.planLink': string
+  'authSettings.cdCommunityPlan.saasLinkText': string
+  'authSettings.cdCommunityPlan.saasTitle2': string
+  'authSettings.changeLoginToHarnessAccountOrOauth': string
+  'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
+  'authSettings.chooseFile': string
+  'authSettings.confirmDisableLockoutPolicy': string
+  'authSettings.confirmDisableOAuthLogin': string
+  'authSettings.confirmDisablePasswordExpiration': string
+  'authSettings.confirmDisablePasswordStrength': string
+  'authSettings.confirmDisableUserPasswordLogin': string
+  'authSettings.confirmDisableWhitelistedDomains': string
+  'authSettings.daysBeforePasswordExpires': string
+  'authSettings.daysBeforeUserNotified': string
+  'authSettings.deleteSamlProvider': string
+  'authSettings.deleteSamlProviderDescription': string
+  'authSettings.disableLockoutPolicy': string
+  'authSettings.disableOAuthLogin': string
+  'authSettings.disablePasswordExpiration': string
+  'authSettings.disablePasswordStrength': string
+  'authSettings.disableTwoFAEnforcement': string
+  'authSettings.disableUserPasswordLogin': string
+  'authSettings.disableWhitelistedDomains': string
+  'authSettings.doYouWantToEnforceTwoFAForAllMembers': string
+  'authSettings.domainNameRequired': string
+  'authSettings.editSAMLProvider': string
+  'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
+  'authSettings.enableAuthorization': string
+  'authSettings.enableClientIdAndSecret': string
+  'authSettings.enableEntityIdLabel': string
+  'authSettings.enableHarnessAccountOrOauthLogin': string
+  'authSettings.enableSamlProvider': string
+  'authSettings.enableSamlProviderDescription': string
+  'authSettings.enablingAuthorization': string
+  'authSettings.enablingAuthorizationDescription': string
+  'authSettings.enforceLockoutPolicy': string
+  'authSettings.enforcePasswordStrength': string
+  'authSettings.enforceTwoFA': string
+  'authSettings.enterSAMLEndPoint': string
+  'authSettings.entityIdLabel': string
+  'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
+  'authSettings.failedLoginsBeforeLocked': string
+  'authSettings.failedLoginsBeforeLockedAccount': string
+  'authSettings.friendlyReminder': string
+  'authSettings.friendlyReminderDescription': string
+  'authSettings.goToSettings': string
+  'authSettings.groupAttributeName': string
+  'authSettings.haveOneDigit': string
+  'authSettings.haveOneLowercase': string
+  'authSettings.haveOneSpecialChar': string
+  'authSettings.haveOneUppercase': string
+  'authSettings.identityProvider': string
+  'authSettings.keepAtLeastOneProviderEnabled': string
+  'authSettings.lockoutDuration': string
+  'authSettings.lockoutPolicy': string
+  'authSettings.lockoutPolicyDisabled': string
+  'authSettings.lockoutPolicyEnabled': string
+  'authSettings.lockoutPolicyUpdated': string
+  'authSettings.loginSettingsHaveBeenUpdated': string
+  'authSettings.loginViaSAML': string
+  'authSettings.minLength': string
+  'authSettings.multipleOrganizations': string
+  'authSettings.multipleProjects': string
+  'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
+  'authSettings.notifyUsersWhenTheyLocked': string
+  'authSettings.notifyUsersWhenUserLocked': string
+  'authSettings.oauthSettingsHaveBeenUpdated': string
+  'authSettings.oauthSupport': string
+  'authSettings.okta': string
+  'authSettings.oneLogin': string
+  'authSettings.onprem': string
+  'authSettings.passwordExpiration': string
+  'authSettings.passwordExpirationDisabled': string
+  'authSettings.passwordExpirationEnabled': string
+  'authSettings.passwordExpirationUpdated': string
+  'authSettings.passwordMustFulfillReq': string
+  'authSettings.passwordStrength': string
+  'authSettings.passwordStrengthDisabled': string
+  'authSettings.passwordStrengthEnabled': string
+  'authSettings.passwordStrengthUpdated': string
+  'authSettings.periodicallyExpirePassword': string
+  'authSettings.periodicallyExpirePasswordNote': string
+  'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
+  'authSettings.plusSAMLProvider': string
+  'authSettings.publicOAuthLoginDisabled': string
+  'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.restrictUsersToEmailDomains': string
+  'authSettings.saas': string
+  'authSettings.samlLoginEnabled': string
+  'authSettings.samlProviderAddedSuccessfully': string
+  'authSettings.samlProviderDeleted': string
+  'authSettings.samlProviderUpdatedSuccessfully': string
+  'authSettings.samlSupport': string
+  'authSettings.samlTestFailed': string
+  'authSettings.samlTestSuccessful': string
+  'authSettings.selectSAMLProvider': string
+  'authSettings.sureToDisableTwoFAEnforcement': string
+  'authSettings.testingSSO': string
+  'authSettings.testingSSODescription': string
+  'authSettings.twoFAEnforcementDisabled': string
+  'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.twoFactorAuthSupport': string
+  'authSettings.typeAndPressEnterToAddADomain': string
+  'authSettings.updating': string
+  'authSettings.uploadIdentityProvider': string
+  'authSettings.useHarnessUsernameAndPassword': string
+  'authSettings.usePublicOAuth': string
+  'authSettings.whitelistedDomainsDisabled': string
+  'authSettings.yourAccountWillBeLockedOut': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -1233,7 +1237,6 @@ export interface StringsMap {
   'connectors.appD.accountName': string
   'connectors.appD.apiClient': string
   'connectors.appD.clientId': string
-  'connectors.appD.clientSecret': string
   'connectors.appD.connectionDetailsHeader': string
   'connectors.appD.controllerURL': string
   'connectors.appD.validation.clientId': string
@@ -1277,7 +1280,6 @@ export interface StringsMap {
   'connectors.azureKeyVault.labels.subscription': string
   'connectors.azureKeyVault.labels.tenantId': string
   'connectors.azureKeyVault.labels.vaultName': string
-  'connectors.azureKeyVault.validation.clientId': string
   'connectors.azureKeyVault.validation.subscription': string
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string

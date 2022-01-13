@@ -272,7 +272,6 @@ appD:
   connectionDetailsHeader: AppDynamics Connection Details
   apiClient: API Client
   clientId: '{{ $.common.clientId }}'
-  clientSecret: Client Secret
   controllerURL: Controller URL
   accountName: '{{ $.common.accountName }}'
   validation:
@@ -459,7 +458,6 @@ azureKeyVault:
     fetchVault: Fetch Vault
     setupVault: Setup Vault
   validation:
-    clientId: Client Id is required
     tenantId: '{{ $.connectors.tenantIdRequired }}'
     subscription: Subscription is required
     vaultName: Vault Name is required

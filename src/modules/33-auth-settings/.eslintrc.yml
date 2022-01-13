@@ -3,8 +3,6 @@ rules:
     - error
     - patterns:
         - lodash.*
-        - modules/30-delegates/*
-        - modules/30-secrets/*
         - modules/35-connectors/*
         - modules/35-user-profile/*
         - modules/40-gitsync/*
@@ -17,8 +15,6 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
-        - '@delegates/*'
-        - '@secrets/*'
         - '@connectors/*'
         - '@user-profile/*'
         - '@gitsync/*'
