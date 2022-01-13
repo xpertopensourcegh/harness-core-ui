@@ -40,6 +40,8 @@ import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import FeatureWarningUpgradeBanner from '@common/components/FeatureWarning/FeatureWarningUpgradeBanner'
 import { ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
+import formatCost from '@ce/utils/formatCost'
+import { useFeature } from '@common/hooks/useFeatures'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -105,6 +107,12 @@ const OverviewPage: React.FC = () => {
   const [showBanner, setShowBanner] = useState(true)
 
   const bannerClassName = showBanner ? css.hasBanner : css.hasNoBanner
+
+  const { enabled: featureEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.PERSPECTIVES
+    }
+  })
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
@@ -188,7 +196,7 @@ const OverviewPage: React.FC = () => {
           content={<PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />}
         />
         <Page.Body>
-          <CEUsageInfo />
+          {featureEnabled ? <CEUsageInfo /> : null}
           <Container padding={{ top: 'medium', right: 'xlarge', bottom: 'medium', left: 'xlarge' }}>
             <div className={css.mainContainer}>
               <div className={css.columnOne}>
@@ -275,7 +283,11 @@ const CEUsageInfo = () => {
   return (
     <FeatureWarningUpgradeBanner
       featureName={FeatureIdentifier.PERSPECTIVES}
-      message={`You have used ${usageCost} / ${limitCost} free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
+      message={`You have used ${formatCost(Number(usageCost), {
+        shortFormat: true
+      })} / ${formatCost(Number(limitCost), {
+        shortFormat: true
+      })} free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
     />
   )
 }
