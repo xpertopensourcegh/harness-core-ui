@@ -645,8 +645,6 @@ export default function ArtifactsSelection({
 
   const getLastSteps = useCallback((): JSX.Element => {
     switch (selectedArtifact) {
-      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
-        return <ImagePath {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.Gcr:
         return <GCRImagePath {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.Ecr:
@@ -655,8 +653,9 @@ export default function ArtifactsSelection({
         return <NexusArtifact {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.Artifactory:
         return <Artifactory {...artifactLastStepProps()} />
+      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
-        return <></>
+        return <ImagePath {...artifactLastStepProps()} />
     }
   }, [artifactLastStepProps, selectedArtifact])
 
