@@ -4341,6 +4341,7 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
+  'cv.customHealthSource.addGroupNameTitle': string
   'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string

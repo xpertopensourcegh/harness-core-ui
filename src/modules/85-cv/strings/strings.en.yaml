@@ -749,6 +749,7 @@ componentValidations:
   queryTypeLabel: Query Type
 customHealthSource:
   fetchRecordsButton: Click on Fetch Records to pulll records from provided URL
+  addGroupNameTitle: Add New Custom Health Group Name
   Querymapping:
     title: Query specifications and mapping
     label: Customize the query to get our desired output and map to Harness Service
