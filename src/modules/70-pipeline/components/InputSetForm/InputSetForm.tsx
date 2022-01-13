@@ -104,7 +104,7 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 
 const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO => {
   const omittedInputset = omitBy(omitBy(data, isUndefined), isNull)
-  return changeEmptyValuesToRunTimeInput(cloneDeep(omittedInputset))
+  return changeEmptyValuesToRunTimeInput(cloneDeep(omittedInputset), '')
 }
 
 export interface InputSetFormProps {
