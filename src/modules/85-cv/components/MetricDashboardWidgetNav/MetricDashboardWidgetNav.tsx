@@ -37,7 +37,8 @@ const NodeType = {
   MANUAL_INPUT_QUERY: 'ManuualyInputQuery',
   DASHBOARD: 'Dashboard',
   WIDGET: 'Widget',
-  METRIC: 'Metric'
+  METRIC: 'Metric',
+  LABEL: 'Label'
 }
 
 const LoadingSkeleton = [
@@ -132,6 +133,14 @@ function generateTreeNode(type: string, data: any, id: string, isExpanded = fals
         nodeData: {
           type: NodeType.MANUAL_INPUT_QUERY
         }
+      }
+    case NodeType.LABEL:
+      return {
+        id: id,
+        label: <TreeNodeLabel width={LabelWidth.SECOND_LEVEL} label={data.label} />,
+        hasCaret: false,
+        isExpanded: false,
+        isSelected: false
       }
     case NodeType.MANUAL_INPUT_METRIC:
     default:
@@ -288,7 +297,7 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
     if (selectedDashIndex === -1 || loading) {
       return
     }
-    if (error?.data || (!metricWidgets?.length && !isFirstLoad)) {
+    if (error?.data) {
       navContent[selectedDashIndex].isExpanded = false
       navContent[selectedDashIndex].childNodes = []
       setNavContent([...navContent])
@@ -316,6 +325,15 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
         )
         setIsFirstLoad(false)
       }
+    } else if (dashboardWidgetsData?.data && !metricWidgets.length) {
+      navContent[selectedDashIndex].childNodes = [
+        generateTreeNode(
+          NodeType.LABEL,
+          { label: getString('cv.monitoringSources.datadog.noMetricsWidgets') },
+          'no_data_label_id'
+        )
+      ]
+      setNavContent([...navContent])
     }
   }, [metricWidgets, loading])
 

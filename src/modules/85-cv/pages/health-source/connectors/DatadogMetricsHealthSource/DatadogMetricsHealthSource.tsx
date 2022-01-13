@@ -49,6 +49,9 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [selectedMetricId, setSelectedMetricId] = useState<string>()
   const selectedMetricData = metricHealthDetailsData.get(selectedMetricId || '')
+  const initialManualQueries = useMemo(() => {
+    return getManuallyCreatedQueries(data?.selectedMetrics)
+  }, [data?.selectedMetrics])
   const { data: activeMetrics } = useGetDatadogActiveMetrics({
     queryParams: {
       projectIdentifier,
@@ -218,7 +221,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
               dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
               dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
               addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
-              manualQueries={getManuallyCreatedQueries(metricHealthDetailsData)}
+              manualQueries={initialManualQueries}
               onNextClicked={() => handleOnNext(formikProps)}
               selectedMetricInfo={{
                 query: formikProps.values.query,
