@@ -337,7 +337,6 @@ const initialData = {
 describe('Unit tests for MapGCOMetricsToServices', () => {
   beforeAll(() => {
     jest.useFakeTimers()
-    jest.spyOn(cvService, 'useGetLabelNames').mockReturnValue({ data: { data: [] } } as any)
     jest.spyOn(cvService, 'useGetMetricNames').mockReturnValue({ data: { data: [] } } as any)
     jest.spyOn(cvService, 'useGetMetricPacks').mockReturnValue({ data: { data: [] } } as any)
   })

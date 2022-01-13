@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { Color, Container, Heading, Utils } from '@wings-software/uicore'
+import { Color, Container, Heading } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -15,7 +15,7 @@ import MetricDashboardWidgetNav from '@cv/components/MetricDashboardWidgetNav/Me
 import type { CloudMetricsHealthSourceProps } from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource.type'
 import SelectHealthSourceServices from '@cv/pages/health-source/common/SelectHealthSourceServices/SelectHealthSourceServices'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetLabelNames, useGetMetricPacks } from 'services/cv'
+import { useGetMetricPacks } from 'services/cv'
 import css from '@cv/components/CloudMetricsHealthSource/CloudMetricHealthSource.module.scss'
 
 export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSourceProps<T>): JSX.Element {
@@ -52,16 +52,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
   }, [selectedMetricInfo?.timeseriesData])
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: dataSourceType }
-  })
-  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      accountId,
-      connectorIdentifier: connectorRef,
-      tracingId: labelNameTracingId
-    }
   })
   const { sli = false, healthScore = false, continuousVerification = false } = formikProps?.values
   return (
@@ -104,7 +94,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
                       continuousVerification
                     }}
                     metricPackResponse={metricPackResponse}
-                    labelNamesResponse={labelNamesResponse}
                     hideServiceIdentifier
                   />
                 </Container>
