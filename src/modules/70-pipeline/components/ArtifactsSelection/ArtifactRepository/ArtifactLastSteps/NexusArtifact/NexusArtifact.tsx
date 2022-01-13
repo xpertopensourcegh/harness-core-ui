@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Formik,
   FormInput,
@@ -9,33 +9,30 @@ import {
   StepProps,
   Text,
   RUNTIME_INPUT_VALUE,
-  SelectOption,
   ButtonVariation,
   FontVariation
 } from '@wings-software/uicore'
-import { Menu } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { get, memoize } from 'lodash-es'
-import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
+import { defaultTo, get, merge } from 'lodash-es'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-
-import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { getConnectorIdValue, RegistryHostNames, resetTag } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+
+import { ArtifactConfig, ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
+import { getConnectorIdValue } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView'
 import css from '../../ArtifactConnector.module.scss'
 
-export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(item => ({ label: item, value: item }))
-export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   context,
+  handleSubmit,
   expressions,
   allowableTypes,
-  handleSubmit,
   prevStepData,
   initialValues,
   previousStep,
@@ -44,10 +41,14 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   selectedArtifact
 }) => {
   const { getString } = useStrings()
+  const [lastImagePath, setLastImagePath] = useState('')
+  const [tagList, setTagList] = useState<DockerBuildDetailsDTO[] | undefined>([])
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
-    registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
+    repositoryPort: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.repositoryPort')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
@@ -60,7 +61,6 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   }
 
   const primarySchema = Yup.object().shape(schemaObject)
-
   const sidecarSchema = Yup.object().shape({
     ...schemaObject,
     ...ArtifactIdentifierValidation(
@@ -70,64 +70,77 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     )
   })
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [tagList, setTagList] = useState([])
-  const [lastQueryData, setLastQueryData] = useState({ imagePath: '', registryHostname: '' })
-  const {
-    data,
-    loading: gcrBuildDetailsLoading,
-    refetch,
-    error: gcrTagError
-  } = useGetBuildDetailsForGcr({
-    queryParams: {
-      imagePath: lastQueryData.imagePath,
-      connectorRef: prevStepData?.connectorId?.value
-        ? prevStepData?.connectorId?.value
-        : prevStepData?.identifier || '',
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier,
-      registryHostname: lastQueryData.registryHostname,
-      repoIdentifier,
-      branch
-    },
-    lazy: true
-  })
-
-  useEffect(() => {
-    if (gcrTagError) {
-      setTagList([])
-    } else if (Array.isArray(data?.data?.buildDetailsList)) {
-      setTagList(data?.data?.buildDetailsList as [])
-    }
-  }, [data, gcrTagError])
-
-  useEffect(() => {
-    if (
-      lastQueryData.registryHostname.length &&
-      lastQueryData.imagePath.length &&
-      getConnectorIdValue(prevStepData).length &&
-      getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.registryHostname) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED
-    ) {
-      refetch()
-    }
-  }, [lastQueryData, refetch])
-
   const defaultStepValues = (): ImagePathTypes => {
     return {
       identifier: '',
       imagePath: '',
-      tag: RUNTIME_INPUT_VALUE as string,
+      tag: RUNTIME_INPUT_VALUE,
       tagType: TagTypes.Value,
       tagRegex: '',
-      registryHostname: ''
+      repositoryPort: ''
     }
   }
-  const getInitialValues = (): ImagePathTypes => {
+  const getConnectorRefQueryData = (): string => {
+    return defaultTo(prevStepData?.connectorId?.value, prevStepData?.identifier)
+  }
+
+  const {
+    data,
+    loading: dockerBuildDetailsLoading,
+    refetch: refetchDockerTag,
+    error: dockerTagError
+  } = useGetBuildDetailsForDocker({
+    queryParams: {
+      imagePath: lastImagePath,
+      connectorRef: getConnectorRefQueryData(),
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    },
+    lazy: true,
+    debounce: 300
+  })
+
+  useEffect(() => {
+    if (getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
+      refetchDockerTag()
+    }
+  }, [lastImagePath, refetchDockerTag])
+
+  useEffect(() => {
+    if (dockerTagError) {
+      setTagList([])
+    } else if (Array.isArray(data?.data?.buildDetailsList)) {
+      setTagList(data?.data?.buildDetailsList)
+    }
+  }, [data?.data?.buildDetailsList, dockerTagError])
+
+  const canFetchTags = useCallback(
+    (imagePath: string): boolean => {
+      return !!(
+        imagePath.length &&
+        getConnectorIdValue(prevStepData).length &&
+        getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
+        lastImagePath !== imagePath &&
+        getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
+      )
+    },
+    [lastImagePath, prevStepData]
+  )
+  const fetchTags = useCallback(
+    (imagePath = ''): void => {
+      if (canFetchTags(imagePath)) {
+        setLastImagePath(imagePath)
+      }
+    },
+    [canFetchTags]
+  )
+
+  const getInitialValues = useCallback((): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
+
     if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
       return defaultStepValues()
     }
@@ -140,71 +153,44 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       values.tag = { label: specValues?.tag, value: specValues?.tag }
     }
     if (context === 2 && initialValues?.identifier) {
-      values.identifier = initialValues?.identifier
+      merge(values, { identifier: initialValues?.identifier })
     }
-    return values
-  }
-  const fetchTags = (imagePath = '', registryHostname = ''): void => {
-    if (canFetchTags(imagePath, registryHostname)) {
-      setLastQueryData({ imagePath, registryHostname })
-    }
-  }
-  const canFetchTags = (imagePath: string, registryHostname: string): boolean =>
-    !!(
-      imagePath.length &&
-      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
-      registryHostname.length &&
-      (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
-    )
 
+    return values
+  }, [context, initialValues, selectedArtifact])
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
     const tagData =
       formData?.tagType === TagTypes.Value
-        ? { tag: formData.tag?.value || formData.tag }
-        : { tagRegex: formData.tagRegex?.value || formData.tagRegex }
+        ? { tag: defaultTo(formData.tag?.value, formData.tag) }
+        : { tagRegex: defaultTo(formData.tagRegex?.value, formData.tagRegex) }
 
     const artifactObj: ArtifactConfig = {
       spec: {
         connectorRef: formData?.connectorId,
         imagePath: formData?.imagePath,
-        registryHostname: formData?.registryHostname,
         ...tagData
       }
     }
     if (context === 2) {
-      artifactObj.identifier = formData?.identifier
+      merge(artifactObj, { identifier: formData?.identifier })
     }
     handleSubmit(artifactObj)
   }
 
-  const registryHostNameRenderer = memoize((item: { label: string }, { handleClick }) => (
-    <div key={item.label.toString()}>
-      <Menu.Item
-        text={
-          <Layout.Horizontal spacing="small">
-            <Text>{item.label}</Text>
-          </Layout.Horizontal>
-        }
-        disabled={gcrBuildDetailsLoading}
-        onClick={handleClick}
-      />
-    </div>
-  ))
   return (
     <Layout.Vertical spacing="medium" className={css.firstep}>
       <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {getString('pipeline.artifactsSelection.artifactDetails')}
       </Text>
-
       <Formik
         initialValues={getInitialValues()}
+        formName="imagePath"
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
-        formName="gcrImagePath"
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
             ...formData,
-            tag: formData?.tag?.value ? formData?.tag?.value : formData?.tag,
+            tag: defaultTo(formData?.tag?.value, formData?.tag),
             connectorId: getConnectorIdValue(prevStepData)
           })
         }}
@@ -221,39 +207,27 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   />
                 </div>
               )}
+
               <div className={css.imagePathContainer}>
-                <FormInput.MultiTypeInput
-                  label={getString('connectors.GCR.registryHostname')}
-                  placeholder={getString('common.validation.urlIsRequired')}
-                  name="registryHostname"
-                  selectItems={gcrUrlList}
-                  useValue
-                  multiTypeInputProps={{
-                    onChange: () => {
-                      tagList.length && setTagList([])
-                      resetTag(formik)
-                    },
-                    expressions,
-                    allowableTypes,
-                    selectProps: {
-                      allowCreatingNewItems: true,
-                      addClearBtn: true,
-                      items: gcrUrlList,
-                      itemRenderer: registryHostNameRenderer
-                    }
-                  }}
+                <FormInput.MultiTextInput
+                  label={getString('pipeline.artifactsSelection.repositoryPort')}
+                  name="repositoryPort"
+                  placeholder={getString('pipeline.artifactsSelection.repositoryPortPlaceholder')}
+                  multiTextInputProps={{ expressions, allowableTypes }}
                 />
-                {getMultiTypeFromValue(formik.values.registryHostname) === MultiTypeInputType.RUNTIME && (
+
+                {getMultiTypeFromValue(formik.values.repositoryPort) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
-                      value={formik.values.imagePath as string}
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.repositoryPort as string}
                       type="String"
-                      variableName="registryHostname"
+                      variableName="repositoryPort"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => {
-                        formik.setFieldValue('registryHostname', value)
+                        formik.setFieldValue('repositoryPort', value)
                       }}
                       isReadonly={isReadonly}
                     />
@@ -267,9 +241,9 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 allowableTypes={allowableTypes}
                 isReadonly={isReadonly}
                 connectorIdValue={getConnectorIdValue(prevStepData)}
-                fetchTags={imagePath => fetchTags(imagePath, formik.values?.registryHostname)}
-                buildDetailsLoading={gcrBuildDetailsLoading}
-                tagError={gcrTagError}
+                fetchTags={fetchTags}
+                buildDetailsLoading={dockerBuildDetailsLoading}
+                tagError={dockerTagError}
                 tagList={tagList}
                 setTagList={setTagList}
               />
@@ -294,3 +268,5 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     </Layout.Vertical>
   )
 }
+
+export default NexusArtifact

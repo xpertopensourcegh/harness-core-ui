@@ -1246,6 +1246,7 @@ export interface StringsMap {
   'connectors.appdLabel': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
+  'connectors.artifactory.artifactoryLabel': string
   'connectors.artifactory.artifactoryServerUrl': string
   'connectors.aws.accessKey': string
   'connectors.aws.assumeIAMRole': string
@@ -1735,6 +1736,7 @@ export interface StringsMap {
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
   'connectors.newRelicLabel': string
+  'connectors.nexus.nexusLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.pagerDutyConnectorDetails': string
   'connectors.parameters': string
@@ -2136,8 +2138,11 @@ export interface StringsMap {
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
   'pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder': string
+  'pipeline.artifactsSelection.repositoryPort': string
+  'pipeline.artifactsSelection.repositoryPortPlaceholder': string
   'pipeline.artifactsSelection.validation.imagePath': string
   'pipeline.artifactsSelection.validation.region': string
+  'pipeline.artifactsSelection.validation.repositoryPort': string
   'pipeline.artifactsSelection.validation.sidecarId': string
   'pipeline.artifactsSelection.validation.tag': string
   'pipeline.artifactsSelection.validation.tagRegex': string

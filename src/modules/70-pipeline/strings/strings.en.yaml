@@ -701,6 +701,8 @@ infraSpecifications:
     requiredExistingStage: Existing stage is a required field
 imagePathLabel: Image Path
 artifactsSelection:
+  repositoryPort: Repository port
+  repositoryPortPlaceholder: Enter Repository Port
   artifactDetails: Artifact Details
   artifactTyperequired: Artifact Type is required
   existingDocker:
@@ -714,6 +716,7 @@ artifactsSelection:
     tag: Tag is required
     tagRegex: Tag Regex is required
     sidecarId: Sidecar Identifier is required
+    repositoryPort: Repository Port is required
 overrideSets:
   createOverrideSet: Create Override Set
   overrideSetPlaceholder: Enter Override Set Name

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Formik,
   FormInput,
@@ -6,31 +6,28 @@ import {
   Layout,
   MultiTypeInputType,
   Button,
-  SelectOption,
   StepProps,
-  RUNTIME_INPUT_VALUE,
   Text,
+  RUNTIME_INPUT_VALUE,
   ButtonVariation,
   FontVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
-import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { defaultTo, get, merge } from 'lodash-es'
-import { useListAwsRegions } from 'services/portal'
-import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'services/cd-ng'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
 import { useQueryParams } from '@common/hooks'
-import { getConnectorIdValue, resetTag } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+
+import { ArtifactConfig, ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
+import { getConnectorIdValue } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView'
 import css from '../../ArtifactConnector.module.scss'
 
-export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   context,
   handleSubmit,
   expressions,
@@ -43,18 +40,13 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   selectedArtifact
 }) => {
   const { getString } = useStrings()
+  const [lastImagePath, setLastImagePath] = useState('')
+  const [tagList, setTagList] = useState<DockerBuildDetailsDTO[] | undefined>([])
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [tagList, setTagList] = React.useState([])
-  const [regions, setRegions] = React.useState<SelectOption[]>([])
-  const [lastQueryData, setLastQueryData] = React.useState<{ imagePath: string; region: any }>({
-    imagePath: '',
-    region: ''
-  })
 
   const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
-    region: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.region')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
@@ -66,8 +58,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     })
   }
 
-  const ecrSchema = Yup.object().shape(schemaObject)
-  const sideCarSchema = Yup.object().shape({
+  const primarySchema = Yup.object().shape(schemaObject)
+  const sidecarSchema = Yup.object().shape({
     ...schemaObject,
     ...ArtifactIdentifierValidation(
       artifactIdentifiers,
@@ -76,88 +68,75 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     )
   })
 
+  const defaultStepValues = (): ImagePathTypes => {
+    return {
+      identifier: '',
+      imagePath: '',
+      tag: RUNTIME_INPUT_VALUE,
+      tagType: TagTypes.Value,
+      tagRegex: ''
+    }
+  }
   const getConnectorRefQueryData = (): string => {
     return defaultTo(prevStepData?.connectorId?.value, prevStepData?.identifier)
   }
 
   const {
-    data: ecrBuildData,
-    loading: ecrBuildDetailsLoading,
-    refetch: refetchECRBuilddata,
-    error: ecrTagError
-  } = useGetBuildDetailsForEcr({
+    data,
+    loading: dockerBuildDetailsLoading,
+    refetch: refetchDockerTag,
+    error: dockerTagError
+  } = useGetBuildDetailsForDocker({
     queryParams: {
-      imagePath: lastQueryData.imagePath,
+      imagePath: lastImagePath,
       connectorRef: getConnectorRefQueryData(),
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      region: defaultTo(lastQueryData.region.value, lastQueryData.region),
       repoIdentifier,
       branch
     },
-    lazy: true
+    lazy: true,
+    debounce: 300
   })
+
   useEffect(() => {
-    if (ecrTagError) {
+    if (getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
+      refetchDockerTag()
+    }
+  }, [lastImagePath, refetchDockerTag])
+  useEffect(() => {
+    if (dockerTagError) {
       setTagList([])
-    } else if (Array.isArray(ecrBuildData?.data?.buildDetailsList)) {
-      setTagList(ecrBuildData?.data?.buildDetailsList as [])
+    } else if (Array.isArray(data?.data?.buildDetailsList)) {
+      setTagList(data?.data?.buildDetailsList)
     }
-  }, [ecrBuildData, ecrTagError])
-  useEffect(() => {
-    if (
-      lastQueryData.region &&
-      lastQueryData.imagePath &&
-      getConnectorIdValue(prevStepData).length &&
-      getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.region) === MultiTypeInputType.FIXED
-    ) {
-      refetchECRBuilddata()
-    }
-  }, [lastQueryData, prevStepData, refetchECRBuilddata])
+  }, [data?.data?.buildDetailsList, dockerTagError])
 
-  const { data } = useListAwsRegions({
-    queryParams: {
-      accountId
-    }
-  })
-  useEffect(() => {
-    const regionValues = defaultTo(data?.resource, []).map(region => ({
-      value: region.value,
-      label: region.name
-    }))
-    setRegions(regionValues as SelectOption[])
-  }, [data?.resource])
-
-  const fetchTags = (imagePath = '', region = ''): void => {
-    if (canFetchTags(imagePath, region)) {
-      setLastQueryData({ imagePath, region })
-    }
-  }
   const canFetchTags = useCallback(
-    (imagePath: string, region: string): boolean =>
-      !!(
-        imagePath &&
-        getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
-        region &&
-        (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)
-      ),
-    [lastQueryData.imagePath, lastQueryData.region]
+    (imagePath: string): boolean => {
+      return !!(
+        imagePath.length &&
+        getConnectorIdValue(prevStepData).length &&
+        getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
+        lastImagePath !== imagePath &&
+        getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
+      )
+    },
+    [lastImagePath, prevStepData]
+  )
+  const fetchTags = useCallback(
+    (imagePath = ''): void => {
+      if (canFetchTags(imagePath)) {
+        setLastImagePath(imagePath)
+      }
+    },
+    [canFetchTags]
   )
 
-  const defaultStepValues = (): ImagePathTypes => {
-    return {
-      identifier: '',
-      imagePath: '',
-      tag: RUNTIME_INPUT_VALUE as string,
-      tagType: TagTypes.Value,
-      tagRegex: ''
-    }
-  }
-  const getInitialValues = useCallback((): ImagePathTypes => {
+  const getInitialValues = (): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
+
     if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
       return defaultStepValues()
     }
@@ -169,15 +148,12 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
       values.tag = { label: specValues?.tag, value: specValues?.tag }
     }
-    if (getMultiTypeFromValue(specValues?.region) === MultiTypeInputType.FIXED) {
-      values.region = regions.find(regionData => regionData.value === specValues?.region)
-    }
     if (context === 2 && initialValues?.identifier) {
       merge(values, { identifier: initialValues?.identifier })
     }
-    return values
-  }, [context, initialValues, regions, selectedArtifact])
 
+    return values
+  }
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
     const tagData =
       formData?.tagType === TagTypes.Value
@@ -188,7 +164,6 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       spec: {
         connectorRef: formData?.connectorId,
         imagePath: formData?.imagePath,
-        region: formData?.region?.value ? formData?.region?.value : formData?.region,
         ...tagData
       }
     }
@@ -205,16 +180,16 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       </Text>
       <Formik
         initialValues={getInitialValues()}
-        validationSchema={context === 2 ? sideCarSchema : ecrSchema}
-        formName="ecrArtifact"
+        formName="imagePath"
+        validationSchema={context === 2 ? sidecarSchema : primarySchema}
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
             ...formData,
+            tag: defaultTo(formData?.tag?.value, formData?.tag),
             connectorId: getConnectorIdValue(prevStepData)
           })
         }}
-        enableReinitialize={true}
       >
         {formik => (
           <Form>
@@ -228,42 +203,6 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   />
                 </div>
               )}
-              <div className={css.imagePathContainer}>
-                <FormInput.MultiTypeInput
-                  name="region"
-                  selectItems={regions}
-                  multiTypeInputProps={{
-                    onChange: () => {
-                      tagList.length && setTagList([])
-                      resetTag(formik)
-                    },
-                    selectProps: {
-                      defaultSelectedItem: formik.values.region,
-                      items: regions
-                    }
-                  }}
-                  label={getString('regionLabel')}
-                  placeholder={getString('select')}
-                />
-
-                {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (
-                  <div className={css.configureOptions}>
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.region as string}
-                      type="String"
-                      variableName="region"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('region', value)
-                      }}
-                      isReadonly={isReadonly}
-                    />
-                  </div>
-                )}
-              </div>
               <ArtifactImagePathTagView
                 selectedArtifact={selectedArtifact as ArtifactType}
                 formik={formik}
@@ -271,14 +210,13 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                 allowableTypes={allowableTypes}
                 isReadonly={isReadonly}
                 connectorIdValue={getConnectorIdValue(prevStepData)}
-                fetchTags={imagePath => fetchTags(imagePath, formik.values?.region)}
-                buildDetailsLoading={ecrBuildDetailsLoading}
-                tagError={ecrTagError}
+                fetchTags={fetchTags}
+                buildDetailsLoading={dockerBuildDetailsLoading}
+                tagError={dockerTagError}
                 tagList={tagList}
                 setTagList={setTagList}
               />
             </div>
-
             <Layout.Horizontal spacing="medium">
               <Button
                 variation={ButtonVariation.SECONDARY}
@@ -299,3 +237,4 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     </Layout.Vertical>
   )
 }
+export default Artifactory
