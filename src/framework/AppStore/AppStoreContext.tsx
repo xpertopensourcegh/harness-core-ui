@@ -85,7 +85,9 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     },
     lazy: true
   })
-  const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
+  const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({
+    queryParams: { accountIdentifier: accountId }
+  })
 
   const { source } = useQueryParams<{ source?: string }>()
 

@@ -27284,36 +27284,53 @@ export const getUsersPromise = (
     signal
   )
 
-export type GetCurrentUserInfoProps = Omit<GetProps<ResponseUserInfo, Failure | Error, void, void>, 'path'>
+export interface GetCurrentUserInfoQueryParams {
+  accountIdentifier: string
+}
+
+export type GetCurrentUserInfoProps = Omit<
+  GetProps<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>,
+  'path'
+>
 
 /**
  * get current user information
  */
 export const GetCurrentUserInfo = (props: GetCurrentUserInfoProps) => (
-  <Get<ResponseUserInfo, Failure | Error, void, void>
+  <Get<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>
     path={`/user/currentUser`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetCurrentUserInfoProps = Omit<UseGetProps<ResponseUserInfo, Failure | Error, void, void>, 'path'>
+export type UseGetCurrentUserInfoProps = Omit<
+  UseGetProps<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>,
+  'path'
+>
 
 /**
  * get current user information
  */
 export const useGetCurrentUserInfo = (props: UseGetCurrentUserInfoProps) =>
-  useGet<ResponseUserInfo, Failure | Error, void, void>(`/user/currentUser`, { base: getConfig('ng/api'), ...props })
+  useGet<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>(`/user/currentUser`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 /**
  * get current user information
  */
 export const getCurrentUserInfoPromise = (
-  props: GetUsingFetchProps<ResponseUserInfo, Failure | Error, void, void>,
+  props: GetUsingFetchProps<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseUserInfo, Failure | Error, void, void>(getConfig('ng/api'), `/user/currentUser`, props, signal)
-
+  getUsingFetch<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>(
+    getConfig('ng/api'),
+    `/user/currentUser`,
+    props,
+    signal
+  )
 export interface GetCurrentGenUsersQueryParams {
   accountIdentifier: string
   searchString?: string
