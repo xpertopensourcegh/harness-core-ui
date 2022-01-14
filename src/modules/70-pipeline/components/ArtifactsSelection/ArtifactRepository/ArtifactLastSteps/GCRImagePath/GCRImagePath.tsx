@@ -120,9 +120,9 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     return {
       identifier: '',
       imagePath: '',
-      tag: RUNTIME_INPUT_VALUE as string,
+      tag: RUNTIME_INPUT_VALUE,
       tagType: TagTypes.Value,
-      tagRegex: '',
+      tagRegex: RUNTIME_INPUT_VALUE,
       registryHostname: ''
     }
   }

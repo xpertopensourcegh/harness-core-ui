@@ -49,7 +49,7 @@ import StepNexusAuthentication from '@connectors/components/CreateConnector/Nexu
 import StepArtifactoryAuthentication from '@connectors/components/CreateConnector/ArtifactoryConnector/StepAuth/StepArtifactoryAuthentication'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
-import { ImagePath } from './ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
+import { DockerRegistryArtifact } from './ArtifactRepository/ArtifactLastSteps/DockerRegistryArtifact/DockerRegistryArtifact'
 import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact/ECRArtifact'
 import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
@@ -655,7 +655,7 @@ export default function ArtifactsSelection({
         return <Artifactory {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
-        return <ImagePath {...artifactLastStepProps()} />
+        return <DockerRegistryArtifact {...artifactLastStepProps()} />
     }
   }, [artifactLastStepProps, selectedArtifact])
 

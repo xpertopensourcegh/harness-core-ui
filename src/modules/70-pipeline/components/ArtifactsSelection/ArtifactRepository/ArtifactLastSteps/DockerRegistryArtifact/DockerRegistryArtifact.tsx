@@ -27,7 +27,7 @@ import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView'
 import css from '../../ArtifactConnector.module.scss'
 
-export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   context,
   handleSubmit,
   expressions,
@@ -74,7 +74,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
       imagePath: '',
       tag: RUNTIME_INPUT_VALUE,
       tagType: TagTypes.Value,
-      tagRegex: ''
+      tagRegex: RUNTIME_INPUT_VALUE
     }
   }
   const getConnectorRefQueryData = (): string => {

@@ -3,7 +3,7 @@ import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-libr
 import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ArtifactType, TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { ImagePath } from '../ImagePath'
+import { DockerRegistryArtifact } from '../DockerRegistryArtifact'
 
 const props = {
   name: 'Artifact details',
@@ -32,7 +32,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -49,7 +49,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -66,7 +66,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -87,7 +87,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -125,7 +125,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)

@@ -4,7 +4,7 @@ import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import ArtifactWizard from '../ArtifactWizard/ArtifactWizard'
 import type { ArtifactType, InitialArtifactDataType, TagTypes } from '../ArtifactInterface'
-import { ImagePath } from '../ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
+import { DockerRegistryArtifact } from '../ArtifactRepository/ArtifactLastSteps/DockerRegistryArtifact/DockerRegistryArtifact'
 import connectorsData from './connectors_mock.json'
 import { GCRImagePath } from '../ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 
@@ -61,7 +61,7 @@ describe('Artifact WizardStep tests', () => {
           newConnectorView={false}
           iconsProps={{ name: 'info' }}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
-          lastSteps={<ImagePath {...laststepProps} key={'key'} />}
+          lastSteps={<DockerRegistryArtifact {...laststepProps} key={'key'} />}
         />
       </TestWrapper>
     )
@@ -89,7 +89,7 @@ describe('Artifact WizardStep tests', () => {
           changeArtifactType={jest.fn()}
           newConnectorView={false}
           iconsProps={{ name: 'info' }}
-          lastSteps={<ImagePath {...laststepProps} key={'key'} />}
+          lastSteps={<DockerRegistryArtifact {...laststepProps} key={'key'} />}
         />
       </TestWrapper>
     )
@@ -117,7 +117,7 @@ describe('Artifact WizardStep tests', () => {
           changeArtifactType={jest.fn()}
           newConnectorView={false}
           iconsProps={{ name: 'info' }}
-          lastSteps={<ImagePath {...laststepProps} key={'key'} />}
+          lastSteps={<DockerRegistryArtifact {...laststepProps} key={'key'} />}
         />
       </TestWrapper>
     )
@@ -200,7 +200,7 @@ describe('Artifact WizardStep tests', () => {
           changeArtifactType={jest.fn()}
           newConnectorView={true}
           iconsProps={{ name: 'info' }}
-          lastSteps={<ImagePath {...laststepProps} key={'key'} />}
+          lastSteps={<DockerRegistryArtifact {...laststepProps} key={'key'} />}
         />
       </TestWrapper>
     )
@@ -258,7 +258,7 @@ describe('Artifact WizardStep tests', () => {
           changeArtifactType={jest.fn()}
           newConnectorView={true}
           iconsProps={{ name: 'info' }}
-          lastSteps={<ImagePath {...laststepProps} key={'key'} />}
+          lastSteps={<DockerRegistryArtifact {...laststepProps} key={'key'} />}
         />
       </TestWrapper>
     )

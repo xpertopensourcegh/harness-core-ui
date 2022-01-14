@@ -151,9 +151,9 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     return {
       identifier: '',
       imagePath: '',
-      tag: RUNTIME_INPUT_VALUE as string,
+      tag: RUNTIME_INPUT_VALUE,
       tagType: TagTypes.Value,
-      tagRegex: ''
+      tagRegex: RUNTIME_INPUT_VALUE
     }
   }
   const getInitialValues = useCallback((): ImagePathTypes => {
