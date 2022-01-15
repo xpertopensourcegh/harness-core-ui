@@ -41,7 +41,8 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import FeatureWarningUpgradeBanner from '@common/components/FeatureWarning/FeatureWarningUpgradeBanner'
 import { ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
 import formatCost from '@ce/utils/formatCost'
-import { useFeature } from '@common/hooks/useFeatures'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -108,11 +109,7 @@ const OverviewPage: React.FC = () => {
 
   const bannerClassName = showBanner ? css.hasBanner : css.hasNoBanner
 
-  const { enabled: featureEnabled } = useFeature({
-    featureRequest: {
-      featureName: FeatureIdentifier.PERSPECTIVES
-    }
-  })
+  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
@@ -196,7 +193,7 @@ const OverviewPage: React.FC = () => {
           content={<PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />}
         />
         <Page.Body>
-          {featureEnabled ? <CEUsageInfo /> : null}
+          {featureEnforced ? <CEUsageInfo /> : null}
           <Container padding={{ top: 'medium', right: 'xlarge', bottom: 'medium', left: 'xlarge' }}>
             <div className={css.mainContainer}>
               <div className={css.columnOne}>
