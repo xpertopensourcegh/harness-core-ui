@@ -1905,6 +1905,8 @@ export interface StringsMap {
   'gitsync.connectThroughManagerLabel': string
   'gitsync.connectToGitProvider': string
   'gitsync.connectivityModeLabel': string
+  'gitsync.createBranchTitle': string
+  'gitsync.deafaultSyncTitle': string
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.enterBranchToSync': string
@@ -1930,12 +1932,15 @@ export interface StringsMap {
   'gitsync.rootfolderLabel': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
+  'gitsync.selectBranchTitle': string
   'gitsync.selectDefaultBranch': string
   'gitsync.selectHarnessFolder': string
   'gitsync.startPullRequest': string
   'gitsync.startSync': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
+  'gitsync.syncBranchTitle': string
+  'gitsync.syncSucessToaster': string
   'dashboards.createFolder.folderDescriptionPlaceholder': string
   'dashboards.createFolder.folderNameValidation': string
   'dashboards.createFolder.folderPlaceholder': string
