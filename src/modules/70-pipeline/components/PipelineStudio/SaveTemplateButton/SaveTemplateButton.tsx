@@ -21,7 +21,10 @@ import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import css from './SaveTemplateButton.module.scss'
 
 interface SaveTemplateButtonProps {
-  data: StepOrStepGroupOrTemplateStepData | StageElementConfig
+  data:
+    | StepOrStepGroupOrTemplateStepData
+    | StageElementConfig
+    | (() => Promise<StepOrStepGroupOrTemplateStepData | StageElementConfig>)
   type: 'Step' | 'Stage'
   buttonProps?: ButtonProps
 }
@@ -53,21 +56,26 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
     isPipelineStudio: true
   })
 
-  const onSaveAsTemplate = () => {
-    setTemplate(
-      produce(DefaultTemplate, draft => {
-        draft.projectIdentifier = projectIdentifier
-        draft.orgIdentifier = orgIdentifier
-        draft.type = type
-        draft.spec = omit(data, 'name', 'identifier') as JsonNode
+  const onSaveAsTemplate = async () => {
+    try {
+      const finalData = typeof data === 'function' ? await data() : data
+      setTemplate(
+        produce(DefaultTemplate, draft => {
+          draft.projectIdentifier = projectIdentifier
+          draft.orgIdentifier = orgIdentifier
+          draft.type = type
+          draft.spec = omit(finalData, 'name', 'identifier') as JsonNode
+        })
+      )
+      setModalProps({
+        title: getString('common.template.saveAsNewTemplateHeading'),
+        promise: saveAndPublish,
+        shouldGetComment: !isGitSyncEnabled
       })
-    )
-    setModalProps({
-      title: getString('common.template.saveAsNewTemplateHeading'),
-      promise: saveAndPublish,
-      shouldGetComment: !isGitSyncEnabled
-    })
-    showConfigModal()
+      showConfigModal()
+    } catch (_error) {
+      //Do not do anything as there are error in the form
+    }
   }
 
   return (
