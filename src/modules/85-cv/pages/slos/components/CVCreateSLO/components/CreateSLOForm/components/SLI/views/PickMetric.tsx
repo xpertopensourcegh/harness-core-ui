@@ -34,7 +34,7 @@ import {
 import { SLIProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
+const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -201,6 +201,7 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
             <SLOTargetChartWrapper
               monitoredServiceIdentifier={monitoredServiceRef}
               serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
+              {...rest}
               topLabel={
                 <Text
                   font={{ variation: FontVariation.TINY_SEMI }}
@@ -214,7 +215,6 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
                 chart: { height: isRatioBasedMetric ? 280 : 220 },
                 yAxis: { min: 0, max: 100, tickInterval: 25 }
               }}
-              debounceWait={2000}
             />
           </Container>
         </Layout.Horizontal>

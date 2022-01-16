@@ -32,7 +32,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         {formikProps => {
           return (
             <FormikForm>
-              <SLOTargetAndBudgetPolicy formikProps={formikProps}>
+              <SLOTargetAndBudgetPolicy formikProps={formikProps} retryOnError={jest.fn()}>
                 <></>
               </SLOTargetAndBudgetPolicy>
             </FormikForm>

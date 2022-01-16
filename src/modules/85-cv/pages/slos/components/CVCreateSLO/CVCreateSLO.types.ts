@@ -8,6 +8,7 @@ import type {
   CalenderSLOTargetSpec,
   WeeklyCalendarSpec
 } from 'services/cv'
+import type { SLOTargetChartWithAPIGetSliGraphProps } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart.types'
 
 export enum CreateSLOTabs {
   NAME = 'NAME',
@@ -118,8 +119,15 @@ export interface SLOForm extends SLIForm {
   [SLOFormFields.SLO_TARGET_PERCENTAGE]: number
 }
 
-export interface NavButtonsProps {
+export interface CreateSLOFormProps {
   formikProps: FormikProps<SLOForm>
+  loading?: boolean
+  createOrUpdateLoading?: boolean
+  error?: string
+  retryOnError: () => Promise<void>
+}
+
+export interface NavButtonsProps {
   loading?: boolean
 }
 
@@ -129,12 +137,14 @@ export interface SLONameProps {
   identifier?: string
 }
 
-export interface SLIProps {
+export interface SLIProps
+  extends Omit<SLOTargetChartWithAPIGetSliGraphProps, 'serviceLevelIndicator' | 'monitoredServiceIdentifier'> {
   children: JSX.Element
   formikProps: FormikProps<SLOForm>
 }
 
-export interface SLOTargetAndBudgetPolicyProps {
+export interface SLOTargetAndBudgetPolicyProps
+  extends Omit<SLOTargetChartWithAPIGetSliGraphProps, 'serviceLevelIndicator' | 'monitoredServiceIdentifier'> {
   children: JSX.Element
   formikProps: FormikProps<SLOForm>
 }

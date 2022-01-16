@@ -24,7 +24,7 @@ import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 // SONAR recommendation
 const flexStart = 'flex-start'
 
-const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ children, formikProps }) => {
+const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ children, formikProps, ...rest }) => {
   const { getString } = useStrings()
   const { periodType, periodLengthType } = formikProps.values
 
@@ -100,6 +100,7 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ chi
                     customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
                     monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
                     serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
+                    {...rest}
                     bottomLabel={
                       <Text
                         color={Color.GREY_500}
