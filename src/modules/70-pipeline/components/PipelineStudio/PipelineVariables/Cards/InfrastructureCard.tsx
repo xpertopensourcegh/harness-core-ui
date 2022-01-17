@@ -75,7 +75,8 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
           path
         }}
       />
-      {infrastructure.infrastructureDefinition && originalInfrastructure.infrastructureDefinition ? (
+      {infrastructure.infrastructureDefinition?.provisioner &&
+      originalInfrastructure.infrastructureDefinition?.provisioner ? (
         <ExecutionCardPanel
           id={`${props.path}.Provisioner`}
           title={getString('common.provisioner')}

@@ -18,8 +18,8 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 
 import VariableListTagRow from '@pipeline/components/VariablesListTable/VariableListTagRow'
 import { ServiceCardPanel } from './ServiceCard'
-import { InfrastructureCardPanel } from './InfrastructureCard'
 import { ExecutionCardPanel } from './ExecutionCard'
+import { EnvironmentCardPanel } from './EnvironmentCard'
 import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
@@ -137,31 +137,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   }}
                 />
               ) : /* istanbul ignore next */ null}
-              {stageSpec.infrastructure && originalSpec.infrastructure ? (
-                <InfrastructureCardPanel
-                  infrastructure={stageSpec.infrastructure}
-                  originalInfrastructure={originalSpec.infrastructure}
-                  metadataMap={metadataMap}
-                  stageIdentifier={originalStage.identifier}
-                  readonly={readonly}
-                  allowableTypes={allowableTypes}
-                  path={`${path}.${originalStage.identifier}.Infrastructure`}
-                  onUpdateInfrastructure={infrastructure => {
-                    updateStage(
-                      produce(originalStage, draft => {
-                        set(draft, 'spec.infrastructure', infrastructure)
-                      })
-                    )
-                  }}
-                  onUpdateInfrastructureProvisioner={provisioner => {
-                    updateStage(
-                      produce(originalStage, draft => {
-                        set(draft, 'spec.infrastructure.infrastructureDefinition.provisioner', provisioner)
-                      })
-                    )
-                  }}
-                />
-              ) : /* istanbul ignore next */ null}
+              <EnvironmentCardPanel
+                stage={stage}
+                originalStage={originalStage}
+                metadataMap={metadataMap}
+                readonly={readonly}
+                allowableTypes={allowableTypes}
+                path={path}
+              />
               {stageSpec.execution && originalSpec.execution ? (
                 <ExecutionCardPanel
                   id={`${path}.${originalStage.identifier}.Execution`}
