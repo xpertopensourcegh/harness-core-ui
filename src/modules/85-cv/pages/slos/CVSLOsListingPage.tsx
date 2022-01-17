@@ -9,7 +9,8 @@ import {
   NoDataCard,
   Pagination,
   Layout,
-  FlexExpander
+  FlexExpander,
+  Container
 } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -43,7 +44,8 @@ import {
   getServiceLevelObjectivesRiskCountParams,
   getUserJourneyParams,
   getMonitoredServicesInitialState,
-  getInitialFilterState
+  getInitialFilterState,
+  getClassNameForMonitoredServicePage
 } from './CVSLOListingPage.utils'
 import SLODashbordFilters from './components/SLODashbordFilters/SLODashbordFilters'
 import SLOCardHeader from './SLOCard/SLOCardHeader'
@@ -139,7 +141,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
     }
   }
 
-  const addNewSLO = (
+  const getAddSLOButton = (): JSX.Element => (
     <RbacButton
       icon="plus"
       text={getString('cv.slos.newSLO')}
@@ -147,6 +149,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
       onClick={() => {
         history.push(routes.toCVCreateSLOs({ accountId, orgIdentifier, projectIdentifier }))
       }}
+      className={getClassNameForMonitoredServicePage(css.createSloInMonitoredService, monitoredService?.identifier)}
       permission={{
         permission: PermissionIdentifier.EDIT_SLO_SERVICE,
         resource: {
@@ -177,7 +180,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
       {!monitoredService?.identifier && (
         <>
           <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.slos.title')} />
-          <Page.Header title={addNewSLO} />
+          <Page.Header title={getAddSLOButton()} />
         </>
       )}
 
@@ -215,12 +218,19 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
         className={css.pageBody}
       >
         <Layout.Vertical height="100%" padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}>
-          <SLODashbordFilters
-            filterState={filterState}
-            dispatch={dispatch}
-            filterItemsData={filterItemsData}
-            hideMonitoresServicesFilter={Boolean(monitoredService)}
-          />
+          <Layout.Horizontal className={css.sloFiltersRow1}>
+            {monitoredService?.identifier && getAddSLOButton()}
+            <Container
+              className={getClassNameForMonitoredServicePage(css.sloDropdownFilters, monitoredService?.identifier)}
+            >
+              <SLODashbordFilters
+                filterState={filterState}
+                dispatch={dispatch}
+                filterItemsData={filterItemsData}
+                hideMonitoresServicesFilter={Boolean(monitoredService)}
+              />
+            </Container>
+          </Layout.Horizontal>
 
           <CardSelect<SLORiskFilter>
             type={CardSelectType.CardView}

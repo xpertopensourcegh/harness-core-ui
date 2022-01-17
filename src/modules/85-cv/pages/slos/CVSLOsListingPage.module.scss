@@ -27,11 +27,18 @@ $headerHeight: 146px;
     border-top: 1px solid var(--grey-200);
     margin: var(--spacing-medium) 0;
   }
-}
 
-.sloFilters_Dropdown {
-  background: var(--grey-0) !important;
-  width: 180px !important;
+  .sloFiltersRow1 {
+    margin-bottom: var(--spacing-medium) !important;
+    .createSLOInMonitoredService {
+      margin-right: var(--spacing-medium) !important;
+    }
+  }
+
+  .sloDropdownFilters {
+    border-left: 1px solid var(--grey-200) !important;
+    padding-left: var(--spacing-medium) !important;
+  }
 }
 
 .sloFilters {

@@ -104,7 +104,7 @@ describe('CVSLOsListingPage', () => {
     expect(screen.getByText('cv.slos.newSLO')).toBeInTheDocument()
   })
 
-  test('With monitoredServiceIdentifier it should not render with the page header and +New SLO button', () => {
+  test('With monitoredServiceIdentifier it should not render with the page header and render +New SLO button', () => {
     render(
       <ComponentWrapper
         monitoredService={{ identifier: 'monitored_service_identifier', name: 'monitored_service_identifier' }}
@@ -112,7 +112,7 @@ describe('CVSLOsListingPage', () => {
     )
 
     expect(screen.queryByText('cv.slos.title')).not.toBeInTheDocument()
-    expect(screen.queryByText('cv.slos.newSLO')).not.toBeInTheDocument()
+    expect(screen.queryByText('cv.slos.newSLO')).toBeInTheDocument()
   })
 
   test('add new SLO should go to create page', async () => {

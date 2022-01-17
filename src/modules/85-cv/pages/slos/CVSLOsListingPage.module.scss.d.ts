@@ -5,7 +5,9 @@ declare const styles: {
   readonly sloRiskFilterCard: string
   readonly sloCardContainer: string
   readonly sloCard: string
-  readonly sloFiltersDropdown: string
+  readonly sloFiltersRow1: string
+  readonly createSloInMonitoredService: string
+  readonly sloDropdownFilters: string
   readonly sloFilters: string
   readonly flexGrowOne: string
   readonly sloTags: string

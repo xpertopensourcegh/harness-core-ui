@@ -500,3 +500,7 @@ export const getMonitoredServicesInitialState = (monitoredService: {
     }
   }
 }
+
+export const getClassNameForMonitoredServicePage = (className: string, isMonitoredServicePage?: string): string => {
+  return isMonitoredServicePage ? className : ''
+}
