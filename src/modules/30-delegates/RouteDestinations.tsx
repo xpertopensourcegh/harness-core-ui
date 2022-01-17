@@ -22,6 +22,7 @@ import DelegateResourceRenderer from '@delegates/components/DelegateResourceRend
 
 import DelegateListing from '@delegates/pages/delegates/DelegateListing'
 import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
+import DelegateTokens from '@delegates/components/DelegateTokens/DelegateTokens'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
@@ -92,6 +93,11 @@ export default (
       path={[routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })]}
     >
       <DelegateProfileDetails />
+    </RouteWithLayout>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toDelegateTokens({ ...accountPathProps })]}>
+      <DelegatesPage>
+        <DelegateTokens />
+      </DelegatesPage>
     </RouteWithLayout>
   </>
 )

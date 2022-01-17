@@ -58,6 +58,10 @@ const DelegatesPage: React.FC = ({ children }) => {
       to: routes.toDelegateConfigs({ accountId, orgIdentifier, projectIdentifier, module })
     })
   }
+  links.push({
+    label: getString('common.tokens'),
+    to: routes.toDelegateTokens({ accountId, orgIdentifier, projectIdentifier, module })
+  })
   return (
     <>
       <Page.Header

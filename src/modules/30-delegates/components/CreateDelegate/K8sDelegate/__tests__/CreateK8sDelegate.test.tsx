@@ -7,6 +7,9 @@ import DelegateSizesmock from './DelegateSizesmock.json'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
+  useCreateDelegateToken: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn().mockImplementation(() => undefined)
+  })),
   useGetDelegateProfilesV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
@@ -18,8 +21,14 @@ jest.mock('services/portal', () => ({
   useValidateKubernetesYaml: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useGetDelegateTokens: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn().mockImplementation(() => ({
+      resource: []
+    }))
+  }))
 }))
+
 jest.mock('services/cd-ng', () => ({
   useListDelegateProfilesNg: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
@@ -50,7 +59,7 @@ describe('Create K8s Delegate', () => {
       </TestWrapper>
     )
     const buttons = container.getElementsByTagName('button')
-    const backBtn = buttons[0]
+    const backBtn = buttons[1]
     act(() => {
       fireEvent.click(backBtn!)
     })

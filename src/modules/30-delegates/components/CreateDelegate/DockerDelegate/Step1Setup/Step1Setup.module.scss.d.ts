@@ -7,5 +7,6 @@ declare const styles: {
   readonly delegateForm: string
   readonly formGroup: string
   readonly verificationField: string
+  readonly tokensSelectContainer: string
 }
 export default styles

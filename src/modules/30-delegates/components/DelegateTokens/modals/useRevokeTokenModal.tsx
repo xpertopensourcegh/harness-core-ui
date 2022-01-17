@@ -1,0 +1,97 @@
+import React, { useCallback, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import {
+  useModalHook,
+  Dialog,
+  Button,
+  Layout,
+  Text,
+  ButtonVariation,
+  Heading,
+  FontVariation
+} from '@wings-software/uicore'
+import type { IDialogProps } from '@blueprintjs/core'
+import { useStrings } from 'framework/strings'
+import { revokeDelegateTokenPromise } from 'services/portal'
+import TokenDelegatesList from './TokenDelegatesList'
+
+import css from '../DelegateTokens.module.scss'
+
+export interface RevokeTokenModalProps {
+  onSuccess?: () => void
+}
+
+export interface RevokeTokenModalReturn {
+  openRevokeTokenModal: (token: string) => void
+  closeRevokeTokenModal: () => void
+}
+
+export const useRevokeTokenModal = ({ onSuccess }: RevokeTokenModalProps): RevokeTokenModalReturn => {
+  const { getString } = useStrings()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<Record<string, string>>()
+  const [tokenName, setTokenName] = useState('')
+
+  const modalProps: IDialogProps = {
+    isOpen: true,
+    title: (
+      <>
+        <Heading level={3} font={{ variation: FontVariation.H3 }}>
+          {getString('delegates.tokens.revokeToken')}
+        </Heading>
+        <Text margin={{ top: 'small' }}>{getString('delegates.tokens.revokeTokenSubtitle')}</Text>
+      </>
+    ),
+    enforceFocus: false,
+    style: {
+      width: 755,
+      height: 575
+    }
+  }
+
+  const onRevoke = useCallback(
+    async hideModalFn => {
+      await revokeDelegateTokenPromise({
+        queryParams: {
+          accountId,
+          projectIdentifier,
+          orgIdentifier,
+          tokenName
+        }
+      } as any)
+      onSuccess?.()
+      hideModalFn()
+    },
+    [tokenName]
+  )
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog onClose={hideModal} {...modalProps}>
+        <Layout.Vertical className={css.addTokenModalContainer}>
+          <TokenDelegatesList tokenName={tokenName} />
+          <Layout.Horizontal spacing="small">
+            <Button intent="danger" variation={ButtonVariation.PRIMARY} onClick={() => onRevoke(hideModal)}>
+              {getString('delegates.tokens.revoke')}
+            </Button>
+            <Button variation={ButtonVariation.TERTIARY} onClick={hideModal}>
+              {getString('cancel')}
+            </Button>
+          </Layout.Horizontal>
+        </Layout.Vertical>
+      </Dialog>
+    ),
+    [onSuccess, tokenName]
+  )
+  const open = useCallback(
+    (token: string) => {
+      setTokenName(token)
+      showModal()
+    },
+    [showModal, setTokenName]
+  )
+
+  return {
+    openRevokeTokenModal: open,
+    closeRevokeTokenModal: hideModal
+  }
+}

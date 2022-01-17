@@ -4,6 +4,9 @@ import { TestWrapper } from '@common/utils/testUtils'
 import Step1Setup from '../Step1Setup/Step1Setup'
 
 jest.mock('services/portal', () => ({
+  useCreateDelegateToken: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn().mockImplementation(() => undefined)
+  })),
   useGetDelegateSizes: jest.fn().mockImplementation(() => {
     return {
       data: [
@@ -25,7 +28,16 @@ jest.mock('services/portal', () => ({
         resource: {}
       }))
     }
-  })
+  }),
+  useGetDelegateTokens: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn().mockImplementation(() => ({
+      resource: [
+        {
+          name: 'Token1'
+        }
+      ]
+    }))
+  }))
 }))
 
 describe('Create Docker Step1Setup', () => {

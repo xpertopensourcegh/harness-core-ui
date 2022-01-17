@@ -5,6 +5,9 @@ import CreateDockerDelegate from '../CreateDockerDelegate'
 
 const onBack = jest.fn()
 jest.mock('services/portal', () => ({
+  useCreateDelegateToken: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn().mockImplementation(() => undefined)
+  })),
   useGetDelegateSizes: jest.fn().mockImplementation(() => {
     return {
       data: [
@@ -26,7 +29,12 @@ jest.mock('services/portal', () => ({
         resource: {}
       }))
     }
-  })
+  }),
+  useGetDelegateTokens: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn().mockImplementation(() => ({
+      resource: []
+    }))
+  }))
 }))
 
 describe('Create Docker Delegate', () => {

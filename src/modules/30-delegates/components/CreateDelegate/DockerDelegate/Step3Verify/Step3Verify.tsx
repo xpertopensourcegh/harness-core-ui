@@ -44,7 +44,8 @@ const Step3Verify: React.FC<StepProps<DockerDelegateWizardData> & StepSuccessVer
         name: prevStepData?.name,
         identifier: prevStepData?.identifier,
         description: prevStepData?.description,
-        tags: prevStepData?.tags
+        tags: prevStepData?.tags,
+        tokenName: prevStepData?.tokenName
       } as any
       const response = (await createDelegateGroup(dockerData)) as any
       if (response?.ok) {

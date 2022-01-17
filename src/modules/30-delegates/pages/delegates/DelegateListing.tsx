@@ -462,7 +462,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
       permission={permissionRequestNewDelegate}
       onClick={() => openDelegateModal()}
       id="newDelegateBtn"
-      data-test="newDelegateButton"
+      data-testid="newDelegateButton"
     />
   )
 

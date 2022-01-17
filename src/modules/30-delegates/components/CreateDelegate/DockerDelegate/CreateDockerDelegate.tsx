@@ -24,6 +24,7 @@ export interface DockerDelegateWizardData {
   identifier?: string
   description?: string
   replicas?: number
+  tokenName?: string
 }
 
 const CreateDockerDelegate: React.FC<CreateDockerDelegateProps> = ({ onClose, onBack }) => {

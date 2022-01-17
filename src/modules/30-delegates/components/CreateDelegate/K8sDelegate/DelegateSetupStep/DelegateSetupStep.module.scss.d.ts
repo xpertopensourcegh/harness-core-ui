@@ -33,5 +33,6 @@ declare const styles: {
   readonly namespace: string
   readonly profileSelectorsItemsContainer: string
   readonly textCenter: string
+  readonly tokensSelectContainer: string
 }
 export default styles

@@ -2,7 +2,7 @@
   height: 500px;
 }
 .leftPanel {
-  overflow-y: auto;
+  overflow: initial;
   width: 50% !important;
 }
 
@@ -18,7 +18,7 @@
 .delegateForm {
   padding: var(--spacing-xsmall) !important;
   min-height: 580px;
-  overflow: auto;
+  overflow: initial;
   :global {
     .bp3-label {
       letter-spacing: 0.2px;
@@ -220,4 +220,11 @@
 
 .textCenter {
   text-align: center;
+}
+
+.tokensSelectContainer {
+  align-items: start;
+  button {
+    margin-top: 21px !important;
+  }
 }

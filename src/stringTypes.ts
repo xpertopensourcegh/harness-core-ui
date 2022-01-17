@@ -1002,6 +1002,23 @@ export interface StringsMap {
   'delegates.reviewYAML': string
   'delegates.selectors': string
   'delegates.successfullyUpdatedConfig': string
+  'delegates.tokens.createdBySystem': string
+  'delegates.tokens.delegateTokens': string
+  'delegates.tokens.generatedValuePlaceholder': string
+  'delegates.tokens.moreInfo': string
+  'delegates.tokens.moreInfoSubtitle': string
+  'delegates.tokens.moreInfoTitle': string
+  'delegates.tokens.noTokens': string
+  'delegates.tokens.revoke': string
+  'delegates.tokens.revokeToken': string
+  'delegates.tokens.revokeTokenSubtitle': string
+  'delegates.tokens.revoked': string
+  'delegates.tokens.showRevoked': string
+  'delegates.tokens.tokenBySearchNameNotExisting': string
+  'delegates.tokens.tokenNameNotUnique': string
+  'delegates.tokens.tokenNameRequired': string
+  'delegates.tokens.tokenNotUsedByDelegates': string
+  'delegates.tokens.tokenRequired': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
   'delegates.usedBy': string

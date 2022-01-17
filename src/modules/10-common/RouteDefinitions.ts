@@ -337,6 +337,19 @@ const routes = {
       })
     }
   ),
+  toDelegateTokens: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = 'resources/delegates/tokens'
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   toEditDelegateConfigsDetails: withAccountId(
     ({
       orgIdentifier,

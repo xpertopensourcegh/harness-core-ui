@@ -109,7 +109,7 @@ const Step2Script: React.FC<StepProps<DockerDelegateWizardData>> = props => {
               outlined
             />
           </Layout.Horizontal>
-          <Layout.Horizontal padding={{ top: 'medium' }}>
+          <Layout.Horizontal padding={{ top: 'medium' }} spacing="small">
             <Button
               id="stepReviewScriptBackButton"
               text={getString('back')}

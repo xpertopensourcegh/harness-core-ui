@@ -9,7 +9,7 @@ const previousStep = jest.fn()
 const generateYamlMock = jest.fn()
 
 jest.mock('services/portal', () => ({
-  useGenerateKubernetesYaml: jest.fn().mockImplementation(() => {
+  useGenerateKubernetesYamlUsingNgToken: jest.fn().mockImplementation(() => {
     generateYamlMock()
     return {
       mutate: () => {
