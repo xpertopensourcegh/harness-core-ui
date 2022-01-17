@@ -64,8 +64,6 @@ import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifacts
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
 import TriggerDetails from '@pipeline/pages/trigger-details/TriggerDetails'
-import CDTemplateLibraryPage from '@cd/pages/admin/template-library/CDTemplateLibraryPage'
-import CDGeneralSettingsPage from '@cd/pages/admin/general-settings/CDGeneralSettingsPage'
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -770,22 +768,6 @@ export default (
       path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
       <RedirectToPipelineDetailHome />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CDSideNavProps}
-      path={routes.toCDTemplateLibrary({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CDTemplateLibraryPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CDSideNavProps}
-      path={routes.toCDGeneralSettings({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CDGeneralSettingsPage />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
