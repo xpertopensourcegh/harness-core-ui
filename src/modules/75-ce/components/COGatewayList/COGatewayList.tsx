@@ -40,6 +40,9 @@ import { String, useStrings } from 'framework/strings'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { useFeature } from '@common/hooks/useFeatures'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -113,7 +116,11 @@ const COGatewayList: React.FC = () => {
     projectIdentifier: string
   }>()
   const { showSuccess, showError } = useToaster()
-  // const [page, setPage] = useState(0)
+  const { featureDetail } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.RESTRICTED_AUTOSTOPPING_RULE_CREATION
+    }
+  })
   const [selectedService, setSelectedService] = useState<{ data: Service; index: number } | null>()
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   const [tableData, setTableData] = useState<Service[]>([])
@@ -482,10 +489,19 @@ const COGatewayList: React.FC = () => {
             <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
               <String stringID="ce.co.landingPageText" useRichText={true} /> <Link href="/">Learn more</Link>
             </Text>
-            <Button
+            <RbacButton
               intent="primary"
               text={getString('ce.co.newAutoStoppingRule')}
               icon="plus"
+              featuresProps={{
+                featuresRequest: {
+                  featureNames: [FeatureIdentifier.RESTRICTED_AUTOSTOPPING_RULE_CREATION]
+                },
+                warningMessage: getString('ce.co.autoStoppingRule.limitWarningMessage', {
+                  limit: featureDetail?.limit,
+                  count: featureDetail?.count
+                })
+              }}
               onClick={() => {
                 history.push(
                   routes.toCECOCreateGateway({
@@ -540,10 +556,19 @@ const COGatewayList: React.FC = () => {
               <>
                 <Layout.Horizontal padding="large">
                   <Layout.Horizontal width="55%">
-                    <Button
+                    <RbacButton
                       intent="primary"
                       text={getString('ce.co.newAutoStoppingRule')}
                       icon="plus"
+                      featuresProps={{
+                        featuresRequest: {
+                          featureNames: [FeatureIdentifier.RESTRICTED_AUTOSTOPPING_RULE_CREATION]
+                        },
+                        warningMessage: getString('ce.co.autoStoppingRule.limitWarningMessage', {
+                          limit: featureDetail?.limit,
+                          count: featureDetail?.count
+                        })
+                      }}
                       onClick={() => {
                         history.push(
                           routes.toCECOCreateGateway({

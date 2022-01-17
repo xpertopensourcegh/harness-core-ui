@@ -6,8 +6,23 @@ import COGatewayList from '../COGatewayList'
 
 const testpath = '/account/:accountId/ce/orgs/:orgIdentifier/projects/:projectIdentifier/autostopping-rules/create'
 const testparams = { accountId: 'accountId', orgIdentifier: 'orgIdentifier', projectIdentifier: 'projectIdentifier' }
+const checkFeatureReturnMock = {
+  enabled: true
+}
+const checkFeatureDisabledReturnMock = { featureEnabled: true, disabledFeatureName: null }
 
 jest.mock('highcharts-react-official', () => () => <></>)
+
+jest.mock('@common/hooks/useFeatures', () => {
+  return {
+    useFeature: () => {
+      return checkFeatureReturnMock
+    },
+    useGetFirstDisabledFeature: () => {
+      return checkFeatureDisabledReturnMock
+    }
+  }
+})
 
 const listData = {
   response: [

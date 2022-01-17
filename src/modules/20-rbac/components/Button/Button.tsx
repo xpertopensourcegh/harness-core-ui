@@ -12,7 +12,7 @@ import { FeatureWarningTooltip } from '@common/components/FeatureWarning/Feature
 
 export interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
-  featuresProps?: FeaturesProps
+  featuresProps?: FeaturesProps & { warningMessage?: string }
 }
 
 export interface BtnProps {
@@ -57,7 +57,12 @@ const RbacButton: React.FC<ButtonProps> = ({
       return {
         disabled: true,
         darkTheme: false,
-        tooltip: <FeatureWarningTooltip featureName={disabledFeatureName as FeatureIdentifier} />
+        tooltip: (
+          <FeatureWarningTooltip
+            featureName={disabledFeatureName as FeatureIdentifier}
+            warningMessage={featuresProps.warningMessage}
+          />
+        )
       }
     }
 
