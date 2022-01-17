@@ -277,7 +277,12 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
 
   const handleDeleteBudget: (budget: Budget) => void = async budget => {
     try {
-      const deleted = await (budget?.uuid && deleteBudget(budget.uuid))
+      const deleted = await (budget?.uuid &&
+        deleteBudget(budget.uuid, {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }))
       if (deleted) {
         showSuccess(
           getString('ce.budgets.budgetDeletedTxt', {
