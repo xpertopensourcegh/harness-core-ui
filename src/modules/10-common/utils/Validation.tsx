@@ -27,8 +27,8 @@ export function IdentifierSchemaWithOutName(
 ): Yup.Schema<string | undefined> {
   return Yup.string()
     .trim()
-    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
     .matches(regexIdentifier, config?.regexErrorMsg ? config?.regexErrorMsg : getString('validation.validIdRegex'))
+    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
     .notOneOf(illegalIdentifiers)
 }
 

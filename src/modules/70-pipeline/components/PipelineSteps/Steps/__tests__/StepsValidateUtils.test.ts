@@ -30,7 +30,8 @@ const strings = {
   common: {
     validation: {
       nameIsRequired: 'common.validation.nameIsRequired',
-      namePatternIsNotValid: 'common.validation.namePatternIsNotValid'
+      namePatternIsNotValid: 'common.validation.namePatternIsNotValid',
+      fieldIsRequired: 'common.validation.fieldIsRequired'
     }
   }
 }
