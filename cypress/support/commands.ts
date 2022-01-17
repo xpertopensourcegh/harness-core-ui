@@ -45,7 +45,7 @@ Cypress.Commands.add('clickSubmit', () => {
 })
 
 Cypress.Commands.add('fillField', (fieldName: string, value: string) => {
-  cy.get(`[name="${fieldName}"]`).type(value)
+  cy.get(`[name="${fieldName}"]`).clear().type(value)
 })
 
 Cypress.Commands.add('login', (emailValue: string, password: string) => {
