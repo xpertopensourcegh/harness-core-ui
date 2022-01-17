@@ -2542,6 +2542,7 @@ export interface StringsMap {
   'pipeline.newPipelineText': string
   'pipeline.noApprovalInstanceCreated': string
   'pipeline.noBuckets': string
+  'pipeline.noBuildsLabel': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string

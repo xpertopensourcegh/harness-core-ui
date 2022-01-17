@@ -14,7 +14,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import type { Failure } from 'services/cd-ng'
-import NoDeployments from '../images/NoDeployments.svg'
+import NoBuilds from '../images/NoBuilds.svg'
 import styles from './BuildExecutionsChart.module.scss'
 
 export interface ExecutionsChartProps {
@@ -202,8 +202,8 @@ export function ExecutionsChart({
         (failedCount && successCount && abortedCount && expiredCount) ? (
         <Container className={styles.emptyView}>
           <Container className={styles.emptyViewCard}>
-            <img src={NoDeployments} />
-            <Text>{getString('common.noDeployments')}</Text>
+            <img src={NoBuilds} />
+            <Text>{getString('pipeline.noBuildsLabel')}</Text>
           </Container>
         </Container>
       ) : (
