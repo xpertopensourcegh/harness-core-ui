@@ -2427,10 +2427,10 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.0.tgz#0eee6373e11418bfe0b5638f654df7a4ca6a3950"
   integrity sha512-wYn6r8zVZyQJ6rQaALBEln5B1pzxb9shV5Ef97kTvn6yVGrqyXVnDqnU24MXnFubR+rZjBY9NWuxX3FB2sTsjg==
 
-"@harness/css-types-loader@2.0.2":
-  version "2.0.2"
-  resolved "https://npm.pkg.github.com/download/@harness/css-types-loader/2.0.2/9d4e118c37bf495f241635ba1a4a6f0d9579c8adb64363abd7261885b39f0a91#239baf1f722b5f7147e4cc71c5e6198a9a02ddab"
-  integrity sha512-U7XNMa9toPcHTUAV31+wzz8KBsBVyIPa6ufcty7Tmr5brRZj/RQEs/ydVFB0hMebwtgzkVBV59cPq1KgAVtSgA==
+"@harness/css-types-loader@3.1.0":
+  version "3.1.0"
+  resolved "https://npm.pkg.github.com/download/@harness/css-types-loader/3.1.0/052240fedc7f5d81fae590816a9cf1ec5aa7338d8708b6ea2d1c16ad06863ef9#4c26fe5c04d161b904e55577eee170156854b073"
+  integrity sha512-gBggWrCje5pbU3MWqRYT0x1APpmNZYm5R6JodxS5/6Hn6y4tFzUslV0LGTErqFJigvZCiEf2QDEqx+26ruy1LQ==
   dependencies:
     loader-utils "^2.0.0"
 
