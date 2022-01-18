@@ -39,6 +39,7 @@ import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/mode
 import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
 import { getK8sIngressTemplate } from '../COGatewayConfig/GetK8sYamlSchema'
 import { getHelpText, getSelectedTabId, getValidStatusForDnsLink } from './helper'
+import KubernetesYamlEditorDescription from './KubernetesYamlEditorDescription'
 import css from './COGatewayAccess.module.scss'
 
 interface COGatewayAccessProps {
@@ -414,6 +415,7 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
   return (
     <Container>
       <Text className={css.titleHelpTextDescription}>{getString('ce.co.gatewayConfig.k8sroutingDescription')}</Text>
+      <KubernetesYamlEditorDescription />
       <KubernetesRuleYamlEditor
         existingData={getYamlExistingData()}
         fileName={gatewayDetails.name && `${gatewayDetails.name.split(' ').join('-')}-autostopping.yaml`}

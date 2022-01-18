@@ -3303,6 +3303,13 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.description': string
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download': string
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.title': string
+  'ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.description': string
+  'ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.host': string
+  'ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.learnMore': string
+  'ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.name': string
+  'ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.port': string
+  'ce.co.autoStoppingRule.setupAccess.kubernetesDesc.resourceDefinition': string
+  'ce.co.autoStoppingRule.setupAccess.kubernetesDesc.validate': string
   'ce.co.autoStoppingRule.setupAccess.noSetupRequired': string
   'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.listPointer1': string
   'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.listPointer2': string
