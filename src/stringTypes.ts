@@ -1669,6 +1669,9 @@ export interface StringsMap {
   'connectors.editConnector': string
   'connectors.encryptedAPIKeyLabel': string
   'connectors.encryptedAPIKeyValidation': string
+  'connectors.errorTracking.sidLabel': string
+  'connectors.errorTracking.sidValidation': string
+  'connectors.errorTracking.urlValidation': string
   'connectors.gcpKms.credentialsFile': string
   'connectors.gcpKms.credentialsFileRequired': string
   'connectors.gcpKms.keyName': string
@@ -1846,6 +1849,7 @@ export interface StringsMap {
   'connectors.title.ceAzureConnector': string
   'connectors.title.datadog': string
   'connectors.title.delegateSelection': string
+  'connectors.title.errorTracking': string
   'connectors.title.gcpConnector': string
   'connectors.title.gcpKms': string
   'connectors.title.gitConnector': string
