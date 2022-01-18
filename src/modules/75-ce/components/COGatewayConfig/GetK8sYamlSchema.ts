@@ -8,7 +8,11 @@
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Utils } from '@ce/common/Utils'
 
-const getK8sYamlSchema = () => ({
+interface K8sYamlSchemaProps {
+  isEdit: boolean
+}
+
+const getK8sYamlSchema = ({ isEdit }: K8sYamlSchemaProps) => ({
   $schema: 'http://json-schema.org/draft-07/schema',
   $id: 'http://example.com/example.json',
   type: 'object',
@@ -35,7 +39,8 @@ const getK8sYamlSchema = () => ({
           $id: '#/properties/metadata/properties/name',
           type: 'string',
           title: 'The name schema',
-          maxLength: 32
+          maxLength: 32,
+          readOnly: isEdit
         },
         namespace: {
           $id: '#/properties/metadata/properties/namespace',
