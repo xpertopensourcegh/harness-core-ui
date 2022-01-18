@@ -191,13 +191,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
     }
 
     return (
-      <Dialog
-        isOpen
-        onClose={hideModal}
-        enforceFocus={false}
-        title=""
-        style={{ width: 800, minHeight: 'fit-content', maxHeight: '90vh' }}
-      >
+      <Dialog isOpen onClose={hideModal} enforceFocus={false} title="" style={{ width: 800, minHeight: 'fit-content' }}>
         <Formik
           initialValues={initialValues}
           formName="editVariations"
@@ -384,6 +378,16 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
     gitSync.isAutoCommitEnabled
   ])
 
+  const planEnforcementProps = isPlanEnforcementEnabled
+    ? {
+        featuresProps: {
+          featuresRequest: {
+            featureNames: [FeatureIdentifier.MAUS]
+          }
+        }
+      }
+    : undefined
+
   return isPlanEnforcementEnabled ? (
     <RbacButton
       permission={permission}
@@ -392,6 +396,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
           featureNames: [FeatureIdentifier.MAUS]
         }
       }}
+      {...planEnforcementProps}
       onClick={openModal}
       {...props}
       data-testid="open-edit-variations-modal"

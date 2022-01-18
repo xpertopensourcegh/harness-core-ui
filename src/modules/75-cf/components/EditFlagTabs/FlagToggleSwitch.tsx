@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { ReactElement } from 'react'
 import { FontVariation, Text } from '@wings-software/uicore'
 import { Classes, Switch } from '@blueprintjs/core'
@@ -42,7 +49,7 @@ const FlagToggleSwitch = (props: FlagToggleSwitchProps): ReactElement => {
     [environmentIdentifier]
   )
 
-  const { isPlanEnforcementEnabled } = usePlanEnforcement()
+  const { isPlanEnforcementEnabled, isFreePlan } = usePlanEnforcement()
 
   const { enabled } = useFeature({
     featureRequest: {
@@ -50,7 +57,7 @@ const FlagToggleSwitch = (props: FlagToggleSwitchProps): ReactElement => {
     }
   })
 
-  const switchDisabled = isPlanEnforcementEnabled && !enabled
+  const switchDisabled = isPlanEnforcementEnabled && !enabled && isFreePlan
 
   const getTooltip = (): ReactElement | undefined => {
     if (!canToggle) {
