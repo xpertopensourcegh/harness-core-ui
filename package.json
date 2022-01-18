@@ -269,6 +269,9 @@
     "node": ">=14.16.0"
   },
   "lint-staged": {
+    "*": [
+      "sh scripts/license/stamp.sh"
+    ],
     "*.{ts,tsx}": [
       "eslint --rulesdir ./scripts/eslint-rules --resolve-plugins-relative-to",
       "sh scripts/typecheck-staged.sh",
