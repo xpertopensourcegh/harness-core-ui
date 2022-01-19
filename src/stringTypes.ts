@@ -4602,6 +4602,7 @@ export interface StringsMap {
   'cv.monitoringSources.datadog.noMetricsWidgets': string
   'cv.monitoringSources.datadog.selectDashboardsPage.dashboardColumnName': string
   'cv.monitoringSources.datadog.selectDashboardsPage.noDataText': string
+  'cv.monitoringSources.datadog.validation.queryContains': string
   'cv.monitoringSources.datadogLogs.datadogLogsQuery': string
   'cv.monitoringSources.datadogLogs.logIndexesLabel': string
   'cv.monitoringSources.datadogLogs.submitQueryToSeeRecords': string

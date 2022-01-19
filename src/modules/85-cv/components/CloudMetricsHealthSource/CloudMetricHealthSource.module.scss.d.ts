@@ -14,5 +14,6 @@ declare const styles: {
   readonly sectionHeading: string
   readonly setupContainer: string
   readonly validationContainer: string
+  readonly manualQueryWarning: string
 }
 export default styles
