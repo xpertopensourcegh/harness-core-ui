@@ -2955,6 +2955,7 @@ export interface StringsMap {
   'templatesLibrary.entityType': string
   'templatesLibrary.fetchingActivityLogs': string
   'templatesLibrary.inputsCount': string
+  'templatesLibrary.noActivityLogs': string
   'templatesLibrary.noInputsRequired': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.openInTemplateStudio': string
