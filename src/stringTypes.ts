@@ -4899,6 +4899,7 @@ export interface StringsMap {
   'cv.slos.sliTypeChooseMetric': string
   'cv.slos.slis.metricOptions.ratioBased': string
   'cv.slos.slis.metricOptions.thresholdBased': string
+  'cv.slos.slis.ratioMetricType.badRequestsMetrics': string
   'cv.slos.slis.ratioMetricType.eventType': string
   'cv.slos.slis.ratioMetricType.goodRequestsMetrics': string
   'cv.slos.slis.ratioMetricType.selectMetric1': string
