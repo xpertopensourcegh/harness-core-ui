@@ -6,6 +6,7 @@
  */
 
 import React, { useState, useMemo, useEffect, useContext } from 'react'
+import { groupBy } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import {
   Container,
@@ -32,12 +33,13 @@ import {
   updateSelectedMetricsMap,
   getBasePathValue,
   getMetricPathValue,
-  initializeGroupNames
+  initializeGroupNames,
+  initGroupedCreatedMetrics
 } from './AppDMappedMetric.utils'
 import BasePath from '../BasePath/BasePath'
 import MetricChart from '../MetricChart/MetricChart'
 import MetricPath from '../MetricPath/MetricPath'
-import type { AppDMappedMetricInterface } from './AppDMappedMetric.types'
+import type { AppDMappedMetricInterface, GroupedCreatedMetrics } from './AppDMappedMetric.types'
 import { BasePathInitValue } from '../BasePath/BasePath.constants'
 import { AppDynamicsMonitoringSourceFieldNames } from '../../AppDHealthSource.constants'
 import { PATHTYPE } from './AppDMappedMetric.constant'
@@ -106,9 +108,38 @@ export default function AppDMappedMetric({
       metricDefinition.metricName === mappedMetrics.get(selectedMetric || '')?.metricName
   )
 
+  const [groupedCreatedMetrics, setGroupedCreatedMetrics] = useState<GroupedCreatedMetrics>(
+    initGroupedCreatedMetrics(mappedMetrics)
+  )
+
+  useEffect(() => {
+    setMappedMetrics(oldState => {
+      return updateSelectedMetricsMap({
+        updatedMetric: formikValues.metricName,
+        oldMetric: oldState.selectedMetric,
+        mappedMetrics: oldState.mappedMetrics,
+        formikValues
+      })
+    })
+  }, [formikValues?.groupName, formikValues?.metricName])
+
+  useEffect(() => {
+    const filteredList = Array.from(mappedMetrics?.values()).map((item, index) => {
+      return {
+        index,
+        groupName: item.groupName,
+        metricName: item.metricName
+      }
+    })
+    const updatedGroupedCreatedMetrics = groupBy(filteredList.reverse(), function (item) {
+      return item?.groupName?.label
+    })
+    setGroupedCreatedMetrics(updatedGroupedCreatedMetrics)
+  }, [formikValues?.groupName, mappedMetrics])
+
   useEffect(() => {
     if (formikValues.pathType === PATHTYPE.DropdownPath) {
-      formikSetField('fullPath', '')
+      formikSetField(PATHTYPE.FullPath, '')
     }
   }, [formikValues.pathType])
 
@@ -128,6 +159,7 @@ export default function AppDMappedMetric({
           defaultSelectedMetric={selectedMetric}
           renamedMetric={formikValues?.metricName}
           isValidInput={isValidInput}
+          groupedCreatedMetrics={groupedCreatedMetrics}
           onRemoveMetric={(removedMetric, updatedMetric, updatedList, smIndex) => {
             setMappedMetrics(oldState => {
               const { selectedMetric: oldMetric, mappedMetrics: oldMappedMetric } = oldState
@@ -141,7 +173,7 @@ export default function AppDMappedMetric({
               }
 
               // update map with current values
-              if (formikValues?.metricName !== removedMetric) {
+              if (formikValues?.metricName !== removedMetric && formikValues?.metricName === updatedMetric) {
                 updatedMap.set(updatedMetric, { ...formikValues } || { metricName: updatedMetric })
               }
 
@@ -201,7 +233,7 @@ export default function AppDMappedMetric({
                       checked={formikValues?.pathType === PATHTYPE.FullPath}
                       onChange={() => formikSetField('pathType', PATHTYPE.FullPath)}
                     />
-                    <FormInput.Text name={'fullPath'} disabled={formikValues?.pathType !== PATHTYPE.FullPath} />
+                    <FormInput.Text name={PATHTYPE.FullPath} disabled={formikValues?.pathType !== PATHTYPE.FullPath} />
                     <Radio
                       padding={{ bottom: 'medium', left: 'xlarge' }}
                       label={getString('cv.healthSource.connectors.AppDynamics.metricPathType.dropdown')}
