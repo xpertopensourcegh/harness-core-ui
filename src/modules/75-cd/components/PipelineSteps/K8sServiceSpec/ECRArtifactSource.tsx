@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { cloneDeep, get } from 'lodash-es'
+import { cloneDeep, defaultTo, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { Menu } from '@blueprintjs/core'
 
@@ -110,8 +110,8 @@ const Content = (props: ECRRenderContent): JSX.Element => {
   useEffect(() => {
     if (Array.isArray(ecrTagsData?.data?.buildDetailsList)) {
       const toBeSetTagsList = ecrTagsData?.data?.buildDetailsList?.map(({ tag }) => ({
-        label: tag || '',
-        value: tag || ''
+        label: defaultTo(tag, ''),
+        value: defaultTo(tag, '')
       }))
       if (toBeSetTagsList) {
         setTagsList(toBeSetTagsList)
@@ -124,10 +124,18 @@ const Content = (props: ECRRenderContent): JSX.Element => {
       accountId
     }
   })
-  const regions = (regionData?.resource || []).map((region: NameValuePair) => ({
+  const regions = defaultTo(regionData?.resource, []).map((region: NameValuePair) => ({
     value: region.value,
     label: region.name
   }))
+
+  const onChange = (): void => {
+    const tagPath = `${path}.artifacts.primary.spec.tag`
+    const tagValue = get(formik?.values, tagPath, '')
+    if (getMultiTypeFromValue(tagValue) === MultiTypeInputType.FIXED && tagValue?.length) {
+      formik?.setFieldValue(tagPath, '')
+    }
+  }
 
   return (
     <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${props.stageIdentifier}.Service.Artifacts`}>
@@ -155,16 +163,14 @@ const Content = (props: ECRRenderContent): JSX.Element => {
                   allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                   expressions
                 }}
-                onChange={() => {
-                  const tagPath = `${path}.artifacts.primary.spec.tag`
-                  const tagValue = get(formik?.values, tagPath, '')
-                  if (getMultiTypeFromValue(tagValue) === MultiTypeInputType.FIXED && tagValue?.length) {
-                    formik?.setFieldValue(tagPath, '')
-                  }
-                }}
+                onChange={onChange}
                 className={css.connectorMargin}
                 type="Aws"
-                gitScope={{ repo: repoIdentifier || '', branch: branch || '', getDefaultFromOtherRepo: true }}
+                gitScope={{
+                  repo: defaultTo(repoIdentifier, ''),
+                  branch: defaultTo(branch, ''),
+                  getDefaultFromOtherRepo: true
+                }}
               />
             )}
 
@@ -172,13 +178,7 @@ const Content = (props: ECRRenderContent): JSX.Element => {
               <ExperimentalInput
                 formik={formik}
                 multiTypeInputProps={{
-                  onChange: () => {
-                    const tagPath = `${path}.artifacts.primary.spec.tag`
-                    const tagValue = get(formik?.values, tagPath, '')
-                    getMultiTypeFromValue(tagValue) === MultiTypeInputType.FIXED &&
-                      tagValue?.length &&
-                      formik?.setFieldValue(tagPath, '')
-                  },
+                  onChange: onChange,
                   selectProps: {
                     usePortal: true,
                     addClearBtn: true && !readonly,
@@ -204,13 +204,7 @@ const Content = (props: ECRRenderContent): JSX.Element => {
                   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                 }}
                 name={`${path}.artifacts.primary.spec.imagePath`}
-                onChange={() => {
-                  const tagPath = `${path}.artifacts.primary.spec.tag`
-                  const tagValue = get(formik?.values, tagPath, '')
-                  if (getMultiTypeFromValue(tagValue) === MultiTypeInputType.FIXED && tagValue?.length) {
-                    formik?.setFieldValue(tagPath, '')
-                  }
-                }}
+                onChange={onChange}
               />
             )}
 
