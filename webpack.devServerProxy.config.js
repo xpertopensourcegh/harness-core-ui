@@ -88,6 +88,14 @@ module.exports = {
     pathRewrite: { '^/pm': '' },
     target: process.env.OPA_GOVERNANCE_UI_URL || 'http://localhost:3000'
   },
+  '/sto/api': {
+    pathRewrite: { '^/sto': '' },
+    target: process.env.STO_API_URL || 'http://localhost:3001'
+  },
+  '/sto': {
+    pathRewrite: { '^/sto': '' },
+    target: process.env.STO_UI_URL || 'http://localhost:3000'
+  },
   '/gitops': {
     pathRewrite: { '^/gitops': '' },
     target: process.env.GITOPS_URL || 'https://localhost:8183'
