@@ -2424,6 +2424,7 @@ export interface StringsMap {
   'pipeline.inputSets.applyInputSets': string
   'pipeline.inputSets.applyingInputSet': string
   'pipeline.inputSets.applyingInputSets': string
+  'pipeline.inputSets.inputSetNameLabel': string
   'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
