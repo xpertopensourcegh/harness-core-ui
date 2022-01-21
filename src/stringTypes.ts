@@ -2302,6 +2302,8 @@ export interface StringsMap {
   'pipeline.executionFilters.labels.Running': string
   'pipeline.executionFilters.labels.Success': string
   'pipeline.executionFilters.labels.Waiting': string
+  'pipeline.executionList.EnvironmentsText': string
+  'pipeline.executionList.servicesDeployedText': string
   'pipeline.executionStatus.Aborted': string
   'pipeline.executionStatus.Aborting': string
   'pipeline.executionStatus.ApprovalRejected': string
@@ -6109,10 +6111,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   executionHeaderText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionList.servicesDeployedText': string
   /**
    * @deprecated migrate this string to module level file
    */

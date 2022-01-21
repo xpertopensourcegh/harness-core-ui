@@ -6,8 +6,8 @@
     "serviceDefinitionTypes": ["Kubernetes"],
     "serviceIdentifiers": ["nginx", "testsvc_1", "service1"]
   },
-  "nodeMap": {
-    "-47o03VPT_WXphDoCohlZQ": {
+  "nodeMap": [
+    {
       "nodeType": "Deployment",
       "nodeGroup": "STAGE",
       "nodeIdentifier": "s2",
@@ -34,7 +34,7 @@
         "expressions": [{ "expression": "OnPipelineSuccess", "expressionValue": "true", "count": 1 }]
       }
     },
-    "ASS_3acZRxiUiF_rPFdhvg": {
+    {
       "nodeType": "Deployment",
       "nodeGroup": "STAGE",
       "nodeIdentifier": "s3",
@@ -68,7 +68,7 @@
         "expressions": [{ "expression": "OnPipelineSuccess", "expressionValue": "true", "count": 1 }]
       }
     },
-    "GAchztSITMeO0cKl5XFvGg": {
+    {
       "nodeType": "Deployment",
       "nodeGroup": "STAGE",
       "nodeIdentifier": "s6",
@@ -102,7 +102,7 @@
         "expressions": [{ "expression": "OnPipelineSuccess", "expressionValue": "true", "count": 1 }]
       }
     },
-    "r623par7Qa6xe69T1nmxOw": {
+    {
       "nodeType": "Deployment",
       "nodeGroup": "STAGE",
       "nodeIdentifier": "s5",
@@ -136,7 +136,7 @@
         "expressions": [{ "expression": "OnPipelineSuccess", "expressionValue": "true", "count": 1 }]
       }
     },
-    "76GwWrsLTXK3fNv56oYapQ": {
+    {
       "nodeType": "Deployment",
       "nodeGroup": "STAGE",
       "nodeIdentifier": "s4",
@@ -170,7 +170,7 @@
         "expressions": [{ "expression": "OnPipelineSuccess", "expressionValue": "true", "count": 1 }]
       }
     },
-    "kjJeky0KS1KOLVk0FFnb4g": {
+    {
       "nodeType": "Deployment",
       "nodeGroup": "STAGE",
       "nodeIdentifier": "s1",
@@ -204,7 +204,7 @@
         "expressions": [{ "expression": "OnPipelineSuccess", "expressionValue": "true", "count": 1 }]
       }
     },
-    "CzgvBKTVTye5U4g6k9bEgw": {
+    {
       "nodeType": "Deployment",
       "nodeGroup": "STAGE",
       "nodeIdentifier": "s7",
@@ -238,7 +238,5 @@
         "expressions": [{ "expression": "OnPipelineSuccess", "expressionValue": "true", "count": 1 }]
       }
     }
-  },
-  "startingNodeId": "kjJeky0KS1KOLVk0FFnb4g",
-  "variant": "Default"
+  ]
 }
