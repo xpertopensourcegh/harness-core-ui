@@ -13,7 +13,12 @@ import { useMutateAsGet } from '@common/hooks'
 import { StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetUsers, useGetOrganizationAggregateDTOList, useGetProjectListWithMultiOrgFilter } from 'services/cd-ng'
-import { actionToLabelMap, resourceTypeToLabelMapping } from '@audit-trail/utils/RequestUtil'
+import {
+  actionToLabelMap,
+  getOrgDropdownList,
+  getProjectDropdownList,
+  resourceTypeToLabelMapping
+} from '@audit-trail/utils/RequestUtil'
 import UserItemRenderer from '@audit-trail/components/UserItemRenderer/UserItemRenderer'
 import UserTagRenderer from '@audit-trail/components/UserTagRenderer/UserTagRenderer'
 import type { AuditTrailFormType } from './FilterDrawer'
@@ -50,11 +55,7 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
       }
     }) || []
 
-  const organizations =
-    data?.data?.content?.map(org => ({
-      label: org.organizationResponse.organization.name,
-      value: org.organizationResponse.organization.identifier
-    })) || []
+  const organizations = data?.data?.content ? getOrgDropdownList(data?.data?.content) : []
 
   const getOrgs = (): string[] => {
     if (orgIdentifier) {
@@ -84,12 +85,7 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
     }))
   }
 
-  const projects =
-    projectData?.data?.content?.map(project => ({
-      label: project.project.name,
-      value: project.project.identifier,
-      orgIdentifier: project.project.orgIdentifier
-    })) || []
+  const projects = projectData?.data?.content ? getProjectDropdownList(projectData?.data?.content) : []
 
   return (
     <>

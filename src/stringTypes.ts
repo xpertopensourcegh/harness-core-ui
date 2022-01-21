@@ -137,6 +137,7 @@ export interface StringsMap {
   'common.connectThroughPlatformInfo': string
   'common.connectivityErrors': string
   'common.contactSupport': string
+  'common.copy': string
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
@@ -752,6 +753,9 @@ export interface StringsMap {
   'rbac.categoryLabels.sharedResources': string
   'rbac.communityErrorMessages.resourceGroup': string
   'rbac.communityErrorMessages.role': string
+  'rbac.copyGroup.copyToProjects': string
+  'rbac.copyGroup.success': string
+  'rbac.copyGroup.title': string
   'rbac.customResourceGroups': string
   'rbac.customRoles': string
   'rbac.forUser': string
