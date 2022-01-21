@@ -352,7 +352,12 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                   metricPackResponse={metricPackResponse}
                   hideServiceIdentifier
                 />
-
+                {formikProps.values.continuousVerification && (
+                  <FormInput.Text
+                    name={FieldNames.SERVICE_INSTANCE_FIELD}
+                    label={getString('cv.monitoringSources.serviceInstanceIdentifier')}
+                  />
+                )}
                 <FormInput.Text name={OVERALL} className={css.hiddenField} />
                 <DrawerFooter
                   onPrevious={onPrevious}
@@ -364,7 +369,8 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                       [FieldNames.SLI]: true,
                       [FieldNames.RISK_CATEGORY]: true,
                       [FieldNames.HIGHER_BASELINE_DEVIATION]: true,
-                      [FieldNames.LOWER_BASELINE_DEVIATION]: true
+                      [FieldNames.LOWER_BASELINE_DEVIATION]: true,
+                      [FieldNames.SERVICE_INSTANCE_FIELD]: true
                     } as any)
 
                     const errors = validate(formikProps.values, updatedData, getString)

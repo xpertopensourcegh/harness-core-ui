@@ -102,8 +102,9 @@ export function transformGCOMetricHealthSourceToGCOMetricSetupSource(sourceData:
       lowerBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER'),
       query: JSON.stringify(metricDefinition.jsonMetricDefinition, null, 2),
       sli: metricDefinition.sli?.enabled,
-      continuousVerification: metricDefinition?.analysis?.deploymentVerification?.enabled,
-      healthScore: metricDefinition?.analysis?.liveMonitoring?.enabled
+      continuousVerification: metricDefinition.analysis?.deploymentVerification?.enabled,
+      healthScore: metricDefinition.analysis?.liveMonitoring?.enabled,
+      serviceInstanceField: metricDefinition.serviceInstanceField
     })
   }
 
@@ -149,16 +150,16 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
         thresholdTypes
       },
       sli: { enabled: metricInfo?.sli || false },
+      serviceInstanceField: metricInfo.continuousVerification ? metricInfo.serviceInstanceField : null,
       analysis: {
         riskProfile: {
           category: category as RiskProfile['category'],
           metricType: metricType,
           thresholdTypes
         },
-        liveMonitoring: { enabled: metricInfo?.healthScore || false },
+        liveMonitoring: { enabled: metricInfo.healthScore || false },
         deploymentVerification: {
-          enabled: metricInfo?.continuousVerification || false,
-          serviceInstanceFieldName: metricInfo?.serviceInstance || ''
+          enabled: metricInfo.continuousVerification || false
         }
       }
     } as StackdriverDefinition)
@@ -204,6 +205,10 @@ export function ensureFieldsAreFilled(
     if (!(values.higherBaselineDeviation || values.lowerBaselineDeviation)) {
       ret.higherBaselineDeviation = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')
     }
+  }
+
+  if (values.continuousVerification && !values.serviceInstanceField) {
+    ret.serviceInstanceField = getString('cv.monitoringSources.prometheus.validation.serviceInstanceIdentifier')
   }
 
   if (!values.identifier?.trim()) {

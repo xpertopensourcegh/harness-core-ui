@@ -34,7 +34,6 @@ export interface GCODashboardWidgetMetricNavProps {
   ) => void
   showSpinnerOnLoad?: boolean
 }
-
 interface TreeNodeLabelProps {
   width: number
   label: string | JSX.Element

@@ -729,4 +729,19 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
 
     expect(screen.getByText(/cv.identifierPlaceholder/i)).toBeInTheDocument()
   })
+
+  test('Ensure service instance field is displayed when clicking on continuous verification', async () => {
+    const onSubmitMock = jest.fn()
+    const { container, getByText } = render(
+      <WrapperComponent onSubmit={onSubmitMock} data={cloneDeep(DefaultObject)} />
+    )
+    await waitFor(() => expect(getByText('cv.monitoredServices.continuousVerification')).not.toBeNull())
+    fireEvent.click(getByText('cv.monitoredServices.continuousVerification'))
+    await waitFor(() =>
+      expect(container.querySelector(`input[name=${FieldNames.SERVICE_INSTANCE_FIELD}]`)).not.toBeNull()
+    )
+
+    fireEvent.click(getByText('cv.monitoredServices.continuousVerification'))
+    await waitFor(() => expect(container.querySelector(`input[name=${FieldNames.SERVICE_INSTANCE_FIELD}]`)).toBeNull())
+  })
 })
