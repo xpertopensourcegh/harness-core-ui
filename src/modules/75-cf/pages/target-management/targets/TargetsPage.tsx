@@ -124,9 +124,15 @@ export const TargetsPage: React.FC = () => {
         {getString('cf.targets.pageDescription')}
       </Text>
       <FlexExpander />
-      <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
+      <ExpandingSearchInput
+        alwaysExpanded
+        name="findFlag"
+        placeholder={getString('search')}
+        onChange={onSearchInputChanged}
+      />
     </Layout.Horizontal>
   )
+
   const gotoTargetDetailPage = useCallback(
     (identifier: string): void => {
       history.push(
@@ -348,6 +354,8 @@ export const TargetsPage: React.FC = () => {
     </>
   )
 
+  const displayToolbar = !noEnvironmentExists && (!noTargetExists || searchTerm)
+
   return (
     <ListingPageTemplate
       pageTitle={title}
@@ -355,7 +363,7 @@ export const TargetsPage: React.FC = () => {
         <TargetManagementHeader environmentSelect={<EnvironmentSelect />} hasEnvironments={!!environments?.length} />
       }
       headerStyle={{ display: 'flex' }}
-      toolbar={!noEnvironmentExists && toolbar}
+      toolbar={displayToolbar && toolbar}
       content={((!error || noEnvironmentExists) && content) || null}
       pagination={
         !noEnvironmentExists &&
