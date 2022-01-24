@@ -4331,6 +4331,7 @@ export interface StringsMap {
   'cv.activitySources.harnessCD.validation.environmentValidation': string
   'cv.activitySources.harnessCD.validation.serviceValidation': string
   'cv.activitySources.name': string
+  'cv.addGroupName': string
   'cv.addNew': string
   'cv.admin.activitySources.dialogDeleteTitle': string
   'cv.allMetrics': string
