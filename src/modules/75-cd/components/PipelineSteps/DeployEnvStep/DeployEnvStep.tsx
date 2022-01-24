@@ -309,7 +309,16 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
       if (getMultiTypeFromValue(initialValues.environmentRef) === MultiTypeInputType.FIXED) {
         const doesExist = selectOptions.filter(env => env.value === initialValues.environmentRef).length > 0
         if (!doesExist) {
-          formikRef.current?.setFieldValue('environmentRef', '')
+          if (!readonly) {
+            formikRef.current?.setFieldValue('environmentRef', '')
+          } else {
+            const options = [...selectOptions]
+            options.push({
+              label: initialValues.environmentRef,
+              value: initialValues.environmentRef
+            })
+            setSelectOptions(options)
+          }
         }
       }
     }
