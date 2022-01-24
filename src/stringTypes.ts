@@ -4408,6 +4408,8 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.validation.endTime.placeholder': string
   'cv.customHealthSource.Querymapping.validation.endTime.timestamp': string
   'cv.customHealthSource.Querymapping.validation.path': string
+  'cv.customHealthSource.Querymapping.validation.pathWithoutPlaceholder': string
+  'cv.customHealthSource.Querymapping.validation.startAndEndTime': string
   'cv.customHealthSource.Querymapping.validation.startTime.placeholder': string
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string

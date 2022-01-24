@@ -764,7 +764,9 @@ customHealthSource:
     endTimeLabel: End time placeholder
     validation:
       body: Body is required.
-      path: Please select path
+      path: Please select path.
+      pathWithoutPlaceholder: Start and end time placeholders must be included in Path.
+      startAndEndTime: Start and end time placeholders must differ.
       startTime:
         placeholder: Please select start time placeholder
         timestamp: Please select start time timestamp Format
