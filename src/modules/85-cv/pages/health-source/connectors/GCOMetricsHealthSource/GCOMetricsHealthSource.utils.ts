@@ -5,6 +5,8 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import type { Dispatch, SetStateAction } from 'react'
+import type { FormikProps } from 'formik'
 import type { IOptionProps } from '@blueprintjs/core'
 import { isNumber, isEmpty } from 'lodash-es'
 import type {
@@ -12,14 +14,17 @@ import type {
   MetricPackDTO,
   TimeSeriesSampleDTO,
   StackdriverMetricHealthSourceSpec,
-  StackdriverDefinition
+  StackdriverDefinition,
+  StackdriverDashboardDetail
 } from 'services/cv'
+import type { MetricWidget } from '@cv/components/MetricDashboardWidgetNav/MetricDashboardWidgetNav.type'
 import type { StringKeys } from 'framework/strings'
 import type { GCOMetricInfo, GCOMetricSetupSource } from './GCOMetricsHealthSource.type'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { HealthSourceTypes } from '../../types'
 import { chartsConfig } from './GCOWidgetChartConfig'
 import { OVERALL } from './GCOMetricsHealthSource.constants'
+import { MANUAL_INPUT_QUERY } from './components/ManualInputQueryModal/ManualInputQueryModal'
 
 export const GCOProduct = {
   CLOUD_METRICS: 'Cloud Metrics',
@@ -57,7 +62,9 @@ export function transformGCOMetricHealthSourceToGCOMetricSetupSource(sourceData:
 
   const setupSource: GCOMetricSetupSource = {
     selectedDashboards: sourceData.selectedDashboards || [],
-    metricDefinition: sourceData.metricDefinition || new Map(),
+    metricDefinition:
+      new Map([...(sourceData.metricDefinition || new Map()), ...(sourceData.selectedMetrics || new Map())]) ||
+      new Map(),
     isEdit: sourceData.isEdit,
     healthSourceName: sourceData.healthSourceName,
     healthSourceIdentifier: sourceData.healthSourceIdentifier,
@@ -334,4 +341,66 @@ export function getPlaceholderForIdentifier(
 
   // Default maxInput for InputWithIdentifier is 63
   return metricName.substr(-63).replace(/[^a-zA-Z_ ]/g, '')
+}
+
+export function mapstackdriverDashboardDetailToMetricWidget(
+  _: string,
+  stackdriverDashboardDetail: StackdriverDashboardDetail
+): MetricWidget {
+  const widgetName = stackdriverDashboardDetail.widgetName
+  return {
+    widgetName: widgetName || '',
+    dataSets:
+      stackdriverDashboardDetail.dataSetList?.map(dataSet => {
+        return {
+          id: `${dataSet.metricName}`,
+          name: `${dataSet.metricName}`,
+          query: dataSet.timeSeriesQuery || ''
+        }
+      }) || []
+  }
+}
+
+export const onSelectNavItem = ({
+  id,
+  metricName,
+  query,
+  widget,
+  dashboardId,
+  dashboardTitle,
+  updatedData,
+  setUpdatedData,
+  selectedMetric,
+  formikProps
+}: {
+  id: string
+  metricName: string
+  query: string
+  widget?: string
+  dashboardId?: string
+  dashboardTitle?: string
+  updatedData: Map<string, GCOMetricInfo>
+  setUpdatedData: Dispatch<SetStateAction<Map<string, GCOMetricInfo>>>
+  selectedMetric?: string
+  formikProps: FormikProps<GCOMetricInfo>
+}): void => {
+  let metricInfo: GCOMetricInfo | undefined = updatedData.get(metricName)
+  if (!metricInfo) {
+    metricInfo = {
+      metricName,
+      identifier: id,
+      query,
+      metricTags: { [widget as string]: '' },
+      isManualQuery: query === MANUAL_INPUT_QUERY,
+      dashboardName: dashboardTitle,
+      dashboardPath: dashboardId
+    }
+  }
+
+  metricInfo.query = formatJSON(metricInfo.query) || ''
+  updatedData.set(metricName, metricInfo)
+  if (selectedMetric) {
+    updatedData.set(selectedMetric as string, { ...formikProps.values })
+  }
+  setUpdatedData(new Map(updatedData))
 }
