@@ -322,6 +322,7 @@ export interface StringsMap {
   'common.latest': string
   'common.launchFirstGen': string
   'common.letsGetYouStarted': string
+  'common.levelUp': string
   'common.link': string
   'common.loading': string
   'common.local': string
@@ -374,6 +375,7 @@ export interface StringsMap {
   'common.orgViewer': string
   'common.other': string
   'common.overSubscribed': string
+  'common.overuse': string
   'common.pagerDuty': string
   'common.paste': string
   'common.path': string
