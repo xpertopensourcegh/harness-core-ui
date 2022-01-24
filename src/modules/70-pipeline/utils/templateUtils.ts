@@ -31,15 +31,14 @@ export const getScopeBasedTemplateRef = (template: TemplateSummaryResponse): str
 export const getStageType = (stage?: StageElementConfig, templateTypes?: { [key: string]: string }): StageType => {
   return stage?.template
     ? templateTypes
-      ? (get(templateTypes, getIdentifierFromValue(defaultTo(stage?.template?.templateRef, ''))) as StageType)
-      : ((stage.template.templateInputs as StageElementConfig).type as StageType)
+      ? (get(templateTypes, getIdentifierFromValue(defaultTo(stage.template.templateRef, ''))) as StageType)
+      : ((stage.template.templateInputs as StageElementConfig)?.type as StageType)
     : (stage?.type as StageType)
 }
 
 export const getStepType = (step?: StepElementConfig | TemplateStepNode): StepType => {
-  const isTemplate = !!(step as TemplateStepNode)?.template
-  return isTemplate
-    ? (((step as TemplateStepNode)?.template?.templateInputs as StepElementConfig).type as StepType)
+  return (step as TemplateStepNode)?.template
+    ? (((step as TemplateStepNode).template.templateInputs as StepElementConfig)?.type as StepType)
     : ((step as StepElementConfig)?.type as StepType)
 }
 
