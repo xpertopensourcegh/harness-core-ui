@@ -298,7 +298,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }} flex>
             <Container>
               {!isEmpty(pipelineIcons) &&
-                pipelineIcons.map(iconObj => <Icon key={iconObj.icon} name={iconObj.icon} size={14} />)}
+                pipelineIcons.map(iconObj => <Icon key={iconObj.icon} name={iconObj.icon} size={16} />)}
             </Container>
             {pipeline.entityValidityDetails?.valid === false && (
               <Badge
