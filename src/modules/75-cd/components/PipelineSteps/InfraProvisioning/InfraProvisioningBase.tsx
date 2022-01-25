@@ -59,6 +59,10 @@ export const InfraProvisioningBase = (
     }
   })
 
+  const isProvisionerDisabled = (provisionerSnippetLoading: boolean): boolean => {
+    return isReadonly || provisionerSnippetLoading
+  }
+
   return (
     <Formik
       enableReinitialize={true}
@@ -87,7 +91,7 @@ export const InfraProvisioningBase = (
           <FormikForm className={css.provisionerForm}>
             <FormInput.CheckBox
               name={`provisionerEnabled`}
-              disabled={formik.values.provisionerSnippetLoading}
+              disabled={isProvisionerDisabled(formik.values.provisionerSnippetLoading as boolean)}
               label={getString('pipelineSteps.deploy.provisioner.enableProvisionerLabel')}
               onChange={(event: React.FormEvent<HTMLInputElement>) => {
                 if (!event.currentTarget.checked) {
