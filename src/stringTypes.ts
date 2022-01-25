@@ -3100,6 +3100,9 @@ export interface StringsMap {
   'cd.serviceDashboard.envName': string
   'cd.serviceDashboard.executionId': string
   'cd.serviceDashboard.frequency': string
+  'cd.serviceDashboard.helmChartDetails': string
+  'cd.serviceDashboard.helmChartName': string
+  'cd.serviceDashboard.helmRopoUrl': string
   'cd.serviceDashboard.in': string
   'cd.serviceDashboard.instanceCountHistory': string
   'cd.serviceDashboard.instanceDetails': string
