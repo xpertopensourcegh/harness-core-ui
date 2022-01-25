@@ -65,32 +65,8 @@ describe('Jira Create process form data tests', () => {
       type: 'JiraCreate',
       spec: {
         connectorRef: 'conn',
+        delegateSelectors: undefined,
         projectKey: 'pid',
-        selectedFields: [
-          {
-            name: 'f2',
-            value: { label: 'vb2', value: 'vb2' },
-            key: 'f2',
-            allowedValues: [],
-            schema: {
-              typeStr: '',
-              type: 'string'
-            }
-          },
-          {
-            name: 'f3',
-            value: [
-              { label: 'v3', value: 'v3' },
-              { label: 'v32', value: 'v32' }
-            ],
-            key: 'f3',
-            allowedValues: [],
-            schema: {
-              typeStr: '',
-              type: 'string'
-            }
-          }
-        ],
         issueType: 'iss',
         fields: [
           {
@@ -126,6 +102,7 @@ describe('Jira Create process form data tests', () => {
       type: 'JiraCreate',
       spec: {
         connectorRef: '<+input>',
+        delegateSelectors: undefined,
         projectKey: '<+expression>',
         issueType: '<+input>',
         fields: [
@@ -158,18 +135,7 @@ describe('Jira Create process form data tests', () => {
       spec: {
         connectorRef: '<+input>',
         projectKey: '<+expression>',
-        selectedFields: [
-          {
-            name: 'f2',
-            value: '<+x.y>',
-            key: 'f2',
-            allowedValues: [],
-            schema: {
-              typeStr: '',
-              type: 'string'
-            }
-          }
-        ],
+        delegateSelectors: undefined,
         issueType: '<+input>',
         fields: [
           {

@@ -37,7 +37,6 @@ export const processFormData = (values: JiraUpdateData): JiraUpdateData => {
   return {
     ...values,
     spec: {
-      ...values.spec,
       connectorRef:
         getMultiTypeFromValue(values.spec.connectorRef as SelectOption) === MultiTypeInputType.FIXED
           ? (values.spec.connectorRef as SelectOption)?.value?.toString()
@@ -53,7 +52,8 @@ export const processFormData = (values: JiraUpdateData): JiraUpdateData => {
                   : values.spec.transitionTo.status
             }
           : undefined,
-      fields: processFieldsForSubmit(values)
+      fields: processFieldsForSubmit(values),
+      delegateSelectors: values.spec.delegateSelectors
     }
   }
 }
@@ -62,7 +62,7 @@ export const processInitialValues = (values: JiraUpdateData): JiraUpdateData => 
   return {
     ...values,
     spec: {
-      ...values.spec,
+      delegateSelectors: values.spec.delegateSelectors,
       connectorRef: values.spec.connectorRef,
       issueKey: values.spec.issueKey,
       transitionTo: values.spec.transitionTo
