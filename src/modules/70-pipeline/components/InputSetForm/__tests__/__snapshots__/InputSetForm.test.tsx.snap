@@ -3009,6 +3009,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                               >
                                 <li
                                   class="item"
+                                  data-testid="0-asd"
                                   draggable="true"
                                 >
                                   <div
