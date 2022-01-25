@@ -949,3 +949,5 @@ dashboardDeploymentsWidget:
     plural: Currently running pipelines
 security:
   title: Security
+buildInfra:
+  poolId: Pool Id

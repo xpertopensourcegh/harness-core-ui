@@ -479,40 +479,67 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           <div className={css.inputheader}>{getString('infrastructureText')}</div>
 
           <div className={css.nestedAccordions} style={{ width: '50%' }}>
-            {(deploymentStageTemplate.infrastructure as any).spec?.connectorRef && (
-              <Container className={stepCss.bottomMargin3}>
-                <FormMultiTypeConnectorField
-                  width={ConnectorRefWidth.DefaultView}
-                  name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.connectorRef`}
+            {(deploymentStageTemplate.infrastructure as any).type === 'KubernetesDirect' ? (
+              <>
+                {(deploymentStageTemplate.infrastructure as any).spec?.connectorRef && (
+                  <Container className={stepCss.bottomMargin3}>
+                    <FormMultiTypeConnectorField
+                      width={ConnectorRefWidth.DefaultView}
+                      name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.connectorRef`}
+                      label={
+                        <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                          {getString('connectors.title.k8sCluster')}
+                        </Text>
+                      }
+                      placeholder={getString('pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder')}
+                      accountIdentifier={accountId}
+                      projectIdentifier={projectIdentifier}
+                      orgIdentifier={orgIdentifier}
+                      gitScope={gitScope}
+                      multiTypeProps={{ expressions, disabled: readonly, allowableTypes }}
+                      setRefValue
+                    />
+                  </Container>
+                )}
+                {(deploymentStageTemplate.infrastructure as any).spec?.namespace && (
+                  <FormInput.MultiTextInput
+                    label={
+                      <Text
+                        font={{ variation: FontVariation.FORM_LABEL }}
+                        tooltipProps={{ dataTooltipId: 'namespace' }}
+                      >
+                        {getString('pipelineSteps.build.infraSpecifications.namespace')}
+                      </Text>
+                    }
+                    name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: allowableTypes
+                    }}
+                    disabled={readonly}
+                  />
+                )}
+              </>
+            ) : (deploymentStageTemplate.infrastructure as any).type === 'VM' ? (
+              (deploymentStageTemplate.infrastructure as any).spec?.spec?.identifier && (
+                <MultiTypeTextField
                   label={
-                    <Text font={{ variation: FontVariation.FORM_LABEL }}>
-                      {getString('connectors.title.k8sCluster')}
+                    <Text
+                      tooltipProps={{ dataTooltipId: 'poolId' }}
+                      font={{ variation: FontVariation.FORM_LABEL }}
+                      margin={{ bottom: 'xsmall' }}
+                    >
+                      {getString('pipeline.buildInfra.poolId')}
                     </Text>
                   }
-                  placeholder={getString('pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder')}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  gitScope={gitScope}
-                  multiTypeProps={{ expressions, disabled: readonly, allowableTypes }}
+                  name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.spec.identifier`}
+                  multiTextInputProps={{
+                    multiTextInputProps: { expressions, allowableTypes },
+                    disabled: readonly
+                  }}
                 />
-              </Container>
-            )}
-            {(deploymentStageTemplate.infrastructure as any).spec?.namespace && (
-              <FormInput.MultiTextInput
-                label={
-                  <Text font={{ variation: FontVariation.FORM_LABEL }} tooltipProps={{ dataTooltipId: 'namespace' }}>
-                    {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                  </Text>
-                }
-                name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
-                multiTextInputProps={{
-                  expressions,
-                  allowableTypes: allowableTypes
-                }}
-                disabled={readonly}
-              />
-            )}
+              )
+            ) : null}
             {(deploymentStageTemplate.infrastructure as any).spec?.serviceAccountName && (
               <FormInput.MultiTextInput
                 label={

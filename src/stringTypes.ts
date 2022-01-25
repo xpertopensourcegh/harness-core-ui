@@ -2200,6 +2200,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.barrierWaiting': string
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
+  'pipeline.buildInfra.poolId': string
   'pipeline.buildRepo': string
   'pipeline.changeTemplate': string
   'pipeline.changeTemplateLabel': string
@@ -4248,7 +4249,6 @@ export interface StringsMap {
   'ci.buildInfa.awsVM.architecture': string
   'ci.buildInfa.awsVM.isRequiredWhen': string
   'ci.buildInfa.awsVM.os': string
-  'ci.buildInfa.awsVM.poolId': string
   'ci.buildInfa.awsVMs': string
   'ci.buildInfa.infrastructureTypesLabel': string
   'ci.buildInfa.k8sLabel': string
