@@ -6,7 +6,17 @@
  */
 
 import React from 'react'
-import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, getMultiTypeFromValue } from '@wings-software/uicore'
+import {
+  Label,
+  FormInput,
+  MultiTypeInputType,
+  Icon,
+  Layout,
+  Text,
+  getMultiTypeFromValue,
+  FontVariation,
+  Container
+} from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity, isNil } from 'lodash-es'
 import cx from 'classnames'
@@ -29,6 +39,9 @@ import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelec
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateStepNode } from 'services/pipeline-ng'
 import { TEMPLATE_INPUT_PATH } from '@pipeline/utils/templateUtils'
+import { useGitScope } from '@pipeline/utils/CIUtils'
+import { ConnectorRefWidth } from '@pipeline/utils/constants'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -387,6 +400,13 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const isPropagating = deploymentStage?.serviceConfig?.useFromStage
+  const gitScope = useGitScope()
+
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
 
   return (
     <>
@@ -459,10 +479,29 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           <div className={css.inputheader}>{getString('infrastructureText')}</div>
 
           <div className={css.nestedAccordions} style={{ width: '50%' }}>
+            {(deploymentStageTemplate.infrastructure as any).spec?.connectorRef && (
+              <Container className={stepCss.bottomMargin3}>
+                <FormMultiTypeConnectorField
+                  width={ConnectorRefWidth.DefaultView}
+                  name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.connectorRef`}
+                  label={
+                    <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                      {getString('connectors.title.k8sCluster')}
+                    </Text>
+                  }
+                  placeholder={getString('pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder')}
+                  accountIdentifier={accountId}
+                  projectIdentifier={projectIdentifier}
+                  orgIdentifier={orgIdentifier}
+                  gitScope={gitScope}
+                  multiTypeProps={{ expressions, disabled: readonly, allowableTypes }}
+                />
+              </Container>
+            )}
             {(deploymentStageTemplate.infrastructure as any).spec?.namespace && (
               <FormInput.MultiTextInput
                 label={
-                  <Text flex font="small" margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}>
+                  <Text font={{ variation: FontVariation.FORM_LABEL }} tooltipProps={{ dataTooltipId: 'namespace' }}>
                     {getString('pipelineSteps.build.infraSpecifications.namespace')}
                   </Text>
                 }
@@ -476,7 +515,11 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             )}
             {(deploymentStageTemplate.infrastructure as any).spec?.serviceAccountName && (
               <FormInput.MultiTextInput
-                label={getString('pipeline.infraSpecifications.serviceAccountName')}
+                label={
+                  <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                    {getString('pipeline.infraSpecifications.serviceAccountName')}
+                  </Text>
+                }
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.serviceAccountName`}
                 multiTextInputProps={{
                   expressions,
@@ -486,24 +529,29 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               />
             )}
             {(deploymentStageTemplate.infrastructure as any).spec?.runAsUser && (
-              <MultiTypeTextField
-                label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
-                name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.runAsUser`}
-                style={{ marginBottom: 'var(--spacing-xsmall)' }}
-                multiTextInputProps={{
-                  multiTextInputProps: {
-                    expressions,
-                    allowableTypes: allowableTypes
-                  },
-                  disabled: readonly,
-                  placeholder: '1000'
-                }}
-              />
+              <Container className={stepCss.bottomMargin5}>
+                <MultiTypeTextField
+                  label={
+                    <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
+                      {getString('pipeline.stepCommonFields.runAsUser')}
+                    </Text>
+                  }
+                  name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.runAsUser`}
+                  multiTextInputProps={{
+                    multiTextInputProps: {
+                      expressions,
+                      allowableTypes: allowableTypes
+                    },
+                    disabled: readonly,
+                    placeholder: '1000'
+                  }}
+                />
+              </Container>
             )}
             {(deploymentStageTemplate.infrastructure as any).spec?.initTimeout && (
               <FormMultiTypeDurationField
                 label={
-                  <Text flex={{ justifyContent: 'start' }} font="small" tooltipProps={{ dataTooltipId: 'timeout' }}>
+                  <Text font={{ variation: FontVariation.FORM_LABEL }} tooltipProps={{ dataTooltipId: 'timeout' }}>
                     {getString('pipeline.infraSpecifications.initTimeout')}
                   </Text>
                 }

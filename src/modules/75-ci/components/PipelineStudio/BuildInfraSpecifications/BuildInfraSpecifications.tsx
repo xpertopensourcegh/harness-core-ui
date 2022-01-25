@@ -46,7 +46,7 @@ import {
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { Separator } from '@common/components'
 import type { MultiTypeMapType, MultiTypeMapUIType, MapType } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import { useGitScope } from '@ci/services/CIUtils'
+import { useGitScope } from '@pipeline/utils/CIUtils'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml, VmInfraYaml, VmPoolYaml } from 'services/ci'

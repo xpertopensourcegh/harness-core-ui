@@ -798,7 +798,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                             data-tooltip-id="namespace"
                                           >
                                             <p
-                                              class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--font-small StyledProps--margin-bottom-xsmall"
+                                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
                                             >
                                               pipelineSteps.build.infraSpecifications.namespace
                                             </p>

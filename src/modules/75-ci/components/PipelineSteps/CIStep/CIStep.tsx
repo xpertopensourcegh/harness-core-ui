@@ -15,8 +15,9 @@ import { MultiTypeTextField, MultiTypeTextProps } from '@common/components/Multi
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { Separator } from '@common/components/Separator/Separator'
-import { useGitScope } from '@ci/services/CIUtils'
+import { useGitScope } from '@pipeline/utils/CIUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { ConnectorRefWidth } from '@pipeline/utils/constants'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
@@ -34,12 +35,6 @@ interface CIStepProps {
   stepViewType: StepViewType
   allowableTypes: MultiTypeInputType[]
   path?: string
-}
-
-const ConnectorRefWidth = {
-  DeploymentFormView: 320,
-  InputSetView: 310,
-  DefaultView: 385
 }
 
 export const CIStep: React.FC<CIStepProps> = props => {
