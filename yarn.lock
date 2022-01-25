@@ -4862,17 +4862,17 @@
     "@urql/core" ">=2.1.2"
     wonka "^4.0.14"
 
-"@virtuoso.dev/react-urx@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@virtuoso.dev/react-urx/-/react-urx-0.2.5.tgz#41f1a8c7657a339276ecf1ff718b556010c80932"
-  integrity "sha1-QfGox2V6M5J27PH/cYtVYBDICTI= sha512-4C0HoPaZEqAKg3pzs3mS16kesCRvEU+TYVDxFsW+vGFi1nyPovhiQ7YVTOPBE55rjVv/rkNqL1eWqjwJM/SohA=="
+"@virtuoso.dev/react-urx@^0.2.12":
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@virtuoso.dev/react-urx/-/react-urx-0.2.12.tgz#6c75cdbea2503c129b34d1ce2ee8cd649503b47c"
+  integrity sha512-Lcrrmq/UztM+rgepAdThdIk8dL3LEi9o2NTkL6ZLKPrTGjr5tSmsauD30/O8yu7Q0ncDnptmMR3OObdvMGuEKQ==
   dependencies:
-    "@virtuoso.dev/urx" "^0.2.5"
+    "@virtuoso.dev/urx" "^0.2.12"
 
-"@virtuoso.dev/urx@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@virtuoso.dev/urx/-/urx-0.2.5.tgz#8c88e9634df06e9f6b98bcd80490652347108c86"
-  integrity "sha1-jIjpY03wbp9rmLzYBJBlI0cQjIY= sha512-Vf3g+iAl5h8UuduSRTB1XK4G08xeV80tMP46P3xn5jIk1xV5IsdTInl58VU2thnCxRG9yJawR/QJwTFfMgkUww=="
+"@virtuoso.dev/urx@^0.2.12":
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@virtuoso.dev/urx/-/urx-0.2.12.tgz#fa9bd1a2777cf70b19d4c9836b8d92b04f079c64"
+  integrity sha512-Q9nlRqYb5Uq4Ynu8cWPSJ7LxpuZsI+MZ09IJlDAAgwuNgfWRArpVRP0VN0coYgUo2fKMjhmV69MTqaUbIBhu/g==
 
 "@webassemblyjs/ast@1.11.0":
   version "1.11.0"
@@ -16503,14 +16503,13 @@ react-transition-group@^2.9.0:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react-virtuoso@^1.10.2:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-1.10.2.tgz#7755c7e7a7cb3b6ac8bc64a789beb1522b8c84a5"
-  integrity sha512-Dv9CYWWsRoa0Jr+HPpa25B28ZV9H+Xzi15k9RpH7VRdPQj47P1d0YAkhuRXC5Zu623HWP/0U2CT0n/1EGb4nIA==
+react-virtuoso@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-2.5.0.tgz#1b883f3bbf8cb19ed77a01d3588ab2aca50e7354"
+  integrity sha512-AtdfkiQp1CaGAQIutVCIBnr6XAiLck22mBV6iztnpmvcCgpaAzxs4mUO/oUkLxSCZnahid5FzYRSpPKECadinA==
   dependencies:
-    "@virtuoso.dev/react-urx" "^0.2.5"
-    "@virtuoso.dev/urx" "^0.2.5"
-    resize-observer-polyfill "^1.5.1"
+    "@virtuoso.dev/react-urx" "^0.2.12"
+    "@virtuoso.dev/urx" "^0.2.12"
 
 react@^17.0.2:
   version "17.0.2"
