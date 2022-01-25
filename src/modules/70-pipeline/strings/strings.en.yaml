@@ -228,9 +228,9 @@ manifestType:
   chartPathPlaceholder: Enter Chart Path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type
-  commitId: Commit Id
+  commitId: Commit Id / Git Tag
   branchPlaceholder: Enter Branch Name
-  commitPlaceholder: Enter Commit Id
+  commitPlaceholder: Enter Commit Id / Git Tag
   filePathPlaceholder: Enter File or Folder Path
   kustomizeFolderPath: Kustomize Folder Path
   kustomizeFolderPathPlaceholder: Enter Kustomize Folder Path
