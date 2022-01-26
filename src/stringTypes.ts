@@ -2671,6 +2671,8 @@ export interface StringsMap {
   'pipeline.startedOn': string
   'pipeline.stepCommonFields.ifNotPresent': string
   'pipeline.stepCommonFields.runAsUser': string
+  'pipeline.stepCommonFields.validation.invalidLimitCPU': string
+  'pipeline.stepCommonFields.validation.invalidLimitMemory': string
   'pipeline.stepCommonFields.validation.mustBeANumber': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDescription.Barrier': string
@@ -8749,10 +8751,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'validation.masterUrl': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'validation.matchPattern': string
   /**
    * @deprecated migrate this string to module level file
    */
