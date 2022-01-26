@@ -12,6 +12,7 @@ import { GetInputSetsResponse } from '@pipeline/pages/inputSet-list/__tests__/In
 import {
   mockCreateInputSetResponse,
   mockGetPipeline,
+  mockGetResolvedPipeline,
   mockInputSetsList,
   mockMergeInputSetResponse
 } from '@pipeline/components/RunPipelineModal/__tests__/mocks'
@@ -33,8 +34,12 @@ window.IntersectionObserver = jest.fn().mockImplementation(() => ({
 jest.mock('@common/hooks', () => ({
   ...(jest.requireActual('@common/hooks') as any),
   useQueryParams: jest.fn().mockImplementation(() => ({ executionId: '' })),
-  useMutateAsGet: jest.fn().mockImplementation(() => {
-    return { data: { data: {} }, refetch: jest.fn(), error: null, loading: false }
+  useMutateAsGet: jest.fn().mockImplementation(props => {
+    if (props?.name === 'useGetYamlWithTemplateRefsResolved') {
+      return mockGetResolvedPipeline
+    } else {
+      return { data: { data: {} }, refetch: jest.fn(), error: null, loading: false }
+    }
   })
 }))
 
