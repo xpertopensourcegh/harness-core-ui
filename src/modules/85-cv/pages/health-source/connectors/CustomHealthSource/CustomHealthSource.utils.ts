@@ -200,8 +200,10 @@ const validateCustomMetricFields = (
       )
     }
     if (
-      !formValues.pathURL?.includes(formValues.startTime.placeholder) ||
-      !formValues.pathURL?.includes(formValues.endTime.placeholder)
+      (!formValues.pathURL?.includes(formValues.startTime.placeholder) ||
+        !formValues.pathURL?.includes(formValues.endTime.placeholder)) &&
+      (!formValues.query?.includes(formValues.startTime.placeholder) ||
+        !formValues.query.includes(formValues.endTime.placeholder))
     ) {
       completErrors['pathURL'] = getString('cv.customHealthSource.Querymapping.validation.pathWithoutPlaceholder')
     }

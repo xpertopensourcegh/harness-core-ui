@@ -95,6 +95,23 @@ describe('Validate utils', () => {
       } as any)
     ).toEqual({ pathURL: 'cv.customHealthSource.Querymapping.validation.pathWithoutPlaceholder' })
 
+    // placeholders in body not in url
+    expect(
+      validateMappings(val => val, ['CustomHealth Metric 101'], 0, {
+        ...noErrorValidatation,
+        pathURL: 'solo-dolo?endTime=end_time&startTime=243',
+        query: 'sdffsfdf?end_time=sdf&start_time=23weewr',
+        endTime: {
+          placeholder: 'end_time',
+          timestampFormat: 'MILLISECONDS'
+        },
+        startTime: {
+          placeholder: 'start_time',
+          timestampFormat: 'MILLISECONDS'
+        }
+      } as any)
+    ).toEqual({})
+
     // placeholders are the same
     expect(
       validateMappings(val => val, ['CustomHealth Metric 101'], 0, {

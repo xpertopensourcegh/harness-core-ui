@@ -765,7 +765,7 @@ customHealthSource:
     validation:
       body: Body is required.
       path: Please select path.
-      pathWithoutPlaceholder: Start and end time placeholders must be included in Path.
+      pathWithoutPlaceholder: Start and end time placeholders must be included in either Path or Body.
       startAndEndTime: Start and end time placeholders must differ.
       startTime:
         placeholder: Please select start time placeholder
