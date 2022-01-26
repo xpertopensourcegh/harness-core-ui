@@ -379,6 +379,6 @@ describe('TargetsPage', () => {
     expect(document.querySelector('[data-icon="trash"]')?.closest('a')).toHaveClass('bp3-disabled')
     expect(document.querySelector('[data-icon="edit"]')?.closest('a')).toHaveClass('bp3-disabled')
 
-    await waitFor(() => expect(screen.getByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('cf.planEnforcement.upgradeRequired')).toBeInTheDocument())
   })
 })
