@@ -29,6 +29,8 @@ verification: 'Verification '
 openTroubleshooter: 'Open Troubleshooter'
 troubleshootOption: '(Troubleshoot)'
 harnessDocs: 'Check Harness Documentation'
+successVerification:
+  checkingForHeartbeat: Checking for heartbeat
 delegateNotInstalled:
   title: 'Delegate not installed'
   verifyField2: 'kubectl logs -f <harnessDelegateName> -n <namespace>'
