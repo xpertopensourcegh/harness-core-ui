@@ -9,17 +9,6 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
       class="FormikForm--main"
     >
       <div>
-        <div>
-          <div
-            style="min-height: 24px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin5"
         >
@@ -98,7 +87,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup sm bottomMargin5 topMargin5"
+          class="StyledProps--font StyledProps--main formGroup sm bottomMargin5"
         >
           <div
             class="bp3-form-group bp3-disabled removeBpLabelMargin"
@@ -186,17 +175,6 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
       class="FormikForm--main"
     >
       <div>
-        <div>
-          <div
-            style="min-height: 24px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin5"
         >
@@ -281,7 +259,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup sm bottomMargin5 topMargin5"
+          class="StyledProps--font StyledProps--main formGroup sm bottomMargin5"
         >
           <div
             class="bp3-form-group removeBpLabelMargin"

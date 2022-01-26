@@ -11,7 +11,6 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
 import { useStrings } from 'framework/strings'
-import { Separator } from '@common/components'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -101,7 +100,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         </Container>
       )}
       {isRunAsUserRuntime && (
-        <Container className={cx(css.formGroup, stepCss, css.topSpacingLarge)}>
+        <Container className={cx(css.formGroup, stepCss, css.topSpacingLarge, css.bottomMargin5)}>
           <MultiTypeTextField
             label={
               <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
@@ -120,7 +119,6 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
           />
         </Container>
       )}
-      <Separator />
       {isLimitCPURuntime && (
         <>
           <Container className={css.bottomMargin5}>
@@ -158,7 +156,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         </>
       )}
       {!withoutTimeout && isTimeoutRuntime && (
-        <Container className={cx(css.formGroup, css.sm, css.bottomMargin5, css.topMargin5)}>
+        <Container className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
             label={

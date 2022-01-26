@@ -1801,28 +1801,6 @@ exports[`Run Step InputSet View should not render any fields 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
-        <div>
-          <div
-            style="min-height: 24px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
       </div>
     </form>
     <p
@@ -1928,17 +1906,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
         </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
@@ -2469,17 +2436,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
-        <div>
-          <div
-            style="min-height: 24px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         >
@@ -2853,17 +2809,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
-        <div>
-          <div
-            style="min-height: 24px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin5"
         >
@@ -2948,7 +2893,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup sm bottomMargin5 topMargin5"
+          class="StyledProps--font StyledProps--main formGroup sm bottomMargin5"
         >
           <div
             class="bp3-form-group removeBpLabelMargin"
@@ -3063,28 +3008,6 @@ exports[`Run Step InputSet View should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
-        <div>
-          <div
-            style="min-height: 24px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
       </div>
     </form>
     <p
