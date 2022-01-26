@@ -522,3 +522,19 @@ export const getErrorsList = memoize((errors: any): { errorStrings: string[]; er
   })
   return { errorStrings, errorCount }
 })
+
+export const validateCICodebaseConfiguration = ({ pipeline, getString }: Partial<ValidatePipelineProps>): string => {
+  const shouldValidateCICodebase = pipeline?.stages?.some(stage =>
+    Object.is(get(stage, 'stage.spec.cloneCodebase'), true)
+  )
+  if (
+    shouldValidateCICodebase &&
+    !has(pipeline, 'properties') &&
+    !has(pipeline?.properties, 'ci') &&
+    isEmpty(get(pipeline, 'properties.ci.codebase.build')) &&
+    getString
+  ) {
+    return getString?.('pipeline.runPipeline.ciCodebaseConfig')
+  }
+  return ''
+}

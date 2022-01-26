@@ -2621,6 +2621,7 @@ export interface StringsMap {
   'pipeline.runAllParallelstages': string
   'pipeline.runFailedStages': string
   'pipeline.runModalNoPipelineText': string
+  'pipeline.runPipeline.ciCodebaseConfig': string
   'pipeline.runPipelineForm.disallowStageExecution': string
   'pipeline.runPipelineForm.notifyOnlyMe': string
   'pipeline.runstageError': string

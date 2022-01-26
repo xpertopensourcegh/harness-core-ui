@@ -949,5 +949,7 @@ dashboardDeploymentsWidget:
     plural: Currently running pipelines
 security:
   title: Security
+runPipeline:
+  ciCodebaseConfig: CI Codebase Configuration is missing. Codebase is required when the pipeline contains a CI stage that is set to clone codebase.
 buildInfra:
   poolId: Pool Id
