@@ -91,7 +91,7 @@ describe('NewUserRoleDropdown', () => {
 
     fireEvent.mouseOver(screen.getByText('Feature Flag Manage Role'))
 
-    await waitFor(() => expect(screen.getByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('cf.planEnforcement.upgradeRequired')).toBeInTheDocument())
 
     expect(screen.getByText('Feature Flag Manage Role').closest('a')).toHaveClass('bp3-disabled')
     expect(screen.getByText('Pipeline Executor').closest('a')).not.toHaveClass('bp3-disabled')
@@ -113,7 +113,7 @@ describe('NewUserRoleDropdown', () => {
 
     fireEvent.mouseOver(screen.getByText('Feature Flag Manage Role'))
 
-    await waitFor(() => expect(screen.getByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('cf.planEnforcement.upgradeRequired')).toBeInTheDocument())
 
     userEvent.click(screen.getByText('Feature Flag Manage Role'))
 
@@ -138,9 +138,7 @@ describe('NewUserRoleDropdown', () => {
 
     fireEvent.mouseOver(screen.getByText('Feature Flag Manage Role'))
 
-    await waitFor(() =>
-      expect(screen.queryByText('common.feature.upgradeRequired.pleaseUpgrade')).not.toBeInTheDocument()
-    )
+    await waitFor(() => expect(screen.queryByText('cf.planEnforcement.upgradeRequired')).not.toBeInTheDocument())
 
     expect(screen.getByText('Feature Flag Manage Role').closest('a')).not.toHaveClass('bp3-disabled')
     expect(screen.getByText('Pipeline Executor').closest('a')).not.toHaveClass('bp3-disabled')
