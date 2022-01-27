@@ -7,9 +7,12 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly executionSummary: string
-  readonly main: string
-  readonly mainTabPanel: string
-  readonly noAnalysis: string
+  readonly nodeCount: string
+  readonly nodeCountDisplay: string
+  readonly nodeCountDisplayExhausted: string
+  readonly nodeCountDisplayHealthy: string
+  readonly nodeCountDisplayNeedAttention: string
+  readonly nodeCountDisplayObserve: string
+  readonly nodeCountDisplayUnhealthy: string
 }
 export default styles

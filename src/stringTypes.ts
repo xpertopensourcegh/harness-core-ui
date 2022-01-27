@@ -2582,6 +2582,8 @@ export interface StringsMap {
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string
+  'pipeline.nodes': string
+  'pipeline.nodesLabel': string
   'pipeline.onlyPositiveInteger': string
   'pipeline.operatorPlaceholder': string
   'pipeline.outOf': string
@@ -2944,9 +2946,15 @@ export interface StringsMap {
   'pipeline.verification.analysisTab.metrics': string
   'pipeline.verification.anomalousLogClusters': string
   'pipeline.verification.anomalousMetrics': string
+  'pipeline.verification.anomalousMetricsFilterLabel': string
   'pipeline.verification.baselineTest': string
+  'pipeline.verification.collapseAll': string
+  'pipeline.verification.controlHostName': string
   'pipeline.verification.currentTest': string
+  'pipeline.verification.expandAll': string
+  'pipeline.verification.healthSourceLabel': string
   'pipeline.verification.healthSourcePlaceholder': string
+  'pipeline.verification.loadMore': string
   'pipeline.verification.logClustersInViolation': string
   'pipeline.verification.logs.actions': string
   'pipeline.verification.logs.allEvents': string
@@ -2968,8 +2976,13 @@ export interface StringsMap {
   'pipeline.verification.logs.urlCopied': string
   'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string
-  'pipeline.verification.noMetrics': string
+  'pipeline.verification.nodeCountDisplay': string
+  'pipeline.verification.predicted': string
   'pipeline.verification.refreshViewForNewData': string
+  'pipeline.verification.tableHeaders.group': string
+  'pipeline.verification.tableHeaders.metricName': string
+  'pipeline.verification.tableHeaders.nodes': string
+  'pipeline.verification.testHostName': string
   'pipeline.verification.testsRan': string
   'pipeline.verification.toGetLatest': string
   'pipeline.verification.waitForAnalysis': string
