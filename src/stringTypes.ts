@@ -781,6 +781,8 @@ export interface StringsMap {
   'rbac.permissionLabels.manage': string
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.view': string
+  'rbac.planEnforcement.ff.teamEnterprisePlan.approachingLimit': string
+  'rbac.planEnforcement.ff.teamEnterprisePlan.upgradeRequired': string
   'rbac.project': string
   'rbac.resourceGroup.add': string
   'rbac.resourceGroup.all': string

@@ -199,6 +199,12 @@ accessControlTitle:
   serviceAccounts: 'Access Control: Service Acccounts'
   resourceGroups: 'Access Control: Resource Groups'
   roles: 'Access Control: Roles'
+planEnforcement:
+  ff:
+    teamEnterprisePlan:
+      approachingLimit: 'You have used {{ clientMauUsagePercentage }}% of your developer subscription limit'
+      upgradeRequired: 'You have exceeded your developer subscription limit'
+
 customRoles: new Roles
 customResourceGroups: new Resource Groups
 communityErrorMessages:
