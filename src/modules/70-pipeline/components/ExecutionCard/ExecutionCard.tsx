@@ -39,6 +39,69 @@ export interface ExecutionCardProps {
   staticCard?: boolean
 }
 
+const ExecutionCardFooter = ({ pipelineExecution, variant }: ExecutionCardProps): React.ReactElement => {
+  const fontVariation = variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL
+  const variantSize = variant === CardVariant.Minimal ? 10 : 14
+  return (
+    <div className={css.footer}>
+      <div className={css.triggerInfo}>
+        <UserLabel
+          className={css.user}
+          name={
+            get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.name') ||
+            get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.id') ||
+            get(pipelineExecution, 'executionTriggerInfo.triggeredBy.identifier') ||
+            'Anonymous'
+          }
+          email={
+            get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.email') ||
+            get(pipelineExecution, 'executionTriggerInfo.triggeredBy.extraInfo.email')
+          }
+          profilePictureUrl={
+            get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.avatar') ||
+            get(pipelineExecution, 'executionTriggerInfo.triggeredBy.avatar')
+          }
+          textProps={{
+            font: { variation: fontVariation }
+          }}
+          iconProps={{ color: Color.GREY_900 }}
+        />
+        <Text font={{ variation: fontVariation }}>
+          <String
+            className={css.triggerType}
+            stringID={mapTriggerTypeToStringID(get(pipelineExecution, 'executionTriggerInfo.triggerType'))}
+          />
+        </Text>
+      </div>
+      <div className={css.timers}>
+        <TimeAgoPopover
+          iconProps={{
+            size: variantSize,
+            color: Color.GREY_900
+          }}
+          icon="calendar"
+          time={defaultTo(pipelineExecution?.startTs, 0)}
+          inline={false}
+          className={css.timeAgo}
+          font={{ variation: fontVariation }}
+        />
+        <Duration
+          icon="time"
+          className={css.duration}
+          iconProps={{
+            size: variantSize,
+            color: Color.GREY_900
+          }}
+          startTime={pipelineExecution?.startTs}
+          durationText={variant === CardVariant.Default ? undefined : ' '}
+          endTime={pipelineExecution?.endTs}
+          font={{ variation: fontVariation }}
+        />
+      </div>
+    </div>
+  )
+}
+
 export default function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
   const { pipelineExecution, variant = CardVariant.Default, staticCard = false } = props
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -211,62 +274,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             ) : null}
           </div>
         </div>
-        <div className={css.footer}>
-          <div className={css.triggerInfo}>
-            <UserLabel
-              className={css.user}
-              name={
-                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.name') ||
-                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.id') ||
-                get(pipelineExecution, 'executionTriggerInfo.triggeredBy.identifier') ||
-                'Anonymous'
-              }
-              email={
-                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.email') ||
-                get(pipelineExecution, 'executionTriggerInfo.triggeredBy.extraInfo.email')
-              }
-              profilePictureUrl={
-                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.avatar') ||
-                get(pipelineExecution, 'executionTriggerInfo.triggeredBy.avatar')
-              }
-              textProps={{
-                font: { variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }
-              }}
-              iconProps={{ color: Color.GREY_900 }}
-            />
-            <Text font={{ variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }}>
-              <String
-                className={css.triggerType}
-                stringID={mapTriggerTypeToStringID(get(pipelineExecution, 'executionTriggerInfo.triggerType'))}
-              />
-            </Text>
-          </div>
-          <div className={css.timers}>
-            <TimeAgoPopover
-              iconProps={{
-                size: variant === CardVariant.Minimal ? 10 : 14,
-                color: Color.GREY_900
-              }}
-              icon="calendar"
-              time={defaultTo(pipelineExecution?.startTs, 0)}
-              inline={false}
-              className={css.timeAgo}
-              font={{ variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }}
-            />
-            <Duration
-              icon="time"
-              className={css.duration}
-              iconProps={{
-                size: variant === CardVariant.Minimal ? 10 : 14,
-                color: Color.GREY_900
-              }}
-              startTime={pipelineExecution?.startTs}
-              durationText={variant === CardVariant.Default ? undefined : ' '}
-              endTime={pipelineExecution?.endTs}
-              font={{ variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }}
-            />
-          </div>
-        </div>
+        <ExecutionCardFooter pipelineExecution={pipelineExecution} variant={variant} />
       </div>
     </Card>
   )
