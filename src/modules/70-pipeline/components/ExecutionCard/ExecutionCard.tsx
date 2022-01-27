@@ -30,7 +30,6 @@ import { CardVariant } from '@pipeline/utils/constants'
 
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import css from './ExecutionCard.module.scss'
 
@@ -50,7 +49,6 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   const cdInfo = executionFactory.getCardInfo(StageType.DEPLOY)
   const ciInfo = executionFactory.getCardInfo(StageType.BUILD)
 
-  const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
   const [canEdit, canExecute] = usePermission(
     {
       resourceScope: {
@@ -171,7 +169,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           </div>
           <div className={css.main}>
             <div className={css.modulesContainer}>
-              {RUN_INDIVIDUAL_STAGE && pipelineExecution?.stagesExecuted?.length ? (
+              {pipelineExecution?.stagesExecuted?.length ? (
                 <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} 
                 ${
                   !!pipelineExecution.stagesExecutedNames &&

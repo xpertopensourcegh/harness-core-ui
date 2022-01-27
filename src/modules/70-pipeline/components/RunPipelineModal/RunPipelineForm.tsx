@@ -77,7 +77,6 @@ import {
 } from '@pipeline/utils/runPipelineUtils'
 import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useGetYamlWithTemplateRefsResolved } from 'services/template-ng'
@@ -149,7 +148,6 @@ function RunPipelineFormBasic({
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const [runClicked, setRunClicked] = useState(false)
-  const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
   const [expressionFormState, setExpressionFormState] = useState<KVPair>({})
   const stageSelectionRef = useRef(false)
   const [selectedStageData, setSelectedStageData] = useState<StageSelectionData>({
@@ -159,7 +157,7 @@ function RunPipelineFormBasic({
   })
   const [loadingInputSetUpdate, setLoadingInputSetUpdate] = useState(false)
 
-  const { data: stageExecutionData, refetch: getStagesExecutionList } = useGetStagesExecutionList({
+  const { data: stageExecutionData } = useGetStagesExecutionList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -167,15 +165,12 @@ function RunPipelineFormBasic({
       pipelineIdentifier,
       branch,
       repoIdentifier
-    },
-    lazy: true,
-    debounce: 500
+    }
   })
 
   useEffect(() => {
     getInputSetsList()
     getTemplateFromPipeline()
-    RUN_INDIVIDUAL_STAGE && getStagesExecutionList()
   }, [])
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
@@ -932,7 +927,7 @@ function RunPipelineFormBasic({
           </GitSyncStoreProvider>
         )}
 
-        <div className={cx({ [css.noDisplay]: !RUN_INDIVIDUAL_STAGE })}>
+        <div>
           <MultiSelectDropDown
             popoverClassName={css.disabledStageDropdown}
             hideItemCount={selectedStageData.allStagesSelected}
@@ -968,8 +963,8 @@ function RunPipelineFormBasic({
     )
   }
 
-  const runIndividualStageInfo = () => {
-    return RUN_INDIVIDUAL_STAGE ? (
+  const runIndividualStageInfo = (): JSX.Element => {
+    return (
       <>
         <RequiredStagesInfo
           selectedStageData={selectedStageData}
@@ -983,7 +978,7 @@ function RunPipelineFormBasic({
           expressions={template?.data?.replacedExpressions}
         />
       </>
-    ) : null
+    )
   }
 
   const showInputSetSelector = () => {
@@ -1188,7 +1183,6 @@ function RunPipelineFormBasic({
                   </Layout.Horizontal>
                   <SaveAsInputSet
                     key="saveasinput"
-                    disabled={!selectedStageData.allStagesSelected}
                     pipeline={pipeline}
                     currentPipeline={currentPipeline}
                     values={values}
