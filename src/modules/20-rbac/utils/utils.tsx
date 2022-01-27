@@ -38,6 +38,11 @@ export enum PrincipalType {
   SERVICE = 'SERVICE_ACCOUNT'
 }
 
+export enum SelectionType {
+  ALL = 'ALL',
+  SPECIFIED = 'SPECIFIED'
+}
+
 export const getRoleIcon = (roleIdentifier: string): IconName => {
   switch (roleIdentifier) {
     case '_account_viewer':
@@ -188,10 +193,11 @@ export const isAssignmentFieldDisabled = (value: RoleOption | ResourceGroupOptio
   return false
 }
 export const isDynamicResourceSelector = (value: string | string[]): boolean => {
-  if (value === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
-    return true
-  }
-  return false
+  return value === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR
+}
+
+export const isScopeResourceSelector = (value: string): boolean => {
+  return value === RbacResourceGroupTypes.SCOPE_RESOURCE_SELECTOR
 }
 
 interface ErrorHandlerProps {
