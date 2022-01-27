@@ -19,12 +19,13 @@ import css from './CDExecutionSummary.module.scss'
 
 interface ServicesListProps {
   services: ServiceExecutionSummary[]
+  className?: string
   limit: number
 }
 
-export function ServicesList({ services, limit = 2 }: ServicesListProps): React.ReactElement {
+export function ServicesList({ services, limit = 2, className }: ServicesListProps): React.ReactElement {
   return (
-    <div className={css.main}>
+    <div className={cx(css.main, className)}>
       <Icon name="services" className={css.servicesIcon} size={18} />
       <div className={css.servicesList}>
         {services.slice(0, limit).map(service => {

@@ -8,6 +8,8 @@
 // this is an auto-generated file, do not update this manually
 declare const styles: {
   readonly cardSummary: string
+  readonly environment: string
   readonly heading: string
+  readonly service: string
 }
 export default styles

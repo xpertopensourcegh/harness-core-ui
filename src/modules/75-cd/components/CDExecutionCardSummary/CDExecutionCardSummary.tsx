@@ -51,7 +51,7 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
           stringID="pipeline.executionList.servicesDeployedText"
           vars={{ size: serviceIdentifiers.length }}
         />
-        <ServicesList services={servicesMap} limit={SERVICES_LIMIT} />
+        <ServicesList className={css.service} services={servicesMap} limit={SERVICES_LIMIT} />
       </div>
       <div className={css.cardSummary}>
         <String
@@ -60,7 +60,7 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
           stringID="pipeline.executionList.EnvironmentsText"
           vars={{ size: environments.length }}
         />
-        <EnvironmentsList environments={environments} limit={ENV_LIMIT} />
+        <EnvironmentsList className={css.environment} environments={environments} limit={ENV_LIMIT} />
       </div>
     </Layout.Horizontal>
   )

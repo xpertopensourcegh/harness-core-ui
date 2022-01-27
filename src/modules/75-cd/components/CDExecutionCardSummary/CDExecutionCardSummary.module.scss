@@ -15,4 +15,16 @@
     font-weight: bold;
     color: var(--grey-600);
   }
+
+  .service {
+    :global(.bp3-icon) {
+      margin-left: 0 !important;
+    }
+  }
+
+  .environment {
+    > div {
+      margin-left: 0 !important;
+    }
+  }
 }

@@ -14,12 +14,13 @@ import css from './CDExecutionSummary.module.scss'
 
 interface EnvironmentsListProps {
   environments: string[]
+  className?: string
   limit?: number
 }
 
-export function EnvironmentsList({ environments, limit = 2 }: EnvironmentsListProps): React.ReactElement {
+export function EnvironmentsList({ environments, limit = 2, className }: EnvironmentsListProps): React.ReactElement {
   return (
-    <div className={css.main}>
+    <div className={cx(css.main, className)}>
       {environments.length > 0 ? (
         <>
           <div className={css.environments}>

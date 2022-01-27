@@ -12,7 +12,7 @@ exports[`<CDExecutionCardSummary /> tests snapshot test 1`] = `
         No valid template with id "pipeline.executionList.servicesDeployedText" found in any namespace
       </div>
       <div
-        class="main"
+        class="main service"
       >
         <span
           class="bp3-icon StyledProps--main servicesIcon"
@@ -73,7 +73,7 @@ exports[`<CDExecutionCardSummary /> tests snapshot test 1`] = `
         No valid template with id "pipeline.executionList.EnvironmentsText" found in any namespace
       </div>
       <div
-        class="main"
+        class="main environment"
       >
         <div
           class="environments"
