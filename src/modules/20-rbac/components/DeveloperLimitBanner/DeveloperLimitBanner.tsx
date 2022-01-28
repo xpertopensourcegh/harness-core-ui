@@ -25,8 +25,7 @@ const DeveloperLimitBanner = (): ReactElement => {
   const license = useLicenseStore()
 
   const isPaidTeamOrEnterpriseSubscription =
-    (license.licenseInformation.CF?.edition === 'ENTERPRISE' || license.licenseInformation.CF?.edition === 'TEAM') &&
-    license.licenseInformation.CF?.licenseType === 'PAID'
+    license.licenseInformation.CF?.edition === 'ENTERPRISE' || license.licenseInformation.CF?.edition === 'TEAM'
 
   const developerUsageCount = Number(usageData.usage?.ff?.activeFeatureFlagUsers?.count)
   const developerPlanLimit = Number(limitData.limit?.ff?.totalFeatureFlagUnits)

@@ -179,10 +179,10 @@ describe('DeveloperLimitBanner', () => {
         expect(screen.queryByText('common.manageSubscription')).not.toBeInTheDocument()
       })
 
-      test('it should not render banner for ENTERPRISE FREE TRIAL plans', async () => {
+      test('it should render banner for ENTERPRISE FREE TRIAL plans', async () => {
         jest
           .spyOn(licenseStoreContextMock, 'useLicenseStore')
-          .mockReturnValue({ licenseInformation: { CF: { edition: 'ENTERPRISE', licenseType: 'FREE' } } } as any)
+          .mockReturnValue({ licenseInformation: { CF: { edition: 'ENTERPRISE' } } } as any)
 
         jest.spyOn(useGetUsageAndLimitMock, 'useGetUsageAndLimit').mockReturnValue({
           usageData: { usage: { ff: { activeFeatureFlagUsers: { count: 90 } } } },
@@ -193,18 +193,16 @@ describe('DeveloperLimitBanner', () => {
 
         // assert text
         expect(screen.queryByText('rbac.planEnforcement.ff.teamEnterprisePlan.upgradeRequired')).not.toBeInTheDocument()
-        expect(
-          screen.queryByText('rbac.planEnforcement.ff.teamEnterprisePlan.approachingLimit')
-        ).not.toBeInTheDocument()
+        expect(screen.queryByText('rbac.planEnforcement.ff.teamEnterprisePlan.approachingLimit')).toBeInTheDocument()
 
         // assert links
-        expect(screen.queryByText('common.manageSubscription')).not.toBeInTheDocument()
+        expect(screen.queryByText('common.manageSubscription')).toBeInTheDocument()
       })
 
-      test('it should not render banner for TEAM FREE TRIAL plans', async () => {
+      test('it should render banner for TEAM FREE TRIAL plans', async () => {
         jest
           .spyOn(licenseStoreContextMock, 'useLicenseStore')
-          .mockReturnValue({ licenseInformation: { CF: { edition: 'TEAM', licenseType: 'FREE' } } } as any)
+          .mockReturnValue({ licenseInformation: { CF: { edition: 'TEAM' } } } as any)
 
         jest.spyOn(useGetUsageAndLimitMock, 'useGetUsageAndLimit').mockReturnValue({
           usageData: { usage: { ff: { activeFeatureFlagUsers: { count: 90 } } } },
@@ -215,12 +213,10 @@ describe('DeveloperLimitBanner', () => {
 
         // assert text
         expect(screen.queryByText('rbac.planEnforcement.ff.teamEnterprisePlan.upgradeRequired')).not.toBeInTheDocument()
-        expect(
-          screen.queryByText('rbac.planEnforcement.ff.teamEnterprisePlan.approachingLimit')
-        ).not.toBeInTheDocument()
+        expect(screen.queryByText('rbac.planEnforcement.ff.teamEnterprisePlan.approachingLimit')).toBeInTheDocument()
 
         // assert links
-        expect(screen.queryByText('common.manageSubscription')).not.toBeInTheDocument()
+        expect(screen.queryByText('common.manageSubscription')).toBeInTheDocument()
       })
     })
   })

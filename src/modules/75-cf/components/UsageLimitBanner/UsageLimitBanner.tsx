@@ -22,6 +22,7 @@ const UsageLimitBanner = (): ReactElement => {
   const { getString } = useStrings()
 
   const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CF)
+
   const license = useLicenseStore()
   const { isPlanEnforcementEnabled } = usePlanEnforcement()
 
@@ -70,7 +71,7 @@ const UsageLimitBanner = (): ReactElement => {
         <>
           {showInfoBanner && (
             <FeatureWarningSubscriptionInfoBanner
-              featureName={FeatureIdentifier.DEVELOPERS}
+              featureName={FeatureIdentifier.MAUS}
               message={getString('cf.planEnforcement.teamEnterprisePlan.approachingLimit', {
                 clientMauUsagePercentage
               })}
@@ -78,7 +79,7 @@ const UsageLimitBanner = (): ReactElement => {
           )}
           {showWarningBanner && (
             <FeatureWarningSubscriptionUpgradeBanner
-              featureName={FeatureIdentifier.DEVELOPERS}
+              featureName={FeatureIdentifier.MAUS}
               message={getString('cf.planEnforcement.teamEnterprisePlan.upgradeRequired')}
             />
           )}
