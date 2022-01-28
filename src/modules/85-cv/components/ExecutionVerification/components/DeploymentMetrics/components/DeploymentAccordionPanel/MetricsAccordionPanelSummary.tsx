@@ -26,8 +26,10 @@ const MetricsAccordionPanelSummary: React.FC<MetricsAccordionPanelSummaryProps> 
 
   return (
     <>
-      <Text margin={{ left: 'small' }}>{metricName}</Text>
-      <Text>{transactionName}</Text>
+      <Text tooltip={metricName} margin={{ left: 'small' }}>
+        {metricName}
+      </Text>
+      <Text tooltip={transactionName}>{transactionName}</Text>
       <Text>
         <Icon name={healthSourceTypeToLogo(healthSourceType)} margin={{ right: 'small' }} size={16} />
         {connectorName}

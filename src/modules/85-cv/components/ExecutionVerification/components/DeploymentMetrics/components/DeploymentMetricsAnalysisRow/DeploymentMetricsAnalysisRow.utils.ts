@@ -33,7 +33,7 @@ export function healthSourceTypeToLogo(healthSourceType: any): IconName {
 }
 
 export function transformControlAndTestDataToHighChartsSeries(
-  controlData: Highcharts.SeriesAreasplineOptions['data'][],
+  controlData: Highcharts.SeriesSplineOptions['data'][],
   testData: HostTestData[]
 ): DeploymentMetricsAnalysisRowChartSeries[][] {
   const highchartsOptions: DeploymentMetricsAnalysisRowChartSeries[][] = []
@@ -43,9 +43,9 @@ export function transformControlAndTestDataToHighChartsSeries(
 
     highchartsOptions.push([
       {
-        type: 'areaspline',
+        type: 'spline',
         data: controlData[index] || [],
-        color: 'var(--grey-200)',
+        color: 'var(--primary-7)',
         name: testData[index].name,
         connectNulls: true,
         marker: {
@@ -53,15 +53,15 @@ export function transformControlAndTestDataToHighChartsSeries(
           lineWidth: 1,
           symbol: 'circle',
           fillColor: 'var(--white)',
-          lineColor: 'var(--grey-200)'
+          lineColor: 'var(--primary-7)'
         },
-        lineColor: 'var(--grey-200)',
-        lineWidth: 2,
+        lineWidth: 1,
+        dashStyle: 'Dash',
         baseData: controlData[index] || [],
         actualTestData: testData[index] || []
       },
       {
-        type: 'areaspline',
+        type: 'spline',
         data: testData[index].points || [],
         color: testDataLineColor,
         name: testData[index].name,
@@ -73,8 +73,7 @@ export function transformControlAndTestDataToHighChartsSeries(
           fillColor: 'var(--white)',
           lineColor: testDataLineColor
         },
-        lineColor: testDataLineColor,
-        lineWidth: 2,
+        lineWidth: 1,
         baseData: controlData[index] || [],
         actualTestData: testData[index] || []
       }

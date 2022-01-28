@@ -40,7 +40,7 @@
     }
 
     svg > g path[class='highcharts-area'] {
-      opacity: 0.2 !important;
+      opacity: 0.05 !important;
     }
   }
 }
@@ -65,7 +65,9 @@
 .metricRisk {
   border-width: 1px;
   border-style: solid;
-  padding: var(--spacing-xsmall) !important;
+  padding: 0 var(--spacing-xsmall) !important;
+  height: 24px;
+  line-height: 24px !important;
   width: fit-content;
   border-radius: 4px;
 }

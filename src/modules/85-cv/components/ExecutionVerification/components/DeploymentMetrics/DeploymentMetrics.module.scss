@@ -11,7 +11,7 @@
 
 @mixin AccordionLayout {
   display: grid;
-  grid-template-columns: 250px 170px 120px 120px 1fr;
+  grid-template-columns: 200px 170px 120px 120px 1fr;
 }
 
 .main {
@@ -132,25 +132,29 @@
       }
 
       .predicted {
-        --border-color: var(--grey-300);
-        --background-color: var(--grey-100);
+        --border-color: var(--primary-7);
+        --background-color: var(--primary-2);
       }
 
       .actual {
         &Healthy {
-          --border-color: var(--green-400);
-          --background-color: var(--green-100);
+          --border-color: var(--green-500);
+          --background-color: var(--green-200);
         }
         &Warning {
-          --border-color: var(--orange-400);
-          --background-color: var(--orange-100);
+          --border-color: var(--orange-500);
+          --background-color: var(--orange-200);
         }
         &Fail {
-          --border-color: var(--red-400);
-          --background-color: var(--red-100);
+          --border-color: var(--red-500);
+          --background-color: var(--red-200);
         }
       }
     }
+  }
+
+  .metricsPagination {
+    padding-bottom: 0 !important;
   }
 }
 
@@ -163,6 +167,10 @@
   background: var(--white);
   margin-bottom: var(--spacing-small);
   padding: var(--spacing-medium) !important;
+
+  div[class*='Accordion--details'] {
+    padding-top: var(--spacing-large) !important;
+  }
 }
 
 .DeploymentMetrics_accordion--summary {
@@ -189,7 +197,7 @@
 .DeploymentMetrics {
   &Lables {
     @include AccordionLayout;
-    grid-template-columns: 270px 170px 120px 120px 1fr;
+    grid-template-columns: 220px 170px 120px 120px 1fr;
     margin-left: 25px !important;
     margin-bottom: var(--spacing-medium) !important;
     align-items: center;

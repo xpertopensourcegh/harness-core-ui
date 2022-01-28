@@ -27,6 +27,7 @@ declare const styles: {
   readonly main: string
   readonly maxDropDownWidth: string
   readonly metricName: string
+  readonly metricsPagination: string
   readonly noActivityId: string
   readonly noData: string
   readonly predicted: string

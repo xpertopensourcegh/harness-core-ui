@@ -282,7 +282,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
         <Container className={css.noData}>
           <NoDataCard
             onClick={() => refetch()}
-            message={getString('cv.monitoredServices.noAvailableData')}
+            message={getString('cv.monitoredServices.noMatchingData')}
             image={noDataImage}
           />
         </Container>
@@ -393,18 +393,17 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
           )}
           <Layout.Horizontal className={css.legend}>
             <span className={css.predicted} />
-            <Text font={{ variation: FontVariation.SMALL }}> {getString('pipeline.verification.predicted')}</Text>
+            <Text font={{ variation: FontVariation.SMALL }}> {getString('connectors.cdng.baseline')}</Text>
             <span className={css.actualFail} />
             <span className={css.actualWarning} />
             <span className={css.actualHealthy} />
-            <Text font={{ variation: FontVariation.SMALL }}>
-              {getString('ce.perspectives.budgets.configureAlerts.actual')}
-            </Text>
+            <Text font={{ variation: FontVariation.SMALL }}>{getString('common.current')}</Text>
           </Layout.Horizontal>
         </Layout.Horizontal>
       </Layout.Horizontal>
       <Container className={css.content}>{renderContent()}</Container>
       <Pagination
+        className={css.metricsPagination}
         pageSize={paginationInfo.pageSize as number}
         pageCount={paginationInfo.totalPages as number}
         itemCount={paginationInfo.totalItems as number}

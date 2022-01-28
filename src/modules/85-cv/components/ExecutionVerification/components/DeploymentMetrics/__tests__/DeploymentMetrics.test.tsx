@@ -610,7 +610,7 @@ describe('Unit tests for Deployment metrics ', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    expect(getByText('cv.monitoredServices.noAvailableData')).not.toBeNull()
+    expect(getByText('cv.monitoredServices.noMatchingData')).not.toBeNull()
   })
 
   test('Ensure that when new activityId is passed as prop view is reset', async () => {

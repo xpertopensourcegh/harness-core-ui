@@ -65,7 +65,7 @@ export function DeploymentMetricsAnalysisRow(props: DeploymentMetricsAnalysisRow
           <HighchartsReact
             key={index}
             highcharts={Highcharts}
-            options={chartsConfig(series, graphWidth, testData?.[index])}
+            options={chartsConfig(series, graphWidth, testData?.[index], getString)}
           />
         ))}
       </div>
