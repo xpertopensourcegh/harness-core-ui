@@ -964,6 +964,7 @@ dashboardDeploymentsWidget:
   runningPipeline:
     singular: Currently running pipeline
     plural: Currently running pipelines
+runtimeInputNotSupported: '{{field}} values cannot be run-time input'
 security:
   title: Security
 runPipeline:
