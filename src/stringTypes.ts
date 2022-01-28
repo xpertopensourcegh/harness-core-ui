@@ -865,7 +865,9 @@ export interface StringsMap {
   'rbac.userDetails.linkToSSOProviderModal.validation.groupNameRequired': string
   'rbac.userDetails.linkToSSOProviderModal.validation.ssoIdRequired': string
   'rbac.userDetails.noMembersMessage': string
+  'rbac.userDetails.userGroup.addSuccessMessage': string
   'rbac.userDetails.userGroup.addToGroup': string
+  'rbac.userDetails.userGroup.addingToGroups': string
   'rbac.userDetails.userGroup.confirmDeleteText': string
   'rbac.userDetails.userGroup.deleteSuccessMessage': string
   'rbac.userDetails.userGroup.deleteTitle': string
