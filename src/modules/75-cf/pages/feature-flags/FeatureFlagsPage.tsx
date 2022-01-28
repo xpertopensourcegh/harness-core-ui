@@ -551,18 +551,20 @@ const FeatureFlagsPage: React.FC = () => {
       toolbar={
         displayToolbar && (
           <>
-            <FlagDialog environment={activeEnvironment} />
-            {gitSync?.isGitSyncActionsEnabled && (
-              <GitSyncActions
-                isLoading={gitSync.gitSyncLoading || gitSyncing}
-                branch={gitSync.gitRepoDetails?.branch || ''}
-                repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
-                isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
-                isGitSyncPaused={gitSync.isGitSyncPaused}
-                handleToggleAutoCommit={gitSync.handleAutoCommit}
-                handleGitPause={gitSync.handleGitPause}
-              />
-            )}
+            <div className={css.leftToolbar}>
+              <FlagDialog environment={activeEnvironment} />
+              {gitSync?.isGitSyncActionsEnabled && (
+                <GitSyncActions
+                  isLoading={gitSync.gitSyncLoading || gitSyncing}
+                  branch={gitSync.gitRepoDetails?.branch || ''}
+                  repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
+                  isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
+                  isGitSyncPaused={gitSync.isGitSyncPaused}
+                  handleToggleAutoCommit={gitSync.handleAutoCommit}
+                  handleGitPause={gitSync.handleGitPause}
+                />
+              )}
+            </div>
             <ExpandingSearchInput
               alwaysExpanded
               name="findFlag"

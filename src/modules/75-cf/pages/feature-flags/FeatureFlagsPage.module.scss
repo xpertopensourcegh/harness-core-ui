@@ -57,3 +57,9 @@
     padding-top: 12px;
   }
 }
+
+.leftToolbar {
+  display: flex;
+  gap: var(--spacing-medium);
+  align-items: center;
+}

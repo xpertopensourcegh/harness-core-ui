@@ -8,6 +8,7 @@
 // this is an auto-generated file, do not update this manually
 declare const styles: {
   readonly generalInfo: string
+  readonly leftToolbar: string
   readonly toggleFlagButton: string
   readonly tooltipTable: string
 }
