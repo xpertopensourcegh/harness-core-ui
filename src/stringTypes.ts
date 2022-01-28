@@ -3075,6 +3075,11 @@ export interface StringsMap {
   'cd.enterpriseGitOps': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
+  'cd.featureRestriction.banners.deploymentsPerMonthLevelUp': string
+  'cd.featureRestriction.banners.dpmWarningActive': string
+  'cd.featureRestriction.banners.serviceAndDeploymentsLevelUp': string
+  'cd.featureRestriction.banners.serviceLevelUp': string
+  'cd.featureRestriction.banners.serviceWarningActive': string
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
   'cd.folderPath': string

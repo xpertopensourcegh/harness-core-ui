@@ -61,13 +61,11 @@ import type { IGitContextFormProps } from '@common/components/GitContextForm/Git
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
-import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 import { EvaluationModal } from '@governance/EvaluationModal'
 import { createTemplate } from '@pipeline/utils/templateUtils'
 import { getStepFromStage, validateCICodebaseConfiguration } from '@pipeline/components/PipelineStudio/StepUtil'
@@ -1030,15 +1028,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               </div>
             </div>
           </div>
-          <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
-          <PipelineFeatureLimitBreachedBanner
-            featureIdentifier={FeatureIdentifier.DEPLOYMENTS_PER_MONTH}
-            module={module}
-          />
-          <PipelineFeatureLimitBreachedBanner
-            featureIdentifier={FeatureIdentifier.INITIAL_DEPLOYMENTS}
-            module={module}
-          />
         </div>
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
         {shouldShowGovernanceEvaluation && (
