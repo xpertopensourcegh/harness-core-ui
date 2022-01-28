@@ -40,7 +40,6 @@ import {
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   getInputSetForPipelinePromise,
   useGetInputSetsListForPipeline,
-  useCreateInputSetForPipeline,
   useRePostPipelineExecuteWithInputSetYaml,
   StageExecutionResponse,
   useGetStagesExecutionList,
@@ -172,18 +171,6 @@ function RunPipelineFormBasic({
     getInputSetsList()
     getTemplateFromPipeline()
   }, [])
-
-  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      pipelineIdentifier,
-      projectIdentifier,
-      pipelineRepoID: repoIdentifier,
-      pipelineBranch: branch
-    },
-    requestOptions: { headers: { 'content-type': 'application/yaml' } }
-  })
 
   const [canEdit] = usePermission(
     {
@@ -1191,8 +1178,6 @@ function RunPipelineFormBasic({
                     accountId={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
-                    createInputSet={createInputSet}
-                    createInputSetLoading={createInputSetLoading}
                     repoIdentifier={repoIdentifier}
                     branch={branch}
                     isGitSyncEnabled={isGitSyncEnabled}

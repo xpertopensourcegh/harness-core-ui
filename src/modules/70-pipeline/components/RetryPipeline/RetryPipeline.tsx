@@ -37,7 +37,6 @@ import {
   getInputSetForPipelinePromise,
   InputSetSummaryResponse,
   RetryGroup,
-  useCreateInputSetForPipeline,
   useGetInputSetsListForPipeline,
   useGetInputsetYamlV2,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
@@ -224,17 +223,6 @@ const RetryPipeline = ({
     }
   })
 
-  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      pipelineIdentifier: pipelineId,
-      projectIdentifier,
-      pipelineRepoID: repoIdentifier,
-      pipelineBranch: branch
-    },
-    requestOptions: { headers: { 'content-type': 'application/yaml' } }
-  })
   const {
     refetch: getInputSetsList,
     data: inputSetResponse,
@@ -821,8 +809,6 @@ const RetryPipeline = ({
                 accountId={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                createInputSet={createInputSet}
-                createInputSetLoading={createInputSetLoading}
                 repoIdentifier={repoIdentifier}
                 branch={branch}
                 isGitSyncEnabled={isGitSyncEnabled}
