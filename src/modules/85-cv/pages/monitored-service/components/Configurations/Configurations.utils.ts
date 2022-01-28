@@ -101,6 +101,10 @@ export const onTabChange = async ({
   }
 }
 
+export interface ExtendedMonitoredServiceDTO extends MonitoredServiceDTO {
+  environmentRefList?: string[]
+}
+
 export const onSubmit = async ({
   formikValues,
   identifier,
@@ -119,13 +123,13 @@ export const onSubmit = async ({
   cachedInitialValues: MonitoredServiceForm | null
   updateMonitoredService: MutateMethod<
     RestResponseMonitoredServiceResponse,
-    MonitoredServiceDTO,
+    ExtendedMonitoredServiceDTO,
     UpdateMonitoredServiceQueryParams,
     UpdateMonitoredServicePathParams
   >
   saveMonitoredService: MutateMethod<
     RestResponseMonitoredServiceResponse,
-    MonitoredServiceDTO,
+    ExtendedMonitoredServiceDTO,
     SaveMonitoredServiceQueryParams,
     void
   >
@@ -143,18 +147,23 @@ export const onSubmit = async ({
     dependencies = [],
     type
   } = formikValues
-  const payload: MonitoredServiceDTO = {
+
+  const payload: ExtendedMonitoredServiceDTO = {
     orgIdentifier,
     projectIdentifier,
     serviceRef,
-    environmentRef,
     identifier: monitoredServiceId,
     name,
     description,
     tags,
+    environmentRef,
     sources,
     dependencies: cachedInitialValues?.dependencies || dependencies,
     type
+  }
+  if (Array.isArray(environmentRef)) {
+    payload.environmentRef = environmentRef?.[0]
+    payload.environmentRefList = environmentRef
   }
   if (identifier) {
     await updateMonitoredService(payload)

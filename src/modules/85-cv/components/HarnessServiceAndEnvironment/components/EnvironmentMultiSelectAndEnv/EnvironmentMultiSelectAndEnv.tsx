@@ -6,54 +6,36 @@
  */
 
 import React from 'react'
-
-import { Container, Select, SelectOption } from '@wings-software/uicore'
-
+import { Container, MultiSelectDropDown, MultiSelectOption, SelectOption } from '@wings-software/uicore'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ADD_NEW_VALUE } from '@cv/constants'
 import { useEnvironmentSelectOrCreate } from '../UseEnvironmentSelectOrCreate/EnvironmentSelectOrCreateHook'
 
-export interface EnvironmentSelectOrCreateProps {
+export interface EnvironmentMultiSelectOrCreateProps {
   disabled?: boolean
   className?: string
   options: Array<SelectOption>
-  item?: SelectOption
-  onSelect(value: SelectOption): void
+  item?: MultiSelectOption[]
+  onSelect(value: MultiSelectOption[]): void
   onNewCreated(value: EnvironmentResponseDTO): void
+  popOverClassName?: string
 }
 
-export const EnvironmentTypes = [
-  {
-    label: 'Production',
-    value: 'Production'
-  },
-  {
-    label: 'PreProduction',
-    value: 'PreProduction'
-  }
-]
-export function generateOptions(response?: EnvironmentResponseDTO[]): SelectOption[] {
-  return response
-    ? (response
-        .filter(entity => entity && entity.identifier && entity.name)
-        .map(entity => ({ value: entity.identifier, label: entity.name })) as SelectOption[])
-    : []
-}
-
-export function EnvironmentSelectOrCreate({
-  item,
-  onSelect,
+export function EnvironmentMultiSelectOrCreate({
   options,
   disabled,
+  item,
+  onSelect,
   onNewCreated,
-  className
-}: EnvironmentSelectOrCreateProps): JSX.Element {
+  className,
+  popOverClassName
+}: EnvironmentMultiSelectOrCreateProps): JSX.Element {
   const { getString } = useStrings()
   const { environmentOptions, openHarnessEnvironmentModal } = useEnvironmentSelectOrCreate({ options, onNewCreated })
 
-  const onSelectChange = (val: SelectOption): void => {
-    if (val.value === ADD_NEW_VALUE) {
+  const onSelectChange = (val: MultiSelectOption[]): void => {
+    if (val.find(it => it.value === ADD_NEW_VALUE)) {
       openHarnessEnvironmentModal()
     } else {
       onSelect(val)
@@ -62,14 +44,15 @@ export function EnvironmentSelectOrCreate({
 
   return (
     <Container onClick={e => e.stopPropagation()}>
-      <Select
-        name={'environment'}
+      <MultiSelectDropDown
+        placeholder={getString('cv.selectOrCreateEnv')}
         value={item}
+        items={environmentOptions}
         className={className}
         disabled={disabled}
-        items={environmentOptions}
-        inputProps={{ placeholder: getString('cv.selectOrCreateEnv') }}
         onChange={onSelectChange}
+        buttonTestId={'sourceFilter'}
+        popoverClassName={popOverClassName}
       />
     </Container>
   )
