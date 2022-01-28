@@ -178,8 +178,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
             text={getString('confirm')}
             className={Classes.POPOVER_DISMISS}
             disabled={toggleFeatureFlag.loading}
-            onClick={event => {
-              event.preventDefault()
+            onClick={() => {
               if (gitSync.isGitSyncEnabled && !gitSync.isAutoCommitEnabled) {
                 setIsSaveToggleModalOpen(true)
               } else {
@@ -211,7 +210,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
 
   return (
     <Container flex>
-      <Container onMouseDown={Utils.stopEvent} onClick={Utils.stopEvent}>
+      <Container onClick={Utils.stopEvent}>
         <Button
           noStyling
           tooltip={
@@ -459,24 +458,16 @@ const FeatureFlagsPage: React.FC = () => {
               toggleFeatureFlag={toggleFeatureFlag}
               cell={cell}
               update={status => {
-                // Update last updated column to reflect latest change without having to refetch the whole list
-                // The setTimeout makes sure there's enough time for animation in the switch component before re-rendering
-                // takes place and destroy it
-
-                // CB - It appears this isn't used, and needs to be refactored/taken out.
-                //      However taking it out prevents the row from rerendering for some reason
-                setTimeout(() => {
-                  const feature = features?.features?.find(f => f.identifier === cell.row.original.identifier)
-                  if (feature) {
-                    if (feature.envProperties) {
-                      feature.envProperties.state = (
-                        status ? FeatureFlagActivationStatus.ON : FeatureFlagActivationStatus.OFF
-                      ) as FeatureState
-                    }
-                    feature.modifiedAt = Date.now()
-                    setFeatures({ ...features } as Features)
+                const feature = features?.features?.find(f => f.identifier === cell.row.original.identifier)
+                if (feature) {
+                  if (feature.envProperties) {
+                    feature.envProperties.state = (
+                      status ? FeatureFlagActivationStatus.ON : FeatureFlagActivationStatus.OFF
+                    ) as FeatureState
                   }
-                }, 0)
+                  feature.modifiedAt = Date.now()
+                  setFeatures({ ...features } as Features)
+                }
               }}
             />
           )
@@ -527,7 +518,7 @@ const FeatureFlagsPage: React.FC = () => {
         refetch
       }
     ],
-    [refetch, features, getString, activeEnvironment, gitSync]
+    [gitSync.isAutoCommitEnabled, gitSync.isGitSyncEnabled, activeEnvironment]
   )
   const onSearchInputChanged = useCallback(
     name => {

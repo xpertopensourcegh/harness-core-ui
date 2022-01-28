@@ -324,16 +324,7 @@ export const TargetsPage: React.FC = () => {
         }
       }
     ],
-    [
-      getString,
-      activeEnvironment,
-      planEnforcementProps,
-      clear,
-      deleteTarget,
-      refetchTargets,
-      showError,
-      gotoTargetDetailPage
-    ]
+    [activeEnvironment]
   )
 
   useEffect(() => {
