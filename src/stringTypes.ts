@@ -113,6 +113,7 @@ export interface StringsMap {
   'common.commentModal.commentLabel': string
   'common.comments': string
   'common.confictOccured': string
+  'common.config': string
   'common.configureOptions.advancedHelp': string
   'common.configureOptions.configureOptions': string
   'common.configureOptions.defaultValue': string
@@ -175,6 +176,7 @@ export interface StringsMap {
   'common.enableGitSyncPipeline': string
   'common.entityReferenceSubTitle': string
   'common.entityReferenceTitle': string
+  'common.entityType': string
   'common.environmentCreated': string
   'common.environmentUpdated': string
   'common.errorCount': string
@@ -1980,6 +1982,9 @@ export interface StringsMap {
   'gitsync.markAsDefaultLabel': string
   'gitsync.moveFolder': string
   'gitsync.pathToHarnessFolder': string
+  'gitsync.resyncButtonText': string
+  'gitsync.resyncFailToaster': string
+  'gitsync.resyncSucessToaster': string
   'gitsync.rootFolderListHeader': string
   'gitsync.rootFolderUpdatedSuccessfully': string
   'gitsync.rootfolderLabel': string
@@ -1993,6 +1998,8 @@ export interface StringsMap {
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
   'gitsync.syncBranchTitle': string
+  'gitsync.syncFailed': string
+  'gitsync.syncStatus': string
   'gitsync.syncSucessToaster': string
   'dashboards.createFolder.folderDescriptionPlaceholder': string
   'dashboards.createFolder.folderNameValidation': string
@@ -3007,7 +3014,6 @@ export interface StringsMap {
   'templatesLibrary.default': string
   'templatesLibrary.deleteTemplate': string
   'templatesLibrary.editModal.heading': string
-  'templatesLibrary.entityType': string
   'templatesLibrary.fetchingActivityLogs': string
   'templatesLibrary.inputsCount': string
   'templatesLibrary.noActivityLogs': string
