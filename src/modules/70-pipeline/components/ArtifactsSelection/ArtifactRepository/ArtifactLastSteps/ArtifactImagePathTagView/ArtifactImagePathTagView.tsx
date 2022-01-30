@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Menu } from '@blueprintjs/core'
 import {
   FormInput,
@@ -23,10 +23,10 @@ import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import { getHelpeTextForTags } from '@pipeline/utils/stageHelpers'
 
 import type { Failure, Error } from 'services/cd-ng'
-import { tagOptions } from '../../ArtifactHelper'
-import { helperTextData, resetTag } from '../../ArtifactUtils'
-import type { ArtifactImagePathTagViewProps } from '../../ArtifactInterface'
-import css from '../ArtifactConnector.module.scss'
+import { tagOptions } from '../../../ArtifactHelper'
+import { helperTextData, resetTag } from '../../../ArtifactUtils'
+import type { ArtifactImagePathTagViewProps } from '../../../ArtifactInterface'
+import css from '../../ArtifactConnector.module.scss'
 
 const NoTagResults = ({ tagError }: { tagError: GetDataError<Failure | Error> | null }): JSX.Element => {
   const { getString } = useStrings()
@@ -60,6 +60,14 @@ const ArtifactImagePathTagView = ({
 
   const tags = buildDetailsLoading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
 
+  useEffect(() => {
+    if (getMultiTypeFromValue(formik.values?.tag) !== MultiTypeInputType.FIXED) {
+      formik.setFieldValue('tagRegex', formik.values.tag)
+    } else {
+      formik.setFieldValue && formik.setFieldValue('tagRegex', '')
+    }
+  }, [formik.values?.tag])
+
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
       <Menu.Item
@@ -87,7 +95,7 @@ const ArtifactImagePathTagView = ({
             resetTag(formik)
           }}
         />
-        {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
+        {getMultiTypeFromValue(formik.values?.imagePath) === MultiTypeInputType.RUNTIME && (
           <div className={css.configureOptions}>
             <ConfigureOptions
               value={formik.values.imagePath}
@@ -113,7 +121,7 @@ const ArtifactImagePathTagView = ({
           className={css.radioGroup}
         />
       </div>
-      {formik.values.tagType === 'value' ? (
+      {formik.values?.tagType === 'value' ? (
         <div className={css.imagePathContainer}>
           <FormInput.MultiTypeInput
             selectItems={tags}
@@ -167,7 +175,7 @@ const ArtifactImagePathTagView = ({
         </div>
       ) : null}
 
-      {formik.values.tagType === 'regex' ? (
+      {formik.values?.tagType === 'regex' ? (
         <div className={css.imagePathContainer}>
           <FormInput.MultiTextInput
             label={getString('tagRegex')}
