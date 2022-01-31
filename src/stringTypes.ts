@@ -3412,6 +3412,7 @@ export interface StringsMap {
   'ce.co.dnsSetup.autoURL': string
   'ce.co.dnsSetup.customURL': string
   'ce.co.dnsSetup.isURLaccessible': string
+  'ce.co.emptyResultText': string
   'ce.co.gatewayAccess.accessDescription': string
   'ce.co.gatewayAccess.backgroundTasks': string
   'ce.co.gatewayAccess.dnsLink': string
@@ -3472,6 +3473,7 @@ export interface StringsMap {
   'ce.co.rulesTableHeaders.name': string
   'ce.co.rulesTableHeaders.savings': string
   'ce.co.rulesTableHeaders.status': string
+  'ce.co.searchResultsText': string
   'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
   'ce.common.budget': string
