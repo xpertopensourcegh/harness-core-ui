@@ -51,7 +51,7 @@ export const useMoreTokenInfoModalModal = ({ onSuccess }: MoreTokenInfoModalProp
         <Layout.Vertical className={css.addTokenModalContainer}>
           <TokenDelegatesList tokenName={token} />
           <Layout.Horizontal className={css.moreInfoActionsContainer}>
-            <Button variation={ButtonVariation.TERTIARY} onClick={hideModal} intent="primary">
+            <Button variation={ButtonVariation.PRIMARY} onClick={hideModal} intent="primary">
               {getString('close')}
             </Button>
           </Layout.Horizontal>

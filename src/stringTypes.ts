@@ -1036,6 +1036,7 @@ export interface StringsMap {
   'delegates.successfullyUpdatedConfig': string
   'delegates.tokens.createdBySystem': string
   'delegates.tokens.delegateTokens': string
+  'delegates.tokens.delegateTokensTitle': string
   'delegates.tokens.generatedValuePlaceholder': string
   'delegates.tokens.moreInfo': string
   'delegates.tokens.moreInfoSubtitle': string
