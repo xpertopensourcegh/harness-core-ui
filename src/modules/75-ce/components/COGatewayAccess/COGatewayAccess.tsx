@@ -367,6 +367,7 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
       const namespace = _data.metadata?.namespace || 'default'
       const hideProgressPage =
         resourceToUpdateWith === 'gateway' ? gatewayDetails.opts.hide_progress_page : _data.spec.hideProgressPage
+      const idleTime = resourceToUpdateWith === 'gateway' ? gatewayDetails.idleTimeMins : _data.spec.idleTimeMins
       const yamlToSave = {
         ..._data,
         metadata: {
@@ -380,6 +381,7 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
         },
         spec: {
           ..._data?.spec,
+          idleTimeMins: idleTime,
           hideProgressPage,
           ...(resourceToUpdateWith === 'gateway' && {
             dependencies: Utils.fromServiceToYamlDependencies(allServices, gatewayDetails.deps)
@@ -390,7 +392,7 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
       const updatedGatewayDetails: GatewayDetails = {
         ...gatewayDetails,
         ...(yamlRuleName !== updatedName && { name: nameToReplace }),
-        ...(resourceToUpdateWith === 'yaml' && { idleTimeMins: _data?.spec?.idleTimeMins }),
+        idleTimeMins: idleTime,
         routing: {
           ...gatewayDetails.routing,
           k8s: {
