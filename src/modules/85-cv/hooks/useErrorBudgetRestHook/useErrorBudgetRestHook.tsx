@@ -6,7 +6,8 @@
  */
 
 import React, { useState } from 'react'
-import { Dialog, useModalHook } from '@harness/uicore'
+import { Dialog } from '@harness/uicore'
+import { useModalHook } from '@harness/use-modal'
 import { useStrings } from 'framework/strings'
 import type { SLODashboardWidget } from 'services/cv'
 import ErrorBudgetResetForm from './views/ErrorBudgetResetForm'
