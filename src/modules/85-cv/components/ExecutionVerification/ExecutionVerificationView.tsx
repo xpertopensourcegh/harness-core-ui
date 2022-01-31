@@ -10,6 +10,8 @@ import { Container, Tabs, Tab, NoDataCard, Layout } from '@wings-software/uicore
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { ExecutionNode } from 'services/pipeline-ng'
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { DeploymentMetrics } from './components/DeploymentMetrics/DeploymentMetrics'
 import { ExecutionVerificationSummary } from './components/ExecutionVerificationSummary/ExecutionVerificationSummary'
 import type { DeploymentNodeAnalysisResult } from './components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
@@ -28,6 +30,7 @@ export function ExecutionVerificationView(props: ExecutionVerificationViewProps)
   const activityId = useMemo(() => getActivityId(step), [step])
   const { type } = useQueryParams<{ type?: string }>()
   const defaultTabId = useMemo(() => getDefaultTabId(getString, type), [type])
+  const isErrorTrackingEnabled = useFeatureFlag(FeatureFlag.ERROR_TRACKING_ENABLED)
 
   const content = activityId ? (
     <Tabs id="AnalysisTypeTabs" defaultSelectedTabId={defaultTabId}>
@@ -53,6 +56,15 @@ export function ExecutionVerificationView(props: ExecutionVerificationViewProps)
         title={getString('pipeline.verification.analysisTab.logs')}
         panel={<LogAnalysisContainer step={step} hostName={selectedNode?.hostName} />}
       />
+      {isErrorTrackingEnabled && (
+        <Tab
+          id={getString('errors')}
+          title={getString('errors')}
+          panel={
+            <LogAnalysisContainer step={step} hostName={'errortracking'} isErrorTracking={isErrorTrackingEnabled} />
+          }
+        />
+      )}
     </Tabs>
   ) : (
     <Container className={css.noAnalysis}>

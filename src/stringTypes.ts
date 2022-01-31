@@ -2965,6 +2965,7 @@ export interface StringsMap {
   'pipeline.verification.collapseAll': string
   'pipeline.verification.controlHostName': string
   'pipeline.verification.currentTest': string
+  'pipeline.verification.errorClustersInViolation': string
   'pipeline.verification.expandAll': string
   'pipeline.verification.healthSourceLabel': string
   'pipeline.verification.healthSourcePlaceholder': string
