@@ -6,7 +6,8 @@
  */
 
 import React from 'react'
-import { Button, Popover, ButtonProps, useModalHook, useConfirmationDialog } from '@harness/uicore'
+import { Button, Popover, ButtonProps, useConfirmationDialog } from '@harness/uicore'
+import { useModalHook } from '@harness/use-modal'
 import { Dialog, IDialogProps, Intent, Menu, MenuItem } from '@blueprintjs/core'
 import { Link } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
