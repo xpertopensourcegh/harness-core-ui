@@ -713,6 +713,7 @@ export interface StringsMap {
   'notifications.userGroupsPlaceholder': string
   'notifications.validationPDKey': string
   'notifications.validationWebhook': string
+  'auditTrail.Platform': string
   'auditTrail.actions.added_collaborator': string
   'auditTrail.actions.added_membership': string
   'auditTrail.actions.invite_resent': string
