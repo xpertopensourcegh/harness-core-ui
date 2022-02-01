@@ -173,7 +173,10 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
       text={getString('cv.slos.newSLO')}
       variation={ButtonVariation.PRIMARY}
       onClick={() => {
-        history.push(routes.toCVCreateSLOs({ accountId, orgIdentifier, projectIdentifier }))
+        history.push({
+          pathname: routes.toCVCreateSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }),
+          search: monitoredService?.identifier ? `?monitoredServiceIdentifier=${monitoredService.identifier}` : ''
+        })
       }}
       className={getClassNameForMonitoredServicePage(css.createSloInMonitoredService, monitoredService?.identifier)}
       permission={{
