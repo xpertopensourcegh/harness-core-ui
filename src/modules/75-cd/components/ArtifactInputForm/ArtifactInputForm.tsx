@@ -473,6 +473,9 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     } else if (isPipelineInputTab && isSelectedPrimaryManifest && isSelectedStage) {
       return true
     }
+    if (readonly) {
+      return true
+    }
     return isTag ? isTagSelectionDisabled(artifacts?.primary?.type || '') : readonly
   }
 
