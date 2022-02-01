@@ -22,6 +22,7 @@ yarn.lock @harness/ui-council
 .storybook/ @harness/ui-council
 scripts/ @harness/ui-council
 certificates/ @harness/ui-council
+src/modules/10-common/layouts @harness/ui-council
 src/modules/15-notifications @harness/ui-platform
 src/modules/18-audit-trail @harness/ui-platform
 src/modules/20-rbac @harness/ui-platform
