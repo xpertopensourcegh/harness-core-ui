@@ -204,10 +204,10 @@ describe('SLOCardHeader', () => {
 
     await waitFor(() => {
       expect(onResetErrorBudget).toBeCalledWith(dashboardWidgetsContent.sloIdentifier, {
-        errorBudgetAtReset: 200,
+        errorBudgetAtReset: 100,
         errorBudgetIncrementPercentage: 100,
         reason: 'REASON',
-        remainingErrorBudgetAtReset: 160
+        remainingErrorBudgetAtReset: 60
       })
     })
   })
