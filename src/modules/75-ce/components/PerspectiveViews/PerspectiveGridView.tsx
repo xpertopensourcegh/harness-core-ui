@@ -19,8 +19,8 @@ import {
 } from '@wings-software/uicore'
 import { Menu, Classes, Intent } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
-import { QlceView, ViewTimeRangeType, ViewType, ViewState } from 'services/ce/services'
-import { SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
+import { QlceView, ViewType, ViewState } from 'services/ce/services'
+import { perspectiveDateLabelToDisplayText, SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
 import formatCost from '@ce/utils/formatCost'
 import { useStrings } from 'framework/strings'
 import css from './PerspectiveGridView.module.scss'
@@ -69,11 +69,7 @@ const PerpsectiveGridCard: (props: PerspectiveGridCardProps) => JSX.Element | nu
     }
   })
 
-  const dateLabelToDisplayText: Record<string, string> = {
-    [ViewTimeRangeType.Last_7]: getString('ce.perspectives.timeRangeConstants.last7Days'),
-    [ViewTimeRangeType.Last_30]: getString('projectsOrgs.landingDashboard.last30Days'),
-    [ViewTimeRangeType.LastMonth]: getString('ce.perspectives.timeRangeConstants.lastMonth')
-  }
+  const dateLabelToDisplayText = perspectiveDateLabelToDisplayText(getString)
 
   const onEditClick: (perspectiveId: string) => void = perspectiveId => {
     history.push(

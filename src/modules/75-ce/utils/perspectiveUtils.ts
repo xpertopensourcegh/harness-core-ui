@@ -8,6 +8,7 @@
 import type { IconName } from '@wings-software/uicore'
 import type Highcharts from 'highcharts'
 import type { ViewRule, ViewIdCondition } from 'services/ce'
+import type { UseStringsReturn } from 'framework/strings'
 import {
   QlceViewTimeFilterOperator,
   ViewFieldIdentifier,
@@ -170,7 +171,8 @@ export const SOURCE_ICON_MAPPING: Record<string, IconName> = {
 export const perspectiveDefaultTimeRangeMapper: Record<string, moment.Moment[]> = {
   [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
   [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
-  [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
+  [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH,
+  [ViewTimeRangeType.CurrentMonth]: DATE_RANGE_SHORTCUTS.CURRENT_MONTH
 }
 
 export enum ChartState {
@@ -216,3 +218,11 @@ export const clusterInfoUtil: (dataSources?: string[]) => { isClusterOnly: boole
     }
     return { isClusterOnly, hasClusterAsSource }
   }
+
+export const perspectiveDateLabelToDisplayText: (getString: UseStringsReturn['getString']) => Record<string, string> =
+  getString => ({
+    [ViewTimeRangeType.Last_7]: getString('ce.perspectives.timeRangeConstants.last7Days'),
+    [ViewTimeRangeType.Last_30]: getString('projectsOrgs.landingDashboard.last30Days'),
+    [ViewTimeRangeType.LastMonth]: getString('ce.perspectives.timeRangeConstants.lastMonth'),
+    [ViewTimeRangeType.CurrentMonth]: getString('ce.perspectives.timeRangeConstants.thisMonth')
+  })

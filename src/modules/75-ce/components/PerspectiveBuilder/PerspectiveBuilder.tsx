@@ -32,7 +32,7 @@ import {
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import type { ViewIdCondition } from 'services/ce/'
-import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
+import { DEFAULT_GROUP_BY, perspectiveDateLabelToDisplayText } from '@ce/utils/perspectiveUtils'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import PerspectiveFilters from '../PerspectiveFilters'
@@ -118,11 +118,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
     history.goBack()
   }
 
-  const dateLabelToDisplayText: Record<string, string> = {
-    [ViewTimeRangeType.Last_7]: getString('ce.perspectives.timeRangeConstants.last7Days'),
-    [ViewTimeRangeType.Last_30]: getString('projectsOrgs.landingDashboard.last30Days'),
-    [ViewTimeRangeType.LastMonth]: getString('ce.perspectives.timeRangeConstants.lastMonth')
-  }
+  const dateLabelToDisplayText = perspectiveDateLabelToDisplayText(getString)
 
   const ViewTimeRange = [
     {
@@ -136,6 +132,10 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
     {
       value: ViewTimeRangeType.LastMonth,
       label: dateLabelToDisplayText[ViewTimeRangeType.LastMonth]
+    },
+    {
+      value: ViewTimeRangeType.CurrentMonth,
+      label: dateLabelToDisplayText[ViewTimeRangeType.CurrentMonth]
     }
   ]
 

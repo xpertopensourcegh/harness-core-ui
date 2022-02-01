@@ -22,8 +22,8 @@ import {
 } from '@wings-software/uicore'
 import { Classes, Menu, Position, Intent } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
-import { QlceView, ViewTimeRangeType, ViewState, ViewType } from 'services/ce/services'
-import { SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
+import { QlceView, ViewState, ViewType } from 'services/ce/services'
+import { perspectiveDateLabelToDisplayText, SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
 import formatCost from '@ce/utils/formatCost'
 import { useStrings } from 'framework/strings'
 import css from './PerspectiveListView.module.scss'
@@ -52,11 +52,7 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
   }>()
   const { getString } = useStrings()
 
-  const dateLabelToDisplayText: Record<string, string> = {
-    [ViewTimeRangeType.Last_7]: getString('ce.perspectives.timeRangeConstants.last7Days'),
-    [ViewTimeRangeType.Last_30]: getString('projectsOrgs.landingDashboard.last30Days'),
-    [ViewTimeRangeType.LastMonth]: getString('ce.perspectives.timeRangeConstants.lastMonth')
-  }
+  const dateLabelToDisplayText = perspectiveDateLabelToDisplayText(getString)
 
   const TimePeriodCell: Renderer<CellProps<QlceView>> = cell => {
     return cell.value ? (

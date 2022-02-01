@@ -1,6 +1,6 @@
 {
   "metaData": {},
-  "resource": {
+  "data": {
     "uuid": "perspectiveId",
     "name": "AWS_GCP",
     "accountId": "TEST_ACC",

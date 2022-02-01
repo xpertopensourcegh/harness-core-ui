@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom'
 import { Container, Text, Layout, FlexExpander, Icon, TextInput, FontVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
-import type moment from 'moment'
 import { noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { CEView } from 'services/ce'
@@ -36,10 +35,10 @@ import {
   getGroupByFilter,
   getTimeRangeFilter,
   getTimeFilters,
-  getViewFilterForId
+  getViewFilterForId,
+  perspectiveDefaultTimeRangeMapper
 } from '@ce/utils/perspectiveUtils'
 import { CCM_CHART_TYPES } from '@ce/constants'
-import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import { AGGREGATE_FUNCTION } from '../PerspectiveGrid/Columns'
 import PerspectiveGrid from '../PerspectiveGrid/PerspectiveGrid'
@@ -262,11 +261,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
 }) => {
   const { perspectiveId } = useParams<{ perspectiveId: string }>()
 
-  const timeRangeMapper: Record<string, moment.Moment[]> = {
-    [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
-    [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
-    [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
-  }
+  const timeRangeMapper = perspectiveDefaultTimeRangeMapper
 
   const timeRange = formValues.viewTimeRange?.viewTimeRangeType || ViewTimeRangeType.Last_7
 
