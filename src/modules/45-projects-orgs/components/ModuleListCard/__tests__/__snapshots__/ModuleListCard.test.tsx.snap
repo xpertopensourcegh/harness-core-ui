@@ -140,12 +140,12 @@ exports[`Project Details render 2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                PROJECTSORGS.PURPOSELIST.CHANGE
+                COMMON.PURPOSE.CV.SERVICERELIABILITY
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
-                common.purpose.cv.intelligence
+                common.purpose.ce.management
               </p>
             </div>
           </div>
