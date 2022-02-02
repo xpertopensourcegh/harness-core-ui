@@ -20,12 +20,11 @@ const run = commands => {
 fs.emptyDirSync(REPORTS_FOLDER)
 fs.copyFileSync('cypress-coverage/coverage-final.json', `${REPORTS_FOLDER}/from-cypress.json`)
 fs.copyFileSync('coverage/coverage-final.json', `${REPORTS_FOLDER}/from-jest.json`)
-fs.emptyDirSync('.nyc_output')
 fs.emptyDirSync(FINAL_OUTPUT_FOLDER)
 // Run "nyc merge" inside the reports folder, merging the two coverage files into one,
 // then generate the final report on the coverage folder
 run([
-  // "nyc merge" will create a "coverage.json" file on the root, we move it to .nyc_output
-  `nyc merge ${REPORTS_FOLDER} && mv coverage.json .nyc_output/out.json`,
-  `nyc report --reporter html --report-dir ${FINAL_OUTPUT_FOLDER}`
+  // "nyc merge" will create a "coverage.json" file on the FINAL_OUTPUT_FOLDER
+  `nyc merge ${REPORTS_FOLDER} ${FINAL_OUTPUT_FOLDER}/merged-coverage.json`,
+  `nyc report -t ${FINAL_OUTPUT_FOLDER} --reporter lcov --reporter json-summary --report-dir ${FINAL_OUTPUT_FOLDER}`
 ])
