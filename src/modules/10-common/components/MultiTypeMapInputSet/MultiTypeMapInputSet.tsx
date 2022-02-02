@@ -17,7 +17,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   MultiTextInputProps,
-  FontVariation
+  FontVariation,
+  RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { get, isEmpty } from 'lodash-es'
@@ -73,8 +74,10 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
   } = props
 
   const [value, setValue] = React.useState<MapUIType>(() => {
-    const initialValue = get(formik?.values, name, '') as MapType
-
+    let initialValue = get(formik?.values, name, '')
+    if (initialValue === RUNTIME_INPUT_VALUE) {
+      initialValue = []
+    }
     const initialValueInCorrectFormat = Object.keys(initialValue || {}).map(key => ({
       id: uuid('', nameSpace()),
       key: key,
@@ -117,7 +120,10 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
   }
 
   React.useEffect(() => {
-    const initialValue = get(formik?.values, name, '') as MapType
+    let initialValue = get(formik?.values, name, '')
+    if (initialValue === RUNTIME_INPUT_VALUE) {
+      initialValue = []
+    }
     const valueWithoutEmptyItems = value.filter(item => !!item.value)
 
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
@@ -139,17 +145,21 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
   React.useEffect(() => {
     const valueInCorrectFormat: MapType = {}
     if (Array.isArray(value)) {
-      value.forEach(mapValue => {
-        if (mapValue.key && mapValue.value) {
-          valueInCorrectFormat[mapValue.key] = mapValue.value
-        }
-      })
+      value
+        .filter(item => !!item.value && typeof item.value === 'string')
+        .forEach(mapValue => {
+          if (mapValue.key && mapValue.value) {
+            valueInCorrectFormat[mapValue.key] = mapValue.value
+          }
+        })
     }
 
-    if (isEmpty(valueInCorrectFormat)) {
-      formik?.setFieldValue(name, undefined)
-    } else {
-      formik?.setFieldValue(name, valueInCorrectFormat)
+    if (get(formik?.values, name, '') !== RUNTIME_INPUT_VALUE) {
+      if (isEmpty(valueInCorrectFormat)) {
+        formik?.setFieldValue(name, undefined)
+      } else {
+        formik?.setFieldValue(name, valueInCorrectFormat)
+      }
     }
   }, [name, value, formik?.setFieldValue])
 
@@ -167,7 +177,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
             const keyError = get(error, `[${index}].key`)
             // const valueError = get(error, `[${index}].value`)
 
-            return (
+            return typeof valueValue === 'string' ? (
               <div className={cx(css.group, css.withoutAligning)} key={id}>
                 <div>
                   {index === 0 && (
@@ -216,7 +226,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
                   </div>
                 </div>
               </div>
-            )
+            ) : null
           })}
 
           {!disabled && (
