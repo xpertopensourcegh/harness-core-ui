@@ -15,7 +15,6 @@ import {
   Button,
   StepProps,
   Text,
-  RUNTIME_INPUT_VALUE,
   ButtonVariation,
   FontVariation
 } from '@wings-software/uicore'
@@ -27,29 +26,21 @@ import { useStrings } from 'framework/strings'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 
-import {
-  ArtifactConfig,
-  ConnectorConfigDTO,
-  DockerBuildDetailsDTO,
-  useGetBuildDetailsForNexusArtifact
-} from 'services/cd-ng'
+import { ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForNexusArtifact } from 'services/cd-ng'
 import {
   checkIfQueryParamsisNotEmpty,
+  getArtifactFormData,
   getConnectorIdValue,
+  getFinalArtifactObj,
   repositoryFormat,
   resetTag,
   shouldFetchTags
 } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import {
-  ArtifactType,
-  ImagePathProps,
-  ImagePathTypes,
-  RepositoryPortOrServer,
-  TagTypes
-} from '../../../ArtifactInterface'
+import { ArtifactType, ImagePathProps, ImagePathTypes, RepositoryPortOrServer } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, repositoryPortOrServer } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
+import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
 export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
@@ -103,19 +94,6 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
     )
   })
 
-  const defaultStepValues = (): ImagePathTypes => {
-    return {
-      identifier: '',
-      imagePath: '',
-      tagType: TagTypes.Value,
-      tag: RUNTIME_INPUT_VALUE,
-      tagRegex: RUNTIME_INPUT_VALUE,
-      repository: '',
-      repositoryPortorDockerServer: RepositoryPortOrServer.DockerRepositoryServer,
-      repositoryPort: '',
-      dockerRepositoryServer: ''
-    }
-  }
   const getConnectorRefQueryData = (): string => {
     return defaultTo(prevStepData?.connectorId?.value, prevStepData?.identifier)
   }
@@ -175,56 +153,32 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
   )
 
   const isTagDisabled = useCallback((formikValue): boolean => {
-    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.repository, formikValue.repository])
+    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.repository])
   }, [])
 
   const getInitialValues = useCallback((): ImagePathTypes => {
+    const values = getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
     const specValues = get(initialValues, 'spec', null)
-
-    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
-      return defaultStepValues()
-    }
-
-    const values = {
-      ...specValues,
-      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex,
-      repositoryPortorDockerServer: specValues.repositoryPort
+    merge(specValues, {
+      repositoryPortorDockerServer: specValues?.repositoryPort
         ? RepositoryPortOrServer.RepositoryPort
         : RepositoryPortOrServer.DockerRepositoryServer
-    }
-    if (specValues?.tag && getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-      values.tag = { label: specValues?.tag, value: specValues?.tag }
-    }
-    if (context === 2 && initialValues?.identifier) {
-      merge(values, { identifier: initialValues?.identifier })
-    }
-
+    })
     return values
   }, [context, initialValues, selectedArtifact])
-  const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const tagData =
-      formData?.tagType === TagTypes.Value
-        ? { tag: defaultTo(formData.tag?.value, formData.tag) }
-        : { tagRegex: defaultTo(formData.tagRegex?.value, formData.tagRegex) }
 
+  const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
     const repositoryPortOrServerData =
       formData?.repositoryPortorDockerServer === RepositoryPortOrServer.RepositoryPort
         ? { repositoryPort: formData?.repositoryPort }
         : { dockerRepositoryServer: formData?.dockerRepositoryServer }
 
-    const artifactObj: ArtifactConfig = {
-      spec: {
-        connectorRef: formData?.connectorId,
-        imagePath: formData?.imagePath,
-        repository: formData?.repository,
-        repositoryFormat,
-        ...tagData,
-        ...repositoryPortOrServerData
-      }
-    }
-    if (context === 2) {
-      merge(artifactObj, { identifier: formData?.identifier })
-    }
+    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    merge(artifactObj.spec, {
+      repository: formData?.repository,
+      repositoryFormat,
+      ...repositoryPortOrServerData
+    })
     handleSubmit(artifactObj)
   }
 
@@ -249,15 +203,7 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && (
-                <div className={css.dockerSideCard}>
-                  <FormInput.Text
-                    label={getString('pipeline.artifactsSelection.existingDocker.sidecarId')}
-                    placeholder={getString('pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder')}
-                    name="identifier"
-                  />
-                </div>
-              )}
+              {context === 2 && <SideCarArtifactIdentifier />}
 
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput

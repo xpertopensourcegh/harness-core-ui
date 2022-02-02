@@ -15,35 +15,36 @@ import {
   Button,
   StepProps,
   Text,
-  RUNTIME_INPUT_VALUE,
   ButtonVariation,
   FontVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { defaultTo, get, merge } from 'lodash-es'
+import { defaultTo, merge } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 
-import {
-  ArtifactConfig,
-  ConnectorConfigDTO,
-  DockerBuildDetailsDTO,
-  useGetBuildDetailsForArtifactoryArtifact
-} from 'services/cd-ng'
+import { ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForArtifactoryArtifact } from 'services/cd-ng'
 import {
   checkIfQueryParamsisNotEmpty,
+  getArtifactFormData,
   getConnectorIdValue,
+  getFinalArtifactObj,
   repositoryFormat,
   resetTag,
   shouldFetchTags
 } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
+import type {
+  ArtifactType,
+  ImagePathProps,
+  ImagePathTypes
+} from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
+import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
 const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
@@ -89,17 +90,6 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
     )
   })
 
-  const defaultStepValues = (): ImagePathTypes => {
-    return {
-      identifier: '',
-      imagePath: '',
-      repository: '',
-      dockerRepositoryServer: '',
-      tagType: TagTypes.Value,
-      tag: RUNTIME_INPUT_VALUE,
-      tagRegex: RUNTIME_INPUT_VALUE
-    }
-  }
   const getConnectorRefQueryData = (): string => {
     return defaultTo(prevStepData?.connectorId?.value, prevStepData?.identifier)
   }
@@ -160,45 +150,17 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
     return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.repository])
   }, [])
 
-  const getInitialValues = (): ImagePathTypes => {
-    const specValues = get(initialValues, 'spec', null)
+  const getInitialValues = useCallback((): ImagePathTypes => {
+    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
+  }, [context, initialValues, selectedArtifact])
 
-    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
-      return defaultStepValues()
-    }
-
-    const values = {
-      ...specValues,
-      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-    }
-    if (specValues?.tag && getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-      values.tag = { label: specValues?.tag, value: specValues?.tag }
-    }
-    if (context === 2 && initialValues?.identifier) {
-      merge(values, { identifier: initialValues?.identifier })
-    }
-
-    return values
-  }
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const tagData =
-      formData?.tagType === TagTypes.Value
-        ? { tag: defaultTo(formData.tag?.value, formData.tag) }
-        : { tagRegex: defaultTo(formData.tagRegex?.value, formData.tagRegex) }
-
-    const artifactObj: ArtifactConfig = {
-      spec: {
-        connectorRef: formData?.connectorId,
-        imagePath: formData?.imagePath,
-        repository: formData?.repository,
-        dockerRepositoryServer: formData?.dockerRepositoryServer,
-        repositoryFormat,
-        ...tagData
-      }
-    }
-    if (context === 2) {
-      merge(artifactObj, { identifier: formData?.identifier })
-    }
+    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    merge(artifactObj.spec, {
+      repository: formData?.repository,
+      dockerRepositoryServer: formData?.dockerRepositoryServer,
+      repositoryFormat
+    })
     handleSubmit(artifactObj)
   }
 
@@ -223,15 +185,7 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && (
-                <div className={css.dockerSideCard}>
-                  <FormInput.Text
-                    label={getString('pipeline.artifactsSelection.existingDocker.sidecarId')}
-                    placeholder={getString('pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder')}
-                    name="identifier"
-                  />
-                </div>
-              )}
+              {context === 2 && <SideCarArtifactIdentifier />}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={getString('repository')}

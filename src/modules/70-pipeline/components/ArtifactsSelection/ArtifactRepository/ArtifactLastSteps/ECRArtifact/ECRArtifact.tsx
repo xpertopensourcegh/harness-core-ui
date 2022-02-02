@@ -15,7 +15,6 @@ import {
   Button,
   SelectOption,
   StepProps,
-  RUNTIME_INPUT_VALUE,
   Text,
   ButtonVariation,
   FontVariation
@@ -25,16 +24,28 @@ import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { defaultTo, get, merge } from 'lodash-es'
 import { useListAwsRegions } from 'services/portal'
-import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'services/cd-ng'
+import { ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { useQueryParams } from '@common/hooks'
-import { getConnectorIdValue, resetTag } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
-import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
+import {
+  checkIfQueryParamsisNotEmpty,
+  getArtifactFormData,
+  getConnectorIdValue,
+  getFinalArtifactObj,
+  resetTag,
+  shouldFetchTags
+} from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import type {
+  ArtifactType,
+  ImagePathProps,
+  ImagePathTypes
+} from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
+import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
 export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
@@ -73,7 +84,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     })
   }
 
-  const ecrSchema = Yup.object().shape(schemaObject)
+  const primarySchema = Yup.object().shape(schemaObject)
   const sideCarSchema = Yup.object().shape({
     ...schemaObject,
     ...ArtifactIdentifierValidation(
@@ -112,15 +123,9 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       setTagList(ecrBuildData?.data?.buildDetailsList as [])
     }
   }, [ecrBuildData, ecrTagError])
+
   useEffect(() => {
-    if (
-      lastQueryData.region &&
-      lastQueryData.imagePath &&
-      getConnectorIdValue(prevStepData).length &&
-      getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.region) === MultiTypeInputType.FIXED
-    ) {
+    if (checkIfQueryParamsisNotEmpty(Object.values(lastQueryData))) {
       refetchECRBuilddata()
     }
   }, [lastQueryData, prevStepData, refetchECRBuilddata])
@@ -146,62 +151,28 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   const canFetchTags = useCallback(
     (imagePath: string, region: string): boolean =>
       !!(
-        imagePath &&
-        getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
-        region &&
-        (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)
+        (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region) &&
+        shouldFetchTags(prevStepData, [imagePath, region])
       ),
-    [lastQueryData.imagePath, lastQueryData.region]
+    [lastQueryData, prevStepData]
   )
 
-  const defaultStepValues = (): ImagePathTypes => {
-    return {
-      identifier: '',
-      imagePath: '',
-      tag: RUNTIME_INPUT_VALUE,
-      tagType: TagTypes.Value,
-      tagRegex: RUNTIME_INPUT_VALUE
-    }
-  }
-  const getInitialValues = useCallback((): ImagePathTypes => {
-    const specValues = get(initialValues, 'spec', null)
-    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
-      return defaultStepValues()
-    }
+  const isTagDisabled = useCallback((formikValue): boolean => {
+    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.region])
+  }, [])
 
-    const values = {
-      ...specValues,
-      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-    }
-    if (specValues?.tag && getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-      values.tag = { label: specValues?.tag, value: specValues?.tag }
-    }
+  const getInitialValues = useCallback((): ImagePathTypes => {
+    const values = getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
+    const specValues = get(initialValues, 'spec', null)
     if (getMultiTypeFromValue(specValues?.region) === MultiTypeInputType.FIXED) {
       values.region = regions.find(regionData => regionData.value === specValues?.region)
-    }
-    if (context === 2 && initialValues?.identifier) {
-      merge(values, { identifier: initialValues?.identifier })
     }
     return values
   }, [context, initialValues, regions, selectedArtifact])
 
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const tagData =
-      formData?.tagType === TagTypes.Value
-        ? { tag: defaultTo(formData.tag?.value, formData.tag) }
-        : { tagRegex: defaultTo(formData.tagRegex?.value, formData.tagRegex) }
-
-    const artifactObj: ArtifactConfig = {
-      spec: {
-        connectorRef: formData?.connectorId,
-        imagePath: formData?.imagePath,
-        region: formData?.region?.value ? formData?.region?.value : formData?.region,
-        ...tagData
-      }
-    }
-    if (context === 2) {
-      merge(artifactObj, { identifier: formData?.identifier })
-    }
+    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    merge(artifactObj.spec, { region: formData?.region?.value ? formData?.region?.value : formData?.region })
     handleSubmit(artifactObj)
   }
 
@@ -212,7 +183,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       </Text>
       <Formik
         initialValues={getInitialValues()}
-        validationSchema={context === 2 ? sideCarSchema : ecrSchema}
+        validationSchema={context === 2 ? sideCarSchema : primarySchema}
         formName="ecrArtifact"
         onSubmit={formData => {
           submitFormData({
@@ -226,15 +197,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && (
-                <div className={css.dockerSideCard}>
-                  <FormInput.Text
-                    label={getString('pipeline.artifactsSelection.existingDocker.sidecarId')}
-                    placeholder={getString('pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder')}
-                    name="identifier"
-                  />
-                </div>
-              )}
+              {context === 2 && <SideCarArtifactIdentifier />}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTypeInput
                   name="region"
@@ -283,6 +246,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                 tagError={ecrTagError}
                 tagList={tagList}
                 setTagList={setTagList}
+                tagDisabled={isTagDisabled(formik?.values)}
               />
             </div>
 

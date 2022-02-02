@@ -6,32 +6,31 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react'
-import {
-  Formik,
-  FormInput,
-  getMultiTypeFromValue,
-  Layout,
-  MultiTypeInputType,
-  Button,
-  StepProps,
-  Text,
-  RUNTIME_INPUT_VALUE,
-  ButtonVariation,
-  FontVariation
-} from '@wings-software/uicore'
+import { Formik, Layout, Button, StepProps, Text, ButtonVariation, FontVariation } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { defaultTo, get, merge } from 'lodash-es'
+import { defaultTo } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 
-import { ArtifactConfig, ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
-import { getConnectorIdValue } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
-import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
+import { ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
+import {
+  checkIfQueryParamsisNotEmpty,
+  getArtifactFormData,
+  getConnectorIdValue,
+  getFinalArtifactObj,
+  shouldFetchTags
+} from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import type {
+  ArtifactType,
+  ImagePathProps,
+  ImagePathTypes
+} from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
+import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
 export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
@@ -75,15 +74,6 @@ export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & Im
     )
   })
 
-  const defaultStepValues = (): ImagePathTypes => {
-    return {
-      identifier: '',
-      imagePath: '',
-      tag: RUNTIME_INPUT_VALUE,
-      tagType: TagTypes.Value,
-      tagRegex: RUNTIME_INPUT_VALUE
-    }
-  }
   const getConnectorRefQueryData = (): string => {
     return defaultTo(prevStepData?.connectorId?.value, prevStepData?.identifier)
   }
@@ -108,7 +98,7 @@ export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & Im
   })
 
   useEffect(() => {
-    if (getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
+    if (checkIfQueryParamsisNotEmpty([lastImagePath])) {
       refetchDockerTag()
     }
   }, [lastImagePath, refetchDockerTag])
@@ -122,13 +112,7 @@ export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & Im
 
   const canFetchTags = useCallback(
     (imagePath: string): boolean => {
-      return !!(
-        imagePath.length &&
-        getConnectorIdValue(prevStepData).length &&
-        getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
-        lastImagePath !== imagePath &&
-        getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
-      )
+      return !!(lastImagePath !== imagePath && shouldFetchTags(prevStepData, [imagePath]))
     },
     [lastImagePath, prevStepData]
   )
@@ -140,43 +124,15 @@ export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & Im
     },
     [canFetchTags]
   )
+  const isTagDisabled = useCallback((formikValue): boolean => {
+    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath])
+  }, [])
 
   const getInitialValues = (): ImagePathTypes => {
-    const specValues = get(initialValues, 'spec', null)
-
-    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
-      return defaultStepValues()
-    }
-
-    const values = {
-      ...specValues,
-      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-    }
-    if (specValues?.tag && getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-      values.tag = { label: specValues?.tag, value: specValues?.tag }
-    }
-    if (context === 2 && initialValues?.identifier) {
-      merge(values, { identifier: initialValues?.identifier })
-    }
-
-    return values
+    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
   }
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const tagData =
-      formData?.tagType === TagTypes.Value
-        ? { tag: defaultTo(formData.tag?.value, formData.tag) }
-        : { tagRegex: defaultTo(formData.tagRegex?.value, formData.tagRegex) }
-
-    const artifactObj: ArtifactConfig = {
-      spec: {
-        connectorRef: formData?.connectorId,
-        imagePath: formData?.imagePath,
-        ...tagData
-      }
-    }
-    if (context === 2) {
-      merge(artifactObj, { identifier: formData?.identifier })
-    }
+    const artifactObj = getFinalArtifactObj(formData, context === 2)
     handleSubmit(artifactObj)
   }
 
@@ -201,15 +157,7 @@ export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & Im
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && (
-                <div className={css.dockerSideCard}>
-                  <FormInput.Text
-                    label={getString('pipeline.artifactsSelection.existingDocker.sidecarId')}
-                    placeholder={getString('pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder')}
-                    name="identifier"
-                  />
-                </div>
-              )}
+              {context === 2 && <SideCarArtifactIdentifier />}
               <ArtifactImagePathTagView
                 selectedArtifact={selectedArtifact as ArtifactType}
                 formik={formik}
@@ -222,6 +170,7 @@ export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & Im
                 tagError={dockerTagError}
                 tagList={tagList}
                 setTagList={setTagList}
+                tagDisabled={isTagDisabled(formik?.values)}
               />
             </div>
             <Layout.Horizontal spacing="medium">

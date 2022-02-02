@@ -24,7 +24,8 @@ describe('ArtifactImagePathTagView tests', () => {
     buildDetailsLoading: false,
     tagList: undefined,
     setTagList: jest.fn(),
-    tagError: null
+    tagError: null,
+    tagDisabled: false
   }
   test('check if artifactimagetagView renders correctly', () => {
     const { container } = render(

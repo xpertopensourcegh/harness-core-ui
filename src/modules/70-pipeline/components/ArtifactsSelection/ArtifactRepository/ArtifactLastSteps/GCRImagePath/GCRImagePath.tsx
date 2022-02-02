@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Formik,
   FormInput,
@@ -15,7 +15,6 @@ import {
   Button,
   StepProps,
   Text,
-  RUNTIME_INPUT_VALUE,
   SelectOption,
   ButtonVariation,
   FontVariation
@@ -24,17 +23,30 @@ import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { get, memoize } from 'lodash-es'
-import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
+import { memoize, merge } from 'lodash-es'
+import { ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { getConnectorIdValue, RegistryHostNames, resetTag } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
-import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
+import {
+  checkIfQueryParamsisNotEmpty,
+  getArtifactFormData,
+  getConnectorIdValue,
+  getFinalArtifactObj,
+  RegistryHostNames,
+  resetTag,
+  shouldFetchTags
+} from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import type {
+  ArtifactType,
+  ImagePathProps,
+  ImagePathTypes
+} from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
+import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
 export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(item => ({ label: item, value: item }))
@@ -111,46 +123,15 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   }, [data, gcrTagError])
 
   useEffect(() => {
-    if (
-      lastQueryData.registryHostname.length &&
-      lastQueryData.imagePath.length &&
-      getConnectorIdValue(prevStepData).length &&
-      getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.registryHostname) === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED
-    ) {
+    if (checkIfQueryParamsisNotEmpty(Object.values(lastQueryData))) {
       refetch()
     }
   }, [lastQueryData, refetch])
 
-  const defaultStepValues = (): ImagePathTypes => {
-    return {
-      identifier: '',
-      imagePath: '',
-      tag: RUNTIME_INPUT_VALUE,
-      tagType: TagTypes.Value,
-      tagRegex: RUNTIME_INPUT_VALUE,
-      registryHostname: ''
-    }
-  }
-  const getInitialValues = (): ImagePathTypes => {
-    const specValues = get(initialValues, 'spec', null)
-    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
-      return defaultStepValues()
-    }
+  const getInitialValues = useCallback((): ImagePathTypes => {
+    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
+  }, [context, initialValues, selectedArtifact])
 
-    const values = {
-      ...specValues,
-      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-    }
-    if (specValues?.tag && getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-      values.tag = { label: specValues?.tag, value: specValues?.tag }
-    }
-    if (context === 2 && initialValues?.identifier) {
-      values.identifier = initialValues?.identifier
-    }
-    return values
-  }
   const fetchTags = (imagePath = '', registryHostname = ''): void => {
     if (canFetchTags(imagePath, registryHostname)) {
       setLastQueryData({ imagePath, registryHostname })
@@ -158,29 +139,17 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   }
   const canFetchTags = (imagePath: string, registryHostname: string): boolean =>
     !!(
-      imagePath.length &&
-      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
-      registryHostname.length &&
-      (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
+      (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname) &&
+      shouldFetchTags(prevStepData, [imagePath, registryHostname])
     )
 
-  const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const tagData =
-      formData?.tagType === TagTypes.Value
-        ? { tag: formData.tag?.value || formData.tag }
-        : { tagRegex: formData.tagRegex?.value || formData.tagRegex }
+  const isTagDisabled = useCallback((formikValue): boolean => {
+    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.registryHostname])
+  }, [])
 
-    const artifactObj: ArtifactConfig = {
-      spec: {
-        connectorRef: formData?.connectorId,
-        imagePath: formData?.imagePath,
-        registryHostname: formData?.registryHostname,
-        ...tagData
-      }
-    }
-    if (context === 2) {
-      artifactObj.identifier = formData?.identifier
-    }
+  const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
+    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    merge(artifactObj.spec, { registryHostname: formData?.registryHostname })
     handleSubmit(artifactObj)
   }
 
@@ -219,15 +188,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && (
-                <div className={css.dockerSideCard}>
-                  <FormInput.Text
-                    label={getString('pipeline.artifactsSelection.existingDocker.sidecarId')}
-                    placeholder={getString('pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder')}
-                    name="identifier"
-                  />
-                </div>
-              )}
+              {context === 2 && <SideCarArtifactIdentifier />}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTypeInput
                   label={getString('connectors.GCR.registryHostname')}
@@ -279,6 +240,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 tagError={gcrTagError}
                 tagList={tagList}
                 setTagList={setTagList}
+                tagDisabled={isTagDisabled(formik?.values)}
               />
             </div>
             <Layout.Horizontal spacing="medium">

@@ -5,12 +5,18 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@harness/uicore'
 import type { FormikValues } from 'formik'
-import { isEmpty } from 'lodash-es'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import { defaultTo, get, isEmpty, merge } from 'lodash-es'
+import type { ArtifactConfig, ConnectorConfigDTO } from 'services/cd-ng'
 import { ENABLED_ARTIFACT_TYPES } from './ArtifactHelper'
-import type { ArtifactTagHelperText, ArtifactType } from './ArtifactInterface'
+import {
+  ArtifactTagHelperText,
+  ArtifactType,
+  ImagePathTypes,
+  RepositoryPortOrServer,
+  TagTypes
+} from './ArtifactInterface'
 
 export enum RegistryHostNames {
   GCR_URL = 'gcr.io',
@@ -100,4 +106,96 @@ export const shouldFetchTags = (
     checkIfQueryParamsisNotEmpty(queryParamList) &&
     queryParamList.every(query => getMultiTypeFromValue(query) === MultiTypeInputType.FIXED)
   )
+}
+
+export const getFinalArtifactObj = (
+  formData: ImagePathTypes & { connectorId?: string },
+  isSideCar: boolean
+): ArtifactConfig => {
+  const tagData =
+    formData?.tagType === TagTypes.Value
+      ? { tag: defaultTo(formData.tag?.value, formData.tag) }
+      : { tagRegex: defaultTo(formData.tagRegex?.value, formData.tagRegex) }
+
+  const artifactObj: ArtifactConfig = {
+    spec: {
+      connectorRef: formData?.connectorId,
+      imagePath: formData?.imagePath,
+      ...tagData
+    }
+  }
+  if (isSideCar) {
+    merge(artifactObj, { identifier: formData?.identifier })
+  }
+  return artifactObj
+}
+
+export const getArtifactFormData = (
+  initialValues: ImagePathTypes,
+  selectedArtifact: ArtifactType,
+  isSideCar: boolean
+): ImagePathTypes => {
+  const specValues = get(initialValues, 'spec', null)
+
+  if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
+    return defaultArtifactInitialValues(selectedArtifact)
+  }
+
+  const values = {
+    ...specValues,
+    tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
+  }
+  if (specValues?.tag && getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
+    values.tag = { label: specValues?.tag, value: specValues?.tag }
+  }
+  if (isSideCar && initialValues?.identifier) {
+    merge(values, { identifier: initialValues?.identifier })
+  }
+  return values
+}
+
+export const defaultArtifactInitialValues = (selectedArtifact: ArtifactType): ImagePathTypes => {
+  switch (selectedArtifact) {
+    case ENABLED_ARTIFACT_TYPES.Gcr:
+      return {
+        identifier: '',
+        imagePath: '',
+        tag: RUNTIME_INPUT_VALUE,
+        tagType: TagTypes.Value,
+        tagRegex: RUNTIME_INPUT_VALUE,
+        registryHostname: ''
+      }
+    case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
+      return {
+        identifier: '',
+        imagePath: '',
+        repository: '',
+        dockerRepositoryServer: '',
+        tagType: TagTypes.Value,
+        tag: RUNTIME_INPUT_VALUE,
+        tagRegex: RUNTIME_INPUT_VALUE
+      }
+    case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+      return {
+        identifier: '',
+        imagePath: '',
+        tagType: TagTypes.Value,
+        tag: RUNTIME_INPUT_VALUE,
+        tagRegex: RUNTIME_INPUT_VALUE,
+        repository: '',
+        repositoryPortorDockerServer: RepositoryPortOrServer.DockerRepositoryServer,
+        repositoryPort: '',
+        dockerRepositoryServer: ''
+      }
+    case ENABLED_ARTIFACT_TYPES.DockerRegistry:
+    case ENABLED_ARTIFACT_TYPES.Ecr:
+    default:
+      return {
+        identifier: '',
+        imagePath: '',
+        tag: RUNTIME_INPUT_VALUE,
+        tagType: TagTypes.Value,
+        tagRegex: RUNTIME_INPUT_VALUE
+      }
+  }
 }

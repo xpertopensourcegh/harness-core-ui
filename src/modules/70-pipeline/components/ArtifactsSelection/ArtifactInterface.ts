@@ -111,5 +111,5 @@ export interface ArtifactImagePathTagViewProps {
   tagList: DockerBuildDetailsDTO[] | undefined
   setTagList: any
   tagError: GetDataError<Failure | Error> | null
-  tagDisabled?: boolean
+  tagDisabled: boolean
 }
