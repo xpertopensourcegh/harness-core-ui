@@ -202,6 +202,8 @@ const VerifyOutOfClusterDelegate: React.FC<StepProps<VerifyOutOfClusterStepProps
           return 'https://ngdocs.harness.io/article/illz8off8q'
         case Connectors.HttpHelmRepo:
           return 'https://ngdocs.harness.io/article/a0jotsvsi7'
+        case Connectors.DATADOG:
+          return 'https://ngdocs.harness.io/article/g21fb5kfkg-connect-to-monitoring-and-logging-systems#step_add_datadog'
         default:
           return ''
       }
