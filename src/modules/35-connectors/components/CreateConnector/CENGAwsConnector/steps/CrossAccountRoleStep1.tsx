@@ -8,6 +8,8 @@
 import React, { useRef, useState } from 'react'
 import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { CE_AWS_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import type { CEAwsConnectorDTO } from './OverviewStep'
 import css from '../CreateCeAwsConnector.module.scss'
 
@@ -108,6 +110,8 @@ const CrossAccountRoleStep1: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   const { prevStepData, nextStep, previousStep } = props
   const featuresEnabled = prevStepData?.spec?.featuresEnabled || []
   const { selectedCards, setSelectedCards, FeatureCards } = useSelectedCards(featuresEnabled)
+
+  useStepLoadTelemetry(CE_AWS_CONNECTOR_CREATION_EVENTS.LOAD_CHOOSE_REQUIREMENTS)
 
   const handleSubmit = () => {
     const features: FeaturesString[] = selectedCards.map(card => card.value)

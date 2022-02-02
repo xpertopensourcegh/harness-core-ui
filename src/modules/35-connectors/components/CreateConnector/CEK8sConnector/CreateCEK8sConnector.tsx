@@ -12,6 +12,8 @@ import { getConnectorIconByType } from '@connectors/pages/connectors/utils/Conne
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import DialogExtention from '@connectors/common/ConnectorExtention/DialogExtention'
+import { CE_K8S_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import OverviewStep from './OverviewStep'
 import ProvidePermissions from './ProvidePermissions'
 import FeatureSelectionStep from './FeatureSelectionStep'
@@ -20,6 +22,7 @@ import css from './CEK8sConnector.module.scss'
 
 const CreateCEK8sConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
   const [isOptimizationSelected, setIsOptimizationSelected] = useState<boolean>(false)
   return (
     <DialogExtention dialogStyles={{ width: 1159 }}>
@@ -44,7 +47,10 @@ const CreateCEK8sConnector: React.FC<CreateConnectorModalProps> = props => {
         <ProvidePermissions {...props} name={'Provide permissions'} />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.verifyConnection')}
-          onClose={props.onClose}
+          onClose={() => {
+            trackEvent(CE_K8S_CONNECTOR_CREATION_EVENTS.CONNECTION_FINISH_CLICK, {})
+            props.onClose()
+          }}
           isStep
           isLastStep
           type={Connectors.CE_KUBERNETES}

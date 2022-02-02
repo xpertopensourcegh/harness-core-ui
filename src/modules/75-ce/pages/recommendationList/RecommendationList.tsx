@@ -29,7 +29,7 @@ import formatCost from '@ce/utils/formatCost'
 import { getViewFilterForId } from '@ce/utils/perspectiveUtils'
 import EmptyView from '@ce/images/empty-state.svg'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
-import { PAGE_EVENTS, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { PAGE_NAMES, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
@@ -255,7 +255,7 @@ const RecommendationList: React.FC = () => {
   const { perspectiveId, perspectiveName } = useQueryParams<{ perspectiveId: string; perspectiveName: string }>()
 
   useEffect(() => {
-    trackPage(PAGE_EVENTS.RECOMMENDATIONS_PAGE, {})
+    trackPage(PAGE_NAMES.RECOMMENDATIONS_PAGE, {})
   }, [])
 
   const modifiedCostFilters = costFilters['minSaving'] ? costFilters : { ...costFilters, minSaving: 0 }

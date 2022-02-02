@@ -45,7 +45,7 @@ import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/Fea
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
 import { Utils } from '@ce/common/Utils'
-import { PAGE_EVENTS, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { PAGE_NAMES, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import bgImage from './images/perspectiveBg.png'
 import css from './PerspectiveListPage.module.scss'
 
@@ -488,7 +488,7 @@ const PerspectiveListPage: React.FC = () => {
   const pespectiveList = (data?.perspectives?.customerViews || []) as QlceView[]
 
   useEffect(() => {
-    trackPage(PAGE_EVENTS.PERSPECTIVE_LIST, {})
+    trackPage(PAGE_NAMES.PERSPECTIVE_LIST, {})
   }, [])
 
   useMemo(() => {

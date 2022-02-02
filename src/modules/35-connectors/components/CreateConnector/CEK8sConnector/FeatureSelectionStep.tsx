@@ -10,6 +10,8 @@ import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName, Text } 
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 
+import { CE_K8S_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import css from './CEK8sConnector.module.scss'
 
 enum Features {
@@ -39,6 +41,8 @@ interface FeatureSelectionStepProps {
 
 const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & FeatureSelectionStepProps> = props => {
   const { getString } = useStrings()
+
+  useStepLoadTelemetry(CE_K8S_CONNECTOR_CREATION_EVENTS.LOAD_FEATURE_SELECTION)
 
   const { prevStepData, nextStep, previousStep } = props
 

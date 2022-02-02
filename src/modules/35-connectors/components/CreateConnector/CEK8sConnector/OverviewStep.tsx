@@ -36,6 +36,8 @@ import {
   useGetConnectorListV2,
   validateTheIdentifierIsUniquePromise
 } from 'services/cd-ng'
+import { CE_K8S_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import type { DetailsForm } from '../commonSteps/ConnectorDetailsStep'
 import css from '../commonSteps/ConnectorDetailsStep.module.scss'
 import overviewCss from './CEK8sConnector.module.scss'
@@ -69,6 +71,9 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
   const [connectorOptions, setConnectorOptions] = useState<SelectOption[]>([])
   const isEdit = props.isEditMode || prevStepData?.isEdit
   const { getString } = useStrings()
+
+  useStepLoadTelemetry(CE_K8S_CONNECTOR_CREATION_EVENTS.LOAD_OVERVIEW_STEP)
+
   const defaultQueryParams = useMemo(
     () => ({
       accountIdentifier: accountId,

@@ -21,12 +21,16 @@ import { get } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import type { GcpBillingExportSpec, GcpCloudCostConnector } from 'services/cd-ng'
+import { CE_GCP_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import type { CEGcpConnectorDTO } from './OverviewStep'
 import BillingExportExtention from './BillingExportExtention'
 import css from '../CreateCeGcpConnector.module.scss'
 
 const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
   const { getString } = useStrings()
+
+  useStepLoadTelemetry(CE_GCP_CONNECTOR_CREATION_EVENTS.LOAD_BILLING_EXPORT_SETUP)
 
   const { prevStepData, nextStep, previousStep } = props
 

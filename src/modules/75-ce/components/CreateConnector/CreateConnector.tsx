@@ -12,6 +12,9 @@ import { useModalHook } from '@harness/use-modal'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { PAGE_NAMES } from '@ce/TrackingEventsConstants'
+import { CE_CONNECTOR_CLICK } from '@connectors/trackingConstants'
 import AutoStoppingImage from './images/autoStopping.svg'
 import BudgetsImage from './images/budgets-anomalies.svg'
 import PerspectiveImage from './images/Perspectives.svg'
@@ -84,6 +87,7 @@ const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selecte
 
 export const useCreateConnectorMinimal = (props: UseCreateConnectorProps) => {
   const { portalClassName, onSuccess } = props
+  const { trackEvent } = useTelemetry()
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
       onSuccess?.()
@@ -108,6 +112,10 @@ export const useCreateConnectorMinimal = (props: UseCreateConnectorProps) => {
     }
 
     if (connectorType) {
+      trackEvent(CE_CONNECTOR_CLICK, {
+        connectorType: connectorType,
+        page: PAGE_NAMES.NO_CONNECTOR_MODAL
+      })
       openConnectorModal(false, connectorType, {
         connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
       })
@@ -197,6 +205,7 @@ const FeaturesCarousel = () => {
 
 const useCreateConnector = (props: UseCreateConnectorProps) => {
   const [selectedProvider, setSelectedProvider] = useState<string>()
+  const { trackEvent } = useTelemetry()
 
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
@@ -225,6 +234,11 @@ const useCreateConnector = (props: UseCreateConnectorProps) => {
     }
 
     if (connectorType) {
+      trackEvent(CE_CONNECTOR_CLICK, {
+        connectorType: connectorType,
+        page: PAGE_NAMES.START_TRIAL_MODAL
+      })
+
       openConnectorModal(false, connectorType, {
         connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
       })

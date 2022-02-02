@@ -83,6 +83,9 @@ import type { CheckFeatureReturn } from 'framework/featureStore/featureStoreUtil
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { getLinkForAccountResources } from '@common/utils/BreadcrumbUtils'
+import { Connectors } from '@connectors/constants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_CONNECTOR_CLICK, CONNECTORS_PAGE } from '@connectors/trackingConstants'
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import {
@@ -140,6 +143,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   useDocumentTitle(getString('connectorsLabel'))
   const isCustomHealthEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
   const isErrorTrackingEnabled = useFeatureFlag(FeatureFlag.ERROR_TRACKING_ENABLED)
+  const { trackEvent } = useTelemetry()
 
   const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
   // This list will control which categories will be displayed in UI and its order
@@ -427,6 +431,14 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
     const onSelect = (val: ItemInterface): void => {
+      if (
+        [Connectors.CE_AZURE, Connectors.CE_KUBERNETES, Connectors.CE_GCP, Connectors.CEAWS].includes(val.value as any)
+      ) {
+        trackEvent(CE_CONNECTOR_CLICK, {
+          connectorType: val.value,
+          page: CONNECTORS_PAGE
+        })
+      }
       openConnectorModal(false, val?.value as ConnectorInfoDTO['type'], undefined)
       hideDrawer()
     }

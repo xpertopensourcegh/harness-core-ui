@@ -33,6 +33,8 @@ import {
   AwsCurAttributes
 } from 'services/cd-ng'
 import { Description, Tags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { CE_AWS_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import css from '../CreateCeAwsConnector.module.scss'
 
 interface OverviewDetails {
@@ -61,6 +63,8 @@ interface OverviewProps extends StepProps<CEAwsConnectorDTO> {
 
 const OverviewStep: React.FC<OverviewProps> = props => {
   const { getString } = useStrings()
+
+  useStepLoadTelemetry(CE_AWS_CONNECTOR_CREATION_EVENTS.LOAD_OVERVIEW_STEP)
 
   const { connectorInfo, isEditMode, nextStep, prevStepData } = props
   const { accountId } = useParams<{

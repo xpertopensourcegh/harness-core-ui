@@ -12,6 +12,8 @@ import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { CE_K8S_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import CopyCodeSection from './components/CopyCodeSection'
 import css from './CEK8sConnector.module.scss'
 
@@ -28,6 +30,8 @@ const SecretCreationStep: React.FC<StepProps<StepSecretManagerProps> & SecretCre
 
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
+
+  useStepLoadTelemetry(CE_K8S_CONNECTOR_CREATION_EVENTS.LOAD_SECRET_CREATION)
 
   const [secretYaml] = useState<string>(
     yamlStringify({

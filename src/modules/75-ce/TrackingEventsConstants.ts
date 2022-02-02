@@ -49,9 +49,12 @@ export const USER_JOURNEY_EVENTS = {
   ...RECOMMENDATION_EVENTS
 }
 
-export const PAGE_EVENTS = {
+export const PAGE_NAMES = {
   PERSPECTIVE_LIST: PREFIX_CCM_EVENTS + 'perspective_page',
   PERSPECTIVE_DETAILS_PAGE: PREFIX_CCM_EVENTS + 'perspective_details_page',
   RECOMMENDATIONS_PAGE: PREFIX_CCM_EVENTS + 'recommendations_page',
-  RECOMMENDATIONS_DETAILS_PAGE: PREFIX_CCM_EVENTS + 'recommendations_details_page'
+  RECOMMENDATIONS_DETAILS_PAGE: PREFIX_CCM_EVENTS + 'recommendations_details_page',
+  OVERVIEW_PAGE: PREFIX_CCM_EVENTS + 'overview_page',
+  NO_CONNECTOR_MODAL: PREFIX_CCM_EVENTS + 'no_connector_modal',
+  START_TRIAL_MODAL: PREFIX_CCM_EVENTS + 'start_trial_modal'
 }

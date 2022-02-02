@@ -75,7 +75,7 @@ import FeatureWarningSubscriptionInfoBanner from '@common/components/FeatureWarn
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useTelemetry } from '@common/hooks/useTelemetry'
-import { PAGE_EVENTS } from '@ce/TrackingEventsConstants'
+import { PAGE_NAMES } from '@ce/TrackingEventsConstants'
 import css from './PerspectiveDetailsPage.module.scss'
 
 const PAGE_SIZE = 10
@@ -224,7 +224,7 @@ const PerspectiveDetailsPage: React.FC = () => {
   })
 
   useEffect(() => {
-    trackPage(PAGE_EVENTS.PERSPECTIVE_DETAILS_PAGE, {})
+    trackPage(PAGE_NAMES.PERSPECTIVE_DETAILS_PAGE, {})
   }, [])
 
   useEffect(() => {

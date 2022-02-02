@@ -22,6 +22,8 @@ import { useStrings } from 'framework/strings'
 import { useCreateConnector, useUpdateConnector, Failure } from 'services/cd-ng'
 import { useAzureappclientid } from 'services/ce/index'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
+import { CE_AZURE_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 
@@ -41,6 +43,8 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
 
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
+
+  useStepLoadTelemetry(CE_AZURE_CONNECTOR_CREATION_EVENTS.LOAD_SERVICE_PRINCIPAL)
 
   const saveAndContinue = async () => {
     setIsSaving(true)

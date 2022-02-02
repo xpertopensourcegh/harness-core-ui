@@ -19,7 +19,7 @@ import type { RecommendationItem, TimeRangeValue } from '@ce/types'
 import { TimeRange, TimeRangeType } from '@ce/types'
 import { RecommendationOverviewStats, ResourceType, useFetchRecommendationQuery } from 'services/ce/services'
 import { useTelemetry } from '@common/hooks/useTelemetry'
-import { PAGE_EVENTS, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { PAGE_NAMES, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import CustomizeRecommendationsImg from './images/custom-recommendations.gif'
 
 import RecommendationDetails from '../../components/RecommendationDetails/RecommendationDetails'
@@ -245,7 +245,7 @@ const RecommendationDetailsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRangeValue>({ value: TimeRangeType.LAST_7, label: TimeRange.LAST_7 })
 
   useEffect(() => {
-    trackPage(PAGE_EVENTS.RECOMMENDATIONS_DETAILS_PAGE, {})
+    trackPage(PAGE_NAMES.RECOMMENDATIONS_DETAILS_PAGE, {})
   }, [])
 
   const timeRangeFilter = GET_DATE_RANGE[timeRange.value]

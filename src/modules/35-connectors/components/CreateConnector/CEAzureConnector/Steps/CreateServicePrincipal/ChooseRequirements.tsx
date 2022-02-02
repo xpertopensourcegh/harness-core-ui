@@ -22,6 +22,8 @@ import {
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { CEAzureConnector } from 'services/cd-ng'
+import { CE_AZURE_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 
@@ -105,6 +107,8 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
   const featuresEnabled = prevStepData?.spec?.featuresEnabled || []
   const { selectedCards, setSelectedCards, FeatureCards } = useSelectedCards(featuresEnabled)
   const includesBilling = !!prevStepData?.spec?.featuresEnabled?.includes('BILLING')
+
+  useStepLoadTelemetry(CE_AZURE_CONNECTOR_CREATION_EVENTS.LOAD_CHOOSE_REQUIREMENT)
 
   const handleSubmit = () => {
     const features = selectedCards.map(c => c.value)

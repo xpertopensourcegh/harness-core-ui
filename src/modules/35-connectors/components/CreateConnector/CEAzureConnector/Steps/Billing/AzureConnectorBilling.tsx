@@ -24,6 +24,8 @@ import cx from 'classnames'
 import { Popover, Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import type { BillingExportSpec, CEAzureConnector } from 'services/cd-ng'
+import { CE_AZURE_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import ShowExistingBillingExports from './AzureExistingBillingExports'
 import { CEAzureDTO, guidRegex } from '../Overview/AzureConnectorOverview'
 import { DialogExtensionContext } from '../../ModalExtension'
@@ -44,6 +46,8 @@ const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
   const [showBillingExportForm, setShowBillingExportForm] = useState(
     !!prevStepData?.hasBilling || !(prevStepData?.existingBillingExports || []).length
   )
+
+  useStepLoadTelemetry(CE_AZURE_CONNECTOR_CREATION_EVENTS.LOAD_AZURE_BILLING_EXPORT)
 
   const handleSubmit = (formData: BillingExportSpec) => {
     const nextStepData: CEAzureDTO = {

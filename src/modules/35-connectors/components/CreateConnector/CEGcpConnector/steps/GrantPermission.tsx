@@ -22,11 +22,15 @@ import { useStrings } from 'framework/strings'
 import { useGcpserviceaccount } from 'services/ce'
 import { useCreateConnector, useUpdateConnector, Failure } from 'services/cd-ng'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
+import { CE_GCP_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import type { CEGcpConnectorDTO } from './OverviewStep'
 import css from '../CreateCeGcpConnector.module.scss'
 
 const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
   const { getString } = useStrings()
+
+  useStepLoadTelemetry(CE_GCP_CONNECTOR_CREATION_EVENTS.LOAD_GRANT_PERMISSIONS)
 
   const { accountId } = useParams<{
     accountId: string

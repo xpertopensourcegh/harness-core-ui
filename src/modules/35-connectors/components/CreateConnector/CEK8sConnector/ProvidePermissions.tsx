@@ -27,6 +27,9 @@ import { useToaster } from '@common/exports'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import { useCloudCostK8sClusterSetup } from 'services/ce'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_K8S_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import CopyCodeSection from './components/CopyCodeSection'
 import PermissionYAMLPreview from './PermissionYAMLPreview'
 import css from './CEK8sConnector.module.scss'
@@ -53,6 +56,9 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { triggerExtension } = useContext(DialogExtensionContext)
+  const { trackEvent } = useTelemetry()
+
+  useStepLoadTelemetry(CE_K8S_CONNECTOR_CREATION_EVENTS.LOAD_PROVIDE_PERMISSIONS)
 
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({
@@ -63,6 +69,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   })
 
   const handleDownload = async () => {
+    trackEvent(CE_K8S_CONNECTOR_CREATION_EVENTS.DOWNLOAD_YAML, {})
     try {
       const response = await downloadYaml({
         connectorIdentifier: _defaultTo(props.prevStepData?.spec?.connectorRef, ''),
@@ -77,6 +84,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   }
 
   const handleDoneClick = () => {
+    trackEvent(CE_K8S_CONNECTOR_CREATION_EVENTS.APPLY_COMMAND_DONE, {})
     setIsDelegateDone(true)
   }
 

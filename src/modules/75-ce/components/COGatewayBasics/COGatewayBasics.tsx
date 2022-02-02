@@ -74,6 +74,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
 
   const handleConnectorCreation = (selectedProvider: string) => {
     const connectorType = getConnectorType(selectedProvider)
+
     if (connectorType) {
       openConnectorModal(false, connectorType, {
         connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO

@@ -38,6 +38,8 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { CE_AZURE_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import ShowConnectorError from '../ShowConnectorError'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 
@@ -79,6 +81,8 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
   const [isUniqueConnector, setIsUniqueConnector] = useState(true)
   const [existingConnectorDetails, setExistingConnectorDetails] = useState<ConnectorResponse | undefined>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+
+  useStepLoadTelemetry(CE_AZURE_CONNECTOR_CREATION_EVENTS.LOAD_OVERVIEW_STEP)
 
   const { accountId } = useParams<Params>()
   const { isGitSyncEnabled } = useAppStore()

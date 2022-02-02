@@ -28,6 +28,8 @@ import { CrossAccountAccess, useCreateConnector, useUpdateConnector, Failure } f
 import { useAwsaccountconnectiondetail } from 'services/ce/index'
 import LabelWithTooltip from '@connectors/common/LabelWithTooltip/LabelWithTooltip'
 import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
+import { CE_AWS_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
 import type { FeaturesString } from './CrossAccountRoleStep1'
 import type { CEAwsConnectorDTO } from './OverviewStep'
 import CrossAccountRoleExtension from './CrossAccountRoleExtension'
@@ -35,6 +37,8 @@ import css from '../CreateCeAwsConnector.module.scss'
 
 const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   const { getString } = useStrings()
+
+  useStepLoadTelemetry(CE_AWS_CONNECTOR_CREATION_EVENTS.LOAD_CREATE_CROSS_ACCOUNT_ROLE)
 
   const { accountId } = useParams<{
     accountId: string
