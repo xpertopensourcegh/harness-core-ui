@@ -132,6 +132,7 @@ export interface CreateSLOFormProps {
   createOrUpdateLoading?: boolean
   error?: string
   retryOnError: () => Promise<void>
+  handleRedirect: () => void
 }
 
 export interface NavButtonsProps {

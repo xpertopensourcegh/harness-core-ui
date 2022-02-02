@@ -219,6 +219,7 @@ const CVCreateSLO: React.FC = () => {
             error={getErrorMessage(SLODataError)}
             createOrUpdateLoading={createSLOLoading || updateSLOLoading}
             retryOnError={refetchSLOData}
+            handleRedirect={handleRedirect}
           />
         )}
       </Formik>

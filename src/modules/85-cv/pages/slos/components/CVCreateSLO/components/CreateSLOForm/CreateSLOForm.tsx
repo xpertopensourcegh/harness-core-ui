@@ -33,7 +33,8 @@ const CreateSLOForm: React.FC<CreateSLOFormProps> = ({
   loading,
   createOrUpdateLoading,
   error,
-  retryOnError
+  retryOnError,
+  handleRedirect
 }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, identifier } = useParams<
@@ -82,7 +83,14 @@ const CreateSLOForm: React.FC<CreateSLOFormProps> = ({
         text={getString('back')}
         variation={ButtonVariation.SECONDARY}
         disabled={saving}
-        onClick={() => setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])}
+        onClick={() => {
+          const tabIndex = TabsOrder.indexOf(selectedTabId)
+          if (tabIndex) {
+            setSelectedTabId(TabsOrder[tabIndex - 1])
+            return
+          }
+          handleRedirect()
+        }}
       />
       <RbacButton
         rightIcon="chevron-right"

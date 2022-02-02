@@ -303,6 +303,53 @@ describe('CVCreateSLO - Edit', () => {
     ).toBeInTheDocument()
   })
 
+  test('it should redirect to the SLO listing page by clicking on Back button', async () => {
+    jest
+      .spyOn(cvServices, 'useGetServiceLevelObjective')
+      .mockImplementation(() => ({ data: SLOResponse, loading: false, error: null, refetch: jest.fn() } as any))
+
+    render(
+      <TestWrapper {...testWrapperPropsForEdit}>
+        <CVCreateSLO />
+      </TestWrapper>
+    )
+
+    userEvent.click(screen.getByText('continue'))
+    userEvent.click(screen.getByText('continue'))
+
+    userEvent.click(screen.getByText('back'))
+    userEvent.click(screen.getByText('back'))
+    userEvent.click(screen.getByText('back'))
+
+    expect(screen.getByText(routes.toCVSLOs({ ...pathParams }))).toBeInTheDocument()
+  })
+
+  test('it should redirect to the MS details page by clicking on Back button', async () => {
+    jest
+      .spyOn(cvServices, 'useGetServiceLevelObjective')
+      .mockImplementation(() => ({ data: SLOResponse, loading: false, error: null, refetch: jest.fn() } as any))
+
+    render(
+      <TestWrapper
+        {...testWrapperPropsForEdit}
+        queryParams={{
+          monitoredServiceIdentifier: 'monitored_service_identifier'
+        }}
+      >
+        <CVCreateSLO />
+      </TestWrapper>
+    )
+
+    userEvent.click(screen.getByText('back'))
+
+    expect(
+      screen.getByText(
+        routes.toCVAddMonitoringServicesEdit({ ...pathParams, identifier: 'monitored_service_identifier' }) +
+          getCVMonitoringServicesSearchParam({ tab: MonitoredServiceEnum.SLOs })
+      )
+    ).toBeInTheDocument()
+  })
+
   test('it should not render Event type and Good request metric dropdowns for Threshold based', () => {
     jest
       .spyOn(cvServices, 'useGetServiceLevelObjective')
