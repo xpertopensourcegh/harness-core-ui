@@ -56,11 +56,13 @@ export const getHelpeTextForTags = (
     region?: string
     connectorRef: string
     registryHostname?: string
+    repository?: string
+    repositoryPort?: number
   },
 
   getString: (key: StringKeys) => string
 ): string => {
-  const { connectorRef, region, imagePath, registryHostname } = fields
+  const { connectorRef, region, imagePath, registryHostname, repository, repositoryPort } = fields
   const invalidFields = []
   if (!connectorRef || getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME) {
     invalidFields.push(getString('connector'))
@@ -76,6 +78,15 @@ export const getHelpeTextForTags = (
   }
   if (!imagePath || getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME) {
     invalidFields.push(getString('pipeline.imagePathLabel'))
+  }
+  if (repository !== undefined && (!repository || getMultiTypeFromValue(repository) === MultiTypeInputType.RUNTIME)) {
+    invalidFields.push(getString('repository'))
+  }
+  if (
+    repositoryPort !== undefined &&
+    (!repositoryPort || getMultiTypeFromValue(repositoryPort) === MultiTypeInputType.RUNTIME)
+  ) {
+    invalidFields.push(getString('pipeline.artifactsSelection.repositoryPort'))
   }
 
   const helpText = `${invalidFields.length > 1 ? invalidFields.join(', ') : invalidFields[0]} ${

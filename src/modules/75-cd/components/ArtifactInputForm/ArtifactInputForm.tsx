@@ -42,7 +42,9 @@ import {
   ConnectorInfoDTO,
   useGetBuildDetailsForDockerWithYaml,
   useGetBuildDetailsForGcrWithYaml,
-  useGetBuildDetailsForEcrWithYaml
+  useGetBuildDetailsForEcrWithYaml,
+  useGetBuildDetailsForNexusArtifactWithYaml,
+  useGetBuildDetailsForArtifactoryArtifactWithYaml
 } from 'services/cd-ng'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -58,6 +60,7 @@ import {
   TriggerDefaultFieldList,
   TriggerTypes
 } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+import { repositoryFormat } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 
 import { clearRuntimeInputValue, getNonRuntimeFields } from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecHelper'
@@ -271,19 +274,99 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     lazy: true
   })
 
+  const {
+    data: nexusTagData,
+    loading: nexusTagDataLoading,
+    refetch: refetchNexusBuildData,
+    error: nexusError
+  } = useMutateAsGet(useGetBuildDetailsForNexusArtifactWithYaml, {
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier: defaultPipelineId,
+      fqnPath: getFqnPath(),
+      repository: lastQueryData.repository || '',
+      repositoryFormat,
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
+
+  const {
+    data: artifactoryTagData,
+    loading: artifactoryTagDataLoading,
+    refetch: refetchArtifactoryBuildData,
+    error: artifactoryError
+  } = useMutateAsGet(useGetBuildDetailsForArtifactoryArtifactWithYaml, {
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier: defaultPipelineId,
+      fqnPath: getFqnPath(),
+      repository: lastQueryData.repository || '',
+      repositoryFormat,
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
+
   const { data: regionData } = useListAwsRegions({
     queryParams: {
       accountId
     }
   })
 
+  React.useEffect(() => {
+    if (lastQueryData.connectorRef) {
+      switch (lastQueryData.connectorType) {
+        case ENABLED_ARTIFACT_TYPES.DockerRegistry:
+          refetchDockerBuildData()
+          break
+        case ENABLED_ARTIFACT_TYPES.Gcr:
+          refetchGcrBuildData()
+          break
+        case ENABLED_ARTIFACT_TYPES.Ecr:
+          refetchEcrBuildData()
+          break
+        case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+          refetchNexusBuildData()
+          break
+        case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
+          refetchArtifactoryBuildData()
+          break
+        default:
+          break
+      }
+    }
+  }, [lastQueryData])
+
+  const isTagLoading = dockerLoading || gcrLoading || ecrLoading || nexusTagDataLoading || artifactoryTagDataLoading
+  const hasTagError = gcrError || dockerError || ecrError || nexusError || artifactoryError
+  const getTagError = get(hasTagError, 'data.message', null)
+
   useDeepCompareEffect(() => {
-    if (gcrError || dockerError || ecrError) {
-      showError(
-        `Stage ${stageIdentifier}: ${get(ecrError || gcrError || dockerError, 'data.message', null)}`,
-        undefined,
-        'cd.tag.fetch.error'
-      )
+    if (hasTagError) {
+      showError(`Stage ${stageIdentifier}: ${getTagError}`, undefined, 'cd.tag.fetch.error')
       return
     }
     if (Array.isArray(dockerdata?.data?.buildDetailsList)) {
@@ -310,6 +393,22 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
           set(draft, `${lastQueryData.path}.tags`, tagList)
         })
       )
+    } else if (Array.isArray(nexusTagData?.data?.buildDetailsList)) {
+      let tagList: any[] = nexusTagData?.data?.buildDetailsList as []
+      tagList = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
+      setTagListMap(
+        produce(tagListMap, draft => {
+          set(draft, `${lastQueryData.path}.tags`, tagList)
+        })
+      )
+    } else if (Array.isArray(artifactoryTagData?.data?.buildDetailsList)) {
+      let tagList: any[] = artifactoryTagData?.data?.buildDetailsList as []
+      tagList = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
+      setTagListMap(
+        produce(tagListMap, draft => {
+          set(draft, `${lastQueryData.path}.tags`, tagList)
+        })
+      )
     }
   }, [
     dockerdata?.data?.buildDetailsList,
@@ -318,27 +417,16 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     gcrError,
     ecrdata?.data?.buildDetailsList,
     ecrError,
+    nexusTagData?.data?.buildDetailsList,
+    nexusError,
+    artifactoryTagData?.data?.buildDetailsList,
+    artifactoryError,
     getString,
     lastQueryData.path,
     showError,
     tagListMap,
     clear
   ])
-  React.useEffect(() => {
-    if (lastQueryData.connectorRef) {
-      switch (lastQueryData.connectorType) {
-        case ENABLED_ARTIFACT_TYPES.DockerRegistry:
-          refetchDockerBuildData()
-          break
-        case ENABLED_ARTIFACT_TYPES.Gcr:
-          refetchGcrBuildData()
-          break
-        case ENABLED_ARTIFACT_TYPES.Ecr:
-          refetchEcrBuildData()
-          break
-      }
-    }
-  }, [lastQueryData])
 
   const getSelectItems = (tagsPath: string): SelectOption[] => {
     return get(tagListMap, `${tagsPath}.tags`, []) as SelectOption[]
@@ -350,7 +438,8 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     connectorRef = '',
     connectorType = '',
     registryHostname,
-    region
+    region,
+    repository
   }: LastQueryData): void => {
     if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       if (imagePath?.length && connectorRef?.length) {
@@ -365,6 +454,13 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     } else if (connectorType === ENABLED_ARTIFACT_TYPES.Gcr) {
       if (imagePath?.length && connectorRef?.length && registryHostname?.length) {
         setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, registryHostname })
+      }
+    } else if (
+      connectorType === ENABLED_ARTIFACT_TYPES.NexusRegistry ||
+      connectorType === ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
+    ) {
+      if (imagePath?.length && connectorRef?.length && repository) {
+        setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, repository })
       }
     } else {
       if (imagePath?.length && connectorRef?.length && region?.length) {
@@ -381,7 +477,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
             <Text>{item.label}</Text>
           </Layout.Horizontal>
         }
-        disabled={dockerLoading || gcrLoading || ecrLoading}
+        disabled={isTagLoading}
         onClick={handleClick}
       />
     </div>
@@ -567,6 +663,43 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     onChange={() => resetTags(`${path}.artifacts.primary.spec.tag`)}
                   />
                 )}
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.repository`, '')) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <FormInput.MultiTextInput
+                    label={getString('repository')}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.repository`)}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    name={`${path}.artifacts.primary.spec.repository`}
+                    onChange={() => resetTags(`${path}.artifacts.primary.spec.tag`)}
+                  />
+                )}
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.repositoryPort`, '')) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <FormInput.MultiTextInput
+                    label={getString('pipeline.artifactsSelection.repositoryPort')}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.repositoryPort`)}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    name={`${path}.artifacts.primary.spec.repositoryPort`}
+                  />
+                )}
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.dockerRepositoryServer`, '')) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <FormInput.MultiTextInput
+                    label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.dockerRepositoryServer`)}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    name={`${path}.artifacts.primary.spec.dockerRepositoryServer`}
+                  />
+                )}
 
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
                   MultiTypeInputType.RUNTIME && (
@@ -607,7 +740,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                       disabled={disablePrimaryFields(`artifacts.primary.spec.tag`, true)}
                       // disabled={fromTrigger ? false : isTagSelectionDisabled(artifacts?.primary?.type || '')}
                       selectItems={
-                        dockerLoading || gcrLoading || ecrLoading
+                        isTagLoading
                           ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
                           : getSelectItems('primary')
                       }
@@ -637,6 +770,10 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                             MultiTypeInputType.RUNTIME
                               ? artifacts?.primary?.spec?.registryHostname
                               : initialValues.artifacts?.primary?.spec?.registryHostname
+                          const repositoryNameCurrent =
+                            getMultiTypeFromValue(artifacts?.primary?.spec?.repository) !== MultiTypeInputType.RUNTIME
+                              ? artifacts?.primary?.spec?.repository
+                              : initialValues.artifacts?.primary?.spec?.repository
                           const tagsPath = `primary`
                           !isTagSelectionDisabled(artifacts?.primary?.type || '') &&
                             fetchTags({
@@ -645,21 +782,18 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                               connectorRef,
                               connectorType: artifacts?.primary?.type,
                               registryHostname: registryHostnameCurrent,
-                              region: regionCurrent
+                              region: regionCurrent,
+                              repository: repositoryNameCurrent
                             })
                         },
                         selectProps: {
-                          items:
-                            dockerLoading || gcrLoading || ecrLoading
-                              ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
-                              : getSelectItems('primary'),
+                          items: isTagLoading
+                            ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                            : getSelectItems('primary'),
                           usePortal: true,
                           addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')),
                           noResults: (
-                            <Text lineClamp={1}>
-                              {get(ecrError || gcrError || dockerError, 'data.message', null) ||
-                                getString('pipelineSteps.deploy.errors.notags')}
-                            </Text>
+                            <Text lineClamp={1}>{getTagError || getString('pipelineSteps.deploy.errors.notags')}</Text>
                           ),
                           itemRenderer: itemRenderer,
                           allowCreatingNewItems: true,
@@ -695,7 +829,14 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                 {
                   sidecar: {
                     identifier = '',
-                    spec: { connectorRef = '', imagePath = '', registryHostname = '' } = {}
+                    spec: {
+                      connectorRef = '',
+                      imagePath = '',
+                      registryHostname = '',
+                      repository = '',
+                      repositoryPort = '',
+                      dockerRepositoryServer = ''
+                    } = {}
                   } = {}
                 }: any,
                 index: number
@@ -809,6 +950,40 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         onChange={() => resetTags(`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`)}
                       />
                     )}
+                    {getMultiTypeFromValue(repository) === MultiTypeInputType.RUNTIME && (
+                      <FormInput.MultiTextInput
+                        label={getString('repository')}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.repository`)}
+                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.repository`}
+                        onChange={() => resetTags(`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`)}
+                      />
+                    )}
+                    {getMultiTypeFromValue(repositoryPort) === MultiTypeInputType.RUNTIME && (
+                      <FormInput.MultiTextInput
+                        label={getString('pipeline.artifactsSelection.repositoryPort')}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.repositoryPort`)}
+                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.repositoryPort`}
+                      />
+                    )}
+                    {getMultiTypeFromValue(dockerRepositoryServer) === MultiTypeInputType.RUNTIME && (
+                      <FormInput.MultiTextInput
+                        label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.dockerRepositoryServer`)}
+                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.dockerRepositoryServer`}
+                      />
+                    )}
                     {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (
                       <ExperimentalInput
                         formik={formik}
@@ -848,7 +1023,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                           useValue
                           disabled={disableField(`sidecars[${index}].sidecar.spec.tag`, true)}
                           selectItems={
-                            dockerLoading || gcrLoading || ecrLoading
+                            isTagLoading
                               ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
                               : getSelectItems(`sidecars[${index}]`)
                           }
@@ -904,16 +1079,14 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                             value: TriggerDefaultFieldList.build,
                             expressions,
                             selectProps: {
-                              items:
-                                dockerLoading || gcrLoading || ecrLoading
-                                  ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
-                                  : getSelectItems(`sidecars[${index}]`),
+                              items: isTagLoading
+                                ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                                : getSelectItems(`sidecars[${index}]`),
                               usePortal: true,
                               addClearBtn: true && !readonly,
                               noResults: (
                                 <Text lineClamp={1}>
-                                  {get(ecrError || gcrError || dockerError, 'data.message', null) ||
-                                    getString('pipelineSteps.deploy.errors.notags')}
+                                  {getTagError || getString('pipelineSteps.deploy.errors.notags')}
                                 </Text>
                               ),
                               itemRenderer: itemRenderer,

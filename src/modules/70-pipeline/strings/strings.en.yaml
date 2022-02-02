@@ -712,6 +712,9 @@ imagePathLabel: Image Path
 artifactsSelection:
   repositoryPort: Repository port
   repositoryPortPlaceholder: Enter Repository Port
+  dockerRepositoryServer: Docker Repository Server
+  dockerRepositoryServerPlaceholder: Enter Docker Repository Server
+  repositoryPlaceholder: Enter Repository
   artifactDetails: Artifact Details
   artifactTyperequired: Artifact Type is required
   existingDocker:
@@ -726,6 +729,7 @@ artifactsSelection:
     tagRegex: Tag Regex is required
     sidecarId: Sidecar Identifier is required
     repositoryPort: Repository Port is required
+    dockerRepositoryServer: Docker Repository Server is required
 overrideSets:
   createOverrideSet: Create Override Set
   overrideSetPlaceholder: Enter Override Set Name

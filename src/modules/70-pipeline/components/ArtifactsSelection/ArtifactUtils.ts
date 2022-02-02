@@ -7,6 +7,7 @@
 
 import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
 import type { FormikValues } from 'formik'
+import { isEmpty } from 'lodash-es'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ENABLED_ARTIFACT_TYPES } from './ArtifactHelper'
 import type { ArtifactTagHelperText, ArtifactType } from './ArtifactInterface'
@@ -20,6 +21,8 @@ export enum RegistryHostNames {
   K8S_GCR_URL = 'k8s.gcr.io',
   LAUNCHER_GCR_URL = 'launcher.gcr.io'
 }
+
+export const repositoryFormat = 'docker'
 
 export const resetTag = (formik: FormikValues): void => {
   formik.values.tagType === 'value' &&
@@ -61,7 +64,40 @@ export const helperTextData = (
         registryHostname: formik.values?.registryHostname || '',
         connectorRef: connectorIdValue
       }
+    case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+      return {
+        imagePath: formik.values?.imagePath,
+        repository: formik.values?.repository,
+        repositoryPort: formik.values?.repositoryPort,
+        connectorRef: connectorIdValue
+      }
+    case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
+      return {
+        imagePath: formik.values?.imagePath,
+        repository: formik.values?.repository,
+        connectorRef: connectorIdValue
+      }
     default:
       return {} as ArtifactTagHelperText
   }
+}
+
+export const checkIfQueryParamsisNotEmpty = (queryParamList: Array<string | number | undefined>): boolean => {
+  return queryParamList.every(querydata => {
+    if (typeof querydata !== 'number') {
+      return !isEmpty(querydata)
+    }
+    return querydata !== undefined
+  })
+}
+export const shouldFetchTags = (
+  prevStepData: ConnectorConfigDTO | undefined,
+  queryParamList: Array<string | number>
+): boolean => {
+  return (
+    !isEmpty(getConnectorIdValue(prevStepData)) &&
+    getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
+    checkIfQueryParamsisNotEmpty(queryParamList) &&
+    queryParamList.every(query => getMultiTypeFromValue(query) === MultiTypeInputType.FIXED)
+  )
 }

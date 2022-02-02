@@ -27,8 +27,20 @@ import { useStrings } from 'framework/strings'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 
-import { ArtifactConfig, ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
-import { getConnectorIdValue } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import {
+  ArtifactConfig,
+  ConnectorConfigDTO,
+  DockerBuildDetailsDTO,
+  useGetBuildDetailsForArtifactoryArtifact
+} from 'services/cd-ng'
+import {
+  checkIfQueryParamsisNotEmpty,
+  getConnectorIdValue,
+  repositoryFormat,
+  resetTag,
+  shouldFetchTags
+} from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
@@ -47,13 +59,15 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   selectedArtifact
 }) => {
   const { getString } = useStrings()
-  const [lastImagePath, setLastImagePath] = useState('')
+  const [lastQueryData, setLastQueryData] = useState({ imagePath: '', repository: '' })
+
   const [tagList, setTagList] = useState<DockerBuildDetailsDTO[] | undefined>([])
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
+    repository: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
@@ -79,9 +93,11 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
     return {
       identifier: '',
       imagePath: '',
-      tag: RUNTIME_INPUT_VALUE,
+      repository: '',
+      dockerRepositoryServer: '',
       tagType: TagTypes.Value,
-      tagRegex: ''
+      tag: RUNTIME_INPUT_VALUE,
+      tagRegex: RUNTIME_INPUT_VALUE
     }
   }
   const getConnectorRefQueryData = (): string => {
@@ -90,12 +106,14 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
 
   const {
     data,
-    loading: dockerBuildDetailsLoading,
-    refetch: refetchDockerTag,
-    error: dockerTagError
-  } = useGetBuildDetailsForDocker({
+    loading: artifactoryBuildDetailsLoading,
+    refetch: refetchArtifactoryTag,
+    error: artifactoryTagError
+  } = useGetBuildDetailsForArtifactoryArtifact({
     queryParams: {
-      imagePath: lastImagePath,
+      imagePath: lastQueryData.imagePath,
+      repository: lastQueryData.repository,
+      repositoryFormat,
       connectorRef: getConnectorRefQueryData(),
       accountIdentifier: accountId,
       orgIdentifier,
@@ -108,38 +126,39 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   })
 
   useEffect(() => {
-    if (getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
-      refetchDockerTag()
+    if (checkIfQueryParamsisNotEmpty(Object.values(lastQueryData))) {
+      refetchArtifactoryTag()
     }
-  }, [lastImagePath, refetchDockerTag])
+  }, [lastQueryData, refetchArtifactoryTag])
   useEffect(() => {
-    if (dockerTagError) {
+    if (artifactoryTagError) {
       setTagList([])
     } else if (Array.isArray(data?.data?.buildDetailsList)) {
       setTagList(data?.data?.buildDetailsList)
     }
-  }, [data?.data?.buildDetailsList, dockerTagError])
+  }, [data?.data?.buildDetailsList, artifactoryTagError])
 
   const canFetchTags = useCallback(
-    (imagePath: string): boolean => {
+    (imagePath: string, repository: string): boolean => {
       return !!(
-        imagePath.length &&
-        getConnectorIdValue(prevStepData).length &&
-        getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
-        lastImagePath !== imagePath &&
-        getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
+        (lastQueryData.imagePath !== imagePath || lastQueryData.repository !== repository) &&
+        shouldFetchTags(prevStepData, [imagePath, repository])
       )
     },
-    [lastImagePath, prevStepData]
+    [lastQueryData, prevStepData]
   )
   const fetchTags = useCallback(
-    (imagePath = ''): void => {
-      if (canFetchTags(imagePath)) {
-        setLastImagePath(imagePath)
+    (imagePath = '', repository = ''): void => {
+      if (canFetchTags(imagePath, repository)) {
+        setLastQueryData({ imagePath, repository })
       }
     },
     [canFetchTags]
   )
+
+  const isTagDisabled = useCallback((formikValue): boolean => {
+    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.repository])
+  }, [])
 
   const getInitialValues = (): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
@@ -152,7 +171,7 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
       ...specValues,
       tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
     }
-    if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
+    if (specValues?.tag && getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
       values.tag = { label: specValues?.tag, value: specValues?.tag }
     }
     if (context === 2 && initialValues?.identifier) {
@@ -171,6 +190,9 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
       spec: {
         connectorRef: formData?.connectorId,
         imagePath: formData?.imagePath,
+        repository: formData?.repository,
+        dockerRepositoryServer: formData?.dockerRepositoryServer,
+        repositoryFormat,
         ...tagData
       }
     }
@@ -210,6 +232,68 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
                   />
                 </div>
               )}
+              <div className={css.imagePathContainer}>
+                <FormInput.MultiTextInput
+                  label={getString('repository')}
+                  name="repository"
+                  placeholder={getString('pipeline.artifactsSelection.repositoryPlaceholder')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes
+                  }}
+                  onChange={() => {
+                    tagList?.length && setTagList([])
+                    resetTag(formik)
+                  }}
+                />
+
+                {getMultiTypeFromValue(formik.values.repository) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.repository as string}
+                      type="String"
+                      variableName="repository"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('repository', value)
+                      }}
+                      isReadonly={isReadonly}
+                    />
+                  </div>
+                )}
+              </div>
+              <div className={css.imagePathContainer}>
+                <FormInput.MultiTextInput
+                  label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
+                  name="dockerRepositoryServer"
+                  placeholder={getString('pipeline.artifactsSelection.dockerRepositoryServerPlaceholder')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes
+                  }}
+                />
+
+                {getMultiTypeFromValue(formik.values.dockerRepositoryServer) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.dockerRepositoryServer as string}
+                      type="String"
+                      variableName="dockerRepositoryServer"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('dockerRepositoryServer', value)
+                      }}
+                      isReadonly={isReadonly}
+                    />
+                  </div>
+                )}
+              </div>
               <ArtifactImagePathTagView
                 selectedArtifact={selectedArtifact as ArtifactType}
                 formik={formik}
@@ -217,11 +301,12 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
                 allowableTypes={allowableTypes}
                 isReadonly={isReadonly}
                 connectorIdValue={getConnectorIdValue(prevStepData)}
-                fetchTags={fetchTags}
-                buildDetailsLoading={dockerBuildDetailsLoading}
-                tagError={dockerTagError}
+                fetchTags={imagePath => fetchTags(imagePath, formik?.values?.repository)}
+                buildDetailsLoading={artifactoryBuildDetailsLoading}
+                tagError={artifactoryTagError}
                 tagList={tagList}
                 setTagList={setTagList}
+                tagDisabled={isTagDisabled(formik?.values)}
               />
             </div>
             <Layout.Horizontal spacing="medium">

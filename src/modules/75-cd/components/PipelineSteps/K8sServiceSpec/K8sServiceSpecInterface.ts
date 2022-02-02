@@ -37,4 +37,5 @@ export interface LastQueryData {
   connectorType?: string
   registryHostname?: string
   region?: string
+  repository?: string
 }

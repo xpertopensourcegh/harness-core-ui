@@ -43,13 +43,17 @@ export interface ArtifactsSelectionProps {
   overrideSetIdentifier?: string
 }
 
-export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr' | 'Nexus' | 'Artifactory'
+export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr' | 'NexusRegistry' | 'ArtifactoryRegistry'
 export interface OrganizationCreationType {
   type: ArtifactType
 }
 export enum TagTypes {
   Value = 'value',
   Regex = 'regex'
+}
+export enum RepositoryPortOrServer {
+  RepositoryPort = 'repositoryPort',
+  DockerRepositoryServer = 'dockerRepositoryServer'
 }
 export interface InitialArtifactDataType {
   submittedArtifact?: ArtifactType | null
@@ -63,7 +67,10 @@ export interface ImagePathTypes {
   tagType: TagTypes
   registryHostname?: string
   region?: any
-  repositoryPort?: string
+  repositoryPort?: number | string
+  repository?: string
+  dockerRepositoryServer?: string
+  repositoryPortorDockerServer?: string
 }
 
 export interface ImagePathProps {
@@ -89,6 +96,8 @@ export interface ArtifactTagHelperText {
   region?: string
   connectorRef: string
   registryHostname?: string
+  repository?: string
+  repositoryPort?: number
 }
 export interface ArtifactImagePathTagViewProps {
   selectedArtifact: ArtifactType
@@ -102,4 +111,5 @@ export interface ArtifactImagePathTagViewProps {
   tagList: DockerBuildDetailsDTO[] | undefined
   setTagList: any
   tagError: GetDataError<Failure | Error> | null
+  tagDisabled?: boolean
 }
