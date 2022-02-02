@@ -6,19 +6,8 @@
  */
 
 import React, { useEffect, useMemo } from 'react'
-import {
-  Layout,
-  Container,
-  Icon,
-  Text,
-  Color,
-  SelectOption,
-  Select,
-  PageSpinner,
-  NoDataCard,
-  PageError
-} from '@wings-software/uicore'
-import { Menu, Tag } from '@blueprintjs/core'
+import { Layout, Container, Icon, Text, Color, SelectOption, PageSpinner, PageError } from '@wings-software/uicore'
+import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -27,63 +16,36 @@ import {
   ConnectorResponse,
   EntityGitDetails,
   useGetListOfBranchesWithStatus,
-  GitBranchDTO
+  GitBranchDTO,
+  ResponseConnectorResponse
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
-import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import ScopedTitle from '@common/components/Title/ScopedTitle'
-import ConnectorView from './ConnectorView'
-import { getIconByType } from './utils/ConnectorUtils'
+import { getIconByType } from '../utils/ConnectorUtils'
+import ConnectorPageGitDetails from './ConnectorDetailsPageGitDetails/ConnectorPageGitDetails'
+import RenderConnectorDetailsActiveTab from '../views/RenderConnectorDetailsActiveTab/RenderConnectorDetailsActiveTab'
 import css from './ConnectorDetailsPage.module.scss'
 
 interface Categories {
   [key: string]: string
 }
 
-interface RenderViewBasisActiveCategoryProps {
-  activeCategory: number
-  data: ConnectorResponse
-  refetch: () => Promise<void>
+interface MockData {
+  data: ResponseConnectorResponse
 }
 
-const RenderViewBasisActiveCategory: React.FC<RenderViewBasisActiveCategoryProps> = ({
-  activeCategory,
-  data,
-  refetch
-}) => {
-  const { getString } = useStrings()
-  switch (activeCategory) {
-    case 0:
-      return data.connector?.type ? (
-        <ConnectorView
-          type={data.connector.type}
-          response={data || ({} as ConnectorResponse)}
-          refetchConnector={refetch}
-        />
-      ) : (
-        <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
-      )
-    case 1:
-      if (data.connector?.identifier) {
-        return <EntitySetupUsage entityType={'Connectors'} entityIdentifier={data.connector?.identifier} />
-      }
-      return <></>
-    case 2:
-      return <ActivityHistory referredEntityType="Connectors" entityIdentifier={data.connector?.identifier || ''} />
-    default:
-      return <></>
-  }
+interface ConnectorDetailsPageProps {
+  mockData?: MockData
 }
 
-const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
+const ConnectorDetailsPage: React.FC<ConnectorDetailsPageProps> = props => {
   const { getString } = useStrings()
   const [data, setData] = React.useState<ConnectorResponse>({})
   const [activeCategory, setActiveCategory] = React.useState(0)
@@ -201,42 +163,6 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     }
   }
 
-  const RenderGitDetails = useMemo(() => {
-    return (
-      <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
-        <Layout.Horizontal spacing="small">
-          <Icon name="repository" margin={{ left: 'large' }}></Icon>
-          <Text lineClamp={1} className={css.filePath}>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
-        </Layout.Horizontal>
-
-        <Layout.Horizontal spacing="small">
-          <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
-          <Select
-            name="branch"
-            className={css.gitBranch}
-            value={{ label: selectedBranch, value: selectedBranch }}
-            items={branchSelectOptions}
-            onQueryChange={(query: string) => {
-              setSearchTerm(query)
-            }}
-            itemRenderer={(item: SelectOption): React.ReactElement => {
-              return (
-                <Menu.Item
-                  key={item.value as string}
-                  active={item.value === selectedBranch}
-                  onClick={() => handleBranchClick(item.value as string)}
-                  text={item.value}
-                />
-              )
-            }}
-          />
-          {loadingBranchList ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
-        </Layout.Horizontal>
-      </Layout.Horizontal>
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [branchSelectOptions, selectedBranch, loadingBranchList])
-
   const renderTitle = useMemo(
     () => (
       <Layout.Vertical>
@@ -261,7 +187,18 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
               <Text color={Color.GREY_400}>
                 {connectorData?.data?.connector?.identifier || data?.connector?.identifier}
               </Text>
-              {activeCategory === 0 && gitDetails?.objectId ? RenderGitDetails : null}
+              {activeCategory === 0 && gitDetails?.objectId ? (
+                <ConnectorPageGitDetails
+                  handleBranchClick={handleBranchClick}
+                  gitDetails={gitDetails}
+                  selectedBranch={selectedBranch}
+                  branchSelectOptions={branchSelectOptions}
+                  loadingBranchList={loadingBranchList}
+                  onQueryChange={(query: string) => {
+                    setSearchTerm(query)
+                  }}
+                />
+              ) : null}
             </Layout.Horizontal>
           </Container>
         </Layout.Horizontal>
@@ -276,9 +213,10 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       return <PageSpinner />
     }
     if (error) {
+      const errorMessage = (error.data as Error)?.message || error.message
       return (
         <PageError
-          message={(error.data as Error)?.message || error.message}
+          message={errorMessage}
           onClick={() =>
             refetch({
               queryParams: selectedBranch
@@ -293,7 +231,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         />
       )
     }
-    return <RenderViewBasisActiveCategory activeCategory={activeCategory} data={data} refetch={refetch} />
+    return <RenderConnectorDetailsActiveTab activeCategory={activeCategory} data={data} refetch={refetch} />
   }
 
   return (

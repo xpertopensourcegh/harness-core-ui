@@ -45,7 +45,7 @@ import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigura
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import DelegateTokens from '@delegates/components/DelegateTokens/DelegateTokens'
-import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
+import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
