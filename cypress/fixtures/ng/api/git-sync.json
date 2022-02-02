@@ -9,5 +9,25 @@
     "branch": "master",
     "gitConnectorType": "Github",
     "gitSyncFolderConfigDTOs": [{ "rootFolder": "src/.harness/", "isDefault": true }]
+  },
+  {
+    "identifier": "Git_Sync_Cypress",
+    "name": "Git Sync Cypress",
+    "projectIdentifier": "Cypress_Git_Sync_Saas",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "Git_Sync_Cypress_Connector",
+    "repo": "https://github.com/wings-software/git_sync_cypress",
+    "branch": "main",
+    "gitConnectorType": "Github",
+    "gitSyncFolderConfigDTOs": [
+      {
+        "rootFolder": "chetanQAResources/.harness/",
+        "isDefault": true
+      },
+      {
+        "rootFolder": "test0212/.harness/",
+        "isDefault": false
+      }
+    ]
   }
 ]

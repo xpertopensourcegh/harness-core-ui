@@ -164,8 +164,6 @@ describe('RUN PIPELINE MODAL', () => {
 
         cy.get('#pipeline-panel').contains('span', 'testPipeline_Cypress').should('be.visible')
         cy.get('#pipeline-panel').contains('span', 'testStage_Cypress').should('be.visible')
-        cy.get('#pipeline-panel').contains('span', 'environmentRef').should('be.visible')
-        cy.get('#pipeline-panel').contains('span', 'testEnv').should('be.visible')
 
         cy.get('#pipeline-panel').contains('span', 'connectorRef').should('be.visible')
         cy.get('#pipeline-panel').contains('span', 'test1111').should('be.visible')
