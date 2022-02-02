@@ -18,7 +18,6 @@ declare const styles: {
   readonly downTag: string
   readonly fulFilmentIcon: string
   readonly gatewayLogView: string
-  readonly header: string
   readonly headerLayout: string
   readonly layout: string
   readonly pageContainer: string

@@ -33,6 +33,7 @@ import formatCost from '@ce/utils/formatCost'
 import BudgetStatusBar from '@ce/components/BudgetStatusBar/BudgetStatusBar'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
 import EmptyView from '@ce/images/empty-state.svg'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './Budgets.module.scss'
 
 interface BudgetMenuProps {
@@ -305,7 +306,7 @@ const Budgets: () => JSX.Element = () => {
     return budget.name?.toLocaleLowerCase().indexOf(searchParam.toLowerCase()) < 0 ? false : true
   })
 
-  const HeaderComponent = <Page.Header title={getString('ce.budgets.listPage.title')} />
+  const HeaderComponent = <Page.Header title={getString('ce.budgets.listPage.title')} breadcrumbs={<NGBreadcrumbs />} />
 
   const openNewBudgetModal = () => {
     openModal({

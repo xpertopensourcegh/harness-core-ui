@@ -27,7 +27,6 @@ import { Intent } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import { Budget, useDeleteBudget } from 'services/ce'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import BudgetDetailsSummary from '@ce/components/BudgetDetailsSummary/BudgetDetailsSummary'
 import { useFetchBudgetsGridDataQuery, useFetchBudgetSummaryQuery } from 'services/ce/services'
@@ -35,6 +34,7 @@ import BudgetDetailsGrid from '@ce/components/BudgetDetailsGrid/BudgetDetailsGri
 import BudgetDetailsChart from '@ce/components/BudgetDetailsChart/BudgetDetailsChart'
 import EmptyView from '@ce/images/empty-state.svg'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './BudgetDetails.module.scss'
 
 const BudgetDetails: () => JSX.Element | null = () => {
@@ -231,15 +231,11 @@ const BudgetDetails: () => JSX.Element | null = () => {
           </Layout.Horizontal>
         }
         breadcrumbs={
-          <Breadcrumbs
+          <NGBreadcrumbs
             links={[
               {
                 url: routes.toCEBudgets({ accountId }),
                 label: getString('ce.budgets.sideNavText')
-              },
-              {
-                label: '',
-                url: '#'
               }
             ]}
           />

@@ -46,6 +46,7 @@ import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGrid
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
 import { Utils } from '@ce/common/Utils'
 import { PAGE_NAMES, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import bgImage from './images/perspectiveBg.png'
 import css from './PerspectiveListPage.module.scss'
 
@@ -533,6 +534,7 @@ const PerspectiveListPage: React.FC = () => {
             {getString('ce.perspectives.sideNavText')}
           </Text>
         }
+        breadcrumbs={<NGBreadcrumbs />}
       />
       <Layout.Horizontal spacing="large" className={css.header}>
         <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>

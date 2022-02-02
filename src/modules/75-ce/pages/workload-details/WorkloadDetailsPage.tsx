@@ -21,7 +21,6 @@ import {
   ClusterData
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import { getViewFilterForId, getTimeFilters, GROUP_BY_POD, getTimeRangeFilter } from '@ce/utils/perspectiveUtils'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
@@ -39,6 +38,7 @@ import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import { Page } from '@common/exports'
 import WorkloadSummary from '@ce/components/WorkloadSummary/WorkloadSummary'
 import EmptyView from '@ce/images/empty-state.svg'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Aggregation, AggregationFunctionMapping } from './constants'
 import css from './WorkloadDetailsPage.module.scss'
 
@@ -178,7 +178,7 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
       <Page.Header
         title={workloadName}
         breadcrumbs={
-          <Breadcrumbs
+          <NGBreadcrumbs
             links={
               recommendation
                 ? [
@@ -189,10 +189,6 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
                     {
                       url: routes.toCERecommendationDetails({ accountId, recommendation, recommendationName }),
                       label: workloadName
-                    },
-                    {
-                      label: '',
-                      url: '#'
                     }
                   ]
                 : [
@@ -203,10 +199,6 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
                     {
                       url: routes.toPerspectiveDetails({ accountId, perspectiveId, perspectiveName }),
                       label: perspectiveName
-                    },
-                    {
-                      label: '',
-                      url: '#'
                     }
                   ]
             }

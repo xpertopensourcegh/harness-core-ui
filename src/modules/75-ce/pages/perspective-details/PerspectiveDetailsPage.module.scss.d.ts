@@ -11,7 +11,8 @@ declare const styles: {
   readonly chartLoadingContainer: string
   readonly emptyContainer: string
   readonly emptyIllustrationContainer: string
-  readonly perspectiveHeader: string
+  readonly headerContent: string
+  readonly headerContentSection: string
   readonly subscriptionLimitCtn: string
 }
 export default styles

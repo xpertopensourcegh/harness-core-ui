@@ -28,8 +28,14 @@
   align-items: center;
 }
 
-.perspectiveHeader {
-  width: calc(100vw - 336px) !important;
+.headerContentSection {
+  flex: 1;
+
+  .headerContent {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
 
 .subscriptionLimitCtn {

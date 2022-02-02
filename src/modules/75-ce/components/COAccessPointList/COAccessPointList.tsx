@@ -23,12 +23,11 @@ import { useParams } from 'react-router-dom'
 import type { IconName } from '@blueprintjs/icons'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 // import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
-import routes from '@common/RouteDefinitions'
 import { AccessPoint, useAccessPointActivity, useAccessPointRules, useAllAccessPoints } from 'services/lw'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 // import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'
 import { getRelativeTime } from '../COGatewayList/Utils'
 // import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
@@ -261,19 +260,14 @@ const COLoadBalancerList: React.FC = () => {
   }
   return (
     <Container background={Color.WHITE} height="100vh">
-      <Breadcrumbs
-        className={css.breadCrumb}
-        links={[
-          {
-            url: routes.toCECOAccessPoints({ accountId }),
-            label: getString('ce.co.accessPoint.loadbalancers')
-          }
-        ]}
-      />
       <>
         {!loading ? (
           <>
-            <Page.Header title={getString('ce.co.accessPoint.landingPageTitle')} className={css.header} />
+            <Page.Header
+              breadcrumbs={<NGBreadcrumbs />}
+              title={getString('ce.co.accessPoint.landingPageTitle')}
+              className={css.header}
+            />
             <>
               <Layout.Horizontal padding="large">
                 <Layout.Horizontal width="55%" spacing="medium">

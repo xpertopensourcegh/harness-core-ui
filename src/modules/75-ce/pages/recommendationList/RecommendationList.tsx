@@ -31,6 +31,7 @@ import EmptyView from '@ce/images/empty-state.svg'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import { PAGE_NAMES, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
 import css from './RecommendationList.module.scss'
@@ -336,6 +337,7 @@ const RecommendationList: React.FC = () => {
             Recommendations
           </Text>
         }
+        breadcrumbs={<NGBreadcrumbs />}
         toolbar={
           perspectiveId ? (
             <Button

@@ -1283,11 +1283,8 @@ const routes = {
   toProjects: withAccountId(() => '/home/projects'),
   toLandingDashboard: withAccountId(() => '/home/get-started'),
   /********************************************************************************************************************/
-  toCE: (params: Partial<ProjectPathProps>) =>
-    params.orgIdentifier && params.projectIdentifier
-      ? routes.toCECORules(params as ProjectPathProps)
-      : routes.toCEDashboard(params as AccountPathProps),
-  toCEDashboard: withAccountId(() => `/ce`),
+  toCE: withAccountId(() => `/ce`),
+  // toCEDashboard: withAccountId(() => `/ce`),
   toCEHome: withAccountId(() => '/ce/home'),
   // toCEProject: withAccountId(
   //   ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

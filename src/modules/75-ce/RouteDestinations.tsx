@@ -23,7 +23,6 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { getConfig } from 'services/config'
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import CEHomePage from './pages/home/CEHomePage'
-import CEDashboardPage from './pages/dashboard/CEDashboardPage'
 import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
 import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPage'
 import CECOEditGatewayPage from './pages/co-edit-gateway/CECOEditGatewayPage'
@@ -59,6 +58,20 @@ const RedirectToModuleTrialHome = (): React.ReactElement => {
       to={routes.toModuleTrialHome({
         accountId,
         module: 'ce'
+      })}
+    />
+  )
+}
+
+const RedirectToOverviewPage = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toCEOverview({
+        accountId
       })}
     />
   )
@@ -132,6 +145,9 @@ const CERoutes: React.FC = () => {
         >
           <CEHomePage />
         </RouteWithLayout>
+        <RouteWithLayout licenseRedirectData={licenseRedirectData} path={routes.toCE({ ...accountPathProps })} exact>
+          <RedirectToOverviewPage />
+        </RouteWithLayout>
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
@@ -139,13 +155,13 @@ const CERoutes: React.FC = () => {
         >
           <OverviewPage />
         </RouteWithLayout>
-        <RouteWithLayout
+        {/* <RouteWithLayout
           sidebarProps={CESideNavProps}
           path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })}
           exact
         >
           <CEDashboardPage />
-        </RouteWithLayout>
+        </RouteWithLayout> */}
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}

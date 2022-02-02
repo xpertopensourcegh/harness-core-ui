@@ -22,7 +22,8 @@ import {
   Page,
   TableV2,
   ExpandingSearchInput,
-  FontVariation
+  FontVariation,
+  PageHeader
 } from '@harness/uicore'
 import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
@@ -45,7 +46,6 @@ import {
   ServiceError,
   useCumulativeServiceSavings
 } from 'services/lw'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -54,6 +54,7 @@ import { useFeature } from '@common/hooks/useFeatures'
 import RbacButton from '@rbac/components/Button/Button'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { FeatureDetail } from 'framework/featureStore/featureStoreUtil'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -392,8 +393,7 @@ const EmptyListPage: React.FC<EmptyListPageProps> = ({ featureDetail }) => {
   const { trackEvent } = useTelemetry()
   return (
     <Container background={Color.WHITE} height="100vh">
-      <Breadcrumbs
-        className={css.breadCrumb}
+      <NGBreadcrumbs
         links={[
           {
             url: routes.toCECORules({ accountId }),
@@ -731,16 +731,18 @@ const COGatewayList: React.FC = () => {
   // with search - data is available or unavailable
   return (
     <Container background={Color.WHITE} height="100vh">
-      <Layout.Horizontal
-        flex={{ justifyContent: 'flex-start' }}
-        className={css.header}
-        padding={{ left: 'xlarge', right: 'xlarge' }}
-      >
-        <Heading data-tooltip-id="autostoppingRule" level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
-          {getString('ce.co.breadCrumb.rules')}
-        </Heading>
-        <HarnessDocTooltip tooltipId="autostoppingRule" useStandAlone={true} />
-      </Layout.Horizontal>
+      <PageHeader
+        title={
+          <Layout.Horizontal flex={{ alignItems: 'center' }}>
+            <Heading data-tooltip-id="autostoppingRule" level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
+              {getString('ce.co.breadCrumb.rules')}
+            </Heading>
+            <HarnessDocTooltip tooltipId="autostoppingRule" useStandAlone={true} />
+          </Layout.Horizontal>
+        }
+        breadcrumbs={<NGBreadcrumbs />}
+      />
+
       <Drawer
         autoFocus={true}
         enforceFocus={true}

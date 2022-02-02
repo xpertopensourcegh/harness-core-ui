@@ -5,23 +5,11 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import cronstrue from 'cronstrue'
 import cx from 'classnames'
-import {
-  Button,
-  Heading,
-  Layout,
-  Container,
-  Text,
-  Color,
-  PageHeader,
-  PageBody,
-  Icon,
-  FontVariation
-} from '@wings-software/uicore'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { Button, Container, Text, Color, PageHeader, PageBody, Icon, FontVariation } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useGetPerspective, useGetReportSetting } from 'services/ce/'
 import {
@@ -76,6 +64,7 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PAGE_NAMES } from '@ce/TrackingEventsConstants'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './PerspectiveDetailsPage.module.scss'
 
 const PAGE_SIZE = 10
@@ -107,90 +96,81 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
     )
   }
 
-  return (
-    <Layout.Horizontal
-      spacing="medium"
-      style={{
-        alignItems: 'center'
-      }}
-      flex={true}
-      className={css.perspectiveHeader}
-    >
+  const breadcrumbsLinks = useMemo(
+    () => [
+      {
+        url: routes.toCEPerspectives({ accountId }),
+        label: getString('ce.perspectives.sideNavText')
+      }
+    ],
+    []
+  )
+
+  const getHeaderContent = () => {
+    return (
       <Container
-        style={{
-          flexGrow: 1
+        className={css.headerContentSection}
+        padding={{
+          top: 'xlarge',
+          left: 'xsmall'
         }}
       >
-        <Breadcrumbs
-          links={[
-            {
-              url: routes.toCEPerspectives({ accountId }),
-              label: getString('ce.perspectives.sideNavText')
-            },
-            {
-              label: '',
-              url: '#'
-            }
-          ]}
-        />
-        <Layout.Horizontal spacing="small">
-          <Heading color="grey800" level={2}>
-            {title}
-          </Heading>
-          <Container
-            padding={{
-              top: 'xsmall'
-            }}
-          >
-            {loading ? <Icon name="spinner" color={Color.BLUE_500} /> : null}
+        {loading ? <Icon name="spinner" color={Color.BLUE_500} /> : null}
 
-            {reports.length ? (
-              <Container flex>
-                <Icon name="notification" size={14} color={Color.PRIMARY_7} />
-                <Text
-                  margin={{
-                    left: 'xsmall'
-                  }}
-                  color={Color.GREY_500}
-                  font={{ variation: FontVariation.SMALL }}
-                >
-                  {getString('ce.perspectives.perspectiveReportsTxt', {
-                    reportInfo: cronstrue.toString(reports[0].userCron || '')
-                  })}
-                </Text>
-                {reports.length > 1 ? (
-                  <Text
-                    margin={{
-                      left: 'xsmall'
-                    }}
-                    color={Color.GREY_500}
-                    font={{ variation: FontVariation.SMALL }}
-                  >
-                    {getString('ce.perspectives.perspectiveReportsMoreTxt', {
-                      count: reports.length - 1
-                    })}
-                  </Text>
-                ) : null}
-              </Container>
+        {reports.length ? (
+          <Container className={css.headerContent}>
+            <Icon name="notification" size={14} color={Color.PRIMARY_7} />
+            <Text
+              margin={{
+                left: 'xsmall'
+              }}
+              color={Color.GREY_500}
+              font={{ variation: FontVariation.SMALL }}
+            >
+              {getString('ce.perspectives.perspectiveReportsTxt', {
+                reportInfo: cronstrue.toString(reports[0].userCron || '')
+              })}
+            </Text>
+            {reports.length > 1 ? (
+              <Text
+                margin={{
+                  left: 'xsmall'
+                }}
+                color={Color.GREY_500}
+                font={{ variation: FontVariation.SMALL }}
+              >
+                {getString('ce.perspectives.perspectiveReportsMoreTxt', {
+                  count: reports.length - 1
+                })}
+              </Text>
             ) : null}
           </Container>
-        </Layout.Horizontal>
+        ) : null}
       </Container>
+    )
+  }
 
-      <Button
-        disabled={isDefaultPerspective}
-        text={getString('edit')}
-        icon="edit"
-        intent="primary"
-        onClick={goToEditPerspective}
-      />
-    </Layout.Horizontal>
+  return (
+    <PageHeader
+      title={title}
+      breadcrumbs={<NGBreadcrumbs links={breadcrumbsLinks} />}
+      content={getHeaderContent()}
+      toolbar={
+        <Button
+          disabled={isDefaultPerspective}
+          text={getString('edit')}
+          icon="edit"
+          intent="primary"
+          onClick={goToEditPerspective}
+        />
+      }
+    />
   )
 }
 
 const PerspectiveDetailsPage: React.FC = () => {
   const history = useHistory()
-  const { perspectiveId, accountId } = useParams<PerspectiveParams>()
+  const { perspectiveId, accountId, perspectiveName } = useParams<PerspectiveParams>()
   const { getString } = useStrings()
 
   const { trackPage } = useTelemetry()
@@ -335,12 +315,14 @@ const PerspectiveDetailsPage: React.FC = () => {
   const { data: summaryData, fetching: summaryFetching } = summaryResult
   const { data: { perspectiveTotalCount } = {} } = perspectiveTotalCountResult
 
+  const persName = perspectiveData?.name || perspectiveName
+
   const goToWorkloadDetails = (clusterName: string, namespace: string, workloadName: string) => {
     history.push(
       routes.toCEPerspectiveWorkloadDetails({
         accountId,
         perspectiveId,
-        perspectiveName: perspectiveData?.name || perspectiveId,
+        perspectiveName: persName,
         clusterName,
         namespace,
         workloadName
@@ -353,7 +335,7 @@ const PerspectiveDetailsPage: React.FC = () => {
       routes.toCEPerspectiveNodeDetails({
         accountId,
         perspectiveId,
-        perspectiveName: perspectiveData?.name || perspectiveId,
+        perspectiveName: persName,
         clusterName,
         nodeId
       })
@@ -378,14 +360,8 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   return (
     <>
-      <PageHeader
-        title={
-          <PerspectiveHeader
-            title={perspectiveData?.name || perspectiveId}
-            viewType={perspectiveData?.viewType || ViewType.Default}
-          />
-        }
-      />
+      <PerspectiveHeader title={persName} viewType={perspectiveData?.viewType || ViewType.Default} />
+
       <PageBody>
         {loading && <PageSpinner />}
         <PersepectiveExplorerFilters
