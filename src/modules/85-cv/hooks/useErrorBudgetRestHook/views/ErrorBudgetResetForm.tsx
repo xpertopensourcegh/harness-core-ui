@@ -39,7 +39,7 @@ const ErrorBudgetResetForm: React.FC<ErrorBudgetResetFormProps> = ({ serviceLeve
     <Container width={650}>
       <Text font={{ variation: FontVariation.BODY }} color={Color.BLACK}>
         {getString('cv.yourExistingErrorBudgetIs')}{' '}
-        <Text tag="span" font={{ variation: FontVariation.BODY2 }}>
+        <Text tag="span" font={{ variation: FontVariation.BODY2 }} data-testid="existing-error-budget">
           {serviceLevelObjective.totalErrorBudget} {getString('cv.minutes')}
         </Text>
         , {getString('cv.andYouHave')}{' '}
@@ -47,6 +47,7 @@ const ErrorBudgetResetForm: React.FC<ErrorBudgetResetFormProps> = ({ serviceLeve
           tag="span"
           font={{ variation: FontVariation.BODY2 }}
           color={getRiskColorValue(serviceLevelObjective.errorBudgetRisk, false)}
+          data-testid="remaining-error-budget"
         >
           {serviceLevelObjective.errorBudgetRemaining} {getString('cv.minutes')}
         </Text>{' '}
@@ -107,7 +108,13 @@ const ErrorBudgetResetForm: React.FC<ErrorBudgetResetFormProps> = ({ serviceLeve
               <Layout.Vertical spacing="xxxlarge">
                 <div>
                   <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString('cv.updatedErrorBudget')}</Text>
-                  <Heading inline level={2} color={Color.GREY_800} font={{ variation: FontVariation.H4 }}>
+                  <Heading
+                    inline
+                    level={2}
+                    color={Color.GREY_800}
+                    font={{ variation: FontVariation.H4 }}
+                    data-testid="updated-error-budget"
+                  >
                     {calculateErrorBudgetByIncrement(
                       serviceLevelObjective.totalErrorBudget,
                       formik.values.errorBudgetIncrementPercentage
@@ -120,7 +127,13 @@ const ErrorBudgetResetForm: React.FC<ErrorBudgetResetFormProps> = ({ serviceLeve
                 </div>
                 <div>
                   <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString('cv.remainingErrorBudget')}</Text>
-                  <Heading inline level={2} color={Color.GREY_800} font={{ variation: FontVariation.H4 }}>
+                  <Heading
+                    inline
+                    level={2}
+                    color={Color.GREY_800}
+                    font={{ variation: FontVariation.H4 }}
+                    data-testid="updated-remaining-error-budget"
+                  >
                     {calculateRemainingErrorBudgetByIncrement(
                       serviceLevelObjective.totalErrorBudget,
                       serviceLevelObjective.errorBudgetRemaining,

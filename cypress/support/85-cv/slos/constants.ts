@@ -39,6 +39,8 @@ export const getMonitoredService = `/cv/api/monitored-service/cvng_prod?routingI
 export const deleteSLOData = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const saveSLO = `/cv/api/slo?routingId=${accountId}&accountId=${accountId}`
 export const updateSLO = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const errorBudgetResetHistory = `/cv/api/slo/SLO1/errorBudgetResetHistory?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const resetErrorBudget = `/cv/api/slo/SLO1/resetErrorBudget?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 
 export const listSLOsCallResponse = {
   status: 'SUCCESS',
@@ -169,6 +171,19 @@ export const getSLODashboardWidgetsAfterEdit = {
   }
 }
 
+export const sloDashboardWidgetResponseForCalender = {
+  ...updatedListSLOsCallResponse,
+  data: {
+    ...updatedListSLOsCallResponse.data,
+    content: [
+      {
+        ...updatedListSLOsCallResponse.data.content[0],
+        sloTargetType: 'Calender'
+      }
+    ]
+  }
+}
+
 export const getSLORiskCountResponse = {
   status: 'SUCCESS',
   data: {
@@ -293,4 +308,23 @@ export const errorResponseSLODuplication = {
     correlationId: 'ca0bf961-8c50-4967-97fb-fd69f6ca8072',
     metadata: null
   }
+}
+
+export const errorBudgetResetHistoryResponse = {
+  resource: [
+    {
+      errorBudgetAtReset: 75,
+      remainingErrorBudgetAtReset: 60,
+      errorBudgetIncrementPercentage: 50,
+      createdAt: 1643328000000,
+      reason: 'REASON'
+    },
+    {
+      errorBudgetAtReset: 50,
+      remainingErrorBudgetAtReset: 60,
+      errorBudgetIncrementPercentage: 50,
+      createdAt: 1643241600000,
+      reason: 'REASON'
+    }
+  ]
 }

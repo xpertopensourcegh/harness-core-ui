@@ -236,6 +236,7 @@ exports[`SLOCardHeader it should successfully reset the error budget 1`] = `
          
         <span
           class="StyledProps--font StyledProps--main StyledProps--font-variation-body2"
+          data-testid="existing-error-budget"
         >
           100
            
@@ -246,6 +247,7 @@ exports[`SLOCardHeader it should successfully reset the error budget 1`] = `
          
         <span
           class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-green500"
+          data-testid="remaining-error-budget"
         >
           60
            
@@ -415,6 +417,7 @@ exports[`SLOCardHeader it should successfully reset the error budget 1`] = `
                   </p>
                   <h2
                     class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800 StyledProps--font-variation-h4"
+                    data-testid="updated-error-budget"
                     level="2"
                   >
                     200
@@ -434,6 +437,7 @@ exports[`SLOCardHeader it should successfully reset the error budget 1`] = `
                   </p>
                   <h2
                     class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800 StyledProps--font-variation-h4"
+                    data-testid="updated-remaining-error-budget"
                     level="2"
                   >
                     160

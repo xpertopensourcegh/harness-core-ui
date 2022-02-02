@@ -29,7 +29,11 @@ import {
   listSLOsCallWithHealthy,
   errorResponse,
   getSLORiskCountResponse,
-  getMonitoredServiceResponse
+  getMonitoredServiceResponse,
+  sloDashboardWidgetResponseForCalender,
+  errorBudgetResetHistory,
+  errorBudgetResetHistoryResponse,
+  resetErrorBudget
 } from '../../../support/85-cv/slos/constants'
 
 describe('CVSLOsListingPage', () => {
@@ -162,5 +166,90 @@ describe('CVSLOsListingPage', () => {
     cy.contains('p', 'No SLOs Present.').should('be.visible')
     cy.contains('p', 'Healthy').click()
     cy.contains('h2', 'SLO-1').should('be.visible')
+  })
+
+  it('should not render error budget reset option for type Rolling', () => {
+    cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
+    cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
+    cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
+    cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
+    cy.intercept('GET', errorBudgetResetHistory, errorBudgetResetHistoryResponse)
+
+    cy.contains('p', 'SLOs').click()
+
+    cy.get('[data-icon="Options"]').click()
+
+    cy.contains('span', 'Reset Error Budget').should('not.exist')
+  })
+
+  it('should reset the error budget', () => {
+    cy.intercept('GET', listSLOsCall, sloDashboardWidgetResponseForCalender)
+    cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
+    cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
+    cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
+    cy.intercept('GET', errorBudgetResetHistory, errorBudgetResetHistoryResponse)
+
+    cy.contains('p', 'SLOs').click()
+
+    cy.get('[data-icon="Options"]').click()
+    cy.get('[icon="reset"]').click()
+
+    cy.findByTestId('existing-error-budget').should('have.text', '104 minutes')
+    cy.findByTestId('remaining-error-budget').should('have.text', '104 minutes')
+
+    cy.contains('p', 'Previous error budget reset history').click()
+
+    cy.contains('span', 'Save').click()
+
+    cy.contains('span', 'Increase error budget by is required').should('be.visible')
+    cy.contains('span', 'Reason is required').should('be.visible')
+
+    cy.fillField('errorBudgetIncrementPercentage', '100')
+    cy.fillField('reason', 'REASON')
+
+    cy.findByTestId('updated-error-budget').should('have.text', '208')
+    cy.findByTestId('updated-remaining-error-budget').should('have.text', '208')
+
+    cy.intercept('POST', resetErrorBudget, { statusCode: 200 })
+
+    cy.contains('span', 'Save').click()
+
+    cy.contains('p', 'Review changes')
+    cy.contains('span', 'OK').click()
+
+    cy.contains('span', 'Error budget is successfully reset').should('be.visible')
+  })
+
+  it('should handle the errors for error budget reset', () => {
+    cy.intercept('GET', listSLOsCall, sloDashboardWidgetResponseForCalender)
+    cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
+    cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
+    cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
+
+    cy.contains('p', 'SLOs').click()
+
+    cy.get('[data-icon="Options"]').click()
+    cy.get('[icon="reset"]').click()
+
+    cy.findByTestId('existing-error-budget').should('have.text', '104 minutes')
+    cy.findByTestId('remaining-error-budget').should('have.text', '104 minutes')
+
+    cy.intercept('GET', errorBudgetResetHistory, errorResponse)
+
+    cy.contains('p', 'Previous error budget reset history').click()
+
+    cy.contains('p', 'Oops, something went wrong on our end. Please contact Harness Support.').should('be.visible')
+
+    cy.fillField('errorBudgetIncrementPercentage', '100')
+    cy.fillField('reason', 'REASON')
+
+    cy.intercept('POST', resetErrorBudget, errorResponse)
+
+    cy.contains('span', 'Save').click()
+
+    cy.contains('p', 'Review changes')
+    cy.contains('span', 'OK').click()
+
+    cy.contains('span', 'Oops, something went wrong on our end. Please contact Harness Support.').should('be.visible')
   })
 })
