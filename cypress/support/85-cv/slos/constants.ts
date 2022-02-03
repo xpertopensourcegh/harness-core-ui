@@ -184,6 +184,23 @@ export const sloDashboardWidgetResponseForCalender = {
   }
 }
 
+export const getTwoSLODashboardWidgets = {
+  ...updatedListSLOsCallResponse,
+  data: {
+    ...updatedListSLOsCallResponse.data,
+    totalItems: 2,
+    pageItemCount: 2,
+    content: [
+      updatedListSLOsCallResponse.data.content[0],
+      {
+        ...updatedListSLOsCallResponse.data.content[0],
+        sloIdentifier: 'SLO2',
+        title: 'SLO-2'
+      }
+    ]
+  }
+}
+
 export const getSLORiskCountResponse = {
   status: 'SUCCESS',
   data: {
@@ -191,6 +208,40 @@ export const getSLORiskCountResponse = {
     riskCounts: [
       {
         count: 1,
+        displayName: 'Healthy',
+        identifier: 'HEALTHY'
+      },
+      {
+        count: 0,
+        displayName: 'Observe',
+        identifier: 'OBSERVE'
+      },
+      {
+        count: 0,
+        displayName: 'Need Attention',
+        identifier: 'NEED_ATTENTION'
+      },
+      {
+        count: 0,
+        displayName: 'Unhealthy',
+        identifier: 'UNHEALTHY'
+      },
+      {
+        count: 0,
+        displayName: 'Exhausted',
+        identifier: 'EXHAUSTED'
+      }
+    ]
+  }
+}
+
+export const getTwoSLOsRiskCountResponse = {
+  status: 'SUCCESS',
+  data: {
+    totalCount: 2,
+    riskCounts: [
+      {
+        count: 2,
         displayName: 'Healthy',
         identifier: 'HEALTHY'
       },
