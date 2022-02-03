@@ -528,7 +528,7 @@ perspectives:
   searchPerspectives: Search perspectives
   timeRangeConstants:
     last7Days: 'Last 7 Days'
-    thisMonth: 'This Month'
+    thisMonth: '{{ $.common.feature.levelUp.limitMessage.thisMonth }}'
     thisQuarter: 'This Quarter'
     thisYear: 'This Year'
     lastMonth: '{{$.common.datePickerShortcuts.LastMonth}}'

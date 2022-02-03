@@ -651,6 +651,12 @@ feature:
   keepGettingShipDone:
     title: Keep Getting Ship Done!
     requestUpgrade: Request Upgrade
+  levelUp:
+    description: Nice work! You’ve reached our plan limits.
+    limitMessage:
+      description: You've used {{limits}}
+      thisMonth: This Month
+    planMessage: is supported in {{plan}} plan(s).
 repositoryName: Repository Name
 mostActiveServices: Most active services
 allErrors: All Errors
