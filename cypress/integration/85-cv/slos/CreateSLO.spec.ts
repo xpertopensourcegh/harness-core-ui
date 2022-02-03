@@ -25,6 +25,7 @@ import {
   getServiceLevelObjectiveResponse,
   getSLODashboardWidgetsAfterEdit,
   updateSLO,
+  listRiskCountDataEmptyResponse,
   getMonitoredService,
   getMonitoredServiceResponse,
   listSLOsCallWithCVNGProd,
@@ -50,12 +51,13 @@ describe('Create SLO', () => {
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
     cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
     cy.intercept('GET', getSLOMetrics, listSLOMetricsCallResponse)
+    cy.intercept('GET', getSLORiskCount, listRiskCountDataEmptyResponse)
 
     // Verifying NO SLOs state.
     cy.contains('p', 'SLOs').click()
-    cy.contains('p', 'No SLOs Present.').should('be.visible')
+    cy.contains('h2', 'You don’t have any SLO created yet').should('be.visible')
 
-    cy.contains('span', 'New SLO').click()
+    cy.contains('span', 'Create SLO').click()
 
     // Filling details Under Name tab for SLO creation
     cy.fillName('SLO-1')
@@ -189,7 +191,7 @@ describe('Create SLO', () => {
     cy.intercept('POST', getSliGraph, errorResponse)
 
     cy.contains('p', 'SLOs').click()
-    cy.contains('span', 'New SLO').click()
+    cy.contains('span', 'Create SLO').click()
 
     cy.contains('h2', 'Create SLO').should('be.visible')
 
@@ -379,7 +381,7 @@ describe('Create SLO', () => {
 
     cy.contains('h2', 'SLO-1').should('be.visible')
 
-    cy.contains('span', 'New SLO').click()
+    cy.contains('span', 'Create SLO').click()
 
     cy.fillName('SLO-1')
     cy.get('input[name="User Journey"]').click()
@@ -481,7 +483,7 @@ describe('Create SLO', () => {
     cy.wait('@getMonitoredService')
     cy.get('div[data-tab-id="SLOs"]').click()
 
-    cy.findByRole('button', { name: /New SLO/i }).click()
+    cy.findByRole('button', { name: /Create SLO/i }).click()
 
     cy.fillName('SLO-2')
     cy.get('input[name="User Journey"]').click()

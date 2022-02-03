@@ -270,8 +270,8 @@ export const getErrorObject = (
   return dashboardWidgetsError || userJourneysError || dashboardRiskCountError || monitoredServicesDataError
 }
 
-export const getIsDataEmpty = (contentLength?: number, riskCountLength?: number): boolean => {
-  return !contentLength && !riskCountLength
+export const getIsDataEmpty = (contentLength?: number, riskCounts?: RiskCount[]): boolean => {
+  return !contentLength && isRiskCountEmptyForEveryCategory(riskCounts)
 }
 
 export const getIsWidgetDataEmpty = (contentLength?: number, dashboardWidgetsLoading?: boolean): boolean => {
@@ -280,6 +280,10 @@ export const getIsWidgetDataEmpty = (contentLength?: number, dashboardWidgetsLoa
 
 export const getIsSetPreviousPage = (pageIndex: number, pageItemCount: number): boolean => {
   return Boolean(pageIndex) && pageItemCount === 1
+}
+
+export function isRiskCountEmptyForEveryCategory(riskCounts?: RiskCount[]): boolean {
+  return !!riskCounts?.every((el: RiskCount) => el.count === 0)
 }
 
 export function setFilterValue<T>(callback: Dispatch<SetStateAction<T>>, value: T): void {
