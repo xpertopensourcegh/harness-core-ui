@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 COPY dist /opt/nextgenui
-COPY docker/entrypoint.sh /opt/nextgenui/
+COPY docker/entrypoint.sh /opt/
 COPY docker/nginx.conf /etc/nginx/
 COPY docker/nginx-ipv4-only.conf /etc/nginx/
 WORKDIR /opt/nextgenui
@@ -16,4 +16,4 @@ USER 101
 
 
 EXPOSE 8080
-ENTRYPOINT ["sh", "/opt/nextgenui/entrypoint.sh"]
+ENTRYPOINT ["sh", "/opt/entrypoint.sh"]
