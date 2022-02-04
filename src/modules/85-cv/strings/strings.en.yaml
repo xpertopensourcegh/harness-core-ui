@@ -704,6 +704,7 @@ SLOPerformanceTrend: SLO Performance Trend
 sloRecalculationInProgress: SLO recalculation in progress
 errorBudgetRecalculationInProgress: Error Budget recalculation in progress
 errorBudgetRemaining: Error Budget Remaining (mins)
+minutesRemaining: minutes remaining
 errorBudgetBurnDown: Error Budget Burndown
 SLITriggered: SLI Triggered
 burnRatePerDay: Burn Rate/Day
@@ -753,10 +754,11 @@ left: left
 adjustTheErrorBudgetToContinueWithDeployments: Adjust the error budget to continue with deployments.
 previousErrorBudgetResetHistory: Previous error budget reset history
 increaseErrorBudgetBy: Increase error budget by
-increaseErrorBudgetByIsRequired: Increase error budget by is required
+increaseErrorBudgetByIsRequired: '"Increase error budget by" is required'
 reasonIsRequired: Reason is required
 updatedErrorBudget: Updated Error Budget
 remainingErrorBudget: Remaining Error Budget
+updatedRemainingErrorBudget: Updated remaining Error Budget
 minutes: minutes
 noPreviousErrorBudgetResetHistoryAvailable: No previous error budget reset history available
 dateAndTime: Date/Time

@@ -181,7 +181,7 @@ describe('Create SLO', () => {
     cy.contains('span', 'SLO updated successfully').should('be.visible')
 
     cy.wait('@getSLODashboardWidgetsAfterEdit')
-    cy.contains('p', 'SLO recalculation in progress', { timeout: 6000 }).should('be.visible')
+    cy.contains('p', 'SLO recalculation in progress').should('be.visible')
   })
 
   it('should validate all form field errors and default values', () => {
@@ -462,7 +462,7 @@ describe('Create SLO', () => {
 
     cy.wait('@getMonitoredService')
     cy.wait('@getSLODashboardWidgetsAfterEdit')
-    cy.contains('p', 'SLO recalculation in progress', { timeout: 6000 }).should('be.visible')
+    cy.contains('p', 'SLO recalculation in progress').should('be.visible')
   })
 
   it('should be able to create new SLO in monitored service details page', () => {

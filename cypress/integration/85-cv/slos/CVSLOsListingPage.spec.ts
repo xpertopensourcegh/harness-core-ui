@@ -201,7 +201,7 @@ describe('CVSLOsListingPage', () => {
 
     cy.contains('span', 'Save').click()
 
-    cy.contains('span', 'Increase error budget by is required').should('be.visible')
+    cy.contains('span', '"Increase error budget by" is required').should('be.visible')
     cy.contains('span', 'Reason is required').should('be.visible')
 
     cy.fillField('errorBudgetIncrementPercentage', '100')
@@ -209,6 +209,7 @@ describe('CVSLOsListingPage', () => {
 
     cy.findByTestId('updated-error-budget').should('have.text', '208')
     cy.findByTestId('updated-remaining-error-budget').should('have.text', '208')
+    cy.findByTestId('updated-remaining-error-budget-percentage').should('have.text', '100.00')
 
     cy.intercept('POST', resetErrorBudget, { statusCode: 200 })
 

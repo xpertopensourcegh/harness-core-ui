@@ -4596,6 +4596,7 @@ export interface StringsMap {
   'cv.minValueN': string
   'cv.mins': string
   'cv.minutes': string
+  'cv.minutesRemaining': string
   'cv.monday': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.assignLabel': string
@@ -5055,6 +5056,7 @@ export interface StringsMap {
   'cv.unit': string
   'cv.unknown': string
   'cv.updatedErrorBudget': string
+  'cv.updatedRemainingErrorBudget': string
   'cv.urlCopied': string
   'cv.verificationErrored': string
   'cv.verificationStatus': string
