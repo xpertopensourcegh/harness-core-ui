@@ -2370,6 +2370,12 @@ export interface NGTriggerResponse {
   accountIdentifier?: string
   description?: string
   enabled?: boolean
+  errorResponse?: boolean
+  errors?: {
+    [key: string]: {
+      [key: string]: string
+    }
+  }
   identifier?: string
   name?: string
   orgIdentifier?: string
@@ -11576,6 +11582,7 @@ export interface GetSchemaYamlQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
@@ -11667,6 +11674,7 @@ export interface GetStepYamlSchemaQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
   scope?: 'account' | 'org' | 'project' | 'unknown'
 }
 

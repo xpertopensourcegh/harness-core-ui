@@ -299,6 +299,7 @@ export const validateStage = ({
         }
       }
     }
+
     if (stageConfig?.execution?.steps) {
       const errorsResponse = validateSteps({
         steps: stageConfig.execution.steps as ExecutionWrapperConfig[],
