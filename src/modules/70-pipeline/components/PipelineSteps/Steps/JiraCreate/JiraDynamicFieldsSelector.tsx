@@ -166,7 +166,7 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
           ) : null}
           <JiraFieldSelector
             fields={fieldList}
-            selectedFields={[]}
+            selectedFields={props?.selectedFields || []}
             onCancel={props.onCancel}
             addSelectedFields={fields => props.addSelectedFields(fields, selectedProjectKey, selectedIssueTypeKey)}
           />

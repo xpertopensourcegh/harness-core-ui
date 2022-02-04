@@ -154,6 +154,7 @@ const FormContent = ({
           selectedProjectKey={selectedProjectKey}
           selectedIssueTypeKey={selectedIssueTypeKey}
           projectOptions={projectOptions}
+          selectedFields={formik.values.spec.selectedFields}
           addSelectedFields={(fieldsToBeAdded: JiraFieldNG[], selectedProjectKeyInForm, selectedIssueTypeKeyInForm) => {
             setSelectedProjectKey(selectedProjectKeyInForm)
             setSelectedIssueTypeKey(selectedIssueTypeKeyInForm)
