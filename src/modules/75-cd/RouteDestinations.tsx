@@ -251,6 +251,7 @@ featureFactory.registerFeaturesByModule('cd', {
       })
     } else if (isDpmLimitBreached) {
       limitBreachMessageString = getString('cd.featureRestriction.banners.deploymentsPerMonthLevelUp', {
+        count: dpmFeatureDetail?.featureDetail?.count,
         deploymentsLimit: dpmFeatureDetail?.featureDetail?.limit
       })
     }

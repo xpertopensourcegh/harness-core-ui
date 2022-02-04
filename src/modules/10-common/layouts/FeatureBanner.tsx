@@ -186,18 +186,15 @@ function getBannerClassNameByType(type: BannerType): string {
 }
 
 export const isFeatureLimitBreached = (feature?: CheckFeatureReturn) => {
-  const featureEnabled = feature?.enabled
   const featureDetail = feature?.featureDetail
-  return featureEnabled && featureDetail?.limit && featureDetail.count && featureDetail.count > featureDetail.limit
+  return featureDetail?.limit && featureDetail.count && featureDetail.count >= featureDetail.limit
 }
 
 export const FEATURE_USAGE_WARNING_LIMIT = 90
 
 export const isFeatureWarningActive = (feature?: CheckFeatureReturn) => {
-  const featureEnabled = feature?.enabled
   const featureDetail = feature?.featureDetail
   return (
-    featureEnabled &&
     featureDetail?.limit &&
     featureDetail.count &&
     featureDetail.count >= (featureDetail.limit * FEATURE_USAGE_WARNING_LIMIT) / 100
