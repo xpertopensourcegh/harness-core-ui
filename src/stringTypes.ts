@@ -3338,6 +3338,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.downtime': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.endsOn': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.everyday': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.fromText': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.neverEnds': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.newScheduleTitle': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.repeats': string
@@ -3346,6 +3347,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.successfullyDeletedSchedule': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.timezone': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.title': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.toText': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.unsuccessfulDeletionMessage': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.uptime': string
   'ce.co.autoStoppingRule.confirm.deleteDialogText': string
@@ -3457,6 +3459,8 @@ export interface StringsMap {
   'ce.co.gatewayConfig.name': string
   'ce.co.gatewayConfig.routingDescription': string
   'ce.co.gatewayConfig.scheduleDescription': string
+  'ce.co.gatewayConfig.setSchedulePeriodHeader': string
+  'ce.co.gatewayConfig.setScheduleTimeHeader': string
   'ce.co.gatewayConfig.usePrivateIP': string
   'ce.co.gatewayReview.configurationDetails': string
   'ce.co.gatewayReview.gatewayDetails': string
