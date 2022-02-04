@@ -1961,6 +1961,7 @@ export interface StringsMap {
   'gitsync.addNewHarnessFolderLabel': string
   'gitsync.baseBranch': string
   'gitsync.branchToSync': string
+  'gitsync.configSaveToaster': string
   'gitsync.configureHarnessFolder': string
   'gitsync.connectThroughDelegate': string
   'gitsync.connectThroughDelegateLabel': string
@@ -1972,6 +1973,7 @@ export interface StringsMap {
   'gitsync.deafaultSyncTitle': string
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
+  'gitsync.editConfigButtonText': string
   'gitsync.enterBranchToSync': string
   'gitsync.entitiesByRepositories': string
   'gitsync.errorFixed': string
