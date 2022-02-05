@@ -90,6 +90,7 @@ export interface JiraDynamicFieldsSelectorInterface {
   connectorRef: string
   selectedProjectKey: string
   selectedIssueTypeKey: string
+  jiraType: string
   projectOptions: JiraProjectSelectOption[]
   selectedFields?: JiraFieldNG[]
   addSelectedFields: (fields: JiraFieldNG[], selectedProjectKey: string, selectedIssueTypeKey: string) => void

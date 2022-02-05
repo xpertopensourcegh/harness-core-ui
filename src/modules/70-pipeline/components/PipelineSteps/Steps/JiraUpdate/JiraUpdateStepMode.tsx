@@ -87,7 +87,7 @@ const FormContent = ({
     repoIdentifier,
     branch
   }
-
+  const jiraType = 'updateMode'
   useEffect(() => {
     // If connector value changes in form, fetch projects
     // second block is needed so that we don't fetch projects if type is expression
@@ -155,6 +155,7 @@ const FormContent = ({
           selectedIssueTypeKey={selectedIssueTypeKey}
           projectOptions={projectOptions}
           selectedFields={formik.values.spec.selectedFields}
+          jiraType={jiraType}
           addSelectedFields={(fieldsToBeAdded: JiraFieldNG[], selectedProjectKeyInForm, selectedIssueTypeKeyInForm) => {
             setSelectedProjectKey(selectedProjectKeyInForm)
             setSelectedIssueTypeKey(selectedIssueTypeKeyInForm)

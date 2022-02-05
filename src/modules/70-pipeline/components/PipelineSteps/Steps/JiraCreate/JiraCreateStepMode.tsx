@@ -95,7 +95,7 @@ const FormContent = ({
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
 
   const [connectorValueType, setConnectorValueType] = useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
-
+  const jiraType = 'createMode'
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
@@ -103,7 +103,6 @@ const FormContent = ({
     repoIdentifier,
     branch
   }
-
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
     typeof formik.values.spec.projectKey === 'object'
@@ -215,6 +214,7 @@ const FormContent = ({
           connectorRef={connectorRefFixedValue || ''}
           selectedProjectKey={projectKeyFixedValue || ''}
           selectedIssueTypeKey={issueTypeFixedValue || ''}
+          jiraType={jiraType}
           projectOptions={projectOptions}
           selectedFields={formik.values.spec.selectedFields}
           addSelectedFields={(fieldsToBeAdded: JiraFieldNG[]) => {
