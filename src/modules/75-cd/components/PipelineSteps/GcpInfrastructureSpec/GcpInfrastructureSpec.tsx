@@ -23,7 +23,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, isEmpty, get, memoize, set } from 'lodash-es'
+import { debounce, noop, isEmpty, get, memoize, set, defaultTo } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -90,6 +90,7 @@ function getValidationSchema(getString: UseStringsReturn['getString']): Yup.Obje
 }
 interface GcpInfrastructureSpecEditableProps {
   initialValues: K8sGcpInfrastructure
+  allValues?: K8sGcpInfrastructure
   onUpdate?: (data: K8sGcpInfrastructure) => void
   stepViewType?: StepViewType
   readonly?: boolean
@@ -411,7 +412,8 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
   readonly = false,
   path,
   onUpdate,
-  allowableTypes
+  allowableTypes,
+  allValues
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -427,31 +429,35 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
   const {
     data: clusterNamesData,
     refetch: refetchClusterNames,
-    loading: loadingClusterNames
+    loading: loadingClusterNames,
+    error: clusterError
   } = useGetClusterNamesForGcp({
     lazy: true,
     debounce: 300
   })
 
   useEffect(() => {
-    const options =
-      clusterNamesData?.data?.clusterNames?.map(name => ({ label: name, value: name })) || /* istanbul ignore next */ []
-    setClusterOptions(options)
+    const options = clusterNamesData?.data?.clusterNames?.map(name => ({ label: name, value: name }))
+    setClusterOptions(defaultTo(options, []))
   }, [clusterNamesData])
 
   useEffect(() => {
-    if (initialValues.connectorRef && getMultiTypeFromValue(initialValues.connectorRef) === MultiTypeInputType.FIXED) {
+    const connectorRef = defaultTo(initialValues.connectorRef, allValues?.connectorRef)
+    if (connectorRef && getMultiTypeFromValue(connectorRef) === MultiTypeInputType.FIXED) {
       refetchClusterNames({
         queryParams: {
           accountIdentifier: accountId,
           projectIdentifier,
           orgIdentifier,
-          connectorRef: initialValues.connectorRef
+          connectorRef
         }
       })
 
       // reset cluster on connectorRef change
-      if (getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME) {
+      if (
+        getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME &&
+        getMultiTypeFromValue(initialValues?.cluster) !== MultiTypeInputType.RUNTIME
+      ) {
         set(initialValues, 'cluster', '')
         onUpdate?.(initialValues)
       }
@@ -459,7 +465,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
       setClusterOptions([])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues.connectorRef])
+  }, [initialValues.connectorRef, allValues?.connectorRef])
 
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
@@ -507,7 +513,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
                 setClusterOptions([])
               }
             }}
-            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+            gitScope={{ repo: defaultTo(repoIdentifier, ''), branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}
@@ -529,7 +535,15 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
                 items: clusterOptions,
                 itemRenderer: itemRenderer,
                 allowCreatingNewItems: true,
-                addClearBtn: !(loadingClusterNames || readonly)
+                addClearBtn: !(loadingClusterNames || readonly),
+                noResults: (
+                  <Text padding={'small'}>
+                    {defaultTo(
+                      get(clusterError, 'data.message', clusterError?.message),
+                      getString('cd.pipelineSteps.infraTab.clusterError')
+                    )}
+                  </Text>
+                )
               },
               expressions,
               allowableTypes
@@ -779,6 +793,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           template={inputSetData?.template}
+          allValues={inputSetData?.allValues}
           path={inputSetData?.path || ''}
           allowableTypes={allowableTypes}
         />
