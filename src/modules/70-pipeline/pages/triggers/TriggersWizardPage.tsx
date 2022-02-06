@@ -1651,7 +1651,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       const [ciCodebaseErrorsEntry] = Object.entries(ciCodebaseErrors)
       set(errors, ciCodebaseErrorsEntry[0], ciCodebaseErrorsEntry[1])
       setErrors({ pipeline: errors?.pipeline })
-      // setFormErrors({ pipeline: errors }) // error strip
+      setFormErrors({ pipeline: errors?.pipeline }) // error strip
       return errors
     } else if (!isEmpty(runPipelineFormErrors)) {
       setErrors(runPipelineFormErrors)
