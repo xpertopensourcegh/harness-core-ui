@@ -6,7 +6,6 @@
  */
 
 import React, { ReactElement } from 'react'
-import { pick } from 'lodash-es'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@harness/uicore'
 import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
@@ -15,6 +14,7 @@ import { useFeatures } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { FeaturesProps } from 'framework/featureStore/featureStoreUtil'
 import FeatureTooltip from '@common/components/FeatureWarning/FeatureTooltip'
+import { getPermissionRequestFromProps } from '@rbac/utils/utils'
 
 export interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
@@ -33,13 +33,7 @@ const RbacButton: React.FC<ButtonProps> = ({
   tooltipProps,
   ...restProps
 }) => {
-  const [canDoAction] = usePermission(
-    {
-      ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
-      permissions: [permissionRequest?.permission || '']
-    } as PermissionsRequest,
-    [permissionRequest]
-  )
+  const [canDoAction] = usePermission(getPermissionRequestFromProps(permissionRequest), [permissionRequest])
 
   const { featuresRequest } = featuresProps || {}
   const { features } = useFeatures({
