@@ -16,7 +16,8 @@ export interface FeatureProps {
   features: FeatureIdentifier[]
   renderMessage(
     props: CheckFeaturesReturn,
-    getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
+    getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
+    additionalLicenseProps?: Record<string, any>
   ): {
     message: () => React.ReactNode
     bannerType: BannerType

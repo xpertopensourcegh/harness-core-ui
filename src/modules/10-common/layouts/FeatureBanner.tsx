@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, ButtonVariation, Layout, ButtonSize, Text, Color, FontVariation } from '@harness/uicore'
 import { defaultTo, capitalize } from 'lodash-es'
@@ -16,6 +16,12 @@ import featuresFactory from 'framework/featureStore/FeaturesFactory'
 import type { FeatureProps } from 'framework/featureStore/FeaturesFactory'
 import type { CheckFeatureReturn } from 'framework/featureStore/featureStoreUtil'
 import type { Module } from 'framework/types/ModuleName'
+import {
+  isCDEnterprisePlan,
+  isCDFreePlan,
+  isCDTeamPlan,
+  useLicenseStore
+} from 'framework/LicenseStore/LicenseStoreContext'
 import { useFeatures } from '@common/hooks/useFeatures'
 import { useLocalStorage } from '@common/hooks/useLocalStorage'
 import { useModuleInfo } from '@common/hooks/useModuleInfo'
@@ -147,7 +153,7 @@ function getBannerBodyByType(type: BannerType, message: React.ReactNode, module:
   switch (type) {
     case BannerType.INFO:
       return (
-        <Layout.Horizontal width="95%" padding={{ left: 'large' }}>
+        <Layout.Horizontal width="95%" padding={{ left: 'large' }} spacing="medium">
           <InfoText message={message} />
           <ManageSubscriptionBtn module={module} />
         </Layout.Horizontal>
@@ -197,13 +203,37 @@ export const isFeatureWarningActive = (feature?: CheckFeatureReturn) => {
   return (
     featureDetail?.limit &&
     featureDetail.count &&
-    featureDetail.count >= (featureDetail.limit * FEATURE_USAGE_WARNING_LIMIT) / 100
+    featureDetail.count > (featureDetail.limit * FEATURE_USAGE_WARNING_LIMIT) / 100 &&
+    featureDetail.count < featureDetail.limit
   )
+}
+
+export const isFeatureOveruseActive = (feature?: CheckFeatureReturn) => {
+  const featureDetail = feature?.featureDetail
+  return featureDetail?.limit && featureDetail.count && featureDetail.count > featureDetail.limit
+}
+
+export const getActiveUsageNumber = (feature?: CheckFeatureReturn) => {
+  const featureDetail = feature?.featureDetail
+  return featureDetail?.limit && featureDetail.count && Math.floor((featureDetail.count * 100) / featureDetail.limit)
 }
 
 export default function FeatureBanner(): React.ReactElement | null {
   const { module } = useModuleInfo()
   const { getString } = useStrings()
+
+  const { licenseInformation } = useLicenseStore()
+  const isCDFree = isCDFreePlan(licenseInformation)
+  const isCDTeam = isCDTeamPlan(licenseInformation)
+  const isCDEnterprise = isCDEnterprisePlan(licenseInformation)
+  const additionalLicenseProps = useMemo(() => {
+    return {
+      isCDFree,
+      isCDTeam,
+      isCDEnterprise
+    }
+  }, [isCDFree, isCDTeam, isCDEnterprise])
+
   const isFeatureEnforceEnabled = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
   const [activeModuleFeatures, setActiveModuleFeatures] = React.useState<FeatureProps | null>(null)
   const [isBannerDismissed, setIsBannerDismissed] = useLocalStorage<Partial<Record<Module, boolean>>>(
@@ -220,7 +250,8 @@ export default function FeatureBanner(): React.ReactElement | null {
     }
   }, [module])
 
-  const { message: messageFn, bannerType } = activeModuleFeatures?.renderMessage(features, getString) || {}
+  const { message: messageFn, bannerType } =
+    activeModuleFeatures?.renderMessage(features, getString, additionalLicenseProps) || {}
 
   const message = messageFn?.()
 

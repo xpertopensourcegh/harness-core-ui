@@ -44,8 +44,9 @@ import routes from '@common/RouteDefinitions'
 
 import { BannerType } from '@common/layouts/Constants'
 import {
-  FEATURE_USAGE_WARNING_LIMIT,
+  getActiveUsageNumber,
   isFeatureLimitBreached,
+  isFeatureOveruseActive,
   isFeatureWarningActive
 } from '@common/layouts/FeatureBanner'
 
@@ -230,11 +231,17 @@ executionFactory.registerStageDetails(StageType.DEPLOY, {
 })
 
 featureFactory.registerFeaturesByModule('cd', {
-  features: [FeatureIdentifier.DEPLOYMENTS_PER_MONTH, FeatureIdentifier.SERVICES],
-  renderMessage: (props, getString) => {
+  features: [
+    FeatureIdentifier.DEPLOYMENTS_PER_MONTH,
+    FeatureIdentifier.SERVICES,
+    FeatureIdentifier.INITIAL_DEPLOYMENTS
+  ],
+  renderMessage: (props, getString, additionalLicenseProps = {}) => {
+    const { isCDFree, isCDTeam, isCDEnterprise } = additionalLicenseProps
     const featuresMap = props.features
     const serviceFeatureDetail = featuresMap.get(FeatureIdentifier.SERVICES)
     const dpmFeatureDetail = featuresMap.get(FeatureIdentifier.DEPLOYMENTS_PER_MONTH)
+    const initialDeploymentsFeatureDetail = featuresMap.get(FeatureIdentifier.INITIAL_DEPLOYMENTS)
 
     // Check for limit breach
     const isServiceLimitBreached = isFeatureLimitBreached(serviceFeatureDetail)
@@ -245,8 +252,12 @@ featureFactory.registerFeaturesByModule('cd', {
         deploymentsLimit: dpmFeatureDetail?.featureDetail?.limit,
         serviceLimit: serviceFeatureDetail?.featureDetail?.limit
       })
-    } else if (isServiceLimitBreached) {
+    } else if (isServiceLimitBreached && isCDFree) {
       limitBreachMessageString = getString('cd.featureRestriction.banners.serviceLevelUp', {
+        serviceLimit: serviceFeatureDetail?.featureDetail?.limit
+      })
+    } else if (isServiceLimitBreached && (isCDTeam || isCDEnterprise)) {
+      limitBreachMessageString = getString('cd.featureRestriction.banners.serviceLevelUpTeamEnterprise', {
         serviceLimit: serviceFeatureDetail?.featureDetail?.limit
       })
     } else if (isDpmLimitBreached) {
@@ -267,13 +278,20 @@ featureFactory.registerFeaturesByModule('cd', {
     let warningMessageString = ''
     const isServiceWarningActive = isFeatureWarningActive(serviceFeatureDetail)
     const isDpmWarningActive = isFeatureWarningActive(dpmFeatureDetail)
+    const isInitialDeplWarningActive = isFeatureWarningActive(initialDeploymentsFeatureDetail)
+    if (isInitialDeplWarningActive) {
+      warningMessageString = getString('cd.featureRestriction.banners.initialDeploymentsWarningActive', {
+        warningLimit: getActiveUsageNumber(initialDeploymentsFeatureDetail)
+      })
+    }
     if (isServiceWarningActive) {
       warningMessageString = getString('cd.featureRestriction.banners.serviceWarningActive', {
-        warningLimit: FEATURE_USAGE_WARNING_LIMIT
+        warningLimit: getActiveUsageNumber(serviceFeatureDetail)
       })
     } else if (isDpmWarningActive) {
       warningMessageString = getString('cd.featureRestriction.banners.dpmWarningActive', {
-        warningLimit: FEATURE_USAGE_WARNING_LIMIT
+        count: dpmFeatureDetail?.featureDetail?.count,
+        warningLimit: dpmFeatureDetail?.featureDetail?.limit
       })
     }
 
@@ -284,7 +302,19 @@ featureFactory.registerFeaturesByModule('cd', {
       }
     }
 
-    // If neither limit breach or warning needs to be shown, return with an empty string.
+    let overuseMessageString = ''
+    const isServiceOveruseActive = isFeatureOveruseActive(serviceFeatureDetail)
+    if (isServiceOveruseActive && (isCDTeam || isCDEnterprise)) {
+      overuseMessageString = getString('cd.featureRestriction.banners.serviceOveruseTeamEnterprise')
+    }
+    if (overuseMessageString) {
+      return {
+        message: () => overuseMessageString,
+        bannerType: BannerType.OVERUSE
+      }
+    }
+
+    // If neither of limit breach/ warning/ overuse needs to be shown, return with an empty string.
     // This will ensure no banner is shown
     return {
       message: () => '',
