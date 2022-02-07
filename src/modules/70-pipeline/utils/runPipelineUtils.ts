@@ -129,7 +129,7 @@ export const getMergedVariables = (
 }
 
 /*
-  Get features restriction to pass to 'run' pipeline button based on the modules the pipeline supports
+  Get features restriction to pass to 'run/ retry' pipeline button based on the modules the pipeline supports
 */
 export const getFeaturePropsForRunPipelineButton = (modules?: string[]): FeaturesProps | undefined => {
   if (!modules || !modules?.length) {

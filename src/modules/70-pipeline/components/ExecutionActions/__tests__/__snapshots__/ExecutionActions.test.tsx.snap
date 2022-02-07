@@ -139,20 +139,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
       </div>
     </a>
   </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
-      </div>
-    </a>
-  </li>
 </ul>
 `;
 
@@ -292,20 +278,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
         pipeline.execution.actions.resumePipeline
-      </div>
-    </a>
-  </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -451,20 +423,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
       </div>
     </a>
   </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
-      </div>
-    </a>
-  </li>
 </ul>
 `;
 
@@ -603,20 +561,6 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
         pipeline.execution.actions.resumePipeline
-      </div>
-    </a>
-  </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -794,20 +738,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
       </div>
     </a>
   </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
-      </div>
-    </a>
-  </li>
 </ul>
 `;
 
@@ -979,20 +909,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
         pipeline.execution.actions.resumePipeline
-      </div>
-    </a>
-  </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -1170,20 +1086,6 @@ exports[`<ExecutionActions /> tests snapshot tests "ResourceWaiting" status: Men
       </div>
     </a>
   </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
-      </div>
-    </a>
-  </li>
 </ul>
 `;
 
@@ -1355,20 +1257,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
         pipeline.execution.actions.resumePipeline
-      </div>
-    </a>
-  </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -1547,20 +1435,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
       </div>
     </a>
   </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
-      </div>
-    </a>
-  </li>
 </ul>
 `;
 
@@ -1700,20 +1574,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
         pipeline.execution.actions.resumePipeline
-      </div>
-    </a>
-  </li>
-  <li
-    class=""
-  >
-    <a
-      class="bp3-menu-item bp3-disabled"
-      tabindex="-1"
-    >
-      <div
-        class="bp3-text-overflow-ellipsis bp3-fill"
-      >
-        pipeline.execution.actions.downloadLogs
       </div>
     </a>
   </li>

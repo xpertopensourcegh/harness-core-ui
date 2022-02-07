@@ -237,6 +237,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             onClose={onClose}
             executionIdentifier={executionIdentifier}
             pipelineIdentifier={pipelineIdentifier}
+            modules={modules}
           />
           <Button minimal icon="cross" onClick={onClose} className={css.crossIcon} />
         </div>
@@ -338,8 +339,14 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             <MenuItem text={getString(pauseText)} onClick={pausePipeline} disabled={!canPause} />
             <MenuItem text={getString(abortText)} onClick={openAbortDialog} disabled={!canAbort} />
             <MenuItem text={getString(resumeText)} onClick={resumePipeline} disabled={!canResume} />
-            {showRetryPipeline() && <MenuItem text={getString('pipeline.retryPipeline')} onClick={retryPipeline} />}
-            {stageId ? null : <MenuItem text={getString('pipeline.execution.actions.downloadLogs')} disabled />}
+            {showRetryPipeline() && (
+              <RbacMenuItem
+                featuresProps={getFeaturePropsForRunPipelineButton(modules)}
+                text={getString('pipeline.retryPipeline')}
+                onClick={retryPipeline}
+              />
+            )}
+            {/* {stageId ? null : <MenuItem text={getString('pipeline.execution.actions.downloadLogs')} disabled />} */}
           </Menu>
         </Popover>
       )}
