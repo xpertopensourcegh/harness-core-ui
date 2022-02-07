@@ -103,7 +103,8 @@ describe('Verify step', () => {
     cy.findByRole('button', { name: /Collapse All/i }).click()
 
     // load more should be visible, if we have more than 6 nodes present
-    cy.findByTestId('/todolist/exception-Average Response Time (ms)-APP_DYNAMICS-panel').click()
+    cy.findByText('/todolist/exception').click()
+    cy.wait(500)
     cy.findByTestId('loadMore_button').should('be.visible')
     cy.get('.highcharts-container ').should('have.length', 6)
 
