@@ -26,6 +26,7 @@ import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import type { FlagConfigurationStepData } from './types'
 import FlagChanges from './FlagChanges/FlagChanges'
+import preProcessFormValues from './preProcessFormValues'
 
 export interface FlagConfigurationStepWidgetProps {
   initialValues: FlagConfigurationStepData
@@ -80,6 +81,11 @@ const FlagConfigurationStepWidget = forwardRef(
 
     const loading = loadingEnvironments || loadingFeatures
     const error = errorEnvironments || errorFeatures
+
+    const initialFormValues = useMemo(
+      () => preProcessFormValues(initialValues, featuresData),
+      [initialValues, featuresData]
+    )
 
     const showLoading = useMemo<boolean>(() => {
       if (isInitialRender) {
@@ -143,7 +149,7 @@ const FlagConfigurationStepWidget = forwardRef(
       <Formik<FlagConfigurationStepData>
         formName="FeatureFlagConfigurationForm"
         onSubmit={onUpdate}
-        initialValues={initialValues}
+        initialValues={initialFormValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
           spec: Yup.object().shape({
