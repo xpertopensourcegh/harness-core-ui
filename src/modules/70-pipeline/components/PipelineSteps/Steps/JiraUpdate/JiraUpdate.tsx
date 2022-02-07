@@ -34,7 +34,7 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
   protected isHarnessSpecific = true
   protected type = StepType.JiraUpdate
   protected stepName = 'Jira Update'
-  protected stepIcon: IconName = 'service-jira'
+  protected stepIcon: IconName = 'jira-update'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.JiraUpdate'
   // initialValues on mount
   protected defaultValues: JiraUpdateData = {
