@@ -525,8 +525,10 @@ export const getErrorsList = memoize((errors: any): { errorStrings: string[]; er
 })
 
 export const validateCICodebaseConfiguration = ({ pipeline, getString }: Partial<ValidatePipelineProps>): string => {
-  const shouldValidateCICodebase = pipeline?.stages?.some(stage =>
-    Object.is(get(stage, 'stage.spec.cloneCodebase'), true)
+  const shouldValidateCICodebase = pipeline?.stages?.some(
+    stage =>
+      Object.is(get(stage, 'stage.spec.cloneCodebase'), true) ||
+      stage.parallel?.some(parallelStage => Object.is(get(parallelStage, 'stage.spec.cloneCodebase'), true))
   )
   if (
     shouldValidateCICodebase &&
