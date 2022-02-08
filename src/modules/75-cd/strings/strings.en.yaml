@@ -158,7 +158,7 @@ requiredPermissions: '<ul> <li> Permission to create Deployment, Service, Statef
 featureRestriction:
   banners:
     serviceLevelUp: 'You have used {{ serviceLimit }} services included in the free plan. Consider upgrading to unlock more services.'
-    serviceLevelUpTeamEnterprise: 'You have used {{ serviceLimit }} services included in the plan. Consider upgrading to unlock more services.'
+    serviceLevelUpTeamEnterprise: 'You have used {{ serviceLimit }} services included in the team plan. Consider upgrading to unlock more services.'
     deploymentsPerMonthLevelUp: 'You have used {{ count }} / {{ deploymentsLimit }} free deployments this month. Consider upgrading for unlimited deployments.'
     serviceAndDeploymentsLevelUp: 'You have used {{ deploymentsLimit }} free deployments this month and {{ serviceLimit }} free services. Consider upgrading for higher limits.'
     serviceWarningActive: You have used {{ warningLimit }}% of your service subscription limit.

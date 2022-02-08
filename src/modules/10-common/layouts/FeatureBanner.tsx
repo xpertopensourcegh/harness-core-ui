@@ -168,7 +168,7 @@ function getBannerBodyByType(type: BannerType, message: React.ReactNode, module:
       )
     case BannerType.OVERUSE:
       return (
-        <Layout.Horizontal width="95%" padding={{ left: 'large' }}>
+        <Layout.Horizontal width="95%" padding={{ left: 'large' }} spacing="medium">
           <OverUseInfoText message={message} />
           <ManageSubscriptionBtn module={module} />
         </Layout.Horizontal>
@@ -193,7 +193,7 @@ function getBannerClassNameByType(type: BannerType): string {
 
 export const isFeatureLimitBreached = (feature?: CheckFeatureReturn) => {
   const featureDetail = feature?.featureDetail
-  return featureDetail?.limit && featureDetail.count && featureDetail.count >= featureDetail.limit
+  return featureDetail?.limit && featureDetail.count && featureDetail.count === featureDetail.limit
 }
 
 export const FEATURE_USAGE_WARNING_LIMIT = 90

@@ -237,7 +237,7 @@ featureFactory.registerFeaturesByModule('cd', {
     FeatureIdentifier.INITIAL_DEPLOYMENTS
   ],
   renderMessage: (props, getString, additionalLicenseProps = {}) => {
-    const { isCDFree, isCDTeam, isCDEnterprise } = additionalLicenseProps
+    const { isCDFree, isCDTeam } = additionalLicenseProps
     const featuresMap = props.features
     const serviceFeatureDetail = featuresMap.get(FeatureIdentifier.SERVICES)
     const dpmFeatureDetail = featuresMap.get(FeatureIdentifier.DEPLOYMENTS_PER_MONTH)
@@ -256,7 +256,7 @@ featureFactory.registerFeaturesByModule('cd', {
       limitBreachMessageString = getString('cd.featureRestriction.banners.serviceLevelUp', {
         serviceLimit: serviceFeatureDetail?.featureDetail?.limit
       })
-    } else if (isServiceLimitBreached && (isCDTeam || isCDEnterprise)) {
+    } else if (isServiceLimitBreached && isCDTeam) {
       limitBreachMessageString = getString('cd.featureRestriction.banners.serviceLevelUpTeamEnterprise', {
         serviceLimit: serviceFeatureDetail?.featureDetail?.limit
       })
@@ -283,8 +283,7 @@ featureFactory.registerFeaturesByModule('cd', {
       warningMessageString = getString('cd.featureRestriction.banners.initialDeploymentsWarningActive', {
         warningLimit: getActiveUsageNumber(initialDeploymentsFeatureDetail)
       })
-    }
-    if (isServiceWarningActive) {
+    } else if (isServiceWarningActive) {
       warningMessageString = getString('cd.featureRestriction.banners.serviceWarningActive', {
         warningLimit: getActiveUsageNumber(serviceFeatureDetail)
       })
@@ -304,7 +303,7 @@ featureFactory.registerFeaturesByModule('cd', {
 
     let overuseMessageString = ''
     const isServiceOveruseActive = isFeatureOveruseActive(serviceFeatureDetail)
-    if (isServiceOveruseActive && (isCDTeam || isCDEnterprise)) {
+    if (isServiceOveruseActive && isCDTeam) {
       overuseMessageString = getString('cd.featureRestriction.banners.serviceOveruseTeamEnterprise')
     }
     if (overuseMessageString) {
