@@ -341,7 +341,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             <MenuItem text={getString(resumeText)} onClick={resumePipeline} disabled={!canResume} />
             {showRetryPipeline() && (
               <RbacMenuItem
-                featuresProps={getFeaturePropsForRunPipelineButton(modules)}
+                featuresProps={getFeaturePropsForRunPipelineButton({ modules, getString })}
                 text={getString('pipeline.retryPipeline')}
                 onClick={retryPipeline}
               />

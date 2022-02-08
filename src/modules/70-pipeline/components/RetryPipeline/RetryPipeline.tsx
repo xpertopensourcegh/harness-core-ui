@@ -778,7 +778,7 @@ const RetryPipeline = ({
                       submitForm()
                     }
                   }}
-                  featuresProps={getFeaturePropsForRunPipelineButton(modules)}
+                  featuresProps={getFeaturePropsForRunPipelineButton({ modules, getString })}
                   permission={{
                     resource: {
                       resourceIdentifier: pipeline?.identifier as string,
