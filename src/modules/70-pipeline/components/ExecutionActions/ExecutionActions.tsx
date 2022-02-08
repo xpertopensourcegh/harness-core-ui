@@ -286,7 +286,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           onClick={reRunPipeline}
           {...commonButtonProps}
           disabled={!canExecute}
-          featuresProps={getFeaturePropsForRunPipelineButton(modules)}
+          featuresProps={getFeaturePropsForRunPipelineButton({ modules, getString })}
         />
       ) : null}
       {canPause ? (
@@ -330,7 +330,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             ) : null}
             {stageId ? null : (
               <RbacMenuItem
-                featuresProps={getFeaturePropsForRunPipelineButton(modules)}
+                featuresProps={getFeaturePropsForRunPipelineButton({ modules, getString })}
                 text={getString(rerunText)}
                 disabled={!canRerun}
                 onClick={reRunPipeline}

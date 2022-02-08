@@ -2446,6 +2446,7 @@ export interface StringsMap {
   'pipeline.featureRestriction.serviceUsageWarning': string
   'pipeline.featureRestriction.subscription90PercentLimit': string
   'pipeline.featureRestriction.subscriptionExceededLimit': string
+  'pipeline.featureRestriction.unlimitedBuildsRequiredPlan': string
   'pipeline.filters.builtTypePlaceholder': string
   'pipeline.filters.deploymentTypePlaceholder': string
   'pipeline.filters.environmentPlaceholder': string

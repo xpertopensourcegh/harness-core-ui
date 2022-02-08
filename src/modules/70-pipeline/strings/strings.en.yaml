@@ -938,6 +938,7 @@ featureRestriction:
   numMonthlyBuilds: You have used {{count}} / {{limit}} free builds this month.
   subscription90PercentLimit: You have used {{usagePercent}}% of your developer subscription limit.
   subscriptionExceededLimit: You have exceeded your developer subscription limit.
+  unlimitedBuildsRequiredPlan: Monthly builds limit met. For Unlimited builds, consider upgrading to Team or Enterprise plan.
 policyEvaluations:
   title: Policy Evaluations
   failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.

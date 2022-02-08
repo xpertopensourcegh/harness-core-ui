@@ -126,7 +126,7 @@ exports[`CI: Render feature restriction banner Free Account Show warning banner 
         <p
           class="StyledProps--font StyledProps--main headline"
         >
-          COMMON.FEATURE.UPGRADEREQUIRED.TITLE
+          COMMON.LEVELUP
         </p>
         pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit
       </p>
