@@ -60,7 +60,7 @@ import { useQueryParams } from '@common/hooks'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
-import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
+import { getConnectorSchema, getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './GcpInfrastructureSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -69,7 +69,7 @@ type K8sGcpInfrastructureTemplate = { [key in keyof K8sGcpInfrastructure]: strin
 
 function getValidationSchema(getString: UseStringsReturn['getString']): Yup.ObjectSchema {
   return Yup.object().shape({
-    connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
+    connectorRef: getConnectorSchema(getString),
     cluster: Yup.lazy((value): Yup.Schema<unknown> => {
       /* istanbul ignore else */ if (typeof value === 'string') {
         return Yup.string().required(getString('common.cluster'))

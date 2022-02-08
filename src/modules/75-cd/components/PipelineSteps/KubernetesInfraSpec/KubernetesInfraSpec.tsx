@@ -45,7 +45,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
-import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
+import { getConnectorSchema, getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './KubernetesInfraSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
@@ -78,7 +78,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
   const validationSchema = Yup.object().shape({
-    connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
+    connectorRef: getConnectorSchema(getString),
     namespace: getNameSpaceSchema(getString),
     releaseName: getReleaseNameSchema(getString)
   })
