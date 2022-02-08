@@ -19,6 +19,7 @@ import {
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import { GetEnvironmentListQueryParams, useGetEnvironmentList } from 'services/cd-ng'
 import { GetAllFeaturesQueryParams, useGetAllFeatures } from 'services/cf'
@@ -38,7 +39,7 @@ export interface FlagConfigurationStepWidgetProps {
 
 const FlagConfigurationStepWidget = forwardRef(
   (
-    { initialValues, onUpdate, isNewStep, readonly }: FlagConfigurationStepWidgetProps,
+    { initialValues, onUpdate, isNewStep, readonly, stepViewType }: FlagConfigurationStepWidgetProps,
     formikRef: StepFormikFowardRef<FlagConfigurationStepData>
   ) => {
     const [isInitialRender, setIsInitialRender] = useState<boolean>(true)
@@ -151,7 +152,7 @@ const FlagConfigurationStepWidget = forwardRef(
         onSubmit={onUpdate}
         initialValues={initialFormValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+          ...getNameAndIdentifierSchema(getString, stepViewType),
           spec: Yup.object().shape({
             environment: Yup.string().required(getString('cf.pipeline.flagConfiguration.environmentRequired')),
             feature: Yup.mixed().required(getString('cf.pipeline.flagConfiguration.flagRequired'))
