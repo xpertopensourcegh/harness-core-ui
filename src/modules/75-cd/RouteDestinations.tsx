@@ -238,7 +238,7 @@ featureFactory.registerFeaturesByModule('cd', {
     FeatureIdentifier.INITIAL_DEPLOYMENTS
   ],
   renderMessage: (props, getString, additionalLicenseProps = {}) => {
-    const { isCDFree, isCDTeam } = additionalLicenseProps
+    const { isFreeEdition: isCDFree, isTeamEdition: isCDTeam } = additionalLicenseProps
     const featuresMap = props.features
     const serviceFeatureDetail = featuresMap.get(FeatureIdentifier.SERVICES)
     const dpmFeatureDetail = featuresMap.get(FeatureIdentifier.DEPLOYMENTS_PER_MONTH)

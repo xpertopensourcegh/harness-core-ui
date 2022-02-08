@@ -7,6 +7,7 @@
 
 import type { BannerType } from '@common/layouts/Constants'
 import type { StringsMap } from 'stringTypes'
+import type { UsageAndLimitReturn } from '@common/hooks/useGetUsageAndLimit'
 import type { FeatureIdentifier } from './FeatureIdentifier'
 import type { CheckFeaturesReturn } from './featureStoreUtil'
 
@@ -17,7 +18,8 @@ export interface FeatureProps {
   renderMessage(
     props: CheckFeaturesReturn,
     getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
-    additionalLicenseProps?: Record<string, any>
+    additionalLicenseProps?: Record<string, any>,
+    usageAndLimitInfo?: UsageAndLimitReturn
   ): {
     message: () => React.ReactNode
     bannerType: BannerType

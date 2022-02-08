@@ -3543,6 +3543,11 @@ export interface StringsMap {
   'ce.continuous': string
   'ce.dashboardPage.description': string
   'ce.dashboardPage.welcome': string
+  'ce.enforcementMessage.autoStoppingRules': string
+  'ce.enforcementMessage.exceededSpendLimit': string
+  'ce.enforcementMessage.exceededSpendLimitFreePlan': string
+  'ce.enforcementMessage.perspectivesLimitMsg': string
+  'ce.enforcementMessage.usageInfo': string
   'ce.gridColumnSelector': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
@@ -3681,7 +3686,6 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
-  'ce.perspectives.featureWarningSubInfoText': string
   'ce.perspectives.newPerspective': string
   'ce.perspectives.newPerspectiveLimitWarning': string
   'ce.perspectives.nodeDetails.aggregation.average': string

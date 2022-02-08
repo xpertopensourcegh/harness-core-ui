@@ -7,6 +7,12 @@ common:
   spendTillDate: 'Spend Till Date'
 allRegions: 'All Regions'
 allClusters: 'All Clusters'
+enforcementMessage:
+  exceededSpendLimit: You have exceeded your cloud spend subscription limit.
+  exceededSpendLimitFreePlan: 'You have used {{ usage }} / {{ limit }} free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.'
+  usageInfo: 'You have used {{ percentage }}% of your cloud spend subscription limit.'
+  autoStoppingRules: "You've used {{ limits }} free AutoStopping rules under the free plan."
+  perspectivesLimitMsg: "You've used {{ limits }} free Perspectives under the free plan."
 noSavingsDataMessage: 'Savings data not computed yet'
 pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
@@ -485,7 +491,6 @@ savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
   newPerspective: New Perspective
-  featureWarningSubInfoText: 'You have used {{usagePercentage}}% of your cloud spend subscription limit.'
   newPerspectiveLimitWarning: You have used {{count}} / {{limit}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
   allPerspectiveTxt: 'All ({{ count }})'
   recentPerspectiveTxt: 'Recent ({{ count }})'

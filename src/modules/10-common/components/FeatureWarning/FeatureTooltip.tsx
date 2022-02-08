@@ -10,7 +10,7 @@ import { Color, FontVariation, Layout, Text } from '@harness/uicore'
 import { capitalize } from 'lodash-es'
 import type { IconName } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { FeatureDescriptor, CustomFeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
+import { FeatureDescriptor, customFeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import { useFeatureRequiredPlans } from '@common/hooks/useFeatures'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { StringsMap } from 'stringTypes'
@@ -29,7 +29,7 @@ const FeatureText = ({ feature, module }: { feature: CheckFeatureReturn; module:
   const requiredPlans = useFeatureRequiredPlans(featureName)
   if (featureName) {
     const featureNameStr = capitalize(featureName.split('_').join(' '))
-    const customFeatureDescription = CustomFeatureDescriptor[featureName]
+    const customFeatureDescription = customFeatureDescriptor(featureName, getString, { limits: count })
     const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureNameStr
     const isCore = module === 'CORE'
     const limitDescription = (

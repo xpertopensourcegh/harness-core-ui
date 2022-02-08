@@ -10,7 +10,7 @@ import { ButtonSize, Color, FontVariation, Layout, Text, Popover } from '@harnes
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import { capitalize } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { FeatureDescriptor, CustomFeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
+import { FeatureDescriptor, customFeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatureRequiredPlans } from '@common/hooks/useFeatures'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
@@ -57,7 +57,7 @@ export const FeatureWarningTooltip = ({ featureName, warningMessage }: FeatureWa
   const { getString } = useStrings()
   const featureNameStr = capitalize(featureName.split('_').join(' '))
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureNameStr
-  const customFeatureDescription = CustomFeatureDescriptor[featureName]
+  const customFeatureDescription = customFeatureDescriptor(featureName, getString)
   const requiredPlans = useFeatureRequiredPlans(featureName)
   const requiredPlansStr = requiredPlans.length > 0 ? requiredPlans.join(' or ') : 'upgrade'
   const upgradeDescription = getString('common.feature.levelUp.planMessage', {

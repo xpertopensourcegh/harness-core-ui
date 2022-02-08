@@ -187,9 +187,7 @@ exports[`FeatureTooltip FeatureTooltip without warning message 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small StyledProps--padding-left-large StyledProps--color StyledProps--color-white"
           >
-            <span>
-              pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit
-            </span>
+            pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit
           </p>
         </div>
         <button

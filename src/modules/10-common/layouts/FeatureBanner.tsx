@@ -15,13 +15,8 @@ import routes from '@common/RouteDefinitions'
 import featuresFactory from 'framework/featureStore/FeaturesFactory'
 import type { FeatureProps } from 'framework/featureStore/FeaturesFactory'
 import type { CheckFeatureReturn } from 'framework/featureStore/featureStoreUtil'
-import type { Module } from 'framework/types/ModuleName'
-import {
-  isCDEnterprisePlan,
-  isCDFreePlan,
-  isCDTeamPlan,
-  useLicenseStore
-} from 'framework/LicenseStore/LicenseStoreContext'
+import { isEnterprisePlan, isFreePlan, isTeamPlan, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { Module, ModuleName, moduleToModuleNameMapping } from 'framework/types/ModuleName'
 import { useFeatures } from '@common/hooks/useFeatures'
 import { useLocalStorage } from '@common/hooks/useLocalStorage'
 import { useModuleInfo } from '@common/hooks/useModuleInfo'
@@ -29,6 +24,7 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import { useGetUsageAndLimit } from '@common/hooks/useGetUsageAndLimit'
 import { BannerType } from './Constants'
 import css from './layouts.module.scss'
 
@@ -222,18 +218,6 @@ export default function FeatureBanner(): React.ReactElement | null {
   const { module } = useModuleInfo()
   const { getString } = useStrings()
 
-  const { licenseInformation } = useLicenseStore()
-  const isCDFree = isCDFreePlan(licenseInformation)
-  const isCDTeam = isCDTeamPlan(licenseInformation)
-  const isCDEnterprise = isCDEnterprisePlan(licenseInformation)
-  const additionalLicenseProps = useMemo(() => {
-    return {
-      isCDFree,
-      isCDTeam,
-      isCDEnterprise
-    }
-  }, [isCDFree, isCDTeam, isCDEnterprise])
-
   const isFeatureEnforceEnabled = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
   const [activeModuleFeatures, setActiveModuleFeatures] = React.useState<FeatureProps | null>(null)
   const [isBannerDismissed, setIsBannerDismissed] = useLocalStorage<Partial<Record<Module, boolean>>>(
@@ -243,6 +227,21 @@ export default function FeatureBanner(): React.ReactElement | null {
   )
   const features = useFeatures({ featuresRequest: { featureNames: defaultTo(activeModuleFeatures?.features, []) } })
 
+  const moduleName: ModuleName = module ? moduleToModuleNameMapping[module] : ModuleName.COMMON
+  const usageAndLimitInfo = useGetUsageAndLimit(moduleName)
+
+  const { licenseInformation } = useLicenseStore()
+  const isFreeEdition = isFreePlan(licenseInformation, moduleName)
+  const isTeamEdition = isTeamPlan(licenseInformation, moduleName)
+  const isEnterpriseEdition = isEnterprisePlan(licenseInformation, moduleName)
+  const additionalLicenseProps = useMemo(() => {
+    return {
+      isFreeEdition,
+      isTeamEdition,
+      isEnterpriseEdition
+    }
+  }, [isFreeEdition, isTeamEdition, isEnterpriseEdition])
+
   React.useEffect(() => {
     if (module) {
       const moduleFeatures = featuresFactory.getFeaturesByModule(module)
@@ -251,7 +250,7 @@ export default function FeatureBanner(): React.ReactElement | null {
   }, [module])
 
   const { message: messageFn, bannerType } =
-    activeModuleFeatures?.renderMessage(features, getString, additionalLicenseProps) || {}
+    activeModuleFeatures?.renderMessage(features, getString, additionalLicenseProps, usageAndLimitInfo) || {}
 
   const message = messageFn?.()
 
