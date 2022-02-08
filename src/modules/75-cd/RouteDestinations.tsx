@@ -10,7 +10,7 @@ import { Route, useParams, Redirect } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { RouteWithLayout } from '@common/router'
-import { MinimalLayout } from '@common/layouts'
+import { EmptyLayout, MinimalLayout } from '@common/layouts'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import {
   accountPathProps,
@@ -130,6 +130,7 @@ import { TemplateStudioWrapper } from '@templates-library/components/TemplateStu
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import GitSyncConfigTab from '@gitsync/pages/config/GitSyncConfigTab'
+import FullPageLogView from '@pipeline/pages/full-page-log-view/FullPageLogView'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -541,6 +542,21 @@ export default (
       <PipelineDetails>
         <CDPipelineStudio />
       </PipelineDetails>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      layout={EmptyLayout}
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toPipelineLogs({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams,
+        stageIdentifier: ':stageIdentifier',
+        stepIndentifier: ':stepIndentifier'
+      })}
+    >
+      <FullPageLogView />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
