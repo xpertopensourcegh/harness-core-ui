@@ -112,6 +112,7 @@ export interface StringsMap {
   'common.commentModal.addCommentPlaceholder': string
   'common.commentModal.commentLabel': string
   'common.comments': string
+  'common.community': string
   'common.confictOccured': string
   'common.config': string
   'common.configureOptions.advancedHelp': string
@@ -500,6 +501,18 @@ export interface StringsMap {
   'common.reportNameRequired': string
   'common.repositoryName': string
   'common.resolveConflict': string
+  'common.resourceCenter.bottomlayout.apiDocs': string
+  'common.resourceCenter.bottomlayout.changeLog': string
+  'common.resourceCenter.bottomlayout.desc': string
+  'common.resourceCenter.bottomlayout.docs': string
+  'common.resourceCenter.bottomlayout.sitestatus': string
+  'common.resourceCenter.bottomlayout.university': string
+  'common.resourceCenter.communityLevelUp': string
+  'common.resourceCenter.ticketmenu.submit': string
+  'common.resourceCenter.ticketmenu.submitDesc': string
+  'common.resourceCenter.ticketmenu.tickets': string
+  'common.resourceCenter.ticketmenu.ticketsDesc': string
+  'common.resourceCenter.title': string
   'common.resourceGroupLabel': string
   'common.resourceLabel': string
   'common.resourceTypeLabel': string
@@ -937,15 +950,6 @@ export interface StringsMap {
   'rbac.usersPage.validation.role': string
   'rbac.youAreMissingTheFollowingPermission': string
   'rbac.youAreNotAuthorizedTo': string
-  'resourceCenter.bottomlayout.community.text': string
-  'resourceCenter.bottomlayout.desc': string
-  'resourceCenter.bottomlayout.docs.text': string
-  'resourceCenter.bottomlayout.sitestatus.text': string
-  'resourceCenter.ticketmenu.submit': string
-  'resourceCenter.ticketmenu.submitDesc': string
-  'resourceCenter.ticketmenu.tickets': string
-  'resourceCenter.ticketmenu.ticketsDesc': string
-  'resourceCenter.title': string
   'delegates.GBRam': string
   'delegates.configNameRequired': string
   'delegates.createDelegate': string

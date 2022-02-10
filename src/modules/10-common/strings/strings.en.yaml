@@ -743,3 +743,19 @@ copy: Copy
 levelUp: LEVEL UP
 overuse: OVERUSE
 scope: '{{ $.delegate.Scope }}'
+community: Community
+resourceCenter:
+  title: 'RESOURCE CENTER'
+  ticketmenu:
+    tickets: 'My Tickets'
+    ticketsDesc: 'View and manage your tickets'
+    submit: 'Submit a ticket'
+    submitDesc: 'Get help from our expert system'
+  bottomlayout:
+    desc: Other useful resources
+    docs: Docs
+    sitestatus: Site Status
+    university: University
+    apiDocs: API Docs
+    changeLog: Change log
+  communityLevelUp: Ticket support is availible in Team plan and Enterprise plans.

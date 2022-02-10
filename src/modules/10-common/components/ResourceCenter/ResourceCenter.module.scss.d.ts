@@ -8,8 +8,14 @@
 // this is an auto-generated file, do not update this manually
 declare const styles: {
   readonly bottombutton: string
+  readonly communityPopover: string
+  readonly communityTooltip: string
+  readonly helpCenterIcon: string
+  readonly iconSize: string
   readonly middleregion: string
-  readonly myticket: string
   readonly resourceCenter: string
+  readonly submitTicket: string
+  readonly title: string
+  readonly university: string
 }
 export default styles
