@@ -489,9 +489,17 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     name: NameSchema(),
     identifier: IdentifierSchema()
   })
+
+  const formRefDom = React.useRef<HTMLElement | undefined>()
+
   const child = (
     <Container className={css.inputSetForm}>
-      <Layout.Vertical spacing="medium">
+      <Layout.Vertical
+        spacing="medium"
+        ref={ref => {
+          formRefDom.current = ref as HTMLElement
+        }}
+      >
         <Formik<InputSetDTO & GitContextProps>
           initialValues={{
             ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
@@ -539,7 +547,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                 {selectedView === SelectedView.VISUAL ? (
                   <div className={css.inputsetGrid}>
                     <div>
-                      <ErrorsStrip formErrors={formErrors} />
+                      <ErrorsStrip formErrors={formErrors} domRef={formRefDom} />
                       <FormikForm>
                         {executionView ? null : (
                           <Layout.Vertical className={css.content} padding="xlarge">

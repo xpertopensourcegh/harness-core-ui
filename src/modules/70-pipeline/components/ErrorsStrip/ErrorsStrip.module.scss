@@ -9,6 +9,9 @@
   padding: var(--spacing-small) var(--spacing-large) !important;
   background-color: var(--red-50) !important;
   height: fit-content;
+  :global(.bp3-button) {
+    --button-height: 18px !important;
+  }
 }
 
 .runPipelineErrorDesc {
