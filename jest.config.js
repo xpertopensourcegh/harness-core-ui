@@ -50,12 +50,7 @@ module.exports = {
     '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/KubernetesSidecarArtifacts.tsx',
     '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/KubernetesManifests/KubernetesManifests.tsx',
     '!src/modules/75-cd/factory/**',
-    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/DockerArtifactSource.tsx',
-    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/ECRArtifactSource.tsx',
-    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/GCRArtifactSource.tsx',
-    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/NexusArtifactSource.tsx',
-    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/ArtifactoryArtifactSource.tsx',
-    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/ArtifactSourceRuntimeFields/ArtifactTagRuntimeField.tsx'
+    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/**'
   ],
   coverageReporters: ['lcov', 'json-summary', 'json'],
   transform: {
