@@ -8,21 +8,23 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 
+import { MultiTypeInputType } from '@harness/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import { ArtifactSourceBaseFactory } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
-import { KubernetesArtifacts } from '../KubernetesArtifacts'
+import { KubernetesPrimaryArtifacts } from '../KubernetesPrimaryArtifacts'
 
 describe('<KubernetesArtifacts /> tests', () => {
   test('snapshot test for kubernetes artifacts', () => {
     const { container } = render(
       <TestWrapper>
-        <KubernetesArtifacts
+        <KubernetesPrimaryArtifacts
           type={'artifact'}
           initialValues={{}}
           readonly
           stageIdentifier="stage-0"
           artifactSourceBaseFactory={new ArtifactSourceBaseFactory()}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
         />
       </TestWrapper>
     )

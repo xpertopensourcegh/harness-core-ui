@@ -2217,6 +2217,7 @@ export interface StringsMap {
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
   'pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder': string
+  'pipeline.artifactsSelection.loadingTags': string
   'pipeline.artifactsSelection.repositoryPlaceholder': string
   'pipeline.artifactsSelection.repositoryPort': string
   'pipeline.artifactsSelection.repositoryPortPlaceholder': string

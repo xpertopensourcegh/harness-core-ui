@@ -719,6 +719,7 @@ artifactsSelection:
   repositoryPlaceholder: Enter Repository
   artifactDetails: Artifact Details
   artifactTyperequired: Artifact Type is required
+  loadingTags: Loading Tags...
   existingDocker:
     sidecarId: Sidecar Identifier
     sidecarIdPlaceholder: Enter Artifact Identifier

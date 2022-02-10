@@ -21,9 +21,8 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
-import { KubernetesArtifacts } from './KubernetesArtifacts'
-import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
-import { KubernetesSidecars } from './KubernetesSidecars'
+import { KubernetesPrimaryArtifacts } from './KubernetesPrimaryArtifacts'
+import { KubernetesSidecarArtifacts } from './KubernetesSidecarArtifacts'
 import css from './K8sServiceSpec.module.scss'
 
 export interface KubernetesInputSetProps {
@@ -57,7 +56,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="medium">
-      <KubernetesArtifacts
+      <KubernetesPrimaryArtifacts
         template={template}
         type={allValues?.artifacts?.primary?.type || ''}
         artifactSourceBaseFactory={artifactSourceBaseFactory}
@@ -65,14 +64,24 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
         stageIdentifier={stageIdentifier}
         artifacts={allValues?.artifacts}
         formik={formik}
-        onUpdate={onUpdate}
         path={path}
         initialValues={initialValues}
         readonly={readonly}
+        allowableTypes={allowableTypes}
       />
-      <KubernetesSidecars />
-
-      {!!template?.manifests?.length && (
+      <KubernetesSidecarArtifacts
+        template={template}
+        artifacts={allValues?.artifacts}
+        artifactSourceBaseFactory={artifactSourceBaseFactory}
+        stepViewType={stepViewType}
+        stageIdentifier={stageIdentifier}
+        formik={formik}
+        path={path}
+        initialValues={initialValues}
+        readonly={readonly}
+        allowableTypes={allowableTypes}
+      />
+      {/* {!!template?.manifests?.length && (
         <KubernetesManifests
           template={template}
           path={path}
@@ -84,7 +93,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
           formik={formik}
         />
       )}
-      {/* {!!template?.manifests?.length && (
+      {!!template?.manifests?.length && (
         <ManifestInputForm
           template={template}
           path={path}
@@ -93,6 +102,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
           readonly={readonly}
           stageIdentifier={stageIdentifier}
           formik={formik}
+          allowableTypes={allowableTypes}
         />
       )} */}
       {!!template?.variables?.length && (
