@@ -143,6 +143,8 @@ export interface StringsMap {
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
+  'common.currentlyAvailable': string
+  'common.currentlySupportedOn': string
   'common.customPricing': string
   'common.daily': string
   'common.dashboards': string
@@ -218,6 +220,7 @@ export interface StringsMap {
   'common.filters.saveNewFilter': string
   'common.filters.unsavedFilter': string
   'common.findOutMore': string
+  'common.firstGeneration': string
   'common.frequency': string
   'common.friendlyMessage': string
   'common.genericErrors.inviteExpired': string
@@ -615,6 +618,7 @@ export interface StringsMap {
   'common.successfullCreate': string
   'common.successfullUpdate': string
   'common.suggestionsLabel': string
+  'common.supportedInFirstGeneration': string
   'common.supportedModals': string
   'common.switchAccount': string
   'common.switchAccountError': string
@@ -3081,6 +3085,12 @@ export interface StringsMap {
   'cd.argoAdapterURL': string
   'cd.backEndConfig': string
   'cd.cdLaunchText': string
+  'cd.cdSwitchToFirstGen.description1': string
+  'cd.cdSwitchToFirstGen.description2': string
+  'cd.cdSwitchToFirstGen.description3': string
+  'cd.cdSwitchToFirstGen.description4': string
+  'cd.cdSwitchToFirstGen.learnMoreAboutCD1stGen': string
+  'cd.cdSwitchToFirstGen.startWith14DayTrial': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
