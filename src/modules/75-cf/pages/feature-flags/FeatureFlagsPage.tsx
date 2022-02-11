@@ -272,6 +272,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
           )}
         </Layout.Vertical>
       </Layout.Horizontal>
+
       <Container onClick={event => event.stopPropagation()}>
         {isSaveToggleModalOpen && (
           <SaveFlagToGitModal
