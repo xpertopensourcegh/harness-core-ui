@@ -6,11 +6,11 @@
  */
 
 import React from 'react'
-import { Icon, Layout, Text, Utils, Button, ButtonVariation } from '@wings-software/uicore'
+import { Icon, Layout, Text, Utils, Button, ButtonVariation, FontVariation, Color } from '@wings-software/uicore'
 import { Intent, PopoverPosition } from '@blueprintjs/core'
 import type { FormikErrors } from 'formik'
 import cx from 'classnames'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import { getErrorsList } from '@pipeline/components/PipelineStudio/StepUtil'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
@@ -20,6 +20,27 @@ import css from './ErrorsStrip.module.scss'
 interface ErrorStripProps {
   formErrors: FormikErrors<unknown>
   domRef?: React.MutableRefObject<HTMLElement | undefined>
+}
+
+const onNextHandler = (
+  offset: number,
+  inputsList: string[],
+  highlighted: number,
+  setHighlighted: React.Dispatch<React.SetStateAction<number>>,
+  domRef?: React.MutableRefObject<HTMLElement | undefined>
+): void => {
+  const nextElementName = inputsList[highlighted + offset]
+  if (nextElementName) {
+    let element = domRef?.current?.querySelector(`[name="${nextElementName}"]`) as HTMLInputElement | undefined
+    if (element) {
+      element.focus()
+    } else {
+      element = domRef?.current?.querySelector(`[data-name="${nextElementName}"]`)?.parentElement
+        ?.previousElementSibling as HTMLInputElement | undefined
+      element?.scrollIntoView()
+    }
+    setHighlighted(highlighted + offset)
+  }
 }
 
 export function ErrorsStrip(props: ErrorStripProps): React.ReactElement {
@@ -41,12 +62,12 @@ export function ErrorsStrip(props: ErrorStripProps): React.ReactElement {
     (e: Event) => {
       if (e.target && !errorStripRef.current?.contains(e.target as Node)) {
         const target = e.target as HTMLDivElement
-        let element = target.getAttribute('name')
+        let element = defaultTo(target.getAttribute('name'), '')
 
         if (isEmpty(element)) {
-          element = target.closest('.bp3-form-group')?.querySelector('.bp3-label')?.getAttribute('for') || ''
+          element = defaultTo(target.closest('.bp3-form-group')?.querySelector('.bp3-label')?.getAttribute('for'), '')
         }
-        if (!isEmpty(element) && element) {
+        if (!isEmpty(element)) {
           setHighlighted(inputsList.indexOf(element))
         } else {
           setHighlighted(-1)
@@ -90,21 +111,6 @@ export function ErrorsStrip(props: ErrorStripProps): React.ReactElement {
     }
   }, [tabList])
 
-  const onNextHandler = (offset: number): void => {
-    const nextElementName = inputsList[highlighted + offset]
-    if (nextElementName) {
-      let element = props.domRef?.current?.querySelector(`[name="${nextElementName}"]`) as HTMLInputElement | undefined
-      if (element) {
-        element.focus()
-      } else {
-        element = props.domRef?.current?.querySelector(`[data-name="${nextElementName}"]`)?.parentElement
-          ?.previousElementSibling as HTMLInputElement | undefined
-        element?.scrollIntoView()
-      }
-      setHighlighted(highlighted + offset)
-    }
-  }
-
   if (!errorCount) {
     return <></>
   }
@@ -124,7 +130,12 @@ export function ErrorsStrip(props: ErrorStripProps): React.ReactElement {
           tooltip={
             <div className={css.runPipelineErrorDesc}>
               {errorStrings.map((errorMessage, index) => (
-                <Text intent="danger" key={index} font={{ weight: 'semi-bold' }} className={css.runPipelineErrorLine}>
+                <Text
+                  intent="danger"
+                  key={index}
+                  font={{ variation: FontVariation.SMALL_BOLD }}
+                  className={css.runPipelineErrorLine}
+                >
                   {errorMessage}
                 </Text>
               ))}
@@ -136,7 +147,7 @@ export function ErrorsStrip(props: ErrorStripProps): React.ReactElement {
             popoverClassName: css.runPipelineErrorPopover
           }}
         >
-          <Text font={{ size: 'small' }} margin={{ left: 'small' }}>
+          <Text font={{ variation: FontVariation.TINY_SEMI }} color={Color.GREY_600} margin={{ left: 'small' }}>
             {getString('common.seeDetails')}
           </Text>
         </Utils.WrapOptionalTooltip>
@@ -146,16 +157,18 @@ export function ErrorsStrip(props: ErrorStripProps): React.ReactElement {
           <Button
             intent="danger"
             disabled={highlighted === inputsList.length - 1}
-            onClick={() => onNextHandler(1)}
+            onClick={() => onNextHandler(1, inputsList, highlighted, setHighlighted, props.domRef)}
             variation={ButtonVariation.ICON}
-            icon="chevron-down"
+            iconProps={{ size: 10 }}
+            icon="main-chevron-down"
           />
           <Button
             intent="danger"
             disabled={highlighted <= 0}
-            onClick={() => onNextHandler(-1)}
+            onClick={() => onNextHandler(-1, inputsList, highlighted, setHighlighted, props.domRef)}
+            iconProps={{ size: 10 }}
             variation={ButtonVariation.ICON}
-            icon="chevron-up"
+            icon="main-chevron-up"
           />
         </Layout.Horizontal>
       ) : null}
