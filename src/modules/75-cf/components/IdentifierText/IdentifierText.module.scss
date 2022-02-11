@@ -7,6 +7,7 @@
 
 .identifier-container {
   display: flex;
+  width: fit-content;
   background-color: #effbff !important;
   padding: var(--spacing-xsmall) var(--spacing-small) !important;
   border-radius: var(--spacing-xsmall);
