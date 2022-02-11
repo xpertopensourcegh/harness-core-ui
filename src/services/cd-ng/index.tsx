@@ -1538,6 +1538,10 @@ export interface CustomHealthKeyAndValue {
   valueEncrypted?: boolean
 }
 
+export type CustomPolicyStepSpec = PolicySpec & {
+  payload?: string
+}
+
 export type CustomRestrictionDTO = RestrictionDTO & { [key: string]: any }
 
 export type CustomRestrictionMetadataDTO = RestrictionMetadataDTO & {}
@@ -1966,6 +1970,21 @@ export interface EntityDetail {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
 }
 
 export interface EntityGitDetails {
@@ -3195,6 +3214,21 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -3236,6 +3270,21 @@ export interface GitEntityFilterProperties {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -3310,7 +3359,22 @@ export interface GitFullSyncEntityInfoDTO {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
-  errorMessages?: string[]
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
+  errorMessage?: string
   filePath?: string
   identifier?: string
   name?: string
@@ -3359,6 +3423,21 @@ export interface GitFullSyncEntityInfoFilterKeys {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   )[]
   syncStatus?: 'QUEUED' | 'SUCCESS' | 'FAILED' | 'OVERRIDDEN'
 }
@@ -3485,6 +3564,21 @@ export interface GitSyncEntityDTO {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -3528,6 +3622,21 @@ export interface GitSyncEntityListDTO {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -3588,6 +3697,21 @@ export interface GitSyncErrorDTO {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
   failureReason?: string
   repoId?: string
@@ -5388,6 +5512,17 @@ export type PmsPagerDutyChannel = PmsNotificationChannel & {
 export type PmsSlackChannel = PmsNotificationChannel & {
   userGroups?: string[]
   webhookUrl?: string
+}
+
+export interface PolicySpec {
+  type?: string
+}
+
+export type PolicyStepInfo = StepSpecType & {
+  metadata?: string
+  policySets?: string[]
+  policySpec?: PolicySpec
+  type?: string
 }
 
 export interface PollingResponseDTO {
@@ -8775,6 +8910,7 @@ export interface YamlSchemaMetadata {
   featureFlags?: string[]
   featureRestrictions?: string[]
   modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
+  namespace?: string
   yamlGroup: YamlGroup
 }
 
@@ -9128,6 +9264,21 @@ export interface ListActivitiesQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -9163,6 +9314,21 @@ export interface ListActivitiesQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -9302,6 +9468,21 @@ export interface GetActivitiesSummaryQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -9337,6 +9518,21 @@ export interface GetActivitiesSummaryQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -16004,6 +16200,21 @@ export interface ListReferredByEntitiesQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -18317,6 +18528,21 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -18420,6 +18646,21 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'GitRepositories'
       | 'FeatureFlags'
       | 'ServiceNowApproval'
+      | 'GovernancePolicies'
+      | 'POLICY_STEP'
+      | 'Run'
+      | 'RunTests'
+      | 'Plugin'
+      | 'RestoreCacheGCS'
+      | 'RestoreCacheS3'
+      | 'SaveCacheGCS'
+      | 'SaveCacheS3'
+      | 'ArtifactoryUpload'
+      | 'GCSUpload'
+      | 'S3Upload'
+      | 'BuildAndPushGCR'
+      | 'BuildAndPushECR'
+      | 'BuildAndPushDockerRegistry'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -21671,6 +21912,21 @@ export interface GetStepYamlSchemaQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   yamlGroup?: string
 }
 
@@ -30480,6 +30736,21 @@ export interface GetYamlSchemaQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   subtype?:
     | 'K8sCluster'
     | 'Git'
