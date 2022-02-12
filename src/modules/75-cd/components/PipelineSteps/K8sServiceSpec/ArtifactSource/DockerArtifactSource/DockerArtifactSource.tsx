@@ -18,6 +18,7 @@ import { useGetBuildDetailsForDockerWithYaml } from 'services/cd-ng'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   fromPipelineInputTriggerTab,
@@ -48,7 +49,6 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
     pipelineIdentifier,
     branch,
     stageIdentifier,
-    expressions,
     isTagsSelectionDisabled,
     allowableTypes,
     fromTrigger,
@@ -59,7 +59,7 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
 
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   const {
     data: dockerdata,
     loading: fetchingTags,
@@ -179,6 +179,7 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
               buildDetailsList={dockerdata?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
+              expressions={expressions}
             />
           )}
 

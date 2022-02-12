@@ -18,6 +18,7 @@ import { NameValuePair, useListAwsRegions } from 'services/portal'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import ExperimentalInput from '../../K8sServiceSpecForms/ExperimentalInput'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
@@ -50,7 +51,6 @@ const Content = (props: ECRRenderContent): JSX.Element => {
     pipelineIdentifier,
     branch,
     stageIdentifier,
-    expressions,
     isTagsSelectionDisabled,
     allowableTypes,
     fromTrigger,
@@ -61,6 +61,7 @@ const Content = (props: ECRRenderContent): JSX.Element => {
 
   const { getString } = useStrings()
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
+  const { expressions } = useVariablesExpression()
 
   const {
     data: ecrTagsData,
@@ -217,6 +218,7 @@ const Content = (props: ECRRenderContent): JSX.Element => {
               buildDetailsList={ecrTagsData?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
+              expressions={expressions}
             />
           )}
 

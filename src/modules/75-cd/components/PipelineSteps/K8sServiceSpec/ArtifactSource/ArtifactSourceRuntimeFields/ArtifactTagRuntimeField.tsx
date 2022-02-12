@@ -27,6 +27,7 @@ interface TagsRenderContent extends ArtifactSourceRenderProps {
   fetchingTags: boolean
   fetchTags: () => Promise<void> | undefined
   fetchTagsError: GetDataError<Failure | Error> | null
+  expressions: string[]
 }
 const ArtifactTagRuntimeField = (props: TagsRenderContent): JSX.Element => {
   const {

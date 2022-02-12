@@ -27,6 +27,7 @@ describe('Artifact Tag Runtime Field tests', () => {
           fetchTags={jest.fn()}
           isTagsSelectionDisabled={jest.fn()}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+          expressions={[]}
         />
       </TestWrapper>
     )

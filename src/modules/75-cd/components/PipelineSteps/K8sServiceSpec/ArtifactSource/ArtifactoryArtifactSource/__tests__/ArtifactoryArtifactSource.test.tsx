@@ -16,8 +16,8 @@ import { ArtifactSourceBaseFactory } from '@cd/factory/ArtifactSourceFactory/Art
 import type { ArtifactListConfig, ServiceSpec } from 'services/cd-ng'
 import * as cdng from 'services/cd-ng'
 import * as artifactSourceUtils from '../../artifactSourceUtils'
-import { KubernetesPrimaryArtifacts } from '../../../KubernetesPrimaryArtifacts/KubernetesPrimaryArtifacts'
-import { KubernetesSidecarArtifacts } from '../../../KubernetesSidecarArtifacts/KubernetesSidecarArtifacts'
+import { KubernetesPrimaryArtifacts } from '../../../KubernetesArtifacts/KubernetesPrimaryArtifacts/KubernetesPrimaryArtifacts'
+import { KubernetesSidecarArtifacts } from '../../../KubernetesArtifacts/KubernetesSidecarArtifacts/KubernetesSidecarArtifacts'
 
 import { template, artifacts } from './mocks'
 

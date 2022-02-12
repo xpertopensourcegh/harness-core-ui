@@ -15,8 +15,8 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { ArtifactSourceBaseFactory } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import type { ArtifactListConfig, ServiceSpec } from 'services/cd-ng'
 import * as artifactSourceUtils from '../../artifactSourceUtils'
-import { KubernetesPrimaryArtifacts } from '../../../KubernetesPrimaryArtifacts/KubernetesPrimaryArtifacts'
-import { KubernetesSidecarArtifacts } from '../../../KubernetesSidecarArtifacts/KubernetesSidecarArtifacts'
+import { KubernetesPrimaryArtifacts } from '../../../KubernetesArtifacts/KubernetesPrimaryArtifacts/KubernetesPrimaryArtifacts'
+import { KubernetesSidecarArtifacts } from '../../../KubernetesArtifacts/KubernetesSidecarArtifacts/KubernetesSidecarArtifacts'
 
 import { template, artifacts } from './mocks'
 

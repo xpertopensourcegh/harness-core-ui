@@ -22,8 +22,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
-import { KubernetesPrimaryArtifacts } from './KubernetesPrimaryArtifacts/KubernetesPrimaryArtifacts'
-import { KubernetesSidecarArtifacts } from './KubernetesSidecarArtifacts/KubernetesSidecarArtifacts'
+import { KubernetesArtifacts } from './KubernetesArtifacts/KubernetesArtifacts'
 import css from './K8sServiceSpec.module.scss'
 
 export interface KubernetesInputSetProps {
@@ -39,7 +38,6 @@ export interface KubernetesInputSetProps {
   formik?: any
   allowableTypes: MultiTypeInputType[]
 }
-
 const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetProps) => {
   const {
     template,
@@ -57,20 +55,8 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="medium">
-      <KubernetesPrimaryArtifacts
-        template={template}
+      <KubernetesArtifacts
         type={allValues?.artifacts?.primary?.type || ''}
-        artifactSourceBaseFactory={artifactSourceBaseFactory}
-        stepViewType={stepViewType}
-        stageIdentifier={stageIdentifier}
-        artifacts={allValues?.artifacts}
-        formik={formik}
-        path={path}
-        initialValues={initialValues}
-        readonly={readonly}
-        allowableTypes={allowableTypes}
-      />
-      <KubernetesSidecarArtifacts
         template={template}
         artifacts={allValues?.artifacts}
         artifactSourceBaseFactory={artifactSourceBaseFactory}
@@ -82,6 +68,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
         readonly={readonly}
         allowableTypes={allowableTypes}
       />
+
       {/* {!!template?.manifests?.length && (
         <KubernetesManifests
           template={template}

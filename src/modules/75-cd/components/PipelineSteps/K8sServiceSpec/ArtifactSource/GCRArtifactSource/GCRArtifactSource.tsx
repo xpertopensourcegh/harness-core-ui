@@ -18,6 +18,7 @@ import { useGetBuildDetailsForGcrWithYaml } from 'services/cd-ng'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import ExperimentalInput from '../../K8sServiceSpecForms/ExperimentalInput'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
@@ -49,7 +50,6 @@ const Content = (props: GCRRenderContent): JSX.Element => {
     pipelineIdentifier,
     branch,
     stageIdentifier,
-    expressions,
     isTagsSelectionDisabled,
     allowableTypes,
     fromTrigger,
@@ -60,6 +60,7 @@ const Content = (props: GCRRenderContent): JSX.Element => {
 
   const { getString } = useStrings()
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
+  const { expressions } = useVariablesExpression()
 
   const {
     data: gcrTagsData,
@@ -198,6 +199,7 @@ const Content = (props: GCRRenderContent): JSX.Element => {
               buildDetailsList={gcrTagsData?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
+              expressions={expressions}
             />
           )}
           {isFieldRuntime(`artifacts.${artifactPath}.spec.tagRegex`, template) && (

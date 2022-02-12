@@ -7,7 +7,7 @@ exports[`Kubernetes sidecar artifacts tests Should match snapshot 1`] = `
     id="Stage.stage-0.Service.Artifacts.Sidecars"
   >
     <p
-      class="StyledProps--font StyledProps--main sectionHeader"
+      class="StyledProps--font StyledProps--main inputheader"
     >
       sidecarArtifactText
     </p>

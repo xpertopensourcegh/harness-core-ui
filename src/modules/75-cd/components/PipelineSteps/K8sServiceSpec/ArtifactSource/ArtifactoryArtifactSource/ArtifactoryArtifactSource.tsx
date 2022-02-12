@@ -19,6 +19,7 @@ import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/compon
 import { repositoryFormat } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   fromPipelineInputTriggerTab,
@@ -50,7 +51,6 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
     pipelineIdentifier,
     branch,
     stageIdentifier,
-    expressions,
     isTagsSelectionDisabled,
     allowableTypes,
     fromTrigger,
@@ -60,7 +60,7 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
   } = props
 
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
 
   const {
@@ -209,6 +209,7 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
               buildDetailsList={artifactoryTagsData?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
+              expressions={expressions}
             />
           )}
           {isFieldRuntime(`artifacts.${artifactPath}.spec.tagRegex`, template) && (

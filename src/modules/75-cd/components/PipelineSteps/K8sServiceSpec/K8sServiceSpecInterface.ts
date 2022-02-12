@@ -51,7 +51,6 @@ export interface KubernetesArtifactsProps {
   path?: string
   initialValues: K8SDirectServiceStep
   readonly: boolean
-  expressions?: string[]
   allowableTypes: MultiTypeInputType[]
   fromTrigger?: boolean
   artifact?: PrimaryArtifact | SidecarArtifact

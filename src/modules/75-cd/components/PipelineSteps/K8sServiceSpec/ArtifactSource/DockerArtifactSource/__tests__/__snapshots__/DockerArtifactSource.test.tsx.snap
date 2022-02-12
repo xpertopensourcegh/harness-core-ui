@@ -9,7 +9,7 @@ exports[`Docker Artifact Source tests snapshot test for Sidecar Docker artifact 
     id="Stage.stage-0.Service.Artifacts.Sidecars"
   >
     <p
-      class="StyledProps--font StyledProps--main sectionHeader"
+      class="StyledProps--font StyledProps--main inputheader"
     >
       sidecarArtifactText
     </p>
