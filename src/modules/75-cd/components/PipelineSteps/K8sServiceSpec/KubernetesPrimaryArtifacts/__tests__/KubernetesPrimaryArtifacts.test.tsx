@@ -12,15 +12,19 @@ import { MultiTypeInputType } from '@harness/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import { ArtifactSourceBaseFactory } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
-import { KubernetesPrimaryArtifacts } from '../KubernetesPrimaryArtifacts/KubernetesPrimaryArtifacts'
+import type { ArtifactListConfig, ServiceSpec } from 'services/cd-ng'
+import { KubernetesPrimaryArtifacts } from '../KubernetesPrimaryArtifacts'
 
-describe('<KubernetesArtifacts /> tests', () => {
-  test('snapshot test for kubernetes artifacts', () => {
+import { template, artifacts } from './mocks'
+
+describe('Kubernetes primary artifacts tests', () => {
+  test('Should match snapshot', () => {
     const { container } = render(
       <TestWrapper>
         <KubernetesPrimaryArtifacts
-          type={'artifact'}
           initialValues={{}}
+          template={template as ServiceSpec}
+          artifacts={artifacts as ArtifactListConfig}
           readonly
           stageIdentifier="stage-0"
           artifactSourceBaseFactory={new ArtifactSourceBaseFactory()}

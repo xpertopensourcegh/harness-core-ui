@@ -13,28 +13,26 @@ import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/Artif
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useMutateAsGet } from '@common/hooks'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useGetBuildDetailsForArtifactoryArtifactWithYaml } from 'services/cd-ng'
+import { useGetBuildDetailsForDockerWithYaml } from 'services/cd-ng'
 
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
-import { repositoryFormat } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
-import { isFieldRuntime } from '../K8sServiceSpecHelper'
+import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   fromPipelineInputTriggerTab,
   getYamlData,
   isFieldfromTriggerTabDisabled,
   resetTags,
   setPrimaryInitialValues
-} from './artifactSourceUtils'
-import ArtifactTagRuntimeField from './ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
-import css from '../K8sServiceSpec.module.scss'
+} from '../artifactSourceUtils'
+import ArtifactTagRuntimeField from '../ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
+import css from '../../K8sServiceSpec.module.scss'
 
-interface ArtifactoryRenderContent extends ArtifactSourceRenderProps {
+interface DockerRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps) => boolean
 }
-
-const Content = (props: ArtifactoryRenderContent): JSX.Element => {
+const Content = (props: DockerRenderContent): React.ReactElement => {
   const {
     isPrimaryArtifactsRuntime,
     isSidecarRuntime,
@@ -59,16 +57,15 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
     artifactPath
   } = props
 
+  const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
   const { getString } = useStrings()
 
-  const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
-
   const {
-    data: artifactoryTagsData,
+    data: dockerdata,
     loading: fetchingTags,
     refetch: fetchTags,
     error: fetchTagsError
-  } = useMutateAsGet(useGetBuildDetailsForArtifactoryArtifactWithYaml, {
+  } = useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {
     body: yamlStringify(getYamlData(formik?.values)),
     requestOptions: {
       headers: {
@@ -89,11 +86,6 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
         getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
           ? artifact?.spec?.connectorRef
           : get(initialValues?.artifacts, `${artifactPath}.spec.connectorRef`, ''),
-      repository:
-        getMultiTypeFromValue(artifact?.spec?.repository) !== MultiTypeInputType.RUNTIME
-          ? artifact?.spec?.repository
-          : get(initialValues?.artifacts, `${artifactPath}.spec.repository`, ''),
-      repositoryFormat,
       pipelineIdentifier: defaultTo(pipelineIdentifier, formik?.values?.identifier),
       fqnPath: isPropagatedStage
         ? `pipeline.stages.${stageIdentifier}.spec.serviceConfig.stageOverrides.artifacts.${artifactPath}.spec.tag`
@@ -103,6 +95,7 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
   })
 
   useEffect(() => {
+    /* instanbul ignore else */
     if (fromPipelineInputTriggerTab(formik, fromTrigger)) {
       setPrimaryInitialValues(initialValues, formik, stageIdentifier)
     }
@@ -110,6 +103,7 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
   }, [formik?.values?.triggerType, formik?.values?.selectedArtifact, fromTrigger, stageIdentifier])
 
   const isFieldDisabled = (fieldName: string, isTag = false): boolean => {
+    /* instanbul ignore else */
     if (readonly) {
       return true
     }
@@ -118,7 +112,6 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
     }
     return isFieldfromTriggerTabDisabled(fieldName, formik, stageIdentifier, fromTrigger)
   }
-
   const isRuntime = (!isSidecar && isPrimaryArtifactsRuntime) || (isSidecar && isSidecarRuntime)
 
   return (
@@ -138,13 +131,17 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
               setRefValue
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.connectorRef`)}
               multiTypeProps={{
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                allowableTypes,
                 expressions
               }}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
               className={css.connectorMargin}
-              type={ArtifactToConnectorMap[artifact?.type || '']}
-              gitScope={{ repo: repoIdentifier || '', branch: branch || '', getDefaultFromOtherRepo: true }}
+              type={ArtifactToConnectorMap[defaultTo(artifact?.type, '')]}
+              gitScope={{
+                repo: defaultTo(repoIdentifier, ''),
+                branch: defaultTo(branch, ''),
+                getDefaultFromOtherRepo: true
+              }}
             />
           )}
 
@@ -158,31 +155,6 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
               }}
               name={`${path}.artifacts.${artifactPath}.spec.imagePath`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
-            />
-          )}
-
-          {isFieldRuntime(`artifacts.${artifactPath}.spec.repository`, template) && (
-            <FormInput.MultiTextInput
-              label={getString('repository')}
-              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.repository`)}
-              multiTextInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              name={`${path}.artifacts.${artifactPath}.spec.repository`}
-              onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
-            />
-          )}
-
-          {isFieldRuntime(`artifacts.${artifactPath}.spec.artifactRepositoryUrl`, template) && (
-            <FormInput.MultiTextInput
-              label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
-              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.artifactRepositoryUrl`)}
-              multiTextInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              name={`${path}.artifacts.${artifactPath}.spec.artifactRepositoryUrl`}
             />
           )}
 
@@ -204,11 +176,12 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
               {...props}
               isFieldDisabled={() => isFieldDisabled(`artifacts.${artifactPath}.spec.tag`, true)}
               fetchingTags={fetchingTags}
-              buildDetailsList={artifactoryTagsData?.data?.buildDetailsList}
+              buildDetailsList={dockerdata?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
             />
           )}
+
           {isFieldRuntime(`artifacts.${artifactPath}.spec.tagRegex`, template) && (
             <FormInput.MultiTextInput
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.tagRegex`)}
@@ -226,25 +199,22 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
   )
 }
 
-export class ArtifactoryArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
-  protected artifactType = ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
+export class DockerArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
+  protected artifactType = ENABLED_ARTIFACT_TYPES.DockerRegistry
   protected isSidecar = false
 
   isTagsSelectionDisabled(props: ArtifactSourceRenderProps): boolean {
     const { initialValues, artifactPath, artifact } = props
+
     const isImagePathPresent =
       getMultiTypeFromValue(artifact?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
         ? artifact?.spec?.imagePath
-        : get(initialValues?.artifacts, `${artifactPath}.spec.imagePath`, '')
+        : get(initialValues, `artifacts.${artifactPath}.spec.imagePath`, '')
     const isConnectorPresent =
       getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
         ? artifact?.spec?.connectorRef
-        : get(initialValues?.artifacts, `${artifactPath}.spec.connectorRef`, '')
-    const isRepositoryPresent =
-      getMultiTypeFromValue(artifact?.spec?.repository) !== MultiTypeInputType.RUNTIME
-        ? artifact?.spec?.repository
-        : get(initialValues?.artifacts, `${artifactPath}.spec.repository`, '')
-    return !(isImagePathPresent && isConnectorPresent && isRepositoryPresent)
+        : get(initialValues, `artifacts.${artifactPath}.spec.connectorRef`, '')
+    return !(isImagePathPresent && isConnectorPresent)
   }
 
   renderContent(props: ArtifactSourceRenderProps): JSX.Element | null {
@@ -252,7 +222,7 @@ export class ArtifactoryArtifactSource extends ArtifactSourceBase<ArtifactSource
       return null
     }
 
-    this.isSidecar = props.isSidecar ? props.isSidecar : false
+    this.isSidecar = defaultTo(props.isSidecar, false)
 
     return <Content {...props} isTagsSelectionDisabled={this.isTagsSelectionDisabled.bind(this)} />
   }

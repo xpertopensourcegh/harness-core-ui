@@ -13,27 +13,28 @@ import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/Artif
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useMutateAsGet } from '@common/hooks'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useGetBuildDetailsForNexusArtifactWithYaml } from 'services/cd-ng'
+import { useGetBuildDetailsForArtifactoryArtifactWithYaml } from 'services/cd-ng'
 
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { repositoryFormat } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
-import { isFieldRuntime } from '../K8sServiceSpecHelper'
+import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   fromPipelineInputTriggerTab,
   getYamlData,
   isFieldfromTriggerTabDisabled,
   resetTags,
   setPrimaryInitialValues
-} from './artifactSourceUtils'
-import ArtifactTagRuntimeField from './ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
-import css from '../K8sServiceSpec.module.scss'
+} from '../artifactSourceUtils'
+import ArtifactTagRuntimeField from '../ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
+import css from '../../K8sServiceSpec.module.scss'
 
-interface NexusRenderContent extends ArtifactSourceRenderProps {
+interface ArtifactoryRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps) => boolean
 }
-const Content = (props: NexusRenderContent): JSX.Element => {
+
+const Content = (props: ArtifactoryRenderContent): JSX.Element => {
   const {
     isPrimaryArtifactsRuntime,
     isSidecarRuntime,
@@ -59,14 +60,15 @@ const Content = (props: NexusRenderContent): JSX.Element => {
   } = props
 
   const { getString } = useStrings()
+
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
 
   const {
-    data: nexusTagsData,
+    data: artifactoryTagsData,
     loading: fetchingTags,
     refetch: fetchTags,
     error: fetchTagsError
-  } = useMutateAsGet(useGetBuildDetailsForNexusArtifactWithYaml, {
+  } = useMutateAsGet(useGetBuildDetailsForArtifactoryArtifactWithYaml, {
     body: yamlStringify(getYamlData(formik?.values)),
     requestOptions: {
       headers: {
@@ -101,6 +103,7 @@ const Content = (props: NexusRenderContent): JSX.Element => {
   })
 
   useEffect(() => {
+    /* instanbul ignore else */
     if (fromPipelineInputTriggerTab(formik, fromTrigger)) {
       setPrimaryInitialValues(initialValues, formik, stageIdentifier)
     }
@@ -108,6 +111,7 @@ const Content = (props: NexusRenderContent): JSX.Element => {
   }, [formik?.values?.triggerType, formik?.values?.selectedArtifact, fromTrigger, stageIdentifier])
 
   const isFieldDisabled = (fieldName: string, isTag = false): boolean => {
+    /* instanbul ignore else */
     if (readonly) {
       return true
     }
@@ -141,7 +145,7 @@ const Content = (props: NexusRenderContent): JSX.Element => {
               }}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
               className={css.connectorMargin}
-              type={ArtifactToConnectorMap[artifact?.type || '']}
+              type={ArtifactToConnectorMap[defaultTo(artifact?.type, '')]}
               gitScope={{ repo: repoIdentifier || '', branch: branch || '', getDefaultFromOtherRepo: true }}
             />
           )}
@@ -169,18 +173,6 @@ const Content = (props: NexusRenderContent): JSX.Element => {
               }}
               name={`${path}.artifacts.${artifactPath}.spec.repository`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
-            />
-          )}
-
-          {isFieldRuntime(`artifacts.${artifactPath}.spec.repositoryPort`, template) && (
-            <FormInput.MultiTextInput
-              label={getString('pipeline.artifactsSelection.repositoryPort')}
-              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.repositoryPort`)}
-              multiTextInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              name={`${path}.artifacts.${artifactPath}.spec.repositoryPort`}
             />
           )}
 
@@ -214,7 +206,7 @@ const Content = (props: NexusRenderContent): JSX.Element => {
               {...props}
               isFieldDisabled={() => isFieldDisabled(`artifacts.${artifactPath}.spec.tag`, true)}
               fetchingTags={fetchingTags}
-              buildDetailsList={nexusTagsData?.data?.buildDetailsList}
+              buildDetailsList={artifactoryTagsData?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
             />
@@ -236,8 +228,8 @@ const Content = (props: NexusRenderContent): JSX.Element => {
   )
 }
 
-export class NexusArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
-  protected artifactType = ENABLED_ARTIFACT_TYPES.NexusRegistry
+export class ArtifactoryArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
+  protected artifactType = ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
   protected isSidecar = false
 
   isTagsSelectionDisabled(props: ArtifactSourceRenderProps): boolean {
@@ -262,7 +254,7 @@ export class NexusArtifactSource extends ArtifactSourceBase<ArtifactSourceRender
       return null
     }
 
-    this.isSidecar = props.isSidecar ? props.isSidecar : false
+    this.isSidecar = defaultTo(props.isSidecar, false)
 
     return <Content {...props} isTagsSelectionDisabled={this.isTagsSelectionDisabled.bind(this)} />
   }

@@ -30,6 +30,9 @@ exports[`<KubernetesServiceSpecInputSetMode /> tests snapshot test for kubernete
       id="Stage..Service.Artifacts.Sidecars"
     />
     <div
+      id="manifestInputForm"
+    />
+    <div
       class="nopadLeft accordionSummary"
       id="Stage..Service.Variables"
     >

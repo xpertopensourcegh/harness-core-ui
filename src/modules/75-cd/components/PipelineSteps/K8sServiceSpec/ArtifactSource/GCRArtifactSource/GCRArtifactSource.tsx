@@ -13,26 +13,27 @@ import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/Artif
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useMutateAsGet } from '@common/hooks'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useGetBuildDetailsForDockerWithYaml } from 'services/cd-ng'
+import { useGetBuildDetailsForGcrWithYaml } from 'services/cd-ng'
 
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
-import { isFieldRuntime } from '../K8sServiceSpecHelper'
+import ExperimentalInput from '../../K8sServiceSpecForms/ExperimentalInput'
+import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   fromPipelineInputTriggerTab,
+  gcrUrlList,
   getYamlData,
   isFieldfromTriggerTabDisabled,
   resetTags,
   setPrimaryInitialValues
-} from './artifactSourceUtils'
-import ArtifactTagRuntimeField from './ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
-import css from '../K8sServiceSpec.module.scss'
-
-interface DockerRenderContent extends ArtifactSourceRenderProps {
+} from '../artifactSourceUtils'
+import ArtifactTagRuntimeField from '../ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
+import css from '../../K8sServiceSpec.module.scss'
+interface GCRRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps) => boolean
 }
-const Content = (props: DockerRenderContent): React.ReactElement => {
+const Content = (props: GCRRenderContent): JSX.Element => {
   const {
     isPrimaryArtifactsRuntime,
     isSidecarRuntime,
@@ -57,15 +58,15 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
     artifactPath
   } = props
 
-  const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
   const { getString } = useStrings()
+  const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
 
   const {
-    data: dockerdata,
+    data: gcrTagsData,
     loading: fetchingTags,
     refetch: fetchTags,
     error: fetchTagsError
-  } = useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {
+  } = useMutateAsGet(useGetBuildDetailsForGcrWithYaml, {
     body: yamlStringify(getYamlData(formik?.values)),
     requestOptions: {
       headers: {
@@ -86,6 +87,10 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
         getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
           ? artifact?.spec?.connectorRef
           : get(initialValues?.artifacts, `${artifactPath}.spec.connectorRef`, ''),
+      registryHostname:
+        getMultiTypeFromValue(artifact?.spec?.registryHostname) !== MultiTypeInputType.RUNTIME
+          ? artifact?.spec?.registryHostname
+          : get(initialValues?.artifacts, `${artifactPath}.spec.registryHostname`, ''),
       pipelineIdentifier: defaultTo(pipelineIdentifier, formik?.values?.identifier),
       fqnPath: isPropagatedStage
         ? `pipeline.stages.${stageIdentifier}.spec.serviceConfig.stageOverrides.artifacts.${artifactPath}.spec.tag`
@@ -95,6 +100,7 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
   })
 
   useEffect(() => {
+    /* instanbul ignore else */
     if (fromPipelineInputTriggerTab(formik, fromTrigger)) {
       setPrimaryInitialValues(initialValues, formik, stageIdentifier)
     }
@@ -102,6 +108,7 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
   }, [formik?.values?.triggerType, formik?.values?.selectedArtifact, fromTrigger, stageIdentifier])
 
   const isFieldDisabled = (fieldName: string, isTag = false): boolean => {
+    /* instanbul ignore else */
     if (readonly) {
       return true
     }
@@ -110,6 +117,7 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
     }
     return isFieldfromTriggerTabDisabled(fieldName, formik, stageIdentifier, fromTrigger)
   }
+
   const isRuntime = (!isSidecar && isPrimaryArtifactsRuntime) || (isSidecar && isSidecarRuntime)
 
   return (
@@ -129,17 +137,13 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
               setRefValue
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.connectorRef`)}
               multiTypeProps={{
-                allowableTypes,
+                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                 expressions
               }}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
               className={css.connectorMargin}
-              type={ArtifactToConnectorMap[artifact?.type || '']}
-              gitScope={{
-                repo: defaultTo(repoIdentifier, ''),
-                branch: defaultTo(branch, ''),
-                getDefaultFromOtherRepo: true
-              }}
+              type={ArtifactToConnectorMap[defaultTo(artifact?.type, '')]}
+              gitScope={{ repo: repoIdentifier || '', branch: branch || '', getDefaultFromOtherRepo: true }}
             />
           )}
 
@@ -153,6 +157,23 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
               }}
               name={`${path}.artifacts.${artifactPath}.spec.imagePath`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
+            />
+          )}
+
+          {isFieldRuntime(`artifacts.${artifactPath}.spec.registryHostname`, template) && (
+            <ExperimentalInput
+              formik={formik}
+              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.registryHostname`)}
+              selectItems={gcrUrlList}
+              useValue
+              multiTypeInputProps={{
+                onChange: () => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`),
+                expressions,
+                allowableTypes,
+                selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
+              }}
+              label={getString('connectors.GCR.registryHostname')}
+              name={`${path}.artifacts.${artifactPath}.spec.registryHostname`}
             />
           )}
 
@@ -174,12 +195,11 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
               {...props}
               isFieldDisabled={() => isFieldDisabled(`artifacts.${artifactPath}.spec.tag`, true)}
               fetchingTags={fetchingTags}
-              buildDetailsList={dockerdata?.data?.buildDetailsList}
+              buildDetailsList={gcrTagsData?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
             />
           )}
-
           {isFieldRuntime(`artifacts.${artifactPath}.spec.tagRegex`, template) && (
             <FormInput.MultiTextInput
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.tagRegex`)}
@@ -197,13 +217,12 @@ const Content = (props: DockerRenderContent): React.ReactElement => {
   )
 }
 
-export class DockerArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
-  protected artifactType = ENABLED_ARTIFACT_TYPES.DockerRegistry
+export class GCRArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
+  protected artifactType = ENABLED_ARTIFACT_TYPES.Gcr
   protected isSidecar = false
 
   isTagsSelectionDisabled(props: ArtifactSourceRenderProps): boolean {
     const { initialValues, artifactPath, artifact } = props
-
     const isImagePathPresent =
       getMultiTypeFromValue(artifact?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
         ? artifact?.spec?.imagePath
@@ -212,7 +231,11 @@ export class DockerArtifactSource extends ArtifactSourceBase<ArtifactSourceRende
       getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
         ? artifact?.spec?.connectorRef
         : get(initialValues, `artifacts.${artifactPath}.spec.connectorRef`, '')
-    return !(isImagePathPresent && isConnectorPresent)
+    const isRegistryHostnamePresent =
+      getMultiTypeFromValue(artifact?.spec?.registryHostname) !== MultiTypeInputType.RUNTIME
+        ? artifact?.spec?.registryHostname
+        : get(initialValues, `artifacts.${artifactPath}.spec.registryHostname`, '')
+    return !(isImagePathPresent && isConnectorPresent && isRegistryHostnamePresent)
   }
 
   renderContent(props: ArtifactSourceRenderProps): JSX.Element | null {

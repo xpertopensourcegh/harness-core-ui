@@ -5,11 +5,11 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { ArtifactoryArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/ArtifactoryArtifactSource'
-import { DockerArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/DockerArtifactSource'
-import { ECRArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/ECRArtifactSource'
-import { GCRArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/GCRArtifactSource'
-import { NexusArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/NexusArtifactSource'
+import { ArtifactoryArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/ArtifactoryArtifactSource/ArtifactoryArtifactSource'
+import { DockerArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/DockerArtifactSource/DockerArtifactSource'
+import { ECRArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/ECRArtifactSource/ECRArtifactSource'
+import { GCRArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/GCRArtifactSource/GCRArtifactSource'
+import { NexusArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/ArtifactSource/NexusArtifactSource/NexusArtifactSource'
 import type { ArtifactSourceBase } from './ArtifactSourceBase'
 
 export class ArtifactSourceBaseFactory {

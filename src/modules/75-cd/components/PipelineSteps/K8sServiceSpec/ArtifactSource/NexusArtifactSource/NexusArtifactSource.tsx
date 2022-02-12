@@ -13,27 +13,27 @@ import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/Artif
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useMutateAsGet } from '@common/hooks'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useGetBuildDetailsForGcrWithYaml } from 'services/cd-ng'
+import { useGetBuildDetailsForNexusArtifactWithYaml } from 'services/cd-ng'
 
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
+import { repositoryFormat } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
-import ExperimentalInput from '../K8sServiceSpecForms/ExperimentalInput'
-import { isFieldRuntime } from '../K8sServiceSpecHelper'
+import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   fromPipelineInputTriggerTab,
-  gcrUrlList,
   getYamlData,
   isFieldfromTriggerTabDisabled,
   resetTags,
   setPrimaryInitialValues
-} from './artifactSourceUtils'
-import ArtifactTagRuntimeField from './ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
-import css from '../K8sServiceSpec.module.scss'
-interface GCRRenderContent extends ArtifactSourceRenderProps {
+} from '../artifactSourceUtils'
+import ArtifactTagRuntimeField from '../ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
+import css from '../../K8sServiceSpec.module.scss'
+
+interface NexusRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps) => boolean
 }
-const Content = (props: GCRRenderContent): JSX.Element => {
+const Content = (props: NexusRenderContent): JSX.Element => {
   const {
     isPrimaryArtifactsRuntime,
     isSidecarRuntime,
@@ -62,11 +62,11 @@ const Content = (props: GCRRenderContent): JSX.Element => {
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
 
   const {
-    data: gcrTagsData,
+    data: nexusTagsData,
     loading: fetchingTags,
     refetch: fetchTags,
     error: fetchTagsError
-  } = useMutateAsGet(useGetBuildDetailsForGcrWithYaml, {
+  } = useMutateAsGet(useGetBuildDetailsForNexusArtifactWithYaml, {
     body: yamlStringify(getYamlData(formik?.values)),
     requestOptions: {
       headers: {
@@ -87,10 +87,11 @@ const Content = (props: GCRRenderContent): JSX.Element => {
         getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
           ? artifact?.spec?.connectorRef
           : get(initialValues?.artifacts, `${artifactPath}.spec.connectorRef`, ''),
-      registryHostname:
-        getMultiTypeFromValue(artifact?.spec?.registryHostname) !== MultiTypeInputType.RUNTIME
-          ? artifact?.spec?.registryHostname
-          : get(initialValues?.artifacts, `${artifactPath}.spec.registryHostname`, ''),
+      repository:
+        getMultiTypeFromValue(artifact?.spec?.repository) !== MultiTypeInputType.RUNTIME
+          ? artifact?.spec?.repository
+          : get(initialValues?.artifacts, `${artifactPath}.spec.repository`, ''),
+      repositoryFormat,
       pipelineIdentifier: defaultTo(pipelineIdentifier, formik?.values?.identifier),
       fqnPath: isPropagatedStage
         ? `pipeline.stages.${stageIdentifier}.spec.serviceConfig.stageOverrides.artifacts.${artifactPath}.spec.tag`
@@ -100,6 +101,7 @@ const Content = (props: GCRRenderContent): JSX.Element => {
   })
 
   useEffect(() => {
+    /* instanbul ignore else */
     if (fromPipelineInputTriggerTab(formik, fromTrigger)) {
       setPrimaryInitialValues(initialValues, formik, stageIdentifier)
     }
@@ -107,6 +109,7 @@ const Content = (props: GCRRenderContent): JSX.Element => {
   }, [formik?.values?.triggerType, formik?.values?.selectedArtifact, fromTrigger, stageIdentifier])
 
   const isFieldDisabled = (fieldName: string, isTag = false): boolean => {
+    /* instanbul ignore else */
     if (readonly) {
       return true
     }
@@ -140,7 +143,7 @@ const Content = (props: GCRRenderContent): JSX.Element => {
               }}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
               className={css.connectorMargin}
-              type={ArtifactToConnectorMap[artifact?.type || '']}
+              type={ArtifactToConnectorMap[defaultTo(artifact?.type, '')]}
               gitScope={{ repo: repoIdentifier || '', branch: branch || '', getDefaultFromOtherRepo: true }}
             />
           )}
@@ -158,20 +161,40 @@ const Content = (props: GCRRenderContent): JSX.Element => {
             />
           )}
 
-          {isFieldRuntime(`artifacts.${artifactPath}.spec.registryHostname`, template) && (
-            <ExperimentalInput
-              formik={formik}
-              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.registryHostname`)}
-              selectItems={gcrUrlList}
-              useValue
-              multiTypeInputProps={{
-                onChange: () => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`),
+          {isFieldRuntime(`artifacts.${artifactPath}.spec.repository`, template) && (
+            <FormInput.MultiTextInput
+              label={getString('repository')}
+              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.repository`)}
+              multiTextInputProps={{
                 expressions,
-                allowableTypes,
-                selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
+                allowableTypes
               }}
-              label={getString('connectors.GCR.registryHostname')}
-              name={`${path}.artifacts.${artifactPath}.spec.registryHostname`}
+              name={`${path}.artifacts.${artifactPath}.spec.repository`}
+              onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
+            />
+          )}
+
+          {isFieldRuntime(`artifacts.${artifactPath}.spec.repositoryPort`, template) && (
+            <FormInput.MultiTextInput
+              label={getString('pipeline.artifactsSelection.repositoryPort')}
+              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.repositoryPort`)}
+              multiTextInputProps={{
+                expressions,
+                allowableTypes
+              }}
+              name={`${path}.artifacts.${artifactPath}.spec.repositoryPort`}
+            />
+          )}
+
+          {isFieldRuntime(`artifacts.${artifactPath}.spec.artifactRepositoryUrl`, template) && (
+            <FormInput.MultiTextInput
+              label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
+              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.artifactRepositoryUrl`)}
+              multiTextInputProps={{
+                expressions,
+                allowableTypes
+              }}
+              name={`${path}.artifacts.${artifactPath}.spec.artifactRepositoryUrl`}
             />
           )}
 
@@ -193,7 +216,7 @@ const Content = (props: GCRRenderContent): JSX.Element => {
               {...props}
               isFieldDisabled={() => isFieldDisabled(`artifacts.${artifactPath}.spec.tag`, true)}
               fetchingTags={fetchingTags}
-              buildDetailsList={gcrTagsData?.data?.buildDetailsList}
+              buildDetailsList={nexusTagsData?.data?.buildDetailsList}
               fetchTagsError={fetchTagsError}
               fetchTags={fetchTags}
             />
@@ -215,8 +238,8 @@ const Content = (props: GCRRenderContent): JSX.Element => {
   )
 }
 
-export class GCRArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
-  protected artifactType = ENABLED_ARTIFACT_TYPES.Gcr
+export class NexusArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderProps> {
+  protected artifactType = ENABLED_ARTIFACT_TYPES.NexusRegistry
   protected isSidecar = false
 
   isTagsSelectionDisabled(props: ArtifactSourceRenderProps): boolean {
@@ -224,16 +247,16 @@ export class GCRArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderPr
     const isImagePathPresent =
       getMultiTypeFromValue(artifact?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
         ? artifact?.spec?.imagePath
-        : get(initialValues, `artifacts.${artifactPath}.spec.imagePath`, '')
+        : get(initialValues?.artifacts, `${artifactPath}.spec.imagePath`, '')
     const isConnectorPresent =
       getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
         ? artifact?.spec?.connectorRef
-        : get(initialValues, `artifacts.${artifactPath}.spec.connectorRef`, '')
-    const isRegistryHostnamePresent =
-      getMultiTypeFromValue(artifact?.spec?.registryHostname) !== MultiTypeInputType.RUNTIME
-        ? artifact?.spec?.registryHostname
-        : get(initialValues, `artifacts.${artifactPath}.spec.registryHostname`, '')
-    return !(isImagePathPresent && isConnectorPresent && isRegistryHostnamePresent)
+        : get(initialValues?.artifacts, `${artifactPath}.spec.connectorRef`, '')
+    const isRepositoryPresent =
+      getMultiTypeFromValue(artifact?.spec?.repository) !== MultiTypeInputType.RUNTIME
+        ? artifact?.spec?.repository
+        : get(initialValues?.artifacts, `${artifactPath}.spec.repository`, '')
+    return !(isImagePathPresent && isConnectorPresent && isRepositoryPresent)
   }
 
   renderContent(props: ArtifactSourceRenderProps): JSX.Element | null {
@@ -241,7 +264,7 @@ export class GCRArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderPr
       return null
     }
 
-    this.isSidecar = props.isSidecar ? props.isSidecar : false
+    this.isSidecar = defaultTo(props.isSidecar, false)
 
     return <Content {...props} isTagsSelectionDisabled={this.isTagsSelectionDisabled.bind(this)} />
   }

@@ -17,9 +17,9 @@ import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/Artifac
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import type { KubernetesArtifactsProps } from './K8sServiceSpecInterface'
-import { getNonRuntimeFields } from './K8sServiceSpecHelper'
-import css from './K8sServiceSpec.module.scss'
+import type { KubernetesArtifactsProps } from '../K8sServiceSpecInterface'
+import { getNonRuntimeFields } from '../K8sServiceSpecHelper'
+import css from '../K8sServiceSpec.module.scss'
 
 export const KubernetesPrimaryArtifacts = (props: KubernetesArtifactsProps): React.ReactElement | null => {
   const { getString } = useStrings()

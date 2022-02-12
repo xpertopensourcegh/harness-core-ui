@@ -20,9 +20,10 @@ import type { CustomVariableInputSetExtraProps } from '@pipeline/components/Pipe
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
+import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
-import { KubernetesPrimaryArtifacts } from './KubernetesPrimaryArtifacts'
-import { KubernetesSidecarArtifacts } from './KubernetesSidecarArtifacts'
+import { KubernetesPrimaryArtifacts } from './KubernetesPrimaryArtifacts/KubernetesPrimaryArtifacts'
+import { KubernetesSidecarArtifacts } from './KubernetesSidecarArtifacts/KubernetesSidecarArtifacts'
 import css from './K8sServiceSpec.module.scss'
 
 export interface KubernetesInputSetProps {
@@ -92,7 +93,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
           stageIdentifier={stageIdentifier}
           formik={formik}
         />
-      )}
+      )} */}
       {!!template?.manifests?.length && (
         <ManifestInputForm
           template={template}
@@ -104,7 +105,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
           formik={formik}
           allowableTypes={allowableTypes}
         />
-      )} */}
+      )}
       {!!template?.variables?.length && (
         <div id={`Stage.${stageIdentifier}.Service.Variables`} className={cx(css.nopadLeft, css.accordionSummary)}>
           <div className={css.subheading}>{getString('variablesText')}</div>

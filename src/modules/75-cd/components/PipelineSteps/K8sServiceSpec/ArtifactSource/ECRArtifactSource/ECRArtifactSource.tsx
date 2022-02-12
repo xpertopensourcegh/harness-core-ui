@@ -18,17 +18,17 @@ import { NameValuePair, useListAwsRegions } from 'services/portal'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
-import ExperimentalInput from '../K8sServiceSpecForms/ExperimentalInput'
-import { isFieldRuntime } from '../K8sServiceSpecHelper'
+import ExperimentalInput from '../../K8sServiceSpecForms/ExperimentalInput'
+import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   fromPipelineInputTriggerTab,
   getYamlData,
   isFieldfromTriggerTabDisabled,
   resetTags,
   setPrimaryInitialValues
-} from './artifactSourceUtils'
-import ArtifactTagRuntimeField from './ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
-import css from '../K8sServiceSpec.module.scss'
+} from '../artifactSourceUtils'
+import ArtifactTagRuntimeField from '../ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
+import css from '../../K8sServiceSpec.module.scss'
 
 interface ECRRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps) => boolean
@@ -101,6 +101,7 @@ const Content = (props: ECRRenderContent): JSX.Element => {
   })
 
   useEffect(() => {
+    /* instanbul ignore else */
     if (fromPipelineInputTriggerTab(formik, fromTrigger)) {
       setPrimaryInitialValues(initialValues, formik, stageIdentifier)
     }
@@ -112,12 +113,14 @@ const Content = (props: ECRRenderContent): JSX.Element => {
       accountId
     }
   })
+
   const regions = defaultTo(regionData?.resource, []).map((region: NameValuePair) => ({
     value: region.value,
     label: region.name
   }))
 
   const isFieldDisabled = (fieldName: string, isTag = false): boolean => {
+    /* instanbul ignore else */
     if (readonly) {
       return true
     }
@@ -150,7 +153,7 @@ const Content = (props: ECRRenderContent): JSX.Element => {
               }}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
               className={css.connectorMargin}
-              type={ArtifactToConnectorMap[artifact?.type || '']}
+              type={ArtifactToConnectorMap[defaultTo(artifact?.type, '')]}
               gitScope={{
                 repo: defaultTo(repoIdentifier, ''),
                 branch: defaultTo(branch, ''),
@@ -260,7 +263,7 @@ export class ECRArtifactSource extends ArtifactSourceBase<ArtifactSourceRenderPr
       return null
     }
 
-    this.isSidecar = props.isSidecar ? props.isSidecar : false
+    this.isSidecar = defaultTo(props.isSidecar, false)
 
     return <Content {...props} isTagsSelectionDisabled={this.isTagsSelectionDisabled.bind(this)} />
   }
