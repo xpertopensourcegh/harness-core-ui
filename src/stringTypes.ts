@@ -4974,6 +4974,8 @@ export interface StringsMap {
   'cv.quarterly': string
   'cv.queries': string
   'cv.query': string
+  'cv.queryTypeHost': string
+  'cv.queryTypeService': string
   'cv.reasonIsRequired': string
   'cv.remainingErrorBudget': string
   'cv.request': string

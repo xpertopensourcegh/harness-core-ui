@@ -763,6 +763,8 @@ noPreviousErrorBudgetResetHistoryAvailable: No previous error budget reset histo
 dateAndTime: Date/Time
 increaseWithPercentSign: 'Increase %'
 errorBudgetIsSuccessfullyReset: Error budget is successfully reset
+queryTypeService: Service Based  (used for Health Score and SLI)
+queryTypeHost: Host Based (used for CV)
 cvChanges:
   changeTypeFilterDefault: 'Change Types'
   sourceFilterDefault: 'Sources'
