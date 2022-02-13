@@ -1732,6 +1732,7 @@ export interface StringsMap {
   'connectors.gcrConnectorDetails': string
   'connectors.hashiCorpVault.appRole': string
   'connectors.hashiCorpVault.appRoleId': string
+  'connectors.hashiCorpVault.awsAuth': string
   'connectors.hashiCorpVault.baseSecretPath': string
   'connectors.hashiCorpVault.default': string
   'connectors.hashiCorpVault.defaultVault': string
@@ -1746,6 +1747,8 @@ export interface StringsMap {
   'connectors.hashiCorpVault.saveInProgress': string
   'connectors.hashiCorpVault.secretEngine': string
   'connectors.hashiCorpVault.secretId': string
+  'connectors.hashiCorpVault.serverIdHeader': string
+  'connectors.hashiCorpVault.serverIdHeaderRequired': string
   'connectors.hashiCorpVault.setupEngine': string
   'connectors.hashiCorpVault.sinkPath': string
   'connectors.hashiCorpVault.sinkPathIsRequired': string

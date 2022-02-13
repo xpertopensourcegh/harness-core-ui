@@ -72,15 +72,20 @@ jest.mock('services/cd-ng', () => ({
   useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
-describe('Create Secret Manager Wizard', () => {
-  test('should render form', async () => {
-    const { container, getAllByText } = render(
-      <TestWrapper path={routes.toConnectors({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
-        <CreateHashiCorpVault {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+describe('Check AWS Auth', () => {
+  test('should render form in edit for the aws Iam', async () => {
+    const { container, getAllByText, getByText } = render(
+      <TestWrapper path={routes.toConnectors({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>
+        <CreateHashiCorpVault
+          {...commonProps}
+          connectorInfo={secretManagerInfo}
+          mock={mockResponse}
+          isEditMode={true}
+        />
       </TestWrapper>
     )
 
-    // Step 1
+    // Edit step 1
     fillAtForm([
       {
         container,
@@ -89,167 +94,87 @@ describe('Create Secret Manager Wizard', () => {
         value: 'dummyName'
       }
     ])
-    expect(container).toMatchSnapshot()
-
     await act(async () => {
       clickSubmit(container)
     })
 
-    // Step 2
-    expect(getAllByText('authentication')[0]).toBeTruthy()
+    // Edit step 2
+    await waitFor(() => expect(getAllByText('authentication')[0]).toBeTruthy())
     fillAtForm([
       {
         container,
-        type: InputTypes.TEXTFIELD,
-        fieldId: 'vaultUrl',
-        value: 'https://vaultqa.harness.io'
-      },
-      {
-        container,
-        type: InputTypes.TEXTFIELD,
-        fieldId: 'appRoleId',
-        value: '123'
+        type: InputTypes.SELECT,
+        fieldId: 'accessType',
+        value: HashiCorpVaultAccessTypes.AWS_IAM
       }
     ])
 
-    const password = queryByText(container, 'createOrSelectSecret')
-    act(() => {
+    const password = getByText('createOrSelectSecret')
+
+    await act(() => {
       fireEvent.click(password!)
     })
 
-    await waitFor(() => queryByText(container, 'common.entityReferenceTitle'))
+    await waitFor(() => expect(queryByText(document.body, 'common.entityReferenceTitle')).toBeTruthy())
     const selectSecret = queryByText(document.body, 'common.entityReferenceTitle')
     expect(selectSecret).toBeTruthy()
 
     const secret = queryByText(document.body, 'selected_secret')
     expect(secret).toBeTruthy()
-    act(() => {
+    await act(() => {
       fireEvent.click(secret!)
     })
-
     const applySelected = queryByText(document.body, 'entityReference.apply')
-    act(() => {
+    await act(() => {
       fireEvent.click(applySelected!)
     })
+    fillAtForm([
+      {
+        container,
+        type: InputTypes.TEXTFIELD,
+        fieldId: 'vaultAwsIamRole',
+        value: 'test role'
+      },
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'awsRegion',
+        value: 'region1'
+      }
+    ])
 
     expect(container).toMatchSnapshot()
+    await act(async () => {
+      clickSubmit(container)
+    })
 
+    await waitFor(() => expect(getAllByText('delegate.DelegateselectionLabel')[1]).toBeTruthy())
+    expect(container).toMatchSnapshot()
     await act(async () => {
       clickSubmit(container)
     })
 
     // Step 3
-    expect(getAllByText('delegate.DelegateselectionLabel')[1]).toBeTruthy()
+    await waitFor(() => expect(getAllByText('delegate.DelegateselectionLabel')[1]).toBeTruthy())
     await act(async () => {
       clickSubmit(container)
     })
 
-    // Step 4
-    expect(getAllByText('connectors.hashiCorpVault.setupEngine')[1]).toBeTruthy()
+    // Edit Step 4
+    await waitFor(() => expect(getAllByText('connectors.hashiCorpVault.setupEngine')[1]).toBeTruthy())
     fillAtForm([
-      {
-        container,
-        type: InputTypes.RADIOS,
-        fieldId: 'engineType',
-        value: 'manual'
-      },
       {
         container,
         type: InputTypes.TEXTFIELD,
         fieldId: 'secretEngineName',
-        value: 'secret'
+        value: 'secret 123'
       }
     ])
-
-    expect(container).toMatchSnapshot()
 
     await act(async () => {
       clickSubmit(container)
     })
-
-    expect(getAllByText('connectors.createdSuccessfully')[0]).toBeTruthy()
-  }),
-    test('should render form in edit', async () => {
-      const { container, getAllByText } = render(
-        <TestWrapper path={routes.toConnectors({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>
-          <CreateHashiCorpVault
-            {...commonProps}
-            connectorInfo={secretManagerInfo}
-            mock={mockResponse}
-            isEditMode={true}
-          />
-        </TestWrapper>
-      )
-
-      // Edit step 1
-      fillAtForm([
-        {
-          container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'name',
-          value: 'dummyName'
-        }
-      ])
-      await act(async () => {
-        clickSubmit(container)
-      })
-
-      // Edit step 2
-      await waitFor(() => expect(getAllByText('authentication')[0]).toBeTruthy())
-      expect(container).toMatchSnapshot()
-      fillAtForm([
-        {
-          container,
-          type: InputTypes.SELECT,
-          fieldId: 'accessType',
-          value: HashiCorpVaultAccessTypes.TOKEN
-        }
-      ])
-
-      const password = queryByText(container, 'createOrSelectSecret')
-      act(() => {
-        fireEvent.click(password!)
-      })
-
-      await waitFor(() => queryByText(container, 'common.entityReferenceTitle'))
-      const selectSecret = queryByText(document.body, 'common.entityReferenceTitle')
-      expect(selectSecret).toBeTruthy()
-
-      const secret = queryByText(document.body, 'selected_secret')
-      expect(secret).toBeTruthy()
-      act(() => {
-        fireEvent.click(secret!)
-      })
-
-      const applySelected = queryByText(document.body, 'entityReference.apply')
-      act(() => {
-        fireEvent.click(applySelected!)
-      })
-      await act(async () => {
-        clickSubmit(container)
-      })
-
-      // Step 3
-      await waitFor(() => expect(getAllByText('delegate.DelegateselectionLabel')[1]).toBeTruthy())
-      await act(async () => {
-        clickSubmit(container)
-      })
-
-      // Edit Step 4
-      await waitFor(() => expect(getAllByText('connectors.hashiCorpVault.setupEngine')[1]).toBeTruthy())
-      fillAtForm([
-        {
-          container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'secretEngineName',
-          value: 'secret 123'
-        }
-      ])
-
-      await act(async () => {
-        clickSubmit(container)
-      })
-
-      await waitFor(() => expect(getAllByText('connectors.updatedSuccessfully')[0]).toBeTruthy())
-    })
+    await waitFor(() => expect(getAllByText('connectors.updatedSuccessfully')[0]).toBeTruthy())
+    expect(getAllByText('connectors.updatedSuccessfully')[0]).toBeTruthy()
+  })
 })
