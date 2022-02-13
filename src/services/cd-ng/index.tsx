@@ -477,6 +477,24 @@ export interface AccountResourcesDTO {
   templatesCount?: number
 }
 
+export interface AccountSettingConfig {
+  [key: string]: any
+}
+
+export interface AccountSettingResponse {
+  accountSettings?: AccountSettings
+  createdAt?: number
+  lastModifiedAt?: number
+}
+
+export interface AccountSettings {
+  accountIdentifier?: string
+  config: AccountSettingConfig
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type: 'Connector'
+}
+
 export interface ActiveProjectsCountDTO {
   count?: number
 }
@@ -1383,6 +1401,10 @@ export interface ConnectorResponse {
   harnessManaged?: boolean
   lastModifiedAt?: number
   status?: ConnectorConnectivityDetails
+}
+
+export type ConnectorSettings = AccountSettingConfig & {
+  builtInSMDisabled?: boolean
 }
 
 export interface ConnectorStatistics {
@@ -5731,6 +5753,13 @@ export interface ResponseAccountResourcesDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseAccountSettingResponse {
+  correlationId?: string
+  data?: AccountSettingResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseActiveProjectsCountDTO {
   correlationId?: string
   data?: ActiveProjectsCountDTO
@@ -6098,6 +6127,13 @@ export interface ResponseLicenseUsageDTO {
 export interface ResponseLicensesWithSummaryDTO {
   correlationId?: string
   data?: LicensesWithSummaryDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListAccountSettings {
+  correlationId?: string
+  data?: AccountSettings[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -8939,6 +8975,8 @@ export interface YamlSnippets {
 
 export type AccountDTORequestBody = AccountDTO
 
+export type AccountSettingsRequestBody = AccountSettings
+
 export type ApiKeyDTORequestBody = ApiKeyDTO
 
 export type ConnectorRequestBody = Connector
@@ -9009,11 +9047,267 @@ export type GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody = strin
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type UnsubscribeBodyRequestBody = string[]
+export type ProcessPollingResultNgBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
 export type UploadSamlMetaDataRequestBody = void
+
+export interface GetAccountSettingQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type: 'Connector'
+}
+
+export type GetAccountSettingProps = Omit<
+  GetProps<ResponseAccountSettingResponse, Failure | Error, GetAccountSettingQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets account setting
+ */
+export const GetAccountSetting = (props: GetAccountSettingProps) => (
+  <Get<ResponseAccountSettingResponse, Failure | Error, GetAccountSettingQueryParams, void>
+    path={`/account-setting`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAccountSettingProps = Omit<
+  UseGetProps<ResponseAccountSettingResponse, Failure | Error, GetAccountSettingQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets account setting
+ */
+export const useGetAccountSetting = (props: UseGetAccountSettingProps) =>
+  useGet<ResponseAccountSettingResponse, Failure | Error, GetAccountSettingQueryParams, void>(`/account-setting`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets account setting
+ */
+export const getAccountSettingPromise = (
+  props: GetUsingFetchProps<ResponseAccountSettingResponse, Failure | Error, GetAccountSettingQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseAccountSettingResponse, Failure | Error, GetAccountSettingQueryParams, void>(
+    getConfig('ng/api'),
+    `/account-setting`,
+    props,
+    signal
+  )
+
+export interface CreateAccountSettingQueryParams {
+  accountIdentifier: string
+}
+
+export type CreateAccountSettingProps = Omit<
+  MutateProps<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    CreateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a account setting
+ */
+export const CreateAccountSetting = (props: CreateAccountSettingProps) => (
+  <Mutate<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    CreateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/account-setting`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateAccountSettingProps = Omit<
+  UseMutateProps<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    CreateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a account setting
+ */
+export const useCreateAccountSetting = (props: UseCreateAccountSettingProps) =>
+  useMutate<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    CreateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >('POST', `/account-setting`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Create a account setting
+ */
+export const createAccountSettingPromise = (
+  props: MutateUsingFetchProps<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    CreateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    CreateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/account-setting`, props, signal)
+
+export interface UpdateAccountSettingQueryParams {
+  accountIdentifier: string
+}
+
+export type UpdateAccountSettingProps = Omit<
+  MutateProps<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    UpdateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update a account setting
+ */
+export const UpdateAccountSetting = (props: UpdateAccountSettingProps) => (
+  <Mutate<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    UpdateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >
+    verb="PUT"
+    path={`/account-setting`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateAccountSettingProps = Omit<
+  UseMutateProps<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    UpdateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update a account setting
+ */
+export const useUpdateAccountSetting = (props: UseUpdateAccountSettingProps) =>
+  useMutate<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    UpdateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >('PUT', `/account-setting`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Update a account setting
+ */
+export const updateAccountSettingPromise = (
+  props: MutateUsingFetchProps<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    UpdateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseAccountSettingResponse,
+    Failure | Error,
+    UpdateAccountSettingQueryParams,
+    AccountSettingsRequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/account-setting`, props, signal)
+
+export interface ListAccountSettingQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type?: 'Connector'
+}
+
+export type ListAccountSettingProps = Omit<
+  GetProps<ResponseListAccountSettings, Failure | Error, ListAccountSettingQueryParams, void>,
+  'path'
+>
+
+/**
+ * List account setting
+ */
+export const ListAccountSetting = (props: ListAccountSettingProps) => (
+  <Get<ResponseListAccountSettings, Failure | Error, ListAccountSettingQueryParams, void>
+    path={`/account-setting/list`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListAccountSettingProps = Omit<
+  UseGetProps<ResponseListAccountSettings, Failure | Error, ListAccountSettingQueryParams, void>,
+  'path'
+>
+
+/**
+ * List account setting
+ */
+export const useListAccountSetting = (props: UseListAccountSettingProps) =>
+  useGet<ResponseListAccountSettings, Failure | Error, ListAccountSettingQueryParams, void>(`/account-setting/list`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * List account setting
+ */
+export const listAccountSettingPromise = (
+  props: GetUsingFetchProps<ResponseListAccountSettings, Failure | Error, ListAccountSettingQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListAccountSettings, Failure | Error, ListAccountSettingQueryParams, void>(
+    getConfig('ng/api'),
+    `/account-setting/list`,
+    props,
+    signal
+  )
 
 export interface GetAccountNGPathParams {
   accountIdentifier: string
@@ -22413,7 +22707,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -22425,7 +22719,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -22440,7 +22734,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -22452,7 +22746,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -22468,7 +22762,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -22477,17 +22771,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -22496,22 +22790,28 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<
+    ResponsePollingResponseDTO,
+    Failure | Error,
+    void,
+    ProcessPollingResultNgBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -22520,12 +22820,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -22534,21 +22834,22 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+    'POST',
+    `/polling/unsubscribe`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,

@@ -58,6 +58,11 @@ My: My
 ok: OK
 ID: Id
 org: Org
+accountSetting:
+  connector:
+    saveSettingSuccess: 'Connector Settings saved successfully.'
+    disableBISMHeading: 'Disable default Harness Secret Manager'
+    disableBISMSubHeading: 'When this setting is enabled, users cannot use Harness built-in secret manager.'
 instanceValidation:
   required: Instance is an required field
   minimumCountInstance: Instances must be greater than or equal to 0

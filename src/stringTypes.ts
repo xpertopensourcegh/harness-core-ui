@@ -29,6 +29,9 @@ export interface StringsMap {
   'common.accountResources': string
   'common.accountResourcesPage.line1': string
   'common.accountResourcesPage.line2': string
+  'common.accountSetting.connector.disableBISMHeading': string
+  'common.accountSetting.connector.disableBISMSubHeading': string
+  'common.accountSetting.connector.saveSettingSuccess': string
   'common.accountSettings': string
   'common.accountSetup': string
   'common.addAccountName': string
