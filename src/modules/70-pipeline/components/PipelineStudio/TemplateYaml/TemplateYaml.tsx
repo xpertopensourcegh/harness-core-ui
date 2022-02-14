@@ -14,10 +14,11 @@ import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import css from './TemplateYaml.module.scss'
 
 export interface TemplateYamlProps {
-  templateYaml?: string
+  templateYaml: string
+  withoutHeader?: boolean
 }
 
-export const TemplateYaml: React.FC<TemplateYamlProps> = ({ templateYaml }) => {
+export const TemplateYaml: React.FC<TemplateYamlProps> = ({ templateYaml, withoutHeader = false }) => {
   const [height, setHeight] = React.useState<number>()
 
   React.useEffect(() => {
@@ -28,15 +29,17 @@ export const TemplateYaml: React.FC<TemplateYamlProps> = ({ templateYaml }) => {
   return (
     <Container className={css.container}>
       <Layout.Vertical spacing={'medium'}>
-        <Container
-          padding={{ top: 'large', right: 'xxlarge', bottom: 'large', left: 'xxlarge' }}
-          border={{ bottom: true }}
-          background={Color.WHITE}
-        >
-          <Text font={{ size: 'normal', weight: 'bold' }} color={Color.GREY_800}>
-            template.yaml
-          </Text>
-        </Container>
+        {!withoutHeader ? (
+          <Container
+            padding={{ top: 'large', right: 'xxlarge', bottom: 'large', left: 'xxlarge' }}
+            border={{ bottom: true }}
+            background={Color.WHITE}
+          >
+            <Text font={{ size: 'normal', weight: 'bold' }} color={Color.GREY_800}>
+              template.yaml
+            </Text>
+          </Container>
+        ) : null}
         <Container style={{ flexGrow: 1 }}>
           <MonacoEditor
             value={templateYaml}

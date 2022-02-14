@@ -8,7 +8,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { mockTemplatesInputYaml } from '@templates-library/TemplatesTestHelper'
+import { mockTemplatesInputYaml } from '@pipeline/components/PipelineStudio/PipelineStudioTestHelper'
 import MonacoEditor from '@common/components/MonacoEditor/__mocks__/MonacoEditor'
 import { TemplateYaml } from '../TemplateYaml'
 
@@ -22,7 +22,7 @@ describe('<TemplateYaml /> tests', () => {
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateYaml templateYaml={mockTemplatesInputYaml.data} />
+        <TemplateYaml templateYaml={mockTemplatesInputYaml.data || ''} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

@@ -2628,6 +2628,7 @@ export interface StringsMap {
   'pipeline.nodes': string
   'pipeline.nodesLabel': string
   'pipeline.onlyPositiveInteger': string
+  'pipeline.openTemplateInNewTabLabel': string
   'pipeline.operatorPlaceholder': string
   'pipeline.outOf': string
   'pipeline.overrideSets.configure': string
@@ -2656,6 +2657,7 @@ export interface StringsMap {
   'pipeline.policyEvaluations.policySetsApplied': string
   'pipeline.policyEvaluations.title': string
   'pipeline.poweredByHarness': string
+  'pipeline.previewTemplateLabel': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
   'pipeline.recentExecutionText': string

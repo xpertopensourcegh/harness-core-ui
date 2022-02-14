@@ -20,6 +20,8 @@ copyTemplate: Template configurations will be copied to your pipeline and made e
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 changeTemplateLabel: Change Template
 removeTemplateLabel: Remove Template
+openTemplateInNewTabLabel: Open Template in new tab
+previewTemplateLabel: Preview Template YAML
 onlyPositiveInteger: Only positive integer values
 depth: Depth
 advancedOptions: Advanced Options
