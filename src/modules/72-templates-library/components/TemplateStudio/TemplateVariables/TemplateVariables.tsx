@@ -50,7 +50,7 @@ export const TemplateVariables: React.FC = (): JSX.Element => {
         <PageError message={(error?.data as Error)?.message || error?.message} />
       ) : (
         <div className={css.content}>
-          <VariablesHeader enableSearch={true} />
+          <VariablesHeader enableSearch={false} />
           <div className={css.variableList}>
             <GitSyncStoreProvider>
               {(variablesTemplate as { stage: NGTemplateInfoConfig }).stage && (
