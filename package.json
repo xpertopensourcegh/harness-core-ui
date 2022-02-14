@@ -48,7 +48,7 @@
     "generate-certificate": "sh scripts/generate-certificate.sh",
     "build-docker": "sh scripts/docker-build.sh",
     "lighthouse": "node scripts/lighthouse/lighthouse.js",
-    "custom-coverage": "npx new-files-coverage-check --e !**/*.test.tsx !**/*.test.ts !**/*.snap !**/*.js !**/*.scss !**/*.d.ts !**/*.json"
+    "custom-coverage": "npx new-files-coverage-check --e !**/*.test.tsx !**/*.test.ts !**/*.snap !**/*.js !**/*.scss !**/*.mock.ts !**/*.spec.ts !**/*.d.ts !**/*.json !**/*.types.ts !**/*.yaml !**cypress/**"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",
