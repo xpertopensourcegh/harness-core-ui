@@ -52,7 +52,7 @@ module.exports = {
   coverageReporters: ['lcov', 'json-summary', 'json'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.js$': 'ts-jest',
+    '^.+\\.jsx?$': 'ts-jest',
     '^.+\\.ya?ml$': '<rootDir>/scripts/jest/yaml-transform.js',
     '^.+\\.gql$': '<rootDir>/scripts/jest/gql-loader.js'
   },

@@ -47,10 +47,7 @@ const config = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true
-            }
+            loader: 'swc-loader'
           }
         ]
       },
@@ -149,7 +146,7 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.mjs', '.js', '.ts', '.tsx', '.json', '.ttf'],
+    extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.ttf'],
     plugins: [
       new TsconfigPathsPlugin({
         configFile: path.resolve(CONTEXT, 'tsconfig.json')

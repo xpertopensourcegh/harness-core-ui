@@ -4,12 +4,11 @@
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
-
 import React from 'react'
 import { Button } from '@wings-software/uicore'
 import { FieldArray, FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { flatMap, get, isEmpty, uniq } from 'lodash-es'
+import { defaultTo, flatMap, get, isEmpty, uniq } from 'lodash-es'
 
 import { String, useStrings } from 'framework/strings'
 import type {
@@ -96,6 +95,27 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
     }
   }
 
+  function handleAdd(push: (obj: any) => void, strategies: AllFailureStrategyConfig[]) {
+    return async (): Promise<void> => {
+      await submitForm()
+
+      // only allow add if current tab has no errors
+      /* istanbul ignore else */
+      if (isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))) {
+        uids.current.push(uuid())
+        push({ onFailure: { errors: [], action: {} } })
+        setSelectedStrategyNum(strategies.length)
+      }
+    }
+  }
+
+  function handleRemove(remove: (obj: number) => void) {
+    return (): void => {
+      uids.current.splice(selectedStrategyNum, 1)
+      remove(selectedStrategyNum)
+    }
+  }
+
   React.useEffect(() => {
     /* istanbul ignore else */
     if (Array.isArray(formValues.failureStrategies) && selectedStrategyNum >= formValues.failureStrategies.length) {
@@ -120,24 +140,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
       <div className={css.header}>
         <FieldArray name="failureStrategies">
           {({ push, remove }) => {
-            const strategies = formValues.failureStrategies || /* istanbul ignore next */ []
-
-            async function handleAdd(): Promise<void> {
-              await submitForm()
-
-              // only allow add if current tab has no errors
-              /* istanbul ignore else */
-              if (isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))) {
-                uids.current.push(uuid())
-                push({ onFailure: { errors: [], action: {} } })
-                setSelectedStrategyNum(strategies.length)
-              }
-            }
-
-            function handleRemove(): void {
-              uids.current.splice(selectedStrategyNum, 1)
-              remove(selectedStrategyNum)
-            }
+            const strategies = defaultTo(formValues.failureStrategies, [])
 
             return (
               <React.Fragment>
@@ -175,7 +178,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     icon="plus"
                     iconProps={{ size: 12 }}
                     data-testid="add-failure-strategy"
-                    onClick={handleAdd}
+                    onClick={handleAdd(push, strategies)}
                     disabled={isAddBtnDisabled}
                     tooltip={
                       currentTabHasErrors
@@ -194,7 +197,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     minimal
                     small
                     disabled={isReadonly}
-                    onClick={handleRemove}
+                    onClick={handleRemove(remove)}
                     iconProps={{ size: 12 }}
                     data-testid="remove-failure-strategy"
                   />

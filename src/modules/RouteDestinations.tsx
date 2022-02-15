@@ -73,20 +73,20 @@ export default function RouteDestinations(): React.ReactElement {
 
   return (
     <Switch>
-      {...commonRoutes.props.children}
-      {...secretsRoutes.props.children}
-      {...auditTrailRoutes.props.children}
-      {...rbacRoutes.props.children}
-      {...delegatesRoutes.props.children}
-      {...projectsOrgsRoutes.props.children}
-      {...DASHBOARDRoutes.props.children}
-      {...GovernanceRoutes.props.children}
-      {...connectorRoutes.props.children}
-      {...tempatesRoutes.props.children}
-      {...userProfileRoutes.props.children}
-      {...CING_ENABLED ? CIRoutes.props.children : []}
-      {...CDNG_ENABLED ? CDRoutes.props.children : []}
-      {...CVNG_ENABLED ? CVRoutes.props.children : []}
+      {commonRoutes.props.children}
+      {secretsRoutes.props.children}
+      {auditTrailRoutes.props.children}
+      {rbacRoutes.props.children}
+      {delegatesRoutes.props.children}
+      {projectsOrgsRoutes.props.children}
+      {DASHBOARDRoutes.props.children}
+      {GovernanceRoutes.props.children}
+      {connectorRoutes.props.children}
+      {tempatesRoutes.props.children}
+      {userProfileRoutes.props.children}
+      {CING_ENABLED ? CIRoutes.props.children : null}
+      {CDNG_ENABLED ? CDRoutes.props.children : null}
+      {CVNG_ENABLED ? CVRoutes.props.children : null}
       <Route path="/account/:accountId/settings">
         <AuthSettingsRoutes />
       </Route>

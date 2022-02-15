@@ -169,7 +169,7 @@ export function getBtns({ isPlanDisabled, btnProps, getString }: GetBtnsProps): 
     )
   })
 
-  return <Layout.Vertical spacing={'small'}>{...btns}</Layout.Vertical>
+  return <Layout.Vertical spacing={'small'}>{btns}</Layout.Vertical>
 }
 
 interface GetPriceTipsProps {
