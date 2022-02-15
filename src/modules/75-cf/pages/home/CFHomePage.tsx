@@ -8,7 +8,8 @@
 import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
-import { PageError, PageSpinner } from '@wings-software/uicore'
+import { PageError } from '@wings-software/uicore'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useStrings } from 'framework/strings'
 import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
@@ -27,6 +28,8 @@ import { useFFTrialModal } from '@cf/modals/FFTrial/useFFTrialModal'
 import { TrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
 import { useGetProjectCreateSuccessHandler, useGetSignUpHandler } from './cfHomeUtils'
 import bgImageURL from './ff.svg'
+
+import css from './CFHomePage.module.scss'
 
 const CFHomePage: React.FC = () => {
   const { getString } = useStrings()
@@ -133,7 +136,7 @@ const CFHomePage: React.FC = () => {
   const projectCreateSuccessHandler = useGetProjectCreateSuccessHandler()
 
   if (gettingLicense || gettingProjects) {
-    return <PageSpinner />
+    return <ContainerSpinner className={css.homepageSpinner} />
   }
 
   if (licenseError) {
