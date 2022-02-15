@@ -4566,6 +4566,7 @@ export interface StringsMap {
   'cv.evaluationPeriod': string
   'cv.failures': string
   'cv.filter': string
+  'cv.forConfigurationYouWillNeedAtLeastOneMonitoredServiceWithAHealthSourceAndAMetric': string
   'cv.friday': string
   'cv.getRiskAssessment': string
   'cv.good': string
@@ -4624,6 +4625,7 @@ export interface StringsMap {
   'cv.healthSource.featurePlaceholder': string
   'cv.healthSource.nameLabel': string
   'cv.healthSource.namePlaceholder': string
+  'cv.healthSource.newHealthSource': string
   'cv.healthSource.noData': string
   'cv.healthSource.noDataPresentHealthSource': string
   'cv.healthSource.selectHealthSource': string
@@ -4919,6 +4921,7 @@ export interface StringsMap {
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string
   'cv.navLinks.adminSideNavLinks.monitoringSources': string
+  'cv.newMetric': string
   'cv.noAnalysis': string
   'cv.noAnomalies': string
   'cv.noPreviousErrorBudgetResetHistoryAvailable': string
