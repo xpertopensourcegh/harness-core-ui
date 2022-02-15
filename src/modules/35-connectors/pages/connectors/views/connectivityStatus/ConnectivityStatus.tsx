@@ -21,6 +21,7 @@ import { Position, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import defaultTo from 'lodash-es/defaultTo'
 import { useStrings } from 'framework/strings'
 import {
   useGetTestConnectionResult,
@@ -36,11 +37,12 @@ import { ConnectorStatus } from '@connectors/constants'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
 import { GetTestConnectionValidationTextByType } from '../../utils/ConnectorUtils'
+
 import css from '../ConnectorsListView.module.scss'
 
 export type ErrorMessage = ConnectorValidationResult & { useErrorHandler?: boolean }
 
-interface ConnectivityStatusProps {
+export interface ConnectivityStatusProps {
   data: ConnectorResponse
 }
 
@@ -195,15 +197,15 @@ const ConnectivityStatus: React.FC<ConnectivityStatusProps> = ({ data }) => {
     )
   }
 
-  const connectorStatus = status || data.status?.status
+  const connectorStatus = defaultTo(status, data.status?.status)
   const isStatusSuccess = connectorStatus === ConnectorStatus.SUCCESS
-  const errorSummary = errorMessage?.errorSummary || data?.status?.errorSummary
+  const errorSummary = defaultTo(errorMessage?.errorSummary, data?.status?.errorSummary)
 
   const renderTooltip = () => {
     return (
       <WarningTooltip
         errorSummary={errorSummary}
-        errors={errorMessage?.errors || data?.status?.errors}
+        errors={defaultTo(errorMessage?.errors, data?.status?.errors)}
         onClick={e => {
           e.stopPropagation()
           openErrorModal((errorMessage as ErrorMessage) || data?.status)
@@ -218,21 +220,17 @@ const ConnectivityStatus: React.FC<ConnectivityStatusProps> = ({ data }) => {
     if (!(connectorStatus || errorMessage)) {
       return undefined
     }
-    if (isStatusSuccess) {
-      return renderStatusText(
-        'full-circle',
-        { size: 6, color: Color.GREEN_500 },
-        '',
-        getString('success').toLowerCase()
-      )
+    const statusMessageMap = {
+      [`${ConnectorStatus.SUCCESS}`]: getString('success'),
+      [`${ConnectorStatus.FAILURE}`]: getString('failed')
     }
 
-    return renderStatusText(
-      'warning-sign',
-      { size: 12, color: Color.RED_500 },
-      renderTooltip(),
-      getString('failed').toLowerCase()
-    )
+    const statusMsg = defaultTo(statusMessageMap[`${connectorStatus}`], getString('na'))
+    if (isStatusSuccess) {
+      return renderStatusText('full-circle', { size: 6, color: Color.GREEN_500 }, '', statusMsg)
+    }
+
+    return renderStatusText('warning-sign', { size: 12, color: Color.RED_500 }, renderTooltip(), statusMsg)
   }
 
   if (testing) {
