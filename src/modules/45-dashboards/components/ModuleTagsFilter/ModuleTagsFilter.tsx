@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Checkbox } from '@wings-software/uicore'
+import { Checkbox, Layout } from '@wings-software/uicore'
 import { useStrings, StringKeys } from 'framework/strings'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import moduleTagCss from '@dashboards/common/ModuleTags.module.scss'
@@ -23,7 +23,7 @@ const ModuleTagsFilter: React.FC<ModuleTagsFilterProps> = ({ selectedFilter, set
   const renderTagsFilter = (moduleName: string, cssClass: string, text: StringKeys, isEnabled = false) => {
     return (
       isEnabled && (
-        <>
+        <Layout.Horizontal flex={{ alignItems: 'center' }}>
           <Checkbox
             checked={selectedFilter[moduleName]}
             onChange={e => {
@@ -31,7 +31,7 @@ const ModuleTagsFilter: React.FC<ModuleTagsFilterProps> = ({ selectedFilter, set
             }}
           />
           <div className={`${cssClass} ${moduleTagCss.moduleTag}`}>{getString(text)}</div>
-        </>
+        </Layout.Horizontal>
       )
     )
   }

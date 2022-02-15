@@ -7,18 +7,23 @@
 
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { useMutate, useGet } from 'restful-react'
 import { Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/strings'
+import {
+  useGetFolderDetail,
+  useGetDashboardDetail,
+  useMutateCreateSignedUrl
+} from '@dashboards/services/CustomDashboardsService'
+import { useDashboardsContext } from '@dashboards/pages/DashboardsContext'
 import css from './DashboardView.module.scss'
 
 const DASHBOARDS_ORIGIN = 'https://dashboards.harness.io'
 const DashboardViewPage: React.FC = () => {
   const { getString } = useStrings()
+  const { includeBreadcrumbs } = useDashboardsContext()
 
   const { accountId, viewId, folderId } = useParams<AccountPathProps & { viewId: string; folderId: string }>()
   const [embedUrl, setEmbedUrl] = React.useState('')
@@ -26,18 +31,7 @@ const DashboardViewPage: React.FC = () => {
   const history = useHistory()
   const query = location.href.split('?')[1]
 
-  const {
-    mutate: createSignedUrl,
-    loading,
-    error
-  } = useMutate({
-    verb: 'POST',
-    path: 'gateway/dashboard/v1/signedUrl',
-    queryParams: {
-      accountId: accountId,
-      src: `/embed/dashboards-next/${viewId}?embed_domain=` + location?.host + '&' + query
-    }
-  })
+  const { mutate: createSignedUrl, loading, error } = useMutateCreateSignedUrl(accountId, viewId, location?.host, query)
 
   const generateSignedUrl = async () => {
     const { resource } = await createSignedUrl({})
@@ -59,59 +53,40 @@ const DashboardViewPage: React.FC = () => {
     })
   }, [])
 
-  const { data: folderDetail } = useGet({
-    // Inferred from RestfulProvider in index.js
-    path: 'gateway/dashboard/folderDetail',
-    queryParams: { accountId: accountId, folderId: folderId === 'shared' ? '' : folderId }
-  })
+  const { data: folderDetail } = useGetFolderDetail(accountId, folderId)
 
-  const { data: dashboarDetail } = useGet({
-    // Inferred from RestfulProvider in index.js
-    path: `gateway/dashboard/${viewId}/detail`,
-    queryParams: { accountId: accountId }
-  })
+  const { data: dashboardDetail } = useGetDashboardDetail(accountId, viewId)
 
-  const links: { url: string; label: string }[] = [
-    {
-      url: routes.toCustomDashboardHome({ accountId }),
-      label: 'Home'
-    },
-    {
-      url: routes.toCustomFolderHome({ accountId }),
-      label: getString('dashboards.homePage.folders')
+  React.useEffect(() => {
+    const links = []
+    if (folderDetail?.resource) {
+      links.push({
+        url: routes.toCustomFolderHome({ accountId }),
+        label: getString('dashboards.homePage.folders')
+      })
+      links.push({
+        url: routes.toViewCustomFolder({ folderId, accountId }),
+        label: folderDetail.resource
+      })
     }
-  ]
-
-  const title = folderId === 'shared' ? 'Organization Shared Folder' : folderDetail?.resource || '' + ' Folder'
-  if (folderId) {
     links.push({
-      url: routes.toCustomDashboardHome({ accountId, folderId }),
-      label: title
+      url: routes.toViewCustomDashboard({ viewId, folderId, accountId }),
+      label: dashboardDetail?.title
     })
-  }
-  if (dashboarDetail?.title) {
-    links.push({
-      url: '',
-      label: dashboarDetail?.title
-    })
-  }
+    includeBreadcrumbs(links)
+  }, [folderDetail, dashboardDetail, accountId, viewId])
 
   return (
     <Page.Body
       className={css.pageContainer}
       loading={loading}
-      retryOnError={() => {
-        return
-      }}
-      error={(error?.data as Error)?.message}
+      error={error?.data?.message}
       noData={{
         when: () => embedUrl === '',
         icon: 'dashboard',
         message: 'Dashboard not available'
       }}
     >
-      <Breadcrumbs className={css.breadCrumb} links={links} />
-
       <Layout.Vertical className={css.frame}>
         <iframe src={embedUrl} key={iframeState} height="100%" width="100%" frameBorder="0" id="dashboard-render" />
       </Layout.Vertical>

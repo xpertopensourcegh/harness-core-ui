@@ -9,12 +9,14 @@
 declare const styles: {
   readonly activeTag: string
   readonly button: string
+  readonly clearTagButton: string
   readonly create: string
   readonly createButton: string
   readonly crossIcon: string
   readonly customDashboards: string
   readonly customSelect: string
   readonly customTag: string
+  readonly customTagButton: string
   readonly dashboardCard: string
   readonly dashboardDialog: string
   readonly dashboardFolderDialog: string
@@ -22,9 +24,12 @@ declare const styles: {
   readonly filterPanel: string
   readonly filteredTags: string
   readonly folderMasonry: string
+  readonly foldersContent: string
   readonly formContainer: string
+  readonly homeContent: string
   readonly mainNavTag: string
   readonly masonry: string
+  readonly noFoldersContent: string
   readonly predefinedTags: string
   readonly search: string
   readonly stepWizard: string

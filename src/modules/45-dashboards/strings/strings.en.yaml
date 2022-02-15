@@ -1,3 +1,7 @@
+upgrade: 'Requires upgrade to Enterprise Plan to set up Dashboards'
+sortBy: 'Sort By'
+switchToGridView: 'Switch to grid view'
+switchToListView: 'Switch to list view'
 sideNav:
   byHarness: 'BY HARNESS'
   custom: 'CUSTOM'
@@ -10,6 +14,10 @@ homePage:
   noFolderAvailable: 'No Folders available'
   noTags: 'No custom tags available'
   noDashboardsAvailable: 'No dashboards available'
+  filterByTags: 'FILTER BY TAGS'
+  chooseTheFolder: 'Choose the folder'
+  folder: 'Folder'
+  removeTagFromFilter: 'Remove tag from filter'
   # addDashboard: 'Dashboard'
 createModal:
   stepOne: 'About the Dashboard'

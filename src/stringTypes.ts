@@ -2051,10 +2051,14 @@ export interface StringsMap {
   'dashboards.getStarted.video1Title': string
   'dashboards.getStarted.video2Title': string
   'dashboards.getStarted.video3Title': string
+  'dashboards.homePage.chooseTheFolder': string
+  'dashboards.homePage.filterByTags': string
+  'dashboards.homePage.folder': string
   'dashboards.homePage.folders': string
   'dashboards.homePage.noDashboardsAvailable': string
   'dashboards.homePage.noFolderAvailable': string
   'dashboards.homePage.noTags': string
+  'dashboards.homePage.removeTagFromFilter': string
   'dashboards.homePage.searchPlaceholder': string
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
@@ -2062,6 +2066,10 @@ export interface StringsMap {
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
+  'dashboards.sortBy': string
+  'dashboards.switchToGridView': string
+  'dashboards.switchToListView': string
+  'dashboards.upgrade': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string
   'projectsOrgs.apiError': string
