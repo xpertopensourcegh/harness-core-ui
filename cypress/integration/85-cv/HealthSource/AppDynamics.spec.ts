@@ -15,6 +15,7 @@ import {
   metricStructureCall,
   metricStructureResponse
 } from '../../../support/85-cv/monitoredService/health-sources/AppDynamics/constants'
+import { Connectors } from '../../../utils/connctors-utils'
 
 describe('Create empty monitored service', () => {
   beforeEach(() => {
@@ -43,12 +44,7 @@ describe('Create empty monitored service', () => {
     cy.contains('span', 'Add New Health Source').click()
 
     // Fill Define HealthSource Tab with AppDynamics
-    cy.get('span[data-icon="service-appdynamics"]').click()
-    cy.get('input[name="healthSourceName"]').type('AppD')
-    cy.get('button[data-testid="cr-field-connectorRef"]').click()
-    cy.contains('p', 'appdtest').click()
-    cy.contains('span', 'Apply Selected').click()
-    cy.contains('span', 'Next').click()
+    cy.populateDefineHealthSource(Connectors.APP_DYNAMICS, 'appdtest', 'AppD')
 
     // Fill Customise HealthSource Tab for AppDynamics
     cy.wait('@ApplicationCall')
@@ -105,12 +101,7 @@ describe('Create empty monitored service', () => {
     cy.contains('span', 'Add New Health Source').click()
 
     // Fill Define HealthSource Tab with AppDynamics
-    cy.get('span[data-icon="service-appdynamics"]').click()
-    cy.get('input[name="healthSourceName"]').type('AppD')
-    cy.get('button[data-testid="cr-field-connectorRef"]').click()
-    cy.contains('p', 'appdtest').click()
-    cy.contains('span', 'Apply Selected').click()
-    cy.contains('span', 'Next').click()
+    cy.populateDefineHealthSource(Connectors.APP_DYNAMICS, 'appdtest', 'AppD')
 
     // Fill Customise HealthSource Tab for AppDynamics
     cy.wait('@ApplicationCall')
@@ -181,12 +172,7 @@ describe('Create empty monitored service', () => {
     cy.contains('span', 'Add New Health Source').click()
 
     // Fill Define HealthSource Tab with AppDynamics
-    cy.get('span[data-icon="service-appdynamics"]').click()
-    cy.get('input[name="healthSourceName"]').type('AppD')
-    cy.get('button[data-testid="cr-field-connectorRef"]').click()
-    cy.contains('p', 'appdtest').click()
-    cy.contains('span', 'Apply Selected').click()
-    cy.contains('span', 'Next').click()
+    cy.populateDefineHealthSource(Connectors.APP_DYNAMICS, 'appdtest', 'AppD')
 
     // Fill Customise HealthSource Tab for AppDynamics
     cy.wait('@ApplicationCall')

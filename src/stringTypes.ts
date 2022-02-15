@@ -4851,6 +4851,7 @@ export interface StringsMap {
   'cv.monitoringSources.metricPackValidation': string
   'cv.monitoringSources.metricValidation': string
   'cv.monitoringSources.nameYourMonitoringSource': string
+  'cv.monitoringSources.newRelic.defaultNewRelicMetricName': string
   'cv.monitoringSources.newRelic.mapNewRelicAppsToServicesAndEnvs': string
   'cv.monitoringSources.newRelic.mappingServiceAndEnvSubheading': string
   'cv.monitoringSources.newRelic.newRelicAppColumn': string
