@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Text, getMultiTypeFromValue, MultiTypeInputType, Container, Color } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, Container, Color, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
@@ -14,11 +14,15 @@ import { useStrings } from 'framework/strings'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { GetShellOptions, GetImagePullPolicyOptions } from '@pipeline/components/StepCommonFields/StepCommonFields'
+import {
+  GetShellOptions,
+  GetImagePullPolicyOptions
+} from '@ci/components/PipelineSteps/StepCommonFields/StepCommonFields'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import css from '../PipelineSteps/Steps/Steps.module.scss'
+import { getOptionalSubLabel } from '@ci/components/PipelineSteps/CIStep/CIStepOptionalConfig'
+import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' | 'template'> {
   path?: string
@@ -55,14 +59,13 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
           <MultiTypeSelectField
             name={`${isEmpty(path) ? '' : `${path}.`}spec.imagePullPolicy`}
             label={
-              <Text
-                tooltipProps={{ dataTooltipId: 'imagePullPolicy' }}
-                className={css.inpLabel}
-                color={Color.GREY_600}
-                font={{ size: 'small', weight: 'semi-bold' }}
-              >
-                {getString('pipelineSteps.pullLabel')}
-              </Text>
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipelineSteps.pullLabel')}
+                </Text>
+                &nbsp;
+                {getOptionalSubLabel('imagePullPolicy', getString)}
+              </Layout.Horizontal>
             }
             multiTypeInputProps={{
               selectItems: GetImagePullPolicyOptions(),
@@ -85,14 +88,13 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
           <MultiTypeSelectField
             name={`${isEmpty(path) ? '' : `${path}.`}spec.shell`}
             label={
-              <Text
-                tooltipProps={{ dataTooltipId: 'shell' }}
-                className={css.inpLabel}
-                color={Color.GREY_600}
-                font={{ size: 'small', weight: 'semi-bold' }}
-              >
-                {getString('common.shell')}
-              </Text>
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('common.shell')}
+                </Text>
+                &nbsp;
+                {getOptionalSubLabel('shell', getString)}
+              </Layout.Horizontal>
             }
             multiTypeInputProps={{
               selectItems: GetImagePullPolicyOptions(),
@@ -113,14 +115,13 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         <Container className={cx(css.formGroup, stepCss, css.topSpacingLarge, css.bottomMargin5)}>
           <MultiTypeTextField
             label={
-              <Text
-                tooltipProps={{ dataTooltipId: 'runAsUser' }}
-                className={css.inpLabel}
-                color={Color.GREY_600}
-                font={{ size: 'small', weight: 'semi-bold' }}
-              >
-                {getString('pipeline.stepCommonFields.runAsUser')}
-              </Text>
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipeline.stepCommonFields.runAsUser')}
+                </Text>
+                &nbsp;
+                {getOptionalSubLabel('runAsUser', getString)}
+              </Layout.Horizontal>
             }
             name={`${isEmpty(path) ? '' : `${path}.`}spec.runAsUser`}
             multiTextInputProps={{
@@ -145,6 +146,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             >
               {getString('pipelineSteps.setContainerResources')}
             </Text>
+
             <div
               className={cx(css.formGroup, stepCss)}
               style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
@@ -153,14 +155,17 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                 <MultiTypeTextField
                   name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.cpu`}
                   label={
-                    <Text
-                      tooltipProps={{ dataTooltipId: 'limitCPULabel' }}
-                      className={css.inpLabel}
-                      color={Color.GREY_600}
-                      font={{ size: 'small', weight: 'semi-bold' }}
-                    >
-                      {getString('pipelineSteps.limitCPULabel')}
-                    </Text>
+                    <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                      <Text
+                        className={css.inpLabel}
+                        color={Color.GREY_600}
+                        font={{ size: 'small', weight: 'semi-bold' }}
+                      >
+                        {getString('pipelineSteps.limitCPULabel')}
+                      </Text>
+                      &nbsp;
+                      {getOptionalSubLabel('limitCPULabel', getString)}
+                    </Layout.Horizontal>
                   }
                   multiTextInputProps={{
                     disabled: readonly,
@@ -180,14 +185,13 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
             label={
-              <Text
-                tooltipProps={{ dataTooltipId: 'timeout' }}
-                className={css.inpLabel}
-                color={Color.GREY_600}
-                font={{ size: 'small', weight: 'semi-bold' }}
-              >
-                {getString('pipelineSteps.timeoutLabel')}
-              </Text>
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipelineSteps.timeoutLabel')}
+                </Text>
+                &nbsp;
+                {getOptionalSubLabel('timeout', getString)}
+              </Layout.Horizontal>
             }
             name={`${isEmpty(path) ? '' : `${path}.`}timeout`}
             placeholder={getString('pipelineSteps.timeoutPlaceholder')}

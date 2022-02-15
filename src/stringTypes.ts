@@ -4407,13 +4407,14 @@ export interface StringsMap {
   'ci.next': string
   'ci.noData': string
   'ci.optimize': string
+  'ci.postCommandLabel': string
   'ci.prSymbol': string
   'ci.prTitle': string
+  'ci.preCommandLabel': string
   'ci.previous': string
   'ci.privileged': string
   'ci.remoteCacheImage.dockerInfo': string
   'ci.remoteCacheImage.label': string
-  'ci.remoteCacheImage.placeholder': string
   'ci.remoteCacheRepository.label': string
   'ci.runTestsMavenSetupSample': string
   'ci.runTestsMavenSetupText1': string
@@ -7835,10 +7836,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  postCommandLabel: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pre-flight-check.connectorLocationInPipeline': string
   /**
    * @deprecated migrate this string to module level file
@@ -7900,10 +7897,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pre-flight-check.verifyingPipelineInputs': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  preCommandLabel: string
   /**
    * @deprecated migrate this string to module level file
    */

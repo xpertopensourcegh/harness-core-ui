@@ -337,8 +337,6 @@ permissions: Permissions
 activityLog: Activity Log
 selectAnExistingConnector: Select an existing Connector
 authentication: Authentication
-preCommandLabel: PreCommand
-postCommandLabel: PostCommand
 consoleView: Console View
 commandPlaceholder: |
   npm install
