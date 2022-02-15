@@ -1,0 +1,41 @@
+{
+  "state": {
+    "template": {
+      "name": "Test_ash",
+      "identifier": "Test_ash",
+      "versionLabel": "Version1",
+      "type": "Stage",
+      "projectIdentifier": "Kapil",
+      "orgIdentifier": "default",
+      "tags": {}
+    },
+    "originalTemplate": {
+      "name": "Test_ash",
+      "identifier": "Test_ash",
+      "versionLabel": "Version1",
+      "type": "Stage",
+      "projectIdentifier": "Kapil",
+      "orgIdentifier": "default",
+      "tags": {}
+    },
+    "stableVersion": "-1",
+    "versions": ["-1"],
+    "templateIdentifier": "-1",
+    "templateView": {
+      "isDrawerOpened": false,
+      "isYamlEditable": false,
+      "drawerData": {
+        "type": "AddCommand"
+      }
+    },
+    "isLoading": false,
+    "isBETemplateUpdated": false,
+    "isDBInitialized": true,
+    "isUpdated": true,
+    "isInitialized": true,
+    "gitDetails": {},
+    "entityValidityDetails": {},
+    "templateYaml": "",
+    "error": ""
+  }
+}

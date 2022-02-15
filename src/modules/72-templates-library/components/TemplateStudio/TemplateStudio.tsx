@@ -41,6 +41,7 @@ import NoEntityFound from '@pipeline/pages/utils/NoEntityFound/NoEntityFound'
 import { TemplateVariablesContextProvider } from '@pipeline/components/TemplateVariablesContext/TemplateVariablesContext'
 import { RightBar } from '@templates-library/components/TemplateStudio/RightBar/RightBar'
 import { TemplateContext } from './TemplateContext/TemplateContext'
+import { getContentAndTitleStringKeys, isValidYaml } from './TemplateStudioUtils'
 import css from './TemplateStudio.module.scss'
 
 export type TemplateFormikRef<T = unknown> = {
@@ -83,7 +84,9 @@ export function TemplateStudio(): React.ReactElement {
   const templateFormikRef = React.useRef<TemplateFormikRef | null>(null)
   const { isGitSyncEnabled } = useAppStore()
 
-  useDocumentTitle([parse(template?.name || getString('common.templates'))])
+  useDocumentTitle([parse(defaultTo(template?.name, getString('common.templates')))])
+
+  const { navigationContentText, navigationTitleText } = getContentAndTitleStringKeys(isYamlError)
 
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -101,8 +104,8 @@ export function TemplateStudio(): React.ReactElement {
 
   const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
-    contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
-    titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle'),
+    contentText: getString(navigationContentText),
+    titleText: getString(navigationTitleText),
     confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
@@ -136,32 +139,16 @@ export function TemplateStudio(): React.ReactElement {
     [setYamlError, showError]
   )
 
-  const isValidYaml = function (): boolean {
-    // istanbul ignore else
-    if (yamlHandler) {
-      try {
-        const parsedYaml = parse(yamlHandler.getLatestYaml())
-        // istanbul ignore else
-        if (!parsedYaml || yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
-          showInvalidYamlError(getString('invalidYamlText'))
-          return false
-        }
-        updateTemplate(parsedYaml.template)
-      } catch (e) {
-        showInvalidYamlError(defaultTo(e.message, getString('invalidYamlText')))
-        return false
-      }
-    }
-    // istanbul ignore next - This is required just to match the return type and nothing more
-    return true
-  }
-
   const onViewChange = (newView: SelectedView): boolean => {
     if (newView === view) {
       return false
     }
     // istanbul ignore else
-    if (newView === SelectedView.VISUAL && yamlHandler && isYamlEditable && !isValidYaml()) {
+    if (
+      newView === SelectedView.VISUAL &&
+      isYamlEditable &&
+      !isValidYaml(yamlHandler, showInvalidYamlError, getString, updateTemplate)
+    ) {
       return false
     }
     setView(newView)
@@ -269,8 +256,8 @@ export function TemplateStudio(): React.ReactElement {
           )
         }}
         textProps={{
-          contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
-          titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle')
+          contentText: getString(navigationContentText),
+          titleText: getString(navigationTitleText)
         }}
         navigate={newPath => {
           const isTemplate = matchPath(newPath, {

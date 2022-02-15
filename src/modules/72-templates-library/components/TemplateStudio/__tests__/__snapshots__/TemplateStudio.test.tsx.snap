@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TemplateStudio /> tests snapshot test for new template 1`] = `
+exports[`<TemplateStudio /> tests snapshot test for new template with git sync 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--small rightMargin StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
@@ -253,6 +253,181 @@ exports[`<TemplateStudio /> tests snapshot test for new template 1`] = `
             variablesText
           </span>
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<TemplateStudio /> tests snapshot test for new template without git sync 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--small StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <a
+                class="Breadcrumbs--breadcrumb"
+                href="/account/dummy/home"
+              >
+                <span
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7"
+                  data-icon="harness"
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 25 25"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+                      fill="#4facdf"
+                    />
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
+                >
+                  common.home
+                </p>
+              </a>
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+                data-icon="main-chevron-right"
+              >
+                <svg
+                  height="8"
+                  viewBox="0 0 8 14"
+                  width="8"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <a
+                class="Breadcrumbs--breadcrumb"
+                href="/account/dummy/home/orgs/dummy/projects/dummy/setup/resources/templates"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
+                >
+                  common.templates
+                </p>
+              </a>
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+                data-icon="main-chevron-right"
+              >
+                <svg
+                  height="8"
+                  viewBox="0 0 8 14"
+                  width="8"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main templateStudioTitle"
+        >
+          <svg
+            fill="none"
+            height="26"
+            viewBox="0 0 210 26"
+            width="210"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.3896 22.2945L1.10987 0.5H208.932L190.926 22.0853C189.121 24.2491 186.449 25.5 183.631 25.5H27.505C24.7836 25.5 22.1928 24.3328 20.3896 22.2945Z"
+            />
+          </svg>
+          <p
+            class="StyledProps--font StyledProps--main title StyledProps--font-size-xsmall StyledProps--font-weight-bold"
+          >
+            Studio
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
+    data-name="page-body"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+      style="height: 100%;"
+    >
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+        style="height: 100%;"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+        >
+          <h1
+            class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+          >
+            404
+          </h1>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            Oops, we could not find this page.
+          </p>
+          <a
+            href="/"
+          >
+            Go to Home
+          </a>
+          <span
+            class="bp3-icon StyledProps--main"
+            data-icon="harness-logo-black"
+          >
+            <svg
+              height="200"
+              viewBox="0 0 141 30"
+              width="200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M28.4 9.8l-7.5-7.5c-.1-.1-1.3-1.3-3.1-1.9-2.6-.9-5.1-.2-7.2 1.9L3 9.8c-.1.1-1.3 1.3-1.9 3.1C.2 15.5.9 18 3 20.1l7.5 7.5c.1.1 1.3 1.3 3.1 1.9.7.2 1.5.4 2.2.4 1.8 0 3.5-.8 5-2.2l7.5-7.5c.1-.1 1.3-1.3 1.9-3.1.9-2.6.2-5.2-1.8-7.3M16.3 4.5c.8.3 1.5.8 1.5.9L20 7.6l-4.3 4.3-4.3-4.3 2.2-2.2c.6-.6 1.4-1.3 2.7-.9M5.2 14.4c.3-.8.8-1.5.9-1.5l2.2-2.2 4.3 4.3-4.3 4.3L6 17.1c-.6-.6-1.2-1.5-.8-2.7m9.9 11.1c-.8-.3-1.5-.8-1.5-.9l-2.2-2.2 4.3-4.3 4.3 4.3-2.2 2.2c-.6.6-1.5 1.2-2.7.9m11.1-9.9c-.3.8-.8 1.5-.9 1.5l-2.2 2.2-4.4-4.3 4.3-4.3 2.2 2.2c.7.6 1.3 1.4 1 2.7"
+                fill="#00ade4"
+              />
+              <path
+                d="M44.6 25.6h3.9V14.8c0-3.3-2-5.8-5.5-5.8-1.7 0-3.5.7-4.4 2.1v-8h-3.9v22.4h3.9V17c0-2 1-4.5 3.3-4.5 2.1 0 2.7 1.2 2.7 3zm15.7-6.4c0 2.4-1.7 3.7-4.1 3.7-1.2 0-2.3-.8-2.3-2 0-1.3 1.1-2 2.3-2.1l4.1-.3zm3.2 6.6c.9 0 1.3-.2 1.9-.4v-2.8s-.2.1-.5.1c-.6 0-.9-.3-.9-1v-6c0-1.1-.1-2.2-.5-3.2-.9-2.4-3.3-3.3-6-3.3-3.6 0-6.4 1.6-6.7 5.2h3.7c.1-1.5 1.1-2.3 2.9-2.3 2.2 0 2.7 1 2.7 2.5v1l-4.7.3c-3.1.2-5.4 2-5.4 5 0 2.6 2 5 5.8 5 2.3 0 4.1-1.1 4.9-2.4.2 1.3 1.2 2.3 2.8 2.3M75.6 13h.6V9.4h-.5c-1.9 0-3.8.8-4.5 2.6l-.3-2.4h-3.3v16h3.9v-8.1c0-2.6 1.4-4.5 4.1-4.5m12.2 12.6h3.9V14.9c0-3.3-2-5.7-5.4-5.7-1.9 0-3.8.8-4.7 2.5l-.3-2.1H78v16h3.9v-6.5c0-1.4 0-3 .5-4.3.5-1.2 1.4-2 2.8-2 2 0 2.7 1.1 2.7 3zm16.5-9.6h-6.9c0-1 .3-1.8.8-2.5.6-.7 1.5-1.2 2.7-1.2 1.1 0 1.9.4 2.4.9.6.6 1 1.6 1 2.8m3.9 1.7c.1-2-.2-3.8-1.4-5.6-1.3-2-3.5-3-5.9-3-2.2 0-3.9.8-5.1 2-1.5 1.6-2.3 3.9-2.3 6.4 0 2.6.9 4.9 2.5 6.4 1.3 1.2 2.9 2 5.1 2 2 0 4-.6 5.4-2.3.6-.7 1.3-2 1.4-3h-3.7c-.2.6-.4 1-.8 1.4-.6.6-1.2.8-2.3.8-1 0-1.8-.5-2.4-1-.8-.7-1.2-1.9-1.2-3.1h10.7c-.1-.3 0-1 0-1m5.1-3.7c0-.8.6-1.4 1.2-1.7.6-.2 1.1-.2 1.7-.2.8 0 1.6.3 2.1.7.4.4.6.9.6 1.5h3.7c0-1.2-.6-2.4-1.4-3.3-1.2-1.3-3.1-1.9-5-1.9-2 0-3.7.6-4.9 1.6-1 .8-1.6 2-1.6 3.6 0 2 1.5 3.8 3.7 4.3 1.4.3 3 .4 4.4.6 1 .2 1.6.8 1.6 1.7 0 1.8-2 2-3.3 2-1.1 0-1.8-.2-2.4-.7-.4-.3-.7-.9-.8-1.5h-3.6c.1 1.3.8 2.5 1.7 3.3 1.3 1.3 3.1 1.9 5.2 1.9 2.2 0 4.2-.6 5.5-1.9.8-.8 1.4-2 1.4-3.5 0-2.5-1.8-4.1-4.4-4.5-1.6-.2-2-.3-3.4-.5-1 0-2-.3-2-1.5m20.5.3h3.7c0-1.2-.6-2.4-1.4-3.3-1.2-1.3-3.1-1.9-5-1.9-2 0-3.7.6-4.9 1.6-1 .8-1.6 2-1.6 3.6 0 2 1.5 3.8 3.7 4.3 1.4.3 3 .4 4.4.6 1 .2 1.6.8 1.6 1.7 0 1.8-2 2-3.3 2-1.1 0-1.8-.2-2.4-.7-.4-.3-.7-.9-.8-1.5h-3.6c.1 1.3.8 2.5 1.7 3.3 1.3 1.3 3.1 1.9 5.2 1.9 2.2 0 4.2-.6 5.5-1.9.8-.8 1.4-2 1.4-3.5 0-2.5-1.8-4.1-4.4-4.5-1.6-.2-2-.3-3.4-.5-.9-.1-1.9-.5-1.9-1.6 0-.8.6-1.4 1.2-1.7.6-.2 1.1-.2 1.7-.2.8 0 1.6.3 2.1.7.2.5.5 1 .5 1.6"
+                fill="#060000"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </div>

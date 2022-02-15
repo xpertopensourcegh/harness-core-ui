@@ -21,10 +21,11 @@ import templateContextProviderProps from './__tests__/mocks/templateContextProvi
 
 export interface TemplateContextWrapperProps extends TestWrapperProps {
   templateContextValues?: Partial<TemplateContextInterface>
+  isGitSyncEnabled?: boolean
 }
 
 export const TemplateContextTestWrapper: React.FC<TemplateContextWrapperProps> = props => {
-  const { defaultAppStoreValues, templateContextValues } = props
+  const { defaultAppStoreValues, templateContextValues, isGitSyncEnabled = true } = props
   const [view, setView] = React.useState<VisualYamlSelectedView>(VisualYamlSelectedView.VISUAL)
   return (
     <TestWrapper
@@ -36,7 +37,7 @@ export const TemplateContextTestWrapper: React.FC<TemplateContextWrapperProps> =
           name: 'dummy',
           modules: ['CD']
         },
-        isGitSyncEnabled: true,
+        isGitSyncEnabled: isGitSyncEnabled,
         connectivityMode: 'DELEGATE',
         ...defaultAppStoreValues
       }}
@@ -52,8 +53,9 @@ export const TemplateContextTestWrapper: React.FC<TemplateContextWrapperProps> =
               ...templateContextProviderProps.state,
               ...templateContextValues?.state,
               yamlHandler: {
-                getLatestYaml: () => '',
-                getYAMLValidationErrorMap: () => new Map()
+                getLatestYaml: () => 'dummy\n',
+                getYAMLValidationErrorMap: () => new Map(),
+                ...templateContextValues?.state?.yamlHandler
               }
             }
           } as TemplateContextInterface
