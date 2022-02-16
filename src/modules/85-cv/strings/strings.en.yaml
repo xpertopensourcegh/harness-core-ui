@@ -451,8 +451,8 @@ monitoredServices:
   deleteMonitoredServiceWarning: Deleting your monitored service ‘{{ name }}’ will also delete its resources.
   deleteService: Delete service
   monitoredServiceDeleted: Monitored service successfully deleted
-  monitoredServiceCreated: Monitoring Service created
-  monitoredServiceUpdated: Monitoring Service updated
+  monitoredServiceCreated: Monitored Service created
+  monitoredServiceUpdated: Monitored Service updated
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   showingAllServices: Showing all Services ({{ serviceCount }})
   showingServiceAtRisk: Showing Services at Risk ({{ serviceCount }})
