@@ -27,6 +27,7 @@ import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
+import type { setTimeRangeFn } from '@ce/types'
 import css from './PerspectiveTimeRangePicker.module.scss'
 
 const getDateLabelToDisplayText: (getString: UseStringsReturn['getString']) => Record<string, string> = getString => {
@@ -175,12 +176,7 @@ const DateLabelRenderer: React.FC<DateLabelRendererProps> = ({ text, dateRange, 
 }
 
 interface PerspectiveTimeRangePickerProps {
-  setTimeRange: React.Dispatch<
-    React.SetStateAction<{
-      to: string
-      from: string
-    }>
-  >
+  setTimeRange: setTimeRangeFn
   timeRange: {
     to: string
     from: string

@@ -15,12 +15,13 @@ import {
   useFetchPerspectiveFiltersValueQuery,
   QlceViewFieldInputInput
 } from 'services/ce/services'
+import type { setChartTypeFn, setGroupByFn } from '@ce/types'
 import GroupByView from './GroupByView'
 import css from './PersepectiveExplorerGroupBy.module.scss'
 
 interface ChartTypeSwitcherProps {
   chartType: CCM_CHART_TYPES
-  setChartType: React.Dispatch<React.SetStateAction<CCM_CHART_TYPES>>
+  setChartType: setChartTypeFn
 }
 
 const ChartTypeSwitcher: React.FC<ChartTypeSwitcherProps> = ({ chartType, setChartType }) => {
@@ -53,10 +54,10 @@ const ChartTypeSwitcher: React.FC<ChartTypeSwitcherProps> = ({ chartType, setCha
 }
 
 interface PerspectiveExplorerGroupByProps {
-  setChartType: React.Dispatch<React.SetStateAction<CCM_CHART_TYPES>>
+  setChartType: setChartTypeFn
   chartType: CCM_CHART_TYPES
   groupBy: QlceViewFieldInputInput
-  setGroupBy: React.Dispatch<React.SetStateAction<QlceViewFieldInputInput>>
+  setGroupBy: setGroupByFn
   timeFilter: QlceViewFilterWrapperInput[]
 }
 

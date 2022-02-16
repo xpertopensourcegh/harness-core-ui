@@ -5,6 +5,9 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import type { CCM_CHART_TYPES } from '@ce/constants'
+import type { QlceViewTimeGroupType, QlceViewFilterInput, QlceViewFieldInputInput } from 'services/ce/services'
+
 export interface ResourceDetails {
   cpu?: string
   memory: string
@@ -66,3 +69,22 @@ export interface YamlDependency {
 }
 
 export type AccessPointScreenMode = 'create' | 'import' | 'edit'
+
+export interface TimeRangeFilterType {
+  to: string
+  from: string
+}
+
+export type setFiltersFn = (newFilters: QlceViewFilterInput[]) => void
+export type setAggregationFn = (newAgg: QlceViewTimeGroupType) => void
+export type setGroupByFn = (groupBy: QlceViewFieldInputInput) => void
+export type setTimeRangeFn = (timeRange: TimeRangeFilterType) => void
+export type setChartTypeFn = (chartType: CCM_CHART_TYPES) => void
+
+export interface PerspectiveQueryParams {
+  groupBy: string
+  aggregation: string
+  timeRange: string
+  filters: string
+  chartType: string
+}

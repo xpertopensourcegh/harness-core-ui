@@ -7,7 +7,8 @@
 
 import type { IconName } from '@wings-software/uicore'
 import type Highcharts from 'highcharts'
-import type { ViewRule, ViewIdCondition } from 'services/ce'
+import { get } from 'lodash-es'
+import type { ViewRule, ViewIdCondition, CEView } from 'services/ce'
 import type { UseStringsReturn } from 'framework/strings'
 import {
   QlceViewTimeFilterOperator,
@@ -21,7 +22,9 @@ import {
   ViewChartType,
   QlceViewRuleInput
 } from 'services/ce/services'
-import { DATE_RANGE_SHORTCUTS } from './momentUtils'
+import type { PerspectiveQueryParams } from '@ce/types'
+import { CCM_CHART_TYPES } from '@ce/constants'
+import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS } from './momentUtils'
 
 const startTimeLabel = 'startTime'
 
@@ -226,3 +229,43 @@ export const perspectiveDateLabelToDisplayText: (getString: UseStringsReturn['ge
     [ViewTimeRangeType.LastMonth]: getString('ce.perspectives.timeRangeConstants.lastMonth'),
     [ViewTimeRangeType.CurrentMonth]: getString('ce.perspectives.timeRangeConstants.thisMonth')
   })
+
+export const getQueryFiltersFromPerspectiveResponse: (
+  perspectiveData: CEView,
+  initialValue: Partial<PerspectiveQueryParams>
+) => Partial<PerspectiveQueryParams> = (perspectiveData, initialValue) => {
+  const resAggregation = get(perspectiveData, 'perspectiveData.granularity', QlceViewTimeGroupType.Day)
+  const resGroupBy = get(perspectiveData, 'viewVisualization.groupBy', DEFAULT_GROUP_BY)
+  const dateRange =
+    (perspectiveData.viewTimeRange?.viewTimeRangeType &&
+      perspectiveDefaultTimeRangeMapper[perspectiveData.viewTimeRange?.viewTimeRangeType]) ||
+    DATE_RANGE_SHORTCUTS.LAST_7_DAYS
+
+  const cType =
+    perspectiveData.viewVisualization?.chartType === ViewChartType.StackedTimeSeries
+      ? CCM_CHART_TYPES.COLUMN
+      : CCM_CHART_TYPES.AREA
+
+  const updatedQueryParam: Partial<PerspectiveQueryParams> = {}
+
+  if (!initialValue.timeRange) {
+    updatedQueryParam['timeRange'] = JSON.stringify({
+      to: dateRange[1].format(CE_DATE_FORMAT_INTERNAL),
+      from: dateRange[0].format(CE_DATE_FORMAT_INTERNAL)
+    })
+  }
+
+  if (!initialValue.groupBy) {
+    updatedQueryParam['groupBy'] = JSON.stringify(resGroupBy)
+  }
+
+  if (!initialValue.aggregation) {
+    updatedQueryParam['aggregation'] = JSON.stringify(resAggregation)
+  }
+
+  if (!initialValue.chartType) {
+    updatedQueryParam['chartType'] = JSON.stringify(cType)
+  }
+
+  return updatedQueryParam
+}

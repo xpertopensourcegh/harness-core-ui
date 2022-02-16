@@ -18,6 +18,7 @@ import {
   getGMTStartDateTime
 } from '@ce/utils/momentUtils'
 import { useStrings, UseStringsReturn } from 'framework/strings'
+import type { setAggregationFn, setFiltersFn, setTimeRangeFn } from '@ce/types'
 import ExplorerFilters from './ExplorerFilters'
 import css from './PerspectiveExplorerFilters.module.scss'
 
@@ -31,7 +32,7 @@ const getAggregationText: (getString: UseStringsReturn['getString']) => Record<s
 
 interface TimeGranularityDropDownProps {
   aggregation: QlceViewTimeGroupType
-  setAggregation: React.Dispatch<React.SetStateAction<QlceViewTimeGroupType>>
+  setAggregation: setAggregationFn
   showHourlyAggr?: boolean
   isHourlyEnabled?: boolean
 }
@@ -104,18 +105,13 @@ export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = (
 
 interface PersepectiveExplorerFiltersProps {
   aggregation: QlceViewTimeGroupType
-  setAggregation: React.Dispatch<React.SetStateAction<QlceViewTimeGroupType>>
-  setTimeRange: React.Dispatch<
-    React.SetStateAction<{
-      to: string
-      from: string
-    }>
-  >
+  setAggregation: setAggregationFn
+  setTimeRange: setTimeRangeFn
   timeRange: {
     to: string
     from: string
   }
-  setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
+  setFilters: setFiltersFn
   filters: QlceViewFilterInput[]
   showHourlyAggr?: boolean
   featureEnabled?: boolean

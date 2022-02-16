@@ -17,16 +17,17 @@ import {
   QlceViewFieldIdentifierData,
   QlceViewField
 } from 'services/ce/services'
+import type { setGroupByFn } from '@ce/types'
 import css from './GroupByView.module.scss'
 
 interface BaseGroupByProps {
   groupBy: QlceViewFieldInputInput
-  setGroupBy: React.Dispatch<React.SetStateAction<QlceViewFieldInputInput>>
+  setGroupBy: setGroupByFn
 }
 
 interface GroupByDropDownProps {
   data: QlceViewFieldIdentifierData
-  setGroupBy: React.Dispatch<React.SetStateAction<QlceViewFieldInputInput>>
+  setGroupBy: setGroupByFn
 }
 
 export const GroupByDropDown: React.FC<GroupByDropDownProps> = ({ data, setGroupBy }) => {
@@ -82,7 +83,7 @@ export const GroupByView: React.FC<GroupByViewProps> = ({ field, setGroupBy, gro
 }
 
 interface LabelDropDownProps {
-  setGroupBy: React.Dispatch<React.SetStateAction<QlceViewFieldInputInput>>
+  setGroupBy: setGroupByFn
   data: Maybe<string>[]
 }
 

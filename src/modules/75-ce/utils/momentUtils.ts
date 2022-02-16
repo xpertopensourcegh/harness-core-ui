@@ -6,7 +6,7 @@
  */
 
 import moment from 'moment'
-import { TimeRangeType } from '@ce/types'
+import { TimeRangeFilterType, TimeRangeType } from '@ce/types'
 
 export const todayInUTC = () => moment.utc()
 export const yesterdayInUTC = () => moment().utc().subtract(1, 'days')
@@ -78,6 +78,11 @@ export enum DATE_RANGE_SHORTCUTS_NAME {
 }
 
 export const getUserTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone
+
+export const DEFAULT_TIME_RANGE: TimeRangeFilterType = {
+  to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
+  from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
+}
 
 export const get24HourTimeIn12HourFormat = (time: string) => moment(time, [FORMAT_24_HOUR]).format(FORMAT_12_HOUR)
 

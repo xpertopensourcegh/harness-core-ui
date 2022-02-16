@@ -31,15 +31,17 @@ import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Cha
 import {
   CE_DATE_FORMAT_INTERNAL,
   DATE_RANGE_SHORTCUTS,
+  DEFAULT_TIME_RANGE,
   getGMTEndDateTime,
   getGMTStartDateTime
 } from '@ce/utils/momentUtils'
-import { CCM_PAGE_TYPE } from '@ce/types'
+import { CCM_PAGE_TYPE, TimeRangeFilterType } from '@ce/types'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import { Page } from '@common/exports'
 import WorkloadSummary from '@ce/components/WorkloadSummary/WorkloadSummary'
 import EmptyView from '@ce/images/empty-state.svg'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { useQueryParamsState } from '@common/hooks/useQueryParamsState'
 import { Aggregation, AggregationFunctionMapping } from './constants'
 import css from './WorkloadDetailsPage.module.scss'
 
@@ -65,13 +67,8 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
   }>()
 
   const { getString } = useStrings()
-
+  const [timeRange, setTimeRange] = useQueryParamsState<TimeRangeFilterType>('timeRange', DEFAULT_TIME_RANGE)
   const [chartDataAggregation, setChartDataAggregation] = useState<Aggregation>(Aggregation.TimeWeighted)
-
-  const [timeRange, setTimeRange] = useState<{ to: string; from: string }>({
-    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
-    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
-  })
 
   const isDateRangeInLast7Days = useMemo(() => {
     const last7DaysRange = DATE_RANGE_SHORTCUTS['LAST_7_DAYS']

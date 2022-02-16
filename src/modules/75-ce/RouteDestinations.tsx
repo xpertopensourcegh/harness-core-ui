@@ -154,7 +154,7 @@ const CERoutes: React.FC = () => {
   const token = SessionToken.getToken()
   const { accountId } = useParams<AccountPathProps>()
 
-  const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
+  const getRequestOptions = React.useMemo((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
 
     if (token && token.length > 0) {
@@ -164,7 +164,7 @@ const CERoutes: React.FC = () => {
     return { headers }
   }, [token])
 
-  const urqlClient = React.useCallback(() => {
+  const urqlClient = React.useMemo(() => {
     const url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
 
     // if (url.startsWith('/')) {
@@ -173,7 +173,7 @@ const CERoutes: React.FC = () => {
     return createClient({
       url: url,
       fetchOptions: () => {
-        return getRequestOptions()
+        return getRequestOptions
       },
       exchanges: [dedupExchange, requestPolicyExchange({}), cacheExchange, fetchExchange],
       requestPolicy: 'cache-first'
@@ -181,7 +181,7 @@ const CERoutes: React.FC = () => {
   }, [token, accountId])
 
   return (
-    <Provider value={urqlClient()}>
+    <Provider value={urqlClient}>
       <Switch>
         <RouteWithLayout
           layout={MinimalLayout}

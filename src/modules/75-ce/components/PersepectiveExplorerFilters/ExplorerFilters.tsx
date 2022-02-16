@@ -5,16 +5,17 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Button, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 // import cx from 'classnames'
 import { useFetchViewFieldsQuery, QlceViewFilterWrapperInput, QlceViewFilterInput } from 'services/ce/services'
+import type { setFiltersFn } from '@ce/types'
 import FilterPill from '../PerspectiveFilters/FilterPill'
 import css from './ExplorerFilters.module.scss'
 
 interface ExplorerFiltersProps {
-  setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
+  setFilters: setFiltersFn
   filters: QlceViewFilterInput[]
   timeRange: {
     to: string
@@ -25,20 +26,37 @@ interface ExplorerFiltersProps {
 const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, timeRange }) => {
   const { perspectiveId } = useParams<{ perspectiveId: string }>()
 
+  const [filtersState, setFilterState] = useState(filters)
+
+  const queryFilters = useMemo(
+    () => [{ viewMetadataFilter: { viewId: perspectiveId, isPreview: false } } as QlceViewFilterWrapperInput],
+    [perspectiveId]
+  )
+
+  useEffect(() => {
+    setFilterState(filters)
+  }, [filters])
+
   const [result] = useFetchViewFieldsQuery({
     variables: {
-      filters: [{ viewMetadataFilter: { viewId: perspectiveId, isPreview: false } } as QlceViewFilterWrapperInput]
+      filters: queryFilters
     }
   })
   const { data: fieldResData, fetching } = result
 
   const fieldIdentifierData = fieldResData?.perspectiveFields?.fieldIdentifierData
 
+  const setFiltersAndUpdateState: (filterData: QlceViewFilterInput[]) => void = filterData => {
+    setFilterState(filterData)
+    const filteredData = filterData.filter(f => f.field.identifier)
+    setFilters(filteredData)
+  }
+
   const onPillDataChange: (id: number, data: QlceViewFilterInput) => void = (id, data) => {
     if (data.field.identifier === 'CUSTOM') {
       data.values = []
     }
-    const newFilters = filters.map((filter, idx) => {
+    const newFilters = filtersState.map((filter, idx) => {
       if (idx === id) {
         return {
           type: 'VIEW_ID_CONDITION',
@@ -47,7 +65,7 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, 
       }
       return filter
     }) as QlceViewFilterInput[]
-    setFilters(newFilters)
+    setFiltersAndUpdateState(newFilters)
   }
 
   if (fetching) {
@@ -69,7 +87,7 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, 
   return (
     <Container>
       <section className={css.filtersContainer}>
-        {filters.map((filterData, index) => {
+        {filtersState.map((filterData, index) => {
           return (
             <>
               <FilterPill
@@ -79,8 +97,8 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, 
                 removePill={() => {
                   // arrayHelpers.remove(index)
                   // removePill && removePill(innerIndex)
-                  const updatedFilters = filters.filter((_, idx) => (idx == index ? false : true))
-                  setFilters(updatedFilters)
+                  const updatedFilters = filtersState.filter((_, idx) => (idx === index ? false : true))
+                  setFiltersAndUpdateState(updatedFilters)
                 }}
                 fieldValuesList={fieldIdentifierData}
                 onChange={onPillDataChange}
@@ -97,7 +115,7 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, 
           text="+ add filter"
           onClick={() => {
             const addedFilter = [
-              ...filters,
+              ...filtersState,
               {
                 field: {
                   fieldId: '',
@@ -105,12 +123,13 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, 
                   identifier: '',
                   identifierName: ''
                 },
+                type: 'VIEW_ID_CONDITION',
                 operator: 'IN',
                 values: []
               }
             ] as QlceViewFilterInput[]
 
-            setFilters(addedFilter)
+            setFiltersAndUpdateState(addedFilter)
           }}
         />
       </section>
@@ -118,4 +137,4 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, 
   )
 }
 
-export default ExplorerFilters
+export default React.memo(ExplorerFilters)
