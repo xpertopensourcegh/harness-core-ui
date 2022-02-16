@@ -78,7 +78,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 
   useEffect(() => {
-    if (!stage?.stage?.spec?.infrastructure?.infrastructureDefinition && stage?.stage?.type === StageType.DEPLOY) {
+    if (isEmpty(stage?.stage?.spec?.infrastructure) && stage?.stage?.type === StageType.DEPLOY) {
       const stageData = produce(stage, draft => {
         if (draft) {
           set(draft, 'stage.spec', {
