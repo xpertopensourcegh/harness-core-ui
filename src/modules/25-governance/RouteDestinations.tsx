@@ -27,15 +27,23 @@ export const AccountSideNavProps: SidebarContext = {
   title: 'Account Settings'
 }
 
-RbacFactory.registerResourceTypeHandler(ResourceType.GOVERNANCE, {
+RbacFactory.registerResourceTypeHandler(ResourceType.GOVERNANCE_POLICY, {
   icon: 'nav-settings',
-  label: 'common.governance',
-  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  label: 'governance.permissions.governancePolicies',
+  category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
-    [PermissionIdentifier.GOV_VIEW_POLICY]: <String stringID="rbac.permissionLabels.access" />,
+    [PermissionIdentifier.GOV_VIEW_POLICY]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.GOV_EDIT_POLICY]: <String stringID="rbac.permissionLabels.createEdit" />,
-    [PermissionIdentifier.GOV_DELETE_POLICY]: <String stringID="rbac.permissionLabels.delete" />,
-    [PermissionIdentifier.GOV_VIEW_POLICYSET]: <String stringID="rbac.permissionLabels.access" />,
+    [PermissionIdentifier.GOV_DELETE_POLICY]: <String stringID="rbac.permissionLabels.delete" />
+  }
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.GOVERNANCE_POLICYSETS, {
+  icon: 'nav-settings',
+  label: 'governance.permissions.governancePolicySets',
+  category: ResourceCategory.SHARED_RESOURCES,
+  permissionLabels: {
+    [PermissionIdentifier.GOV_VIEW_POLICYSET]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.GOV_EDIT_POLICYSET]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.GOV_DELETE_POLICYSET]: <String stringID="rbac.permissionLabels.delete" />,
     [PermissionIdentifier.GOV_EVALUATE_POLICYSET]: <String stringID="rbac.permissionLabels.evaluate" />
