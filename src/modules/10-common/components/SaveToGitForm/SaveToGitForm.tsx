@@ -25,7 +25,7 @@ import {
   PageSpinner
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { debounce, isEmpty, pick } from 'lodash-es'
+import { debounce, isEmpty, pick, defaultTo } from 'lodash-es'
 import type { FormikContext } from 'formik'
 import { Link } from 'react-router-dom'
 import {
@@ -42,6 +42,7 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { getEntityNameFromType } from '@common/utils/StringUtils'
 import paths from '@common/RouteDefinitions'
+import { validateFilePath } from '@common/utils/gitSyncUtils'
 import { NameId } from '../NameIdDescriptionTags/NameIdDescriptionTags'
 import css from './SaveToGitForm.module.scss'
 
@@ -64,8 +65,6 @@ interface ModalConfigureProps {
   onClose?: () => void
   onSuccess?: (data: SaveToGitFormInterface) => void
 }
-
-const yamlFileExtension = '.yaml'
 
 export interface SaveToGitFormInterface {
   name?: string
@@ -93,16 +92,17 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
   const formikRef = useRef<FormikContext<SaveToGitFormInterface>>()
   const [disableCreatePR, setDisableCreatePR] = useState<boolean>()
+  const [showCreatePRWarning, setShowCreatePRWarning] = useState<boolean>(false)
   const [disableBranchSelection, setDisableBranchSelection] = useState<boolean>(true)
 
   const defaultInitialFormData: SaveToGitFormInterface = {
     name: resource.name,
     identifier: resource.identifier,
-    repoIdentifier: resource.gitDetails?.repoIdentifier || '',
-    rootFolder: resource.gitDetails?.rootFolder || '',
-    filePath: resource.gitDetails?.filePath || `${resource.identifier}.yaml`,
+    repoIdentifier: defaultTo(resource.gitDetails?.repoIdentifier, ''),
+    rootFolder: defaultTo(resource.gitDetails?.rootFolder, ''),
+    filePath: defaultTo(resource.gitDetails?.filePath, `${resource.identifier}.yaml`),
     isNewBranch: false,
-    branch: resource.gitDetails?.branch || '',
+    branch: defaultTo(resource.gitDetails?.branch, ''),
     commitMsg: getString(isEditing ? 'common.gitSync.updateResource' : 'common.gitSync.createResource', {
       name: resource.name,
       type: getEntityNameFromType(resource.type)
@@ -114,8 +114,10 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
 
   useEffect(() => {
     setCurrentUserInfo(
-      codeManagers?.[0]?.authentication?.spec?.spec?.username ||
+      defaultTo(
+        codeManagers?.[0]?.authentication?.spec?.spec?.username,
         codeManagers?.[0]?.authentication?.spec?.spec?.usernameRef
+      )
     )
   }, [codeManagers])
 
@@ -137,8 +139,8 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     return folders?.length
       ? folders.map((folder: GitSyncFolderConfigDTO) => {
           return {
-            label: folder.rootFolder || '',
-            value: folder.rootFolder || ''
+            label: defaultTo(folder.rootFolder, ''),
+            value: defaultTo(folder.rootFolder, '')
           }
         })
       : []
@@ -154,8 +156,8 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
       setRepoSelectOptions(
         gitSyncRepos?.map((gitRepo: GitSyncConfig) => {
           return {
-            label: gitRepo.name || '',
-            value: gitRepo.identifier || ''
+            label: defaultTo(gitRepo.name, ''),
+            value: defaultTo(gitRepo.identifier, '')
           }
         })
       )
@@ -192,6 +194,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
           modalErrorHandler?.showDanger(getString('common.git.noBranchesFound'))
           return
         }
+        setShowCreatePRWarning(false)
         const branchOptions = branchesInResponse?.map((branch: GitBranchDTO) => {
           return { label: branch?.branchName, value: branch?.branchName }
         }) as SelectOption[]
@@ -203,6 +206,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
         if (!isNewBranch && isEmpty(filteredBranches)) {
           setDisableCreatePR(true)
           setDisableBranchSelection(true)
+          setShowCreatePRWarning(true)
         } else {
           setBranches(filteredBranches)
           setDisableCreatePR(false)
@@ -226,7 +230,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     return (
       <Layout.Horizontal flex={{ alignItems: 'baseline', justifyContent: 'flex-start' }} padding={{ top: 'small' }}>
         <FormInput.CheckBox
-          disabled={disableCreatePR}
+          disabled={formikRef.current?.values.createPr ? false : disableCreatePR}
           name="createPr"
           label={getString('common.git.startPRLabel')}
           onChange={e => {
@@ -235,10 +239,11 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
               fetchBranches()
             } else {
               setDisableBranchSelection(true)
+              setShowCreatePRWarning(false)
             }
           }}
         />
-        {disableCreatePR ? (
+        {showCreatePRWarning ? (
           <Popover
             position={Position.TOP}
             content={
@@ -246,7 +251,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                 {getString('common.git.onlyDefaultBranchFound')}
               </Text>
             }
-            isOpen={disableCreatePR}
+            isOpen={showCreatePRWarning}
             popoverClassName={css.tooltip}
           >
             <Container margin={{ bottom: 'xlarge' }}></Container>
@@ -254,7 +259,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
         ) : null}
         <FormInput.Select
           name="targetBranch"
-          items={branches || []}
+          items={defaultTo(branches, [])}
           disabled={disableBranchSelection || disableCreatePR}
           data-id="create-pr-branch-select"
           onQueryChange={(query: string) => debounceFetchBranches(query)}
@@ -263,7 +268,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
         />
       </Layout.Horizontal>
     )
-  }, [disableCreatePR, disableBranchSelection, branches, isNewBranch, formikRef.current?.values])
+  }, [disableCreatePR, disableBranchSelection, branches, isNewBranch, formikRef.current?.values, showCreatePRWarning])
 
   return loadingRepos ? (
     <PageSpinner />
@@ -311,20 +316,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
             filePath: Yup.string()
               .trim()
               .required(getString('common.git.validation.filePath'))
-              .test('filePath', getString('common.validation.yamlFilePath'), (filePath: string) => {
-                if (!filePath.endsWith(yamlFileExtension)) {
-                  return false
-                } else {
-                  let isValid = true
-                  const fullPath = filePath.slice(0, filePath.length - yamlFileExtension.length)
-                  const subPaths = fullPath.split('/')
-                  subPaths.every((folderName: string) => {
-                    isValid = !!folderName.length && !!folderName.match(/^[A-Za-z0-9_-][A-Za-z0-9 _-]*$/g)?.length
-                    return isValid
-                  })
-                  return isValid
-                }
-              }),
+              .test('filePath', getString('common.validation.yamlFilePath'), validateFilePath),
             branch: Yup.string()
               .trim()
               .required(getString('validation.branchName'))

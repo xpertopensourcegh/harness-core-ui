@@ -6,7 +6,20 @@
  */
 
 import type { GitSyncConfig } from 'services/cd-ng'
+import { folderPathName, yamlFileExtension } from './StringUtils'
 
 export const getRepoDetailsByIndentifier = (identifier: string | undefined, repos: GitSyncConfig[]) => {
   return repos.find((repo: GitSyncConfig) => repo.identifier === identifier)
+}
+
+export const validateFilePath = (filePath: string): boolean => {
+  if (!filePath.endsWith(yamlFileExtension)) {
+    return false
+  } else {
+    const fullPath = filePath.slice(0, filePath.length - yamlFileExtension.length)
+    const subPaths = fullPath.split('/')
+    return subPaths.every((folderName: string) => {
+      return folderName.length && folderName.match(folderPathName)?.length
+    })
+  }
 }
