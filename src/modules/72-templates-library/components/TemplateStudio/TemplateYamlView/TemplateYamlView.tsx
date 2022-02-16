@@ -56,7 +56,8 @@ const TemplateYamlView: React.FC = () => {
           const templateFromYaml = parse(yamlHandler.getLatestYaml())?.template
           if (
             !isEqual(template, templateFromYaml) &&
-            isEmpty(yamlHandler.getYAMLValidationErrorMap()) // Don't update for Invalid Yaml
+            !isEmpty(templateFromYaml) // Remove this line when template yaml validation is ready and uncomment below line
+            // yamlHandler.getYAMLValidationErrorMap()?.size === 0 // Don't update for Invalid Yaml
           ) {
             updateTemplate(templateFromYaml)
           }

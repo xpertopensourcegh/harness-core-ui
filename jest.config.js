@@ -36,6 +36,7 @@ module.exports = {
     '!src/**/CreateConnectorFromYamlPage.tsx',
     '!src/**/CreateSecretFromYamlPage.tsx',
     '!src/**/PipelineYamlView.tsx',
+    '!src/**/TemplateYamlView.tsx',
     '!src/**/RouteDestinations.tsx',
     '!src/modules/10-common/RouteDefinitions.ts',
     '!src/modules/10-common/utils/testUtils.tsx',
