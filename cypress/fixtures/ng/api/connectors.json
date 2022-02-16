@@ -139,6 +139,50 @@
           "valid": true,
           "invalidYaml": null
         }
+      },
+      {
+        "connector": {
+          "name": "datadog",
+          "identifier": "datadog",
+          "description": "",
+          "orgIdentifier": "CV",
+          "projectIdentifier": "Harshil",
+          "tags": {},
+          "type": "Datadog",
+          "spec": {
+            "url": "ww.google.com",
+            "applicationKeyRef": "Renu_Bhaskaran",
+            "apiKeyRef": "Renu_Bhaskaran",
+            "delegateSelectors": []
+          }
+        },
+        "createdAt": 1641279386408,
+        "lastModifiedAt": 1641279386216,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": "Error Encountered (Task has expired. It wasn't picked up by any delegate or delegate did not have enough time to finish the execution.                                   )",
+          "errors": [
+            {
+              "reason": "Unexpected Error",
+              "message": "Task has expired. It wasn't picked up by any delegate or delegate did not have enough time to finish the execution.                                   ",
+              "code": 450
+            }
+          ],
+          "testedAt": 1641279962315,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": { "lastActivityTime": 1641279386502 },
+        "harnessManaged": false,
+        "gitDetails": {
+          "objectId": null,
+          "branch": null,
+          "repoIdentifier": null,
+          "rootFolder": null,
+          "filePath": null,
+          "repoName": null
+        },
+        "entityValidityDetails": { "valid": true, "invalidYaml": null }
       }
     ],
     "pageIndex": 0,

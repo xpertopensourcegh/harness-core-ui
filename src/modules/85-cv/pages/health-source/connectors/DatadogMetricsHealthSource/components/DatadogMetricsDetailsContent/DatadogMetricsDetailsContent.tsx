@@ -49,12 +49,17 @@ export default function DatadogMetricsDetailsContent(props: DatadogMetricsDetail
   }, [selectedMetricData?.aggregator, aggregationItems])
 
   const activeMetricsOptions = useMemo(() => {
-    return activeMetrics.map(activeMetric => {
-      return {
-        value: activeMetric,
-        label: activeMetric
-      }
-    })
+    return (
+      (activeMetrics &&
+        Array.isArray(activeMetrics) &&
+        activeMetrics?.map(activeMetric => {
+          return {
+            value: activeMetric,
+            label: activeMetric
+          }
+        })) ||
+      []
+    )
   }, [activeMetrics])
   const metricTagsOptions = useMemo(() => {
     return mapMetricTagsToMetricTagsOptions(metricTags || [])

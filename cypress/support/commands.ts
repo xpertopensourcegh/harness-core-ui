@@ -52,6 +52,8 @@ declare global {
       clickSubmit(): void
       fillField(fieldName: string, value: string): void
       addNewMonitoredServiceWithServiceAndEnv(): void
+      mapMetricToServices(): void
+      addingGroupName(name: string): void
       populateDefineHealthSource(connectorType: string, connectorName: string, healthSourceName: string): void
     }
   }
@@ -136,11 +138,54 @@ Cypress.Commands.add('addNewMonitoredServiceWithServiceAndEnv', () => {
   cy.get('button').contains('span', 'Discard').parent().should('be.enabled')
 })
 
+Cypress.Commands.add('mapMetricToServices', () => {
+  // Triggering validations again
+  cy.findByRole('button', { name: /Submit/i }).click()
+
+  // Verifying validation messages for the metric mapping component
+  cy.contains('span', 'One selection is required.').should('be.visible')
+  cy.get('input[name="sli"]').click({ force: true })
+  cy.contains('span', 'One selection is required.').should('not.exist')
+
+  cy.get('input[name="continuousVerification"]').click({ force: true })
+  cy.get('input[name="healthScore"]').click({ force: true })
+
+  cy.contains('span', 'Risk Category is required.').should('exist')
+  cy.contains('label', 'Errors').click()
+  cy.contains('span', 'Risk Category is required.').should('not.exist')
+
+  cy.contains('span', 'One selection is required.').should('exist')
+  cy.get('input[name="higherBaselineDeviation"]').click({ force: true })
+  cy.contains('span', 'One selection is required.').should('not.exist')
+  cy.findByRole('button', { name: /Submit/i }).click()
+})
+
+Cypress.Commands.add('addingGroupName', name => {
+  cy.get('input[name="groupName"]').click()
+  cy.get('.Select--menuItem').click()
+  cy.get('input[name="name"]').last().type(name)
+  cy.findAllByRole('button', { name: /Submit/i })
+    .last()
+    .click()
+})
+
 Cypress.Commands.add('populateDefineHealthSource', (connectorType, connectorName, healthSourceName) => {
+  cy.contains('span', 'Add New Health Source').click()
+  cy.contains('span', 'Next').click()
+
+  // Validate and fill Define HealthSource Ta
+  cy.contains('span', 'Next').click()
+  cy.contains('span', 'Source selection is required').should('be.visible')
   cy.get(`span[data-icon=${getConnectorIconByType(connectorType)}]`).click()
+  cy.contains('span', 'Source selection is required').should('not.exist')
+
+  cy.contains('span', 'Name is required.').should('be.visible')
   cy.get('input[name="healthSourceName"]').type(healthSourceName)
+  cy.contains('span', 'Name is required.').should('not.exist')
+
+  cy.contains('span', 'Connector Selection is required.').should('be.visible')
   cy.get('button[data-testid="cr-field-connectorRef"]').click()
   cy.contains('p', connectorName).click()
   cy.contains('span', 'Apply Selected').click()
-  cy.contains('span', 'Next').click()
+  cy.contains('span', 'Connector Selection is required.').should('not.exist')
 })
