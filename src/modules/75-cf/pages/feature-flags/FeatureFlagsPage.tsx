@@ -315,7 +315,7 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   const isOn = isFeatureFlagOn(data)
   const hasCustomRules = featureFlagHasCustomRules(data)
   const index = data.variations.findIndex(
-    d => d.identifier === (isOn ? data.defaultOnVariation : data.defaultOffVariation)
+    d => d.identifier === (isOn ? data.envProperties?.defaultServe.variation : data.envProperties?.offVariation)
   )
   const isFlagTypeBoolean = data.kind === FlagTypeVariations.booleanFlag
   const typeToString = useFeatureFlagTypeToStringMapping()
@@ -539,7 +539,7 @@ const FeatureFlagsPage: React.FC = () => {
         refetch
       }
     ],
-    [gitSync.isAutoCommitEnabled, gitSync.isGitSyncEnabled, activeEnvironment]
+    [gitSync.isAutoCommitEnabled, gitSync.isGitSyncEnabled, activeEnvironment, features]
   )
   const onSearchInputChanged = useCallback(
     name => {
