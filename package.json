@@ -186,7 +186,7 @@
     "external-remotes-plugin": "^1.0.0",
     "fake-indexeddb": "^3.1.2",
     "fast-json-stable-stringify": "^2.1.0",
-    "fork-ts-checker-webpack-plugin": "^6.2.1",
+    "fork-ts-checker-webpack-plugin": "^7.2.1",
     "glob": "^7.1.6",
     "graphql": "^15.5.0",
     "html-webpack-plugin": "^5.3.1",
