@@ -18,7 +18,9 @@ import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mo
 // eslint-disable-next-line no-restricted-imports
 import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
 // eslint-disable-next-line no-restricted-imports
-import { ArtifactInputForm } from '@cd/components/ArtifactInputForm/ArtifactInputForm'
+import { KubernetesArtifacts } from '@cd/components/PipelineSteps/K8sServiceSpec/KubernetesArtifacts/KubernetesArtifacts'
+// eslint-disable-next-line no-restricted-imports
+import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 
 import { connectorsData } from '@connectors/pages/connectors/__tests__/mockData'
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
@@ -125,7 +127,8 @@ describe('Manifest Trigger Tests', () => {
     })
 
     TriggerFactory.registerTriggerForm(TriggerFormType.Artifact, {
-      component: ArtifactInputForm
+      component: KubernetesArtifacts,
+      baseFactory: artifactSourceBaseFactory
     })
   })
 

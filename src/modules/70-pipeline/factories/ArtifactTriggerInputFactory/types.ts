@@ -8,7 +8,7 @@
 import type { MultiTypeInputType } from '@harness/uicore'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { ServiceSpec } from 'services/cd-ng'
+import type { ArtifactListConfig, PrimaryArtifact, ServiceSpec, SidecarArtifact } from 'services/cd-ng'
 
 export interface K8SDirectServiceStep extends ServiceSpec {
   stageIndex?: number
@@ -32,6 +32,24 @@ export interface KubernetesServiceInputFormProps {
   allowableTypes: MultiTypeInputType[]
 }
 
+export interface KubernetesArtifactsProps {
+  type?: string
+  template?: ServiceSpec
+  stepViewType?: StepViewType
+  artifactSourceBaseFactory: any
+  stageIdentifier: string
+  artifacts?: ArtifactListConfig
+  formik?: any
+  path?: string
+  initialValues: K8SDirectServiceStep
+  readonly: boolean
+  allowableTypes: MultiTypeInputType[]
+  fromTrigger?: boolean
+  artifact?: PrimaryArtifact | SidecarArtifact
+  isSidecar?: boolean
+  artifactPath?: string
+}
+
 export enum TriggerType {
   Webhook = 'Webhook',
   Scheduled = 'Scheduled'
@@ -43,5 +61,6 @@ export enum TriggerFormType {
 }
 
 export interface FormDetailsRegister {
-  component: React.ComponentType<KubernetesServiceInputFormProps>
+  component: React.ComponentType<any>
+  baseFactory?: any
 }

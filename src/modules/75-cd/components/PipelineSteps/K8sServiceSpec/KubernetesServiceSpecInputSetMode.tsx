@@ -107,13 +107,11 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
               type={StepType.CustomVariable}
               stepViewType={StepViewType.InputSet}
               allowableTypes={allowableTypes}
-              onUpdate={
-                /*istanbul ignore next*/ ({ variables }: CustomVariablesData) => {
-                  onUpdate?.({
-                    variables: variables as any
-                  })
-                }
-              }
+              onUpdate={({ variables }: CustomVariablesData) => {
+                onUpdate?.({
+                  variables: variables as any
+                })
+              }}
               customStepProps={{
                 template: { variables: (template?.variables || []) as AllNGVariables[] },
                 path,

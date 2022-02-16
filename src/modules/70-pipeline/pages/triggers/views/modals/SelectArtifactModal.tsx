@@ -7,7 +7,7 @@
 
 import React, { useState } from 'react'
 import { Button, ButtonVariation, Layout, MultiTypeInputType } from '@wings-software/uicore'
-import { isEmpty, merge } from 'lodash-es'
+import { defaultTo, isEmpty, merge } from 'lodash-es'
 import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -15,6 +15,7 @@ import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import {
   clearRuntimeInputValue,
@@ -45,6 +46,11 @@ const getArtifactId = (isManifest: boolean, selectedArtifactId: string) => {
     return PRIMARY_ARTIFACT
   }
   return ''
+}
+
+const getArtifactBasefactory = () => {
+  const artifactForm = TriggerFactory.getTriggerFormDetails(TriggerFormType.Artifact)
+  return artifactForm.baseFactory
 }
 
 interface SelectArtifactModalPropsInterface {
@@ -212,6 +218,15 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
 
+  const formComponentProps = isManifest
+    ? { allValues: templateObject }
+    : {
+        artifactSourceBaseFactory: getArtifactBasefactory(),
+        stepViewType: StepViewType.InputSet,
+        type: defaultTo(templateObject?.artifacts?.primary?.type, ''),
+        artifacts: templateObject?.artifacts
+      }
+
   return (
     <Dialog
       className={cx(css.selectArtifactModal, 'padded-dialog', modalState !== ModalState.SELECT && css.runtimeInputs)}
@@ -265,13 +280,13 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
             <FormComponent
               template={templateObject}
               path={getPathString(runtimeData, selectedStageId)}
-              allValues={templateObject}
               initialValues={runtimeData}
               allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
               readonly={false}
               stageIdentifier={selectedStageId}
               formik={formikProps}
               fromTrigger={true}
+              {...formComponentProps}
             />
           </PipelineVariablesContextProvider>
           <Layout.Horizontal spacing="medium" className={css.footer}>

@@ -390,6 +390,10 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                                     >
                                       <div
                                         class="nopadLeft accordionSummary"
+                                        id="Stage.stagea.Service.Artifacts.Sidecars"
+                                      />
+                                      <div
+                                        class="nopadLeft accordionSummary"
                                         id="Stage.stagea.Service.Manifests"
                                       >
                                         <div
@@ -3904,7 +3908,7 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
        
     </div>
     <div
-      class="artifactsAccordion"
+      class="nestedAccordions artifactsAccordion"
     >
       <p
         class="StyledProps--font StyledProps--main inputheader"
@@ -3913,7 +3917,6 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
       </p>
       <div
         class="Layout--vertical StyledProps--main inputWidth"
-        data-name="primary"
       >
         <div
           class="bp3-form-group"
@@ -4083,6 +4086,10 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
       </div>
     </div>
   </div>
+  <div
+    class="nopadLeft accordionSummary"
+    id="Stage.stagea.Service.Artifacts.Sidecars"
+  />
   <div
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >

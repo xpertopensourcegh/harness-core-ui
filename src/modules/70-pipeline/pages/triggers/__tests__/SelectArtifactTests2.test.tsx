@@ -10,10 +10,12 @@ import { act, fireEvent, getByText, render } from '@testing-library/react'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
-// eslint-disable-next-line no-restricted-imports
-import { ArtifactInputForm } from '@cd/components/ArtifactInputForm/ArtifactInputForm'
-
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+
+// eslint-disable-next-line no-restricted-imports
+import { KubernetesArtifacts } from '@cd/components/PipelineSteps/K8sServiceSpec/KubernetesArtifacts/KubernetesArtifacts'
+// eslint-disable-next-line no-restricted-imports
+import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import { SelectArtifactModal } from '../views/modals'
 
 const defaultProps = {
@@ -370,7 +372,8 @@ jest.mock('services/portal', () => ({
 describe('Select Artifact - For Artifact tests', () => {
   beforeAll(() => {
     TriggerFactory.registerTriggerForm(TriggerFormType.Artifact, {
-      component: ArtifactInputForm
+      component: KubernetesArtifacts,
+      baseFactory: artifactSourceBaseFactory
     })
   })
 

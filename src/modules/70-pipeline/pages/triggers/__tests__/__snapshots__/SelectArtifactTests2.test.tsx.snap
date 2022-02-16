@@ -302,18 +302,8 @@ exports[`Select Artifact - For Artifact tests on click of apply button 1`] = `
   </div>
   <div
     class="nopadLeft accordionSummary"
-    id="Stage.stagea.Service.Artifacts"
-  >
-    <div
-      class="subheading"
-    >
-      pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts
-       
-    </div>
-    <div
-      class="artifactsAccordion"
-    />
-  </div>
+    id="Stage.stagea.Service.Artifacts.Sidecars"
+  />
   <div
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >
