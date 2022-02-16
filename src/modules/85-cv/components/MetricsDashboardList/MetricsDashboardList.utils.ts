@@ -6,6 +6,7 @@
  */
 
 import type { GetDataError } from 'restful-react'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { TableDashboardItem, TableData } from '@cv/components/MetricsDashboardList/MetricsDashboardList.type'
 
 export function initializeTableData(
@@ -47,7 +48,7 @@ export function initializeSelectedDashboards<T>(
 }
 
 export function isError(loading: boolean, error: GetDataError<any> | null): boolean {
-  return !loading && (error?.data || error)
+  return !loading && !!getErrorMessage(error)
 }
 
 export function isNoData(
@@ -55,5 +56,5 @@ export function isNoData(
   error: GetDataError<any> | null,
   dashboardItems: TableDashboardItem[]
 ): boolean {
-  return !loading && !(error?.data || error) && !dashboardItems?.length
+  return !loading && !getErrorMessage(error) && !dashboardItems?.length
 }

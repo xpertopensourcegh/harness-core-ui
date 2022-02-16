@@ -110,103 +110,103 @@ export default function MetricsDashboardList<T>(props: MetricsDashboardListProps
     )
   }
 
-  if (isNoData(loading, error, dashboardItems)) {
-    return (
-      <NoDataCard
-        icon="warning-sign"
-        className={css.loadingErrorNoData}
-        message={getString('cv.monitoringSources.gco.selectDashboardsPage.noDataText')}
-        buttonText={getString('cv.monitoringSources.gco.addManualInputQuery')}
-        onClick={() => setIsModalOpen(true)}
-      />
-    )
-  }
-
   return (
     <SetupSourceLayout
       content={
         <Container className={css.main}>
-          <TableFilter
-            appliedFilter={filter}
-            className={css.filterStyle}
-            placeholder={getString('cv.monitoringSources.gco.searchForDashboardsPlaceholder')}
-            onFilter={(filterValue: string) => setFilterAndPageOffset({ pageOffset: 0, filter: filterValue })}
-          />
-          <Table<TableData>
-            data={tableData || []}
-            onRowClick={(rowData, index) => {
-              const newTableData = [...tableData]
-              newTableData[index].selected = !rowData.selected
-              setTableData(newTableData)
-              if (newTableData[index].selected) {
-                selectedDashboards.set(rowData.dashboard.name || '', rowData.dashboard)
-              } else {
-                selectedDashboards.delete(rowData.dashboard.name || '')
-              }
-              setSelectedDashboards(new Map(selectedDashboards))
-            }}
-            pagination={{
-              pageSize: pageSize,
-              pageIndex: pageIndex,
-              pageCount: totalPages,
-              itemCount: pageItemCount,
-              gotoPage: newPageIndex => {
-                setFilterAndPageOffset({ pageOffset: newPageIndex, filter: filter })
-              }
-            }}
-            columns={[
-              {
-                Header: '',
-                accessor: 'selected',
-                width: '10%',
-                disableSortBy: true,
-                Cell: function CheckColumn(tableProps: CellProps<TableData>) {
-                  const { original, index } = tableProps.row
-                  return loading ? (
-                    <Container height={16} width={16} className={Classes.SKELETON} />
-                  ) : (
-                    <input
-                      type="checkbox"
-                      checked={tableProps.value}
-                      onChange={() => {
-                        const newTableData = [...tableData]
-                        newTableData[index].selected = !tableProps.value
-                        setTableData(newTableData)
-                        if (newTableData[index].selected) {
-                          selectedDashboards.set(original.dashboard.name || '', original.dashboard)
-                        } else {
-                          selectedDashboards.delete(original.dashboard.name || '')
-                        }
-                        setSelectedDashboards(new Map(selectedDashboards))
-                      }}
-                    />
-                  )
-                }
-              },
-              {
-                Header: (
-                  <Container className={css.columnContainer}>
-                    <Text intent="primary" onClick={() => setIsModalOpen(true)} className={css.manualQueryLink}>
-                      {getString('cv.monitoringSources.gco.addManualInputQuery')}
-                    </Text>
-                    <Text color={Color.BLACK}>{getString(props.tableTitle)}</Text>
-                  </Container>
-                ),
-                accessor: 'dashboard',
-                width: '90%',
-                disableSortBy: true,
-                Cell: function DashboardName(cellProps: CellProps<TableData>) {
-                  return loading ? (
-                    <Container height={16} width="100%" className={Classes.SKELETON} />
-                  ) : (
-                    <Text icon={defaultItemIcon} color={Color.BLACK}>
-                      {cellProps.value.name}
-                    </Text>
-                  )
-                }
-              }
-            ]}
-          />
+          {isNoData(loading, error, dashboardItems) ? (
+            <NoDataCard
+              icon="warning-sign"
+              className={css.loadingErrorNoData}
+              message={getString('cv.monitoringSources.gco.selectDashboardsPage.noDataText')}
+              buttonText={getString('cv.monitoringSources.gco.addManualInputQuery')}
+              onClick={() => setIsModalOpen(true)}
+            />
+          ) : (
+            <Container>
+              <TableFilter
+                appliedFilter={filter}
+                className={css.filterStyle}
+                placeholder={getString('cv.monitoringSources.gco.searchForDashboardsPlaceholder')}
+                onFilter={(filterValue: string) => setFilterAndPageOffset({ pageOffset: 0, filter: filterValue })}
+              />
+              <Table<TableData>
+                data={tableData || []}
+                onRowClick={(rowData, index) => {
+                  const newTableData = [...tableData]
+                  newTableData[index].selected = !rowData.selected
+                  setTableData(newTableData)
+                  if (newTableData[index].selected) {
+                    selectedDashboards.set(rowData.dashboard.name || '', rowData.dashboard)
+                  } else {
+                    selectedDashboards.delete(rowData.dashboard.name || '')
+                  }
+                  setSelectedDashboards(new Map(selectedDashboards))
+                }}
+                pagination={{
+                  pageSize: pageSize,
+                  pageIndex: pageIndex,
+                  pageCount: totalPages,
+                  itemCount: pageItemCount,
+                  gotoPage: newPageIndex => {
+                    setFilterAndPageOffset({ pageOffset: newPageIndex, filter: filter })
+                  }
+                }}
+                columns={[
+                  {
+                    Header: '',
+                    accessor: 'selected',
+                    width: '10%',
+                    disableSortBy: true,
+                    Cell: function CheckColumn(tableProps: CellProps<TableData>) {
+                      const { original, index } = tableProps.row
+                      return loading ? (
+                        <Container height={16} width={16} className={Classes.SKELETON} />
+                      ) : (
+                        <input
+                          type="checkbox"
+                          checked={tableProps.value}
+                          onChange={() => {
+                            const newTableData = [...tableData]
+                            newTableData[index].selected = !tableProps.value
+                            setTableData(newTableData)
+                            if (newTableData[index].selected) {
+                              selectedDashboards.set(original.dashboard.name || '', original.dashboard)
+                            } else {
+                              selectedDashboards.delete(original.dashboard.name || '')
+                            }
+                            setSelectedDashboards(new Map(selectedDashboards))
+                          }}
+                        />
+                      )
+                    }
+                  },
+                  {
+                    Header: (
+                      <Container className={css.columnContainer}>
+                        <Text intent="primary" onClick={() => setIsModalOpen(true)} className={css.manualQueryLink}>
+                          {getString('cv.monitoringSources.gco.addManualInputQuery')}
+                        </Text>
+                        <Text color={Color.BLACK}>{getString(props.tableTitle)}</Text>
+                      </Container>
+                    ),
+                    accessor: 'dashboard',
+                    width: '90%',
+                    disableSortBy: true,
+                    Cell: function DashboardName(cellProps: CellProps<TableData>) {
+                      return loading ? (
+                        <Container height={16} width="100%" className={Classes.SKELETON} />
+                      ) : (
+                        <Text icon={defaultItemIcon} color={Color.BLACK}>
+                          {cellProps.value.name}
+                        </Text>
+                      )
+                    }
+                  }
+                ]}
+              />
+            </Container>
+          )}
           {isModalOpen && (
             <ManualInputQueryModal
               title={manualQueryInputTitle}

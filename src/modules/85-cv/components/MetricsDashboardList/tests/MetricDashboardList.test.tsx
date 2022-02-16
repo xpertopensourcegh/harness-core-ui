@@ -6,10 +6,12 @@
  */
 
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { fireEvent, render, waitFor, screen, getByText } from '@testing-library/react'
 import { cloneDeep } from 'lodash-es'
 import type { UseGetReturn } from 'restful-react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import MetricsDashboardList from '@cv/components/MetricsDashboardList/MetricsDashboardList'
 import { DefaultObject, MockData, MockParams, testWrapperProps } from '@cv/components/MetricsDashboardList/tests/mock'
@@ -62,6 +64,23 @@ describe('MetricDashboardList unit tests', () => {
       )
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
+
+    expect(screen.getByText('cv.monitoringSources.gco.addManualInputQuery')).toBeInTheDocument()
+
+    userEvent.click(screen.getByText('cv.monitoringSources.gco.addManualInputQuery'))
+
+    const dialogContainer = findDialogContainer()
+
+    expect(getByText(dialogContainer!, 'cv.monitoringSources.metricNameLabel')).toBeInTheDocument()
+
+    setFieldValue({
+      container: dialogContainer!,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'metricName',
+      value: 'GCO Metric'
+    })
+
+    userEvent.click(getByText(dialogContainer!, 'submit'))
   })
 
   test('When api returns and error, ensure error state is rendered', async () => {
@@ -92,7 +111,7 @@ describe('MetricDashboardList unit tests', () => {
       ...mockedReturnedValue,
       data: MockData.data
     }
-    const { container, getByText } = render(
+    const { container } = render(
       WrapperComponent(
         <MetricsDashboardList
           manualQueryInputTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
@@ -120,7 +139,7 @@ describe('MetricDashboardList unit tests', () => {
     fireEvent.click(checkedBox)
     await waitFor(() => expect(container.querySelectorAll('input[checked=""]').length).toBe(2))
 
-    fireEvent.click(getByText('2'))
+    fireEvent.click(getByText(container, '2'))
 
     await waitFor(() =>
       expect(refetchMock).toHaveBeenNthCalledWith(2, {

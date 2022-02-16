@@ -390,7 +390,7 @@ export const onSelectNavItem = ({
       metricName,
       identifier: id,
       query,
-      metricTags: { [widget as string]: '' },
+      metricTags: widget ? { [widget]: '' } : {},
       isManualQuery: query === MANUAL_INPUT_QUERY,
       dashboardName: dashboardTitle,
       dashboardPath: dashboardId
