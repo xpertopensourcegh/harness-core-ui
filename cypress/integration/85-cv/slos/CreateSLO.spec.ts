@@ -489,7 +489,7 @@ describe('Create SLO', () => {
     cy.get('input[name="User Journey"]').click()
     cy.contains('p', 'new-one').click({ force: true })
 
-    cy.findByRole('button', { name: /Continue/i }).click()
+    cy.findByRole('button', { name: /Continue/i }).click({ force: true })
 
     cy.get('input[name="monitoredServiceRef"]').click()
     cy.contains('p', 'cvng_prod').click({ force: true })
@@ -513,7 +513,7 @@ describe('Create SLO', () => {
     cy.get('input[name="objectiveComparator"]').click({ force: true })
     cy.contains('p', '<').click({ force: true })
 
-    cy.findByRole('button', { name: /Continue/i }).click()
+    cy.findByRole('button', { name: /Continue/i }).click({ force: true })
 
     cy.get('input[name="periodLength"]').click()
     cy.contains('p', '7').click({ force: true })
@@ -522,7 +522,7 @@ describe('Create SLO', () => {
     cy.intercept('GET', getSLORiskCountWithCVNGProd, getTwoSLOsRiskCountResponse)
     cy.intercept('GET', listSLOsCallWithCVNGProd, getTwoSLODashboardWidgets)
 
-    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByRole('button', { name: /Save/i }).click({ force: true })
     cy.wait('@saveSLO')
 
     cy.contains('span', 'SLO created successfully').should('be.visible')
@@ -551,13 +551,13 @@ describe('Create SLO', () => {
 
     cy.get('input[name="User Journey"]').should('have.value', 'new-one')
 
-    cy.findByRole('button', { name: /Continue/i }).click()
+    cy.findByRole('button', { name: /Continue/i }).click({ force: true })
     cy.contains('h2', 'Configure SLI queries').should('be.visible')
 
     cy.findByRole('button', { name: /New Health Source/i }).click()
 
     cy.wait('@getMonitoredService')
-    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByRole('button', { name: /Save/i }).click({ force: true })
 
     cy.contains('span', 'Monitoring Service updated').should('be.visible')
 
