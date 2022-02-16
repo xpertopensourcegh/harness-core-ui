@@ -30,6 +30,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { FormMultiTypeUserGroupInput } from '@common/components/UserGroupsInput/FormMultitypeUserGroupInput'
+import { regexPositiveNumbers } from '@common/utils/StringUtils'
 import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import type {
   ApproverInputsSubmitCallInterface,
@@ -266,7 +267,18 @@ function HarnessApprovalStepMode(
           approvalMessage: Yup.string().trim().required(getString('pipeline.approvalStep.validation.approvalMessage')),
           approvers: Yup.object().shape({
             userGroups: Yup.string().required(getString('pipeline.approvalStep.validation.userGroups')),
-            minimumCount: Yup.string().required(getString('pipeline.approvalStep.validation.minimumCountRequired'))
+            minimumCount: Yup.string()
+              .required(getString('pipeline.approvalStep.validation.minimumCountRequired'))
+              .test({
+                test(value: string) {
+                  if (getMultiTypeFromValue(value) === MultiTypeInputType.FIXED && !value.match(regexPositiveNumbers)) {
+                    return this.createError({
+                      message: getString('pipeline.approvalStep.validation.minimumCountOne')
+                    })
+                  }
+                  return true
+                }
+              })
           })
         })
       })}

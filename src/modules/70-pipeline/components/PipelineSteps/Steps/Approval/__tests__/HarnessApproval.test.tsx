@@ -17,7 +17,8 @@ import {
   mockUserGroupsResponse,
   getHarnessApprovalEditModeProps,
   getHarnessApprovalEditModePropsWithValues,
-  getHarnessApprovalEditModePropsAsExpressions
+  getHarnessApprovalEditModePropsAsExpressions,
+  getHarnessApprovalEditModePropsMinimumCountNegative
 } from './HarnessApprovalTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -192,6 +193,24 @@ describe('Harness Approval tests', () => {
     })
   })
 
+  test('MinimumCount should be greater than 1', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getHarnessApprovalEditModePropsMinimumCountNegative()
+    const { container, queryByText } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.HarnessApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={props.onUpdate}
+      />
+    )
+
+    expect(container).toMatchSnapshot('minimum count as negative')
+
+    await act(() => ref.current?.submitForm())
+    await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.minimumCountOne')).toBeTruthy())
+  })
   test('On submit call', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getHarnessApprovalEditModePropsWithValues()

@@ -51,6 +51,28 @@ export const getHarnessApprovalEditModePropsAsExpressions = (): HarnessApprovalS
   stepViewType: StepViewType.Edit
 })
 
+export const getHarnessApprovalEditModePropsMinimumCountNegative = (): HarnessApprovalStepModeProps => ({
+  initialValues: {
+    timeout: '10s',
+    type: 'HarnessApproval',
+    name: 'harness approval step',
+    identifier: 'hhaass',
+    spec: {
+      approvalMessage: '<+somemessage>',
+      includePipelineExecutionHistory: '',
+      approverInputs: '',
+      approvers: {
+        userGroups: '<+abc>',
+        minimumCount: -2,
+        disallowPipelineExecutor: ''
+      }
+    }
+  },
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
+  stepViewType: StepViewType.Edit
+})
+
 export const getHarnessApprovalEditModePropsWithValues = (): HarnessApprovalStepModeProps => ({
   initialValues: {
     timeout: '10m',
