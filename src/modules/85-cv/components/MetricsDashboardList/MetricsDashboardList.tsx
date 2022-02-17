@@ -228,7 +228,9 @@ export default function MetricsDashboardList<T>(props: MetricsDashboardListProps
         </Container>
       }
       footerCTAProps={{
-        onNext: () => onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) }),
+        onNext: () => {
+          return onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })
+        },
         onPrevious: onPrevious,
         className: css.footer
       }}
