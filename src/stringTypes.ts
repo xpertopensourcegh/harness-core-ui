@@ -3093,14 +3093,17 @@ export interface StringsMap {
   'templatesLibrary.updated': string
   'templatesLibrary.useTemplate': string
   'cd.GitOpsServerDelete': string
+  'cd.IdEmptyError': string
   'cd.aboutGitOpsServer': string
   'cd.aboutHarnessAdapter': string
   'cd.aboutHarnessManagedGitOpsServer': string
   'cd.aboutProvider': string
   'cd.adapterDelete': string
   'cd.adapterDetails': string
+  'cd.addEnvironment': string
   'cd.addInline': string
   'cd.addRemote': string
+  'cd.addService': string
   'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
   'cd.argoAdapterURL': string
@@ -3139,6 +3142,7 @@ export interface StringsMap {
   'cd.duplicateGitOpsServerIdError': string
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
+  'cd.editIdError': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
   'cd.featureRestriction.banners.deploymentsPerMonthLevelUp': string
@@ -3161,10 +3165,13 @@ export interface StringsMap {
   'cd.learnMore': string
   'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
+  'cd.nameEmptyError': string
   'cd.namespaceValidation': string
   'cd.newAdapter': string
   'cd.newGitOpsServer': string
   'cd.noAdapterText': string
+  'cd.noEnvironment.message': string
+  'cd.noEnvironment.title': string
   'cd.noGitOpsServerText': string
   'cd.notReachable': string
   'cd.pathCannotBeEmpty': string
