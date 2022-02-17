@@ -592,6 +592,7 @@ export interface StringsMap {
   'common.subscribed': string
   'common.subscriptions.banner.trial': string
   'common.subscriptions.ccm.cloudSpend': string
+  'common.subscriptions.cd.serviceInstances': string
   'common.subscriptions.cd.services': string
   'common.subscriptions.ci.developers': string
   'common.subscriptions.expired': string
@@ -609,14 +610,19 @@ export interface StringsMap {
   'common.subscriptions.tabs.plans': string
   'common.subscriptions.title': string
   'common.subscriptions.trial': string
+  'common.subscriptions.usage.activeDevelopers': string
+  'common.subscriptions.usage.ccmTooltip': string
   'common.subscriptions.usage.ccmUsers': string
   'common.subscriptions.usage.cdUsers': string
+  'common.subscriptions.usage.ciTooltip': string
   'common.subscriptions.usage.ciUsers': string
   'common.subscriptions.usage.cloudSpend': string
   'common.subscriptions.usage.developers': string
-  'common.subscriptions.usage.ffUsers': string
+  'common.subscriptions.usage.ffActiveUserTootip': string
+  'common.subscriptions.usage.ffDeveloperTooltip': string
+  'common.subscriptions.usage.ffFFTooltip': string
   'common.subscriptions.usage.header': string
-  'common.subscriptions.usage.last60days': string
+  'common.subscriptions.usage.last30days': string
   'common.subscriptions.usage.monthlyUsers': string
   'common.subscriptions.usage.services': string
   'common.subscriptions.usage.srvcInst': string
@@ -644,7 +650,6 @@ export interface StringsMap {
   'common.test.retest': string
   'common.timePstLabel': string
   'common.tokens': string
-  'common.totalHarnessUser': string
   'common.totalLines': string
   'common.totalSelected': string
   'common.trialInProgress': string
