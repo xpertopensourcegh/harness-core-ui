@@ -56,7 +56,7 @@ import {
   getNewStageFromTemplate
 } from './StageBuilderUtil'
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
-import { StageList } from './views/StageList'
+import { StageList } from './views/StageList/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import css from './StageBuilder.module.scss'
