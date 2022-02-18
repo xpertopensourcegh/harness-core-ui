@@ -3112,6 +3112,12 @@ export interface StringsMap {
   'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
   'cd.argoAdapterURL': string
+  'cd.artifactFormErrors.artifactFilePath': string
+  'cd.artifactFormErrors.artifactName': string
+  'cd.artifactFormErrors.repositoryName': string
+  'cd.artifactName': string
+  'cd.artifactPath': string
+  'cd.artifactPaths': string
   'cd.backEndConfig': string
   'cd.cdLaunchText': string
   'cd.cdSwitchToFirstGen.description1': string
@@ -3124,7 +3130,11 @@ export interface StringsMap {
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
   'cd.componentsInstalled': string
+  'cd.configFileDetails': string
   'cd.configFilePlaceHolder': string
+  'cd.configFileStepOne': string
+  'cd.configFileStore': string
+  'cd.configFileStoreTitle': string
   'cd.configIdentifer': string
   'cd.configurationFile': string
   'cd.confirmDeleteTitle': string
@@ -3206,6 +3216,8 @@ export interface StringsMap {
   'cd.scriptRequired': string
   'cd.searchPlaceholder': string
   'cd.secretManagerRequired': string
+  'cd.selectArtifact': string
+  'cd.selectRepository': string
   'cd.serviceCreated': string
   'cd.serviceDashboard.6monthTrend': string
   'cd.serviceDashboard.activeServiceInstancesLabel': string
