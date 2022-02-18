@@ -356,7 +356,7 @@ export const mockedHealthSourcePayload = {
         metricName,
         metricResponseMapping: {
           metricValueJsonPath: jsonPath,
-          serviceInstanceJsonPath: '',
+          serviceInstanceJsonPath: 'serviceInstance',
           timestampFormat: 'MMMM DD YY',
           timestampJsonPath: jsonPath
         },

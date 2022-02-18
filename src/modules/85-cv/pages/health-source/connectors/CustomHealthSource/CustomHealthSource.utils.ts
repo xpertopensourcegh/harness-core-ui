@@ -326,7 +326,7 @@ export function transformCustomHealthSourceToSetupSource(sourceData: any): Custo
           metricDefinition?.analysis?.riskProfile?.category && metricDefinition?.analysis?.riskProfile?.metricType
             ? `${metricDefinition?.analysis?.riskProfile?.category}/${metricDefinition?.analysis?.riskProfile?.metricType}`
             : '',
-        serviceInstanceIdentifier: metricDefinition?.analysis?.deploymentVerification?.serviceInstanceFieldName,
+        serviceInstanceIdentifier: metricDefinition.metricResponseMapping?.serviceInstanceJsonPath || '',
         lowerBaselineDeviation:
           metricDefinition?.analysis?.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER') || false,
         higherBaselineDeviation:
@@ -385,6 +385,7 @@ export function transformCustomSetupSourceToHealthSource(
       higherBaselineDeviation,
       sli,
       continuousVerification,
+      serviceInstanceIdentifier,
       healthScore,
       pathURL,
       startTime,
@@ -420,7 +421,7 @@ export function transformCustomSetupSourceToHealthSource(
       metricResponseMapping: {
         metricValueJsonPath: metricValue,
         timestampJsonPath: timestamp,
-        serviceInstanceJsonPath: '',
+        serviceInstanceJsonPath: serviceInstanceIdentifier,
         timestampFormat: timestampFormat
       },
       sli: { enabled: Boolean(sli) },
