@@ -2654,6 +2654,8 @@ export interface StringsMap {
   'pipeline.overrideSets.overrideSetError': string
   'pipeline.overrideSets.overrideSetInfo': string
   'pipeline.overrideSets.overrideSetPlaceholder': string
+  'pipeline.parallelSelectedStages': string
+  'pipeline.parallelStages': string
   'pipeline.pipelineSteps.approvalStageDescription': string
   'pipeline.pipelineSteps.chainedPipeline': string
   'pipeline.pipelineSteps.chainedPipelineDescription': string

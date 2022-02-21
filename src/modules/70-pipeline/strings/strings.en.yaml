@@ -35,6 +35,8 @@ noDeploymentText: There are no deployments in your project
 runModalNoPipelineText: There are no pipelines in your project. Please create a new pipeline
 noBuildsText: There are no builds in your project
 noBuildsLabel: No builds
+parallelSelectedStages: '{{selected}}, +{{total}} Stages'
+parallelStages: '+{{total}} Stages'
 runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
