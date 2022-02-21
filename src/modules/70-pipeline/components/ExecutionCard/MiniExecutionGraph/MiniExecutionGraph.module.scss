@@ -21,10 +21,10 @@ $button-width: 25px;
   }
 
   .graphWrapper {
-    height: $node-height;
-    overflow: hidden;
+    height: calc(#{$node-height} + 8px);
     display: flex;
     max-width: 100%;
+    align-items: flex-end;
 
     &.hasButtons {
       width: calc(100% - #{$button-width});
