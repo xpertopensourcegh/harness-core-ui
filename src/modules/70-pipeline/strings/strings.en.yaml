@@ -289,6 +289,9 @@ failureStrategies:
     DelegateProvisioning: Delegate Provisioning Errors
     Unknown: Unknown Errors
   validation:
+    arrayOrUndefined: Value must be an array if defined.
+    strategyRequired: 'At least 1 strategy is required'
+    strategiesRequired: 'At least {{n}} strategies are required'
     errorsRequired: At least one failure type is required
     errorsMinimum: '{{ $.pipeline.failureStrategies.validation.errorsRequired }}'
     actionRequired: Action is required
