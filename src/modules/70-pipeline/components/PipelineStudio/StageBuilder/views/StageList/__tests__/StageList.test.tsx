@@ -12,8 +12,8 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import { StageList } from '../StageList'
 const baseProps = {
   stages: [
-    { stage: { name: 'Stage 1', identifier: 'Stage_1', type: 'Deployment', spec: {} } },
-    { stage: { name: 'Stage 2', identifier: 'Stage_2', template: { templateRef: 'Stage_Template' } } }
+    { stage: { name: 'Stage 1', identifier: 'Stage_1', template: { templateRef: 'Stage_Template' } } },
+    { stage: { name: 'Stage 2', identifier: 'Stage_2', type: 'Deployment', spec: {} } }
   ],
   stagesMap: {
     Deployment: {
@@ -28,19 +28,40 @@ const baseProps = {
   templateTypes: { Stage_Template: 'Deployment' }
 }
 describe('<StageList /> tests', () => {
-  test('snapshot test', async () => {
+  test('should match snapshot', async () => {
     const { container } = render(<StageList {...baseProps} />)
     expect(container).toMatchSnapshot()
   })
-  test('Test Add selected stage at the start- Stage_2 before Stage_1', async () => {
-    const props = { ...baseProps, selectedStageId: 'Stage_2', onClick: jest.fn() }
+
+  test('should have template icon for template stage', async () => {
+    const { container } = render(<StageList {...baseProps} />)
+    const stageRows = container.getElementsByClassName('stageRow')
+    expect(stageRows).toHaveLength(2)
+    const templateLibraryIconFirstRow = stageRows[0].querySelector('span[data-icon="template-library"]')
+    expect(templateLibraryIconFirstRow).toBeDefined()
+    const templateLibraryIconSecondRow = stageRows[1].querySelector('span[data-icon="template-library"]')
+    expect(templateLibraryIconSecondRow).toBeNull()
+  })
+
+  test('should render selected stage first', async () => {
+    const props = { ...baseProps, selectedStageId: 'Stage_2' }
     const { container } = render(<StageList {...props} />)
-    expect(container).toMatchSnapshot()
-    // Test onClick from props should be invoked
-    const element = document.getElementsByClassName('Layout--horizontal')
-    const stage2 = element[0]
+    const stageRows = container.getElementsByClassName('stageRow')
+    expect(stageRows[0]).toHaveTextContent('Stage 2')
+    expect(stageRows[1]).toHaveTextContent('Stage 1')
+  })
+
+  test('should trigger onClick when clicked on stage row', async () => {
+    const props = { ...baseProps, onClick: jest.fn() }
+    const { container } = render(<StageList {...props} />)
+    const stageRows = container.getElementsByClassName('stageRow')
     act(() => {
-      fireEvent.click(stage2)
+      fireEvent.click(stageRows[0])
     })
+    expect(props.onClick).toBeCalledWith('Stage_1', 'Deployment')
+    act(() => {
+      fireEvent.click(stageRows[1])
+    })
+    expect(props.onClick).toBeCalledWith('Stage_2', 'Deployment')
   })
 })

@@ -31,22 +31,23 @@ export const StageList: React.FC<StageListProps> = ({
 }): JSX.Element => {
   const list: Array<{ name: string; icon: IconName; identifier: string; type: string; isTemplate: boolean }> = []
   stages.forEach((node: StageElementWrapper) => {
-    const type = stagesMap[getStageType(node.stage, templateTypes)]
+    const stageType = getStageType(node.stage, templateTypes)
+    const stageData = stagesMap[stageType]
 
     if (node.stage?.identifier === selectedStageId) {
       list.unshift({
         name: node.stage?.name || '',
         identifier: node.stage?.identifier || '',
-        icon: type.icon,
-        type: node.stage?.type || '',
+        icon: stageData.icon,
+        type: stageType,
         isTemplate: !!node.stage?.template
       })
     } else {
       list.push({
         name: node.stage?.name || '',
         identifier: node.stage?.identifier || '',
-        icon: type.icon,
-        type: node.stage?.type || '',
+        icon: stageData.icon,
+        type: stageType,
         isTemplate: !!node.stage?.template
       })
     }
@@ -59,18 +60,15 @@ export const StageList: React.FC<StageListProps> = ({
           className={css.stageRow}
           background={node.isTemplate ? Color.PRIMARY_1 : undefined}
           padding="small"
+          onClick={e => {
+            e.stopPropagation()
+            onClick?.(node.identifier, node.type as StageType)
+          }}
         >
           {node.isTemplate && (
             <Icon name={'template-library'} size={6} className={css.secondaryIcon} color={Color.PRIMARY_7} />
           )}
-          <Layout.Horizontal
-            flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
-            spacing="small"
-            onClick={e => {
-              e.stopPropagation()
-              onClick?.(node.identifier, node.type as StageType)
-            }}
-          >
+          <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="small">
             <Icon name={node.icon} size={20} />
             <Text lineClamp={1} font={{ weight: 'semi-bold', size: 'small' }} color={Color.GREY_800}>
               {node.name}
