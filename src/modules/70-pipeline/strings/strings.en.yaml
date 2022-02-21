@@ -359,9 +359,9 @@ execution:
     abortTitle: Abort Execution?
 resourceConstraints:
   title: Resource Constraint
-  infoText: 'You have {{executioncount}} executions in queue that have to complete before your execution begins. Only one execution on a K8s namespace is allowed at a time.'
+  infoText: 'You have {{executioncount}} {{executiontext}} in queue that have to complete before your execution begins. Only one execution on a K8s namespace is allowed at a time.'
   currentlyExecuting: ' ( currently executing )'
-  yourPipeline: ' ( you execution )'
+  yourPipeline: ' ( your execution )'
 targets:
   title: Targets
 barriers:
