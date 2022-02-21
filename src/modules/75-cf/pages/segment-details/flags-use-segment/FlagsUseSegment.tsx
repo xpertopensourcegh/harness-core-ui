@@ -41,15 +41,19 @@ interface FlagsUseSegmentProps {
 export const FlagsUseSegment = ({ gitSync }: FlagsUseSegmentProps): ReactElement => {
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier, segmentIdentifier } = useParams<Record<string, string>>()
-  const { activeEnvironment } = useActiveEnvironment()
+  const {
+    accountId: accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    segmentIdentifier
+  } = useParams<Record<string, string>>()
+  const { activeEnvironment: environmentIdentifier } = useActiveEnvironment()
 
   const queryParams = {
-    account: accountId,
-    accountIdentifier: accountId,
-    org: orgIdentifier,
-    project: projectIdentifier,
-    environment: activeEnvironment
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    environmentIdentifier
   }
   const {
     loading,
@@ -162,10 +166,10 @@ export const FlagsUseSegment = ({ gitSync }: FlagsUseSegmentProps): ReactElement
           minimal
           gitSync={gitSync}
           intent="primary"
-          accountId={accountId}
+          accountIdentifier={accountIdentifier}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
-          environmentIdentifier={activeEnvironment}
+          environmentIdentifier={environmentIdentifier}
           modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
           submitButtonTitle={getString('add')}
           onSubmit={async (checkedFeatureFlags, gitSyncFormValues) =>

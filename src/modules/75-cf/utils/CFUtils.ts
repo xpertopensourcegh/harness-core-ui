@@ -147,8 +147,8 @@ export const unescapeI18nSupportedTags = (str: string) =>
 
 // FF Environment SDK Type
 export enum EnvironmentSDKKeyType {
-  SERVER = 'Server',
-  CLIENT = 'Client'
+  SERVER = 'server',
+  CLIENT = 'client'
 }
 
 export const NO_ENVIRONMENT_IDENTIFIER = '-1'
