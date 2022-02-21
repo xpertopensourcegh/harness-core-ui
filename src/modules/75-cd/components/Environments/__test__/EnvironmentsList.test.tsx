@@ -7,14 +7,14 @@
 
 import React from 'react'
 import { render, getByText, getAllByText, fireEvent, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import mockImport from 'framework/utils/mockImport'
 import { EnvironmentList } from '../EnvironmentList/EnvironmentsList'
 import mockEnvironments from './mockEnvironments'
 
 jest.mock('services/pipeline-ng', () => {
   return {
-    useGetSchemaYaml: jest.fn
+    useGetSchemaYaml: jest.fn(() => ({ data: null }))
   }
 })
 
@@ -74,6 +74,20 @@ describe('EnvironmentList', () => {
 
     expect(getAllByText(document.body, mockEnvironments.data.content[0].name)).toBeDefined()
     expect(getAllByText(document.body, mockEnvironments.data.content[1].name)).toBeDefined()
+  })
+  test('Should open Add Environment Modal on click', () => {
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier/environment"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+      >
+        <EnvironmentList />
+      </TestWrapper>
+    )
+    fireEvent.click(container.querySelector('[data-testid="add-environment"]') as HTMLElement)
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
+    expect(form).toMatchSnapshot()
   })
 
   test('Should go to edit modal by clicking edit', async () => {

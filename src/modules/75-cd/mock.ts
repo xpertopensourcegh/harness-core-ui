@@ -131,3 +131,88 @@ export const serviceCard = {
     }
   }
 }
+
+export const environmentModal = {
+  isEdit: false,
+  isEnvironment: true,
+  data: {
+    accountId: 'AQ8xhfNCRtGIUjq5bSM8Fg',
+    orgIdentifier: 'default',
+    projectIdentifier: 'asdasd',
+    identifier: 'qa',
+    name: 'qa',
+    description: 'Decription mock',
+    color: '#0063F7',
+    deleted: false,
+    tags: { asd: '' },
+    version: 1
+  },
+  onCreateOrUpdate: jest.fn()
+}
+
+export const servicesGridView = {
+  data: {
+    correlationId: '0655d280-1804-4935-91b1-ffdc733a7eb9',
+    data: {
+      content: [
+        {
+          createdAt: 1644951149242,
+          lastModifiedAt: 1644951149242,
+          service: {
+            accountId: 'px7xd_BFRCi-pfWPYXVjvw',
+            deleted: false,
+            description: '',
+            identifier: 'dfg',
+            name: 'dfg',
+            orgIdentifier: 'default',
+            projectIdentifier: 'Jira',
+            tags: {},
+            version: 1
+          }
+        }
+      ],
+      empty: false,
+      pageIndex: 0,
+      pageItemCount: 1,
+      pageSize: 50,
+      totalItems: 1,
+      totalPages: 1
+    }
+  },
+  onRefresh: jest.fn(),
+  gotoPage: jest.fn(),
+  onServiceSelect: jest.fn()
+}
+
+export const serviceModal = {
+  isEdit: false,
+  isService: true,
+  data: {
+    accountId: 'kmpySmUISimoRrJL6NL73w',
+    deleted: false,
+    description: 'Descrip',
+    identifier: 'Test_13',
+    name: 'Test 13',
+    orgIdentifier: 'default',
+    projectIdentifier: 'defaultproject',
+    tags: {},
+    version: 1
+  },
+  onCreateOrUpdate: jest.fn()
+}
+
+export const serviceRow = {
+  row: {
+    original: {
+      accountId: 'kmpySmUISimoRrJL6NL73w',
+      deleted: false,
+      description: 'Descrip',
+      identifier: 'Test_13',
+      name: 'Test 13',
+      orgIdentifier: 'default',
+      projectIdentifier: 'defaultproject',
+      tags: {},
+      version: 1
+    }
+  }
+}
