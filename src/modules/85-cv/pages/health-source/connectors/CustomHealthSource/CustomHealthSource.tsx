@@ -5,18 +5,13 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState, useContext, useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Formik, FormikForm } from '@wings-software/uicore'
-import { flatten, noop } from 'lodash-es'
+import { noop } from 'lodash-es'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
-import type { GroupedCreatedMetrics } from '@cv/components/MultiItemsSideNav/components/SelectedAppsSideNav/components/GroupedSideNav/GroupedSideNav.types'
+import useGroupedSideNaveHook from '@cv/hooks/GroupedSideNaveHook/useGroupedSideNaveHook'
 import { useStrings } from 'framework/strings'
-import {
-  initGroupedCreatedMetrics,
-  initializeCreatedMetrics,
-  initializeSelectedMetricsMap
-} from '../../common/CustomMetric/CustomMetric.utils'
 import {
   transformCustomHealthSourceToSetupSource,
   validateMappings,
@@ -25,15 +20,10 @@ import {
 } from './CustomHealthSource.utils'
 import type { CustomHealthSourceSetupSource, MapCustomHealthToService } from './CustomHealthSource.types'
 
-import { defaultMetricName } from './CustomHealthSource.constants'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import CustomMetric from '../../common/CustomMetric/CustomMetric'
 
-import type {
-  CreatedMetricsWithSelectedIndex,
-  CustomMappedMetric,
-  CustomSelectedAndMappedMetrics
-} from '../../common/CustomMetric/CustomMetric.types'
+import type { CustomMappedMetric } from '../../common/CustomMetric/CustomMetric.types'
 import CustomHealthSourceForm from './CustomHealthSourceForm'
 import css from './CustomHealthSource.module.scss'
 
@@ -50,25 +40,21 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
 
   const transformedSourceData = useMemo(() => transformCustomHealthSourceToSetupSource(sourceData), [sourceData])
 
-  const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<CustomSelectedAndMappedMetrics>(
-    initializeSelectedMetricsMap(
-      defaultMetricName,
-      getInitCustomMetricData(''),
-      transformedSourceData.mappedServicesAndEnvs as Map<string, CustomMappedMetric>
-    )
-  )
-
-  const [groupedCreatedMetrics, setGroupedCreatedMetrics] = useState<GroupedCreatedMetrics>(
-    initGroupedCreatedMetrics(mappedMetrics, getString)
-  )
-
-  const groupedCreatedMetricsList = flatten(Object.values(groupedCreatedMetrics))
-    .map(item => item.metricName)
-    .filter(item => Boolean(item)) as string[]
-
-  const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
-    initializeCreatedMetrics(defaultMetricName, selectedMetric, mappedMetrics)
-  )
+  const {
+    createdMetrics,
+    mappedMetrics,
+    selectedMetric,
+    selectedMetricIndex,
+    groupedCreatedMetrics,
+    groupedCreatedMetricsList,
+    setMappedMetrics,
+    setCreatedMetrics,
+    setGroupedCreatedMetrics
+  } = useGroupedSideNaveHook({
+    defaultCustomMetricName: getString('cv.monitoringSources.appD.defaultAppDMetricName'),
+    initCustomMetricData: getInitCustomMetricData(''),
+    mappedServicesAndEnvs: transformedSourceData.mappedServicesAndEnvs as Map<string, CustomMappedMetric>
+  })
 
   return (
     <Formik<MapCustomHealthToService>
