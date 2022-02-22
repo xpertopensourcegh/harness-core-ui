@@ -307,6 +307,15 @@ const PeriodSelection = ({ formikProps }: PeriodSelectionProps) => {
 const DaysAndTimeSelector = ({ formikProps }: DaysAndTimeSelectorProps) => {
   const { getString } = useStrings()
 
+  const handleTimeRangeRadioSelection = () => {
+    formikProps.setValues({
+      ...formikProps.values,
+      allDay: false,
+      endTime: { hour: 0, min: 0 },
+      startTime: { hour: 0, min: 0 }
+    })
+  }
+
   return (
     <Container>
       <Heading level={3} className={css.heading}>
@@ -369,7 +378,7 @@ const DaysAndTimeSelector = ({ formikProps }: DaysAndTimeSelectorProps) => {
               label=""
               value={'sometime'}
               checked={!formikProps.values.allDay}
-              onChange={_ => formikProps.setFieldValue('allDay', false)}
+              onChange={handleTimeRangeRadioSelection}
             />
             <Container>
               <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'start' }} className={css.fromTime}>
