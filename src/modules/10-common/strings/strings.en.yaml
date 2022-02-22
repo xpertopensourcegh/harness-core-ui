@@ -250,7 +250,7 @@ repo_provider:
   bitbucketLabel: BitBucket
   customLabel: Custom
   githubLabel: GitHub
-  gitlabLabel: GitLab
+  gitlabLabel: Gitlab
   codecommit: CodeCommit
   awscodecommit: AWS Code Commit
   azureDev: Azure Devops
