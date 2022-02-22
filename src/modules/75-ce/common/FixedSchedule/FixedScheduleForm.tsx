@@ -151,10 +151,15 @@ const FixedScheduleForm: React.FC<FixedScheduleFormProps> = props => {
         validationSchema={Yup.object().shape({
           name: Yup.string().max(25).required(),
           type: Yup.string().required(),
-          repeats: Yup.array().when('beginsOn', {
-            is: val => !val,
-            then: Yup.array().min(1).required()
-          })
+          repeats: Yup.array()
+            .when('beginsOn', {
+              is: val => !val,
+              then: Yup.array().min(1).required()
+            })
+            .when('everyday', {
+              is: false,
+              then: Yup.array().min(1).required()
+            })
         })}
       >
         {_formikProps => (
