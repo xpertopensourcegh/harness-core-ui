@@ -301,8 +301,9 @@ class StepOne extends Step<any> {
       command: "echo 'run'",
       privileged: false,
       envVariables: {
-        variable1: 'some-value',
-        'variable.path': 'some-value'
+        env: 'prod',
+        'env.release': 'latest',
+        'env.release.prod.version': '1.0'
       }
     }
   }
