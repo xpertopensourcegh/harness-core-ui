@@ -57,7 +57,6 @@ export const isSelectedArtifact = (selectedArtifact: any, identifier?: string): 
     !isEmpty(selectedArtifact) && (!selectedArtifact.identifier || selectedArtifact.identifier === PRIMARY_ARTIFACT)
   )
 }
-
 export const isFieldfromTriggerTabDisabled = (
   fieldName: string,
   formik: FormikValues,

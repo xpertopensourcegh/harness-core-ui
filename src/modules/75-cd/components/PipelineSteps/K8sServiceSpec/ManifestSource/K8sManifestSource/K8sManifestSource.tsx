@@ -5,16 +5,19 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import React from 'react'
 import { ManifestSourceBase, ManifestSourceRenderProps } from '@cd/factory/ManifestSourceFactory/ManifestSourceBase'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import K8sValuesYamlManifestContent from '../ManifestSourceRuntimeFields/K8sValuesYamlManifestContent'
 
 export class K8sManifestSource extends ManifestSourceBase<ManifestSourceRenderProps> {
-  protected manifestType = 'K8sManifest'
+  protected manifestType = ManifestDataType.K8sManifest
 
-  isFieldDisabled(): boolean {
-    return false
-  }
+  renderContent(props: ManifestSourceRenderProps): JSX.Element | null {
+    if (!props.isManifestsRuntime) {
+      return null
+    }
 
-  renderContent(): JSX.Element | null {
-    return null
+    return <K8sValuesYamlManifestContent {...props} pathFieldlabel="fileFolderPathText" />
   }
 }
