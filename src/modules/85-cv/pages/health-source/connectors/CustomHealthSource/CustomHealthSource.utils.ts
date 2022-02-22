@@ -233,7 +233,7 @@ export function transformCustomHealthSourceToSetupSource(sourceData: any): Custo
         //
         queryType: metricDefinition.queryType,
         requestMethod: metricDefinition.method,
-        query: metricDefinition.requestBody || '*',
+        query: metricDefinition.requestBody || '',
         baseURL: '', // get this from connector API
         pathURL: metricDefinition.urlPath || '',
         metricValue: metricDefinition.metricResponseMapping?.metricValueJsonPath || '',
