@@ -59,7 +59,7 @@ import {
   PRIMARY_ARTIFACT,
   TriggerDefaultFieldList,
   TriggerTypes
-} from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+} from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { repositoryFormat } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 

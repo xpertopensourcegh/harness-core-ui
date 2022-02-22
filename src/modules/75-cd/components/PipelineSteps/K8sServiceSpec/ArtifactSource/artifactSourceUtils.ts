@@ -14,7 +14,7 @@ import {
   PRIMARY_ARTIFACT,
   TriggerDefaultFieldList,
   TriggerTypes
-} from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+} from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import type {
   ArtifactoryBuildDetailsDTO,

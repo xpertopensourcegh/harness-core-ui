@@ -775,3 +775,12 @@ currentlyAvailable: Currently Available
 supportedInFirstGeneration: Currently supported on Harness Continuous Delivery First Generation
 currentlySupportedOn: Currently supported on
 firstGeneration: Harness Continuous Delivery First Generation
+sourceBranch: Source Branch
+sourceBranchPlaceholder: Enter Source Branch
+targetBranch: Target Branch
+targetBranchPlaceholder: Enter Target Branch
+operator: Operator
+branchName: 'Branch Name'
+tagName: 'Tag Name'
+jexlCondition: 'JEXL Condition'
+triggersLabel: 'Triggers'

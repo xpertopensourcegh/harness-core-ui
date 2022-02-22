@@ -16,7 +16,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { SidecarArtifact, useGetBuildDetailsForDockerWithYaml } from 'services/cd-ng'
 
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
-import { TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+import { TriggerDefaultFieldList } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'

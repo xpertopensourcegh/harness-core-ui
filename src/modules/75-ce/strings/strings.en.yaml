@@ -573,7 +573,7 @@ perspectives:
       nameError: '{{$.validation.nameRequired}}'
       ruleError: 'values length should be greater than 1'
     filters:
-      operator: '{{$.pipeline.triggers.conditionsPanel.operator}}'
+      operator: '{{$.common.operator}}'
       searchText: 'Search Here'
       selectValues: 'Select Values'
       rulesTitle: 'Rules for Perspective'
@@ -657,7 +657,7 @@ perspectives:
       forecasted: Forecasted
       basedOn: Based on
       exceeds: exceeds
-      percent: % of Budget
+      percent: '% of Budget'
       createAlert: '+ add new alert'
 overview:
   title: '{{ $.overview }}'
