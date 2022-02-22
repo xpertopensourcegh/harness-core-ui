@@ -3432,6 +3432,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.downtime': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.endsOn': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.everyday': string
+  'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.fixedSchedule': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.fromText': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.neverEnds': string
   'ce.co.autoStoppingRule.configuration.step4.tabs.schedules.newScheduleTitle': string

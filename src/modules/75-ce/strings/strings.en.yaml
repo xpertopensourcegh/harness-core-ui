@@ -108,6 +108,7 @@ co:
             description: 'Set dependencies between two or more AutoStopping Rules when you want one Rule to make one or more other Rules active based on the traffic that it receives. For example, for an application server dependant on a database server, you would create two Rules managing each of the two servers, and then set the Rule managing the application server to be dependant on the Rule managing the database server.'
           schedules:
             title: 'Fixed Schedules'
+            fixedSchedule: 'Fixed Schedule'
             description: 'Create scheduled windows of fixed up time or down time for the resources that are managed by this AutoStopping Rule. If a resource is set to be up or down based on a fixed schedule, then it will not be affected by any activity or idleness for that defined period.'
             addSchedulesBtn: 'Add fixed schedule'
             newScheduleTitle: 'New Fixed Schedule'

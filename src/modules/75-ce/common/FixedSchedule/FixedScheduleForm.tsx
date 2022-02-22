@@ -138,7 +138,9 @@ const FixedScheduleForm: React.FC<FixedScheduleFormProps> = props => {
   return (
     <Layout.Vertical spacing="xlarge" className={css.fixedScheduleFormContainer}>
       <Heading color={Color.GREY_800} level={2}>
-        {getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.newScheduleTitle')}
+        {props.isEdit
+          ? getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.fixedSchedule')
+          : getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.newScheduleTitle')}
       </Heading>
       {!_isEmpty(errorString) && <Text className={css.errorDisplayContainer}>{errorString}</Text>}
       <Formik
