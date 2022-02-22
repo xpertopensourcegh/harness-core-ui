@@ -4602,6 +4602,7 @@ export interface StringsMap {
   'cv.day': string
   'cv.days': string
   'cv.dependenciesHealthWithCount': string
+  'cv.deploymentVerification.failed': string
   'cv.errorBudget': string
   'cv.errorBudgetBurnDown': string
   'cv.errorBudgetIsSuccessfullyReset': string
