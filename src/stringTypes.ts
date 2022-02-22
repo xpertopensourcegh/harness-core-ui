@@ -42,6 +42,7 @@ export interface StringsMap {
   'common.agent': string
   'common.allErrors': string
   'common.apiKeys': string
+  'common.apiStatus': string
   'common.apikey': string
   'common.application': string
   'common.apply': string
@@ -280,6 +281,7 @@ export interface StringsMap {
   'common.git.validation.repoRequired': string
   'common.git.validation.sameBranches': string
   'common.git.validation.targetBranch': string
+  'common.gitDetailsTitle': string
   'common.gitSync.allRepositories': string
   'common.gitSync.branchSyncNotAllowed': string
   'common.gitSync.commitDetailsLabel': string
@@ -310,10 +312,12 @@ export interface StringsMap {
   'common.governance': string
   'common.gpgkey': string
   'common.harnessClusterHostingAccount': string
+  'common.harnessDelegate': string
   'common.harnessFirstGeneration': string
   'common.harnessFirstGenerationDescription': string
   'common.harnessNextGeneration': string
   'common.harnessNextGenerationDescription': string
+  'common.harnessPlatform': string
   'common.headerAccountEdition': string
   'common.headerAccountName': string
   'common.headerCompanyName': string
@@ -334,6 +338,7 @@ export interface StringsMap {
   'common.jexlExpression': string
   'common.labelTestConnection': string
   'common.last7days': string
+  'common.lastConnected': string
   'common.lastConnectedOn': string
   'common.lastModifiedTime': string
   'common.latest': string
@@ -377,6 +382,7 @@ export interface StringsMap {
   'common.noDeployments': string
   'common.noInfo': string
   'common.noRefData': string
+  'common.notEnabled': string
   'common.note': string
   'common.noteAccountSwitch': string
   'common.notificationPreferences': string
@@ -1682,6 +1688,7 @@ export interface StringsMap {
   'connectors.connectAndSave': string
   'connectors.connectivityMode.connectToProvider': string
   'connectors.connectivityMode.selectText': string
+  'connectors.connectivityMode.title': string
   'connectors.connectivityMode.validation': string
   'connectors.connectorAlreadyExist': string
   'connectors.connectorDetails': string

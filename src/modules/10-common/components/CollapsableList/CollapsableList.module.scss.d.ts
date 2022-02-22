@@ -7,14 +7,13 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly container: string
-  readonly noDataCardImg: string
-  readonly noDataContainer: string
-  readonly search: string
-  readonly searchBox: string
-  readonly tabIcon: string
-  readonly tabTitleContainer: string
-  readonly tabValue: string
-  readonly tabsContainer: string
+  readonly collapeHeaderContent: string
+  readonly collapeTitle: string
+  readonly collapseHeader: string
+  readonly collapseWrapper: string
+  readonly hideCollapseIcon: string
+  readonly listItem: string
+  readonly referenceList: string
+  readonly selectedItem: string
 }
 export default styles
