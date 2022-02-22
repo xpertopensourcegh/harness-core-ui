@@ -550,7 +550,6 @@ const FeatureFlagsPage: React.FC = () => {
   const hasFeatureFlags = features?.features && features?.features?.length > 0
   const emptyFeatureFlags = !loading && features?.features?.length === 0
   const title = getString('featureFlagsText')
-
   const displayToolbar = hasFeatureFlags || searchTerm
 
   return (

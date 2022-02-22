@@ -32,6 +32,7 @@ const FeatureFlagsDetailPage: React.FC = () => {
   const { activeEnvironment: environmentIdentifier } = useActiveEnvironment()
 
   useDocumentTitle(getString('featureFlagsText'))
+
   const queryParams = {
     projectIdentifier,
     environmentIdentifier,

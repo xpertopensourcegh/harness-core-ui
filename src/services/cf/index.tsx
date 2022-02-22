@@ -724,6 +724,10 @@ export interface SegmentFlag {
    */
   project: string
   /**
+   * The unique identifier for this rule
+   */
+  ruleId?: string
+  /**
    * How the the flag has been included, either directly or via a custom rule
    */
   type: 'DIRECT' | 'CONDITION'
