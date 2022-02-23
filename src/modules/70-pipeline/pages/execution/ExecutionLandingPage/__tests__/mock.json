@@ -12,12 +12,16 @@
       },
       "moduleInfo": {
         "CD": { "DeploymentType": "k8s", "namespace": "mock-namespace" },
-        "CI": {
+        "ci": {
           "ciBuildBranchHook": {
             "name": "master",
             "link": "https://github.com/wings-software/portal/blob/master/",
             "state": "CLOSED",
-            "commits": "[]"
+            "commits": "[]",
+            "deprecatedImages": [
+              { "tag1": "tag1", "version": "1.0.0" },
+              { "tag2": "tag1", "version": "1.0.1" }
+            ]
           }
         }
       },

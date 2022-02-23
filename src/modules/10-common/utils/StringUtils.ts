@@ -96,3 +96,11 @@ export function getEntityNameFromType(entity: GitSyncEntityDTO['entityType']): s
     ? (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
     : ''
 }
+
+export const joinAsASentence = (items: string[]): string => {
+  if (!items.length) {
+    return ''
+  }
+  const last = items.pop()
+  return items.join(', ') + ' and ' + last
+}

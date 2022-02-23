@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pipeline Execution Warning component testing Inital render should match snapshot 1`] = `
+<div>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main warningBanner StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+  >
+    tag1(1.0.0) and tag2(1.0.1)
+  </div>
+</div>
+`;

@@ -235,3 +235,30 @@ describe('<ExecutionLandingPage /> tests', () => {
     expect(getByTestId('autoSelectedStepId').innerHTML).toBe('')
   })
 })
+
+describe('<ExecutionLandingPage /> tests for CI', () => {
+  const pathParams: PipelineType<ExecutionPathProps> = {
+    accountId: 'TEST_ACCOUNT_ID',
+    orgIdentifier: 'TEST_ORG',
+    projectIdentifier: 'TEST_PROJECT',
+    pipelineIdentifier: 'TEST_PIPELINE',
+    executionIdentifier: 'TEST_EXECUTION',
+    module: 'ci'
+  }
+
+  test('loading state - snapshot test for CI module', () => {
+    ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({
+      refetch: jest.fn(),
+      loading: true,
+      data: null
+    }))
+    const { container } = render(
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams as unknown as Record<string, string>}>
+        <ExecutionLandingPage>
+          <div data-testid="children">Execution Landing Page</div>
+        </ExecutionLandingPage>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+})

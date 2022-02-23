@@ -6,9 +6,11 @@
  */
 
 import React, { Dispatch, SetStateAction } from 'react'
+import { Intent } from '@blueprintjs/core'
 import { useParams, useLocation } from 'react-router-dom'
 import { get, isEmpty, pickBy } from 'lodash-es'
-import { PageError, PageSpinner } from '@wings-software/uicore'
+import { Text, Icon, Color, FontVariation, PageError, PageSpinner, Layout } from '@wings-software/uicore'
+import type { DeprecatedImageInfo } from 'services/ci'
 import { GovernanceMetadata, useGetExecutionDetail, ResponsePipelineExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
@@ -19,9 +21,11 @@ import {
   addServiceDependenciesFromLiteTaskEngine
 } from '@pipeline/utils/executionUtils'
 import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
+import { joinAsASentence } from '@common/utils/StringUtils'
+import { useStrings } from 'framework/strings'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-
+import { PipelineExecutionWarning } from '@pipeline/components/PipelineExecutionWarning/PipelineExecutionWarning'
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import { EvaluationModal } from '@governance/EvaluationModal'
 import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
@@ -89,6 +93,7 @@ const setStageIds = ({
 }
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<unknown>): React.ReactElement {
+  const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, module } =
     useParams<PipelineType<ExecutionPathProps>>()
   const [allNodeMap, setAllNodeMap] = React.useState<Record<string, ExecutionNode>>({})
@@ -125,6 +130,17 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     },
     debounce: 500
   })
+
+  const deprecatedImages = React.useMemo(() => {
+    return data?.data?.pipelineExecutionSummary?.moduleInfo?.ci?.deprecatedImages as DeprecatedImageInfo[]
+  }, [data?.data?.pipelineExecutionSummary?.moduleInfo?.ci?.deprecatedImages])
+
+  const getDeprecatedImageSummary = (images: DeprecatedImageInfo[]): string => {
+    const tagWithVersions = images
+      .filter((image: DeprecatedImageInfo) => !!image.tag && !!image.version)
+      .map((image: DeprecatedImageInfo) => `${image.tag}(${image.version})`)
+    return joinAsASentence(tagWithVersions)
+  }
 
   const graphNodeMap = data?.data?.executionGraph?.nodeMap || {}
   const isDataLoadedForSelectedStage = Object.keys(graphNodeMap).some(
@@ -227,14 +243,36 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
             </header>
             <ExecutionTabs />
             {module === 'ci' && (
-              <FeatureRestrictionBanners
-                featureNames={[
-                  FeatureIdentifier.ACTIVE_COMMITTERS,
-                  FeatureIdentifier.MAX_BUILDS_PER_MONTH,
-                  FeatureIdentifier.MAX_TOTAL_BUILDS
-                ]}
-                module={module}
-              />
+              <>
+                <FeatureRestrictionBanners
+                  featureNames={[
+                    FeatureIdentifier.ACTIVE_COMMITTERS,
+                    FeatureIdentifier.MAX_BUILDS_PER_MONTH,
+                    FeatureIdentifier.MAX_TOTAL_BUILDS
+                  ]}
+                  module={module}
+                />
+                {deprecatedImages?.length ? (
+                  <PipelineExecutionWarning
+                    warning={
+                      <>
+                        <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
+                          <Icon name="warning-sign" intent={Intent.DANGER} />
+                          <Text color={Color.ORANGE_900} font={{ variation: FontVariation.SMALL_BOLD }}>
+                            {getString('pipeline.imageVersionDeprecated')}
+                          </Text>
+                        </Layout.Horizontal>
+                        <Text font={{ weight: 'semi-bold', size: 'small' }} color={Color.PRIMARY_10}>
+                          {getString('pipeline.unsupportedImagesWarning', {
+                            summary: `${getDeprecatedImageSummary(deprecatedImages)}.`
+                          })}
+                        </Text>
+                        {/* <Link to={'/'}>{getString('learnMore')}</Link> */}
+                      </>
+                    }
+                  />
+                ) : null}
+              </>
             )}
             <div
               className={css.childContainer}
