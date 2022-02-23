@@ -122,7 +122,11 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     lazy: true
   })
 
-  const { data: metadata, error: gettingFeatureMetadataError } = useGetAllFeatureRestrictionMetadata({})
+  const { data: metadata, error: gettingFeatureMetadataError } = useGetAllFeatureRestrictionMetadata({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
 
   useEffect(() => {
     if (!isEmpty(enabledFeatureList)) {

@@ -2008,6 +2008,20 @@ export interface EntityDetail {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3271,6 +3285,20 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3329,6 +3357,20 @@ export interface GitEntityFilterProperties {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3420,6 +3462,20 @@ export interface GitFullSyncEntityInfoDTO {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3486,6 +3542,20 @@ export interface GitFullSyncEntityInfoFilterKeys {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3629,6 +3699,20 @@ export interface GitSyncEntityDTO {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3689,6 +3773,20 @@ export interface GitSyncEntityListDTO {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3766,6 +3864,20 @@ export interface GitSyncErrorDTO {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -4570,6 +4682,7 @@ export type KubernetesOpenIdConnectDTO = KubernetesAuthCredentialDTO & {
 }
 
 export type KubernetesServiceAccountDTO = KubernetesAuthCredentialDTO & {
+  caCertRef?: string
   serviceAccountTokenRef: string
 }
 
@@ -6365,7 +6478,7 @@ export interface ResponseListServiceAccountDTO {
 
 export interface ResponseListServiceDefinitionType {
   correlationId?: string
-  data?: ('Kubernetes' | 'NativeHelm')[]
+  data?: ('Kubernetes' | 'NativeHelm' | 'Ssh')[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -7993,7 +8106,7 @@ export interface ServiceDashboardInfo {
 
 export interface ServiceDefinition {
   spec: ServiceSpec
-  type: 'Kubernetes' | 'NativeHelm'
+  type: 'Kubernetes' | 'NativeHelm' | 'Ssh'
 }
 
 export interface ServiceDeployment {
@@ -8325,6 +8438,10 @@ export type SplunkConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export type SshServiceSpec = ServiceSpec & {
+  metadata?: string
+}
+
 export interface StackTraceElement {
   className?: string
   fileName?: string
@@ -8464,7 +8581,7 @@ export interface StoreConfig {
 export interface StoreConfigWrapper {
   metadata?: string
   spec: StoreConfig
-  type: 'Git' | 'Github' | 'Bitbucket' | 'GitLab' | 'Http' | 'S3' | 'Gcs' | 'Artifactory'
+  type: 'Git' | 'Github' | 'Bitbucket' | 'Gitlab' | 'Http' | 'S3' | 'Gcs' | 'Artifactory'
 }
 
 export type StringNGVariable = NGVariable & {
@@ -9173,7 +9290,7 @@ export type GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody = strin
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type ProcessPollingResultNgBodyRequestBody = string[]
+export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -9662,6 +9779,20 @@ export interface ListActivitiesQueryParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -9714,6 +9845,20 @@ export interface ListActivitiesQueryParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -9870,6 +10015,20 @@ export interface GetActivitiesSummaryQueryParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -9922,6 +10081,20 @@ export interface GetActivitiesSummaryQueryParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -16279,6 +16452,9 @@ export type GetDelegateTokensProps = Omit<
   'path'
 >
 
+/**
+ * Get Delegate NG Tokens
+ */
 export const GetDelegateTokens = (props: GetDelegateTokensProps) => (
   <Get<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>
     path={`/delegate-token-ng`}
@@ -16292,12 +16468,18 @@ export type UseGetDelegateTokensProps = Omit<
   'path'
 >
 
+/**
+ * Get Delegate NG Tokens
+ */
 export const useGetDelegateTokens = (props: UseGetDelegateTokensProps) =>
   useGet<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>(`/delegate-token-ng`, {
     base: getConfig('ng/api'),
     ...props
   })
 
+/**
+ * Get Delegate NG Tokens
+ */
 export const getDelegateTokensPromise = (
   props: GetUsingFetchProps<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>,
   signal?: RequestInit['signal']
@@ -16321,6 +16503,9 @@ export type CreateDelegateTokenProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * Creates Delegate NG Token
+ */
 export const CreateDelegateToken = (props: CreateDelegateTokenProps) => (
   <Mutate<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>
     verb="POST"
@@ -16335,6 +16520,9 @@ export type UseCreateDelegateTokenProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * Creates Delegate NG Token
+ */
 export const useCreateDelegateToken = (props: UseCreateDelegateTokenProps) =>
   useMutate<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>(
     'POST',
@@ -16342,6 +16530,9 @@ export const useCreateDelegateToken = (props: UseCreateDelegateTokenProps) =>
     { base: getConfig('ng/api'), ...props }
   )
 
+/**
+ * Creates Delegate NG Token
+ */
 export const createDelegateTokenPromise = (
   props: MutateUsingFetchProps<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>,
   signal?: RequestInit['signal']
@@ -16366,6 +16557,9 @@ export type RevokeDelegateTokenProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * Revokes Delegate NG Token
+ */
 export const RevokeDelegateToken = (props: RevokeDelegateTokenProps) => (
   <Mutate<RestResponseDelegateTokenDetails, unknown, RevokeDelegateTokenQueryParams, void, void>
     verb="PUT"
@@ -16380,6 +16574,9 @@ export type UseRevokeDelegateTokenProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * Revokes Delegate NG Token
+ */
 export const useRevokeDelegateToken = (props: UseRevokeDelegateTokenProps) =>
   useMutate<RestResponseDelegateTokenDetails, unknown, RevokeDelegateTokenQueryParams, void, void>(
     'PUT',
@@ -16387,6 +16584,9 @@ export const useRevokeDelegateToken = (props: UseRevokeDelegateTokenProps) =>
     { base: getConfig('ng/api'), ...props }
   )
 
+/**
+ * Revokes Delegate NG Token
+ */
 export const revokeDelegateTokenPromise = (
   props: MutateUsingFetchProps<RestResponseDelegateTokenDetails, unknown, RevokeDelegateTokenQueryParams, void, void>,
   signal?: RequestInit['signal']
@@ -16627,8 +16827,17 @@ export const getEnabledFeatureRestrictionDetailByAccountIdPromise = (
     void
   >(getConfig('ng/api'), `/enforcement/enabled`, props, signal)
 
+export interface GetAllFeatureRestrictionMetadataQueryParams {
+  accountIdentifier?: string
+}
+
 export type GetAllFeatureRestrictionMetadataProps = Omit<
-  GetProps<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>,
+  GetProps<
+    ResponseListFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    GetAllFeatureRestrictionMetadataQueryParams,
+    void
+  >,
   'path'
 >
 
@@ -16636,7 +16845,7 @@ export type GetAllFeatureRestrictionMetadataProps = Omit<
  * Fetch All Feature Restriction Metadata
  */
 export const GetAllFeatureRestrictionMetadata = (props: GetAllFeatureRestrictionMetadataProps) => (
-  <Get<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>
+  <Get<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, GetAllFeatureRestrictionMetadataQueryParams, void>
     path={`/enforcement/metadata`}
     base={getConfig('ng/api')}
     {...props}
@@ -16644,7 +16853,12 @@ export const GetAllFeatureRestrictionMetadata = (props: GetAllFeatureRestriction
 )
 
 export type UseGetAllFeatureRestrictionMetadataProps = Omit<
-  UseGetProps<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>,
+  UseGetProps<
+    ResponseListFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    GetAllFeatureRestrictionMetadataQueryParams,
+    void
+  >,
   'path'
 >
 
@@ -16652,24 +16866,29 @@ export type UseGetAllFeatureRestrictionMetadataProps = Omit<
  * Fetch All Feature Restriction Metadata
  */
 export const useGetAllFeatureRestrictionMetadata = (props: UseGetAllFeatureRestrictionMetadataProps) =>
-  useGet<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>(`/enforcement/metadata`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useGet<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, GetAllFeatureRestrictionMetadataQueryParams, void>(
+    `/enforcement/metadata`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Fetch All Feature Restriction Metadata
  */
 export const getAllFeatureRestrictionMetadataPromise = (
-  props: GetUsingFetchProps<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>,
+  props: GetUsingFetchProps<
+    ResponseListFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    GetAllFeatureRestrictionMetadataQueryParams,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>(
-    getConfig('ng/api'),
-    `/enforcement/metadata`,
-    props,
-    signal
-  )
+  getUsingFetch<
+    ResponseListFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    GetAllFeatureRestrictionMetadataQueryParams,
+    void
+  >(getConfig('ng/api'), `/enforcement/metadata`, props, signal)
 
 export interface FetchFeatureRestrictionMetadataQueryParams {
   accountIdentifier: string
@@ -16878,6 +17097,20 @@ export interface ListReferredByEntitiesQueryParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -19208,6 +19441,20 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -19328,6 +19575,20 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'FlagConfiguration'
       | 'ShellScript'
       | 'K8sCanaryDeploy'
+      | 'K8sApply'
+      | 'K8sBlueGreenDeploy'
+      | 'K8sRollingDeploy'
+      | 'K8sRollingRollback'
+      | 'K8sScale'
+      | 'K8sDelete'
+      | 'K8sBGSwapServices'
+      | 'K8sCanaryDelete'
+      | 'TerraformApply'
+      | 'TerraformPlan'
+      | 'TerraformDestroy'
+      | 'TerraformRollback'
+      | 'HelmDeploy'
+      | 'HelmRollback'
       | 'Connectors'
       | 'Secrets'
       | 'Service'
@@ -22596,6 +22857,20 @@ export interface GetStepYamlSchemaQueryParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -22922,7 +23197,7 @@ export const getServiceDefinitionTypesPromise = (
   )
 
 export interface GetStepsQueryParams {
-  serviceDefinitionType: 'Kubernetes' | 'NativeHelm'
+  serviceDefinitionType: 'Kubernetes' | 'NativeHelm' | 'Ssh'
 }
 
 export type GetStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>, 'path'>
@@ -23059,7 +23334,7 @@ export const getProvisionerExecutionStrategyYamlPromise = (
   )
 
 export interface GetExecutionStrategyYamlQueryParams {
-  serviceDefinitionType: 'Kubernetes' | 'NativeHelm'
+  serviceDefinitionType: 'Kubernetes' | 'NativeHelm' | 'Ssh'
   strategyType: 'Basic' | 'Canary' | 'BlueGreen' | 'Rolling' | 'Default'
   includeVerify?: boolean
 }
@@ -23121,7 +23396,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -23133,7 +23408,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -23148,7 +23423,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -23160,7 +23435,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -23176,7 +23451,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -23185,17 +23460,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -23204,28 +23479,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<
-    ResponsePollingResponseDTO,
-    Failure | Error,
-    void,
-    ProcessPollingResultNgBodyRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -23234,12 +23503,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -23248,22 +23517,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
-    'POST',
-    `/polling/unsubscribe`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -31429,6 +31697,20 @@ export interface GetYamlSchemaQueryParams {
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
