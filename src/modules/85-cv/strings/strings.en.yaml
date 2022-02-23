@@ -660,7 +660,7 @@ slos:
   configureSLIQueries: Configure SLI queries
   sloDefinition: Define SLO identification
   reviewChanges: Review changes
-  sloEditWarningMessage: It may take a few minutes to recalculate the error budget. Are you sure you want to proceed?
+  sloEditWarningMessage: It may take a few minutes to recalculate the Error Budget. Are you sure you want to proceed?
   noSLOsStateMessage: A service level objective (SLO) is the sum of a collection of performance metrics (Service Level Indicator or SLI) such as uptime, response time, and error rate that are used to measure the services performance. At least one SLO is required to monitor a service
   validations:
     nameValidation: SLO name is required
@@ -759,22 +759,22 @@ oneDay: 1 day
 days: days
 nDays: '{{ n }} days'
 resetErrorBudget: Reset Error Budget
-yourExistingErrorBudgetIs: Your existing error budget is
+yourExistingErrorBudgetIs: Your existing Error Budget is
 andYouHave: and you have
 left: left
-adjustTheErrorBudgetToContinueWithDeployments: Adjust the error budget to continue with deployments.
-previousErrorBudgetResetHistory: Previous error budget reset history
-increaseErrorBudgetBy: Increase error budget by
-increaseErrorBudgetByIsRequired: '"Increase error budget by" is required'
+adjustTheErrorBudgetToContinueWithDeployments: Adjust the Error Budget to continue with deployments.
+previousErrorBudgetResetHistory: Previous Error Budget reset history
+increaseErrorBudgetBy: Increase Error Budget by
+increaseErrorBudgetByIsRequired: '"Increase Error Budget by" is required'
 reasonIsRequired: Reason is required
 updatedErrorBudget: Updated Error Budget
 remainingErrorBudget: Remaining Error Budget
 updatedRemainingErrorBudget: Updated remaining Error Budget
 minutes: minutes
-noPreviousErrorBudgetResetHistoryAvailable: No previous error budget reset history available
+noPreviousErrorBudgetResetHistoryAvailable: No previous Error Budget reset history available
 dateAndTime: Date/Time
 increaseWithPercentSign: 'Increase %'
-errorBudgetIsSuccessfullyReset: Error budget is successfully reset
+errorBudgetIsSuccessfullyReset: Error Budget is successfully reset
 queryTypeService: Service Based  (used for Health Score and SLI)
 queryTypeHost: Host Based (used for CV)
 forConfigurationYouWillNeedAtLeastOneMonitoredServiceWithAHealthSourceAndAMetric: For configuration, you’ll need at least one Monitored Service with a Health Source, and a Metric.
