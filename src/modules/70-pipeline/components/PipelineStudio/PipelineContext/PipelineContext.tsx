@@ -665,8 +665,10 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
             // logger.error('There was no DB found')
             dispatch(PipelineContextActions.error({ error: 'There was no DB found' }))
           }
-          const objectStore = db.createObjectStore(IdbPipelineStoreName, { keyPath: KeyPath, autoIncrement: false })
-          objectStore.createIndex(KeyPath, KeyPath, { unique: true })
+          if (!db.objectStoreNames.contains(IdbPipelineStoreName)) {
+            const objectStore = db.createObjectStore(IdbPipelineStoreName, { keyPath: KeyPath, autoIncrement: false })
+            objectStore.createIndex(KeyPath, KeyPath, { unique: true })
+          }
         },
         async blocked() {
           cleanUpDBRefs()
