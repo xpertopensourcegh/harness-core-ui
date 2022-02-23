@@ -798,6 +798,185 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
 </div>
 `;
 
+exports[`Use DNS for Setup option for creating new ALB should not be available for ECS rule 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-medium"
+  >
+    <h3
+      class="StyledProps--font StyledProps--font-h3 StyledProps--main"
+      level="3"
+    >
+      ce.co.gatewayAccess.dnsLinkHeader
+    </h3>
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <form
+        class="FormikForm--main"
+      >
+        <div>
+          <div
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <h3
+                class="StyledProps--font StyledProps--font-h3 StyledProps--main header StyledProps--font-weight-bold"
+                level="3"
+              >
+                ce.co.autoStoppingRule.setupAccess.selectLb
+              </h3>
+              <div
+                class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
+              >
+                <div>
+                  <p
+                    class="StyledProps--font StyledProps--main helpText"
+                  >
+                    ce.co.autoStoppingRule.setupAccess.selectLbHelpText
+                  </p>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="bp3-popover-wrapper loadBalancerSelector Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="accessPoint"
+                            placeholder="- Select -"
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
+                            >
+                              <svg
+                                data-icon="chevron-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  chevron-down
+                                </desc>
+                                <path
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              >
+                <h3
+                  class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+                  level="3"
+                >
+                  ce.co.autoStoppingRule.setupAccess.customDomain.helpText
+                </h3>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main"
+              >
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    checked=""
+                    type="radio"
+                    value="no"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                </label>
+                <div
+                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
+                    style="font-size: 12px; font-weight: 400; line-height: 18px;"
+                  >
+                    ce.co.autoStoppingRule.setupAccess.autogeneratedHelpText
+                  </p>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main"
+                style="width: 100%;"
+              >
+                <label
+                  class="bp3-control bp3-radio centerAlignedRadio"
+                >
+                  <input
+                    name="usingCustomDomain"
+                    type="radio"
+                    value="yes"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                </label>
+                <div
+                  class="bp3-form-group bp3-disabled"
+                  data-id="customURL-0"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-disabled"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        disabled=""
+                        name="customURL"
+                        placeholder="ce.co.dnsSetup.customURL"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Use DNS for Setup renders without crashing 1`] = `
 <div>
   <div

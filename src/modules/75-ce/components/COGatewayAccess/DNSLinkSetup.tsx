@@ -703,7 +703,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         disabled={isEditFlow || accessPointsLoading || apCoresLoading}
                         className={css.loadBalancerSelector}
                       />
-                      {!isEditFlow && (
+                      {!isEditFlow && _isEmpty(props.gatewayDetails.routing.container_svc) && (
                         <Text color={Color.PRIMARY_6} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
                           {'+' +
                             (isAwsProvider

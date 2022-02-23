@@ -384,6 +384,32 @@ describe('Use DNS for Setup', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('option for creating new ALB should not be available for ECS rule', () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <DNSLinkSetup
+          gatewayDetails={{
+            ...initialGatewayDetails,
+            selectedInstances: [],
+            routing: {
+              ...initialGatewayDetails.routing,
+              container_svc: {
+                cluster: 'EcsDemo',
+                region: 'us-east-1',
+                service: 'ToDoAppECS',
+                task_count: 1
+              }
+            }
+          }}
+          setGatewayDetails={jest.fn()}
+          setHelpTextSections={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 })
 
 describe('Azure DNS setup', () => {
