@@ -7,11 +7,7 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly disabled: string
-  readonly divider: string
-  readonly dropdown: string
-  readonly monitoredService: string
-  readonly nameTagsDescription: string
-  readonly popOverClassName: string
+  readonly envToolTip: string
+  readonly popOverClass: string
 }
 export default styles
