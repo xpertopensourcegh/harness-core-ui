@@ -537,9 +537,9 @@ export const setAppDynamicsTier = (tierLoading: boolean, appDTier: string, tierO
     ? { label: '', value: '' }
     : tierOptions.find((item: SelectOption) => item.label === appDTier)
 
-export const initAppDCustomFormValue = (getString: (key: StringKeys) => string) => {
+export const initAppDCustomFormValue = () => {
   return {
     ...initCustomForm,
-    groupName: { label: getString('cv.addGroupName'), value: getString('cv.addGroupName') }
+    groupName: { label: '', value: '' }
   }
 }

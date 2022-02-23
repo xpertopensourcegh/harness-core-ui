@@ -126,7 +126,7 @@ describe('Test Util funcitons', () => {
   test('should validate createAppDFormData', () => {
     const { selectedMetric, mappedMetrics } = initializeSelectedMetricsMap(
       'defaultAppDMetricName',
-      initAppDCustomFormValue((val: any) => val),
+      initAppDCustomFormValue(),
       expectedAppDynamicData?.mappedServicesAndEnvs
     )
     const mappedServicesAndEnvs = new Map()

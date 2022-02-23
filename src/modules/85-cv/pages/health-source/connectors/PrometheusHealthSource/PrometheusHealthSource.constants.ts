@@ -38,6 +38,7 @@ export interface PrometheusSetupSource {
 }
 
 export type MapPrometheusQueryToService = {
+  identifier: string
   metricName: string
   prometheusMetric?: string
   query: string
@@ -55,7 +56,6 @@ export type MapPrometheusQueryToService = {
   sli?: boolean
   continuousVerification?: boolean
   healthScore?: boolean
-  identifier: string
 }
 
 export type RiskProfileCatgory = 'Performance' | 'Errors' | 'Infrastructure'

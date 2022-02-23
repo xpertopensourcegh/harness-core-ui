@@ -9,9 +9,8 @@ import { initAppDCustomFormValue } from '@cv/pages/health-source/connectors/AppD
 import { updateSelectedMetricsMap } from '../CustomMetric.utils'
 import { mappedMetricsMap, formikValues, expectedMappedMetrics } from './CustomMetric.mock'
 
-const getString = (value: string) => value
 describe('Validate  utils functions', () => {
-  const initCustomForm = initAppDCustomFormValue(getString)
+  const initCustomForm = initAppDCustomFormValue()
   test('should validate updateSelectedMetricsMap', () => {
     const { selectedMetric, mappedMetrics } = updateSelectedMetricsMap({
       updatedMetric: 'appdMetric new',

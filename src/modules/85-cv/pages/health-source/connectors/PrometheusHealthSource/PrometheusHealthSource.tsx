@@ -11,30 +11,25 @@ import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
-import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import { StackdriverDefinition, useGetLabelNames, useGetMetricNames, useGetMetricPacks } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import useGroupedSideNaveHook from '@cv/hooks/GroupedSideNaveHook/useGroupedSideNaveHook'
 import { PrometheusQueryBuilder } from './components/PrometheusQueryBuilder/PrometheusQueryBuilder'
 import {
   validateMappings,
-  initializePrometheusGroupNames,
-  initializeCreatedMetrics,
-  initializeSelectedMetricsMap,
-  updateSelectedMetricsMap,
   transformPrometheusSetupSourceToHealthSource,
   transformPrometheusHealthSourceToSetupSource
 } from './PrometheusHealthSource.utils'
 import {
-  SelectedAndMappedMetrics,
   PrometheusMonitoringSourceFieldNames,
-  CreatedMetricsWithSelectedIndex,
   MapPrometheusQueryToService,
   PrometheusSetupSource
 } from './PrometheusHealthSource.constants'
+import { initializeGroupNames } from '../../common/GroupName/GroupName.utils'
+import CustomMetric from '../../common/CustomMetric/CustomMetric'
 import { PrometheusGroupName } from './components/PrometheusGroupName/PrometheusGroupName'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { updateMultiSelectOption } from './components/PrometheusQueryBuilder/components/PrometheusFilterSelector/utils'
@@ -82,32 +77,32 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
     () => transformPrometheusHealthSourceToSetupSource(sourceData, getString),
     [sourceData]
   )
-  const [rerenderKey, setRerenderKey] = useState('')
-  const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<SelectedAndMappedMetrics>(
-    initializeSelectedMetricsMap(
-      getString('cv.monitoringSources.prometheus.prometheusMetric'),
-      transformedSourceData.mappedServicesAndEnvs
-    )
-  )
+
+  const {
+    createdMetrics,
+    mappedMetrics,
+    selectedMetric,
+    selectedMetricIndex,
+    groupedCreatedMetrics,
+    setMappedMetrics,
+    setCreatedMetrics,
+    setGroupedCreatedMetrics
+  } = useGroupedSideNaveHook({
+    defaultCustomMetricName: getString('cv.monitoringSources.appD.defaultAppDMetricName'),
+    initCustomMetricData: {},
+    mappedServicesAndEnvs: transformedSourceData.mappedServicesAndEnvs
+  })
+
   const [prometheusGroupNames, setPrometheusGroupName] = useState<SelectOption[]>(
-    initializePrometheusGroupNames(mappedMetrics, getString)
+    initializeGroupNames(mappedMetrics, getString)
   )
 
-  const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
-    initializeCreatedMetrics(
-      getString('cv.monitoringSources.prometheus.prometheusMetric'),
-      selectedMetric,
-      mappedMetrics
-    )
-  )
-
-  const initialFormValues: MapPrometheusQueryToService | undefined = mappedMetrics.get(selectedMetric || '')
+  const initialFormValues = mappedMetrics.get(selectedMetric || '') as MapPrometheusQueryToService
 
   return (
-    <Formik<MapPrometheusQueryToService | undefined>
+    <Formik<MapPrometheusQueryToService>
       formName="mapPrometheus"
       initialValues={initialFormValues}
-      key={rerenderKey}
       isInitialValid={(args: any) =>
         Object.keys(validateMappings(getString, createdMetrics, selectedMetricIndex, args.initialValues, mappedMetrics))
           .length === 0
@@ -134,178 +129,139 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
 
         return (
           <FormikForm>
-            <SetupSourceLayout
-              leftPanelContent={
-                <MultiItemsSideNav
-                  defaultMetricName={getString('cv.monitoringSources.prometheus.prometheusMetric')}
-                  tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
-                  addFieldLabel={getString('cv.monitoringSources.addMetric')}
-                  createdMetrics={createdMetrics}
-                  defaultSelectedMetric={selectedMetric}
-                  renamedMetric={formikProps.values?.metricName}
-                  isValidInput={formikProps.isValid}
-                  onRemoveMetric={(removedMetric, updatedMetric, updatedList, smIndex) => {
-                    setMappedMetrics(oldState => {
-                      const { selectedMetric: oldMetric, mappedMetrics: oldMappedMetric } = oldState
-                      const updatedMap = new Map(oldMappedMetric)
-
-                      if (updatedMap.has(removedMetric)) {
-                        updatedMap.delete(removedMetric)
-                      } else {
-                        // handle case where user updates the metric name for current selected metric
-                        updatedMap.delete(oldMetric)
-                      }
-
-                      // update map with current values
-                      if (formikProps.values?.metricName !== removedMetric) {
-                        updatedMap.set(
-                          updatedMetric,
-                          { ...(formikProps.values as MapPrometheusQueryToService) } || { metricName: updatedMetric }
-                        )
-                      } else {
-                        setRerenderKey(Utils.randomId())
-                      }
-
-                      setCreatedMetrics({
-                        selectedMetricIndex: smIndex,
-                        createdMetrics: updatedList
-                      })
-                      return { selectedMetric: updatedMetric, mappedMetrics: updatedMap }
-                    })
-                  }}
-                  onSelectMetric={(newMetric, updatedList, smIndex) => {
-                    setMappedMetrics(oldState => {
-                      const updatedMetricsMap = updateSelectedMetricsMap({
-                        updatedMetric: newMetric,
-                        oldMetric: oldState.selectedMetric,
-                        mappedMetrics: oldState.mappedMetrics,
-                        formikProps
-                      })
-
-                      setCreatedMetrics({
-                        selectedMetricIndex: smIndex,
-                        createdMetrics: updatedList
-                      })
-
-                      return updatedMetricsMap
-                    })
-                    setRerenderKey(Utils.randomId())
-                  }}
-                />
+            <CustomMetric
+              isValidInput={formikProps.isValid}
+              setMappedMetrics={setMappedMetrics}
+              selectedMetric={selectedMetric}
+              formikValues={formikProps.values as any}
+              mappedMetrics={mappedMetrics}
+              createdMetrics={createdMetrics}
+              setCreatedMetrics={setCreatedMetrics}
+              defaultMetricName={'appdMetric'}
+              tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
+              addFieldLabel={getString('cv.monitoringSources.addMetric')}
+              initCustomForm={
+                {
+                  identifier: '',
+                  metricName: '',
+                  query: '',
+                  isManualQuery: false
+                } as any
               }
-              content={
-                <Container className={css.main}>
-                  <SetupSourceCardHeader
-                    mainHeading={getString('cv.monitoringSources.prometheus.querySpecificationsAndMappings')}
-                    subHeading={getString('cv.monitoringSources.prometheus.customizeQuery')}
-                  />
-                  {formikProps.values?.isManualQuery && (
-                    <Container className={css.manualQueryWarning}>
-                      <Text icon="warning-sign" iconProps={{ size: 14 }}>
-                        {getString('cv.monitoringSources.prometheus.isManualQuery')}
-                      </Text>
-                      <Text
-                        intent="primary"
-                        onClick={() =>
-                          formikProps.setFieldValue(PrometheusMonitoringSourceFieldNames.IS_MANUAL_QUERY, false)
-                        }
-                      >
-                        {getString('cv.monitoringSources.prometheus.undoManualQuery')}
-                      </Text>
-                    </Container>
-                  )}
-                  <Layout.Horizontal className={css.content} spacing="xlarge">
-                    <Accordion activeId="metricToService" className={css.accordian}>
-                      <Accordion.Panel
-                        id="metricToService"
-                        summary={getString('cv.monitoringSources.mapMetricsToServices')}
-                        details={
-                          <>
-                            <NameId
-                              nameLabel={getString('cv.monitoringSources.metricNameLabel')}
-                              identifierProps={{
-                                inputName: PrometheusMonitoringSourceFieldNames.METRIC_NAME,
-                                idName: PrometheusMonitoringSourceFieldNames.METRIC_IDENTIFIER,
-                                isIdentifierEditable: Boolean(!currentSelectedMetricDetail?.identifier)
-                              }}
-                            />
-                            <PrometheusGroupName
-                              groupNames={prometheusGroupNames}
-                              onChange={formikProps.setFieldValue}
-                              item={formikProps.values?.groupName}
-                              setPrometheusGroupNames={setPrometheusGroupName}
-                            />
-                          </>
-                        }
-                      />
-                      {!formikProps.values?.isManualQuery && (
-                        <Accordion.Panel
-                          id="queryBuilder"
-                          summary={getString('cv.monitoringSources.buildYourQuery')}
-                          details={
-                            <PrometheusQueryBuilder
-                              connectorIdentifier={connectorIdentifier}
-                              labelNamesResponse={labelNamesResponse}
-                              metricNamesResponse={metricNamesResponse}
-                              aggregatorValue={formikProps.values?.aggregator}
-                              onUpdateFilter={(fieldName, updatedItem) => {
-                                formikProps.setFieldValue(
-                                  fieldName,
-                                  updateMultiSelectOption(updatedItem, (formikProps.values as any)[fieldName])
-                                )
-                              }}
-                              onRemoveFilter={(fieldName, index) => {
-                                const arr = (formikProps.values as any)[fieldName]
-                                if (arr) {
-                                  arr.splice(index, 1)
-                                  formikProps.setFieldValue(fieldName, Array.from(arr))
-                                }
-                              }}
-                            />
-                          }
-                        />
-                      )}
-                      <Accordion.Panel
-                        id="assign"
-                        summary={getString('cv.monitoringSources.assign')}
-                        details={
-                          <SelectHealthSourceServices
-                            values={{
-                              sli: !!formikProps?.values?.sli,
-                              healthScore: !!formikProps?.values?.healthScore,
-                              continuousVerification: !!formikProps?.values?.continuousVerification
+              groupedCreatedMetrics={groupedCreatedMetrics}
+              setGroupedCreatedMetrics={setGroupedCreatedMetrics}
+            >
+              <Container className={css.main}>
+                <SetupSourceCardHeader
+                  mainHeading={getString('cv.monitoringSources.prometheus.querySpecificationsAndMappings')}
+                  subHeading={getString('cv.monitoringSources.prometheus.customizeQuery')}
+                />
+                {formikProps.values?.isManualQuery && (
+                  <Container className={css.manualQueryWarning}>
+                    <Text icon="warning-sign" iconProps={{ size: 14 }}>
+                      {getString('cv.monitoringSources.prometheus.isManualQuery')}
+                    </Text>
+                    <Text
+                      intent="primary"
+                      onClick={() =>
+                        formikProps.setFieldValue(PrometheusMonitoringSourceFieldNames.IS_MANUAL_QUERY, false)
+                      }
+                    >
+                      {getString('cv.monitoringSources.prometheus.undoManualQuery')}
+                    </Text>
+                  </Container>
+                )}
+                <Layout.Horizontal className={css.content} spacing="xlarge">
+                  <Accordion activeId="metricToService" className={css.accordian}>
+                    <Accordion.Panel
+                      id="metricToService"
+                      summary={getString('cv.monitoringSources.mapMetricsToServices')}
+                      details={
+                        <>
+                          <NameId
+                            nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+                            identifierProps={{
+                              inputName: PrometheusMonitoringSourceFieldNames.METRIC_NAME,
+                              idName: PrometheusMonitoringSourceFieldNames.METRIC_IDENTIFIER,
+                              isIdentifierEditable: Boolean(!currentSelectedMetricDetail?.identifier)
                             }}
-                            metricPackResponse={metricPackResponse}
+                          />
+                          <PrometheusGroupName
+                            groupNames={prometheusGroupNames}
+                            onChange={formikProps.setFieldValue}
+                            item={formikProps.values?.groupName}
+                            setPrometheusGroupNames={setPrometheusGroupName}
+                          />
+                        </>
+                      }
+                    />
+                    {!formikProps.values?.isManualQuery && (
+                      <Accordion.Panel
+                        id="queryBuilder"
+                        summary={getString('cv.monitoringSources.buildYourQuery')}
+                        details={
+                          <PrometheusQueryBuilder
+                            connectorIdentifier={connectorIdentifier}
                             labelNamesResponse={labelNamesResponse}
+                            metricNamesResponse={metricNamesResponse}
+                            aggregatorValue={formikProps.values?.aggregator}
+                            onUpdateFilter={(fieldName, updatedItem) => {
+                              formikProps.setFieldValue(
+                                fieldName,
+                                updateMultiSelectOption(updatedItem, (formikProps.values as any)[fieldName])
+                              )
+                            }}
+                            onRemoveFilter={(fieldName, index) => {
+                              const arr = (formikProps.values as any)[fieldName]
+                              if (arr) {
+                                arr.splice(index, 1)
+                                formikProps.setFieldValue(fieldName, Array.from(arr))
+                              }
+                            }}
                           />
                         }
                       />
-                    </Accordion>
-                    <PrometheusQueryViewer
-                      onChange={(fieldName, value) => {
-                        if (
-                          fieldName === PrometheusMonitoringSourceFieldNames.IS_MANUAL_QUERY &&
-                          value === true &&
-                          formikProps.values
-                        ) {
-                          formikProps.values.prometheusMetric = undefined
-                          formikProps.values.serviceFilter = undefined
-                          formikProps.values.envFilter = undefined
-                          formikProps.values.additionalFilter = undefined
-                          formikProps.values.prometheusMetric = undefined
-                          formikProps.values.aggregator = undefined
-                          formikProps.setValues({ ...formikProps.values, isManualQuery: true })
-                        } else {
-                          formikProps.setFieldValue(fieldName, value)
-                        }
-                      }}
-                      values={formikProps.values}
-                      connectorIdentifier={connectorIdentifier}
+                    )}
+                    <Accordion.Panel
+                      id="assign"
+                      summary={getString('cv.monitoringSources.assign')}
+                      details={
+                        <SelectHealthSourceServices
+                          values={{
+                            sli: !!formikProps?.values?.sli,
+                            healthScore: !!formikProps?.values?.healthScore,
+                            continuousVerification: !!formikProps?.values?.continuousVerification
+                          }}
+                          metricPackResponse={metricPackResponse}
+                          labelNamesResponse={labelNamesResponse}
+                        />
+                      }
                     />
-                  </Layout.Horizontal>
-                </Container>
-              }
-            />
+                  </Accordion>
+                  <PrometheusQueryViewer
+                    onChange={(fieldName, value) => {
+                      if (
+                        fieldName === PrometheusMonitoringSourceFieldNames.IS_MANUAL_QUERY &&
+                        value === true &&
+                        formikProps.values
+                      ) {
+                        formikProps.values.prometheusMetric = undefined
+                        formikProps.values.serviceFilter = undefined
+                        formikProps.values.envFilter = undefined
+                        formikProps.values.additionalFilter = undefined
+                        formikProps.values.prometheusMetric = undefined
+                        formikProps.values.aggregator = undefined
+                        formikProps.setValues({ ...formikProps.values, isManualQuery: true })
+                      } else {
+                        formikProps.setFieldValue(fieldName, value)
+                      }
+                    }}
+                    values={formikProps.values}
+                    connectorIdentifier={connectorIdentifier}
+                  />
+                </Layout.Horizontal>
+              </Container>
+            </CustomMetric>
             <DrawerFooter
               isSubmit
               onPrevious={onPrevious}
@@ -329,7 +285,7 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
                   sourceData,
                   transformPrometheusSetupSourceToHealthSource({
                     ...transformedSourceData,
-                    mappedServicesAndEnvs: mappedMetrics
+                    mappedServicesAndEnvs: mappedMetrics as Map<string, MapPrometheusQueryToService>
                   })
                 )
               }}

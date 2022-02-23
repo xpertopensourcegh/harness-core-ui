@@ -206,7 +206,7 @@ export default function AppDMonitoredSource({
     setGroupedCreatedMetrics
   } = useGroupedSideNaveHook({
     defaultCustomMetricName: getString('cv.monitoringSources.appD.defaultAppDMetricName'),
-    initCustomMetricData: initAppDCustomFormValue(getString),
+    initCustomMetricData: initAppDCustomFormValue(),
     mappedServicesAndEnvs: appDynamicsData?.mappedServicesAndEnvs
   })
 
@@ -380,7 +380,7 @@ export default function AppDMonitoredSource({
                   defaultMetricName={'appdMetric'}
                   tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
                   addFieldLabel={getString('cv.monitoringSources.addMetric')}
-                  initCustomForm={initAppDCustomFormValue(getString)}
+                  initCustomForm={initAppDCustomFormValue()}
                 >
                   <AppDCustomMetricForm
                     formikValues={formik.values}

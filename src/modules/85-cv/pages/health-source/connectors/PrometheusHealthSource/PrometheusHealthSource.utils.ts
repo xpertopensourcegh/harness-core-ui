@@ -22,6 +22,7 @@ import {
 } from './PrometheusHealthSource.constants'
 import { HealthSourceTypes } from '../../types'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
+import type { CustomMappedMetric } from '../../common/CustomMetric/CustomMetric.types'
 
 type UpdateSelectedMetricsMap = {
   updatedMetric: string
@@ -121,7 +122,7 @@ export function validateMappings(
   createdMetrics: string[],
   selectedMetricIndex: number,
   values?: MapPrometheusQueryToService,
-  mappedMetrics?: Map<string, MapPrometheusQueryToService>
+  mappedMetrics?: Map<string, CustomMappedMetric>
 ): { [fieldName: string]: string } {
   let requiredFieldErrors = {
     [PrometheusMonitoringSourceFieldNames.ENVIRONMENT_FILTER]: getString(
@@ -174,7 +175,10 @@ export function validateMappings(
     return metricName === values.metricName
   })
 
-  const identifiers = createdMetrics.map(metricName => mappedMetrics?.get(metricName)?.identifier)
+  const identifiers = createdMetrics.map(metricName => {
+    const metricData = mappedMetrics?.get(metricName) as MapPrometheusQueryToService
+    return metricData.identifier
+  })
 
   const duplicateIdentifier = identifiers?.filter((identifier, index) => {
     if (index === selectedMetricIndex) {

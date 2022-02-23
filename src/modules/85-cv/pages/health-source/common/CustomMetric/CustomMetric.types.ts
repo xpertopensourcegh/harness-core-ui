@@ -18,8 +18,13 @@ import type {
   InitNewRelicCustomFormInterface,
   MapNewRelicMetric
 } from '../../connectors/NewRelic/NewRelicHealthSource.types'
+import type { MapPrometheusQueryToService } from '../../connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
 
-export type CustomMappedMetric = MapAppDynamicsMetric | MapNewRelicMetric | MapCustomHealthToService
+export type CustomMappedMetric =
+  | MapAppDynamicsMetric
+  | MapNewRelicMetric
+  | MapCustomHealthToService
+  | MapPrometheusQueryToService
 
 export type InitCustomFormData =
   | InitAppDCustomFormInterface
