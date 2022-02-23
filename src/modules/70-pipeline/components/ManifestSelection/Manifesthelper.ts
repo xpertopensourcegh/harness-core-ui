@@ -101,7 +101,7 @@ export const ManifestStoreTitle: Record<ManifestStores, StringKeys> = {
 export const ManifestToConnectorMap: Record<ManifestStores | string, ConnectorInfoDTO['type']> = {
   Git: Connectors.GIT,
   Github: Connectors.GITHUB,
-  GitLab: Connectors.GITLAB,
+  Gitlab: Connectors.GITLAB,
   Bitbucket: Connectors.BITBUCKET,
   Http: Connectors.HttpHelmRepo,
   S3: Connectors.AWS,
