@@ -49,6 +49,7 @@ const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
         Cell: ({ row }: CellProps<T>) => {
           return (
             <Checkbox
+              key={row.original.identifier}
               className={css.checkBox}
               defaultChecked={selectedData.includes(row.original.identifier)}
               onChange={(event: React.FormEvent<HTMLInputElement>) => {
