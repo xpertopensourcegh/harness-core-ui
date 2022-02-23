@@ -52,7 +52,7 @@ interface HelmWithGcsPropType {
   deploymentType?: string
 }
 
-const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType> = ({
+function HelmWithGcs({
   stepName,
   prevStepData,
   expressions,
@@ -63,7 +63,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
   manifestIdsList,
   isReadonly = false,
   deploymentType
-}) => {
+}: StepProps<ConnectorConfigDTO> & HelmWithGcsPropType): React.ReactElement {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags

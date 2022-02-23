@@ -43,7 +43,7 @@ import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImageP
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
-export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+export function NexusArtifact({
   context,
   handleSubmit,
   expressions,
@@ -54,7 +54,7 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
   artifactIdentifiers,
   isReadonly = false,
   selectedArtifact
-}) => {
+}: StepProps<ConnectorConfigDTO> & ImagePathProps): React.ReactElement {
   const { getString } = useStrings()
   const [lastQueryData, setLastQueryData] = useState({ imagePath: '', repository: '' })
   const [tagList, setTagList] = useState<DockerBuildDetailsDTO[] | undefined>([])

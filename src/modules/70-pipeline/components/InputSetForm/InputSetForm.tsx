@@ -120,7 +120,7 @@ export interface InputSetFormProps {
   executionView?: boolean
 }
 
-export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element => {
+export function InputSetForm(props: InputSetFormProps): React.ReactElement {
   const { executionView } = props
   const { getString } = useStrings()
   const [isEdit, setIsEdit] = React.useState(false)
@@ -776,7 +776,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
   )
 }
 
-export const EnhancedInputSetForm: React.FC<InputSetFormProps> = props => {
+export function EnhancedInputSetForm(props: InputSetFormProps): React.ReactElement {
   return (
     <NestedAccordionProvider>
       <InputSetForm {...props} />

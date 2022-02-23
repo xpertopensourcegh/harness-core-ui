@@ -12,7 +12,7 @@ import { useStrings } from 'framework/strings'
 
 import css from './AddStageView.module.scss'
 
-const EmptyStageView = (): React.ReactElement => {
+function EmptyStageView(): React.ReactElement {
   const { getString } = useStrings()
 
   return (

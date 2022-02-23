@@ -71,7 +71,7 @@ import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraCreate.module.scss'
 
-const FormContent = ({
+function FormContent({
   formik,
   refetchProjects,
   refetchProjectMetadata,
@@ -85,7 +85,7 @@ const FormContent = ({
   allowableTypes,
   stepViewType,
   readonly
-}: JiraCreateFormContentInterface): JSX.Element => {
+}: JiraCreateFormContentInterface): JSX.Element {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =
@@ -241,22 +241,24 @@ const FormContent = ({
     )
   }, [projectOptions, connectorRefFixedValue, formik.values.spec.selectedFields, formik.values.spec.fields])
 
-  const AddFieldsButton = () => (
-    <Text
-      onClick={() => {
-        if (!isApprovalStepFieldDisabled(readonly)) {
-          showDynamicFieldsModal()
-        }
-      }}
-      style={{
-        cursor: isApprovalStepFieldDisabled(readonly) ? 'not-allowed' : 'pointer'
-      }}
-      tooltipProps={{ dataTooltipId: 'jiraCreateAddFields' }}
-      intent="primary"
-    >
-      {getString('pipeline.jiraCreateStep.fieldSelectorAdd')}
-    </Text>
-  )
+  function AddFieldsButton(): React.ReactElement {
+    return (
+      <Text
+        onClick={() => {
+          if (!isApprovalStepFieldDisabled(readonly)) {
+            showDynamicFieldsModal()
+          }
+        }}
+        style={{
+          cursor: isApprovalStepFieldDisabled(readonly) ? 'not-allowed' : 'pointer'
+        }}
+        tooltipProps={{ dataTooltipId: 'jiraCreateAddFields' }}
+        intent="primary"
+      >
+        {getString('pipeline.jiraCreateStep.fieldSelectorAdd')}
+      </Text>
+    )
+  }
 
   return (
     <React.Fragment>

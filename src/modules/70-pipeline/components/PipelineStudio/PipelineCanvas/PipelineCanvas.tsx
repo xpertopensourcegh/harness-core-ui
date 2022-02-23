@@ -124,11 +124,11 @@ export interface PipelineCanvasProps {
   ) => React.ReactElement<OtherModalProps>
 }
 
-export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
+export function PipelineCanvas({
   toPipelineList,
   toPipelineStudio,
   getOtherModal
-}): JSX.Element => {
+}: PipelineCanvasProps): React.ReactElement {
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const {
     state,

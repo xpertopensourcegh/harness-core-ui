@@ -30,7 +30,7 @@ export interface EnvironmentCardProps {
   updateStage: (stage: StageElementConfig) => Promise<void>
 }
 
-const EnvironmentCard = (props: EnvironmentCardProps) => {
+function EnvironmentCard(props: EnvironmentCardProps) {
   const { stage, originalStage, metadataMap, readonly, path, allowableTypes, stepsFactory, updateStage } = props
   const stageSpec = stage.spec as DeploymentStageConfig
   const originalSpec = originalStage.spec as DeploymentStageConfig
@@ -75,7 +75,7 @@ const EnvironmentCard = (props: EnvironmentCardProps) => {
   )
 }
 
-export const EnvironmentCardPanel = (props: EnvironmentCardProps) => {
+export function EnvironmentCardPanel(props: EnvironmentCardProps) {
   const { getString } = useStrings()
   const { stage, originalStage } = props
   const stageSpec = stage.spec as DeploymentStageConfig

@@ -54,7 +54,12 @@ const getEntireExecutionSummary = (executionSummaryContent: TestSuite[]): any =>
     skipped_tests: a?.skipped_tests + b?.skipped_tests
   }))
 
-export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken, showCallGraph }) => {
+export function TestsExecution({
+  stageId,
+  stepId,
+  serviceToken,
+  showCallGraph
+}: TestsExecutionProps): React.ReactElement | null {
   const context = useExecutionContext()
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()

@@ -12,6 +12,6 @@ export interface DefaultLabelWidgetProps {
   model: DefaultLabelModel
 }
 
-export const DefaultLabelWidget = (props: DefaultLabelWidgetProps): JSX.Element => {
+export function DefaultLabelWidget(props: DefaultLabelWidgetProps): JSX.Element {
   return <div>{props.model.getOptions().label}</div>
 }

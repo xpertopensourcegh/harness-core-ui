@@ -98,7 +98,7 @@ import OpenShiftParamWithGit from './ManifestWizardSteps/OpenShiftParam/OSWithGi
 import KustomizePatchDetails from './ManifestWizardSteps/KustomizePatchesDetails/KustomizePatchesDetails'
 import css from './ManifestSelection.module.scss'
 
-const ManifestListView = ({
+function ManifestListView({
   updateStage,
   identifierName,
   isForOverrideSets,
@@ -111,7 +111,7 @@ const ManifestListView = ({
   deploymentType,
   isReadonly,
   allowableTypes
-}: ManifestListViewProps): JSX.Element => {
+}: ManifestListViewProps): JSX.Element {
   const [selectedManifest, setSelectedManifest] = useState<ManifestTypes | null>(null)
   const [connectorView, setConnectorView] = useState(false)
   const [manifestStore, setManifestStore] = useState('')

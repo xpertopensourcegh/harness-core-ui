@@ -14,7 +14,7 @@ import css from './AddStageView.module.scss'
 interface StageHoverViewProps {
   selectedStageType: SelectedAddStageTypeData | undefined
 }
-const StageHoverView = ({ selectedStageType }: StageHoverViewProps): React.ReactElement => {
+function StageHoverView({ selectedStageType }: StageHoverViewProps): React.ReactElement {
   const { getString } = useStrings()
   return (
     <div className={css.hoverStageSection}>

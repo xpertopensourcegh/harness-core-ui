@@ -17,10 +17,10 @@ interface SelectExistingInputsOrProvideNewProps {
   onExistingProvideRadioChange: (e: FormEvent<HTMLInputElement>) => void
 }
 
-const SelectExistingInputsOrProvideNew = ({
+function SelectExistingInputsOrProvideNew({
   existingProvide,
   onExistingProvideRadioChange
-}: SelectExistingInputsOrProvideNewProps): React.ReactElement => {
+}: SelectExistingInputsOrProvideNewProps): React.ReactElement {
   const { getString } = useStrings()
   return (
     <div>

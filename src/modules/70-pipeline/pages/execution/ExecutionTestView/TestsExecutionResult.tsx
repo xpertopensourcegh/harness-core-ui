@@ -20,12 +20,12 @@ interface TestsExecutionResultProps {
 
 const NUMBER_OF_ITEMS_TO_FILL_THE_SPACE = 330
 
-export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({
+export function TestsExecutionResult({
   totalTests,
   failedTests,
   successfulTests,
   skippedTests
-}) => {
+}: TestsExecutionResultProps): React.ReactElement {
   const { getString } = useStrings()
 
   const amountOfEmptyItemsToRender = NUMBER_OF_ITEMS_TO_FILL_THE_SPACE - totalTests

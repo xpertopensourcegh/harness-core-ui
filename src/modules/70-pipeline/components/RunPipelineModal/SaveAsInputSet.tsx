@@ -148,7 +148,7 @@ interface SaveAsInputSetProps {
   getInputSetsList: () => void
 }
 
-const SaveAsInputSet = ({
+function SaveAsInputSet({
   pipeline,
   currentPipeline,
   template,
@@ -162,7 +162,7 @@ const SaveAsInputSet = ({
   isGitSyncEnabled = false,
   setFormErrors,
   getInputSetsList
-}: SaveAsInputSetProps): JSX.Element | null => {
+}: SaveAsInputSetProps): JSX.Element | null {
   const { getString } = useStrings()
 
   const { showError, showSuccess } = useToaster()

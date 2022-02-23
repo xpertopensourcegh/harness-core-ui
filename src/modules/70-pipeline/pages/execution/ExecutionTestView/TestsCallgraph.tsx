@@ -176,13 +176,13 @@ export interface TestsCallgraphProps {
   onNodeClick: () => void
 }
 
-const TestsCallgraphComponent: (props: TestsCallgraphProps) => React.ReactElement = ({
+function TestsCallgraphComponent({
   graph,
   selectedClass,
   preview,
   onNodeClick,
   searchTerm
-}) => {
+}: TestsCallgraphProps): React.ReactElement {
   const { getString } = useStrings()
   const chartRef = useRef<UnknownHighChartType>(null)
   const options: Highcharts.Options | Record<string, unknown> = useMemo(

@@ -52,7 +52,7 @@ jest.mock('services/pipeline-ng', () => ({
   getInputSetForPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(GetInputSetsResponse.data))
 }))
 
-const Wrapped = (): React.ReactElement => {
+function Wrapped(): React.ReactElement {
   const { openRunPipelineModal } = useRunPipelineModal({ ...props })
   return (
     <>
@@ -61,7 +61,7 @@ const Wrapped = (): React.ReactElement => {
   )
 }
 
-const WrappedWithInputSets = (): React.ReactElement => {
+function WrappedWithInputSets(): React.ReactElement {
   const { openRunPipelineModal } = useRunPipelineModal({
     ...props,
     inputSetSelected: [
@@ -83,7 +83,7 @@ const WrappedWithInputSets = (): React.ReactElement => {
   )
 }
 
-const WrappedWithInputSetsWithoutGitDetails = (): React.ReactElement => {
+function WrappedWithInputSetsWithoutGitDetails(): React.ReactElement {
   const { openRunPipelineModal } = useRunPipelineModal({
     ...props,
     inputSetSelected: [

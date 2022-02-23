@@ -74,7 +74,7 @@ function getStringByModuleProps(module: ModuleName): StringByModuleProps {
   }
 }
 
-const HomePageByModule: React.FC<HomePageModuleProps> = ({ moduleName, bgImageURL, useTrialModal }) => {
+function HomePageByModule({ moduleName, bgImageURL, useTrialModal }: HomePageModuleProps): React.ReactElement {
   const { getString } = useStrings()
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
 

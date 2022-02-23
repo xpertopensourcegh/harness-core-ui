@@ -36,7 +36,7 @@ interface ArtifactWizardProps {
   allowableTypes: MultiTypeInputType[]
 }
 
-const ArtifactWizard: React.FC<ArtifactWizardProps> = ({
+function ArtifactWizard({
   types,
   labels,
   expressions,
@@ -50,7 +50,7 @@ const ArtifactWizard: React.FC<ArtifactWizardProps> = ({
   lastSteps,
   iconsProps,
   isReadonly
-}) => {
+}: ArtifactWizardProps): React.ReactElement {
   const { getString } = useStrings()
 
   const onStepChange = (arg: StepChangeData<any>): void => {

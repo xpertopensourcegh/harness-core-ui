@@ -79,6 +79,7 @@ export const getPipelineEventColor = (option?: Required<PipelineEvent>['type']):
   return Color.GREY_200
 }
 
+// eslint-disable-next-line react/function-component-definition
 const RenderColumnEnabled: Renderer<CellProps<NotificationRulesItem>> = ({ row, column }) => {
   const data = row.original
   return (
@@ -96,6 +97,7 @@ const RenderColumnEnabled: Renderer<CellProps<NotificationRulesItem>> = ({ row, 
     />
   )
 }
+// eslint-disable-next-line react/function-component-definition
 const RenderColumnName: Renderer<CellProps<NotificationRulesItem>> = ({ row }) => {
   const data = row.original
   return (
@@ -105,6 +107,7 @@ const RenderColumnName: Renderer<CellProps<NotificationRulesItem>> = ({ row }) =
   )
 }
 
+// eslint-disable-next-line react/function-component-definition
 const RenderColumnEvents: Renderer<CellProps<NotificationRulesItem>> = ({ row }) => {
   const data = row.original.notificationRules.pipelineEvents?.map(event => event.type)
   const baseData = data?.slice(0, 3)
@@ -134,6 +137,7 @@ const RenderColumnEvents: Renderer<CellProps<NotificationRulesItem>> = ({ row })
   )
 }
 
+// eslint-disable-next-line react/function-component-definition
 const RenderColumnMethod: Renderer<CellProps<NotificationRulesItem>> = ({ row }) => {
   const data = row.original.notificationRules.notificationMethod?.type
   return (
@@ -144,6 +148,7 @@ const RenderColumnMethod: Renderer<CellProps<NotificationRulesItem>> = ({ row })
   )
 }
 
+// eslint-disable-next-line react/function-component-definition
 const RenderColumnMenu: Renderer<CellProps<NotificationRulesItem>> = ({ row, column }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
@@ -192,7 +197,7 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRulesItem>> = ({ row, col
   )
 }
 
-const NotificationTable: React.FC<NotificationTableProps> = props => {
+function NotificationTable(props: NotificationTableProps): React.ReactElement {
   const {
     data,
     onUpdate,

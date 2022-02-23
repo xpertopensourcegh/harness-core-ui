@@ -217,7 +217,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
   )
 }
 
-const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
+function BarrierInputStep({ inputSetData }: BarrierProps): React.ReactElement {
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
@@ -269,7 +269,11 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
   )
 }
 
-const BarrierVariableStep: React.FC<BarrierVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
+function BarrierVariableStep({
+  variablesData,
+  metadataMap,
+  initialValues
+}: BarrierVariableStepProps): React.ReactElement {
   return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
 }
 

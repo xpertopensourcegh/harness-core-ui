@@ -35,14 +35,14 @@ interface ArtifactPropType {
   stepName: string
 }
 
-export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & ArtifactPropType> = ({
+export function ArtifactoryRepoType({
   selectedArtifact,
   artifactTypes,
   changeArtifactType,
   stepName,
   artifactInitialValue,
   nextStep
-}) => {
+}: StepProps<ConnectorConfigDTO> & ArtifactPropType): React.ReactElement {
   const [selectedArtifactType, setSelectedArtifactType] = React.useState(selectedArtifact)
 
   const handleOptionSelection = (selected: ArtifactType): void => {

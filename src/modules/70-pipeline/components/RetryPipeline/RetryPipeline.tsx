@@ -93,12 +93,12 @@ interface RetryPipelineProps {
   onClose: () => void
 }
 
-const RetryPipeline = ({
+function RetryPipeline({
   executionIdentifier: executionId,
   pipelineIdentifier: pipelineIdf,
   modules,
   onClose
-}: RetryPipelineProps): React.ReactElement => {
+}: RetryPipelineProps): React.ReactElement {
   const { isGitSyncEnabled } = useAppStore()
   const { getString } = useStrings()
   const { showSuccess, showWarning, showError } = useToaster()

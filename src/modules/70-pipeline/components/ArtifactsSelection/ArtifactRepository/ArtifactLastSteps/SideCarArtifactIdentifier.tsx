@@ -10,7 +10,7 @@ import { FormInput } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import css from '../ArtifactConnector.module.scss'
 
-const SideCarArtifactIdentifier = (): React.ReactElement => {
+function SideCarArtifactIdentifier(): React.ReactElement {
   const { getString } = useStrings()
   return (
     <div className={css.dockerSideCard}>

@@ -19,7 +19,7 @@ export interface NodeStartWidgetProps {
   engine: DiagramEngine
 }
 
-export const NodeStartWidget: React.FC<NodeStartWidgetProps> = (props): JSX.Element => {
+export function NodeStartWidget(props: NodeStartWidgetProps): React.ReactElement {
   const generatePort = (port: DefaultPortModel): JSX.Element => {
     return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
   }

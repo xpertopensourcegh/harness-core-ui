@@ -28,7 +28,7 @@ import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import type { JiraCreateDeploymentModeProps, JiraCreateDeploymentModeFormContentInterface } from './types'
 import css from './JiraCreate.module.scss'
 
-const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterface) => {
+function FormContent(formContentProps: JiraCreateDeploymentModeFormContentInterface) {
   const {
     inputSetData,
     allowableTypes,

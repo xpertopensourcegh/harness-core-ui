@@ -57,7 +57,7 @@ import { ApprovalRejectionCriteria } from '../Common/ApprovalRejectionCriteria'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraApproval.module.scss'
 
-const FormContent = ({
+function FormContent({
   formik,
   refetchProjects,
   refetchProjectMetadata,
@@ -71,7 +71,7 @@ const FormContent = ({
   readonly,
   allowableTypes,
   stepViewType
-}: JiraFormContentInterface): JSX.Element => {
+}: JiraFormContentInterface): JSX.Element {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =

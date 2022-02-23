@@ -30,7 +30,7 @@ export interface ArtifactsComponentProps extends IProps {
   artifactGroups: ArtifactGroup[]
 }
 
-const ArtifactsComponent: React.FC<ArtifactsComponentProps> = props => {
+function ArtifactsComponent(props: ArtifactsComponentProps): React.ReactElement {
   const { artifactGroups, className } = props
   return (
     <div className={cx(css.main, className)}>

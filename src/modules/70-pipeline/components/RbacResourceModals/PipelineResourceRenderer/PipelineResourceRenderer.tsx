@@ -20,12 +20,12 @@ import type { ResourceHandlerTableData } from '@rbac/components/ResourceHandlerT
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { RenderColumnPipeline, RenderLastRunDate } from '../PipelineResourceModal/PipelineResourceModal'
 
-const PipelineResourceRenderer: React.FC<RbacResourceRendererProps> = ({
+function PipelineResourceRenderer({
   identifiers,
   resourceScope,
   resourceType,
   onResourceSelectionChange
-}) => {
+}: RbacResourceRendererProps): React.ReactElement {
   const { accountIdentifier, orgIdentifier = '', projectIdentifier = '' } = resourceScope
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()

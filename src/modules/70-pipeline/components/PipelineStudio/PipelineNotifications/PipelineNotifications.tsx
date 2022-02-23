@@ -17,7 +17,7 @@ import css from './PipelineNotifications.module.scss'
 
 const PAGE_SIZE = 10
 
-export const PipelineNotifications: React.FC = (): JSX.Element => {
+export function PipelineNotifications(): React.ReactElement {
   const {
     state: { pipeline },
     updatePipeline,

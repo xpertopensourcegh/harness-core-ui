@@ -51,7 +51,7 @@ jest.mock('services/cd-ng', () => ({
     return { data: sourceCodeManagers, refetch: jest.fn() }
   })
 }))
-const Wrapped = (props: TemplateContextMetadata): React.ReactElement => {
+function Wrapped(props: TemplateContextMetadata): React.ReactElement {
   const { saveAndPublish } = useSaveTemplate(props)
   return (
     <>

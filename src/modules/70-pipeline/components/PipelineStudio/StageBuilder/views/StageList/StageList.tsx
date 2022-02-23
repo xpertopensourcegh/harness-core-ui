@@ -22,13 +22,13 @@ interface StageListProps {
   onClick?: (stageId: string, type: StageType) => void
 }
 
-export const StageList: React.FC<StageListProps> = ({
+export function StageList({
   stages,
   templateTypes,
   selectedStageId,
   onClick,
   stagesMap
-}): JSX.Element => {
+}: StageListProps): React.ReactElement {
   const list: Array<{ name: string; icon: IconName; identifier: string; type: string; isTemplate: boolean }> = []
   stages.forEach((node: StageElementWrapper) => {
     const stageType = getStageType(node.stage, templateTypes)

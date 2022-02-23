@@ -16,6 +16,7 @@ import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import { EnvironmentResponseDTO, useGetEnvironmentList } from 'services/cd-ng'
 
+// eslint-disable-next-line react/function-component-definition
 const RenderColumnPipeline: Renderer<CellProps<EnvironmentResponseDTO>> = ({ row }) => {
   const rowdata = row.original
 
@@ -29,6 +30,7 @@ const RenderColumnPipeline: Renderer<CellProps<EnvironmentResponseDTO>> = ({ row
   )
 }
 
+// eslint-disable-next-line react/function-component-definition
 const RenderEnvType: Renderer<CellProps<EnvironmentResponseDTO>> = ({ row }) => {
   const rowdata = row.original
 
@@ -41,12 +43,12 @@ const RenderEnvType: Renderer<CellProps<EnvironmentResponseDTO>> = ({ row }) => 
   )
 }
 
-const EnvironmentResourceModal: React.FC<RbacResourceModalProps> = ({
+function EnvironmentResourceModal({
   searchTerm,
   onSelectChange,
   selectedData,
   resourceScope
-}) => {
+}: RbacResourceModalProps): React.ReactElement {
   const { accountIdentifier, orgIdentifier = '', projectIdentifier = '' } = resourceScope
   const { getString } = useStrings()
   const [page, setPage] = useState(0)

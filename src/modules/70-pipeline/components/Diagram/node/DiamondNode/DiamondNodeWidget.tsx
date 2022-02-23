@@ -55,7 +55,7 @@ const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
   node.fireEvent({ target: e.target }, Event.MouseLeaveNode)
 }
 
-export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
+export function DiamondNodeWidget(props: DiamondNodeProps): JSX.Element {
   const options = props.node.getOptions()
   const [dragging, setDragging] = React.useState(false)
   const { getString } = useStrings()

@@ -136,13 +136,13 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 const clearNullUndefined = /* istanbul ignore next */ (data: OverlayInputSetDTO): OverlayInputSetDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
 
-export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
+export function OverlayInputSetForm({
   hideForm,
   identifier,
   isReadOnly = false,
   overlayInputSetRepoIdentifier,
   overlayInputSetBranch
-}): JSX.Element => {
+}: OverlayInputSetFormProps): React.ReactElement {
   const { getString } = useStrings()
   const [isOpen, setIsOpen] = React.useState(true)
   const [isEdit, setIsEdit] = React.useState(false)

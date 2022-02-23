@@ -74,6 +74,7 @@ function renderNode(
 }
 
 jest.mock('@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram', () => {
+  // eslint-disable-next-line react/function-component-definition
   return function ExecutionStageDiagramMock(props: ExecutionStageDiagramProps<ExecutionNode>) {
     const { data, itemClickHandler } = props
     return <div data-testid="execution-stage-diagram-mock">{data?.items.map(e => renderNode(e, itemClickHandler))}</div>

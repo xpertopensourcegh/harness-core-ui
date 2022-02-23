@@ -32,7 +32,7 @@ const getInitialValues = (data?: StageElementWrapper<ApprovalStageElementConfig>
   approvalType: (data?.stage?.spec as any)?.approvalType
 })
 
-export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> = props => {
+export function ApprovalStageMinimalMode(props: ApprovalStageMinimalModeProps): React.ReactElement {
   const { getString } = useStrings()
   const { onChange, onSubmit, data, template } = props
 

@@ -74,10 +74,10 @@ export type ExecutionStrategyForwardRef =
   | React.MutableRefObject<ExecutionStrategyRefInterface | null>
   | null
 
-const ExecutionStrategyRef = (
+function ExecutionStrategyRef(
   props: ExecutionStrategyProps,
   executionStrategyRef: ExecutionStrategyForwardRef
-): JSX.Element => {
+): JSX.Element {
   const { selectedStage } = props
   const {
     state: { pipelineView },

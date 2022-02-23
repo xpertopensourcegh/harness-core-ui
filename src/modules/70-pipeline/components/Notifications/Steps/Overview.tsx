@@ -28,12 +28,12 @@ interface OverviewProps {
   existingNotificationNames?: string[]
 }
 
-const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
+function Overview({
   data,
   existingNotificationNames = [],
   nextStep,
   prevStepData
-}) => {
+}: StepProps<NotificationRules> & OverviewProps): React.ReactElement {
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="xxlarge" padding="small">

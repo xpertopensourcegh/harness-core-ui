@@ -18,11 +18,11 @@ export interface TestsSelectionBreakdownProps {
   updatedTests: number
 }
 
-export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = ({
+export function TestsSelectionBreakdown({
   sourceCodeChanges,
   newTests,
   updatedTests
-}) => {
+}: TestsSelectionBreakdownProps): React.ReactElement {
   const { getString } = useStrings()
 
   const selectedTests = sourceCodeChanges + newTests + updatedTests

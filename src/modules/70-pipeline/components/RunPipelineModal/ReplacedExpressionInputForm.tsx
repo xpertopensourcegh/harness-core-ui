@@ -13,10 +13,10 @@ interface ReplacedExpressionInputFormProps {
   expressions?: string[]
   updateExpressionValue: React.FormEventHandler<HTMLElement>
 }
-const ReplacedExpressionInputForm = ({
+function ReplacedExpressionInputForm({
   expressions = [],
   updateExpressionValue
-}: ReplacedExpressionInputFormProps): React.ReactElement | null => {
+}: ReplacedExpressionInputFormProps): React.ReactElement | null {
   const { getString } = useStrings()
 
   return expressions.length > 0 ? (

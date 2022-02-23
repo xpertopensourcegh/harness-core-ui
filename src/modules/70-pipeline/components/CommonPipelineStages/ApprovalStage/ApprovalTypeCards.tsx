@@ -18,7 +18,7 @@ import css from './ApprovalStageMinimalMode.module.scss'
 The component to select approval type card in stage
 Used in both minimal view as well as detailed view
 */
-export const ApprovalTypeCards = ({ isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }): JSX.Element => {
+export function ApprovalTypeCards({ isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }): JSX.Element {
   const { SERVICENOW_NG_INTEGRATION } = useFeatureFlags()
   const approvalTypeCardsData: RbacThumbnailItem[] = React.useMemo(
     () => [

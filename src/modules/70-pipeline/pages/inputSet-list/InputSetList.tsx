@@ -32,7 +32,7 @@ import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
 
-const InputSetList: React.FC = (): JSX.Element => {
+function InputSetList(): React.ReactElement {
   const [searchParam, setSearchParam] = React.useState('')
   const [page, setPage] = React.useState(0)
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()

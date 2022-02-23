@@ -10,7 +10,7 @@ import { Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import css from './PipelineTemplates.module.scss'
 
-export const PipelineTemplates: React.FC = (): JSX.Element => {
+export function PipelineTemplates(): React.ReactElement {
   const { getString } = useStrings()
   return (
     <div className={css.pipelineTemplates}>

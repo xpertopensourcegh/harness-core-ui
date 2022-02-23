@@ -47,7 +47,7 @@ interface HelmWithHttpPropType {
   deploymentType?: string
 }
 
-const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType> = ({
+function HelmWithHttp({
   stepName,
   prevStepData,
   expressions,
@@ -58,7 +58,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
   manifestIdsList,
   isReadonly = false,
   deploymentType
-}) => {
+}: StepProps<ConnectorConfigDTO> & HelmWithHttpPropType): React.ReactElement {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
 

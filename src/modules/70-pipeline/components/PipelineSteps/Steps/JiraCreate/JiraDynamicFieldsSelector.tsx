@@ -36,7 +36,7 @@ import {
 } from './types'
 import css from './JiraDynamicFieldsSelector.module.scss'
 
-const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
+function SelectFieldList(props: JiraDynamicFieldsSelectorContentInterface) {
   const { getString } = useStrings()
   const {
     connectorRef,
@@ -184,7 +184,7 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
   )
 }
 
-const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
+function ProvideFieldList(props: JiraDynamicFieldsSelectorContentInterface) {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -262,7 +262,7 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
   )
 }
 
-const Content = (props: JiraDynamicFieldsSelectorContentInterface) => {
+function Content(props: JiraDynamicFieldsSelectorContentInterface) {
   const { getString } = useStrings()
   const { connectorRef } = props
   const [type, setType] = useState<JiraCreateFormFieldSelector>(
@@ -296,7 +296,7 @@ const Content = (props: JiraDynamicFieldsSelectorContentInterface) => {
   )
 }
 
-export const JiraDynamicFieldsSelector = (props: JiraDynamicFieldsSelectorInterface) => {
+export function JiraDynamicFieldsSelector(props: JiraDynamicFieldsSelectorInterface) {
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const commonParams = {

@@ -48,7 +48,7 @@ export interface InputSetSelectorProps {
   isOverlayInputSet?: boolean
 }
 
-export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
+export function InputSetSelector({
   value,
   onChange,
   pipelineIdentifier,
@@ -56,7 +56,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   selectedRepo,
   selectedBranch,
   isOverlayInputSet
-}): JSX.Element => {
+}: InputSetSelectorProps): React.ReactElement {
   const [searchParam, setSearchParam] = React.useState('')
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>(value || [])
   const { getString } = useStrings()

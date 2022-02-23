@@ -47,7 +47,7 @@ import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImageP
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
-const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+function Artifactory({
   context,
   handleSubmit,
   expressions,
@@ -58,7 +58,7 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   artifactIdentifiers,
   isReadonly = false,
   selectedArtifact
-}) => {
+}: StepProps<ConnectorConfigDTO> & ImagePathProps): React.ReactElement {
   const { getString } = useStrings()
   const [lastQueryData, setLastQueryData] = useState({ imagePath: '', repository: '' })
 

@@ -55,7 +55,7 @@ interface HelmWithGITPropType {
   deploymentType?: string
 }
 
-const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType> = ({
+function HelmWithGIT({
   stepName,
   initialValues,
   handleSubmit,
@@ -66,7 +66,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   manifestIdsList,
   isReadonly = false,
   deploymentType
-}) => {
+}: StepProps<ConnectorConfigDTO> & HelmWithGITPropType): React.ReactElement {
   const { getString } = useStrings()
 
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags

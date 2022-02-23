@@ -39,7 +39,7 @@ import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
 import type { ApprovalStageOverviewProps } from './types'
 import css from './ApprovalStageOverview.module.scss'
 
-export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props => {
+export function ApprovalStageOverview(props: ApprovalStageOverviewProps): React.ReactElement {
   const {
     state: {
       pipeline: { stages = [] },

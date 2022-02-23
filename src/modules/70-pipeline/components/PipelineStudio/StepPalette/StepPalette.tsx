@@ -60,11 +60,7 @@ export interface StepPaletteProps {
   stageType: StageType
   isProvisioner?: boolean
 }
-export const StepPalette: React.FC<StepPaletteProps> = ({
-  onSelect,
-  stepsFactory,
-  stepPaletteModuleInfos
-}): JSX.Element => {
+export function StepPalette({ onSelect, stepsFactory, stepPaletteModuleInfos }: StepPaletteProps): React.ReactElement {
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
@@ -73,7 +69,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null)
   const { accountId } = useParams<{ module: string; accountId: string }>()
 
-  const Message = ({ stepsDataLoading }: { stepsDataLoading: boolean }) => {
+  function Message({ stepsDataLoading }: { stepsDataLoading: boolean }): React.ReactElement | null {
     const message = stepsDataLoading
       ? getString('stepPalette.loadingSteps')
       : isEmpty(stepCategories)

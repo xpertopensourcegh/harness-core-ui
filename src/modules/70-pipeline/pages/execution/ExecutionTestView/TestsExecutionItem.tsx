@@ -146,7 +146,7 @@ const getColumnText = ({
   }
 }
 
-const ColumnText = ({
+function ColumnText({
   tooltip,
   failed,
   col,
@@ -160,18 +160,20 @@ const ColumnText = ({
   pageIndex: number
   itemOrderNumber: number
   row: { original: TestCase }
-}): JSX.Element => (
-  <Text
-    className={cx(css.text, tooltip && css.failed)}
-    color={failed && col !== 'order' ? Color.RED_700 : Color.GREY_700}
-    lineClamp={!tooltip ? 1 : undefined}
-    tooltip={tooltip}
-  >
-    {getColumnText({ col, pageIndex, itemOrderNumber, row })}
-  </Text>
-)
+}): JSX.Element {
+  return (
+    <Text
+      className={cx(css.text, tooltip && css.failed)}
+      color={failed && col !== 'order' ? Color.RED_700 : Color.GREY_700}
+      lineClamp={!tooltip ? 1 : undefined}
+      tooltip={tooltip}
+    >
+      {getColumnText({ col, pageIndex, itemOrderNumber, row })}
+    </Text>
+  )
+}
 
-export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
+export function TestsExecutionItem({
   buildIdentifier,
   serviceToken,
   executionSummary,
@@ -182,7 +184,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   stepId,
   onShowCallGraphForClass,
   isUngroupedList
-}) => {
+}: TestExecutionEntryProps): React.ReactElement {
   const containerRef = useRef<HTMLElement>(null)
   const rightSideContainerRef = useRef<HTMLElement>(null)
   const tableRef = useRef<HTMLDivElement>(null)

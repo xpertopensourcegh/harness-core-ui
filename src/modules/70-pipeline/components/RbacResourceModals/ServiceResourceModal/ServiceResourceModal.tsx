@@ -16,6 +16,7 @@ import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import { ServiceResponseDTO, useGetServiceList } from 'services/cd-ng'
 
+// eslint-disable-next-line react/function-component-definition
 const RenderColumnPipeline: Renderer<CellProps<ServiceResponseDTO>> = ({ row }) => {
   const rowdata = row.original
 
@@ -29,12 +30,12 @@ const RenderColumnPipeline: Renderer<CellProps<ServiceResponseDTO>> = ({ row }) 
   )
 }
 
-const ServiceResourceModal: React.FC<RbacResourceModalProps> = ({
+function ServiceResourceModal({
   searchTerm,
   onSelectChange,
   selectedData,
   resourceScope
-}) => {
+}: RbacResourceModalProps): React.ReactElement {
   const { accountIdentifier, orgIdentifier = '', projectIdentifier = '' } = resourceScope
   const { getString } = useStrings()
   const [page, setPage] = useState(0)

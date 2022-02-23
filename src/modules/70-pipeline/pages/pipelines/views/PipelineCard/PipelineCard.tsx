@@ -72,7 +72,7 @@ interface ContextMenuProps {
   onDelete: (pipeline: PMSPipelineSummaryResponse) => void
 }
 
-const ContextMenu: React.FC<ContextMenuProps> = ({
+function ContextMenu({
   pipeline,
   goToPipelineStudio,
   goToPipelineDetail,
@@ -81,7 +81,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   accountIdentifier,
   onDeletePipeline,
   onDelete
-}): JSX.Element => {
+}: ContextMenuProps): React.ReactElement {
   const { getString } = useStrings()
   const { confirmDelete } = useDeleteConfirmationDialog(pipeline, 'pipeline', onDeletePipeline)
 
@@ -164,7 +164,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 
 const LEFT_COLUMN_WIDTH = 80
 
-const AdditionalEntitiesCountPopUp = (props: { entityList: string[]; iconName?: IconName }) => {
+function AdditionalEntitiesCountPopUp(props: { entityList: string[]; iconName?: IconName }) {
   const { entityList, iconName } = props
   return (
     <Layout.Vertical style={{ padding: 'var(--spacing-4)' }}>
@@ -224,14 +224,14 @@ const renderEntityWithAdditionalCountInfo = (entityList: string[], iconName?: Ic
   )
 }
 
-export const PipelineCard: React.FC<PipelineCardProps> = ({
+export function PipelineCard({
   pipeline,
   goToPipelineDetail,
   goToPipelineStudio,
   refetchPipeline,
   onDeletePipeline,
   onDelete
-}): JSX.Element => {
+}: PipelineCardProps): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
     PipelineType<{
       orgIdentifier: string

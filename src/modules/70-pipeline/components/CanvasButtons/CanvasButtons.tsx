@@ -27,13 +27,13 @@ interface CanvasButtonsProps {
   layout?: 'horizontal' | 'vertical'
 }
 
-export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
+export function CanvasButtons({
   engine,
   callback,
   className = '',
   tooltipPosition = 'left',
   layout = 'vertical'
-}) => {
+}: CanvasButtonsProps): React.ReactElement {
   const { getString } = useStrings()
   const zoomToFit = useCallback(
     e => {

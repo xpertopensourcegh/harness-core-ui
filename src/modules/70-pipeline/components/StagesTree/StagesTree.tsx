@@ -47,7 +47,7 @@ function forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void): v
   }
 }
 
-const StagesTree: React.FC<StagesTreeProps> = props => {
+function StagesTree(props: StagesTreeProps): React.ReactElement {
   const { contents, selectedId, selectionChange, className } = props
   const [nodes, setNodes] = useState(cloneDeep(contents))
 

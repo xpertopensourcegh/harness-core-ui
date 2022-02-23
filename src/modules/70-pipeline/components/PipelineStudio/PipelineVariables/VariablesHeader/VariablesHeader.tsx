@@ -15,7 +15,7 @@ export interface VariablesHeaderProps {
   enableSearch?: boolean
 }
 
-export const VariablesHeader = ({ enableSearch = true }: VariablesHeaderProps): JSX.Element => {
+export function VariablesHeader({ enableSearch = true }: VariablesHeaderProps): JSX.Element {
   const {
     onSearchInputChange,
     searchIndex = 0,

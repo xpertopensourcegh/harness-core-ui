@@ -26,7 +26,7 @@ interface CreatePipelineFormProps {
   learnMoreUrl?: string
 }
 
-export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
+export function CreatePipelineForm(props: CreatePipelineFormProps): React.ReactElement {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const { handleSubmit, closeModal, learnMoreUrl } = props

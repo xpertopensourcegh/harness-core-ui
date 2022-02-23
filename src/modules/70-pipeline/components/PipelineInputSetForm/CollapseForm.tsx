@@ -9,19 +9,21 @@ import React from 'react'
 import { Layout, Icon, Text } from '@wings-software/uicore'
 import type { TextProps } from '@wings-software/uicore/dist/components/Text/Text'
 
-export const CollapseForm: React.FC<{
+export interface CollapseFormProps {
   header: string
   children: React.ReactNode
   headerProps?: TextProps
   headerColor?: string
   open?: boolean
-}> = ({
+}
+
+export function CollapseForm({
   header,
   children,
   headerProps = { font: { size: 'medium' } },
   headerColor = 'var(--pipeline-form-blue)',
   open = true
-}): JSX.Element => {
+}: CollapseFormProps): React.ReactElement {
   const [isOpen, setOpen] = React.useState(open)
   return (
     <div style={{ width: '100%' }}>

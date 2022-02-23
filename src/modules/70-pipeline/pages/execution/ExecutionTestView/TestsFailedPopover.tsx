@@ -12,7 +12,7 @@ import { useStrings } from 'framework/strings'
 import type { TestCase } from 'services/ti-service'
 import css from './BuildTests.module.scss'
 
-const PopoverSection: React.FC<{ label: string; content: string }> = props => {
+function PopoverSection(props: { label: string; content: string }): React.ReactElement {
   const { label, content } = props
   return (
     <Container>
@@ -26,10 +26,15 @@ const PopoverSection: React.FC<{ label: string; content: string }> = props => {
   )
 }
 
-export const TestsFailedPopover: React.FC<{
+export interface TestsFailedPopoverProps {
   testCase: TestCase
   openTestsFailedModal?: (errorContent: JSX.Element) => void
-}> = ({ testCase, openTestsFailedModal }) => {
+}
+
+export function TestsFailedPopover({
+  testCase,
+  openTestsFailedModal
+}: TestsFailedPopoverProps): React.ReactElement | null {
   const { getString } = useStrings()
   const {
     name,

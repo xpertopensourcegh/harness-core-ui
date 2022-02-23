@@ -63,7 +63,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const fetchingTicketTypesPlaceholder: StringKeys = 'pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'
 
-const FormContent = ({
+function FormContent({
   formik,
   isNewStep,
   readonly,
@@ -75,7 +75,7 @@ const FormContent = ({
   serviceNowMetadataResponse,
   serviceNowTicketTypesFetchError,
   refetchServiceNowMetadata
-}: ServiceNowFormContentInterface): JSX.Element => {
+}: ServiceNowFormContentInterface): JSX.Element {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =

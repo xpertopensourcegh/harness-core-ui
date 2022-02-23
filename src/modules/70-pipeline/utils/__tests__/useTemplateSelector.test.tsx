@@ -12,7 +12,7 @@ import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
 
-const Wrapped = (): React.ReactElement => {
+function Wrapped(): React.ReactElement {
   const { openTemplateSelector, closeTemplateSelector } = useTemplateSelector()
   return (
     <>

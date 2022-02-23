@@ -29,7 +29,7 @@ interface MappedComponentInterface {
   index: number
 }
 
-const GetMappedFieldComponent = ({ selectedField, props, expressions, index }: MappedComponentInterface) => {
+function GetMappedFieldComponent({ selectedField, props, expressions, index }: MappedComponentInterface) {
   const showTextField = useCallback(() => {
     if (
       selectedField.schema.type === 'string' ||
@@ -96,7 +96,7 @@ const GetMappedFieldComponent = ({ selectedField, props, expressions, index }: M
   return null
 }
 
-export const JiraFieldsRenderer = (props: JiraFieldsRendererProps) => {
+export function JiraFieldsRenderer(props: JiraFieldsRendererProps) {
   const { expressions } = useVariablesExpression()
   const { readonly, selectedFields, onDelete } = props
   return selectedFields ? (

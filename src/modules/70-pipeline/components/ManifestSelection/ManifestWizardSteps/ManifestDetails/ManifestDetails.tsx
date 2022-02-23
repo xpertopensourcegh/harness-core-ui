@@ -57,7 +57,7 @@ interface ManifestDetailsPropType {
   isReadonly?: boolean
 }
 
-const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
+function ManifestDetails({
   stepName,
   selectedManifest,
   expressions,
@@ -68,7 +68,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   previousStep,
   manifestIdsList,
   isReadonly = false
-}) => {
+}: StepProps<ConnectorConfigDTO> & ManifestDetailsPropType): React.ReactElement {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning
 

@@ -123,7 +123,7 @@ export const GitDetails = (props: StudioGitPopoverProps): JSX.Element => {
   }
 }
 
-export const StudioGitPopover = (props: StudioGitPopoverProps): JSX.Element => {
+export function StudioGitPopover(props: StudioGitPopoverProps): JSX.Element {
   return <GitPopover data={props.gitDetails} customUI={<GitDetails {...props} />} />
 }
 

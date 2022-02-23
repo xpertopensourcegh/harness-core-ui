@@ -56,7 +56,7 @@ interface OpenshiftTemplateWithGITPropType {
   isReadonly?: boolean
 }
 
-const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftTemplateWithGITPropType> = ({
+function OpenShiftParamWithGit({
   stepName,
   initialValues,
   handleSubmit,
@@ -66,7 +66,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
   previousStep,
   manifestIdsList,
   isReadonly = false
-}) => {
+}: StepProps<ConnectorConfigDTO> & OpenshiftTemplateWithGITPropType): React.ReactElement {
   const { getString } = useStrings()
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =

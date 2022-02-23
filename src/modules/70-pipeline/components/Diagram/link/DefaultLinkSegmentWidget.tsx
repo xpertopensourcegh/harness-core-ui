@@ -23,7 +23,7 @@ export interface DefaultLinkSegmentWidgetProps {
   extras: Record<string, any>
 }
 
-export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): JSX.Element => {
+export function DefaultLinkSegmentWidget(props: DefaultLinkSegmentWidgetProps): JSX.Element {
   const { onSelection, link } = props
   //NOTE: isDragOver is used to set pointerEvents="none" to plus button on dragOver event
   const [isDragOver, setDragOver] = React.useState(false)

@@ -25,7 +25,7 @@ interface NoEntityFoundProps {
   entityType: string
 }
 
-const NoEntityFound = (props: NoEntityFoundProps): JSX.Element => {
+function NoEntityFound(props: NoEntityFoundProps): JSX.Element {
   const { identifier, entityType } = props
 
   const { getString } = useStrings()

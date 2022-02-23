@@ -18,7 +18,7 @@ interface SelectOrCreatePipelineFormProps {
   openCreatPipeLineModal: () => void
 }
 
-export const SelectOrCreatePipelineForm: React.FC<SelectOrCreatePipelineFormProps> = props => {
+export function SelectOrCreatePipelineForm(props: SelectOrCreatePipelineFormProps): React.ReactElement {
   const { getString } = useStrings()
   const [select, setSelect] = useState('')
   const { openCreatPipeLineModal, handleSubmit, closeModal } = props

@@ -54,7 +54,7 @@ interface ManifestStorePropType {
   handleStoreChange: (store: ManifestStores) => void
 }
 
-const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropType> = ({
+function ManifestStore({
   handleConnectorViewChange,
   handleStoreChange,
   stepName,
@@ -66,7 +66,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   allowableTypes,
   prevStepData,
   nextStep
-}) => {
+}: StepProps<ConnectorConfigDTO> & ManifestStorePropType): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()

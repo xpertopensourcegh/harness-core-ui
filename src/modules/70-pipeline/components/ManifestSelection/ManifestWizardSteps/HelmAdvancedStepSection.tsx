@@ -41,7 +41,7 @@ interface HelmAdvancedStepProps {
   helmStore: string
 }
 
-const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
+function HelmAdvancedStepSection({
   formik,
   expressions,
   allowableTypes,
@@ -49,7 +49,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
   deploymentType,
   helmVersion,
   helmStore
-}) => {
+}: HelmAdvancedStepProps): React.ReactElement {
   const { getString } = useStrings()
   const defaultValueToReset = [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
   const [commandFlagOptions, setCommandFlagOptions] = useState<Record<string, SelectOption[]>>({ V2: [], V3: [] })

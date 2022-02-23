@@ -66,6 +66,7 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
     )
   }
 
+  // eslint-disable-next-line react/function-component-definition
   const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     const rowdata = row.original
 
@@ -79,6 +80,7 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
     )
   }
 
+  // eslint-disable-next-line react/function-component-definition
   const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     const rowdata = row.original
     return (
@@ -92,6 +94,7 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
     )
   }
 
+  // eslint-disable-next-line react/function-component-definition
   const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Element => {
     const rowdata = row.original
     return (

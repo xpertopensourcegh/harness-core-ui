@@ -45,7 +45,7 @@ interface ServiceNowConditionsInterface extends SnowApprovalRejectionCriteriaPro
   allowedValuesForFields: Record<string, SelectOption[]>
 }
 
-const RenderValueSelects = ({
+function RenderValueSelects({
   condition,
   allowedValuesForFields,
   mode,
@@ -59,7 +59,7 @@ const RenderValueSelects = ({
   index: number
   expressions: string[]
   readonly?: boolean
-}): JSX.Element => {
+}): JSX.Element {
   const { getString } = useStrings()
   if (condition.operator === 'in' || condition.operator === 'not in') {
     return (
@@ -92,7 +92,7 @@ const RenderValueSelects = ({
   )
 }
 
-export const Conditions = ({
+export function Conditions({
   values,
   onChange,
   mode,
@@ -102,7 +102,7 @@ export const Conditions = ({
   formik,
   fieldList,
   readonly
-}: ServiceNowConditionsInterface): JSX.Element => {
+}: ServiceNowConditionsInterface): JSX.Element {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const name = `spec.${mode}.spec.conditions`
@@ -220,7 +220,7 @@ export const Conditions = ({
   )
 }
 
-export const Jexl = (props: SnowApprovalRejectionCriteriaProps): JSX.Element => {
+export function Jexl(props: SnowApprovalRejectionCriteriaProps): JSX.Element {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -243,7 +243,7 @@ export const Jexl = (props: SnowApprovalRejectionCriteriaProps): JSX.Element => 
   )
 }
 
-export const ServiceNowApprovalRejectionCriteria: React.FC<SnowApprovalRejectionCriteriaProps> = props => {
+export function ServiceNowApprovalRejectionCriteria(props: SnowApprovalRejectionCriteriaProps): React.ReactElement {
   const { values, onChange, title, readonly } = props
   const [type, setType] = useState<ApprovalRejectionCriteriaType>(values.type)
   const [allowedFieldKeys, setAllowedFieldKeys] = useState<SelectOption[]>([])

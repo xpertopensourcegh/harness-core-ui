@@ -52,7 +52,7 @@ interface KustomizeWithGITPropType {
   isReadonly?: boolean
 }
 
-const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGITPropType> = ({
+function KustomizeWithGIT({
   stepName,
   initialValues,
   handleSubmit,
@@ -62,7 +62,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
   previousStep,
   manifestIdsList,
   isReadonly = false
-}) => {
+}: StepProps<ConnectorConfigDTO> & KustomizeWithGITPropType): React.ReactElement {
   const { getString } = useStrings()
 
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags

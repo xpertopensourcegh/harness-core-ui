@@ -130,7 +130,7 @@ interface SummaryCardData {
   trend: string
 }
 
-const EmptyCard = ({ children }: { children: React.ReactElement }): JSX.Element => {
+function EmptyCard({ children }: { children: React.ReactElement }): JSX.Element {
   return (
     <Layout.Horizontal className={css.loaderContainer}>
       <Card className={css.loaderCard}>{children}</Card>
@@ -278,9 +278,9 @@ interface LandingDashboardDeploymentsNoContentWidgetProps {
   accountId: string
   refetch: any
 }
-const LandingDashboardDeploymentsNoContentWidget = (
+function LandingDashboardDeploymentsNoContentWidget(
   props: LandingDashboardDeploymentsNoContentWidgetProps
-): JSX.Element => {
+): JSX.Element {
   const { loading, response, error, count, accountId, refetch } = props
   if (loading) {
     return (
@@ -329,7 +329,7 @@ const renderTooltipForServiceLabel = (service: ActiveServiceInfo): JSX.Element =
   )
 }
 
-const LandingDashboardDeploymentsWidget: React.FC = () => {
+function LandingDashboardDeploymentsWidget(): React.ReactElement {
   const { getString } = useStrings()
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()

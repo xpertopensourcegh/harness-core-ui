@@ -67,7 +67,7 @@ const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
   e.stopPropagation()
   node.fireEvent({ target: e.target }, Event.MouseLeaveNode)
 }
-export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Element => {
+export function IconNodeWidget(props: IconNodeWidgetProps): React.ReactElement {
   const options = props.node.getOptions()
   const [dropable, setDropable] = React.useState(false)
   const [dragging, setDragging] = React.useState(false)

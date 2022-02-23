@@ -95,7 +95,7 @@ export default function CardRailView({ contentType, isLoading, onShowAll, childr
     return () => window.removeEventListener('resize', onResize)
   })
 
-  const RateToggle = (): JSX.Element => {
+  function RateToggle(): JSX.Element {
     return (
       <Layout.Horizontal flex>
         <Text

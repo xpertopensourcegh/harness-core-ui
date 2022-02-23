@@ -38,7 +38,7 @@ export const YamlBuilderMemo = React.memo(YAMLBuilder, (prevProps, nextProps) =>
 
 let Interval: number | undefined
 const defaultFileName = 'Pipeline.yaml'
-const PipelineYamlView: React.FC = () => {
+function PipelineYamlView(): React.ReactElement {
   const {
     state: {
       pipeline,

@@ -41,6 +41,7 @@ import { TICallToAction } from './TICallToAction'
 // import { TestsCoverage } from './TestsCoverage'
 import css from './BuildTests.module.scss'
 
+/* eslint-disable @typescript-eslint/no-shadow */
 enum UI {
   TIAndReports,
   TI,
@@ -48,6 +49,7 @@ enum UI {
   ZeroState,
   LoadingState
 }
+/* eslint-enable @typescript-eslint/no-shadow */
 
 interface BuildTestsProps {
   reportSummaryMock?: TestReportSummary
@@ -80,7 +82,7 @@ const renderTestsOverview = ({
   return null
 }
 
-export const TIAndReports = ({
+export function TIAndReports({
   header,
   testOverviewData,
   reportSummaryData,
@@ -96,43 +98,45 @@ export const TIAndReports = ({
   stepId?: string
   serviceToken?: string | null
   testsCountDiff?: number
-}): JSX.Element => (
-  <>
-    {header}
-    <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
-      {renderTestsOverview({ testOverviewData, testsCountDiff })}
-      {typeof reportSummaryData?.total_tests !== 'undefined' &&
-        typeof reportSummaryData?.failed_tests !== 'undefined' &&
-        typeof reportSummaryData?.successful_tests !== 'undefined' &&
-        typeof reportSummaryData?.skipped_tests !== 'undefined' && (
-          <TestsExecutionResult
-            totalTests={reportSummaryData.total_tests}
-            failedTests={reportSummaryData.failed_tests}
-            successfulTests={reportSummaryData.successful_tests}
-            skippedTests={reportSummaryData.skipped_tests}
-          />
+}): JSX.Element {
+  return (
+    <>
+      {header}
+      <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
+        {renderTestsOverview({ testOverviewData, testsCountDiff })}
+        {typeof reportSummaryData?.total_tests !== 'undefined' &&
+          typeof reportSummaryData?.failed_tests !== 'undefined' &&
+          typeof reportSummaryData?.successful_tests !== 'undefined' &&
+          typeof reportSummaryData?.skipped_tests !== 'undefined' && (
+            <TestsExecutionResult
+              totalTests={reportSummaryData.total_tests}
+              failedTests={reportSummaryData.failed_tests}
+              successfulTests={reportSummaryData.successful_tests}
+              skippedTests={reportSummaryData.skipped_tests}
+            />
+          )}
+        {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
+          typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
+          typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
+            <TestsSelectionBreakdown
+              sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
+              newTests={testOverviewData.selected_tests.new_tests}
+              updatedTests={testOverviewData.selected_tests.updated_tests}
+            />
+          )}
+      </Layout.Horizontal>
+      <Layout.Horizontal spacing="large">
+        {/* <TestsCoverage /> */}
+        {/* TI is above Reports which is 100% width */}
+        {stageId && stepId && serviceToken && (
+          <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} showCallGraph />
         )}
-      {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
-        typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
-        typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
-          <TestsSelectionBreakdown
-            sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
-            newTests={testOverviewData.selected_tests.new_tests}
-            updatedTests={testOverviewData.selected_tests.updated_tests}
-          />
-        )}
-    </Layout.Horizontal>
-    <Layout.Horizontal spacing="large">
-      {/* <TestsCoverage /> */}
-      {/* TI is above Reports which is 100% width */}
-      {stageId && stepId && serviceToken && (
-        <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} showCallGraph />
-      )}
-    </Layout.Horizontal>
-  </>
-)
+      </Layout.Horizontal>
+    </>
+  )
+}
 
-export const TI = ({
+export function TI({
   header,
   testOverviewData,
   testsCountDiff
@@ -140,25 +144,27 @@ export const TI = ({
   header: JSX.Element
   testOverviewData?: SelectionOverview | null
   testsCountDiff?: number
-}): JSX.Element => (
-  <>
-    {header}
-    <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
-      {renderTestsOverview({ testOverviewData, testsCountDiff })}
-      {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
-        typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
-        typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
-          <TestsSelectionBreakdown
-            sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
-            newTests={testOverviewData.selected_tests.new_tests}
-            updatedTests={testOverviewData.selected_tests.updated_tests}
-          />
-        )}
-    </Layout.Horizontal>
-  </>
-)
+}): JSX.Element {
+  return (
+    <>
+      {header}
+      <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
+        {renderTestsOverview({ testOverviewData, testsCountDiff })}
+        {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
+          typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
+          typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
+            <TestsSelectionBreakdown
+              sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
+              newTests={testOverviewData.selected_tests.new_tests}
+              updatedTests={testOverviewData.selected_tests.updated_tests}
+            />
+          )}
+      </Layout.Horizontal>
+    </>
+  )
+}
 
-export const Reports = ({
+export function Reports({
   header,
   reportSummaryData,
   stageId,
@@ -172,7 +178,7 @@ export const Reports = ({
   stepId?: string
   serviceToken?: string | null
   testsCountDiff?: number
-}): JSX.Element => {
+}): JSX.Element {
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
 
   return (
@@ -215,7 +221,7 @@ export const Reports = ({
     </>
   )
 }
-const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverviewMock }) => {
+function BuildTests({ reportSummaryMock, testOverviewMock }: BuildTestsProps): React.ReactElement | null {
   const context = useExecutionContext()
   const { getString } = useStrings()
 

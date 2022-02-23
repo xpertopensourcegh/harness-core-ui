@@ -42,13 +42,13 @@ import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './HarnessApproval.module.scss'
 
-const FormContent = ({
+function FormContent({
   formik,
   isNewStep,
   readonly,
   allowableTypes,
   stepViewType
-}: HarnessApprovalFormContentProps) => {
+}: HarnessApprovalFormContentProps): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 

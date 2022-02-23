@@ -46,7 +46,7 @@ interface ArtifactConnectorProps {
   allowableTypes: MultiTypeInputType[]
 }
 
-export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
+export function ArtifactConnector(props: StepProps<ConnectorConfigDTO> & ArtifactConnectorProps): React.ReactElement {
   const {
     previousStep,
     prevStepData,

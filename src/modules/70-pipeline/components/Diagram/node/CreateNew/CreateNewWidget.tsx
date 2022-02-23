@@ -32,7 +32,7 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
   node.fireEvent({}, Event.ClickNode)
 }
 
-export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Element => {
+export function CreateNewWidget(props: CreateNewWidgetProps): React.ReactElement {
   const options: CreateNewModelOptions = props.node.getOptions()
   const { disabled = false } = options
   const [dropable, setDropable] = React.useState(false)

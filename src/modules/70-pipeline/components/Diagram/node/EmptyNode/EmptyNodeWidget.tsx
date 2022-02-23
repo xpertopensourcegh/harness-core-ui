@@ -17,7 +17,7 @@ export interface EmptyNodeWidgetProps {
   engine: DiagramEngine
 }
 
-export const EmptyNodeWidget: React.FC<EmptyNodeWidgetProps> = (props): JSX.Element => {
+export function EmptyNodeWidget(props: EmptyNodeWidgetProps): React.ReactElement {
   const options = props.node.getOptions()
   const generatePort = (port: DefaultPortModel): JSX.Element => {
     return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />

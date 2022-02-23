@@ -33,14 +33,14 @@ interface TestsOverviewProps {
 
 const now = Date.now()
 
-export const TestsOverview: React.FC<TestsOverviewProps> = ({
+export function TestsOverview({
   totalTests,
   skippedTests,
   failedTests,
   timeSavedMS,
   durationMS,
   testsCountDiff
-}) => {
+}: TestsOverviewProps): React.ReactElement {
   const { getString } = useStrings()
 
   const selectedTests = totalTests - skippedTests

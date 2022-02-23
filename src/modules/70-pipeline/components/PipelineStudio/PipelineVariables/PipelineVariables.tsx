@@ -20,7 +20,7 @@ import StageCard from './Cards/StageCard'
 import VariableAccordionSummary from './VariableAccordionSummary'
 import css from './PipelineVariables.module.scss'
 
-export const PipelineVariables: React.FC = (): JSX.Element => {
+export function PipelineVariables(): React.ReactElement {
   const { updatePipeline, stepsFactory, isReadonly, allowableTypes, updateStage } = usePipelineContext()
   const {
     originalPipeline,

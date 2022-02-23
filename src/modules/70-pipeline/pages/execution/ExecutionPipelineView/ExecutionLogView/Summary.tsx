@@ -12,7 +12,7 @@ interface SummaryProps {
   summaryElement?: ReactElement
 }
 
-const Summary = (props: SummaryProps) => {
+function Summary(props: SummaryProps) {
   const { summaryElement } = props
 
   if (summaryElement) {

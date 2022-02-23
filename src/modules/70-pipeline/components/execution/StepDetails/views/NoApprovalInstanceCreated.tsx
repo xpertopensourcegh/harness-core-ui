@@ -9,7 +9,7 @@ import React from 'react'
 import { Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
-export const NoApprovalInstance = () => {
+export function NoApprovalInstance() {
   const { getString } = useStrings()
   return (
     <Layout.Vertical height="100%">

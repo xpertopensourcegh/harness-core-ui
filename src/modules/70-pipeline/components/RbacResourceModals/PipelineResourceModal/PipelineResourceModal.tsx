@@ -24,6 +24,7 @@ interface PipelineDTO extends PMSPipelineSummaryResponse {
   status?: string
 }
 
+// eslint-disable-next-line react/function-component-definition
 export const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const rowdata = row.original
   const { getString } = useStrings()
@@ -53,6 +54,7 @@ export const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) 
   )
 }
 
+// eslint-disable-next-line react/function-component-definition
 export const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const rowdata = row.original
   const { getString } = useStrings()
@@ -68,12 +70,12 @@ export const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => 
   )
 }
 
-const PipelineResourceModal: React.FC<RbacResourceModalProps> = ({
+function PipelineResourceModal({
   searchTerm,
   onSelectChange,
   selectedData,
   resourceScope
-}) => {
+}: RbacResourceModalProps): React.ReactElement {
   const { accountIdentifier, orgIdentifier = '', projectIdentifier = '' } = resourceScope
   const [page, setPage] = useState(0)
   const [pipelineData, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()

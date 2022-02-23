@@ -202,7 +202,7 @@ const renderPathArr = ({
   )
 }
 
-const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizePathPropTypes> = ({
+function KustomizePatchDetails({
   stepName,
   expressions,
   allowableTypes,
@@ -213,7 +213,7 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
   isReadonly = false,
   handleSubmit,
   manifestIdsList
-}) => {
+}: StepProps<ConnectorConfigDTO> & KustomizePathPropTypes): React.ReactElement {
   const { getString } = useStrings()
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =

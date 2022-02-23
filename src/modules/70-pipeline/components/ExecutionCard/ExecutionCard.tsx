@@ -39,7 +39,7 @@ export interface ExecutionCardProps {
   staticCard?: boolean
 }
 
-const ExecutionCardFooter = ({ pipelineExecution, variant }: ExecutionCardProps): React.ReactElement => {
+function ExecutionCardFooter({ pipelineExecution, variant }: ExecutionCardProps): React.ReactElement {
   const fontVariation = variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL
   const variantSize = variant === CardVariant.Minimal ? 10 : 14
   return (

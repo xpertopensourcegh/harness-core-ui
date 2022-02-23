@@ -41,12 +41,20 @@ import type { PipelineSelectionState } from '@pipeline/components/PipelineStudio
 import type { GetPipelineQueryParams } from 'services/pipeline-ng'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 
-export const TemplatePipelineProvider: React.FC<{
+export interface TemplatePipelineProviderProps {
   queryParams: GetPipelineQueryParams
   initialValue: PipelineInfoConfig
   onUpdatePipeline: (pipeline: PipelineInfoConfig) => void
   isReadOnly: boolean
-}> = ({ queryParams, initialValue, onUpdatePipeline, isReadOnly, children }) => {
+}
+
+export function TemplatePipelineProvider({
+  queryParams,
+  initialValue,
+  onUpdatePipeline,
+  isReadOnly,
+  children
+}: React.PropsWithChildren<TemplatePipelineProviderProps>): React.ReactElement {
   const contextType = PipelineContextType.Template
   const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
   const { CI_LICENSE_STATE, FF_LICENSE_STATE, CD_LICENSE_STATE } = useLicenseStore()

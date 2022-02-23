@@ -114,7 +114,7 @@ interface FeatureRestrictionBannersProps {
 }
 
 // Show this banner if limit usage is breached for the feature
-export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps): JSX.Element | null => {
+export function FeatureRestrictionBanners(props: FeatureRestrictionBannersProps): JSX.Element | null {
   const { getString } = useStrings()
   const { module, featureNames = [] } = props
   const banners: DisplayBanner[] = []

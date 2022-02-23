@@ -324,7 +324,7 @@ const closeDrawer = (
   setSelectedStepId(undefined)
 }
 
-export const RightDrawer: React.FC = (): JSX.Element => {
+export function RightDrawer(): React.ReactElement {
   const {
     state: {
       templateTypes,

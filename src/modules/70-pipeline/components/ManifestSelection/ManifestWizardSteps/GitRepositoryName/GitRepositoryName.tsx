@@ -21,14 +21,14 @@ interface GitRepositoryNameProps {
   isReadonly?: boolean
 }
 
-const GitRepositoryName: React.FC<GitRepositoryNameProps> = ({
+function GitRepositoryName({
   accountUrl,
   expressions,
   allowableTypes,
   fieldValue,
   changeFieldValue,
   isReadonly = false
-}) => {
+}: GitRepositoryNameProps): React.ReactElement {
   const { getString } = useStrings()
   return (
     <div className={helmcss.repoNameSection}>

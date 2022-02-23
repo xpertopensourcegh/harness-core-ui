@@ -21,7 +21,7 @@ interface PipelineGridViewProps {
   onDelete: (pipeline: PMSPipelineSummaryResponse) => void
 }
 
-export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
+export function PipelineGridView({
   data,
   gotoPage,
   goToPipelineDetail,
@@ -29,7 +29,7 @@ export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
   refetchPipeline,
   onDeletePipeline,
   onDelete
-}): JSX.Element => {
+}: PipelineGridViewProps): React.ReactElement {
   return (
     <>
       <Container className={css.gridLayout}>

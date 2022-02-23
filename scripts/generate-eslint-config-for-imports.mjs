@@ -22,29 +22,34 @@ const eslintConfig = yaml.parse(fs.readFileSync(eslintConfigPath, 'utf8'))
 const noRestrictedImports = eslintConfig.rules['no-restricted-imports']
 
 for (const { dirName, moduleName } of flattenedLayers) {
+  const modulePath = path.join(modulesPath, dirName)
   const layerIndex = layers.findIndex(layer => layer.find(mod => dirName === mod.dirName))
   const restrictedLayers = layers.slice(layerIndex)
   const restrictedDirs = _.flatten(restrictedLayers).filter(mod => dirName !== mod.dirName)
 
-  const config = {
-    rules: {
-      'no-restricted-imports': [
-        noRestrictedImports[0],
-        {
-          patterns: [
-            ...noRestrictedImports[1].patterns,
-            ...restrictedDirs.map(mod => `modules/${mod.dirName}/*`),
-            ...restrictedDirs.map(mod => `@${mod.moduleName}/*`)
-          ],
-          paths: [...noRestrictedImports[1].paths]
-        }
-      ]
-    }
+  const config = {}
+
+  if (fs.existsSync(path.join(modulePath, 'custom.eslintrc.yml'))) {
+    config.extends = ['./custom.eslintrc.yml']
+  }
+
+  config.rules = {
+    'no-restricted-imports': [
+      noRestrictedImports[0],
+      {
+        patterns: [
+          ...noRestrictedImports[1].patterns,
+          ...restrictedDirs.map(mod => `modules/${mod.dirName}/*`),
+          ...restrictedDirs.map(mod => `@${mod.moduleName}/*`)
+        ],
+        paths: [...noRestrictedImports[1].paths]
+      }
+    ]
   }
 
   let content = yaml.stringify(config)
   content = await runPrettier(content, 'yaml')
 
-  await fs.promises.writeFile(path.join(modulesPath, dirName, '.eslintrc.yml'), content, 'utf8')
+  await fs.promises.writeFile(path.join(modulePath, '.eslintrc.yml'), content, 'utf8')
   console.log(`✅  Generated '.eslintrc.yml' file for "${moduleName}"`)
 }

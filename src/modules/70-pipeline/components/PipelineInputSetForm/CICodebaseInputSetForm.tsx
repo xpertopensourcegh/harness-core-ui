@@ -52,12 +52,12 @@ const placeholderValues = {
   PR: defaultValues['PR']
 }
 
-const CICodebaseInputSetFormInternal = ({
+function CICodebaseInputSetFormInternal({
   path,
   readonly,
   formik,
   originalPipeline
-}: CICodebaseInputSetFormProps): JSX.Element => {
+}: CICodebaseInputSetFormProps): JSX.Element {
   const { triggerIdentifier, accountId, projectIdentifier, orgIdentifier } = useParams<Record<string, string>>()
 
   const [isInputTouched, setIsInputTouched] = useState(false)

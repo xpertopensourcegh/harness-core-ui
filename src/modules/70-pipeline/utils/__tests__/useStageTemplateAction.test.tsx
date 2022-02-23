@@ -20,7 +20,7 @@ jest.mock('@pipeline/utils/useTemplateSelector', () => ({
   })
 }))
 
-const Wrapped = (): React.ReactElement => {
+function Wrapped(): React.ReactElement {
   const { onUseTemplate, onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
   return (
     <>

@@ -26,14 +26,23 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { ManifestDataType } from './Manifesthelper'
 import css from './ManifestWizardSteps/ManifestDetails/ManifestDetails.module.scss'
 
-const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
-const DragnDropPaths: React.FC<{
+export interface DragnDropPathsProps {
   formik: any
   expressions: any
   allowableTypes: MultiTypeInputType[]
   selectedManifest?: string | null
   pathLabel?: string | null
-}> = ({ formik, selectedManifest, expressions, allowableTypes, pathLabel }) => {
+}
+
+const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
+
+function DragnDropPaths({
+  formik,
+  selectedManifest,
+  expressions,
+  allowableTypes,
+  pathLabel
+}: DragnDropPathsProps): React.ReactElement {
   const { getString } = useStrings()
   const onDragStart = useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
     event.dataTransfer.setData('data', index.toString())

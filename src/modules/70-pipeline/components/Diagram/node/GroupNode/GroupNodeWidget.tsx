@@ -30,7 +30,7 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: GroupNodeMo
   node.fireEvent({}, Event.ClickNode)
 }
 
-export const GroupNodeWidget = (props: GroupNodeProps): JSX.Element => {
+export function GroupNodeWidget(props: GroupNodeProps): JSX.Element {
   const options = props.node.getOptions()
   const allowAdd = options.allowAdd ?? false
   const [showAdd, setVisibilityOfAdd] = React.useState(false)

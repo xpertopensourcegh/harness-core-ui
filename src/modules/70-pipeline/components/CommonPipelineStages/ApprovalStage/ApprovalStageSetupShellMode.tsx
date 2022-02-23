@@ -32,7 +32,7 @@ interface ApprovalStageElementConfig extends StageElementConfig {
   approvalType?: string
 }
 
-export const ApprovalStageSetupShellMode: React.FC = () => {
+export function ApprovalStageSetupShellMode(): React.ReactElement {
   const { getString } = useStrings()
   const tabHeadings = [getString('overview'), getString('executionText'), getString('advancedTitle')]
   const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
@@ -59,7 +59,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     }
   }, [selectedStepId])
 
-  const ActionButtons = (): React.ReactElement => {
+  function ActionButtons(): React.ReactElement {
     return (
       <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
         <Button

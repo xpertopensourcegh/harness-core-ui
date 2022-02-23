@@ -17,7 +17,7 @@ import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
 
-export const ApprovalStageExecution: React.FC = () => {
+export function ApprovalStageExecution(): React.ReactElement {
   const {
     state: {
       originalPipeline,

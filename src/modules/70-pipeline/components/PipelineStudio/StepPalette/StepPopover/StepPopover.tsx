@@ -33,7 +33,7 @@ interface StepTooltipContentInterface {
   description?: keyof StringsMap
 }
 
-const TooltipContent = ({ description, stepsFactory, stepData }: StepTooltipContentInterface) => {
+function TooltipContent({ description, stepsFactory, stepData }: StepTooltipContentInterface) {
   // Component renders the tooltip over steps in the palette.
   // If the step is disabled, show the enforcement tooltip
   const { getString } = useStrings()

@@ -14,7 +14,7 @@ import type { JiraFieldSelectorProps } from './types'
 import { updateMap } from './helper'
 import css from './JiraFieldSelector.module.scss'
 
-export const JiraFieldSelector = (props: JiraFieldSelectorProps) => {
+export function JiraFieldSelector(props: JiraFieldSelectorProps) {
   const { getString } = useStrings()
   const [selectedFields, setSelectedFields] = useState<JiraFieldNG[]>(props.selectedFields)
   const [selectedFieldsMap, setSelectedFieldsMap] = useState<Record<string, boolean>>(updateMap(selectedFields))

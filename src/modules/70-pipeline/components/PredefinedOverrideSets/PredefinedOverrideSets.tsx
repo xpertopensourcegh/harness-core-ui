@@ -16,10 +16,12 @@ import type { InputSetSelectorProps } from '@cd/components/OverrideSetsInputSele
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { StageOverridesConfig } from 'services/cd-ng'
 
-export const PredefinedOverrideSets: React.FC<{
+export interface PredefinedOverrideSetsProps {
   currentStage: StageElementWrapper<DeploymentStageElementConfig> | undefined
   context: string
-}> = ({ currentStage, context }): JSX.Element => {
+}
+
+export function PredefinedOverrideSets({ currentStage, context }: PredefinedOverrideSetsProps): React.ReactElement {
   const {
     state: { pipeline },
     updatePipeline

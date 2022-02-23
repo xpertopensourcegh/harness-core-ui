@@ -19,7 +19,7 @@ interface LogsHeaderProps {
   showCross?: boolean
   redirectToLogView?: any
 }
-const LogsHeader = (props: LogsHeaderProps) => {
+function LogsHeader(props: LogsHeaderProps) {
   const { subHeader = '', /* searchDir */ header = 'Logs', showCross = false, redirectToLogView } = props
   const { getString } = useStrings()
   /*const onSearch = (text: string) => {

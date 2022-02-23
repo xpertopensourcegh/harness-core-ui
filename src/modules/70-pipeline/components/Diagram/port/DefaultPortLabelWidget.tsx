@@ -18,7 +18,7 @@ export interface DefaultPortLabelProps {
   className?: string
 }
 
-export const DefaultPortLabel = (props: DefaultPortLabelProps): JSX.Element => {
+export function DefaultPortLabel(props: DefaultPortLabelProps): JSX.Element {
   const { port, engine, className = '' } = props
   return (
     <div

@@ -89,7 +89,7 @@ interface PipelineEventsFormData {
 
 type PipelineEventsProps = StepProps<NotificationRules> & { stagesOptions?: MultiSelectOption[] }
 
-const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData, stagesOptions }) => {
+function PipelineEvents({ nextStep, prevStepData, stagesOptions }: PipelineEventsProps): React.ReactElement {
   const { getString } = useStrings()
   const initialValues: PipelineEventsFormData = { types: {} }
   const types: Required<PipelineEventsFormData>['types'] = {}

@@ -16,7 +16,7 @@ interface TestsCoverageItemProps {
   data: any
 }
 
-export const TestsCoverageItem: React.FC<TestsCoverageItemProps> = ({ data }) => {
+export function TestsCoverageItem({ data }: TestsCoverageItemProps): React.ReactElement {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
 

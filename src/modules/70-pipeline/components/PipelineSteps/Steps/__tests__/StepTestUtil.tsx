@@ -19,7 +19,7 @@ class StepTestFactory extends AbstractStepFactory {
 
 export const factory = new StepTestFactory()
 
-const FormikTestWrapper: React.FC<StepWidgetProps> = props => {
+function FormikTestWrapper(props: StepWidgetProps): React.ReactElement {
   const { getString } = useStrings()
   const stepRef = React.useRef(null)
   return (

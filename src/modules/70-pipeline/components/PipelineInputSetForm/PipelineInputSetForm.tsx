@@ -174,7 +174,7 @@ export function StageForm({
   )
 }
 
-const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props => {
+function PipelineInputSetFormInternal(props: PipelineInputSetFormProps): React.ReactElement {
   const { originalPipeline, template, path = '', readonly, viewType, maybeContainerClass = '' } = props
   const { getString } = useStrings()
   const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -303,7 +303,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
     </Layout.Vertical>
   )
 }
-export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
+export function PipelineInputSetForm(props: PipelineInputSetFormProps): React.ReactElement {
   const [template, setTemplate] = React.useState(props.template)
   const accountPathProps = useParams<AccountPathProps>()
   useDeepCompareEffect(() => {

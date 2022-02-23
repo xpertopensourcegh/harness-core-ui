@@ -126,7 +126,7 @@ const renderDeploymentListHeader = ({
   return null
 }
 
-const NoDeployments = (props: {
+function NoDeployments(props: {
   hasFilters: boolean
   isCIModule: boolean
   getString: UseStringsReturn['getString']
@@ -137,7 +137,7 @@ const NoDeployments = (props: {
   pipelineIdentifier: string
   queryParams: QueryParams
   onRunPipeline: () => void
-}): JSX.Element => {
+}): JSX.Element {
   const {
     hasFilters,
     isCIModule,

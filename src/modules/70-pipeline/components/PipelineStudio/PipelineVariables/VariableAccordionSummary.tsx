@@ -9,7 +9,7 @@ import React from 'react'
 import { FontVariation, Icon, Text } from '@wings-software/uicore'
 import css from './PipelineVariables.module.scss'
 
-const VariableAccordionSummary = (props: { children: React.ReactNode; hideIcons?: boolean }) => {
+function VariableAccordionSummary(props: { children: React.ReactNode; hideIcons?: boolean }) {
   return (
     <div className={css.accordionSummary}>
       {!props.hideIcons && (

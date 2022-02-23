@@ -55,7 +55,9 @@ jest.mock('services/pipeline-ng', () => ({
   useCreateVariables: jest.fn()
 }))
 
-export const PipelineContextTestWrapper: React.FC<PipelineContextWrapperProps> = props => {
+export function PipelineContextTestWrapper(
+  props: React.PropsWithChildren<PipelineContextWrapperProps>
+): React.ReactElement {
   const { defaultAppStoreValues, pipelineContextValues } = props
   return (
     <GitSyncTestWrapper

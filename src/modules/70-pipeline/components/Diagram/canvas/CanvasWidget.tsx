@@ -17,7 +17,7 @@ interface CanvasWidgetProps extends DiagramProps {
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
 }
 
-export const CanvasWidget: React.FC<CanvasWidgetProps> = props => {
+export function CanvasWidget(props: CanvasWidgetProps): React.ReactElement {
   const { className = '', isRollback = false, rollBackProps = {}, ...rest } = props
   return (
     <>

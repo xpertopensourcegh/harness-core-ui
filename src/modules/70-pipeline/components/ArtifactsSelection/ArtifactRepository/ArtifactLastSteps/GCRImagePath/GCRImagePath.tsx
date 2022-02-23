@@ -50,7 +50,7 @@ import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
 export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(item => ({ label: item, value: item }))
-export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+export function GCRImagePath({
   context,
   expressions,
   allowableTypes,
@@ -61,7 +61,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   artifactIdentifiers,
   isReadonly = false,
   selectedArtifact
-}) => {
+}: StepProps<ConnectorConfigDTO> & ImagePathProps): React.ReactElement {
   const { getString } = useStrings()
 
   const schemaObject = {

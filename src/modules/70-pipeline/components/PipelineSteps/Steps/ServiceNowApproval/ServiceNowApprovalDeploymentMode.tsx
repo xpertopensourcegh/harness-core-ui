@@ -28,7 +28,7 @@ import css from './ServiceNowApproval.module.scss'
 
 const fetchingTicketTypesPlaceholder: StringKeys = 'pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'
 
-const FormContent = (formContentProps: SnowApprovalDeploymentModeProps): JSX.Element => {
+function FormContent(formContentProps: SnowApprovalDeploymentModeProps): JSX.Element {
   const { inputSetData, initialValues, allowableTypes } = formContentProps
   const template = inputSetData?.template
   const path = inputSetData?.path

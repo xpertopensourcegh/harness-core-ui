@@ -187,7 +187,7 @@ export const renderPopover = ({
   })
 }
 
-const StageBuilder: React.FC<unknown> = (): JSX.Element => {
+function StageBuilder(): React.ReactElement {
   const {
     state: {
       pipeline,

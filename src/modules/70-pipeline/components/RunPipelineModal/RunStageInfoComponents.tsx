@@ -33,13 +33,13 @@ interface StageSelectionData {
   allStagesSelected: boolean
   selectedStageItems: SelectOption[]
 }
-const ApprovalStageInfo = ({
+function ApprovalStageInfo({
   pipeline,
   selectedStageData
 }: {
   pipeline?: PipelineInfoConfig
   selectedStageData: StageSelectionData
-}): React.ReactElement | null => {
+}): React.ReactElement | null {
   let oneOrMoreApprovalStages = false
   const allStages = getFlattenedStages(pipeline as PipelineInfoConfig)
   let approvalStageIndex = -1
@@ -61,7 +61,7 @@ const ApprovalStageInfo = ({
     />
   ) : null
 }
-const RequiredStagesInfo = ({
+function RequiredStagesInfo({
   selectedStageData,
   blockedStagesSelected,
   getString
@@ -69,7 +69,7 @@ const RequiredStagesInfo = ({
   selectedStageData: StageSelectionData
   blockedStagesSelected: boolean
   getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
-}): React.ReactElement | null => {
+}): React.ReactElement | null {
   const stagesSelectedMap: { [key: string]: SelectedStageData } = keyBy(
     selectedStageData.selectedStages,
     'stageIdentifier'
@@ -102,13 +102,13 @@ const RequiredStagesInfo = ({
     />
   ) : null
 }
-const ExpressionsInfo = ({
+function ExpressionsInfo({
   template,
   getString
 }: {
   template: ResponseInputSetTemplateWithReplacedExpressionsResponse | null
   getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
-}): React.ReactElement | null => {
+}): React.ReactElement | null {
   return (template?.data as any)?.replacedExpressions?.length > 0 ? (
     <InfoStrip
       intent={Intent.PRIMARY}

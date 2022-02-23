@@ -16,7 +16,7 @@ export interface GitPopoverInfoProps {
   contentTextProps?: Record<string, any>
 }
 
-const GitPopoverInfo = (props: GitPopoverInfoProps): React.ReactElement | null => {
+function GitPopoverInfo(props: GitPopoverInfoProps): React.ReactElement | null {
   const { heading, iconName, content, contentTextProps } = props
   return content && content.length ? (
     <Layout.Vertical spacing="large">

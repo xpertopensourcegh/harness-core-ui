@@ -42,7 +42,7 @@ interface ManifestWizardStepsProps {
   isReadonly: boolean
 }
 
-export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
+export function ManifestWizard({
   handleConnectorViewChange,
   handleStoreChange,
   initialValues,
@@ -58,7 +58,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   changeManifestType,
   iconsProps,
   isReadonly
-}) => {
+}: ManifestWizardStepsProps): React.ReactElement {
   const { getString } = useStrings()
   const onStepChange = (arg: StepChangeData<any>): void => {
     if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep && arg.nextStep <= 2) {

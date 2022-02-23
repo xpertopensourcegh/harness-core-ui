@@ -38,7 +38,7 @@ interface RetryHistoryProps {
   canRetry: boolean
 }
 
-const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryProps): React.ReactElement => {
+function RetryHistory({ canExecute, showRetryHistory, canRetry }: RetryHistoryProps): React.ReactElement {
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, executionIdentifier, module } =
     useParams<PipelineType<ExecutionPathProps>>()
@@ -135,7 +135,7 @@ const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryPr
     )
   }
 
-  const RetryExecutionList = (): JSX.Element => {
+  function RetryExecutionList(): JSX.Element {
     return (
       <div className={css.modalContent}>
         <Layout.Vertical>

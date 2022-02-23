@@ -18,7 +18,7 @@ interface BuildZeroStateProps {
 const ciHowTos = 'https://ngdocs.harness.io/category/zkhvfo7uc6-ci-how-tos'
 const harnessDocs = 'https://docs.harness.io'
 
-export const BuildZeroState: React.FC<BuildZeroStateProps> = props => {
+export function BuildZeroState(props: BuildZeroStateProps): React.ReactElement {
   const { getString } = useStrings()
   const { isLoading = false } = props
   return (

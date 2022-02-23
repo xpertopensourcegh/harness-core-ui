@@ -28,7 +28,7 @@ import { helperTextData, resetTag } from '../../../ArtifactUtils'
 import type { ArtifactImagePathTagViewProps } from '../../../ArtifactInterface'
 import css from '../../ArtifactConnector.module.scss'
 
-const NoTagResults = ({ tagError }: { tagError: GetDataError<Failure | Error> | null }): JSX.Element => {
+function NoTagResults({ tagError }: { tagError: GetDataError<Failure | Error> | null }): JSX.Element {
   const { getString } = useStrings()
 
   return (
@@ -39,7 +39,7 @@ const NoTagResults = ({ tagError }: { tagError: GetDataError<Failure | Error> | 
     </span>
   )
 }
-const ArtifactImagePathTagView = ({
+function ArtifactImagePathTagView({
   selectedArtifact,
   formik,
   buildDetailsLoading,
@@ -52,7 +52,7 @@ const ArtifactImagePathTagView = ({
   fetchTags,
   tagError,
   tagDisabled
-}: ArtifactImagePathTagViewProps): React.ReactElement => {
+}: ArtifactImagePathTagViewProps): React.ReactElement {
   const { getString } = useStrings()
 
   const getSelectItems = useCallback(() => {

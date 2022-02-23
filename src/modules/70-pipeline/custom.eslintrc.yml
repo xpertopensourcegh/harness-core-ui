@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://json.schemastore.org/eslintrc.json
+rules:
+  react/function-component-definition:
+    - error
+    - namedComponents: function-declaration
+      unnamedComponents: arrow-function
+overrides:
+  - files:
+      - '*.stories.tsx'
+    rules:
+      react/function-component-definition:
+        - off

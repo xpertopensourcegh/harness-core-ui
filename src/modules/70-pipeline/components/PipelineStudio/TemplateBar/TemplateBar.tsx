@@ -39,7 +39,7 @@ export interface TemplateBarProps {
   className?: string
 }
 
-export const TemplateBar = (props: TemplateBarProps): JSX.Element => {
+export function TemplateBar(props: TemplateBarProps): JSX.Element {
   const { templateLinkConfig, onOpenTemplateSelector, onRemoveTemplate, className = '' } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { getString } = useStrings()

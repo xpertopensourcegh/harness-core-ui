@@ -84,10 +84,13 @@ jest.mock('resize-observer-polyfill', () => {
 
 const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
-const PipelineCanvasTestWrapper: React.FC<{ modifiedPipelineContextMock: any; pipelineIdentifier: string }> = ({
+function PipelineCanvasTestWrapper({
   modifiedPipelineContextMock,
   pipelineIdentifier
-}) => {
+}: {
+  modifiedPipelineContextMock: any
+  pipelineIdentifier: string
+}): React.ReactElement {
   return (
     <PipelineContext.Provider value={modifiedPipelineContextMock}>
       <GitSyncTestWrapper

@@ -58,7 +58,7 @@ interface HelmWithHttpPropType {
   deploymentType?: string
 }
 
-const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType> = ({
+function HelmWithS3({
   stepName,
   prevStepData,
   expressions,
@@ -69,7 +69,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
   manifestIdsList,
   isReadonly = false,
   deploymentType
-}) => {
+}: StepProps<ConnectorConfigDTO> & HelmWithHttpPropType): React.ReactElement {
   const { getString } = useStrings()
   const [regions, setRegions] = useState<SelectOption[]>([])
 

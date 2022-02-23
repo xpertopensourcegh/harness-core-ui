@@ -70,7 +70,7 @@ interface BarrierListProps {
   getString: UseStringsReturn['getString']
   loadingSetupInfo: boolean
 }
-export const FlowControl: React.FC = (): JSX.Element => {
+export function FlowControl(): React.ReactElement {
   const {
     state: { pipeline, originalPipeline },
     updatePipeline
@@ -179,7 +179,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
   )
 }
 
-const BarrierList: React.FC<BarrierListProps> = ({
+function BarrierList({
   list,
   createItem,
   deleteItem,
@@ -188,7 +188,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
   getString,
   loadingSetupInfo,
   pipeline
-}): JSX.Element => {
+}: BarrierListProps): React.ReactElement {
   return (
     <Formik
       initialValues={{ barriers: list }}

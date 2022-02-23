@@ -105,7 +105,7 @@ export interface CDPipelinesPageProps {
   mockData?: UseGetMockData<ResponsePagePMSPipelineSummaryResponse>
 }
 
-const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
+function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
   const { getString } = useStrings()
   const sortOptions: SelectOption[] = [
     {

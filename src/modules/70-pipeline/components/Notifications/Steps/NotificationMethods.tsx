@@ -21,12 +21,12 @@ type NotificationMethodsProps = StepProps<NotificationRules> & {
   typeOptions?: SelectOption[]
 }
 
-const NotificationMethods: React.FC<NotificationMethodsProps> = ({
+function NotificationMethods({
   prevStepData,
   nextStep,
   previousStep,
   typeOptions
-}) => {
+}: NotificationMethodsProps): React.ReactElement {
   const { getString } = useStrings()
   const [method, setMethod] = useState<SelectOption | undefined>(
     prevStepData?.notificationMethod?.type

@@ -18,7 +18,7 @@ interface TrialModalTemplateProps {
   children: React.ReactElement
 }
 
-export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({ imgSrc, hideTrialBadge, children }) => {
+export function TrialModalTemplate({ imgSrc, hideTrialBadge, children }: TrialModalTemplateProps): React.ReactElement {
   const { getString } = useStrings()
   const { modal } = useQueryParams<{ modal?: ModuleLicenseType }>()
   const showTrialBadge = !hideTrialBadge && modal === ModuleLicenseType.TRIAL

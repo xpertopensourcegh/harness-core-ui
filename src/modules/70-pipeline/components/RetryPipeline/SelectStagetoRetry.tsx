@@ -23,7 +23,7 @@ interface SelectStagetoRetryProps {
   handleStageType: (e: FormEvent<HTMLInputElement>) => void
 }
 
-const SelectStagetoRetry = ({
+function SelectStagetoRetry({
   stageResponse,
   selectedStage,
   isParallelStage,
@@ -31,7 +31,7 @@ const SelectStagetoRetry = ({
   isLastIndex,
   handleStageChange,
   handleStageType
-}: SelectStagetoRetryProps): React.ReactElement | null => {
+}: SelectStagetoRetryProps): React.ReactElement | null {
   const { getString } = useStrings()
   const [stageList, setStageList] = useState<SelectOption[]>([])
 

@@ -38,14 +38,14 @@ interface DeleteConfirmDialogContentProps {
   forceComments?: boolean
 }
 
-export const DeleteConfirmDialogContent: React.FC<DeleteConfirmDialogContentProps> = ({
+export function DeleteConfirmDialogContent({
   gitDetails = {},
   entityName = '',
   commitMsg,
   onCommitMsgChange,
   entityType = '',
   forceComments = false
-}): JSX.Element => {
+}: DeleteConfirmDialogContentProps): React.ReactElement {
   const { getString } = useStrings()
   return (
     <div className={'pipelineDeleteDialog'}>

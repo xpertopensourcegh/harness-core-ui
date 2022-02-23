@@ -20,13 +20,13 @@ export interface RollbackToggleSwitchProps {
   onChange?: (type: StepsType) => void
 }
 
-export const RollbackToggleSwitch: React.FC<RollbackToggleSwitchProps> = ({
+export function RollbackToggleSwitch({
   style = {},
   disabled = false,
   large = true,
   active = StepsType.Normal,
   onChange
-}): JSX.Element => {
+}: RollbackToggleSwitchProps): React.ReactElement {
   const { getString } = useStrings()
   return (
     <div style={style} className={cx(css.rollbackToggle, { [css.rollbackToggleSmall]: !large })}>

@@ -33,7 +33,7 @@ import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImageP
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
-export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+export function DockerRegistryArtifact({
   context,
   handleSubmit,
   expressions,
@@ -44,7 +44,7 @@ export const DockerRegistryArtifact: React.FC<StepProps<ConnectorConfigDTO> & Im
   artifactIdentifiers,
   isReadonly = false,
   selectedArtifact
-}) => {
+}: StepProps<ConnectorConfigDTO> & ImagePathProps): React.ReactElement {
   const { getString } = useStrings()
   const [lastImagePath, setLastImagePath] = useState('')
   const [tagList, setTagList] = useState<DockerBuildDetailsDTO[] | undefined>([])

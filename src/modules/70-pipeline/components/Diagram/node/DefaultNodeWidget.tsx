@@ -68,7 +68,7 @@ const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
   node.fireEvent({ target: e.target }, Event.MouseLeaveNode)
 }
 
-export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
+export function DefaultNodeWidget(props: DefaultNodeProps): JSX.Element {
   const { getString } = useStrings()
   const options = props.node.getOptions()
   const nodeRef = React.useRef<HTMLDivElement>(null)

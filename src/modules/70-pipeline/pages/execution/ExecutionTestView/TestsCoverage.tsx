@@ -50,7 +50,7 @@ const mockItems = [
   }
 ]
 
-export const TestsCoverage: React.FC = () => {
+export function TestsCoverage(): React.ReactElement {
   const { getString } = useStrings()
 
   const [showOnlyUncoveredMethods, setShowOnlyUncoveredMethods] = useState(false)

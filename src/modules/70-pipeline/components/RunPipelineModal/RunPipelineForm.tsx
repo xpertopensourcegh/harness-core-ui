@@ -1240,7 +1240,7 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
   )
 }
 
-export const RunPipelineForm: React.FC<RunPipelineFormProps & InputSetGitQueryParams> = props => {
+export function RunPipelineForm(props: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   return (
     <NestedAccordionProvider>
       <RunPipelineFormBasic {...props} />

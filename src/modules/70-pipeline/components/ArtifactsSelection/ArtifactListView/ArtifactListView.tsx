@@ -32,7 +32,7 @@ export enum ModalViewFor {
   SIDECAR = 2
 }
 
-const ArtifactListView: React.FC<ArtifactListViewProps> = ({
+function ArtifactListView({
   accountId,
   fetchedConnectorResponse,
   primaryArtifact,
@@ -43,7 +43,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
   removePrimary,
   removeSidecar,
   addNewArtifact
-}) => {
+}: ArtifactListViewProps): React.ReactElement {
   const { getString } = useStrings()
   const { color: primaryConnectorColor } = getStatus(
     primaryArtifact?.spec?.connectorRef,

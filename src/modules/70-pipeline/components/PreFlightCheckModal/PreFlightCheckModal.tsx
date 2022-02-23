@@ -59,7 +59,7 @@ const getStatusMessage = (status?: string): string => {
   return 'unknown'
 }
 
-const RowStatus: React.FC<{ status: ConnectorCheckResponse['status'] }> = ({ status }) => {
+function RowStatus({ status }: { status: ConnectorCheckResponse['status'] }): React.ReactElement {
   return (
     <Text inline icon="dot" iconProps={{ color: getIconProps(status).color }} className={css.status}>
       {getStatusMessage(status)}
@@ -73,7 +73,11 @@ interface SectionLabelsProps {
   preFlightCheckData?: PreFlightDTO
 }
 
-const SectionLabels: React.FC<SectionLabelsProps> = ({ selectedSection, setSelectedSection, preFlightCheckData }) => {
+function SectionLabels({
+  selectedSection,
+  setSelectedSection,
+  preFlightCheckData
+}: SectionLabelsProps): React.ReactElement {
   const { getString } = useStrings()
 
   const inputSetStatus = preFlightCheckData?.pipelineInputWrapperResponse?.status
@@ -115,7 +119,7 @@ interface ErrorPanelProps {
   errorInfo?: PreFlightEntityErrorInfo
 }
 
-const ErrorPanel: React.FC<ErrorPanelProps> = ({ errorInfo }) => {
+function ErrorPanel({ errorInfo }: ErrorPanelProps): React.ReactElement {
   const { getString } = useStrings()
 
   return (
@@ -154,7 +158,7 @@ interface ConnectorsSectionProps {
   preFlightCheckData?: PreFlightDTO
 }
 
-const ConnectorsSection: React.FC<ConnectorsSectionProps & GitQueryParams> = ({
+function ConnectorsSection({
   accountId,
   orgIdentifier,
   projectIdentifier,
@@ -163,7 +167,7 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps & GitQueryParams> = ({
   preFlightCheckData,
   branch,
   repoIdentifier
-}) => {
+}: ConnectorsSectionProps & GitQueryParams): React.ReactElement {
   const { getString } = useStrings()
 
   const data = preFlightCheckData?.connectorWrapperResponse?.checkResponses
@@ -282,7 +286,7 @@ interface InputSetsSectionProps {
   preFlightCheckData?: PreFlightDTO
 }
 
-const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData }) => {
+function InputSetsSection({ preFlightCheckData }: InputSetsSectionProps): React.ReactElement {
   const { getString } = useStrings()
 
   const data = preFlightCheckData?.pipelineInputWrapperResponse?.pipelineInputResponse
@@ -338,7 +342,7 @@ interface SectionPanelProps {
   preFlightCheckData?: PreFlightDTO
 }
 
-const SectionPanel: React.FC<SectionPanelProps & GitQueryParams> = ({
+function SectionPanel({
   accountId,
   orgIdentifier,
   projectIdentifier,
@@ -348,7 +352,7 @@ const SectionPanel: React.FC<SectionPanelProps & GitQueryParams> = ({
   preFlightCheckData,
   branch,
   repoIdentifier
-}) => {
+}: SectionPanelProps & GitQueryParams): React.ReactElement {
   return (
     <div className={css.sectionPanelWrapper}>
       {selectedSection === Section.CONNECTORS ? (
@@ -377,7 +381,7 @@ interface PreFlightCheckSectionsProps {
   module: Module
   preFlightCheckData?: PreFlightDTO
 }
-const PreFlightCheckSections: React.FC<PreFlightCheckSectionsProps & GitQueryParams> = ({
+function PreFlightCheckSections({
   accountId,
   orgIdentifier,
   projectIdentifier,
@@ -386,7 +390,7 @@ const PreFlightCheckSections: React.FC<PreFlightCheckSectionsProps & GitQueryPar
   preFlightCheckData,
   branch,
   repoIdentifier
-}) => {
+}: PreFlightCheckSectionsProps & GitQueryParams): React.ReactElement {
   const [selectedSection, setSelectedSection] = useState(Section.INPUT_SET)
 
   const AUTO_SELECT_STATUSES = ['FAILURE', 'IN_PROGRESS']
@@ -437,12 +441,12 @@ interface PreFlightCheckFooter {
   onRetryButtonClick: () => void
 }
 
-const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
+function PreFlightCheckFooter({
   preFlightCheckData,
   onContinuePipelineClick,
   onCloseButtonClick,
   onRetryButtonClick
-}) => {
+}: PreFlightCheckFooter): React.ReactElement {
   const { getString } = useStrings()
   // If the check is complete
   if (preFlightCheckData?.status === 'SUCCESS' || preFlightCheckData?.status === 'FAILURE') {
@@ -471,7 +475,7 @@ interface HeadLineProps {
   errorCount: number
 }
 
-const HeadLine: React.FC<HeadLineProps> = ({ errorCount }) => {
+function HeadLine({ errorCount }: HeadLineProps): React.ReactElement {
   const { getString } = useStrings()
 
   return (
@@ -497,7 +501,7 @@ export interface PreFlightCheckModalProps {
   onContinuePipelineClick: () => void
 }
 
-export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryParams> = ({
+export function PreFlightCheckModal({
   pipeline,
   module,
   accountId,
@@ -508,7 +512,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryPa
   repoIdentifier,
   onCloseButtonClick,
   onContinuePipelineClick
-}) => {
+}: PreFlightCheckModalProps & GitQueryParams): React.ReactElement {
   const [preFlightCheckId, setPreFlightCheckId] = useState<string | undefined>()
   const [preFlightCheckData, setPreFlightCheckData] = useState<ResponsePreFlightDTO | null>()
 

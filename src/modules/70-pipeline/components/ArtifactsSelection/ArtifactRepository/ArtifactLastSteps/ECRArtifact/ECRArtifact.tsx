@@ -48,7 +48,7 @@ import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImageP
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
 
-export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
+export function ECRArtifact({
   context,
   handleSubmit,
   expressions,
@@ -59,7 +59,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   artifactIdentifiers,
   isReadonly = false,
   selectedArtifact
-}) => {
+}: StepProps<ConnectorConfigDTO> & ImagePathProps): React.ReactElement {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()

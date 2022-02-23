@@ -34,7 +34,7 @@ interface ManifestPropType {
   initialValues: ManifestStepInitData
 }
 
-export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & ManifestPropType> = ({
+export function ManifestRepoTypes({
   selectedManifest,
   manifestTypes,
   changeManifestType,
@@ -42,7 +42,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
   prevStepData,
   nextStep,
   initialValues
-}) => {
+}: StepProps<ConnectorConfigDTO> & ManifestPropType): React.ReactElement {
   const [selectedManifestType, setselectedManifestType] = React.useState(selectedManifest)
 
   const handleOptionSelection = (selected: ManifestTypes): void => {

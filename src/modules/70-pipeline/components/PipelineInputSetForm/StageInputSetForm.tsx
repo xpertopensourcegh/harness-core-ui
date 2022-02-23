@@ -388,7 +388,7 @@ function ExecutionWrapperInputSetForm(props: {
   )
 }
 
-export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
+export function StageInputSetFormInternal({
   deploymentStageTemplate,
   deploymentStage,
   path,
@@ -397,7 +397,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   viewType,
   stageIdentifier,
   allowableTypes
-}) => {
+}: StageInputSetFormProps): React.ReactElement {
   const deploymentStageInputSet = get(formik?.values, path, {})
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()

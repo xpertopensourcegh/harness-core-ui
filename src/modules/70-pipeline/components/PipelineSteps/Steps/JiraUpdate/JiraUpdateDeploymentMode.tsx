@@ -26,7 +26,7 @@ import { getGenuineValue } from '../JiraApproval/helper'
 import type { JiraUpdateDeploymentModeFormContentInterface, JiraUpdateDeploymentModeProps } from './types'
 import css from '../JiraCreate/JiraCreate.module.scss'
 
-const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterface) => {
+function FormContent(formContentProps: JiraUpdateDeploymentModeFormContentInterface) {
   const {
     inputSetData,
     initialValues,

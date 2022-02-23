@@ -23,7 +23,9 @@ import css from './ApprovalAdvancedSpecifications.module.scss'
 export interface AdvancedSpecifications {
   context?: string
 }
-const ApprovalAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ children }): JSX.Element => {
+function ApprovalAdvancedSpecifications({
+  children
+}: React.PropsWithChildren<AdvancedSpecifications>): React.ReactElement {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
 

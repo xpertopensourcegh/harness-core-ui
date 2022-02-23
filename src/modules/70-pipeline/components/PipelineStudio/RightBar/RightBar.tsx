@@ -110,7 +110,7 @@ const codebaseIcons: Record<CodebaseStatuses, IconName> = {
   [CodebaseStatuses.Validating]: 'codebase-validating'
 }
 
-export const RightBar = (): JSX.Element => {
+export function RightBar(): JSX.Element {
   const {
     state: {
       pipeline,

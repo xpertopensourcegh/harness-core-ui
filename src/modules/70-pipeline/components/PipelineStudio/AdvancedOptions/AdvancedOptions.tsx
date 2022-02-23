@@ -49,7 +49,7 @@ const stageExecutionOptions = [
   }
 ]
 
-export const AdvancedOptions: React.FC<AdvancedOptionsProps> = ({ onApplyChanges, onDiscard, pipeline }) => {
+export function AdvancedOptions({ onApplyChanges, onDiscard, pipeline }: AdvancedOptionsProps): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 

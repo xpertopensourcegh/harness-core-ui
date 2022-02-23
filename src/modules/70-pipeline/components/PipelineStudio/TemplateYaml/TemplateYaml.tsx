@@ -18,7 +18,7 @@ export interface TemplateYamlProps {
   withoutHeader?: boolean
 }
 
-export const TemplateYaml: React.FC<TemplateYamlProps> = ({ templateYaml, withoutHeader = false }) => {
+export function TemplateYaml({ templateYaml, withoutHeader = false }: TemplateYamlProps): React.ReactElement {
   const [height, setHeight] = React.useState<number>()
 
   React.useEffect(() => {

@@ -767,14 +767,24 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   getStagePathFromPipeline: () => ''
 })
 
-export const PipelineProvider: React.FC<{
+export interface PipelineProviderProps {
   queryParams: GetPipelineQueryParams
   pipelineIdentifier: string
   stepsFactory: AbstractStepFactory
   stagesMap: StagesMap
   runPipeline: (identifier: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
-}> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
+}
+
+export function PipelineProvider({
+  queryParams,
+  pipelineIdentifier,
+  children,
+  renderPipelineStage,
+  stepsFactory,
+  stagesMap,
+  runPipeline
+}: React.PropsWithChildren<PipelineProviderProps>): React.ReactElement {
   const contextType = PipelineContextType.Pipeline
   const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()

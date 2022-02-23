@@ -50,7 +50,7 @@ const generatePoint = (point: PointModel, props: DefaultLinkProps): JSX.Element 
   )
 }
 
-export const DefaultLinkWidget: React.FC<DefaultLinkProps> = props => {
+export function DefaultLinkWidget(props: DefaultLinkProps): React.ReactElement | null {
   const [state, setState] = React.useState<DefaultLinkState>({ selected: false })
   const refPaths: React.RefObject<SVGPathElement>[] = []
 

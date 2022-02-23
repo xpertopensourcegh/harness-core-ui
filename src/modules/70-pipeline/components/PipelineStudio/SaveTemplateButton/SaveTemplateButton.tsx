@@ -37,7 +37,7 @@ interface SaveTemplateButtonProps {
   buttonProps?: ButtonProps
 }
 
-export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButtonProps): JSX.Element => {
+export function SaveTemplateButton({ data, buttonProps, type }: SaveTemplateButtonProps): JSX.Element {
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()

@@ -53,7 +53,7 @@ const onMouseLeaveNode = (e: MouseEvent, layer: StepGroupNodeLayerModel): void =
   layer.fireEvent({ target: e.target }, Event.MouseLeaveNode)
 }
 
-export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): JSX.Element => {
+export function StepGroupNodeLayerWidget(props: StepGroupNodeLayerWidgetProps): JSX.Element {
   const options = props.layer.getOptions()
   const allowAdd = options.allowAdd
   const childrenDistance = options.childrenDistance || 140

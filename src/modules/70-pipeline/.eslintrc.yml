@@ -1,3 +1,5 @@
+extends:
+  - ./custom.eslintrc.yml
 rules:
   no-restricted-imports:
     - error
