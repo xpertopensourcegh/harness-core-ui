@@ -229,9 +229,10 @@ export function transformLabelToPrometheusFilter(options?: MultiSelectOption[]):
     return filters
   }
 
-  for (const option of options) {
-    filters.push({ labelName: option.label, labelValue: option.value as string })
-  }
+  options.forEach(option => {
+    const labelValue = option.label.split(':')
+    filters.push({ labelName: labelValue[0], labelValue: labelValue[1] || labelValue[0] })
+  })
 
   return filters
 }
@@ -244,7 +245,7 @@ function generateMultiSelectOptionListFromPrometheusFilter(filters?: PrometheusF
   const options: MultiSelectOption[] = []
   for (const filter of filters) {
     if (filter?.labelName && filter.labelValue) {
-      options.push({ label: `${filter.labelName}:${filter.labelValue}`, value: filter.labelValue })
+      options.push({ label: `${filter.labelName}:${filter.labelValue}`, value: filter.labelName })
     }
   }
 

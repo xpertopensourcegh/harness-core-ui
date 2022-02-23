@@ -190,7 +190,7 @@ describe('Unit tests for PrometheusHealthSource', () => {
               },
               envFilter: [
                 {
-                  labelName: 'namespace:cv-demo',
+                  labelName: 'namespace',
                   labelValue: 'cv-demo'
                 }
               ],
@@ -200,7 +200,7 @@ describe('Unit tests for PrometheusHealthSource', () => {
               metricName: 'NoLongerManualQuery',
               prometheusMetric: 'container_cpu_load_average_10s',
               query: 'count(container_cpu_load_average_10s{container="cv-demo",namespace="cv-demo"})',
-              serviceFilter: [{ labelName: 'container:cv-demo', labelValue: 'cv-demo' }],
+              serviceFilter: [{ labelName: 'container', labelValue: 'cv-demo' }],
               sli: { enabled: true }
             }
           ]
