@@ -8,6 +8,65 @@
     "content": [
       {
         "connector": {
+          "name": "customconnector",
+          "identifier": "customconnector",
+          "description": null,
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "CustomHealth",
+          "spec": {
+            "baseURL": "https://app.datadoghq.com/api/v1/",
+            "headers": [],
+            "params": [
+              {
+                "key": "application_key",
+                "encryptedValueRef": null,
+                "value": "37d4030504ef3302049868a43d38c7f42da6b028",
+                "valueEncrypted": false
+              },
+              {
+                "key": "api_key",
+                "encryptedValueRef": "account.ddapikeysecret",
+                "value": null,
+                "valueEncrypted": true
+              }
+            ],
+            "method": "GET",
+            "validationBody": "{\"query\":\"*exception*\",\"time\":{\"from\":\"1637095592175\",\"to\":\"1637181955327\"}}",
+            "validationPath": "logs-queries/list?",
+            "delegateSelectors": []
+          }
+        },
+        "createdAt": 1639595462540,
+        "lastModifiedAt": 1642058731415,
+        "status": {
+          "status": "SUCCESS",
+          "errorSummary": null,
+          "errors": null,
+          "testedAt": 1645452869662,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 1645452869662
+        },
+        "activityDetails": {
+          "lastActivityTime": 1642058731736
+        },
+        "harnessManaged": false,
+        "gitDetails": {
+          "objectId": null,
+          "branch": null,
+          "repoIdentifier": null,
+          "rootFolder": null,
+          "filePath": null,
+          "repoName": null
+        },
+        "entityValidityDetails": {
+          "valid": true,
+          "invalidYaml": null
+        }
+      },
+      {
+        "connector": {
           "name": "test1111",
           "identifier": "test1111",
           "description": "",

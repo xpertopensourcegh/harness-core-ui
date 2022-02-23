@@ -72,4 +72,6 @@ export interface InitCustomHealthSourceInterface {
   timestampFormat: string
   queryType: string
   query: string
+  startTime: { timestampFormat: string }
+  endTime: { timestampFormat: string }
 }

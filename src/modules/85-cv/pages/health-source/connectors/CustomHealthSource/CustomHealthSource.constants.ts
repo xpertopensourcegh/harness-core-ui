@@ -48,5 +48,11 @@ export const INITFORMDATA: InitCustomHealthSourceInterface = {
   timestampFormat: '',
   queryType: '',
   query: '',
-  requestMethod: ''
+  requestMethod: '',
+  startTime: {
+    timestampFormat: 'SECONDS'
+  },
+  endTime: {
+    timestampFormat: 'SECONDS'
+  }
 }
