@@ -7,6 +7,7 @@
 
 import type { FormikValues } from 'formik'
 import { get, isEmpty } from 'lodash-es'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
 import { TriggerDefaultFieldList, TriggerTypes } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { GitRepoName } from '@pipeline/components/ManifestSelection/Manifesthelper'
 
@@ -47,4 +48,10 @@ export const shouldDisplayRepositoryName = (item: any): boolean => {
     item?.record?.spec?.type === GitRepoName.Repo ||
     item?.connector?.spec?.type === GitRepoName.Repo
   )
+}
+
+export const getConnectorRef = (initialConnectorRefData: string, formikConnectorRefValue: string): string => {
+  return getMultiTypeFromValue(initialConnectorRefData) !== MultiTypeInputType.RUNTIME
+    ? initialConnectorRefData
+    : formikConnectorRefValue
 }

@@ -35,5 +35,8 @@ export const setupMode = {
 export const isFieldRuntime = (fieldPath: string, template?: ServiceSpec): boolean =>
   getMultiTypeFromValue(get(template, fieldPath)) === MultiTypeInputType.RUNTIME
 
+export const isFieldFixedType = (fieldPath: string, initialValues?: ServiceSpec): boolean =>
+  getMultiTypeFromValue(get(initialValues, fieldPath)) === MultiTypeInputType.FIXED
+
 export const isRuntimeMode = (stepViewType?: string): boolean =>
   stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm
