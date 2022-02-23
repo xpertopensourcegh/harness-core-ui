@@ -13,6 +13,7 @@ import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener, useQueryParams } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
+import { useGetListOfBranchesWithStatus } from 'services/cd-ng'
 import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings, String } from 'framework/strings'
@@ -54,7 +55,35 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     },
     lazy: true
   })
+
+  const { data: branchesWithStatusData, refetch: getDefaultBranchName } = useGetListOfBranchesWithStatus({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      yamlGitConfigIdentifier: repoIdentifier,
+      page: 0,
+      size: 20
+    },
+    lazy: true
+  })
+
   const [pipelineName, setPipelineName] = React.useState('')
+  const [triggerTabDisabled, setTriggerTabDisabled] = React.useState(false)
+
+  React.useEffect(() => {
+    if (repoIdentifier) {
+      getDefaultBranchName()
+    }
+  }, [repoIdentifier])
+
+  React.useEffect(() => {
+    if (branch && branchesWithStatusData?.data?.defaultBranch?.branchName !== branch) {
+      setTriggerTabDisabled(true)
+    } else {
+      setTriggerTabDisabled(false)
+    }
+  }, [branchesWithStatusData])
 
   React.useEffect(() => {
     const routeParams = {
@@ -211,7 +240,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                     repoIdentifier,
                     branch
                   }),
-                  disabled: pipelineIdentifier === DefaultNewPipelineId
+                  disabled: pipelineIdentifier === DefaultNewPipelineId || triggerTabDisabled
                 },
                 {
                   label: getString('executionHeaderText'),

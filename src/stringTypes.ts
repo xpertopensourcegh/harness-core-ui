@@ -3089,6 +3089,7 @@ export interface StringsMap {
   'triggers.toast.toggleEnable': string
   'triggers.toast.webhookCurlCopied': string
   'triggers.toast.webhookUrlCopied': string
+  'triggers.tooltip.defaultGitSyncBranchOnly': string
   'triggers.triggerConfigurationLabel': string
   'triggers.triggerConfigurationPanel.actions': string
   'triggers.triggerConfigurationPanel.anyActions': string

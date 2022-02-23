@@ -13,6 +13,8 @@ import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGetTriggerListForTarget } from 'services/pipeline-ng'
+import { useGetListOfBranchesWithStatus } from 'services/cd-ng'
+import { useQueryParams } from '@common/hooks'
 import { AddDrawer } from '@common/components'
 import { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -41,7 +43,8 @@ interface TriggersListPropsInterface {
 }
 
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
-  const { onNewTriggerClick, repoIdentifier, branch } = props
+  const { onNewTriggerClick } = props
+  const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<{
@@ -89,6 +92,35 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
     },
     [projectIdentifier, orgIdentifier, accountId, pipelineIdentifier]
   )
+
+  const { data: branchesWithStatusData, refetch: getDefaultBranchName } = useGetListOfBranchesWithStatus({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      yamlGitConfigIdentifier: repoIdentifier,
+      page: 0,
+      size: 20
+    },
+    lazy: true
+  })
+
+  // should be disabled when project is git sync enabled & the branch in the URL is not the default branch name
+  const [incompatibleGitSyncBranch, setIncompatibleGitSyncBranch] = React.useState(false)
+
+  React.useEffect(() => {
+    if (repoIdentifier) {
+      getDefaultBranchName()
+    }
+  }, [repoIdentifier])
+
+  React.useEffect(() => {
+    if (branchesWithStatusData?.data?.defaultBranch?.branchName !== branch) {
+      setIncompatibleGitSyncBranch(true)
+    } else {
+      setIncompatibleGitSyncBranch(false)
+    }
+  }, [branchesWithStatusData])
 
   const goToEditWizard = ({ triggerIdentifier, triggerType }: GoToEditWizardInterface): void => {
     history.push(
@@ -183,15 +215,21 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
       />
     )
   })
+  const buttonProps = incompatibleGitSyncBranch
+    ? {
+        tooltip: getString('triggers.tooltip.defaultGitSyncBranchOnly')
+      }
+    : {}
 
   return (
     <>
       <Page.SubHeader>
         <Button
-          disabled={!isEditable}
+          disabled={!isEditable || incompatibleGitSyncBranch}
           text={getString('triggers.newTrigger')}
           variation={ButtonVariation.PRIMARY}
           onClick={openDrawer}
+          {...buttonProps}
         ></Button>
         <TextInput
           leftIcon="thinner-search"
@@ -213,12 +251,12 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
         noData={
           !searchParam
             ? {
-                when: () => Array.isArray(triggerList) && triggerList.length === 0,
+                when: () => (Array.isArray(triggerList) && triggerList.length === 0) || incompatibleGitSyncBranch,
                 icon: 'yaml-builder-trigger',
                 message: getString('triggers.aboutTriggers'),
                 buttonText: getString('triggers.addNewTrigger'),
                 onClick: openDrawer,
-                buttonDisabled: !isEditable
+                buttonDisabled: !isEditable || incompatibleGitSyncBranch
               }
             : {
                 when: () => Array.isArray(triggerList) && triggerList.length === 0,
