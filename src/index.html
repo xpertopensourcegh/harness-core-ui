@@ -35,7 +35,6 @@
       }
     </script>
     <% } %>
-
     <script>
       window.HARNESS_ENABLE_NG_AUTH_UI = 'HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER' === 'true'
       window.HARNESS_ENABLE_FULL_STORY = 'HARNESS_ENABLE_FULL_STORY_PLACEHOLDER' === 'true'
@@ -48,6 +47,7 @@
     </script>
     <% } %>
     <!-- Enabling ng-auth-ui -->
+    <!-- dev only flag -->
     <% if (HARNESS_ENABLE_NG_AUTH_UI) { %>
     <script>
       window.HARNESS_ENABLE_NG_AUTH_UI = true

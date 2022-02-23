@@ -166,13 +166,10 @@ const config = {
   },
   plugins: [
     new ExternalRemotesPlugin(),
-    new ModuleFederationPlugin(
-      moduleFederationConfig({ enableGovernance, enableGitOpsUI, enableSTO })
-    ),
+    new ModuleFederationPlugin(moduleFederationConfig({ enableGovernance, enableGitOpsUI, enableSTO })),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new webpack.DefinePlugin({
-      'process.env': '{}', // required for @blueprintjs/core
-      HARNESS_ENABLE_NG_AUTH_UI
+      'process.env': '{}' // required for @blueprintjs/core
     }),
     new MonacoWebpackPlugin({
       // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options

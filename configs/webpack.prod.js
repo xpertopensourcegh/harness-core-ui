@@ -37,7 +37,8 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: false,
-      __BUGSNAG_RELEASE_VERSION__: JSON.stringify(packageJson.version)
+      __BUGSNAG_RELEASE_VERSION__: JSON.stringify(packageJson.version),
+      HARNESS_ENABLE_NG_AUTH_UI: false
     }),
     new HTMLWebpackPlugin({
       template: 'src/index.html',
