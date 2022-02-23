@@ -132,8 +132,9 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
       )
     case AuthTypes.SERVICE_ACCOUNT:
       return (
-        <Container width={'42%'}>
+        <Container className={css.formFieldWidth}>
           <SecretInput name={'serviceAccountToken'} label={getString('connectors.k8.serviceAccountToken')} />
+          <SecretInput name={'clientKeyCACertificate'} label={getString('connectors.k8.clientKeyCACertificate')} />
         </Container>
       )
     case AuthTypes.OIDC:

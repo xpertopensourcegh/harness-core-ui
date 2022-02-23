@@ -103,7 +103,8 @@ const buildAuthTypePayload = (formData: FormData) => {
       }
     case AuthTypes.SERVICE_ACCOUNT:
       return {
-        serviceAccountTokenRef: formData.serviceAccountToken.referenceString
+        serviceAccountTokenRef: formData.serviceAccountToken.referenceString,
+        caCertRef: formData.clientKeyCACertificate?.referenceString // optional
       }
     case AuthTypes.OIDC:
       return {
