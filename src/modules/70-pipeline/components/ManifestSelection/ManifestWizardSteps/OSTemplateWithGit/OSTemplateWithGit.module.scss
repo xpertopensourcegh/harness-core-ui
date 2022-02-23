@@ -19,6 +19,7 @@
     margin-top: var(--spacing-large);
   }
   .runtimeInput {
+    align-items: center;
     display: grid;
     grid-template-columns: 4fr 1fr;
   }

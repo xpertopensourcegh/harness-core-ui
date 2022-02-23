@@ -259,7 +259,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
                         {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
-                            style={{ alignSelf: 'center', marginBottom: 4 }}
                             value={formik.values?.branch as string}
                             type="String"
                             variableName="branch"
@@ -289,7 +288,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
                         {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
-                            style={{ alignSelf: 'center', marginBottom: 4 }}
                             value={formik.values?.commitId as string}
                             type="String"
                             variableName="commitId"
