@@ -10,5 +10,7 @@ declare const styles: {
   readonly connector: string
   readonly connectorLabel: string
   readonly deploymentViewMedium: string
+  readonly marginTop: string
+  readonly tooltip: string
 }
 export default styles

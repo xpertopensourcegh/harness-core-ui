@@ -19,7 +19,9 @@ declare const styles: {
   readonly headerRow: string
   readonly jiraFieldSelectorSection: string
   readonly label: string
+  readonly marginTop: string
   readonly md: string
   readonly multiSelect: string
+  readonly tooltip: string
 }
 export default styles

@@ -8,13 +8,14 @@
 import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog } from '@blueprintjs/core'
+import { Dialog, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FieldArray, FormikProps } from 'formik'
 import {
   Accordion,
   Button,
+  FormError,
   Formik,
   FormikForm,
   FormInput,
@@ -61,6 +62,7 @@ function FormContent({
   projectsResponse,
   refetchStatuses,
   fetchingStatuses,
+  statusFetchError,
   statusResponse,
   isNewStep,
   readonly,
@@ -337,6 +339,25 @@ function FormContent({
                   />
                 )}
               </div>
+
+              {statusFetchError ? (
+                <FormError
+                  className={css.marginTop}
+                  errorMessage={
+                    <Text
+                      lineClamp={1}
+                      width={350}
+                      margin={{ bottom: 'medium' }}
+                      intent={Intent.DANGER}
+                      tooltipProps={{ isDark: true, popoverClassName: css.tooltip }}
+                    >
+                      {(statusFetchError as any)?.data?.message}
+                    </Text>
+                  }
+                  name="spec.projectKey"
+                ></FormError>
+              ) : null}
+
               <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.MultiTextInput
                   label={getString('pipeline.jiraUpdateStep.transitionLabel')}

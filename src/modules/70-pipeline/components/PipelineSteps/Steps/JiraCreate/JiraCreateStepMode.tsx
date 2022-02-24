@@ -8,7 +8,7 @@
 import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog } from '@blueprintjs/core'
+import { Dialog, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FieldArray, FormikProps } from 'formik'
@@ -21,7 +21,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Text,
-  PageSpinner
+  PageSpinner,
+  FormError
 } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -383,6 +384,24 @@ function FormContent({
           />
         )}
       </div>
+      {projectsFetchError ? (
+        <FormError
+          className={css.marginTop}
+          errorMessage={
+            <Text
+              lineClamp={1}
+              width={350}
+              margin={{ bottom: 'medium' }}
+              intent={Intent.DANGER}
+              tooltipProps={{ isDark: true, popoverClassName: css.tooltip }}
+            >
+              {(projectsFetchError as any)?.data?.message}
+            </Text>
+          }
+          name="spec.projectKey"
+        ></FormError>
+      ) : null}
+
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTypeInput
           selectItems={

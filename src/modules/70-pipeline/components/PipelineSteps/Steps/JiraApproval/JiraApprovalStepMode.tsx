@@ -12,11 +12,14 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
   Accordion,
+  FormError,
   Formik,
+  Text,
   FormikForm,
   FormInput,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  Intent
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -300,6 +303,23 @@ function FormContent({
           }}
         />
       </div>
+      {projectsFetchError ? (
+        <FormError
+          className={css.marginTop}
+          errorMessage={
+            <Text
+              lineClamp={1}
+              width={350}
+              margin={{ bottom: 'medium' }}
+              intent={Intent.DANGER}
+              tooltipProps={{ isDark: true, popoverClassName: css.tooltip }}
+            >
+              {(projectsFetchError as any)?.data?.message}
+            </Text>
+          }
+          name="spec.projectKey"
+        ></FormError>
+      ) : null}
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTypeInput
           tooltipProps={{
