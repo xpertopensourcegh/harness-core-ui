@@ -11,6 +11,7 @@
   padding: var(--spacing-xxlarge) !important;
   grid-template-columns: 1fr;
   height: 100%;
+  min-width: 464px;
 }
 
 .approvalTypesThumbnail {

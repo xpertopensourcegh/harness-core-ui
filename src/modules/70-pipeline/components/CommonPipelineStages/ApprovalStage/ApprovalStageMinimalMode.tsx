@@ -66,7 +66,9 @@ export function ApprovalStageMinimalMode(props: ApprovalStageMinimalModeProps): 
         data.stage.name = values.name
         data.stage.description = values.description
         data.stage.tags = values.tags
-        ;(data.stage as any).approvalType = values.approvalType
+        if (!data.stage.spec?.execution) {
+          ;(data.stage as any).approvalType = values.approvalType
+        }
         onSubmit?.(data, values.identifier)
       }
     }
@@ -79,9 +81,10 @@ export function ApprovalStageMinimalMode(props: ApprovalStageMinimalModeProps): 
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
           ...getNameAndIdentifierSchema(getString, contextType),
-          ...(!template && {
-            approvalType: Yup.string().required(getString('pipeline.approvalTypeRequired'))
-          })
+          ...(!template &&
+            !data?.stage?.spec?.execution && {
+              approvalType: Yup.string().required(getString('pipeline.approvalTypeRequired'))
+            })
         })}
         validate={handleValidate}
         onSubmit={(values: ApprovalStageMinimalValues) => handleSubmit(values)}
@@ -123,7 +126,7 @@ export function ApprovalStageMinimalMode(props: ApprovalStageMinimalModeProps): 
               >
                 {`Using Template: ${getTemplateNameWithLabel(template)}`}
               </Text>
-            ) : (
+            ) : !data?.stage?.spec?.execution ? (
               <>
                 <Text
                   color={Color.GREY_700}
@@ -134,7 +137,7 @@ export function ApprovalStageMinimalMode(props: ApprovalStageMinimalModeProps): 
                 </Text>
                 <ApprovalTypeCards formikProps={formikProps} />
               </>
-            )}
+            ) : null}
 
             <Button
               type="submit"
