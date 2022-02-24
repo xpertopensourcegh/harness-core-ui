@@ -148,6 +148,7 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
         enableReinitialize
         validationSchema={terraformArtifactorySchema(isConfig, getString)}
         onSubmit={(values: any) => {
+          /* istanbul ignore next */
           if (isConfig) {
             onSubmitCallBack(values, prevStepData)
           } else {
@@ -233,67 +234,81 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
                     style={{ width: 370 }}
                     allowedTypes={allowableTypes.filter(item => item !== MultiTypeInputType.EXPRESSION)}
                   >
-                    <FieldArray
-                      name={tfArtifactoryFormInputNames(isConfig).artifactPaths}
-                      render={arrayHelpers => {
-                        return (
-                          <div>
-                            {map(selectedArtifacts, (path: PathInterface, index: number) => (
-                              <Layout.Horizontal
-                                key={`${path}-${index}`}
-                                flex={{ distribution: 'space-between' }}
-                                style={{ alignItems: 'end' }}
-                              >
+                    {isConfig ? (
+                      <FormInput.MultiTextInput
+                        name={`${tfArtifactoryFormInputNames(isConfig).artifactPaths}[0].path`}
+                        label=""
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                        }}
+                        style={{ width: 320 }}
+                      />
+                    ) : (
+                      <FieldArray
+                        name={tfArtifactoryFormInputNames(isConfig).artifactPaths}
+                        render={arrayHelpers => {
+                          return (
+                            <div>
+                              {map(selectedArtifacts, (path: PathInterface, index: number) => (
                                 <Layout.Horizontal
-                                  spacing="medium"
-                                  style={{ alignItems: 'baseline' }}
-                                  className={css.tfContainer}
                                   key={`${path}-${index}`}
-                                  draggable={true}
-                                  onDragEnd={onDragEnd}
-                                  onDragOver={onDragOver}
-                                  onDragLeave={onDragLeave}
-                                  onDragStart={event => {
-                                    onDragStart(event, index)
-                                  }}
-                                  onDrop={event => onDrop(event, arrayHelpers, index)}
+                                  flex={{ distribution: 'space-between' }}
+                                  style={{ alignItems: 'end' }}
                                 >
-                                  <Icon name="drag-handle-vertical" className={css.drag} />
-                                  <Text width={12}>{`${index + 1}.`}</Text>
-                                  <FormInput.MultiTextInput
-                                    name={`${tfArtifactoryFormInputNames(isConfig).artifactPaths}[${index}].path`}
-                                    label=""
-                                    multiTextInputProps={{
-                                      expressions,
-                                      allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                                  <Layout.Horizontal
+                                    spacing="medium"
+                                    style={{ alignItems: 'baseline' }}
+                                    className={css.tfContainer}
+                                    key={`${path}-${index}`}
+                                    draggable={true}
+                                    onDragEnd={onDragEnd}
+                                    onDragOver={onDragOver}
+                                    onDragLeave={onDragLeave}
+                                    onDragStart={event => {
+                                      onDragStart(event, index)
                                     }}
-                                    style={{ width: 320 }}
-                                  />
-                                  {!isConfig && (
-                                    <Button
-                                      minimal
-                                      icon="main-trash"
-                                      data-testid={`remove-header-${index}`}
-                                      onClick={() => arrayHelpers.remove(index)}
+                                    onDrop={event => onDrop(event, arrayHelpers, index)}
+                                  >
+                                    <Icon name="drag-handle-vertical" className={css.drag} />
+                                    <Text width={12}>{`${index + 1}.`}</Text>
+                                    <FormInput.MultiTextInput
+                                      name={`${tfArtifactoryFormInputNames(isConfig).artifactPaths}[${index}].path`}
+                                      label=""
+                                      multiTextInputProps={{
+                                        expressions,
+                                        allowableTypes: allowableTypes.filter(
+                                          item => item !== MultiTypeInputType.RUNTIME
+                                        )
+                                      }}
+                                      style={{ width: 320 }}
                                     />
-                                  )}
+                                    {!isConfig && (
+                                      <Button
+                                        minimal
+                                        icon="main-trash"
+                                        data-testid={`remove-header-${index}`}
+                                        onClick={() => arrayHelpers.remove(index)}
+                                      />
+                                    )}
+                                  </Layout.Horizontal>
                                 </Layout.Horizontal>
-                              </Layout.Horizontal>
-                            ))}
-                            {!isConfig && (
-                              <Button
-                                icon="plus"
-                                variation={ButtonVariation.LINK}
-                                data-testid="add-header"
-                                onClick={() => arrayHelpers.push({ path: '' })}
-                              >
-                                {getString('cd.addTFVarFileLabel')}
-                              </Button>
-                            )}
-                          </div>
-                        )
-                      }}
-                    />
+                              ))}
+                              {!isConfig && (
+                                <Button
+                                  icon="plus"
+                                  variation={ButtonVariation.LINK}
+                                  data-testid="add-header"
+                                  onClick={() => arrayHelpers.push({ path: '' })}
+                                >
+                                  {getString('cd.addTFVarFileLabel')}
+                                </Button>
+                              )}
+                            </div>
+                          )
+                        }}
+                      />
+                    )}
                   </MultiTypeFieldSelector>
                 </div>
               </div>
