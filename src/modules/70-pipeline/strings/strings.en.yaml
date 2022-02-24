@@ -563,7 +563,7 @@ inputSets:
   noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution
   inputSetPlaceholder: Enter Input Sets
   selectPlaceholder: Select Input Set(s)
-  aboutInputSets: Harness Input Sets are collections of variables/values that can be provided to one or more Pipelines before execution.
+  aboutInputSets: A Harness Input Set is a group of Pipeline settings and values. You create Input Sets and use them when you run a Pipeline. Input Sets let you use one Pipeline for many scenarios.
   overlayISHelperText: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
 
 provisionerSteps: Provisioner Steps
