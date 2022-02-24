@@ -32,8 +32,9 @@
             "ci": {
               "ciExecutionInfoDTO": {
                 "event": "pullRequest",
-                "pullRequest": { "sourceBranch": "fromB", "targetBranch": "toB" }
-              }
+                "pullRequest": { "sourceBranch": "feature-branch", "targetBranch": "develop" }
+              },
+              "repoName": "harness-test-repo"
             }
           },
           "tags": {},

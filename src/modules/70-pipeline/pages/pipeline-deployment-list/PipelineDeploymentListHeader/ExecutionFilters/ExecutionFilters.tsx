@@ -144,7 +144,7 @@ export function ExecutionFilters(): React.ReactElement {
         ['branch', getString('pipelineSteps.deploy.inputSet.branch')],
         ['tag', getString('tagLabel')],
         ['buildType', getString('filters.executions.buildType')],
-        ['repoNames', getString('common.repositoryName')],
+        ['repoName', getString('common.repositoryName')],
         ['serviceDefinitionTypes', getString('deploymentTypeText')],
         ['infrastructureType', getString('infrastructureTypeText')],
         ['serviceIdentifiers', getString('services')],
@@ -275,7 +275,7 @@ export function ExecutionFilters(): React.ReactElement {
         initialFilter={{
           formValues: {
             pipelineName,
-            repositoryName: repoName?.[0] || undefined,
+            repositoryName: repoName,
             status: getMultiSelectFormOptions(status),
             branch,
             tag,

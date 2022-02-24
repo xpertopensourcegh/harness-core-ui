@@ -13,8 +13,6 @@ import { EXECUTION_STATUS } from '@pipeline/utils/statusHelpers'
 import type { FilterDataInterface, FilterInterface } from '@common/components/Filter/Constants'
 import { StringUtils } from '@common/exports'
 import type { CIWebhookInfoDTO } from 'services/ci'
-import type { FilterProperties } from 'services/cd-ng'
-import { isObjectEmpty, removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 
 export interface DeploymentTypeContext {
   deploymentType?: MultiSelectOption[]
@@ -136,7 +134,7 @@ export const createRequestBodyPayload = ({
   }
 }
 
-export const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildTypeContext): any => {
+export const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildTypeContext): Record<string, any> => {
   const { repositoryName, sourceBranch, targetBranch, branch, tag } = contextInfo
   let moduleProperties = {}
   switch (buildType) {
@@ -144,7 +142,7 @@ export const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildT
       moduleProperties = {
         ciExecutionInfoDTO: {
           event: 'pullRequest',
-          pullRequest: { sourceRepo: repositoryName, sourceBranch: sourceBranch, targetBranch: targetBranch }
+          pullRequest: { sourceBranch: sourceBranch, targetBranch: targetBranch }
         } as CIWebhookInfoDTO
       }
       break
@@ -160,25 +158,13 @@ export const getCIModuleProperties = (buildType: BUILD_TYPE, contextInfo: BuildT
       break
   }
 
-  return Object.assign(moduleProperties, { repoName: repositoryName ? [repositoryName] : undefined })
+  return repositoryName ? Object.assign(moduleProperties, { repoName: repositoryName }) : moduleProperties
 }
 
 export const enum BUILD_TYPE {
   PULL_OR_MERGE_REQUEST = 'PULL_OR_MERGE_REQUEST',
   BRANCH = 'BRANCH',
   TAG = 'TAG'
-}
-
-export const getFilterWithValidFields = (
-  formData: PipelineExecutionFormType | undefined,
-  filterProperties: FilterProperties | undefined
-): Partial<PipelineExecutionFormType> | Partial<FilterProperties> | undefined => {
-  if (!isObjectEmpty(filterProperties || {})) {
-    return removeNullAndEmpty(omit(filterProperties, 'filterType'))
-  } else if (!isObjectEmpty(formData || {})) {
-    return removeNullAndEmpty(formData || {})
-  }
-  return {}
 }
 
 export const getBuildType = (moduleProperties: {
