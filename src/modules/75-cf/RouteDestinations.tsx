@@ -51,6 +51,7 @@ import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
@@ -431,6 +432,11 @@ const CFRoutes: FC = () => {
       </RouteWithLayout>
       <AdminRouteDestinations />
       <PipelineRouteDestinations />
+
+      {GovernanceRouteDestinations({
+        sidebarProps: CFSideNavProps,
+        pathProps: { ...accountPathProps, ...projectPathProps, ...cfModuleParams }
+      })}
     </>
   )
 }
