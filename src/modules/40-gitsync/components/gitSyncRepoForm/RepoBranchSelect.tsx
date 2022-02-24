@@ -55,6 +55,8 @@ const RepoBranchSelect: React.FC<RepoBranchSelectProps> = props => {
   useEffect(() => {
     if (connectorIdentifierRef && repoURL) {
       refetch()
+    } else {
+      setBranchSelectOptions([])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connectorIdentifierRef, repoURL])

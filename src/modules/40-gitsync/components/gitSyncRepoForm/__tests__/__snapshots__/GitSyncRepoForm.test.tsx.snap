@@ -1190,7 +1190,6 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="branch-4"
                     >
                       <label
                         class="bp3-label"

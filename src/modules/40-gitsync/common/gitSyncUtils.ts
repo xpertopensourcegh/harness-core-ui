@@ -44,23 +44,14 @@ export const gitCards: Array<ConnectorCardInterface> = [
       default: 'github-unselected',
       selected: 'github-selected'
     }
+  },
+  {
+    type: Connectors.BITBUCKET,
+    icon: {
+      default: 'bitbucket-unselected',
+      selected: 'bitbucket-selected'
+    }
   }
-  // {
-  //   type: Connectors.GITLAB,
-  //   disabled: true,
-  //   icon: {
-  //     default: 'gitlab-unselected',
-  //     selected: 'gitlab-selected'
-  //   }
-  // },
-  // {
-  //   type: Connectors.BITBUCKET,
-  //   disabled: true,
-  //   icon: {
-  //     default: 'bitbucket-unselected',
-  //     selected: 'bitbucket-selected'
-  //   }
-  // }
 ]
 
 export const getRepoPath = (gitRepo: GitSyncConfig): string => {
