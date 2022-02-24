@@ -54,6 +54,8 @@ import FilterTagsSideBar from './FilterTagsSideBar'
 import moduleTagCss from '@dashboards/common/ModuleTags.module.scss'
 import css from './HomePage.module.scss'
 
+export const PAGE_SIZE = 20
+
 enum LayoutViews {
   LIST,
   GRID
@@ -455,12 +457,13 @@ const HomePage: React.FC = () => {
   } = useGet({
     // Inferred from RestfulProvider in index.js
     path: 'gateway/dashboard/v1/search',
+    debounce: true,
     queryParams: {
       accountId: accountId,
       folderId: folderIdOrBlank(),
       searchTerm,
       page: page + 1,
-      pageSize: 20,
+      pageSize: PAGE_SIZE,
       tags: serialize(selectedFilter),
       sortBy: sortby?.value,
       customTag: filteredTags.join('%')
@@ -505,7 +508,7 @@ const HomePage: React.FC = () => {
   }
 
   React.useEffect(() => {
-    setFilteredList(dashboardList?.resource?.list)
+    setFilteredList(dashboardList?.resource)
   }, [dashboardList])
 
   const [showModal, hideModal] = useModalHook(
@@ -757,9 +760,9 @@ const HomePage: React.FC = () => {
       {!loading && (
         <Layout.Vertical padding={{ left: 'medium', right: 'medium' }}>
           <Pagination
-            itemCount={100}
-            pageSize={10}
-            pageCount={100}
+            itemCount={dashboardList?.items || 1}
+            pageSize={PAGE_SIZE}
+            pageCount={dashboardList?.pages || 1}
             pageIndex={page}
             gotoPage={(pageNumber: number) => setPage(pageNumber)}
           />

@@ -28,6 +28,8 @@ interface FolderList {
   Children: { id: string; name: string }[]
 }
 
+const PAGE_SIZE = 5
+
 export const RenderColumnSecret: Renderer<CellProps<FolderList>> = ({ row }) => {
   const data = row.original
   const { accountId } = useParams<{ accountId: string }>()
@@ -46,13 +48,14 @@ export const RenderColumnSecret: Renderer<CellProps<FolderList>> = ({ row }) => 
           <Icon name="main-share" color={Color.GREY_600} />
         </Link>
       </Text>
-      <Layout.Horizontal spacing="medium">
+      <Container flex={{ justifyContent: 'start' }} className={css.dashboardShortcutList}>
         {data.Children.map((dashboards: { id: string; name: string }) => {
           return (
             <Layout.Horizontal className={css.dashboardDetail} key={dashboards?.name + '_' + dashboards?.id}>
-              {dashboards.name}{' '}
+              {dashboards.name}
               <Link
                 target="_blank"
+                className={css.dashboardDetailLink}
                 to={routes.toViewCustomDashboard({
                   viewId: dashboards.id,
                   accountId: accountId,
@@ -64,7 +67,7 @@ export const RenderColumnSecret: Renderer<CellProps<FolderList>> = ({ row }) => 
             </Layout.Horizontal>
           )
         })}
-      </Layout.Horizontal>
+      </Container>
     </Layout.Vertical>
   )
 }
@@ -83,7 +86,7 @@ const DashboardResourceModalBody: React.FC<RbacResourceModalProps> = ({
   const { data: folders, loading: fethingFolders } = useGet({
     // Inferred from RestfulProvider in index.js
     path: 'gateway/dashboard/folder',
-    queryParams: { accountId: accountIdentifier, page: page + 1, pageSize: 10, isAdmin: true }
+    queryParams: { accountId: accountIdentifier, page: page + 1, pageSize: PAGE_SIZE, isAdmin: true }
   })
 
   const totalFolders: number = folders?.total
@@ -109,9 +112,9 @@ const DashboardResourceModalBody: React.FC<RbacResourceModalProps> = ({
           }
         ]}
         pagination={{
-          itemCount: totalFolders || 10,
-          pageSize: 10,
-          pageCount: totalFolders >= 10 ? Math.round(totalFolders / 10) : 10,
+          itemCount: totalFolders || 1,
+          pageSize: PAGE_SIZE,
+          pageCount: Math.ceil(totalFolders / PAGE_SIZE),
           pageIndex: page || 0,
           gotoPage: pageNumber => setPage(pageNumber)
         }}

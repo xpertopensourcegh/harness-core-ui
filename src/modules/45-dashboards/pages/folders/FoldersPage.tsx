@@ -43,6 +43,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import routes from '@common/RouteDefinitions'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PAGE_SIZE } from '@dashboards/pages/home/HomePage'
 import { useStrings } from 'framework/strings'
 import useDeleteFolder from './useDeleteFolder'
 import { useDashboardsContext } from '../DashboardsContext'
@@ -250,7 +251,7 @@ const FoldersPage: React.FC = () => {
       accountId: accountId,
       searchTerm,
       page: page + 1,
-      pageSize: 20,
+      pageSize: PAGE_SIZE,
       sortBy: sortby?.value
     }
   })
@@ -276,7 +277,7 @@ const FoldersPage: React.FC = () => {
 
   React.useEffect(() => {
     if (foldersList) {
-      setFilteredList(foldersList?.resource?.list)
+      setFilteredList(foldersList?.resource)
     }
   }, [foldersList])
 
@@ -502,10 +503,10 @@ const FoldersPage: React.FC = () => {
         <Layout.Vertical padding={{ right: 'medium', left: 'medium' }}>
           <Pagination
             gotoPage={(pageNumber: number) => setPage(pageNumber)}
-            itemCount={100}
-            pageCount={100}
+            itemCount={foldersList?.items || 1}
+            pageCount={foldersList?.pages || 1}
             pageIndex={page}
-            pageSize={10}
+            pageSize={PAGE_SIZE}
           />
         </Layout.Vertical>
       )}

@@ -9,14 +9,22 @@
   div[class*='Table-module_header'] {
     display: none;
   }
+  .dashboardShortcutList {
+    flex-wrap: wrap;
+  }
   .dashboardDetail {
     padding: var(--spacing-small) !important;
     border: 1px solid var(--grey-200);
     border-radius: 5px;
     color: var(--grey-600) !important;
     min-width: 180px;
+    margin-top: var(--spacing-3) !important;
     margin-right: var(--spacing-4) !important;
     justify-content: space-between;
+
+    .dashboardDetailLink {
+      margin-left: var(--spacing-2) !important;
+    }
   }
 }
 div[class*='useAddResourceModal-module_dialog'] {

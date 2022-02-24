@@ -9,5 +9,7 @@
 declare const styles: {
   readonly container: string
   readonly dashboardDetail: string
+  readonly dashboardDetailLink: string
+  readonly dashboardShortcutList: string
 }
 export default styles
