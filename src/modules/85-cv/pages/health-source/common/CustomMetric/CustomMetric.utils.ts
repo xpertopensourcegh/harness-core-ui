@@ -52,6 +52,7 @@ export function updateSelectedMetricsMap({
       ...{
         _id: uuid(),
         metricName: updatedMetric,
+        identifier: updatedMetric.split(' ').join('_'),
         metricIdentifier: updatedMetric.split(' ').join('_'),
         ...initCustomForm
       }

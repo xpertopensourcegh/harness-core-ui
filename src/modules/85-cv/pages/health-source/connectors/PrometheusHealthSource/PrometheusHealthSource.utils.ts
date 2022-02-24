@@ -6,7 +6,7 @@
  */
 
 import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
-import { isNumber } from 'lodash-es'
+import { clone, isNumber } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { PrometheusFilter, PrometheusHealthSourceSpec, TimeSeriesMetricDefinition } from 'services/cv'
 import type { StringsMap } from 'stringTypes'
@@ -168,6 +168,7 @@ export function validateMappings(
     }
   }
 
+  requiredFieldErrors = validateGroupName(requiredFieldErrors, getString, values.groupName)
   const duplicateNames = createdMetrics?.filter((metricName, index) => {
     if (index === selectedMetricIndex) {
       return false
@@ -177,7 +178,7 @@ export function validateMappings(
 
   const identifiers = createdMetrics.map(metricName => {
     const metricData = mappedMetrics?.get(metricName) as MapPrometheusQueryToService
-    return metricData.identifier
+    return metricData?.identifier
   })
 
   const duplicateIdentifier = identifiers?.filter((identifier, index) => {
@@ -212,6 +213,20 @@ export function validateMappings(
   requiredFieldErrors = validateAssginComponent(values, { ...requiredFieldErrors }, getString)
 
   return requiredFieldErrors
+}
+
+const validateGroupName = (
+  requiredFieldErrors: { [x: string]: string },
+  getString: UseStringsReturn['getString'],
+  groupName?: SelectOption
+): { [x: string]: string } => {
+  const _requiredFieldErrors = clone(requiredFieldErrors)
+  if (!groupName || (!groupName?.label && !groupName?.value)) {
+    _requiredFieldErrors[PrometheusMonitoringSourceFieldNames.GROUP_NAME] = getString(
+      'cv.monitoringSources.prometheus.validation.groupName'
+    )
+  }
+  return _requiredFieldErrors
 }
 
 export function initializePrometheusGroupNames(

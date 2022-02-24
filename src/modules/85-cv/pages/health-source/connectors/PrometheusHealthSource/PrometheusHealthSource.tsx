@@ -82,8 +82,8 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
     createdMetrics,
     mappedMetrics,
     selectedMetric,
-    selectedMetricIndex,
     groupedCreatedMetrics,
+    groupedCreatedMetricsList,
     setMappedMetrics,
     setCreatedMetrics,
     setGroupedCreatedMetrics
@@ -104,13 +104,26 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
       formName="mapPrometheus"
       initialValues={initialFormValues}
       isInitialValid={(args: any) =>
-        Object.keys(validateMappings(getString, createdMetrics, selectedMetricIndex, args.initialValues, mappedMetrics))
-          .length === 0
+        Object.keys(
+          validateMappings(
+            getString,
+            groupedCreatedMetricsList,
+            groupedCreatedMetricsList.indexOf(selectedMetric),
+            args.initialValues,
+            mappedMetrics
+          )
+        ).length === 0
       }
       onSubmit={noop}
       enableReinitialize={true}
       validate={values => {
-        return validateMappings(getString, createdMetrics, selectedMetricIndex, values, mappedMetrics)
+        return validateMappings(
+          getString,
+          groupedCreatedMetricsList,
+          groupedCreatedMetricsList.indexOf(selectedMetric),
+          values,
+          mappedMetrics
+        )
       }}
     >
       {formikProps => {
@@ -137,14 +150,13 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
               mappedMetrics={mappedMetrics}
               createdMetrics={createdMetrics}
               setCreatedMetrics={setCreatedMetrics}
-              defaultMetricName={'appdMetric'}
+              defaultMetricName={getString('cv.monitoringSources.prometheus.prometheusMetric')}
               tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
               addFieldLabel={getString('cv.monitoringSources.addMetric')}
               initCustomForm={
                 {
-                  identifier: '',
-                  metricName: '',
                   query: '',
+                  groupName: { label: '', value: '' },
                   isManualQuery: false
                 } as any
               }
@@ -268,6 +280,10 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
               onNext={async () => {
                 formikProps.setTouched({
                   ...formikProps.touched,
+                  [PrometheusMonitoringSourceFieldNames.PROMETHEUS_METRIC]: true,
+                  [PrometheusMonitoringSourceFieldNames.GROUP_NAME]: true,
+                  [PrometheusMonitoringSourceFieldNames.SERVICE_FILTER]: true,
+                  [PrometheusMonitoringSourceFieldNames.ENVIRONMENT_FILTER]: true,
                   [PrometheusMonitoringSourceFieldNames.SLI]: true,
                   [PrometheusMonitoringSourceFieldNames.RISK_CATEGORY]: true,
                   [PrometheusMonitoringSourceFieldNames.LOWER_BASELINE_DEVIATION]: true,
