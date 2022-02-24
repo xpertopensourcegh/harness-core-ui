@@ -118,8 +118,8 @@ export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): stri
   switch (gitConnectorType) {
     case Connectors.GITHUB:
       return `${repo}/tree/${branch}${folderPath.startsWith('/') ? '' : '/'}${folderPath}`
-    case Connectors.GITLAB:
     case Connectors.BITBUCKET:
+      return `${repo}/src/${branch}${folderPath.startsWith('/') ? '' : '/'}${folderPath}`
     default:
       return ''
   }

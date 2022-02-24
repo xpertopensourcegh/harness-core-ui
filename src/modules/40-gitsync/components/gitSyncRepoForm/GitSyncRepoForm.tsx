@@ -215,21 +215,22 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                           <Card
                             data-testid={`${cardData.type}-card`}
                             onMouseOver={noop}
-                            disabled={cardData.disabled}
                             interactive
                             className={cx(css.card, {
                               [css.selectedCard]: isSelected
                             })}
                             onClick={e => {
-                              if (cardData.disabled) return
-                              e.stopPropagation()
-                              setFieldValue('gitConnectorType', cardData.type)
-                              setFieldValue('gitConnector', '')
-                              setFieldValue('repo', '')
-                              setFieldValue('branch', '')
-                              setConnectorType(cardData.type as GitSyncConfig['gitConnectorType'])
-                              setConnectorIdentifierRef('')
-                              setRepositoryURL('')
+                              //Resetting all repo related field when user click different repo provider
+                              if (cardData.type !== connectorType) {
+                                e.stopPropagation()
+                                setFieldValue('gitConnectorType', cardData.type)
+                                setFieldValue('gitConnector', '')
+                                setFieldValue('repo', '')
+                                setFieldValue('branch', '')
+                                setConnectorType(cardData.type as GitSyncConfig['gitConnectorType'])
+                                setConnectorIdentifierRef('')
+                                setRepositoryURL('')
+                              }
                             }}
                           >
                             <Icon
