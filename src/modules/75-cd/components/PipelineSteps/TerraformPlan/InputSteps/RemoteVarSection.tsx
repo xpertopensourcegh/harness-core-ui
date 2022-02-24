@@ -66,6 +66,8 @@ function TFRemoteSectionRef(
     })
   }
   const storeType = get(formik?.values, `${path}.spec.configuration.varFiles[${index}].varFile.spec.store.type`)
+  const reposRequired =
+    getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.repositoryName) === MultiTypeInputType.RUNTIME
   const {
     data: ArtifactRepoData,
     loading: ArtifactRepoLoading,
@@ -89,6 +91,7 @@ function TFRemoteSectionRef(
 
   useEffect(() => {
     if (
+      reposRequired &&
       storeType === Connectors.ARTIFACTORY &&
       connectorVal &&
       getMultiTypeFromValue(connectorVal) === MultiTypeInputType.FIXED &&
@@ -167,7 +170,7 @@ function TFRemoteSectionRef(
           />
         </div>
       )}
-      {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.repositoryName) === MultiTypeInputType.RUNTIME && (
+      {reposRequired && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTypeInput
             label={getString('pipelineSteps.repoName')}

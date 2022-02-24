@@ -57,6 +57,8 @@ function ConfigSectionRef(props: TerraformPlanProps & { formik?: any }): React.R
   if (!storeType) {
     storeType = get(props?.allValues, `spec.configuration.configFiles.store.type`)
   }
+  const reposRequired =
+    getMultiTypeFromValue(config?.configFiles?.store?.spec?.repositoryName) === MultiTypeInputType.RUNTIME
   const {
     data: ArtifactRepoData,
     loading: ArtifactRepoLoading,
@@ -80,6 +82,7 @@ function ConfigSectionRef(props: TerraformPlanProps & { formik?: any }): React.R
 
   useEffect(() => {
     if (
+      reposRequired &&
       storeType === Connectors.ARTIFACTORY &&
       connectorVal &&
       getMultiTypeFromValue(connectorVal) === MultiTypeInputType.FIXED &&
@@ -186,7 +189,7 @@ function ConfigSectionRef(props: TerraformPlanProps & { formik?: any }): React.R
         </div>
       )}
 
-      {getMultiTypeFromValue(config?.configFiles?.store?.spec?.repositoryName) === MultiTypeInputType.RUNTIME && (
+      {reposRequired && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTypeInput
             label={getString('pipelineSteps.repoName')}
