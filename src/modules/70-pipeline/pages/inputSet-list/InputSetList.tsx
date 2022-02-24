@@ -274,7 +274,7 @@ function InputSetList(): React.ReactElement {
         noData={{
           when: () => !inputSet?.data?.content?.length,
           icon: 'yaml-builder-input-sets',
-          message: getString('inputSets.aboutInputSets'),
+          message: getString('pipeline.inputSets.aboutInputSets'),
           buttonText: getString('inputSets.newInputSet'),
           onClick: () => goToInputSetForm(),
           buttonDisabled: !canUpdateInputSet || !pipelineHasRuntimeInputs,

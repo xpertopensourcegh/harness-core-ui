@@ -6623,10 +6623,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'inputSets.aboutInputSets': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'inputSets.addInputSet': string
   /**
    * @deprecated migrate this string to module level file

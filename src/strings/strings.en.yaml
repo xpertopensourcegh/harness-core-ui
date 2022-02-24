@@ -495,7 +495,6 @@ inputSets:
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
   saveAsInputSet: Save as Input Set
-  aboutInputSets: A Harness Input Set is a group of Pipeline settings and values. You create Input Sets and use them when you run a Pipeline. Input Sets let you use one Pipeline for many scenarios.
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
