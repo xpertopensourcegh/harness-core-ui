@@ -232,13 +232,11 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
 
   const calculatedPlans: PlanData[] = []
 
-  plans
-    ?.filter(plan => plan?.title?.toUpperCase() !== Editions.COMMUNITY)
-    .map((plan: PlanProp) => {
-      const calculatedProps = getPlanCalculatedProps(plan)
-      const { btnProps, currentPlanProps } = calculatedProps
-      calculatedPlans.push({ planProps: plan, btnProps, currentPlanProps })
-    })
+  plans?.map((plan: PlanProp) => {
+    const calculatedProps = getPlanCalculatedProps(plan)
+    const { btnProps, currentPlanProps } = calculatedProps
+    calculatedPlans.push({ planProps: plan, btnProps, currentPlanProps })
+  })
 
   if (gettingLicense || gettingActions || loadingContactSales) {
     return <PageSpinner />

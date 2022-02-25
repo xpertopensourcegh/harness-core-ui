@@ -13,7 +13,7 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-baseline"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
@@ -187,7 +187,7 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target Text--targetClass"
+                          class="bp3-popover-target"
                         >
                           <p
                             class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
@@ -329,7 +329,7 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target Text--targetClass"
+                          class="bp3-popover-target"
                         >
                           <p
                             class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
@@ -520,7 +520,7 @@ exports[`Subscription Plans should render the plans for CCM 1`] = `
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-baseline"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
@@ -711,7 +711,7 @@ exports[`Subscription Plans should render the plans for CCM 1`] = `
                       class="bp3-popover-wrapper"
                     >
                       <span
-                        class="bp3-popover-target Text--targetClass"
+                        class="bp3-popover-target"
                       >
                         <p
                           class="StyledProps--font StyledProps--main centerText ccmColor StyledProps--font-weight-light StyledProps--font-size-small"
@@ -864,7 +864,7 @@ exports[`Subscription Plans should render the plans for CCM 1`] = `
                       class="bp3-popover-wrapper"
                     >
                       <span
-                        class="bp3-popover-target Text--targetClass"
+                        class="bp3-popover-target"
                       >
                         <p
                           class="StyledProps--font StyledProps--main centerText ccmColor StyledProps--font-weight-light StyledProps--font-size-small"
@@ -1069,7 +1069,7 @@ exports[`Subscription Plans should render the plans for CD 1`] = `
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-baseline"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
@@ -1263,7 +1263,7 @@ exports[`Subscription Plans should render the plans for CD 1`] = `
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target Text--targetClass"
+                          class="bp3-popover-target"
                         >
                           <p
                             class="StyledProps--font StyledProps--main cdColor StyledProps--font-size-small"
@@ -1941,7 +1941,7 @@ exports[`Subscription Plans should render the plans for CI 1`] = `
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-baseline"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
@@ -2115,7 +2115,7 @@ exports[`Subscription Plans should render the plans for CI 1`] = `
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target Text--targetClass"
+                          class="bp3-popover-target"
                         >
                           <p
                             class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
@@ -2295,7 +2295,7 @@ exports[`Subscription Plans should render the plans for CI 1`] = `
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target Text--targetClass"
+                          class="bp3-popover-target"
                         >
                           <p
                             class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
@@ -2486,7 +2486,7 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
         class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-baseline"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
@@ -2680,7 +2680,7 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target Text--targetClass"
+                          class="bp3-popover-target"
                         >
                           <p
                             class="StyledProps--font StyledProps--main ffColor StyledProps--font-size-small"
@@ -2709,7 +2709,7 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
                       class="bp3-popover-wrapper"
                     >
                       <span
-                        class="bp3-popover-target Text--targetClass"
+                        class="bp3-popover-target"
                       >
                         <p
                           class="StyledProps--font StyledProps--main centerText ffColor StyledProps--font-weight-light StyledProps--font-size-small"
@@ -2847,7 +2847,7 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target Text--targetClass"
+                          class="bp3-popover-target"
                         >
                           <p
                             class="StyledProps--font StyledProps--main ffColor StyledProps--font-size-small"
@@ -2876,7 +2876,7 @@ exports[`Subscription Plans should render the plans for FF 1`] = `
                       class="bp3-popover-wrapper"
                     >
                       <span
-                        class="bp3-popover-target Text--targetClass"
+                        class="bp3-popover-target"
                       >
                         <p
                           class="StyledProps--font StyledProps--main centerText ffColor StyledProps--font-weight-light StyledProps--font-size-small"

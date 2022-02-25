@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { Card, Color, Layout, Text, Icon, Popover } from '@wings-software/uicore'
-import { Position, PopoverInteractionKind } from '@blueprintjs/core'
+import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import PercentageBar from './PercentageBar'
 import css from './SubscriptionUsageCard.module.scss'
@@ -15,10 +15,11 @@ import css from './SubscriptionUsageCard.module.scss'
 function getInfoIcon(tooltip: string): React.ReactElement {
   return (
     <Popover
+      popoverClassName={Classes.DARK}
       position={Position.BOTTOM}
       interactionKind={PopoverInteractionKind.HOVER}
       content={
-        <Text width={200} padding="medium">
+        <Text width={200} padding="medium" color={Color.WHITE}>
           {tooltip}
         </Text>
       }

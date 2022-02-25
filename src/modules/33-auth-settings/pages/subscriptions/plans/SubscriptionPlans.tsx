@@ -11,6 +11,7 @@ import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import { FetchPlansQuery, useFetchPlansQuery } from 'services/common/services'
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import Plans from './Plans'
 import CommunityPlans from './CommunityPlans'
 
@@ -48,8 +49,10 @@ const PlanTabs: React.FC<PlanTabsProps> = ({ module, plans }) => {
         return (
           <Plans
             module={module}
-            plans={plans?.cdPlans}
-            featureCaption={plans?.cdFeatureCaption}
+            plans={plans?.cdPlans?.filter(plan => plan?.title?.toUpperCase() !== Editions.COMMUNITY)}
+            featureCaption={plans?.cdFeatureCaption?.filter(
+              caption => caption?.title?.toUpperCase() !== Editions.COMMUNITY
+            )}
             featureGroup={plans?.cdFeatureGroup}
           />
         )

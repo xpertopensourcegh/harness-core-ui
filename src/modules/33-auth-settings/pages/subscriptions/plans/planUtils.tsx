@@ -8,7 +8,8 @@
 import React, { ReactElement } from 'react'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
-import { Layout, Text, Button, ButtonVariation, Color } from '@wings-software/uicore'
+import { Layout, Text, Button, ButtonVariation, Color, Popover } from '@wings-software/uicore'
+import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import type { EditionActionDTO } from 'services/cd-ng'
 import type { StringsMap } from 'stringTypes'
@@ -201,13 +202,20 @@ export function getPriceTips({ timeType, plan, textColorClassName }: GetPriceTip
         >
           {tips?.[0]}
         </Text>
-        <Text
-          font={{ weight: 'light', size: 'small' }}
-          className={cx(css.centerText, textColorClassName)}
-          tooltip={priceTermTips || ''}
+        <Popover
+          popoverClassName={Classes.DARK}
+          position={Position.BOTTOM}
+          interactionKind={PopoverInteractionKind.HOVER}
+          content={
+            <Text width={200} padding="medium" color={Color.WHITE}>
+              {priceTermTips || ''}
+            </Text>
+          }
         >
-          {priceTerm}
-        </Text>
+          <Text font={{ weight: 'light', size: 'small' }} className={cx(css.centerText, textColorClassName)}>
+            {priceTerm}
+          </Text>
+        </Popover>
         <Text
           color={Color.BLACK}
           font={{ weight: 'light', size: 'small' }}

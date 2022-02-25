@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { isEmpty } from 'lodash-es'
-import { PopoverInteractionKind } from '@blueprintjs/core'
+import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { Card, Layout, Text, Color, PageSpinner, Popover } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
@@ -66,7 +66,7 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, module }) => {
 
   const toolTip = planDisabledStr && (
     <Layout.Vertical padding="medium" className={css.tooltip}>
-      <Text color={Color.GREY_800} padding={{ bottom: 'small' }}>
+      <Text color={Color.WHITE} padding={{ bottom: 'small' }}>
         {planDisabledStr}
       </Text>
     </Layout.Vertical>
@@ -89,7 +89,12 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, module }) => {
           className={currentPlanBodyClassName}
         >
           <SvgInline url={url} className={iConClassName} />
-          <Popover interactionKind={PopoverInteractionKind.HOVER} content={toolTip}>
+          <Popover
+            interactionKind={PopoverInteractionKind.HOVER}
+            content={toolTip}
+            popoverClassName={Classes.DARK}
+            position={Position.BOTTOM}
+          >
             <Text font={{ weight: 'semi-bold', size: 'medium' }} className={textColorClassName}>
               {planProps?.title}
             </Text>
@@ -99,9 +104,20 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, module }) => {
               {getPrice({ timeType, plan, openMarketoContactSales, getString })}
               {hasUnit && (
                 <Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}>
-                  <Text font={{ size: 'small' }} className={textColorClassName} tooltip={planProps?.unitTips || ''}>
-                    {planProps?.unit}
-                  </Text>
+                  <Popover
+                    popoverClassName={Classes.DARK}
+                    position={Position.BOTTOM}
+                    interactionKind={PopoverInteractionKind.HOVER}
+                    content={
+                      <Text width={200} padding="medium" color={Color.WHITE}>
+                        {planProps?.unitTips || ''}
+                      </Text>
+                    }
+                  >
+                    <Text font={{ size: 'small' }} className={textColorClassName}>
+                      {planProps?.unit}
+                    </Text>
+                  </Popover>
                   <Text font={{ size: 'small' }} color={Color.BLACK}>
                     {getString('common.perMonth')}
                   </Text>
