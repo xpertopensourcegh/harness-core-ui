@@ -163,7 +163,7 @@ describe('Unit tests for createting monitored source', () => {
           loading: true
         } as any)
     )
-    jest.spyOn(cvServices, 'useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv').mockReturnValue({
+    jest.spyOn(cvServices, 'useGetMonitoredServiceOverAllHealthScore').mockReturnValue({
       data: {},
       refetch: jest.fn()
     } as any)

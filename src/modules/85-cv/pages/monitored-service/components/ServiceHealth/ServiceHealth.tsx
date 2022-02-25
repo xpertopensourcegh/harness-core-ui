@@ -168,8 +168,7 @@ export default function ServiceHealth({
                 hasTimelineIntegration
                 duration={selectedTimePeriod}
                 setHealthScoreData={setHealthScoreData}
-                serviceIdentifier={serviceIdentifier}
-                envIdentifier={environmentIdentifier}
+                monitoredServiceIdentifier={monitoredServiceIdentifier}
                 timeFormat={timeFormat}
               />
               <TimelineSlider

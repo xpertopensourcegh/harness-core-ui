@@ -61,6 +61,9 @@ jest.mock('services/cv', () => ({
   useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv: jest.fn().mockImplementation(() => {
     return { data: mockedHealthScoreData, refetch: fetchHealthScore, error: null, loading: false }
   }),
+  useGetMonitoredServiceOverAllHealthScore: jest.fn().mockImplementation(() => {
+    return { data: mockedHealthScoreData, refetch: fetchHealthScore, error: null, loading: false }
+  }),
   useGetServiceDependencyGraph: jest.fn().mockImplementation(() => {
     return {
       data: {},
@@ -117,6 +120,7 @@ jest.mock('services/cv', () => ({
 
 describe('Unit tests for ServiceHealth', () => {
   const props = {
+    monitoredServiceIdentifier: 'monitored_service_identifier',
     serviceIdentifier: 'service-identifier',
     environmentIdentifier: 'env-identifier',
     hasChangeSource: true
@@ -264,7 +268,12 @@ describe('Unit tests for ServiceHealth', () => {
   })
 
   test('Verify ChangesSourceCard does not loads', async () => {
-    const newProps = { serviceIdentifier: '', environmentIdentifier: '', hasChangeSource: true }
+    const newProps = {
+      monitoredServiceIdentifier: 'monitored_service_identifier',
+      serviceIdentifier: '',
+      environmentIdentifier: '',
+      hasChangeSource: true
+    }
     const { container } = render(<WrapperComponent {...newProps} />)
     await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(0))
   })

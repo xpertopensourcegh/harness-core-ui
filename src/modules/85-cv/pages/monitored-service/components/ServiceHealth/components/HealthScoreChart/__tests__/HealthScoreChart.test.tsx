@@ -116,4 +116,33 @@ describe('Unit tests for HealthScoreChart', () => {
   test('Verify if correct series is returned for the health score bar graph', async () => {
     expect(getSeriesData(mockedHealthScoreData.healthScores as cvService.RiskData[])).toEqual(mockedSeriesData)
   })
+
+  test('Verify useGetMonitoredServiceOverAllHealthScore is called with monitored service identifier', async () => {
+    jest.spyOn(cvService, 'useGetMonitoredServiceOverAllHealthScore').mockReturnValue({
+      data: mockedHealthScoreData,
+      refetch: fetchHealthScore as unknown
+    } as UseGetReturn<any, any, any, any>)
+
+    render(
+      <WrapperComponent
+        monitoredServiceIdentifier="monitored_service_identifier"
+        duration={{ value: TimePeriodEnum.TWENTY_FOUR_HOURS, label: 'twenty_four_hours' }}
+        endTime={23234}
+      />
+    )
+
+    await waitFor(() =>
+      expect(cvService.useGetMonitoredServiceOverAllHealthScore).toHaveBeenLastCalledWith({
+        lazy: true,
+        identifier: 'monitored_service_identifier',
+        queryParams: {
+          accountId: undefined,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
+          duration: 'TWENTY_FOUR_HOURS',
+          endTime: 23234
+        }
+      })
+    )
+  })
 })
