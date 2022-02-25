@@ -288,6 +288,47 @@
           "valid": true,
           "invalidYaml": null
         }
+      },
+      {
+        "connector": {
+          "name": "prometheus-sale",
+          "identifier": "prometheussale",
+          "description": null,
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "Prometheus",
+          "spec": {
+            "url": "http://35.214.81.102:9090/",
+            "delegateSelectors": []
+          }
+        },
+        "createdAt": 1643109076417,
+        "lastModifiedAt": 1643598093267,
+        "status": {
+          "status": "SUCCESS",
+          "errorSummary": null,
+          "errors": null,
+          "testedAt": 1644925678956,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 1644925678956
+        },
+        "activityDetails": {
+          "lastActivityTime": 1643598093310
+        },
+        "harnessManaged": false,
+        "gitDetails": {
+          "objectId": null,
+          "branch": null,
+          "repoIdentifier": null,
+          "rootFolder": null,
+          "filePath": null,
+          "repoName": null
+        },
+        "entityValidityDetails": {
+          "valid": true,
+          "invalidYaml": null
+        }
       }
     ],
     "pageIndex": 0,
