@@ -12,25 +12,27 @@ import { sanitizeHTML } from '@common/utils/StringUtils'
 import type { Action, ActionType, State, LogSectionData, LogLineData } from './types'
 
 export function processLogsData(data: string): LogLineData[] {
-  return data.split('\n').reduce<LogSectionData['data']>((accumulator, line) => {
-    if (line.length > 0) {
-      try {
-        const { level, time, out } = JSON.parse(line) as Record<string, string>
+  return String(data)
+    .split('\n')
+    .reduce<LogSectionData['data']>((accumulator, line) => {
+      if (line.length > 0) {
+        try {
+          const { level, time, out } = JSON.parse(line) as Record<string, string>
 
-        accumulator.push({
-          text: {
-            level: sanitizeHTML(level),
-            time: formatDatetoLocale(time),
-            out: sanitizeHTML(out)
-          }
-        })
-      } catch (e) {
-        //
+          accumulator.push({
+            text: {
+              level: sanitizeHTML(level),
+              time: formatDatetoLocale(time),
+              out: sanitizeHTML(out)
+            }
+          })
+        } catch (e) {
+          //
+        }
       }
-    }
 
-    return accumulator
-  }, [])
+      return accumulator
+    }, [])
 }
 
 export function updateSectionData(state: State, action: Action<ActionType.UpdateSectionData>): State {

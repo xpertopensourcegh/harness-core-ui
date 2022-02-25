@@ -105,7 +105,7 @@ export default function FullPageLogView(): React.ReactElement {
             abortController.signal
           )) as unknown as string
 
-          return { name: get(sections, ['units', i]), data: processLogsData(data) }
+          return { name: get(sections, ['units', i]), data: processLogsData(defaultTo(data, '')) }
         })
         Promise.all(promises).then(data => {
           setLogsData(data)
