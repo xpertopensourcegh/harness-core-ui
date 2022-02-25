@@ -17,14 +17,12 @@ import DelegateSelectionLogsTable from './DelegateSelectionLogsTable'
 export interface DelegateSelectionLogsTaskProps {
   task: DelegateTaskData
 }
-const PAGE_SIZE = 5
 
 export function DelegateSelectionLogsTask({ task }: DelegateSelectionLogsTaskProps): JSX.Element {
   const { accountId } = useParams<{
     accountId: string
   }>()
 
-  const [page, setPage] = React.useState(0)
   const { getString } = useStrings()
 
   const { data, loading } = useGetSelectionLogsV2({ queryParams: { accountId, taskId: task.taskId } })
@@ -61,14 +59,7 @@ export function DelegateSelectionLogsTask({ task }: DelegateSelectionLogsTaskPro
             </Layout.Horizontal>
           </Layout.Horizontal>
 
-          <DelegateSelectionLogsTable
-            pageIndex={page}
-            pageCount={Math.ceil(data.resource.delegateSelectionLogs.length / PAGE_SIZE)}
-            pageSize={PAGE_SIZE}
-            itemCount={data.resource.delegateSelectionLogs.length}
-            selectionLogs={data.resource.delegateSelectionLogs.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)}
-            gotoPage={setPage}
-          />
+          <DelegateSelectionLogsTable selectionLogs={data.resource.delegateSelectionLogs} />
         </>
       ) : (
         <Text>{getString('common.logs.noLogsText')}</Text>
