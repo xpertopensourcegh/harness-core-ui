@@ -55,6 +55,7 @@ declare global {
       mapMetricToServices(): void
       addingGroupName(name: string): void
       populateDefineHealthSource(connectorType: string, connectorName: string, healthSourceName: string): void
+      selectFeature(featureName: string): void
       visitVerifyStepInPipeline(): void
     }
   }
@@ -197,4 +198,11 @@ Cypress.Commands.add('populateDefineHealthSource', (connectorType, connectorName
   cy.contains('p', connectorName).click()
   cy.contains('span', 'Apply Selected').click()
   cy.contains('span', 'Connector Selection is required.').should('not.exist')
+})
+
+Cypress.Commands.add('selectFeature', featureName => {
+  cy.contains('span', 'product is a required field').should('be.visible')
+  cy.get('input[name="product"]').click({ force: true })
+  cy.contains('p', featureName).click()
+  cy.contains('span', 'product is a required field').should('not.exist')
 })

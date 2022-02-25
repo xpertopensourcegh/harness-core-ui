@@ -200,6 +200,116 @@ export const dashboardDetails = {
   }
 }
 
+export const dataLogsIndexes = {
+  getDatadogLogsIndexes: `/cv/api/datadog-logs/log-indexes?routingId=${accountId}&projectIdentifier=${projectIdentifier}&orgIdentifier=${orgIdentifier}&accountId=${accountId}&connectorIdentifier=${connectorIdentifier}&tracingId=*`,
+  getDatadogLogsIndexesResponse: {
+    status: 'SUCCESS',
+    data: ['main'],
+    metaData: null,
+    correlationId: '37ed6880-a7e0-4c95-86f0-cccf72a8ad7d'
+  }
+}
+
+export const datadogLogsSample = {
+  getDatadogLogsSample: `/cv/api/datadog-logs/sample-data?routingId=${accountId}&accountId=${accountId}&projectIdentifier=${projectIdentifier}&orgIdentifier=${orgIdentifier}&tracingId=*&connectorIdentifier=${connectorIdentifier}`,
+  getDatadogLogsSampleResponse: {
+    metaData: null,
+    status: 'SUCCESS',
+    correlationId: '2960107f-804b-4739-871d-60050f002048',
+    data: [
+      {
+        attributes: {
+          attributes: {
+            date: 1645672196524,
+            view: {
+              referrer: '',
+              url_details: {
+                path: '/dashboard/shows/1300',
+                scheme: 'https',
+                host: 'portal.artistconnection.net'
+              },
+              referrer_details: {
+                path: ''
+              },
+              url: 'https://portal.artistconnection.net/dashboard/shows/1300'
+            },
+            logger: {
+              name: 'test'
+            },
+            http: {
+              useragent:
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36',
+              useragent_details: {
+                os: {
+                  patch: '7',
+                  major: '10',
+                  minor: '15',
+                  family: 'Mac OS X'
+                },
+                browser: {
+                  patch_minor: '102',
+                  patch: '4758',
+                  major: '98',
+                  minor: '0',
+                  family: 'Chrome'
+                },
+                device: {
+                  model: 'Mac',
+                  category: 'Desktop',
+                  family: 'Mac',
+                  brand: 'Apple'
+                }
+              }
+            },
+            session_id: 'f4b8b465-b014-46e6-b3be-61f968cbed7e',
+            status: 'info',
+            network: {
+              client: {
+                geoip: {
+                  continent: {
+                    code: 'AS',
+                    name: 'Asia'
+                  },
+                  subdivision: {
+                    name: 'Tokyo'
+                  },
+                  country: {
+                    name: 'Japan',
+                    iso_code: 'JP'
+                  },
+                  as: {
+                    number: 'AS2497',
+                    route: '2001:240::/32',
+                    domain: 'iij.ad.jp',
+                    name: 'Internet Initiative Japan Inc.',
+                    type: 'isp'
+                  },
+                  city: {
+                    name: 'Tokyo'
+                  },
+                  timezone: 'Asia/Tokyo',
+                  ipAddress: '2001:240:29a2:7800:e915:25a9:bb39:9a5e',
+                  location: {
+                    latitude: 35.6895,
+                    longitude: 139.69171
+                  }
+                },
+                ip: '2001:240:29a2:7800:e915:25a9:bb39:9a5e'
+              }
+            }
+          },
+          message: 'Log number: 372',
+          status: 'info',
+          tags: ['source:browser', 'sdk_version:3.6.12', 'source:browser'],
+          timestamp: '2022-02-24T03:09:56.524Z'
+        },
+        id: 'AQAAAX8ptOmsUqyhswAAAABBWDhwdE9zM0FBQWJEN1FLTkh0empnQUE',
+        type: 'log'
+      }
+    ]
+  }
+}
+
 export const dataDogMonitoredService = {
   status: 'SUCCESS',
   data: {
@@ -223,7 +333,7 @@ export const dataDogMonitoredService = {
             identifier: 'DD_new',
             type: 'DatadogMetrics',
             spec: {
-              connectorRef: 'datadog',
+              connectorRef: connectorIdentifier,
               feature: 'Datadog Cloud Metrics',
               metricDefinitions: [
                 {
@@ -272,4 +382,58 @@ export const dataDogMonitoredService = {
   },
   metaData: null,
   correlationId: '88174d93-852a-4ff5-9dce-60b5e43d27cb'
+}
+
+export const datadogLogsMonitoredService = {
+  status: 'SUCCESS',
+  data: {
+    createdAt: 1644978191147,
+    lastModifiedAt: 1645763817204,
+    monitoredService: {
+      orgIdentifier: 'CV',
+      projectIdentifier: 'Harshil',
+      identifier: 'dd_service_dd_env',
+      name: 'dd_service_dd_env',
+      type: 'Application',
+      description: '',
+      serviceRef: 'dd_service',
+      environmentRef: 'dd_env',
+      environmentRefList: ['dd_env'],
+      tags: {},
+      sources: {
+        healthSources: [
+          {
+            name: 'DD Logs',
+            identifier: 'DD_Logs',
+            type: 'DatadogLog',
+            spec: {
+              connectorRef: connectorIdentifier,
+              feature: 'Datadog Cloud Logs',
+              queries: [
+                {
+                  name: 'Datadog Logs Query',
+                  query: 'source:browser',
+                  indexes: ['main'],
+                  serviceInstanceIdentifier: 'source'
+                }
+              ]
+            }
+          }
+        ],
+        changeSources: [
+          {
+            name: 'Harness CD Next Gen',
+            identifier: 'harness_cd_next_gen',
+            type: 'HarnessCDNextGen',
+            enabled: true,
+            spec: {},
+            category: 'Deployment'
+          }
+        ]
+      },
+      dependencies: []
+    }
+  },
+  metaData: null,
+  correlationId: '41066f1f-c4c5-4622-bcb8-02abca059a11'
 }

@@ -10,14 +10,17 @@ import {
   monitoredServiceListResponse
 } from '../../../support/85-cv/monitoredService/constants'
 import {
+  connectorIdentifier,
+  dataLogsIndexes,
+  datadogLogsSample,
+  dashboards,
+  metricTags,
+  dataDogMonitoredService,
+  metrics,
   activeMetrics,
   dashboardDetails,
-  dashboards,
-  dataDogMonitoredService,
-  metricTags,
-  metrics,
   selectedDashboardName,
-  connectorIdentifier
+  datadogLogsMonitoredService
 } from '../../../support/85-cv/monitoredService/health-sources/Datadog/constants'
 import { errorResponse } from '../../../support/85-cv/slos/constants'
 import { Connectors } from '../../../utils/connctors-utils'
@@ -37,16 +40,13 @@ describe('Configure Datadog health source', () => {
     cy.visitChangeIntelligence()
   })
 
-  it('Add new Datadog health source for a monitored service ', () => {
+  it('Add new Datadog metric health source for a monitored service ', () => {
     cy.addNewMonitoredServiceWithServiceAndEnv()
 
     cy.populateDefineHealthSource(Connectors.DATADOG, connectorIdentifier, 'Data dog')
 
     // selecting feature
-    cy.contains('span', 'product is a required field').should('be.visible')
-    cy.get('input[name="product"]').click({ force: true })
-    cy.contains('p', 'Cloud Metrics').click()
-    cy.contains('span', 'product is a required field').should('not.exist')
+    cy.selectFeature('Cloud Metrics')
 
     cy.intercept('GET', dashboards.dashboardsAPI, errorResponse).as('dashboardsErrorResponse')
 
@@ -99,7 +99,89 @@ describe('Configure Datadog health source', () => {
 
     // Creating the monitored service with Datadog health source.
     cy.findByRole('button', { name: /Save/i }).click()
-    cy.contains('span', 'Monitored Service created').should('be.visible')
+    cy.findByText('Monitored Service created').should('be.visible')
+  })
+
+  it('Add new Datadog logs health source for a monitored service ', () => {
+    cy.addNewMonitoredServiceWithServiceAndEnv()
+    cy.populateDefineHealthSource(Connectors.DATADOG, connectorIdentifier, 'Data dog')
+
+    //intercepting calls
+    cy.intercept('GET', dataLogsIndexes.getDatadogLogsIndexes, dataLogsIndexes.getDatadogLogsIndexesResponse).as(
+      'getLogsIndexes'
+    )
+    cy.intercept('POST', datadogLogsSample.getDatadogLogsSample, datadogLogsSample.getDatadogLogsSampleResponse).as(
+      'getLogsSample'
+    )
+
+    // selecting feature
+    cy.selectFeature('Cloud Logs')
+
+    // Navigation to configure Datadog logs
+    cy.contains('span', 'Next').click()
+    cy.contains('span', 'Name your Query').should('be.visible')
+    cy.wait('@getLogsIndexes')
+
+    //triggering validations
+    cy.findByRole('button', { name: /Submit/i }).click()
+    cy.contains('span', 'Query is required.').should('be.visible')
+    cy.contains('span', 'Service Instance is required.').should('be.visible')
+    cy.contains('p', 'Submit query to see records from Datadog Logs').should('be.visible')
+
+    cy.fillField('query', 'source:browser')
+    cy.contains('span', 'Query is required.').should('not.exist')
+
+    //Fetching records
+    cy.contains('span', 'Fetch records').click()
+    cy.wait('@getLogsSample')
+    cy.contains('p', 'Submit query to see records from Datadog Logs').should('not.exist')
+
+    // Configuring remaining fieds
+    cy.get('input[name="indexes"]').click()
+    cy.contains('p', 'main').click()
+    cy.get('input[name="serviceInstanceIdentifierTag"]').click()
+    cy.contains('p', 'source').click()
+    cy.findByRole('button', { name: /Submit/i }).click()
+
+    // Creating the monitored service with Datadog health source.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service created').should('be.visible')
+  })
+
+  it('should be able to edit the existing Datadog Logs health source', () => {
+    //intercepting calls
+    cy.intercept('GET', dataLogsIndexes.getDatadogLogsIndexes, dataLogsIndexes.getDatadogLogsIndexesResponse).as(
+      'getLogsIndexes'
+    )
+    cy.intercept('POST', datadogLogsSample.getDatadogLogsSample, datadogLogsSample.getDatadogLogsSampleResponse).as(
+      'getLogsSample'
+    )
+    cy.intercept('GET', '/cv/api/monitored-service/service1_env1?*', datadogLogsMonitoredService).as(
+      'monitoredServiceCall'
+    )
+
+    cy.get('span[data-icon="Options"]').click()
+    cy.contains('div', 'Edit service').click()
+    cy.wait('@monitoredServiceCall')
+
+    cy.contains('div', 'DD Logs').click({ force: true })
+
+    cy.contains('span', 'Next').click()
+    cy.contains('span', 'Name your Query').should('be.visible')
+    cy.wait('@getLogsSample')
+    cy.wait('@getLogsIndexes')
+
+    // Updating query name
+    cy.get('input[name="metricName"]').type('Data logs query updated')
+
+    // Updating service identifier
+    cy.get('input[name="serviceInstanceIdentifierTag"]').click()
+    cy.contains('p', 'host').click()
+    cy.findByRole('button', { name: /Submit/i }).click()
+
+    // Saving the monitored service with updated Datadog health source.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service updated').should('be.visible')
   })
 
   it('should be able to create Datadog Health Source with existing dashboard', () => {
@@ -107,10 +189,7 @@ describe('Configure Datadog health source', () => {
     cy.populateDefineHealthSource(Connectors.DATADOG, connectorIdentifier, 'Data dog')
 
     // selecting feature
-    cy.contains('span', 'product is a required field').should('be.visible')
-    cy.get('input[name="product"]').click({ force: true })
-    cy.contains('p', 'Cloud Metrics').click()
-    cy.contains('span', 'product is a required field').should('not.exist')
+    cy.selectFeature('Cloud Metrics')
 
     cy.intercept('GET', dashboards.dashboardsAPI, errorResponse).as('dashboardsErrorResponse')
 
@@ -148,7 +227,7 @@ describe('Configure Datadog health source', () => {
 
     // Creating the monitored service with Datadog health source.
     cy.findByRole('button', { name: /Save/i }).click()
-    cy.contains('span', 'Monitored Service created').should('be.visible')
+    cy.findByText('Monitored Service created').should('be.visible')
   })
 
   it('should be able to edit an existing Data dog health source', () => {
@@ -164,7 +243,7 @@ describe('Configure Datadog health source', () => {
     cy.intercept('GET', metricTags.getMetricsTags, metricTags.getMetricsTagsResponse).as('getMetricsTags')
 
     cy.findByRole('button', { name: /Next/i }).click()
-    cy.wait(1000)
+
     cy.wait('@dashboardsResponse')
     cy.findAllByRole('button', { name: /Next/i }).last().click()
     cy.wait('@getMetricsTags')
@@ -175,6 +254,6 @@ describe('Configure Datadog health source', () => {
 
     // Updating the monitored service with Datadog health source.
     cy.findByRole('button', { name: /Save/i }).click()
-    cy.contains('span', 'Monitored Service updated').should('be.visible')
+    cy.findByText('Monitored Service updated').should('be.visible')
   })
 })
