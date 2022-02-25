@@ -51,7 +51,7 @@ AuditTrailFactory.registerResourceHandler(ResourceType.TEMPLATE, {
   moduleIcon: {
     name: 'cd-main'
   },
-  moduleIconLabel: cdLabel,
+  moduleLabel: cdLabel,
   resourceUrl: (_: ResourceDTO, resourceScope: ResourceScope, module?: Module) => {
     const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
     if (module && orgIdentifier && projectIdentifier) {

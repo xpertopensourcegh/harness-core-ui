@@ -48,7 +48,7 @@ AuditTrailFactory.registerResourceHandler('SECRET', {
   moduleIcon: {
     name: 'nav-settings'
   },
-  moduleIconLabel: platformLabel,
+  moduleLabel: platformLabel,
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
 

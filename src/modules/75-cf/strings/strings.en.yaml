@@ -340,12 +340,10 @@ auditLogs:
   flagUpdated: Feature activation updated
   unknown: Unknown activity
   empty: No activity found during this time.
-  eventSummary: Event Summary
   createdMessageFF: 'created feature flag'
   createdMessageFFUpdate: 'updated feature flag'
   createdMessageSegment: 'created target group'
   updateMessageSegment: 'updated target group'
-  yamlDifference: YAML Difference
   changeDetails: Change details
   events:
     updateClause: A clause was updated for a rule

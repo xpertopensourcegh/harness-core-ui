@@ -118,7 +118,7 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
       className={css.container}
       {...drawerStates}
       onClose={onClose}
-      title={<header>{getString('cf.auditLogs.eventSummary')}</header>}
+      title={<header>{getString('auditTrail.eventSummary')}</header>}
     >
       <Container className={cx(Classes.DRAWER_BODY, css.body)} padding="xlarge">
         <Container className={css.eventSection} padding="large">
@@ -156,7 +156,7 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
             <Button
               minimal
               rightIcon={showDiff ? 'chevron-up' : 'chevron-down'}
-              text={getString('cf.auditLogs.yamlDifference').toLocaleUpperCase()}
+              text={getString('auditTrail.yamlDifference').toLocaleUpperCase()}
               onClick={e => {
                 e.persist()
                 setButtonClientY(e.clientY)

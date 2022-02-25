@@ -233,7 +233,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
                 <span
                   class="RadioButton--radioIcon"
                 />
-                pipelineSteps.resourceNameLabel
+                auditTrail.resourceNameLabel
               </label>
               <label
                 class="RadioButton--radio StyledProps--main"
@@ -505,7 +505,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
                 <span
                   class="RadioButton--radioIcon"
                 />
-                pipelineSteps.resourceNameLabel
+                auditTrail.resourceNameLabel
               </label>
               <label
                 class="RadioButton--radio StyledProps--main"
@@ -787,7 +787,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
                 <span
                   class="RadioButton--radioIcon"
                 />
-                pipelineSteps.resourceNameLabel
+                auditTrail.resourceNameLabel
               </label>
               <label
                 class="RadioButton--radio StyledProps--main"
@@ -1057,7 +1057,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
                 <span
                   class="RadioButton--radioIcon"
                 />
-                pipelineSteps.resourceNameLabel
+                auditTrail.resourceNameLabel
               </label>
               <label
                 class="RadioButton--radio StyledProps--main"

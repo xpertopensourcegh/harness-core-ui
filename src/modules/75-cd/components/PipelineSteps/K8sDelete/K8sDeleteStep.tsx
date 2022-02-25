@@ -134,7 +134,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const options: IOptionProps[] = [
       {
-        label: getString('pipelineSteps.resourceNameLabel'),
+        label: getString('auditTrail.resourceNameLabel'),
         value: getString('pipelineSteps.resourceNameValue')
       },
       {
@@ -312,7 +312,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                   <MultiTypeFieldSelector
                     defaultValueToReset={[{ value: '', id: uuid() }]}
                     name={'spec.deleteResources.spec.resourceNames'}
-                    label={getString('pipelineSteps.resourceNameLabel')}
+                    label={getString('auditTrail.resourceNameLabel')}
                     allowedTypes={allowableTypes}
                   >
                     <FieldArray

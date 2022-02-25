@@ -6,12 +6,23 @@
  */
 
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, orgPathProps } from '@common/utils/routeUtils'
+import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
 import AuditTrailsListView from '../AuditTrailsListView'
 import { data } from './mockData'
+
+AuditTrailFactory.registerResourceHandler('INPUT_SET', {
+  moduleIcon: { name: 'nav-settings' },
+  moduleLabel: 'auditTrail.Platform'
+})
+
+AuditTrailFactory.registerResourceHandler('PIPELINE', {
+  moduleIcon: { name: 'cd' }
+})
 
 describe('Audit trail list view', () => {
   test('render', () => {
@@ -21,5 +32,31 @@ describe('Audit trail list view', () => {
       </TestWrapper>
     )
     expect(renderObj.container).toMatchSnapshot()
+  })
+
+  test('render in org scope', () => {
+    const renderObj = render(
+      <TestWrapper
+        path={routes.toAuditTrail({ ...orgPathProps })}
+        pathParams={{ accountId: 'testAcc', orgIdentifier: 'orgdummy' }}
+      >
+        <AuditTrailsListView data={data.data as any} setPage={jest.fn} />
+      </TestWrapper>
+    )
+    expect(renderObj.container).toMatchSnapshot()
+  })
+
+  test('test event summary click', () => {
+    render(
+      <TestWrapper path={routes.toAuditTrail({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
+        <AuditTrailsListView data={data.data as any} setPage={jest.fn} />
+      </TestWrapper>
+    )
+    const notesIcon = document.body.querySelector('.notesIcon')
+    act(() => {
+      fireEvent.click(notesIcon as Element)
+    })
+    const eventSummary = screen.queryByText('auditTrail.eventSummary')
+    expect(eventSummary).toBeDefined()
   })
 })

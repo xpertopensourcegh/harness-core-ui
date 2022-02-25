@@ -114,7 +114,7 @@ AuditTrailFactory.registerResourceHandler('ORGANIZATION', {
   moduleIcon: {
     name: 'nav-settings'
   },
-  moduleIconLabel: platformLabel,
+  moduleLabel: platformLabel,
   resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier } = resourceScope
     return orgIdentifier ? routes.toOrganizationDetails({ orgIdentifier, accountId: accountIdentifier }) : undefined
@@ -125,7 +125,7 @@ AuditTrailFactory.registerResourceHandler('PROJECT', {
   moduleIcon: {
     name: 'nav-settings'
   },
-  moduleIconLabel: platformLabel,
+  moduleLabel: platformLabel,
   resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
     if (orgIdentifier && projectIdentifier) {

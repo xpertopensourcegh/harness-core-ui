@@ -858,7 +858,6 @@ pipelineSteps:
   timeoutLabel: 'Timeout'
   provisionerIdentifier: 'Provisioner Identifier'
   timeoutPlaceholder: '120s'
-  resourceNameLabel: 'Resource Name'
   resourceNameValue: 'ResourceName'
   releaseNameLabel: 'Release Name'
   releaseNameValue: 'ReleaseName'

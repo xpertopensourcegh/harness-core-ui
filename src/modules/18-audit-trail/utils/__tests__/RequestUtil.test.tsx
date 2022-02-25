@@ -15,8 +15,10 @@ import { TestWrapper } from '@common/utils/testUtils'
 import {
   getFilterPropertiesFromForm,
   getFormValuesFromFilterProperties,
+  getModuleNameFromAuditModule,
   getOrgDropdownList,
-  getProjectDropdownList
+  getProjectDropdownList,
+  getStringFromSubtitleMap
 } from '../RequestUtil'
 
 const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
@@ -56,12 +58,77 @@ describe('Request util', () => {
     expect(getFilterPropertiesFromForm({}, 'dummyAccountId')).toEqual({ filterType: 'Audit' })
   })
 
+  test('test empty form to get filter properties', () => {
+    expect(getFilterPropertiesFromForm({}, 'dummyAccountId')).toEqual({ filterType: 'Audit' })
+  })
+
   test('test filter properties from form data', () => {
     expect(getFilterPropertiesFromForm(formData, 'dummyAccountId')).toEqual(filterProperties)
   })
 
   test('get form values from filter properties', () => {
     expect(getFormValuesFromFilterProperties(filterProperties, result.current.getString)).toEqual(formData)
+  })
+
+  test('get form values from filter properties without actions', () => {
+    const filterPropertieswithoutActions: AuditFilterProperties = {
+      filterType: 'Audit',
+      resources: [
+        {
+          type: 'API_KEY',
+          identifier: 'api_key'
+        }
+      ],
+      scopes: [
+        {
+          projectIdentifier: 'project_1_value',
+          accountIdentifier: 'dummyAccountId',
+          orgIdentifier: 'org_1'
+        },
+        { accountIdentifier: 'dummyAccountId', orgIdentifier: 'org_2' }
+      ]
+    }
+
+    const formDataWithoutActions: AuditTrailFormType = {
+      projects: [{ label: 'project_1_value', value: 'project_1_value', orgIdentifier: 'org_1' }],
+      organizations: [
+        { label: 'org_1', value: 'org_1' },
+        { label: 'org_2', value: 'org_2' }
+      ],
+      resourceType: [
+        {
+          label: 'common.apikey',
+          value: 'API_KEY'
+        }
+      ]
+    }
+    expect(getFormValuesFromFilterProperties(filterPropertieswithoutActions, result.current.getString)).toEqual(
+      formDataWithoutActions
+    )
+  })
+
+  test('get module name from Audit module', () => {
+    expect(getModuleNameFromAuditModule('CD')).toEqual('cd')
+    expect(getModuleNameFromAuditModule('CI')).toEqual('ci')
+    expect(getModuleNameFromAuditModule('CF')).toEqual('cf')
+    expect(getModuleNameFromAuditModule('CE')).toEqual('ce')
+    expect(getModuleNameFromAuditModule('CV')).toEqual('cv')
+    expect(getModuleNameFromAuditModule('CORE')).toEqual(undefined)
+  })
+
+  test('get string from subtitle map', () => {
+    expect(
+      getStringFromSubtitleMap({
+        title: 'value'
+      })
+    ).toEqual('title: value')
+
+    expect(
+      getStringFromSubtitleMap({
+        title: 'value',
+        title1: 'value1'
+      })
+    ).toEqual('title: value | title1: value1')
   })
 
   test('test project dropdown list', () => {

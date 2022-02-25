@@ -42,8 +42,7 @@ export const data = {
         requestMetadata: { clientIP: '125.19.67.142' },
         timestamp: 1641548158577,
         authenticationInfo: {
-          principal: { type: 'USER', identifier: 'sunnykesh.shandilya@harness.io' },
-          labels: { userId: 'qy-58B7HQH2aNi_UrakVLg', username: 'sunnykesh.shandilya@harness.io' }
+          principal: { type: 'USER', identifier: 'sunnykesh.shandilya@harness.io' }
         },
         module: 'CORE',
         resource: { type: 'PIPELINE', identifier: 'dummyPpeline' },
@@ -60,7 +59,7 @@ export const data = {
         requestMetadata: { clientIP: '192.195.83.11' },
         timestamp: 1641548157415,
         authenticationInfo: {
-          principal: { type: 'USER', identifier: 'samarth.sharma@harness.io' },
+          principal: { type: 'USER' },
           labels: { userId: '0E8JGUiiSxK7x2OhbnnTHA', username: 'Samarth Sharma' }
         },
         module: 'CORE',
@@ -70,9 +69,7 @@ export const data = {
       {
         auditId: '61d80961dda3193d1dd55bee',
         resourceScope: {
-          accountIdentifier: 'px7xd_BFRCi-pfWPYXVjvw',
-          orgIdentifier: 'deafult',
-          projectIdentifier: 'testprojectone'
+          accountIdentifier: 'px7xd_BFRCi-pfWPYXVjvw'
         },
         httpRequestInfo: { requestMethod: 'POST' },
         requestMetadata: { clientIP: '125.19.67.142' },

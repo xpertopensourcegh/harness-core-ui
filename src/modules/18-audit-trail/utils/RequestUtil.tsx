@@ -11,6 +11,7 @@ import type { AuditTrailFormType, ProjectSelectOption } from '@audit-trail/compo
 import type { AuditEventDTO, AuditFilterProperties, ResourceDTO, ResourceScopeDTO } from 'services/audit'
 import type { StringKeys } from 'framework/strings'
 import type { OrganizationAggregateDTO, ProjectResponse } from 'services/cd-ng'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 
 export const actionToLabelMap: Record<AuditEventDTO['action'], StringKeys> = {
   CREATE: 'created',
@@ -64,6 +65,22 @@ export const resourceTypeToLabelMapping: Record<ResourceDTO['type'], StringKeys>
   API_KEY: 'common.apikey',
   TOKEN: 'token',
   DELEGATE_TOKEN: 'common.delegateTokenLabel'
+}
+
+export const getModuleNameFromAuditModule = (auditModule: AuditEventDTO['module']): Module | undefined => {
+  switch (auditModule) {
+    case 'CD':
+      return 'cd'
+    case 'CI':
+      return 'ci'
+    case 'CF':
+      return 'cf'
+    case 'CE':
+      return 'ce'
+    case 'CV':
+      return 'cv'
+  }
+  return undefined
 }
 
 export const getFilterPropertiesFromForm = (formData: AuditTrailFormType, accountId: string): AuditFilterProperties => {
@@ -198,4 +215,13 @@ export const getOrgDropdownList = (list: OrganizationAggregateDTO[]): MultiSelec
     label: org.organizationResponse.organization.name,
     value: org.organizationResponse.organization.identifier
   }))
+}
+
+const SEPARATOR = '|'
+export const getStringFromSubtitleMap = (map: Record<string, string | undefined>): string => {
+  const keysArr = Object.keys(map)
+  const arr: string[] = keysArr.reduce((finalArr: string[], key: string) => {
+    return map[key] ? [...finalArr, `${key}: ${map[key]}`] : finalArr
+  }, [])
+  return arr.reduce((str, text) => `${str} ${SEPARATOR} ${text}`)
 }
