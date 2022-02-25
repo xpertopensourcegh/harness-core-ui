@@ -348,7 +348,8 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
     defaultTo(gitDetails.branch, '')
   )
   dispatch(PipelineContextActions.fetching())
-  let data: PipelinePayload = await IdbPipeline?.get(IdbPipelineStoreName, id)
+  let data: PipelinePayload =
+    IdbPipeline?.objectStoreNames?.contains(IdbPipelineStoreName) && (await IdbPipeline?.get(IdbPipelineStoreName, id))
   if ((!data || forceFetch) && pipelineId !== DefaultNewPipelineId) {
     const pipelineWithGitDetails: PipelineInfoConfigWithGitDetails = await getPipelineByIdentifier(
       { ...queryParams, ...(repoIdentifier && branch ? { repoIdentifier, branch } : {}) },
