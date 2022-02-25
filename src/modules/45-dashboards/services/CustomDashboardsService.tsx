@@ -93,3 +93,45 @@ export const useMutateCreateSignedUrl = (
   })
   return { mutate, loading, error }
 }
+
+export interface CloneDashboardResponseResource {
+  id: string
+  folder_id: string
+}
+
+export interface CloneDashboardResponse {
+  mutate: (props: { dashboardId: string }) => Promise<CloneDashboardResponseResource>
+  loading: boolean
+}
+
+export const useCloneDashboard = (accountId: string): CloneDashboardResponse => {
+  const { mutate, loading } = useMutate({
+    verb: 'POST',
+    path: 'gateway/dashboard/clone',
+    queryParams: {
+      accountId: accountId
+    }
+  })
+  return { mutate, loading }
+}
+
+export interface DeleteDashboardResponseResource {
+  id: string
+  folder_id: string
+}
+
+export interface DeleteDashboardResponse {
+  mutate: (props: { dashboardId: string }) => Promise<DeleteDashboardResponseResource>
+  loading: boolean
+}
+
+export const useDeleteDashboard = (accountId: string): DeleteDashboardResponse => {
+  const { mutate, loading } = useMutate({
+    verb: 'DELETE',
+    path: 'gateway/dashboard/remove',
+    queryParams: {
+      accountId: accountId
+    }
+  })
+  return { mutate, loading }
+}

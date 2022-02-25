@@ -49,6 +49,7 @@ import routes from '@common/RouteDefinitions'
 
 import { useStrings } from 'framework/strings'
 
+import { useDeleteDashboard, useCloneDashboard } from '@dashboards/services/CustomDashboardsService'
 import { useDashboardsContext } from '../DashboardsContext'
 import FilterTagsSideBar from './FilterTagsSideBar'
 import moduleTagCss from '@dashboards/common/ModuleTags.module.scss'
@@ -281,53 +282,6 @@ const RenderDashboardName: Renderer<CellProps<DashboardInterface>> = ({ row }) =
   )
 }
 
-const RenderMenu: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
-  const data = row.original
-  const history = useHistory()
-  const { accountId } = useParams<{ accountId: string; folderId: string }>()
-  const { mutate: cloneDashboard } = useMutate({
-    // Inferred from RestfulProvider in index.js
-    verb: 'POST',
-    path: 'gateway/dashboard/clone',
-    queryParams: {
-      accountId: accountId
-    }
-  })
-  const clone = async (dashboardId: string) => {
-    const clonedDashboard = await cloneDashboard({ dashboardId })
-    if (clonedDashboard) {
-      history.push({
-        pathname: routes.toViewCustomDashboard({
-          viewId: clonedDashboard?.id,
-          accountId: accountId,
-          folderId: clonedDashboard?.folder_id
-        })
-      })
-    }
-  }
-  return (
-    <CardBody.Menu
-      menuContent={
-        <Menu>
-          <RbacMenuItem
-            text="clone"
-            onClick={() => clone(data.id)}
-            permission={{
-              permission: PermissionIdentifier.EDIT_DASHBOARD,
-              resource: {
-                resourceType: ResourceType.DASHBOARDS
-              }
-            }}
-          />
-        </Menu>
-      }
-      menuPopoverProps={{
-        className: Classes.DARK
-      }}
-    />
-  )
-}
-
 const RenderDashboardTags: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
   const data = row.original
   return TagsRenderer(data)
@@ -352,6 +306,105 @@ const getBreadcrumbLinks = (
     ]
   }
   return []
+}
+
+export interface DashboardCardInterface {
+  dashboard: DashboardInterface
+  clone: (dashboardId: string) => Promise<void>
+  deleteById: (dashboardId: string) => Promise<void>
+}
+
+const DashboardCard: React.FC<DashboardCardInterface> = ({ dashboard, clone, deleteById }) => {
+  const { getString } = useStrings()
+  const { accountId, folderId } = useParams<{ accountId: string; folderId: string }>()
+  const history = useHistory()
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  return (
+    <Card
+      interactive
+      className={cx(css.dashboardCard)}
+      onClick={() => {
+        history.push({
+          pathname: routes.toViewCustomDashboard({
+            viewId: dashboard.id,
+            accountId: accountId,
+            folderId: folderId === 'shared' ? 'shared' : dashboard?.resourceIdentifier
+          })
+        })
+      }}
+    >
+      <Container>
+        {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) && (
+          <CardBody.Menu
+            menuContent={
+              <Menu>
+                <RbacMenuItem
+                  text={getString('projectCard.clone')}
+                  onClick={e => {
+                    e.stopPropagation()
+                    setMenuOpen(false)
+                    clone(dashboard.id)
+                  }}
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_DASHBOARD,
+                    resource: {
+                      resourceType: ResourceType.DASHBOARDS
+                    }
+                  }}
+                />
+                <RbacMenuItem
+                  text={getString('delete')}
+                  onClick={e => {
+                    e.stopPropagation()
+                    setMenuOpen(false)
+                    deleteById(dashboard.id)
+                  }}
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_DASHBOARD,
+                    resource: {
+                      resourceType: ResourceType.DASHBOARDS
+                    }
+                  }}
+                />
+              </Menu>
+            }
+            menuPopoverProps={{
+              className: Classes.DARK,
+              isOpen: menuOpen,
+              onInteraction: nextOpenState => {
+                setMenuOpen(nextOpenState)
+              }
+            }}
+          />
+        )}
+
+        <Layout.Vertical spacing="large">
+          <Text font={{ variation: FontVariation.CARD_TITLE }}>{dashboard?.title}</Text>
+          {TagsRenderer(dashboard)}
+
+          {dashboard?.type !== dashboardType.SHARED && (
+            <Layout.Horizontal spacing="small">
+              <Text
+                icon="eye-open"
+                iconProps={{ padding: { right: 'small' } }}
+                font={{ variation: FontVariation.CARD_TITLE }}
+              >
+                {dashboard?.view_count}
+              </Text>
+              <Text
+                icon="star-empty"
+                iconProps={{ padding: { right: 'small' } }}
+                font={{ variation: FontVariation.CARD_TITLE }}
+              >
+                {dashboard?.favorite_count}
+              </Text>
+            </Layout.Horizontal>
+          )}
+        </Layout.Vertical>
+      </Container>
+    </Card>
+  )
 }
 
 const HomePage: React.FC = () => {
@@ -396,6 +449,41 @@ const HomePage: React.FC = () => {
   ]
 
   const [sortby, setSortingFilter] = useState<SelectOption>(defaultSortBy)
+
+  const RenderMenu: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
+    const data = row.original
+    return (
+      <CardBody.Menu
+        menuContent={
+          <Menu>
+            <RbacMenuItem
+              text={getString('projectCard.clone')}
+              onClick={() => clone(data.id)}
+              permission={{
+                permission: PermissionIdentifier.EDIT_DASHBOARD,
+                resource: {
+                  resourceType: ResourceType.DASHBOARDS
+                }
+              }}
+            />
+            <RbacMenuItem
+              text={getString('delete')}
+              onClick={() => deleteById(data.id)}
+              permission={{
+                permission: PermissionIdentifier.EDIT_DASHBOARD,
+                resource: {
+                  resourceType: ResourceType.DASHBOARDS
+                }
+              }}
+            />
+          </Menu>
+        }
+        menuPopoverProps={{
+          className: Classes.DARK
+        }}
+      />
+    )
+  }
 
   const columns: CustomColumn<DashboardInterface>[] = [
     {
@@ -453,6 +541,7 @@ const HomePage: React.FC = () => {
   const {
     data: dashboardList,
     loading,
+    refetch,
     error
   } = useGet({
     // Inferred from RestfulProvider in index.js
@@ -470,14 +559,7 @@ const HomePage: React.FC = () => {
     }
   })
 
-  const { mutate: cloneDashboard, loading: cloning } = useMutate({
-    // Inferred from RestfulProvider in index.js
-    verb: 'POST',
-    path: 'gateway/dashboard/clone',
-    queryParams: {
-      accountId: accountId
-    }
-  })
+  const { mutate: cloneDashboard, loading: cloning } = useCloneDashboard(accountId)
 
   const clone = async (dashboardId: string) => {
     const clonedDashboard = await cloneDashboard({ dashboardId })
@@ -490,6 +572,13 @@ const HomePage: React.FC = () => {
         })
       })
     }
+  }
+
+  const { mutate: deleteDashboard, loading: deleting } = useDeleteDashboard(accountId)
+
+  const deleteById = async (dashboardId: string) => {
+    await deleteDashboard({ dashboardId })
+    refetch()
   }
 
   const { data: folderDetail } = useGet({
@@ -558,7 +647,7 @@ const HomePage: React.FC = () => {
   }, [folderDetail, accountId, folderId])
 
   return (
-    <Page.Body loading={loading || cloning} error={error?.data?.message}>
+    <Page.Body loading={loading || cloning || deleting} error={error?.data?.message}>
       <Layout.Horizontal>
         <Layout.Horizontal
           padding="large"
@@ -672,67 +761,7 @@ const HomePage: React.FC = () => {
               gutter={25}
               items={filteredDashboardList}
               renderItem={(dashboard: DashboardInterface) => (
-                <Card
-                  interactive
-                  className={cx(css.dashboardCard)}
-                  onClick={() => {
-                    history.push({
-                      pathname: routes.toViewCustomDashboard({
-                        viewId: dashboard.id,
-                        accountId: accountId,
-                        folderId: folderId === 'shared' ? 'shared' : dashboard?.resourceIdentifier
-                      })
-                    })
-                  }}
-                >
-                  <Container>
-                    {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) && (
-                      <CardBody.Menu
-                        menuContent={
-                          <Menu>
-                            <RbacMenuItem
-                              text="clone"
-                              onClick={() => clone(dashboard.id)}
-                              permission={{
-                                permission: PermissionIdentifier.EDIT_DASHBOARD,
-                                resource: {
-                                  resourceType: ResourceType.DASHBOARDS
-                                }
-                              }}
-                            />
-                          </Menu>
-                        }
-                        menuPopoverProps={{
-                          className: Classes.DARK
-                        }}
-                      />
-                    )}
-
-                    <Layout.Vertical spacing="large">
-                      <Text font={{ variation: FontVariation.CARD_TITLE }}>{dashboard?.title}</Text>
-                      {TagsRenderer(dashboard)}
-
-                      {dashboard?.type !== dashboardType.SHARED && (
-                        <Layout.Horizontal spacing="small">
-                          <Text
-                            icon="eye-open"
-                            iconProps={{ padding: { right: 'small' } }}
-                            font={{ variation: FontVariation.CARD_TITLE }}
-                          >
-                            {dashboard?.view_count}
-                          </Text>
-                          <Text
-                            icon="star-empty"
-                            iconProps={{ padding: { right: 'small' } }}
-                            font={{ variation: FontVariation.CARD_TITLE }}
-                          >
-                            {dashboard?.favorite_count}
-                          </Text>
-                        </Layout.Horizontal>
-                      )}
-                    </Layout.Vertical>
-                  </Container>
-                </Card>
+                <DashboardCard dashboard={dashboard} clone={clone} deleteById={deleteById} />
               )}
               keyOf={dashboard => dashboard?.id}
             />
