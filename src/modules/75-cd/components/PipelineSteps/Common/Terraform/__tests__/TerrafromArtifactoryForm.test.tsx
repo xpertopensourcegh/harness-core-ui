@@ -107,15 +107,7 @@ describe('Terraform artifactory tests', () => {
                     projectIdentifier: 'test',
                     type: 'Artifactory'
                   },
-                  artifacts: [
-                    {
-                      artifactFile: {
-                        artifactPathExpression: 'terraform/*',
-                        name: 'config.tf.zip',
-                        path: 'generic-local/terraform/config.tf.zip'
-                      }
-                    }
-                  ],
+                  artifactPaths: [{ path: 'generic-local/terraform/config' }],
                   repositoryName: 'generic-local'
                 }
               }
@@ -173,15 +165,7 @@ describe('Terraform artifactory tests', () => {
                         type: 'Artifactory'
                       }
                     },
-                    artifacts: [
-                      {
-                        artifactFile: {
-                          artifactPathExpression: 'terraform/*',
-                          name: 'config.tf.zip',
-                          path: 'generic-local/terraform/config.tf.zip'
-                        }
-                      }
-                    ],
+                    artifactPaths: [{ path: 'generic-local/terraform/config' }],
                     repositoryName: 'generic-local'
                   }
                 }
@@ -206,15 +190,7 @@ describe('Terraform artifactory tests', () => {
             type: 'Artifactory',
             spec: {
               repositoryName: 'generic-local',
-              artifacts: [
-                {
-                  artifactFile: {
-                    artifactPathExpression: 'terraform/*',
-                    name: 'localresource.tfvar.zip',
-                    path: 'generic-local/terraform/localresource.tfvar.zip'
-                  }
-                }
-              ],
+              artifactPaths: [{ path: 'generic-local/terraform/config' }],
               connectorRef: {
                 label: 'test',
                 value: 'test',
@@ -239,7 +215,7 @@ describe('Terraform artifactory tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('initial render with form data for var files ', async () => {
+  test('test submitting when terraform plan form', async () => {
     const prevStepData = {
       varFile: {
         type: 'Remote',
@@ -249,58 +225,7 @@ describe('Terraform artifactory tests', () => {
             type: 'Artifactory',
             spec: {
               repositoryName: 'generic-local',
-              artifacts: [
-                {
-                  artifactFile: {
-                    artifactPathExpression: 'terraform/*',
-                    name: 'localresource.tfvar.zip',
-                    path: 'generic-local/terraform/localresource.tfvar.zip'
-                  }
-                }
-              ],
-              connectorRef: {
-                label: 'test',
-                value: 'test',
-                scope: 'project',
-                live: true,
-                connector: {
-                  name: 'test',
-                  identifier: 'test',
-                  orgIdentifier: 'default',
-                  projectIdentifier: 'test',
-                  type: 'Artifactory'
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    props.isTerraformPlan = false
-    props.isConfig = false
-    const { container } = renderForm(prevStepData)
-    expect(container).toMatchSnapshot()
-  })
-
-  test('test submitting form', async () => {
-    const prevStepData = {
-      varFile: {
-        type: 'Remote',
-        identifier: 'var file id',
-        spec: {
-          store: {
-            type: 'Artifactory',
-            spec: {
-              repositoryName: 'generic-local',
-              artifacts: [
-                {
-                  artifactFile: {
-                    artifactPathExpression: 'terraform/*',
-                    name: 'localresource.tfvar.zip',
-                    path: 'generic-local/terraform/localresource.tfvar.zip'
-                  }
-                }
-              ],
+              artifactPaths: [{ path: 'generic-local/terraform/config' }],
               connectorRef: {
                 label: 'test',
                 value: 'test',
@@ -337,15 +262,7 @@ describe('Terraform artifactory tests', () => {
             type: 'Artifactory',
             spec: {
               repositoryName: 'generic-local',
-              artifacts: [
-                {
-                  artifactFile: {
-                    artifactPathExpression: 'terraform/*',
-                    name: 'localresource.tfvar.zip',
-                    path: 'generic-local/terraform/localresource.tfvar.zip'
-                  }
-                }
-              ],
+              artifactPaths: [{ path: 'generic-local/terraform/config' }],
               connectorRef: {
                 label: 'test',
                 value: 'test',
@@ -392,14 +309,9 @@ describe('Terraform artifactory tests', () => {
                         type: 'Artifactory'
                       }
                     },
-                    artifacts: [
-                      {
-                        artifactFile: {
-                          artifactPathExpression: 'terraform/*',
-                          name: 'config.tf.zip',
-                          path: 'generic-local/terraform/config.tf.zip'
-                        }
-                      }
+                    artifactPaths: [
+                      { path: 'generic-local/terraform/config' },
+                      { path: 'generic-local/terraform/tfConfig' }
                     ],
                     repositoryName: 'generic-local'
                   }
@@ -415,6 +327,47 @@ describe('Terraform artifactory tests', () => {
     const { container, getByText } = renderForm(prevStepData)
     const submitButton = getByText('submit')
     await fireEvent.click(submitButton)
+    expect(container).toMatchSnapshot()
+  })
+
+  test('when deleting a artifact path', async () => {
+    const prevStepData = {
+      formValues: {
+        spec: {
+          configuration: {
+            spec: {
+              configFiles: {
+                store: {
+                  type: 'Artifactory',
+                  spec: {
+                    connectorRef: {
+                      connector: {
+                        name: 'test',
+                        identifier: 'test',
+                        description: '',
+                        orgIdentifier: 'default',
+                        projectIdentifier: 'test',
+                        type: 'Artifactory'
+                      }
+                    },
+                    artifactPaths: [
+                      { path: 'generic-local/terraform/config' },
+                      { path: 'generic-local/terraform/tfConfig' }
+                    ],
+                    repositoryName: 'generic-local'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    props.isTerraformPlan = false
+    props.isConfig = false
+    const { container, getByTestId } = renderForm(prevStepData)
+    const deletePath = getByTestId('remove-header-0')
+    await fireEvent.click(deletePath)
     expect(container).toMatchSnapshot()
   })
 })

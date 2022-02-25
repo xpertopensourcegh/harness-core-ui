@@ -209,6 +209,10 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
                       name={tfArtifactoryFormInputNames(isConfig).repositoryName}
                       label={getString('pipelineSteps.repoName')}
                       placeholder={getString('cd.selectRepository')}
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                      }}
                     />
                   )}
                   {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && (
