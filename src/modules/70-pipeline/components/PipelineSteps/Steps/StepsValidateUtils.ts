@@ -381,7 +381,7 @@ export function generateSchemaFields(
     }
 
     if (type === Types.Timeout) {
-      validationRule = getDurationValidationSchema()
+      validationRule = getDurationValidationSchema({ minimum: '10s' })
     }
 
     if (type === Types.Boolean) {
