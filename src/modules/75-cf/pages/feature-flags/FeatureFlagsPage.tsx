@@ -537,7 +537,7 @@ const FeatureFlagsPage: React.FC = () => {
         refetch
       }
     ],
-    [refetch, gitSync, toggleFeatureFlag, features, deleteFlag.mutate]
+    [gitSync.isAutoCommitEnabled, gitSync.isGitSyncEnabled, features]
   )
   const onSearchInputChanged = useCallback(
     name => {
