@@ -96,6 +96,7 @@ export const getHarnessApprovalEditModePropsWithValues = (): HarnessApprovalStep
     }
   },
   onUpdate: jest.fn(),
+  onChange: jest.fn(),
   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   stepViewType: StepViewType.Edit
 })

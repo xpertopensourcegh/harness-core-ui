@@ -211,6 +211,67 @@ describe('Harness Approval tests', () => {
     await act(() => ref.current?.submitForm())
     await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.minimumCountOne')).toBeTruthy())
   })
+
+  test('Add Approver Inputs should work as expected', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getHarnessApprovalEditModePropsWithValues()
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.HarnessApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={props.onUpdate}
+        onChange={props.onChange}
+      />
+    )
+
+    act(() => {
+      fireEvent.click(getByText('common.optionalConfig'))
+    })
+    expect(container.querySelector(`input[name="spec.approverInputs[0].name"]`)).toHaveValue('somekey')
+    expect(container.querySelector(`input[name="spec.approverInputs[0].defaultValue"]`)).toHaveValue('somevalue')
+
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.addApproverInputs'))
+    })
+    expect(props.onChange).not.toBeCalled()
+
+    const secondApproverInputNameField = container.querySelector(
+      `input[name="spec.approverInputs[1].name"]`
+    ) as HTMLElement
+    const secondApproverInputValueField = container.querySelector(
+      `input[name="spec.approverInputs[1].defaultValue"]`
+    ) as HTMLElement
+
+    expect(secondApproverInputNameField).toHaveValue('')
+    expect(secondApproverInputValueField).toHaveValue('')
+
+    act(() => {
+      fireEvent.change(secondApproverInputNameField, { target: { value: 'someotherkey' } })
+      fireEvent.change(secondApproverInputValueField, { target: { value: 'someothervalue' } })
+    })
+    expect(props.onChange).toBeCalledWith({
+      identifier: 'hhaass',
+      name: 'harness approval step',
+      spec: {
+        approvalMessage: 'Approving pipeline <+pname>',
+        approverInputs: [
+          { defaultValue: 'somevalue', name: 'somekey' },
+          { defaultValue: 'someothervalue', name: 'someotherkey' }
+        ],
+        approvers: {
+          disallowPipelineExecutor: true,
+          minimumCount: 1,
+          userGroups: ['ug1', 'org.ug2', 'org.ug3', 'ug4', 'account.ug5', 'account.ug6']
+        },
+        includePipelineExecutionHistory: true
+      },
+      timeout: '10m',
+      type: 'HarnessApproval'
+    })
+  })
+
   test('On submit call', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getHarnessApprovalEditModePropsWithValues()
