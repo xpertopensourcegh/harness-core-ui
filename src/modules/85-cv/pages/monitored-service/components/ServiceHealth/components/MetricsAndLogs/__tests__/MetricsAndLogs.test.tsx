@@ -32,7 +32,7 @@ jest.mock('services/cv', () => ({
   useGetTimeSeriesMetricData: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: fetchMetricsData, error: null, loading: false }
   }),
-  useGetAllHealthSourcesForServiceAndEnvironment: jest.fn().mockImplementation(() => {
+  useGetAllHealthSourcesForMonitoredServiceIdentifier: jest.fn().mockImplementation(() => {
     return { data: mockedHealthSourcesData, error: null, loading: false }
   }),
   useGetAllLogsClusterData: jest.fn().mockImplementation(() => {
@@ -43,6 +43,7 @@ jest.mock('services/cv', () => ({
 describe('Unit tests for MetricsAndLogs', () => {
   test('Verify if Metrics and Logs View is rendered when required params are defined', async () => {
     const props = {
+      monitoredServiceIdentifier: 'monitored_service_identifier',
       serviceIdentifier: 'service-identifier',
       environmentIdentifier: 'env-identifier',
       startTime: 1630594988077,
@@ -54,6 +55,7 @@ describe('Unit tests for MetricsAndLogs', () => {
 
   test('Verify if appropriate image is rendered when start or endtime is not present', async () => {
     const props = {
+      monitoredServiceIdentifier: 'monitored_service_identifier',
       serviceIdentifier: 'service-identifier',
       environmentIdentifier: 'env-identifier',
       startTime: 0,

@@ -10,8 +10,7 @@ import type { RestResponseSetHealthSourceDTO } from 'services/cv'
 
 export interface HealthSourceDropDownProps {
   onChange: (selectedHealthSource: string) => void
-  serviceIdentifier: string
-  environmentIdentifier: string
+  monitoredServiceIdentifier: string
   className?: string
   verificationType?: string
 }

@@ -18,6 +18,7 @@ export enum DatasourceTypeEnum {
 }
 
 export interface MetricsAndLogsProps {
+  monitoredServiceIdentifier: string
   serviceIdentifier: string
   environmentIdentifier: string
   startTime?: number

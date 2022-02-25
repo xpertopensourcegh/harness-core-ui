@@ -13,7 +13,7 @@ export interface TickerType {
 }
 
 export interface ServiceHealthProps {
-  monitoredServiceIdentifier?: string
+  monitoredServiceIdentifier: string
   serviceIdentifier: string
   environmentIdentifier: string
   hasChangeSource: boolean

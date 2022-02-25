@@ -37,7 +37,7 @@ jest.mock('services/cv', () => ({
     useGetAllLogsDataQueryParams = props.queryParams
     return { data: mockedLogAnalysisData, loading: false, error: null, refetch: fetchLogAnalysis }
   }),
-  useGetAllHealthSourcesForServiceAndEnvironment: jest.fn().mockImplementation(() => {
+  useGetAllHealthSourcesForMonitoredServiceIdentifier: jest.fn().mockImplementation(() => {
     return { data: mockedHealthSourcesData, error: null, loading: false }
   }),
   useGetAllLogsClusterData: jest.fn().mockImplementation(props => {
@@ -48,6 +48,7 @@ jest.mock('services/cv', () => ({
 
 describe('Unit tests for LogAnalysisContainer', () => {
   const props = {
+    monitoredServiceIdentifier: 'monitored_service_identifier',
     serviceIdentifier: 'service-identifier',
     environmentIdentifier: 'env-identifier',
     startTime: 1630594988077,

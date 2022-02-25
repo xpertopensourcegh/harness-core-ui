@@ -109,7 +109,7 @@ allowpaths:
   - /timeseries-dashboard/metrics
   - /verify-step/input-set-template
   - /monitored-service/scores
-  - /monitored-service/health-sources
+  - /monitored-service/{monitoredServiceIdentifier}/health-sources
   - /monitored-service/{identifier}/anomaliesCount
   - /service-dependency-graph
   - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/summary

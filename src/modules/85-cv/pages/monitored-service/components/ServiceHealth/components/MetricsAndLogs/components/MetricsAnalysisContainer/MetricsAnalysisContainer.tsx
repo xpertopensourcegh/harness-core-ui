@@ -133,6 +133,7 @@ const MetricsAnalysisContent: React.FC<MetricsAnalysisContentProps> = ({
 }
 
 const MetricsAnalysisContainer: React.FC<MetricsAnalysisProps> = ({
+  monitoredServiceIdentifier,
   serviceIdentifier,
   environmentIdentifier,
   startTime,
@@ -156,8 +157,7 @@ const MetricsAnalysisContainer: React.FC<MetricsAnalysisProps> = ({
         <HealthSourceDropDown
           verificationType={VerificationType.TIME_SERIES}
           onChange={setHealthSource}
-          serviceIdentifier={serviceIdentifier}
-          environmentIdentifier={environmentIdentifier}
+          monitoredServiceIdentifier={monitoredServiceIdentifier}
         />
         <ExpandingSearchInput
           width={250}

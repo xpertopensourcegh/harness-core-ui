@@ -46,12 +46,53 @@ export interface AnalysisDTO {
   riskProfile?: RiskProfile
 }
 
+export interface AnalysisInput {
+  endTime?: number
+  startTime?: number
+  timeRange?: TimeRange
+  verificationTaskId?: string
+}
+
 export interface AnalysisResult {
   count?: number
   label?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+}
+
+export interface AnalysisState {
+  inputs?: AnalysisInput
+  retryCount?: number
+  status?: 'CREATED' | 'RUNNING' | 'SUCCESS' | 'RETRY' | 'TRANSITION' | 'IGNORED' | 'TIMEOUT' | 'FAILED' | 'COMPLETED'
+  type?:
+    | 'CANARY_TIME_SERIES'
+    | 'DEPLOYMENT_LOG_ANALYSIS'
+    | 'SERVICE_GUARD_LOG_ANALYSIS'
+    | 'ACTIVITY_VERIFICATION'
+    | 'SERVICE_GUARD_TIME_SERIES'
+    | 'TEST_TIME_SERIES'
+    | 'DEPLOYMENT_LOG_CLUSTER'
+    | 'PRE_DEPLOYMENT_LOG_CLUSTER'
+    | 'SERVICE_GUARD_LOG_CLUSTER'
+    | 'SERVICE_GUARD_TREND_ANALYSIS'
+    | 'SLI_METRIC_ANALYSIS'
+}
+
+export interface AnalysisStateMachine {
+  accountId?: string
+  analysisEndTime?: number
+  analysisStartTime?: number
+  completedStates?: AnalysisState[]
+  createdAt?: number
+  currentState?: AnalysisState
+  lastUpdatedAt?: number
+  nextAttemptTime?: number
+  stateMachineIgnoreMinutes?: number
+  status?: 'CREATED' | 'RUNNING' | 'SUCCESS' | 'RETRY' | 'TRANSITION' | 'IGNORED' | 'TIMEOUT' | 'FAILED' | 'COMPLETED'
+  uuid?: string
+  validUntil?: string
+  verificationTaskId?: string
 }
 
 export interface AnalyzedLogDataDTO {
@@ -408,6 +449,7 @@ export interface ChangeEventDTO {
   eventTime?: number
   id?: string
   metadata: ChangeEventMetadata
+  monitoredServiceIdentifier?: string
   name?: string
   orgIdentifier: string
   projectIdentifier: string
@@ -645,6 +687,27 @@ export interface DataCollectionRequest {
     | 'DYNATRACE_VALIDATION_REQUEST'
     | 'DYNATRACE_SAMPLE_DATA_REQUEST'
     | 'DYNATRACE_METRIC_LIST_REQUEST'
+}
+
+export interface DataCollectionTask {
+  accountId?: string
+  createdAt?: number
+  dataCollectionInfo?: DataCollectionInfo
+  dataCollectionWorkerId?: string
+  endTime?: number
+  exception?: string
+  lastPickedAt?: number
+  lastUpdatedAt?: number
+  nextTaskId?: string
+  retryCount?: number
+  stacktrace?: string
+  startTime?: number
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS' | 'ABORTED'
+  type?: 'SERVICE_GUARD' | 'DEPLOYMENT' | 'SLI'
+  uuid?: string
+  validAfter?: number
+  verificationTaskId?: string
+  workerStatusIteration?: number
 }
 
 export interface DataCollectionTaskDTO {
@@ -1181,6 +1244,7 @@ export interface Error {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -1211,6 +1275,10 @@ export interface Error {
     | 'ENTITY_REFERENCE_EXCEPTION'
     | 'INVALID_INPUT_SET'
     | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
+    | 'POLICY_SET_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1232,6 +1300,12 @@ export type ErrorTrackingConnectorDTO = ConnectorConfigDTO & {
 
 export type ErrorTrackingHealthSourceSpec = HealthSourceSpec & {
   feature: string
+}
+
+export interface EventCount {
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
+  count?: number
+  displayName?: string
 }
 
 export interface ExceptionInfo {
@@ -1509,6 +1583,7 @@ export interface Failure {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -1539,6 +1614,10 @@ export interface Failure {
     | 'ENTITY_REFERENCE_EXCEPTION'
     | 'INVALID_INPUT_SET'
     | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
+    | 'POLICY_SET_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -2002,6 +2081,7 @@ export type KubernetesOpenIdConnectDTO = KubernetesAuthCredentialDTO & {
 }
 
 export type KubernetesServiceAccountDTO = KubernetesAuthCredentialDTO & {
+  caCertRef?: string
   serviceAccountTokenRef: string
 }
 
@@ -2112,6 +2192,12 @@ export interface LogAnalysisClusterDTO {
   testFrequencyData?: number[]
 }
 
+export interface LogAnalysisClusterWithCountDTO {
+  eventCounts?: EventCount[]
+  logAnalysisClusterDTO?: PageLogAnalysisClusterDTO
+  totalClusters?: number
+}
+
 export interface LogAnalysisDTO {
   accountId?: string
   analysisEndTime?: number
@@ -2217,6 +2303,7 @@ export interface MetricData {
 }
 
 export interface MetricDefinition {
+  identifier?: string
   included?: boolean
   name?: string
   responseJsonPath?: string
@@ -3206,6 +3293,7 @@ export interface ResponseMessage {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -3236,6 +3324,10 @@ export interface ResponseMessage {
     | 'ENTITY_REFERENCE_EXCEPTION'
     | 'INVALID_INPUT_SET'
     | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
+    | 'POLICY_SET_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -3488,14 +3580,6 @@ export interface RestResponseListActivityVerificationResultDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListChangeEventDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ChangeEventDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListClusteredLog {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3674,11 +3758,11 @@ export interface RestResponseListTimeSeriesRiskSummary {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListTimeSeriesThreshold {
+export interface RestResponseLogAnalysisClusterWithCountDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: TimeSeriesThreshold[]
+  resource?: LogAnalysisClusterWithCountDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -3949,6 +4033,22 @@ export interface SLIOnboardingGraphs {
   sliGraph?: TimeGraphResponse
 }
 
+export interface SLIRecord {
+  createdAt?: number
+  epochMinute?: number
+  lastUpdatedAt?: number
+  runningBadCount?: number
+  runningGoodCount?: number
+  sliId?: string
+  sliState?: 'NO_DATA' | 'GOOD' | 'BAD'
+  sliVersion?: number
+  timestamp?: number
+  uuid?: string
+  validUntil?: string
+  verificationTaskId?: string
+  version?: number
+}
+
 export interface SLODashboardWidget {
   burnRate: BurnRate
   currentPeriodEndTime: number
@@ -3984,6 +4084,18 @@ export interface SLODebugResponse {
   projectParams?: ProjectParams
   serviceLevelIndicatorList?: ServiceLevelIndicator[]
   serviceLevelObjective?: ServiceLevelObjective
+  sliIdentifierToAnalysisStateMachineMap?: {
+    [key: string]: AnalysisStateMachine
+  }
+  sliIdentifierToDataCollectionTaskMap?: {
+    [key: string]: DataCollectionTask[]
+  }
+  sliIdentifierToSLIRecordMap?: {
+    [key: string]: SLIRecord[]
+  }
+  sliIdentifierToVerificationTaskMap?: {
+    [key: string]: VerificationTask
+  }
   sloHealthIndicator?: SLOHealthIndicator
 }
 
@@ -4263,6 +4375,10 @@ export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
   url: string
 }
 
+export interface TaskInfo {
+  taskType?: 'LIVE_MONITORING' | 'DEPLOYMENT' | 'SLI'
+}
+
 export interface TemplateInputsErrorDTO {
   fieldName?: string
   identifierOfErrorSource?: string
@@ -4405,6 +4521,7 @@ export interface TimeSeriesMetricDefinition {
   actionType?: 'IGNORE' | 'FAIL'
   comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
   metricGroupName?: string
+  metricIdentifier?: string
   metricName?: string
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
   occurrenceCount?: number
@@ -4483,6 +4600,7 @@ export interface TimeSeriesThreshold {
     | 'CUSTOM_HEALTH'
   lastUpdatedAt?: number
   metricGroupName?: string
+  metricIdentifier: string
   metricName: string
   metricPackIdentifier: string
   metricType: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
@@ -4631,6 +4749,17 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   xvaultAwsIamServerId?: string
 }
 
+export interface VerificationTask {
+  accountId?: string
+  createdAt?: number
+  tags?: {
+    [key: string]: string
+  }
+  taskInfo?: TaskInfo
+  uuid?: string
+  validUntil?: string
+}
+
 export interface VerifyStepSummary {
   name?: string
   verificationStatus?:
@@ -4743,6 +4872,7 @@ export type YamlSchemaDetailsWrapperRequestBody = YamlSchemaDetailsWrapper
 export interface ChangeEventListQueryParams {
   serviceIdentifiers?: string[]
   envIdentifiers?: string[]
+  monitoredServiceIdentifiers?: string[]
   changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
   changeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
   searchText?: string
@@ -6134,8 +6264,9 @@ export interface GetMonitoredServiceChangeTimelineQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  environmentIdentifier: string
-  serviceIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  monitoredServiceIdentifier?: string
   changeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
   searchText?: string
   duration: 'FOUR_HOURS' | 'TWENTY_FOUR_HOURS' | 'THREE_DAYS' | 'SEVEN_DAYS' | 'THIRTY_DAYS'
@@ -8326,67 +8457,6 @@ export const getMonitoredServiceListEnvironmentsPromise = (
     signal
   )
 
-export interface GetAllHealthSourcesForServiceAndEnvironmentQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
-}
-
-export type GetAllHealthSourcesForServiceAndEnvironmentProps = Omit<
-  GetProps<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>,
-  'path'
->
-
-/**
- * get all health sources for service and environment
- */
-export const GetAllHealthSourcesForServiceAndEnvironment = (
-  props: GetAllHealthSourcesForServiceAndEnvironmentProps
-) => (
-  <Get<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>
-    path={`/monitored-service/health-sources`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetAllHealthSourcesForServiceAndEnvironmentProps = Omit<
-  UseGetProps<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>,
-  'path'
->
-
-/**
- * get all health sources for service and environment
- */
-export const useGetAllHealthSourcesForServiceAndEnvironment = (
-  props: UseGetAllHealthSourcesForServiceAndEnvironmentProps
-) =>
-  useGet<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>(
-    `/monitored-service/health-sources`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * get all health sources for service and environment
- */
-export const getAllHealthSourcesForServiceAndEnvironmentPromise = (
-  props: GetUsingFetchProps<
-    RestResponseListHealthSourceDTO,
-    unknown,
-    GetAllHealthSourcesForServiceAndEnvironmentQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>(
-    getConfig('cv/api'),
-    `/monitored-service/health-sources`,
-    props,
-    signal
-  )
-
 export interface GetMonitoredServiceListQueryParams {
   accountId?: string
   orgIdentifier?: string
@@ -9264,6 +9334,97 @@ export const getSloMetricsPromise = (
     signal
   )
 
+export interface GetAllHealthSourcesForMonitoredServiceIdentifierQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface GetAllHealthSourcesForMonitoredServiceIdentifierPathParams {
+  monitoredServiceIdentifier: string
+}
+
+export type GetAllHealthSourcesForMonitoredServiceIdentifierProps = Omit<
+  GetProps<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForMonitoredServiceIdentifierQueryParams,
+    GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+  >,
+  'path'
+> &
+  GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+
+/**
+ * get all health sources for service and environment
+ */
+export const GetAllHealthSourcesForMonitoredServiceIdentifier = ({
+  monitoredServiceIdentifier,
+  ...props
+}: GetAllHealthSourcesForMonitoredServiceIdentifierProps) => (
+  <Get<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForMonitoredServiceIdentifierQueryParams,
+    GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+  >
+    path={`/monitored-service/${monitoredServiceIdentifier}/health-sources`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllHealthSourcesForMonitoredServiceIdentifierProps = Omit<
+  UseGetProps<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForMonitoredServiceIdentifierQueryParams,
+    GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+  >,
+  'path'
+> &
+  GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+
+/**
+ * get all health sources for service and environment
+ */
+export const useGetAllHealthSourcesForMonitoredServiceIdentifier = ({
+  monitoredServiceIdentifier,
+  ...props
+}: UseGetAllHealthSourcesForMonitoredServiceIdentifierProps) =>
+  useGet<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForMonitoredServiceIdentifierQueryParams,
+    GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+  >(
+    (paramsInPath: GetAllHealthSourcesForMonitoredServiceIdentifierPathParams) =>
+      `/monitored-service/${paramsInPath.monitoredServiceIdentifier}/health-sources`,
+    { base: getConfig('cv/api'), pathParams: { monitoredServiceIdentifier }, ...props }
+  )
+
+/**
+ * get all health sources for service and environment
+ */
+export const getAllHealthSourcesForMonitoredServiceIdentifierPromise = (
+  {
+    monitoredServiceIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForMonitoredServiceIdentifierQueryParams,
+    GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+  > & { monitoredServiceIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForMonitoredServiceIdentifierQueryParams,
+    GetAllHealthSourcesForMonitoredServiceIdentifierPathParams
+  >(getConfig('cv/api'), `/monitored-service/${monitoredServiceIdentifier}/health-sources`, props, signal)
+
 export interface GetSliGraphQueryParams {
   accountId: string
   orgIdentifier: string
@@ -9926,6 +10087,7 @@ export interface GetServiceDependencyGraphQueryParams {
   environmentIdentifier?: string
   envIdentifier?: string
   serviceIdentifier?: string
+  monitoredServiceIdentifier?: string
   servicesAtRiskFilter: boolean
 }
 

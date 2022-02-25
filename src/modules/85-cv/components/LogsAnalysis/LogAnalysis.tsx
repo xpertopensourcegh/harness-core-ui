@@ -171,7 +171,13 @@ const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
   )
 }
 
-const LogAnalysis: React.FC<LogAnalysisProps> = ({ serviceIdentifier, environmentIdentifier, startTime, endTime }) => {
+const LogAnalysis: React.FC<LogAnalysisProps> = ({
+  monitoredServiceIdentifier,
+  serviceIdentifier,
+  environmentIdentifier,
+  startTime,
+  endTime
+}) => {
   const { getString } = useStrings()
 
   const [logEvent, setLogEvent] = useState<LogEvents>(LogEvents.UNKNOWN)
@@ -192,8 +198,7 @@ const LogAnalysis: React.FC<LogAnalysisProps> = ({ serviceIdentifier, environmen
         <HealthSourceDropDown
           onChange={setHealthSource}
           className={css.logsAnalysisFilters}
-          serviceIdentifier={serviceIdentifier}
-          environmentIdentifier={environmentIdentifier}
+          monitoredServiceIdentifier={monitoredServiceIdentifier}
           verificationType={VerificationType.LOG}
         />
       </Layout.Horizontal>

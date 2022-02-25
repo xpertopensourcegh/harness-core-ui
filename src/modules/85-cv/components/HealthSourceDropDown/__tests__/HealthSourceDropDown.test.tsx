@@ -5,8 +5,12 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import React from 'react'
+import { render, waitFor } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import type { StringKeys } from 'framework/strings'
-import type { RestResponseSetHealthSourceDTO } from 'services/cv'
+import * as cvService from 'services/cv'
+import { HealthSourceDropDown } from '../HealthSourceDropDown'
 import { VerificationType } from '../HealthSourceDropDown.constants'
 import { getDropdownOptions } from '../HealthSourceDropDown.utils'
 import { mockedHealthSourcesData, mockedMultipleHealthSourcesData } from './HealthSourceDropDown.mock'
@@ -14,6 +18,12 @@ import { mockedHealthSourcesData, mockedMultipleHealthSourcesData } from './Heal
 function getString(key: StringKeys): StringKeys {
   return key
 }
+
+jest.mock('services/cv', () => ({
+  useGetAllHealthSourcesForMonitoredServiceIdentifier: jest.fn().mockImplementation(() => {
+    return { data: mockedHealthSourcesData, error: null, loading: false }
+  })
+}))
 
 describe('Unit tests for HealthSourceDropDown', () => {
   const dropdownData = {
@@ -28,7 +38,10 @@ describe('Unit tests for HealthSourceDropDown', () => {
   })
 
   test('Should return the health source option when loading is false and there is only one health source', async () => {
-    const newDropdownData = { ...dropdownData, data: mockedHealthSourcesData as RestResponseSetHealthSourceDTO }
+    const newDropdownData = {
+      ...dropdownData,
+      data: mockedHealthSourcesData as cvService.RestResponseSetHealthSourceDTO
+    }
     expect(getDropdownOptions(newDropdownData, getString)).toEqual([
       {
         label: 'Appd Health source',
@@ -41,7 +54,10 @@ describe('Unit tests for HealthSourceDropDown', () => {
   })
 
   test('Should also return the All option whenever there are multiple health sources of same verificationType', async () => {
-    const newDropdownData = { ...dropdownData, data: mockedMultipleHealthSourcesData as RestResponseSetHealthSourceDTO }
+    const newDropdownData = {
+      ...dropdownData,
+      data: mockedMultipleHealthSourcesData as cvService.RestResponseSetHealthSourceDTO
+    }
     expect(getDropdownOptions(newDropdownData, getString)).toEqual([
       {
         icon: {
@@ -58,5 +74,24 @@ describe('Unit tests for HealthSourceDropDown', () => {
         value: 'Appd_Monitored_service/Prometheus_Health_source'
       }
     ])
+  })
+
+  test('should ensure that useGetAllHealthSourcesForMonitoredServiceIdentifier is called with monitoredServiceIdentifier', async () => {
+    render(
+      <TestWrapper>
+        <HealthSourceDropDown monitoredServiceIdentifier="monitored_service_identifier" onChange={jest.fn()} />
+      </TestWrapper>
+    )
+
+    await waitFor(() =>
+      expect(cvService.useGetAllHealthSourcesForMonitoredServiceIdentifier).toHaveBeenLastCalledWith({
+        monitoredServiceIdentifier: 'monitored_service_identifier',
+        queryParams: {
+          accountId: undefined,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined
+        }
+      })
+    )
   })
 })

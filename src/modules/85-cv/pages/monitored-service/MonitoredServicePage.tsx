@@ -96,7 +96,7 @@ const ServiceHealthAndConfiguration: React.FC = () => {
     >
       <ServiceHealth
         hasChangeSource={!!monitoredService?.sources?.changeSources?.length}
-        monitoredServiceIdentifier={monitoredService?.identifier}
+        monitoredServiceIdentifier={monitoredService?.identifier ?? ''}
         serviceIdentifier={monitoredService?.serviceRef as string}
         environmentIdentifier={monitoredService?.environmentRef as string}
       />

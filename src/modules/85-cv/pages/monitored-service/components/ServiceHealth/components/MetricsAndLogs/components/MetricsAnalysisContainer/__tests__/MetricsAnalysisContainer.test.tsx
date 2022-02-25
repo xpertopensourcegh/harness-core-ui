@@ -28,13 +28,14 @@ jest.mock('services/cv', () => ({
   useGetTimeSeriesMetricData: jest.fn().mockImplementation(() => {
     return { data: mockedMetricsData, refetch: fetchMetricsData, error: null, loading: false }
   }),
-  useGetAllHealthSourcesForServiceAndEnvironment: jest.fn().mockImplementation(() => {
+  useGetAllHealthSourcesForMonitoredServiceIdentifier: jest.fn().mockImplementation(() => {
     return { data: mockedHealthSourcesData, error: null, loading: false }
   })
 }))
 
 describe('Unit tests for MetricsAnalysisContainer', () => {
   const props = {
+    monitoredServiceIdentifier: 'monitored_service_identifier',
     serviceIdentifier: 'service-identifier',
     environmentIdentifier: 'env-identifier',
     startTime: 1630594988077,

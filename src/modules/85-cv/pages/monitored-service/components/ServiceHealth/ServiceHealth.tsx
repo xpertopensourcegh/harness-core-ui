@@ -225,6 +225,7 @@ export default function ServiceHealth({
         </Layout.Horizontal>
 
         <MetricsAndLogs
+          monitoredServiceIdentifier={monitoredServiceIdentifier}
           serviceIdentifier={serviceIdentifier}
           environmentIdentifier={environmentIdentifier}
           startTime={timeRange?.startTime}
