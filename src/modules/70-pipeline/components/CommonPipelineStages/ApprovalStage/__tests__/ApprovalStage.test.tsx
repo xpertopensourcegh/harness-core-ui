@@ -14,9 +14,12 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { ApprovalStageSetupShellMode } from '../ApprovalStageSetupShellMode'
 import { ApprovalStage } from '../ApprovalStage'
 import {
+  approvalStageTemplateMock,
   getDummyPipelineContextValue,
   getDummyPipelineContextValueJiraApproval,
   getPropsForMinimalStage,
+  getPropsForMinimalStageWithTemplateCopied,
+  getPropsForMinimalStageWithTemplateUsed,
   mockYamlSnippetResponse,
   mockYamlSnippetResponseJira
 } from './ApprovalStageTestsHelper'
@@ -169,6 +172,97 @@ describe('Jira Approval Stage minimal view', () => {
             description: undefined,
             approvalType: 'JiraApproval',
             tags: {}
+          }
+        },
+        'stagename'
+      )
+    )
+  })
+})
+
+describe('Approval Stage minimal view when a template is used', () => {
+  test('Basic render and setup stage', async () => {
+    const props = getPropsForMinimalStageWithTemplateUsed()
+    const pipelineContextMockValue = getDummyPipelineContextValue()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={pipelineContextMockValue}>
+          <ApprovalStage
+            minimal={true}
+            stageProps={props as any}
+            name={''}
+            type={''}
+            icon={'nav-harness'}
+            isDisabled={false}
+            isApproval={true}
+            title="My approval stage"
+            description={''}
+          />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    expect(container).toHaveTextContent('Using Template: Approval Stage Test (v1)')
+    const nameInput = container.querySelector('input[name="name"]') as HTMLElement
+    act(() => {
+      fireEvent.change(nameInput, { target: { value: 'stagename' } })
+    })
+    act(() => {
+      fireEvent.click(getByText('pipelineSteps.build.create.setupStage'))
+    })
+    await waitFor(() => {
+      expect(pipelineContextMockValue.setTemplateTypes).toBeCalled()
+      expect(props.onSubmit).toBeCalledWith(
+        {
+          stage: {
+            name: 'stagename',
+            identifier: 'stagename',
+            template: {
+              templateRef: 'Approval_Stage_Test',
+              versionLabel: 'v1'
+            }
+          }
+        },
+        'stagename'
+      )
+    })
+  })
+})
+
+describe('Approval Stage minimal view when a template is copied', () => {
+  test('Basic render and setup stage', async () => {
+    const props = getPropsForMinimalStageWithTemplateCopied()
+    const pipelineContextMockValue = getDummyPipelineContextValue()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={pipelineContextMockValue}>
+          <ApprovalStage
+            minimal={true}
+            stageProps={props as any}
+            name={''}
+            type={''}
+            icon={'nav-harness'}
+            isDisabled={false}
+            isApproval={true}
+            title="My approval stage"
+            description={''}
+          />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const nameInput = container.querySelector('input[name="name"]') as HTMLElement
+    act(() => {
+      fireEvent.change(nameInput, { target: { value: 'stagename' } })
+    })
+    fireEvent.click(getByText('pipelineSteps.build.create.setupStage'))
+    await waitFor(() =>
+      expect(props.onSubmit).toBeCalledWith(
+        {
+          stage: {
+            name: 'stagename',
+            identifier: 'stagename',
+            description: undefined,
+            tags: {},
+            ...approvalStageTemplateMock.spec
           }
         },
         'stagename'

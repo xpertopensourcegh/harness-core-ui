@@ -12,6 +12,8 @@ import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { PipelineContextInterface } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { PipelineStagesProps } from '@pipeline/components/PipelineStages/PipelineStages'
+import type { TemplateSummaryResponse } from 'services/template-ng'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { ApprovalStageMinimalModeProps } from '../types'
 
 export const getPropsForMinimalStage = (): PipelineStagesProps<ApprovalStageMinimalModeProps> => ({
@@ -46,6 +48,84 @@ export const getPropsForMinimalStage = (): PipelineStagesProps<ApprovalStageMini
   openTemplateSelector: jest.fn(),
   closeTemplateSelector: jest.fn()
 })
+
+export const getPropsForMinimalStageWithTemplateUsed = (): ApprovalStageMinimalModeProps => ({
+  data: {
+    stage: {
+      identifier: '',
+      name: ''
+    } as any
+  } as any,
+  template: approvalStageTemplateSummaryMock,
+  onSubmit: jest.fn(),
+  onChange: jest.fn()
+})
+
+export const getPropsForMinimalStageWithTemplateCopied = (): ApprovalStageMinimalModeProps => ({
+  data: {
+    stage: {
+      identifier: '',
+      name: '',
+      ...approvalStageTemplateMock.spec
+    } as any
+  } as any,
+  onSubmit: jest.fn(),
+  onChange: jest.fn()
+})
+
+export const approvalStageTemplateMock = {
+  name: 'Approval Stage Test',
+  identifier: 'Approval_Stage_Test',
+  versionLabel: 'v1',
+  type: 'Stage',
+  projectIdentifier: 'Yogesh_Test',
+  orgIdentifier: 'default',
+  tags: {},
+  spec: {
+    type: 'Approval',
+    spec: {
+      execution: {
+        steps: [
+          {
+            step: {
+              name: 'Approval',
+              identifier: 'approval',
+              type: 'HarnessApproval',
+              timeout: '1d',
+              spec: {
+                approvalMessage: 'Please review the following information\nand approve the pipeline progression',
+                includePipelineExecutionHistory: true,
+                approvers: { minimumCount: 1, disallowPipelineExecutor: false }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+export const approvalStageTemplateSummaryMock: TemplateSummaryResponse = {
+  accountId: 'px7xd_BFRCi-pfWPYXVjvw',
+  orgIdentifier: 'default',
+  projectIdentifier: 'Yogesh_Test',
+  identifier: 'Approval_Stage_Test',
+  name: 'Approval Stage Test',
+  description: '',
+  tags: {},
+  yaml: yamlStringify({ template: approvalStageTemplateMock }),
+  versionLabel: 'v1',
+  templateEntityType: 'Stage',
+  childType: 'Approval',
+  templateScope: 'project',
+  version: 0,
+  gitDetails: {},
+  entityValidityDetails: {
+    valid: true
+  },
+  lastUpdatedAt: 1645627607011,
+  stableTemplate: true
+}
 
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
@@ -175,7 +255,8 @@ export const pipelineContextMock = {
     isDBInitialized: true,
     isUpdated: true,
     isInitialized: true,
-    error: ''
+    error: '',
+    templateTypes: {}
   },
   contextType: 'Pipeline',
   stepsFactory: stepFactory,
@@ -270,7 +351,8 @@ export const getDummyPipelineContextValue = (): PipelineContextInterface => {
     getStagePathFromPipeline: jest.fn(),
     getStageFromPipeline: jest.fn(() => {
       return { stage: pipelineContextMock.state.pipeline.stages[0], parent: undefined }
-    })
+    }),
+    setTemplateTypes: jest.fn()
   } as any
 }
 
