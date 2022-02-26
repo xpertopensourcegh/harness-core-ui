@@ -5,12 +5,12 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { Intent } from '@blueprintjs/core'
 import { useParams, useLocation } from 'react-router-dom'
 import { get, isEmpty, pickBy } from 'lodash-es'
 import { Text, Icon, Color, FontVariation, PageError, PageSpinner, Layout } from '@wings-software/uicore'
-import type { DeprecatedImageInfo } from 'services/ci'
+import { DeprecatedImageInfo, useGetExecutionConfig } from 'services/ci'
 import { GovernanceMetadata, useGetExecutionDetail, ResponsePipelineExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
@@ -31,6 +31,7 @@ import { EvaluationModal } from '@governance/EvaluationModal'
 import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { ModuleName } from 'framework/types/ModuleName'
 import useTabVisible from '@common/hooks/useTabVisible'
 import { ExecutionHeader } from './ExecutionHeader/ExecutionHeader'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
@@ -131,9 +132,29 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     debounce: 500
   })
 
+  const {
+    data: executionConfig,
+    refetch: fetchExecutionConfig,
+    loading: isFetchingExecutionConfig,
+    error: errorWhileFetchingExecutionConfig
+  } = useGetExecutionConfig({
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (data?.data?.pipelineExecutionSummary?.modules?.includes(ModuleName.CI.toLowerCase())) {
+      fetchExecutionConfig()
+    }
+  }, [data?.data?.pipelineExecutionSummary?.modules?.length])
+
   const deprecatedImages = React.useMemo(() => {
-    return data?.data?.pipelineExecutionSummary?.moduleInfo?.ci?.deprecatedImages as DeprecatedImageInfo[]
-  }, [data?.data?.pipelineExecutionSummary?.moduleInfo?.ci?.deprecatedImages])
+    if (!isFetchingExecutionConfig && !errorWhileFetchingExecutionConfig) {
+      return executionConfig?.data as DeprecatedImageInfo[]
+    }
+  }, [executionConfig?.data])
 
   const getDeprecatedImageSummary = (images: DeprecatedImageInfo[]): string => {
     const tagWithVersions = images
@@ -262,7 +283,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                             {getString('pipeline.imageVersionDeprecated')}
                           </Text>
                         </Layout.Horizontal>
-                        <Text font={{ weight: 'semi-bold', size: 'small' }} color={Color.PRIMARY_10}>
+                        <Text font={{ weight: 'semi-bold', size: 'small' }} color={Color.PRIMARY_10} lineClamp={2}>
                           {getString('pipeline.unsupportedImagesWarning', {
                             summary: `${getDeprecatedImageSummary(deprecatedImages)}.`
                           })}

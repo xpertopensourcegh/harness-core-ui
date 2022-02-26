@@ -5,8 +5,8 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { Layout, Button } from '@wings-software/uicore'
 
 import css from './PipelineExecutionWarning.module.scss'
 
@@ -15,14 +15,18 @@ interface PipelineExecutionWarningProps {
 }
 
 export function PipelineExecutionWarning({ warning }: PipelineExecutionWarningProps): React.ReactElement {
-  return (
+  const [hideWarning, setHideWarning] = useState<boolean>(false)
+  return !hideWarning ? (
     <Layout.Horizontal
       className={css.warningBanner}
       flex={{ justifyContent: 'flex-start' }}
       spacing="medium"
-      padding={{ left: 'xlarge', right: 'xlarge' }}
+      padding={{ left: 'xlarge' }}
     >
       {warning}
+      <Button icon="cross" minimal onClick={() => setHideWarning(true)} />
     </Layout.Horizontal>
+  ) : (
+    <></>
   )
 }

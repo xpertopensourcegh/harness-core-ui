@@ -211,23 +211,24 @@ export interface CIExecutionArgs {
 }
 
 export interface CIExecutionImages {
+  addonTag?: string
   artifactoryUploadTag?: string
   buildAndPushDockerRegistryTag?: string
   buildAndPushECRTag?: string
   buildAndPushGCRTag?: string
   cacheGCSTag?: string
   cacheS3Tag?: string
-  ciContainerTag?: string
   gcsUploadTag?: string
   gitCloneTag?: string
+  liteEngineTag?: string
   s3UploadTag?: string
+  securityTag?: string
 }
 
 export interface CIPipelineModuleInfo {
   branch?: string
   buildType?: string
   ciExecutionInfoDTO?: CIWebhookInfoDTO
-  deprecatedImages?: DeprecatedImageInfo[]
   isPrivateRepo?: boolean
   prNumber?: string
   repoName?: string
@@ -1649,6 +1650,13 @@ export interface ResponseJsonNode {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListDeprecatedImageInfo {
+  correlationId?: string
+  data?: DeprecatedImageInfo[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListPartialSchemaDTO {
   correlationId?: string
   data?: PartialSchemaDTO[]
@@ -2747,6 +2755,54 @@ export const getUsagePromise = (
   getUsingFetch<ResponseCIUsageResult, Failure | Error, GetUsageQueryParams, void>(
     getConfig('ci'),
     `/ci/usage/ci`,
+    props,
+    signal
+  )
+
+export interface GetExecutionConfigQueryParams {
+  accountIdentifier: string
+}
+
+export type GetExecutionConfigProps = Omit<
+  GetProps<ResponseListDeprecatedImageInfo, Failure | Error, GetExecutionConfigQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get execution config
+ */
+export const GetExecutionConfig = (props: GetExecutionConfigProps) => (
+  <Get<ResponseListDeprecatedImageInfo, Failure | Error, GetExecutionConfigQueryParams, void>
+    path={`/execution-config`}
+    base={getConfig('ci')}
+    {...props}
+  />
+)
+
+export type UseGetExecutionConfigProps = Omit<
+  UseGetProps<ResponseListDeprecatedImageInfo, Failure | Error, GetExecutionConfigQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get execution config
+ */
+export const useGetExecutionConfig = (props: UseGetExecutionConfigProps) =>
+  useGet<ResponseListDeprecatedImageInfo, Failure | Error, GetExecutionConfigQueryParams, void>(`/execution-config`, {
+    base: getConfig('ci'),
+    ...props
+  })
+
+/**
+ * Get execution config
+ */
+export const getExecutionConfigPromise = (
+  props: GetUsingFetchProps<ResponseListDeprecatedImageInfo, Failure | Error, GetExecutionConfigQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListDeprecatedImageInfo, Failure | Error, GetExecutionConfigQueryParams, void>(
+    getConfig('ci'),
+    `/execution-config`,
     props,
     signal
   )
