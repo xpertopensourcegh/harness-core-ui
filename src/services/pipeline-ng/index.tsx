@@ -150,6 +150,7 @@ export type AuditFilterProperties = FilterProperties & {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'CREATE_TOKEN'
     | 'REVOKE_TOKEN'
     | 'LOGIN'
     | 'LOGIN2FA'
@@ -641,6 +642,7 @@ export interface Error {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -891,6 +893,7 @@ export interface Error {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -905,6 +908,7 @@ export interface Error {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -919,6 +923,11 @@ export interface Error {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1248,6 +1257,7 @@ export interface Failure {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -1498,6 +1508,7 @@ export interface Failure {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -1512,6 +1523,7 @@ export interface Failure {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -1526,6 +1538,11 @@ export interface Failure {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1542,6 +1559,7 @@ export interface FailureInfoDTO {
     | 'APPLICATION_ERROR'
     | 'AUTHORIZATION_ERROR'
     | 'TIMEOUT_ERROR'
+    | 'POLICY_EVALUATION_FAILURE'
   )[]
   message?: string
   responseMessages?: ResponseMessage[]
@@ -1956,6 +1974,7 @@ export interface InputSetErrorResponse {
 
 export interface InputSetErrorWrapper {
   errorPipelineYaml?: string
+  type?: string
   uuidToErrorResponseMap?: {
     [key: string]: InputSetErrorResponse
   }
@@ -3607,6 +3626,7 @@ export interface ResponseMessage {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -3857,6 +3877,7 @@ export interface ResponseMessage {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -3871,6 +3892,7 @@ export interface ResponseMessage {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -3885,6 +3907,11 @@ export interface ResponseMessage {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -3895,6 +3922,7 @@ export interface ResponseMessage {
     | 'APPLICATION_ERROR'
     | 'AUTHORIZATION_ERROR'
     | 'TIMEOUT_ERROR'
+    | 'POLICY_EVALUATION_FAILURE'
   )[]
   level?: 'INFO' | 'ERROR'
   message?: string
@@ -4289,6 +4317,10 @@ export interface SchemaErrorResponse {
   message?: string
 }
 
+export type ScmErrorMetadataDTO = ErrorMetadataDTO & {
+  conflictCommitId?: string
+}
+
 export interface ServiceDescriptor {
   file?: FileDescriptor
   fullName?: string
@@ -4464,6 +4496,7 @@ export interface StepData {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
   name?: string
@@ -6427,6 +6460,7 @@ export interface UpdateOverlayInputSetForPipelineQueryParams {
   filePath?: string
   commitMsg?: string
   lastObjectId?: string
+  resolvedConflictCommitId?: string
   baseBranch?: string
 }
 
@@ -6763,6 +6797,7 @@ export interface UpdateInputSetForPipelineQueryParams {
   filePath?: string
   commitMsg?: string
   lastObjectId?: string
+  resolvedConflictCommitId?: string
   baseBranch?: string
 }
 
@@ -9644,53 +9679,6 @@ export const getPipelinedHealthPromise = (
     signal
   )
 
-export interface GetStepsQueryParams {
-  category: string
-  module: string
-  accountId?: string
-}
-
-export type GetStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>, 'path'>
-
-/**
- * Get Steps for given module
- */
-export const GetSteps = (props: GetStepsProps) => (
-  <Get<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>
-    path={`/pipelines/steps`}
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseGetStepsProps = Omit<
-  UseGetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>,
-  'path'
->
-
-/**
- * Get Steps for given module
- */
-export const useGetSteps = (props: UseGetStepsProps) =>
-  useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(`/pipelines/steps`, {
-    base: getConfig('pipeline/api'),
-    ...props
-  })
-
-/**
- * Get Steps for given module
- */
-export const getStepsPromise = (
-  props: GetUsingFetchProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/pipelines/steps`,
-    props,
-    signal
-  )
-
 export interface GetPipelineSummaryQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -9927,6 +9915,7 @@ export interface PutPipelineV2QueryParams {
   filePath?: string
   commitMsg?: string
   lastObjectId?: string
+  resolvedConflictCommitId?: string
   baseBranch?: string
 }
 
@@ -10015,6 +10004,139 @@ export const putPipelineV2Promise = (
     UpdateInputSetForPipelineBodyRequestBody,
     PutPipelineV2PathParams
   >('PUT', getConfig('pipeline/api'), `/pipelines/v2/${pipelineIdentifier}`, props, signal)
+
+export interface ValidatePipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier?: string
+}
+
+export type ValidatePipelineProps = Omit<
+  MutateProps<ResponseString, Failure | Error, ValidatePipelineQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a Pipeline
+ */
+export const ValidatePipeline = (props: ValidatePipelineProps) => (
+  <Mutate<ResponseString, Failure | Error, ValidatePipelineQueryParams, void, void>
+    verb="POST"
+    path={`/pipelines/validate-pipeline-with-schema`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseValidatePipelineProps = Omit<
+  UseMutateProps<ResponseString, Failure | Error, ValidatePipelineQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a Pipeline
+ */
+export const useValidatePipeline = (props: UseValidatePipelineProps) =>
+  useMutate<ResponseString, Failure | Error, ValidatePipelineQueryParams, void, void>(
+    'POST',
+    `/pipelines/validate-pipeline-with-schema`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * Validate a Pipeline
+ */
+export const validatePipelinePromise = (
+  props: MutateUsingFetchProps<ResponseString, Failure | Error, ValidatePipelineQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseString, Failure | Error, ValidatePipelineQueryParams, void, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/pipelines/validate-pipeline-with-schema`,
+    props,
+    signal
+  )
+
+export interface ValidatePipelineByYAMLQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidatePipelineByYAMLProps = Omit<
+  MutateProps<
+    ResponseString,
+    Failure | Error,
+    ValidatePipelineByYAMLQueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a Pipeline YAML
+ */
+export const ValidatePipelineByYAML = (props: ValidatePipelineByYAMLProps) => (
+  <Mutate<
+    ResponseString,
+    Failure | Error,
+    ValidatePipelineByYAMLQueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/pipelines/validate-yaml-with-schema`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseValidatePipelineByYAMLProps = Omit<
+  UseMutateProps<
+    ResponseString,
+    Failure | Error,
+    ValidatePipelineByYAMLQueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a Pipeline YAML
+ */
+export const useValidatePipelineByYAML = (props: UseValidatePipelineByYAMLProps) =>
+  useMutate<
+    ResponseString,
+    Failure | Error,
+    ValidatePipelineByYAMLQueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >('POST', `/pipelines/validate-yaml-with-schema`, { base: getConfig('pipeline/api'), ...props })
+
+/**
+ * Validate a Pipeline YAML
+ */
+export const validatePipelineByYAMLPromise = (
+  props: MutateUsingFetchProps<
+    ResponseString,
+    Failure | Error,
+    ValidatePipelineByYAMLQueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseString,
+    Failure | Error,
+    ValidatePipelineByYAMLQueryParams,
+    UpdateInputSetForPipelineBodyRequestBody,
+    void
+  >('POST', getConfig('pipeline/api'), `/pipelines/validate-yaml-with-schema`, props, signal)
 
 export interface CreateVariablesQueryParams {
   accountIdentifier: string
@@ -10210,6 +10332,7 @@ export interface PutPipelineQueryParams {
   filePath?: string
   commitMsg?: string
   lastObjectId?: string
+  resolvedConflictCommitId?: string
   baseBranch?: string
 }
 
@@ -11557,8 +11680,23 @@ export interface GetSchemaYamlQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -11583,6 +11721,21 @@ export interface GetSchemaYamlQueryParams {
     | 'FeatureFlags'
     | 'ServiceNowApproval'
     | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'Security'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
@@ -11649,8 +11802,23 @@ export interface GetStepYamlSchemaQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -11675,6 +11843,21 @@ export interface GetStepYamlSchemaQueryParams {
     | 'FeatureFlags'
     | 'ServiceNowApproval'
     | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'Security'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
   scope?: 'account' | 'org' | 'project' | 'unknown'
 }
 

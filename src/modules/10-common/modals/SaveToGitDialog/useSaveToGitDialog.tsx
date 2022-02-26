@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import { Button, getErrorInfoFromErrorObject } from '@wings-software/uicore'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { noop } from 'lodash-es'
+import { defaultTo, noop } from 'lodash-es'
 import { useModalHook } from '@harness/use-modal'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import SaveToGitForm, {
@@ -98,8 +98,8 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     ),
     finalLabel: getErrorInfoFromErrorObject(error)
   }
-  const fromBranch = prMetaData?.branch || ''
-  const toBranch = prMetaData?.targetBranch || ''
+  const fromBranch = defaultTo(prMetaData?.branch, '')
+  const toBranch = defaultTo(prMetaData?.targetBranch, '')
   const setupBranchStage = {
     status: createUpdateStatus,
     intermediateLabel: (
@@ -139,6 +139,32 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     finalLabel: getString('common.gitSync.unableToCreatePR')
   }
 
+  const handleCreateUpdateSuccess = (status?: string): void => {
+    if (status === 'SUCCESS') {
+      nextCallback?.()
+    }
+  }
+
+  const handleCreateUpdateError = (e: any, data: SaveToGitFormInterface): void => {
+    setError(e)
+    setCreateUpdateStatus('ERROR')
+    if (data?.createPr) {
+      setPRCreateStatus('ABORTED')
+    }
+    if (
+      ((e?.responseMessages as ResponseMessage[]) || (e.data?.responseMessages as ResponseMessage[]) || [])?.findIndex(
+        (mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR'
+      ) !== -1
+    ) {
+      const conflictCommitId = defaultTo(e?.metadata?.conflictCommitId, e?.data?.metadata?.conflictCommitId)
+
+      openGitDiffDialog(payloadData, {
+        ...data,
+        resolvedConflictCommitId: defaultTo(conflictCommitId, '')
+      })
+    }
+  }
+
   // Dialogs
   // Modal to show when a git conflict occurs
   const { openGitDiffDialog } = useGitDiffEditorDialog({
@@ -174,9 +200,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
           secondStage={createPRStage}
           onClose={() => {
             hideCreateUpdateWithPRCreationModal()
-            if (createUpdateStatus === 'SUCCESS') {
-              nextCallback?.()
-            }
+            handleCreateUpdateSuccess(createUpdateStatus)
           }}
         />
       </Dialog>
@@ -201,14 +225,49 @@ export function useSaveToGitDialog<T = Record<string, string>>(
           postFirstStage={pushingChangesToBranch}
           onClose={() => {
             hideCreateUpdateModal()
-            if (createUpdateStatus === 'SUCCESS') {
-              nextCallback?.()
-            }
+            handleCreateUpdateSuccess(createUpdateStatus)
           }}
         />
       </Dialog>
     )
   }, [createUpdateStatus, error])
+
+  const createPR = (data: SaveToGitFormInterface): void => {
+    createPullRequest({
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      sourceBranch: defaultTo(data?.branch, ''),
+      targetBranch: defaultTo(data?.targetBranch, ''),
+      title: defaultTo(data?.commitMsg, ''),
+      useUserFromToken: true,
+      yamlGitConfigRef: defaultTo(data?.repoIdentifier, '')
+    })
+      .then(_response => {
+        setPRCreateStatus(_response?.status)
+      })
+      .catch(() => setPRCreateStatus('ERROR'))
+  }
+
+  const abortPR = (errorResponse: UseSaveSuccessResponse, data: SaveToGitFormInterface): void => {
+    if (data?.createPr) {
+      setPRCreateStatus('ABORTED')
+    }
+    throw errorResponse
+  }
+
+  const createPRHandler = async (data: SaveToGitFormInterface, response: UseSaveSuccessResponse): Promise<void> => {
+    setNextCallback(() => response?.nextCallback)
+    setCreateUpdateStatus(response.status)
+
+    // if entity creation/update succeeds, raise a PR, if specified
+    if (response.status === 'SUCCESS' && data?.createPr) {
+      createPR(data)
+    } else {
+      // if entity creation/update fails, abort PR creation
+      abortPR(response, data)
+    }
+  }
 
   const handleSuccess = (data: SaveToGitFormInterface, diffData?: T, objectId?: EntityGitDetails['objectId']): void => {
     setPRMetaData({ branch: data?.branch, targetBranch: data?.targetBranch, isNewBranch: data?.isNewBranch })
@@ -222,52 +281,10 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     props
       .onSuccess?.(data, diffData, objectId, isEditMode)
       .then(async response => {
-        setNextCallback(() => response?.nextCallback)
-        setCreateUpdateStatus(response.status)
-
-        // if entity creation/update succeeds, raise a PR, if specified
-        if (response.status === 'SUCCESS') {
-          if (data?.createPr) {
-            try {
-              const _response = await createPullRequest({
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier,
-                sourceBranch: data?.branch || '',
-                targetBranch: data?.targetBranch || '',
-                title: data?.commitMsg || '',
-                useUserFromToken: true,
-                yamlGitConfigRef: data?.repoIdentifier || ''
-              })
-              setPRCreateStatus(_response?.status)
-            } catch (e) {
-              setPRCreateStatus('ERROR')
-            }
-          }
-        }
-        // if entity creation/update fails, abort PR creation
-        else {
-          if (data?.createPr) {
-            setPRCreateStatus('ABORTED')
-          }
-          throw response
-        }
+        createPRHandler(data, response)
       })
       .catch(e => {
-        setError(e)
-        setCreateUpdateStatus('ERROR')
-        if (data?.createPr) {
-          setPRCreateStatus('ABORTED')
-        }
-        if (
-          (
-            (e?.responseMessages as ResponseMessage[]) ||
-            (e.data?.responseMessages as ResponseMessage[]) ||
-            []
-          )?.findIndex((mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR') !== -1
-        ) {
-          openGitDiffDialog(payloadData, data)
-        }
+        handleCreateUpdateError(e, data)
       })
   }
 
@@ -302,7 +319,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
       setIsEditMode(isEditing)
       setPayloadData(payload)
       setResource(resourceData)
-      setModalProps(_modalProps || modalProps)
+      setModalProps(defaultTo(_modalProps, modalProps))
       showModal()
     },
     hideSaveToGitDialog: hideModal
