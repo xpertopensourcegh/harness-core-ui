@@ -20,7 +20,7 @@ import { PageSpinner } from '@common/components'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
-import { PrincipalType } from '@rbac/utils/utils'
+import { getUserGroupActionTooltipText, PrincipalType } from '@rbac/utils/utils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal'
 import { useLinkToSSOProviderModal } from '@rbac/modals/LinkToSSOProviderModal/useLinkToSSOProviderModal'
@@ -63,6 +63,9 @@ const UserGroupDetails: React.FC = () => {
   const userGroup = userGroupAggregateResponse?.userGroupDTO
 
   useDocumentTitle([userGroup?.name || '', getString('common.userGroups')])
+
+  const membersBtnTooltipTextId = userGroup ? getUserGroupActionTooltipText(userGroup) : undefined
+  const membersBtnTooltipText = membersBtnTooltipTextId ? getString(membersBtnTooltipTextId) : undefined
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
@@ -129,6 +132,7 @@ const UserGroupDetails: React.FC = () => {
             </Layout.Horizontal>
             <Layout.Horizontal className={cx({ [css.buttonPadding]: userGroup.ssoLinked })}>
               <ManagePrincipalButton
+                disabled={userGroup.externallyManaged}
                 text={
                   userGroup.ssoLinked
                     ? getString('rbac.userDetails.linkToSSOProviderModal.delinkLabel')
@@ -139,16 +143,13 @@ const UserGroupDetails: React.FC = () => {
                 onClick={() => {
                   openLinkToSSOProviderModal(userGroup)
                 }}
+                tooltip={userGroup.externallyManaged ? getString('rbac.unableToEditSCIMMembership') : undefined}
                 resourceType={ResourceType.USERGROUP}
                 resourceIdentifier={userGroupIdentifier}
               />
               <ManagePrincipalButton
-                disabled={userGroup.ssoLinked}
-                tooltip={
-                  userGroup.ssoLinked
-                    ? getString('rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText')
-                    : undefined
-                }
+                disabled={userGroup.ssoLinked || userGroup.externallyManaged}
+                tooltip={membersBtnTooltipText}
                 text={getString('common.plusNumber', { number: getString('members') })}
                 variation={ButtonVariation.LINK}
                 onClick={() => {

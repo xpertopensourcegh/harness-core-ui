@@ -13,7 +13,8 @@ import type {
   AccessControlCheckError,
   RoleAssignmentMetadataDTO,
   UserMetadataDTO,
-  Scope as CDScope
+  Scope as CDScope,
+  UserGroupDTO
 } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type {
@@ -28,7 +29,7 @@ import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { FeatureRequest } from 'framework/featureStore/featureStoreUtil'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
-import type { UseStringsReturn } from 'framework/strings'
+import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import type { ProjectSelectOption } from '@audit-trail/components/FilterDrawer/FilterDrawer'
 import type { RbacMenuItemProps } from '@rbac/components/MenuItem/MenuItem'
 import css from './utils.module.scss'
@@ -336,4 +337,16 @@ export const generateScopeList = (org: string, projects: ProjectSelectOption[], 
       orgIdentifier: org as string
     }
   ]
+}
+
+export const getUserGroupActionTooltipText = (userGroup: UserGroupDTO): StringKeys | undefined => {
+  const { ssoLinked, externallyManaged } = userGroup
+
+  if (ssoLinked) {
+    return 'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText'
+  }
+
+  if (externallyManaged) {
+    return 'rbac.unableToEditSCIMMembership'
+  }
 }
