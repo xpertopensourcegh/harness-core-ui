@@ -53537,7 +53537,7 @@
           "type": "string",
           "enum": ["ENABLED", "WAITING_FOR_APPROVAL", "DISABLED", "DELETED"]
         },
-        "lastHeartBeat": {
+        "lastHeartbeat": {
           "type": "integer",
           "format": "int64"
         },

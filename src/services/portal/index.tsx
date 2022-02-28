@@ -4808,7 +4808,7 @@ export interface DelegateInner {
   }
   includeScopes?: DelegateScope[]
   ip?: string
-  lastHeartBeat?: number
+  lastHeartbeat?: number
   polllingModeEnabled?: boolean
   profileError?: boolean
   profileExecutedAt?: number

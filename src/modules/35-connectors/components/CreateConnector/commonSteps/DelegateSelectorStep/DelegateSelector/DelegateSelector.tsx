@@ -14,12 +14,7 @@ import { useStrings } from 'framework/strings'
 import { DelegateSelectors, useToaster } from '@common/components'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
-import {
-  DelegateGroupDetails,
-  useGetDelegatesUpTheHierarchy,
-  RestResponseDelegateGroupListing,
-  DelegateInner
-} from 'services/portal'
+import { DelegateGroupDetails, useGetDelegatesUpTheHierarchy, RestResponseDelegateGroupListing } from 'services/portal'
 import {
   DelegateSelectorTable,
   DelegateSelectorTableProps
@@ -47,10 +42,6 @@ export interface DelegateSelectorProps extends ProjectPathProps {
   setDelegateSelectors: (delegateSelectors: Array<string>) => void
   setDelegatesFound: (delegatesFound: DelegatesFoundState) => void
   delegateSelectorMandatory: boolean
-}
-
-export interface DelegateInnerCustom extends DelegateInner {
-  checked: boolean
 }
 
 export interface DelegateGroupDetailsCustom extends DelegateGroupDetails {
@@ -148,7 +139,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   })
   const { showError } = useToaster()
 
-  const getParsedData = (): (DelegateInnerCustom | DelegateGroupDetailsCustom)[] => {
+  const getParsedData = (): DelegateGroupDetailsCustom[] => {
     return ((data as RestResponseDelegateGroupListing)?.resource?.delegateGroupDetails || []).map(
       delegateGroupDetails => ({
         ...delegateGroupDetails,

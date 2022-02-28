@@ -17,23 +17,20 @@ import DelegateEmptyState from '@connectors/components/CreateConnector/commonSte
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import type {
-  DelegateInnerCustom,
-  DelegateGroupDetailsCustom
-} from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
+import type { DelegateGroupDetailsCustom } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
 import { useTroubleshootModal } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/TroubleshootModal'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 export interface DelegateSelectorTableProps {
-  data: (DelegateGroupDetailsCustom | DelegateInnerCustom)[] | null
+  data: DelegateGroupDetailsCustom[] | null
   loading: boolean
   error: GetDataError<unknown> | null
   refetch: () => Promise<void>
   showMatchesSelectorColumn?: boolean
 }
 
-const RenderDelegateIcon: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row }) => {
+const RenderDelegateIcon: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
   const { checked } = row.original
   return checked ? (
     <Container flex={{ justifyContent: 'center' }}>
@@ -44,7 +41,7 @@ const RenderDelegateIcon: Renderer<CellProps<DelegateGroupDetailsCustom | Delega
   )
 }
 
-const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row }) => {
+const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
   const {
     delegateType = '',
     groupHostName,
@@ -80,7 +77,7 @@ const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom | Delega
   )
 }
 
-const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row, column }) => {
+const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row, column }) => {
   const { activelyConnected, lastHeartBeat } = row.original
   const { getString } = useStrings()
   const { onClick } = column as unknown as { onClick: () => void }
@@ -110,7 +107,7 @@ const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateI
   )
 }
 
-const RenderTags: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row }) => {
+const RenderTags: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
   let delegateTags = []
   const delegateTagData = row.original as DelegateGroupDetailsCustom
   delegateTags = [
@@ -129,14 +126,13 @@ export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props
   const { data, error, loading, refetch, showMatchesSelectorColumn = true } = props
   const { getString } = useStrings()
   const { showModal } = useTroubleshootModal()
-  const columns: TableProps<DelegateGroupDetailsCustom | DelegateInnerCustom>['columns'] = useMemo(
+  const columns: TableProps<DelegateGroupDetailsCustom>['columns'] = useMemo(
     () => {
       const cols = [
         {
           Header: getString('delegate.DelegateName').toLocaleUpperCase(),
           id: 'name',
           width: '35%',
-          accessor: (row: DelegateInnerCustom) => row.delegateName || row.hostName,
           Cell: RenderDelegateName
         },
         {

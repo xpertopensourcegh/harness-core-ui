@@ -327,8 +327,8 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
                     : instanceDetails.hostName}
                 </Container>
                 <Layout.Horizontal width={columnWidths.heartbeat}>
-                  {instanceDetails.lastHeartBeat ? (
-                    <ReactTimeago date={instanceDetails.lastHeartBeat} live />
+                  {instanceDetails.lastHeartbeat ? (
+                    <ReactTimeago date={instanceDetails.lastHeartbeat} live />
                   ) : (
                     getString('na')
                   )}
