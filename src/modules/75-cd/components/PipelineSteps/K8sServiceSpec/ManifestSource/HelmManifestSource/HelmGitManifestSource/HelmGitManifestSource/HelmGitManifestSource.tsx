@@ -8,10 +8,10 @@
 import React from 'react'
 import { ManifestDataType, ManifestStoreMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { ManifestSourceBase, ManifestSourceRenderProps } from '@cd/factory/ManifestSourceFactory/ManifestSourceBase'
-import HelmGitTypeStoreMapContent from './HelmGitTypeStoreMapContent'
+import HelmGitTypeStoreMapContent from '../HelmGitTypeStoreMapContent'
 
-export class HelmGitlabManifestSource extends ManifestSourceBase<ManifestSourceRenderProps> {
-  protected manifestType = `${ManifestDataType.HelmChart}-${ManifestStoreMap.GitLab}`
+export class HelmGitManifestSource extends ManifestSourceBase<ManifestSourceRenderProps> {
+  protected manifestType = `${ManifestDataType.HelmChart}-${ManifestStoreMap.Git}`
 
   renderContent(props: ManifestSourceRenderProps): JSX.Element | null {
     if (!props.isManifestsRuntime) {

@@ -47,6 +47,7 @@ const Content = ({
     if (readonly) {
       return true
     }
+
     return isFieldfromTriggerTabDisabled(
       fieldName,
       formik,
