@@ -5,7 +5,29 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import routes from '@common/RouteDefinitions'
+import { projectPathProps } from '@common/utils/routeUtils'
+import type { TestWrapperProps } from '@common/utils/testUtils'
 import type { MonitoredServiceForm } from '../../Service/Service.types'
+
+export const pathParams = {
+  accountId: 'account_id',
+  orgIdentifier: 'org_identifier',
+  projectIdentifier: 'project_identifier'
+}
+
+export const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVAddMonitoringServicesSetup({ ...projectPathProps }),
+  pathParams
+}
+
+export const testWrapperEditProps: TestWrapperProps = {
+  path: routes.toCVAddMonitoringServicesEdit({ ...projectPathProps, identifier: ':identifier' }),
+  pathParams: {
+    ...pathParams,
+    identifier: 'manager_production'
+  }
+}
 
 export const monitoredServiceList = {
   status: 'SUCCESS',
@@ -248,6 +270,7 @@ export const monitoredServiceForm: MonitoredServiceForm = {
   description: '',
   serviceRef: 'manager',
   environmentRef: 'production',
+  environmentRefList: ['production'],
   tags: {},
   sources: {
     healthSources: [],
@@ -263,6 +286,13 @@ export const monitoredServiceForm: MonitoredServiceForm = {
     ]
   },
   dependencies: []
+}
+
+export const monitoredServiceOfTypeInfrastructure: MonitoredServiceForm = {
+  ...monitoredServiceForm,
+  isEdit: true,
+  environmentRef: 'production_one',
+  environmentRefList: ['production_one', 'production_two']
 }
 
 export const monitoredService = {

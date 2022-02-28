@@ -25,6 +25,7 @@ export const getInitFormData = (
     tags = {},
     serviceRef = '',
     environmentRef = '',
+    environmentRefList = [],
     sources,
     dependencies = [],
     type
@@ -39,6 +40,7 @@ export const getInitFormData = (
     serviceRef,
     type: (type as MonitoredServiceForm['type']) || MonitoredServiceType.APPLICATION,
     environmentRef,
+    environmentRefList,
     sources,
     dependencies
   }

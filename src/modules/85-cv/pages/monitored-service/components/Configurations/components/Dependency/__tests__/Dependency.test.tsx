@@ -9,7 +9,14 @@ import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
-import { monitoredServiceList, monitoredServiceForm } from './Dependency.mock'
+import {
+  monitoredServiceList,
+  monitoredServiceForm,
+  testWrapperProps,
+  testWrapperEditProps,
+  pathParams,
+  monitoredServiceOfTypeInfrastructure
+} from './Dependency.mock'
 import Dependency from '../Dependency'
 
 describe('Dependency compoennt', () => {
@@ -32,6 +39,7 @@ describe('Dependency compoennt', () => {
         dependencies: [],
         description: '',
         environmentRef: 'production',
+        environmentRefList: ['production'],
         identifier: 'manager_production',
         isEdit: false,
         name: 'manager_production',
@@ -66,5 +74,95 @@ describe('Dependency compoennt', () => {
     )
     await waitFor(() => expect(container.querySelector('[class*="leftSection"]')).not.toBeNull())
     await waitFor(() => expect(container.querySelector('[class*="spinner"]')).not.toBeNull())
+  })
+
+  test('Ensure API useGetMonitoredServiceList is called with environmentIdentifiers - Create - Application', () => {
+    jest.spyOn(cvService, 'useGetMonitoredServiceList').mockReturnValue({ data: monitoredServiceList } as any)
+
+    render(
+      <TestWrapper {...testWrapperProps}>
+        <Dependency onSuccess={jest.fn()} value={monitoredServiceForm} cachedInitialValues={monitoredServiceForm} />
+      </TestWrapper>
+    )
+
+    expect(cvService.useGetMonitoredServiceList).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        queryParams: { ...pathParams, environmentIdentifiers: ['production'], offset: 0, pageSize: 10 },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    )
+  })
+
+  test('Ensure API useGetMonitoredServiceList is called with environmentIdentifiers - Application', () => {
+    jest.spyOn(cvService, 'useGetMonitoredServiceList').mockReturnValue({ data: monitoredServiceList } as any)
+
+    render(
+      <TestWrapper {...testWrapperEditProps}>
+        <Dependency onSuccess={jest.fn()} value={monitoredServiceForm} />
+      </TestWrapper>
+    )
+
+    expect(cvService.useGetMonitoredServiceList).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        queryParams: { ...pathParams, environmentIdentifiers: ['production'], offset: 0, pageSize: 10 },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    )
+  })
+
+  test('Ensure API useGetMonitoredServiceList is called with environmentIdentifiers - Create - Infrastructure', () => {
+    jest.spyOn(cvService, 'useGetMonitoredServiceList').mockReturnValue({ data: monitoredServiceList } as any)
+
+    render(
+      <TestWrapper {...testWrapperEditProps}>
+        <Dependency
+          onSuccess={jest.fn()}
+          value={monitoredServiceOfTypeInfrastructure}
+          cachedInitialValues={monitoredServiceOfTypeInfrastructure}
+        />
+      </TestWrapper>
+    )
+
+    expect(cvService.useGetMonitoredServiceList).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        queryParams: {
+          ...pathParams,
+          environmentIdentifiers: ['production_one', 'production_two'],
+          offset: 0,
+          pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    )
+  })
+
+  test('Ensure API useGetMonitoredServiceList is called with environmentIdentifiers - Infrastructure', () => {
+    jest.spyOn(cvService, 'useGetMonitoredServiceList').mockReturnValue({ data: monitoredServiceList } as any)
+
+    render(
+      <TestWrapper {...testWrapperEditProps}>
+        <Dependency onSuccess={jest.fn()} value={monitoredServiceOfTypeInfrastructure} />
+      </TestWrapper>
+    )
+
+    expect(cvService.useGetMonitoredServiceList).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        queryParams: {
+          ...pathParams,
+          environmentIdentifiers: ['production_one', 'production_two'],
+          offset: 0,
+          pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    )
   })
 })

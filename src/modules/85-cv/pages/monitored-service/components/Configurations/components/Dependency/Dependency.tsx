@@ -50,7 +50,11 @@ export default function Dependency({
     projectIdentifier,
     orgIdentifier,
     accountId,
-    environmentIdentifier: identifier ? value?.environmentRef : cachedInitialValues?.environmentRef || ''
+    environmentIdentifiers: identifier
+      ? value.environmentRefList
+      : value.type === 'Application'
+      ? [cachedInitialValues?.environmentRef as string]
+      : (cachedInitialValues?.environmentRef as unknown as string[]) ?? []
   })
 
   const {
@@ -60,6 +64,9 @@ export default function Dependency({
     refetch
   } = useGetMonitoredServiceList({
     queryParams,
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
     resolve: response => filterCurrentMonitoredServiceFromList(response, value.identifier)
   })
 
