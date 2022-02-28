@@ -39,6 +39,20 @@ import {
   environmentResponse
 } from './85-cv/monitoredService/constants'
 
+import {
+  monitoresServices,
+  monitoresServicesResponse,
+  pipelineSteps,
+  pipelineStepsResponse,
+  servicesCall as verifyStepServicesCall,
+  strategies,
+  strategiesResponse,
+  strategiesYamlSnippets,
+  strategiesYamlSnippetsResponse,
+  variables,
+  variablesPostResponse
+} from './85-cv/verifyStep/constants'
+
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
@@ -57,6 +71,11 @@ declare global {
       populateDefineHealthSource(connectorType: string, connectorName: string, healthSourceName: string): void
       selectFeature(featureName: string): void
       visitVerifyStepInPipeline(): void
+      apiMocksForVerifyStep(): void
+      verifyStepInitialSetup(): void
+      verifyStepSelectConnector(): void
+      verifyStepChooseRuntimeInput(): void
+      verifyStepSelectStrategyAndVerifyStep(): void
     }
   }
 }
@@ -205,4 +224,65 @@ Cypress.Commands.add('selectFeature', featureName => {
   cy.get('input[name="product"]').click({ force: true })
   cy.contains('p', featureName).click()
   cy.contains('span', 'product is a required field').should('not.exist')
+})
+
+Cypress.Commands.add('apiMocksForVerifyStep', () => {
+  cy.intercept(
+    'POST',
+    '/pipeline/api/pipelines?accountIdentifier=accountId&projectIdentifier=project1&orgIdentifier=default',
+    {
+      status: 'SUCCESS',
+      message: null,
+      correlationId: 'd174366f-e2dd-4e9a-8474-df2d47c12bec',
+      detailedMessage: null,
+      responseMessages: []
+    }
+  ).as('pipelineSave')
+  cy.intercept('GET', strategies, strategiesResponse).as('strategiesList')
+  cy.intercept('GET', strategiesYamlSnippets, strategiesYamlSnippetsResponse).as('strategiesYaml')
+  cy.intercept('GET', monitoresServices, monitoresServicesResponse).as('monitoredServices')
+  cy.intercept('POST', variables, variablesPostResponse).as('variables')
+  cy.intercept('POST', pipelineSteps, pipelineStepsResponse).as('pipelineSteps')
+  cy.intercept('GET', verifyStepServicesCall, { fixture: 'ng/api/servicesV2' }).as('service')
+})
+
+Cypress.Commands.add('verifyStepInitialSetup', () => {
+  cy.apiMocksForVerifyStep()
+  cy.get('[icon="plus"]').click()
+  cy.findByTestId('stage-Deployment').click()
+
+  cy.fillName('testStage_Cypress')
+  cy.clickSubmit()
+})
+
+Cypress.Commands.add('verifyStepSelectConnector', () => {
+  cy.contains('p', /^Kubernetes$/).click()
+
+  cy.contains('span', 'Select Connector').click({ force: true })
+  cy.contains('p', 'test1111').click({ force: true })
+  cy.contains('span', 'Apply Selected').click({ force: true })
+  cy.fillField('namespace', 'verify-step')
+})
+
+Cypress.Commands.add('verifyStepChooseRuntimeInput', () => {
+  cy.get('.MultiTypeInput--FIXED').click()
+  cy.findByText('Runtime input').click()
+})
+
+Cypress.Commands.add('verifyStepSelectStrategyAndVerifyStep', () => {
+  // Execution definition
+  cy.findByTestId('execution').click()
+  cy.wait(2000)
+
+  // choosing deployment strategy
+  cy.findByRole('button', { name: /Use Strategy/i }).click()
+  cy.wait(1000)
+
+  // adding new step
+  cy.findByText(/Add step/i).click()
+  cy.findByTestId('addStepPipeline').click()
+  cy.wait(1000)
+
+  // click verify step
+  cy.findByText(/Verify/i).click()
 })

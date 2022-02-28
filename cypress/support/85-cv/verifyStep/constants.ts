@@ -1,6 +1,8 @@
 const accountId = 'accountId'
 const project = 'project1'
 const org = 'default'
+const pipelineIdentifier = 'testPipeline_Cypress'
+const ENV = 'prod'
 
 export const deploymentActivitySummaryAPI = `cv/api/verify-step/GZNwefkdR2aBhc7owmJ1-w/deployment-activity-summary?routingId=${accountId}&accountId=${accountId}`
 export const deploymentTimeseriesDataAPI = `/cv/api/verify-step/GZNwefkdR2aBhc7owmJ1-w/deployment-timeseries-data?routingId=${accountId}&accountId=${accountId}&anomalousMetricsOnly=*&anomalousNodesOnly=*&pageNumber=0&pageSize=10`
@@ -15,6 +17,18 @@ export const variables = `/pipeline/api/pipelines/variables?routingId=${accountI
 export const pipelineSteps = `/pipeline/api/pipelines/v2/steps?routingId=${accountId}&accountId=${accountId}`
 export const monitoresServices = `/cv/api/monitored-service/service-environment?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}&environmentIdentifier=testEnv&serviceIdentifier=*`
 export const servicesCall = `/ng/api/servicesV2?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}`
+export const servicesCallV2 = `/ng/api/servicesV2/list/access?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}`
+export const stagesExecutionList = `/pipeline/api/pipeline/execute/stagesExecutionList?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}&pipelineIdentifier=${pipelineIdentifier}`
+export const inputSetsCall = `/pipeline/api/inputSets?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}&pipelineIdentifier=${pipelineIdentifier}`
+export const applyTemplatesCall = `/template/api/templates/applyTemplates?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&pipelineIdentifier=${pipelineIdentifier}&projectIdentifier=${project}&getDefaultFromOtherRepo=true`
+export const pipelineDetailsCall = `/pipeline/api/pipelines/${pipelineIdentifier}?accountIdentifier=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}`
+export const pipelineDetailsWithRoutingIdCall = `/pipeline/api/pipelines/${pipelineIdentifier}?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}`
+export const inputSetsTemplateCall = `/pipeline/api/inputSets/template?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&pipelineIdentifier=${pipelineIdentifier}&projectIdentifier=${project}`
+export const pipelineSummaryCall = `/pipeline/api/pipelines/summary/${pipelineIdentifier}?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}`
+export const inputSetTemplateForRuntimeServiceCall = `/cv/api/verify-step/input-set-template?accountId=${accountId}`
+export const serviceEnvironmentTest1Call = `/cv/api/monitored-service/service-environment?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}&environmentIdentifier=${ENV}&serviceIdentifier=testService`
+export const serviceEnvironmentTest2Call = `/cv/api/monitored-service/service-environment?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}&environmentIdentifier=${ENV}&serviceIdentifier=testService2`
+export const serviceEnvironmentTest3Call = `/cv/api/monitored-service/service-environment?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${org}&projectIdentifier=${project}&environmentIdentifier=${ENV}&serviceIdentifier=testService3`
 
 export const strategiesResponse = {
   status: 'SUCCESS',
@@ -350,4 +364,255 @@ export const monitoresServicesResponse = {
   },
   metaData: null,
   correlationId: 'd986946a-3521-4648-a787-53150e21aed7'
+}
+
+export const monitoresServicesResponseWithNoHealthSource = {
+  status: 'SUCCESS',
+  data: {
+    createdAt: 1641552686531,
+    lastModifiedAt: 1642054520322,
+    monitoredService: {
+      orgIdentifier: 'default',
+      projectIdentifier: 'shaswat',
+      identifier: 'appd_prod',
+      name: 'appd_prod',
+      type: 'Application',
+      description: '',
+      serviceRef: 'appd',
+      environmentRef: 'prod',
+      environmentRefList: null,
+      tags: {},
+      sources: {
+        healthSources: [],
+        changeSources: [
+          {
+            name: 'Harness CD Next Gen',
+            identifier: 'harness_cd_next_gen',
+            type: 'HarnessCDNextGen',
+            enabled: true,
+            spec: {},
+            category: 'Deployment'
+          }
+        ]
+      },
+      dependencies: []
+    }
+  },
+  metaData: null,
+  correlationId: 'd986946a-3521-4648-a787-53150e21aed7'
+}
+
+export const serviceEnvironmentNoMonitoredServicesResponse = {
+  status: 'SUCCESS',
+  data: null,
+  metaData: null,
+  correlationId: 'c8c2a3e5-4f73-4c03-8193-1dc7d99858d1'
+}
+
+export const stagesExecutionListResponse = {
+  status: 'SUCCESS',
+  data: [],
+  metaData: null,
+  correlationId: 'abe8947c-2acf-4905-bac1-732540adf73c'
+}
+
+export const inputSetsResponse = {
+  status: 'SUCCESS',
+  data: { totalPages: 0, totalItems: 0, pageItemCount: 0, pageSize: 100, content: [], pageIndex: 0, empty: true },
+  metaData: null,
+  correlationId: '21c2bd0f-b40d-4b8b-8cdf-c7b734ed2699'
+}
+
+export const applyTemplatesResponse = {
+  status: 'SUCCESS',
+  data: {
+    mergedPipelineYaml:
+      'name: "testPipeline_Cypress"\nidentifier: "testPipeline_Cypress"\nallowStageExecutions: false\nprojectIdentifier: "project1"\norgIdentifier: "CVNG"\ntags: {}\nstages:\n- stage:\n    name: "testStage_Cypress"\n    identifier: "testStage_Cypress"\n    description: ""\n    type: "Deployment"\n    spec:\n      serviceConfig:\n        serviceRef: "appd"\n        serviceDefinition:\n          type: "Kubernetes"\n          spec:\n            variables: []\n      infrastructure:\n        environmentRef: "prod"\n        infrastructureDefinition:\n          type: "KubernetesDirect"\n          spec:\n            connectorRef: "testk8s"\n            namespace: "testStage_Cypress"\n            releaseName: "release-<+INFRA_KEY>"\n        allowSimultaneousDeployments: false\n      execution:\n        steps:\n        - step:\n            name: "Rollout Deployment"\n            identifier: "rolloutDeployment"\n            type: "K8sRollingDeploy"\n            timeout: "10m"\n            spec:\n              skipDryRun: false\n        - step:\n            type: "Verify"\n            name: "testStage_Cypress"\n            identifier: "testStage_Cypress"\n            spec:\n              type: "Rolling"\n              spec:\n                sensitivity: "HIGH"\n                duration: "5m"\n                deploymentTag: "<+serviceConfig.artifacts.primary.tag>"\n            timeout: "2h"\n            failureStrategies:\n            - onFailure:\n                errors:\n                - "Verification"\n                action:\n                  type: "ManualIntervention"\n                  spec:\n                    timeout: "2h"\n                    onTimeout:\n                      action:\n                        type: "StageRollback"\n            - onFailure:\n                errors:\n                - "Unknown"\n                action:\n                  type: "ManualIntervention"\n                  spec:\n                    timeout: "2h"\n                    onTimeout:\n                      action:\n                        type: "Ignore"\n        rollbackSteps:\n        - step:\n            name: "Rollback Rollout Deployment"\n            identifier: "rollbackRolloutDeployment"\n            type: "K8sRollingRollback"\n            timeout: "10m"\n            spec: {}\n    tags: {}\n    failureStrategies:\n    - onFailure:\n        errors:\n        - "AllErrors"\n        action:\n          type: "StageRollback"\n',
+    templateReferenceSummaries: []
+  },
+  metaData: null,
+  correlationId: '689276a7-cb66-4c8e-af74-de05cedb37ee'
+}
+
+export const applyTemplatesResponseForServiceRuntime = {
+  status: 'SUCCESS',
+  data: {
+    mergedPipelineYaml:
+      'name: "testPipeline_Cypress"\nidentifier: "testPipeline_Cypress"\nallowStageExecutions: false\nprojectIdentifier: "Dummy_Pipeline"\norgIdentifier: "CVNG"\ntags: {}\nstages:\n- stage:\n    name: "testStage_Cypress"\n    identifier: "testStage_Cypress"\n    description: ""\n    type: "Deployment"\n    spec:\n      serviceConfig:\n        serviceRef: "<+input>"\n        serviceDefinition:\n          type: "Kubernetes"\n          spec:\n            variables: []\n      infrastructure:\n        environmentRef: "prod"\n        infrastructureDefinition:\n          type: "KubernetesDirect"\n          spec:\n            connectorRef: "testk8s"\n            namespace: "testStage_Cypress"\n            releaseName: "release-<+INFRA_KEY>"\n        allowSimultaneousDeployments: false\n      execution:\n        steps:\n        - step:\n            name: "Rollout Deployment"\n            identifier: "rolloutDeployment"\n            type: "K8sRollingDeploy"\n            timeout: "10m"\n            spec:\n              skipDryRun: false\n        - step:\n            type: "Verify"\n            name: "testStage_Cypress"\n            identifier: "testStage_Cypress"\n            spec:\n              type: "Rolling"\n              spec:\n                sensitivity: "HIGH"\n                duration: "5m"\n                deploymentTag: "<+serviceConfig.artifacts.primary.tag>"\n            timeout: "2h"\n            failureStrategies:\n            - onFailure:\n                errors:\n                - "Verification"\n                action:\n                  type: "ManualIntervention"\n                  spec:\n                    timeout: "2h"\n                    onTimeout:\n                      action:\n                        type: "StageRollback"\n            - onFailure:\n                errors:\n                - "Unknown"\n                action:\n                  type: "ManualIntervention"\n                  spec:\n                    timeout: "2h"\n                    onTimeout:\n                      action:\n                        type: "Ignore"\n        rollbackSteps:\n        - step:\n            name: "Rollback Rollout Deployment"\n            identifier: "rollbackRolloutDeployment"\n            type: "K8sRollingRollback"\n            timeout: "10m"\n            spec: {}\n    tags: {}\n    failureStrategies:\n    - onFailure:\n        errors:\n        - "AllErrors"\n        action:\n          type: "StageRollback"\n',
+    templateReferenceSummaries: []
+  },
+  metaData: null,
+  correlationId: '18de0752-2b9c-4a97-8229-b8e8d229f3b9'
+}
+
+export const pipelineSaveResponse = {
+  status: 'SUCCESS',
+  data: {
+    yamlPipeline:
+      'pipeline:\n    name: testPipeline_Cypress\n    identifier: testPipeline_Cypress\n    allowStageExecutions: false\n    projectIdentifier: project1\n    orgIdentifier: CVNG\n    tags: {}\n    stages:\n        - stage:\n              name: testStage_Cypress\n              identifier: testStage_Cypress\n              description: ""\n              type: Deployment\n              spec:\n                  serviceConfig:\n                      serviceRef: <+input>\n                      serviceDefinition:\n                          type: Kubernetes\n                          spec:\n                              variables: []\n                  infrastructure:\n                      environmentRef: prod\n                      infrastructureDefinition:\n                          type: KubernetesDirect\n                          spec:\n                              connectorRef: testk8s\n                              namespace: testStage_Cypress\n                              releaseName: release-<+INFRA_KEY>\n                      allowSimultaneousDeployments: false\n                  execution:\n                      steps:\n                          - step:\n                                name: Rollout Deployment\n                                identifier: rolloutDeployment\n                                type: K8sRollingDeploy\n                                timeout: 10m\n                                spec:\n                                    skipDryRun: false\n                          - step:\n                                type: Verify\n                                name: testStage_Cypress\n                                identifier: testStage_Cypress\n                                spec:\n                                    type: Rolling\n                                    spec:\n                                        sensitivity: HIGH\n                                        duration: 5m\n                                        deploymentTag: <+serviceConfig.artifacts.primary.tag>\n                                timeout: 2h\n                                failureStrategies:\n                                    - onFailure:\n                                          errors:\n                                              - Verification\n                                          action:\n                                              type: ManualIntervention\n                                              spec:\n                                                  timeout: 2h\n                                                  onTimeout:\n                                                      action:\n                                                          type: StageRollback\n                                    - onFailure:\n                                          errors:\n                                              - Unknown\n                                          action:\n                                              type: ManualIntervention\n                                              spec:\n                                                  timeout: 2h\n                                                  onTimeout:\n                                                      action:\n                                                          type: Ignore\n                      rollbackSteps:\n                          - step:\n                                name: Rollback Rollout Deployment\n                                identifier: rollbackRolloutDeployment\n                                type: K8sRollingRollback\n                                timeout: 10m\n                                spec: {}\n              tags: {}\n              failureStrategies:\n                  - onFailure:\n                        errors:\n                            - AllErrors\n                        action:\n                            type: StageRollback\n',
+    version: 3,
+    gitDetails: {
+      objectId: null,
+      branch: null,
+      repoIdentifier: null,
+      rootFolder: null,
+      filePath: null,
+      repoName: null
+    },
+    entityValidityDetails: { valid: true, invalidYaml: null },
+    modules: ['cd']
+  },
+  metaData: null,
+  correlationId: 'd0779a1a-ddcf-4ef0-a83f-fec0e894c180'
+}
+
+export const pipelineSaveServiceRuntimeResponse = {
+  status: 'SUCCESS',
+  data: {
+    yamlPipeline:
+      'pipeline:\n    name: test1\n    identifier: test1\n    allowStageExecutions: false\n    projectIdentifier: Dummy_Pipeline\n    orgIdentifier: CVNG\n    tags: {}\n    stages:\n        - stage:\n              name: test2\n              identifier: test2\n              description: ""\n              type: Deployment\n              spec:\n                  serviceConfig:\n                      serviceRef: <+input>\n                      serviceDefinition:\n                          type: Kubernetes\n                          spec:\n                              variables: []\n                  infrastructure:\n                      environmentRef: prod\n                      infrastructureDefinition:\n                          type: KubernetesDirect\n                          spec:\n                              connectorRef: testk8s\n                              namespace: test2\n                              releaseName: release-<+INFRA_KEY>\n                      allowSimultaneousDeployments: false\n                  execution:\n                      steps:\n                          - step:\n                                name: Rollout Deployment\n                                identifier: rolloutDeployment\n                                type: K8sRollingDeploy\n                                timeout: 10m\n                                spec:\n                                    skipDryRun: false\n                          - step:\n                                type: Verify\n                                name: test2\n                                identifier: test2\n                                spec:\n                                    type: Rolling\n                                    spec:\n                                        sensitivity: HIGH\n                                        duration: 5m\n                                        deploymentTag: <+serviceConfig.artifacts.primary.tag>\n                                timeout: 2h\n                                failureStrategies:\n                                    - onFailure:\n                                          errors:\n                                              - Verification\n                                          action:\n                                              type: ManualIntervention\n                                              spec:\n                                                  timeout: 2h\n                                                  onTimeout:\n                                                      action:\n                                                          type: StageRollback\n                                    - onFailure:\n                                          errors:\n                                              - Unknown\n                                          action:\n                                              type: ManualIntervention\n                                              spec:\n                                                  timeout: 2h\n                                                  onTimeout:\n                                                      action:\n                                                          type: Ignore\n                      rollbackSteps:\n                          - step:\n                                name: Rollback Rollout Deployment\n                                identifier: rollbackRolloutDeployment\n                                type: K8sRollingRollback\n                                timeout: 10m\n                                spec: {}\n              tags: {}\n              failureStrategies:\n                  - onFailure:\n                        errors:\n                            - AllErrors\n                        action:\n                            type: StageRollback\n',
+    version: 3,
+    gitDetails: {
+      objectId: null,
+      branch: null,
+      repoIdentifier: null,
+      rootFolder: null,
+      filePath: null,
+      repoName: null
+    },
+    entityValidityDetails: { valid: true, invalidYaml: null },
+    modules: ['cd']
+  },
+  metaData: null,
+  correlationId: '9142a19d-d1fb-4f7e-b9fb-d6708b2ee5b0'
+}
+
+export const inputSetsTemplateResponse = {
+  status: 'SUCCESS',
+  data: {
+    inputSetTemplateYaml:
+      'pipeline:\n  identifier: "testPipeline_Cypress"\n  stages:\n  - stage:\n      identifier: "testStage_Cypress"\n      type: "Deployment"\n      spec:\n        serviceConfig:\n          serviceRef: "<+input>"\n',
+    modules: ['cd']
+  },
+  metaData: null,
+  correlationId: '4c2742f8-7354-4627-896f-445a144eadc6'
+}
+
+export const pipelineDetailsWithRoutingIDResponse = {
+  status: 'SUCCESS',
+  data: {
+    yamlPipeline:
+      'pipeline:\n    name: testPipeline_Cypress\n    identifier: testPipeline_Cypress\n    allowStageExecutions: false\n    projectIdentifier: Dummy_Pipeline\n    orgIdentifier: CVNG\n    tags: {}\n    stages:\n        - stage:\n              name: testStage_Cypress\n              identifier: testStage_Cypress\n              description: ""\n              type: Deployment\n              spec:\n                  serviceConfig:\n                      serviceRef: <+input>\n                      serviceDefinition:\n                          type: Kubernetes\n                          spec:\n                              variables: []\n                  infrastructure:\n                      environmentRef: prod\n                      infrastructureDefinition:\n                          type: KubernetesDirect\n                          spec:\n                              connectorRef: testk8s\n                              namespace: testStage_Cypress\n                              releaseName: release-<+INFRA_KEY>\n                      allowSimultaneousDeployments: false\n                  execution:\n                      steps:\n                          - step:\n                                name: Rollout Deployment\n                                identifier: rolloutDeployment\n                                type: K8sRollingDeploy\n                                timeout: 10m\n                                spec:\n                                    skipDryRun: false\n                          - step:\n                                type: Verify\n                                name: testStage_Cypress\n                                identifier: testStage_Cypress\n                                spec:\n                                    type: Rolling\n                                    spec:\n                                        sensitivity: HIGH\n                                        duration: 5m\n                                        deploymentTag: <+serviceConfig.artifacts.primary.tag>\n                                timeout: 2h\n                                failureStrategies:\n                                    - onFailure:\n                                          errors:\n                                              - Verification\n                                          action:\n                                              type: ManualIntervention\n                                              spec:\n                                                  timeout: 2h\n                                                  onTimeout:\n                                                      action:\n                                                          type: StageRollback\n                                    - onFailure:\n                                          errors:\n                                              - Unknown\n                                          action:\n                                              type: ManualIntervention\n                                              spec:\n                                                  timeout: 2h\n                                                  onTimeout:\n                                                      action:\n                                                          type: Ignore\n                      rollbackSteps:\n                          - step:\n                                name: Rollback Rollout Deployment\n                                identifier: rollbackRolloutDeployment\n                                type: K8sRollingRollback\n                                timeout: 10m\n                                spec: {}\n              tags: {}\n              failureStrategies:\n                  - onFailure:\n                        errors:\n                            - AllErrors\n                        action:\n                            type: StageRollback\n',
+    version: 3,
+    gitDetails: {
+      objectId: null,
+      branch: null,
+      repoIdentifier: null,
+      rootFolder: null,
+      filePath: null,
+      repoName: null
+    },
+    entityValidityDetails: { valid: true, invalidYaml: null },
+    modules: ['cd']
+  },
+  metaData: null,
+  correlationId: 'd580f15a-c831-439b-82e0-dda58ce0b40f'
+}
+
+export const pipelineSummaryResponse = {
+  status: 'SUCCESS',
+  data: {
+    name: 'testPipeline_Cypress',
+    identifier: 'testPipeline_Cypress',
+    tags: {},
+    version: 3,
+    numOfStages: 1,
+    createdAt: 1645768746144,
+    lastUpdatedAt: 1645781212062,
+    modules: ['cd'],
+    executionSummaryInfo: { numOfErrors: [], deployments: [] },
+    filters: {
+      cd: {
+        deploymentTypes: ['Kubernetes'],
+        environmentNames: ['prod'],
+        serviceNames: [],
+        infrastructureTypes: ['KubernetesDirect']
+      }
+    },
+    stageNames: ['test2'],
+    gitDetails: {
+      objectId: null,
+      branch: null,
+      repoIdentifier: null,
+      rootFolder: null,
+      filePath: null,
+      repoName: null
+    },
+    entityValidityDetails: { valid: true, invalidYaml: null }
+  },
+  metaData: null,
+  correlationId: 'b306db34-72a0-4bfc-8fb1-2c18b2021b2a'
+}
+
+export const servicesV2AccessResponse = {
+  status: 'SUCCESS',
+  data: [
+    {
+      service: {
+        accountId: 'zEaak-FLS425IEO7OLzMUg',
+        identifier: 'testService',
+        orgIdentifier: 'CVNG',
+        projectIdentifier: 'Dummy_Pipeline',
+        name: 'testService',
+        description: null,
+        deleted: false,
+        tags: {},
+        version: 18
+      },
+      createdAt: 1643080660753,
+      lastModifiedAt: 1645703389065
+    },
+    {
+      service: {
+        accountId: 'zEaak-FLS425IEO7OLzMUg',
+        identifier: 'testService2',
+        orgIdentifier: 'CVNG',
+        projectIdentifier: 'Dummy_Pipeline',
+        name: 'testService2',
+        description: null,
+        deleted: false,
+        tags: {},
+        version: 18
+      },
+      createdAt: 1643080660753,
+      lastModifiedAt: 1645703389065
+    },
+    {
+      service: {
+        accountId: 'zEaak-FLS425IEO7OLzMUg',
+        identifier: 'testService3',
+        orgIdentifier: 'CVNG',
+        projectIdentifier: 'Dummy_Pipeline',
+        name: 'testService3',
+        description: null,
+        deleted: false,
+        tags: {},
+        version: 18
+      },
+      createdAt: 1643080660753,
+      lastModifiedAt: 1645703389065
+    }
+  ],
+  metaData: null,
+  correlationId: 'dbfcc921-47f3-4841-b67a-7a4f85b7d5f3'
+}
+
+export const inputSetTemplateRuntimeServiceResponse = {
+  status: 'SUCCESS',
+  data: {
+    inputSetTemplateYaml:
+      '---\npipeline:\n  identifier: "testPipeline_Cypress"\n  stages:\n  - stage:\n      identifier: "testStage_Cypress"\n      type: "Deployment"\n      spec:\n        serviceConfig:\n          serviceRef: "<+input>"\n        execution:\n          steps:\n          - step:\n              identifier: "testStage_Cypress"\n              type: "Verify"\n'
+  },
+  metaData: null,
+  correlationId: 'e289518b-4c94-4510-b789-a50ca8820819'
 }

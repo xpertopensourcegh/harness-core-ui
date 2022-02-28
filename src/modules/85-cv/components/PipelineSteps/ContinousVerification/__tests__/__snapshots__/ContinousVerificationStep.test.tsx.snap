@@ -1066,6 +1066,7 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
           >
             <div
               class="TableV2--row TableV2--card"
+              data-testid="healthSourceTable_appd-healthsource"
               role="row"
             >
               <div
@@ -1581,6 +1582,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
           >
             <div
               class="TableV2--row TableV2--card"
+              data-testid="healthSourceTable_appd-healthsource"
               role="row"
             >
               <div

@@ -115,6 +115,7 @@ export default function HealthSources(props: HealthSourcesProps): React.ReactEle
             ]}
             data={healthSources as HealthSource[]}
             className={css.table}
+            rowDataTestID={originalData => `healthSourceTable_${originalData.name}`}
           />
         )}
       </>
