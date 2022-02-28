@@ -335,24 +335,24 @@ const DashboardCard: React.FC<DashboardCardInterface> = ({ dashboard, clone, del
       }}
     >
       <Container>
-        {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) && (
-          <CardBody.Menu
-            menuContent={
-              <Menu>
-                <RbacMenuItem
-                  text={getString('projectCard.clone')}
-                  onClick={e => {
-                    e.stopPropagation()
-                    setMenuOpen(false)
-                    clone(dashboard.id)
-                  }}
-                  permission={{
-                    permission: PermissionIdentifier.EDIT_DASHBOARD,
-                    resource: {
-                      resourceType: ResourceType.DASHBOARDS
-                    }
-                  }}
-                />
+        <CardBody.Menu
+          menuContent={
+            <Menu>
+              <RbacMenuItem
+                text={getString('projectCard.clone')}
+                onClick={e => {
+                  e.stopPropagation()
+                  setMenuOpen(false)
+                  clone(dashboard.id)
+                }}
+                permission={{
+                  permission: PermissionIdentifier.EDIT_DASHBOARD,
+                  resource: {
+                    resourceType: ResourceType.DASHBOARDS
+                  }
+                }}
+              />
+              {dashboard?.type === dashboardType.ACCOUNT && (
                 <RbacMenuItem
                   text={getString('delete')}
                   onClick={e => {
@@ -367,17 +367,17 @@ const DashboardCard: React.FC<DashboardCardInterface> = ({ dashboard, clone, del
                     }
                   }}
                 />
-              </Menu>
+              )}
+            </Menu>
+          }
+          menuPopoverProps={{
+            className: Classes.DARK,
+            isOpen: menuOpen,
+            onInteraction: nextOpenState => {
+              setMenuOpen(nextOpenState)
             }
-            menuPopoverProps={{
-              className: Classes.DARK,
-              isOpen: menuOpen,
-              onInteraction: nextOpenState => {
-                setMenuOpen(nextOpenState)
-              }
-            }}
-          />
-        )}
+          }}
+        />
 
         <Layout.Vertical spacing="large">
           <Text font={{ variation: FontVariation.CARD_TITLE }}>{dashboard?.title}</Text>
