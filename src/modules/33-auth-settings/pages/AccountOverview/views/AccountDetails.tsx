@@ -31,7 +31,12 @@ const VERSIONS = {
 const AccountDetails: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { data, loading, refetch: refetchAcct, error } = useGetAccountNG({ accountIdentifier: accountId })
+  const {
+    data,
+    loading,
+    refetch: refetchAcct,
+    error
+  } = useGetAccountNG({ accountIdentifier: accountId, queryParams: { accountIdentifier: accountId } })
   const [updateAccountName, setUpdateAccountName] = React.useState(false)
 
   const { openDefaultExperienceModal } = useDefaultExperienceModal({ refetchAcct })
