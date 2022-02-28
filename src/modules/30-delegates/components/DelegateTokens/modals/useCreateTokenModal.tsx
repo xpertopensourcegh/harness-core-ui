@@ -84,7 +84,8 @@ export const useCreateTokenModal = ({ onSuccess }: CreateTokenModalProps): Creat
       formikActions.setFieldValue('tokenValue', createTokenResponse?.resource?.value || '')
       onSuccess?.()
     } catch (e) {
-      formikActions.setFieldError('name', getString('delegates.tokens.tokenNameNotUnique'))
+      /* istanbul ignore next */
+      formikActions.setFieldError('name', e.data?.message || e.data?.responseMessages?.[0]?.message)
     }
     return values
   }
