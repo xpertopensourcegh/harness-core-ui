@@ -6,7 +6,7 @@
  */
 
 const packageJSON = require('../package.json')
-const { pick, mapValues } = require('lodash')
+const { pick, omit, mapValues } = require('lodash')
 
 /**
  * These packages must be stricly shared with exact versions
@@ -17,14 +17,13 @@ const ExactSharedPackages = [
   'react',
   'react-router-dom',
   '@harness/uicore',
-  '@harness/use-modal',
   '@blueprintjs/core',
   '@blueprintjs/select',
   '@blueprintjs/datetime',
   'restful-react'
 ]
 
-module.exports = ({ enableGovernance, enableGitOpsUI, enableSTO }) => {
+module.exports = ({ enableGitOpsUI, enableSTO }) => {
   const remotes = {}
 
   if (enableGitOpsUI) {
@@ -33,14 +32,18 @@ module.exports = ({ enableGovernance, enableGitOpsUI, enableSTO }) => {
   }
 
   // TODO (tnhu): Use build an environment variable to enable Governance
-  // if (enableGovernance) {
   remotes.governance = "governance@[window.getApiBaseUrl('pm/remoteEntry.js')]"
-  // }
 
   if (enableSTO) {
     remotes.sto = "sto@[window.getApiBaseUrl('sto/remoteEntry.js')]"
   }
-
+  
+  if(process.env.TARGET_LOCALHOST) {
+    remotes.errortracking = "errortracking@http://localhost:3091/remoteEntry.js";
+  }else{
+    remotes.errortracking = "errortracking@[window.getApiBaseUrl('et/remoteEntry.js')]";
+  }
+  
   return {
     name: 'nextgenui',
     remotes,

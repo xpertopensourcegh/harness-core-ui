@@ -72,6 +72,7 @@ import CVTrialHomePage from './pages/home/CVTrialHomePage'
 import { editParams, isVerifyStepPresent } from './utils/routeUtils'
 import CVSLOsListingPage from './pages/slos/CVSLOsListingPage'
 import CVCreateSLO from './pages/slos/components/CVCreateSLO/CVCreateSLO'
+import ChildAppMounter from '../../microfrontends/ChildAppMounter'
 
 PubSubPipelineActions.subscribe(
   PipelineActions.RunPipeline,
@@ -135,6 +136,9 @@ const CVSideNavProps: SidebarContext = {
   icon: 'cv-main'
 }
 
+// eslint-disable-next-line import/no-unresolved
+const ErrorTracking = React.lazy(() => import('errortracking/App'))
+
 export default (
   <>
     <Route
@@ -178,6 +182,22 @@ export default (
     >
       <CVSLOsListingPage />
     </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toErrorTracking({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
+    >
+      <ChildAppMounter ChildApp={ErrorTracking} />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={routes.toErrorTrackingArc({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
+    >
+      <ChildAppMounter ChildApp={ErrorTracking} />
+    </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}

@@ -9,6 +9,7 @@ import React from 'react'
 import { Container } from '@wings-software/uicore'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as hooks from '@common/hooks/useFeatureFlag'
 import SideNav from '../SideNav'
 
 jest.mock('@projects-orgs/components/ProjectSelector/ProjectSelector.tsx', () => ({
@@ -27,6 +28,8 @@ jest.mock('@projects-orgs/components/ProjectSelector/ProjectSelector.tsx', () =>
 
 describe('Sidenav', () => {
   test('render', async () => {
+    const useFeatureFlags = jest.spyOn(hooks, 'useFeatureFlag')
+    useFeatureFlags.mockReturnValue(true)
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/cv/dashboard/orgs/:orgIdentifier/projects/:projectIdentifier"
