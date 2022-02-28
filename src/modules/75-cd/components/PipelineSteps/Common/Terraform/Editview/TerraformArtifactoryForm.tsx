@@ -203,6 +203,10 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
                       useValue
                       placeholder={getString(ArtifactRepoLoading ? 'common.loading' : 'cd.selectRepository')}
                       disabled={ArtifactRepoLoading}
+                      multiTypeInputProps={{
+                        expressions,
+                        allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                      }}
                     />
                   ) : (
                     <FormInput.MultiTextInput
@@ -246,7 +250,6 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
                           expressions,
                           allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
                         }}
-                        style={{ width: 320 }}
                       />
                     ) : (
                       <FieldArray

@@ -184,7 +184,6 @@ exports[`Terraform artifactory tests initial render 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  style="width: 320px;"
                 >
                   
                   <div
@@ -492,7 +491,6 @@ exports[`Terraform artifactory tests initial render with form data for config an
               >
                 <div
                   class="bp3-form-group"
-                  style="width: 320px;"
                 >
                   
                   <div
@@ -800,7 +798,6 @@ exports[`Terraform artifactory tests initial render with form data for config in
               >
                 <div
                   class="bp3-form-group"
-                  style="width: 320px;"
                 >
                   
                   <div
@@ -1553,7 +1550,6 @@ exports[`Terraform artifactory tests initial render with no form data for config
               >
                 <div
                   class="bp3-form-group"
-                  style="width: 320px;"
                 >
                   
                   <div
@@ -1861,7 +1857,6 @@ exports[`Terraform artifactory tests submit when it is a config form 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  style="width: 320px;"
                 >
                   
                   <div
@@ -2169,7 +2164,6 @@ exports[`Terraform artifactory tests test click previous button 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  style="width: 320px;"
                 >
                   
                   <div
