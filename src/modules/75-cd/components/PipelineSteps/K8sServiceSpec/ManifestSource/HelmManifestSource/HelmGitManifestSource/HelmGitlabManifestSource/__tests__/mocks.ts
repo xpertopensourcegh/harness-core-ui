@@ -12,7 +12,7 @@ export const manifests = [
       type: 'HelmChart',
       spec: {
         store: {
-          type: 'Gitlab',
+          type: 'GitLab',
           spec: {
             connectorRef: '<+input>',
             gitFetchType: 'Branch',
@@ -36,7 +36,7 @@ export const template = {
         type: 'HelmChart',
         spec: {
           store: {
-            type: 'Gitlab',
+            type: 'GitLab',
             spec: {
               connectorRef: '<+input>',
               gitFetchType: 'Branch',
