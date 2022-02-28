@@ -119,12 +119,12 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
           createdMetricsLength > 1
             ? (removedItem, index) => {
                 setCreatedMetrics(oldMetrics => {
-                  oldMetrics.splice(index, 1)
+                  const filteredOldMetrics = oldMetrics.filter(item => item !== removedItem)
                   const updateIndex = index === 0 ? 0 : index - 1
-                  const updatedMetric = oldMetrics[updateIndex]
+                  const updatedMetric = filteredOldMetrics[updateIndex]
                   setSelectedMetric(updatedMetric)
-                  onRemoveMetric(removedItem, updatedMetric, [...oldMetrics], updateIndex)
-                  return [...oldMetrics]
+                  onRemoveMetric(removedItem, updatedMetric, [...filteredOldMetrics], updateIndex)
+                  return [...filteredOldMetrics]
                 })
               }
             : undefined

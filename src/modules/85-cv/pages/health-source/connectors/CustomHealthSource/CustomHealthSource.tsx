@@ -25,6 +25,7 @@ import CustomMetric from '../../common/CustomMetric/CustomMetric'
 
 import type { CustomMappedMetric } from '../../common/CustomMetric/CustomMetric.types'
 import CustomHealthSourceForm from './CustomHealthSourceForm'
+import { defaultMetricName } from './CustomHealthSource.constants'
 import css from './CustomHealthSource.module.scss'
 
 export interface CustomHealthSourceProps {
@@ -51,7 +52,7 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
     setCreatedMetrics,
     setGroupedCreatedMetrics
   } = useGroupedSideNaveHook({
-    defaultCustomMetricName: getString('cv.monitoringSources.appD.defaultAppDMetricName'),
+    defaultCustomMetricName: defaultMetricName,
     initCustomMetricData: getInitCustomMetricData(''),
     mappedServicesAndEnvs: transformedSourceData.mappedServicesAndEnvs as Map<string, CustomMappedMetric>
   })
@@ -92,7 +93,7 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
               mappedMetrics={mappedMetrics}
               createdMetrics={createdMetrics}
               setCreatedMetrics={setCreatedMetrics}
-              defaultMetricName={'appdMetric'}
+              defaultMetricName={defaultMetricName}
               tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
               addFieldLabel={getString('cv.monitoringSources.addMetric')}
               initCustomForm={getInitCustomMetricData(formikProps.values.baseURL) as any}

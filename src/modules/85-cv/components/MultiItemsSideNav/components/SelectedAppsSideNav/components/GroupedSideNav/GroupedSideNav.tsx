@@ -8,6 +8,7 @@
 import React from 'react'
 import { Container, Icon, Text, CollapseList, CollapseListPanel, Color } from '@wings-software/uicore'
 import cx from 'classnames'
+import { useStrings } from 'framework/strings'
 import type { GroupedMetric } from './GroupedSideNav.types'
 import css from '../../SelectedAppsSideNav.module.scss'
 
@@ -23,9 +24,10 @@ export default function GroupedSideNav({
   onRemoveItem,
   onSelect
 }: GroupedSideNavInterface): JSX.Element {
+  const { getString } = useStrings()
   return (
     <>
-      {groupedSelectedAppsList.map((groupItem, groupIndex) => {
+      {groupedSelectedAppsList.map(groupItem => {
         if (!groupItem) {
           return <></>
         }
@@ -40,7 +42,7 @@ export default function GroupedSideNav({
                     color={Color.GREY_900}
                     font={{ weight: 'semi-bold', size: 'normal' }}
                   >
-                    {label}
+                    {label || getString('cv.addGroupName')}
                   </Text>
                 ),
                 collapsedIcon: 'main-chevron-right',
@@ -50,13 +52,13 @@ export default function GroupedSideNav({
               key={label}
               className={css.collapsePanel}
             >
-              {items?.map((selectedApp, index) => {
+              {items?.map(selectedApp => {
                 return (
                   <Container
                     key={selectedApp.metricName}
                     className={css.seletedAppContainer}
                     onClick={() => {
-                      onSelect?.(selectedApp?.metricName || '', index + groupIndex)
+                      onSelect?.(selectedApp?.metricName || '', selectedApp.index as number)
                     }}
                   >
                     <Text
@@ -74,7 +76,7 @@ export default function GroupedSideNav({
                         onClick={e => {
                           e.stopPropagation()
                           if (selectedApp.metricName) {
-                            onRemoveItem(selectedApp.metricName, index + groupIndex)
+                            onRemoveItem(selectedApp.metricName, selectedApp.index as number)
                           }
                         }}
                       />

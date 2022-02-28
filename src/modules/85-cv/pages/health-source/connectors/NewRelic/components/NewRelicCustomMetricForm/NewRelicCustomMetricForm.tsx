@@ -108,7 +108,7 @@ export default function NewRelicCustomMetricForm(props: NewRelicCustomFormInterf
       setNewRelicTimeSeriesData(data.data)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryParamsForTimeSeriesData])
+  }, [formikValues, queryParamsForTimeSeriesData])
 
   const options = useMemo(() => {
     return newRelicTimeSeriesData ? getOptionsForChart(newRelicTimeSeriesData) : []

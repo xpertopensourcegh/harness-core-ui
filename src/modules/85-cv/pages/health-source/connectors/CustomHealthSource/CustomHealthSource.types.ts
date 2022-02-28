@@ -63,7 +63,6 @@ export interface InitCustomHealthSourceInterface {
   healthScore: boolean
   continuousVerification: boolean
   serviceInstanceMetricPath: string
-  metricIdentifier: string
   baseURL: string
   pathURL: string
   metricValue: string

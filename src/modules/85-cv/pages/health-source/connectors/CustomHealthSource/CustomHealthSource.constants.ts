@@ -40,7 +40,6 @@ export const INITFORMDATA: InitCustomHealthSourceInterface = {
   healthScore: false,
   continuousVerification: false,
   serviceInstanceMetricPath: '',
-  metricIdentifier: '',
   baseURL: '',
   pathURL: '',
   metricValue: '',

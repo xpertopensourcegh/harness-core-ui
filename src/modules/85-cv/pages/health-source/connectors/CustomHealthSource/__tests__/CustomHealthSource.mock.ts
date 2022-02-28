@@ -17,7 +17,7 @@ const emptyMappedValue = {
     timestampFormat: 'SECONDS'
   },
   identifier: '',
-  metricIdentifier: '',
+  metricIdentifier: 'CustomHealth_Metric',
   metricName: 'CustomHealth Metric',
   metricValue: '',
   pathURL: '',

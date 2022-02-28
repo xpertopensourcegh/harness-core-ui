@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { GroupName } from '@cv/pages/health-source/common/GroupName/GroupName'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import { StackdriverDefinition, useGetLabelNames, useGetMetricNames, useGetMetricPacks } from 'services/cv'
@@ -30,7 +31,6 @@ import {
 } from './PrometheusHealthSource.constants'
 import { initializeGroupNames } from '../../common/GroupName/GroupName.utils'
 import CustomMetric from '../../common/CustomMetric/CustomMetric'
-import { PrometheusGroupName } from './components/PrometheusGroupName/PrometheusGroupName'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { updateMultiSelectOption } from './components/PrometheusQueryBuilder/components/PrometheusFilterSelector/utils'
 import { PrometheusQueryViewer } from './components/PrometheusQueryViewer/PrometheusQueryViewer'
@@ -88,7 +88,7 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
     setCreatedMetrics,
     setGroupedCreatedMetrics
   } = useGroupedSideNaveHook({
-    defaultCustomMetricName: getString('cv.monitoringSources.appD.defaultAppDMetricName'),
+    defaultCustomMetricName: getString('cv.monitoringSources.prometheus.prometheusMetric'),
     initCustomMetricData: {},
     mappedServicesAndEnvs: transformedSourceData.mappedServicesAndEnvs
   })
@@ -198,11 +198,11 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
                               isIdentifierEditable: Boolean(!currentSelectedMetricDetail?.identifier)
                             }}
                           />
-                          <PrometheusGroupName
+                          <GroupName
                             groupNames={prometheusGroupNames}
                             onChange={formikProps.setFieldValue}
                             item={formikProps.values?.groupName}
-                            setPrometheusGroupNames={setPrometheusGroupName}
+                            setGroupNames={setPrometheusGroupName}
                           />
                         </>
                       }

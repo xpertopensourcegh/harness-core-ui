@@ -176,7 +176,7 @@ export function transformCustomHealthSourceToSetupSource(sourceData: any): Custo
             query: '',
             queryType: undefined,
             requestMethod: undefined,
-            metricIdentifier: '',
+            metricIdentifier: defaultMetricName.split(' ').join('_'),
             baseURL: '',
             pathURL: '',
             metricValue: '',

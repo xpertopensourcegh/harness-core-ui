@@ -424,6 +424,7 @@ export const mockedFormDataCreate = {
   isEdit: false,
   mappedServicesAndEnvs: new Map(),
   metricData: {},
+  metricIdentifier: 'New_Relic_Metric',
   metricName: 'New Relic Metric',
   metricPacks: [],
   name: 'New_relic',
