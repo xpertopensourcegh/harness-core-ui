@@ -6,12 +6,16 @@
  */
 
 const projectIdentifier = 'project1'
+const newProjectIdentifier = 'project2'
 const orgIdentifier = 'default'
+const newOrgIdentifier = 'org2'
 const healthSource = 'appd_cvng_prod'
 const accountId = 'accountId'
 
 export const getUserJourneysCall = `/cv/api/user-journey?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&offset=0&pageSize=100`
+export const getUserJourneysCallForNewerProject = `/cv/api/user-journey?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${newOrgIdentifier}&projectIdentifier=${newProjectIdentifier}&offset=0&pageSize=100`
 export const listSLOsCall = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&pageNumber=0&pageSize=4`
+export const listSLOsCallForNewerProject = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${newOrgIdentifier}&projectIdentifier=${newProjectIdentifier}&pageNumber=0&pageSize=4`
 export const listSLOsCallWithUserJourneyNewOne = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&pageNumber=0&pageSize=4&userJourneyIdentifiers=newone`
 export const listSLOsCallWithUserJourneySecondJourney = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&pageNumber=0&pageSize=4&userJourneyIdentifiers=Second_Journey`
 export const listSLOsCallWithCVNGProd = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&monitoredServiceIdentifier=cvng_prod&pageNumber=0&pageSize=4`
@@ -23,10 +27,13 @@ export const listSLOsCallWithLatency = `/cv/api/slo-dashboard/widgets?routingId=
 export const listSLOsCallWithUnhealthy = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&pageNumber=0&pageSize=4&errorBudgetRisks=UNHEALTHY`
 export const listSLOsCallWithHealthy = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&pageNumber=0&pageSize=4&errorBudgetRisks=HEALTHY`
 export const listMonitoredServices = `/cv/api/monitored-service/all/time-series-health-sources?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const listMonitoredServicesForNewerProject = `/cv/api/monitored-service/all/time-series-health-sources?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${newOrgIdentifier}&projectIdentifier=${newProjectIdentifier}`
 export const getSLOMetrics = `/cv/api/monitored-service/cvng_prod/health-source/${healthSource}/slo-metrics?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const getSliGraph = `/cv/api/monitored-service/cvng_prod/sli/onboarding-graph?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const getServiceLevelObjective = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getServiceLevelObjectiveForNewerProject = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${newOrgIdentifier}&projectIdentifier=${newProjectIdentifier}`
 export const getSLORiskCount = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getSLORiskCountForNewerProject = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${newOrgIdentifier}&projectIdentifier=${newProjectIdentifier}`
 export const getSLORiskCountWithUserJourneyNewOne = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&userJourneyIdentifiers=newone`
 export const getSLORiskCountWithUserJourneySecondJourney = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&userJourneyIdentifiers=Second_Journey`
 export const getSLORiskCountWithCVNGProd = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&monitoredServiceIdentifier=cvng_prod`
@@ -297,6 +304,39 @@ export const getServiceLevelObjectiveResponse = {
       healthSourceRef: healthSource,
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
+      serviceLevelIndicators: [
+        {
+          type: 'Latency',
+          sliMissingDataType: 'Good',
+          spec: {
+            type: 'Ratio',
+            spec: {
+              eventType: 'Good',
+              metric1: 'https_errors_per_min',
+              metric2: 'number_of_slow_calls',
+              thresholdValue: 20,
+              thresholdType: '<='
+            }
+          }
+        }
+      ],
+      target: { type: 'Rolling', sloTargetPercentage: 90, spec: { periodLength: '30d', spec: {} } }
+    }
+  }
+}
+
+export const getServiceLevelObjectiveResponseForNewerProject = {
+  status: 'SUCCESS',
+  resource: {
+    serviceLevelObjective: {
+      name: 'SLO-1',
+      identifier: 'SLO1',
+      tags: {},
+      userJourneyRef: 'newone',
+      monitoredServiceRef: 'cvng_prod',
+      healthSourceRef: healthSource,
+      orgIdentifier: newOrgIdentifier,
+      projectIdentifier: newProjectIdentifier,
       serviceLevelIndicators: [
         {
           type: 'Latency',

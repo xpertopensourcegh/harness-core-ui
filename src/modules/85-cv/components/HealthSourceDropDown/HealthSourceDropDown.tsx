@@ -34,13 +34,13 @@ export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Elem
 
   return (
     <Select
+      name="healthsources-select"
       items={healthSources}
       className={classNames(css.maxDropDownWidth, className)}
-      defaultSelectedItem={healthSources?.[0]}
       key={healthSources?.[0]?.value as string}
       inputProps={{ placeholder: getString('pipeline.verification.healthSourcePlaceholder') }}
       onChange={item => {
-        onChange(item?.value === 'all' ? '' : (item.value as string))
+        onChange(item?.value as string)
       }}
     />
   )

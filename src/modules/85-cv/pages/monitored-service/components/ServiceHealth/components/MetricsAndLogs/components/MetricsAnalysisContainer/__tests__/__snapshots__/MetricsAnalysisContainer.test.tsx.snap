@@ -63,6 +63,7 @@ exports[`Unit tests for MetricsAnalysisContainer Verify if MetricsAnalysisContai
             <input
               autocomplete="off"
               class="bp3-input"
+              name="healthsources-select"
               placeholder="pipeline.verification.healthSourcePlaceholder"
               style="padding-right: 0px;"
               type="text"
