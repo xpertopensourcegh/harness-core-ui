@@ -579,11 +579,6 @@ export interface ControlClusterSummary {
   label?: number
 }
 
-export interface CountByTag {
-  count?: number
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-}
-
 export interface CountServiceDTO {
   allServicesCount?: number
   servicesAtRiskCount?: number
@@ -1259,6 +1254,7 @@ export interface Error {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -1598,6 +1594,7 @@ export interface Failure {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -2260,11 +2257,6 @@ export interface LogData {
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   trend?: FrequencyDTO[]
-}
-
-export interface LogDataByTag {
-  countByTags?: CountByTag[]
-  timestamp?: number
 }
 
 export interface LogRecordDTO {
@@ -3308,6 +3300,7 @@ export interface ResponseMessage {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -3914,14 +3907,6 @@ export interface RestResponseSetHealthSourceDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseSortedSetLogDataByTag {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogDataByTag[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseString {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -4150,6 +4135,10 @@ export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
   sampleMap?: {
     [key: string]: string
   }
+}
+
+export type ScmErrorMetadataDTO = ErrorMetadataDTO & {
+  conflictCommitId?: string
 }
 
 export interface SecretRefData {
@@ -4511,6 +4500,7 @@ export interface TimeSeriesMetricDataDTO {
   metricDataList?: MetricData[]
   metricName?: string
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
+  monitoredServiceIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
   serviceIdentifier?: string
@@ -4952,88 +4942,6 @@ export const changeEventListPromise = (
   getUsingFetch<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>(
     getConfig('cv/api'),
     `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event`,
-    props,
-    signal
-  )
-
-export interface ChangeEventSummaryQueryParams {
-  serviceIdentifiers?: string[]
-  envIdentifiers?: string[]
-  changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
-  changeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
-  startTime: number
-  endTime: number
-}
-
-export interface ChangeEventSummaryPathParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type ChangeEventSummaryProps = Omit<
-  GetProps<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>,
-  'path'
-> &
-  ChangeEventSummaryPathParams
-
-/**
- * get ChangeEvent summary
- */
-export const ChangeEventSummary = ({
-  accountIdentifier,
-  orgIdentifier,
-  projectIdentifier,
-  ...props
-}: ChangeEventSummaryProps) => (
-  <Get<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>
-    path={`/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/summary`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseChangeEventSummaryProps = Omit<
-  UseGetProps<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>,
-  'path'
-> &
-  ChangeEventSummaryPathParams
-
-/**
- * get ChangeEvent summary
- */
-export const useChangeEventSummary = ({
-  accountIdentifier,
-  orgIdentifier,
-  projectIdentifier,
-  ...props
-}: UseChangeEventSummaryProps) =>
-  useGet<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>(
-    (paramsInPath: ChangeEventSummaryPathParams) =>
-      `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event/summary`,
-    { base: getConfig('cv/api'), pathParams: { accountIdentifier, orgIdentifier, projectIdentifier }, ...props }
-  )
-
-/**
- * get ChangeEvent summary
- */
-export const changeEventSummaryPromise = (
-  {
-    accountIdentifier,
-    orgIdentifier,
-    projectIdentifier,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseChangeSummaryDTO,
-    unknown,
-    ChangeEventSummaryQueryParams,
-    ChangeEventSummaryPathParams
-  > & { accountIdentifier: string; orgIdentifier: string; projectIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>(
-    getConfig('cv/api'),
-    `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/summary`,
     props,
     signal
   )
@@ -6256,6 +6164,66 @@ export const getAppDynamicsTiersPromise = (
   getUsingFetch<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>(
     getConfig('cv/api'),
     `/appdynamics/tiers`,
+    props,
+    signal
+  )
+
+export interface GetMonitoredServiceChangeEventSummaryQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  monitoredServiceIdentifier?: string
+  changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  changeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
+  startTime: number
+  endTime: number
+}
+
+export type GetMonitoredServiceChangeEventSummaryProps = Omit<
+  GetProps<RestResponseChangeSummaryDTO, unknown, GetMonitoredServiceChangeEventSummaryQueryParams, void>,
+  'path'
+>
+
+/**
+ * get ChangeEvent summary for monitored service
+ */
+export const GetMonitoredServiceChangeEventSummary = (props: GetMonitoredServiceChangeEventSummaryProps) => (
+  <Get<RestResponseChangeSummaryDTO, unknown, GetMonitoredServiceChangeEventSummaryQueryParams, void>
+    path={`/change-event/monitored-service-summary`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceChangeEventSummaryProps = Omit<
+  UseGetProps<RestResponseChangeSummaryDTO, unknown, GetMonitoredServiceChangeEventSummaryQueryParams, void>,
+  'path'
+>
+
+/**
+ * get ChangeEvent summary for monitored service
+ */
+export const useGetMonitoredServiceChangeEventSummary = (props: UseGetMonitoredServiceChangeEventSummaryProps) =>
+  useGet<RestResponseChangeSummaryDTO, unknown, GetMonitoredServiceChangeEventSummaryQueryParams, void>(
+    `/change-event/monitored-service-summary`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get ChangeEvent summary for monitored service
+ */
+export const getMonitoredServiceChangeEventSummaryPromise = (
+  props: GetUsingFetchProps<
+    RestResponseChangeSummaryDTO,
+    unknown,
+    GetMonitoredServiceChangeEventSummaryQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseChangeSummaryDTO, unknown, GetMonitoredServiceChangeEventSummaryQueryParams, void>(
+    getConfig('cv/api'),
+    `/change-event/monitored-service-summary`,
     props,
     signal
   )
@@ -7512,181 +7480,13 @@ export const getWorkloadsPromise = (
     signal
   )
 
-export interface GetAllLogsQueryParams {
-  accountId?: string
-  projectIdentifier: string
-  orgIdentifier: string
-  environmentIdentifier?: string
-  serviceIdentifier?: string
-  monitoringCategory?: string
-  startTime: number
-  endTime: number
-  page?: number
-  size?: number
-}
-
-export type GetAllLogsProps = Omit<
-  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
-  'path'
->
-
-/**
- * get all logs for a time range
- */
-export const GetAllLogs = (props: GetAllLogsProps) => (
-  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>
-    path={`/log-dashboard/all-logs`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetAllLogsProps = Omit<
-  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
-  'path'
->
-
-/**
- * get all logs for a time range
- */
-export const useGetAllLogs = (props: UseGetAllLogsProps) =>
-  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(`/log-dashboard/all-logs`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * get all logs for a time range
- */
-export const getAllLogsPromise = (
-  props: GetUsingFetchProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(
-    getConfig('cv/api'),
-    `/log-dashboard/all-logs`,
-    props,
-    signal
-  )
-
-export interface GetAnomalousLogsQueryParams {
-  accountId?: string
-  projectIdentifier: string
-  orgIdentifier: string
-  environmentIdentifier?: string
-  serviceIdentifier?: string
-  monitoringCategory?: string
-  startTime: number
-  endTime: number
-  page?: number
-  size?: number
-}
-
-export type GetAnomalousLogsProps = Omit<
-  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
-  'path'
->
-
-/**
- * get anomalous logs for a time range
- */
-export const GetAnomalousLogs = (props: GetAnomalousLogsProps) => (
-  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>
-    path={`/log-dashboard/anomalous-logs`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetAnomalousLogsProps = Omit<
-  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
-  'path'
->
-
-/**
- * get anomalous logs for a time range
- */
-export const useGetAnomalousLogs = (props: UseGetAnomalousLogsProps) =>
-  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
-    `/log-dashboard/anomalous-logs`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * get anomalous logs for a time range
- */
-export const getAnomalousLogsPromise = (
-  props: GetUsingFetchProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
-    getConfig('cv/api'),
-    `/log-dashboard/anomalous-logs`,
-    props,
-    signal
-  )
-
-export interface GetTagCountQueryParams {
-  accountId?: string
-  projectIdentifier: string
-  orgIdentifier: string
-  environmentIdentifier?: string
-  serviceIdentifier?: string
-  monitoringCategory?: string
-  startTime: number
-  endTime: number
-}
-
-export type GetTagCountProps = Omit<
-  GetProps<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>,
-  'path'
->
-
-/**
- * get a sorted tag vs logs list
- */
-export const GetTagCount = (props: GetTagCountProps) => (
-  <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>
-    path={`/log-dashboard/log-count-by-tags`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetTagCountProps = Omit<
-  UseGetProps<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>,
-  'path'
->
-
-/**
- * get a sorted tag vs logs list
- */
-export const useGetTagCount = (props: UseGetTagCountProps) =>
-  useGet<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>(`/log-dashboard/log-count-by-tags`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * get a sorted tag vs logs list
- */
-export const getTagCountPromise = (
-  props: GetUsingFetchProps<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>(
-    getConfig('cv/api'),
-    `/log-dashboard/log-count-by-tags`,
-    props,
-    signal
-  )
-
 export interface GetAllLogsClusterDataQueryParams {
   accountId?: string
   orgIdentifier: string
   projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
+  monitoredServiceIdentifier?: string
   clusterTypes?: ('KNOWN' | 'UNEXPECTED' | 'UNKNOWN')[]
   startTime: number
   endTime: number
@@ -7746,8 +7546,9 @@ export interface GetAllLogsDataQueryParams {
   accountId?: string
   orgIdentifier: string
   projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
+  monitoredServiceIdentifier?: string
   clusterTypes?: ('KNOWN' | 'UNEXPECTED' | 'UNKNOWN')[]
   startTime: number
   endTime: number
@@ -7796,159 +7597,6 @@ export const getAllLogsDataPromise = (
   getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>(
     getConfig('cv/api'),
     `/log-dashboard/logs-data`,
-    props,
-    signal
-  )
-
-export interface GetTagCountForActivityQueryParams {
-  accountId?: string
-  projectIdentifier: string
-  orgIdentifier: string
-  startTime: number
-  endTime: number
-}
-
-export interface GetTagCountForActivityPathParams {
-  activityId: string
-}
-
-export type GetTagCountForActivityProps = Omit<
-  GetProps<
-    RestResponseSortedSetLogDataByTag,
-    unknown,
-    GetTagCountForActivityQueryParams,
-    GetTagCountForActivityPathParams
-  >,
-  'path'
-> &
-  GetTagCountForActivityPathParams
-
-/**
- * get a sorted tag vs logs list for an activity
- */
-export const GetTagCountForActivity = ({ activityId, ...props }: GetTagCountForActivityProps) => (
-  <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountForActivityQueryParams, GetTagCountForActivityPathParams>
-    path={`/log-dashboard/${activityId}/log-count-by-tags`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetTagCountForActivityProps = Omit<
-  UseGetProps<
-    RestResponseSortedSetLogDataByTag,
-    unknown,
-    GetTagCountForActivityQueryParams,
-    GetTagCountForActivityPathParams
-  >,
-  'path'
-> &
-  GetTagCountForActivityPathParams
-
-/**
- * get a sorted tag vs logs list for an activity
- */
-export const useGetTagCountForActivity = ({ activityId, ...props }: UseGetTagCountForActivityProps) =>
-  useGet<
-    RestResponseSortedSetLogDataByTag,
-    unknown,
-    GetTagCountForActivityQueryParams,
-    GetTagCountForActivityPathParams
-  >((paramsInPath: GetTagCountForActivityPathParams) => `/log-dashboard/${paramsInPath.activityId}/log-count-by-tags`, {
-    base: getConfig('cv/api'),
-    pathParams: { activityId },
-    ...props
-  })
-
-/**
- * get a sorted tag vs logs list for an activity
- */
-export const getTagCountForActivityPromise = (
-  {
-    activityId,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseSortedSetLogDataByTag,
-    unknown,
-    GetTagCountForActivityQueryParams,
-    GetTagCountForActivityPathParams
-  > & { activityId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    RestResponseSortedSetLogDataByTag,
-    unknown,
-    GetTagCountForActivityQueryParams,
-    GetTagCountForActivityPathParams
-  >(getConfig('cv/api'), `/log-dashboard/${activityId}/log-count-by-tags`, props, signal)
-
-export interface GetActivityLogsQueryParams {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
-  environmentIdentifier?: string
-  serviceIdentifier?: string
-  startTime: number
-  endTime: number
-  anomalousOnly?: boolean
-  page?: number
-  size?: number
-}
-
-export interface GetActivityLogsPathParams {
-  activityId: string
-}
-
-export type GetActivityLogsProps = Omit<
-  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>,
-  'path'
-> &
-  GetActivityLogsPathParams
-
-/**
- * get activity logs for given activityId
- */
-export const GetActivityLogs = ({ activityId, ...props }: GetActivityLogsProps) => (
-  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>
-    path={`/log-dashboard/${activityId}/logs`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetActivityLogsProps = Omit<
-  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>,
-  'path'
-> &
-  GetActivityLogsPathParams
-
-/**
- * get activity logs for given activityId
- */
-export const useGetActivityLogs = ({ activityId, ...props }: UseGetActivityLogsProps) =>
-  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>(
-    (paramsInPath: GetActivityLogsPathParams) => `/log-dashboard/${paramsInPath.activityId}/logs`,
-    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
-  )
-
-/**
- * get activity logs for given activityId
- */
-export const getActivityLogsPromise = (
-  {
-    activityId,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponsePageAnalyzedLogDataDTO,
-    unknown,
-    GetActivityLogsQueryParams,
-    GetActivityLogsPathParams
-  > & { activityId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>(
-    getConfig('cv/api'),
-    `/log-dashboard/${activityId}/logs`,
     props,
     signal
   )
@@ -8580,67 +8228,6 @@ export const getMonitoredServiceOverAllHealthScoreWithServiceAndEnvPromise = (
     void
   >(getConfig('cv/api'), `/monitored-service/overall-health-score`, props, signal)
 
-export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  serviceIdentifier?: string
-  environmentIdentifier?: string
-}
-
-export type GetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
-  GetProps<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>,
-  'path'
->
-
-/**
- * get monitored service scores from service and env ref
- */
-export const GetMonitoredServiceScoresFromServiceAndEnvironment = (
-  props: GetMonitoredServiceScoresFromServiceAndEnvironmentProps
-) => (
-  <Get<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>
-    path={`/monitored-service/scores`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
-  UseGetProps<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>,
-  'path'
->
-
-/**
- * get monitored service scores from service and env ref
- */
-export const useGetMonitoredServiceScoresFromServiceAndEnvironment = (
-  props: UseGetMonitoredServiceScoresFromServiceAndEnvironmentProps
-) =>
-  useGet<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>(
-    `/monitored-service/scores`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * get monitored service scores from service and env ref
- */
-export const getMonitoredServiceScoresFromServiceAndEnvironmentPromise = (
-  props: GetUsingFetchProps<
-    ResponseHealthScoreDTO,
-    unknown,
-    GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>(
-    getConfig('cv/api'),
-    `/monitored-service/scores`,
-    props,
-    signal
-  )
-
 export interface GetMonitoredServiceDetailsQueryParams {
   serviceIdentifier?: string
   environmentIdentifier?: string
@@ -9264,6 +8851,75 @@ export const getMonitoredServiceOverAllHealthScorePromise = (
     GetMonitoredServiceOverAllHealthScoreQueryParams,
     GetMonitoredServiceOverAllHealthScorePathParams
   >(getConfig('cv/api'), `/monitored-service/${identifier}/overall-health-score`, props, signal)
+
+export interface GetMonitoredServiceScoresQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetMonitoredServiceScoresPathParams {
+  identifier: string
+}
+
+export type GetMonitoredServiceScoresProps = Omit<
+  GetProps<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresQueryParams, GetMonitoredServiceScoresPathParams>,
+  'path'
+> &
+  GetMonitoredServiceScoresPathParams
+
+/**
+ * get monitored service scores
+ */
+export const GetMonitoredServiceScores = ({ identifier, ...props }: GetMonitoredServiceScoresProps) => (
+  <Get<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresQueryParams, GetMonitoredServiceScoresPathParams>
+    path={`/monitored-service/${identifier}/scores`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceScoresProps = Omit<
+  UseGetProps<
+    ResponseHealthScoreDTO,
+    unknown,
+    GetMonitoredServiceScoresQueryParams,
+    GetMonitoredServiceScoresPathParams
+  >,
+  'path'
+> &
+  GetMonitoredServiceScoresPathParams
+
+/**
+ * get monitored service scores
+ */
+export const useGetMonitoredServiceScores = ({ identifier, ...props }: UseGetMonitoredServiceScoresProps) =>
+  useGet<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresQueryParams, GetMonitoredServiceScoresPathParams>(
+    (paramsInPath: GetMonitoredServiceScoresPathParams) => `/monitored-service/${paramsInPath.identifier}/scores`,
+    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * get monitored service scores
+ */
+export const getMonitoredServiceScoresPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseHealthScoreDTO,
+    unknown,
+    GetMonitoredServiceScoresQueryParams,
+    GetMonitoredServiceScoresPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseHealthScoreDTO,
+    unknown,
+    GetMonitoredServiceScoresQueryParams,
+    GetMonitoredServiceScoresPathParams
+  >(getConfig('cv/api'), `/monitored-service/${identifier}/scores`, props, signal)
 
 export interface GetSloMetricsQueryParams {
   accountId: string
@@ -10085,7 +9741,6 @@ export interface GetServiceDependencyGraphQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   environmentIdentifier?: string
-  envIdentifier?: string
   serviceIdentifier?: string
   monitoredServiceIdentifier?: string
   servicesAtRiskFilter: boolean
@@ -11372,8 +11027,9 @@ export interface GetTimeSeriesMetricDataQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
+  monitoredServiceIdentifier?: string
   startTime: number
   endTime: number
   anomalous?: boolean

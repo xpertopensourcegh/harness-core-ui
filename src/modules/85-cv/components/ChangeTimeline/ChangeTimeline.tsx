@@ -28,6 +28,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const {
+    monitoredServiceIdentifier,
     serviceIdentifier,
     environmentIdentifier,
     startTime,
@@ -76,19 +77,21 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
 
   useEffect(() => {
     changeEventTimelineCancel()
-    changeEventTimelineRefetch({
-      queryParams: {
-        serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
-        envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
-        changeCategories: changeCategories || [],
-        changeSourceTypes: changeSourceTypes || [],
-        startTime: startTimeRoundedOffToNearest30min as number,
-        endTime: endTimeRoundedOffToNearest30min as number
-      },
-      queryParamStringifyOptions: {
-        arrayFormat: 'repeat'
-      }
-    })
+    if (serviceIdentifier && environmentIdentifier) {
+      changeEventTimelineRefetch({
+        queryParams: {
+          serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
+          envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
+          changeCategories: changeCategories || [],
+          changeSourceTypes: changeSourceTypes || [],
+          startTime: startTimeRoundedOffToNearest30min as number,
+          endTime: endTimeRoundedOffToNearest30min as number
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     startTimeRoundedOffToNearest30min,
@@ -101,30 +104,23 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
 
   useEffect(() => {
     monitoredServiceChangeTimelineCancel()
-    monitoredServiceChangeTimelineRefetch({
-      queryParams: {
-        accountId,
-        orgIdentifier,
-        projectIdentifier,
-        environmentIdentifier: Array.isArray(environmentIdentifier) ? environmentIdentifier[0] : environmentIdentifier,
-        serviceIdentifier: Array.isArray(serviceIdentifier) ? serviceIdentifier[0] : serviceIdentifier,
-        changeSourceTypes: changeSourceTypes || [],
-        duration: duration?.value as TimePeriodEnum,
-        endTime: Date.now()
-      }
-    })
+    if (monitoredServiceIdentifier) {
+      monitoredServiceChangeTimelineRefetch({
+        queryParams: {
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          monitoredServiceIdentifier,
+          changeSourceTypes: changeSourceTypes || [],
+          duration: duration?.value as TimePeriodEnum,
+          endTime: Date.now()
+        }
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    accountId,
-    orgIdentifier,
-    projectIdentifier,
-    serviceIdentifier,
-    environmentIdentifier,
-    changeSourceTypes,
-    duration
-  ])
+  }, [accountId, orgIdentifier, projectIdentifier, monitoredServiceIdentifier, changeSourceTypes, duration])
 
-  const { data, error, loading } = duration
+  const { data, error, loading } = monitoredServiceIdentifier
     ? {
         data: monitoredServiceChangeTimelineData,
         error: monitoredServiceChangeTimelineError,

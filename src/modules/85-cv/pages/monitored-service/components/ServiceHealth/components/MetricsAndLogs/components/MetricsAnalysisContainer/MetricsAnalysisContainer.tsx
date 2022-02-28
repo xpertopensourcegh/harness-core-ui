@@ -35,8 +35,7 @@ import css from './MetricsAnalysisContainer.module.scss'
 const MetricsAnalysisContent: React.FC<MetricsAnalysisContentProps> = ({
   startTime,
   endTime,
-  serviceIdentifier,
-  environmentIdentifier,
+  monitoredServiceIdentifier,
   isAnomalous,
   healthSource,
   filterString
@@ -50,8 +49,7 @@ const MetricsAnalysisContent: React.FC<MetricsAnalysisContentProps> = ({
       accountId,
       orgIdentifier,
       projectIdentifier,
-      serviceIdentifier,
-      environmentIdentifier,
+      monitoredServiceIdentifier,
       startTime,
       endTime,
       healthSources: healthSource ? [healthSource] : undefined,
@@ -61,13 +59,12 @@ const MetricsAnalysisContent: React.FC<MetricsAnalysisContentProps> = ({
   }, [
     accountId,
     endTime,
-    environmentIdentifier,
     filterString,
     healthSource,
     isAnomalous,
     orgIdentifier,
     projectIdentifier,
-    serviceIdentifier,
+    monitoredServiceIdentifier,
     startTime
   ])
 
@@ -134,8 +131,6 @@ const MetricsAnalysisContent: React.FC<MetricsAnalysisContentProps> = ({
 
 const MetricsAnalysisContainer: React.FC<MetricsAnalysisProps> = ({
   monitoredServiceIdentifier,
-  serviceIdentifier,
-  environmentIdentifier,
   startTime,
   endTime
 }) => {
@@ -168,8 +163,7 @@ const MetricsAnalysisContainer: React.FC<MetricsAnalysisProps> = ({
       </Layout.Horizontal>
 
       <MetricsAnalysisContent
-        serviceIdentifier={serviceIdentifier}
-        environmentIdentifier={environmentIdentifier}
+        monitoredServiceIdentifier={monitoredServiceIdentifier}
         startTime={startTime}
         endTime={endTime}
         isAnomalous={isAnomalous}

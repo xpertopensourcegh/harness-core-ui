@@ -6,7 +6,6 @@
  */
 
 export interface HealthScoreCardProps {
-  serviceIdentifier?: string
-  environmentIdentifier?: string
+  monitoredServiceIdentifier?: string
   monitoredServiceLoading?: boolean
 }

@@ -22,7 +22,7 @@ import type { ServiceDependencyGraphProps, ServicePoint } from './ServiceDepende
 
 const ServiceDependencyGraph: React.FC<ServiceDependencyGraphProps> = ({
   isPageView,
-  serviceIdentifier,
+  monitoredServiceIdentifier,
   environmentIdentifier,
   selectedFilter,
   onFilter,
@@ -56,8 +56,8 @@ const ServiceDependencyGraph: React.FC<ServiceDependencyGraphProps> = ({
   } = useGetServiceDependencyGraph({
     queryParams: {
       ...pathParams,
-      serviceIdentifier,
       environmentIdentifier,
+      monitoredServiceIdentifier,
       servicesAtRiskFilter: selectedFilter === FilterTypes.RISK
     }
   })

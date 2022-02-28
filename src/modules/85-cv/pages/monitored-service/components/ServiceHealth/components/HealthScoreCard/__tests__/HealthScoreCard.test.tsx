@@ -19,7 +19,7 @@ import {
 } from './HealthScoreCard.mock'
 
 jest.mock('services/cv', () => ({
-  useGetMonitoredServiceScoresFromServiceAndEnvironment: jest.fn().mockImplementation(() => ({
+  useGetMonitoredServiceScores: jest.fn().mockImplementation(() => ({
     data: noHealthSourceData,
     refetch: jest.fn()
   }))
@@ -27,8 +27,7 @@ jest.mock('services/cv', () => ({
 
 describe('HealthScoreCard Tests', () => {
   const initialProps = {
-    serviceIdentifier: 'service-1',
-    environmentIdentifier: 'env-1'
+    monitoredServiceIdentifier: 'monitored_service_identifier'
   }
 
   test('Both Service and Dependency Health score data not available', () => {
@@ -46,7 +45,7 @@ describe('HealthScoreCard Tests', () => {
   })
 
   test('No Service Health score data', () => {
-    ;(cvService.useGetMonitoredServiceScoresFromServiceAndEnvironment as jest.Mock).mockReturnValue({
+    ;(cvService.useGetMonitoredServiceScores as jest.Mock).mockReturnValue({
       data: noServiceHealthScoreData,
       refetch: jest.fn()
     })
@@ -63,7 +62,7 @@ describe('HealthScoreCard Tests', () => {
   })
 
   test('No Dependency Health score score', () => {
-    ;(cvService.useGetMonitoredServiceScoresFromServiceAndEnvironment as jest.Mock).mockReturnValue({
+    ;(cvService.useGetMonitoredServiceScores as jest.Mock).mockReturnValue({
       data: noDependencyHealthScoreData,
       refetch: jest.fn()
     })
@@ -80,7 +79,7 @@ describe('HealthScoreCard Tests', () => {
   })
 
   test('No Dependency available', () => {
-    ;(cvService.useGetMonitoredServiceScoresFromServiceAndEnvironment as jest.Mock).mockReturnValue({
+    ;(cvService.useGetMonitoredServiceScores as jest.Mock).mockReturnValue({
       data: healthSourceDataWithoutDependency,
       refetch: jest.fn()
     })
@@ -97,7 +96,7 @@ describe('HealthScoreCard Tests', () => {
   })
 
   test('Loading state', () => {
-    ;(cvService.useGetMonitoredServiceScoresFromServiceAndEnvironment as jest.Mock).mockReturnValue({
+    ;(cvService.useGetMonitoredServiceScores as jest.Mock).mockReturnValue({
       loading: true,
       refetch: jest.fn()
     })
@@ -115,7 +114,7 @@ describe('HealthScoreCard Tests', () => {
   test('Error state', () => {
     const errorMessage = 'TEST ERROR MESSAGE'
 
-    ;(cvService.useGetMonitoredServiceScoresFromServiceAndEnvironment as jest.Mock).mockReturnValue({
+    ;(cvService.useGetMonitoredServiceScores as jest.Mock).mockReturnValue({
       error: errorMessage,
       refetch: jest.fn()
     })

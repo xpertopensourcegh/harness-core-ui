@@ -94,7 +94,11 @@ describe('Change table', () => {
     })
 
     await waitFor(() =>
-      expect(refetch).toHaveBeenLastCalledWith({
+      expect(cvService.useChangeEventList).toHaveBeenLastCalledWith({
+        lazy: true,
+        accountIdentifier: undefined,
+        orgIdentifier: undefined,
+        projectIdentifier: undefined,
         queryParams: {
           endTime: 1,
           envIdentifiers: ['env'],
@@ -102,10 +106,10 @@ describe('Change table', () => {
           pageSize: 10,
           serviceIdentifiers: ['srv'],
           startTime: 0,
-          // Need to remove once these made as optional from BE
-          changeCategories: [],
-          changeSourceTypes: []
-        }
+          changeSourceTypes: [],
+          changeCategories: []
+        },
+        queryParamStringifyOptions: { arrayFormat: 'repeat' }
       })
     )
 

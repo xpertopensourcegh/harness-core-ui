@@ -11,13 +11,11 @@ export enum MetricTypes {
 
 export interface MetricsAnalysisProps {
   monitoredServiceIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
   startTime: number
   endTime: number
 }
 
-export interface MetricsAnalysisContentProps extends Omit<MetricsAnalysisProps, 'monitoredServiceIdentifier'> {
+export interface MetricsAnalysisContentProps extends MetricsAnalysisProps {
   isAnomalous: boolean
   healthSource?: string
   filterString?: string

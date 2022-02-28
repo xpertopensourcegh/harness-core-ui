@@ -142,17 +142,13 @@ export default function ServiceHealth({
         <Card>
           <>
             <Container className={css.tickerContainer}>
-              {serviceIdentifier &&
-                environmentIdentifier &&
-                changesTableAndSourceCardStartAndEndtime[0] &&
-                changesTableAndSourceCardStartAndEndtime[1] && (
-                  <ChangesSourceCard
-                    serviceIdentifier={serviceIdentifier}
-                    environmentIdentifier={environmentIdentifier}
-                    startTime={changesTableAndSourceCardStartAndEndtime[0]}
-                    endTime={changesTableAndSourceCardStartAndEndtime[1]}
-                  />
-                )}
+              {changesTableAndSourceCardStartAndEndtime[0] && changesTableAndSourceCardStartAndEndtime[1] && (
+                <ChangesSourceCard
+                  monitoredServiceIdentifier={monitoredServiceIdentifier}
+                  startTime={changesTableAndSourceCardStartAndEndtime[0]}
+                  endTime={changesTableAndSourceCardStartAndEndtime[1]}
+                />
+              )}
             </Container>
             <Container
               onClick={() => {
@@ -184,8 +180,7 @@ export default function ServiceHealth({
               />
               <ChangeTimeline
                 duration={selectedTimePeriod}
-                serviceIdentifier={serviceIdentifier}
-                environmentIdentifier={environmentIdentifier}
+                monitoredServiceIdentifier={monitoredServiceIdentifier}
                 startTime={timeRange?.startTime as number}
                 endTime={timeRange?.endTime as number}
                 selectedTimePeriod={selectedTimePeriod}
@@ -205,8 +200,7 @@ export default function ServiceHealth({
                 showTimelineSlider ? (timeRange?.endTime as number) : changesTableAndSourceCardStartAndEndtime[1]
               }
               hasChangeSource={hasChangeSource}
-              serviceIdentifier={serviceIdentifier}
-              environmentIdentifier={environmentIdentifier}
+              monitoredServiceIdentifier={monitoredServiceIdentifier}
             />
           </Container>
           <Container width="40%">
@@ -215,10 +209,7 @@ export default function ServiceHealth({
             </Heading>
             <Card>
               <Layout.Vertical height={458}>
-                <ServiceDependencyGraph
-                  serviceIdentifier={serviceIdentifier}
-                  environmentIdentifier={environmentIdentifier}
-                />
+                <ServiceDependencyGraph monitoredServiceIdentifier={monitoredServiceIdentifier} />
               </Layout.Vertical>
             </Card>
           </Container>

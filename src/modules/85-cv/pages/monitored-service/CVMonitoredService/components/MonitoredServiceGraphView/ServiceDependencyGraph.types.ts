@@ -13,7 +13,7 @@ import type { FilterTypes } from '@cv/pages/monitored-service/CVMonitoredService
 
 export interface ServiceDependencyGraphProps {
   isPageView?: boolean
-  serviceIdentifier?: string
+  monitoredServiceIdentifier?: string
   environmentIdentifier?: string
   selectedFilter?: FilterTypes
   onFilter?: (type: FilterTypes) => void

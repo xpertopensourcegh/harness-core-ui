@@ -35,8 +35,7 @@ import { VerificationType } from '../HealthSourceDropDown/HealthSourceDropDown.c
 import css from './LogAnalysis.module.scss'
 
 const ClusterChartContainer: React.FC<LogAnalysisContentProps> = ({
-  serviceIdentifier,
-  environmentIdentifier,
+  monitoredServiceIdentifier,
   startTime,
   endTime,
   logEvent,
@@ -50,8 +49,7 @@ const ClusterChartContainer: React.FC<LogAnalysisContentProps> = ({
       accountId,
       orgIdentifier,
       projectIdentifier,
-      serviceIdentifier,
-      environmentIdentifier,
+      monitoredServiceIdentifier,
       startTime,
       endTime,
       ...(logEvent ? { clusterTypes: [logEvent] } : {}),
@@ -90,8 +88,7 @@ const ClusterChartContainer: React.FC<LogAnalysisContentProps> = ({
 }
 
 const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
-  serviceIdentifier,
-  environmentIdentifier,
+  monitoredServiceIdentifier,
   startTime,
   endTime,
   logEvent,
@@ -107,8 +104,7 @@ const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
       accountId,
       orgIdentifier,
       projectIdentifier,
-      serviceIdentifier,
-      environmentIdentifier,
+      monitoredServiceIdentifier,
       startTime,
       endTime,
       ...(logEvent ? { clusterTypes: [logEvent] } : {}),
@@ -117,12 +113,11 @@ const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
   }, [
     accountId,
     endTime,
-    environmentIdentifier,
     healthSource,
     logEvent,
     orgIdentifier,
     projectIdentifier,
-    serviceIdentifier,
+    monitoredServiceIdentifier,
     startTime
   ])
 
@@ -171,13 +166,7 @@ const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
   )
 }
 
-const LogAnalysis: React.FC<LogAnalysisProps> = ({
-  monitoredServiceIdentifier,
-  serviceIdentifier,
-  environmentIdentifier,
-  startTime,
-  endTime
-}) => {
+const LogAnalysis: React.FC<LogAnalysisProps> = ({ monitoredServiceIdentifier, startTime, endTime }) => {
   const { getString } = useStrings()
 
   const [logEvent, setLogEvent] = useState<LogEvents>(LogEvents.UNKNOWN)
@@ -208,8 +197,7 @@ const LogAnalysis: React.FC<LogAnalysisProps> = ({
           {getString('pipeline.verification.logs.logCluster')}
         </Heading>
         <ClusterChartContainer
-          serviceIdentifier={serviceIdentifier}
-          environmentIdentifier={environmentIdentifier}
+          monitoredServiceIdentifier={monitoredServiceIdentifier}
           startTime={startTime}
           endTime={endTime}
           logEvent={logEvent}
@@ -218,8 +206,7 @@ const LogAnalysis: React.FC<LogAnalysisProps> = ({
       </Card>
 
       <LogAnalysisContent
-        serviceIdentifier={serviceIdentifier}
-        environmentIdentifier={environmentIdentifier}
+        monitoredServiceIdentifier={monitoredServiceIdentifier}
         startTime={startTime}
         endTime={endTime}
         logEvent={logEvent}

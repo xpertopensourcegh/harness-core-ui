@@ -19,8 +19,6 @@ export type LogAnalysisRowData = {
 
 export interface LogAnalysisProps {
   monitoredServiceIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
   startTime: number
   endTime: number
 }
@@ -31,7 +29,7 @@ export enum LogEvents {
   UNEXPECTED = 'UNEXPECTED'
 }
 
-export interface LogAnalysisContentProps extends Omit<LogAnalysisProps, 'monitoredServiceIdentifier'> {
+export interface LogAnalysisContentProps extends LogAnalysisProps {
   logEvent: LogEvents
   healthSource?: string
 }

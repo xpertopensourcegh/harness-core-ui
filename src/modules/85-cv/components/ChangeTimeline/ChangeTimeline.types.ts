@@ -10,9 +10,10 @@ import type { ChangeSourceTypes as ChangeSourceTypeRequest } from '@cv/pages/Cha
 import type { ChangeSourceTypes } from './ChangeTimeline.constants'
 
 export interface ChangeTimelineProps {
+  monitoredServiceIdentifier?: string
   timeFormat?: string
-  serviceIdentifier: string | string[]
-  environmentIdentifier: string | string[]
+  serviceIdentifier?: string | string[]
+  environmentIdentifier?: string | string[]
   changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
   changeSourceTypes?: ChangeSourceTypeRequest[]
   startTime?: number

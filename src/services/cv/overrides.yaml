@@ -108,11 +108,11 @@ allowpaths:
   - /log-dashboard/logs-data
   - /timeseries-dashboard/metrics
   - /verify-step/input-set-template
-  - /monitored-service/scores
+  - /monitored-service/{identifier}/scores
   - /monitored-service/{monitoredServiceIdentifier}/health-sources
   - /monitored-service/{identifier}/anomaliesCount
   - /service-dependency-graph
-  - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/summary
+  - /change-event/monitored-service-summary
   - /activity/{activityId}/healthSources
   - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event
   - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/timeline

@@ -6,14 +6,11 @@
  */
 
 import type { CategoryCountDetails } from 'services/cv'
-import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 
-export interface ChangeSourceCardInterfae {
+export interface ChangeSourceCardInterface {
+  monitoredServiceIdentifier: string
   startTime: number
   endTime: number
-  duration?: TimePeriodEnum
-  serviceIdentifier: string
-  environmentIdentifier: string
 }
 
 export interface ChangeSourceCardData {

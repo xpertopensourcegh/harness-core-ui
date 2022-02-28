@@ -22,7 +22,7 @@ import noDataImage from '@cv/assets/noData.svg'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
-import { defaultPageSize, PAGE_SIZE } from './ChangesTable.constants'
+import { PAGE_SIZE } from './ChangesTable.constants'
 import ChangeEventCard from './components/ChangeEventCard/ChangeEventCard'
 import css from './ChangeTable.module.scss'
 
@@ -30,6 +30,7 @@ export default function ChangesTable({
   startTime,
   endTime,
   hasChangeSource,
+  monitoredServiceIdentifier,
   serviceIdentifier,
   environmentIdentifier,
   customCols,
@@ -65,8 +66,13 @@ export default function ChangesTable({
 
   const changeEventListQueryParams = useMemo(() => {
     return {
-      serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
-      envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
+      ...(monitoredServiceIdentifier ? { monitoredServiceIdentifiers: [monitoredServiceIdentifier] } : {}),
+      ...(!monitoredServiceIdentifier && serviceIdentifier
+        ? { serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier] }
+        : {}),
+      ...(!monitoredServiceIdentifier && environmentIdentifier
+        ? { envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier] }
+        : {}),
       changeSourceTypes: changeSourceTypes || [],
       changeCategories: changeCategories || [],
       startTime,
@@ -77,6 +83,7 @@ export default function ChangesTable({
   }, [
     endTime,
     recordsPerPage,
+    monitoredServiceIdentifier,
     environmentIdentifier,
     serviceIdentifier,
     startTime,
@@ -162,25 +169,7 @@ export default function ChangesTable({
       return (
         <Card className={css.cardContainer}>
           <Container className={css.noData}>
-            <PageError
-              message={getErrorMessage(error)}
-              onClick={() =>
-                refetch({
-                  queryParams: {
-                    serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
-                    envIdentifiers: Array.isArray(environmentIdentifier)
-                      ? environmentIdentifier
-                      : [environmentIdentifier],
-                    changeSourceTypes: changeSourceTypes || [],
-                    changeCategories: changeCategories || [],
-                    startTime,
-                    endTime,
-                    pageIndex: page,
-                    pageSize: defaultPageSize
-                  }
-                })
-              }
-            />
+            <PageError message={getErrorMessage(error)} onClick={() => refetch()} />
           </Container>
         </Card>
       )

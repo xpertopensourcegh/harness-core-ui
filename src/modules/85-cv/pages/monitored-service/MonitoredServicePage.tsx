@@ -164,8 +164,7 @@ const ServiceHealthAndConfiguration: React.FC = () => {
           <FlexExpander />
           {tab === MonitoredServiceEnum.ServiceHealth && (
             <HealthScoreCard
-              serviceIdentifier={monitoredService?.serviceRef}
-              environmentIdentifier={monitoredService?.environmentRef}
+              monitoredServiceIdentifier={monitoredService?.identifier}
               monitoredServiceLoading={loading}
             />
           )}

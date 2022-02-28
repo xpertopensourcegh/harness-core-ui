@@ -154,7 +154,7 @@ describe('Unit tests for createting monitored source', () => {
           refetch: jest.fn()
         } as any)
     )
-    jest.spyOn(cvServices, 'useGetMonitoredServiceScoresFromServiceAndEnvironment').mockImplementation(
+    jest.spyOn(cvServices, 'useGetMonitoredServiceScores').mockImplementation(
       () =>
         ({
           data: null,

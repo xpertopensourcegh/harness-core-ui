@@ -9,7 +9,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import { Color, Container, FontVariation, Layout, Text, Icon, Intent } from '@wings-software/uicore'
-import { useGetMonitoredServiceScoresFromServiceAndEnvironment } from 'services/cv'
+import { useGetMonitoredServiceScores } from 'services/cv'
 import { RiskValues, getErrorMessage } from '@cv/utils/CommonUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskTagWithLabel } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.utils'
@@ -18,20 +18,14 @@ import ErrorTooltip from '@common/components/ErrorTooltip/ErrorTooltip'
 import type { HealthScoreCardProps } from './HealthScoreCard.types'
 import css from './HealthScoreCard.module.scss'
 
-const HealthScoreCard: React.FC<HealthScoreCardProps> = ({
-  serviceIdentifier,
-  environmentIdentifier,
-  monitoredServiceLoading
-}) => {
+const HealthScoreCard: React.FC<HealthScoreCardProps> = ({ monitoredServiceIdentifier, monitoredServiceLoading }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps & { identifier: string }>()
 
   const queryParams = {
     accountId,
     orgIdentifier,
-    projectIdentifier,
-    serviceIdentifier,
-    environmentIdentifier
+    projectIdentifier
   }
 
   const {
@@ -39,15 +33,21 @@ const HealthScoreCard: React.FC<HealthScoreCardProps> = ({
     refetch: fetchHealthScore,
     loading,
     error
-  } = useGetMonitoredServiceScoresFromServiceAndEnvironment({
+  } = useGetMonitoredServiceScores({
+    identifier: '',
     lazy: true
   })
 
   useEffect(() => {
-    if (serviceIdentifier && environmentIdentifier) {
-      fetchHealthScore({ queryParams })
+    if (monitoredServiceIdentifier) {
+      fetchHealthScore({
+        pathParams: {
+          identifier: monitoredServiceIdentifier
+        },
+        queryParams
+      })
     }
-  }, [serviceIdentifier, environmentIdentifier])
+  }, [monitoredServiceIdentifier])
 
   if (loading || monitoredServiceLoading) {
     return (

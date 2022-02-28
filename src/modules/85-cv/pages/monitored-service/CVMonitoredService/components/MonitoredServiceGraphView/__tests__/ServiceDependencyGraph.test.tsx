@@ -28,12 +28,14 @@ jest.mock('services/cv', () => ({
   useDeleteMonitoredService: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
+const monitoredServiceIdentifier = 'monitored_service_identifier'
+
 describe('Service Dependency Graph', () => {
   // Card view
   test('No data', () => {
     render(
       <TestWrapper {...testWrapperProps}>
-        <ServiceDependencyGraph serviceIdentifier="" environmentIdentifier="" />
+        <ServiceDependencyGraph monitoredServiceIdentifier={monitoredServiceIdentifier} />
       </TestWrapper>
     )
 
@@ -45,7 +47,7 @@ describe('Service Dependency Graph', () => {
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <ServiceDependencyGraph serviceIdentifier="" environmentIdentifier="" />
+        <ServiceDependencyGraph monitoredServiceIdentifier={monitoredServiceIdentifier} />
       </TestWrapper>
     )
 
@@ -62,7 +64,7 @@ describe('Service Dependency Graph', () => {
 
     render(
       <TestWrapper {...testWrapperProps}>
-        <ServiceDependencyGraph serviceIdentifier="service_identifier" environmentIdentifier="environment_identifier" />
+        <ServiceDependencyGraph monitoredServiceIdentifier={monitoredServiceIdentifier} />
       </TestWrapper>
     )
 
@@ -87,7 +89,7 @@ describe('Service Dependency Graph', () => {
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <ServiceDependencyGraph serviceIdentifier="" environmentIdentifier="" />
+        <ServiceDependencyGraph monitoredServiceIdentifier={monitoredServiceIdentifier} />
       </TestWrapper>
     )
 
