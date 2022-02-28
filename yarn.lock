@@ -1917,10 +1917,10 @@
   dependencies:
     loader-utils "^2.0.0"
 
-"@harness/jarvis@^0.15.0":
-  version "0.15.0"
-  resolved "https://npm.pkg.github.com/download/@harness/jarvis/0.15.0/9a19aa5889fd476ccd39036b47b88db5b590c19180c6c39bb69537a7772959d2#ee10db6a648577ecf5cd52dbf5520fb990335d4c"
-  integrity sha512-AlTWrT94ZFa2hLJU6x01SOHmfcesfen1xodqag3HvQPsSrld+2zt05JNF/PYXgB3tMwn2ocVruG/ZspSxqQmgA==
+"@harness/jarvis@0.16.0":
+  version "0.16.0"
+  resolved "https://npm.pkg.github.com/download/@harness/jarvis/0.16.0/c7e3798237e08bade2c62465c40cd354a61ad390c321ca583603617f1a453691#f3c86b042adae53f6f5e302163f709fca164f495"
+  integrity sha512-jlmpGfemYaAQlYjO2cwxKBQuVuOrSKmP0d388tC7ou1kdgPn5d/SxSC8p5fGOwnaZSqoG/lnhlJtmDb+h9z6yg==
   dependencies:
     ajv "^6.12.5"
     better-ajv-errors "^0.6.7"
