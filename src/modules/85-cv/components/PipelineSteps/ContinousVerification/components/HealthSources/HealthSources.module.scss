@@ -33,6 +33,12 @@
 .healthsourcename {
   display: flex;
   flex-direction: row;
+  span {
+    max-width: 200px;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
 }
 
 .disabled {

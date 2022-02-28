@@ -106,7 +106,9 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
                     </svg>
                   </span>
                 </div>
-                GCO Metrics
+                <span>
+                  GCO Metrics
+                </span>
               </div>
             </div>
             <div
@@ -200,7 +202,9 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
                     </svg>
                   </span>
                 </div>
-                appd
+                <span>
+                  appd
+                </span>
               </div>
             </div>
             <div
@@ -358,7 +362,9 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
                     </svg>
                   </span>
                 </div>
-                GCO Metrics
+                <span>
+                  GCO Metrics
+                </span>
               </div>
             </div>
             <div
@@ -452,7 +458,9 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
                     </svg>
                   </span>
                 </div>
-                appd
+                <span>
+                  appd
+                </span>
               </div>
             </div>
             <div

@@ -1101,7 +1101,9 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
                       </svg>
                     </span>
                   </div>
-                  appd-healthsource
+                  <span>
+                    appd-healthsource
+                  </span>
                 </div>
               </div>
               <div
@@ -1614,7 +1616,9 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                       </svg>
                     </span>
                   </div>
-                  appd-healthsource
+                  <span>
+                    appd-healthsource
+                  </span>
                 </div>
               </div>
               <div

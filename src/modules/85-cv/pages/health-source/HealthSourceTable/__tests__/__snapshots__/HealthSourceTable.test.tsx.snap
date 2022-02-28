@@ -356,7 +356,9 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
                     </svg>
                   </span>
                 </div>
-                dasdsadasd
+                <span>
+                  dasdsadasd
+                </span>
               </div>
             </div>
             <div
@@ -450,7 +452,9 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
                     </svg>
                   </span>
                 </div>
-                AppD 101
+                <span>
+                  AppD 101
+                </span>
               </div>
             </div>
             <div
