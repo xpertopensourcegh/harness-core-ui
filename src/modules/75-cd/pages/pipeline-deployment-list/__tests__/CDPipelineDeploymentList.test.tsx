@@ -75,7 +75,8 @@ jest.mock('services/pipeline-ng', () => ({
   useRunStagesWithRuntimeInputYaml: jest.fn(() => ({ data: null })),
   useRePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
   useRerunStagesWithRuntimeInputYaml: jest.fn(() => ({ data: null })),
-  useGetInputSetsListForPipeline: jest.fn(() => ({ data: null, refetch: jest.fn() }))
+  useGetInputSetsListForPipeline: jest.fn(() => ({ data: null, refetch: jest.fn() })),
+  useCreateVariables: jest.fn(() => ({}))
 }))
 
 const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
@@ -104,7 +105,10 @@ jest.mock('services/cd-ng', () => ({
   useGetFileContent: jest.fn(() => noop)
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
+jest.mock('services/template-ng', () => ({
+  useGetYamlWithTemplateRefsResolved: jest.fn(() => ({}))
+}))
+
 describe('<CDPipelineDeploymentList /> tests', () => {
   beforeAll(() => {
     jest.spyOn(global.Date, 'now').mockReturnValue(1603645966706)

@@ -12,13 +12,14 @@ import { useParams } from 'react-router-dom'
 import { debounce, defaultTo, get, isPlainObject } from 'lodash-es'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, Failure } from 'services/pipeline-ng'
-import { useMutateAsGet, useQueryParams } from '@common/hooks'
+import { useMutateAsGet, useQueryParams, useDeepCompareEffect } from '@common/hooks'
 import type { UseMutateAsGetReturn } from '@common/hooks/useMutateAsGet'
 import { useCreateVariables } from 'services/pipeline-ng'
 import type { GitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useGetYamlWithTemplateRefsResolved } from 'services/template-ng'
 import { getRegexForSearch } from '../LogsContent/LogsState/utils'
+
 export interface KVPair {
   [key: string]: string
 }
@@ -42,6 +43,7 @@ export interface PipelineVariablesData {
   searchText?: string
   searchIndex?: number | null
   searchResults?: SearchResult[]
+  setPipeline: (pipeline: PipelineInfoConfig) => void
 }
 export interface SearchMeta {
   searchText?: string
@@ -72,7 +74,8 @@ export const PipelineVariablesContext = React.createContext<PipelineVariablesDat
   metadataMap: {},
   error: null,
   initLoading: true,
-  loading: false
+  loading: false,
+  setPipeline: () => void 0
 })
 
 export function usePipelineVariables(): PipelineVariablesData {
@@ -80,9 +83,10 @@ export function usePipelineVariables(): PipelineVariablesData {
 }
 
 export function PipelineVariablesContextProvider(
-  props: React.PropsWithChildren<{ pipeline: PipelineInfoConfig }>
+  props: React.PropsWithChildren<{ pipeline?: PipelineInfoConfig }>
 ): React.ReactElement {
-  const { pipeline: originalPipeline } = props
+  const { pipeline: pipelineFromProps } = props
+  const [originalPipeline, setOriginalPipeline] = React.useState<PipelineInfoConfig>({ name: '', identifier: '' })
   const [{ variablesPipeline, metadataMap }, setPipelineVariablesData] = React.useState<
     Pick<PipelineVariablesData, 'metadataMap' | 'variablesPipeline'>
   >({
@@ -169,6 +173,12 @@ export function PipelineVariablesContextProvider(
     })
   }, [data?.data?.metadataMap, data?.data?.yaml])
 
+  useDeepCompareEffect(() => {
+    if (pipelineFromProps) {
+      setOriginalPipeline(pipelineFromProps)
+    }
+  }, [pipelineFromProps])
+
   const onSearchInputChange = debounce((searchKey: string) => {
     if (searchKey !== searchText) {
       const finalFound = findMatchedResultsInPipeline(pipelineFqns, pipelineValues, pipelineMetaKeys, searchKey)
@@ -201,7 +211,8 @@ export function PipelineVariablesContextProvider(
         searchText,
         searchIndex,
         goToPrevSearchResult,
-        goToNextSearchResult
+        goToNextSearchResult,
+        setPipeline: setOriginalPipeline
       }}
     >
       {props.children}

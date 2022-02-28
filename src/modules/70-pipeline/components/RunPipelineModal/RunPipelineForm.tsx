@@ -78,6 +78,7 @@ import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { useDeepCompareEffect } from '@common/hooks/useDeepCompareEffect'
 import { useGetYamlWithTemplateRefsResolved } from 'services/template-ng'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
@@ -96,7 +97,11 @@ import GitPopover from '../GitPopover/GitPopover'
 import SaveAsInputSet from './SaveAsInputSet'
 import SelectExistingInputsOrProvideNew from './SelectExistingOrProvide'
 import ReplacedExpressionInputForm from './ReplacedExpressionInputForm'
-import type { KVPair } from '../PipelineVariablesContext/PipelineVariablesContext'
+import {
+  KVPair,
+  PipelineVariablesContextProvider,
+  usePipelineVariables
+} from '../PipelineVariablesContext/PipelineVariablesContext'
 import { ApprovalStageInfo, ExpressionsInfo, RequiredStagesInfo } from './RunStageInfoComponents'
 import css from './RunPipelineForm.module.scss'
 
@@ -160,6 +165,7 @@ function RunPipelineFormBasic({
     selectedStageItems: [getAllStageItem(getString)]
   })
   const [loadingInputSetUpdate, setLoadingInputSetUpdate] = useState(false)
+  const { setPipeline: updatePipelineInVaribalesContext } = usePipelineVariables()
 
   const { data: stageExecutionData } = useGetStagesExecutionList({
     queryParams: {
@@ -513,6 +519,12 @@ function RunPipelineFormBasic({
   )
 
   const valuesPipelineRef = useRef<PipelineInfoConfig>()
+
+  useDeepCompareEffect(() => {
+    if (resolvedPipeline) {
+      updatePipelineInVaribalesContext(resolvedPipeline)
+    }
+  }, [resolvedPipeline])
 
   const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
     return (
@@ -1243,7 +1255,9 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
 export function RunPipelineForm(props: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   return (
     <NestedAccordionProvider>
-      <RunPipelineFormBasic {...props} />
+      <PipelineVariablesContextProvider>
+        <RunPipelineFormBasic {...props} />
+      </PipelineVariablesContextProvider>
     </NestedAccordionProvider>
   )
 }

@@ -37,7 +37,6 @@ import type {
 import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
-import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './PipelineInputSetForm.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -320,9 +319,5 @@ export function PipelineInputSetForm(props: PipelineInputSetFormProps): React.Re
     }
   }, [props?.template])
 
-  return (
-    <PipelineVariablesContextProvider pipeline={props.originalPipeline}>
-      <PipelineInputSetFormInternal {...props} template={template} />
-    </PipelineVariablesContextProvider>
-  )
+  return <PipelineInputSetFormInternal {...props} template={template} />
 }
