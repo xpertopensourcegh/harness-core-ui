@@ -22,8 +22,6 @@ import {
   FormikForm,
   PageError
 } from '@wings-software/uicore'
-import { useModalHook } from '@harness/use-modal'
-import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import * as yup from 'yup'
 import {
@@ -53,7 +51,6 @@ import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
-import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
 import { CFEnvironmentSelect } from '../CFEnvironmentSelect/CFEnvironmentSelect'
@@ -407,20 +404,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
     return errors
   }
-  const [openModalTestFlag, hideModalTestFlag] = useModalHook(() => (
-    <Dialog enforceFocus={false} onClose={hideModalTestFlag} isOpen={true} className={css.testFlagDialog}>
-      <Container className={css.testFlagDialogContainer}>
-        <FlagElemTest name="" fromWizard={false} />
-        <Button
-          minimal
-          icon="small-cross"
-          iconProps={{ size: 20 }}
-          onClick={hideModalTestFlag}
-          style={{ top: 0, right: '15px', position: 'absolute' }}
-        />
-      </Container>
-    </Dialog>
-  ))
   const { tab = FFDetailPageTab.TARGETING } = useQueryParams<{ tab?: string }>()
   const [activeTabId, setActiveTabId] = useState(tab)
   const [newEnvironmentCreateLoading, setNewEnvironmentCreateLoading] = useState(false)
@@ -502,7 +485,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     >
       {formikProps => {
         return (
-          <FormikForm {...formikProps}>
+          <FormikForm>
             <Container className={css.formContainer}>
               <Layout.Horizontal
                 flex
@@ -557,15 +540,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                         panel={<TabActivity flagData={flagData} />}
                       />
                     </Tabs>
-                    <Button
-                      icon="code"
-                      disabled
-                      minimal
-                      intent="primary"
-                      onClick={openModalTestFlag}
-                      className={css.btnCode}
-                      title={getString('cf.featureNotReady')}
-                    />
                   </>
                 )}
               </Container>
