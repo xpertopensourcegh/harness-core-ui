@@ -8,6 +8,7 @@
 import React, { useState } from 'react'
 import { Button, ButtonVariation, Color, FontVariation, Icon, Layout, Text } from '@wings-software/uicore'
 import { Drawer, Position } from '@blueprintjs/core'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { getButton, MenuItems } from './ResourceCenterUtil'
 import resourceImage from './images/resource-center.png'
@@ -21,13 +22,13 @@ export const ResourceCenter = (): React.ReactElement => {
   if (!show) {
     return (
       <Icon
-        name={'question'}
+        name={'nav-help'}
         onClick={e => {
           e.stopPropagation()
           e.preventDefault()
           setShow(true)
         }}
-        size={20}
+        size={30}
         data-testid="question"
         className={css.helpCenterIcon}
       />
@@ -88,10 +89,10 @@ export const ResourceCenter = (): React.ReactElement => {
               'https://community.harness.io/'
             )}
             {getButton(
-              getString('common.slack'),
+              getString('common.resourceCenter.communitySlack'),
               'service-slack',
               'https://join.slack.com/t/harnesscommunity/shared_invite/zt-y4hdqh7p-RVuEQyIl5Hcx4Ck8VCvzBw',
-              css.iconSize
+              cx(css.iconSize, css.marginTop)
             )}
           </Layout.Horizontal>
           <Layout.Horizontal flex={{ justifyContent: 'space-around' }} padding={{ top: 'small' }}>

@@ -765,9 +765,9 @@ community: Community
 resourceCenter:
   title: 'RESOURCE CENTER'
   ticketmenu:
-    tickets: 'My Tickets'
+    tickets: 'My support requests'
     ticketsDesc: 'View and manage your tickets'
-    submit: 'Submit a ticket'
+    submit: Submit a support request
     submitDesc: 'Get help from our expert system'
   bottomlayout:
     desc: Other useful resources
@@ -776,7 +776,8 @@ resourceCenter:
     university: University
     apiDocs: API Docs
     changeLog: Change log
-  communityLevelUp: Ticket support is availible in Team plan and Enterprise plans.
+  communityLevelUp: Customer Support is available in Team and Enterprise plans.
+  communitySlack: Community Slack
 currentlyAvailable: Currently Available
 supportedInFirstGeneration: Currently supported on Harness Continuous Delivery First Generation
 currentlySupportedOn: Currently supported on

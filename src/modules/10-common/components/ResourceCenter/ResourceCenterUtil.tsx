@@ -27,8 +27,13 @@ export const getButton = (
         padding={'small'}
         className={cx(css.bottombutton)}
       >
-        <Icon name={buttonIcon} size={24} color={Color.WHITE} className={iconClassName} />
-        <Text font={{ variation: FontVariation.BODY2 }} padding={{ bottom: 'xsmall' }} color={Color.PRIMARY_3}>
+        <Icon name={buttonIcon} size={24} color={Color.WHITE} className={iconClassName} padding={'small'} />
+        <Text
+          font={{ variation: FontVariation.BODY2 }}
+          padding={{ bottom: 'xsmall' }}
+          color={Color.PRIMARY_3}
+          className={css.txtAlignCenter}
+        >
           {buttonText}
         </Text>
       </Layout.Vertical>

@@ -12,10 +12,12 @@ declare const styles: {
   readonly communityTooltip: string
   readonly helpCenterIcon: string
   readonly iconSize: string
+  readonly marginTop: string
   readonly middleregion: string
   readonly resourceCenter: string
   readonly submitTicket: string
   readonly title: string
+  readonly txtAlignCenter: string
   readonly university: string
 }
 export default styles

@@ -9,9 +9,11 @@
   background: var(--primary-9-dark) !important;
   border-radius: var(--spacing-3);
   box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px;
-  width: 440px !important;
+  width: 520px !important;
   height: fit-content !important;
   top: unset !important;
+  bottom: 20px !important;
+  left: 300px !important;
 }
 
 .middleregion {
@@ -29,8 +31,10 @@
 
 .bottombutton {
   background: rgba(255, 255, 255, 0.05) !important;
-  min-width: 88px;
-  min-height: 88px;
+  min-width: 110px;
+  min-height: 110px;
+  max-width: 110px;
+  max-height: 110px;
   border-radius: var(--spacing-2);
 
   &:hover {
@@ -56,6 +60,12 @@
     opacity: 1;
     background: var(--theme-light-nav-panel-bg) !important;
   }
+  svg {
+    padding-left: 8px;
+    path {
+      fill: var(--grey-200);
+    }
+  }
 }
 
 .communityTooltip {
@@ -78,4 +88,12 @@
     width: 18px;
     height: 18px;
   }
+}
+
+.marginTop {
+  margin-top: 18px !important;
+}
+
+.txtAlignCenter {
+  text-align: center;
 }
