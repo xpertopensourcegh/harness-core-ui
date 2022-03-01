@@ -130,8 +130,9 @@ export const validateMapping = (
 ): ((key: string) => string) => {
   let errors = {} as any
 
-  errors = validateMetricPackData(dynatraceMetricData.metricData, getString, errors)
-
+  if (!dynatraceMetricData.showCustomMetric) {
+    errors = validateMetricPackData(dynatraceMetricData.metricData, getString, errors)
+  }
   if (!dynatraceMetricData.selectedService.value || dynatraceMetricData.selectedService.value === 'loading') {
     errors[DynatraceHealthSourceFieldNames.DYNATRACE_SELECTED_SERVICE] = getString(
       'cv.healthSource.connectors.Dynatrace.validations.selectedService'

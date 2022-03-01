@@ -99,6 +99,21 @@ describe('Validate DynatraceHealthSource Utils', () => {
     expect(
       DynatraceHealthSourceUtils.validateMapping(dataWithNoMetricPackSelected, ['a', 'b'], 0, val => val, new Map())
     ).toEqual(expectedErrors)
+
+    // no errors when there is no metric packs, but custom metric is added
+    const customMetricsErrorWithoutMetricPacks: any = {}
+    const dataWithCustomMetrics: DynatraceFormDataInterface = {
+      ...MockDynatraceMetricData,
+      metricData: {},
+      showCustomMetric: true,
+      metricName: 'mock_metric_name',
+      sli: true,
+      groupName: { label: 'mock_label', value: 'mock_value' },
+      metricSelector: 'builtin:service.mock'
+    }
+    expect(
+      DynatraceHealthSourceUtils.validateMapping(dataWithCustomMetrics, ['a', 'b'], 0, val => val, new Map())
+    ).toEqual(customMetricsErrorWithoutMetricPacks)
   })
 
   test('validate custom metric errors', () => {
