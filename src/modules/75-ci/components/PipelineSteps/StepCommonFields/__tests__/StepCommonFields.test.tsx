@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Formik, FormikForm, MultiTypeInputType } from '@wings-software/uicore'
+import { Formik, FormikForm } from '@wings-software/uicore'
 
 import { TestWrapper } from '@common/utils/testUtils'
 
@@ -22,10 +22,7 @@ const TestComponent = ({ initialValues }: TestProps): React.ReactElement => (
     {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
     <Formik initialValues={initialValues} onSubmit={() => {}} formName="stepCommonFieldsForm">
       <FormikForm>
-        <StepCommonFields
-          allowableTypes={[MultiTypeInputType.EXPRESSION]}
-          buildInfrastructureType={'KubernetesDirect'}
-        />
+        <StepCommonFields buildInfrastructureType={'KubernetesDirect'} />
       </FormikForm>
     </Formik>
   </TestWrapper>

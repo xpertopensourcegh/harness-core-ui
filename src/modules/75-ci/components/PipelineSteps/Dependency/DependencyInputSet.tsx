@@ -33,7 +33,6 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({
         stepLabel={getString('dependencyNameLabel')}
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.description as string) === MultiTypeInputType.RUNTIME && {
             'spec.description': {}
@@ -72,6 +71,7 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({
           })
         }}
         path={path || ''}
+        isInputSetView={true}
       />
       <CIStepOptionalConfig
         stepViewType={stepViewType}
@@ -90,7 +90,6 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({
             'spec.args': {}
           })
         }}
-        allowableTypes={allowableTypes}
         path={path || ''}
       />
       <StepCommonFieldsInputSet
@@ -98,7 +97,6 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({
         readonly={readonly}
         template={template}
         withoutTimeout
-        allowableTypes={allowableTypes}
         stepViewType={stepViewType}
       />
     </FormikForm>

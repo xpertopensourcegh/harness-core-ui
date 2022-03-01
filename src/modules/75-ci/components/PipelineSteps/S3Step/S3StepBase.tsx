@@ -30,7 +30,7 @@ import { useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const S3StepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: S3StepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, onChange }: S3StepProps,
   formikRef: StepFormikFowardRef<S3StepData>
 ): JSX.Element => {
   const {
@@ -97,7 +97,6 @@ export const S3StepBase = (
               readonly={readonly}
               formik={formik}
               stepViewType={stepViewType}
-              allowableTypes={allowableTypes}
               enableFields={{
                 name: {},
                 'spec.connectorRef': {
@@ -129,13 +128,8 @@ export const S3StepBase = (
                       stepViewType={stepViewType}
                       enableFields={{ 'spec.endpoint': {}, 'spec.target': { tooltipId: 'gcsS3Target' } }}
                       readonly={readonly}
-                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields
-                      disabled={readonly}
-                      allowableTypes={allowableTypes}
-                      buildInfrastructureType={buildInfrastructureType}
-                    />
+                    <StepCommonFields disabled={readonly} buildInfrastructureType={buildInfrastructureType} />
                   </Container>
                 }
               />

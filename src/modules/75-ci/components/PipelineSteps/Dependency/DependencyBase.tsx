@@ -28,11 +28,11 @@ import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './Dep
 import type { DependencyProps, DependencyData, DependencyDataUI } from './Dependency'
 import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
-import { useGetPropagatedStageById } from '../CIStep/StepUtils'
+import { AllMultiTypeInputTypesForStep, useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DependencyBase = (
-  { initialValues, onUpdate, isNewStep, readonly, stepViewType, allowableTypes, onChange }: DependencyProps,
+  { initialValues, onUpdate, isNewStep, readonly, stepViewType, onChange }: DependencyProps,
   formikRef: StepFormikFowardRef<DependencyData>
 ): JSX.Element => {
   const {
@@ -95,7 +95,6 @@ export const DependencyBase = (
                 readonly={readonly}
                 stepLabel={getString('dependencyNameLabel')}
                 stepViewType={stepViewType}
-                allowableTypes={allowableTypes}
                 formik={formik}
                 enableFields={{
                   name: {},
@@ -123,10 +122,10 @@ export const DependencyBase = (
                       disabled: readonly,
                       multiTextInputProps: {
                         expressions,
-                        allowableTypes,
                         textProps: {
                           autoComplete: 'off'
-                        }
+                        },
+                        allowableTypes: AllMultiTypeInputTypesForStep
                       }
                     }
                   }
@@ -147,13 +146,11 @@ export const DependencyBase = (
                           'spec.entrypoint': {},
                           'spec.args': {}
                         }}
-                        allowableTypes={allowableTypes}
                       />
                       <StepCommonFields
                         enableFields={['spec.imagePullPolicy']}
                         withoutTimeout
                         disabled={readonly}
-                        allowableTypes={allowableTypes}
                         buildInfrastructureType={buildInfrastructureType}
                       />
                     </Container>

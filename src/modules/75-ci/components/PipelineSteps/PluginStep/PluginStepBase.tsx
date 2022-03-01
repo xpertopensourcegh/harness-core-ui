@@ -28,11 +28,11 @@ import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './Plu
 import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './PluginStep'
 import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
-import { useGetPropagatedStageById } from '../CIStep/StepUtils'
+import { AllMultiTypeInputTypesForStep, useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: PluginStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, onChange }: PluginStepProps,
   formikRef: StepFormikFowardRef<PluginStepData>
 ): JSX.Element => {
   const {
@@ -92,7 +92,6 @@ export const PluginStepBase = (
               isNewStep={isNewStep}
               readonly={readonly}
               stepViewType={stepViewType}
-              allowableTypes={allowableTypes}
               enableFields={{
                 name: {},
                 description: {},
@@ -114,7 +113,7 @@ export const PluginStepBase = (
                   tooltipId: 'pluginImageInfo',
                   multiTextInputProps: {
                     placeholder: getString('pluginImagePlaceholder'),
-                    multiTextInputProps: { expressions },
+                    multiTextInputProps: { expressions, allowableTypes: AllMultiTypeInputTypesForStep },
                     disabled: readonly
                   }
                 }
@@ -135,12 +134,10 @@ export const PluginStepBase = (
                         'spec.settings': {},
                         'spec.reportPaths': {}
                       }}
-                      allowableTypes={allowableTypes}
                     />
                     <StepCommonFields
                       enableFields={['spec.imagePullPolicy']}
                       disabled={readonly}
-                      allowableTypes={allowableTypes}
                       buildInfrastructureType={buildInfrastructureType}
                     />
                   </Container>

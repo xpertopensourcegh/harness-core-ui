@@ -15,7 +15,7 @@ import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readonly, stepViewType, allowableTypes }) => {
+export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   return (
@@ -23,7 +23,6 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
             'spec.connectorRef': {
@@ -58,16 +57,9 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
             'spec.target': { tooltipId: 'gcsS3Target' }
           })
         }}
-        allowableTypes={allowableTypes}
         path={path || ''}
       />
-      <StepCommonFieldsInputSet
-        path={path}
-        readonly={readonly}
-        template={template}
-        allowableTypes={allowableTypes}
-        stepViewType={stepViewType}
-      />
+      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} stepViewType={stepViewType} />
     </FormikForm>
   )
 }

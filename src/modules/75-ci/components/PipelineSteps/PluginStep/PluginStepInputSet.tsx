@@ -16,13 +16,7 @@ import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const PluginStepInputSet: React.FC<PluginStepProps> = ({
-  template,
-  path,
-  readonly,
-  stepViewType,
-  allowableTypes
-}) => {
+export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, readonly, stepViewType }) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -32,7 +26,6 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && {
             description: {}
@@ -79,17 +72,10 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({
             'spec.settings': {}
           })
         }}
-        allowableTypes={allowableTypes}
         stepViewType={stepViewType}
         path={path || ''}
       />
-      <StepCommonFieldsInputSet
-        path={path}
-        readonly={readonly}
-        template={template}
-        allowableTypes={allowableTypes}
-        stepViewType={stepViewType}
-      />
+      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} stepViewType={stepViewType} />
     </FormikForm>
   )
 }

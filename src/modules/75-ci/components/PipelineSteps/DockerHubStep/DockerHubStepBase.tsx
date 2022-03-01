@@ -30,7 +30,7 @@ import { useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DockerHubStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: DockerHubStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, onChange }: DockerHubStepProps,
   formikRef: StepFormikFowardRef<DockerHubStepData>
 ): JSX.Element => {
   const {
@@ -96,7 +96,6 @@ export const DockerHubStepBase = (
               isNewStep={isNewStep}
               readonly={readonly}
               stepViewType={stepViewType}
-              allowableTypes={allowableTypes}
               enableFields={{
                 name: {},
                 'spec.connectorRef': {
@@ -136,13 +135,8 @@ export const DockerHubStepBase = (
                         'spec.target': { tooltipId: 'target' },
                         'spec.remoteCacheRepo': { shouldHide: buildInfrastructureType === 'VM' }
                       }}
-                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields
-                      disabled={readonly}
-                      allowableTypes={allowableTypes}
-                      buildInfrastructureType={buildInfrastructureType}
-                    />
+                    <StepCommonFields disabled={readonly} buildInfrastructureType={buildInfrastructureType} />
                   </Container>
                 }
               />

@@ -31,15 +31,7 @@ import { useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const SaveCacheGCSStepBase = (
-  {
-    initialValues,
-    onUpdate,
-    isNewStep = true,
-    readonly,
-    stepViewType,
-    allowableTypes,
-    onChange
-  }: SaveCacheGCSStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, onChange }: SaveCacheGCSStepProps,
   formikRef: StepFormikFowardRef<SaveCacheGCSStepData>
 ): JSX.Element => {
   const {
@@ -98,7 +90,6 @@ export const SaveCacheGCSStepBase = (
               isNewStep={isNewStep}
               readonly={readonly}
               stepViewType={stepViewType}
-              allowableTypes={allowableTypes}
               enableFields={{
                 name: {},
                 'spec.connectorRef': {
@@ -131,13 +122,8 @@ export const SaveCacheGCSStepBase = (
                       stepViewType={stepViewType}
                       enableFields={{ 'spec.archiveFormat': {}, 'spec.override': {} }}
                       readonly={readonly}
-                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields
-                      disabled={readonly}
-                      allowableTypes={allowableTypes}
-                      buildInfrastructureType={buildInfrastructureType}
-                    />
+                    <StepCommonFields disabled={readonly} buildInfrastructureType={buildInfrastructureType} />
                   </Container>
                 }
               />

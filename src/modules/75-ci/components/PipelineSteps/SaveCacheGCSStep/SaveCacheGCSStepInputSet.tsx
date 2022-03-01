@@ -19,8 +19,7 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({
   template,
   path,
   readonly,
-  stepViewType,
-  allowableTypes
+  stepViewType
 }) => {
   const { getString } = useStrings()
 
@@ -29,7 +28,6 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
             'spec.connectorRef': {
@@ -68,16 +66,9 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({
           }),
           ...(getMultiTypeFromValue(template?.spec?.override) === MultiTypeInputType.RUNTIME && { 'spec.override': {} })
         }}
-        allowableTypes={allowableTypes}
         path={path || ''}
       />
-      <StepCommonFieldsInputSet
-        path={path}
-        readonly={readonly}
-        template={template}
-        allowableTypes={allowableTypes}
-        stepViewType={stepViewType}
-      />
+      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} stepViewType={stepViewType} />
     </FormikForm>
   )
 }

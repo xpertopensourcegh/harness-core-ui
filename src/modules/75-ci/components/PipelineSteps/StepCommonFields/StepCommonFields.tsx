@@ -16,6 +16,7 @@ import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTy
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { PullOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import { AllMultiTypeInputTypesForStep } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export type PullOptions = { label: string; value: PullOption }[]
@@ -57,7 +58,6 @@ interface StepCommonFieldsProps {
   withoutTimeout?: boolean
   disabled?: boolean
   enableFields?: string[]
-  allowableTypes: MultiTypeInputType[]
   buildInfrastructureType: K8sDirectInfraYaml['type']
 }
 
@@ -65,7 +65,6 @@ const StepCommonFields = ({
   withoutTimeout,
   disabled,
   enableFields = [],
-  allowableTypes,
   buildInfrastructureType
 }: StepCommonFieldsProps): JSX.Element => {
   const { getString } = useStrings()
@@ -102,7 +101,7 @@ const StepCommonFields = ({
               multiTypeInputProps: {
                 expressions,
                 selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
-                allowableTypes: [MultiTypeInputType.FIXED]
+                allowableTypes: AllMultiTypeInputTypesForStep
               },
               disabled
             }}
@@ -138,7 +137,7 @@ const StepCommonFields = ({
               multiTypeInputProps: {
                 expressions,
                 selectProps: { addClearBtn: true, items: GetShellOptions(buildInfrastructureType) },
-                allowableTypes: [MultiTypeInputType.FIXED]
+                allowableTypes: AllMultiTypeInputTypesForStep
               },
               disabled
             }}
@@ -169,7 +168,7 @@ const StepCommonFields = ({
             }
             name="spec.runAsUser"
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes: AllMultiTypeInputTypesForStep },
               disabled,
               placeholder: '1000'
             }}
@@ -209,7 +208,7 @@ const StepCommonFields = ({
               multiTextInputProps={{
                 multiTextInputProps: {
                   expressions,
-                  allowableTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
+                  allowableTypes: AllMultiTypeInputTypesForStep
                 },
                 disabled
               }}
@@ -236,7 +235,7 @@ const StepCommonFields = ({
                 </Layout.Horizontal>
               }
               multiTextInputProps={{
-                multiTextInputProps: { expressions },
+                multiTextInputProps: { expressions, allowableTypes: AllMultiTypeInputTypesForStep },
                 disabled
               }}
               configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
@@ -250,7 +249,7 @@ const StepCommonFields = ({
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
             name="timeout"
-            multiTypeDurationProps={{ expressions, allowableTypes }}
+            multiTypeDurationProps={{ expressions, allowableTypes: [MultiTypeInputType.FIXED] }}
             label={
               <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
                 <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>

@@ -22,6 +22,7 @@ import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { getOptionalSubLabel } from '@ci/components/PipelineSteps/CIStep/CIStepOptionalConfig'
+import { AllMultiTypeInputTypesForInputSet } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' | 'template'> {
@@ -31,12 +32,11 @@ interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' 
   template: any
   withoutTimeout?: boolean
   enableFields?: string[]
-  allowableTypes: MultiTypeInputType[]
   stepViewType: StepViewType
 }
 
 function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): JSX.Element | null {
-  const { path, template, readonly, withoutTimeout, enableFields = [], allowableTypes, stepViewType } = props
+  const { path, template, readonly, withoutTimeout, enableFields = [], stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const isRunAsUserRuntime = getMultiTypeFromValue(template?.spec?.runAsUser) === MultiTypeInputType.RUNTIME
@@ -73,7 +73,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
               multiTypeInputProps: {
                 expressions,
                 selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
-                allowableTypes
+                allowableTypes: AllMultiTypeInputTypesForInputSet
               },
               disabled: readonly
             }}
@@ -102,7 +102,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
               multiTypeInputProps: {
                 expressions,
                 selectProps: { addClearBtn: true, items: GetShellOptions() },
-                allowableTypes
+                allowableTypes: AllMultiTypeInputTypesForInputSet
               },
               disabled: readonly
             }}
@@ -127,7 +127,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             multiTextInputProps={{
               multiTextInputProps: {
                 expressions,
-                allowableTypes
+                allowableTypes: AllMultiTypeInputTypesForInputSet
               },
               disabled: readonly,
               placeholder: '1000'
@@ -171,7 +171,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                     disabled: readonly,
                     multiTextInputProps: {
                       expressions,
-                      allowableTypes
+                      allowableTypes: AllMultiTypeInputTypesForInputSet
                     }
                   }}
                 />
@@ -197,7 +197,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             placeholder={getString('pipelineSteps.timeoutPlaceholder')}
             multiTypeDurationProps={{
               expressions,
-              allowableTypes
+              allowableTypes: [MultiTypeInputType.FIXED]
             }}
             disabled={readonly}
           />

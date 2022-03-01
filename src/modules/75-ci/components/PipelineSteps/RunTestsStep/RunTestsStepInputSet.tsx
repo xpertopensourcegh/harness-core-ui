@@ -102,7 +102,6 @@ export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && {
             description: {}
@@ -271,18 +270,11 @@ export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
             'spec.envVariables': { tooltipId: 'environmentVariables' }
           })
         }}
-        allowableTypes={allowableTypes}
         path={path || ''}
         formik={formik}
         isInputSetView={true}
       />
-      <StepCommonFieldsInputSet
-        path={path}
-        readonly={readonly}
-        template={template}
-        allowableTypes={allowableTypes}
-        stepViewType={stepViewType}
-      />
+      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} stepViewType={stepViewType} />
     </FormikForm>
   )
 }

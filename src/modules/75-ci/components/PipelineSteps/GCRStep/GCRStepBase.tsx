@@ -30,7 +30,7 @@ import { useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCRStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: GCRStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, onChange }: GCRStepProps,
   formikRef: StepFormikFowardRef<GCRStepData>
 ): JSX.Element => {
   const {
@@ -96,7 +96,6 @@ export const GCRStepBase = (
               isNewStep={isNewStep}
               readonly={readonly}
               stepViewType={stepViewType}
-              allowableTypes={allowableTypes}
               enableFields={{
                 name: {},
                 'spec.imageName': {},
@@ -138,13 +137,8 @@ export const GCRStepBase = (
                         'spec.target': { tooltipId: 'target' },
                         'spec.remoteCacheImage': { shouldHide: buildInfrastructureType === 'VM' }
                       }}
-                      allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields
-                      disabled={readonly}
-                      allowableTypes={allowableTypes}
-                      buildInfrastructureType={buildInfrastructureType}
-                    />
+                    <StepCommonFields disabled={readonly} buildInfrastructureType={buildInfrastructureType} />
                   </Container>
                 }
               />

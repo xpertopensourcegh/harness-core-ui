@@ -25,7 +25,6 @@ export const ArtifactStepCommon: React.FC<ArtifactStepCommonProps> = ({
   path,
   readonly,
   stepViewType,
-  allowableTypes,
   formik,
   artifactConnectorType
 }) => {
@@ -69,7 +68,6 @@ export const ArtifactStepCommon: React.FC<ArtifactStepCommonProps> = ({
           'spec.remoteCacheRepo': {}
         })
       }}
-      allowableTypes={allowableTypes}
       path={path || ''}
       formik={formik}
       isInputSetView={true}

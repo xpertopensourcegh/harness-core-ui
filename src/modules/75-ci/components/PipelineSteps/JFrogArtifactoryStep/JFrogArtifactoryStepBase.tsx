@@ -33,7 +33,7 @@ import { useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const JFrogArtifactoryStepBase = (
-  { initialValues, onUpdate, isNewStep, readonly, stepViewType, allowableTypes, onChange }: JFrogArtifactoryStepProps,
+  { initialValues, onUpdate, isNewStep, readonly, stepViewType, onChange }: JFrogArtifactoryStepProps,
   formikRef: StepFormikFowardRef<JFrogArtifactoryStepData>
 ): JSX.Element => {
   const {
@@ -113,7 +113,6 @@ export const JFrogArtifactoryStepBase = (
                 'spec.target': { tooltipId: 'jFrogArtifactoryTarget' }
               }}
               stepViewType={stepViewType}
-              allowableTypes={allowableTypes}
               formik={formik}
             />
             <Accordion className={css.accordion}>
@@ -122,11 +121,7 @@ export const JFrogArtifactoryStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <Container margin={{ top: 'medium' }}>
-                    <StepCommonFields
-                      disabled={readonly}
-                      allowableTypes={allowableTypes}
-                      buildInfrastructureType={buildInfrastructureType}
-                    />
+                    <StepCommonFields disabled={readonly} buildInfrastructureType={buildInfrastructureType} />
                   </Container>
                 }
               />
