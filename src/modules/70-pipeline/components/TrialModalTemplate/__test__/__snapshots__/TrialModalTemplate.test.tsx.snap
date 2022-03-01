@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Rendering should render 1`] = `
+exports[`Rendering should not render trial when hideTrialBadge is true 1`] = `
 <div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-xxxlarge"
@@ -12,6 +12,34 @@ exports[`Rendering should render 1`] = `
         class="StyledProps--font StyledProps--main left"
         style="background: transparent url() no-repeat; width: 50%;"
       />
+      <div
+        class="StyledProps--font StyledProps--main setupForm StyledProps--padding-left-xxxlarge"
+        style="width: 50%;"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering should render 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-xxxlarge"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+    >
+      <div
+        class="StyledProps--font StyledProps--main left"
+        style="background: transparent url() no-repeat; width: 50%;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main tag StyledProps--padding-xsmall StyledProps--border StyledProps--color StyledProps--color-white StyledProps--background-orange500 StyledProps--font-align-center"
+          style="width: 120px;"
+        >
+          common.trialInProgress
+        </p>
+      </div>
       <div
         class="StyledProps--font StyledProps--main setupForm StyledProps--padding-left-xxxlarge"
         style="width: 50%;"

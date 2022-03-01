@@ -8,6 +8,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { TrialModalTemplate } from '../TrialModalTemplate'
 
 const props = {
@@ -19,11 +20,27 @@ const props = {
 }
 describe('Rendering', () => {
   test('should render', () => {
-    const { container } = render(
-      <TestWrapper>
+    const { container, getByText } = render(
+      <TestWrapper path="/path" queryParams={{ modal: ModuleLicenseType.TRIAL }}>
         <TrialModalTemplate {...props} />
       </TestWrapper>
     )
+    expect(getByText('common.trialInProgress')).toBeInTheDocument()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should not render trial when hideTrialBadge is true', () => {
+    const newProps = {
+      ...props,
+      hideTrialBadge: true
+    }
+
+    const { container, queryByText } = render(
+      <TestWrapper path="/path" queryParams={{ modal: ModuleLicenseType.TRIAL }}>
+        <TrialModalTemplate {...newProps} />
+      </TestWrapper>
+    )
+    expect(queryByText('common.trialInProgress')).not.toBeInTheDocument()
     expect(container).toMatchSnapshot()
   })
 })

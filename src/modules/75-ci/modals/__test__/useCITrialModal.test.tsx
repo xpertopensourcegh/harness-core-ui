@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { TrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
 import { useCITrialModal } from '../CITrial/useCITrialModal'
 
@@ -52,6 +52,8 @@ describe('open and close CITrial Modal', () => {
       )
       fireEvent.click(container.querySelector('.open')!)
       await waitFor(() => expect(() => getByText('pipeline.createPipeline.setupHeader')).toBeDefined())
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
     })
   })
 
@@ -65,6 +67,8 @@ describe('open and close CITrial Modal', () => {
     await waitFor(() => expect(() => getByText('pipeline.selectOrCreatePipeline.selectAPipeline')).toBeDefined())
     fireEvent.click(getByText('pipeline.createANewPipeline')!)
     await waitFor(() => expect(() => getByText('pipeline.createPipeline.setupHeader')).toBeDefined())
+    const dialog = findDialogContainer() as HTMLElement
+    expect(dialog).toMatchSnapshot()
   })
 
   test('create or select project modal', async () => {
@@ -75,5 +79,7 @@ describe('open and close CITrial Modal', () => {
     )
     fireEvent.click(container.querySelector('.open')!)
     await waitFor(() => expect(() => getByText('ci.continuous')).toBeDefined())
+    const dialog = findDialogContainer() as HTMLElement
+    expect(dialog).toMatchSnapshot()
   })
 })

@@ -7,9 +7,9 @@
 
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { TrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
-import { useCDTrialModal } from '../CDTrial/useCDTrialModal'
+import { useCDTrialModal, getCDTrialDialog } from '../CDTrial/useCDTrialModal'
 
 jest.mock('services/pipeline-ng', () => ({
   useGetPipelineList: jest.fn().mockImplementation(() => {
@@ -61,6 +61,8 @@ describe('CDTrial Modal', () => {
       )
       fireEvent.click(container.querySelector('.open')!)
       await waitFor(() => expect(() => getByText('cd.cdTrialHomePage.startTrial.description')).toBeDefined())
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
     })
   })
 
@@ -73,8 +75,7 @@ describe('CDTrial Modal', () => {
       )
       fireEvent.click(container.querySelector('.open')!)
       fireEvent.click(getByText('start'))
-      await waitFor(() => expect(container).toMatchSnapshot())
-      expect(getByText('createPipeline.pipelineNameRequired')).toBeDefined()
+      await waitFor(() => expect(getByText('createPipeline.pipelineNameRequired')).toBeDefined())
     })
   })
 
@@ -87,6 +88,8 @@ describe('CDTrial Modal', () => {
       )
       fireEvent.click(container.querySelector('.open')!)
       await waitFor(() => expect(() => getByText('cd.continuous')).toBeDefined())
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
     })
 
     test('create or select pipeline modal', async () => {
@@ -97,6 +100,26 @@ describe('CDTrial Modal', () => {
       )
       fireEvent.click(container.querySelector('.open')!)
       await waitFor(() => expect(() => getByText('pipeline.selectOrCreateForm.description')).toBeDefined())
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
+    })
+
+    test('function getCDTrialDialog', () => {
+      const { getByText } = render(
+        <TestWrapper>
+          {getCDTrialDialog({
+            actionProps: {
+              onSuccess: jest.fn(),
+              onCreateProject: jest.fn()
+            },
+            trialType: TrialType.CREATE_OR_SELECT_PIPELINE,
+            onCloseModal
+          })}
+        </TestWrapper>
+      )
+      expect(() => getByText('pipeline.selectOrCreateForm.description')).toBeDefined()
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
     })
   })
 })
