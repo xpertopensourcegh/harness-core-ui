@@ -36,6 +36,7 @@ export interface YamlBuilderProps {
   invocationMap?: Map<RegExp, InvocationMapFunction>
   isReadOnlyMode?: boolean
   isEditModeSupported?: boolean
+  hideErrorMesageOnReadOnlyMode?: boolean
   onExpressionTrigger?: (yamlPath: string, currentExpression: string) => Promise<CompletionItemInterface[]>
   schema?: Record<string, string | any>
   onEnableEditMode?: () => void

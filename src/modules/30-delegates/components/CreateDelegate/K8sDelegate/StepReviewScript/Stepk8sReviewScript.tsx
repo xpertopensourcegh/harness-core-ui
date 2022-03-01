@@ -66,6 +66,7 @@ const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => 
               fileName={k8sFileName}
               isReadOnlyMode={true}
               isEditModeSupported={false}
+              hideErrorMesageOnReadOnlyMode={true}
               existingYaml={generatedYaml}
               showSnippetSection={false}
               width="568px"

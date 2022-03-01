@@ -98,6 +98,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     existingYaml,
     isReadOnlyMode,
     isEditModeSupported = true,
+    hideErrorMesageOnReadOnlyMode = false,
     showSnippetSection = true,
     invocationMap,
     bind,
@@ -386,7 +387,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   const handleEditorKeyDownEvent = (event: IKeyboardEvent, editor: any): void => {
     if (props.isReadOnlyMode && isEditModeSupported) {
       openDialog()
-    } else if (props.isReadOnlyMode && !isEditModeSupported) {
+    } else if (props.isReadOnlyMode && !isEditModeSupported && !hideErrorMesageOnReadOnlyMode) {
       showNoPermissionError()
     }
     try {
