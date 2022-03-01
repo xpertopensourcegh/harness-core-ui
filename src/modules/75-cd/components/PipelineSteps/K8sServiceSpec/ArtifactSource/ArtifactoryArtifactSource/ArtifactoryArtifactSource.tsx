@@ -84,9 +84,9 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
       orgIdentifier,
       repoIdentifier,
       branch,
-      imagePath: getImagePath(
-        artifact?.spec?.imagePath,
-        get(initialValues, `artifacts.${artifactPath}.spec.imagePath`, '')
+      artifactPath: getImagePath(
+        artifact?.spec?.artifactPath,
+        get(initialValues, `artifacts.${artifactPath}.spec.artifactPath`, '')
       ),
       connectorRef:
         getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
@@ -170,15 +170,15 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
             />
           )}
 
-          {isFieldRuntime(`artifacts.${artifactPath}.spec.imagePath`, template) && (
+          {isFieldRuntime(`artifacts.${artifactPath}.spec.artifactPath`, template) && (
             <FormInput.MultiTextInput
-              label={getString('pipeline.imagePathLabel')}
-              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.imagePath`)}
+              label={getString('pipeline.artifactPathLabel')}
+              disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.artifactPath`)}
               multiTextInputProps={{
                 expressions,
                 allowableTypes
               }}
-              name={`${path}.artifacts.${artifactPath}.spec.imagePath`}
+              name={`${path}.artifacts.${artifactPath}.spec.artifactPath`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
             />
           )}
@@ -198,7 +198,7 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
 
           {isFieldRuntime(`artifacts.${artifactPath}.spec.artifactRepositoryUrl`, template) && (
             <FormInput.MultiTextInput
-              label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
+              label={getString('repositoryUrlLabel')}
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.artifactRepositoryUrl`)}
               multiTextInputProps={{
                 expressions,
@@ -256,9 +256,9 @@ export class ArtifactoryArtifactSource extends ArtifactSourceBase<ArtifactSource
 
   isTagsSelectionDisabled(props: ArtifactSourceRenderProps): boolean {
     const { initialValues, artifactPath, artifact } = props
-    const isImagePathPresent = getImagePath(
-      artifact?.spec?.imagePath,
-      get(initialValues, `artifacts.${artifactPath}.spec.imagePath`, '')
+    const isArtifactPathPresent = getImagePath(
+      artifact?.spec?.artifactPath,
+      get(initialValues, `artifacts.${artifactPath}.spec.artifactPath`, '')
     )
     const isConnectorPresent =
       getMultiTypeFromValue(artifact?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
@@ -268,7 +268,7 @@ export class ArtifactoryArtifactSource extends ArtifactSourceBase<ArtifactSource
       getMultiTypeFromValue(artifact?.spec?.repository) !== MultiTypeInputType.RUNTIME
         ? artifact?.spec?.repository
         : get(initialValues?.artifacts, `${artifactPath}.spec.repository`, '')
-    return !(isImagePathPresent && isConnectorPresent && isRepositoryPresent)
+    return !(isArtifactPathPresent && isConnectorPresent && isRepositoryPresent)
   }
 
   renderContent(props: ArtifactSourceRenderProps): JSX.Element | null {

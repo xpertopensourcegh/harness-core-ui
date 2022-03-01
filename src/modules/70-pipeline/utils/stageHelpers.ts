@@ -52,7 +52,8 @@ export function hasCIStage(pipelineExecution?: PipelineExecutionSummary): boolea
 
 export const getHelpeTextForTags = (
   fields: {
-    imagePath: string
+    imagePath?: string
+    artifactPath?: string
     region?: string
     connectorRef: string
     registryHostname?: string
@@ -62,7 +63,7 @@ export const getHelpeTextForTags = (
 
   getString: (key: StringKeys) => string
 ): string => {
-  const { connectorRef, region, imagePath, registryHostname, repository, repositoryPort } = fields
+  const { connectorRef, region, imagePath, artifactPath, registryHostname, repository, repositoryPort } = fields
   const invalidFields = []
   if (!connectorRef || getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME) {
     invalidFields.push(getString('connector'))
@@ -78,6 +79,9 @@ export const getHelpeTextForTags = (
   }
   if (!imagePath || getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME) {
     invalidFields.push(getString('pipeline.imagePathLabel'))
+  }
+  if (!imagePath || getMultiTypeFromValue(artifactPath) === MultiTypeInputType.RUNTIME) {
+    invalidFields.push(getString('pipeline.artifactPathLabel'))
   }
   if (repository !== undefined && (!repository || getMultiTypeFromValue(repository) === MultiTypeInputType.RUNTIME)) {
     invalidFields.push(getString('repository'))

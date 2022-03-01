@@ -238,7 +238,7 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
                 <div className={cx(stepCss.md)}>
                   <MultiTypeFieldSelector
                     name={tfArtifactoryFormInputNames(isConfig).artifactPaths}
-                    label={getString(isConfig ? 'cd.artifactPath' : 'cd.artifactPaths')}
+                    label={getString(isConfig ? 'pipeline.artifactPathLabel' : 'cd.artifactPaths')}
                     style={{ width: 370 }}
                     allowedTypes={allowableTypes.filter(item => item !== MultiTypeInputType.EXPRESSION)}
                   >

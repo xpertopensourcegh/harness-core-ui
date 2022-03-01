@@ -192,5 +192,4 @@ artifactFormErrors:
   artifactFilePath: Enter the artifact path. You can use wildcards such as `todo/*/*`
   repositoryName: Repository name is required
   artifactName: '{{$.validation.nameRequired}}'
-artifactPath: Artifact Path
 artifactPaths: Artifact Paths

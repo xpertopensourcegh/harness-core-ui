@@ -591,15 +591,15 @@ infraSpecifications:
   validation:
     requiredExistingStage: Existing stage is a required field
 imagePathLabel: Image Path
+artifactPathLabel: Artifact Path
 artifactsSelection:
-  repositoryPort: Repository port
+  repositoryPort: Repository Port
   repositoryPortPlaceholder: Enter Repository Port
-  dockerRepositoryServer: Docker Repository Server
-  dockerRepositoryServerPlaceholder: Enter Docker Repository Server
   repositoryPlaceholder: Enter Repository
   artifactDetails: Artifact Details
   artifactTyperequired: Artifact Type is required
   loadingTags: Loading Tags...
+  artifactNamePlaceholder: Enter Artifact Path
   existingDocker:
     sidecarId: Sidecar Identifier
     sidecarIdPlaceholder: Enter Artifact Identifier
@@ -607,12 +607,13 @@ artifactsSelection:
     enterTagRegex: Enter Tag Regex
   validation:
     imagePath: Image Path is a required
+    artifactPath: Artifact Path is a required
     region: '{{$.validation.regionRequired}}'
     tag: Tag is required
     tagRegex: Tag Regex is required
     sidecarId: Sidecar Identifier is required
     repositoryPort: Repository Port is required
-    dockerRepositoryServer: Docker Repository Server is required
+    repositoryUrl: Repository URL is required
 overrideSets:
   createOverrideSet: Create Override Set
   overrideSetPlaceholder: Enter Override Set Name

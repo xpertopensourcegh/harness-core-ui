@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Color, StepWizard, useToaster } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 import cx from 'classnames'
@@ -55,12 +55,13 @@ import { ArtifactActions } from '@common/constants/TrackingConstants'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import StepNexusAuthentication from '@connectors/components/CreateConnector/NexusConnector/StepAuth/StepNexusAuthentication'
 import StepArtifactoryAuthentication from '@connectors/components/CreateConnector/ArtifactoryConnector/StepAuth/StepArtifactoryAuthentication'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
 import { DockerRegistryArtifact } from './ArtifactRepository/ArtifactLastSteps/DockerRegistryArtifact/DockerRegistryArtifact'
 import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact/ECRArtifact'
 import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
-import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
+import ArtifactListView from './ArtifactListView/ArtifactListView'
 import type {
   ArtifactsSelectionProps,
   InitialArtifactDataType,
@@ -73,7 +74,8 @@ import {
   ENABLED_ARTIFACT_TYPES,
   ArtifactIconByType,
   ArtifactTitleIdByType,
-  allowedArtifactTypes
+  allowedArtifactTypes,
+  ModalViewFor
 } from './ArtifactHelper'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import NexusArtifact from './ArtifactRepository/ArtifactLastSteps/NexusArtifact/NexusArtifact'
@@ -111,6 +113,14 @@ export default function ArtifactsSelection({
   const { expressions } = useVariablesExpression()
 
   const stepWizardTitle = getString('connectors.createNewConnector')
+  const { NG_NEXUS_ARTIFACTORY } = useFeatureFlags()
+
+  useEffect(() => {
+    if (NG_NEXUS_ARTIFACTORY && !allowedArtifactTypes.includes(ENABLED_ARTIFACT_TYPES.Nexus3Registry)) {
+      allowedArtifactTypes.push(ENABLED_ARTIFACT_TYPES.Nexus3Registry, ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const getPrimaryArtifactByIdentifier = (): PrimaryArtifact => {
     return artifacts
@@ -621,7 +631,7 @@ export default function ArtifactsSelection({
             />
           </StepWizard>
         )
-      case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+      case ENABLED_ARTIFACT_TYPES.Nexus3Registry:
         return (
           <StepWizard title={stepWizardTitle}>
             <ConnectorDetailsStep type={ArtifactToConnectorMap[selectedArtifact]} {...connectorDetailStepProps} />
@@ -657,7 +667,7 @@ export default function ArtifactsSelection({
         return <GCRImagePath {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.Ecr:
         return <ECRArtifact {...artifactLastStepProps()} />
-      case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+      case ENABLED_ARTIFACT_TYPES.Nexus3Registry:
         return <NexusArtifact {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
         return <Artifactory {...artifactLastStepProps()} />

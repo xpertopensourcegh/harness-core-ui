@@ -43,7 +43,7 @@ import type {
   ImagePathProps,
   ImagePathTypes
 } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, ModalViewFor } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
@@ -162,7 +162,11 @@ export function ECRArtifact({
   }, [])
 
   const getInitialValues = useCallback((): ImagePathTypes => {
-    const values = getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
+    const values = getArtifactFormData(
+      initialValues,
+      selectedArtifact as ArtifactType,
+      context === ModalViewFor.SIDECAR
+    )
     const specValues = get(initialValues, 'spec', null)
     if (getMultiTypeFromValue(specValues?.region) === MultiTypeInputType.FIXED) {
       values.region = regions.find(regionData => regionData.value === specValues?.region)
@@ -171,7 +175,7 @@ export function ECRArtifact({
   }, [context, initialValues, regions, selectedArtifact])
 
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    const artifactObj = getFinalArtifactObj(formData, context === ModalViewFor.SIDECAR)
     merge(artifactObj.spec, { region: formData?.region?.value ? formData?.region?.value : formData?.region })
     handleSubmit(artifactObj)
   }
@@ -183,7 +187,7 @@ export function ECRArtifact({
       </Text>
       <Formik
         initialValues={getInitialValues()}
-        validationSchema={context === 2 ? sideCarSchema : primarySchema}
+        validationSchema={context === ModalViewFor.SIDECAR ? sideCarSchema : primarySchema}
         formName="ecrArtifact"
         onSubmit={formData => {
           submitFormData({
@@ -197,7 +201,7 @@ export function ECRArtifact({
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && <SideCarArtifactIdentifier />}
+              {context === ModalViewFor.SIDECAR && <SideCarArtifactIdentifier />}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTypeInput
                   name="region"

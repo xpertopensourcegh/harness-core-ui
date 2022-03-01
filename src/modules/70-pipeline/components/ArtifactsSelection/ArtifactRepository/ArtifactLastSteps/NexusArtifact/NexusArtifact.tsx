@@ -20,7 +20,7 @@ import {
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { defaultTo, get, merge } from 'lodash-es'
+import { defaultTo, isEmpty, merge } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -31,14 +31,14 @@ import {
   checkIfQueryParamsisNotEmpty,
   getArtifactFormData,
   getConnectorIdValue,
-  getFinalArtifactObj,
+  getFinalArtifactFormObj,
   repositoryFormat,
   resetTag,
   shouldFetchTags
 } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ArtifactType, ImagePathProps, ImagePathTypes, RepositoryPortOrServer } from '../../../ArtifactInterface'
-import { ArtifactIdentifierValidation, repositoryPortOrServer } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, ModalViewFor, repositoryPortOrServer } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
@@ -56,13 +56,13 @@ export function NexusArtifact({
   selectedArtifact
 }: StepProps<ConnectorConfigDTO> & ImagePathProps): React.ReactElement {
   const { getString } = useStrings()
-  const [lastQueryData, setLastQueryData] = useState({ imagePath: '', repository: '' })
+  const [lastQueryData, setLastQueryData] = useState({ artifactPath: '', repository: '' })
   const [tagList, setTagList] = useState<DockerBuildDetailsDTO[] | undefined>([])
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const schemaObject = {
-    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
+    artifactPath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.artifactPath')),
     repository: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
@@ -73,12 +73,12 @@ export function NexusArtifact({
       is: 'value',
       then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     }),
-    repositoryPortorDockerServer: Yup.string().required(),
-    dockerRepositoryServer: Yup.string().when('repositoryPortorDockerServer', {
-      is: 'dockerRepositoryServer',
-      then: Yup.string().required(getString('pipeline.artifactsSelection.validation.dockerRepositoryServer'))
+    repositoryPortorRepositoryURL: Yup.string().required(),
+    repositoryUrl: Yup.string().when('repositoryPortorRepositoryURL', {
+      is: 'repositoryUrl',
+      then: Yup.string().required(getString('pipeline.artifactsSelection.validation.repositoryUrl'))
     }),
-    repositoryPort: Yup.string().when('repositoryPortorDockerServer', {
+    repositoryPort: Yup.string().when('repositoryPortorRepositoryURL', {
       is: 'repositoryPort',
       then: Yup.string().required(getString('pipeline.artifactsSelection.validation.repositoryPort'))
     })
@@ -105,7 +105,7 @@ export function NexusArtifact({
     error: nexusTagError
   } = useGetBuildDetailsForNexusArtifact({
     queryParams: {
-      imagePath: lastQueryData.imagePath,
+      artifactPath: lastQueryData.artifactPath,
       repository: lastQueryData.repository,
       repositoryFormat,
       connectorRef: getConnectorRefQueryData(),
@@ -134,46 +134,50 @@ export function NexusArtifact({
   }, [data?.data?.buildDetailsList, nexusTagError])
 
   const canFetchTags = useCallback(
-    (imagePath: string, repository: string): boolean => {
+    (artifactPath: string, repository: string): boolean => {
       return !!(
-        lastQueryData.imagePath !== imagePath ||
+        lastQueryData.artifactPath !== artifactPath ||
         lastQueryData.repository !== repository ||
-        shouldFetchTags(prevStepData, [imagePath, repository])
+        shouldFetchTags(prevStepData, [artifactPath, repository])
       )
     },
     [lastQueryData, prevStepData]
   )
   const fetchTags = useCallback(
-    (imagePath = '', repository = ''): void => {
-      if (canFetchTags(imagePath, repository)) {
-        setLastQueryData({ imagePath, repository })
+    (artifactPath = '', repository = ''): void => {
+      if (canFetchTags(artifactPath, repository)) {
+        setLastQueryData({ artifactPath, repository })
       }
     },
     [canFetchTags]
   )
 
   const isTagDisabled = useCallback((formikValue): boolean => {
-    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.repository])
+    return !checkIfQueryParamsisNotEmpty([formikValue.artifactPath, formikValue.repository])
   }, [])
 
   const getInitialValues = useCallback((): ImagePathTypes => {
-    const values = getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
-    const specValues = get(initialValues, 'spec', null)
-    merge(specValues, {
-      repositoryPortorDockerServer: specValues?.repositoryPort
+    const values = getArtifactFormData(
+      initialValues,
+      selectedArtifact as ArtifactType,
+      context === ModalViewFor.SIDECAR
+    )
+
+    merge(values, {
+      repositoryPortorRepositoryURL: !isEmpty(values?.repositoryPort)
         ? RepositoryPortOrServer.RepositoryPort
-        : RepositoryPortOrServer.DockerRepositoryServer
+        : RepositoryPortOrServer.RepositoryUrl
     })
     return values
   }, [context, initialValues, selectedArtifact])
 
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
     const repositoryPortOrServerData =
-      formData?.repositoryPortorDockerServer === RepositoryPortOrServer.RepositoryPort
+      formData?.repositoryPortorRepositoryURL === RepositoryPortOrServer.RepositoryPort
         ? { repositoryPort: formData?.repositoryPort }
-        : { dockerRepositoryServer: formData?.dockerRepositoryServer }
+        : { repositoryUrl: formData?.repositoryUrl }
 
-    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    const artifactObj = getFinalArtifactFormObj(formData, context === ModalViewFor.SIDECAR)
     merge(artifactObj.spec, {
       repository: formData?.repository,
       repositoryFormat,
@@ -189,8 +193,8 @@ export function NexusArtifact({
       </Text>
       <Formik
         initialValues={getInitialValues()}
-        formName="imagePath"
-        validationSchema={context === 2 ? sidecarSchema : primarySchema}
+        formName="nexusArtifact"
+        validationSchema={context === ModalViewFor.SIDECAR ? sidecarSchema : primarySchema}
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
@@ -203,7 +207,80 @@ export function NexusArtifact({
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && <SideCarArtifactIdentifier />}
+              {context === ModalViewFor.SIDECAR && <SideCarArtifactIdentifier />}
+
+              <div className={css.tagGroup}>
+                <FormInput.RadioGroup
+                  name="repositoryPortorRepositoryURL"
+                  radioGroup={{ inline: true }}
+                  items={repositoryPortOrServer}
+                  className={css.radioGroup}
+                />
+              </div>
+
+              {formik.values?.repositoryPortorRepositoryURL === RepositoryPortOrServer.RepositoryUrl && (
+                <div className={css.imagePathContainer}>
+                  <FormInput.MultiTextInput
+                    label={getString('repositoryUrlLabel')}
+                    name="repositoryUrl"
+                    placeholder={getString('pipeline.repositoryUrlPlaceholder')}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes
+                    }}
+                  />
+
+                  {getMultiTypeFromValue(formik.values.repositoryUrl) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.configureOptions}>
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.repositoryUrl as string}
+                        type={getString('string')}
+                        variableName="repositoryUrl"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          formik.setFieldValue('repositoryUrl', value)
+                        }}
+                        isReadonly={isReadonly}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {formik.values?.repositoryPortorRepositoryURL === RepositoryPortOrServer.RepositoryPort && (
+                <div className={css.imagePathContainer}>
+                  <FormInput.MultiTextInput
+                    label={getString('pipeline.artifactsSelection.repositoryPort')}
+                    name="repositoryPort"
+                    placeholder={getString('pipeline.artifactsSelection.repositoryPortPlaceholder')}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes
+                    }}
+                  />
+
+                  {getMultiTypeFromValue(formik.values.repositoryPort) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.configureOptions}>
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.repositoryPort as unknown as string}
+                        type={getString('string')}
+                        variableName="repositoryPort"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          formik.setFieldValue('repositoryPort', value)
+                        }}
+                        isReadonly={isReadonly}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
 
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
@@ -225,7 +302,7 @@ export function NexusArtifact({
                     <ConfigureOptions
                       style={{ alignSelf: 'center' }}
                       value={formik.values?.repository as string}
-                      type="String"
+                      type={getString('string')}
                       variableName="repository"
                       showRequiredField={false}
                       showDefaultField={false}
@@ -238,78 +315,6 @@ export function NexusArtifact({
                   </div>
                 )}
               </div>
-              <div className={css.tagGroup}>
-                <FormInput.RadioGroup
-                  name="repositoryPortorDockerServer"
-                  radioGroup={{ inline: true }}
-                  items={repositoryPortOrServer}
-                  className={css.radioGroup}
-                />
-              </div>
-
-              {formik.values?.repositoryPortorDockerServer === 'dockerRepositoryServer' && (
-                <div className={css.imagePathContainer}>
-                  <FormInput.MultiTextInput
-                    label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
-                    name="dockerRepositoryServer"
-                    placeholder={getString('pipeline.artifactsSelection.dockerRepositoryServerPlaceholder')}
-                    multiTextInputProps={{
-                      expressions,
-                      allowableTypes
-                    }}
-                  />
-
-                  {getMultiTypeFromValue(formik.values.dockerRepositoryServer) === MultiTypeInputType.RUNTIME && (
-                    <div className={css.configureOptions}>
-                      <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
-                        value={formik.values?.dockerRepositoryServer as string}
-                        type="String"
-                        variableName="dockerRepositoryServer"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          formik.setFieldValue('dockerRepositoryServer', value)
-                        }}
-                        isReadonly={isReadonly}
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {formik.values?.repositoryPortorDockerServer === 'repositoryPort' && (
-                <div className={css.imagePathContainer}>
-                  <FormInput.MultiTextInput
-                    label={getString('pipeline.artifactsSelection.repositoryPort')}
-                    name="repositoryPort"
-                    placeholder={getString('pipeline.artifactsSelection.repositoryPortPlaceholder')}
-                    multiTextInputProps={{
-                      expressions,
-                      allowableTypes
-                    }}
-                  />
-
-                  {getMultiTypeFromValue(formik.values.repositoryPort) === MultiTypeInputType.RUNTIME && (
-                    <div className={css.configureOptions}>
-                      <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
-                        value={formik.values?.repositoryPort as unknown as string}
-                        type="String"
-                        variableName="repositoryPort"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          formik.setFieldValue('repositoryPort', value)
-                        }}
-                        isReadonly={isReadonly}
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
 
               <ArtifactImagePathTagView
                 selectedArtifact={selectedArtifact as ArtifactType}
@@ -318,12 +323,13 @@ export function NexusArtifact({
                 allowableTypes={allowableTypes}
                 isReadonly={isReadonly}
                 connectorIdValue={getConnectorIdValue(prevStepData)}
-                fetchTags={imagePath => fetchTags(imagePath, formik?.values?.repository)}
+                fetchTags={artifactPath => fetchTags(artifactPath, formik?.values?.repository)}
                 buildDetailsLoading={nexusBuildDetailsLoading}
                 tagError={nexusTagError}
                 tagList={tagList}
                 setTagList={setTagList}
                 tagDisabled={isTagDisabled(formik?.values)}
+                isArtifactPath={true}
               />
             </div>
             <Layout.Horizontal spacing="medium">

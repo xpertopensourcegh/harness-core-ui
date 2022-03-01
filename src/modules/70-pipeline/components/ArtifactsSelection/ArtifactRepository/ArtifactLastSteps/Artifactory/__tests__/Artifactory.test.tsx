@@ -19,7 +19,7 @@ const props = {
   context: 2,
   handleSubmit: jest.fn(),
   artifactIdentifiers: [],
-  selectedArtifact: 'NexusRegistry' as ArtifactType
+  selectedArtifact: 'Nexus3Registry' as ArtifactType
 }
 
 jest.mock('services/cd-ng', () => ({
@@ -29,12 +29,12 @@ jest.mock('services/cd-ng', () => ({
 }))
 const initialValues = {
   identifier: '',
-  imagePath: '',
+  artifactPath: '',
   tag: '',
   tagType: TagTypes.Value,
   tagRegex: '',
   repository: '',
-  dockerRepositoryServer: ''
+  repositoryUrl: ''
 }
 
 describe('Nexus Artifact tests', () => {
@@ -67,7 +67,7 @@ describe('Nexus Artifact tests', () => {
     const repositoryRequiredErr = await findByText(container, 'common.git.validation.repoRequired')
     expect(repositoryRequiredErr).toBeDefined()
 
-    const imagePahRequiredErr = await findByText(container, 'pipeline.artifactsSelection.validation.imagePath')
+    const imagePahRequiredErr = await findByText(container, 'pipeline.artifactsSelection.validation.artifactPath')
     expect(imagePahRequiredErr).toBeDefined()
   })
 
@@ -85,7 +85,7 @@ describe('Nexus Artifact tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('imagePath')!, { target: { value: 'image-path' } })
+      fireEvent.change(queryByNameAttribute('artifactPath')!, { target: { value: 'artifact-path' } })
       fireEvent.change(queryByNameAttribute('repository')!, { target: { value: 'repository' } })
     })
     fireEvent.click(submitBtn)
@@ -96,10 +96,10 @@ describe('Nexus Artifact tests', () => {
         identifier: 'testidentifier',
         spec: {
           connectorRef: '',
-          imagePath: 'image-path',
+          artifactPath: 'artifact-path',
           repository: 'repository',
           tag: '<+input>',
-          dockerRepositoryServer: '',
+          repositoryUrl: '',
           repositoryFormat: 'docker'
         }
       })
@@ -109,12 +109,12 @@ describe('Nexus Artifact tests', () => {
   test(`form renders correctly in Edit Case`, async () => {
     const filledInValues = {
       identifier: 'nexusSidecarId',
-      imagePath: 'nexus-imagepath',
+      artifactPath: 'nexus-imagepath',
       tagType: TagTypes.Value,
       tag: 'tag',
       tagRegex: '',
       repository: 'repository-name',
-      dockerRepositoryServer: 'dockerRepositoryServer'
+      repositoryUrl: 'repositoryUrl'
     }
     const { container } = render(
       <TestWrapper>
@@ -123,8 +123,8 @@ describe('Nexus Artifact tests', () => {
     )
     const repositoryField = container.querySelector('input[name="repository"]')
     expect(repositoryField).not.toBeNull()
-    expect(container.querySelector('input[name="imagePath"]')).not.toBeNull()
-    expect(container.querySelector('input[name="dockerRepositoryServer"]')).not.toBeNull()
+    expect(container.querySelector('input[name="artifactPath"]')).not.toBeNull()
+    expect(container.querySelector('input[name="repositoryUrl"]')).not.toBeNull()
 
     expect(container).toMatchSnapshot()
   })
@@ -132,12 +132,12 @@ describe('Nexus Artifact tests', () => {
   test(`submits correctly with tagregex data`, async () => {
     const defaultValues = {
       identifier: '',
-      imagePath: '',
+      artifactPath: '',
       tag: '',
       tagType: TagTypes.Value,
       tagRegex: '',
       repository: '',
-      dockerRepositoryServer: ''
+      repositoryUrl: ''
     }
     const { container } = render(
       <TestWrapper>
@@ -152,9 +152,9 @@ describe('Nexus Artifact tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('imagePath')!, { target: { value: 'image-path' } })
+      fireEvent.change(queryByNameAttribute('artifactPath')!, { target: { value: 'artifact-path' } })
       fireEvent.change(queryByNameAttribute('repository')!, { target: { value: 'repository' } })
-      fireEvent.change(queryByNameAttribute('dockerRepositoryServer')!, { target: { value: 'dockerRepositoryServer' } })
+      fireEvent.change(queryByNameAttribute('repositoryUrl')!, { target: { value: 'repositoryUrl' } })
     })
     fireEvent.click(submitBtn)
 
@@ -164,18 +164,16 @@ describe('Nexus Artifact tests', () => {
         identifier: 'testidentifier',
         spec: {
           connectorRef: '',
-          imagePath: 'image-path',
+          artifactPath: 'artifact-path',
           repository: 'repository',
           tag: '<+input>',
-          dockerRepositoryServer: 'dockerRepositoryServer',
+          repositoryUrl: 'repositoryUrl',
           repositoryFormat: 'docker'
         }
       })
     })
     await waitFor(() => expect(container.querySelector('input[name="repository"]')).toHaveValue('repository'))
-    await waitFor(() => expect(container.querySelector('input[name="imagePath"]')).toHaveValue('image-path'))
-    await waitFor(() =>
-      expect(container.querySelector('input[name="dockerRepositoryServer"]')).toHaveValue('dockerRepositoryServer')
-    )
+    await waitFor(() => expect(container.querySelector('input[name="artifactPath"]')).toHaveValue('artifact-path'))
+    await waitFor(() => expect(container.querySelector('input[name="repositoryUrl"]')).toHaveValue('repositoryUrl'))
   })
 })

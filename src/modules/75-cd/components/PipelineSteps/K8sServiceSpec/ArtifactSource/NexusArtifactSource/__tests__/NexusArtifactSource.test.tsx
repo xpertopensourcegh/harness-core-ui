@@ -78,7 +78,7 @@ describe('Nexus Artifact Source tests', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    expect(await waitFor(() => findByText('pipeline.imagePathLabel'))).toBeInTheDocument()
+    expect(await waitFor(() => findByText('pipeline.artifactPathLabel'))).toBeInTheDocument()
     expect(await waitFor(() => artifactSourceUtils.fromPipelineInputTriggerTab)).toBeCalled()
     expect(await waitFor(() => artifactSourceUtils.isFieldfromTriggerTabDisabled)).toBeCalled()
 

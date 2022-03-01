@@ -10,10 +10,10 @@ export const artifacts = {
     {
       sidecar: {
         identifier: 'Sidecar',
-        type: 'NexusRegistry',
+        type: 'Nexus3Registry',
         spec: {
           connectorRef: '<+input>',
-          imagePath: '<+input>',
+          artifactPath: '<+input>',
           repository: '<+input>',
           tag: '<+input>'
         }
@@ -23,11 +23,11 @@ export const artifacts = {
   primary: {
     spec: {
       connectorRef: '<+input>',
-      imagePath: '<+input>',
+      artifactPath: '<+input>',
       repository: '<+input>',
       tag: '<+input>'
     },
-    type: 'NexusRegistry'
+    type: 'Nexus3Registry'
   }
 }
 
@@ -37,10 +37,10 @@ export const template = {
       {
         sidecar: {
           identifier: 'Sidecar',
-          type: 'NexusRegistry',
+          type: 'Nexus3Registry',
           spec: {
             connectorRef: '<+input>',
-            imagePath: '<+input>',
+            artifactPath: '<+input>',
             repository: '<+input>',
             tag: '<+input>'
           }
@@ -50,11 +50,11 @@ export const template = {
     primary: {
       spec: {
         connectorRef: '<+input>',
-        imagePath: '<+input>',
+        artifactPath: '<+input>',
         repository: '<+input>',
         tag: '<+input>'
       },
-      type: 'NexusRegistry'
+      type: 'Nexus3Registry'
     }
   }
 }

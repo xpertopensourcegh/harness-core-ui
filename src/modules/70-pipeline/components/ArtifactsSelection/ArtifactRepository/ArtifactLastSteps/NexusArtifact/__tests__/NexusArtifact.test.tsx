@@ -23,7 +23,7 @@ const props = {
   context: 2,
   handleSubmit: jest.fn(),
   artifactIdentifiers: [],
-  selectedArtifact: 'NexusRegistry' as ArtifactType
+  selectedArtifact: 'Nexus3Registry' as ArtifactType
 }
 
 jest.mock('services/cd-ng', () => ({
@@ -33,13 +33,13 @@ jest.mock('services/cd-ng', () => ({
 }))
 const initialValues = {
   identifier: '',
-  imagePath: '',
+  artifactPath: '',
   tagType: TagTypes.Value,
   tag: '',
   tagRegex: '',
-  repositoryPortorDockerServer: RepositoryPortOrServer.DockerRepositoryServer,
+  repositoryPortorRepositoryURL: RepositoryPortOrServer.RepositoryUrl,
   repository: '',
-  dockerRepositoryServer: '',
+  repositoryUrl: '',
   repositoryPort: ''
 }
 
@@ -61,7 +61,7 @@ describe('Nexus Artifact tests', () => {
     const tagInput = container.querySelector('input[name="tag"]')
     expect(tagInput).toBeDisabled()
   })
-  test(`unable to submit the form when either of imagename, repository and dockerRepositoryServer are empty`, async () => {
+  test(`unable to submit the form when either of imagename, repository and repositoryUrl are empty`, async () => {
     const { container } = render(
       <TestWrapper>
         <NexusArtifact key={'key'} initialValues={initialValues} {...props} />
@@ -74,14 +74,14 @@ describe('Nexus Artifact tests', () => {
 
     const dockerRepositoryRequiredErr = await findByText(
       container,
-      'pipeline.artifactsSelection.validation.dockerRepositoryServer'
+      'pipeline.artifactsSelection.validation.repositoryUrl'
     )
     expect(dockerRepositoryRequiredErr).toBeDefined()
 
-    const imagePathRequiredErr = await findByText(container, 'pipeline.artifactsSelection.validation.imagePath')
+    const imagePathRequiredErr = await findByText(container, 'pipeline.artifactsSelection.validation.artifactPath')
     expect(imagePathRequiredErr).toBeDefined()
   })
-  test(`get RepositoryPort error, when repositoryPortorDockerServer is of type Repository port`, async () => {
+  test(`get RepositoryPort error, when repositoryPortorRepositoryURL is of type Repository port`, async () => {
     const { container, getByText } = render(
       <TestWrapper>
         <NexusArtifact key={'key'} initialValues={initialValues} {...props} />
@@ -89,14 +89,14 @@ describe('Nexus Artifact tests', () => {
     )
     const submitBtn = container.querySelector('button[type="submit"]')!
     fireEvent.click(submitBtn)
-    const imagePathRequiredErr = await findByText(container, 'pipeline.artifactsSelection.validation.imagePath')
+    const imagePathRequiredErr = await findByText(container, 'pipeline.artifactsSelection.validation.artifactPath')
     expect(imagePathRequiredErr).toBeDefined()
 
     const repositoryRequiredErr = await findByText(container, 'common.git.validation.repoRequired')
     expect(repositoryRequiredErr).toBeDefined()
 
-    const dockerRepositoryServer = getByText('pipeline.artifactsSelection.dockerRepositoryServer')
-    expect(dockerRepositoryServer).toBeDefined()
+    const repositoryUrl = getByText('repositoryUrlLabel')
+    expect(repositoryUrl).toBeDefined()
 
     fireEvent.click(getByText('Repository Port'))
     const repositoryPort = getByText('pipeline.artifactsSelection.repositoryPort')
@@ -124,9 +124,9 @@ describe('Nexus Artifact tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('imagePath')!, { target: { value: 'image-path' } })
+      fireEvent.change(queryByNameAttribute('artifactPath')!, { target: { value: 'artifact-path' } })
       fireEvent.change(queryByNameAttribute('repository')!, { target: { value: 'repository' } })
-      fireEvent.change(queryByNameAttribute('dockerRepositoryServer')!, { target: { value: 'dockerRepositoryServer' } })
+      fireEvent.change(queryByNameAttribute('repositoryUrl')!, { target: { value: 'repositoryUrl' } })
     })
     fireEvent.click(submitBtn)
 
@@ -136,10 +136,10 @@ describe('Nexus Artifact tests', () => {
         identifier: 'testidentifier',
         spec: {
           connectorRef: '',
-          imagePath: 'image-path',
+          artifactPath: 'artifact-path',
           repository: 'repository',
           tag: '<+input>',
-          dockerRepositoryServer: 'dockerRepositoryServer',
+          repositoryUrl: 'repositoryUrl',
           repositoryFormat: 'docker'
         }
       })
@@ -149,13 +149,13 @@ describe('Nexus Artifact tests', () => {
   test(`form renders correctly in Edit Case`, async () => {
     const filledInValues = {
       identifier: 'nexusSidecarId',
-      imagePath: 'nexus-imagepath',
+      artifactPath: 'nexus-artifactpath',
       tagType: TagTypes.Value,
       tag: 'tag',
       tagRegex: '',
       repository: 'repository-name',
       repositoryPort: undefined,
-      dockerRepositoryServer: 'dockerRepositoryServer'
+      repositoryUrl: 'repositoryUrl'
     }
     const { container } = render(
       <TestWrapper>
@@ -164,9 +164,9 @@ describe('Nexus Artifact tests', () => {
     )
     const repositoryField = container.querySelector('input[name="repository"]')
     expect(repositoryField).not.toBeNull()
-    expect(container.querySelector('input[name="imagePath"]')).not.toBeNull()
+    expect(container.querySelector('input[name="artifactPath"]')).not.toBeNull()
     expect(container.querySelector('input[name="tag"]')).not.toBeNull()
-    expect(container.querySelector('input[name="dockerRepositoryServer"]')).not.toBeNull()
+    expect(container.querySelector('input[name="repositoryUrl"]')).not.toBeNull()
 
     expect(container).toMatchSnapshot()
   })
@@ -174,13 +174,13 @@ describe('Nexus Artifact tests', () => {
   test(`submits correctly with repositoryPort value`, async () => {
     const defaultValues = {
       identifier: '',
-      imagePath: '',
+      artifactPath: '',
       tag: '',
       tagType: TagTypes.Value,
       tagRegex: '',
       repository: '',
-      repositoryPortorDockerServer: RepositoryPortOrServer.RepositoryPort,
-      dockerRepositoryServer: '',
+      repositoryPortorRepositoryURL: RepositoryPortOrServer.RepositoryPort,
+      repositoryUrl: '',
       repositoryPort: ''
     }
     const { container, getByText } = render(
@@ -196,9 +196,9 @@ describe('Nexus Artifact tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('imagePath')!, { target: { value: 'image-path' } })
+      fireEvent.change(queryByNameAttribute('artifactPath')!, { target: { value: 'artifact-path' } })
       fireEvent.change(queryByNameAttribute('repository')!, { target: { value: 'repository' } })
-      fireEvent.change(queryByNameAttribute('dockerRepositoryServer')!, { target: { value: 'dockerRepositoryServer' } })
+      fireEvent.change(queryByNameAttribute('repositoryUrl')!, { target: { value: 'repositoryUrl' } })
     })
     fireEvent.click(getByText('Repository Port'))
     const repositoryPort = getByText('pipeline.artifactsSelection.repositoryPort')
@@ -215,7 +215,7 @@ describe('Nexus Artifact tests', () => {
         identifier: 'testidentifier',
         spec: {
           connectorRef: '',
-          imagePath: 'image-path',
+          artifactPath: 'artifact-path',
           repository: 'repository',
           tag: '<+input>',
           repositoryFormat: 'docker',
@@ -224,19 +224,19 @@ describe('Nexus Artifact tests', () => {
       })
     })
     await waitFor(() => expect(container.querySelector('input[name="repository"]')).toHaveValue('repository'))
-    await waitFor(() => expect(container.querySelector('input[name="imagePath"]')).toHaveValue('image-path'))
+    await waitFor(() => expect(container.querySelector('input[name="artifactPath"]')).toHaveValue('artifact-path'))
   })
 
   test(`submits correctly with tagRegex data`, async () => {
     const defaultValues = {
       identifier: '',
-      imagePath: '',
+      artifactPath: '',
       tag: '',
       tagType: TagTypes.Value,
       tagRegex: '',
       repository: '',
-      repositoryPortorDockerServer: RepositoryPortOrServer.RepositoryPort,
-      dockerRepositoryServer: '',
+      repositoryPortorRepositoryURL: RepositoryPortOrServer.RepositoryPort,
+      repositoryUrl: '',
       repositoryPort: ''
     }
     const { container, getByText } = render(
@@ -252,9 +252,9 @@ describe('Nexus Artifact tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('imagePath')!, { target: { value: 'image-path' } })
+      fireEvent.change(queryByNameAttribute('artifactPath')!, { target: { value: 'artifact-path' } })
       fireEvent.change(queryByNameAttribute('repository')!, { target: { value: 'repository' } })
-      fireEvent.change(queryByNameAttribute('dockerRepositoryServer')!, { target: { value: 'dockerRepositoryServer' } })
+      fireEvent.change(queryByNameAttribute('repositoryUrl')!, { target: { value: 'repositoryUrl' } })
     })
     expect(container).toMatchSnapshot()
     fireEvent.click(getByText('Regex'))
@@ -272,15 +272,15 @@ describe('Nexus Artifact tests', () => {
         identifier: 'testidentifier',
         spec: {
           connectorRef: '',
-          imagePath: 'image-path',
+          artifactPath: 'artifact-path',
           repository: 'repository',
           tagRegex: '<+input>',
           repositoryFormat: 'docker',
-          dockerRepositoryServer: 'dockerRepositoryServer'
+          repositoryUrl: 'repositoryUrl'
         }
       })
     })
     await waitFor(() => expect(container.querySelector('input[name="repository"]')).toHaveValue('repository'))
-    await waitFor(() => expect(container.querySelector('input[name="imagePath"]')).toHaveValue('image-path'))
+    await waitFor(() => expect(container.querySelector('input[name="artifactPath"]')).toHaveValue('artifact-path'))
   })
 })

@@ -69,16 +69,16 @@ export const helperTextData = (
         registryHostname: formik.values?.registryHostname || '',
         connectorRef: connectorIdValue
       }
-    case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+    case ENABLED_ARTIFACT_TYPES.Nexus3Registry:
       return {
-        imagePath: formik.values?.imagePath,
+        artifactPath: formik.values?.artifactPath,
         repository: formik.values?.repository,
         repositoryPort: formik.values?.repositoryPort,
         connectorRef: connectorIdValue
       }
     case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
       return {
-        imagePath: formik.values?.imagePath,
+        artifactPath: formik.values?.artifactPath,
         repository: formik.values?.repository,
         connectorRef: connectorIdValue
       }
@@ -129,6 +129,28 @@ export const getFinalArtifactObj = (
   return artifactObj
 }
 
+export const getFinalArtifactFormObj = (
+  formData: ImagePathTypes & { connectorId?: string },
+  isSideCar: boolean
+): ArtifactConfig => {
+  const tagData =
+    formData?.tagType === TagTypes.Value
+      ? { tag: defaultTo(formData.tag?.value, formData.tag) }
+      : { tagRegex: defaultTo(formData.tagRegex?.value, formData.tagRegex) }
+
+  const artifactObj: ArtifactConfig = {
+    spec: {
+      connectorRef: formData?.connectorId,
+      artifactPath: formData?.artifactPath,
+      ...tagData
+    }
+  }
+  if (isSideCar) {
+    merge(artifactObj, { identifier: formData?.identifier })
+  }
+  return artifactObj
+}
+
 export const getArtifactFormData = (
   initialValues: ImagePathTypes,
   selectedArtifact: ArtifactType,
@@ -167,24 +189,24 @@ export const defaultArtifactInitialValues = (selectedArtifact: ArtifactType): Im
     case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
       return {
         identifier: '',
-        imagePath: '',
+        artifactPath: '',
         repository: '',
-        dockerRepositoryServer: '',
+        repositoryUrl: '',
         tagType: TagTypes.Value,
         tag: RUNTIME_INPUT_VALUE,
         tagRegex: RUNTIME_INPUT_VALUE
       }
-    case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+    case ENABLED_ARTIFACT_TYPES.Nexus3Registry:
       return {
         identifier: '',
-        imagePath: '',
+        artifactPath: '',
         tagType: TagTypes.Value,
         tag: RUNTIME_INPUT_VALUE,
         tagRegex: RUNTIME_INPUT_VALUE,
         repository: '',
-        repositoryPortorDockerServer: RepositoryPortOrServer.DockerRepositoryServer,
+        repositoryPortorRepositoryURL: RepositoryPortOrServer.RepositoryUrl,
         repositoryPort: '',
-        dockerRepositoryServer: ''
+        repositoryUrl: ''
       }
     case ENABLED_ARTIFACT_TYPES.DockerRegistry:
     case ENABLED_ARTIFACT_TYPES.Ecr:

@@ -23,14 +23,9 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
-import { ArtifactIconByType } from '../ArtifactHelper'
+import { ArtifactIconByType, ModalViewFor } from '../ArtifactHelper'
 import type { ArtifactListViewProps, ArtifactType } from '../ArtifactInterface'
 import css from '../ArtifactsSelection.module.scss'
-
-export enum ModalViewFor {
-  PRIMARY = 1,
-  SIDECAR = 2
-}
 
 function ArtifactListView({
   accountId,

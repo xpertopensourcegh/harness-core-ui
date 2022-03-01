@@ -36,9 +36,9 @@ exports[`Nexus Artifact Source tests snapshot test for Sidecar Nexus artifact so
         >
           <label
             class="bp3-label"
-            for="undefined.artifacts.sidecars[0].sidecar.spec.imagePath"
+            for="undefined.artifacts.sidecars[0].sidecar.spec.artifactPath"
           >
-            pipeline.imagePathLabel
+            pipeline.artifactPathLabel
              
             <span
               class="bp3-text-muted"
@@ -56,7 +56,7 @@ exports[`Nexus Artifact Source tests snapshot test for Sidecar Nexus artifact so
                 <input
                   autocomplete="off"
                   class="bp3-input"
-                  name="undefined.artifacts.sidecars[0].sidecar.spec.imagePath"
+                  name="undefined.artifacts.sidecars[0].sidecar.spec.artifactPath"
                   type="text"
                   value=""
                 />

@@ -138,7 +138,7 @@ exports[`Terraform artifactory tests initial render 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    cd.artifactPath
+                    pipeline.artifactPathLabel
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -445,7 +445,7 @@ exports[`Terraform artifactory tests initial render with form data for config an
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    cd.artifactPath
+                    pipeline.artifactPathLabel
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -752,7 +752,7 @@ exports[`Terraform artifactory tests initial render with form data for config in
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    cd.artifactPath
+                    pipeline.artifactPathLabel
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1504,7 +1504,7 @@ exports[`Terraform artifactory tests initial render with no form data for config
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    cd.artifactPath
+                    pipeline.artifactPathLabel
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1811,7 +1811,7 @@ exports[`Terraform artifactory tests submit when it is a config form 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    cd.artifactPath
+                    pipeline.artifactPathLabel
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2118,7 +2118,7 @@ exports[`Terraform artifactory tests test click previous button 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    cd.artifactPath
+                    pipeline.artifactPathLabel
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"

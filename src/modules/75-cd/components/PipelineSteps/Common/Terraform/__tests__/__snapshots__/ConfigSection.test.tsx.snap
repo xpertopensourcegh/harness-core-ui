@@ -112,7 +112,7 @@ exports[`Config section tests render with artifactory data 1`] = `
         class="bp3-label"
         for="stages[0].stage.spec.infrastructure.infrastructureDefinition.provisioner.steps[0].step.spec.configuration.spec.configFiles.store.spec.artifactPaths"
       >
-        cd.artifactPath
+        pipeline.artifactPathLabel
          
         <span
           class="bp3-text-muted"

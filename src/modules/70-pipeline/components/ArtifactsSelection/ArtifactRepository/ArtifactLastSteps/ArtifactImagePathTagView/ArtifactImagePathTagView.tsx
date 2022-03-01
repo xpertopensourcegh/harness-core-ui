@@ -51,7 +51,8 @@ function ArtifactImagePathTagView({
   connectorIdValue,
   fetchTags,
   tagError,
-  tagDisabled
+  tagDisabled,
+  isArtifactPath
 }: ArtifactImagePathTagViewProps): React.ReactElement {
   const { getString } = useStrings()
 
@@ -87,34 +88,65 @@ function ArtifactImagePathTagView({
 
   return (
     <>
-      <div className={css.imagePathContainer}>
-        <FormInput.MultiTextInput
-          label={getString('pipeline.imagePathLabel')}
-          name="imagePath"
-          placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
-          multiTextInputProps={{ expressions, allowableTypes }}
-          onChange={() => {
-            tagList?.length && setTagList([])
-            resetTag(formik)
-          }}
-        />
-        {getMultiTypeFromValue(formik.values?.imagePath) === MultiTypeInputType.RUNTIME && (
-          <div className={css.configureOptions}>
-            <ConfigureOptions
-              value={formik.values.imagePath}
-              type="String"
-              variableName="imagePath"
-              showRequiredField={false}
-              showDefaultField={false}
-              showAdvanced={true}
-              onChange={value => {
-                formik.setFieldValue('imagePath', value)
-              }}
-              isReadonly={isReadonly}
-            />
-          </div>
-        )}
-      </div>
+      {isArtifactPath ? (
+        <div className={css.imagePathContainer}>
+          <FormInput.MultiTextInput
+            label={getString('pipeline.artifactPathLabel')}
+            name="artifactPath"
+            placeholder={getString('pipeline.artifactsSelection.artifactNamePlaceholder')}
+            multiTextInputProps={{ expressions, allowableTypes }}
+            onChange={() => {
+              tagList?.length && setTagList([])
+              resetTag(formik)
+            }}
+          />
+          {getMultiTypeFromValue(formik.values?.artifactPath) === MultiTypeInputType.RUNTIME && (
+            <div className={css.configureOptions}>
+              <ConfigureOptions
+                value={formik.values.artifactPath}
+                type="String"
+                variableName="artifactPath"
+                showRequiredField={false}
+                showDefaultField={false}
+                showAdvanced={true}
+                onChange={value => {
+                  formik.setFieldValue('artifactPath', value)
+                }}
+                isReadonly={isReadonly}
+              />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className={css.imagePathContainer}>
+          <FormInput.MultiTextInput
+            label={getString('pipeline.imagePathLabel')}
+            name="imagePath"
+            placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
+            multiTextInputProps={{ expressions, allowableTypes }}
+            onChange={() => {
+              tagList?.length && setTagList([])
+              resetTag(formik)
+            }}
+          />
+          {getMultiTypeFromValue(formik.values?.imagePath) === MultiTypeInputType.RUNTIME && (
+            <div className={css.configureOptions}>
+              <ConfigureOptions
+                value={formik.values.imagePath}
+                type="String"
+                variableName="imagePath"
+                showRequiredField={false}
+                showDefaultField={false}
+                showAdvanced={true}
+                onChange={value => {
+                  formik.setFieldValue('imagePath', value)
+                }}
+                isReadonly={isReadonly}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       <div className={css.tagGroup}>
         <FormInput.RadioGroup
@@ -151,7 +183,7 @@ function ArtifactImagePathTagView({
                 ) {
                   return
                 }
-                fetchTags(formik.values.imagePath)
+                fetchTags(isArtifactPath ? formik.values.artifactPath : formik.values.imagePath)
               }
             }}
             label={getString('tagLabel')}

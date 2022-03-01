@@ -28,7 +28,7 @@ import type {
   ImagePathProps,
   ImagePathTypes
 } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, ModalViewFor } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
@@ -129,10 +129,10 @@ export function DockerRegistryArtifact({
   }, [])
 
   const getInitialValues = (): ImagePathTypes => {
-    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
+    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === ModalViewFor.SIDECAR)
   }
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    const artifactObj = getFinalArtifactObj(formData, context === ModalViewFor.SIDECAR)
     handleSubmit(artifactObj)
   }
 
@@ -144,7 +144,7 @@ export function DockerRegistryArtifact({
       <Formik
         initialValues={getInitialValues()}
         formName="imagePath"
-        validationSchema={context === 2 ? sidecarSchema : primarySchema}
+        validationSchema={context === ModalViewFor.SIDECAR ? sidecarSchema : primarySchema}
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
@@ -157,7 +157,7 @@ export function DockerRegistryArtifact({
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && <SideCarArtifactIdentifier />}
+              {context === ModalViewFor.SIDECAR && <SideCarArtifactIdentifier />}
               <ArtifactImagePathTagView
                 selectedArtifact={selectedArtifact as ArtifactType}
                 formik={formik}

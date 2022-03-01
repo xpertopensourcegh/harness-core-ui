@@ -217,7 +217,7 @@ function ConfigSectionRef<T extends TerraformData = TerraformData>(
         getMultiTypeFromValue(config?.spec?.configFiles?.store?.spec?.artifactPaths) === MultiTypeInputType.RUNTIME && (
           <div className={cx(stepCss.formGroup, stepCss.md)}>
             <FormInput.MultiTextInput
-              label={getString('cd.artifactPath')}
+              label={getString('pipeline.artifactPathLabel')}
               name={`${path}.spec.configuration.spec.configFiles.store.spec.artifactPaths`}
               placeholder={getString('pipeline.manifestType.pathPlaceholder')}
               disabled={readonly}

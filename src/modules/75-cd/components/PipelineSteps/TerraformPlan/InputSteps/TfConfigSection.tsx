@@ -214,7 +214,7 @@ function ConfigSectionRef(props: TerraformPlanProps & { formik?: any }): React.R
         getMultiTypeFromValue(config?.configFiles?.store?.spec?.artifactPaths) === MultiTypeInputType.RUNTIME && (
           <div className={cx(stepCss.formGroup, stepCss.md)}>
             <FormInput.MultiTextInput
-              label={getString('cd.artifactPath')}
+              label={getString('pipeline.artifactPathLabel')}
               name={`${path}.spec.configuration.configFiles.store.spec.artifactPaths`}
               placeholder={getString('pipeline.manifestType.pathPlaceholder')}
               disabled={readonly}

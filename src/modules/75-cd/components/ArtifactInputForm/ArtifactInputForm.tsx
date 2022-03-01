@@ -344,7 +344,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
         case ENABLED_ARTIFACT_TYPES.Ecr:
           refetchEcrBuildData()
           break
-        case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+        case ENABLED_ARTIFACT_TYPES.Nexus3Registry:
           refetchNexusBuildData()
           break
         case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
@@ -452,7 +452,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
         setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, registryHostname })
       }
     } else if (
-      connectorType === ENABLED_ARTIFACT_TYPES.NexusRegistry ||
+      connectorType === ENABLED_ARTIFACT_TYPES.Nexus3Registry ||
       connectorType === ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
     ) {
       if (imagePath?.length && connectorRef?.length && repository) {
@@ -530,7 +530,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     } else if (connectorType === ENABLED_ARTIFACT_TYPES.Ecr) {
       return !imagePath?.length || !connectorRef?.length || !region?.length
     } else if (
-      connectorType === ENABLED_ARTIFACT_TYPES.NexusRegistry ||
+      connectorType === ENABLED_ARTIFACT_TYPES.Nexus3Registry ||
       connectorType === ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
     ) {
       return !imagePath?.length || !connectorRef?.length || !repository?.length
@@ -697,16 +697,16 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     name={`${path}.artifacts.primary.spec.repositoryPort`}
                   />
                 )}
-                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.dockerRepositoryServer`, '')) ===
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.repositoryUrl`, '')) ===
                   MultiTypeInputType.RUNTIME && (
                   <FormInput.MultiTextInput
-                    label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
-                    disabled={disablePrimaryFields(`artifacts.primary.spec.dockerRepositoryServer`)}
+                    label={getString('repositoryUrlLabel')}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.repositoryUrl`)}
                     multiTextInputProps={{
                       expressions,
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}
-                    name={`${path}.artifacts.primary.spec.dockerRepositoryServer`}
+                    name={`${path}.artifacts.primary.spec.repositoryUrl`}
                   />
                 )}
 
@@ -844,7 +844,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                       registryHostname = '',
                       repository = '',
                       repositoryPort = '',
-                      dockerRepositoryServer = ''
+                      repositoryUrl = ''
                     } = {}
                   } = {}
                 }: any,
@@ -982,15 +982,15 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.repositoryPort`}
                       />
                     )}
-                    {getMultiTypeFromValue(dockerRepositoryServer) === MultiTypeInputType.RUNTIME && (
+                    {getMultiTypeFromValue(repositoryUrl) === MultiTypeInputType.RUNTIME && (
                       <FormInput.MultiTextInput
-                        label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
+                        label={getString('repositoryUrlLabel')}
                         multiTextInputProps={{
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
-                        disabled={disableField(`sidecars[${index}].sidecar.spec.dockerRepositoryServer`)}
-                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.dockerRepositoryServer`}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.repositoryUrl`)}
+                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.repositoryUrl`}
                       />
                     )}
                     {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (

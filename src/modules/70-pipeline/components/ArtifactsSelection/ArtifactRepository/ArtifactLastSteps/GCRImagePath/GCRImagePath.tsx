@@ -44,7 +44,7 @@ import type {
   ImagePathProps,
   ImagePathTypes
 } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, ModalViewFor } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
@@ -129,7 +129,7 @@ export function GCRImagePath({
   }, [lastQueryData, refetch])
 
   const getInitialValues = useCallback((): ImagePathTypes => {
-    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
+    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === ModalViewFor.SIDECAR)
   }, [context, initialValues, selectedArtifact])
 
   const fetchTags = (imagePath = '', registryHostname = ''): void => {
@@ -148,7 +148,7 @@ export function GCRImagePath({
   }, [])
 
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    const artifactObj = getFinalArtifactObj(formData, context === ModalViewFor.SIDECAR)
     merge(artifactObj.spec, { registryHostname: formData?.registryHostname })
     handleSubmit(artifactObj)
   }
@@ -174,7 +174,7 @@ export function GCRImagePath({
 
       <Formik
         initialValues={getInitialValues()}
-        validationSchema={context === 2 ? sidecarSchema : primarySchema}
+        validationSchema={context === ModalViewFor.SIDECAR ? sidecarSchema : primarySchema}
         formName="gcrImagePath"
         onSubmit={formData => {
           submitFormData({
@@ -188,7 +188,7 @@ export function GCRImagePath({
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && <SideCarArtifactIdentifier />}
+              {context === ModalViewFor.SIDECAR && <SideCarArtifactIdentifier />}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTypeInput
                   label={getString('connectors.GCR.registryHostname')}

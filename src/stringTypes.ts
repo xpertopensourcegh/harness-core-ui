@@ -2261,6 +2261,7 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
   'pipeline.approvalTypeRequired': string
+  'pipeline.artifactPathLabel': string
   'pipeline.artifactTriggerConfigPanel.artifact': string
   'pipeline.artifactTriggerConfigPanel.artifactReferenceUnique': string
   'pipeline.artifactTriggerConfigPanel.artifactRepository': string
@@ -2278,9 +2279,8 @@ export interface StringsMap {
   'pipeline.artifactTriggerConfigPanel.selectAManifest': string
   'pipeline.artifactTriggerConfigPanel.selectAnArtifact': string
   'pipeline.artifactsSelection.artifactDetails': string
+  'pipeline.artifactsSelection.artifactNamePlaceholder': string
   'pipeline.artifactsSelection.artifactTyperequired': string
-  'pipeline.artifactsSelection.dockerRepositoryServer': string
-  'pipeline.artifactsSelection.dockerRepositoryServerPlaceholder': string
   'pipeline.artifactsSelection.existingDocker.enterTagRegex': string
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
@@ -2289,10 +2289,11 @@ export interface StringsMap {
   'pipeline.artifactsSelection.repositoryPlaceholder': string
   'pipeline.artifactsSelection.repositoryPort': string
   'pipeline.artifactsSelection.repositoryPortPlaceholder': string
-  'pipeline.artifactsSelection.validation.dockerRepositoryServer': string
+  'pipeline.artifactsSelection.validation.artifactPath': string
   'pipeline.artifactsSelection.validation.imagePath': string
   'pipeline.artifactsSelection.validation.region': string
   'pipeline.artifactsSelection.validation.repositoryPort': string
+  'pipeline.artifactsSelection.validation.repositoryUrl': string
   'pipeline.artifactsSelection.validation.sidecarId': string
   'pipeline.artifactsSelection.validation.tag': string
   'pipeline.artifactsSelection.validation.tagRegex': string
@@ -3144,7 +3145,6 @@ export interface StringsMap {
   'cd.artifactFormErrors.artifactName': string
   'cd.artifactFormErrors.repositoryName': string
   'cd.artifactName': string
-  'cd.artifactPath': string
   'cd.artifactPaths': string
   'cd.backEndConfig': string
   'cd.cdLaunchText': string
@@ -7315,10 +7315,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.create.connectorRequiredError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.create.repositoryUrlRequiredError': string
   /**
    * @deprecated migrate this string to module level file
    */

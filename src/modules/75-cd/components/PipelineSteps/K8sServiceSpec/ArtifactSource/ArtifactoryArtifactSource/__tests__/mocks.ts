@@ -13,7 +13,7 @@ export const artifacts = {
         type: 'ArtifactoryRegistry',
         spec: {
           connectorRef: '<+input>',
-          imagePath: '<+input>',
+          artifactPath: '<+input>',
           repository: '<+input>',
           tag: '<+input>'
         }
@@ -23,7 +23,7 @@ export const artifacts = {
   primary: {
     spec: {
       connectorRef: '<+input>',
-      imagePath: '<+input>',
+      artifactPath: '<+input>',
       repository: '<+input>',
       tag: '<+input>'
     },
@@ -40,7 +40,7 @@ export const template = {
           type: 'ArtifactoryRegistry',
           spec: {
             connectorRef: '<+input>',
-            imagePath: '<+input>',
+            artifactPath: '<+input>',
             repository: '<+input>',
             tag: '<+input>'
           }
@@ -50,7 +50,7 @@ export const template = {
     primary: {
       spec: {
         connectorRef: '<+input>',
-        imagePath: '<+input>',
+        artifactPath: '<+input>',
         repository: '<+input>',
         tag: '<+input>'
       },

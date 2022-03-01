@@ -31,7 +31,7 @@ import {
   checkIfQueryParamsisNotEmpty,
   getArtifactFormData,
   getConnectorIdValue,
-  getFinalArtifactObj,
+  getFinalArtifactFormObj,
   repositoryFormat,
   resetTag,
   shouldFetchTags
@@ -42,7 +42,7 @@ import type {
   ImagePathProps,
   ImagePathTypes
 } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, ModalViewFor } from '../../../ArtifactHelper'
 import ArtifactImagePathTagView from '../ArtifactImagePathTagView/ArtifactImagePathTagView'
 import SideCarArtifactIdentifier from '../SideCarArtifactIdentifier'
 import css from '../../ArtifactConnector.module.scss'
@@ -60,14 +60,14 @@ function Artifactory({
   selectedArtifact
 }: StepProps<ConnectorConfigDTO> & ImagePathProps): React.ReactElement {
   const { getString } = useStrings()
-  const [lastQueryData, setLastQueryData] = useState({ imagePath: '', repository: '' })
+  const [lastQueryData, setLastQueryData] = useState({ artifactPath: '', repository: '' })
 
   const [tagList, setTagList] = useState<DockerBuildDetailsDTO[] | undefined>([])
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const schemaObject = {
-    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
+    artifactPath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.artifactPath')),
     repository: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
@@ -101,7 +101,7 @@ function Artifactory({
     error: artifactoryTagError
   } = useGetBuildDetailsForArtifactoryArtifact({
     queryParams: {
-      imagePath: lastQueryData.imagePath,
+      artifactPath: lastQueryData.artifactPath,
       repository: lastQueryData.repository,
       repositoryFormat,
       connectorRef: getConnectorRefQueryData(),
@@ -129,36 +129,36 @@ function Artifactory({
   }, [data?.data?.buildDetailsList, artifactoryTagError])
 
   const canFetchTags = useCallback(
-    (imagePath: string, repository: string): boolean => {
+    (artifactPath: string, repository: string): boolean => {
       return !!(
-        (lastQueryData.imagePath !== imagePath || lastQueryData.repository !== repository) &&
-        shouldFetchTags(prevStepData, [imagePath, repository])
+        (lastQueryData.artifactPath !== artifactPath || lastQueryData.repository !== repository) &&
+        shouldFetchTags(prevStepData, [artifactPath, repository])
       )
     },
     [lastQueryData, prevStepData]
   )
   const fetchTags = useCallback(
-    (imagePath = '', repository = ''): void => {
-      if (canFetchTags(imagePath, repository)) {
-        setLastQueryData({ imagePath, repository })
+    (artifactPath = '', repository = ''): void => {
+      if (canFetchTags(artifactPath, repository)) {
+        setLastQueryData({ artifactPath, repository })
       }
     },
     [canFetchTags]
   )
 
   const isTagDisabled = useCallback((formikValue): boolean => {
-    return !checkIfQueryParamsisNotEmpty([formikValue.imagePath, formikValue.repository])
+    return !checkIfQueryParamsisNotEmpty([formikValue.artifactPath, formikValue.repository])
   }, [])
 
   const getInitialValues = useCallback((): ImagePathTypes => {
-    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === 2)
+    return getArtifactFormData(initialValues, selectedArtifact as ArtifactType, context === ModalViewFor.SIDECAR)
   }, [context, initialValues, selectedArtifact])
 
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
-    const artifactObj = getFinalArtifactObj(formData, context === 2)
+    const artifactObj = getFinalArtifactFormObj(formData, context === ModalViewFor.SIDECAR)
     merge(artifactObj.spec, {
       repository: formData?.repository,
-      dockerRepositoryServer: formData?.dockerRepositoryServer,
+      repositoryUrl: formData?.repositoryUrl,
       repositoryFormat
     })
     handleSubmit(artifactObj)
@@ -171,8 +171,8 @@ function Artifactory({
       </Text>
       <Formik
         initialValues={getInitialValues()}
-        formName="imagePath"
-        validationSchema={context === 2 ? sidecarSchema : primarySchema}
+        formName="artifactoryArtifact"
+        validationSchema={context === ModalViewFor.SIDECAR ? sidecarSchema : primarySchema}
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
@@ -185,7 +185,39 @@ function Artifactory({
         {formik => (
           <Form>
             <div className={css.connectorForm}>
-              {context === 2 && <SideCarArtifactIdentifier />}
+              {context === ModalViewFor.SIDECAR && <SideCarArtifactIdentifier />}
+
+              <div className={css.imagePathContainer}>
+                <FormInput.MultiTextInput
+                  label={getString('repositoryUrlLabel')}
+                  name="repositoryUrl"
+                  isOptional
+                  placeholder={getString('pipeline.repositoryUrlPlaceholder')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes
+                  }}
+                />
+
+                {getMultiTypeFromValue(formik.values.repositoryUrl) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.repositoryUrl as string}
+                      type={getString('string')}
+                      variableName="repositoryUrl"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('repositoryUrl', value)
+                      }}
+                      isReadonly={isReadonly}
+                    />
+                  </div>
+                )}
+              </div>
+
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={getString('repository')}
@@ -206,7 +238,7 @@ function Artifactory({
                     <ConfigureOptions
                       style={{ alignSelf: 'center' }}
                       value={formik.values?.repository as string}
-                      type="String"
+                      type={getString('string')}
                       variableName="repository"
                       showRequiredField={false}
                       showDefaultField={false}
@@ -219,35 +251,7 @@ function Artifactory({
                   </div>
                 )}
               </div>
-              <div className={css.imagePathContainer}>
-                <FormInput.MultiTextInput
-                  label={getString('pipeline.artifactsSelection.dockerRepositoryServer')}
-                  name="dockerRepositoryServer"
-                  placeholder={getString('pipeline.artifactsSelection.dockerRepositoryServerPlaceholder')}
-                  multiTextInputProps={{
-                    expressions,
-                    allowableTypes
-                  }}
-                />
 
-                {getMultiTypeFromValue(formik.values.dockerRepositoryServer) === MultiTypeInputType.RUNTIME && (
-                  <div className={css.configureOptions}>
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.dockerRepositoryServer as string}
-                      type="String"
-                      variableName="dockerRepositoryServer"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('dockerRepositoryServer', value)
-                      }}
-                      isReadonly={isReadonly}
-                    />
-                  </div>
-                )}
-              </div>
               <ArtifactImagePathTagView
                 selectedArtifact={selectedArtifact as ArtifactType}
                 formik={formik}
@@ -255,12 +259,13 @@ function Artifactory({
                 allowableTypes={allowableTypes}
                 isReadonly={isReadonly}
                 connectorIdValue={getConnectorIdValue(prevStepData)}
-                fetchTags={imagePath => fetchTags(imagePath, formik?.values?.repository)}
+                fetchTags={artifactPath => fetchTags(artifactPath, formik?.values?.repository)}
                 buildDetailsLoading={artifactoryBuildDetailsLoading}
                 tagError={artifactoryTagError}
                 tagList={tagList}
                 setTagList={setTagList}
                 tagDisabled={isTagDisabled(formik?.values)}
+                isArtifactPath={true}
               />
             </div>
             <Layout.Horizontal spacing="medium">
