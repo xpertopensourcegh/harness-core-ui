@@ -11,6 +11,8 @@ import { TestWrapper } from '@common/utils/testUtils'
 
 import FFUsageInfo from '../overview/FFUsageInfo'
 
+jest.mock('moment', () => () => ({ format: () => 'DUMMY_DATE' }))
+
 jest.mock('@common/hooks/useGetUsageAndLimit', () => {
   return {
     useGetUsageAndLimit: () => {
