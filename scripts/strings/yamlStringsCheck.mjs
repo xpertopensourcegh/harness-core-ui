@@ -112,6 +112,7 @@ for (const [i, layer] of moduleLayers.entries()) {
     const restrictedModules = _.flatten(moduleLayers.slice(i))
       .map(mod => mod.moduleRef)
       .filter(mod => mod !== moduleRef)
+      .map(mod => `${mod}.`)
 
     values[moduleRef] = parsedContent
     validateStrings(parsedContent, [moduleRef], restrictedModules)

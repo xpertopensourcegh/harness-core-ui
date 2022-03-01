@@ -8,7 +8,6 @@
 import React from 'react'
 import { RemotePipelineSecurityView, STORemoteComponentMounter } from './STOApp'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const PipelineSecurityView: React.FC<Record<string, any>> = props => (
+export const PipelineSecurityView: React.FC<Record<string, unknown>> = props => (
   <STORemoteComponentMounter component={<RemotePipelineSecurityView {...props} />} />
 )

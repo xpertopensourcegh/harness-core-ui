@@ -8,10 +8,12 @@ rules:
         - modules/75-ce/*
         - modules/75-ci/*
         - modules/85-cv/*
+        - modules/85-sto-steps/*
         - '@cd/*'
         - '@ce/*'
         - '@ci/*'
         - '@cv/*'
+        - '@sto-steps/*'
       paths:
         - lodash
         - name: yaml

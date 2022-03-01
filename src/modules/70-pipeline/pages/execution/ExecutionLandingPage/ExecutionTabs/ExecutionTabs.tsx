@@ -140,26 +140,6 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
     }
   ]
 
-  if (
-    (isCD && stoCDPipelineSecurityEnabled) ||
-    (isCI && stoCIPipelineSecurityEnabled) ||
-    localStorage.STO_PIPELINE_SECURITY_ENABLED
-  ) {
-    tabList.push({
-      id: TAB_ID_MAP.STO_SECURITY,
-      title: (
-        <NavLink
-          to={routes.toExecutionSecurityView(params) + location.search}
-          className={css.tabLink}
-          activeClassName={css.activeLink}
-        >
-          <Icon name="report-gear-grey" size={16} />
-          <span>{getString('pipeline.security.title')}</span>
-        </NavLink>
-      )
-    })
-  }
-
   if (opaBasedGovernanceEnabled) {
     tabList.push({
       id: TAB_ID_MAP.POLICY_EVALUATIONS,
@@ -218,6 +198,26 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
         >
           <Icon name="lab-test" size={16} />
           <span>{getString('tests')}</span>
+        </NavLink>
+      )
+    })
+  }
+
+  if (
+    (isCD && stoCDPipelineSecurityEnabled) ||
+    (isCI && stoCIPipelineSecurityEnabled) ||
+    localStorage.STO_PIPELINE_SECURITY_ENABLED
+  ) {
+    tabList.push({
+      id: TAB_ID_MAP.STO_SECURITY,
+      title: (
+        <NavLink
+          to={routes.toExecutionSecurityView(params) + location.search}
+          className={css.tabLink}
+          activeClassName={css.activeLink}
+        >
+          <Icon name="sto-grey" size={16} />
+          <span>{getString('pipeline.security.title')}</span>
         </NavLink>
       )
     })

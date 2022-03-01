@@ -5204,6 +5204,8 @@ export interface StringsMap {
   'cv.windowEndsDay': string
   'cv.windowsEndIsRequired': string
   'cv.yourExistingErrorBudgetIs': string
+  'stoSteps.stepDescription.ZeroNorth': string
+  'stoSteps.zeroNorthImagePlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */
