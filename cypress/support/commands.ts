@@ -40,6 +40,7 @@ import {
 } from './85-cv/monitoredService/constants'
 
 import {
+  applyTemplatesCall,
   monitoresServices,
   monitoresServicesResponse,
   pipelineSteps,
@@ -256,11 +257,17 @@ Cypress.Commands.add('verifyStepInitialSetup', () => {
 })
 
 Cypress.Commands.add('verifyStepSelectConnector', () => {
+  cy.intercept('POST', applyTemplatesCall).as('applyTemplatesCall')
   cy.contains('p', /^Kubernetes$/).click()
 
   cy.contains('span', 'Select Connector').click({ force: true })
   cy.contains('p', 'test1111').click({ force: true })
   cy.contains('span', 'Apply Selected').click({ force: true })
+
+  cy.wait('@applyTemplatesCall')
+
+  cy.get('[name="namespace"]').scrollIntoView()
+
   cy.fillField('namespace', 'verify-step')
 })
 
@@ -272,7 +279,9 @@ Cypress.Commands.add('verifyStepChooseRuntimeInput', () => {
 Cypress.Commands.add('verifyStepSelectStrategyAndVerifyStep', () => {
   // Execution definition
   cy.findByTestId('execution').click()
-  cy.wait(2000)
+
+  cy.wait('@strategiesList')
+  cy.wait('@strategiesYaml')
 
   // choosing deployment strategy
   cy.findByRole('button', { name: /Use Strategy/i }).click()
