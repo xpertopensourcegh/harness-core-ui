@@ -46,7 +46,6 @@ module.exports = {
     '!src/modules/70-pipeline/components/PipelineStudio/ExecutionGraph/**',
     '!src/modules/25-governance/**', // 25-governance will be moved to a separate micro-frontend repository shortly
     // To be used when we pick up the K8 refactoring
-    '!src/modules/75-cd/components/PipelineSteps/K8sServiceSpec/KubernetesManifests/KubernetesManifests.tsx',
     '!src/modules/75-cd/components/ArtifactInputForm/ArtifactInputForm.tsx',
     '!src/modules/75-cd/factory/**'
   ],

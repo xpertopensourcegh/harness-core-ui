@@ -43,7 +43,7 @@ export const resetTags = (formik: FormikValues, tagPath: string): void => {
 
 export const fromPipelineInputTriggerTab = (formik: FormikValues, fromTrigger = false): boolean => {
   return (
-    formik?.values?.triggerType === TriggerTypes.ARTIFACT && formik?.values?.selectedArtifact !== null && !fromTrigger
+    formik?.values?.triggerType === TriggerTypes.ARTIFACT && !isEmpty(formik?.values?.selectedArtifact) && !fromTrigger
   )
 }
 

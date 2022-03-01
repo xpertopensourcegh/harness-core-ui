@@ -137,12 +137,13 @@ import CDTrialHomePage from './pages/home/CDTrialHomePage'
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
 import { CDStageDetails } from './components/CDStageDetails/CDStageDetails'
-import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
 
 import GitOpsServersPage from './pages/gitops/GitOpsServersHomePage'
 import GitOpsModalContainer from './pages/gitops/NativeArgo/GitOpsProvidersList'
 import artifactSourceBaseFactory from './factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import { KubernetesArtifacts } from './components/PipelineSteps/K8sServiceSpec/KubernetesArtifacts/KubernetesArtifacts'
+import { KubernetesManifests } from './components/PipelineSteps/K8sServiceSpec/KubernetesManifests/KubernetesManifests'
+import manifestSourceBaseFactory from './factory/ManifestSourceFactory/ManifestSourceBaseFactory'
 
 // eslint-disable-next-line import/no-unresolved
 const GitOpsServersList = React.lazy(() => import('gitopsui/MicroFrontendApp'))
@@ -463,7 +464,8 @@ const templateModuleParams: ModulePathParams = {
 }
 
 TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
-  component: ManifestInputForm
+  component: KubernetesManifests,
+  baseFactory: manifestSourceBaseFactory
 })
 
 TriggerFactory.registerTriggerForm(TriggerFormType.Artifact, {

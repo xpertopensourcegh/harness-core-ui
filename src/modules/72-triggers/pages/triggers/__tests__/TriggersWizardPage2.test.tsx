@@ -16,7 +16,9 @@ import * as cdng from 'services/cd-ng'
 import { findDialogContainer, queryByNameAttribute, TestWrapper } from '@common/utils/testUtils'
 import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 // eslint-disable-next-line no-restricted-imports
-import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
+import { KubernetesManifests } from '@cd/components/PipelineSteps/K8sServiceSpec/KubernetesManifests/KubernetesManifests'
+// eslint-disable-next-line no-restricted-imports
+import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/ManifestSourceBaseFactory'
 // eslint-disable-next-line no-restricted-imports
 import { KubernetesArtifacts } from '@cd/components/PipelineSteps/K8sServiceSpec/KubernetesArtifacts/KubernetesArtifacts'
 // eslint-disable-next-line no-restricted-imports
@@ -123,7 +125,8 @@ jest.mock('services/portal', () => ({
 describe('Manifest Trigger Tests', () => {
   beforeAll(() => {
     TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
-      component: ManifestInputForm
+      component: KubernetesManifests,
+      baseFactory: manifestSourceBaseFactory
     })
 
     TriggerFactory.registerTriggerForm(TriggerFormType.Artifact, {

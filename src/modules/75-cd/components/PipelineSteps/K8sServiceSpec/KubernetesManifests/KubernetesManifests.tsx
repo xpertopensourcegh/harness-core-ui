@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { get, isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -20,20 +20,67 @@ import type { ManifestConfig } from 'services/cd-ng'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { KubernetesManifestsProps } from '../K8sServiceSpecInterface'
 import { getNonRuntimeFields, isRuntimeMode } from '../K8sServiceSpecHelper'
+import { fromPipelineInputTriggerTab, setManifestInitialValues } from '../ManifestSource/ManifestSourceUtils'
 import css from './KubernetesManifests.module.scss'
 
-export function KubernetesManifests(props: KubernetesManifestsProps): React.ReactElement {
-  const { getString } = useStrings()
+const ManifestInputField = (props: KubernetesManifestsProps): React.ReactElement => {
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-
-  const runtimeMode = isRuntimeMode(props.stepViewType)
-  const isManifestsRuntime = runtimeMode && !!get(props.template, 'manifests', false)
   const getManifestSourceMapType = (manifest: ManifestConfig): string => {
     return manifest.type !== ManifestDataType.HelmChart ? manifest.type : `${manifest.type}-${manifest.spec.store.type}`
   }
+  const runtimeMode = isRuntimeMode(props.stepViewType)
+  const isManifestsRuntime = runtimeMode && !!get(props.template, 'manifests', false)
+  const manifestSource = manifestSourceBaseFactory.getManifestSource(
+    getManifestSourceMapType(props.manifest as ManifestConfig)
+  )
+  const manifestDefaultValue = props.manifests?.find(
+    manifestData => manifestData?.manifest?.identifier === props.manifest?.identifier
+  )?.manifest as ManifestConfig
+
+  useEffect(() => {
+    /* instanbul ignore else */
+    if (fromPipelineInputTriggerTab(props.formik, props.fromTrigger)) {
+      setManifestInitialValues(props.initialValues, props.formik, props.stageIdentifier, props.manifestPath as string)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.formik?.values?.selectedArtifact, props.fromTrigger, props.stageIdentifier])
+
+  return (
+    <div key={props.manifest?.identifier}>
+      <Text className={css.inputheader} margin={{ top: 'medium', bottom: 'small' }}>
+        {!props.fromTrigger && get(props.manifest, 'identifier', '')}
+        {!isEmpty(
+          JSON.parse(getNonRuntimeFields(manifestDefaultValue?.spec, get(props.template, `${props.manifestPath}.spec`)))
+        ) && (
+          <Tooltip
+            position="top"
+            className={css.manifestInfoTooltip}
+            content={getNonRuntimeFields(manifestDefaultValue?.spec, get(props.template, `${props.manifestPath}.spec`))}
+          >
+            <Icon name="info" />
+          </Tooltip>
+        )}
+      </Text>
+      {manifestSource &&
+        manifestSource.renderContent({
+          ...props,
+          isManifestsRuntime,
+          projectIdentifier,
+          orgIdentifier,
+          accountId,
+          pipelineIdentifier,
+          repoIdentifier,
+          branch,
+          manifest: manifestDefaultValue
+        })}
+    </div>
+  )
+}
+export function KubernetesManifests(props: KubernetesManifestsProps): React.ReactElement {
+  const { getString } = useStrings()
 
   return (
     <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${props.stageIdentifier}.Service.Manifests`}>
@@ -42,47 +89,19 @@ export function KubernetesManifests(props: KubernetesManifestsProps): React.Reac
           {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
         </div>
       )}
-      {props.template.manifests?.map(({ manifest }, index) => {
-        if (!manifest || !props.manifests?.length) {
+      {props.template.manifests?.map((manifestObj, index) => {
+        if (!manifestObj?.manifest || !props.manifests?.length) {
           return null
         }
-
         const manifestPath = `manifests[${index}].manifest`
-        const manifestSource = manifestSourceBaseFactory.getManifestSource(getManifestSourceMapType(manifest))
-        const manifestDefaultValue = props.manifests.find(
-          manifestData => manifestData?.manifest?.identifier === manifest.identifier
-        )?.manifest as ManifestConfig
 
         return (
-          <div key={manifest.identifier}>
-            <Text className={css.inputheader} margin={{ top: 'medium', bottom: 'small' }}>
-              {!props.fromTrigger && get(manifest, 'identifier', '')}
-              {!isEmpty(
-                JSON.parse(getNonRuntimeFields(manifestDefaultValue?.spec, get(props.template, `${manifestPath}.spec`)))
-              ) && (
-                <Tooltip
-                  position="top"
-                  className={css.manifestInfoTooltip}
-                  content={getNonRuntimeFields(manifestDefaultValue?.spec, get(props.template, `${manifestPath}.spec`))}
-                >
-                  <Icon name="info" />
-                </Tooltip>
-              )}
-            </Text>
-            {manifestSource &&
-              manifestSource.renderContent({
-                ...props,
-                isManifestsRuntime,
-                projectIdentifier,
-                orgIdentifier,
-                accountId,
-                pipelineIdentifier,
-                repoIdentifier,
-                branch,
-                manifestPath,
-                manifest: manifestDefaultValue
-              })}
-          </div>
+          <ManifestInputField
+            {...props}
+            manifest={manifestObj.manifest}
+            manifestPath={manifestPath}
+            key={props.manifest?.identifier}
+          />
         )
       })}
     </div>

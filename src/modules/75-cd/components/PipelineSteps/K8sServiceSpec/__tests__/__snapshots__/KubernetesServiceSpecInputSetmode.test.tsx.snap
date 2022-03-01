@@ -6,8 +6,15 @@ exports[`<KubernetesServiceSpecInputSetMode /> tests snapshot test for kubernete
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
     <div
-      id="manifestInputForm"
-    />
+      class="nopadLeft accordionSummary"
+      id="Stage..Service.Manifests"
+    >
+      <div
+        class="subheading"
+      >
+        pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests
+      </div>
+    </div>
     <div
       class="nopadLeft accordionSummary"
       id="Stage..Service.Variables"

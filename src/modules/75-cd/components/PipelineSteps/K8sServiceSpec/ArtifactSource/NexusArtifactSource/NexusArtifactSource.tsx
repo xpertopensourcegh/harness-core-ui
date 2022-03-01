@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect } from 'react'
-import { defaultTo, get, isEmpty } from 'lodash-es'
+import { defaultTo, get } from 'lodash-es'
 
 import { FormInput, getMultiTypeFromValue, Layout, MultiTypeInputType } from '@wings-software/uicore'
 import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBase'
@@ -106,7 +106,7 @@ const Content = (props: NexusRenderContent): JSX.Element => {
 
   useEffect(() => {
     /* instanbul ignore else */
-    if (fromPipelineInputTriggerTab(formik, fromTrigger) && !isEmpty(formik?.values?.selectedArtifact)) {
+    if (fromPipelineInputTriggerTab(formik, fromTrigger)) {
       if (isSidecar) {
         setSidecarInitialValues(initialValues, formik, stageIdentifier, artifactPath as string)
       } else {

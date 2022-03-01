@@ -19,6 +19,7 @@ import {
   ManifestToConnectorMap
 } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { TriggerDefaultFieldList } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { isFieldRuntime } from '../../../K8sServiceSpecHelper'
 import { isFieldfromTriggerTabDisabled } from '../../ManifestSourceUtils'
 import css from '../../../KubernetesManifests/KubernetesManifests.module.scss'
@@ -106,11 +107,10 @@ const Content = ({
       {isFieldRuntime(`${manifestPath}.spec.chartVersion`, template) && (
         <div className={css.verticalSpacingInput}>
           <FormInput.MultiTextInput
-            disabled={isFieldDisabled(
-              fromTrigger ? `${manifestPath}.chartVersion` : `${manifestPath}.spec.chartVersion`
-            )}
+            disabled={isFieldDisabled(fromTrigger ? 'chartVersion' : `${manifestPath}.spec.chartVersion`)}
             name={`${path}.${manifestPath}.spec.chartVersion`}
             multiTextInputProps={{
+              ...(fromTrigger && { value: TriggerDefaultFieldList.chartVersion }),
               expressions,
               allowableTypes
             }}

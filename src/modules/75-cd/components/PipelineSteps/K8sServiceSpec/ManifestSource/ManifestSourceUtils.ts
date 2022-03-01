@@ -6,14 +6,15 @@
  */
 
 import type { FormikValues } from 'formik'
-import { get, isEmpty } from 'lodash-es'
+import { get, isEmpty, merge, unset } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
 import { TriggerDefaultFieldList, TriggerTypes } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { GitRepoName } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 
 export const fromPipelineInputTriggerTab = (formik: FormikValues, fromTrigger = false): boolean => {
   return (
-    formik?.values?.triggerType === TriggerTypes.MANIFEST && formik?.values?.selectedArtifact !== null && !fromTrigger
+    formik?.values?.triggerType === TriggerTypes.MANIFEST && !isEmpty(formik?.values?.selectedArtifact) && !fromTrigger
   )
 }
 
@@ -54,4 +55,32 @@ export const getConnectorRef = (initialConnectorRefData: string, formikConnector
   return getMultiTypeFromValue(initialConnectorRefData) !== MultiTypeInputType.RUNTIME
     ? initialConnectorRefData
     : formikConnectorRefValue
+}
+
+export const setManifestInitialValues = (
+  initialValues: K8SDirectServiceStep,
+  formik: FormikValues,
+  stageIdentifier: string,
+  manifestPath: string
+): void => {
+  if (stageIdentifier === formik?.values?.stageId) {
+    const initialArtifactValue = get(initialValues, `${manifestPath}`)
+    const { selectedArtifact } = formik?.values
+
+    if (initialArtifactValue && selectedArtifact.identifier === initialArtifactValue.identifier) {
+      /*
+         backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+        */
+      if (selectedArtifact?.spec.eventConditions) {
+        unset(selectedArtifact?.spec, 'eventConditions')
+      }
+      merge(initialArtifactValue, {
+        identifier: selectedArtifact?.identifier,
+        type: selectedArtifact?.type,
+        spec: {
+          ...selectedArtifact?.spec
+        }
+      })
+    }
+  }
 }

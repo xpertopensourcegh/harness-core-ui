@@ -53,6 +53,11 @@ const getArtifactBasefactory = () => {
   return artifactForm.baseFactory
 }
 
+const getManifesttBasefactory = () => {
+  const manifestForm = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
+  return manifestForm.baseFactory
+}
+
 interface SelectArtifactModalPropsInterface {
   isModalOpen: boolean
   isManifest: boolean
@@ -221,10 +226,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     : getString('pipeline.artifactTriggerConfigPanel.artifact')
 
   const formComponentProps = isManifest
-    ? { allValues: templateObject }
+    ? { manifestSourceBaseFactory: getManifesttBasefactory(), manifests: templateObject?.manifests }
     : {
         artifactSourceBaseFactory: getArtifactBasefactory(),
-        stepViewType: StepViewType.InputSet,
         type: defaultTo(templateObject?.artifacts?.primary?.type, ''),
         artifacts: templateObject?.artifacts
       }
@@ -288,6 +292,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               stageIdentifier={selectedStageId}
               formik={formikProps}
               fromTrigger={true}
+              stepViewType={StepViewType.InputSet}
               {...formComponentProps}
             />
           </PipelineVariablesContextProvider>

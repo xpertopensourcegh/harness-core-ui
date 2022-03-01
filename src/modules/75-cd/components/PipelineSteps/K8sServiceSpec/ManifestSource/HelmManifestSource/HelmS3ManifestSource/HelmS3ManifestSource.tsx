@@ -21,6 +21,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useListAwsRegions } from 'services/portal'
 import { useGetBucketListForS3 } from 'services/cd-ng'
+import { TriggerDefaultFieldList } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { getConnectorRef, isFieldfromTriggerTabDisabled } from '../../ManifestSourceUtils'
 import { isFieldFixedType, isFieldRuntime } from '../../../K8sServiceSpecHelper'
 import ExperimentalInput from '../../../K8sServiceSpecForms/ExperimentalInput'
@@ -219,22 +220,6 @@ const Content = ({
         </div>
       )}
 
-      {isFieldRuntime(`${manifestPath}.spec.chartVersion`, template) && (
-        <div className={css.verticalSpacingInput}>
-          <FormInput.MultiTextInput
-            disabled={isFieldDisabled(
-              fromTrigger ? `${manifestPath}.chartVersion` : `${manifestPath}.spec.chartVersion`
-            )}
-            name={`${path}.${manifestPath}.spec.chartVersion`}
-            multiTextInputProps={{
-              expressions,
-              allowableTypes
-            }}
-            label={getString('pipeline.manifestType.http.chartVersion')}
-          />
-        </div>
-      )}
-
       {isFieldRuntime(`${manifestPath}.spec.store.spec.folderPath`, template) && (
         <div className={css.verticalSpacingInput}>
           <FormInput.MultiTextInput
@@ -245,6 +230,21 @@ const Content = ({
               allowableTypes
             }}
             label={getString('chartPath')}
+          />
+        </div>
+      )}
+
+      {isFieldRuntime(`${manifestPath}.spec.chartVersion`, template) && (
+        <div className={css.verticalSpacingInput}>
+          <FormInput.MultiTextInput
+            disabled={isFieldDisabled(fromTrigger ? 'chartVersion' : `${manifestPath}.spec.chartVersion`)}
+            name={`${path}.${manifestPath}.spec.chartVersion`}
+            multiTextInputProps={{
+              ...(fromTrigger && { value: TriggerDefaultFieldList.chartVersion }),
+              expressions,
+              allowableTypes
+            }}
+            label={getString('pipeline.manifestType.http.chartVersion')}
           />
         </div>
       )}

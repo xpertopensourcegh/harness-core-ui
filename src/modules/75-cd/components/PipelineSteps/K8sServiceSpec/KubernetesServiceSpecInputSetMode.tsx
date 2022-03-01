@@ -20,11 +20,10 @@ import type { CustomVariableInputSetExtraProps } from '@pipeline/components/Pipe
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
-// import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/ManifestSourceBaseFactory'
-import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
+import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/ManifestSourceBaseFactory'
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 import { KubernetesArtifacts } from './KubernetesArtifacts/KubernetesArtifacts'
-// import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
+import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
 import css from './K8sServiceSpec.module.scss'
 
 export interface KubernetesInputSetProps {
@@ -73,7 +72,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
         />
       )}
 
-      {/* {!!template?.manifests?.length && (
+      {!!template?.manifests?.length && (
         <KubernetesManifests
           template={template}
           manifests={allValues?.manifests}
@@ -86,20 +85,8 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
           readonly={readonly}
           allowableTypes={allowableTypes}
         />
-      )} */}
-
-      {!!template?.manifests?.length && (
-        <ManifestInputForm
-          template={template}
-          path={path}
-          allValues={allValues}
-          initialValues={initialValues}
-          readonly={readonly}
-          stageIdentifier={stageIdentifier}
-          formik={formik}
-          allowableTypes={allowableTypes}
-        />
       )}
+
       {!!template?.variables?.length && (
         <div id={`Stage.${stageIdentifier}.Service.Variables`} className={cx(css.nopadLeft, css.accordionSummary)}>
           <div className={css.subheading}>{getString('variablesText')}</div>
