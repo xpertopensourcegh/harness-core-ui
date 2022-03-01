@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Text, SelectOption, MultiTypeInputType, Container, Layout, Color } from '@wings-software/uicore'
+import { Text, SelectOption, Container, Layout, Color, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import { connect } from 'formik'
 import type { K8sDirectInfraYaml } from 'services/ci'
@@ -59,6 +59,7 @@ interface StepCommonFieldsProps {
   disabled?: boolean
   enableFields?: string[]
   buildInfrastructureType: K8sDirectInfraYaml['type']
+  allowableTypes?: MultiTypeInputType[]
 }
 
 const StepCommonFields = ({
@@ -249,7 +250,7 @@ const StepCommonFields = ({
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
             name="timeout"
-            multiTypeDurationProps={{ expressions, allowableTypes: [MultiTypeInputType.FIXED] }}
+            multiTypeDurationProps={{ expressions, allowableTypes: AllMultiTypeInputTypesForStep }}
             label={
               <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
                 <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>

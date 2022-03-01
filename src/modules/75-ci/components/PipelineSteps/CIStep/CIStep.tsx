@@ -35,6 +35,7 @@ interface CIStepProps {
   stepViewType: StepViewType
   path?: string
   isInputSetView?: boolean
+  allowableTypes?: MultiTypeInputType[]
 }
 
 export const CIStep: React.FC<CIStepProps> = props => {

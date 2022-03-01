@@ -33,6 +33,7 @@ interface CIStepOptionalConfigProps {
   path?: string
   formik?: any
   isInputSetView?: boolean
+  allowableTypes?: MultiTypeInputType[]
 }
 
 export const getOptionalSubLabel = (

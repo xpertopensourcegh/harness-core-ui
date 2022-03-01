@@ -33,6 +33,7 @@ interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' 
   withoutTimeout?: boolean
   enableFields?: string[]
   stepViewType: StepViewType
+  allowableTypes?: MultiTypeInputType[]
 }
 
 function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): JSX.Element | null {
@@ -197,7 +198,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             placeholder={getString('pipelineSteps.timeoutPlaceholder')}
             multiTypeDurationProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.FIXED]
+              allowableTypes: AllMultiTypeInputTypesForInputSet
             }}
             disabled={readonly}
           />
