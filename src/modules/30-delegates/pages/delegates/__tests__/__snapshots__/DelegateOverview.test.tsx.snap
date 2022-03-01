@@ -25,12 +25,12 @@ exports[`Delegates Overview Page render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
           >
-            delegate.hostName
+            delegate.delegateName
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
           >
-            group-host-1
+            group-name-1
           </p>
         </div>
         <span
@@ -130,20 +130,6 @@ exports[`Delegates Overview Page render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
         >
-          delegate.delegateName
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
-        >
-          group-name-1
-        </p>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main entry"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
-        >
           delegates.delegateIdentifier
         </p>
         <p
@@ -186,20 +172,6 @@ exports[`Delegates Overview Page render data 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
         >
           desc 1
-        </p>
-      </div>
-      <div
-        class="StyledProps--font StyledProps--main entry"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
-        >
-          delegate.delegateSize
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
-        >
-          3delegate.delegateCPU, 2.93delegates.GBRam
         </p>
       </div>
     </div>

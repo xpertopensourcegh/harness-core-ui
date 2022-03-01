@@ -43,7 +43,6 @@ const DelegateItem: FC<DelegateItemParams> = ({ delegate }) => {
       />
       <Layout.Vertical className={css.tokenItemColumn} margin={{ left: 'large' }}>
         <Text color={Color.GREY_800}>{delegate.groupName}</Text>
-        <Text color={Color.GREY_600}>{delegate.groupHostName}</Text>
       </Layout.Vertical>
       <Layout.Vertical className={css.tokenItemColumn}>
         <Text icon="full-circle" iconProps={{ size: 6, color: statusColor, padding: 'small' }} color={Color.GREY_800}>

@@ -78,7 +78,7 @@ export const useCreateTokenModal = ({ onSuccess }: CreateTokenModalProps): Creat
           accountIdentifier: accountId,
           orgIdentifier,
           projectIdentifier,
-          tokenName: values.name
+          tokenName: values?.name?.trim?.()
         } as CreateDelegateTokenQueryParams
       })
       formikActions.setFieldValue('tokenValue', createTokenResponse?.resource?.value || '')

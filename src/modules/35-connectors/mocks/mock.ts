@@ -75,7 +75,6 @@ export const mockedDelegates = {
         groupName: 'delegate-sample-name-1',
         groupHostName: 'delegate-sample-name-1-{n}',
         delegateConfigurationId: 'o7ObEntuSuWdnOOrY8Cy1Q',
-        sizeDetails: { size: 'SMALL', label: 'Small', taskLimit: 100, replicas: 2, ram: 3300, cpu: 1.0 },
         groupImplicitSelectors: {
           'primary configuration': 'PROFILE_NAME',
           'delegate-sample-name-1': 'DELEGATE_NAME'
@@ -91,7 +90,6 @@ export const mockedDelegates = {
         groupName: 'delegate-sample-name-2',
         groupHostName: 'delegate-sample-name-2-{n}',
         delegateConfigurationId: 'o7ObEntuSuWdnOOrY8Cy1Q',
-        sizeDetails: { size: 'SMALL', label: 'Small', taskLimit: 100, replicas: 2, ram: 3300, cpu: 1.0 },
         groupImplicitSelectors: {
           'primary configuration': 'PROFILE_NAME',
           'delegate-sample-name-2': 'DELEGATE_NAME'

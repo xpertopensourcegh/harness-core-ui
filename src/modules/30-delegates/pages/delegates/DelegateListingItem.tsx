@@ -31,7 +31,6 @@ import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { DelegateTypes } from '@delegates/constants'
 
 import css from './DelegatesPage.module.scss'
 
@@ -243,12 +242,11 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
           />
           <Text icon={delegateTypeToIcon(delegate.delegateType as string)} iconProps={{ size: 24 }} />
         </div>
-        <Layout.Horizontal width={columnWidths.name} data-testid={delegate.groupHostName}>
+        <Layout.Horizontal width={columnWidths.name}>
           <Layout.Vertical>
             <Layout.Horizontal spacing="small" data-testid={delegate.groupName}>
               <Text color={Color.BLACK}>{delegate.groupName}</Text>
             </Layout.Horizontal>
-            <div className={css.groupHostName}>{delegate.groupHostName}</div>
           </Layout.Vertical>
         </Layout.Horizontal>
 
@@ -322,9 +320,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
                 </Layout.Horizontal>
                 <Container className={css.connectivity} width={columnWidths.tags} />
                 <Container width={columnWidths.instances} className={css.instancesColumn}>
-                  {instanceDetails.delegateType === DelegateTypes.DOCKER
-                    ? `${delegate.groupHostName}-${instanceDetails.hostName}`
-                    : instanceDetails.hostName}
+                  {instanceDetails.hostName}
                 </Container>
                 <Layout.Horizontal width={columnWidths.heartbeat}>
                   {instanceDetails.lastHeartbeat ? (

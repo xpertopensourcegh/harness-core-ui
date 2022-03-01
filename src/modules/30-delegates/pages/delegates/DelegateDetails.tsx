@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Layout, Text, IconName, Color } from '@wings-software/uicore'
+import { Container, Layout, Text, IconName } from '@wings-software/uicore'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -79,7 +79,6 @@ export default function DelegateDetails(): JSX.Element {
         <Text style={{ fontSize: '20px', color: 'var(--black)' }} icon={icon} iconProps={{ size: 21 }}>
           {delegate?.groupName}
         </Text>
-        <Text color={Color.GREY_400}>{delegate?.groupHostName}</Text>
       </Layout.Vertical>
     )
   }

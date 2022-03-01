@@ -16,6 +16,10 @@ import { AccountSideNavProps } from '@common/RouteDestinations'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+
+import type { ResourceDTO } from 'services/audit'
+import AuditTrailFactory, { ResourceScope } from '@audit-trail/factories/AuditTrailFactory'
+
 import { String } from 'framework/strings'
 
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
@@ -30,7 +34,7 @@ import DelegateResourceRenderer from '@delegates/components/DelegateResourceRend
 import DelegateListing from '@delegates/pages/delegates/DelegateListing'
 import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
 import DelegateTokens from '@delegates/components/DelegateTokens/DelegateTokens'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
   icon: 'res-delegates',
@@ -60,6 +64,25 @@ RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATECONFIGURATION, {
   addResourceModalBody: props => <DelegateConfigurationResourceModalBody {...props} />,
   // eslint-disable-next-line react/display-name
   staticResourceRenderer: props => <DelegateConfigurationResourceRenderer {...props} />
+})
+
+/**
+ * Register for Audit Trail
+ * */
+AuditTrailFactory.registerResourceHandler(ResourceType.DELEGATE_TOKEN, {
+  moduleIcon: {
+    name: 'delegates-icon'
+  },
+  moduleLabel: 'common.delegateTokenLabel',
+  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScope, module?: Module) => {
+    const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
+    return routes.toDelegateTokens({
+      module,
+      orgIdentifier,
+      projectIdentifier,
+      accountId: accountIdentifier
+    })
+  }
 })
 
 const RedirectToDelegatesHome = (): React.ReactElement => {

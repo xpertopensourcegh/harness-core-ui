@@ -17,7 +17,7 @@ const mockTokens: DelegateTokenDetails[] = [
     accountId: 'dsaddefrfr',
     createdAt: 4342354343553,
     createdBy: { name: 'Admin' },
-    identifier: 'dsfevrwv',
+    ownerIdentifier: 'dsfevrwv',
     name: 'Token 1',
     status: 'ACTIVE',
     uuid: 'debterbteb',

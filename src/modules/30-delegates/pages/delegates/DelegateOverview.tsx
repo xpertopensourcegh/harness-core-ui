@@ -44,19 +44,13 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
 
   tags = tags.concat(delegate?.groupCustomSelectors || [])
 
-  const delSize = delegate.sizeDetails?.ram && (Number(delegate.sizeDetails?.ram) / 1024).toFixed(2)
-
   return (
     <SectionContainer>
       <SectionContainerTitle>{getString('overview')}</SectionContainerTitle>
 
       <Container className={css.delegateDetailsContainer}>
         <Container flex style={{ borderBottom: '0.5px solid #dce0e7' }}>
-          <SectionLabelValuePair
-            label={getString('delegate.hostName')}
-            value={delegate.groupHostName || getString('na')}
-            style={{ borderBottom: 'none' }}
-          />
+          <SectionLabelValuePair label={getString('delegate.delegateName')} value={delegate.groupName} />
 
           <FlexExpander />
 
@@ -75,8 +69,6 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
             ignoreLastElementStyling
           />
         </Container>
-
-        <SectionLabelValuePair label={getString('delegate.delegateName')} value={delegate.groupName} />
 
         <SectionLabelValuePair
           label={getString('delegates.delegateIdentifier')}
@@ -104,15 +96,6 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
 
         {delegate.delegateDescription && (
           <SectionLabelValuePair label={getString('description')} value={delegate.delegateDescription} />
-        )}
-
-        {delegate.sizeDetails && (
-          <SectionLabelValuePair
-            label={getString('delegate.delegateSize')}
-            value={`${delegate.sizeDetails?.cpu}${getString('delegate.delegateCPU')}, ${delSize}${getString(
-              'delegates.GBRam'
-            )}`}
-          />
         )}
       </Container>
 

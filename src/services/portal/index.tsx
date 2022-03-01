@@ -163,6 +163,13 @@ export interface APMSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -282,12 +289,14 @@ export interface AccountDetails {
   accountId?: string
   accountName?: string
   activeServiceCount?: number
+  activeServicesUsageInfo?: CgActiveServicesUsageInfo
   ceLicenseInfo?: CeLicenseInfo
   cluster?: string
   companyName?: string
   createdFromNG?: boolean
   defaultExperience?: 'NG' | 'CG'
   licenseInfo?: LicenseInfo
+  licenseModel?: 'SERVICES' | 'SERVICE_INSTANCES'
 }
 
 export interface AccountEvent {
@@ -537,6 +546,7 @@ export interface Activity {
     | 'AZURE_ARM_DEPLOYMENT'
     | 'AZURE_BLUEPRINT_DEPLOYMENT'
     | 'TERRAGRUNT_PROVISION'
+    | 'RANCHER'
   commandUnits: CommandUnit[]
   createdAt?: number
   createdBy?: EmbeddedUser
@@ -646,7 +656,13 @@ export interface Alert {
   type?:
     | 'ApprovalNeeded'
     | 'ManualInterventionNeeded'
+    | 'NoActiveDelegates'
+    | 'NoInstalledDelegates'
     | 'DelegatesDown'
+    | 'DelegatesScalingGroupDownAlert'
+    | 'DelegateProfileError'
+    | 'NoEligibleDelegates'
+    | 'PerpetualTaskAlert'
     | 'InvalidKMS'
     | 'GitSyncError'
     | 'GitConnectionError'
@@ -675,7 +691,13 @@ export interface AlertFilter {
   alertType?:
     | 'ApprovalNeeded'
     | 'ManualInterventionNeeded'
+    | 'NoActiveDelegates'
+    | 'NoInstalledDelegates'
     | 'DelegatesDown'
+    | 'DelegatesScalingGroupDownAlert'
+    | 'DelegateProfileError'
+    | 'NoEligibleDelegates'
+    | 'PerpetualTaskAlert'
     | 'InvalidKMS'
     | 'GitSyncError'
     | 'GitConnectionError'
@@ -733,7 +755,13 @@ export interface AlertType {
   alertType?:
     | 'ApprovalNeeded'
     | 'ManualInterventionNeeded'
+    | 'NoActiveDelegates'
+    | 'NoInstalledDelegates'
     | 'DelegatesDown'
+    | 'DelegatesScalingGroupDownAlert'
+    | 'DelegateProfileError'
+    | 'NoEligibleDelegates'
+    | 'PerpetualTaskAlert'
     | 'InvalidKMS'
     | 'GitSyncError'
     | 'GitConnectionError'
@@ -1153,6 +1181,13 @@ export interface AppdynamicsSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -1176,6 +1211,7 @@ export interface AppdynamicsTier {
 export interface Application {
   accountId?: string
   appId: string
+  areWebHookSecretsMandated?: boolean
   createdAt?: number
   createdBy?: EmbeddedUser
   defaults?: {
@@ -1265,6 +1301,7 @@ export interface ApplicationManifest {
 
 export interface ApplicationManifestSummary {
   appManifestId?: string
+  appManifestName?: string
   defaultManifest?: ManifestSummary
   lastCollectedManifest?: ManifestSummary
   settingId?: string
@@ -2432,6 +2469,13 @@ export interface BugsnagSetupTestData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -2465,12 +2509,16 @@ export interface BuildDetails {
 }
 
 export interface BuildExecutionSummary {
+  appManifestId?: string
+  appManifestSource?: string
   artifactSource?: string
   artifactStreamId?: string
   buildName?: string
   buildUrl?: string
   metadata?: string
   revision?: string
+  sourceType?: string
+  version?: string
 }
 
 export type BuildWorkflow = OrchestrationWorkflow & {
@@ -2791,6 +2839,13 @@ export interface CVConfiguration {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -2868,7 +2923,11 @@ export type CVModuleLicenseDTO = ModuleLicenseDTO & {}
 export interface CVNGPerpetualTaskDTO {
   accountId?: string
   cvngPerpetualTaskState?: 'TASK_UNASSIGNED' | 'TASK_TO_REBALANCE' | 'TASK_PAUSED' | 'TASK_ASSIGNED'
-  cvngPerpetualTaskUnassignedReason?: 'NO_DELEGATE_INSTALLED' | 'NO_DELEGATE_AVAILABLE' | 'NO_ELIGIBLE_DELEGATES'
+  cvngPerpetualTaskUnassignedReason?:
+    | 'NO_DELEGATE_INSTALLED'
+    | 'NO_DELEGATE_AVAILABLE'
+    | 'NO_ELIGIBLE_DELEGATES'
+    | 'MULTIPLE_FAILED_PERPETUAL_TASK'
   delegateId?: string
 }
 
@@ -2902,6 +2961,12 @@ export interface CeLicenseInfo {
   licenseType?: 'FULL_TRIAL' | 'LIMITED_TRIAL' | 'PAID'
 }
 
+export interface CgActiveServicesUsageInfo {
+  activeServiceUsage?: CgServiceUsage[]
+  serviceLicenseConsumed?: number
+  servicesConsumed?: number
+}
+
 export interface CgEventConfig {
   accountId?: string
   appId: string
@@ -2922,6 +2987,13 @@ export interface CgEventRule {
   pipelineRule?: PipelineRule
   type?: 'PIPELINE' | 'WORKFLOW' | 'ALL'
   workflowRule?: WorkflowRule
+}
+
+export interface CgServiceUsage {
+  instanceCount?: number
+  licensesUsed?: number
+  name?: string
+  serviceId?: string
 }
 
 export interface ChangeSetDTO {
@@ -3144,6 +3216,13 @@ export interface CloudWatchSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -3171,6 +3250,11 @@ export interface ClusterRecord {
   lastUpdatedAt?: number
   perpetualTaskIds?: string[]
   uuid?: string
+}
+
+export interface ClusterSelectionCriteriaEntry {
+  labelName?: string
+  labelValues?: string
 }
 
 export type CodeDeployInfrastructure = InfraMappingInfrastructureProvider & {
@@ -3227,6 +3311,7 @@ export interface Command {
     | 'RESIZE_KUBERNETES'
     | 'DOWNLOAD_ARTIFACT'
     | 'K8S_DUMMY'
+    | 'RANCHER_DUMMY'
     | 'SPOTINST_DUMMY'
     | 'HELM_DUMMY'
     | 'PCF_DUMMY'
@@ -3296,6 +3381,7 @@ export interface CommandUnit {
     | 'RESIZE_KUBERNETES'
     | 'DOWNLOAD_ARTIFACT'
     | 'K8S_DUMMY'
+    | 'RANCHER_DUMMY'
     | 'SPOTINST_DUMMY'
     | 'HELM_DUMMY'
     | 'PCF_DUMMY'
@@ -3348,6 +3434,7 @@ export interface CommandUnitDetails {
     | 'AZURE_ARM_DEPLOYMENT'
     | 'AZURE_BLUEPRINT_DEPLOYMENT'
     | 'TERRAGRUNT_PROVISION'
+    | 'RANCHER'
   name?: string
   variables?: Variable[]
 }
@@ -3550,6 +3637,7 @@ export interface ConfigFile {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -3759,6 +3847,7 @@ export interface ContextElement {
     | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
+    | 'RANCHER_K8S_CLUSTER_CRITERIA'
   name?: string
   uuid?: string
 }
@@ -3954,6 +4043,13 @@ export interface ContinuousVerificationExecutionMetaData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -4001,6 +4097,7 @@ export interface CurrentActiveInstances {
   deployedAt?: string
   environment?: EntitySummary
   instanceCount?: number
+  lastPipelineExecution?: EntitySummary
   lastWorkflowExecution?: EntitySummary
   lastWorkflowExecutionDate?: string
   manifest?: ManifestSummary
@@ -4204,6 +4301,13 @@ export interface CustomLogSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -4342,6 +4446,7 @@ export interface DataCollectionConnectorBundle {
   dataCollectionType?: 'CV' | 'KUBERNETES'
   dataCollectionWorkerId?: string
   envIdentifier?: string
+  monitoredServiceIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
   serviceIdentifier?: string
@@ -4404,6 +4509,11 @@ export interface DataCollectionRequest {
     | 'NEWRELIC_SAMPLE_FETCH_REQUEST'
     | 'SYNC_DATA_COLLECTION'
     | 'CUSTOM_HEALTH_SAMPLE_DATA'
+    | 'DYNATRACE_SERVICE_LIST_REQUEST'
+    | 'DYNATRACE_SERVICE_DETAILS_REQUEST'
+    | 'DYNATRACE_VALIDATION_REQUEST'
+    | 'DYNATRACE_SAMPLE_DATA_REQUEST'
+    | 'DYNATRACE_METRIC_LIST_REQUEST'
 }
 
 export interface DataDogSetupTestNodeData {
@@ -4565,6 +4675,13 @@ export interface DataDogSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -4744,7 +4861,6 @@ export interface DelegateGroupDetails {
   delegateInstanceDetails?: DelegateInner[]
   delegateType?: string
   groupCustomSelectors?: string[]
-  groupHostName?: string
   groupId?: string
   groupImplicitSelectors?: {
     [key: string]:
@@ -4757,7 +4873,6 @@ export interface DelegateGroupDetails {
   }
   groupName?: string
   lastHeartBeat?: number
-  sizeDetails?: DelegateSizeDetails
 }
 
 export interface DelegateGroupListing {
@@ -4844,7 +4959,6 @@ export interface DelegateParams {
   delegateProfileId?: string
   delegateRandomToken?: string
   delegateSize?: string
-  delegateTokenName?: string
   delegateType?: string
   description?: string
   hostName?: string
@@ -5079,7 +5193,6 @@ export interface DelegateSizeDetails {
   ram?: number
   replicas?: number
   size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
-  taskLimit?: number
 }
 
 export interface DelegateStatus {
@@ -5146,7 +5259,7 @@ export interface DelegateTokenDetails {
   accountId?: string
   createdAt?: number
   createdBy?: EmbeddedUser
-  identifier?: string
+  createdByNgUser?: Principal
   name?: string
   ownerIdentifier?: string
   status?: 'ACTIVE' | 'REVOKED'
@@ -5450,6 +5563,13 @@ export interface DynaTraceSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -5728,6 +5848,13 @@ export interface ElkSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -5787,6 +5914,7 @@ export interface EncryptableSetting {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -5929,6 +6057,7 @@ export interface EncryptedData {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -6023,6 +6152,7 @@ export interface EncryptedDataParent {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -6504,6 +6634,7 @@ export interface ExecutionArgs {
   artifactVariables?: ArtifactVariable[]
   artifacts?: Artifact[]
   commandName?: string
+  continueRunningPipelinesDuringMigration?: boolean
   continueWithDefaultValues?: boolean
   createdByType?: 'USER' | 'API_KEY' | 'TRIGGER'
   errorStrategy?: 'CONTINUE' | 'FAIL' | 'PAUSE' | 'RETRY'
@@ -6541,6 +6672,7 @@ export interface ExecutionArgs {
 export interface ExecutionCapability {
   capabilityType?:
     | 'SOCKET'
+    | 'SOCKET_BULK_OR'
     | 'ALWAYS_TRUE'
     | 'PROCESS_EXECUTOR'
     | 'AWS_REGION'
@@ -6568,6 +6700,7 @@ export interface ExecutionCapability {
     | 'GIT_INSTALLATION'
     | 'LITE_ENGINE'
     | 'CI_VM'
+    | 'ARTIFACTORY'
   maxValidityPeriod?: Duration
   periodUntilNextValidation?: Duration
 }
@@ -6771,6 +6904,13 @@ export interface ExpAnalysisInfo {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -6979,6 +7119,13 @@ export interface ExperimentalMetricRecord {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -7047,6 +7194,7 @@ export interface FailureStrategy {
     | 'APPLICATION_ERROR'
     | 'AUTHORIZATION_ERROR'
     | 'TIMEOUT_ERROR'
+    | 'POLICY_EVALUATION_FAILURE'
   )[]
   manualInterventionTimeout?: number
   repairActionCode?:
@@ -7933,6 +8081,7 @@ export interface HeatMapUnit {
 export interface HelmChart {
   accountId?: string
   appId?: string
+  appManifestName?: string
   appVersion?: string
   applicationManifestId?: string
   createdAt?: number
@@ -8069,6 +8218,7 @@ export interface HostElement {
     | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
+    | 'RANCHER_K8S_CLUSTER_CRITERIA'
   hostName?: string
   instanceId?: string
   ip?: string
@@ -8310,7 +8460,15 @@ export interface InfraDefinitionDetail {
 
 export interface InfraDefinitionSummary {
   cloudProviderName?: string
-  cloudProviderType?: 'PHYSICAL_DATA_CENTER' | 'AWS' | 'AZURE' | 'GCP' | 'KUBERNETES_CLUSTER' | 'PCF' | 'CUSTOM'
+  cloudProviderType?:
+    | 'PHYSICAL_DATA_CENTER'
+    | 'AWS'
+    | 'AZURE'
+    | 'GCP'
+    | 'KUBERNETES_CLUSTER'
+    | 'PCF'
+    | 'CUSTOM'
+    | 'RANCHER'
   deploymentType?:
     | 'SSH'
     | 'AWS_CODEDEPLOY'
@@ -8350,7 +8508,15 @@ export interface InfraMappingSummary {
 export interface InfrastructureDefinition {
   accountId?: string
   appId: string
-  cloudProviderType: 'PHYSICAL_DATA_CENTER' | 'AWS' | 'AZURE' | 'GCP' | 'KUBERNETES_CLUSTER' | 'PCF' | 'CUSTOM'
+  cloudProviderType:
+    | 'PHYSICAL_DATA_CENTER'
+    | 'AWS'
+    | 'AZURE'
+    | 'GCP'
+    | 'KUBERNETES_CLUSTER'
+    | 'PCF'
+    | 'CUSTOM'
+    | 'RANCHER'
   createdAt?: number
   createdBy?: EmbeddedUser
   customDeploymentName?: string
@@ -8436,6 +8602,7 @@ export interface InfrastructureMapping {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -8694,6 +8861,13 @@ export interface InstanaSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -8832,6 +9006,7 @@ export interface InstanceElement {
     | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
+    | 'RANCHER_K8S_CLUSTER_CRITERIA'
   host?: HostElement
   hostName?: string
   name?: string
@@ -8862,6 +9037,7 @@ export interface InstanceExecutionHistory {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -9112,6 +9288,7 @@ export interface InstanceExecutionHistory {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -9140,6 +9317,11 @@ export interface InstanceExecutionHistory {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
   executionInterruptType?:
     | 'ABORT'
     | 'ABORT_ALL'
@@ -9372,6 +9554,7 @@ export interface JiraConfig {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -9626,6 +9809,7 @@ export interface KubernetesPayload {
 }
 
 export type KubernetesServiceAccountDTO = KubernetesAuthCredentialDTO & {
+  caCertRef?: string
   serviceAccountTokenRef: string
 }
 
@@ -9775,6 +9959,7 @@ export interface LdapUserSettings {
   displayNameAttr?: string
   emailAttr?: string
   groupMembershipAttr?: string
+  samAccountNameAttr?: string
   searchFilter?: string
   uidAttr?: string
 }
@@ -10000,6 +10185,13 @@ export interface LogDataRecord {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -10165,6 +10357,13 @@ export interface LogMLAnalysisSummary {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -10384,6 +10583,13 @@ export interface LogMLFeedbackRecord {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -10612,6 +10818,13 @@ export interface LogsCVConfiguration {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -10652,6 +10865,7 @@ export interface ManifestSelection {
 }
 
 export interface ManifestSummary {
+  appManifestId?: string
   appManifestName?: string
   name?: string
   source?: string
@@ -10671,10 +10885,12 @@ export interface ManifestVariable {
   allowMultipleValues?: boolean
   allowedList?: string[]
   allowedValues?: string
+  appManifestId?: string
   applicationManifestSummary?: ApplicationManifestSummary[]
   artifactStreamSummaries?: ArtifactStreamSummary[]
   description?: string
   fixed?: boolean
+  inputType?: 'ID' | 'VERSION'
   lastDeployedHelmChartInfo?: LastDeployedHelmChartInformation
   mandatory?: boolean
   metadata?: {
@@ -10974,6 +11190,13 @@ export interface NewRelicMetricAnalysisRecord {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -11149,6 +11372,13 @@ export interface NewRelicSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -11650,6 +11880,7 @@ export interface PcfInstanceElement {
     | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
+    | 'RANCHER_K8S_CLUSTER_CRITERIA'
   instanceIndex?: string
   name?: string
   newInstance?: boolean
@@ -11794,6 +12025,7 @@ export interface PerpetualTaskRecord {
   clientContext?: PerpetualTaskClientContext
   createdAt?: number
   delegateId?: string
+  failedExecutionCount?: number
   intervalSeconds?: number
   lastHeartbeat?: number
   lastUpdatedAt?: number
@@ -11811,7 +12043,11 @@ export interface PerpetualTaskRecord {
     | 'TASK_RUN_FAILED'
   taskDescription?: string
   timeoutMillis?: number
-  unassignedReason?: 'NO_DELEGATE_INSTALLED' | 'NO_DELEGATE_AVAILABLE' | 'NO_ELIGIBLE_DELEGATES'
+  unassignedReason?:
+    | 'NO_DELEGATE_INSTALLED'
+    | 'NO_DELEGATE_AVAILABLE'
+    | 'NO_ELIGIBLE_DELEGATES'
+    | 'MULTIPLE_FAILED_PERPETUAL_TASK'
   uuid?: string
 }
 
@@ -12169,6 +12405,15 @@ export interface Preference {
   uuid: string
 }
 
+export interface Principal {
+  jwtclaims?: {
+    [key: string]: string
+  }
+  name?: string
+  username?: string
+  type: 'USER' | 'SERVICE' | 'API_KEY' | 'SERVICE_ACCOUNT'
+}
+
 export interface ProductCode {
   productCodeId?: string
   productCodeType?: string
@@ -12327,6 +12572,13 @@ export interface PrometheusSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -12345,6 +12597,12 @@ export interface ProvisionStep {
 export interface PublicUser {
   inviteAccepted?: boolean
   user?: User
+}
+
+export type RancherKubernetesInfrastructure = InfraMappingInfrastructureProvider & {
+  clusterSelectionCriteria?: ClusterSelectionCriteriaEntry[]
+  namespace?: string
+  releaseName?: string
 }
 
 export interface RateLimit {
@@ -12550,6 +12808,7 @@ export interface ResponseMessage {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -12800,6 +13059,7 @@ export interface ResponseMessage {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -12828,6 +13088,11 @@ export interface ResponseMessage {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -12838,6 +13103,7 @@ export interface ResponseMessage {
     | 'APPLICATION_ERROR'
     | 'AUTHORIZATION_ERROR'
     | 'TIMEOUT_ERROR'
+    | 'POLICY_EVALUATION_FAILURE'
   )[]
   level?: 'INFO' | 'ERROR'
   message?: string
@@ -14746,6 +15012,7 @@ export interface RestResponseMapDeploymentTypeListSettingVariableTypes {
       | 'GCP'
       | 'AZURE'
       | 'PCF'
+      | 'RANCHER'
       | 'DIRECT'
       | 'KUBERNETES_CLUSTER'
       | 'DOCKER'
@@ -16303,6 +16570,7 @@ export interface SSHVaultConfig {
   accountId?: string
   appRoleId?: string
   authToken?: string
+  awsRegion?: string
   certValidationRequired?: boolean
   createdAt?: number
   createdBy?: EmbeddedUser
@@ -16337,9 +16605,12 @@ export interface SSHVaultConfig {
   templatized?: boolean
   templatizedFields?: string[]
   usageRestrictions?: UsageRestrictions
+  useAwsIam?: boolean
   useVaultAgent?: boolean
   uuid: string
+  vaultAwsIamRole?: string
   vaultUrl?: string
+  xvaultAwsIamServerId?: string
 }
 
 export interface SSOConfig {
@@ -16644,6 +16915,7 @@ export interface SecretSetupUsage {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -16921,6 +17193,7 @@ export interface ServiceElement {
     | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
+    | 'RANCHER_K8S_CLUSTER_CRITERIA'
   name?: string
   uuid?: string
 }
@@ -17149,6 +17422,7 @@ export interface ServiceTemplateElement {
     | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
+    | 'RANCHER_K8S_CLUSTER_CRITERIA'
   name?: string
   serviceElement?: ServiceElement
   uuid?: string
@@ -17305,6 +17579,7 @@ export interface ServiceVariable {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -17423,6 +17698,7 @@ export interface SettingValue {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -17683,6 +17959,13 @@ export interface SplunkSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -17886,6 +18169,13 @@ export interface StackDriverSetupTestNodeData {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -17951,6 +18241,7 @@ export interface State {
     | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
+    | 'RANCHER_K8S_CLUSTER_CRITERIA'
   requiredExecutionArgumentTypes?: (
     | 'SERVICE'
     | 'PROVISIONER'
@@ -18176,6 +18467,7 @@ export interface StateExecutionInstance {
   expiryTs?: number
   hasInspection?: boolean
   interruptHistory?: ExecutionInterruptEffect[]
+  isOnDemandRollback?: boolean
   lastUpdatedAt?: number
   loopedStateParams?: LoopParams
   nextInstanceId?: string
@@ -18535,6 +18827,13 @@ export interface SumoLogicSetupTestNodedata {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -19118,6 +19417,13 @@ export interface TimeSeriesMLTransactionThresholds {
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_CANARY_DEPLOY'
     | 'K8S_DELETE'
+    | 'RANCHER_RESOLVE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING'
+    | 'RANCHER_K8S_CANARY_DEPLOY'
+    | 'RANCHER_K8S_BLUE_GREEN_DEPLOY'
+    | 'RANCHER_KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'RANCHER_K8S_DELETE'
+    | 'RANCHER_K8S_DEPLOYMENT_ROLLING_ROLLBACK'
     | 'JIRA_CREATE_UPDATE'
     | 'SERVICENOW_CREATE_UPDATE'
     | 'K8S_TRAFFIC_SPLIT'
@@ -19345,10 +19651,18 @@ export interface UserGroup {
   members?: User[]
   name?: string
   notificationSettings?: NotificationSettings
+  parents?: UserGroupEntityReference[]
   ssoGroupId?: string
   ssoGroupName?: string
   ssoLinked?: boolean
   uuid: string
+}
+
+export interface UserGroupEntityReference {
+  accountId?: string
+  appId?: string
+  entityType?: string
+  id?: string
 }
 
 export interface UserInvite {
@@ -19462,6 +19776,7 @@ export interface VaultConfig {
   accountId?: string
   appRoleId?: string
   authToken?: string
+  awsRegion?: string
   basePath?: string
   certValidationRequired?: boolean
   createdAt?: number
@@ -19500,15 +19815,19 @@ export interface VaultConfig {
   templatized?: boolean
   templatizedFields?: string[]
   usageRestrictions?: UsageRestrictions
+  useAwsIam?: boolean
   useVaultAgent?: boolean
   uuid: string
+  vaultAwsIamRole?: string
   vaultUrl?: string
+  xvaultAwsIamServerId?: string
 }
 
 export type VaultConnectorDTO = ConnectorConfigDTO & {
-  accessType?: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT'
+  accessType?: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT' | 'AWS_IAM'
   appRoleId?: string
   authToken?: string
+  awsRegion?: string
   basePath?: string
   default?: boolean
   delegateSelectors?: string[]
@@ -19520,8 +19839,11 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   secretEngineVersion?: number
   secretId?: string
   sinkPath?: string
+  useAwsIam?: boolean
   useVaultAgent?: boolean
+  vaultAwsIamRole?: string
   vaultUrl?: string
+  xvaultAwsIamServerId?: string
 }
 
 export interface VerificationDataAnalysisResponse {
@@ -20243,6 +20565,7 @@ export interface YamlGitConfig {
     | 'GCP'
     | 'AZURE'
     | 'PCF'
+    | 'RANCHER'
     | 'DIRECT'
     | 'KUBERNETES_CLUSTER'
     | 'DOCKER'
@@ -20609,9 +20932,9 @@ export type GetDelegatePropertiesBodyRequestBody = string[]
 
 export type ImportAccountDataRequestBody = void
 
-export type SaveGcpSecretsManagerConfig1RequestBody = void
+export type SaveGcpSecretsManagerConfigRequestBody = void
 
-export type SaveGlobalKmsConfigRequestBody = void
+export type SaveGcpSecretsManagerConfig1RequestBody = void
 
 export interface SaveMessageComparisonListBodyRequestBody {
   [key: string]: string
@@ -20625,7 +20948,7 @@ export type UpdatePlatformRequestBody = void
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
-export type Update30RequestBody = void
+export type Update28RequestBody = void
 
 export type UploadSamlMetaDataRequestBody = void
 
@@ -21268,137 +21591,6 @@ export const save6Promise = (
     'POST',
     getConfig('api'),
     `/environments`,
-    props,
-    signal
-  )
-
-export interface GetDelegateTokensQueryParams {
-  accountId: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  status?: 'ACTIVE' | 'REVOKED'
-}
-
-export type GetDelegateTokensProps = Omit<
-  GetProps<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>,
-  'path'
->
-
-export const GetDelegateTokens = (props: GetDelegateTokensProps) => (
-  <Get<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>
-    path={`/ng/delegate-token`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateTokensProps = Omit<
-  UseGetProps<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>,
-  'path'
->
-
-export const useGetDelegateTokens = (props: UseGetDelegateTokensProps) =>
-  useGet<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>(`/ng/delegate-token`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export const getDelegateTokensPromise = (
-  props: GetUsingFetchProps<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListDelegateTokenDetails, unknown, GetDelegateTokensQueryParams, void>(
-    getConfig('api'),
-    `/ng/delegate-token`,
-    props,
-    signal
-  )
-
-export interface CreateDelegateTokenQueryParams {
-  accountId: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tokenName: string
-}
-
-export type CreateDelegateTokenProps = Omit<
-  MutateProps<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>,
-  'path' | 'verb'
->
-
-export const CreateDelegateToken = (props: CreateDelegateTokenProps) => (
-  <Mutate<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>
-    verb="POST"
-    path={`/ng/delegate-token`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseCreateDelegateTokenProps = Omit<
-  UseMutateProps<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>,
-  'path' | 'verb'
->
-
-export const useCreateDelegateToken = (props: UseCreateDelegateTokenProps) =>
-  useMutate<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>(
-    'POST',
-    `/ng/delegate-token`,
-    { base: getConfig('api'), ...props }
-  )
-
-export const createDelegateTokenPromise = (
-  props: MutateUsingFetchProps<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<RestResponseDelegateTokenDetails, unknown, CreateDelegateTokenQueryParams, void, void>(
-    'POST',
-    getConfig('api'),
-    `/ng/delegate-token`,
-    props,
-    signal
-  )
-
-export interface RevokeDelegateTokenQueryParams {
-  accountId: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tokenName: string
-}
-
-export type RevokeDelegateTokenProps = Omit<
-  MutateProps<RestResponseVoid, unknown, RevokeDelegateTokenQueryParams, void, void>,
-  'path' | 'verb'
->
-
-export const RevokeDelegateToken = (props: RevokeDelegateTokenProps) => (
-  <Mutate<RestResponseVoid, unknown, RevokeDelegateTokenQueryParams, void, void>
-    verb="PUT"
-    path={`/ng/delegate-token`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseRevokeDelegateTokenProps = Omit<
-  UseMutateProps<RestResponseVoid, unknown, RevokeDelegateTokenQueryParams, void, void>,
-  'path' | 'verb'
->
-
-export const useRevokeDelegateToken = (props: UseRevokeDelegateTokenProps) =>
-  useMutate<RestResponseVoid, unknown, RevokeDelegateTokenQueryParams, void, void>('PUT', `/ng/delegate-token`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export const revokeDelegateTokenPromise = (
-  props: MutateUsingFetchProps<RestResponseVoid, unknown, RevokeDelegateTokenQueryParams, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<RestResponseVoid, unknown, RevokeDelegateTokenQueryParams, void, void>(
-    'PUT',
-    getConfig('api'),
-    `/ng/delegate-token`,
     props,
     signal
   )
@@ -22460,7 +22652,7 @@ export const createDelegateGroupPromise = (
   )
 
 export interface GetDelegatesByTokenQueryParams {
-  accountIdentifier?: string
+  accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
   delegateTokenName?: string

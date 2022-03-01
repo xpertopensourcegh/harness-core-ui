@@ -767,6 +767,7 @@ export interface StringsMap {
   'auditTrail.Platform': string
   'auditTrail.actions.added_collaborator': string
   'auditTrail.actions.added_membership': string
+  'auditTrail.actions.create_token': string
   'auditTrail.actions.invite_resent': string
   'auditTrail.actions.invite_revoked': string
   'auditTrail.actions.invited': string

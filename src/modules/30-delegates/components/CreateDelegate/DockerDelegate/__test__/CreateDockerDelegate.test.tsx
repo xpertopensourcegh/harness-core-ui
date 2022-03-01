@@ -10,10 +10,6 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import CreateDockerDelegate from '../CreateDockerDelegate'
 
-const featureFlags = {
-  NG_SHOW_DEL_TOKENS: true
-}
-
 const onBack = jest.fn()
 jest.mock('services/portal', () => ({
   useGetDelegateSizes: jest.fn().mockImplementation(() => {
@@ -54,7 +50,7 @@ jest.mock('services/cd-ng', () => ({
 describe('Create Docker Delegate', () => {
   test('render data', () => {
     const { container } = render(
-      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
+      <TestWrapper>
         <CreateDockerDelegate onBack={onBack} />
       </TestWrapper>
     )

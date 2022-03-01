@@ -11,10 +11,6 @@ import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import Step1Setup from '../Step1Setup/Step1Setup'
 
-const featureFlags = {
-  NG_SHOW_DEL_TOKENS: true
-}
-
 const nextStepFn = jest.fn().mockImplementation(() => undefined)
 
 jest.mock('services/portal', () => ({
@@ -57,7 +53,7 @@ jest.mock('services/cd-ng', () => ({
 describe('Create Docker Step1Setup', () => {
   test('render step1 initial', () => {
     const { container } = render(
-      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
+      <TestWrapper>
         <Step1Setup />
       </TestWrapper>
     )
@@ -65,7 +61,7 @@ describe('Create Docker Step1Setup', () => {
   })
   test('render step1 with previous data', async () => {
     const { getByRole } = render(
-      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
+      <TestWrapper>
         <Step1Setup
           prevStepData={{
             name: 'delegate1docker',

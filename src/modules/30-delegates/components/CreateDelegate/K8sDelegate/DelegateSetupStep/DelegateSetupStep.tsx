@@ -36,7 +36,6 @@ import { useStrings } from 'framework/strings'
 
 import type { DelegateProfile } from '@delegates/DelegateInterface'
 
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 
@@ -99,7 +98,6 @@ const getProfile = (data: any, configId: any) => {
 }
 
 const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupStepProps> = props => {
-  const { NG_SHOW_DEL_TOKENS } = useFeatureFlags()
   let initialValues
   if (props?.prevStepData?.delegateYaml) {
     const tags = {}
@@ -115,13 +113,11 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
       description: '',
       size: DelegateSize.LAPTOP,
       sesssionIdentifier: '',
+      tokenName: '',
       k8sConfigDetails: {
         k8sPermissionType: k8sPermissionType.CLUSTER_ADMIN,
         namespace: ''
       }
-    }
-    if (NG_SHOW_DEL_TOKENS) {
-      set(initialValues, 'tokenName', '')
     }
   }
 
@@ -163,7 +159,7 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
   }, [defaultProfile])
 
   React.useEffect(() => {
-    if (NG_SHOW_DEL_TOKENS && defaultToken) {
+    if (defaultToken) {
       formData.tokenName = defaultToken?.name
       setInitValues({ ...formData })
     }
@@ -248,7 +244,7 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
                   ? Yup.string().trim().required(getString('delegates.delegateNamespaceRequired'))
                   : Yup.string().trim()
             }),
-            tokenName: NG_SHOW_DEL_TOKENS ? Yup.string().trim().required() : Yup.string().nullable()
+            tokenName: Yup.string().trim().required()
           })}
         >
           {(formikProps: FormikProps<DelegateSetupDetails>) => {
@@ -292,24 +288,22 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
                           </div>
                         </Container>
                       )}
-                      {NG_SHOW_DEL_TOKENS && (
-                        <Layout.Horizontal className={css.tokensSelectContainer} spacing="small">
-                          <FormInput.Select
-                            items={delegateTokenOptions}
-                            label={getString('delegates.tokens.delegateTokens')}
-                            name="tokenName"
-                          />
-                          <Button
-                            minimal
-                            icon="plus"
-                            onClick={e => {
-                              e.preventDefault()
-                              openCreateTokenModal()
-                            }}
-                            text={getString('add')}
-                          />
-                        </Layout.Horizontal>
-                      )}
+                      <Layout.Horizontal className={css.tokensSelectContainer} spacing="small">
+                        <FormInput.Select
+                          items={delegateTokenOptions}
+                          label={getString('delegates.tokens.delegateTokens')}
+                          name="tokenName"
+                        />
+                        <Button
+                          minimal
+                          icon="plus"
+                          onClick={e => {
+                            e.preventDefault()
+                            openCreateTokenModal()
+                          }}
+                          text={getString('add')}
+                        />
+                      </Layout.Horizontal>
                     </Layout.Vertical>
                     <Layout.Vertical className={css.rightPanel}>
                       <div className={css.permissionsTitle}>{getString('delegates.delegatePermissions.title')}</div>

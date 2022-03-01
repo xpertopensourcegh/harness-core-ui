@@ -495,7 +495,6 @@ exports[`Test delegate buttons click on filter 1`] = `
               </div>
               <div
                 class="Layout--horizontal StyledProps--main"
-                data-testid="groupHostName1"
                 style="width: 25%;"
               >
                 <div
@@ -510,11 +509,6 @@ exports[`Test delegate buttons click on filter 1`] = `
                     >
                       delegate-1
                     </p>
-                  </div>
-                  <div
-                    class="groupHostName"
-                  >
-                    groupHostName1
                   </div>
                 </div>
               </div>
@@ -938,7 +932,6 @@ exports[`Test delegate buttons click on new delegate 1`] = `
               </div>
               <div
                 class="Layout--horizontal StyledProps--main"
-                data-testid="groupHostName1"
                 style="width: 25%;"
               >
                 <div
@@ -953,11 +946,6 @@ exports[`Test delegate buttons click on new delegate 1`] = `
                     >
                       delegate-1
                     </p>
-                  </div>
-                  <div
-                    class="groupHostName"
-                  >
-                    groupHostName1
                   </div>
                 </div>
               </div>

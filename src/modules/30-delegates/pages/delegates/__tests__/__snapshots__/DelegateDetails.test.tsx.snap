@@ -150,9 +150,6 @@ exports[`Delegates Details Page render data 1`] = `
           </svg>
         </span>
       </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-      />
     </div>
   </div>
   <div

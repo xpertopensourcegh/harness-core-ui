@@ -43,20 +43,12 @@ export const delegateGroupsMock: DelegateGroupDetails[] = [
     delegateInstanceDetails: [],
     delegateType: 'KUBERNETES',
     groupCustomSelectors: ['customtag1', 'customtag2'],
-    groupHostName: 'groupHostName1',
     groupId: 'dsadsadsad22',
     groupImplicitSelectors: {
       implicitSelector1: 'GROUP_SELECTORS'
     },
     groupName: 'delegate-1',
-    lastHeartBeat: 1616541640941,
-    sizeDetails: {
-      cpu: 1,
-      label: 'cpu1',
-      ram: 16,
-      replicas: 2,
-      size: 'EXTRA_SMALL'
-    }
+    lastHeartBeat: 1616541640941
   },
   {
     activelyConnected: false,
@@ -67,18 +59,10 @@ export const delegateGroupsMock: DelegateGroupDetails[] = [
     delegateInstanceDetails: [],
     delegateType: 'KUBERNETES',
     groupCustomSelectors: [],
-    groupHostName: 'groupHostName1',
     groupId: 'groupId1',
     groupImplicitSelectors: {},
     groupName: 'Group1',
-    lastHeartBeat: 20000,
-    sizeDetails: {
-      cpu: 1,
-      label: 'cpu1',
-      ram: 16,
-      replicas: 2,
-      size: 'EXTRA_SMALL'
-    }
+    lastHeartBeat: 20000
   }
 ]
 

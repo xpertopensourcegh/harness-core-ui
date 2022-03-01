@@ -20,10 +20,6 @@ export default {
   groupId: 'groupId1',
   groupName: 'group-name-1',
   lastHeartBeat: 1231231,
-  sizeDetails: {
-    ram: 3000,
-    cpu: 3
-  },
   groupImplicitSelectors: {
     DELEGATE_NAME: 'DELEGATE_NAME',
     HOST_NAME: 'HOST_NAME',
