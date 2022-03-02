@@ -24,6 +24,7 @@ export type AuditFilterProperties = FilterProperties & {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'CREATE_TOKEN'
     | 'REVOKE_TOKEN'
     | 'LOGIN'
     | 'LOGIN2FA'
@@ -179,6 +180,35 @@ export interface EntityDetailProtoDTO {
     | 'VERIFY_STEP'
     | 'OPAPOLICIES'
     | 'POLICY_STEP'
+    | 'ARTIFACTORY_UPLOAD'
+    | 'GCS_UPLOAD'
+    | 'S3_UPLOAD'
+    | 'BUILD_AND_PUSH_GCR'
+    | 'BUILD_AND_PUSH_ECR'
+    | 'BUILD_AND_PUSH_DOCKER_REGISTRY'
+    | 'RUN_STEP'
+    | 'RUN_TEST'
+    | 'PLUGIN'
+    | 'RESTORE_CACHE_GCS'
+    | 'RESTORE_CACHE_S3'
+    | 'SAVE_CACHE_GCS'
+    | 'SAVE_CACHE_S3'
+    | 'FLAG_CONFIGURATION'
+    | 'SECURITY'
+    | 'K8S_APPLY_STEP'
+    | 'K8S_BLUE_GREEN_DEPLOY_STEP'
+    | 'K8S_ROLLING_DEPLOY_STEP'
+    | 'K8S_ROLLING_ROLLBACK_STEP'
+    | 'K8S_SCALE_STEP'
+    | 'K8S_DELETE_STEP'
+    | 'K8S_BG_SWAP_SERVICES_STEP'
+    | 'K8S_CANARY_DELETE_STEP'
+    | 'TERRAFORM_APPLY_STEP'
+    | 'TERRAFORM_PLAN_STEP'
+    | 'TERRAFORM_DESTROY_STEP'
+    | 'TERRAFORM_ROLLBACK_STEP'
+    | 'HELM_DEPLOY_STEP'
+    | 'HELM_ROLLBACK_STEP'
     | 'UNRECOGNIZED'
   typeValue?: number
   unknownFields?: UnknownFieldSet
@@ -283,6 +313,7 @@ export interface Error {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -533,6 +564,7 @@ export interface Error {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -547,6 +579,7 @@ export interface Error {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -561,6 +594,12 @@ export interface Error {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
+    | 'POLICY_SET_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -592,6 +631,7 @@ export interface Failure {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -842,6 +882,7 @@ export interface Failure {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -856,6 +897,7 @@ export interface Failure {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -870,6 +912,12 @@ export interface Failure {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
+    | 'POLICY_SET_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1565,6 +1613,7 @@ export interface ResponseMessage {
     | 'USER_DOMAIN_NOT_ALLOWED'
     | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
     | 'RESOURCE_NOT_FOUND'
+    | 'INVALID_FORMAT'
     | 'ROLE_DOES_NOT_EXIST'
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
@@ -1815,6 +1864,7 @@ export interface ResponseMessage {
     | 'INSTANCE_STATS_PROCESS_ERROR'
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'CG_LICENSE_USAGE_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
     | 'UNRESOLVED_EXPRESSIONS_ERROR'
     | 'KRYO_HANDLER_NOT_FOUND_ERROR'
@@ -1829,6 +1879,7 @@ export interface ResponseMessage {
     | 'SCM_UNPROCESSABLE_ENTITY'
     | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
+    | 'SCM_INTERNAL_SERVER_ERROR'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
@@ -1843,6 +1894,12 @@ export interface ResponseMessage {
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
     | 'ENTITY_REFERENCE_EXCEPTION'
+    | 'INVALID_INPUT_SET'
+    | 'INVALID_OVERLAY_INPUT_SET'
+    | 'RESOURCE_ALREADY_EXISTS'
+    | 'INVALID_JSON_PAYLOAD'
+    | 'POLICY_EVALUATION_FAILURE'
+    | 'POLICY_SET_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -1853,6 +1910,7 @@ export interface ResponseMessage {
     | 'APPLICATION_ERROR'
     | 'AUTHORIZATION_ERROR'
     | 'TIMEOUT_ERROR'
+    | 'POLICY_EVALUATION_FAILURE'
   )[]
   level?: 'INFO' | 'ERROR'
   message?: string
@@ -1918,6 +1976,10 @@ export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
   sampleMap?: {
     [key: string]: string
   }
+}
+
+export type ScmErrorMetadataDTO = ErrorMetadataDTO & {
+  conflictCommitId?: string
 }
 
 export interface ServiceDescriptor {
@@ -2124,6 +2186,7 @@ export interface TemplateResponse {
 export interface TemplateSummaryResponse {
   accountId?: string
   childType?: string
+  createdAt?: number
   description?: string
   entityValidityDetails?: EntityValidityDetails
   gitDetails?: EntityGitDetails
@@ -2265,7 +2328,7 @@ export interface YamlProperties {
 
 export type FilterDTORequestBody = FilterDTO
 
-export type CreateTemplateBodyRequestBody = string
+export type GetTemplateReferencesBodyRequestBody = string
 
 export interface GetFilterListQueryParams {
   pageIndex?: number
@@ -2605,7 +2668,7 @@ export type CreateTemplateProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -2619,7 +2682,7 @@ export const CreateTemplate = (props: CreateTemplateProps) => (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >
     verb="POST"
@@ -2634,7 +2697,7 @@ export type UseCreateTemplateProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -2648,7 +2711,7 @@ export const useCreateTemplate = (props: UseCreateTemplateProps) =>
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >('POST', `/templates`, { base: getConfig('template/api'), ...props })
 
@@ -2660,7 +2723,7 @@ export const createTemplatePromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -2669,7 +2732,7 @@ export const createTemplatePromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >('POST', getConfig('template/api'), `/templates`, props, signal)
 
@@ -2968,7 +3031,7 @@ export type GetTemplateReferencesProps = Omit<
     ResponseListEntityDetailProtoDTO,
     Failure | Error,
     GetTemplateReferencesQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -2979,7 +3042,7 @@ export const GetTemplateReferences = (props: GetTemplateReferencesProps) => (
     ResponseListEntityDetailProtoDTO,
     Failure | Error,
     GetTemplateReferencesQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >
     verb="POST"
@@ -2994,7 +3057,7 @@ export type UseGetTemplateReferencesProps = Omit<
     ResponseListEntityDetailProtoDTO,
     Failure | Error,
     GetTemplateReferencesQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -3005,7 +3068,7 @@ export const useGetTemplateReferences = (props: UseGetTemplateReferencesProps) =
     ResponseListEntityDetailProtoDTO,
     Failure | Error,
     GetTemplateReferencesQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >('POST', `/templates/templateReferences`, { base: getConfig('template/api'), ...props })
 
@@ -3014,7 +3077,7 @@ export const getTemplateReferencesPromise = (
     ResponseListEntityDetailProtoDTO,
     Failure | Error,
     GetTemplateReferencesQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -3023,7 +3086,7 @@ export const getTemplateReferencesPromise = (
     ResponseListEntityDetailProtoDTO,
     Failure | Error,
     GetTemplateReferencesQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     void
   >('POST', getConfig('template/api'), `/templates/templateReferences`, props, signal)
 
@@ -3037,6 +3100,7 @@ export interface UpdateExistingTemplateLabelQueryParams {
   filePath?: string
   commitMsg?: string
   lastObjectId?: string
+  resolvedConflictCommitId?: string
   baseBranch?: string
   setDefaultTemplate?: boolean
   comments?: string
@@ -3052,7 +3116,7 @@ export type UpdateExistingTemplateLabelProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -3071,7 +3135,7 @@ export const UpdateExistingTemplateLabel = ({
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >
     verb="PUT"
@@ -3086,7 +3150,7 @@ export type UseUpdateExistingTemplateLabelProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -3105,7 +3169,7 @@ export const useUpdateExistingTemplateLabel = ({
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >(
     'PUT',
@@ -3126,7 +3190,7 @@ export const updateExistingTemplateLabelPromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   > & { templateIdentifier: string; versionLabel: string },
   signal?: RequestInit['signal']
@@ -3135,7 +3199,7 @@ export const updateExistingTemplateLabelPromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    GetTemplateReferencesBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >('PUT', getConfig('template/api'), `/templates/update/${templateIdentifier}/${versionLabel}`, props, signal)
 

@@ -40,6 +40,7 @@ export interface ActionResponse {
   isBETemplateUpdated?: boolean
   templateView?: TemplateViewData
   stableVersion?: string
+  lastPublishedVersion?: string
   versions?: string[]
   isLoading?: boolean
   gitDetails?: EntityGitDetails

@@ -29,6 +29,7 @@ createNewModal:
   namePlaceholder: 'New {{entity}} Name'
   identifierPlaceholder: 'new_{{entity}}_name'
   versionPlaceholder: 'Ex: Version1'
+  lastPublishedVersion: 'Last published:'
 saveAsNewLabelModal:
   heading: 'Save as new version'
 templateSettingsModal:

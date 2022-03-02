@@ -8,7 +8,7 @@
 import React from 'react'
 import merge from 'lodash-es/merge'
 import { deleteDB, IDBPDatabase, openDB } from 'idb'
-import { cloneDeep, defaultTo, isEqual } from 'lodash-es'
+import { cloneDeep, defaultTo, isEqual, maxBy } from 'lodash-es'
 import { Color, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import SessionToken from 'framework/utils/SessionToken'
@@ -54,6 +54,7 @@ interface TemplatePayload {
   gitDetails?: EntityGitDetails
   entityValidityDetails?: EntityValidityDetails
   templateYaml?: string
+  lastPublishedVersion?: string
 }
 
 const getId = (
@@ -122,6 +123,7 @@ interface DispatchTemplateSuccessArgs {
   templateWithGitDetails: TemplateSummaryResponse | undefined
   id: string
   stableVersion: string | undefined
+  lastPublishedVersion: string | undefined
 }
 const dispatchTemplateSuccess = async (args: DispatchTemplateSuccessArgs): Promise<void> => {
   const {
@@ -133,7 +135,8 @@ const dispatchTemplateSuccess = async (args: DispatchTemplateSuccessArgs): Promi
     versions,
     templateWithGitDetails,
     id,
-    stableVersion
+    stableVersion,
+    lastPublishedVersion
   } = args
   if (data && !forceUpdate) {
     dispatch(
@@ -144,6 +147,7 @@ const dispatchTemplateSuccess = async (args: DispatchTemplateSuccessArgs): Promi
         isBETemplateUpdated: !isEqual(template, data.originalTemplate),
         isUpdated: !isEqual(template, data.template),
         versions: versions,
+        lastPublishedVersion,
         stableVersion: data.stableVersion,
         gitDetails: templateWithGitDetails?.gitDetails?.objectId
           ? templateWithGitDetails.gitDetails
@@ -163,6 +167,7 @@ const dispatchTemplateSuccess = async (args: DispatchTemplateSuccessArgs): Promi
       originalTemplate: cloneDeep(template),
       isUpdated: false,
       versions: versions,
+      lastPublishedVersion,
       stableVersion: stableVersion,
       gitDetails: templateWithGitDetails?.gitDetails?.objectId
         ? templateWithGitDetails.gitDetails
@@ -182,6 +187,7 @@ const dispatchTemplateSuccess = async (args: DispatchTemplateSuccessArgs): Promi
         isBETemplateUpdated: false,
         isUpdated: false,
         versions: versions,
+        lastPublishedVersion,
         stableVersion: stableVersion,
         gitDetails: payload.gitDetails,
         entityValidityDetails: payload.entityValidityDetails,
@@ -198,6 +204,7 @@ const dispatchTemplateSuccess = async (args: DispatchTemplateSuccessArgs): Promi
         isBETemplateUpdated: false,
         isUpdated: false,
         versions: versions,
+        lastPublishedVersion,
         stableVersion: stableVersion,
         gitDetails: templateWithGitDetails?.gitDetails?.objectId ? templateWithGitDetails.gitDetails : {},
         entityValidityDetails: defaultTo(templateWithGitDetails?.entityValidityDetails, {}),
@@ -238,6 +245,7 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
       const defaultVersion = defaultTo(templatesList.find(item => item.stableTemplate)?.versionLabel, '')
       const selectedVersion = versions.includes(versionLabel) ? versionLabel : defaultVersion
       const stableVersion = templatesList.find(item => item.stableTemplate)?.versionLabel
+      const lastPublishedVersion = maxBy(templatesList, 'createdAt')?.versionLabel
       const templateWithGitDetails = templatesList.find(item => item.versionLabel === selectedVersion)
       id = getId(
         queryParams.accountIdentifier,
@@ -270,6 +278,7 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
         forceUpdate,
         id,
         stableVersion,
+        lastPublishedVersion,
         template,
         templateWithGitDetails,
         templateYamlStr,

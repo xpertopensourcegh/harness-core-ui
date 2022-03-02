@@ -7,7 +7,7 @@
 
 import React, { Dispatch, useState, SetStateAction, useContext } from 'react'
 import * as Yup from 'yup'
-import { isEmpty, omit } from 'lodash-es'
+import { isEmpty, omit, defaultTo } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import {
   Formik,
@@ -18,7 +18,8 @@ import {
   Color,
   Button,
   ButtonVariation,
-  Container
+  Container,
+  Icon
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -63,6 +64,7 @@ export interface ModalProps {
   promise: (values: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<UseSaveSuccessResponse>
   onSuccess?: (values: NGTemplateInfoConfig) => void
   onFailure?: (error: Error) => void
+  lastPublishedVersion?: string
 }
 
 export interface TemplateConfigValues extends NGTemplateInfoConfigWithGitDetails {
@@ -90,7 +92,15 @@ const MAX_VERSION_LABEL_LENGTH = 63
 
 const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
   const { initialValues, setPreviewValues, onClose, modalProps, showGitFields, gitDetails } = props
-  const { title, disabledFields = [], shouldGetComment = false, promise, onSuccess, onFailure } = modalProps
+  const {
+    title,
+    disabledFields = [],
+    shouldGetComment = false,
+    promise,
+    onSuccess,
+    onFailure,
+    lastPublishedVersion
+  } = modalProps
   const { getString } = useStrings()
   const [isEdit, setIsEdit] = React.useState<boolean>()
   const { isGitSyncEnabled } = useAppStore()
@@ -149,7 +159,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
         font={{ weight: 'bold', size: 'medium' }}
         margin={{ bottom: 'xlarge', left: 0, right: 0 }}
       >
-        {title || ''}
+        {defaultTo(title, '')}
       </Text>
       <Formik<TemplateConfigValues>
         initialValues={{ ...initialValues, comment: '' }}
@@ -221,6 +231,30 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                           label={versionLabelText}
                           disabled={disabledFields.includes(Fields.VersionLabel) || isReadonly}
                         />
+                        {lastPublishedVersion && (
+                          <Container
+                            border={{ radius: 4, color: Color.BLUE_100 }}
+                            background={Color.BLUE_100}
+                            flex={{ alignItems: 'center' }}
+                            padding={'small'}
+                            margin={{ bottom: 'medium' }}
+                          >
+                            <Layout.Horizontal spacing="small" flex={{ justifyContent: 'start' }}>
+                              <Icon name="info-messaging" size={18} />
+                              <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'small' }}>
+                                {getString('templatesLibrary.createNewModal.lastPublishedVersion')}
+                              </Text>
+                              <Text
+                                lineClamp={1}
+                                color={Color.BLACK}
+                                font={{ size: 'small' }}
+                                margin={{ left: 'none' }}
+                              >
+                                {lastPublishedVersion}
+                              </Text>
+                            </Layout.Horizontal>
+                          </Container>
+                        )}
                         {shouldGetComment && (
                           <FormInput.TextArea
                             name="comment"
@@ -284,7 +318,7 @@ export const TemplateConfigModal = (props: ConfigModalProps): JSX.Element => {
         })
       }),
       ...((emptyFields.includes(Fields.VersionLabel) || initialValues.versionLabel === DefaultNewVersionLabel) && {
-        versionLabel: 'Version1'
+        versionLabel: undefined
       }),
       ...(emptyFields.includes(Fields.Description) && { description: undefined }),
       ...(emptyFields.includes(Fields.Tags) && { tags: undefined }),

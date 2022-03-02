@@ -2973,6 +2973,7 @@ export interface StringsMap {
   'templatesLibrary.createNewModal.heading': string
   'templatesLibrary.createNewModal.identifierPlaceholder': string
   'templatesLibrary.createNewModal.label': string
+  'templatesLibrary.createNewModal.lastPublishedVersion': string
   'templatesLibrary.createNewModal.nameError': string
   'templatesLibrary.createNewModal.namePlaceholder': string
   'templatesLibrary.createNewModal.versionLabel': string

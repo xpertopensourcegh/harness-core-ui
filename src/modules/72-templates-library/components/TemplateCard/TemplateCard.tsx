@@ -128,9 +128,11 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
             <Container height={1} background={Color.GREY_100} />
           </>
         )}
-        <Container>
-          <Tag className={css.version}>{template.versionLabel}</Tag>
-        </Container>
+        {template.versionLabel && (
+          <Container>
+            <Tag className={css.version}>{template.versionLabel}</Tag>
+          </Container>
+        )}
         {(template as TemplateSummaryResponse).lastUpdatedAt && (
           <Container>
             <Layout.Horizontal spacing={'xsmall'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>

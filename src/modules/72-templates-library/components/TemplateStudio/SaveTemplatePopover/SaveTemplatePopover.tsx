@@ -35,7 +35,7 @@ export interface SaveTemplatePopoverProps {
 
 export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.ReactElement {
   const {
-    state: { template, yamlHandler, gitDetails, isUpdated, stableVersion },
+    state: { template, yamlHandler, gitDetails, isUpdated, stableVersion, lastPublishedVersion },
     setLoading,
     fetchTemplate,
     deleteTemplateCache,
@@ -129,7 +129,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
         promise: saveAndPublish,
         disabledFields: [Fields.Name, Fields.Identifier, Fields.Description, Fields.Tags],
         emptyFields: [Fields.VersionLabel],
-        shouldGetComment: !isGitSyncEnabled
+        shouldGetComment: !isGitSyncEnabled,
+        lastPublishedVersion
       })
       showConfigModal()
     })
