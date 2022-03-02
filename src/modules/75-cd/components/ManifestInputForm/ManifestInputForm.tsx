@@ -42,6 +42,7 @@ import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecFor
 
 import css from './ManifestInputForm.module.scss'
 
+// This component is redundant(not being imported anywhere), and will be deleted soon.Please do not add to this comonent
 const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   template,
   path,

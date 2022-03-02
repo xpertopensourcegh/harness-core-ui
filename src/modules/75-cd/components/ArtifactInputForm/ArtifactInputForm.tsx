@@ -137,6 +137,7 @@ const setPrimaryInitialValues = (initialValues: K8SDirectServiceStep, formik: an
   return initialValues
 }
 
+// This component is redundant(not being imported anywhere), and will be deleted soon.Please do not add to this comonent
 const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   template,
   path,

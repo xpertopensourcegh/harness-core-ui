@@ -113,7 +113,6 @@ export const setPrimaryInitialValues = (
       }
 
       merge(initialArtifactValue, {
-        identifier: selectedArtifact?.identifier,
         type: selectedArtifact?.type,
         spec: {
           ...selectedArtifact?.spec
@@ -141,7 +140,6 @@ export const setSidecarInitialValues = (
       }
 
       merge(initialArtifactValue, {
-        identifier: selectedArtifact?.identifier,
         type: selectedArtifact?.type,
         spec: {
           ...selectedArtifact?.spec
