@@ -9,17 +9,20 @@ import React from 'react'
 import { render, act, fireEvent, queryByAttribute, waitFor } from '@testing-library/react'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { useGetJiraStatuses } from 'services/cd-ng'
 import { TestStepWidget, factory } from '../../__tests__/StepTestUtil'
 import { JiraUpdate } from '../JiraUpdate'
 import {
   getJiraUpdateDeploymentModeProps,
   getJiraUpdateEditModeProps,
+  getJiraUpdateEditModePropsWithConnectorId,
   getJiraUpdateEditModePropsWithValues,
   getJiraUpdateInputVariableModeProps,
   mockConnectorResponse,
   mockProjectMetadataResponse,
   mockProjectsResponse,
-  mockStatusResponse
+  mockStatusResponse,
+  mockStatusErrorResponse
 } from './JiraUpdateTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -28,10 +31,41 @@ jest.mock('services/cd-ng', () => ({
   useGetConnector: () => mockConnectorResponse,
   useGetJiraProjects: () => mockProjectsResponse,
   useGetJiraIssueCreateMetadata: () => mockProjectMetadataResponse,
-  useGetJiraStatuses: () => mockStatusResponse
+  useGetJiraStatuses: jest.fn()
 }))
 
+describe('Jira Update fetch status', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetJiraStatuses.mockImplementation(() => mockStatusErrorResponse)
+  })
+  beforeEach(() => {
+    factory.registerStep(new JiraUpdate())
+  })
+
+  test('show error if failed to fetch status', () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getJiraUpdateEditModePropsWithConnectorId()
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.JiraUpdate}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+      />
+    )
+    fireEvent.click(getByText('common.optionalConfig'))
+    expect(container).toBeTruthy()
+  })
+})
+
 describe('Jira Update tests', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetJiraStatuses.mockImplementation(() => mockStatusResponse)
+  })
   beforeEach(() => {
     factory.registerStep(new JiraUpdate())
   })
@@ -154,6 +188,7 @@ describe('Jira Update tests', () => {
         readonly={true}
       />
     )
+
     expect(container).toMatchSnapshot('editstage-readonly')
   })
 

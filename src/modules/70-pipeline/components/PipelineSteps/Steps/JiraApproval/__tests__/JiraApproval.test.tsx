@@ -9,6 +9,7 @@ import React from 'react'
 import { render, act, fireEvent, queryByAttribute, waitFor } from '@testing-library/react'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { useGetJiraProjects } from 'services/cd-ng'
 import { TestStepWidget, factory } from '../../__tests__/StepTestUtil'
 import { JiraApproval } from '../JiraApproval'
 import { getDefaultCriterias } from '../helper'
@@ -17,20 +18,52 @@ import {
   getJiraApprovalDeploymentModeProps,
   mockConnectorResponse,
   mockProjectMetadataResponse,
+  mockProjectsErrorResponse,
   mockProjectsResponse,
   getJiraApprovalEditModeProps,
-  getJiraApprovalEditModePropsWithValues
+  getJiraApprovalEditModePropsWithValues,
+  getJiraApprovalEditModePropsWithConnectorId
 } from './JiraApprovalTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetConnector: () => mockConnectorResponse,
-  useGetJiraProjects: () => mockProjectsResponse,
+  useGetJiraProjects: jest.fn(),
   useGetJiraIssueCreateMetadata: () => mockProjectMetadataResponse
 }))
 
+describe('Jira Approval fetch projects', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetJiraProjects.mockImplementation(() => mockProjectsErrorResponse)
+  })
+  beforeEach(() => {
+    factory.registerStep(new JiraApproval())
+  })
+
+  test('show error if failed to fetch projects', () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getJiraApprovalEditModePropsWithConnectorId()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.JiraApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+})
+
 describe('Jira Approval tests', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetJiraProjects.mockImplementation(() => mockProjectsResponse)
+  })
   beforeEach(() => {
     factory.registerStep(new JiraApproval())
   })

@@ -36,6 +36,24 @@ export const getJiraCreateEditModeProps = (): JiraCreateStepModeProps => ({
   stepViewType: StepViewType.Edit
 })
 
+export const getJiraCreateEditModePropsWithConnectorId = (): JiraCreateStepModeProps => ({
+  initialValues: {
+    name: '',
+    identifier: '',
+    type: 'JiraCreate',
+    timeout: '5s',
+    spec: {
+      connectorRef: 'cid',
+      projectKey: '',
+      issueType: '',
+      fields: []
+    }
+  },
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
+  stepViewType: StepViewType.Edit
+})
+
 export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps => ({
   initialValues: {
     name: '',
@@ -216,6 +234,32 @@ export const mockProjectsResponse: UseGetMockData<ResponseListJiraProjectBasicNG
         name: 'p3'
       }
     ]
+  }
+}
+
+export const mockProjectsErrorResponse: ResponseListJiraProjectBasicNG = {
+  // eslint-disable-next-line
+  // @ts-ignore
+  refetch: jest.fn(),
+  error: {
+    message: 'Failed to fetch: 400 Bad Request',
+    data: {
+      code: 'INVALID_REQUEST',
+      correlationId: '',
+      status: 'ERROR',
+      metaData: null,
+      message: 'mockMessage',
+      responseMessages: [
+        {
+          code: 'INVALID_REQUEST',
+          level: 'ERROR',
+          message: 'mockMessage',
+          exception: null,
+          failureTypes: []
+        }
+      ]
+    },
+    status: '400'
   }
 }
 

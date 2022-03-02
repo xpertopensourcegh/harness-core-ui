@@ -40,6 +40,27 @@ export const getJiraUpdateEditModeProps = (): JiraUpdateStepModeProps => ({
   stepViewType: StepViewType.Edit
 })
 
+export const getJiraUpdateEditModePropsWithConnectorId = (): JiraUpdateStepModeProps => ({
+  initialValues: {
+    name: '',
+    type: 'JiraUpdate',
+    identifier: '',
+    timeout: '5s',
+    spec: {
+      connectorRef: 'cid',
+      issueKey: '',
+      transitionTo: {
+        status: '',
+        transitionName: ''
+      },
+      fields: []
+    }
+  },
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
+  stepViewType: StepViewType.Edit
+})
+
 export const getJiraUpdateEditModePropsWithValues = (): JiraUpdateStepModeProps => ({
   initialValues: {
     timeout: '1d',
@@ -187,6 +208,32 @@ export const mockStatusResponse: ResponseListJiraStatusNG = {
     { name: 'Done', id: 'Done' },
     { name: 'ToDo', id: 'ToDo' }
   ]
+}
+
+export const mockStatusErrorResponse: ResponseListJiraStatusNG = {
+  // eslint-disable-next-line
+  // @ts-ignore
+  refetch: jest.fn(),
+  error: {
+    message: 'Failed to fetch: 400 Bad Request',
+    data: {
+      code: 'INVALID_REQUEST',
+      correlationId: '',
+      status: 'ERROR',
+      metaData: null,
+      message: 'mockMessage',
+      responseMessages: [
+        {
+          code: 'INVALID_REQUEST',
+          level: 'ERROR',
+          message: 'mockMessage',
+          exception: null,
+          failureTypes: []
+        }
+      ]
+    },
+    status: '400'
+  }
 }
 
 export const mockProjectsResponse: UseGetMockData<ResponseListJiraProjectBasicNG> = {

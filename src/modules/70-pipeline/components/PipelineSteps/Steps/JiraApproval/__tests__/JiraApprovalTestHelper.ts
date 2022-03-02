@@ -40,6 +40,26 @@ export const getJiraApprovalEditModeProps = (): JiraApprovalStepModeProps => ({
   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
 })
 
+export const getJiraApprovalEditModePropsWithConnectorId = (): JiraApprovalStepModeProps => ({
+  initialValues: {
+    timeout: '5s',
+    name: '',
+    type: StepType.JiraApproval,
+    identifier: '',
+    spec: {
+      connectorRef: 'cid',
+      projectKey: '',
+      issueKey: '',
+      issueType: '',
+      approvalCriteria: getDefaultCriterias(),
+      rejectionCriteria: getDefaultCriterias()
+    }
+  },
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
+  stepViewType: StepViewType.Edit
+})
+
 export const getJiraApprovalEditModePropsWithValues = (): JiraApprovalStepModeProps => ({
   initialValues: {
     timeout: '10m',
@@ -232,6 +252,32 @@ export const mockProjectsResponse: UseGetMockData<ResponseListJiraProjectBasicNG
         name: 'p3'
       }
     ]
+  }
+}
+
+export const mockProjectsErrorResponse: ResponseListJiraProjectBasicNG = {
+  // eslint-disable-next-line
+  // @ts-ignore
+  refetch: jest.fn(),
+  error: {
+    message: 'Failed to fetch: 400 Bad Request',
+    data: {
+      code: 'INVALID_REQUEST',
+      correlationId: '',
+      status: 'ERROR',
+      metaData: null,
+      message: 'mockMessage',
+      responseMessages: [
+        {
+          code: 'INVALID_REQUEST',
+          level: 'ERROR',
+          message: 'mockMessage',
+          exception: null,
+          failureTypes: []
+        }
+      ]
+    },
+    status: '400'
   }
 }
 
