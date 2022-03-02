@@ -25,7 +25,12 @@ import { Classes } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
 import { parse } from 'yaml'
 import cx from 'classnames'
-import { EnvironmentRequestDTO, EnvironmentResponseDTO, useUpsertEnvironmentV2 } from 'services/cd-ng'
+import {
+  EnvironmentRequestDTO,
+  EnvironmentResponseDTO,
+  useUpsertEnvironmentV2,
+  useCreateEnvironmentV2
+} from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetSchemaYaml } from 'services/pipeline-ng'
@@ -38,7 +43,6 @@ import css from './EnvironmentsList.module.scss'
 
 interface NewEditEnvironmentModalProps {
   isEdit: boolean
-  isEnvironment: boolean
   data: EnvironmentResponseDTO
   envIdentifier?: string
   onCreateOrUpdate(data: EnvironmentRequestDTO): void
@@ -61,7 +65,6 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps> = ({
   isEdit,
   data,
-  isEnvironment,
   onCreateOrUpdate,
   closeModal
 }): JSX.Element => {
@@ -74,6 +77,11 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
   }>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
+  const { loading: createLoading, mutate: createEnvironment } = useCreateEnvironmentV2({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
   const { loading: updateLoading, mutate: updateEnvironment } = useUpsertEnvironmentV2({
     queryParams: {
       accountIdentifier: accountId
@@ -91,7 +99,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
           showError(getString('fieldRequired', { field: 'Type' }))
         } else if (isEdit && id !== values.identifier) {
           showError(getString('cd.editIdError', { id: id }))
-        } else if (isEdit && !isEnvironment) {
+        } else if (isEdit) {
           const response = await updateEnvironment({
             ...omit(values, 'accountId', 'deleted'),
             orgIdentifier,
@@ -103,7 +111,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
             onCreateOrUpdate(values)
           }
         } else {
-          const response = await updateEnvironment({ ...values, orgIdentifier, projectIdentifier })
+          const response = await createEnvironment({ ...values, orgIdentifier, projectIdentifier })
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.environmentCreated'))
@@ -115,7 +123,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isEnvironment]
+    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit]
   )
   React.useEffect(() => {
     inputRef.current?.focus()
@@ -162,7 +170,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
     },
     [yamlHandler?.getLatestYaml, data]
   )
-  if (updateLoading) {
+  if (createLoading || updateLoading) {
     return <PageSpinner />
   }
   return (

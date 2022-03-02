@@ -25,7 +25,7 @@ import type { FormikProps } from 'formik'
 import { NameIdDescriptionTags } from '@common/components'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetSchemaYaml } from 'services/pipeline-ng'
-import { ServiceRequestDTO, ServiceResponseDTO, useUpsertServiceV2 } from 'services/cd-ng'
+import { ServiceRequestDTO, ServiceResponseDTO, useUpsertServiceV2, useCreateServicesV2 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -71,6 +71,11 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
   }>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
+  const { loading: createLoading, mutate: createService } = useCreateServicesV2({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
   const { loading: updateLoading, mutate: updateService } = useUpsertServiceV2({
     queryParams: {
       accountIdentifier: accountId
@@ -102,11 +107,7 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
             onCreateOrUpdate(values)
           }
         } else {
-          const response = await updateService({
-            ...omit(values, 'accountId', 'deleted'),
-            orgIdentifier,
-            projectIdentifier
-          })
+          const response = await createService([{ ...values, orgIdentifier, projectIdentifier }])
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.serviceCreated'))
@@ -152,7 +153,7 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
     },
     [yamlHandler?.getLatestYaml, data]
   )
-  if (updateLoading) {
+  if (createLoading || updateLoading) {
     return <PageSpinner />
   }
 

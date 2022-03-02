@@ -92,7 +92,6 @@ export const EnvironmentList: React.FC = () => {
                 : { name: '', identifier: '', orgIdentifier, projectIdentifier }
             }
             isEdit={editable}
-            isEnvironment
             onCreateOrUpdate={() => {
               ;(fetchDeploymentList.current as () => void)?.()
               hideModal()
