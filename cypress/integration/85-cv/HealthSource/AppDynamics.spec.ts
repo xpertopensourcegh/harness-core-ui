@@ -39,7 +39,7 @@ describe('Create empty monitored service', () => {
     cy.visitChangeIntelligence()
   })
 
-  it('Add new AppDynamics monitored service ', () => {
+  it.skip('Add new AppDynamics monitored service ', () => {
     cy.intercept('GET', applicationCall, applicationsResponse).as('ApplicationCall')
     cy.intercept('GET', metricPackCall, metricPackResponse).as('MetricPackCall')
     cy.intercept('GET', tiersCall, tiersResponse).as('TierCall')
@@ -95,7 +95,7 @@ describe('Create empty monitored service', () => {
     cy.contains('span', 'Submit').click({ force: true })
   })
 
-  it('Add new AppDynamics monitored service with custom metric', () => {
+  it.skip('Add new AppDynamics monitored service with custom metric', () => {
     cy.intercept('GET', applicationCall, applicationsResponse).as('ApplicationCall')
     cy.intercept('GET', metricPackCall, metricPackResponse).as('MetricPackCall')
     cy.intercept('GET', tiersCall, tiersResponse).as('TierCall')
@@ -165,7 +165,7 @@ describe('Create empty monitored service', () => {
     cy.contains('span', 'Submit').click({ force: true })
   })
 
-  it('Add new AppDynamics monitored service with multiple custom metric', () => {
+  it.skip('Add new AppDynamics monitored service with multiple custom metric', () => {
     cy.intercept('GET', applicationCall, applicationsResponse).as('ApplicationCall')
     cy.intercept('GET', metricPackCall, metricPackResponse).as('MetricPackCall')
     cy.intercept('GET', tiersCall, tiersResponse).as('TierCall')
@@ -272,7 +272,7 @@ describe('Create empty monitored service', () => {
     cy.get('.useConfirmationDialog--dialog button[type="button"]').first().click()
   })
 
-  it('should populate AppDynamics healthsource edit mode', () => {
+  it.skip('should populate AppDynamics healthsource edit mode', () => {
     cy.intercept('GET', '/cv/api/monitored-service/service1_env1?*', dataforMS).as('monitoredServiceCall')
     cy.intercept('GET', applicationCall, applicationsResponse).as('ApplicationCall')
     cy.intercept('GET', metricPackCall, metricPackResponse).as('MetricPackCall')

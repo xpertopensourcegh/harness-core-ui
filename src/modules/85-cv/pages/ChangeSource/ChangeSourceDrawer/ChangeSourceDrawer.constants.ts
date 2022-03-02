@@ -18,7 +18,8 @@ export enum ChangeSourceTypes {
 export const ChangeSourceCategoryName = {
   DEPLOYMENT: 'Deployment',
   INFRASTRUCTURE: 'Infrastructure',
-  ALERT: 'Alert'
+  ALERT: 'Alert',
+  INCIDENTS: 'Incidents'
 }
 
 export const ChangeSourceCategoryOptions = [

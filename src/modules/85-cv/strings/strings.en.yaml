@@ -782,7 +782,7 @@ newMetric: New Metric
 cvChanges:
   changeTypeFilterDefault: 'Change Types'
   sourceFilterDefault: 'Sources'
-  changesTimeline: 'Changes TimeLine'
+  changesTimeline: 'Changes Timeline'
   monitoredSVC: 'Monitored SVC'
 componentValidations:
   requestMethod: Request Method is required

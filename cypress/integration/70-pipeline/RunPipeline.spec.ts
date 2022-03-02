@@ -63,7 +63,7 @@ describe('RUN PIPELINE MODAL', () => {
       cy.clickSubmit()
     })
 
-    it('should display the delete pipeline stage modal', () => {
+    it.skip('should display the delete pipeline stage modal', () => {
       cy.wait(2000)
       cy.get('[icon="play"]').click({ force: true })
       cy.wait(2000)
@@ -74,7 +74,7 @@ describe('RUN PIPELINE MODAL', () => {
       cy.contains('span', 'Pipeline Stage Successfully removed.').should('be.visible')
     })
 
-    it('should display the field errors if form is invalid', () => {
+    it.skip('should display the field errors if form is invalid', () => {
       cy.intercept('POST', pipelineSave, { fixture: 'pipeline/api/pipelines.postsuccess' })
       cy.intercept('POST', inputSetsTemplateCall, { fixture: 'pipeline/api/runpipeline/inputsettemplate' })
       cy.intercept('GET', pipelineDetailsCall, { fixture: 'pipeline/api/runpipeline/getpipeline' })
@@ -170,7 +170,7 @@ describe('RUN PIPELINE MODAL', () => {
         cy.contains('span', 'cypress').should('be.visible')
       })
 
-      it('visual to variable view for stage configuration', () => {
+      it.skip('visual to variable view for stage configuration', () => {
         // Toggle to variable view
         cy.contains('span', 'Variables').click()
         cy.wait(2000)

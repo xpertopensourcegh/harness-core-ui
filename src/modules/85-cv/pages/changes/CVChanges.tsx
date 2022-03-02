@@ -21,7 +21,10 @@ import { getStartAndEndTime } from '@cv/components/ChangeTimeline/ChangeTimeline
 import { TimeLine } from '@cv/components/Timeline/TimeLine'
 import type { StringsMap } from 'stringTypes'
 import { prepareFilterInfo } from '@cv/utils/CommonUtils'
-import type { ChangeSourceTypes } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
+import {
+  ChangeSourceCategoryName,
+  ChangeSourceTypes
+} from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import { ChangeSourceConnectorOptions } from '../ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import type { CardSelectOption } from '../ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.types'
 import { getChangeSourceOptions } from '../ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.utils'
@@ -44,7 +47,12 @@ export const CVChanges = ({ updateTime }: { updateTime?: Date }): JSX.Element =>
   const { environmentOptions } = useGetHarnessEnvironments()
   const { getString } = useStrings()
   const sourceTypes = useMemo(() => {
-    return getChangeSourceOptions(getString)
+    return getChangeSourceOptions(getString).map((changeSourceOption: SelectOption) => {
+      if (changeSourceOption?.value === ChangeSourceCategoryName.ALERT) {
+        return { label: ChangeSourceCategoryName.INCIDENTS, value: ChangeSourceCategoryName.ALERT }
+      }
+      return changeSourceOption
+    })
   }, [])
   const connectorOptions = useMemo(() => {
     return ChangeSourceConnectorOptions.map((option: CardSelectOption) => ({
