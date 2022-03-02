@@ -18,6 +18,7 @@ import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import RbacButton from '@rbac/components/Button/Button'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { usePermission } from '@rbac/hooks/usePermission'
+import { useGetSchemaYaml } from 'services/pipeline-ng'
 
 // Due to some typing complexity, governance/App is lazily imported
 // from a .js file for now
@@ -48,7 +49,8 @@ export const GovernanceRemoteComponentMounter = props => {
             })
           }}
           hooks={{
-            usePermission
+            usePermission,
+            useGetSchemaYaml
           }}
           components={{
             NGBreadcrumbs,
