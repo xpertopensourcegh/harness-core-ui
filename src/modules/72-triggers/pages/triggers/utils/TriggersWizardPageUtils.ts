@@ -535,6 +535,7 @@ export const getValidationSchema = (
         getString('triggers.validation.connector'),
         getString('triggers.validation.connector'),
         function (connectorRef) {
+          // connectorRef is an object keeping track of whether repoName should be required
           return this.parent.sourceRepo === CUSTOM || connectorRef?.value
         }
       ),

@@ -65,6 +65,7 @@ describe('Wizard tests', () => {
         throw Error('No continue button')
       }
       fireEvent.click(continueButton)
+      await waitFor(() => queryByText(container, 'Form 2'))
       expect(queryByText(container, 'Form 2')).not.toBeNull()
       expect(queryByText(container, 'Form 1')).toBeNull()
       // touched panel with required fields shows warning on Continue button

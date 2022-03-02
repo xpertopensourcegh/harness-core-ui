@@ -89,12 +89,19 @@ export const WizardFooter = ({
           text={getString('continue')}
           variation={ButtonVariation.PRIMARY}
           rightIcon="chevron-right"
-          onClick={() => {
+          onClick={async () => {
+            const formErrors = await formikProps.validateForm()
+            if (!isEmpty(formErrors)) {
+              formikProps.setErrors(formErrors)
+              const errorKeys = Object.keys(formErrors)
+              const newTouchedObj: { [key: string]: boolean } = {}
+              errorKeys.forEach(k => (newTouchedObj[k] = true))
+              formikProps.setTouched({ ...formikProps.touched, ...newTouchedObj }) // required to display
+            }
             const upcomingTabIndex = selectedTabIndex + 1
             setSelectedTabId(tabsMap[upcomingTabIndex])
             setSelectedTabIndex(upcomingTabIndex)
             setNewTouchedPanel({ selectedTabIndex, upcomingTabIndex, touchedPanels, setTouchedPanels })
-            formikProps.validateForm()
           }}
         />
       )}
