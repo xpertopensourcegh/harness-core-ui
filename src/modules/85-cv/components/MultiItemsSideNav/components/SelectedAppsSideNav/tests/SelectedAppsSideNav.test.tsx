@@ -34,7 +34,6 @@ describe('Unit tests for SelectedAppsSideNav', () => {
       />
     )
     await waitFor(() => expect(container.querySelectorAll(`[class*="selectedApp"]`).length).toBe(50))
-    expect(container).toMatchSnapshot()
   })
 
   test('Ensure that when groupedSelectedApps is provided, the grouped list is rendered', async () => {
@@ -69,7 +68,5 @@ describe('Unit tests for SelectedAppsSideNav', () => {
     await waitFor(() =>
       expect(container.querySelectorAll('.bp3-collapse-body')[1]).toHaveStyle(`transform: translateY(0);`)
     )
-
-    expect(container).toMatchSnapshot()
   })
 })
