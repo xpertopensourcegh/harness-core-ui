@@ -136,3 +136,22 @@
     }
   }
 }
+
+.resourceCell {
+  max-width: 80%;
+  .link {
+    flex: 1;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--primary-7) !important;
+    text-decoration: underline;
+    cursor: pointer;
+    &.disabled {
+      color: var(--grey-500) !important;
+    }
+    &.notAllowed {
+      cursor: not-allowed;
+    }
+  }
+}

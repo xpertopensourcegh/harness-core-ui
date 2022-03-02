@@ -235,6 +235,18 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     setActualHoursSeries(newActualHours)
   }, [graphData])
 
+  const renderCustomDomainLink = (link: string, index = 0) => {
+    const hrefLink = `http://${link}`
+    return (
+      <Layout.Horizontal spacing="small" key={`custom_domain${index}`}>
+        <Link key={`custom_domain${index}`} href={hrefLink} target="_blank">
+          {link}
+        </Link>
+        <CopyURL textToCopy={hrefLink} />
+      </Layout.Horizontal>
+    )
+  }
+
   return (
     <Container>
       <Layout.Vertical spacing="large" padding="xlarge">
@@ -327,24 +339,13 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
                 <CopyURL textToCopy={`http://${props.service?.data.host_name}`} />
               </Layout.Horizontal>
             </Container>
-            {!_isEmpty(props.service?.data.custom_domains) && (
+            {(!_isEmpty(props.service?.data.custom_domains) || props.service?.data?.routing?.k8s?.CustomDomain) && (
               <Container className={css.serviceDetailsItemContainer}>
                 <Text className={css.detailItemHeader}>Custom Domain</Text>
                 <div className={css.detailItemValue}>
-                  {props.service?.data.custom_domains?.map((d, i) => {
-                    return (
-                      <Layout.Horizontal spacing="small" key={`custom_domain${i}`}>
-                        {isK8sRule ? (
-                          <Text>{d}</Text>
-                        ) : (
-                          <Link key={`custom_domain${i}`} href={`http://${d}`} target="_blank">
-                            {d}
-                          </Link>
-                        )}
-                        <CopyURL textToCopy={d} />
-                      </Layout.Horizontal>
-                    )
-                  })}
+                  {props.service?.data?.routing?.k8s?.CustomDomain
+                    ? renderCustomDomainLink(props.service?.data?.routing?.k8s?.CustomDomain)
+                    : props.service?.data.custom_domains?.map((d, i) => renderCustomDomainLink(d, i))}
                 </div>
               </Container>
             )}

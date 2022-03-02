@@ -7,6 +7,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import type { CellProps } from 'react-table'
+import cx from 'classnames'
 import {
   Text,
   Color,
@@ -214,15 +215,39 @@ function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
   const isSubmittedRule = tableProps.row.original.status === 'submitted'
   const isEcsRule = !_isEmpty(tableProps.row.original.routing?.container_svc)
 
+  const getClickableLink = () => {
+    return isK8sRule
+      ? tableProps.row.original.routing?.k8s?.CustomDomain
+      : hasCustomDomains
+      ? tableProps.row.original.custom_domains?.[0]
+      : tableProps.row.original.host_name
+  }
+
   const handleDomainClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.stopPropagation()
     if (isSubmittedRule) return
-    const link = hasCustomDomains ? tableProps.row.original.custom_domains?.[0] : tableProps.row.original.host_name
+    const link = getClickableLink()
     window.open(`http://${link}`, '_blank')
   }
 
+  const renderLink = (linkStr = '') => {
+    return (
+      <Layout.Horizontal spacing="small">
+        <Text
+          className={cx(css.link, {
+            [css.disabled]: tableProps.row.original.disabled,
+            [css.notAllowed]: isSubmittedRule
+          })}
+          onClick={handleDomainClick}
+        >
+          {linkStr}
+        </Text>
+      </Layout.Horizontal>
+    )
+  }
+
   return (
-    <Container style={{ maxWidth: '80%' }}>
+    <Container className={css.resourceCell}>
       <Layout.Vertical spacing="medium">
         <Layout.Horizontal spacing="xxxsmall">
           {!isK8sRule && !isEcsRule && (
@@ -270,22 +295,11 @@ function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
           )}
         </Layout.Horizontal>
         {!isK8sRule ? (
-          <Layout.Horizontal spacing="small">
-            <Text
-              style={{
-                flex: 1,
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                color: tableProps.row.original.disabled ? textColor.disable : '#0278D5',
-                textDecoration: 'underline',
-                cursor: isSubmittedRule ? 'not-allowed' : 'inherit'
-              }}
-              onClick={handleDomainClick}
-            >
-              {hasCustomDomains ? tableProps.row.original.custom_domains?.join(',') : tableProps.row.original.host_name}
-            </Text>
-          </Layout.Horizontal>
+          renderLink(
+            hasCustomDomains ? tableProps.row.original.custom_domains?.join(',') : tableProps.row.original.host_name
+          )
+        ) : !_isEmpty(tableProps.row.original.routing?.k8s?.CustomDomain) ? (
+          renderLink(tableProps.row.original.routing?.k8s?.CustomDomain)
         ) : (
           <Layout.Horizontal flex={{ justifyContent: 'center' }}>
             <Text>{'-'}</Text>

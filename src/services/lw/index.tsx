@@ -450,6 +450,7 @@ export interface RoutingData {
   instance?: InstanceBasedRoutingData
   k8s?: {
     ConnectorID?: string
+    CustomDomain?: string
     Namespace?: string
     RuleJson?: string
   }

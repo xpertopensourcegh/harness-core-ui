@@ -15,13 +15,17 @@ declare const styles: {
   readonly col3: string
   readonly detailItemHeader: string
   readonly detailItemValue: string
+  readonly disabled: string
   readonly downTag: string
   readonly fulFilmentIcon: string
   readonly gatewayLogView: string
   readonly headerLayout: string
   readonly layout: string
+  readonly link: string
+  readonly notAllowed: string
   readonly pageContainer: string
   readonly refreshIconContainer: string
+  readonly resourceCell: string
   readonly ruleToggle: string
   readonly savingsAmount: string
   readonly scheduleAccordion: string
