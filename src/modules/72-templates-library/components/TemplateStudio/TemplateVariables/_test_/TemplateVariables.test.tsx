@@ -16,8 +16,11 @@ import {
   TemplateContext,
   TemplateContextInterface
 } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
-import { TemplateVariablesContext } from '@pipeline/components/TemplateVariablesContext/TemplateVariablesContext'
-import { TemplateVariables } from '@templates-library/components/TemplateStudio/TemplateVariables/TemplateVariables'
+import {
+  TemplateVariablesContext,
+  TemplateVariablesData
+} from '@pipeline/components/TemplateVariablesContext/TemplateVariablesContext'
+import TemplateVariablesWrapper from '@templates-library/components/TemplateStudio/TemplateVariables/TemplateVariables'
 import variablesTemplate from './variables.json'
 import metadataMap from './metadataMap.json'
 import template from './template.json'
@@ -75,9 +78,18 @@ describe('<TemplateVariables /> tests', () => {
       <TestWrapper>
         <TemplateContext.Provider value={templateContextMock}>
           <TemplateVariablesContext.Provider
-            value={{ variablesTemplate, loading: false, initLoading: false, error: null, metadataMap } as any}
+            value={
+              {
+                originalTemplate: template,
+                variablesTemplate,
+                loading: false,
+                initLoading: false,
+                error: null,
+                metadataMap
+              } as unknown as TemplateVariablesData
+            }
           >
-            <TemplateVariables />
+            <TemplateVariablesWrapper />
           </TemplateVariablesContext.Provider>
         </TemplateContext.Provider>
       </TestWrapper>
@@ -91,9 +103,18 @@ describe('<TemplateVariables /> tests', () => {
       <TestWrapper>
         <TemplateContext.Provider value={templateContextMock}>
           <TemplateVariablesContext.Provider
-            value={{ variablesTemplate, loading: false, initLoading: true, error: null, metadataMap } as any}
+            value={
+              {
+                originalTemplate: template,
+                variablesTemplate,
+                loading: false,
+                initLoading: true,
+                error: null,
+                metadataMap
+              } as unknown as TemplateVariablesData
+            }
           >
-            <TemplateVariables />
+            <TemplateVariablesWrapper />
           </TemplateVariablesContext.Provider>
         </TemplateContext.Provider>
       </TestWrapper>
@@ -109,15 +130,16 @@ describe('<TemplateVariables /> tests', () => {
           <TemplateVariablesContext.Provider
             value={
               {
+                originalTemplate: template,
                 variablesTemplate,
                 loading: false,
                 initLoading: false,
                 error: { message: 'This is an error message' },
                 metadataMap
-              } as any
+              } as unknown as TemplateVariablesData
             }
           >
-            <TemplateVariables />
+            <TemplateVariablesWrapper />
           </TemplateVariablesContext.Provider>
         </TemplateContext.Provider>
       </TestWrapper>

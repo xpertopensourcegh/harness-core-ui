@@ -13,8 +13,18 @@ import userEvent from '@testing-library/user-event'
 import routes from '@common/RouteDefinitions'
 import { TemplateContextTestWrapper } from '@templates-library/utils/templateContextTestUtils'
 
+import { DefaultTemplate } from 'framework/Templates/templates'
+import { gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
+import * as cdng from 'services/cd-ng'
 import { TemplateStudio } from '../TemplateStudio'
 import templateContextProps from './__mock__/templateContextProps.json'
+
+jest.spyOn(cdng, 'useListGitSync').mockImplementation((): any => {
+  return { data: gitConfigs, refetch: jest.fn(), loading: false }
+})
+jest.spyOn(cdng, 'useGetSourceCodeManagers').mockImplementation((): any => {
+  return { data: sourceCodeManagers, refetch: jest.fn(), loading: false }
+})
 
 const updateTemplate = jest.fn()
 const updateTemplateView = jest.fn()
@@ -49,7 +59,7 @@ describe('<TemplateStudio /> tests', () => {
       },
       templateContextValues: {
         state: {
-          template: null
+          template: DefaultTemplate
         }
       }
     }
@@ -70,7 +80,7 @@ describe('<TemplateStudio /> tests', () => {
       },
       templateContextValues: {
         state: {
-          template: null
+          template: DefaultTemplate
         }
       }
     }

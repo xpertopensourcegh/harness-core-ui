@@ -7,28 +7,24 @@
 
 import React, { useCallback } from 'react'
 import { MultiTypeInputType, NestedAccordionProvider, PageError } from '@wings-software/uicore'
-import { get, omit, set } from 'lodash-es'
+import { omit, set } from 'lodash-es'
 import { useTemplateVariables } from '@pipeline/components/TemplateVariablesContext/TemplateVariablesContext'
 import { PageSpinner } from '@common/components'
 import StageCard from '@pipeline/components/PipelineStudio/PipelineVariables/Cards/StageCard'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import type { StageElementConfig, StepElementConfig } from 'services/cd-ng'
-import type { NGTemplateInfoConfig } from 'services/template-ng'
 import { StepCardPanel } from '@pipeline/components/PipelineStudio/PipelineVariables/Cards/StepCard'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { DefaultNewStageId } from '@templates-library/components/TemplateStudio/StageTemplateCanvas/StageTemplateForm/StageTemplateForm'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { sanitize } from '@common/utils/JSONUtils'
 import { VariablesHeader } from '@pipeline/components/PipelineStudio/PipelineVariables/VariablesHeader/VariablesHeader'
+import { TemplateType } from '@templates-library/utils/templatesUtils'
 import css from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
-export const TemplateVariables: React.FC = (): JSX.Element => {
-  const {
-    state: { template: originalTemplate },
-    isReadonly,
-    updateTemplate
-  } = React.useContext(TemplateContext)
-  const { variablesTemplate, metadataMap, error, initLoading } = useTemplateVariables()
+const TemplateVariables: React.FC = (): JSX.Element => {
+  const { isReadonly, updateTemplate } = React.useContext(TemplateContext)
+  const { originalTemplate, variablesTemplate, metadataMap, error, initLoading } = useTemplateVariables()
 
   const onUpdate = useCallback(
     async (stage: StageElementConfig | StepElementConfig) => {
@@ -53,9 +49,9 @@ export const TemplateVariables: React.FC = (): JSX.Element => {
           <VariablesHeader enableSearch={false} />
           <div className={css.variableList}>
             <GitSyncStoreProvider>
-              {(variablesTemplate as { stage: NGTemplateInfoConfig }).stage && (
+              {originalTemplate.type === TemplateType.Stage && (
                 <StageCard
-                  stage={get(variablesTemplate, 'stage') as StageElementConfig}
+                  stage={variablesTemplate as StageElementConfig}
                   originalStage={{ ...originalTemplate.spec, identifier: DefaultNewStageId } as StageElementConfig}
                   metadataMap={metadataMap}
                   readonly={isReadonly}
@@ -65,17 +61,16 @@ export const TemplateVariables: React.FC = (): JSX.Element => {
                   updateStage={onUpdate}
                 />
               )}
-              {(variablesTemplate as { step: NGTemplateInfoConfig }).step && (
+              {originalTemplate.type === TemplateType.Step && (
                 <StepCardPanel
-                  step={get(variablesTemplate, 'step') as StepElementConfig}
+                  step={variablesTemplate as StepElementConfig}
                   originalStep={originalTemplate.spec as StepElementConfig}
                   metadataMap={metadataMap}
                   readonly={isReadonly}
-                  path="template"
+                  stepPath="template"
                   allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
                   stageIdentifier={DefaultNewStageId}
                   onUpdateStep={onUpdate}
-                  stepPath={''}
                   stepsFactory={factory}
                 />
               )}

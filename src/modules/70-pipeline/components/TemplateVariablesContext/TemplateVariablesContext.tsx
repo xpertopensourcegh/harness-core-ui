@@ -7,15 +7,24 @@
 
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { defaultTo } from 'lodash-es'
+import { defaultTo, get } from 'lodash-es'
 import { parse } from 'yaml'
-import { useMutateAsGet, UseMutateAsGetReturn } from '@common/hooks/useMutateAsGet'
-import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
+import { useMutateAsGet, useQueryParams } from '@common/hooks'
+import type { GitQueryParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
-import { Failure, NGTemplateInfoConfig, useCreateVariables, VariableMergeServiceResponse } from 'services/template-ng'
+import {
+  Failure,
+  NGTemplateInfoConfig,
+  useCreateVariables,
+  useGetYamlWithTemplateRefsResolved,
+  VariableMergeServiceResponse
+} from 'services/template-ng'
+import type { UseMutateAsGetReturn } from '@common/hooks/useMutateAsGet'
+import type { StageElementConfig, StepElementConfig } from 'services/cd-ng'
 
 export interface TemplateVariablesData {
-  variablesTemplate: { stage: NGTemplateInfoConfig } | { step: NGTemplateInfoConfig }
+  variablesTemplate: StepElementConfig | StageElementConfig
+  originalTemplate: NGTemplateInfoConfig
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   error?: UseMutateAsGetReturn<Failure | Error>['error'] | null
   initLoading: boolean
@@ -23,7 +32,8 @@ export interface TemplateVariablesData {
 }
 
 export const TemplateVariablesContext = React.createContext<TemplateVariablesData>({
-  variablesTemplate: { step: { name: '', identifier: '', versionLabel: '', type: 'Step' } },
+  variablesTemplate: { name: '', identifier: '' },
+  originalTemplate: { name: '', identifier: '', versionLabel: '', type: 'Step' },
   metadataMap: {},
   error: null,
   initLoading: true,
@@ -41,12 +51,15 @@ export function TemplateVariablesContextProvider(
   const [{ variablesTemplate, metadataMap }, setTemplateVariablesData] = React.useState<
     Pick<TemplateVariablesData, 'metadataMap' | 'variablesTemplate'>
   >({
-    variablesTemplate: { step: { name: '', identifier: '', versionLabel: '', type: 'Step' } },
+    variablesTemplate: { name: '', identifier: '' },
     metadataMap: {}
   })
   const { accountId, orgIdentifier, projectIdentifier } = useParams<TemplateStudioPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const [resolvedTemplate, setResolvedTemplate] = React.useState<NGTemplateInfoConfig>(originalTemplate)
+
   const { data, error, initLoading, loading } = useMutateAsGet(useCreateVariables, {
-    body: yamlStringify({ template: originalTemplate }) as unknown as void,
+    body: yamlStringify({ template: resolvedTemplate }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'
@@ -55,20 +68,47 @@ export function TemplateVariablesContextProvider(
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     debounce: 800
   })
+
+  const {
+    data: resolvedTemplateResponse,
+    initLoading: initLoadingResolvedTemplate,
+    loading: loadingResolvedTemplate
+  } = useMutateAsGet(useGetYamlWithTemplateRefsResolved, {
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch,
+      getDefaultFromOtherRepo: true
+    },
+    body: {
+      originalEntityYaml: yamlStringify(originalTemplate)
+    }
+  })
+
+  React.useEffect(() => {
+    if (resolvedTemplateResponse?.data?.mergedPipelineYaml) {
+      setResolvedTemplate(parse(resolvedTemplateResponse.data.mergedPipelineYaml))
+    }
+  }, [resolvedTemplateResponse])
+
   React.useEffect(() => {
     setTemplateVariablesData({
       metadataMap: defaultTo(data?.data?.metadataMap, {}),
-      variablesTemplate: defaultTo(parse(defaultTo(data?.data?.yaml, '')), {})
+      variablesTemplate: get(parse(defaultTo(data?.data?.yaml, '')), resolvedTemplate.type.toLowerCase())
     })
   }, [data?.data?.metadataMap, data?.data?.yaml])
+
   return (
     <TemplateVariablesContext.Provider
       value={{
         variablesTemplate,
+        originalTemplate: resolvedTemplate,
         metadataMap,
         error,
-        initLoading,
-        loading
+        initLoading: initLoading || initLoadingResolvedTemplate,
+        loading: loading || loadingResolvedTemplate
       }}
     >
       {props.children}

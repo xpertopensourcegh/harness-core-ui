@@ -199,7 +199,7 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
       >
         <div
           class="Accordion--panel"
-          data-open="false"
+          data-open="true"
           data-testid="template.stage_name-panel"
           id="template.stage_name-panel"
         >
@@ -286,11 +286,12 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
+            style="height: 0px;"
           >
             <div
-              aria-hidden="true"
+              aria-hidden="false"
               class="bp3-collapse-body"
-              style="transform: translateY(-undefinedpx);"
+              style="transform: translateY(0);"
             >
               <div
                 class="Accordion--details"
@@ -304,7 +305,7 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                   />
                   <div
                     class="Accordion--panel"
-                    data-open="false"
+                    data-open="true"
                     data-testid="template.stage_name.variables-panel"
                     id="template.stage_name.variables-panel"
                   >
@@ -391,11 +392,12 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
+                      style="height: 0px;"
                     >
                       <div
-                        aria-hidden="true"
+                        aria-hidden="false"
                         class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
+                        style="transform: translateY(0);"
                       >
                         <div
                           class="Accordion--details"
@@ -448,7 +450,7 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                   </div>
                   <div
                     class="Accordion--panel panel"
-                    data-open="false"
+                    data-open="true"
                     data-testid="template.stage_name.Service-panel"
                     id="template.stage_name.Service-panel"
                   >
@@ -535,11 +537,12 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
+                      style="height: 0px;"
                     >
                       <div
-                        aria-hidden="true"
+                        aria-hidden="false"
                         class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
+                        style="transform: translateY(0);"
                       >
                         <div
                           class="Accordion--details"
@@ -550,7 +553,7 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                   </div>
                   <div
                     class="Accordion--panel panel"
-                    data-open="false"
+                    data-open="true"
                     data-testid="template.stage_name.Environment-panel"
                     id="template.stage_name.Environment-panel"
                   >
@@ -637,11 +640,12 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
+                      style="height: 0px;"
                     >
                       <div
-                        aria-hidden="true"
+                        aria-hidden="false"
                         class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
+                        style="transform: translateY(0);"
                       >
                         <div
                           class="Accordion--details"
@@ -672,7 +676,7 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                           </div>
                           <div
                             class="Accordion--panel panel"
-                            data-open="false"
+                            data-open="true"
                             data-testid="template.stage_name.Infrastructure-panel"
                             id="template.stage_name.Infrastructure-panel"
                           >
@@ -759,11 +763,12 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
+                              style="height: 0px;"
                             >
                               <div
-                                aria-hidden="true"
+                                aria-hidden="false"
                                 class="bp3-collapse-body"
-                                style="transform: translateY(-undefinedpx);"
+                                style="transform: translateY(0);"
                               >
                                 <div
                                   class="Accordion--details"
@@ -778,7 +783,7 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                   </div>
                   <div
                     class="Accordion--panel panel"
-                    data-open="false"
+                    data-open="true"
                     data-testid="template.stage_name.Execution-panel"
                     id="template.stage_name.Execution-panel"
                   >
@@ -865,11 +870,12 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
+                      style="height: 0px;"
                     >
                       <div
-                        aria-hidden="true"
+                        aria-hidden="false"
                         class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
+                        style="transform: translateY(0);"
                       >
                         <div
                           class="Accordion--details"
@@ -877,7 +883,7 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                         >
                           <div
                             class="Accordion--panel"
-                            data-open="false"
+                            data-open="true"
                             data-testid="template.stage_name.Execution.Step_1-panel"
                             id="template.stage_name.Execution.Step_1-panel"
                           >
@@ -964,11 +970,12 @@ exports[`<TemplateVariables /> tests snapshot test 1`] = `
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
+                              style="height: 0px;"
                             >
                               <div
-                                aria-hidden="true"
+                                aria-hidden="false"
                                 class="bp3-collapse-body"
-                                style="transform: translateY(-undefinedpx);"
+                                style="transform: translateY(0);"
                               >
                                 <div
                                   class="Accordion--details"
