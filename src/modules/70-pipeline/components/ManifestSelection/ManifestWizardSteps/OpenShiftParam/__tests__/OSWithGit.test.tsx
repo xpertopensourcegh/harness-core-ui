@@ -6,11 +6,14 @@
  */
 
 import React from 'react'
+import * as uuid from 'uuid'
 import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import OpenShiftParamWithGit from '../OSWithGit'
+
+jest.mock('uuid')
 
 const props = {
   stepName: 'Manifest details',
@@ -35,6 +38,7 @@ const props = {
   handleSubmit: jest.fn()
 }
 describe('Open shift params with git tests', () => {
+  beforeEach(() => jest.spyOn(uuid, 'v5').mockReturnValue('MockedUUID'))
   test(`renders without crashing`, () => {
     const { container } = render(
       <TestWrapper>

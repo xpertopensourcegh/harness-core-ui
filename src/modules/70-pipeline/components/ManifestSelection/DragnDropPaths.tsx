@@ -116,13 +116,12 @@ function DragnDropPaths({
                 name="paths"
                 render={arrayHelpers => (
                   <Layout.Vertical>
-                    {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
-                      <Draggable key={index} draggableId={path.path} index={index}>
+                    {formik.values?.paths?.map((draggablepath: { path: string; uuid: string }, index: number) => (
+                      <Draggable key={draggablepath.uuid} draggableId={draggablepath.uuid} index={index}>
                         {providedDrag => (
                           <Layout.Horizontal
-                            key={path.uuid}
-                            flex={{ distribution: 'space-between' }}
-                            style={{ alignItems: 'end' }}
+                            key={draggablepath.uuid}
+                            flex={{ distribution: 'space-between', alignItems: 'flex-start' }}
                             ref={providedDrag.innerRef}
                             {...providedDrag.draggableProps}
                             {...providedDrag.dragHandleProps}
@@ -165,6 +164,7 @@ function DragnDropPaths({
                         )}
                       </Draggable>
                     ))}
+                    {provided.placeholder}
                     <span>
                       <Button
                         text={getString('addFileText')}

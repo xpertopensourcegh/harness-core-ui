@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import * as uuid from 'uuid'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -14,6 +15,8 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
 import ManifestDetails from '../ManifestDetails'
+
+jest.mock('uuid')
 
 const props = {
   stepName: 'Manifest details',
@@ -35,7 +38,10 @@ const initialValues = {
   repoName: '',
   pluginPath: ''
 }
+
 describe('Manifest Details tests', () => {
+  beforeEach(() => jest.spyOn(uuid, 'v5').mockReturnValue('MockedUUID'))
+
   test('initial rendering', () => {
     const { container } = render(
       <TestWrapper>
