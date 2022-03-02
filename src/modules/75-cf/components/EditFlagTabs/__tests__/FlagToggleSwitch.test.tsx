@@ -10,7 +10,6 @@ import React from 'react'
 import * as usePlanEnforcementMock from '@cf/hooks/usePlanEnforcement'
 import * as rbacHooksMock from '@rbac/hooks/usePermission'
 import { TestWrapper } from '@common/utils/testUtils'
-import mockFeature from '@cf/utils/testData/data/mockFeature'
 import * as useFeaturesMock from '@common/hooks/useFeatures'
 
 import FlagToggleSwitch, { FlagToggleSwitchProps } from '../FlagToggleSwitch'
@@ -21,14 +20,7 @@ const renderComponent = (props: Partial<FlagToggleSwitchProps> = {}): RenderResu
       path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags"
       pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
     >
-      <FlagToggleSwitch
-        feature={mockFeature}
-        environmentIdentifier="test"
-        currentEnvironmentState="on"
-        currentState="on"
-        handleToggle={jest.fn()}
-        {...props}
-      />
+      <FlagToggleSwitch currentEnvironmentState="on" currentState="on" handleToggle={jest.fn()} {...props} />
     </TestWrapper>
   )
 }

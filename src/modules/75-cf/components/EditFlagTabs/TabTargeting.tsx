@@ -21,7 +21,6 @@ import CustomRulesView from './CustomRulesView'
 import { DefaultRulesView } from './DefaultRulesView'
 import type { FlagActivationFormValues } from '../FlagActivation/FlagActivation'
 import FlagToggleSwitch from './FlagToggleSwitch'
-import css from '../FlagActivation/FlagActivation.module.scss'
 
 export interface TabTargetingProps {
   feature: Feature
@@ -81,11 +80,9 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
       accountIdentifier={accountIdentifier}
       environmentIdentifier={environmentIdentifier}
     >
-      <Layout.Vertical padding={{ left: 'huge', right: 'large', bottom: 'large' }} spacing="medium">
-        <Layout.Horizontal className={css.contentHeading} flex={{ alignItems: 'center' }}>
+      <Layout.Vertical padding={{ left: 'xxlarge', right: 'large', bottom: 'large' }} spacing="medium">
+        <Layout.Horizontal flex={{ alignItems: 'center' }}>
           <FlagToggleSwitch
-            environmentIdentifier={environmentIdentifier}
-            feature={feature}
             currentState={formikProps.values.state}
             currentEnvironmentState={feature.envProperties?.state}
             handleToggle={() =>

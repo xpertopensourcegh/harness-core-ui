@@ -36,6 +36,7 @@ const renderComponent = (): RenderResult => {
       pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
     >
       <FlagActivation
+        refetchFlagLoading={false}
         gitSync={mockGitSync}
         flagData={mockFeature}
         projectIdentifier="chris_test"

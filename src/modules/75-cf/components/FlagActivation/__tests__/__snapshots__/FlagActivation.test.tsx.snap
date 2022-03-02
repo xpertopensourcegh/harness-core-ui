@@ -13,8 +13,7 @@ exports[`FlagActivation it should render correctly 1`] = `
           class="StyledProps--font StyledProps--main formContainer"
         >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--padding-large"
-            style="background-color: rgb(244, 246, 255); mix-blend-mode: normal; box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);"
+            class="Layout--horizontal StyledProps--main environmentHeaderContainer StyledProps--flex StyledProps--flex-alignItems-center"
           >
             <span
               style="flex-grow: 1;"
@@ -31,7 +30,7 @@ exports[`FlagActivation it should render correctly 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main tabContainer noEdit"
+            class="StyledProps--font StyledProps--main tabContainer"
           >
             <div
               class="bp3-tabs Tabs--main Tabs--horizontal"
@@ -108,16 +107,16 @@ exports[`FlagActivation it should render correctly 1`] = `
                 role="tabpanel"
               >
                 <div
-                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-left-huge StyledProps--padding-right-large StyledProps--padding-bottom-large"
+                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-left-xxlarge StyledProps--padding-right-large StyledProps--padding-bottom-large"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main contentHeading StyledProps--flex StyledProps--flex-alignItems-center"
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="bp3-control bp3-switch bp3-align-right bp3-large switch"
+                        class="bp3-control bp3-switch bp3-align-left bp3-large switch"
                       >
                         <input
                           checked=""
@@ -127,12 +126,12 @@ exports[`FlagActivation it should render correctly 1`] = `
                         <span
                           class="bp3-control-indicator"
                         />
+                        <span
+                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-form-input-text"
+                        >
+                          cf.featureFlags.flagOn
+                        </span>
                       </label>
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-input-text StyledProps--padding-left-small"
-                    >
-                      cf.featureFlags.flagOn
                     </p>
                     <span
                       style="flex-grow: 1;"

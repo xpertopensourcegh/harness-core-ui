@@ -6,7 +6,7 @@
  */
 
 import React, { ReactElement, useState } from 'react'
-import { Layout, Container, PageError } from '@wings-software/uicore'
+import { Layout, PageError } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { GetFeatureFlagQueryParams, useGetFeatureFlag } from 'services/cf'
 import { getErrorMessage } from '@cf/utils/CFUtils'
@@ -53,20 +53,7 @@ const FeatureFlagsDetailPage: React.FC = () => {
   const gitSync = useGitSync()
 
   if (loading && !skipLoading) {
-    return (
-      <Container
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: '290px',
-          width: 'calc(100% - 290px)',
-          height: 'calc(100% - 144px)',
-          zIndex: 1
-        }}
-      >
-        <ContainerSpinner />
-      </Container>
-    )
+    return <ContainerSpinner className={css.spinner} />
   }
 
   if (error) {
@@ -105,35 +92,31 @@ const FeatureFlagsDetailPage: React.FC = () => {
   )
 
   return (
-    <Container flex height="100%">
-      <Layout.Vertical className={css.flagContainer} width={450}>
-        {featureFlag && (
-          <FlagActivationDetails
-            featureFlag={featureFlag}
-            refetchFlag={refetch}
-            gitSyncActionsComponent={gitSync?.isGitSyncActionsEnabled ? <GitSyncActionsComponent /> : undefined}
-            gitSync={gitSync}
-          />
-        )}
-      </Layout.Vertical>
-
-      <Layout.Horizontal
-        width="calc(100% - 450px + 20px)"
-        height="100%"
-        style={{ transform: 'translateX(-20px)', background: 'var(--white)' }}
-      >
-        <Layout.Vertical width="100%">
-          {!loading && featureFlag && (
-            <FlagActivation
-              refetchFlag={refetchFlag}
+    <div className={css.pageLayout}>
+      <section>
+        <Layout.Vertical className={css.flagActivationDetailsLayout}>
+          {featureFlag && (
+            <FlagActivationDetails
+              featureFlag={featureFlag}
+              refetchFlag={refetch}
+              gitSyncActionsComponent={gitSync?.isGitSyncActionsEnabled ? <GitSyncActionsComponent /> : undefined}
               gitSync={gitSync}
-              projectIdentifier={projectIdentifier as string}
-              flagData={featureFlag}
             />
           )}
         </Layout.Vertical>
-      </Layout.Horizontal>
-    </Container>
+      </section>
+      <section>
+        {featureFlag && (
+          <FlagActivation
+            refetchFlag={refetchFlag}
+            refetchFlagLoading={loading}
+            gitSync={gitSync}
+            projectIdentifier={projectIdentifier as string}
+            flagData={featureFlag}
+          />
+        )}
+      </section>
+    </div>
   )
 }
 

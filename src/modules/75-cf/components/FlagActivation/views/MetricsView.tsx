@@ -35,8 +35,7 @@ export const MetricsView: React.FC<{ flagData: Feature }> = ({ flagData }) => {
       style={{
         marginTop: '-20px',
         height: 'calc(100vh - 135px)',
-        overflow: 'auto',
-        marginLeft: 'var(--spacing-large)'
+        overflow: 'auto'
       }}
     >
       <MetricsToolbar

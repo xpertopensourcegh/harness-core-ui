@@ -90,7 +90,6 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
   update
 }) => {
   const data = row.original
-
   const [status, setStatus] = useState(isFeatureFlagOn(data))
   const { getString } = useStrings()
   const { showError } = useToaster()

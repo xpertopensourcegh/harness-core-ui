@@ -22,7 +22,6 @@ import {
   FormikForm,
   PageError
 } from '@wings-software/uicore'
-import cx from 'classnames'
 import * as yup from 'yup'
 import {
   Feature,
@@ -44,13 +43,16 @@ import { useQueryParams } from '@common/hooks'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import { FFDetailPageTab, getErrorMessage, rewriteCurrentLocationWithActiveEnvironment } from '@cf/utils/CFUtils'
 import routes from '@common/RouteDefinitions'
-import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
+import TargetingRulesTab from '@cf/pages/feature-flags-detail/targeting-rules-tab/TargetingRulesTab'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
 import { CFEnvironmentSelect } from '../CFEnvironmentSelect/CFEnvironmentSelect'
@@ -70,6 +72,7 @@ interface FlagActivationProps {
   flagData: Feature
   gitSync: UseGitSync
   refetchFlag: () => Promise<unknown>
+  refetchFlagLoading: boolean
 }
 
 export interface FlagActivationFormValues {
@@ -95,10 +98,9 @@ const fromVariationMapToObj = (variationMap: VariationMap[]) =>
   }, {})
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
-  const { flagData, projectIdentifier, refetchFlag, gitSync } = props
+  const { flagData, projectIdentifier, refetchFlag, refetchFlagLoading, gitSync } = props
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
-  const [loadingFlags, setLoadingFlags] = useState(false)
   const { orgIdentifier, accountId: accountIdentifier } = useParams<Record<string, string>>()
   const { activeEnvironment: environmentIdentifier, withActiveEnvironment } = useActiveEnvironment()
   const { mutate: patchFeature } = usePatchFeature({
@@ -122,11 +124,12 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       rewriteCurrentLocationWithActiveEnvironment(_environment)
 
       if (_userEvent) {
-        setLoadingFlags(true)
-        refetchFlag().finally(() => setLoadingFlags(false))
+        refetchFlag()
       }
     }
   })
+
+  const FFM_1513 = useFeatureFlag(FeatureFlag.FFM_1513)
 
   const { gitSyncValidationSchema, gitSyncInitialValues } = gitSync?.getGitSyncFormMeta(
     AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES
@@ -342,7 +345,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         })
         .onEmptyPatch(() => setEditing(false))
     },
-    [initialValues, patchFeature, refetchFlag, showError]
+    [initialValues, patchFeature, showError]
   )
 
   type RuleErrors = { [K: number]: { [P: number]: 'required' } }
@@ -419,25 +422,12 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
   }, [activeTabId, history, pathParams, tab, withActiveEnvironment])
 
-  if (envsLoading || newEnvironmentCreateLoading || loadingFlags) {
-    return (
-      <Container
-        style={{
-          position: 'fixed',
-          top: '64px',
-          left: 0,
-          bottom: 0,
-          right: 0,
-          zIndex: 1
-        }}
-      >
-        <ContainerSpinner />
-      </Container>
-    )
-  }
-
   if (envsError) {
     return <PageError message={getErrorMessage(envsError)} onClick={() => refetchEnvironments()} />
+  }
+
+  if (envsLoading || newEnvironmentCreateLoading || (refetchFlagLoading && !FFM_1513)) {
+    return <ContainerSpinner height="100%" flex={{ justifyContent: 'center', alignItems: 'center' }} />
   }
 
   if (noEnvironmentExists) {
@@ -487,24 +477,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         return (
           <FormikForm>
             <Container className={css.formContainer}>
-              <Layout.Horizontal
-                flex
-                padding="large"
-                style={{
-                  backgroundColor: '#F4F6FF',
-                  mixBlendMode: 'normal',
-                  boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
-                  paddingLeft: 'var(--spacing-huge)'
-                }}
-              >
+              <Layout.Horizontal className={css.environmentHeaderContainer} flex={{ alignItems: 'center' }}>
                 <FlexExpander />
                 <CFEnvironmentSelect component={<EnvironmentSelect />} />
               </Layout.Horizontal>
               {isPlanEnforcementEnabled && <UsageLimitBanner />}
 
-              <Container
-                className={cx(css.tabContainer, (!editing || activeTabId !== FFDetailPageTab.TARGETING) && css.noEdit)}
-              >
+              <Container className={css.tabContainer}>
                 {flagData && (
                   <>
                     <Tabs
@@ -516,16 +495,26 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                         id={FFDetailPageTab.TARGETING}
                         title={<Text className={css.tabTitle}>{getString('cf.featureFlags.targeting')}</Text>}
                         panel={
-                          <TabTargeting
-                            formikProps={formikProps}
-                            editing={editing}
-                            projectIdentifier={projectIdentifier}
-                            environmentIdentifier={environmentIdentifier}
-                            setEditing={setEditing}
-                            feature={flagData}
-                            orgIdentifier={orgIdentifier}
-                            accountIdentifier={accountIdentifier}
-                          />
+                          <>
+                            {FFM_1513 ? (
+                              <TargetingRulesTab
+                                featureFlagData={flagData}
+                                refetchFlag={refetchFlag}
+                                refetchFlagLoading={refetchFlagLoading}
+                              />
+                            ) : (
+                              <TabTargeting
+                                formikProps={formikProps}
+                                editing={editing}
+                                projectIdentifier={projectIdentifier}
+                                environmentIdentifier={environmentIdentifier}
+                                setEditing={setEditing}
+                                feature={flagData}
+                                orgIdentifier={orgIdentifier}
+                                accountIdentifier={accountIdentifier}
+                              />
+                            )}
+                          </>
                         }
                       />
                       <Tab
