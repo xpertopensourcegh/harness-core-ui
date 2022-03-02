@@ -25,9 +25,6 @@ import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteIn
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
-
 import RbacButton from '@rbac/components/Button/Button'
 import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
 import PipelineBuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart'
@@ -400,16 +397,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             />
           ) : (
             <React.Fragment>
-              {module === 'ci' && (
-                <FeatureRestrictionBanners
-                  featureNames={[
-                    FeatureIdentifier.ACTIVE_COMMITTERS,
-                    FeatureIdentifier.MAX_BUILDS_PER_MONTH,
-                    FeatureIdentifier.MAX_TOTAL_BUILDS
-                  ]}
-                  module={module}
-                />
-              )}
               <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary?.content} />
               <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
             </React.Fragment>

@@ -39,6 +39,11 @@ export const isFeatureLimitBreached = (feature?: CheckFeatureReturn) => {
   return featureDetail?.limit && featureDetail.count && featureDetail.count === featureDetail.limit
 }
 
+export const isFeatureLimitBreachedIncludesExceeding = (feature?: CheckFeatureReturn): boolean => {
+  const featureDetail = feature?.featureDetail
+  return !!(featureDetail?.limit && featureDetail.count && featureDetail.count >= featureDetail.limit)
+}
+
 export const FEATURE_USAGE_WARNING_LIMIT = 90
 
 export const isFeatureWarningActive = (feature?: CheckFeatureReturn) => {
@@ -51,14 +56,43 @@ export const isFeatureWarningActive = (feature?: CheckFeatureReturn) => {
   )
 }
 
+export const isFeatureWarningActiveIncludesLimit = (feature?: CheckFeatureReturn): boolean => {
+  const featureDetail = feature?.featureDetail
+  return !!(
+    featureDetail?.limit &&
+    featureDetail.count &&
+    featureDetail.count > (featureDetail.limit * FEATURE_USAGE_WARNING_LIMIT) / 100
+  )
+}
+
+export const isFeatureCountActive = (feature?: CheckFeatureReturn) => {
+  const featureDetail = feature?.featureDetail
+  return featureDetail?.limit && typeof featureDetail.count !== 'undefined'
+}
+
 export const isFeatureOveruseActive = (feature?: CheckFeatureReturn) => {
   const featureDetail = feature?.featureDetail
   return featureDetail?.limit && featureDetail.count && featureDetail.count > featureDetail.limit
 }
 
+export const isFeatureLimitMet = (feature?: CheckFeatureReturn) => {
+  const featureDetail = feature?.featureDetail
+  return featureDetail?.limit && featureDetail.count && featureDetail.count >= featureDetail.limit
+}
+
 export const getActiveUsageNumber = (feature?: CheckFeatureReturn) => {
   const featureDetail = feature?.featureDetail
   return featureDetail?.limit && featureDetail.count && Math.floor((featureDetail.count * 100) / featureDetail.limit)
+}
+
+export const getPercentageNumber = (feature?: CheckFeatureReturn) => {
+  const featureDetail = feature?.featureDetail
+
+  return (
+    featureDetail?.limit &&
+    featureDetail.count &&
+    Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
+  )
 }
 
 function getBannerClassNameByType(type: BannerType): string {
@@ -107,7 +141,7 @@ function getBannerBodyByType({
   }
 
   return (
-    <Layout.Horizontal width="95%" padding={{ left: 'large' }}>
+    <Layout.Horizontal width="95%" padding={{ left: 'large' }} style={{ minWidth: '800px' }}>
       {getText()}
       {buttons}
     </Layout.Horizontal>

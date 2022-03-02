@@ -143,7 +143,7 @@ exports[`<DefaultLayout /> tests feature banner tests Level up banner 1`] = `
       >
         <div
           class="Layout--horizontal StyledProps--main StyledProps--padding-left-large"
-          style="width: 95%;"
+          style="min-width: 800px; width: 95%;"
         >
           <div
             class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--padding-right-small"
@@ -366,7 +366,7 @@ exports[`<DefaultLayout /> tests feature banner tests Overuse banner 1`] = `
       >
         <div
           class="Layout--horizontal StyledProps--main StyledProps--padding-left-large"
-          style="width: 95%;"
+          style="min-width: 800px; width: 95%;"
         >
           <div
             class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--padding-right-small"
@@ -590,7 +590,7 @@ exports[`<DefaultLayout /> tests feature banner tests features banner is rendere
       >
         <div
           class="Layout--horizontal StyledProps--main StyledProps--padding-left-large"
-          style="width: 95%;"
+          style="min-width: 800px; width: 95%;"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary10 StyledProps--font-variation-form-message-warning StyledProps--padding-right-small"

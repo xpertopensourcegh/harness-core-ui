@@ -28,9 +28,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import { PipelineExecutionWarning } from '@pipeline/components/PipelineExecutionWarning/PipelineExecutionWarning'
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import { EvaluationModal } from '@governance/EvaluationModal'
-import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { ModuleName } from 'framework/types/ModuleName'
 import useTabVisible from '@common/hooks/useTabVisible'
 import { ExecutionHeader } from './ExecutionHeader/ExecutionHeader'
@@ -265,14 +263,6 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
             <ExecutionTabs />
             {module === 'ci' && (
               <>
-                <FeatureRestrictionBanners
-                  featureNames={[
-                    FeatureIdentifier.ACTIVE_COMMITTERS,
-                    FeatureIdentifier.MAX_BUILDS_PER_MONTH,
-                    FeatureIdentifier.MAX_TOTAL_BUILDS
-                  ]}
-                  module={module}
-                />
                 {deprecatedImages?.length ? (
                   <PipelineExecutionWarning
                     warning={
