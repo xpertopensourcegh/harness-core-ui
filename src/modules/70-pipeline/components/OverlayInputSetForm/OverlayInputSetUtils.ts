@@ -14,8 +14,8 @@ import type {
   UpdateOverlayInputSetForPipelinePathParams,
   UpdateOverlayInputSetForPipelineQueryParams
 } from 'services/pipeline-ng'
+import type { InputSetDTO } from '@pipeline/utils/types'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import type { InputSetValue } from '../InputSetSelector/utils'
 
 export const constructInputSetYamlObject = (item: InputSetSummaryResponse) => ({

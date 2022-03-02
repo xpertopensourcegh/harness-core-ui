@@ -161,7 +161,14 @@ export const GetInputSetEdit: UseGetReturnData<ResponseInputSetResponse> = {
         'inputSet:\n  name: asd\n  identifier: asd\n  description: asd\n  pipeline:\n    identifier: testqqq\n    stages:\n      - stage:\n          identifier: asd\n          type: Deployment\n          spec:\n            infrastructure:\n              infrastructureDefinition:\n                type: KubernetesDirect\n                spec:\n                  connectorRef: org.tesa1\n                  namespace: asd\n                  releaseName: asd\n',
       name: 'asd',
       description: 'asd',
-      errorResponse: false
+      errorResponse: false,
+      gitDetails: {
+        branch: 'feature',
+        filePath: 'asd.yaml',
+        objectId: '4471ec3aa40c26377353974c29a6670d998db06g',
+        repoIdentifier: 'gitSyncRepo',
+        rootFolder: '/rootFolderTest/.harness/'
+      }
     },
     correlationId: 'fdb1358f-c3b8-459b-aa89-4e570b7ac6d0'
   }
@@ -204,3 +211,110 @@ export const MergeInputSetResponse: UseMutateMockData<ResponseMergeInputSetRespo
       correlationId: 'ec1dec41-213d-4164-8cfc-4198d6565f88'
     })
 }
+
+export const createInputSetCallFirstArg = `inputSet:
+  name: asd
+  identifier: asd
+  description: asd
+  pipeline:
+    identifier: testqqq
+    stages:
+      - stage:
+          identifier: asd
+          type: Deployment
+          spec:
+            infrastructure:
+              infrastructureDefinition:
+                type: KubernetesDirect
+                spec:
+                  connectorRef: org.tesa1
+                  namespace: asd
+                  releaseName: asd
+`
+
+export const createInputSetCallSecondArg = {
+  queryParams: {
+    accountIdentifier: 'testAcc',
+    branch: 'feature',
+    commitMsg: 'common.gitSync.createResource',
+    createPr: false,
+    filePath: 'asd.yaml',
+    isNewBranch: false,
+    orgIdentifier: 'testOrg',
+    pipelineBranch: 'feature',
+    pipelineIdentifier: 'pipeline',
+    pipelineRepoID: 'identifier',
+    projectIdentifier: 'test',
+    repoIdentifier: 'identifier',
+    rootFolder: '',
+    targetBranch: ''
+  }
+}
+
+export const updateInputSetCallSecondArg = {
+  pathParams: {
+    inputSetIdentifier: 'asd'
+  },
+  queryParams: {
+    accountIdentifier: 'testAcc',
+    branch: 'feature',
+    commitMsg: 'common.gitSync.updateResource',
+    createPr: false,
+    filePath: 'asd.yaml',
+    isNewBranch: false,
+    lastObjectId: '4471ec3aa40c26377353974c29a6670d998db06g',
+    orgIdentifier: 'testOrg',
+    pipelineBranch: 'feature',
+    pipelineIdentifier: 'pipeline',
+    pipelineRepoID: 'identifier',
+    projectIdentifier: 'test',
+    repoIdentifier: 'gitSyncRepo',
+    rootFolder: '/rootFolderTest/.harness/',
+    targetBranch: ''
+  }
+}
+
+export const updateInputSetCallSecondArgNewBranch = {
+  pathParams: {
+    inputSetIdentifier: 'asd'
+  },
+  queryParams: {
+    accountIdentifier: 'testAcc',
+    branch: 'feature1',
+    commitMsg: 'common.gitSync.updateResource',
+    createPr: false,
+    filePath: 'asd.yaml',
+    isNewBranch: true,
+    lastObjectId: '4471ec3aa40c26377353974c29a6670d998db06g',
+    orgIdentifier: 'testOrg',
+    pipelineBranch: 'feature',
+    pipelineIdentifier: 'pipeline',
+    pipelineRepoID: 'identifier',
+    projectIdentifier: 'test',
+    repoIdentifier: 'gitSyncRepo',
+    rootFolder: '/rootFolderTest/.harness/',
+    targetBranch: 'feature',
+    baseBranch: 'feature'
+  }
+}
+
+export const errorResponse = (): Promise<{ status: string }> =>
+  Promise.reject({
+    data: {
+      status: 'ERROR',
+      metadata: {
+        uuidToErrorResponseMap: {
+          field1: { errors: [{ fieldName: 'field1', message: 'field1 error message' }] },
+          field2: { errors: [{ fieldName: 'field2', message: 'field2 error message' }] }
+        }
+      }
+    }
+  })
+
+export const errorResponseWithoutErrorMap = (): Promise<{ status: string }> =>
+  Promise.reject({
+    data: {
+      status: 'ERROR',
+      metadata: {}
+    }
+  })

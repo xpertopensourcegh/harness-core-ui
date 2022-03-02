@@ -14,6 +14,7 @@ import { accountPathProps, pipelineModuleParams, inputSetFormPathProps } from '@
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
+import { useUpdateInputSetForPipeline } from 'services/pipeline-ng'
 import { EnhancedInputSetForm } from '../InputSetForm'
 import {
   TemplateResponse,
@@ -23,21 +24,10 @@ import {
   GetInputSetEdit,
   MergeInputSetResponse,
   GetOverlayInputSetEdit,
-  MergedPipelineResponse
+  MergedPipelineResponse,
+  errorResponse,
+  errorResponseWithoutErrorMap
 } from './InputSetMocks'
-
-const errorResponse = (): Promise<{ status: string }> =>
-  Promise.reject({
-    data: {
-      status: 'ERROR',
-      metadata: {
-        uuidToErrorResponseMap: {
-          field1: { errors: [{ fieldName: 'field1', message: 'field1 error message' }] },
-          field2: { errors: [{ fieldName: 'field2', message: 'field2 error message' }] }
-        }
-      }
-    }
-  })
 
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock(
@@ -93,6 +83,8 @@ jest.mock('@common/hooks', () => ({
     }
   })
 }))
+
+const useUpdateInputSetForPipelineMock = useUpdateInputSetForPipeline as jest.MockedFunction<any>
 
 jest.mock('services/pipeline-ng', () => ({
   useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
@@ -171,5 +163,44 @@ describe('Input Set - error scenarios', () => {
     })
     expect(queryByText('field1: field1 error message (1)'))
     expect(queryByText('field2: field2 error message (3)'))
+  })
+
+  test('if API errors should not be displayed if uuidToErrorResponseMap is not present in response', async () => {
+    useUpdateInputSetForPipelineMock.mockImplementation(() => {
+      return {
+        mutate: errorResponseWithoutErrorMap
+      }
+    })
+
+    const { getAllByText, getByText, queryByText } = render(
+      <TestWrapper
+        path={TEST_INPUT_SET_FORM_PATH}
+        pathParams={{
+          accountId: 'testAcc',
+          orgIdentifier: 'testOrg',
+          projectIdentifier: 'test',
+          pipelineIdentifier: 'pipeline',
+          inputSetIdentifier: 'asd',
+          module: 'cd'
+        }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <PipelineContext.Provider
+          value={
+            {
+              state: { pipeline: { name: '', identifier: '' } } as any,
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({ stage: pipeline.stages[0], parent: undefined }))
+            } as any
+          }
+        >
+          <EnhancedInputSetForm />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    await waitFor(() => getAllByText('tesa1'))
+    fireEvent.click(getByText('save'))
+    await waitFor(() => {
+      expect(queryByText('common.errorCount')).toBeFalsy()
+    })
   })
 })

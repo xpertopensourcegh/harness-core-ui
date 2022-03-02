@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { render, waitFor, fireEvent, createEvent, act } from '@testing-library/react'
-import { noop } from 'lodash-es'
+import { cloneDeep, noop } from 'lodash-es'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
@@ -21,6 +21,8 @@ import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interf
 import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import type { ResponseTemplateMergeResponse } from 'services/template-ng'
+import type { ResponseInputSetTemplateWithReplacedExpressionsResponse } from 'services/pipeline-ng'
 import { EnhancedInputSetForm } from '../InputSetForm'
 import {
   TemplateResponse,
@@ -32,6 +34,7 @@ import {
   GetOverlayInputSetEdit,
   MergedPipelineResponse
 } from './InputSetMocks'
+import { isYamlPresent, showPipelineInputSetForm } from '../FormikInputSetForm'
 
 const eventData = { dataTransfer: { setData: jest.fn(), dropEffect: '', getData: () => '1' } }
 
@@ -147,7 +150,10 @@ describe('Render Forms - Snapshot Testing', () => {
           value={
             {
               state: { pipeline: { name: '', identifier: '' } } as any,
-              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({ stage: pipeline.stages[0], parent: undefined }))
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({
+                stage: pipeline.stages[0],
+                parent: undefined
+              }))
             } as any
           }
         >
@@ -168,6 +174,41 @@ describe('Render Forms - Snapshot Testing', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('when executionView is true', async () => {
+    const { getByText } = render(
+      <TestWrapper
+        path={TEST_INPUT_SET_FORM_PATH}
+        pathParams={{
+          accountId: 'testAcc',
+          orgIdentifier: 'testOrg',
+          projectIdentifier: 'test',
+          pipelineIdentifier: 'pipeline',
+          inputSetIdentifier: '-1',
+          module: 'cd'
+        }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <PipelineContext.Provider
+          value={
+            {
+              state: { pipeline: { name: '', identifier: '' } } as any,
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({
+                stage: pipeline.stages[0],
+                parent: undefined
+              }))
+            } as any
+          }
+        >
+          <EnhancedInputSetForm executionView={true} />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    jest.runOnlyPendingTimers()
+    expect(getByText('save')).toBeInTheDocument()
+    expect(getByText('cancel')).toBeInTheDocument()
+    fireEvent.click(getByText('cancel'))
+  })
+
   test('name id validation on save click', async () => {
     const { getByText, getAllByDisplayValue } = render(
       <TestWrapper
@@ -186,7 +227,10 @@ describe('Render Forms - Snapshot Testing', () => {
           value={
             {
               state: { pipeline: { name: '', identifier: '' } } as any,
-              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({ stage: pipeline.stages[0], parent: undefined }))
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({
+                stage: pipeline.stages[0],
+                parent: undefined
+              }))
             } as any
           }
         >
@@ -258,7 +302,10 @@ describe('Render Forms - Snapshot Testing', () => {
           value={
             {
               state: { pipeline: { name: '', identifier: '' } } as any,
-              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({ stage: pipeline.stages[0], parent: undefined }))
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({
+                stage: pipeline.stages[0],
+                parent: undefined
+              }))
             } as any
           }
         >
@@ -352,5 +399,55 @@ describe('Render Forms - Snapshot Testing', () => {
       const dropEvent = Object.assign(createEvent.drop(container), eventData)
       fireEvent(container2, dropEvent)
     })
+  })
+
+  test('showPipelineInputSetForm function', async () => {
+    const templateData = cloneDeep(TemplateResponse.data)
+    let returnVal = showPipelineInputSetForm(
+      MergedPipelineResponse.data as ResponseTemplateMergeResponse,
+      templateData as ResponseInputSetTemplateWithReplacedExpressionsResponse
+    )
+    expect(returnVal).toBeTruthy()
+    delete templateData?.data
+    returnVal = showPipelineInputSetForm(
+      MergedPipelineResponse.data as ResponseTemplateMergeResponse,
+      templateData as ResponseInputSetTemplateWithReplacedExpressionsResponse
+    )
+    expect(returnVal).toBeFalsy()
+    returnVal = showPipelineInputSetForm(MergedPipelineResponse.data as ResponseTemplateMergeResponse, null)
+    expect(returnVal).toBeFalsy()
+    delete MergedPipelineResponse.data?.data
+    returnVal = showPipelineInputSetForm(
+      MergedPipelineResponse.data as ResponseTemplateMergeResponse,
+      templateData as ResponseInputSetTemplateWithReplacedExpressionsResponse
+    )
+    expect(returnVal).toBeFalsy()
+    returnVal = showPipelineInputSetForm(null, null)
+    expect(returnVal).toBeFalsy()
+  })
+
+  test('isYamlPresent function', async () => {
+    const templateData = cloneDeep(TemplateResponse.data)
+    let returnVal = isYamlPresent(
+      templateData as ResponseInputSetTemplateWithReplacedExpressionsResponse,
+      PipelineResponse.data
+    )
+    expect(returnVal).toBe(PipelineResponse.data?.data?.yamlPipeline)
+    delete PipelineResponse.data?.data
+    returnVal = isYamlPresent(
+      templateData as ResponseInputSetTemplateWithReplacedExpressionsResponse,
+      PipelineResponse.data
+    )
+    expect(returnVal).toBe(undefined)
+    returnVal = isYamlPresent(templateData as ResponseInputSetTemplateWithReplacedExpressionsResponse, null)
+    expect(returnVal).toBe(undefined)
+    delete templateData?.data
+    returnVal = isYamlPresent(
+      templateData as ResponseInputSetTemplateWithReplacedExpressionsResponse,
+      PipelineResponse.data
+    )
+    expect(returnVal).toBe(undefined)
+    returnVal = isYamlPresent(null, null)
+    expect(returnVal).toBe(undefined)
   })
 })

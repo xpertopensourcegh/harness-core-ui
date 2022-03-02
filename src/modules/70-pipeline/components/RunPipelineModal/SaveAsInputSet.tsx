@@ -34,7 +34,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
-import type { InputSetDTO } from '../InputSetForm/InputSetForm'
+import type { InputSetDTO } from '@pipeline/utils/types'
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 
 function clearNullUndefined<T>(data: T): T {

@@ -5,7 +5,10 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import { cloneDeep, isNull, isUndefined, omitBy } from 'lodash-es'
 import type { InputSetSummaryResponse } from 'services/pipeline-ng'
+import { changeEmptyValuesToRunTimeInput } from './stageHelpers'
+import type { InputSetDTO } from './types'
 
 export interface InputSetSummaryResponseExtended extends InputSetSummaryResponse {
   action?: string
@@ -28,4 +31,9 @@ export const isInputSetInvalid = (data: InputSetSummaryResponseExtended): boolea
     return true
   }
   return false
+}
+
+export const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO => {
+  const omittedInputset = omitBy(omitBy(data, isUndefined), isNull)
+  return changeEmptyValuesToRunTimeInput(cloneDeep(omittedInputset), '')
 }

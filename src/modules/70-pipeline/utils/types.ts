@@ -5,8 +5,14 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import type { StringNGVariable, NumberNGVariable, SecretNGVariable } from 'services/cd-ng'
-import type { NodeRunInfo, ExpressionBlock } from 'services/pipeline-ng'
+import type { StringNGVariable, NumberNGVariable, SecretNGVariable, PipelineInfoConfig } from 'services/cd-ng'
+import type {
+  NodeRunInfo,
+  ExpressionBlock,
+  EntityGitDetails,
+  EntityValidityDetails,
+  InputSetResponse
+} from 'services/pipeline-ng'
 
 export type AllNGVariables = StringNGVariable | NumberNGVariable | SecretNGVariable
 
@@ -19,4 +25,34 @@ export interface ExecutionPageQueryParams {
 
 export interface ConditionalExecutionNodeRunInfo extends NodeRunInfo {
   expressions?: ExpressionBlock[]
+}
+
+export type StatusType = 'SUCCESS' | 'FAILURE' | 'ERROR'
+
+export type CreateUpdateInputSetsReturnType = Promise<{
+  status?: StatusType
+  nextCallback: () => void
+}>
+
+export interface InputSetType {
+  name: string
+  tags?: { [key: string]: string }
+  identifier: string
+  description: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipeline: PipelineInfoConfig
+  gitDetails: EntityGitDetails
+  entityValidityDetails: EntityValidityDetails
+}
+
+export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
+  pipeline?: PipelineInfoConfig
+  identifier?: string
+  repo?: string
+  branch?: string
+}
+
+export interface SaveInputSetDTO {
+  inputSet: InputSetDTO
 }

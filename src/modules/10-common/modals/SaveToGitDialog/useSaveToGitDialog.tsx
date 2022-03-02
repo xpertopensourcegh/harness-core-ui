@@ -263,7 +263,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     // if entity creation/update succeeds, raise a PR, if specified
     if (response.status === 'SUCCESS' && data?.createPr) {
       createPR(data)
-    } else {
+    } else if (data?.createPr) {
       // if entity creation/update fails, abort PR creation
       abortPR(response, data)
     }

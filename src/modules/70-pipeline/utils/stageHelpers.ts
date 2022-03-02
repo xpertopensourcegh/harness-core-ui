@@ -7,9 +7,9 @@
 
 import { isEmpty } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
-import type { InputSetDTO } from '@pipeline/components/InputSetForm/InputSetForm'
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
 import type { StringKeys } from 'framework/strings'
+import type { InputSetDTO } from './types'
 
 export enum StageType {
   DEPLOY = 'Deployment',
