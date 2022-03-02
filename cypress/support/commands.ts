@@ -277,20 +277,27 @@ Cypress.Commands.add('verifyStepChooseRuntimeInput', () => {
 })
 
 Cypress.Commands.add('verifyStepSelectStrategyAndVerifyStep', () => {
+  cy.intercept('POST', applyTemplatesCall).as('applyTemplatesCall')
   // Execution definition
   cy.findByTestId('execution').click()
 
   cy.wait('@strategiesList')
   cy.wait('@strategiesYaml')
 
+  cy.wait(1000)
+
   // choosing deployment strategy
   cy.findByRole('button', { name: /Use Strategy/i }).click()
+
+  cy.wait('@applyTemplatesCall')
+
   cy.wait(1000)
 
   // adding new step
   cy.findByText(/Add step/i).click()
   cy.findByTestId('addStepPipeline').click()
-  cy.wait(1000)
+
+  cy.wait('@pipelineSteps')
 
   // click verify step
   cy.findByText(/Verify/i).click()
