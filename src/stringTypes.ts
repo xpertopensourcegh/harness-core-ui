@@ -2844,6 +2844,7 @@ export interface StringsMap {
   'pipeline.stepLabel': string
   'pipeline.tagDependencyRequired': string
   'pipeline.targets.title': string
+  'pipeline.templateSaved': string
   'pipeline.testsReports.callgraphField.class': string
   'pipeline.testsReports.callgraphField.file': string
   'pipeline.testsReports.callgraphField.method': string

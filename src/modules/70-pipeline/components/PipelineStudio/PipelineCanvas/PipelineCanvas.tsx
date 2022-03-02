@@ -319,7 +319,7 @@ export function PipelineCanvas({
   const { openDialog: openUseTemplateDialog } = useConfirmationDialog({
     intent: Intent.WARNING,
     cancelButtonText: getString('no'),
-    contentText: getString('pipeline.changeTemplate', {
+    contentText: getString('pipeline.templateSaved', {
       name: savedTemplate?.name,
       entity: savedTemplate?.templateEntityType?.toLowerCase()
     }),

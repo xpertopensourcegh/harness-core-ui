@@ -16,6 +16,7 @@ scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target
 removeTemplate: The applied template will be removed from your stage.
 changeTemplate: 'Applying {{name}} to your {{entity}} might reset some fields.'
+templateSaved: 'Template {{name}} has been published successfully. Applying {{name}} to your {{entity}} might reset some fields.'
 copyTemplate: Template configurations will be copied to your pipeline and made editable.
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 changeTemplateLabel: Change Template
