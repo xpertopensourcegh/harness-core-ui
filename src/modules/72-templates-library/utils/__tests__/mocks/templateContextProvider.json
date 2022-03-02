@@ -93,7 +93,7 @@
     "isInitialized": true,
     "gitDetails": {},
     "entityValidityDetails": {
-      "valid": false,
+      "valid": true,
       "invalidYaml": null
     },
     "templateYaml": "template:\n    name: CI Stage Template 2\n    identifier: CI_Stage_Template\n    versionLabel: Version1\n    type: Stage\n    projectIdentifier: Kapil\n    orgIdentifier: default\n    tags: {}\n    spec:\n        type: CI\n        spec:\n            cloneCodebase: <+input>\n            infrastructure:\n                type: KubernetesDirect\n                spec:\n                    connectorRef: test1111\n                    namespace: test\n            execution:\n                steps:\n                    - step:\n                          type: Run\n                          name: test\n                          identifier: test\n                          spec:\n                              connectorRef: harnessImage\n                              image: node:14\n                              command: echo 1\n",

@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { Link } from 'react-router-dom'
 
 import userEvent from '@testing-library/user-event'
@@ -91,7 +91,7 @@ describe('<TemplateStudio /> tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('view change toggling in template studio', () => {
+  test('view change toggling in template studio', async () => {
     /**
      * View change to yaml loads yaml builder
      * View change back to visual checks if valid yaml has been entered
@@ -110,15 +110,21 @@ describe('<TemplateStudio /> tests', () => {
     )
 
     const toggle = container.querySelector('[data-name="toggle-option-two"]')
-    userEvent.click(toggle!)
-    expect(toggle?.className).toContain('PillToggle--selected')
+    act(() => {
+      userEvent.click(toggle!)
+    })
+    await waitFor(() => expect(toggle?.className).toContain('PillToggle--selected'))
 
     const toggle2 = container.querySelector('[data-name="toggle-option-one"]')
-    userEvent.click(toggle2!)
-    waitFor(() => expect(toggle2?.className).toContain('PillToggle--selected'))
+    act(() => {
+      userEvent.click(toggle2!)
+    })
+    await waitFor(() => expect(toggle2?.className).toContain('PillToggle--selected'))
 
-    userEvent.click(toggle2!)
-    waitFor(() => expect(toggle2?.className).not.toEqual('PillToggle--item'))
+    act(() => {
+      userEvent.click(toggle2!)
+    })
+    await waitFor(() => expect(toggle2?.className).not.toEqual('PillToggle--item'))
   })
 
   test('is template studio loading', async () => {

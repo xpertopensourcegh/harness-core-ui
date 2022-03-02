@@ -47,6 +47,7 @@ export const TemplateContextTestWrapper: React.FC<TemplateContextWrapperProps> =
           {
             view: view,
             setView: setView,
+            updateTemplateView: jest.fn(),
             ...templateContextProviderProps,
             ...templateContextValues,
             state: {
