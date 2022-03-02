@@ -86,6 +86,7 @@ import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/P
 import pipelineIllustration from './images/deploypipeline-illustration.svg'
 import buildpipelineIllustration from './images/buildpipeline-illustration.svg'
 import flagpipelineIllustration from './images/flagpipeline-illustration.svg'
+import { deploymentTypeLabel } from './PipelineListUtils'
 import css from './PipelinesPage.module.scss'
 
 export enum Sort {
@@ -363,10 +364,12 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
 
   React.useEffect(() => {
     if (!isEmpty(deploymentTypeResponse?.data) && deploymentTypeResponse?.data) {
-      const options: SelectOption[] = deploymentTypeResponse.data.map(type => ({
-        label: type === 'NativeHelm' ? getString('pipeline.nativeHelm') : getString('kubernetesText'),
-        value: type as string
-      }))
+      const options: SelectOption[] = deploymentTypeResponse.data
+        .filter(deploymentType => deploymentType in deploymentTypeLabel)
+        .map(type => ({
+          label: getString(deploymentTypeLabel[type]),
+          value: type as string
+        }))
       setDeploymentTypeSelectOptions(options)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

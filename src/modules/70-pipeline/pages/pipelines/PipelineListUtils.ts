@@ -6,6 +6,8 @@
  */
 
 import { Color, IconName } from '@wings-software/uicore'
+import type { StringKeys } from 'framework/strings'
+import type { ServiceDefinition } from 'services/cd-ng'
 import type { PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 
 export const getStatusColor = (data: PMSPipelineSummaryResponse): string => {
@@ -38,4 +40,10 @@ export const getIconsForPipeline = (data: PMSPipelineSummaryResponse): IconProps
     icons.push({ icon: 'cv-main', size: 16 })
   }
   return icons
+}
+
+export const deploymentTypeLabel: Record<ServiceDefinition['type'], StringKeys> = {
+  Kubernetes: 'kubernetesText',
+  NativeHelm: 'pipeline.nativeHelm',
+  Ssh: 'SSH'
 }
