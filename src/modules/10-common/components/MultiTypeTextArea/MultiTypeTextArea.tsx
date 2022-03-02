@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import { FormGroup, IFormGroupProps, Intent, ITextAreaProps, TextArea } from '@blueprintjs/core'
 import {
   ExpressionAndRuntimeType,
@@ -17,7 +17,8 @@ import {
   DataTooltipInterface,
   HarnessDocTooltip,
   FormError,
-  FormikTooltipContext
+  FormikTooltipContext,
+  Container
 } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get } from 'lodash-es'
@@ -61,6 +62,8 @@ export interface MultiTypeTextAreaProps
 export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
   const { name, value, onChange, enableConfigureOptions = true, textAreaProps, configureOptionsProps, ...rest } = props
   const { getString } = useStrings()
+  const [multiType, setMultiType] = useState<MultiTypeInputType>(getMultiTypeFromValue(value))
+
   const expressionAndRuntimeTypeComponent = (
     <ExpressionAndRuntimeType
       name={name}
@@ -70,15 +73,16 @@ export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
       fixedTypeComponentProps={textAreaProps}
       fixedTypeComponent={MultiTypeTextAreaFixedTypeComponent}
       style={{ flexGrow: 1 }}
-      btnClassName={css.multiBtn}
+      onTypeChange={setMultiType}
+      btnClassName={multiType === MultiTypeInputType.FIXED ? css.multiButtonForFixedType : ''}
     />
   )
   return (
-    <>
+    <Container>
       {enableConfigureOptions ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {expressionAndRuntimeTypeComponent}
-          {getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
+          {multiType === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions
               value={value as string}
               type={getString('string')}
@@ -96,7 +100,7 @@ export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
       ) : (
         expressionAndRuntimeTypeComponent
       )}
-    </>
+    </Container>
   )
 }
 
