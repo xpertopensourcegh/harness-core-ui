@@ -35,7 +35,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
-import type { StringKeys } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import {
   getTriggerIcon,
   GitSourceProviders,
@@ -71,7 +71,7 @@ interface RenderColumnMenuColumn {
   goToEditWizard: ({ triggerIdentifier, triggerType }: GoToEditWizardInterface) => void
   showSuccess: (str: string) => void
   showError: (str: string) => void
-  getString: (str: StringKeys) => string
+  getString: UseStringsReturn['getString']
   projectIdentifier: string
   orgIdentifier: string
   accountId: string
@@ -191,7 +191,7 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column
 }: {
   row: RenderColumnRow
-  column: { getString: (str: string) => string }
+  column: { getString: UseStringsReturn['getString'] }
 }) => {
   const data = row.original
   return (
@@ -213,11 +213,11 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           <Layout.Horizontal spacing="small" data-testid={data.identifier}>
             <Text color={Color.BLACK} lineClamp={1} width={!isEmpty(data.tags) ? '270px' : '300px'}>
               {data.name}
-              {!isEmpty(data.tags) ? <TagsPopover className={css.tags} tags={data.tags as tagsType} /> : null}
             </Text>
+            {!isEmpty(data.tags) ? <TagsPopover className={css.tags} tags={data.tags as tagsType} /> : null}
           </Layout.Horizontal>
-          <Text color={Color.GREY_400} lineClamp={1} width="300px">
-            {column.getString('common.ID')}: {data.identifier}
+          <Text color={Color.GREY_400} lineClamp={1} width={300}>
+            {column.getString('idLabel', { id: data.identifier })}
           </Text>
         </Layout.Vertical>
       </Layout.Horizontal>
@@ -230,7 +230,7 @@ const RenderColumnStatus: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column
 }: {
   row: RenderColumnRow
-  column: { getString: (str: string) => string }
+  column: { getString: UseStringsReturn['getString'] }
 }) => {
   const data = row.original
   const { validationStatus, pollingSubscriptionStatus, webhookAutoRegistrationStatus } = data?.triggerStatus || {}
@@ -275,7 +275,7 @@ const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column
 }: {
   row: RenderColumnRow
-  column: { getString: (str: string, obj: { numActivations?: number; numDays?: number }) => string }
+  column: { getString: UseStringsReturn['getString'] }
 }) => {
   const data = row.original as any // temporary until API ready
   const executions = data.executions
@@ -336,7 +336,7 @@ const RenderWebhookIcon = ({
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
-    getString: (str: string) => string
+    getString: UseStringsReturn['getString']
     isTriggerRbacDisabled: boolean
   }
 }): JSX.Element => {
@@ -420,7 +420,7 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
-    getString: (str: string) => string
+    getString: UseStringsReturn['getString']
     isTriggerRbacDisabled: boolean
   }
 }) => {
@@ -447,8 +447,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column: {
     showSuccess: (str: string) => void
     showError: (str: string) => void
-    // getString: (key: StringKeys) => string
-    getString: (str: string, obj?: { enabled: string; name: string }) => string
+    getString: UseStringsReturn['getString']
     refetchTriggerList: () => void
     projectIdentifier: string
     orgIdentifier: string
