@@ -22,6 +22,7 @@ exports[`User Profile Page To Profile 1`] = `
     >
       <p
         class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold"
+        data-testid="signout-link"
         style="display: flex; align-items: center;"
       >
         <span

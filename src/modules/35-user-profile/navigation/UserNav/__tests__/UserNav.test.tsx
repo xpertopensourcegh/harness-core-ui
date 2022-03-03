@@ -6,27 +6,28 @@
  */
 
 import React from 'react'
-import { fireEvent, render, RenderResult } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import UserNav from '../UserNav'
 
-describe('User Profile Page', () => {
-  let container: HTMLElement
-  let getByText: RenderResult['getByText']
-  let getByTestId: RenderResult['getByTestId']
+let mockLogout = jest.fn()
+jest.mock('services/portal', () => ({
+  useLogout1: jest.fn().mockImplementation(() => ({ mutate: mockLogout }))
+}))
 
-  beforeEach(async () => {
+describe('User Profile Page', () => {
+  test('To Profile', () => {
     const renderObj = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
         <UserNav />
       </TestWrapper>
     )
-    container = renderObj.container
-    getByTestId = renderObj.getByTestId
-    getByText = renderObj.getByText
-  })
-  test('To Profile', () => {
+    const container = renderObj.container
+    const getByTestId = renderObj.getByTestId
+    const getByText = renderObj.getByText
+
     expect(container).toMatchSnapshot()
 
     const userProfile = getByText('profile')
@@ -38,5 +39,43 @@ describe('User Profile Page', () => {
         })
       )
     ).toBeTruthy()
+  })
+
+  test('Logout with no return url', async () => {
+    mockLogout = jest.fn().mockReturnValue({ logoutUrl: undefined })
+    const { getByTestId } = render(
+      <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
+        <UserNav />
+      </TestWrapper>
+    )
+    const logoutBtn = getByTestId('signout-link')
+    userEvent.click(logoutBtn)
+
+    expect(mockLogout).toBeCalled()
+    await waitFor(() =>
+      expect(getByTestId('location')).toHaveTextContent('/redirect?returnUrl=%2F%23%2Flogin%3Faction%3Dsignout')
+    )
+  })
+
+  test('Logout with return url', async () => {
+    delete (window as any).location
+    window.location = {} as any
+    const setHrefSpy = jest.fn(href => href)
+    Object.defineProperty(window.location, 'href', {
+      set: setHrefSpy
+    })
+
+    mockLogout = jest.fn().mockReturnValue({ logoutUrl: 'http://dummy.com' })
+    const { getByTestId } = render(
+      <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
+        <UserNav />
+      </TestWrapper>
+    )
+
+    const logoutBtn = getByTestId('signout-link')
+    userEvent.click(logoutBtn)
+
+    expect(mockLogout).toBeCalled()
+    await waitFor(() => expect(setHrefSpy).toHaveBeenCalledWith('http://dummy.com'))
   })
 })
