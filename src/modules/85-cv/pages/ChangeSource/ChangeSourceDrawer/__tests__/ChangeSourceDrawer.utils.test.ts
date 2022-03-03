@@ -134,7 +134,7 @@ describe('Validate ChangeSource Utils', () => {
     expect(
       buildInitialData([
         { label: 'deploymentText', value: ChangeSourceCategoryName.DEPLOYMENT },
-        { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
+        { label: 'cv.changeSource.tooltip.incidents', value: ChangeSourceCategoryName.ALERT }
       ])
     ).toEqual({
       category: 'Deployment',
@@ -146,7 +146,7 @@ describe('Validate ChangeSource Utils', () => {
     expect(
       buildInitialData([
         { label: 'infrastructureText', value: ChangeSourceCategoryName.INFRASTRUCTURE },
-        { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
+        { label: 'cv.changeSource.tooltip.incidents', value: ChangeSourceCategoryName.ALERT }
       ])
     ).toEqual({
       category: 'Infrastructure',

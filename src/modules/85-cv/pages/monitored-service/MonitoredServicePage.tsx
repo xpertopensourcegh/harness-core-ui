@@ -28,8 +28,7 @@ import css from './MonitoredServicePage.module.scss'
 const ServiceHealthAndConfiguration: React.FC = () => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { tab = MonitoredServiceEnum.ServiceHealth, view } =
-    useQueryParams<{ tab?: MonitoredServiceEnum; view?: Views.GRID }>()
+  const { tab = MonitoredServiceEnum.SLOs, view } = useQueryParams<{ tab?: MonitoredServiceEnum; view?: Views.GRID }>()
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
@@ -145,14 +144,14 @@ const ServiceHealthAndConfiguration: React.FC = () => {
           onChange={onTabChange}
           tabList={[
             {
-              id: MonitoredServiceEnum.ServiceHealth,
-              title: getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth'),
-              panel: panelServiceHealth
-            },
-            {
               id: MonitoredServiceEnum.SLOs,
               title: getString('cv.slos.title'),
               panel: panelSLO
+            },
+            {
+              id: MonitoredServiceEnum.ServiceHealth,
+              title: getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth'),
+              panel: panelServiceHealth
             },
             {
               id: MonitoredServiceEnum.Configurations,

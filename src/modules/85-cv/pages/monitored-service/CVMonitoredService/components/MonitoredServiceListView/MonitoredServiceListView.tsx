@@ -280,13 +280,18 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
                 Cell: RenderServiceName
               },
               {
+                Header: getString('cv.monitoredServices.sloErrorBudget'),
+                width: '14%',
+                Cell: RenderSLOErrorBudgetData
+              },
+              {
                 Header: getString('cv.monitoredServices.table.changes'),
                 width: '15%',
                 Cell: RenderServiceChanges
               },
               {
                 Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-                width: '17%',
+                width: '18%',
                 Cell: RenderHealthTrend
               },
               {
@@ -298,11 +303,6 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
                 Header: getString('cv.monitoredServices.dependenciesHealth'),
                 width: '15%',
                 Cell: RenderDependenciesHealth
-              },
-              {
-                Header: getString('cv.monitoredServices.sloErrorBudget'),
-                width: '15%',
-                Cell: RenderSLOErrorBudgetData
               },
               {
                 Header: getString('enabledLabel'),

@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { render, waitFor, act, fireEvent } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { Container, Button } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
@@ -74,6 +74,51 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
 }))
 
 describe('Unit tests for createting monitored source', () => {
+  let refetchDashboardWidgets: jest.Mock
+  beforeEach(() => {
+    refetchDashboardWidgets = jest.fn()
+
+    jest.spyOn(cvServices, 'useGetAllJourneys').mockReturnValue({
+      data: {},
+      loading: false,
+      error: null,
+      refetch: jest.fn()
+    } as any)
+
+    jest.spyOn(cvServices, 'useGetSLODashboardWidgets').mockReturnValue({
+      data: {},
+      loading: false,
+      error: null,
+      refetch: refetchDashboardWidgets
+    } as any)
+
+    jest.spyOn(cvServices, 'useGetAllMonitoredServicesWithTimeSeriesHealthSources').mockReturnValue({
+      data: [],
+      loading: false,
+      error: null,
+      refetch: jest.fn()
+    } as any)
+
+    jest.spyOn(cvServices, 'useGetServiceLevelObjectivesRiskCount').mockReturnValue({
+      data: {
+        data: {
+          riskCounts: [
+            {
+              displayName: 'Healthy',
+              identifier: 'HEALTHY',
+              count: 2
+            }
+          ],
+          totalCount: 3
+        }
+      },
+      loading: false,
+      error: null,
+      refetch: jest.fn()
+    } as any)
+
+    jest.spyOn(cvServices, 'useResetErrorBudget').mockReturnValue({ mutate: jest.fn(), loading: false } as any)
+  })
   test('Health source table and environment services compoenet renders ', async () => {
     jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
       () =>
@@ -167,6 +212,7 @@ describe('Unit tests for createting monitored source', () => {
       data: {},
       refetch: jest.fn()
     } as any)
+
     jest.spyOn(cvServices, 'useChangeEventList').mockImplementation(
       () =>
         ({
@@ -229,8 +275,8 @@ describe('Unit tests for createting monitored source', () => {
     expect(getAllByRole('tab').length).toEqual(3)
 
     const tabTitle = [
-      'cv.monitoredServices.monitoredServiceTabs.serviceHealth',
       'cv.slos.title',
+      'cv.monitoredServices.monitoredServiceTabs.serviceHealth',
       'cv.monitoredServices.monitoredServiceTabs.configurations'
     ]
 
@@ -242,13 +288,6 @@ describe('Unit tests for createting monitored source', () => {
     await waitFor(() => expect(container.querySelector('div[data-tab-id="SLOs"]')).toBeTruthy())
     await waitFor(() => expect(container.querySelector('div[data-tab-id="Configurations"]')).toBeTruthy())
     await waitFor(() => expect(getByText('cv.monitoredServices.monitoredServiceTabs.configurations')).toBeTruthy())
-    act(() => {
-      fireEvent.click(container.querySelector('div[data-tab-id="ServiceHealth"]')!)
-    })
-
-    act(() => {
-      fireEvent.click(container.querySelector('div[data-tab-id="Configurations"]')!)
-    })
   })
 
   test('should return true when isProjectChangedOnMonitoredService method is called with the correct error message', () => {
