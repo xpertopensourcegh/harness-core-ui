@@ -302,17 +302,17 @@ function FormContent({
             />
           )}
         </div>
+        <ServiceNowApprovalRejectionCriteria
+          fieldList={ticketFieldList}
+          title={getString('pipeline.approvalCriteria.approvalCriteria')}
+          isFetchingFields={false}
+          mode="approvalCriteria"
+          values={formik.values.spec.approvalCriteria}
+          onChange={values => formik.setFieldValue('spec.approvalCriteria', values)}
+          formik={formik}
+          readonly={readonly}
+        />
       </React.Fragment>
-      <ServiceNowApprovalRejectionCriteria
-        fieldList={ticketFieldList}
-        title={getString('pipeline.approvalCriteria.approvalCriteria')}
-        isFetchingFields={false}
-        mode="approvalCriteria"
-        values={formik.values.spec.approvalCriteria}
-        onChange={values => formik.setFieldValue('spec.approvalCriteria', values)}
-        formik={formik}
-        readonly={readonly}
-      />
       <div className={stepCss.noLookDivider} />
       <Accordion className={stepCss.accordion}>
         <Accordion.Panel
