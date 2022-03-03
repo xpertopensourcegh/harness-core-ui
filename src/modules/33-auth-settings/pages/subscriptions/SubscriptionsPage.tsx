@@ -87,10 +87,9 @@ const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
     icon: 'cv-main',
     module: ModuleName.CV,
     title: 'common.purpose.service',
-    titleDescriptor: 'common.purpose.cv.serviceReliability'
+    titleDescriptor: 'common.serviceReliabilityManagement'
   }
 ]
-
 const SubscriptionsPage: React.FC = () => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
