@@ -76,6 +76,7 @@ interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
 }
 
 const logger = loggerFor(ModuleName.CD)
+const DBNotFoundErrorMessage = 'There was no DB found'
 
 export const getTemplateTypesByRef = (
   params: GetTemplateListQueryParams,
@@ -621,11 +622,16 @@ const _updatePipeline = async (
   let pipeline = pipelineArg
   if (typeof pipelineArg === 'function') {
     if (IdbPipeline) {
-      const dbPipeline = await IdbPipeline.get(IdbPipelineStoreName, id)
-      if (dbPipeline?.pipeline) {
-        pipeline = pipelineArg(dbPipeline.pipeline)
-      } else {
+      try {
+        const dbPipeline = await IdbPipeline.get(IdbPipelineStoreName, id)
+        if (dbPipeline?.pipeline) {
+          pipeline = pipelineArg(dbPipeline.pipeline)
+        } else {
+          pipeline = {} as PipelineInfoConfig
+        }
+      } catch (_) {
         pipeline = {} as PipelineInfoConfig
+        logger.info(DBNotFoundErrorMessage)
       }
     } else if (latestPipeline) {
       pipeline = pipelineArg(latestPipeline)
@@ -663,8 +669,8 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
           try {
             db.deleteObjectStore(IdbPipelineStoreName)
           } catch (_) {
-            // logger.error('There was no DB found')
-            dispatch(PipelineContextActions.error({ error: 'There was no DB found' }))
+            // logger.error(DBNotFoundErrorMessage)
+            dispatch(PipelineContextActions.error({ error: DBNotFoundErrorMessage }))
           }
           if (!db.objectStoreNames.contains(IdbPipelineStoreName)) {
             const objectStore = db.createObjectStore(IdbPipelineStoreName, { keyPath: KeyPath, autoIncrement: false })
@@ -699,35 +705,40 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
   }
 }
 
+const deletePipelineCacheFromIDB = async (IdbPipelineDatabase: IDBPDatabase | undefined, id: string): Promise<void> => {
+  if (IdbPipelineDatabase) {
+    try {
+      await IdbPipelineDatabase.delete(IdbPipelineStoreName, id)
+    } catch (_) {
+      logger.info(DBNotFoundErrorMessage)
+    }
+  }
+}
 const _deletePipelineCache = async (
   queryParams: GetPipelineQueryParams,
   identifier: string,
   gitDetails?: EntityGitDetails
 ): Promise<void> => {
-  if (IdbPipeline) {
-    const id = getId(
-      queryParams.accountIdentifier,
-      queryParams.orgIdentifier || '',
-      queryParams.projectIdentifier || '',
-      identifier,
-      gitDetails?.repoIdentifier || '',
-      gitDetails?.branch || ''
-    )
-    await IdbPipeline.delete(IdbPipelineStoreName, id)
-  }
+  const id = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    identifier,
+    gitDetails?.repoIdentifier || '',
+    gitDetails?.branch || ''
+  )
+  deletePipelineCacheFromIDB(IdbPipeline, id)
 
   // due to async operation, IdbPipeline may be undefined
-  if (IdbPipeline) {
-    const defaultId = getId(
-      queryParams.accountIdentifier,
-      queryParams.orgIdentifier || '',
-      queryParams.projectIdentifier || '',
-      DefaultNewPipelineId,
-      gitDetails?.repoIdentifier || '',
-      gitDetails?.branch || ''
-    )
-    await IdbPipeline.delete(IdbPipelineStoreName, defaultId)
-  }
+  const defaultId = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    DefaultNewPipelineId,
+    gitDetails?.repoIdentifier || '',
+    gitDetails?.branch || ''
+  )
+  deletePipelineCacheFromIDB(IdbPipeline, defaultId)
 }
 
 export enum PipelineContextType {
