@@ -3670,7 +3670,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 md"
         >
           <div
             class="group withoutSpacing"

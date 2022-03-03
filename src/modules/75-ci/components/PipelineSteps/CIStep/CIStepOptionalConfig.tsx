@@ -66,7 +66,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       tooltipId: string,
       allowableTypes: MultiTypeInputType[]
     ): React.ReactElement => (
-      <Container className={cx(css.formGroup, css.bottomMargin5)}>
+      <Container className={cx(css.formGroup, css.bottomMargin5, css.lg)}>
         <MultiTypeMap
           name={fieldName}
           valueMultiTextInputProps={{ expressions, allowableTypes }}
@@ -95,7 +95,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
 
   const renderMultiTypeMapInputSet = React.useCallback(
     (fieldName: string, stringKey: keyof StringsMap, tooltipId: string): React.ReactElement => (
-      <Container className={cx(css.formGroup, css.bottomMargin5)}>
+      <Container className={cx(css.formGroup, css.bottomMargin5, css.md)}>
         <MultiTypeMapInputSet
           name={fieldName}
           valueMultiTextInputProps={{
@@ -230,7 +230,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
     <>
       {/* Tag is not an optional configuration but due to some weird error, it's being placed here for time being till real reason is figured out.*/}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.tags') ? (
-        <Container className={cx(css.formGroup, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, css.bottomMargin5, css.md)}>
           <MultiTypeListInputSet
             name={`${prefix}spec.tags`}
             multiTextInputProps={{

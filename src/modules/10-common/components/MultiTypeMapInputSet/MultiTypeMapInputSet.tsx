@@ -145,13 +145,11 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
   React.useEffect(() => {
     const valueInCorrectFormat: MapType = {}
     if (Array.isArray(value)) {
-      value
-        .filter(item => !!item.value && typeof item.value === 'string')
-        .forEach(mapValue => {
-          if (mapValue.key && mapValue.value) {
-            valueInCorrectFormat[mapValue.key] = mapValue.value
-          }
-        })
+      value.forEach(mapValue => {
+        if (mapValue.key) {
+          valueInCorrectFormat[mapValue.key] = mapValue.value
+        }
+      })
     }
 
     if (get(formik?.values, name, '') !== RUNTIME_INPUT_VALUE) {
@@ -160,6 +158,8 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
       } else {
         formik?.setFieldValue(name, valueInCorrectFormat)
       }
+    } else if (!isEmpty(valueInCorrectFormat)) {
+      formik?.setFieldValue(name, valueInCorrectFormat)
     }
   }, [name, value, formik?.setFieldValue])
 
@@ -177,7 +177,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
             const keyError = get(error, `[${index}].key`)
             // const valueError = get(error, `[${index}].value`)
 
-            return typeof valueValue === 'string' ? (
+            return (
               <div className={cx(css.group, css.withoutAligning)} key={id}>
                 <div>
                   {index === 0 && (
@@ -226,7 +226,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
                   </div>
                 </div>
               </div>
-            ) : null
+            )
           })}
 
           {!disabled && (

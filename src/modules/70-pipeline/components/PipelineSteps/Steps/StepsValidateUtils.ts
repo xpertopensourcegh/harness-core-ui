@@ -202,15 +202,18 @@ function generateSchemaForMap(
 ): Lazy {
   if (isInputSet) {
     // We can't add validation for key uniqueness and key's value
-    return yup.mixed().test('validKeys', getString('validation.validKeyRegex'), map => {
-      if (!map || getMultiTypeFromValue(map as string) === MultiTypeInputType.RUNTIME) {
+    return yup.mixed().test('validKeys', getString('validation.validKeyRegex'), values => {
+      if (!values || getMultiTypeFromValue(values as string) === MultiTypeInputType.RUNTIME) {
         return true
       }
-      return Object.keys(map).every(key => keyRegexIdentifier.test(key))
+      if (typeof values === 'object' && !Array.isArray(values) && values !== null) {
+        return Object.keys(values).every(key => keyRegexIdentifier.test(key))
+      }
+      return true
     })
   } else {
-    return yup.lazy(value => {
-      if (Array.isArray(value)) {
+    return yup.lazy(values => {
+      if (Array.isArray(values)) {
         let schema = yup
           .array()
           .of(
@@ -237,7 +240,7 @@ function generateSchemaForMap(
             return uniqBy(map, 'key').length === map.length
           })
 
-        if (Array.isArray(value) && isRequired && label) {
+        if (Array.isArray(values) && isRequired && label) {
           schema = schema
             .ensure()
             .compact((val: any) => !val?.value)

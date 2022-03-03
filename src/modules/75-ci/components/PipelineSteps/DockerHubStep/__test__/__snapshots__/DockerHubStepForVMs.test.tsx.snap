@@ -600,7 +600,7 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                       </div>
                     </div>
                     <div
-                      class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+                      class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
                     >
                       <div
                         class="group withoutSpacing"
@@ -702,7 +702,7 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                       </div>
                     </div>
                     <div
-                      class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+                      class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
                     >
                       <div
                         class="group withoutSpacing"

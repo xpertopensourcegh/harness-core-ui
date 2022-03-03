@@ -27,7 +27,7 @@ export const DockerHubStepInputSetBasic: React.FC<DockerHubStepProps> = ({
   const { getString } = useStrings()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}

@@ -2461,7 +2461,7 @@ exports[`ECR Step Edit View should render properly 1`] = `
                       </div>
                     </div>
                     <div
-                      class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+                      class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
                     >
                       <div
                         class="group withoutSpacing"
@@ -2563,7 +2563,7 @@ exports[`ECR Step Edit View should render properly 1`] = `
                       </div>
                     </div>
                     <div
-                      class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+                      class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
                     >
                       <div
                         class="group withoutSpacing"
@@ -3218,7 +3218,6 @@ exports[`ECR Step InputSet View should not render any fields 1`] = `
   >
     <form
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
-      style="width: 50%;"
     >
       <div>
         <div
@@ -3255,7 +3254,6 @@ exports[`ECR Step InputSet View should render all fields 1`] = `
   >
     <form
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
-      style="width: 50%;"
     >
       <div>
         <div
@@ -3595,7 +3593,7 @@ exports[`ECR Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 md"
         >
           <div
             class="group withoutSpacing"
@@ -3999,7 +3997,7 @@ exports[`ECR Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 md"
         >
           <div
             class="group withoutSpacing"
@@ -4213,7 +4211,7 @@ exports[`ECR Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 md"
         >
           <div
             class="group withoutSpacing"
@@ -4818,7 +4816,6 @@ exports[`ECR Step InputSet View should render properly 1`] = `
   >
     <form
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
-      style="width: 50%;"
     >
       <div>
         <div
