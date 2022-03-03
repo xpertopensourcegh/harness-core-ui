@@ -79,7 +79,9 @@ describe('NewRelicMappedMetric component', () => {
 
   test('should render in edit mode', async () => {
     const refetchFn = jest.fn()
-    jest.spyOn(cvServices, 'useGetSampleDataForNRQL').mockReturnValue({ refetch: refetchFn } as any)
+    jest
+      .spyOn(cvServices, 'useGetSampleDataForNRQL')
+      .mockReturnValue({ refetch: refetchFn, data: { data: 'Query response json ' } } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -109,6 +111,13 @@ describe('NewRelicMappedMetric component', () => {
     await waitFor(() => expect(getByText('$.timeSeries.[*].beginTimeSeconds')).toBeInTheDocument())
     await waitFor(() => expect(getByText('$.timeSeries.[*].endTimeSeconds')).toBeInTheDocument())
     fireEvent.click(getByText('cv.healthSource.connectors.buildChart'))
-    await waitFor(() => expect(fetchNewRelicTimeSeriesData).toHaveBeenCalled())
+    await waitFor(() =>
+      expect(fetchNewRelicTimeSeriesData).toHaveBeenCalledWith({
+        groupName: 'Group 1',
+        jsonResponse: '"Query response json "',
+        metricValueJSONPath: '$.timeSeries.[*].beginTimeSeconds',
+        timestampJSONPath: '$.timeSeries.[*].endTimeSeconds'
+      })
+    )
   })
 })

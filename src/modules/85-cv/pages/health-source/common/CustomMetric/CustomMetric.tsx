@@ -38,6 +38,10 @@ export default function CustomMetric(props: CustomMetricInterface): JSX.Element 
 
   useEffect(() => {
     setMappedMetrics(oldState => {
+      const emptyName = formikValues.metricName?.length
+      if (!emptyName) {
+        return { selectedMetric: oldState.selectedMetric, mappedMetrics: mappedMetrics }
+      }
       const duplicateName =
         Array.from(mappedMetrics.keys()).indexOf(formikValues.metricName) > -1 &&
         oldState.selectedMetric !== formikValues?.metricName

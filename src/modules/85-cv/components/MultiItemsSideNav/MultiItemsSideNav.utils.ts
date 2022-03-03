@@ -54,3 +54,26 @@ export const getCreatedMetricLength = (
     ? Object.keys(groupedCreatedMetrics || {}).length
     : createdMetrics.length
 }
+
+export const getSelectedMetricIndex = (
+  createdMetrics: string[],
+  selectedMetric?: string,
+  renamedMetric?: string
+): number => {
+  let selectedMetricIndex = -1
+  if (renamedMetric && renamedMetric === selectedMetric) {
+    return selectedMetricIndex
+  }
+
+  for (let metricIndex = 0; metricIndex < createdMetrics.length; metricIndex++) {
+    const metric = createdMetrics[metricIndex]
+    if (metric === renamedMetric) {
+      // duplicate metric found so skip updating
+      return selectedMetricIndex
+    }
+    if (selectedMetric === metric) {
+      selectedMetricIndex = metricIndex
+    }
+  }
+  return selectedMetricIndex
+}

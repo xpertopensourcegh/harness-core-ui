@@ -21,5 +21,28 @@ describe('Validate  utils functions', () => {
     })
     expect(selectedMetric).toEqual('appdMetric new')
     expect(mappedMetrics).toEqual(expectedMappedMetrics)
+    // Empty Name
+    formikValues.metricName = ''
+    const noName = updateSelectedMetricsMap({
+      updatedMetric: 'appdMetric new',
+      oldMetric: 'appdMetric',
+      mappedMetrics: mappedMetricsMap,
+      formikValues,
+      initCustomForm
+    })
+    expect(noName.selectedMetric).toEqual('appdMetric new')
+    expect(noName.mappedMetrics).toEqual(mappedMetricsMap)
+
+    // Duplicate Name
+    formikValues.metricName = 'appdMetric new'
+    const duplicateName = updateSelectedMetricsMap({
+      updatedMetric: 'appdMetric new',
+      oldMetric: 'appdMetric',
+      mappedMetrics: mappedMetricsMap,
+      formikValues,
+      initCustomForm
+    })
+    expect(duplicateName.selectedMetric).toEqual('appdMetric new')
+    expect(duplicateName.mappedMetrics).toEqual(mappedMetricsMap)
   })
 })

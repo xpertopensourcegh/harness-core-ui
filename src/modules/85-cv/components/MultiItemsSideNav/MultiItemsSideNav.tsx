@@ -9,7 +9,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Container, Utils } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import { SelectedAppsSideNav } from './components/SelectedAppsSideNav/SelectedAppsSideNav'
-import { getCreatedMetricLength } from './MultiItemsSideNav.utils'
+import { getCreatedMetricLength, getSelectedMetricIndex } from './MultiItemsSideNav.utils'
 import type { GroupedCreatedMetrics } from './components/SelectedAppsSideNav/components/GroupedSideNav/GroupedSideNav.types'
 import css from './MultiItemsSideNav.module.scss'
 
@@ -51,27 +51,14 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
   const [selectedMetric, setSelectedMetric] = useState<string | undefined>(defaultSelectedMetric || createdMetrics[0])
 
   useEffect(() => {
-    if (renamedMetric && renamedMetric === selectedMetric) {
-      return
+    const selectedMetricIndex = getSelectedMetricIndex(createdMetrics, selectedMetric, renamedMetric)
+    if (selectedMetricIndex > -1) {
+      setCreatedMetrics(oldMetrics => {
+        if (selectedMetricIndex !== -1) oldMetrics[selectedMetricIndex] = renamedMetric as string
+        return Array.from(oldMetrics)
+      })
+      setSelectedMetric(renamedMetric)
     }
-
-    let selectedMetricIndex = -1
-    for (let metricIndex = 0; metricIndex < createdMetrics.length; metricIndex++) {
-      const metric = createdMetrics[metricIndex]
-      if (metric === renamedMetric) {
-        // duplicate metric found so skip updating
-        return
-      }
-      if (selectedMetric === metric) {
-        selectedMetricIndex = metricIndex
-      }
-    }
-
-    setCreatedMetrics(oldMetrics => {
-      if (selectedMetricIndex !== -1) oldMetrics[selectedMetricIndex] = renamedMetric as string
-      return Array.from(oldMetrics)
-    })
-    setSelectedMetric(renamedMetric)
   }, [renamedMetric])
 
   const metricsToRender = useMemo(() => {

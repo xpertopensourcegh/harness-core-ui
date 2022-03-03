@@ -336,6 +336,17 @@ describe('Create empty monitored service', () => {
       .scrollIntoView()
       .should('be.visible')
 
+    // Setting empty metric name doesn't rest form
+    cy.get('input[name="metricName"]').clear()
+    cy.get('input[name="metricName"]').should('have.value', '')
+    cy.get('input[name="groupName"]').should('have.value', 'Group 2')
+    cy.get('input[name="basePath"]').should('have.value', 'Overall Application Performance')
+    cy.get('input[name="metricPathDropdown"]').should('have.value', 'Exceptions per Minute')
+    cy.contains('p', 'Overall Application Performance / docker-tier / Exceptions per Minute')
+      .scrollIntoView()
+      .should('be.visible')
+    cy.get('input[name="metricName"]').type('appdMetric 10 updated')
+
     cy.contains('span', 'Add Metric').click({ force: true })
 
     // delete metric and verify

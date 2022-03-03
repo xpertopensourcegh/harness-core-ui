@@ -33,6 +33,11 @@ export function updateSelectedMetricsMap({
   formikValues,
   initCustomForm
 }: UpdateSelectedMetricsMapInterface): { selectedMetric: string; mappedMetrics: Map<string, CustomMappedMetric> } {
+  const emptyName = formikValues.metricName?.length
+  if (!emptyName) {
+    return { selectedMetric: updatedMetric, mappedMetrics: mappedMetrics }
+  }
+
   const updatedMap = new Map(mappedMetrics)
 
   const duplicateName =

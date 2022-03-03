@@ -9,6 +9,7 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { MultiItemsSideNav } from '../MultiItemsSideNav'
+import { getSelectedMetricIndex } from '../MultiItemsSideNav.utils'
 
 describe('Unit tests for Multi Items side nav', () => {
   const defaultMetricName = 'metric-1'
@@ -155,5 +156,16 @@ describe('Unit tests for Multi Items side nav', () => {
 
     await waitFor(() => expect(getByText('app1')).not.toBeNull())
     expect(container.querySelector('[class*="isSelected"]')?.innerHTML).toEqual('app1')
+  })
+
+  test('valide getSelectedMetricIndex', () => {
+    expect(getSelectedMetricIndex(['Metric 101', 'Metric 102'], 'Metric 102', '')).toEqual(1)
+    expect(getSelectedMetricIndex(['Metric 101', 'Metric 102'], 'Metric 102', 'Metric New')).toEqual(1)
+    expect(getSelectedMetricIndex(['Metric 101', 'Metric 102'], 'Metric 102', 'Metric 102')).toEqual(-1)
+    expect(getSelectedMetricIndex(['Metric 101', 'Metric 102'], 'Metric 102', 'Metric 101')).toEqual(-1)
+    expect(getSelectedMetricIndex(['Metric 101', 'Metric 102'], '', 'Metric New')).toEqual(-1)
+    expect(getSelectedMetricIndex(['Metric 101', 'Metric 102'], '', '')).toEqual(-1)
+    expect(getSelectedMetricIndex([], 'Metric New', 'Metric 101')).toEqual(-1)
+    expect(getSelectedMetricIndex([], 'Metric New', '')).toEqual(-1)
   })
 })
