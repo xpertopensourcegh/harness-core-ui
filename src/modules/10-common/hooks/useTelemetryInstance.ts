@@ -6,7 +6,6 @@
  */
 
 import Telemetry from '@wings-software/telemetry'
-import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 
 const stubTelemetry = {
   identify: () => void 0,
@@ -21,7 +20,6 @@ interface TelemetryStub {
 }
 
 export function useTelemetryInstance(): TelemetryStub | Telemetry {
-  const { licenseInformation } = useLicenseStore()
-  const isStub = isCDCommunity(licenseInformation) || window.deploymentType === 'ON_PREM' || __DEV__
+  const isStub = window.deploymentType === 'ON_PREM' || __DEV__
   return isStub ? stubTelemetry : new Telemetry(window.segmentToken || 'exa6lo7CnJXqKnR83itMpHYLY5fiajft')
 }

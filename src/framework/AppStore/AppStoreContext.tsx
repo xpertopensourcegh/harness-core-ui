@@ -24,6 +24,7 @@ import {
 import { useGetFeatureFlags } from 'services/portal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { FeatureFlag } from '@common/featureFlags'
+import { useTelemetryInstance } from '@common/hooks/useTelemetryInstance'
 
 export type FeatureFlagMap = Partial<Record<FeatureFlag, boolean>>
 
@@ -111,6 +112,15 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo?.data?.accounts])
+
+  // here we don't use hook useTelemetry to avoid circular dependencies
+  const telemetry = useTelemetryInstance()
+  useEffect(() => {
+    if (userInfo?.data?.email) {
+      telemetry.identify(userInfo?.data?.email)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo?.data?.email])
 
   // update feature flags in context
   useEffect(() => {
