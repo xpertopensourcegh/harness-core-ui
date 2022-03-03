@@ -64,7 +64,7 @@ export const getManifestTriggerSetValues = (
   formik: FormikValues,
   stageIdentifier: string,
   manifestPath: string
-): { type: ManifestTypes; spec: ManifestAttributes } | undefined => {
+): { identifier: string; type: ManifestTypes; spec: ManifestAttributes } | undefined => {
   if (stageIdentifier === formik?.values?.stageId) {
     const initialArtifactValue = get(initialValues, `${manifestPath}`)
     const { selectedArtifact } = formik?.values
@@ -78,6 +78,7 @@ export const getManifestTriggerSetValues = (
       }
 
       return {
+        identifier: selectedArtifact?.identifier,
         type: selectedArtifact?.type,
         spec: {
           ...selectedArtifact?.spec

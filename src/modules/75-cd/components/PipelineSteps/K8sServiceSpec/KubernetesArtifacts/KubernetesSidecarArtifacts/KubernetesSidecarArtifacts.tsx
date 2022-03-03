@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { get, isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -16,21 +16,84 @@ import { useStrings } from 'framework/strings'
 import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import type { SidecarArtifact } from 'services/cd-ng'
 import type { KubernetesArtifactsProps } from '../../K8sServiceSpecInterface'
 import { getNonRuntimeFields, isRuntimeMode } from '../../K8sServiceSpecHelper'
+import { fromPipelineInputTriggerTab, getSidecarInitialValues } from '../../ArtifactSource/artifactSourceUtils'
 import css from '../../K8sServiceSpec.module.scss'
 
-export const KubernetesSidecarArtifacts = (props: KubernetesArtifactsProps): React.ReactElement | null => {
-  const { getString } = useStrings()
+const ArtifactInputField = (props: KubernetesArtifactsProps): React.ReactElement => {
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-
+  const artifactSource = artifactSourceBaseFactory.getArtifactSource((props.artifact as SidecarArtifact).type)
   const runtimeMode = isRuntimeMode(props.stepViewType)
   const isArtifactsRuntime = runtimeMode && !!get(props.template, 'artifacts', false)
   const isPrimaryArtifactsRuntime = runtimeMode && !!get(props.template, 'artifacts.primary', false)
   const isSidecarRuntime = runtimeMode && !!get(props.template, 'artifacts.sidecars', false)
+
+  const artifactDefaultValue = props.artifacts?.sidecars?.find(
+    artifactData => artifactData.sidecar?.identifier === (props.artifact as SidecarArtifact).identifier
+  )?.sidecar
+
+  useEffect(() => {
+    /* instanbul ignore else */
+    if (fromPipelineInputTriggerTab(props.formik, props.fromTrigger)) {
+      const artifacTriggerData = getSidecarInitialValues(
+        props.initialValues,
+        props.formik,
+        props.stageIdentifier,
+        props.artifactPath as string
+      )
+      !isEmpty(artifacTriggerData) &&
+        props.formik.setFieldValue(`${props.path}.artifacts.${props.artifactPath}`, artifacTriggerData)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <div key={(props.artifact as SidecarArtifact).identifier}>
+      <Text className={css.inputheader}>
+        {get(props.artifact, 'identifier', '')}
+        {!isEmpty(
+          JSON.parse(
+            getNonRuntimeFields(artifactDefaultValue?.spec, get(props.template, `artifacts.${props.artifactPath}.spec`))
+          )
+        ) && (
+          <Tooltip
+            position="top"
+            className={css.artifactInfoTooltip}
+            content={getNonRuntimeFields(
+              artifactDefaultValue?.spec,
+              get(props.template, `artifacts.${props.artifactPath}.spec`)
+            )}
+          >
+            <Icon name="info" />
+          </Tooltip>
+        )}
+      </Text>
+      {artifactSource &&
+        artifactSource.renderContent({
+          ...props,
+          isArtifactsRuntime,
+          isPrimaryArtifactsRuntime,
+          isSidecarRuntime,
+          projectIdentifier,
+          orgIdentifier,
+          accountId,
+          pipelineIdentifier,
+          repoIdentifier,
+          branch,
+          isSidecar: true,
+          artifact: artifactDefaultValue
+        })}
+    </div>
+  )
+}
+
+export const KubernetesSidecarArtifacts = (props: KubernetesArtifactsProps): React.ReactElement | null => {
+  const { getString } = useStrings()
 
   return (
     <div
@@ -40,59 +103,19 @@ export const KubernetesSidecarArtifacts = (props: KubernetesArtifactsProps): Rea
       {!!props.template?.artifacts?.sidecars?.length && (
         <>
           <Text className={css.inputheader}>{getString('sidecarArtifactText')}</Text>
-          {props.template?.artifacts?.sidecars?.map(({ sidecar }, index) => {
-            if (!sidecar) {
+          {props.template?.artifacts?.sidecars?.map((sidecarObj, index) => {
+            if (!sidecarObj?.sidecar) {
               return null
             }
 
             const artifactPath = `sidecars[${index}].sidecar`
-            const artifactSource = artifactSourceBaseFactory.getArtifactSource(sidecar.type)
-
-            const artifactDefaultValue = props.artifacts?.sidecars?.find(
-              artifactData => artifactData.sidecar?.identifier === sidecar.identifier
-            )?.sidecar
-
             return (
-              <div key={sidecar.identifier}>
-                <Text className={css.inputheader}>
-                  {get(sidecar, 'identifier', '')}
-                  {!isEmpty(
-                    JSON.parse(
-                      getNonRuntimeFields(
-                        artifactDefaultValue?.spec,
-                        get(props.template, `artifacts.${artifactPath}.spec`)
-                      )
-                    )
-                  ) && (
-                    <Tooltip
-                      position="top"
-                      className={css.artifactInfoTooltip}
-                      content={getNonRuntimeFields(
-                        artifactDefaultValue?.spec,
-                        get(props.template, `artifacts.${artifactPath}.spec`)
-                      )}
-                    >
-                      <Icon name="info" />
-                    </Tooltip>
-                  )}
-                </Text>
-                {artifactSource &&
-                  artifactSource.renderContent({
-                    ...props,
-                    isArtifactsRuntime,
-                    isPrimaryArtifactsRuntime,
-                    isSidecarRuntime,
-                    projectIdentifier,
-                    orgIdentifier,
-                    accountId,
-                    pipelineIdentifier,
-                    repoIdentifier,
-                    branch,
-                    artifactPath,
-                    isSidecar: true,
-                    artifact: artifactDefaultValue
-                  })}
-              </div>
+              <ArtifactInputField
+                {...props}
+                artifact={sidecarObj.sidecar}
+                artifactPath={artifactPath}
+                key={sidecarObj.sidecar?.identifier}
+              />
             )
           })}
         </>

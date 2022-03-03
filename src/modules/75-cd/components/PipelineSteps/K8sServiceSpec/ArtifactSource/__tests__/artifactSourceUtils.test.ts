@@ -222,7 +222,7 @@ describe('ArtifactSourceUtils', () => {
     expect(result).toEqual(null)
   })
 
-  test('setPrimaryInitialValues works as expected', () => {
+  test('getPrimaryInitialValues works as expected', () => {
     const initialValues = {}
     const formik = {
       values: {
@@ -242,11 +242,11 @@ describe('ArtifactSourceUtils', () => {
     const artifactPath = 'primary'
 
     expect((formik.values.selectedArtifact.spec as any).eventCondition).toBeUndefined()
-    const result = artifactSourceUtils.setPrimaryInitialValues(initialValues, formik, stageIdentifier, artifactPath)
+    const result = artifactSourceUtils.getPrimaryInitialValues(initialValues, formik, stageIdentifier, artifactPath)
     expect(result).toBeUndefined()
   })
 
-  test('setSidecarInitialValues works as expected', () => {
+  test('getSidecarInitialValues works as expected', () => {
     const initialValues = {}
     const formik = {
       values: {
@@ -268,7 +268,7 @@ describe('ArtifactSourceUtils', () => {
     const artifactPath = `sidecars[${index}].sidecar`
 
     expect((formik.values.selectedArtifact.spec as any).eventCondition).toBeUndefined()
-    const result = artifactSourceUtils.setSidecarInitialValues(initialValues, formik, stageIdentifier, artifactPath)
+    const result = artifactSourceUtils.getSidecarInitialValues(initialValues, formik, stageIdentifier, artifactPath)
     expect(result).toBeUndefined()
   })
 })

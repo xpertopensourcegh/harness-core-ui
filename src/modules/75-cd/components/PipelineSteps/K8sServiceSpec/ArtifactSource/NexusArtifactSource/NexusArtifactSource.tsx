@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { defaultTo, get } from 'lodash-es'
 
 import { FormInput, getMultiTypeFromValue, Layout, MultiTypeInputType } from '@wings-software/uicore'
@@ -22,14 +22,11 @@ import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
-  fromPipelineInputTriggerTab,
   getImagePath,
   getYamlData,
   isArtifactSourceRuntime,
   isFieldfromTriggerTabDisabled,
-  resetTags,
-  setPrimaryInitialValues,
-  setSidecarInitialValues
+  resetTags
 } from '../artifactSourceUtils'
 import ArtifactTagRuntimeField from '../ArtifactSourceRuntimeFields/ArtifactTagRuntimeField'
 import css from '../../K8sServiceSpec.module.scss'
@@ -103,18 +100,6 @@ const Content = (props: NexusRenderContent): JSX.Element => {
     },
     lazy: true
   })
-
-  useEffect(() => {
-    /* instanbul ignore else */
-    if (fromPipelineInputTriggerTab(formik, fromTrigger)) {
-      if (isSidecar) {
-        setSidecarInitialValues(initialValues, formik, stageIdentifier, artifactPath as string)
-      } else {
-        setPrimaryInitialValues(initialValues, formik, stageIdentifier, artifactPath as string)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formik?.values?.triggerType, formik?.values?.selectedArtifact, fromTrigger, stageIdentifier])
 
   const isFieldDisabled = (fieldName: string, isTag = false): boolean => {
     /* instanbul ignore else */

@@ -7,7 +7,7 @@
 
 import { getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@harness/uicore'
 import type { FormikValues } from 'formik'
-import { cloneDeep, defaultTo, get, isEmpty, merge, unset } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, unset } from 'lodash-es'
 import type { GetDataError } from 'restful-react'
 import { parse } from 'yaml'
 import {
@@ -17,6 +17,7 @@ import {
 } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import type {
+  ArtifactConfig,
   ArtifactoryBuildDetailsDTO,
   DockerBuildDetailsDTO,
   EcrBuildDetailsDTO,
@@ -25,6 +26,7 @@ import type {
   PipelineInfoConfig
 } from 'services/cd-ng'
 import { RegistryHostNames } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import type { ArtifactType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { clearRuntimeInputValue } from '../K8sServiceSpecHelper'
 
 export type BuildDetailsDTO =
@@ -94,12 +96,12 @@ export const getYamlData = (formikValues: Record<string, any>): PipelineInfoConf
     )
   )
 
-export const setPrimaryInitialValues = (
+export const getPrimaryInitialValues = (
   initialValues: K8SDirectServiceStep,
   formik: FormikValues,
   stageIdentifier: string,
   artifactPath: string
-): void => {
+): { type: ArtifactType; spec: ArtifactConfig } | undefined => {
   if (stageIdentifier === formik?.values?.stageId) {
     const initialArtifactValue = get(initialValues, `artifacts.${artifactPath}`)
     const { selectedArtifact } = formik?.values
@@ -112,21 +114,21 @@ export const setPrimaryInitialValues = (
         unset(selectedArtifact?.spec, 'eventConditions')
       }
 
-      merge(initialArtifactValue, {
+      return {
         type: selectedArtifact?.type,
         spec: {
           ...selectedArtifact?.spec
         }
-      })
+      }
     }
   }
 }
-export const setSidecarInitialValues = (
+export const getSidecarInitialValues = (
   initialValues: K8SDirectServiceStep,
   formik: FormikValues,
   stageIdentifier: string,
   artifactPath: string
-): void => {
+): { identifier: string; type: ArtifactType; spec: ArtifactConfig } | undefined => {
   if (stageIdentifier === formik?.values?.stageId) {
     const initialArtifactValue = get(initialValues, `artifacts.${artifactPath}`)
     const { selectedArtifact } = formik?.values
@@ -139,12 +141,13 @@ export const setSidecarInitialValues = (
         unset(selectedArtifact?.spec, 'eventConditions')
       }
 
-      merge(initialArtifactValue, {
+      return {
+        identifier: selectedArtifact?.identifier,
         type: selectedArtifact?.type,
         spec: {
           ...selectedArtifact?.spec
         }
-      })
+      }
     }
   }
 }

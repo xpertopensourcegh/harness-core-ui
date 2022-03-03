@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { get, isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -18,6 +18,7 @@ import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/in
 import { useQueryParams } from '@common/hooks'
 import type { KubernetesArtifactsProps } from '../../K8sServiceSpecInterface'
 import { getNonRuntimeFields, isRuntimeMode } from '../../K8sServiceSpecHelper'
+import { fromPipelineInputTriggerTab, getPrimaryInitialValues } from '../../ArtifactSource/artifactSourceUtils'
 import css from '../../K8sServiceSpec.module.scss'
 
 export const KubernetesPrimaryArtifacts = (props: KubernetesArtifactsProps): React.ReactElement | null => {
@@ -34,6 +35,21 @@ export const KubernetesPrimaryArtifacts = (props: KubernetesArtifactsProps): Rea
   const artifactSource = props.type && artifactSourceBaseFactory.getArtifactSource(props.type)
   const artifact = props.artifacts?.primary
   const artifactPath = 'primary'
+
+  useEffect(() => {
+    /* instanbul ignore else */
+    if (fromPipelineInputTriggerTab(props.formik, props.fromTrigger)) {
+      const artifacTriggerData = getPrimaryInitialValues(
+        props.initialValues,
+        props.formik,
+        props.stageIdentifier,
+        props.artifactPath as string
+      )
+      !isEmpty(artifacTriggerData) &&
+        props.formik.setFieldValue(`${props.path}.artifacts.${props.artifactPath}`, artifacTriggerData)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return artifactSource ? (
     <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${props.stageIdentifier}.Service.Artifacts`}>
