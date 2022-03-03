@@ -6,11 +6,13 @@
  */
 
 import type { FormikValues } from 'formik'
-import { get, isEmpty, merge, unset } from 'lodash-es'
+import { get, isEmpty, unset } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
 import { TriggerDefaultFieldList, TriggerTypes } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { GitRepoName } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
+import type { ManifestAttributes } from 'services/cd-ng'
 
 export const fromPipelineInputTriggerTab = (formik: FormikValues, fromTrigger = false): boolean => {
   return (
@@ -57,12 +59,12 @@ export const getConnectorRef = (initialConnectorRefData: string, formikConnector
     : formikConnectorRefValue
 }
 
-export const setManifestInitialValues = (
+export const getManifestTriggerSetValues = (
   initialValues: K8SDirectServiceStep,
   formik: FormikValues,
   stageIdentifier: string,
   manifestPath: string
-): void => {
+): { type: ManifestTypes; spec: ManifestAttributes } | undefined => {
   if (stageIdentifier === formik?.values?.stageId) {
     const initialArtifactValue = get(initialValues, `${manifestPath}`)
     const { selectedArtifact } = formik?.values
@@ -74,13 +76,13 @@ export const setManifestInitialValues = (
       if (selectedArtifact?.spec.eventConditions) {
         unset(selectedArtifact?.spec, 'eventConditions')
       }
-      merge(initialArtifactValue, {
-        identifier: selectedArtifact?.identifier,
+
+      return {
         type: selectedArtifact?.type,
         spec: {
           ...selectedArtifact?.spec
         }
-      })
+      }
     }
   }
 }

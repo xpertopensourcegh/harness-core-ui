@@ -20,7 +20,7 @@ import type { ManifestConfig } from 'services/cd-ng'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { KubernetesManifestsProps } from '../K8sServiceSpecInterface'
 import { getNonRuntimeFields, isRuntimeMode } from '../K8sServiceSpecHelper'
-import { fromPipelineInputTriggerTab, setManifestInitialValues } from '../ManifestSource/ManifestSourceUtils'
+import { fromPipelineInputTriggerTab, getManifestTriggerSetValues } from '../ManifestSource/ManifestSourceUtils'
 import css from './KubernetesManifests.module.scss'
 
 const ManifestInputField = (props: KubernetesManifestsProps): React.ReactElement => {
@@ -43,10 +43,17 @@ const ManifestInputField = (props: KubernetesManifestsProps): React.ReactElement
   useEffect(() => {
     /* instanbul ignore else */
     if (fromPipelineInputTriggerTab(props.formik, props.fromTrigger)) {
-      setManifestInitialValues(props.initialValues, props.formik, props.stageIdentifier, props.manifestPath as string)
+      const manifestTriggerData = getManifestTriggerSetValues(
+        props.initialValues,
+        props.formik,
+        props.stageIdentifier,
+        props.manifestPath as string
+      )
+      !isEmpty(manifestTriggerData) &&
+        props.formik.setFieldValue(`${props.path}.${props.manifestPath}`, manifestTriggerData)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.formik?.values?.selectedArtifact, props.fromTrigger, props.stageIdentifier])
+  }, [])
 
   return (
     <div key={props.manifest?.identifier}>
