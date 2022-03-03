@@ -10,6 +10,7 @@ import { Container, Tabs, Tab, NoDataCard, Layout } from '@wings-software/uicore
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { ExecutionNode } from 'services/pipeline-ng'
+import { Connectors } from '@connectors/constants'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { DeploymentMetrics } from './components/DeploymentMetrics/DeploymentMetrics'
@@ -66,7 +67,11 @@ export function ExecutionVerificationView(props: ExecutionVerificationViewProps)
             id={getString('errors')}
             title={getString('errors')}
             panel={
-              <LogAnalysisContainer step={step} hostName={'errortracking'} isErrorTracking={isErrorTrackingEnabled} />
+              <LogAnalysisContainer
+                step={step}
+                hostName={Connectors.ERROR_TRACKING}
+                isErrorTracking={isErrorTrackingEnabled}
+              />
             }
           />
         )}
