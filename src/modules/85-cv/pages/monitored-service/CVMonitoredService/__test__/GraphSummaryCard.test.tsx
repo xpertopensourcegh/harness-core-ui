@@ -49,10 +49,10 @@ describe('Monitored Service Summary Card', () => {
 
     userEvent.click(container.querySelector('[data-icon="Edit"]')!)
 
-    waitFor(() =>
+    await waitFor(() =>
       expect(
-        screen.queryByText(
-          routes.toCVAddMonitoringServicesEdit(pathParams) +
+        screen.getByText(
+          routes.toCVAddMonitoringServicesEdit({ ...pathParams, identifier: 'identifier', module: 'cv' }) +
             getCVMonitoringServicesSearchParam({ tab: MonitoredServiceEnum.Configurations })
         )
       ).toBeInTheDocument()
@@ -103,12 +103,10 @@ describe('Monitored Service Summary Card', () => {
     expect(container.querySelector('[data-icon="steps-spinner"]')).toBeInTheDocument()
   })
 
-  test('Error', () => {
-    const refetch = jest.fn()
-
+  test('Error', async () => {
     jest
       .spyOn(cvService, 'useGetMonitoredServiceDetails')
-      .mockReturnValue({ error: { message: errorMessage }, refetch } as any)
+      .mockReturnValue({ error: { message: errorMessage }, refetch: jest.fn() } as any)
 
     render(
       <TestWrapper {...testWrapperProps}>
@@ -122,11 +120,13 @@ describe('Monitored Service Summary Card', () => {
 
     const { serviceRef, environmentRef } = servicePoint
 
-    waitFor(() =>
-      expect(refetch).toBeCalledWith({
-        ...pathParams,
-        serviceRef,
-        environmentRef
+    await waitFor(() =>
+      expect(cvService.useGetMonitoredServiceDetails).toHaveBeenLastCalledWith({
+        queryParams: {
+          ...pathParams,
+          serviceIdentifier: serviceRef,
+          environmentIdentifier: environmentRef
+        }
       })
     )
   })

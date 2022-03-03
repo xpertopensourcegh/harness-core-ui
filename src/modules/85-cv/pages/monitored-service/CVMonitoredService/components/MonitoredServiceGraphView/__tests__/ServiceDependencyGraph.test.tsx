@@ -28,6 +28,7 @@ jest.mock('services/cv', () => ({
   useDeleteMonitoredService: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
+const environmentIdentifier = 'environment_identifier'
 const monitoredServiceIdentifier = 'monitored_service_identifier'
 
 describe('Service Dependency Graph', () => {
@@ -55,16 +56,17 @@ describe('Service Dependency Graph', () => {
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Error', () => {
-    const refetch = jest.fn()
-
+  test('Error', async () => {
     jest
       .spyOn(cvService, 'useGetServiceDependencyGraph')
-      .mockReturnValue({ error: { message: errorMessage }, refetch } as any)
+      .mockReturnValue({ error: { message: errorMessage }, refetch: jest.fn() } as any)
 
     render(
       <TestWrapper {...testWrapperProps}>
-        <ServiceDependencyGraph monitoredServiceIdentifier={monitoredServiceIdentifier} />
+        <ServiceDependencyGraph
+          environmentIdentifier={environmentIdentifier}
+          monitoredServiceIdentifier={monitoredServiceIdentifier}
+        />
       </TestWrapper>
     )
 
@@ -72,12 +74,14 @@ describe('Service Dependency Graph', () => {
 
     userEvent.click(screen.getByText('Retry'))
 
-    waitFor(() =>
-      expect(refetch).toBeCalledWith({
-        ...pathParams,
-        serviceIdentifier: 'service_identifier',
-        environmentIdentifier: 'environment_identifier',
-        servicesAtRiskFilter: false
+    await waitFor(() =>
+      expect(cvService.useGetServiceDependencyGraph).toHaveBeenLastCalledWith({
+        queryParams: {
+          ...pathParams,
+          environmentIdentifier,
+          monitoredServiceIdentifier,
+          servicesAtRiskFilter: false
+        }
       })
     )
   })
@@ -121,13 +125,12 @@ describe('Service Dependency Graph', () => {
     expect(container.querySelector('[data-icon="steps-spinner"]')).toBeInTheDocument()
   })
 
-  test('Error', () => {
-    const refetch = jest.fn()
+  test('Error', async () => {
     const refetchServiceCountData = jest.fn()
 
     jest
       .spyOn(cvService, 'useGetServiceDependencyGraph')
-      .mockReturnValue({ error: { message: errorMessage }, refetch } as any)
+      .mockReturnValue({ error: { message: errorMessage }, refetch: jest.fn() } as any)
 
     render(
       <TestWrapper {...testWrapperProps}>
@@ -143,16 +146,18 @@ describe('Service Dependency Graph', () => {
 
     userEvent.click(screen.getByText('Retry'))
 
-    waitFor(() =>
-      expect(refetch).toBeCalledWith({
-        ...pathParams,
-        servicesAtRiskFilter: true
+    await waitFor(() =>
+      expect(cvService.useGetServiceDependencyGraph).toHaveBeenLastCalledWith({
+        queryParams: {
+          ...pathParams,
+          servicesAtRiskFilter: true
+        }
       })
     )
     expect(refetchServiceCountData).not.toBeCalled()
   })
 
-  test('Service count API error', () => {
+  test('Service count API error', async () => {
     const refetch = jest.fn()
     const refetchServiceCountData = jest.fn()
 
@@ -173,12 +178,11 @@ describe('Service Dependency Graph', () => {
 
     userEvent.click(screen.getByText('Retry'))
 
-    waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(1))
+    await waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(1))
     expect(refetch).not.toBeCalled()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Service count data available', () => {
+  test('Service count data available', async () => {
     jest
       .spyOn(cvService, 'useGetServiceDependencyGraph')
       .mockReturnValue({ data: serviceDependencyData, refetch: jest.fn() } as any)
@@ -189,8 +193,10 @@ describe('Service Dependency Graph', () => {
       </TestWrapper>
     )
 
-    expect(screen.queryByText('cv.monitoredServices.youHaveNoMonitoredServices')).not.toBeInTheDocument()
-    expect(screen.queryByText(errorMessage)).not.toBeInTheDocument()
-    expect(container.querySelector('[data-icon="steps-spinner"]')).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.queryByText('cv.monitoredServices.youHaveNoMonitoredServices')).not.toBeInTheDocument()
+      expect(screen.queryByText(errorMessage)).not.toBeInTheDocument()
+      expect(container.querySelector('[data-icon="steps-spinner"]')).not.toBeInTheDocument()
+    })
   })
 })

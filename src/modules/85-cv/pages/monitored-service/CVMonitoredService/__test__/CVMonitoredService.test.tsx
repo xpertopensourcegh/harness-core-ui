@@ -187,7 +187,7 @@ describe('Monitored Service list', () => {
         projectIdentifier: '1234_project'
       }
     })
-    waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(2))
+    await waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(2))
   })
 
   test('Loading state', async () => {
@@ -221,7 +221,7 @@ describe('Monitored Service list', () => {
 
     expect(mutate).toHaveBeenCalled()
     expect(refetchServiceCountData).toBeCalledTimes(1)
-    waitFor(() => expect(screen.queryByText('Something went wrong')).toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByText('Something went wrong')).toBeInTheDocument())
   })
 
   test('Risk filter with data', async () => {
