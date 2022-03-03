@@ -75,6 +75,7 @@ export const getIconBySourceType = (type: string): IconName => {
     case 'PagerDuty':
       return 'service-pagerduty'
     case 'CustomHealth':
+    case 'CUSTOM_HEALTH':
       return 'service-custom-connector'
     case 'DYNATRACE':
     case 'Dynatrace':

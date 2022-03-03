@@ -7,7 +7,7 @@
 
 import type { ChangeSourceDTO } from 'services/cv'
 import type { RowData } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
-import { deleteHealthSource } from '../HealthSourceTable.utils'
+import { deleteHealthSource, getIconBySourceType } from '../HealthSourceTable.utils'
 import {
   selectedRow,
   changeSource,
@@ -27,5 +27,15 @@ describe('Validate Healthsource table Utils', () => {
     expect(deleteHealthSource(selectedRow as RowData, [] as ChangeSourceDTO[], tableData as RowData[])).toEqual(
       onDeleteWithOutChangeSource
     )
+  })
+
+  test('Ensure correct logo is returned by getIconBySourceType', async () => {
+    expect(getIconBySourceType('CustomHealth')).toEqual('service-custom-connector')
+    expect(getIconBySourceType('CUSTOM_HEALTH')).toEqual('service-custom-connector')
+    expect(getIconBySourceType('DATADOG_LOG')).toEqual('service-datadog')
+    expect(getIconBySourceType('DATADOG_METRICS')).toEqual('service-datadog')
+    expect(getIconBySourceType('STACKDRIVER_LOG')).toEqual('service-stackdriver')
+    expect(getIconBySourceType('DYNATRACE')).toEqual('service-dynatrace')
+    expect(getIconBySourceType('Dynatrace')).toEqual('service-dynatrace')
   })
 })
