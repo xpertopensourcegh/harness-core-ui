@@ -823,6 +823,7 @@ export const mockOperators = [
   { label: 'Not In', value: 'NotIn' },
   { label: 'Starts With', value: 'StartsWith' },
   { label: 'Ends With', value: 'EndsWith' },
+  { label: 'Contains', value: 'Contains' },
   { label: 'Regex', value: 'Regex' }
 ]
 
