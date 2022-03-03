@@ -87,7 +87,14 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
   }, [expressions])
 
   const editor = (
-    <div className={css.monacoWrapper}>
+    <div
+      className={css.monacoWrapper}
+      onKeyDown={event => {
+        if (event.key === 'Enter') {
+          event.stopPropagation()
+        }
+      }}
+    >
       <MonacoEditor
         height={isFullScreen ? '70vh' : 300}
         value={value}
