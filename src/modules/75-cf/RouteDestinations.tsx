@@ -7,9 +7,7 @@
 
 import React, { FC } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
-
 import { RouteWithLayout } from '@common/router'
-// import SidebarProvider from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
 import {
   accountPathProps,
@@ -49,6 +47,9 @@ import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/Create
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import featureFactory from 'framework/featureStore/FeaturesFactory'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { getBannerText } from '@cf/utils/UsageLimitUtils'
 import { String } from 'framework/strings'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
@@ -63,10 +64,25 @@ import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import TargetGroupDetailPage from './pages/target-group-detail/TargetGroupDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
-
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 import CFTrialHomePage from './pages/home/CFTrialHomePage'
 import FeatureFlagsLandingPage from './pages/feature-flags/FeatureFlagsLandingPage'
+
+featureFactory.registerFeaturesByModule('cf', {
+  features: [FeatureIdentifier.MAUS],
+  renderMessage: (props, getString, additionalLicenseProps = {}) => {
+    const monthlyActiveUsers = props.features.get(FeatureIdentifier.MAUS)
+    const count = monthlyActiveUsers?.featureDetail?.count
+    const limit = monthlyActiveUsers?.featureDetail?.limit
+
+    const { message, bannerType } = getBannerText(getString, additionalLicenseProps, count, limit)
+
+    return {
+      message: () => message,
+      bannerType
+    }
+  }
+})
 
 const RedirectToCFHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()

@@ -26,7 +26,6 @@ import {
 import type { ExecutionPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
 import CFPipelineStudio from '@cf/pages/pipeline-studio/CFPipelineStudio'
-import { CFPipelineContainer } from '@cf/pages/pipeline-studio/CFPipelineContainer'
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
@@ -87,9 +86,7 @@ const PipelineRouteDestinations: FC = () => {
         sidebarProps={CFSideNavProps}
         path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       >
-        <CFPipelineContainer>
-          <PipelinesPage />
-        </CFPipelineContainer>
+        <PipelinesPage />
       </RouteWithLayout>
 
       <RouteWithLayout
@@ -98,9 +95,7 @@ const PipelineRouteDestinations: FC = () => {
         sidebarProps={CFSideNavProps}
         path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       >
-        <CFPipelineContainer>
-          <DeploymentsList />
-        </CFPipelineContainer>
+        <DeploymentsList />
       </RouteWithLayout>
 
       <RouteWithLayout

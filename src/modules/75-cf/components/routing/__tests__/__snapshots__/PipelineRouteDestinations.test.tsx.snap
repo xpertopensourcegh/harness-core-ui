@@ -44,9 +44,7 @@ exports[`PipelineRouteDestinations it should return the pipeline routes when the
       }
     }
   >
-    <CFPipelineContainer>
-      <PipelinesPage />
-    </CFPipelineContainer>
+    <PipelinesPage />
   </RouteWithLayout>
   <RouteWithLayout
     exact={true}
@@ -67,9 +65,7 @@ exports[`PipelineRouteDestinations it should return the pipeline routes when the
       }
     }
   >
-    <CFPipelineContainer>
-      <DeploymentsList />
-    </CFPipelineContainer>
+    <DeploymentsList />
   </RouteWithLayout>
   <RouteWithLayout
     exact={true}
