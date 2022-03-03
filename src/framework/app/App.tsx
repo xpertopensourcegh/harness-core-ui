@@ -119,6 +119,23 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
 
   const globalResponseHandler = (response: Response): void => {
     if (!response.ok && response.status === 401) {
+      if (token) {
+        const lastTokenSetTime = SessionToken.getLastTokenSetTime() as number
+        window.bugsnagClient?.notify?.(
+          new Error('Logout with token'),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          function (event: any) {
+            event.severity = 'error'
+            event.setUser(username)
+            event.addMetadata('401 Details', {
+              url: response.url,
+              status: response.status,
+              accountId,
+              lastTokenSetTime
+            })
+          }
+        )
+      }
       AppStorage.clear()
       history.push({
         pathname: routes.toRedirect(),
