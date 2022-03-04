@@ -28,7 +28,7 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import css from './SaveTemplateButton.module.scss'
 
-interface SaveTemplateButtonProps {
+export interface SaveTemplateButtonProps {
   data:
     | StepOrStepGroupOrTemplateStepData
     | StageElementConfig
@@ -72,7 +72,7 @@ export function SaveTemplateButton({ data, buttonProps, type }: SaveTemplateButt
           draft.projectIdentifier = projectIdentifier
           draft.orgIdentifier = orgIdentifier
           draft.type = type
-          draft.spec = omit(finalData, 'name', 'identifier') as JsonNode
+          draft.spec = omit(finalData, 'name', 'identifier', 'description', 'tags') as JsonNode
         })
       )
       setModalProps({

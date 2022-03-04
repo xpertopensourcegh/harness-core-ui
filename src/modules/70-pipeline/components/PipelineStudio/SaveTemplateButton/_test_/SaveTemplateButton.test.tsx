@@ -13,43 +13,77 @@ import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@comm
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer/__tests__/stateMock'
 import { stepTemplateMock } from '@pipeline/utils/__tests__/useSaveTemplate.test'
-import { SaveTemplateButton } from '../SaveTemplateButton'
+import type { ConfigModalProps } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
+import { DefaultTemplate } from 'framework/Templates/templates'
+import { SaveTemplateButton, SaveTemplateButtonProps } from '../SaveTemplateButton'
 
-jest.mock('@pipeline/utils/useTemplateSelector', () => ({
-  useTemplateSelector: jest.fn().mockReturnValue({
-    openTemplateSelector: jest.fn(),
-    closeTemplateSelector: jest.fn()
-  })
+const mockChildComponent = jest.fn()
+jest.mock('framework/Templates/TemplateConfigModal/TemplateConfigModal', () => ({
+  ...(jest.requireActual('framework/Templates/TemplateConfigModal/TemplateConfigModal') as any),
+  TemplateConfigModal: (props: ConfigModalProps) => {
+    mockChildComponent(props)
+    return <div className="template-config-modal-mock"></div>
+  }
 }))
 
-describe('<TemplatesButtons /> tests', () => {
-  test('should match snapshot and work as expected', async () => {
-    const { container, getByText } = render(
+const baseProps: SaveTemplateButtonProps = {
+  data: {
+    ...stepTemplateMock.spec,
+    name: 'name',
+    identifier: 'identifier',
+    description: 'some description',
+    tags: { tag1: '', tag2: '' }
+  },
+  type: 'Stage'
+}
+const PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
+const PATH_PARAMS = {
+  pipelineIdentifier: 'stage1',
+  accountId: 'accountId',
+  orgIdentifier: 'CV',
+  projectIdentifier: 'Milos2',
+  module: 'cd'
+}
+
+describe('<SaveTemplateButton /> tests', () => {
+  test('should match snapshot', async () => {
+    const { container } = render(
       <PipelineContext.Provider value={pipelineContextMock}>
-        <TestWrapper
-          path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-          pathParams={{
-            pipelineIdentifier: 'stage1',
-            accountId: 'accountId',
-            orgIdentifier: 'CV',
-            projectIdentifier: 'Milos2',
-            module: 'cd'
-          }}
-        >
-          <SaveTemplateButton
-            data={{ ...stepTemplateMock.spec, name: 'name', identifier: 'identifier' }}
-            type={'Stage'}
-          />
+        <TestWrapper path={PATH} pathParams={PATH_PARAMS}>
+          <SaveTemplateButton {...baseProps} />
         </TestWrapper>
       </PipelineContext.Provider>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('should open template save dialog on click', async () => {
+    const { getByText } = render(
+      <PipelineContext.Provider value={pipelineContextMock}>
+        <TestWrapper path={PATH} pathParams={PATH_PARAMS}>
+          <SaveTemplateButton {...baseProps} />
+        </TestWrapper>
+      </PipelineContext.Provider>
+    )
 
     const saveAsTemplateBtn = getByText('common.saveAsTemplate')
     await act(async () => {
       fireEvent.click(saveAsTemplateBtn)
     })
-    const dialog = findDialogContainer()
-    expect(dialog).toBeDefined()
+
+    expect(mockChildComponent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        initialValues: {
+          ...DefaultTemplate,
+          type: 'Stage',
+          projectIdentifier: 'Milos2',
+          orgIdentifier: 'CV',
+          spec: stepTemplateMock.spec,
+          repo: '',
+          branch: ''
+        }
+      })
+    )
+    expect(findDialogContainer()).toBeDefined()
   })
 })

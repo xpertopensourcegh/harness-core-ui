@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TemplatesButtons /> tests should match snapshot and work as expected 1`] = `
+exports[`<SaveTemplateButton /> tests should match snapshot 1`] = `
 <div>
   <button
     class="bp3-button Button--button StyledProps--font StyledProps--main Button--withLeftIcon Button--variation Button--variation-secondary Button--size Button--small"
