@@ -44,11 +44,22 @@ remoteCacheImage:
 remoteCacheRepository:
   label: Remote Cache Repository
 runTestsMavenSetupTitle: Maven setup
-runTestsMavenSetupText1: Does your pom.xml contain <argLine>?
-runTestsMavenSetupText2: Update pom.xml by adding HARNESS_JAVA_AGENT env variable
+runTestsMavenSetupText1: Does your pom.xml contain <argLine>? Or do you attach Jacoco or any agent while running unit tests?
+runTestsMavenSetupText2: Update pom.xml by adding the following plugin with <harnessArgLine>
 runTestsMavenSetupSample: |
   Sample:
-  <argLine> existing ${env.HARNESS_JAVA_AGENT} </argLine>
+  <properties>
+          <harnessArgLine></harnessArgLine>
+  </properties>
+
+  <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>2.22.2</version>
+      <configuration>
+          <argLine>${harnessArgLine}  @{argLine} </argLine>
+      </configuration>
+  </plugin>
 commitMessage: Commit Message
 prTitle: PR Title
 gradleNotesTitle: 'The following needs to be added to a build.gradle to make it compatible with test intelligence:'

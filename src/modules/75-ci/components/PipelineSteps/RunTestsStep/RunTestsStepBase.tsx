@@ -343,7 +343,7 @@ export const RunTestsStepBase = (
                     margin={{ bottom: 'small' }}
                   />
                   {mavenSetupQuestionAnswer === 'yes' && (
-                    <>
+                    <Container className={cx(css.bottomMargin5)}>
                       <Text
                         font={{ size: 'small' }}
                         margin={{ bottom: 'xsmall' }}
@@ -351,13 +351,8 @@ export const RunTestsStepBase = (
                       >
                         {getString('ci.runTestsMavenSetupText2')}
                       </Text>
-                      <CodeBlock
-                        allowCopy
-                        codeToCopy="${env.HARNESS_JAVA_AGENT}"
-                        format="pre"
-                        snippet={getString('ci.runTestsMavenSetupSample')}
-                      />
-                    </>
+                      <CodeBlock format="pre" snippet={getString('ci.runTestsMavenSetupSample')} />
+                    </Container>
                   )}
                 </>
               )}
