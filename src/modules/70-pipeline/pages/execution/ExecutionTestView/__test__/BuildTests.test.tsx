@@ -12,6 +12,7 @@ import type { TestReportSummary } from 'services/ti-service'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as tiService from 'services/ti-service'
+import * as FeatureFlag from '@common/hooks/useFeatureFlag'
 import ReportsSummaryMock from './mock/reports-summary.json'
 import OverviewMock from './mock/overview.json'
 import TestSuiteMock from './mock/reports-test-suites.json'
@@ -128,6 +129,40 @@ describe('BuildTests snapshot test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('should render TICallToAction without Upgrade Required', async () => {
+    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
+      NG_LICENSES_ENABLED: true,
+      TEST_INTELLIGENCE: true
+    })
+
+    jest.spyOn(tiService, 'useReportsInfo').mockReturnValue({ data: InfoMock, refetch: jest.fn() } as any)
+    jest.spyOn(tiService, 'useTestInfo').mockReturnValue({ data: InfoMock, refetch: jest.fn() } as any)
+    jest.spyOn(tiService, 'useReportSummary').mockReturnValue({ data: ReportsSummaryMock, refetch: jest.fn() } as any)
+    jest.spyOn(tiService, 'useTestOverview').mockReturnValue({ data: TotalTestsZeroMock, refetch: jest.fn() } as any)
+    jest.spyOn(tiService, 'useTestSuiteSummary').mockReturnValue({ data: TestSuiteMock, refetch: jest.fn() } as any)
+    jest.spyOn(tiService, 'useTestCaseSummary').mockReturnValue({ data: TestCaseMock, refetch: jest.fn() } as any)
+    jest.spyOn(tiService, 'useVgSearch').mockReturnValue({ data: CallGraphMock, refetch: jest.fn() } as any)
+    jest.spyOn(tiService, 'useGetToken').mockReturnValue({ data: 'some-token', refetch: jest.fn() } as any)
+    render(
+      <TestWrapper
+        path="/account/zEaak-FLS425IEO7OLzMUg/ci/orgs/default/projects/TestCiProject1/pipelines/harshtriggerpipeline/executions/2NHi3lznTkegKnerhPf5og/tests"
+        pathParams={{
+          accountId: 'zEaak-FLS425IEO7OLzMUg',
+          orgIdentifier: 'default',
+          projectIdentifier: 'citestproject',
+          buildIdentifier: 2445
+        }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <BuildTests />
+      </TestWrapper>
+    )
+    expect(document.querySelector('[class*="tiCallToActionWrapper"]')).not.toBeNull()
+    expect(queryByText(document.body, 'Support for .Net and Python coming soon!')).not.toBeNull()
+    expect(queryByText(document.body, 'common.findOutMore')).not.toBeNull()
+    expect(queryByText(document.body, 'common.feature.upgradeRequired.title')).toBeNull()
   })
 
   test('should render ungrouped Reports UI ', async () => {

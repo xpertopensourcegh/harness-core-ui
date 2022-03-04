@@ -24,8 +24,8 @@ const aboutTIDocs = 'https://ngdocs.harness.io/article/vtu9k1dsfa-test-intellige
 
 export function TICallToAction(_props: TICallToActionProps): React.ReactElement {
   const { getString } = useStrings()
-  useFeature({ featureRequest: { featureName: FeatureIdentifier.TEST_INTELLIGENCE } })
-  const canUseTI = false
+  const canUseTI = useFeature({ featureRequest: { featureName: FeatureIdentifier.TEST_INTELLIGENCE } })
+
   return (
     <div className={cx(css.widgetWrapper, css.tiCallToActionWrapper)}>
       <Container style={{ paddingTop: 'var(--spacing-3)' }} className={css.widget} height="100%">
