@@ -13,7 +13,13 @@ import { get, set, uniq, uniqBy, isEmpty, isUndefined } from 'lodash-es'
 import type { UseStringsReturn, StringKeys } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
-import { keyRegexIdentifier, regexIdentifier } from '@common/utils/StringUtils'
+import type { K8sDirectInfraYaml } from 'services/ci'
+import {
+  keyRegexIdentifier,
+  portNumberRegex,
+  regexIdentifier,
+  serviceDependencyIdRegex
+} from '@common/utils/StringUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import {
   IdentifierSchema,
@@ -36,7 +42,8 @@ export enum Types {
   Boolean,
   ImagePullPolicy,
   Shell,
-  Numeric
+  Numeric,
+  KeyValue
 }
 
 interface Field {
@@ -198,7 +205,8 @@ export function generateSchemaForNumeric(
 
 function generateSchemaForMap(
   { label, isRequired, isInputSet }: Field,
-  { getString }: GenerateSchemaDependencies
+  { getString }: GenerateSchemaDependencies,
+  objectShape?: Schema<unknown>
 ): Lazy {
   if (isInputSet) {
     // We can't add validation for key uniqueness and key's value
@@ -217,22 +225,23 @@ function generateSchemaForMap(
         let schema = yup
           .array()
           .of(
-            yup.object().shape(
-              {
-                key: yup.string().when('value', {
-                  is: val => val?.length,
-                  then: yup
-                    .string()
-                    .matches(keyRegexIdentifier, getString('validation.validKeyRegex'))
-                    .required(getString('validation.keyRequired'))
-                }),
-                value: yup.string().when('key', {
-                  is: val => val?.length,
-                  then: yup.string().required(getString('validation.valueRequired'))
-                })
-              },
-              [['key', 'value']]
-            )
+            objectShape ??
+              yup.object().shape(
+                {
+                  key: yup.string().when('value', {
+                    is: val => val?.length,
+                    then: yup
+                      .string()
+                      .matches(keyRegexIdentifier, getString('validation.validKeyRegex'))
+                      .required(getString('validation.keyRequired'))
+                  }),
+                  value: yup.string().when('key', {
+                    is: val => val?.length,
+                    then: yup.string().required(getString('validation.valueRequired'))
+                  })
+                },
+                [['key', 'value']]
+              )
           )
           .test('keysShouldBeUnique', getString('validation.uniqueKeys'), map => {
             if (!map) return true
@@ -345,10 +354,44 @@ function generateSchemaForBoolean(): Lazy {
   )
 }
 
+function generateSchemaForKeyValue(
+  { label, isRequired, isInputSet }: Field,
+  { getString }: GenerateSchemaDependencies
+): Lazy {
+  return generateSchemaForMap(
+    { label, isRequired, isInputSet } as Field,
+    { getString },
+    yup.object().shape(
+      {
+        key: yup.string().when('value', {
+          is: val => val?.length,
+          then: yup
+            .string()
+            .required(getString('validation.keyRequired'))
+            .matches(portNumberRegex, getString('pipeline.ci.validations.port'))
+        }),
+        value: yup.string().when('key', {
+          is: val => val?.length,
+          then: yup.string().when('value', (value: string) => {
+            if (!value) {
+              return yup.string().required(getString('validation.valueRequired'))
+            }
+            if (value !== RUNTIME_INPUT_VALUE) {
+              return yup.string().matches(portNumberRegex, getString('pipeline.ci.validations.port'))
+            }
+          })
+        })
+      },
+      [['key', 'value']]
+    )
+  )
+}
+
 export function generateSchemaFields(
   fields: Field[],
   { initialValues, steps, serviceDependencies, getString }: GenerateSchemaDependencies,
-  stepViewType: StepViewType
+  stepViewType: StepViewType,
+  buildInfrastructureType?: K8sDirectInfraYaml['type']
 ): SchemaField[] {
   return fields.map(field => {
     const { name, type, label, isRequired, isActive } = field
@@ -398,11 +441,21 @@ export function generateSchemaFields(
       validationRule = yup.string()
     }
 
+    if (type === Types.KeyValue) {
+      validationRule = generateSchemaForKeyValue(field, { getString })
+    }
+
     if ((type === Types.Identifier || type === Types.Name || type === Types.Text) && isRequired && label) {
       if (validationRule) {
         validationRule = (validationRule as any).required(
           getString('fieldRequired', { field: getString(label as StringKeys) })
         )
+        if (buildInfrastructureType === 'VM' && type === Types.Identifier) {
+          validationRule = validationRule.matches(
+            serviceDependencyIdRegex,
+            getString('pipeline.ci.validations.serviceDependencyIdentifier', { regex: serviceDependencyIdRegex.source })
+          )
+        }
       } else if (stepViewType !== StepViewType.Template && type !== Types.Identifier && type !== Types.Name) {
         validationRule = yup.string().required(getString('fieldRequired', { field: getString(label as StringKeys) }))
       }
@@ -428,7 +481,8 @@ export function validate(
   values: any,
   config: Field[],
   dependencies: GenerateSchemaDependencies,
-  stepViewType: StepViewType
+  stepViewType: StepViewType,
+  buildInfrastructureType?: K8sDirectInfraYaml['type']
 ): FormikErrors<any> {
   const errors = {}
   if (isEmpty(dependencies.steps)) {
@@ -437,7 +491,7 @@ export function validate(
   if (isEmpty(dependencies.serviceDependencies)) {
     dependencies.serviceDependencies = []
   }
-  const schemaFields = generateSchemaFields(config, dependencies, stepViewType)
+  const schemaFields = generateSchemaFields(config, dependencies, stepViewType, buildInfrastructureType)
   schemaFields.forEach(({ name, validationRule, isActive = true }) => {
     if (!isActive) return
 

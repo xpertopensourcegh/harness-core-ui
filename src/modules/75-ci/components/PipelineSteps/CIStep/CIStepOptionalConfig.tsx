@@ -64,7 +64,10 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       fieldName: string,
       stringKey: keyof StringsMap,
       tooltipId: string,
-      allowableTypes: MultiTypeInputType[]
+      allowableTypes: MultiTypeInputType[],
+      keyLabel?: keyof StringsMap,
+      valueLabel?: keyof StringsMap,
+      restrictToSingleEntry?: boolean
     ): React.ReactElement => (
       <Container className={cx(css.formGroup, css.bottomMargin5, css.lg)}>
         <MultiTypeMap
@@ -87,6 +90,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             )
           }}
           disabled={readonly}
+          keyLabel={keyLabel ? getString(keyLabel) : ''}
+          valueLabel={valueLabel ? getString(valueLabel) : ''}
+          restrictToSingleEntry={restrictToSingleEntry}
         />
       </Container>
     ),
@@ -94,8 +100,15 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
   )
 
   const renderMultiTypeMapInputSet = React.useCallback(
-    (fieldName: string, stringKey: keyof StringsMap, tooltipId: string): React.ReactElement => (
-      <Container className={cx(css.formGroup, css.bottomMargin5, css.md)}>
+    (
+      fieldName: string,
+      stringKey: keyof StringsMap,
+      tooltipId: string,
+      keyLabel?: keyof StringsMap,
+      valueLabel?: keyof StringsMap,
+      restrictToSingleEntry?: boolean
+    ): React.ReactElement => (
+      <Container className={cx(css.formGroup, css.bottomMargin5)}>
         <MultiTypeMapInputSet
           name={fieldName}
           valueMultiTextInputProps={{
@@ -116,6 +129,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           }}
           disabled={readonly}
           formik={formik}
+          keyLabel={keyLabel ? getString(keyLabel) : ''}
+          valueLabel={valueLabel ? getString(valueLabel) : ''}
+          restrictToSingleEntry={restrictToSingleEntry}
         />
       </Container>
     ),
@@ -344,6 +360,26 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           })}
         </Container>
       ) : null}
+      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.portBindings')
+        ? isInputSetView
+          ? renderMultiTypeMapInputSet(
+              `${prefix}spec.portBindings`,
+              'ci.portBindings',
+              'portBindings',
+              'ci.hostPort',
+              'ci.containerPort',
+              true
+            )
+          : renderMultiTypeMap(
+              `${prefix}spec.portBindings`,
+              'ci.portBindings',
+              'portBindings',
+              isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep,
+              'ci.hostPort',
+              'ci.containerPort',
+              true
+            )
+        : null}
       {!enableFields['spec.optimize']?.shouldHide &&
       Object.prototype.hasOwnProperty.call(enableFields, 'spec.optimize') ? (
         <div className={cx(css.formGroup, css.sm, css.bottomMargin5)}>

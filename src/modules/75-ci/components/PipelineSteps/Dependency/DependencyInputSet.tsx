@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { connect } from 'formik'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -14,14 +15,16 @@ import { Connectors } from '@connectors/constants'
 import type { DependencyProps } from './Dependency'
 import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
+import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const DependencyInputSet: React.FC<DependencyProps> = ({
+export const DependencyInputSetBasic: React.FC<DependencyProps> = ({
   template,
   path,
   readonly,
   stepViewType,
-  allowableTypes
+  allowableTypes,
+  formik
 }) => {
   const { getString } = useStrings()
 
@@ -88,9 +91,14 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({
           }),
           ...(getMultiTypeFromValue(template?.spec?.args as string) === MultiTypeInputType.RUNTIME && {
             'spec.args': {}
+          }),
+          ...(shouldRenderRunTimeInputView(template?.spec?.portBindings as string) && {
+            'spec.portBindings': {}
           })
         }}
         path={path || ''}
+        formik={formik}
+        isInputSetView={true}
       />
       <StepCommonFieldsInputSet
         path={path}
@@ -102,3 +110,6 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({
     </FormikForm>
   )
 }
+
+const DependencyInputSet = connect(DependencyInputSetBasic)
+export { DependencyInputSet }

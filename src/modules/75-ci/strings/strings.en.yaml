@@ -106,3 +106,6 @@ buildInfa:
     isRequiredWhen: '{{field1}} is required in case {{field2}} is provided'
 preCommandLabel: Pre-Command
 postCommandLabel: Post-Command
+portBindings: Port Bindings
+hostPort: Host Port
+containerPort: Container Port

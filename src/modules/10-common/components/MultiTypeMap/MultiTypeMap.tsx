@@ -45,6 +45,9 @@ export interface MultiTypeMapProps {
   cardStyle?: React.CSSProperties
   disabled?: boolean
   appearance?: 'default' | 'minimal'
+  keyLabel?: string
+  valueLabel?: string
+  restrictToSingleEntry?: boolean
 }
 
 export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
@@ -58,6 +61,9 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
     formik,
     disabled,
     appearance = 'default',
+    keyLabel,
+    valueLabel,
+    restrictToSingleEntry,
     ...restProps
   } = props
 
@@ -98,7 +104,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                       <div>
                         {index === 0 && (
                           <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
-                            {getString('keyLabel')}
+                            {keyLabel ?? getString('keyLabel')}
                           </Text>
                         )}
                         <FormInput.Text name={`${name}[${index}].key`} disabled={disabled} />
@@ -107,7 +113,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                       <div>
                         {index === 0 && (
                           <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
-                            {getString('valueLabel')}
+                            {valueLabel ?? getString('valueLabel')}
                           </Text>
                         )}
                         <div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}>
@@ -133,15 +139,17 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                     </div>
                   ))}
 
-                <Button
-                  intent="primary"
-                  minimal
-                  text={getString('plusAdd')}
-                  data-testid={`add-${name}`}
-                  onClick={() => push({ id: uuid('', nameSpace()), key: '', value: '' })}
-                  disabled={disabled}
-                  style={{ padding: 0 }}
-                />
+                {restrictToSingleEntry && Array.isArray(value) && value?.length === 1 ? null : (
+                  <Button
+                    intent="primary"
+                    minimal
+                    text={getString('plusAdd')}
+                    data-testid={`add-${name}`}
+                    onClick={() => push({ id: uuid('', nameSpace()), key: '', value: '' })}
+                    disabled={disabled}
+                    style={{ padding: 0 }}
+                  />
+                )}
               </>
             )}
           />

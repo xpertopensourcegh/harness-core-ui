@@ -3019,10 +3019,12 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5 md"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
         >
           <div
             class="group withoutSpacing"
+            keylabel=""
+            valuelabel=""
           >
             <div
               class="bp3-form-group"
@@ -3233,10 +3235,12 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5 md"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
         >
           <div
             class="group withoutSpacing"
+            keylabel=""
+            valuelabel=""
           >
             <div
               class="bp3-form-group"

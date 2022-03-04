@@ -48,6 +48,7 @@ export interface DependencySpec {
   imagePullPolicy?: MultiTypeSelectOption
   runAsUser?: string
   resources?: Resources
+  portBindings?: MultiTypeMapType
 }
 
 export interface DependencyData {
@@ -85,6 +86,7 @@ export interface DependencyProps {
   onUpdate?: (data: DependencyData) => void
   onChange?: (data: DependencyData) => void
   allowableTypes: MultiTypeInputType[]
+  formik?: any
 }
 
 export class Dependency extends PipelineStep<DependencyData> {

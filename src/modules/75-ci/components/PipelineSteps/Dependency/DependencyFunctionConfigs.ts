@@ -4,7 +4,6 @@
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
-
 import { Types as TransformValuesTypes } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { Types as ValidationFieldTypes } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 
@@ -35,6 +34,10 @@ export const transformValuesFieldsConfig = [
   },
   {
     name: 'spec.envVariables',
+    type: TransformValuesTypes.Map
+  },
+  {
+    name: 'spec.portBindings',
     type: TransformValuesTypes.Map
   },
   {
@@ -97,6 +100,11 @@ export const editViewValidateFieldsConfig = [
     type: ValidationFieldTypes.Map
   },
   {
+    name: 'spec.portBindings',
+    type: ValidationFieldTypes.KeyValue,
+    label: 'ci.portBindings'
+  },
+  {
     name: 'spec.entrypoint',
     type: ValidationFieldTypes.List
   },
@@ -141,6 +149,11 @@ export function getInputSetViewValidateFieldsConfig(
     },
     {
       name: 'spec.envVariables',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.portBindings',
+      label: 'ci.portBindings',
       type: ValidationFieldTypes.Map
     },
     {

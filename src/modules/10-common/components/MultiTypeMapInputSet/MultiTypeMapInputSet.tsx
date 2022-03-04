@@ -53,6 +53,7 @@ export interface MultiTypeMapProps {
   keyLabel?: string
   valueLabel?: string
   appearance?: 'default' | 'minimal'
+  restrictToSingleEntry?: boolean
 }
 
 function generateNewValue(): { id: string; key: string; value: string } {
@@ -70,6 +71,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
     formik,
     disabled,
     appearance = 'default',
+    restrictToSingleEntry,
     ...restProps
   } = props
 
@@ -229,7 +231,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
             )
           })}
 
-          {!disabled && (
+          {(restrictToSingleEntry && Array.isArray(value) && value?.length === 1) || disabled ? null : (
             <Button
               intent="primary"
               minimal

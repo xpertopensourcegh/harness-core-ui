@@ -72,7 +72,8 @@ export const DependencyBase = (
             type: StepType.Dependency,
             getString
           },
-          stepViewType
+          stepViewType,
+          buildInfrastructureType
         )
       }}
       onSubmit={(_values: DependencyDataUI) => {
@@ -144,7 +145,10 @@ export const DependencyBase = (
                           'spec.privileged': {},
                           'spec.envVariables': { tooltipId: 'dependencyEnvironmentVariables' },
                           'spec.entrypoint': {},
-                          'spec.args': {}
+                          'spec.args': {},
+                          ...(buildInfrastructureType === 'VM' && {
+                            'spec.portBindings': {}
+                          })
                         }}
                       />
                       <StepCommonFields

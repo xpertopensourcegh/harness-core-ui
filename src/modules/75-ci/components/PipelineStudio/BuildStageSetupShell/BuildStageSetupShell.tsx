@@ -7,11 +7,11 @@
 
 import React from 'react'
 import { Expander } from '@blueprintjs/core'
-import { cloneDeep, isEmpty, isEqual, set, get } from 'lodash-es'
+import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
 import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color, ButtonVariation } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
-import { useFeatureFlags, useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import {
   PipelineContextType,
   usePipelineContext
@@ -58,7 +58,6 @@ interface StagesFilledStateFlags {
 
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
-  const { CI_VM_INFRASTRUCTURE } = useFeatureFlags()
   const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const [selectedTabId, setSelectedTabId] = React.useState<BuildTabs>(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
@@ -213,18 +212,6 @@ export default function BuildStageSetupShell(): JSX.Element {
     </Layout.Horizontal>
   )
 
-  const shouldEnableDependencies = React.useCallback((): boolean => {
-    const isPropagatedStage = !isEmpty((stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage)
-    if (isPropagatedStage) {
-      const { stage: baseStage } = getStageFromPipeline<BuildStageElementConfig>(
-        (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
-      )
-      return (get(baseStage, 'stage.spec.infrastructure.type') as K8sDirectInfraYaml['type']) !== 'VM'
-    } else {
-      return (get(stageData, 'spec.infrastructure.type') as K8sDirectInfraYaml['type']) !== 'VM'
-    }
-  }, [stageData])
-
   return (
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
@@ -288,7 +275,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                 allowAddGroup={false}
                 hasRollback={false}
                 isReadonly={isReadonly}
-                hasDependencies={CI_VM_INFRASTRUCTURE ? shouldEnableDependencies() : true}
+                hasDependencies={true}
                 stepsFactory={stepsFactory}
                 stage={selectedStageClone}
                 originalStage={originalStage}

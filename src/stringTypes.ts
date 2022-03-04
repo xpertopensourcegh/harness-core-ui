@@ -2311,6 +2311,8 @@ export interface StringsMap {
   'pipeline.buildRepo': string
   'pipeline.changeTemplate': string
   'pipeline.changeTemplateLabel': string
+  'pipeline.ci.validations.port': string
+  'pipeline.ci.validations.serviceDependencyIdentifier': string
   'pipeline.ciCodebase.buildType': string
   'pipeline.ciCodebase.prCloneStrategy': string
   'pipeline.ciCodebase.pullRequestNumber': string
@@ -4457,6 +4459,7 @@ export interface StringsMap {
   'ci.commitsTab.youWillSeeYourCommitsHere': string
   'ci.committed': string
   'ci.connectors': string
+  'ci.containerPort': string
   'ci.continuous': string
   'ci.createPipeline': string
   'ci.dashboard.createProject': string
@@ -4468,6 +4471,7 @@ export interface StringsMap {
   'ci.gradleNote1': string
   'ci.gradleNote2': string
   'ci.gradleNotesTitle': string
+  'ci.hostPort': string
   'ci.infraLabel': string
   'ci.labels': string
   'ci.learnMore': string
@@ -4477,6 +4481,7 @@ export interface StringsMap {
   'ci.next': string
   'ci.noData': string
   'ci.optimize': string
+  'ci.portBindings': string
   'ci.postCommandLabel': string
   'ci.prSymbol': string
   'ci.prTitle': string

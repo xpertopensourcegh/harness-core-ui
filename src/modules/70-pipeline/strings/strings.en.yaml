@@ -865,5 +865,9 @@ runPipeline:
   ciCodebaseConfig: CI Codebase Configuration is missing. Codebase is required when the pipeline contains a CI stage that is set to clone codebase.
 buildInfra:
   poolId: Pool Id
+ci:
+  validations:
+    port: Port can only contain digits
+    serviceDependencyIdentifier: 'Identifier should match regex {{regex}}'
 imageVersionDeprecated: Image version outdated
 unsupportedImagesWarning: 'You are using unsupported Harness CI images. Harness allows builds to use these images, but we cannot ensure that builds will not fail. Please update the versions of the following image(s) {{summary}}'

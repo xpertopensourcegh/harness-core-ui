@@ -97,6 +97,10 @@ export function getEntityNameFromType(entity: GitSyncEntityDTO['entityType']): s
     : ''
 }
 
+export const serviceDependencyIdRegex = /^[a-zA-Z][a-zA-Z0-9_]*$/
+
+export const portNumberRegex = /^[0-9]*$/
+
 export const joinAsASentence = (items: string[]): string => {
   if (!items.length) {
     return ''
