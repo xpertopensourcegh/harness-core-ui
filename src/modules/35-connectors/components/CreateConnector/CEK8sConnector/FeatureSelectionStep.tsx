@@ -72,11 +72,11 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
       : [cardData[0]]
   )
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const featuresEnabled: FeaturesString[] = cardsSelected.map(card => card.value)
 
     // enable Secret creation step if OPTIMIZATION is selected
-    props.handleOptimizationSelection(featuresEnabled.indexOf('OPTIMIZATION') > -1)
+    await props.handleOptimizationSelection(featuresEnabled.indexOf('OPTIMIZATION') > -1)
 
     const newspec = {
       ...prevStepData?.spec,

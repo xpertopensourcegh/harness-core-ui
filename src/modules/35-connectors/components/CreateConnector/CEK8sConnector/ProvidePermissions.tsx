@@ -23,13 +23,13 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
 import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
-import { useToaster } from '@common/exports'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import { useCloudCostK8sClusterSetup } from 'services/ce'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { CE_K8S_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
+import { useMutateAsGet } from '@common/hooks'
 import CopyCodeSection from './components/CopyCodeSection'
 import PermissionYAMLPreview from './PermissionYAMLPreview'
 import css from './CEK8sConnector.module.scss'
@@ -49,7 +49,6 @@ const yamlFileName = 'ccm-kubernetes.yaml'
 const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePermissionsProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { showError } = useToaster()
   const [isDownloadComplete, setIsDownloadComplete] = useState<boolean>(false)
   const [isDelegateDone, setIsDelegateDone] = useState<boolean>(false)
   const [command] = useState(`kubectl apply -f ${yamlFileName}`)
@@ -64,23 +63,21 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   const { mutate: updateConnector } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
-  const { mutate: downloadYaml } = useCloudCostK8sClusterSetup({
-    queryParams: { accountIdentifier: accountId }
+  const { data: permissionsYaml } = useMutateAsGet(useCloudCostK8sClusterSetup, {
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    body: {
+      connectorIdentifier: _defaultTo(props.prevStepData?.spec?.connectorRef, ''),
+      featuresEnabled: props.prevStepData?.spec?.featuresEnabled,
+      ccmConnectorIdentifier: _defaultTo(props.prevStepData?.identifier, '')
+    }
   })
 
   const handleDownload = async () => {
     trackEvent(CE_K8S_CONNECTOR_CREATION_EVENTS.DOWNLOAD_YAML, {})
-    try {
-      const response = await downloadYaml({
-        connectorIdentifier: _defaultTo(props.prevStepData?.spec?.connectorRef, ''),
-        featuresEnabled: props.prevStepData?.spec?.featuresEnabled,
-        ccmConnectorIdentifier: _defaultTo(props.prevStepData?.identifier, '')
-      })
-      const { status } = await downloadYamlAsFile(response, yamlFileName)
-      status && setIsDownloadComplete(true)
-    } catch (err) {
-      showError(err?.data?.message || err?.message)
-    }
+    const { status } = await downloadYamlAsFile(permissionsYaml, yamlFileName)
+    status && setIsDownloadComplete(true)
   }
 
   const handleDoneClick = () => {
@@ -127,7 +124,10 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
       </Text>
       <Text>
         {getString('connectors.ceK8.providePermissionsStep.downloadYamlText')}
-        <span className={css.previewLink} onClick={() => triggerExtension(<PermissionYAMLPreview />)}>
+        <span
+          className={css.previewLink}
+          onClick={() => triggerExtension(<PermissionYAMLPreview yamlContent={permissionsYaml as unknown as string} />)}
+        >
           here
         </span>
         .

@@ -373,11 +373,7 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
         metadata: {
           ..._data.metadata,
           name: nameToReplace,
-          namespace,
-          annotations: {
-            ..._data.metadata.annotations,
-            'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
-          }
+          namespace
         },
         spec: {
           ..._data?.spec,
