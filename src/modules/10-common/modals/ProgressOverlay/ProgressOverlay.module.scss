@@ -23,6 +23,7 @@
 .finalLabel {
   overflow: auto;
   text-overflow: ellipsis;
+  word-break: break-all;
   max-width: 40vw;
   max-height: 20vh;
 }
