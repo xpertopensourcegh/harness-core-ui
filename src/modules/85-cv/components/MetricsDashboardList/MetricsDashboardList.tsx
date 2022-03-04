@@ -67,6 +67,21 @@ export default function MetricsDashboardList<T>(props: MetricsDashboardListProps
     )
   }, [dashboardList?.data?.content, tableItemMapper])
 
+  useEffect(() => {
+    if (dashboardList) {
+      const dashboardNames = dashboardList.data?.content.map((dashboard: { name: string }) => {
+        return dashboard.name
+      })
+      const selectedDashboardsToArray = Array.from(selectedDashboards.keys())
+      selectedDashboardsToArray.forEach((dashboard: string) => {
+        if (!dashboardNames.includes(dashboard)) {
+          selectedDashboards.delete(dashboard)
+        }
+      })
+      setSelectedDashboards(selectedDashboards)
+    }
+  }, [dashboardList])
+
   const queryParams = useMemo(() => {
     return {
       accountId,
