@@ -22,14 +22,14 @@ import RbacButton from '@rbac/components/Button/Button'
 import css from './NewUserView.module.scss'
 
 const NewUserView: React.FC = () => {
-  const { updateAppStore } = useAppStore()
+  const { updateAppStore, selectedProject, selectedOrg } = useAppStore()
   const { refreshStore } = useGitSyncStore()
   const { projectIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
 
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: () => {
       refreshStore()
-      updateAppStore({ isGitSyncEnabled: true })
+      updateAppStore({ isGitSyncEnabled: true, selectedOrg, selectedProject })
     },
     onClose: noop
   })
