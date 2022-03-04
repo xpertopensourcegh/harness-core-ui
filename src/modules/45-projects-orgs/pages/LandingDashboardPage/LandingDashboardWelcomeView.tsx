@@ -11,7 +11,6 @@ import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import RbacButton from '@rbac/components/Button/Button'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
@@ -32,7 +31,6 @@ interface WelcomeViewProps {
 
 const LandingDashboardWelcomeView: React.FC<WelcomeViewProps> = props => {
   const { accountId } = useParams<AccountPathProps>()
-  const { NG_DASHBOARD_LANDING_PAGE } = useFeatureFlags()
   const history = useHistory()
   const { currentUserInfo } = useAppStore()
   const { getString } = useStrings()
@@ -54,16 +52,14 @@ const LandingDashboardWelcomeView: React.FC<WelcomeViewProps> = props => {
       <EmailVerificationBanner />
       <PageBody className={cx(css.getStartedMainContainer, className)}>
         <Layout.Vertical spacing="xxxlarge" flex>
-          {NG_DASHBOARD_LANDING_PAGE ? (
-            <Button
-              icon="arrow-left"
-              text={getString('common.goBack')}
-              variation={ButtonVariation.LINK}
-              onClick={() => {
-                props.setView(View.Dashboard)
-              }}
-            />
-          ) : null}
+          <Button
+            icon="arrow-left"
+            text={getString('common.goBack')}
+            variation={ButtonVariation.LINK}
+            onClick={() => {
+              props.setView(View.Dashboard)
+            }}
+          />
           <Layout.Vertical spacing="medium" flex>
             <video src={welcomeVideo} autoPlay={true} loop={true} muted={true} />
             <Heading level={1} font={{ weight: 'bold' }} color={Color.BLACK}>

@@ -1,0 +1,1007 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Landing Dashboard Page Render Welcome Page when Lading Page api is success but no projects to show 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main PageBody--pageBody getStartedMainContainer"
+    data-name="page-body"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-xxxlarge StyledProps--main StyledProps--flex"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-link"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-arrow-left StyledProps--main StyledProps--padding-right-xsmall"
+          icon="arrow-left"
+        >
+          <svg
+            data-icon="arrow-left"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              arrow-left
+            </desc>
+            <path
+              d="M13.99 6.99H4.41L7.7 3.7a1.003 1.003 0 00-1.42-1.42l-5 5a1.014 1.014 0 000 1.42l5 5a1.003 1.003 0 001.42-1.42L4.41 8.99H14c.55 0 1-.45 1-1s-.46-1-1.01-1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          common.goBack
+        </span>
+      </button>
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
+      >
+        <video
+          autoplay=""
+          loop=""
+          src="test-file-stub"
+        />
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          level="1"
+        >
+          projectsOrgs.landingDashboard.welcomeMessageWithoutName
+        </h1>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey600"
+          level="2"
+        >
+          projectsOrgs.welcomeSecondLine
+        </h2>
+      </div>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
+          icon="plus"
+        >
+          <svg
+            data-icon="plus"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              plus
+            </desc>
+            <path
+              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          projectLabel
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Landing Dashboard Page render landing page and welcome page by swtich 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        projectsOrgs.landingDashboard.dashboardTitle
+      </h2>
+    </div>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        common.welcome
+      </span>
+    </button>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main PageBody--pageBody"
+    data-name="page-body"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-xlarge"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+        >
+          projectsOrgs.landingDashboard.atAGlance
+        </p>
+        <div
+          class="bp3-popover-wrapper timeRangeSelect Select--main bp3-fill"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                placeholder="- Select -"
+                style="padding-right: 0px;"
+                type="text"
+                value="projectsOrgs.landingDashboard.last30Days"
+              />
+              <span
+                class="bp3-input-action"
+              >
+                <span
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                  icon="chevron-down"
+                >
+                  <svg
+                    data-icon="chevron-down"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    width="14"
+                  >
+                    <desc>
+                      chevron-down
+                    </desc>
+                    <path
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="dashboardSumary"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main atGlanceWrapper"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card card styledCard"
+              >
+                <span
+                  class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-primary7"
+                  data-icon="nav-project"
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 22 22"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                      fill="#56778d"
+                    />
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main lineClamp lineHeight title StyledProps--color StyledProps--color-primary9 StyledProps--font-size-large StyledProps--font-weight-bold"
+                >
+                  145
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  projectsText
+                </p>
+                <span
+                  class="Tag--main"
+                >
+                  <span
+                    class="bp3-tag tagClassName whiteTag"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      +137
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="bp3-card bp3-elevation-0 Card--card card"
+              >
+                <span
+                  class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
+                  data-icon="infrastructure"
+                >
+                  <svg
+                    height="24"
+                    viewBox="0 0 16 16"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M12.543 5.377L8 2.755 3.458 5.377v5.246L8 13.245l4.543-2.622V5.377zM8.5 1.89a1 1 0 00-1 0L2.958 4.51a1 1 0 00-.5.866v5.246a1 1 0 00.5.866L7.5 14.11a1 1 0 001 0l4.543-2.622a1 1 0 00.5-.866V5.377a1 1 0 00-.5-.866L8.5 1.89z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                    <path
+                      clip-rule="evenodd"
+                      d="M10.233 6.71L8 5.422l-2.233 1.29V9.29L8 10.58l2.233-1.29V6.711zM8.5 4.556a1 1 0 00-1 0l-2.233 1.29a1 1 0 00-.5.866V9.29a1 1 0 00.5.866l2.233 1.29a1 1 0 001 0l2.233-1.29a1 1 0 00.5-.866V6.711a1 1 0 00-.5-.866L8.5 4.555z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
+                >
+                  11
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  environments
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card card"
+              >
+                <span
+                  class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
+                  data-icon="services"
+                >
+                  <svg
+                    height="24"
+                    viewBox="0 0 16 16"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M6.74 2.098a.6.6 0 01.6-.6h1.2a.6.6 0 01.6.6v1.4a4.57 4.57 0 011.083.448l.996-.993a.6.6 0 01.847 0l.85.847a.6.6 0 010 .85l-.993.99c.191.333.342.692.445 1.071h1.408a.6.6 0 01.6.6v1.2a.6.6 0 01-.6.6h-1.408a4.54 4.54 0 01-.447 1.073l.994.99a.6.6 0 010 .85l-.85.846a.6.6 0 01-.848 0l-.996-.992a4.574 4.574 0 01-1.08.445v1.401a.6.6 0 01-.6.6h-1.2a.6.6 0 01-.6-.6v-1.4a4.573 4.573 0 01-1.082-.447l-.996.992a.6.6 0 01-.847 0l-.85-.846a.6.6 0 010-.85l.993-.99a4.536 4.536 0 01-.447-1.072H2.106a.6.6 0 01-.6-.6v-1.2a.6.6 0 01.6-.6h1.406a4.52 4.52 0 01.446-1.072l-.993-.989a.6.6 0 010-.85l.85-.847a.6.6 0 01.847 0l.996.992c.336-.192.7-.343 1.083-.446V2.098zm.8.2v1.353a.607.607 0 01-.47.59c-.402.094-.78.252-1.122.462a.607.607 0 01-.747-.084L4.24 3.66l-.567.565.96.956a.607.607 0 01.084.75c-.21.339-.368.713-.463 1.111a.607.607 0 01-.588.47h-1.36v.8h1.36c.29 0 .526.204.588.468.095.399.253.773.463 1.112a.607.607 0 01-.084.75l-.96.955.567.565.963-.959a.607.607 0 01.747-.084c.341.21.719.369 1.121.463.265.061.47.297.47.589v1.353h.8v-1.353a.61.61 0 01.47-.59 3.773 3.773 0 001.121-.462.607.607 0 01.747.085l.963.959.567-.565-.96-.955a.607.607 0 01-.084-.75c.21-.34.369-.714.463-1.113a.607.607 0 01.59-.469h1.359v-.8h-1.36a.607.607 0 01-.589-.469 3.735 3.735 0 00-.462-1.11.607.607 0 01.085-.75l.96-.957-.567-.564-.963.959a.607.607 0 01-.747.084A3.773 3.773 0 008.81 4.24a.607.607 0 01-.47-.59V2.298h-.8zM8.016 6.1a1.9 1.9 0 100 3.8 1.9 1.9 0 000-3.8zM5.315 8a2.7 2.7 0 115.4 0 2.7 2.7 0 01-5.4 0z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
+                >
+                  11
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  services
+                </p>
+              </div>
+              <div
+                class="bp3-card bp3-elevation-0 Card--card card"
+              >
+                <span
+                  class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
+                  data-icon="pipeline"
+                >
+                  <svg
+                    height="38"
+                    viewBox="0 0 38 16"
+                    width="38"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M23.71.966a1 1 0 01.068.067L26.475 4H30V3a1 1 0 011-1h6a1 1 0 011 1v3a1 1 0 01-1 1h-6a1 1 0 01-1-1V5h-3.31l-2.912 3.203a1 1 0 01-1.48 0L19.384 5H18v1a1 1 0 01-1 1h-6a1 1 0 01-1-1V5H8v1a1 1 0 01-1 1H1a1 1 0 01-1-1V3a1 1 0 011-1h6a1 1 0 011 1v1h2V3a1 1 0 011-1h6a1 1 0 011 1v1h1.599l2.699-2.967A1 1 0 0123.71.966zm.04 1.31a1 1 0 00-1.414 0l-1.768 1.767a1 1 0 000 1.414l1.768 1.768a1 1 0 001.414 0l1.768-1.768a1 1 0 000-1.414zM6 3H2a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm10 0h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm20 0h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm-19 8a1 1 0 011 1v3a1 1 0 01-1 1h-6a1 1 0 01-1-1v-3a1 1 0 011-1h6zm-1 1h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1v-1a1 1 0 00-1-1z"
+                      fill="#25A6F7"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
+                >
+                  13
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  pipelines
+                </p>
+                <span
+                  class="Tag--main"
+                >
+                  <span
+                    class="bp3-tag tagClassName"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      +9
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card topProjectsCard"
+          >
+            <div
+              class="Layout--vertical StyledProps--main topProjectsContainer"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-card-title"
+              >
+                projectsOrgs.landingDashboard.title
+              </p>
+              <div
+                class="Layout--horizontal StyledProps--main topProjectsWrapper"
+              >
+                <div
+                  class="TableV2--table overviewSummary"
+                >
+                  <div
+                    class="TableV2--header TableV2--minimal"
+                    role="row"
+                  >
+                    <div
+                      class="TableV2--cell"
+                      colspan="1"
+                      role="columnheader"
+                      style="width: 40%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        projectsText
+                      </p>
+                    </div>
+                    <div
+                      class="TableV2--cell"
+                      colspan="1"
+                      role="columnheader"
+                      style="width: 60%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main summaryTableHeader StyledProps--margin-left-large"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="cd-main"
+                          >
+                            <svg
+                              height="16"
+                              viewBox="0 0 32 32"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M26.427 7.06A5.073 5.073 0 0129 11.52l-.077 8.934a5.073 5.073 0 01-2.537 4.35l-8.002 4.618a5.073 5.073 0 01-5.035.021l-7.776-4.402A5.073 5.073 0 013 20.583l.077-8.935a5.073 5.073 0 012.537-4.35l8.002-4.619a5.073 5.073 0 015.035-.02l7.776 4.402zm-2.83 6.938c-.42 1.586-2.029 2.538-3.601 2.141l-7.489-2.026a4.696 4.696 0 00-3.62.48 4.773 4.773 0 00-2.222 2.925 4.835 4.835 0 00.479 3.664 4.757 4.757 0 002.905 2.251 4.696 4.696 0 003.62-.48 4.773 4.773 0 002.222-2.924l.26-1.047a.25.25 0 00-.177-.302l-1.258-.34a.25.25 0 00-.307.18l-.256 1.025c-.426 1.602-2.064 2.556-3.651 2.127-1.582-.428-2.523-2.073-2.1-3.67.421-1.586 2.03-2.538 3.602-2.142l7.489 2.027a4.696 4.696 0 003.62-.48 4.773 4.773 0 002.222-2.925 4.835 4.835 0 00-.479-3.664 4.757 4.757 0 00-2.905-2.251 4.696 4.696 0 00-3.62.48 4.773 4.773 0 00-2.222 2.924l-.247.828a.25.25 0 00.174.312l1.259.34a.25.25 0 00.304-.169l.248-.827c.426-1.602 2.064-2.557 3.651-2.127 1.582.428 2.523 2.073 2.1 3.67z"
+                                fill="url(#cd-main_svg__a)"
+                                fill-rule="evenodd"
+                              />
+                              <defs>
+                                <lineargradient
+                                  gradientUnits="userSpaceOnUse"
+                                  id="cd-main_svg__a"
+                                  x1="6.774"
+                                  x2="21.5"
+                                  y1="2"
+                                  y2="30"
+                                >
+                                  <stop
+                                    stop-color="#62F91F"
+                                  />
+                                  <stop
+                                    offset="1"
+                                    stop-color="#45BD35"
+                                  />
+                                </lineargradient>
+                              </defs>
+                            </svg>
+                          </span>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                          >
+                            deploymentsText
+                          </p>
+                        </div>
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="TableV2--body"
+                  >
+                    <div
+                      class="TableV2--row TableV2--minimal"
+                      role="row"
+                    >
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 40%;"
+                      >
+                        <div
+                          class="bp3-popover-wrapper bp3-fill"
+                        >
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <a
+                              class=""
+                              href="/account/dummy/home/orgs/default/projects/dev_test/details"
+                              tabindex="0"
+                            >
+                              <label
+                                class="links"
+                              >
+                                dev test
+                              </label>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 60%;"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main summaryCount StyledProps--font-small"
+                          >
+                            47
+                          </p>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-green500"
+                              style="width: 85.48936170212767px;"
+                            />
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
+                              style="width: 12.51063829787234px;"
+                            />
+                          </div>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                              icon="caret-right"
+                            >
+                              <svg
+                                data-icon="caret-right"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  caret-right
+                                </desc>
+                                <path
+                                  d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
+                            >
+                              0%
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="TableV2--row TableV2--minimal"
+                      role="row"
+                    >
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 40%;"
+                      >
+                        <div
+                          class="bp3-popover-wrapper bp3-fill"
+                        >
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <a
+                              class=""
+                              href="/account/dummy/home/orgs/default/projects/test18/details"
+                              tabindex="0"
+                            >
+                              <label
+                                class="links"
+                              >
+                                test18
+                              </label>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 60%;"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main summaryCount StyledProps--font-small"
+                          >
+                            5
+                          </p>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
+                              style="width: 10.425531914893616px;"
+                            />
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-grey100"
+                              style="width: 87.57446808510637px;"
+                            />
+                          </div>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                              icon="caret-right"
+                            >
+                              <svg
+                                data-icon="caret-right"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  caret-right
+                                </desc>
+                                <path
+                                  d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
+                            >
+                              0%
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="TableV2--row TableV2--minimal"
+                      role="row"
+                    >
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 40%;"
+                      >
+                        <div
+                          class="bp3-popover-wrapper bp3-fill"
+                        >
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <a
+                              class=""
+                              href="/account/dummy/home/orgs/default/projects/test19/details"
+                              tabindex="0"
+                            >
+                              <label
+                                class="links"
+                              >
+                                test19
+                              </label>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 60%;"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main summaryCount StyledProps--font-small"
+                          >
+                            2
+                          </p>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
+                              style="width: 4.170212765957447px;"
+                            />
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-grey100"
+                              style="width: 93.82978723404256px;"
+                            />
+                          </div>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                              icon="caret-right"
+                            >
+                              <svg
+                                data-icon="caret-right"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  caret-right
+                                </desc>
+                                <path
+                                  d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
+                            >
+                              0%
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="TableV2--row TableV2--minimal"
+                      role="row"
+                    >
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 40%;"
+                      >
+                        <div
+                          class="bp3-popover-wrapper bp3-fill"
+                        >
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <a
+                              class=""
+                              href="/account/dummy/home/orgs/default/projects/locust/details"
+                              tabindex="0"
+                            >
+                              <label
+                                class="links"
+                              >
+                                locust
+                              </label>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="TableV2--cell"
+                        role="cell"
+                        style="width: 60%;"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main summaryCount StyledProps--font-small"
+                          >
+                            1
+                          </p>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-red500"
+                              style="width: 2.0851063829787235px;"
+                            />
+                            <div
+                              class="StyledProps--font StyledProps--main barSection StyledProps--background-grey100"
+                              style="width: 95.91489361702128px;"
+                            />
+                          </div>
+                          <div
+                            class="StyledProps--font StyledProps--main StyledProps--flex"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-right StyledProps--main StyledProps--color StyledProps--color-grey300"
+                              icon="caret-right"
+                            >
+                              <svg
+                                data-icon="caret-right"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  caret-right
+                                </desc>
+                                <path
+                                  d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey300"
+                            >
+                              0%
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--margin-small"
+                    data-icon="ci-main"
+                  >
+                    <svg
+                      height="40"
+                      viewBox="0 0 32 32"
+                      width="40"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M29 16a13.02 13.02 0 01-.854 4.6.387.387 0 01-.637.13l-3.99-3.94a.534.534 0 01-.085-.628c.432-.827.649-1.773.649-2.762.056-3.222-2.6-5.878-5.879-5.878-1.04 0-1.994.26-2.823.706a.53.53 0 01-.623-.08l-3.551-3.504a.48.48 0 01.154-.794A12.79 12.79 0 0116 3c7.178 0 13 5.822 13 13zM8.476 5.42a.582.582 0 01.746.072l4.035 4.035c.179.178.194.46.054.67a5.829 5.829 0 00-.985 3.26 5.934 5.934 0 005.935 5.934 5.829 5.829 0 003.26-.985.531.531 0 01.67.054l4.367 4.368a.582.582 0 01.065.756C24.225 26.86 20.4 29 16 29 8.822 29 3 23.178 3 16c0-4.403 2.144-8.231 5.476-10.58zm9.785 11.71a3.932 3.932 0 003.956-3.956 3.932 3.932 0 00-3.956-3.957 3.932 3.932 0 00-3.957 3.957 3.932 3.932 0 003.957 3.956z"
+                        fill="url(#ci-main_svg__a)"
+                        fill-rule="evenodd"
+                      />
+                      <defs>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="ci-main_svg__a"
+                          x1="-5.398"
+                          x2="11.398"
+                          y1="11.398"
+                          y2="37.398"
+                        >
+                          <stop
+                            stop-color="#73DFE7"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#0095F7"
+                          />
+                        </lineargradient>
+                      </defs>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    common.comingSoon
+                  </p>
+                </div>
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--margin-small"
+                    data-icon="cf-main"
+                  >
+                    <svg
+                      height="40"
+                      viewBox="0 0 32 32"
+                      width="40"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.632 2.08A5.19 5.19 0 004.62 6.29L2.08 20.697a5.19 5.19 0 004.21 6.012l7.464 1.316a.2.2 0 00.207-.298L6.882 15.656c-.296-.469-.292-1.382.05-1.6.08-.05.313-.259.313-.259l.398-.436.066-.072c.37-.406.704-.773 1.76-1.302l.227-.079c1.548-.484 2.41-.449 3.27-.414.862.035 1.724.07 3.274-.414 1.272-.397 2.43-1.178 3.074-1.667a.622.622 0 01.9.15l4.596 7.362a.53.53 0 01-.101.696 8.694 8.694 0 01-2.834 1.538c-1.549.484-2.432.463-3.316.442-.884-.021-1.768-.042-3.318.442-1.314.41-1.868.948-2.07 1.204-.048.061-.07.21-.032.279.4.724 2.295 4.06 3.794 6.693a.998.998 0 00.695.49l3.07.541a5.19 5.19 0 006.012-4.21l2.54-14.408a5.19 5.19 0 00-4.21-6.012L10.633 2.08z"
+                        fill="url(#cf-main_svg__a)"
+                      />
+                      <path
+                        d="M16.646 13.074c-1.303.34-2.093.316-2.882.29-.79-.024-1.58-.049-2.881.291-.744.216-1.178.592-1.587 1.072a.197.197 0 00-.018.23l2.482 4.069c.064.106.209.13.307.055.374-.283 1.28-.9 2.42-1.198 1.469-.383 2.348-.375 3.273-.366.717.007 1.462.014 2.53-.16a4.454 4.454 0 001.629-.635.347.347 0 00.094-.488L19.472 12.3a.421.421 0 00-.56-.128 9.57 9.57 0 01-2.266.902z"
+                        fill="url(#cf-main_svg__b)"
+                      />
+                      <defs>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="cf-main_svg__a"
+                          x1="6.837"
+                          x2="23.78"
+                          y1="2"
+                          y2="28.227"
+                        >
+                          <stop
+                            stop-color="#FFC100"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#E66B35"
+                          />
+                        </lineargradient>
+                        <lineargradient
+                          gradientUnits="userSpaceOnUse"
+                          id="cf-main_svg__b"
+                          x1="6.837"
+                          x2="23.78"
+                          y1="2"
+                          y2="28.227"
+                        >
+                          <stop
+                            stop-color="#FFC100"
+                          />
+                          <stop
+                            offset="1"
+                            stop-color="#E66B35"
+                          />
+                        </lineargradient>
+                      </defs>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    common.comingSoon
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Landing Dashboard Page render landing page and welcome page by swtich 2`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main PageBody--pageBody getStartedMainContainer"
+    data-name="page-body"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-xxxlarge StyledProps--main StyledProps--flex"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-link"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-arrow-left StyledProps--main StyledProps--padding-right-xsmall"
+          icon="arrow-left"
+        >
+          <svg
+            data-icon="arrow-left"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              arrow-left
+            </desc>
+            <path
+              d="M13.99 6.99H4.41L7.7 3.7a1.003 1.003 0 00-1.42-1.42l-5 5a1.014 1.014 0 000 1.42l5 5a1.003 1.003 0 001.42-1.42L4.41 8.99H14c.55 0 1-.45 1-1s-.46-1-1.01-1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          common.goBack
+        </span>
+      </button>
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
+      >
+        <video
+          autoplay=""
+          loop=""
+          src="test-file-stub"
+        />
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          level="1"
+        >
+          projectsOrgs.landingDashboard.welcomeMessageWithoutName
+        </h1>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey600"
+          level="2"
+        >
+          projectsOrgs.welcomeSecondLine
+        </h2>
+      </div>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
+          icon="plus"
+        >
+          <svg
+            data-icon="plus"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              plus
+            </desc>
+            <path
+              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          projectLabel
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

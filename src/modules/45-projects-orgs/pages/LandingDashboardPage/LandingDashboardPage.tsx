@@ -30,7 +30,6 @@ import { useStrings } from 'framework/strings'
 import LandingDashboardWidgetWrapper from '@projects-orgs/components/LandingDashboardWidgetWrapper/LandingDashboardWidgetWrapper'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useGetCounts } from 'services/dashboard-service'
 import LandingDashboardSummaryWidget from '@projects-orgs/components/LandingDashboardSummaryWidget/LandingDashboardSummaryWidget'
 import TimeRangeSelect from '@projects-orgs/components/TimeRangeSelect/TimeRangeSelect'
@@ -41,10 +40,9 @@ const modules: Array<ModuleName> = [ModuleName.CD]
 
 const LandingDashboardPage: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
-  const { NG_DASHBOARD_LANDING_PAGE } = useFeatureFlags()
   const { currentUserInfo } = useAppStore()
   const { getString } = useStrings()
-  const [view, setView] = useState<View>(NG_DASHBOARD_LANDING_PAGE ? View.Dashboard : View.Welcome)
+  const [view, setView] = useState<View>(View.Dashboard)
   const name = currentUserInfo.name || currentUserInfo.email
 
   const { selectedTimeRange } = useLandingDashboardContext()
