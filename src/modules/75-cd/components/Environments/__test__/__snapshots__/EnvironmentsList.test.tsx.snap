@@ -202,7 +202,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
             class="TableV2--body"
           >
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -315,7 +315,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -466,7 +466,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -617,7 +617,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -730,7 +730,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -881,7 +881,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -1032,7 +1032,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -1183,7 +1183,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -1334,7 +1334,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -1447,7 +1447,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
@@ -1560,7 +1560,7 @@ exports[`EnvironmentList Should go to edit modal by clicking edit 1`] = `
               </div>
             </div>
             <div
-              class="TableV2--row TableV2--card"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div

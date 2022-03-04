@@ -104,7 +104,10 @@ export const ServicesListPage: React.FC = () => {
   return (
     <Page.Body className={css.pageBody}>
       <>
-        <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
+        <Layout.Horizontal
+          padding={{ left: 'xlarge', right: 'xlarge', top: 'medium' }}
+          flex={{ distribution: 'space-between' }}
+        >
           <RbacButton
             intent="primary"
             data-testid="add-service"

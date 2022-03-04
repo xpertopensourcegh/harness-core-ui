@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { Container, Pagination, TableV2 } from '@harness/uicore'
-import type { ResponsePageServiceResponse } from 'services/cd-ng'
+import type { ResponsePageServiceResponse, ServiceResponseDTO } from 'services/cd-ng'
 import { ServiceName, ServiceDescription, ServiceMenu } from '../ServicesListColumns/ServicesListColumns'
 
 import css from './ServicesListView.module.scss'
@@ -55,7 +55,7 @@ const ServicesListView = (props: ServicesListViewProps): React.ReactElement => {
             }
           ]}
           data={services}
-          onRowClick={(row: any) => onServiceSelect(row?.service)}
+          onRowClick={(row: ServiceResponseDTO) => onServiceSelect(row)}
         />
       </Container>
 

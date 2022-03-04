@@ -153,7 +153,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
         const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-        const envSetYamlVisual = parse(yaml).environmentInputSet as EnvironmentResponseDTO
+        const envSetYamlVisual = parse(yaml).environment as EnvironmentResponseDTO
         if (envSetYamlVisual) {
           data.name = envSetYamlVisual.name || ''
           data.identifier = envSetYamlVisual.identifier || ''
@@ -237,7 +237,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
                     <YAMLBuilder
                       {...yamlBuilderReadOnlyModeProps}
                       existingJSON={{
-                        environmentInputSet: {
+                        environment: {
                           ...omit(formikProps?.values),
                           description: formikProps.values.description || '',
                           tags: formikProps.values.tags || {},
@@ -256,7 +256,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
                         text={getString('save')}
                         onClick={() => {
                           const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-                          onSubmit(parse(latestYaml)?.environmentInputSet)
+                          onSubmit(parse(latestYaml)?.environment)
                         }}
                       />
                       &nbsp; &nbsp;

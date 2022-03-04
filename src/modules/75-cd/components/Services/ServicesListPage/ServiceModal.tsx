@@ -137,7 +137,7 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
         const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-        const serviceSetYamlVisual = parse(yaml).serviceInputSet as ServiceResponseDTO
+        const serviceSetYamlVisual = parse(yaml).service as ServiceResponseDTO
         if (serviceSetYamlVisual) {
           data.name = serviceSetYamlVisual.name || ''
           data.identifier = serviceSetYamlVisual.identifier || ''
@@ -215,7 +215,7 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
                   <YAMLBuilder
                     {...yamlBuilderReadOnlyModeProps}
                     existingJSON={{
-                      serviceInputSet: {
+                      service: {
                         ...omit(formikProps?.values),
                         description: formikProps.values.description || '',
                         tags: formikProps.values.tags || {}
@@ -232,7 +232,7 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
                       text={getString('save')}
                       onClick={() => {
                         const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-                        onSubmit(parse(latestYaml)?.serviceInputSet)
+                        onSubmit(parse(latestYaml)?.service)
                       }}
                     />
                     <Button variation={ButtonVariation.TERTIARY} onClick={closeModal} text={getString('cancel')} />

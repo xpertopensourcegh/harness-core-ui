@@ -8,7 +8,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import cx from 'classnames'
 import { Pagination, Layout, Text, Container, Heading, TableV2 } from '@wings-software/uicore'
-import { get } from 'lodash-es'
+import { defaultTo, get } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { useModalHook } from '@harness/use-modal'
@@ -111,7 +111,7 @@ export const EnvironmentList: React.FC = () => {
   const hasEnvs = Boolean(!loading && envData?.data?.content?.length)
   const emptyEnvs = Boolean(!loading && envData?.data?.content?.length === 0)
 
-  const handleEnvEdit = (id: string) => {
+  const handleEnvEdit = (id: string): void => {
     const dataRow = environments?.find(temp => {
       return temp.identifier === id
     })
@@ -218,6 +218,9 @@ export const EnvironmentList: React.FC = () => {
             <TableV2<EnvironmentResponseDTO>
               columns={envColumns}
               data={(environments as EnvironmentResponseDTO[]) || []}
+              onRowClick={(row: EnvironmentResponseDTO) => {
+                handleEnvEdit(defaultTo(row.identifier, ''))
+              }}
             />
           </Container>
         )}

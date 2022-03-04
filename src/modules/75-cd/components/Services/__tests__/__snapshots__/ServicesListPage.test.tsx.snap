@@ -7,7 +7,7 @@ exports[`ServicesListPage ServicesListPage should render data correctly 1`] = `
     data-name="page-body"
   >
     <div
-      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-top-medium StyledProps--flex StyledProps--flex-distribution-space-between"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
@@ -492,7 +492,7 @@ exports[`ServicesListPage Should open Add-ServiceModal, grid and list view on cl
     data-name="page-body"
   >
     <div
-      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-top-medium StyledProps--flex StyledProps--flex-distribution-space-between"
     >
       <button
         class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
