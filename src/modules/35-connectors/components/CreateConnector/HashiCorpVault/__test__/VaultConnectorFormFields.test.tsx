@@ -114,8 +114,7 @@ describe('Check AWS Auth', () => {
     await act(() => {
       fireEvent.click(password!)
     })
-
-    await waitFor(() => expect(queryByText(document.body, 'common.entityReferenceTitle')).toBeTruthy())
+    await waitFor(() => expect(queryByText(document.body, 'common.entityReferenceTitle')).not.toBeNull())
     const selectSecret = queryByText(document.body, 'common.entityReferenceTitle')
     expect(selectSecret).toBeTruthy()
 
