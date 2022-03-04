@@ -25,7 +25,7 @@ import css from '../FlagActivation/FlagActivation.module.scss'
 
 export interface FlagToggleSwitchProps {
   currentState: string
-  currentEnvironmentState: FeatureState | undefined
+  currentEnvironmentState?: FeatureState
   handleToggle: () => void
   disabled?: boolean
 }

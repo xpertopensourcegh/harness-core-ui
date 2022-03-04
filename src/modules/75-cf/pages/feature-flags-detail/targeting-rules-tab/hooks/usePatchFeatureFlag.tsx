@@ -6,8 +6,7 @@
  */
 
 import { useParams } from 'react-router-dom'
-import { useToaster } from '@harness/uicore'
-import { get } from 'lodash-es'
+import { getErrorInfoFromErrorObject, useToaster } from '@harness/uicore'
 import patch from '@cf/utils/instructions'
 import { FeatureState, PatchFeatureQueryParams, usePatchFeature } from 'services/cf'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
@@ -48,8 +47,13 @@ const usePatchFeatureFlag = ({
 
   const saveChanges = (values: TargetingRulesFormValues): void => {
     if (values.state !== initialValues.state) {
-      patch.feature.addInstruction(patch.creators.setFeatureFlagState(values?.state as FeatureState))
+      patch.feature.addInstruction(patch.creators.setFeatureFlagState(values.state as FeatureState))
     }
+
+    if (values.onVariation !== initialValues.onVariation) {
+      patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
+    }
+
     patch.feature.onPatchAvailable(async data => {
       try {
         await patchFeature(data)
@@ -58,7 +62,7 @@ const usePatchFeatureFlag = ({
         await refetchFlag()
         showToaster(getString('cf.messages.flagUpdated'))
       } catch (error: any) {
-        showError(get(error, 'data.message', error?.message), 0)
+        showError(getErrorInfoFromErrorObject(error))
       }
     })
   }

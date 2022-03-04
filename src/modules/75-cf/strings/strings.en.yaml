@@ -175,10 +175,12 @@ featureFlags:
   results: Results
   makeSure: Make sure your code is deployed
   rules:
+    whenFlagEnabled: When the Flag is Enabled
     editRules: Edit Rules
     flagOn: '{{ $.cf.creationModal.flagOn }}'
     flagOff: '{{ $.cf.creationModal.flagOff }}'
     defaultRules: Default Rules
+    defaultRule: Default Rule
     customRules: Custom Rules (Serve specific targets differently)
     serveVariationToTarget: '{{ $.cf.featureFlags.serveVariationToTargetLabel }}'
     add: '{{ $.add }}'

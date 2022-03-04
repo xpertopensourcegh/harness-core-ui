@@ -31,14 +31,12 @@ describe('TargetingRulesTab', () => {
     jest.clearAllMocks()
   })
 
-  test('it should render form with correct values', async () => {
+  test('it should render form with correct values based on load', async () => {
     renderComponent()
 
     expect(screen.getByText('cf.featureFlags.flagOn')).toBeInTheDocument()
     expect(screen.getByTestId('flag-status-switch')).toBeChecked()
-
-    expect(screen.getByText('ON default rules section')).toBeInTheDocument()
-    expect(screen.getByText('OFF rules section')).toBeInTheDocument()
+    expect(document.querySelector('input[name="onVariation"]')).toHaveValue('False')
 
     expect(screen.queryByTestId('targeting-rules-footer')).not.toBeInTheDocument()
   })
@@ -83,6 +81,27 @@ describe('TargetingRulesTab', () => {
     expect(screen.queryByTestId('targeting-rules-footer')).toBeInTheDocument()
   })
 
+  test('it should update default ON variation correctly', async () => {
+    renderComponent()
+
+    const onVariationDropdown = document.querySelector('input[name="onVariation"]') as HTMLSelectElement
+    expect(onVariationDropdown).toHaveValue('False')
+    userEvent.click(onVariationDropdown)
+    userEvent.click(screen.getByText('True'))
+    expect(onVariationDropdown).toHaveValue('True')
+  })
+
+  test('it should use default onVariation if environment variation does not exist', async () => {
+    renderComponent({
+      featureFlagData: {
+        ...mockFeature,
+        envProperties: undefined
+      }
+    })
+
+    expect(document.querySelector('input[name="onVariation"]') as HTMLSelectElement).toHaveValue('True')
+  })
+
   test('it should call endpoint with correct data on save', async () => {
     const saveChangesMock = jest.fn()
 
@@ -94,12 +113,20 @@ describe('TargetingRulesTab', () => {
     userEvent.click(flagToggle)
     expect(flagToggle).not.toBeChecked()
 
+    // update default ON variation
+    const onVariationDropdown = document.querySelector('input[name="onVariation"]') as HTMLSelectElement
+    userEvent.click(onVariationDropdown)
+    userEvent.click(screen.getByText('True'))
+    expect(onVariationDropdown).toHaveValue('True')
+
+    // click save
     const saveButton = screen.getByText('save')
     expect(saveButton).toBeInTheDocument()
 
     userEvent.click(saveButton)
     await waitFor(() =>
       expect(saveChangesMock).toBeCalledWith({
+        onVariation: 'true',
         state: 'off'
       })
     )

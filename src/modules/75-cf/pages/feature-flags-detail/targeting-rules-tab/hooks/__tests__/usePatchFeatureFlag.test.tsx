@@ -29,7 +29,7 @@ const renderHookUnderTest = (props: Partial<UsePatchFeatureFlagProps> = {}) => {
     () =>
       usePatchFeatureFlag({
         featureFlagIdentifier: '',
-        initialValues: { state: 'off' },
+        initialValues: { state: 'off', onVariation: 'False' },
         refetchFlag: jest.fn(),
         ...props
       }),
@@ -51,7 +51,7 @@ describe('usePatchFeatureFlag', () => {
 
     const { result } = renderHookUnderTest({ refetchFlag: refetchFlagMock.mockResolvedValueOnce({}) })
 
-    const newValues = { state: 'on' }
+    const newValues = { state: 'on', onVariation: 'True' }
     result.current.saveChanges(newValues)
 
     expect(mutateMock).toBeCalledWith({
@@ -60,6 +60,12 @@ describe('usePatchFeatureFlag', () => {
           kind: 'setFeatureFlagState',
           parameters: {
             state: 'on'
+          }
+        },
+        {
+          kind: 'updateDefaultServe',
+          parameters: {
+            variation: 'True'
           }
         }
       ]
@@ -78,7 +84,7 @@ describe('usePatchFeatureFlag', () => {
 
     const { result } = renderHookUnderTest({ refetchFlag: refetchFlagMock.mockResolvedValueOnce({}) })
 
-    const newValues = { state: 'off' }
+    const newValues = { state: 'off', onVariation: 'False' }
     result.current.saveChanges(newValues)
 
     expect(mutateMock).not.toBeCalledWith()
@@ -96,7 +102,7 @@ describe('usePatchFeatureFlag', () => {
 
     const { result } = renderHookUnderTest()
 
-    const newValues = { state: 'on' }
+    const newValues = { state: 'on', onVariation: 'True' }
     result.current.saveChanges(newValues)
 
     await waitFor(() => expect(screen.getByText('ERROR FROM MOCK')).toBeInTheDocument())

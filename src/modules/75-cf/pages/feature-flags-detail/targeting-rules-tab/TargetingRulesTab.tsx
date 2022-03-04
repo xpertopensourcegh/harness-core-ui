@@ -12,10 +12,13 @@ import type { Feature } from 'services/cf'
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
 import usePatchFeatureFlag from './hooks/usePatchFeatureFlag'
 import TargetingRulesTabFooter from './components/tab-targeting-footer/TargetingRulesTabFooter'
+
+import FlagEnabledDefaultRulesCard from './components/flag-enabled-default-rules-card/FlagEnabledDefaultRulesCard'
 import css from './TargetingRulesTab.module.scss'
 
 export interface TargetingRulesFormValues {
   state: string
+  onVariation: string
 }
 
 export interface TargetingRulesTabProps {
@@ -30,7 +33,10 @@ const TargetingRulesTab = ({
   refetchFlagLoading
 }: TargetingRulesTabProps): ReactElement => {
   const initialValues = {
-    state: featureFlagData.envProperties?.state as string
+    state: featureFlagData.envProperties?.state as string,
+    onVariation: featureFlagData.envProperties?.defaultServe.variation
+      ? featureFlagData.envProperties?.defaultServe.variation
+      : featureFlagData.defaultOnVariation
   }
 
   const { saveChanges, loading: patchFeatureLoading } = usePatchFeatureFlag({
@@ -54,7 +60,7 @@ const TargetingRulesTab = ({
     >
       {formikProps => {
         return (
-          <FormikForm>
+          <FormikForm data-testid="targeting-rules-tab-form">
             <Container className={css.tabContainer}>
               <Layout.Vertical spacing="small" padding={{ left: 'xlarge', right: 'xlarge' }}>
                 <Card elevation={0}>
@@ -72,7 +78,7 @@ const TargetingRulesTab = ({
                     }
                   />
                 </Card>
-                <Card>ON default rules section</Card>
+                <FlagEnabledDefaultRulesCard featureFlagVariations={featureFlagData.variations} isLoading={isLoading} />
                 <Card>OFF rules section</Card>
               </Layout.Vertical>
 
