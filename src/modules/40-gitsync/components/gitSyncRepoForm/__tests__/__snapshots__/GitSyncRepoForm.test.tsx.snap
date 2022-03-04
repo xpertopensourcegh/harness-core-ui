@@ -93,14 +93,14 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
               aria-disabled="false"
               aria-expanded="true"
               aria-selected="true"
-              class="bp3-tab"
+              class="bp3-tab tabClass"
               data-tab-id="project"
               id="bp3-tab-title_selectScope_project"
               role="tab"
               tabindex="0"
             >
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
               >
                 <span
                   class="bp3-icon StyledProps--main tabIcon"
@@ -138,14 +138,14 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
               aria-disabled="false"
               aria-expanded="false"
               aria-selected="false"
-              class="bp3-tab"
+              class="bp3-tab tabClass"
               data-tab-id="organization"
               id="bp3-tab-title_selectScope_organization"
               role="tab"
               tabindex="0"
             >
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
               >
                 <span
                   class="bp3-icon bp3-icon-diagram-tree StyledProps--main tabIcon"
@@ -180,14 +180,14 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
               aria-disabled="false"
               aria-expanded="false"
               aria-selected="false"
-              class="bp3-tab"
+              class="bp3-tab tabClass"
               data-tab-id="account"
               id="bp3-tab-title_selectScope_account"
               role="tab"
               tabindex="0"
             >
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
               >
                 <span
                   class="bp3-icon bp3-icon-layers StyledProps--main tabIcon"
@@ -221,7 +221,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
           <div
             aria-hidden="false"
             aria-labelledby="bp3-tab-title_selectScope_project"
-            class="bp3-tab-panel"
+            class="bp3-tab-panel tabClass"
             id="bp3-tab-panel_selectScope_project"
             role="tabpanel"
           >

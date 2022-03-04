@@ -297,11 +297,13 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   ): React.ReactElement | null => {
     return show ? (
       <Tab
+        className={css.tabClass}
         id={id}
         title={
           <Layout.Horizontal
             onClick={() => onScopeChange(scope)}
             flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+            padding={{ left: 'xsmall', right: 'xsmall' }}
           >
             <Icon name={icon} {...iconProps} className={css.tabIcon} />
 
