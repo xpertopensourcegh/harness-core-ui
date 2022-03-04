@@ -7,7 +7,17 @@
 
 import React, { createRef, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, ButtonVariation, Color, ExpandingSearchInput, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  ExpandingSearchInput,
+  ExpandingSearchInputHandle,
+  Layout,
+  Tab,
+  Tabs,
+  Text
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useGetGitSyncErrorsCount } from 'services/cd-ng'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
@@ -40,7 +50,7 @@ const TabTitle: React.FC<{ title: string; count: number; showCount: boolean }> =
 const GitSyncErrors: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-
+  const searchRef = React.useRef<ExpandingSearchInputHandle>()
   const [selectedTab, setSelectedTab] = useState<GitErrorExperienceTab>(GitErrorExperienceTab.ALL_ERRORS)
   const [selectedView, setSelectedView] = useState<GitErrorExperienceSubTab | null>(
     GitErrorExperienceSubTab.ALL_ERRORS_COMMIT_VIEW
@@ -72,6 +82,8 @@ const GitSyncErrors: React.FC = () => {
   const setGitFilters = ({ branch: filterBranch, repo: filterRepo }: GitFilterScope): void => {
     setBranch(filterBranch || '')
     setRepoIdentifier(filterRepo)
+    setSearchTerm('')
+    searchRef.current?.clear()
   }
 
   const {
@@ -139,6 +151,7 @@ const GitSyncErrors: React.FC = () => {
               throttle={200}
               onChange={setSearchTerm}
               className={styles.searchInput}
+              ref={searchRef}
             />
             <Button variation={ButtonVariation.TERTIARY} icon="command-rollback" onClick={reload} />
           </Layout.Horizontal>

@@ -36,7 +36,7 @@ jest.mock('services/cd-ng', () => ({
     return mockDataWithRefetch
   }),
   useGetGitSyncErrorsCount: jest.fn().mockImplementation(() => {
-    return mockDataWithRefetch
+    return { ...mockDataWithRefetch, data: { data: {} } }
   }),
   listGitToHarnessErrorsForCommitPromise: () => {
     listGitToHarnessErrorsForCommitPromise()
@@ -217,5 +217,40 @@ describe('GitSyncErrors', () => {
     })
 
     expect(listGitToHarnessErrorsForCommitPromise).toHaveBeenCalled()
+  })
+
+  test('on tab change ALL_ERRORS', async () => {
+    const { container } = render(
+      <GitSyncTestWrapper
+        path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/entities"
+        pathParams={{
+          accountId: GIT_SYNC_ERROR_TEST_SCOPE.accountId,
+          orgIdentifier: GIT_SYNC_ERROR_TEST_SCOPE.orgIdentifier,
+          projectIdentifier: GIT_SYNC_ERROR_TEST_SCOPE.projectIdentifier
+        }}
+      >
+        <GitSyncErrors />
+      </GitSyncTestWrapper>
+    )
+    const allErrorsView = container.querySelector('[data-tab-id="ALL_ERRORS"]')
+    fireEvent.click(allErrorsView!)
+
+    await waitFor(() => {
+      expect(useListGitSyncErrors).toHaveBeenCalledWith([
+        {
+          queryParams: {
+            accountIdentifier: 'dummyAccountId',
+            branch: '',
+            gitToHarness: true,
+            orgIdentifier: 'dummyOrgIdentifier',
+            pageIndex: 0,
+            pageSize: 10,
+            projectIdentifier: 'dummyProjectIdentifier',
+            repoIdentifier: '',
+            searchTerm: ''
+          }
+        }
+      ])
+    })
   })
 })
