@@ -283,13 +283,6 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     setReadOnlySecretManager((selectedSM?.spec as VaultConnectorDTO)?.readOnly)
   }, [defaultSecretManagerId, connectorDetails])
 
-  // if the selected secret manager changes, update readOnly flag in state
-  useEffect(() => {
-    selectedSecretManager?.type === 'Vault'
-      ? setReadOnlySecretManager((selectedSecretManager?.spec as VaultConnectorDTO)?.readOnly)
-      : setReadOnlySecretManager(false)
-  }, [selectedSecretManager])
-
   return (
     <>
       <ModalErrorHandler bind={setModalErrorHandler} />
@@ -344,11 +337,16 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 items={secretManagersOptions}
                 disabled={editing || loadingSecretsManagers || loadingConnectorDetails}
                 onChange={item => {
-                  setSelectedSecretManager(
-                    secretManagersApiResponse?.data?.content?.filter(
-                      itemValue => itemValue.connector?.identifier === item.value
-                    )?.[0]?.connector
-                  )
+                  const secretManagerData = secretManagersApiResponse?.data?.content?.filter(
+                    itemValue => itemValue.connector?.identifier === item.value
+                  )?.[0]?.connector
+                  const readOnlyTemp =
+                    secretManagerData?.type === 'Vault'
+                      ? (secretManagerData?.spec as VaultConnectorDTO)?.readOnly
+                      : false
+                  setReadOnlySecretManager(readOnlyTemp)
+                  formikProps.setFieldValue('valueType', readOnlyTemp ? 'Reference' : 'Inline')
+                  setSelectedSecretManager(secretManagerData)
                 }}
               />
               {!secretTypeFromProps ? (
