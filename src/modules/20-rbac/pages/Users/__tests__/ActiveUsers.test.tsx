@@ -74,8 +74,6 @@ jest.mock('services/cd-ng', () => ({
   }))
 }))
 
-jest.mock('@rbac/components/DeveloperLimitBanner/DeveloperLimitBanner.tsx', () => () => <></>)
-
 jest.useFakeTimers()
 
 describe('UsersPage Test', () => {

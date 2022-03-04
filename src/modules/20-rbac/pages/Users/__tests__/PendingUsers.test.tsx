@@ -63,8 +63,6 @@ jest.mock('services/cd-ng', () => ({
   useAddUsers: jest.fn().mockImplementation(() => ({ mutate: createUserMock }))
 }))
 
-jest.mock('@rbac/components/DeveloperLimitBanner/DeveloperLimitBanner.tsx', () => () => <></>)
-
 jest.useFakeTimers()
 
 describe('UsersPage Test', () => {

@@ -27,11 +27,6 @@ jest.mock('@cf/components/TargetManagementToolbar/TargetManagementToolbar', () =
   default: () => <span data-testid="target-management-toolbar">Target Management Toolbar</span>
 }))
 
-jest.mock('@cf/components/UsageLimitBanner/UsageLimitBanner', () => ({
-  __esModule: true,
-  default: () => <span data-testid="usage-limit-banner">Usage Limit Banner</span>
-}))
-
 jest.mock('@common/components/ContainerSpinner/ContainerSpinner', () => ({
   ContainerSpinner: () => <span data-testid="container-spinner">Container Spinner</span>
 }))
@@ -182,22 +177,6 @@ describe('TargetGroupDetailPage', () => {
       renderComponent()
 
       expect(screen.getByTestId('target-management-toolbar')).toBeInTheDocument()
-    })
-  })
-
-  describe('plan enforcement', () => {
-    test('it should not display the Usage Limit Banner when plan enforcement is disabled', async () => {
-      renderComponent()
-
-      expect(screen.queryByTestId('usage-limit-banner')).not.toBeInTheDocument()
-    })
-
-    test('it should display the Usage Limit Banner when plan enforcement is enabled', async () => {
-      usePlanEnforcementMock.mockReturnValue({ isPlanEnforcementEnabled: true } as any)
-
-      renderComponent()
-
-      expect(screen.getByTestId('usage-limit-banner')).toBeInTheDocument()
     })
   })
 

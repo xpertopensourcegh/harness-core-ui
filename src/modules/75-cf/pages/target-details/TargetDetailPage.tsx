@@ -24,8 +24,6 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import TargetManagementToolbar from '@cf/components/TargetManagementToolbar/TargetManagementToolbar'
 import { useGitSync } from '@cf/hooks/useGitSync'
-import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
-import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
 import css from './TargetDetailPage.module.scss'
@@ -132,8 +130,6 @@ export const TargetDetailPage: React.FC = () => {
 
   const gitSync = useGitSync()
 
-  const { isPlanEnforcementEnabled } = usePlanEnforcement()
-
   useDocumentTitle(title)
 
   if (loading) {
@@ -206,7 +202,6 @@ export const TargetDetailPage: React.FC = () => {
     >
       <Layout.Vertical height="100%" style={{ flexGrow: 1, background: 'var(--white)' }}>
         {gitSync.isGitSyncActionsEnabled && <TargetManagementToolbar gitSync={gitSync} />}
-        {isPlanEnforcementEnabled && <UsageLimitBanner />}
         <Layout.Horizontal height="100%">
           <TargetSettings target={target} />
           <FlagSettings target={target} gitSync={gitSync} />

@@ -21,8 +21,6 @@ import { useGitSync } from '@cf/hooks/useGitSync'
 import TargetManagementToolbar from '@cf/components/TargetManagementToolbar/TargetManagementToolbar'
 import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
 import { DetailPageTemplate, DetailPageTemplateProps } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
-import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
-import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import TargetGroupHeader from './components/TargetGroupHeader'
 import TargetGroupCriteria from './components/TargetGroupCriteria'
 
@@ -32,7 +30,6 @@ const TargetGroupDetailPage: FC = () => {
   const { getString } = useStrings()
   const { withActiveEnvironment, activeEnvironment: environmentIdentifier } = useActiveEnvironment()
   const gitSync = useGitSync()
-  const { isPlanEnforcementEnabled } = usePlanEnforcement()
 
   useDocumentTitle(`${getString('cf.shared.targetManagement')}: ${getString('cf.shared.segments')}`)
 
@@ -126,7 +123,6 @@ const TargetGroupDetailPage: FC = () => {
     >
       <Layout.Vertical height="100%">
         {gitSync.isGitSyncActionsEnabled && <TargetManagementToolbar gitSync={gitSync} />}
-        {isPlanEnforcementEnabled && <UsageLimitBanner />}
 
         <Container className={css.layout}>
           <TargetGroupCriteria targetGroup={targetGroup as Segment} reloadTargetGroup={refetchTargetGroup} />

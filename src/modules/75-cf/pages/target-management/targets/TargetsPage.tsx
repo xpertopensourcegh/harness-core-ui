@@ -47,7 +47,6 @@ import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOp
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
-import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { NoTargetsView } from './NoTargetsView'
 import { NewTargets } from './NewTarget'
@@ -352,7 +351,6 @@ export const TargetsPage: React.FC = () => {
     />
   ) : (
     <>
-      {isPlanEnforcementEnabled && <UsageLimitBanner />}
       <Container padding={{ top: 'medium', right: 'xlarge', left: 'xlarge' }}>
         <TableV2<Target>
           columns={columns}

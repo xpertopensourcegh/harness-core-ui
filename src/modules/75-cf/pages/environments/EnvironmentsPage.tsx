@@ -31,8 +31,6 @@ import { withTableData } from '@cf/utils/table-utils'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
-import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import css from './EnvironmentsPage.module.scss'
 
 type EnvData = { environment: EnvironmentResponseDTO }
@@ -191,8 +189,6 @@ const EnvironmentsPage: React.FC = () => {
   const hasEnvs = Boolean(!loading && envData?.data?.content?.length)
   const emptyEnvs = Boolean(!loading && envData?.data?.content?.length === 0)
 
-  const { isPlanEnforcementEnabled } = usePlanEnforcement()
-
   const handleEdit = (id: string) => {
     history.push(
       routes.toCFEnvironmentDetails({
@@ -284,7 +280,6 @@ const EnvironmentsPage: React.FC = () => {
       retryOnError={refetch}
       loading={loading}
     >
-      {isPlanEnforcementEnabled && <UsageLimitBanner />}
       {hasEnvs && (
         <Container padding={{ top: 'medium', right: 'xlarge', left: 'xlarge' }}>
           <TableV2<EnvironmentResponseDTO>

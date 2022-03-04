@@ -21,8 +21,6 @@ import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPage
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import TargetManagementToolbar from '@cf/components/TargetManagementToolbar/TargetManagementToolbar'
 import { useGitSync } from '@cf/hooks/useGitSync'
-import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
-import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
 import { SegmentSettings } from './segment-settings/SegmentSettings'
 import SegmentDetailsPageOptionsMenu from './segment-details-page-options-menu/SegmentDetailsPageOptionsMenu'
@@ -133,8 +131,6 @@ export const SegmentDetailPage: React.FC = () => {
 
   const gitSync = useGitSync()
 
-  const { isPlanEnforcementEnabled } = usePlanEnforcement()
-
   const loading = segmentLoading || envLoading
   const error = segmentError || envError
 
@@ -198,7 +194,6 @@ export const SegmentDetailPage: React.FC = () => {
     >
       <Layout.Vertical height="100%" style={{ flexGrow: 1, background: 'var(--white)' }}>
         {gitSync.isGitSyncActionsEnabled && <TargetManagementToolbar gitSync={gitSync} />}
-        {isPlanEnforcementEnabled && <UsageLimitBanner />}
         <Layout.Horizontal height="100%">
           <FlagsUseSegment gitSync={gitSync} />
           <SegmentSettings onUpdate={refetch} segment={segment} />
