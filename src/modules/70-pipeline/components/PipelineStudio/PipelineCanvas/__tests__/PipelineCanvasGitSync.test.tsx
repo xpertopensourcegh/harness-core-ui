@@ -8,13 +8,14 @@
 import React from 'react'
 import { noop } from 'lodash-es'
 import { fireEvent, render, act, getByText, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import routes from '@common/RouteDefinitions'
 import { useMutateAsGet } from '@common/hooks'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 import gitSyncListResponse from '@common/utils/__tests__/mocks/gitSyncRepoListMock.json'
 import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
-import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
+import { branchStatusMock, sourceCodeManagers } from '@connectors/mocks/mock'
 import { ConnectorResponse } from '@pipeline/components/InputSetForm/__tests__/InputSetMocks'
 import { createPipelinePromise, putPipelinePromise } from 'services/pipeline-ng'
 import { PipelineCanvas } from '../PipelineCanvas'
@@ -46,7 +47,7 @@ jest.mock('services/pipeline-ng', () => ({
 }))
 
 const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
-const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+const getListGitSync = jest.fn(() => Promise.resolve(gitSyncListResponse))
 
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse),
@@ -60,7 +61,8 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
     return { data: sourceCodeManagers, refetch: jest.fn() }
-  })
+  }),
+  getListOfBranchesWithStatusPromise: jest.fn().mockImplementation(() => Promise.resolve(branchStatusMock))
 }))
 
 jest.mock('resize-observer-polyfill', () => {
@@ -219,6 +221,101 @@ describe('PipelineCanvas tests', () => {
           await waitFor(() => expect(putPipelinePromise).toHaveBeenCalled())
           expect(putPipelinePromise).toHaveBeenCalledWith(putPipelinePromiseArg)
         })
+      })
+
+      test('save an existing pipeline to a new branch', async () => {
+        const { container } = render(
+          <PipelineCanvasTestWrapper
+            modifiedPipelineContextMock={pipelineContextMock}
+            pipelineIdentifier={'test_pipeline'}
+          />
+        )
+
+        const saveBtn = getByText(container, 'save').parentElement
+        expect(saveBtn).toBeInTheDocument()
+        fireEvent.click(saveBtn!)
+        let saveToGitSaveBtn: HTMLElement
+        await waitFor(() => {
+          const portalDiv = document.getElementsByClassName('bp3-portal')[0] as HTMLElement
+          const savePipelinesToGitHeader = getByText(portalDiv, 'common.git.saveResourceLabel')
+          expect(savePipelinesToGitHeader).toBeInTheDocument()
+
+          const commitToANewBranch = getByText(portalDiv, 'common.git.newBranchCommitLabel')
+          fireEvent.click(commitToANewBranch)
+
+          const branchInput = portalDiv.querySelector('input[name="branch"]')
+          expect(branchInput).not.toBeDisabled()
+          expect(branchInput?.getAttribute('value')).toBe('feature-patch')
+
+          fireEvent.change(branchInput!, { target: { value: 'feature1' } })
+
+          saveToGitSaveBtn = getByText(portalDiv, 'save').parentElement as HTMLElement
+          expect(saveToGitSaveBtn).toBeInTheDocument()
+        })
+        userEvent.click(saveToGitSaveBtn!)
+        await waitFor(() => expect(putPipelinePromise).toHaveBeenCalled())
+        const putPipelinePromiseArgNewBranch = {
+          ...putPipelinePromiseArg,
+          queryParams: {
+            ...putPipelinePromiseArg.queryParams,
+            isNewBranch: true,
+            branch: 'feature1',
+            baseBranch: 'feature',
+            targetBranch: 'feature'
+          }
+        }
+        expect(putPipelinePromise).toHaveBeenCalledWith(putPipelinePromiseArgNewBranch)
+      })
+
+      test('save an existing pipeline and start a PR', async () => {
+        const { container } = render(
+          <PipelineCanvasTestWrapper
+            modifiedPipelineContextMock={pipelineContextMock}
+            pipelineIdentifier={'test_pipeline'}
+          />
+        )
+
+        // Click on Save button in the form and check if Save to Git dialog opens properly
+        const saveBtn = getByText(container, 'save').parentElement
+        expect(saveBtn).toBeInTheDocument()
+        fireEvent.click(saveBtn!)
+        await waitFor(() => expect(document.getElementsByClassName('bp3-portal')[0] as HTMLElement).toBeTruthy())
+        const portalDiv = document.getElementsByClassName('bp3-portal')[0] as HTMLElement
+        const savePipelinesToGitHeader = getByText(portalDiv, 'common.git.saveResourceLabel')
+        expect(savePipelinesToGitHeader).toBeInTheDocument()
+
+        // Click on Start a pull request to merge Checkbox
+        const createPRCheckbox = portalDiv.querySelector('input[name="createPr"]') as HTMLInputElement
+        userEvent.click(createPRCheckbox!)
+        expect(createPRCheckbox.value).toBe('on')
+
+        // Select a target branch and check if target branch values is changed to selected one
+        const targetBranchSelector = portalDiv.querySelector('input[name="targetBranch"]')
+        await waitFor(() => expect(targetBranchSelector).not.toBeDisabled())
+        userEvent.click(targetBranchSelector!)
+        await waitFor(() => expect(document.getElementsByClassName('bp3-portal').length).toBe(2))
+        const branchSelectorPortalDiv = document.getElementsByClassName('bp3-portal')[1] as HTMLElement
+        const branchOption = getByText(branchSelectorPortalDiv, 'gitSync')
+        userEvent.click(branchOption!)
+        await waitFor(() => expect(targetBranchSelector?.getAttribute('value')).toBe('gitSync'))
+
+        // Click on Save button in the Save to Git dialog to save pipeline
+        const saveToGitSaveBtn = getByText(portalDiv, 'save').parentElement as HTMLElement
+        expect(saveToGitSaveBtn).toBeInTheDocument()
+        userEvent.click(saveToGitSaveBtn!)
+
+        // Check if putPipelinePromise (which makes API call) called with correct arguments
+        await waitFor(() => expect(putPipelinePromise).toHaveBeenCalled())
+        const putPipelinePromiseArgNewBranch = {
+          ...putPipelinePromiseArg,
+          queryParams: {
+            ...putPipelinePromiseArg.queryParams,
+            createPr: true,
+            branch: 'feature',
+            targetBranch: 'gitSync'
+          }
+        }
+        expect(putPipelinePromise).toHaveBeenCalledWith(putPipelinePromiseArgNewBranch)
       })
     })
 

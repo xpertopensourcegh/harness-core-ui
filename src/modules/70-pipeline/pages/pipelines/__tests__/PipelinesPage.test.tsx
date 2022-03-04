@@ -15,11 +15,13 @@ import {
   getAllByText as getAllByTextLib,
   act
 } from '@testing-library/react'
+import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
+import gitSyncListResponse from '@common/utils/__tests__/mocks/gitSyncRepoListMock.json'
 import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
-import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
+import { branchStatusMock, sourceCodeManagers } from '@connectors/mocks/mock'
 import CDPipelinesPage from '../PipelinesPage'
 import filters from './mocks/filters.json'
 import deploymentTypes from './mocks/deploymentTypes.json'
@@ -28,7 +30,7 @@ import environments from './mocks/environments.json'
 import pipelines from './mocks/pipelines.json'
 
 const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
-const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+const getListGitSync = jest.fn(() => Promise.resolve(gitSyncListResponse))
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
@@ -50,7 +52,7 @@ jest.mock('services/cd-ng', () => ({
     return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
   }),
   useListGitSync: jest.fn().mockImplementation(() => {
-    return { data: gitConfigs, refetch: getListGitSync }
+    return { data: gitSyncListResponse, refetch: getListGitSync, loading: false }
   }),
   useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
     return { data: sourceCodeManagers, refetch: jest.fn() }
@@ -355,19 +357,21 @@ describe('Pipeline Card View Test Cases', () => {
     })
     expect(mockDeleteFunction).toBeCalled()
   })
+})
 
-  describe('When Git Sync is enabled', () => {
-    test('should render fine', async () => {
-      const { getByTestId, container } = render(
-        <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={{ isGitSyncEnabled: true }}>
-          <CDPipelinesPage />
-        </TestWrapper>
-      )
-      await waitFor(() => getByTestId(params.pipelineIdentifier))
-      const repoSelector = container.querySelector('input[name="repo"]')
-      expect(repoSelector).toBeInTheDocument()
-      const branchSelector = container.querySelector('input[name="branch"]')
-      expect(branchSelector).toBeInTheDocument()
-    })
+describe('When Git Sync is enabled', () => {
+  test('should render fine', async () => {
+    const { getByTestId, container } = render(
+      <GitSyncTestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={{ isGitSyncEnabled: true }}>
+        <CDPipelinesPage />
+      </GitSyncTestWrapper>
+    )
+    await waitFor(() => getByTestId(params.pipelineIdentifier))
+    const repoSelector = container.querySelector('input[name="repo"]') as HTMLInputElement
+    expect(repoSelector).toBeInTheDocument()
+    expect(repoSelector.value).toEqual('common.gitSync.allRepositories')
+    const branchSelector = container.querySelector('input[name="branch"]') as HTMLInputElement
+    expect(branchSelector).toBeInTheDocument()
+    expect(branchSelector.value).toEqual('master')
   })
 })

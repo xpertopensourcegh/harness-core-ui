@@ -97,7 +97,7 @@ export function useSaveInputSet(inputSetInfo: InputSetInfo): UseSaveInputSetRetu
         const updatedGitDetails = getUpdatedGitDetails(isEdit, gitDetails, objectId, initialGitDetails)
         if (isEdit) {
           if (inputSetObj.identifier) {
-            response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+            response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }), {
               pathParams: {
                 inputSetIdentifier: defaultTo(inputSetObj.identifier, '')
               },
@@ -115,7 +115,7 @@ export function useSaveInputSet(inputSetInfo: InputSetInfo): UseSaveInputSetRetu
             throw new Error(getString('common.validation.identifierIsRequired'))
           }
         } else {
-          response = await createInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+          response = await createInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }), {
             queryParams: {
               accountIdentifier: accountId,
               orgIdentifier,
