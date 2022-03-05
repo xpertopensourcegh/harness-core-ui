@@ -23,12 +23,20 @@ import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/Artifac
 import { connectorsData } from '@connectors/pages/connectors/__tests__/mockData'
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
-import { PostCreateVariables, GetSchemaYaml, GetParseableArtifactTriggerResponse } from './webhookMockResponses'
+import {
+  PostCreateVariables,
+  GetSchemaYaml,
+  GetParseableArtifactTriggerResponse,
+  GetParseableParallelStageArtifactTriggerResponse,
+  clearedArtifactIdentifierResponse
+} from './webhookMockResponses'
 
 import {
   GetArtifactPipelineResponse,
   GetParseableArtifactTemplateFromPipelineResponse,
-  GetMergeInputSetArtifactTemplateWithListInputResponse
+  GetMergeInputSetArtifactTemplateWithListInputResponse,
+  GetParallelArtifactPipelineResponse,
+  GetParseableParallelArtifactTemplateFromPipelineResponse
 } from './sharedMockResponses'
 import TriggersWizardPage from '../TriggersWizardPage'
 
@@ -151,5 +159,64 @@ describe('Artifact Trigger Tests', () => {
     await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
 
     expect(mockUpdate).toBeCalled()
+  })
+
+  test('Artifact Trigger - submit clears undefined artifact identifier in parallel stage', async () => {
+    jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+      return {
+        data: GetSchemaYaml as any,
+        refetch: jest.fn(),
+        error: null,
+        loading: false,
+        absolutePath: '',
+        cancel: jest.fn(),
+        response: null
+      }
+    })
+
+    jest.spyOn(pipelineNg, 'useCreateVariables').mockImplementation(() => ({
+      cancel: jest.fn(),
+      loading: false,
+      error: null,
+      mutate: jest.fn().mockImplementation(() => PostCreateVariables)
+    }))
+
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetParallelArtifactPipelineResponse as any)
+    jest
+      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+      .mockReturnValue(GetParseableParallelArtifactTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetParseableParallelStageArtifactTriggerResponse as any)
+    jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+      mutate: jest.fn().mockReturnValue(GetParseableParallelArtifactTemplateFromPipelineResponse) as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useUpdateTrigger').mockReturnValue({
+      mutate: mockUpdate as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+    const { container } = render(<WrapperComponent />)
+    await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+
+    const tab3 = container.querySelector('[data-tab-id="Pipeline Input"]')
+
+    if (!tab3) {
+      throw Error('No Pipeline Input tab')
+    }
+    fireEvent.click(tab3)
+
+    await waitFor(() => expect(result.current.getString('triggers.updateTrigger')).not.toBeNull())
+    const updateButton = queryByText(container, result.current.getString('triggers.updateTrigger'))
+    if (!updateButton) {
+      throw Error('Cannot find Update Trigger button')
+    }
+
+    fireEvent.click(updateButton)
+    await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
+
+    expect(mockUpdate).toBeCalled()
+    // expect(mockUpdate).toBeCloseTo(clearedArtifactIdentifierResponse)
+    // expect(mockUpdate).not.toContain('identifier: null')
+    // expect(mockUpdate).toBecalled(40)
+    // expect(mockUpdate).not.('identifier: undefined')
+    // console.log(mockUpdate.length)
+    expect(mockUpdate).toBeCalledWith(clearedArtifactIdentifierResponse)
   })
 })

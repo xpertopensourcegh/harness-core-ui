@@ -1955,3 +1955,37 @@ export const getOrderedPipelineVariableValues = ({
   }
   return currentPipelineVariables
 }
+
+export const clearUndefinedArtifactId = (newPipelineObj = {}): any => {
+  // temporary fix, undefined artifact id gets injected somewhere and needs to be removed for submission
+  const clearedNewPipelineObj: any = { ...newPipelineObj }
+
+  clearedNewPipelineObj?.stages?.forEach((stage: any, index: number) => {
+    const isParallel = !!stage.parallel
+    if (isParallel) {
+      stage.parallel.forEach((parallelStage: any, parallelStageIndex: number) => {
+        const parallelStageArtifacts = parallelStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+        const [artifactKey, artifactValues] =
+          (parallelStageArtifacts && Object.entries(parallelStageArtifacts)?.[0]) || []
+
+        if (artifactValues && Object.keys(artifactValues)?.includes('identifier') && !artifactValues.identifier) {
+          // remove undefined or null identifier
+          delete clearedNewPipelineObj.stages[index].parallel[parallelStageIndex].stage.spec.serviceConfig
+            .serviceDefinition.spec.artifacts[artifactKey].identifier
+        }
+      })
+    } else {
+      const stageArtifacts = stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+      const [artifactKey, artifactValues] = (stageArtifacts && Object.entries(stageArtifacts)?.[0]) || []
+
+      if (artifactValues && Object.keys(artifactValues)?.includes('identifier') && !artifactValues.identifier) {
+        // remove undefined or null identifier
+        delete clearedNewPipelineObj.stages[index].stage.spec.serviceConfig.serviceDefinition.spec.artifacts[
+          artifactKey
+        ].identifier
+      }
+    }
+  })
+
+  return clearedNewPipelineObj
+}

@@ -99,7 +99,8 @@ import {
   eventTypes,
   FlatValidFormikValuesInterface,
   displayPipelineIntegrityResponse,
-  getOrderedPipelineVariableValues
+  getOrderedPipelineVariableValues,
+  clearUndefinedArtifactId
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -230,13 +231,16 @@ const getArtifactManifestTriggerYaml = ({
   } = val
 
   replaceRunTimeVariables({ manifestType, artifactType, selectedArtifact })
-  const newPipelineObj = { ...pipelineRuntimeInput }
+  let newPipelineObj = { ...pipelineRuntimeInput }
   const filteredStage = newPipelineObj.stages?.find((item: any) => item.stage?.identifier === stageId)
   if (manifestType) {
     replaceStageManifests({ filteredStage, selectedArtifact })
   } else if (artifactType) {
     replaceStageArtifacts({ filteredStage, selectedArtifact })
   }
+
+  // Manually clear null or undefined artifact identifier
+  newPipelineObj = clearUndefinedArtifactId(newPipelineObj)
 
   // actions will be required thru validation
   const stringifyPipelineRuntimeInput = yamlStringify({

@@ -107,6 +107,33 @@ export const GetParseableArtifactTriggerResponse: UseGetReturnData<ResponseNGTri
   }
 }
 
+// has null artifact identifier
+export const GetParseableParallelStageArtifactTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+      enabled: false,
+      identifier: 'parallelArtifactTrigger',
+      name: 'parallelArtifactTrigger',
+      orgIdentifier: 'default',
+      projectIdentifier: 'test',
+      targetIdentifier: 'artifactpipeline1',
+      type: 'Artifact',
+      version: 1,
+      yaml: 'trigger:\n    name: parallelArtifactTrigger\n    identifier: parallelArtifactTrigger\n    enabled: true\n    tags: {}\n    source:\n        type: Artifact\n        spec:\n            stageIdentifier: stage1\n            type: DockerRegistry\n            spec:\n                imagePath: imagePath\n                tag: <+trigger.artifact.build>\n                eventConditions: []\n            artifactRef: primary\n    inputYaml: |\n        pipeline:\n            identifier: artifactpipeline1\n            stages:\n                - parallel:\n                      - stage:\n                            identifier: stage1\n                            type: Deployment\n                            spec:\n                                serviceConfig:\n                                    serviceDefinition:\n                                        type: Kubernetes\n                                        spec:\n                                            artifacts:\n                                                primary:\n                                                    type: DockerRegistry\n                                                    spec:\n                                                        imagePath: imagePath\n                                                        tag: <+trigger.artifact.build>\n                      - stage:\n                            identifier: stage2\n                            type: Deployment\n                            spec:\n                                serviceConfig:\n                                    serviceDefinition:\n                                        type: Kubernetes\n                                        spec:\n                                            artifacts:\n                                                primary:\n                                                    identifier:\n                                                    type: DockerRegistry\n                                                    spec:\n                                                        tag: latest\n'
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
+  }
+}
+
+export const clearedArtifactIdentifierResponse =
+  'trigger:\n  name: parallelArtifactTrigger\n  identifier: parallelArtifactTrigger\n  enabled: false\n  tags: {}\n  source:\n    type: Artifact\n    spec:\n      stageIdentifier: stage1\n      type: DockerRegistry\n      spec:\n        imagePath: imagePath\n        tag: <+trigger.artifact.build>\n        eventConditions: []\n      artifactRef: primary\n  inputYaml: |\n    pipeline:\n      identifier: artifactpipeline1\n      stages:\n        - parallel:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  serviceConfig:\n                    serviceDefinition:\n                      type: Kubernetes\n                      spec:\n                        artifacts:\n                          primary:\n                            type: DockerRegistry\n                            spec:\n                              imagePath: imagePath\n                              tag: <+trigger.artifact.build>\n            - stage:\n                identifier: stage2\n                type: Deployment\n                spec:\n                  serviceConfig:\n                    serviceDefinition:\n                      type: Kubernetes\n                      spec:\n                        artifacts:\n                          primary:\n                            type: DockerRegistry\n                            spec:\n                              tag: latest\n'
+
 export const GetTriggerWithEventConditionsResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
   loading: false,
   refetch: jest.fn(),

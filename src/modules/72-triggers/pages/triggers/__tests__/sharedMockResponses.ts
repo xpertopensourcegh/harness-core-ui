@@ -85,6 +85,35 @@ export const GetArtifactPipelineResponse: UseGetReturnData<ResponsePMSPipelineRe
   }
 }
 
+export const GetParallelArtifactPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      yamlPipeline:
+        'pipeline:\n    name: artifact-pipeline1\n    identifier: artifactpipeline1\n    allowStageExecutions: false\n    projectIdentifier: mtran\n    orgIdentifier: harness\n    tags: {}\n    stages:\n        - parallel:\n              - stage:\n                    name: stage1\n                    identifier: stage1\n                    description: ""\n                    type: Deployment\n                    spec:\n                        serviceConfig:\n                            serviceRef: s1\n                            serviceDefinition:\n                                type: Kubernetes\n                                spec:\n                                    variables: []\n                                    artifacts:\n                                        primary:\n                                            spec:\n                                                connectorRef: account.dockerTestJasmeet\n                                                imagePath: <+input>\n                                                tag: <+input>\n                                            type: DockerRegistry\n                        infrastructure:\n                            environmentRef: env1\n                            infrastructureDefinition:\n                                type: KubernetesDirect\n                                spec:\n                                    connectorRef: account.testdisableharnesssm\n                                    namespace: def\n                                    releaseName: release-<+INFRA_KEY>\n                            allowSimultaneousDeployments: false\n                        execution:\n                            steps:\n                                - step:\n                                      type: ShellScript\n                                      name: shell\n                                      identifier: shell\n                                      spec:\n                                          shell: Bash\n                                          onDelegate: true\n                                          source:\n                                              type: Inline\n                                              spec:\n                                                  script: echo \'hi\'\n                                          environmentVariables: []\n                                          outputVariables: []\n                                          executionTarget: {}\n                                      timeout: 10m\n                            rollbackSteps: []\n                    tags: {}\n              - stage:\n                    name: stage2\n                    identifier: stage2\n                    description: ""\n                    type: Deployment\n                    spec:\n                        serviceConfig:\n                            serviceRef: s1\n                            serviceDefinition:\n                                type: Kubernetes\n                                spec:\n                                    variables: []\n                                    artifacts:\n                                        primary:\n                                            spec:\n                                                connectorRef: account.testAm\n                                                imagePath: d2\n                                                tag: <+input>\n                                            type: DockerRegistry\n                        infrastructure:\n                            environmentRef: env00005\n                            infrastructureDefinition:\n                                type: KubernetesDirect\n                                spec:\n                                    connectorRef: account.testdisableharnesssm\n                                    namespace: def\n                                    releaseName: release-<+INFRA_KEY>\n                            allowSimultaneousDeployments: false\n                        execution:\n                            steps:\n                                - step:\n                                      type: ShellScript\n                                      name: shell2\n                                      identifier: shell2\n                                      spec:\n                                          shell: Bash\n                                          onDelegate: true\n                                          source:\n                                              type: Inline\n                                              spec:\n                                                  script: echo \'hi\'\n                                          environmentVariables: []\n                                          outputVariables: []\n                                          executionTarget: {}\n                                      timeout: 10m\n                            rollbackSteps: []\n                    tags: {}\n',
+      version: 4,
+      gitDetails: {
+        objectId: null,
+        branch: null,
+        repoIdentifier: null,
+        rootFolder: null,
+        filePath: null,
+        repoName: null
+      },
+      entityValidityDetails: {
+        valid: true,
+        invalidYaml: null
+      },
+      modules: ['cd']
+    } as unknown as PMSPipelineResponseDTO,
+    metaData: null as unknown as undefined,
+    correlationId: '26a25fc1-882a-4499-9059-d1ed08ae12fb'
+  }
+}
+
 export const GetManifestWithEventConditionsResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
   loading: false,
   refetch: jest.fn(),
@@ -183,6 +212,22 @@ export const GetParseableTemplateFromPipelineResponse: UseGetReturnData<Response
     correlationId: '4e057505-dbd4-4de7-9a9d-43a0364e5825'
   }
 }
+
+export const GetParseableParallelArtifactTemplateFromPipelineResponse: UseGetReturnData<ResponseInputSetTemplateResponse> =
+  {
+    loading: false,
+    refetch: jest.fn(),
+    error: null,
+    data: {
+      status: 'SUCCESS',
+      data: {
+        inputSetTemplateYaml:
+          'pipeline:\n  identifier: "artifactpipeline1"\n  stages:\n  - parallel:\n    - stage:\n        identifier: "stage1"\n        type: "Deployment"\n        spec:\n          serviceConfig:\n            serviceDefinition:\n              type: "Kubernetes"\n              spec:\n                artifacts:\n                  primary:\n                    type: "DockerRegistry"\n                    spec:\n                      imagePath: "<+input>"\n                      tag: "<+input>"\n    - stage:\n        identifier: "stage2"\n        type: "Deployment"\n        spec:\n          serviceConfig:\n            serviceDefinition:\n              type: "Kubernetes"\n              spec:\n                artifacts:\n                  primary:\n                    type: "DockerRegistry"\n                    spec:\n                      tag: "<+input>"\n'
+      },
+      metaData: null as unknown as undefined,
+      correlationId: '4e057505-dbd4-4de7-9a9d-43a0364e5825'
+    }
+  }
 
 export const GetParseableArtifactTemplateFromPipelineResponse: UseGetReturnData<ResponseInputSetTemplateResponse> = {
   loading: false,
