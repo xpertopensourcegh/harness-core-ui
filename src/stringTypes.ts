@@ -3153,6 +3153,7 @@ export interface StringsMap {
   'cd.artifactFormErrors.repositoryName': string
   'cd.artifactName': string
   'cd.artifactPaths': string
+  'cd.artifactRepoTooltip': string
   'cd.backEndConfig': string
   'cd.cdLaunchText': string
   'cd.cdSwitchToFirstGen.description1': string

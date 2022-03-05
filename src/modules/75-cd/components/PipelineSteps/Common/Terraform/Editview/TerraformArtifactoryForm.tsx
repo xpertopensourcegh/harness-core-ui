@@ -18,7 +18,8 @@ import {
   useToaster,
   MultiTypeInputType,
   getMultiTypeFromValue,
-  Icon
+  Icon,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -193,25 +194,43 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
                     <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                   </div>
                 )}
-
+                <Text style={{ color: Color.GREY_900 }}>
+                  {getString('pipelineSteps.repoName')}
+                  <Button
+                    style={{ padding: 0, margin: 0 }}
+                    icon="tooltip-icon"
+                    minimal
+                    color={Color.PRIMARY_7}
+                    tooltip={getString('cd.artifactRepoTooltip')}
+                    tooltipProps={{
+                      usePortal: false,
+                      isDark: true,
+                      className: css.tooltipProps
+                    }}
+                    iconProps={{
+                      size: 12,
+                      padding: { right: 'small', top: 'small', bottom: 'small' }
+                    }}
+                  />
+                </Text>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.FIXED ? (
                     <FormInput.MultiTypeInput
                       selectItems={connectorRepos ? connectorRepos : []}
                       name={tfArtifactoryFormInputNames(isConfig).repositoryName}
-                      label={getString('pipelineSteps.repoName')}
+                      label={''}
                       useValue
                       placeholder={getString(ArtifactRepoLoading ? 'common.loading' : 'cd.selectRepository')}
                       disabled={ArtifactRepoLoading}
                       multiTypeInputProps={{
                         expressions,
-                        allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                        allowableTypes
                       }}
                     />
                   ) : (
                     <FormInput.MultiTextInput
                       name={tfArtifactoryFormInputNames(isConfig).repositoryName}
-                      label={getString('pipelineSteps.repoName')}
+                      label={''}
                       placeholder={getString('cd.selectRepository')}
                       multiTextInputProps={{
                         expressions,
@@ -238,9 +257,14 @@ export const TFArtifactoryForm: React.FC<StepProps<any> & TFArtifactoryProps> = 
                 <div className={cx(stepCss.md)}>
                   <MultiTypeFieldSelector
                     name={tfArtifactoryFormInputNames(isConfig).artifactPaths}
-                    label={getString(isConfig ? 'pipeline.artifactPathLabel' : 'cd.artifactPaths')}
                     style={{ width: 370 }}
                     allowedTypes={allowableTypes.filter(item => item !== MultiTypeInputType.EXPRESSION)}
+                    label={
+                      <Text flex={{ inline: true }}>
+                        {getString(isConfig ? 'pipeline.artifactPathLabel' : 'cd.artifactPaths')}
+                        <HarnessDocTooltip useStandAlone={true} tooltipId="artifactory_file_path" />
+                      </Text>
+                    }
                   >
                     {isConfig ? (
                       <FormInput.MultiTextInput

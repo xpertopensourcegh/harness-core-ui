@@ -17,27 +17,51 @@ exports[`Terraform artifactory tests initial render 1`] = `
         <div
           class="tfRemoteForm"
         >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="spec.configuration.configFiles.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -138,7 +162,11 @@ exports[`Terraform artifactory tests initial render 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    pipeline.artifactPathLabel
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      pipeline.artifactPathLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -324,27 +352,51 @@ exports[`Terraform artifactory tests initial render with form data for config an
         <div
           class="tfRemoteForm"
         >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="spec.configuration.configFiles.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -445,7 +497,11 @@ exports[`Terraform artifactory tests initial render with form data for config an
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    pipeline.artifactPathLabel
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      pipeline.artifactPathLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -631,27 +687,51 @@ exports[`Terraform artifactory tests initial render with form data for config in
         <div
           class="tfRemoteForm"
         >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="spec.configuration.configFiles.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -752,7 +832,11 @@ exports[`Terraform artifactory tests initial render with form data for config in
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    pipeline.artifactPathLabel
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      pipeline.artifactPathLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -976,27 +1060,51 @@ exports[`Terraform artifactory tests initial render with form data for var files
               </div>
             </div>
           </div>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="varFile.spec.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -1097,7 +1205,11 @@ exports[`Terraform artifactory tests initial render with form data for var files
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.artifactPaths"
                   >
-                    cd.artifactPaths
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      cd.artifactPaths
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1383,27 +1495,51 @@ exports[`Terraform artifactory tests initial render with no form data for config
         <div
           class="tfRemoteForm"
         >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="spec.configuration.configFiles.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -1504,7 +1640,11 @@ exports[`Terraform artifactory tests initial render with no form data for config
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    pipeline.artifactPathLabel
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      pipeline.artifactPathLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1690,27 +1830,51 @@ exports[`Terraform artifactory tests submit when it is a config form 1`] = `
         <div
           class="tfRemoteForm"
         >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="spec.configuration.configFiles.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -1811,7 +1975,11 @@ exports[`Terraform artifactory tests submit when it is a config form 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    pipeline.artifactPathLabel
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      pipeline.artifactPathLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1997,27 +2165,51 @@ exports[`Terraform artifactory tests test click previous button 1`] = `
         <div
           class="tfRemoteForm"
         >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="spec.configuration.configFiles.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -2118,7 +2310,11 @@ exports[`Terraform artifactory tests test click previous button 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_spec.configuration.configFiles.store.spec.artifactPaths"
                   >
-                    pipeline.artifactPathLabel
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      pipeline.artifactPathLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2342,27 +2538,51 @@ exports[`Terraform artifactory tests test submitting when terraform plan form 1`
               </div>
             </div>
           </div>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="varFile.spec.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -2463,7 +2683,11 @@ exports[`Terraform artifactory tests test submitting when terraform plan form 1`
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.artifactPaths"
                   >
-                    cd.artifactPaths
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      cd.artifactPaths
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2787,27 +3011,51 @@ exports[`Terraform artifactory tests when deleting a artifact path 1`] = `
               </div>
             </div>
           </div>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipelineSteps.repoName
+            <span
+              class="bp3-popover-wrapper tooltipProps"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  style="padding: 0px; margin: 0px;"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                    data-icon="tooltip-icon"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M6.02 11a5 5 0 100-10 5 5 0 000 10zm0 1a6 6 0 100-12 6 6 0 000 12zM6 5.5a.5.5 0 01.5.5v2.5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm0-1.029a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
             class="formGroup md"
           >
             <div
               class="bp3-form-group"
             >
-              <label
-                class="bp3-label"
-                for="varFile.spec.store.spec.repositoryName"
-              >
-                <span
-                  class="Tooltip--acenter"
-                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.repositoryName"
-                >
-                  pipelineSteps.repoName
-                </span>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              
               <div
                 class="bp3-form-content"
               >
@@ -2908,7 +3156,11 @@ exports[`Terraform artifactory tests when deleting a artifact path 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.artifactPaths"
                   >
-                    cd.artifactPaths
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-inline"
+                    >
+                      cd.artifactPaths
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"

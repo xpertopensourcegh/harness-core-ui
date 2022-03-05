@@ -193,3 +193,4 @@ artifactFormErrors:
   repositoryName: Repository name is required
   artifactName: '{{$.validation.nameRequired}}'
 artifactPaths: Artifact Paths
+artifactRepoTooltip: Enter the name of the repository where the artifact source is located.

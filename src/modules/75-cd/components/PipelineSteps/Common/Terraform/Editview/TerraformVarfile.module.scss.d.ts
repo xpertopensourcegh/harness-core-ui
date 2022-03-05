@@ -52,5 +52,6 @@ declare const styles: {
   readonly tfVarLabel: string
   readonly tfVarMargin: string
   readonly tfVarStore: string
+  readonly tooltipProps: string
 }
 export default styles
