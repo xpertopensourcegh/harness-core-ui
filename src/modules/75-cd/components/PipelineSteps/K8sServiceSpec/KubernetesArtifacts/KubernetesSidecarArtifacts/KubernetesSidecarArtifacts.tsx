@@ -22,12 +22,12 @@ import { getNonRuntimeFields, isRuntimeMode } from '../../K8sServiceSpecHelper'
 import { fromPipelineInputTriggerTab, getSidecarInitialValues } from '../../ArtifactSource/artifactSourceUtils'
 import css from '../../K8sServiceSpec.module.scss'
 
-const ArtifactInputField = (props: KubernetesArtifactsProps): React.ReactElement => {
+const ArtifactInputField = (props: KubernetesArtifactsProps): React.ReactElement | null => {
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const artifactSource = artifactSourceBaseFactory.getArtifactSource((props.artifact as SidecarArtifact).type)
+  const artifactSource = props.artifact ? artifactSourceBaseFactory.getArtifactSource(props.artifact.type) : null
   const runtimeMode = isRuntimeMode(props.stepViewType)
   const isArtifactsRuntime = runtimeMode && !!get(props.template, 'artifacts', false)
   const isPrimaryArtifactsRuntime = runtimeMode && !!get(props.template, 'artifacts.primary', false)
@@ -52,6 +52,9 @@ const ArtifactInputField = (props: KubernetesArtifactsProps): React.ReactElement
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  if (!artifactSource) {
+    return null
+  }
   return (
     <div key={(props.artifact as SidecarArtifact).identifier}>
       <Text className={css.inputheader}>

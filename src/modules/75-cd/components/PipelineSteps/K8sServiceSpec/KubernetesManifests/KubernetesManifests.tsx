@@ -23,7 +23,10 @@ import { getNonRuntimeFields, isRuntimeMode } from '../K8sServiceSpecHelper'
 import { fromPipelineInputTriggerTab, getManifestTriggerSetValues } from '../ManifestSource/ManifestSourceUtils'
 import css from './KubernetesManifests.module.scss'
 
-const ManifestInputField = (props: KubernetesManifestsProps): React.ReactElement => {
+interface ManifestInputFieldProps extends KubernetesManifestsProps {
+  manifest: ManifestConfig
+}
+const ManifestInputField = (props: ManifestInputFieldProps): React.ReactElement | null => {
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
@@ -33,9 +36,10 @@ const ManifestInputField = (props: KubernetesManifestsProps): React.ReactElement
   }
   const runtimeMode = isRuntimeMode(props.stepViewType)
   const isManifestsRuntime = runtimeMode && !!get(props.template, 'manifests', false)
-  const manifestSource = manifestSourceBaseFactory.getManifestSource(
-    getManifestSourceMapType(props.manifest as ManifestConfig)
-  )
+  const manifestSource = !isEmpty(props.manifest)
+    ? manifestSourceBaseFactory.getManifestSource(getManifestSourceMapType(props.manifest))
+    : null
+
   const manifestDefaultValue = props.manifests?.find(
     manifestData => manifestData?.manifest?.identifier === props.manifest?.identifier
   )?.manifest as ManifestConfig
@@ -55,6 +59,9 @@ const ManifestInputField = (props: KubernetesManifestsProps): React.ReactElement
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  if (!manifestSource) {
+    return null
+  }
   return (
     <div key={props.manifest?.identifier}>
       <Text className={css.inputheader} margin={{ top: 'medium', bottom: 'small' }}>
@@ -107,7 +114,7 @@ export function KubernetesManifests(props: KubernetesManifestsProps): React.Reac
             {...props}
             manifest={manifestObj.manifest}
             manifestPath={manifestPath}
-            key={props.manifest?.identifier}
+            key={manifestObj.manifest?.identifier}
           />
         )
       })}
