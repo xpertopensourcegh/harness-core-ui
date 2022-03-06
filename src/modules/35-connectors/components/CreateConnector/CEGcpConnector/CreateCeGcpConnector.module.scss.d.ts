@@ -9,6 +9,7 @@
 declare const styles: {
   readonly bigQueryPage: string
   readonly buttonPanel: string
+  readonly cardsGrid: string
   readonly command: string
   readonly commandsContainer: string
   readonly connectorExistBox: string

@@ -1640,8 +1640,31 @@ export interface StringsMap {
   'connectors.ceGcp.billingExtention.step5': string
   'connectors.ceGcp.billingExtention.step6': string
   'connectors.ceGcp.billingExtention.step7': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.billing.feat1': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.billing.feat2': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.billing.feat3': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.billing.feat4': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.billing.feat5': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.billing.footer': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.optimization.feat1': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.optimization.feat2': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.optimization.feat3': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.optimization.feat4': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.optimization.footer': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.optimization.prefix': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.visibility.feat1': string
+  'connectors.ceGcp.chooseRequirements.cardDetails.visibility.feat2': string
+  'connectors.ceGcp.chooseRequirements.choosePermissions': string
+  'connectors.ceGcp.chooseRequirements.description': string
+  'connectors.ceGcp.chooseRequirements.heading': string
+  'connectors.ceGcp.chooseRequirements.info': string
+  'connectors.ceGcp.chooseRequirements.name': string
+  'connectors.ceGcp.gcp': string
   'connectors.ceGcp.grantPermission.bigQueryButtonText': string
   'connectors.ceGcp.grantPermission.heading': string
+  'connectors.ceGcp.grantPermission.optimization.step1': string
+  'connectors.ceGcp.grantPermission.optimization.step2': string
+  'connectors.ceGcp.grantPermission.optimization.step3': string
   'connectors.ceGcp.grantPermission.step1': string
   'connectors.ceGcp.grantPermission.step2': string
   'connectors.ceGcp.grantPermission.step3': string

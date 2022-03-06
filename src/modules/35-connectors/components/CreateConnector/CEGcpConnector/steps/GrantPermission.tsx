@@ -24,11 +24,13 @@ import { useCreateConnector, useUpdateConnector, Failure } from 'services/cd-ng'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import { CE_GCP_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import { useStepLoadTelemetry } from '@connectors/common/useTrackStepLoad/useStepLoadTelemetry'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { CEGcpConnectorDTO } from './OverviewStep'
 import css from '../CreateCeGcpConnector.module.scss'
 
 const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
   const { getString } = useStrings()
+  const { CE_AS_GCP_VM_SUPPORT } = useFeatureFlags()
 
   useStepLoadTelemetry(CE_GCP_CONNECTOR_CREATION_EVENTS.LOAD_GRANT_PERMISSIONS)
 
@@ -95,6 +97,22 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
     previousStep?.({ ...(prevStepData as CEGcpConnectorDTO), serviceAccount })
   }
 
+  const renderOptimizationSteps = () => {
+    return CE_AS_GCP_VM_SUPPORT && props.prevStepData?.spec.featuresEnabled?.includes('OPTIMIZATION') ? (
+      <>
+        <li>
+          <div>{getString('connectors.ceGcp.grantPermission.optimization.step1')}</div>
+        </li>
+        <li>
+          <div>{getString('connectors.ceGcp.grantPermission.optimization.step2', { serviceAccount })}</div>
+        </li>
+        <li>
+          <div>{getString('connectors.ceGcp.grantPermission.optimization.step3')}</div>
+        </li>
+      </>
+    ) : null
+  }
+
   return (
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
@@ -138,6 +156,7 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
         <li>
           <div>{getString('connectors.ceGcp.grantPermission.step6')}</div>
         </li>
+        {renderOptimizationSteps()}
         <li>
           <div>{getString('connectors.ceGcp.grantPermission.step7')}</div>
         </li>

@@ -11,14 +11,17 @@ import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import DialogExtention from '@connectors/common/ConnectorExtention/DialogExtention'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/strings'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import OverviewStep, { CEGcpConnectorDTO } from './steps/OverviewStep'
 import BillingExport from './steps/BillingExport'
 import GrantPermission from './steps/GrantPermission'
 import TestConnection from './steps/TestConnection'
+import ChooseRequirements from './steps/ChooseRequirements'
 import css from './CreateCeGcpConnector.module.scss'
 
 const CreateCeGcpConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
+  const { CE_AS_GCP_VM_SUPPORT } = useFeatureFlags()
   return (
     <DialogExtention>
       <StepWizard
@@ -33,6 +36,9 @@ const CreateCeGcpConnector: React.FC<CreateConnectorModalProps> = props => {
           connectorInfo={props.connectorInfo as CEGcpConnectorDTO}
         />
         <BillingExport name={getString('connectors.ceGcp.billingExport.heading')} />
+        {CE_AS_GCP_VM_SUPPORT ? (
+          <ChooseRequirements name={getString('connectors.ceGcp.chooseRequirements.name')} />
+        ) : null}
         <GrantPermission name={getString('connectors.ceGcp.grantPermission.heading')}></GrantPermission>
         <TestConnection name={getString('connectors.ceGcp.testConnection.heading')} onClose={props.onClose} />
       </StepWizard>

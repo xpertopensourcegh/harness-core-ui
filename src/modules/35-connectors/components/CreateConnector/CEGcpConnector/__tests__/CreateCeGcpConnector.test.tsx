@@ -7,9 +7,9 @@
 
 import React from 'react'
 import { noop } from 'lodash-es'
-import { render, getAllByText } from '@testing-library/react'
+import { render, getAllByText, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-
+import * as FeatureFlag from '@common/hooks/useFeatureFlag'
 import { TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import {
@@ -87,6 +87,9 @@ useGetTestConnectionResultMock.mockImplementation(() => ({
 
 describe('Create Secret Manager Wizard', () => {
   test('should render form', async () => {
+    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
+      CE_AS_GCP_VM_SUPPORT: true
+    })
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateCeGcpConnector {...commonProps} isEditMode={false} connectorInfo={undefined} />
@@ -137,6 +140,18 @@ describe('Create Secret Manager Wizard', () => {
       clickSubmit(container)
     })
 
+    // Choose requirements Step
+    expect(getAllByText(container, 'connectors.ceGcp.chooseRequirements.description')[0]).toBeDefined()
+    const optimizationCard = container.querySelectorAll('.bp3-card')[2]
+    expect(optimizationCard).toBeDefined()
+    act(() => {
+      fireEvent.click(optimizationCard)
+    })
+    expect(container).toMatchSnapshot()
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     //Grant Permission Step
     expect(getAllByText(container, 'connectors.ceGcp.grantPermission.step1')[0]).toBeDefined()
     expect(container).toMatchSnapshot()
@@ -151,6 +166,9 @@ describe('Create Secret Manager Wizard', () => {
   })
 
   test('should throw an error when connectors already exist for a given gcpProjectId', async () => {
+    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
+      CE_AS_GCP_VM_SUPPORT: false
+    })
     useGetConnectorListV2Mock.mockImplementation(() => ({
       mutate: async () => {
         return {

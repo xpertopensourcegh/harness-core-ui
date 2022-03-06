@@ -710,6 +710,7 @@ ceAzure:
     subscriptionId: Subscription Id is required
     tenantId: '{{ $.connectors.tenantIdRequired }}'
 ceGcp:
+  gcp: 'gcp'
   overview:
     heading: '{{ $.overview }}'
     projectIdLabel: 'Specify Project Id'
@@ -736,6 +737,30 @@ ceGcp:
     otherLinks: 'Other Links:'
     link1: 'https://cloud.google.com/billing/docs/how-to/export-data-bigquery-setup'
     link2: 'Harness Docs ()'
+  chooseRequirements:
+    name: '{{$.connectors.ceAzure.steps.requirements}}'
+    heading: '{{$.connectors.ceAws.crossAccountRoleStep1.heading}}'
+    choosePermissions: '{{$.connectors.ceAzure.chooseRequirements.heading}}'
+    description: 'Select the Cloud Cost Management features you would like to use on the GCP account.'
+    info: (GCP cost Visibility is available by default. Select the others as per your requirements)
+    cardDetails:
+      billing:
+        feat1: 'GCP costs by product, project, etc.'
+        feat2: '{{$.connectors.ceAzure.chooseRequirements.visibility.feat2}}'
+        feat3: '{{$.connectors.ceAzure.chooseRequirements.visibility.feat3}}'
+        feat4: '{{$.connectors.ceAzure.chooseRequirements.visibility.feat4}}'
+        feat5: '{{$.connectors.ceAzure.chooseRequirements.visibility.feat5}}'
+        footer: 'from Billing Export'
+      visibility:
+        feat1: 'GCE VMs'
+        feat2: 'Unused disks and snapshots'
+      optimization:
+        prefix: '{{$.connectors.ceGcp.gcp}} OPTIMIZATION BY'
+        feat1: 'Orchestrate GCE VMs based on idleness'
+        feat2: '{{$.connectors.ceAzure.chooseRequirements.optimization.feat2}}'
+        feat3: '{{$.connectors.ceAzure.chooseRequirements.optimization.feat3}}'
+        feat4: '{{$.connectors.ceAzure.chooseRequirements.optimization.feat4}}'
+        footer: 'to service account'
   grantPermission:
     heading: 'Grant Permissions'
     bigQueryButtonText: 'Open BigQuery Page'
@@ -746,6 +771,10 @@ ceGcp:
     step5: 'Specify Harness’ service account to add member:'
     step6: 'Select BigQuery Data Viewer role.'
     step7: 'Click Continue.'
+    optimization:
+      step1: 'Navigate to IAM & Admin  in the GCP console'
+      step2: 'Search for the service account: {{serviceAccount}}'
+      step3: 'Click on Edit Principal and add Editor role available in the Basic category'
   testConnection:
     heading: '{{ $.common.labelTestConnection }}'
     step1: 'Verifying GCP connector setup'
