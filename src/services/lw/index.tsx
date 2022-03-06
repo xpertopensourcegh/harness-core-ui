@@ -67,7 +67,7 @@ export interface AccessPointActivityResponse {
 }
 
 export interface AccessPointCore {
-  details?: ALBAccessPointCore | AzureAccessPointCore
+  details?: ALBAccessPointCore | AzureAccessPointCore | GCPAccessPointCore
   type?: string
 }
 
@@ -90,11 +90,13 @@ export interface AccessPointMeta {
   fe_ip_id?: string
   fe_ip_name?: string
   func_region?: string
+  machine_type?: string
   resource_group?: string
   security_groups?: string[]
   size?: string
   subnet_id?: string
   subnet_name?: string
+  zone?: string
 }
 
 export interface Account {
@@ -155,6 +157,10 @@ export interface AllSubnetsResponse {
 
 export interface AllVPCsResponse {
   response?: Vpc[]
+}
+
+export interface AllZonesResponse {
+  response?: string[]
 }
 
 export interface AppIdResponse {
@@ -298,6 +304,17 @@ export interface FirewallRule {
   from?: string
   protocol?: string
   to?: string
+}
+
+export interface GCPAccessPointCore {
+  externalIP?: string
+  id?: string
+  instanceId?: number
+  name?: string
+  security_groups?: string[]
+  subnet?: string
+  vpc?: string
+  zone?: string
 }
 
 export interface GatewaySessionReportResponse {
@@ -3019,7 +3036,7 @@ export const useDeleteStaticSchedule = ({ account_id, ...props }: UseDeleteStati
 export interface AllSubnetsQueryParams {
   cloud_account_id: string
   region: string
-  vpc: string
+  vpc?: string
   resource_group_name?: string
   accountIdentifier: string
 }
@@ -3105,6 +3122,49 @@ export const useAllVPCs = ({ account_id, ...props }: UseAllVPCsProps) =>
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
   )
 
+export interface AllZonesQueryParams {
+  accountIdentifier: string
+  cloud_account_id: string
+  region: string
+}
+
+export interface AllZonesPathParams {
+  account_id: string
+}
+
+export type AllZonesProps = Omit<GetProps<AllZonesResponse, void, AllZonesQueryParams, AllZonesPathParams>, 'path'> &
+  AllZonesPathParams
+
+/**
+ * Lists all zones for a cloud account
+ *
+ * Lists all zones for a cloud account
+ */
+export const AllZones = ({ account_id, ...props }: AllZonesProps) => (
+  <Get<AllZonesResponse, void, AllZonesQueryParams, AllZonesPathParams>
+    path={`/accounts/${account_id}/zones`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAllZonesProps = Omit<
+  UseGetProps<AllZonesResponse, void, AllZonesQueryParams, AllZonesPathParams>,
+  'path'
+> &
+  AllZonesPathParams
+
+/**
+ * Lists all zones for a cloud account
+ *
+ * Lists all zones for a cloud account
+ */
+export const useAllZones = ({ account_id, ...props }: UseAllZonesProps) =>
+  useGet<AllZonesResponse, void, AllZonesQueryParams, AllZonesPathParams>(
+    (paramsInPath: AllZonesPathParams) => `/accounts/${paramsInPath.account_id}/zones`,
+    { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
+  )
+
 export type GetAppIdProps = Omit<GetProps<AppIdResponse, void, void, void>, 'path'>
 
 /**
@@ -3125,3 +3185,58 @@ export type UseGetAppIdProps = Omit<UseGetProps<AppIdResponse, void, void, void>
  */
 export const useGetAppId = (props: UseGetAppIdProps) =>
   useGet<AppIdResponse, void, void, void>(`/app_id`, { base: getConfig('lw/api'), ...props })
+
+export interface GetMachineListForZoneResponse {
+  response?: string[]
+}
+
+export interface GetMachineListForZoneQueryParams {
+  accountIdentifier: string
+  cloud_account_id: string
+  zone: string
+}
+
+export interface GetMachineListForZonePathParams {
+  account_id: string
+}
+
+export type GetMachineListForZoneProps = Omit<
+  GetProps<GetMachineListForZoneResponse, unknown, GetMachineListForZoneQueryParams, GetMachineListForZonePathParams>,
+  'path'
+> &
+  GetMachineListForZonePathParams
+
+/**
+ * Fetches all types of machines for the specified zone
+ *
+ * Fetches all types of machines for the specified zone
+ */
+export const GetMachineListForZone = ({ account_id, ...props }: GetMachineListForZoneProps) => (
+  <Get<GetMachineListForZoneResponse, unknown, GetMachineListForZoneQueryParams, GetMachineListForZonePathParams>
+    path={`accounts/${account_id}/machine_types`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseGetMachineListForZoneProps = Omit<
+  UseGetProps<
+    GetMachineListForZoneResponse,
+    unknown,
+    GetMachineListForZoneQueryParams,
+    GetMachineListForZonePathParams
+  >,
+  'path'
+> &
+  GetMachineListForZonePathParams
+
+/**
+ * Fetches all types of machines for the specified zone
+ *
+ * Fetches all types of machines for the specified zone
+ */
+export const useGetMachineListForZone = ({ account_id, ...props }: UseGetMachineListForZoneProps) =>
+  useGet<GetMachineListForZoneResponse, unknown, GetMachineListForZoneQueryParams, GetMachineListForZonePathParams>(
+    (paramsInPath: GetMachineListForZonePathParams) => `accounts/${paramsInPath.account_id}/machine_types`,
+    { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
+  )

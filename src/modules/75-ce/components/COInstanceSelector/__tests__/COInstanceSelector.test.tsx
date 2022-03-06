@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { fireEvent, render, findByText } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import COInstanceSelector from '../COInstanceSelector'
 
@@ -71,7 +71,45 @@ const mockedInstance = {
   vpc: ''
 }
 
+const mockedResourceGroup = {
+  id: '/subscriptions/20d6a917-99fa-4b1b-9b2e-a3d624e9dcf0/resourceGroups/lightwing-test',
+  name: 'lightwing-test',
+  type: 'Microsoft.Resources/resourceGroups'
+}
+
+const mockedResourceGroupResponse = [mockedResourceGroup]
+
+const mockedRegionsData = { data: { response: [{ name: 'ap-southeast-1', label: 'ap-southeast-1' }] }, loading: false }
+
+const mockedZonesData = { response: ['us-container-1'] }
+
+jest.mock('services/lw', () => ({
+  useAllResourceGroups: jest.fn().mockImplementation(() => ({
+    data: { response: mockedResourceGroupResponse },
+    loading: false
+  })),
+  useAllRegions: jest.fn().mockImplementation(() => mockedRegionsData),
+  useAllZones: jest.fn().mockImplementation(() => ({
+    data: mockedZonesData,
+    loading: false
+  }))
+}))
+
 describe('Instance Selector Modal', () => {
+  const selectResourceGroup = async (container: HTMLElement) => {
+    const resourceGroupsDropdown = container.querySelector('input[name="resourceGroupSelector"]') as HTMLInputElement
+    const rgCaret = container
+      .querySelector(`input[name="resourceGroupSelector"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="chevron-down"]')
+    act(() => {
+      fireEvent.click(rgCaret!)
+    })
+    const rgToSelect = await findByText(container, 'lightwing-test')
+    act(() => {
+      fireEvent.click(rgToSelect)
+    })
+    expect(resourceGroupsDropdown.value).toBe('lightwing-test')
+  }
   test('should show loader while loading data', () => {
     const { container } = render(
       <TestWrapper>
@@ -81,7 +119,6 @@ describe('Instance Selector Modal', () => {
           setGatewayDetails={jest.fn()}
           instances={[]}
           gatewayDetails={initialGatewayDetails}
-          search={jest.fn()}
           onInstancesAddSuccess={jest.fn()}
           loading={true}
         />
@@ -91,7 +128,7 @@ describe('Instance Selector Modal', () => {
     expect(container.querySelector('span[data-icon="spinner"]')).toBeDefined()
   })
 
-  test('should show data', () => {
+  test('should show data', async () => {
     const { container, getAllByRole } = render(
       <TestWrapper>
         <COInstanceSelector
@@ -100,19 +137,21 @@ describe('Instance Selector Modal', () => {
           setGatewayDetails={jest.fn()}
           instances={[mockedInstance]}
           gatewayDetails={initialGatewayDetails}
-          search={jest.fn()}
           onInstancesAddSuccess={jest.fn()}
           loading={false}
         />
       </TestWrapper>
     )
+
+    await selectResourceGroup(container)
+
     expect(container).toMatchSnapshot()
     expect(container.querySelector('span[data-icon="spinner"]')).toBeFalsy()
     const tableRows = getAllByRole('row')
     expect(tableRows.length).toBeGreaterThan(1)
   })
 
-  test('search and select instances successfully', async () => {
+  test('search and select/unselect instances successfully', async () => {
     const { container } = render(
       <TestWrapper>
         <COInstanceSelector
@@ -121,15 +160,19 @@ describe('Instance Selector Modal', () => {
           setGatewayDetails={jest.fn()}
           instances={[mockedInstance]}
           gatewayDetails={initialGatewayDetails}
-          search={jest.fn()}
           onInstancesAddSuccess={jest.fn()}
           loading={false}
         />
       </TestWrapper>
     )
+
+    await selectResourceGroup(container)
+
+    const searchButton = document.body.querySelector('[class*="ExpandingSearchInput"]')
+    fireEvent.click(searchButton!)
     const input = container.querySelector('input[type="search"]') as HTMLInputElement
     expect(input).toBeDefined()
-    await waitFor(() => {
+    act(() => {
       fireEvent.change(input, { target: { value: 'instance' } })
     })
     expect(input.value).toBe('instance')
@@ -141,5 +184,55 @@ describe('Instance Selector Modal', () => {
       fireEvent.click(checkInput!)
     })
     expect(checkInput).toMatchSnapshot()
+
+    const addBtn = container.querySelector('button[type="button"]') as HTMLButtonElement
+    expect(addBtn).toBeDefined()
+    act(() => {
+      fireEvent.click(addBtn)
+    })
+  })
+
+  test('modal should retain the selected resource group for Azure based rule', () => {
+    const selectedInstance = { ...mockedInstance, metadata: { resourceGroup: 'lightwing-test' } }
+    const { container } = render(
+      <TestWrapper>
+        <COInstanceSelector
+          selectedInstances={[selectedInstance]}
+          setSelectedInstances={jest.fn()}
+          setGatewayDetails={jest.fn()}
+          instances={[mockedInstance]}
+          gatewayDetails={initialGatewayDetails}
+          onInstancesAddSuccess={jest.fn()}
+          loading={false}
+          refresh={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    act(() => {
+      expect(container).toMatchSnapshot()
+    })
+  })
+
+  test('clicking on refresh button shoul load data', () => {
+    const selectedInstance = { ...mockedInstance, metadata: { resourceGroup: 'lightwing-test' } }
+    const { getByText } = render(
+      <TestWrapper>
+        <COInstanceSelector
+          selectedInstances={[selectedInstance]}
+          setSelectedInstances={jest.fn()}
+          setGatewayDetails={jest.fn()}
+          instances={[mockedInstance]}
+          gatewayDetails={initialGatewayDetails}
+          onInstancesAddSuccess={jest.fn()}
+          loading={false}
+          refresh={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    const refreshBtn = getByText('Refresh')
+    expect(refreshBtn).toBeDefined()
+    act(() => {
+      fireEvent.click(refreshBtn)
+    })
   })
 })

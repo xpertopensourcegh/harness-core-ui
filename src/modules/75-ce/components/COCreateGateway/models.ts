@@ -52,6 +52,11 @@ export interface Provider {
   icon: string
   value: string
 }
+
+export interface ProviderWithDependencies extends Provider {
+  ffDependencies?: string[]
+}
+
 export interface InstanceDetails {
   id: string
   name: string

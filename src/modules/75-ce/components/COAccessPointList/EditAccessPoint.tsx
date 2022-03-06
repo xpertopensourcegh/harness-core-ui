@@ -11,8 +11,10 @@ import { Button } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 
 import type { AccessPoint } from 'services/lw'
+import { PROVIDER_TYPES } from '@ce/constants'
 import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
 import AzureAPConfig from './AzureAPConfig'
+import GCPAccessPointConfig from '../AccessPoint/GCPAccessPoint/GCPAccessPointConfig'
 
 interface UseEditAccessPointProps {
   onUpdate?: (updatedAccessPoint: AccessPoint) => void
@@ -35,7 +37,7 @@ const useEditAccessPoint = (props: UseEditAccessPointProps) => {
     () => (
       <Dialog {...modalProps}>
         <>
-          {apToEdit?.type === 'aws' && (
+          {apToEdit?.type === PROVIDER_TYPES.AWS ? (
             <LoadBalancerDnsConfig
               loadBalancer={apToEdit}
               cloudAccountId={apToEdit.cloud_account_id}
@@ -43,8 +45,7 @@ const useEditAccessPoint = (props: UseEditAccessPointProps) => {
               mode={'edit'}
               onSave={props.onUpdate}
             />
-          )}
-          {apToEdit?.type === 'azure' && (
+          ) : apToEdit?.type === PROVIDER_TYPES.AZURE ? (
             <AzureAPConfig
               cloudAccountId={apToEdit.cloud_account_id}
               onSave={lb => props.onUpdate?.(lb)}
@@ -52,7 +53,15 @@ const useEditAccessPoint = (props: UseEditAccessPointProps) => {
               onClose={closeModal}
               loadBalancer={apToEdit}
             />
-          )}
+          ) : apToEdit?.type === PROVIDER_TYPES.GCP ? (
+            <GCPAccessPointConfig
+              cloudAccountId={apToEdit.cloud_account_id}
+              onSave={lb => props.onUpdate?.(lb)}
+              mode={'edit'}
+              onClose={closeModal}
+              loadBalancer={apToEdit}
+            />
+          ) : null}
         </>
         <Button
           minimal

@@ -47,7 +47,7 @@ const instanceTypeCardData: CardData[] = [
     text: 'On demand',
     value: 'ondemand',
     icon: odIcon,
-    providers: ['aws', 'azure']
+    providers: ['aws', 'azure', 'gcp']
   }
 ]
 

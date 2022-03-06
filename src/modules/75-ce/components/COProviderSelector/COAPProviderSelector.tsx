@@ -10,7 +10,11 @@ import { Button, CardBody, CardSelect, Container, Heading, IconName, Layout, Tex
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import type { Provider } from '../COCreateGateway/models'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { Utils } from '@ce/common/Utils'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
+import type { Provider, ProviderWithDependencies } from '../COCreateGateway/models'
 import css from './COAPProviderSelector.module.scss'
 
 interface COAPProviderSelectorProps {
@@ -18,7 +22,7 @@ interface COAPProviderSelectorProps {
   accountId: string
 }
 
-const data: Provider[] = [
+const data: ProviderWithDependencies[] = [
   {
     name: 'AWS',
     value: 'aws',
@@ -28,20 +32,39 @@ const data: Provider[] = [
     name: 'Azure',
     value: 'azure',
     icon: 'service-azure'
+  },
+  {
+    name: 'GCP',
+    value: 'gcp',
+    icon: 'gcp',
+    ffDependencies: [FeatureFlag.CE_AS_GCP_VM_SUPPORT]
   }
 ]
 
+const connectorType: Record<string, string> = {
+  aws: Connectors.CEAWS,
+  azure: Connectors.CE_AZURE,
+  gcp: Connectors.CE_GCP
+}
+
 const COAPProviderSelector: React.FC<COAPProviderSelectorProps> = props => {
   const { getString } = useStrings()
+  const featureFlags = useFeatureFlags()
+
   const [selectedCard, setSelectedCard] = useState<Provider | null>(null)
   const [connectorDetails, setConnectorDetails] = useState<string>()
+
+  const providerData = React.useMemo(
+    () => data.filter(p => Utils.isFFEnabledForResource(p.ffDependencies, featureFlags)),
+    [featureFlags]
+  )
   return (
     <Layout.Vertical>
       <Container className={css.mainContainer}>
         <Heading level={2}>Select Cloud Provider</Heading>
         <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>
           <CardSelect
-            data={data}
+            data={providerData}
             selected={selectedCard as Provider}
             className={css.providerCardsContainer}
             onChange={item => {
@@ -67,9 +90,7 @@ const COAPProviderSelector: React.FC<COAPProviderSelectorProps> = props => {
             }}
             accountIdentifier={props.accountId}
             label={getString('ce.co.accessPoint.select.connector')}
-            type={
-              selectedCard.value ? (selectedCard.value === 'aws' ? Connectors.CEAWS : Connectors.CE_AZURE) : undefined
-            }
+            type={selectedCard.value ? (connectorType[selectedCard.value] as ConnectorInfoDTO['type']) : undefined}
           />
         )}
       </Container>

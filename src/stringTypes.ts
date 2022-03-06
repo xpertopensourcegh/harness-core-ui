@@ -3404,20 +3404,26 @@ export interface StringsMap {
   'ce.co.accessPoint.delete.success': string
   'ce.co.accessPoint.delete.withResource': string
   'ce.co.accessPoint.dnsProvider': string
+  'ce.co.accessPoint.domainMappingDescription': string
   'ce.co.accessPoint.domainName': string
   'ce.co.accessPoint.enterDomain': string
   'ce.co.accessPoint.error': string
+  'ce.co.accessPoint.helpCenter.heading': string
+  'ce.co.accessPoint.helpCenter.step1': string
+  'ce.co.accessPoint.helpCenter.step2': string
   'ce.co.accessPoint.hostedZone.noResult': string
   'ce.co.accessPoint.landingPageTitle': string
   'ce.co.accessPoint.lastActivity': string
   'ce.co.accessPoint.loadbalancer': string
   'ce.co.accessPoint.loadbalancers': string
+  'ce.co.accessPoint.machineType': string
   'ce.co.accessPoint.mapDomain': string
   'ce.co.accessPoint.new': string
   'ce.co.accessPoint.newAppGateway': string
   'ce.co.accessPoint.others': string
   'ce.co.accessPoint.proceed': string
   'ce.co.accessPoint.route53': string
+  'ce.co.accessPoint.securityGroupsLabel': string
   'ce.co.accessPoint.select.aCertificate': string
   'ce.co.accessPoint.select.accessPoint': string
   'ce.co.accessPoint.select.account': string
@@ -3425,12 +3431,16 @@ export interface StringsMap {
   'ce.co.accessPoint.select.connector': string
   'ce.co.accessPoint.select.dnsProvider': string
   'ce.co.accessPoint.select.existingALB': string
+  'ce.co.accessPoint.select.machineType': string
   'ce.co.accessPoint.select.regionToInstall': string
   'ce.co.accessPoint.select.route53': string
   'ce.co.accessPoint.select.route53zone': string
   'ce.co.accessPoint.select.securityGroups': string
+  'ce.co.accessPoint.select.subnet': string
   'ce.co.accessPoint.select.vpc': string
+  'ce.co.accessPoint.select.zone': string
   'ce.co.accessPoint.status': string
+  'ce.co.accessPoint.subnet': string
   'ce.co.accessPoint.success': string
   'ce.co.accessPoint.successfulCreation': string
   'ce.co.accessPoint.successfulEdition': string
@@ -3441,12 +3451,19 @@ export interface StringsMap {
   'ce.co.accessPoint.validation.securityGroup': string
   'ce.co.accessPoint.validation.subnets': string
   'ce.co.accessPoint.validation.vpc': string
+  'ce.co.accessPoint.vpcLabel': string
+  'ce.co.accessPoint.zone': string
   'ce.co.autoStopping': string
   'ce.co.autoStoppingRule.configuration.addSelectedBtnText': string
   'ce.co.autoStoppingRule.configuration.asgSelectionInfoText': string
   'ce.co.autoStoppingRule.configuration.ecsModal.emptyDescription': string
   'ce.co.autoStoppingRule.configuration.ecsModal.title': string
   'ce.co.autoStoppingRule.configuration.instanceModal.description': string
+  'ce.co.autoStoppingRule.configuration.instanceModal.gcpEmptyInstancesDescription': string
+  'ce.co.autoStoppingRule.configuration.instanceModal.gcpFiltersNotSelectedDescription': string
+  'ce.co.autoStoppingRule.configuration.instanceModal.gcpZoneFilterNotSelectedDescription': string
+  'ce.co.autoStoppingRule.configuration.instanceModal.rgEmptyDescription': string
+  'ce.co.autoStoppingRule.configuration.instanceModal.rgEmptyInstancesDescription': string
   'ce.co.autoStoppingRule.configuration.rdsModal.emptyDescription': string
   'ce.co.autoStoppingRule.configuration.rdsModal.title': string
   'ce.co.autoStoppingRule.configuration.step1.form.idleTime.label': string
@@ -3643,6 +3660,7 @@ export interface StringsMap {
   'ce.co.rulesTableHeaders.savings': string
   'ce.co.rulesTableHeaders.status': string
   'ce.co.searchResultsText': string
+  'ce.co.selectResourceGroupPlaceholder': string
   'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
   'ce.common.budget': string

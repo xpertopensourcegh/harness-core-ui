@@ -38,6 +38,8 @@ export class Utils {
 
   static isProviderAzure = (provider: Provider): boolean => provider.value === 'azure'
 
+  static isProviderGcp = (provider: Provider): boolean => provider.value === 'gcp'
+
   static randomString(): string {
     return Math.random().toString(36).substring(2, 8) + Math.random().toString(36).substring(2, 8)
   }

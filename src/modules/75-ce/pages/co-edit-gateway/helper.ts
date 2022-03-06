@@ -8,7 +8,7 @@
 import { PROVIDER_TYPES } from '@ce/constants'
 import type { Resource } from 'services/lw'
 
-export const resourceToInstanceObject = (providerType: string, item: Resource) => {
+export const resourceToInstanceObject = (providerType: string | null, item: Resource) => {
   return {
     name: item.name ? item.name : '',
     id: item.id ? item.id : '',
@@ -19,6 +19,7 @@ export const resourceToInstanceObject = (providerType: string, item: Resource) =
     launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
     status: item.status ? item.status : '',
     vpc: item.metadata ? item.metadata['VpcID'] : '',
-    ...(providerType === PROVIDER_TYPES.AZURE && { metadata: { resourceGroup: item.metadata?.resourceGroup } })
+    ...(providerType === PROVIDER_TYPES.AZURE && { metadata: { resourceGroup: item.metadata?.resourceGroup } }),
+    ...(providerType === PROVIDER_TYPES.GCP && { metadata: { availabilityZone: item.availability_zone } })
   }
 }

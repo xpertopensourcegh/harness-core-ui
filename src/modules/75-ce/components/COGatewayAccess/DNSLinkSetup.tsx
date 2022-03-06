@@ -41,7 +41,8 @@ import {
   PortConfig,
   useSecurityGroupsOfInstances,
   HealthCheck,
-  AccessPointResourcesQueryParams
+  AccessPointResourcesQueryParams,
+  GCPAccessPointCore
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -55,7 +56,13 @@ import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
 import CORoutingTable from '../COGatewayConfig/CORoutingTable'
 import COHealthCheckTable from '../COGatewayConfig/COHealthCheckTable'
-import { getDummySupportedResourceFromAG, getDummySupportedResourceFromALB } from './helper'
+import {
+  getDummyGcpSupportedResourceFromLb,
+  getDummySupportedResourceFromAG,
+  getDummySupportedResourceFromALB,
+  getGcpApFromLoadBalancer
+} from './helper'
+import GCPAccessPointConfig from '../AccessPoint/GCPAccessPoint/GCPAccessPointConfig'
 import css from './COGatewayAccess.module.scss'
 
 const modalPropsLight: IDialogProps = {
@@ -83,6 +90,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { showError } = useToaster()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
+  const isGcpProvider = Utils.isProviderGcp(props.gatewayDetails.provider)
   const { isEditFlow } = useGatewayContext()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
@@ -278,6 +286,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             ? ((_ap.details as ALBAccessPointCore)?.albARN as string)
             : isAzureProvider
             ? ((_ap.details as AzureAccessPointCore).id as string)
+            : isGcpProvider
+            ? ((_ap.details as GCPAccessPointCore).id as string)
             : ''
         }
       }) || []
@@ -379,6 +389,13 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         }']`
       }
 
+      if (isGcpProvider) {
+        text += `\nzones=['${_defaultTo(
+          props.gatewayDetails.selectedInstances?.[0]?.metadata?.availabilityZone,
+          ''
+        )}']\nname='${_defaultTo(props.gatewayDetails.selectedInstances?.[0]?.name, '')}'`
+      }
+
       const result = await getSecurityGroups({
         text
       })
@@ -423,7 +440,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }
 
   const getDummyResource = (data: AccessPoint) => {
-    return isAwsProvider ? getDummySupportedResourceFromALB(data) : getDummySupportedResourceFromAG(data)
+    return isAwsProvider
+      ? getDummySupportedResourceFromALB(data)
+      : isAzureProvider
+      ? getDummySupportedResourceFromAG(data)
+      : getDummyGcpSupportedResourceFromLb(data)
   }
 
   const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
@@ -474,6 +495,29 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               hideLoadBalancerModal()
             }}
             loadBalancer={createAzureAppGatewayFromLoadBalancer()}
+          />
+        )}
+        {isGcpProvider && (
+          <GCPAccessPointConfig
+            cloudAccountId={props.gatewayDetails.cloudAccount.id}
+            onSave={savedLb => {
+              setAccessPoint(savedLb)
+              if (isCreateMode) {
+                refetchAccessPoints()
+                setIsCreateMode(false)
+              }
+            }}
+            mode={isCreateMode ? 'create' : 'import'}
+            onClose={_clearStatus => {
+              if (_clearStatus && !isCreateMode) {
+                clearAPData()
+              }
+              if (isCreateMode) {
+                setIsCreateMode(false)
+              }
+              hideLoadBalancerModal()
+            }}
+            loadBalancer={getGcpApFromLoadBalancer(props.gatewayDetails, accountId, selectedLoadBalancer)}
           />
         )}
         <Button
@@ -576,6 +620,18 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       )
       if (!isValid) {
         isValid = Boolean(lb && accessPoint?.metadata?.app_gateway_id === (lb.details as AzureAccessPointCore)?.id)
+      }
+    }
+    if (isGcpProvider) {
+      isValid = Boolean(
+        lb &&
+          accessPoints?.response
+            ?.map(_ap => _ap.id)
+            .filter(_i => _i)
+            .includes((lb.details as AzureAccessPointCore).id)
+      )
+      if (!isValid) {
+        isValid = Boolean(lb && accessPoint?.id === (lb.details as AzureAccessPointCore)?.id)
       }
     }
     return isValid

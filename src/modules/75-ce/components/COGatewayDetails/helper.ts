@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { ASRuleTabs, GatewayKindType } from '@ce/constants'
 import type { RoutingData, Service } from 'services/lw'
 import { Utils } from '@ce/common/Utils'
@@ -54,6 +54,7 @@ export const getServiceObjectFromgatewayDetails = (
 ): Service => {
   const hasInstances = !_isEmpty(gatewayDetails.selectedInstances)
   const isK8sRule = Utils.isK8sRule(gatewayDetails)
+  const isGcpProvider = Utils.isProviderGcp(gatewayDetails.provider)
   const routing: RoutingData = { ports: gatewayDetails.routing.ports, lb: undefined }
   let kind = GatewayKindType.INSTANCE
   if (isK8sRule) {
@@ -61,10 +62,14 @@ export const getServiceObjectFromgatewayDetails = (
     kind = GatewayKindType.KUBERNETES
     routing.k8s = gatewayDetails.routing.k8s
   } else if (hasInstances) {
-    // ec2 rule check
+    // VMs rule check
     const instanceIDs = gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
+    let filterText = `id = [${instanceIDs}]`
+    if (isGcpProvider) {
+      filterText += `\n regions=['${_defaultTo(gatewayDetails.selectedInstances[0].metadata?.availabilityZone, '')}']`
+    }
     routing.instance = {
-      filter_text: `id = [${instanceIDs}]` // eslint-disable-line
+      filter_text: filterText
     }
   } else if (!_isEmpty(gatewayDetails.routing.container_svc)) {
     // ECS rule check

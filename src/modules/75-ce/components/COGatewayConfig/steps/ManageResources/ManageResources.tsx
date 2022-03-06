@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty as _isEmpty, omit as _omit } from 'lodash-es'
+import { isEmpty as _isEmpty, omit as _omit, defaultTo as _defaultTo } from 'lodash-es'
 import { Radio, RadioGroup } from '@blueprintjs/core'
 import { Layout, Text } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
@@ -18,7 +18,7 @@ import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGat
 import COK8sClusterSelector from '@ce/components/COK8sClusterSelector/COK8sClusterSelector'
 import { ConnectorInfoDTO, ConnectorResponse, useGetConnectorListV2 } from 'services/cd-ng'
 import { ASGMinimal, PortConfig, useAllResourcesOfAccount, useGetAllASGs, ContainerSvc, RDSDatabase } from 'services/lw'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
@@ -51,13 +51,22 @@ interface ManageResourcesProps {
 
 const managedResources = [
   { label: 'EC2 VM(s)', value: RESOURCES.INSTANCES, providers: ['aws'] },
-  { label: 'VM(s)', value: RESOURCES.INSTANCES, providers: ['azure'] },
+  {
+    label: 'VM(s)',
+    value: RESOURCES.INSTANCES,
+    providers: ['azure', 'gcp'],
+    ffDependencies: [null, FeatureFlag.CE_AS_GCP_VM_SUPPORT]
+  },
   { label: 'Auto scaling groups', value: RESOURCES.ASG, providers: ['aws'] },
   {
     label: 'Kubernetes Cluster',
     value: RESOURCES.KUBERNETES,
     providers: ['aws', 'azure', 'gcp'],
-    ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
+    ffDependencies: [
+      FeatureFlag.CE_AS_KUBERNETES_ENABLED,
+      FeatureFlag.CE_AS_KUBERNETES_ENABLED,
+      FeatureFlag.CE_AS_KUBERNETES_ENABLED
+    ]
   },
   { label: 'ECS Service', value: RESOURCES.ECS, providers: ['aws'] },
   { label: 'RDS instances', value: RESOURCES.RDS, providers: ['aws'] }
@@ -76,14 +85,14 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
   const [selectedAsg, setSelectedAsg] = useState<ASGMinimal | undefined>(
     props.gatewayDetails.routing?.instance?.scale_group
   )
-  const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [selectedConnector, setSelectedConnector] = useState<ConnectorResponse | undefined>()
 
-  const isKubernetesEnabled = useFeatureFlag(FeatureFlag.CE_AS_KUBERNETES_ENABLED)
+  const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
-  const [featureFlagsMap] = useState<Record<string, boolean>>({ CE_AS_KUBERNETES_ENABLED: isKubernetesEnabled })
+  const isGcpProvider = Utils.isProviderGcp(props.gatewayDetails.provider)
+  const featureFlagsMap = useFeatureFlags()
 
   const { mutate: getInstances, loading: loadingInstances } = useAllResourcesOfAccount({
     account_id: accountId, // eslint-disable-line
@@ -116,7 +125,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
       return
     }
     const resourcesFetchMap: Record<string, () => void> = {
-      [RESOURCES.INSTANCES]: refreshInstances,
+      [RESOURCES.INSTANCES]: Utils.getConditionalResult(isAwsProvider, refreshInstances, undefined),
       [RESOURCES.ASG]: fetchAndSetAsgItems,
       [RESOURCES.KUBERNETES]: fetchAndSetConnectors
     }
@@ -253,10 +262,10 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     }
   }
 
-  const refreshInstances = async (): Promise<void> => {
+  const refreshInstances = async (textTomlString = ''): Promise<void> => {
     try {
       const result = await getInstances(
-        { Text: '' },
+        { Text: textTomlString },
         {
           queryParams: {
             cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -265,12 +274,13 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
           }
         }
       )
-      const instances =
+      const instances = _defaultTo(
         result?.response
           ?.filter(x => x.status !== 'terminated')
-          .map(item => fromResourceToInstanceDetails(item, isAzureProvider)) || []
+          .map(item => fromResourceToInstanceDetails(item, { isAzure: isAzureProvider, isGcp: isGcpProvider })),
+        []
+      )
       setAllInstances(instances)
-      setFilteredInstances(instances)
     } catch (e) {
       handleErrorDisplay(e, 'ce.refetch.instance.error')
     }
@@ -366,32 +376,29 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     )
   }, [allAsg, asgToShow, selectedAsg, loadingFetchASGs, props.gatewayDetails])
 
+  const onInstanceModalClose = () => {
+    if (isAzureProvider) {
+      setAllInstances([])
+    }
+    closeInstancesModal()
+  }
+
   const [openInstancesModal, closeInstancesModal] = useModalHook(() => {
     return (
-      <ResourceSelectionModal
-        closeBtnTestId={'close-instance-modal'}
-        onClose={() => {
-          handleSearch('')
-          closeInstancesModal()
-        }}
-      >
+      <ResourceSelectionModal closeBtnTestId={'close-instance-modal'} onClose={onInstanceModalClose}>
         <COInstanceSelector
           selectedInstances={selectedInstances}
           setSelectedInstances={setSelectedInstances}
           setGatewayDetails={props.setGatewayDetails}
-          instances={filteredInstances}
+          instances={allInstances}
           gatewayDetails={props.gatewayDetails}
-          search={handleSearch}
-          onInstancesAddSuccess={() => {
-            handleSearch('')
-            closeInstancesModal()
-          }}
+          onInstancesAddSuccess={onInstanceModalClose}
           loading={loadingInstances}
           refresh={refreshInstances}
         />
       </ResourceSelectionModal>
     )
-  }, [filteredInstances, selectedInstances, loadingInstances, props.gatewayDetails])
+  }, [allInstances, selectedInstances, loadingInstances, props.gatewayDetails])
 
   const [openEcsModal, closeEcsModal] = useModalHook(
     () => (
@@ -475,21 +482,6 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     }
   }
 
-  const handleSearch = (text: string): void => {
-    if (!text) {
-      setFilteredInstances(allInstances)
-      return
-    }
-    text = text.toLowerCase()
-    const instances: InstanceDetails[] = []
-    allInstances.forEach(t => {
-      if (t.name.toLowerCase().indexOf(text) >= 0 || t.id.toLowerCase().indexOf(text) >= 0) {
-        instances.push(t)
-      }
-    })
-    setFilteredInstances(instances)
-  }
-
   const handleDeletion = (rowIndex: number) => {
     const instances = [...selectedInstances]
     instances.splice(rowIndex, 1)
@@ -501,6 +493,17 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     } else {
       resetSelectedInstancesDetails()
     }
+  }
+
+  const renderResourcesToManage = () => {
+    return managedResources
+      .filter(resource => {
+        const providerIndex = resource.providers.indexOf(props.gatewayDetails.provider.value)
+        return providerIndex > -1 && isFFEnabledForResource(resource.ffDependencies?.[providerIndex], featureFlagsMap)
+      })
+      .map(resourceItem => {
+        return <Radio key={resourceItem.value} label={resourceItem.label} value={resourceItem.value} />
+      })
   }
 
   return (
@@ -522,15 +525,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
           }}
           className={css.radioGroup}
         >
-          {managedResources
-            .filter(
-              resource =>
-                resource.providers.includes(props.gatewayDetails.provider.value) &&
-                isFFEnabledForResource(resource.ffDependencies, featureFlagsMap)
-            )
-            .map(resourceItem => {
-              return <Radio key={resourceItem.value} label={resourceItem.label} value={resourceItem.value} />
-            })}
+          {renderResourcesToManage()}
         </RadioGroup>
         <DisplayResourceInfo
           selectedResource={props.selectedResource as RESOURCES}

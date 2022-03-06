@@ -21,7 +21,7 @@ import { omit as _omit } from 'lodash-es'
 import type { IconName } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
-import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
+import type { GatewayDetails, Provider, ProviderWithDependencies } from '@ce/components/COCreateGateway/models'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -38,10 +38,6 @@ interface COProviderSelectorProps {
   setGatewayDetails: (gatewayDetails: GatewayDetails) => void
   gatewayDetails: GatewayDetails
   provider?: string
-}
-
-interface ProviderWithDependencies extends Provider {
-  ffDependencies?: string[]
 }
 
 const data: ProviderWithDependencies[] = [

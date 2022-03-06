@@ -85,7 +85,7 @@ class InstanceData implements InstanceDetails {
   }
 }
 
-export const fromResourceToInstanceDetails = (item: Resource, addMeta: boolean) => {
+export const fromResourceToInstanceDetails = (item: Resource, resourceType: { isAzure: boolean; isGcp: boolean }) => {
   const instanceDetails = new InstanceData()
     .setName(item.name as string)
     .setId(item.id as string)
@@ -95,22 +95,23 @@ export const fromResourceToInstanceDetails = (item: Resource, addMeta: boolean) 
     .setLaunchTime(item.launch_time as string)
     .setStatus(item.status as string)
     .setVpc(item.metadata?.['vpcID'] as string)
-  if (addMeta) {
+  if (resourceType.isAzure) {
     instanceDetails.setMetadata({ resourceGroup: item.metadata?.resourceGroup })
+  }
+  if (resourceType.isGcp) {
+    instanceDetails.setMetadata({ availabilityZone: item.availability_zone })
   }
   return instanceDetails
 }
 
-export const isFFEnabledForResource = (flags: string[] | undefined, featureFlagsMap: Record<string, boolean>) => {
+export const isFFEnabledForResource = (flag: string | undefined | null, featureFlagsMap: Record<string, boolean>) => {
   let enableStatus = true
-  if (!flags || _isEmpty(flags)) {
+  if (_isEmpty(flag)) {
     return enableStatus
   }
-  flags.forEach(_flag => {
-    if (!featureFlagsMap[_flag]) {
-      enableStatus = false
-    }
-  })
+  if (!featureFlagsMap[flag as string]) {
+    enableStatus = false
+  }
   return enableStatus
 }
 

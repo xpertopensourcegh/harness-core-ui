@@ -49,17 +49,6 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
     accountId: string
   }>()
 
-  /*Remove commented code after PR is done*/
-  // const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
-  //   org_id: orgIdentifier, // eslint-disable-line
-  //   project_id: projectIdentifier, // eslint-disable-line
-  //   access_point_id: loadBalancerId as string, //eslint-disable-line
-  //   queryParams: {
-  //     accountIdentifier: accountId
-  //   },
-  //   lazy: true
-  // })
-
   const { mutate: createLoadBalancer } = useCreateAccessPoint({
     account_id: accountId
   })
@@ -83,34 +72,6 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
     setNewAp(updatedAp)
     moveForward()
   }
-
-  // useEffect(() => {
-  //   if (lbCreationInProgress && loadBalancerId) {
-  //     if (!accessPointStatusLoading) {
-  //       if (accessPointData?.response?.status == 'errored') {
-  //         setLbCreationInProgress(false)
-  //         showError(
-  //           getString('ce.co.accessPoint.error') + '\n' + accessPointData.response.metadata?.error,
-  //           undefined,
-  //           'ce.ap.data.error'
-  //         )
-  //       } else if (accessPointData?.response?.status == 'created') {
-  //         setLbCreationInProgress(false)
-  //         // props.setAccessPoint(accessPointData?.response as AccessPoint)
-  //         showSuccess(getString('ce.co.accessPoint.success'))
-  //         props.onSave?.(accessPointData.response)
-  //         props.onClose?.()
-  //       } else {
-  //         const timerId = window.setTimeout(() => {
-  //           refetch()
-  //         }, 1000)
-  //         return () => {
-  //           window.clearTimeout(timerId)
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [accessPointData, refetch, accessPointStatusLoading, loadBalancerId])
 
   const saveLb = async (lbToSave: AccessPoint): Promise<void> => {
     setLbCreationInProgress(true)

@@ -8,18 +8,15 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { AccessPoint } from 'services/lw'
+import { PROVIDER_TYPES } from '@ce/constants'
 import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
 import COAPProviderSelector from '../COProviderSelector/COAPProviderSelector'
 import AzureAPConfig from './AzureAPConfig'
+import GCPAccessPointConfig from '../AccessPoint/GCPAccessPoint/GCPAccessPointConfig'
 
 interface CreateAccessPointDialogScreensProps {
   onSave: (lb: AccessPoint) => void
   onCancel: () => void
-}
-
-enum CloudProvider {
-  AWS = 'aws',
-  AZURE = 'azure'
 }
 
 const CreateAccessPointDialogScreens: React.FC<CreateAccessPointDialogScreensProps> = props => {
@@ -52,7 +49,7 @@ const CreateAccessPointDialogScreens: React.FC<CreateAccessPointDialogScreensPro
     <div>
       {showProviderSelectorScreen ? (
         <COAPProviderSelector onSubmit={handleCloudProviderSubmission} accountId={accountId} />
-      ) : selectedProvider === CloudProvider.AWS ? (
+      ) : selectedProvider === PROVIDER_TYPES.AWS ? (
         <LoadBalancerDnsConfig
           loadBalancer={initialLoadBalancer}
           cloudAccountId={connectorIdentifier}
@@ -60,7 +57,7 @@ const CreateAccessPointDialogScreens: React.FC<CreateAccessPointDialogScreensPro
           mode={'create'}
           onSave={props.onSave}
         />
-      ) : (
+      ) : selectedProvider === PROVIDER_TYPES.AZURE ? (
         <AzureAPConfig
           cloudAccountId={connectorIdentifier}
           onSave={props.onSave}
@@ -68,7 +65,15 @@ const CreateAccessPointDialogScreens: React.FC<CreateAccessPointDialogScreensPro
           onClose={props.onCancel}
           loadBalancer={initialLoadBalancer}
         />
-      )}
+      ) : selectedProvider === PROVIDER_TYPES.GCP ? (
+        <GCPAccessPointConfig
+          cloudAccountId={connectorIdentifier}
+          onSave={props.onSave}
+          mode={'create'}
+          onClose={props.onCancel}
+          loadBalancer={initialLoadBalancer}
+        />
+      ) : null}
     </div>
   )
 }

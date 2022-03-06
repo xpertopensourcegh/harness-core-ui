@@ -5,8 +5,8 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { isEmpty as _isEmpty } from 'lodash-es'
-import type { AccessPoint, AccessPointCore } from 'services/lw'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
+import type { AccessPoint, AccessPointCore, GCPAccessPointCore } from 'services/lw'
 import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
 
 export const getSelectedTabId = (accessDetails: ConnectionMetadata): string => {
@@ -81,6 +81,35 @@ export const getDummySupportedResourceFromALB = (alb: AccessPoint): AccessPointC
       name: alb.name,
       security_groups: alb.security_groups,
       vpc: alb.vpc
+    }
+  }
+}
+
+export const getDummyGcpSupportedResourceFromLb = (lb: AccessPoint): AccessPointCore => {
+  return {
+    type: 'envoy',
+    details: {
+      id: lb.id,
+      // "instanceId": 2740445792372081000,
+      name: lb.name,
+      security_groups: lb.metadata?.security_groups,
+      subnet: lb.metadata?.subnet_name,
+      vpc: lb.vpc,
+      zone: lb.metadata?.zone
+    }
+  }
+}
+
+export const getGcpApFromLoadBalancer = (gatewayDetails: GatewayDetails, accountId: string, lb?: AccessPointCore) => {
+  return {
+    cloud_account_id: gatewayDetails.cloudAccount.id,
+    account_id: accountId,
+    region: _defaultTo(gatewayDetails.selectedInstances?.[0]?.region, ''),
+    vpc: (lb?.details as GCPAccessPointCore)?.vpc,
+    metadata: {
+      zone: _defaultTo(gatewayDetails.selectedInstances[0].metadata?.availabilityZone, ''),
+      security_groups: (lb?.details as GCPAccessPointCore)?.security_groups,
+      subnet: (lb?.details as GCPAccessPointCore)?.subnet
     }
   }
 }

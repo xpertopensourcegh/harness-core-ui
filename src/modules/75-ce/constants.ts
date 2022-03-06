@@ -100,7 +100,8 @@ export const DEFAULT_ACCESS_DETAILS = {
 
 export const providerLoadBalancerRefMap: Record<string, string> = {
   azure: 'Application Gateway',
-  aws: 'Load Balancer'
+  aws: 'Load Balancer',
+  gcp: 'Load Balancer'
 }
 
 export const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configStep4']
@@ -142,4 +143,9 @@ export const ENFORCEMENT_USAGE_THRESHOLD = 90
 export enum AdvancedConfigTabs {
   deps = 'deps',
   schedules = 'schedules'
+}
+
+export enum AccessPointFormStep {
+  FIRST = 1,
+  SECOND = 2
 }

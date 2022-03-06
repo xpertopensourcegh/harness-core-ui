@@ -33,6 +33,7 @@ co:
   newAutoStoppingRule: 'New AutoStopping Rule'
   searchResultsText: 'Showing {{count}} search results for "{{text}}"'
   emptyResultText: 'No rules found for {{string}}'
+  selectResourceGroupPlaceholder: '{{$.select}} Resource Groups'
   landingPageText:
     '<b>AutoStopping Rules</b> dynamically make sure that your <i>non-production workloads</i> are <b>running (and costing you)
     only when you’re using them</b>, and never when they are idle. Additionally, run your workloads on fully
@@ -130,6 +131,11 @@ co:
             unsuccessfulDeletionMessage: 'There was an error while saving the Fixed Schedule associated with this AutoStopping Rule. {{error}}'
       instanceModal:
         description: 'AutoStopping Rules can manage multiple VMs as long as they are all within the same cloud provider region.'
+        rgEmptyDescription: 'Select a resource group to see all the instances.'
+        rgEmptyInstancesDescription: 'No instances found for {{region}} resource group'
+        gcpFiltersNotSelectedDescription: 'Select a region and a zone to see all the instances.'
+        gcpZoneFilterNotSelectedDescription: 'Select a zone to see all the instances.'
+        gcpEmptyInstancesDescription: 'No instances found for this zone.'
       ecsModal:
         title: 'Select ECS Service'
         emptyDescription: 'Select a Region and a Cluster to see all the services.'
@@ -251,6 +257,11 @@ co:
     cloudConnector: 'Cloud Connector'
     createNewALB: 'Create new ALB'
     landingPageTitle: 'Load Balancer Manager'
+    zone: 'Zone'
+    subnet: 'Subnet'
+    vpcLabel: 'VPC'
+    securityGroupsLabel: 'Security groups'
+    machineType: 'Machine type'
     select:
       accessPoint: 'Select Access Point'
       account: 'Select {{$.ce.co.accessPoint.cloudAccount}}'
@@ -264,6 +275,9 @@ co:
       dnsProvider: 'Select the {{$.ce.co.accessPoint.dnsProvider}}'
       route53: 'Select Route53 account'
       route53zone: 'Select Route53 hosted zone'
+      zone: 'Select Zone'
+      subnet: 'Select Subnet'
+      machineType: 'Select Machine type'
     validation:
       connector: 'Connector is a required field'
       name: 'Access point Name is a required field'
@@ -279,6 +293,11 @@ co:
       success: 'Deleted successfully'
     successfulCreation: 'Load Balancer creation request is submitted and will be created in some time.'
     successfulEdition: 'Load Balancer {{name}} successfully updated'
+    domainMappingDescription: 'The {{lb}} does not have a domain name associated with it. The rule directs traffic to resources through the Load balancer. Hence the Load balancer requires a domain name to be accessed by the rule'
+    helpCenter:
+      heading: 'Help: When using Other DNS providers like goDaddy, Hostigator, etc.'
+      step1: 'Add a CNAME record with your Custom domain, qa.yourcompany.co as the host'
+      step2: 'Point the record to your Harness domain, 27-nginx-test-1.gateway.harness.io. The CNAME record should look like this'
   dnsSetup:
     autoURL: 'Auto generated URL'
     customURL: 'Custom URL (Example: qa.yourcompany.com)'
