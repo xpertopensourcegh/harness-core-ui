@@ -17,7 +17,6 @@ import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/Manifes
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import type { ManifestConfig } from 'services/cd-ng'
-import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { KubernetesManifestsProps } from '../K8sServiceSpecInterface'
 import { getNonRuntimeFields, isRuntimeMode } from '../K8sServiceSpecHelper'
 import { fromPipelineInputTriggerTab, getManifestTriggerSetValues } from '../ManifestSource/ManifestSourceUtils'
@@ -31,15 +30,11 @@ const ManifestInputField = (props: ManifestInputFieldProps): React.ReactElement 
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const getManifestSourceMapType = (manifest: ManifestConfig): string => {
-    return manifest.type !== ManifestDataType.HelmChart ? manifest.type : `${manifest.type}-${manifest.spec.store.type}`
-  }
+
   const runtimeMode = isRuntimeMode(props.stepViewType)
   const isManifestsRuntime = runtimeMode && !!get(props.template, 'manifests', false)
-  const manifestSource = !isEmpty(props.manifest)
-    ? manifestSourceBaseFactory.getManifestSource(getManifestSourceMapType(props.manifest))
-    : null
 
+  const manifestSource = manifestSourceBaseFactory.getManifestSource(props.manifest.type)
   const manifestDefaultValue = props.manifests?.find(
     manifestData => manifestData?.manifest?.identifier === props.manifest?.identifier
   )?.manifest as ManifestConfig
