@@ -7,18 +7,25 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
+import { defaultTo } from 'lodash-es'
+import { TemplatesGridView } from '@templates-library/pages/TemplatesPage/views/TemplatesGridView/TemplatesGridView'
 import { mockTemplates } from '@templates-library/TemplatesTestHelper'
-import { TemplatesListView } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplatesListView'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 
-describe('<TemplatesListView /> tests', () => {
-  test('snapshot test', async () => {
+const baseProps: TemplatesViewProps = {
+  data: defaultTo(mockTemplates.data, {}),
+  gotoPage: jest.fn(),
+  onSelect: jest.fn()
+}
+
+describe('<TemplatesGridView /> tests', () => {
+  test('should match snapshot', async () => {
     const { container } = render(
-      <TestWrapper defaultAppStoreValues={{ isGitSyncEnabled: false }}>
-        <TemplatesListView data={mockTemplates.data} gotoPage={jest.fn()} onSelect={jest.fn()} />
+      <TestWrapper>
+        <TemplatesGridView {...baseProps} />
       </TestWrapper>
     )
-
     expect(container).toMatchSnapshot()
   })
 })

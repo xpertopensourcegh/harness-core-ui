@@ -7,6 +7,7 @@
 
 import React from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import { TemplateCard } from '@templates-library/components/TemplateCard/TemplateCard'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/views/TemplatesView'
@@ -21,7 +22,7 @@ export const TemplatesGridView: React.FC<TemplatesViewProps> = (props): JSX.Elem
         <Layout.Masonry
           center
           gutter={25}
-          items={data?.content || []}
+          items={defaultTo(data.content, [])}
           renderItem={(template: TemplateSummaryResponse) => (
             <TemplateCard
               template={template}
@@ -37,10 +38,10 @@ export const TemplatesGridView: React.FC<TemplatesViewProps> = (props): JSX.Elem
         />
       </Container>
       <Pagination
-        itemCount={data?.totalElements || /* istanbul ignore next */ 0}
-        pageSize={data?.size || /* istanbul ignore next */ 10}
-        pageCount={data?.totalPages || /* istanbul ignore next */ -1}
-        pageIndex={data?.number || /* istanbul ignore next */ 0}
+        itemCount={defaultTo(data.totalElements, 0)}
+        pageSize={defaultTo(data.size, 10)}
+        pageCount={defaultTo(data.totalPages, 0)}
+        pageIndex={defaultTo(data.number, 0)}
         gotoPage={gotoPage}
       />
     </Layout.Vertical>
