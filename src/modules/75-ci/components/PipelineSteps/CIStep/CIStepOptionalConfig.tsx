@@ -503,7 +503,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
               selectItems: ArchiveFormatOptions,
               multiTypeInputProps: {
                 expressions,
-                allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
+                allowableTypes: isInputSetView
+                  ? AllMultiTypeInputTypesForInputSet
+                  : [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
               },
               disabled: readonly
             }}
