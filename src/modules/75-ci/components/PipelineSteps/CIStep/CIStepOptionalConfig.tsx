@@ -282,29 +282,16 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           })}
         </div>
       ) : null}
-      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.settings') ? (
-        <Container className={cx(css.formGroup, css.bottomMargin5)}>
-          <MultiTypeMap
-            name={`${prefix}spec.settings`}
-            valueMultiTextInputProps={{
-              expressions,
-              allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
-            }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                  <Text className={css.inpLabel} color={Color.GREY_800} font={{ size: 'small', weight: 'semi-bold' }}>
-                    {getString('settingsLabel')}
-                  </Text>
-                  &nbsp;
-                  {getOptionalSubLabel('pluginSettings', getString)}
-                </Layout.Horizontal>
-              )
-            }}
-            disabled={readonly}
-          />
-        </Container>
-      ) : null}
+      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.settings')
+        ? isInputSetView
+          ? renderMultiTypeMapInputSet(`${prefix}spec.settings`, 'settingsLabel', 'pluginSettings')
+          : renderMultiTypeMap(
+              `${prefix}spec.settings`,
+              'settingsLabel',
+              'pluginSettings',
+              isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
+            )
+        : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.reportPaths') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           {renderMultiTypeList({

@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { connect } from 'formik'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import StepCommonFieldsInputSet from '@ci/components/PipelineSteps/StepCommonFields/StepCommonFieldsInputSet'
@@ -14,9 +15,16 @@ import { Connectors } from '@connectors/constants'
 import type { PluginStepProps } from './PluginStep'
 import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
+import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, readonly, stepViewType }) => {
+export const PluginStepInputSetBasic: React.FC<PluginStepProps> = ({
+  template,
+  path,
+  readonly,
+  stepViewType,
+  formik
+}) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -68,14 +76,19 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           ...(getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && {
             'spec.privileged': {}
           }),
-          ...(getMultiTypeFromValue(template?.spec?.settings as string) === MultiTypeInputType.RUNTIME && {
+          ...(shouldRenderRunTimeInputView(template?.spec?.settings) && {
             'spec.settings': {}
           })
         }}
         stepViewType={stepViewType}
         path={path || ''}
+        formik={formik}
+        isInputSetView={true}
       />
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} stepViewType={stepViewType} />
     </FormikForm>
   )
 }
+
+const PluginStepInputSet = connect(PluginStepInputSetBasic)
+export { PluginStepInputSet }

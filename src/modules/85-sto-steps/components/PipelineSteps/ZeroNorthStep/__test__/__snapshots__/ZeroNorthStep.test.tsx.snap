@@ -196,7 +196,7 @@ exports[`ZeroNorth Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
         >
           <div
             class="group withoutSpacing"
@@ -222,6 +222,7 @@ exports[`ZeroNorth Step Edit View edit mode works 1`] = `
                     >
                       <p
                         class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                        style="display: flex; align-items: center;"
                       >
                         settingsLabel
                       </p>
@@ -288,7 +289,7 @@ exports[`ZeroNorth Step Edit View edit mode works 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
-                      keyLabel
+                      
                     </p>
                     <div
                       class="bp3-form-group"
@@ -315,7 +316,7 @@ exports[`ZeroNorth Step Edit View edit mode works 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
-                      valueLabel
+                      
                     </p>
                     <div
                       class="group withoutAligning withoutSpacing"
@@ -1507,7 +1508,7 @@ exports[`ZeroNorth Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
         >
           <div
             class="group withoutSpacing"
@@ -1530,6 +1531,7 @@ exports[`ZeroNorth Step Edit View renders runtime inputs 1`] = `
                   >
                     <p
                       class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
                       settingsLabel
                     </p>
@@ -2448,7 +2450,7 @@ exports[`ZeroNorth Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
         >
           <div
             class="group withoutSpacing"
@@ -2474,6 +2476,7 @@ exports[`ZeroNorth Step Edit View should render properly 1`] = `
                     >
                       <p
                         class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                        style="display: flex; align-items: center;"
                       >
                         settingsLabel
                       </p>
@@ -2540,7 +2543,7 @@ exports[`ZeroNorth Step Edit View should render properly 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
-                      keyLabel
+                      
                     </p>
                     <div
                       class="bp3-form-group"
@@ -2567,7 +2570,7 @@ exports[`ZeroNorth Step Edit View should render properly 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
-                      valueLabel
+                      
                     </p>
                     <div
                       class="group withoutAligning withoutSpacing"
@@ -3641,7 +3644,7 @@ exports[`ZeroNorth Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main formGroup bottomMargin5"
+          class="StyledProps--font StyledProps--main formGroup bottomMargin5 lg"
         >
           <div
             class="group withoutSpacing"
@@ -3667,6 +3670,7 @@ exports[`ZeroNorth Step InputSet View should render all fields 1`] = `
                     >
                       <p
                         class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                        style="display: flex; align-items: center;"
                       >
                         settingsLabel
                       </p>
@@ -3733,7 +3737,7 @@ exports[`ZeroNorth Step InputSet View should render all fields 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
-                      keyLabel
+                      
                     </p>
                     <div
                       class="bp3-form-group"
@@ -3760,7 +3764,7 @@ exports[`ZeroNorth Step InputSet View should render all fields 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
-                      valueLabel
+                      
                     </p>
                     <div
                       class="group withoutAligning withoutSpacing"

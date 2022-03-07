@@ -81,6 +81,7 @@ export interface PluginStepProps {
   onUpdate?: (data: PluginStepData) => void
   onChange?: (data: PluginStepData) => void
   allowableTypes: MultiTypeInputType[]
+  formik?: any
 }
 
 export class PluginStep extends PipelineStep<PluginStepData> {
