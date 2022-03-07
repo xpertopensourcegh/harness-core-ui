@@ -48,9 +48,12 @@ const config = {
     client: {
       overlay: !(isCypress || isCypressCoverage)
     },
-    https: {
-      key: fs.readFileSync(path.resolve(CONTEXT, 'certificates/localhost-key.pem')),
-      cert: fs.readFileSync(path.resolve(CONTEXT, 'certificates/localhost.pem'))
+    server: {
+      type: 'https',
+      options: {
+        key: fs.readFileSync(path.resolve(CONTEXT, 'certificates/localhost-key.pem')),
+        cert: fs.readFileSync(path.resolve(CONTEXT, 'certificates/localhost.pem'))
+      }
     },
     proxy: Object.fromEntries(
       Object.entries(devServerProxyConfig).map(([key, value]) => [
