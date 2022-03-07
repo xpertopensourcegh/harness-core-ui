@@ -204,7 +204,10 @@ const CVCreateSLO: React.FC = () => {
     <>
       <Page.Header breadcrumbs={<NGBreadcrumbs links={links} />} title={title} />
       <Formik<SLOForm>
-        initialValues={getSLOInitialFormData(SLODataResponse?.resource?.serviceLevelObjective)}
+        initialValues={getSLOInitialFormData(
+          SLODataResponse?.resource?.serviceLevelObjective,
+          monitoredServiceIdentifier
+        )}
         formName="SLO_form"
         onSubmit={values => {
           handleSLOSubmit(values)

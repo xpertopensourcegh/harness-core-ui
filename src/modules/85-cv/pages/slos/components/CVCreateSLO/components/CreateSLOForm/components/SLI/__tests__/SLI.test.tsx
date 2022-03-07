@@ -38,7 +38,12 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         {formikProps => {
           return (
             <FormikForm>
-              <SLI formikProps={formikProps} retryOnError={jest.fn()}>
+              <SLI
+                formikProps={formikProps}
+                retryOnError={jest.fn()}
+                monitoredServicesLoading={false}
+                monitoredServicesData={{}}
+              >
                 <></>
               </SLI>
             </FormikForm>

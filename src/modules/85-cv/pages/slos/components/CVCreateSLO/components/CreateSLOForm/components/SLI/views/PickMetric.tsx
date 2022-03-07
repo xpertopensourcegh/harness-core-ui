@@ -53,7 +53,10 @@ import {
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest }) => {
+const PickMetric: React.FC<Omit<SLIProps, 'children' | 'monitoredServicesLoading' | 'monitoredServicesData'>> = ({
+  formikProps,
+  ...rest
+}) => {
   const FLEX_START = 'flex-start'
   const { getString } = useStrings()
   const { showError } = useToaster()

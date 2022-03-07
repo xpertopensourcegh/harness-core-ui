@@ -101,6 +101,7 @@ describe('CVCreateSLO', () => {
     await waitFor(() => {
       expect(screen.queryByText('cv.slos.validations.nameValidation')).not.toBeInTheDocument()
       expect(screen.queryByText('cv.slos.validations.userJourneyRequired')).not.toBeInTheDocument()
+      expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
     })
 
     userEvent.click(screen.getByText('continue'))
@@ -110,11 +111,9 @@ describe('CVCreateSLO', () => {
     userEvent.click(screen.getByText('continue'))
 
     await waitFor(() => {
-      expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
       expect(screen.getByText('cv.slos.validations.healthSourceRequired')).toBeInTheDocument()
       expect(screen.getAllByText('cv.required')).toHaveLength(3)
       expect(screen.getAllByText('cv.metricIsRequired')).toHaveLength(2)
-      expect(screen.getByText('connectors.cdng.monitoredService.label')).toBeInTheDocument()
     })
   })
 
@@ -128,6 +127,9 @@ describe('CVCreateSLO', () => {
     expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
 
     await waitFor(() => expect(screen.getByText('cv.slos.validations.nameValidation')).toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
+    )
 
     userEvent.click(screen.getByText('cv.slos.sloTargetAndBudgetPolicy'))
 
@@ -153,7 +155,6 @@ describe('CVCreateSLO', () => {
     userEvent.click(screen.getByText('cv.slos.sloTargetAndBudgetPolicy'))
 
     expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
   })
 
   test('it should render correct labels based on event type Good or Bad', async () => {
@@ -365,8 +366,6 @@ describe('CVCreateSLO - Edit', () => {
         <CVCreateSLO />
       </TestWrapper>
     )
-
-    userEvent.click(screen.getByText('continue'))
 
     userEvent.click(
       screen.getByRole('button', {

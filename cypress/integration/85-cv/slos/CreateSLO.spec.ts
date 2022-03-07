@@ -61,15 +61,16 @@ describe('Create SLO', () => {
 
     // Filling details Under Name tab for SLO creation
     cy.fillName('SLO-1')
-    cy.get('input[name="User Journey"]').click()
-    cy.contains('p', 'new-one').click({ force: true })
-
-    cy.wait(2000)
-    cy.contains('span', 'Continue').click({ force: true })
 
     // selecting monitored service
     cy.get('input[name="monitoredServiceRef"]').click()
     cy.contains('p', 'cvng_prod').click({ force: true })
+
+    // selecting user journey
+    cy.get('input[name="User Journey"]').click()
+    cy.contains('p', 'new-one').click({ force: true })
+
+    cy.contains('span', 'Continue').click({ force: true })
 
     // selecting health source
     cy.get('input[name="healthSourceRef"]').click()
@@ -83,8 +84,6 @@ describe('Create SLO', () => {
     cy.get('input[name="goodRequestMetric"]').click()
     cy.contains('p', 'number_of_slow_calls').click({ force: true })
 
-    cy.wait(1000)
-
     // selecting Metric for Good requests
     cy.get('input[name="validRequestMetric"]').click()
     cy.contains('p', 'https_errors_per_min').click({ force: true })
@@ -96,7 +95,6 @@ describe('Create SLO', () => {
     cy.get('input[name="objectiveComparator"]').click({ force: true })
     cy.contains('p', '<').click({ force: true })
 
-    cy.wait(2000)
     cy.contains('span', 'Continue').click({ force: true })
 
     // selecting condition for SLI value
@@ -142,11 +140,11 @@ describe('Create SLO', () => {
 
     cy.get('input[name="name"]').should('have.value', 'SLO-1')
     cy.get('input[name="User Journey"]').should('have.value', 'new-one')
+    cy.get('input[name="monitoredServiceRef"]').should('have.value', 'cvng_prod')
 
     cy.contains('span', 'Continue').click({ force: true })
     cy.contains('h2', 'Configure SLI queries').should('be.visible')
 
-    cy.get('input[name="monitoredServiceRef"]').should('have.value', 'cvng_prod')
     cy.get('input[name="healthSourceRef"]').should('have.value', 'appd_cvng_prod')
     cy.get('input[name="SLIType"][value="Latency"]').should('be.checked')
     cy.get('input[name="SLIMetricType"][value="Ratio"]').should('be.checked')
@@ -202,23 +200,21 @@ describe('Create SLO', () => {
     cy.contains('span', 'SLO name is required').should('not.exist')
 
     cy.contains('span', 'User journey is required').should('be.visible')
+    cy.contains('span', 'Monitored Service is required').should('be.visible')
+
     cy.get('input[name="User Journey"]').click()
     cy.contains('p', 'new-one').click({ force: true })
     cy.contains('span', 'User journey is required').should('not.exist')
 
-    cy.contains('span', 'Continue').click({ force: true })
-    cy.wait(1000)
-    cy.contains('span', 'Continue').click({ force: true })
-
-    cy.contains('h2', 'Configure SLI queries').scrollIntoView()
-
-    cy.contains('span', 'Monitored Service is required').should('be.visible')
-    cy.get('input[name="healthSourceRef"]').should('be.disabled')
-    cy.get('input[name="goodRequestMetric"]').should('be.disabled')
-    cy.get('input[name="validRequestMetric"]').should('be.disabled')
     cy.get('input[name="monitoredServiceRef"]').click()
     cy.contains('p', 'cvng_prod').click({ force: true })
     cy.contains('span', 'Monitored Service is required').should('not.exist')
+
+    cy.contains('span', 'Continue').click({ force: true })
+    cy.contains('h2', 'Configure SLI queries').scrollIntoView()
+
+    cy.contains('span', 'Continue').click({ force: true })
+
     cy.get('input[name="healthSourceRef"]').should('be.enabled')
 
     cy.contains('span', 'Health Source is required').should('be.visible')
@@ -387,10 +383,10 @@ describe('Create SLO', () => {
     cy.get('input[name="User Journey"]').click()
     cy.contains('p', 'new-one').click({ force: true })
 
-    cy.contains('span', 'Continue').click({ force: true })
-
     cy.get('input[name="monitoredServiceRef"]').click()
     cy.contains('p', 'cvng_prod').click({ force: true })
+
+    cy.contains('span', 'Continue').click({ force: true })
 
     cy.get('input[name="healthSourceRef"]').click()
     cy.contains('p', 'appd_cvng_prod').click({ force: true })
@@ -427,7 +423,7 @@ describe('Create SLO', () => {
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
     cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
-    cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
+    cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse).as('getListMonitoredServices')
 
     cy.intercept('GET', getMonitoredService, getMonitoredServiceResponse).as('getMonitoredService')
     cy.intercept('GET', listSLOsCallWithCVNGProd, updatedListSLOsCallResponse)
@@ -444,9 +440,10 @@ describe('Create SLO', () => {
     cy.get('[data-icon="Options"]').click()
     cy.get('[icon="edit"]').click()
 
+    cy.wait('@getListMonitoredServices')
     cy.get('input[name="User Journey"]').should('have.value', 'new-one')
 
-    cy.findByRole('button', { name: /Continue/i }).click()
+    cy.findByRole('button', { name: /Continue/i }).click({ force: true })
     cy.contains('h2', 'Configure SLI queries').should('be.visible')
 
     cy.findByRole('button', { name: /Continue/i }).click()
@@ -489,10 +486,10 @@ describe('Create SLO', () => {
     cy.get('input[name="User Journey"]').click()
     cy.contains('p', 'new-one').click({ force: true })
 
-    cy.findByRole('button', { name: /Continue/i }).click({ force: true })
-
     cy.get('input[name="monitoredServiceRef"]').click()
     cy.contains('p', 'cvng_prod').click({ force: true })
+
+    cy.findByRole('button', { name: /Continue/i }).click({ force: true })
 
     cy.get('input[name="healthSourceRef"]').click()
     cy.contains('p', 'appd_cvng_prod').click({ force: true })

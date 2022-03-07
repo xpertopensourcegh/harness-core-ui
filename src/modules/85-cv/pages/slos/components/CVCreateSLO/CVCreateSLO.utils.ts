@@ -57,7 +57,10 @@ export const convertServiceLevelIndicatorToSLIFormData = (serviceLevelIndicator:
   }
 }
 
-export const getSLOInitialFormData = (serviceLevelObjective?: ServiceLevelObjectiveDTO): SLOForm => {
+export const getSLOInitialFormData = (
+  serviceLevelObjective?: ServiceLevelObjectiveDTO,
+  monitoredServiceIdentifier?: string
+): SLOForm => {
   if (serviceLevelObjective) {
     const {
       serviceLevelIndicators: [serviceLevelIndicator],
@@ -87,7 +90,7 @@ export const getSLOInitialFormData = (serviceLevelObjective?: ServiceLevelObject
     }
   }
 
-  return initialValuesSLO
+  return { ...initialValuesSLO, [SLOFormFields.MONITORED_SERVICE_REF]: monitoredServiceIdentifier || '' }
 }
 
 export const createSLORequestPayload = (
@@ -141,6 +144,7 @@ export const isFormDataValid = (formikProps: FormikProps<SLOForm>, selectedTabId
     formikProps.setFieldTouched(SLOFormFields.NAME)
     formikProps.setFieldTouched(SLOFormFields.IDENTIFIER)
     formikProps.setFieldTouched(SLOFormFields.USER_JOURNEY_REF)
+    formikProps.setFieldTouched(SLOFormFields.MONITORED_SERVICE_REF)
 
     const { name, identifier, userJourneyRef } = formikProps.values
 
@@ -150,7 +154,6 @@ export const isFormDataValid = (formikProps: FormikProps<SLOForm>, selectedTabId
   }
 
   if (selectedTabId === CreateSLOTabs.SLI) {
-    formikProps.setFieldTouched(SLOFormFields.MONITORED_SERVICE_REF)
     formikProps.setFieldTouched(SLOFormFields.HEALTH_SOURCE_REF)
     formikProps.setFieldTouched(SLOFormFields.EVENT_TYPE)
     formikProps.setFieldTouched(SLOFormFields.GOOD_REQUEST_METRIC)

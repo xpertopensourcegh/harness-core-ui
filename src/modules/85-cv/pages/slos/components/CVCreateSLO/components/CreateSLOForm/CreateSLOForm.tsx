@@ -5,27 +5,46 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { debounce } from 'lodash-es'
-import { Page, Tabs, Container, Layout, Button, ButtonVariation, Heading, FontVariation } from '@wings-software/uicore'
+import {
+  Page,
+  Tabs,
+  Container,
+  Layout,
+  Button,
+  ButtonVariation,
+  Heading,
+  FontVariation,
+  useToaster
+} from '@wings-software/uicore'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { ServiceLevelIndicatorDTO, TimeGraphResponse, useGetSliGraph } from 'services/cv'
+import {
+  ServiceLevelIndicatorDTO,
+  TimeGraphResponse,
+  useGetAllMonitoredServicesWithTimeSeriesHealthSources,
+  useGetSliGraph
+} from 'services/cv'
 import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import SLOName from '@cv/pages/slos/components/CVCreateSLO/components/CreateSLOForm/components/SLOName/SLOName'
-import SLI from '@cv/pages/slos/components/CVCreateSLO/components/CreateSLOForm/components/SLI/SLI'
 import SLOTargetAndBudgetPolicy from '@cv/pages/slos/components/CVCreateSLO/components/CreateSLOForm/components/SLOTargetAndBudgetPolicy/SLOTargetAndBudgetPolicy'
-import { isFormDataValid, handleTabChange } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import {
+  isFormDataValid,
+  handleTabChange,
+  getMonitoredServiceOptions
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import { TabsOrder } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
 import {
   CreateSLOTabs,
   NavButtonsProps,
   CreateSLOFormProps
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import SLI from './components/SLI/SLI'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
 const CreateSLOForm: React.FC<CreateSLOFormProps> = ({
@@ -37,6 +56,7 @@ const CreateSLOForm: React.FC<CreateSLOFormProps> = ({
   handleRedirect
 }) => {
   const { getString } = useStrings()
+  const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
@@ -56,6 +76,30 @@ const CreateSLOForm: React.FC<CreateSLOFormProps> = ({
       projectIdentifier
     }
   })
+
+  const {
+    data: monitoredServicesData,
+    loading: monitoredServicesLoading,
+    error: monitoredServicesDataError
+  } = useGetAllMonitoredServicesWithTimeSeriesHealthSources({
+    queryParams: {
+      accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
+
+  useEffect(() => {
+    if (monitoredServicesDataError) {
+      showError(getErrorMessage(monitoredServicesDataError))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monitoredServicesDataError])
+
+  const monitoredServicesOptions = useMemo(
+    () => getMonitoredServiceOptions(monitoredServicesData?.data),
+    [monitoredServicesData]
+  )
 
   const fetchSliGraphData = async (
     serviceLevelIndicator: ServiceLevelIndicatorDTO,
@@ -130,7 +174,12 @@ const CreateSLOForm: React.FC<CreateSLOFormProps> = ({
                 <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ bottom: 'small' }}>
                   {getString('cv.slos.sloDefinition')}
                 </Heading>
-                <SLOName formikProps={formikProps} identifier={identifier}>
+                <SLOName
+                  formikProps={formikProps}
+                  identifier={identifier}
+                  monitoredServicesOptions={monitoredServicesOptions}
+                  monitoredServicesLoading={monitoredServicesLoading}
+                >
                   <NavButtons />
                 </SLOName>
               </Page.Body>
@@ -148,6 +197,8 @@ const CreateSLOForm: React.FC<CreateSLOFormProps> = ({
                   error={getErrorMessage(sliGraphError)}
                   retryOnError={fetchSliGraphData}
                   debounceFetchSliGraphData={debounceFetchSliGraphData}
+                  monitoredServicesData={monitoredServicesData}
+                  monitoredServicesLoading={monitoredServicesLoading}
                 >
                   <NavButtons />
                 </SLI>

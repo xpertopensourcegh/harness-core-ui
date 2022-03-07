@@ -5,14 +5,13 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import {
   Heading,
   FontVariation,
   Card,
   FormInput,
-  useToaster,
   SelectOption,
   Layout,
   Container,
@@ -22,60 +21,37 @@ import {
 } from '@wings-software/uicore'
 import type { RadioButtonProps } from '@wings-software/uicore/dist/components/RadioButton/RadioButton'
 import { useStrings } from 'framework/strings'
-import { useGetAllMonitoredServicesWithTimeSeriesHealthSources } from 'services/cv'
 import { useQueryParams } from '@common/hooks'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import { getCVMonitoringServicesSearchParam, getErrorMessage } from '@cv/utils/CommonUtils'
+import { getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import { defaultOption } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
 import { SLIProps, SLOFormFields, SLITypes } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
-import {
-  getMonitoredServiceOptions,
-  getHealthSourceOptions
-} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import { getHealthSourceOptions } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import CVRadioLabelTextAndDescription from '@cv/components/CVRadioLabelTextAndDescription'
 import SLIContextualHelpText from './components/SLIContextualHelpText'
 import PickMetric from './views/PickMetric'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const SLI: React.FC<SLIProps> = ({ children, formikProps, ...rest }) => {
+const SLI: React.FC<SLIProps> = ({
+  children,
+  formikProps,
+  monitoredServicesLoading,
+  monitoredServicesData,
+  ...rest
+}) => {
   const FLEX_START = 'flex-start'
   const { getString } = useStrings()
-  const { showError } = useToaster()
   const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
   const { monitoredServiceIdentifier } = useQueryParams<{ monitoredServiceIdentifier?: string }>()
   const { values } = formikProps
-
-  const {
-    data: monitoredServicesData,
-    loading: monitoredServicesLoading,
-    error: monitoredServicesDataError
-  } = useGetAllMonitoredServicesWithTimeSeriesHealthSources({
-    queryParams: {
-      accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
-
-  useEffect(() => {
-    if (monitoredServicesDataError) {
-      showError(getErrorMessage(monitoredServicesDataError))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [monitoredServicesDataError])
-
-  const monitoredServicesOptions = useMemo(
-    () => getMonitoredServiceOptions(monitoredServicesData?.data),
-    [monitoredServicesData]
-  )
 
   const healthSourcesOptions = useMemo(
     () => getHealthSourceOptions(monitoredServicesData?.data, values?.monitoredServiceRef),
@@ -123,48 +99,6 @@ const SLI: React.FC<SLIProps> = ({ children, formikProps, ...rest }) => {
         <Layout.Horizontal flex={{ justifyContent: FLEX_START, alignItems: FLEX_START }}>
           <Container width="50%" border={{ right: true }}>
             <Layout.Vertical width="80%">
-              <Layout.Horizontal flex={{ justifyContent: FLEX_START }}>
-                <FormInput.Select
-                  name={SLOFormFields.MONITORED_SERVICE_REF}
-                  label={getString('connectors.cdng.monitoredService.label')}
-                  placeholder={
-                    monitoredServicesLoading ? getString('loading') : getString('cv.slos.selectMonitoredService')
-                  }
-                  items={monitoredServicesOptions}
-                  className={css.selectPrimary}
-                  onChange={() => {
-                    formikProps.setFieldValue(SLOFormFields.HEALTH_SOURCE_REF, undefined)
-                    formikProps.setFieldValue(SLOFormFields.VALID_REQUEST_METRIC, undefined)
-                    formikProps.setFieldValue(SLOFormFields.GOOD_REQUEST_METRIC, undefined)
-                  }}
-                />
-                <RbacButton
-                  icon="plus"
-                  text={getString('cv.monitoredServices.newMonitoredServices')}
-                  variation={ButtonVariation.LINK}
-                  onClick={() => {
-                    history.push({
-                      pathname: routes.toCVAddMonitoringServicesSetup({
-                        accountId,
-                        orgIdentifier,
-                        projectIdentifier
-                      }),
-                      search: getCVMonitoringServicesSearchParam({
-                        redirectToSLO: true,
-                        sloIdentifier: identifier,
-                        monitoredServiceIdentifier
-                      })
-                    })
-                  }}
-                  permission={{
-                    permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
-                    resource: {
-                      resourceType: ResourceType.MONITOREDSERVICE,
-                      resourceIdentifier: projectIdentifier
-                    }
-                  }}
-                />
-              </Layout.Horizontal>
               <Layout.Horizontal flex={{ justifyContent: FLEX_START }}>
                 <FormInput.Select
                   name={SLOFormFields.HEALTH_SOURCE_REF}
@@ -232,7 +166,6 @@ const SLI: React.FC<SLIProps> = ({ children, formikProps, ...rest }) => {
       </Card>
 
       <PickMetric formikProps={formikProps} {...rest} />
-
       {children}
     </>
   )

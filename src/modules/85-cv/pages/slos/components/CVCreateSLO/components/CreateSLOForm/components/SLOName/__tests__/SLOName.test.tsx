@@ -23,7 +23,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         {formikProps => {
           return (
             <FormikForm>
-              <SLOName formikProps={formikProps}>
+              <SLOName formikProps={formikProps} monitoredServicesLoading={false} monitoredServicesOptions={[]}>
                 <></>
               </SLOName>
             </FormikForm>
