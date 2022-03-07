@@ -56,6 +56,19 @@ const TEST_PARAMS: PipelineType<PipelineLogsPathProps> = {
 }
 
 describe('<FullPageLogView /> tests', () => {
+  let mockDate: jest.SpyInstance<unknown> | undefined
+  let mocktime: jest.SpyInstance<unknown> | undefined
+
+  beforeAll(() => {
+    mockDate = jest.spyOn(Date.prototype, 'toLocaleTimeString').mockReturnValue('17:00')
+    mocktime = jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue('2022-03-04')
+  })
+
+  afterAll(() => {
+    mockDate?.mockRestore()
+    mocktime?.mockRestore()
+  })
+
   test('loading', () => {
     ;(useGetExecutionDetail as jest.Mock).mockReturnValue({ loading: true })
     const { container } = render(
