@@ -8,14 +8,14 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { servicesGridView } from '@cd/mock'
+import { serviceListResponse } from '@cd/mock'
 import ServicesGridView from '../ServicesGridView/ServicesGridView'
 
 describe('ServicesGridView', () => {
   test('render', () => {
     const { container } = render(
       <TestWrapper>
-        <ServicesGridView {...servicesGridView} />
+        <ServicesGridView data={serviceListResponse} onServiceSelect={jest.fn()} loading={false} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { render, getAllByText, fireEvent, getByText, waitFor } from '@testing-library/react'
-import { servicesGridView, serviceRow } from '@cd/mock'
+import { serviceListResponse, serviceRow } from '@cd/mock'
 import mockImport from 'framework/utils/mockImport'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { ServiceName, ServiceDescription, ServiceMenu } from '../ServicesListColumns/ServicesListColumns'
@@ -41,7 +41,7 @@ describe('ServiceListColumns', () => {
 })
 
 describe('ServiceMenu', () => {
-  const services = servicesGridView?.data?.data?.content?.map(service => service.service) || []
+  const services = serviceListResponse?.data?.content?.map(service => service.service) || []
   test('Should render options edit/delete', () => {
     const { container } = render(
       <TestWrapper>

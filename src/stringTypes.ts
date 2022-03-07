@@ -3310,6 +3310,7 @@ export interface StringsMap {
   'cd.serviceDashboard.servicesInLast': string
   'cd.serviceDashboard.totalPipelines': string
   'cd.serviceDashboard.totalServices': string
+  'cd.serviceList.noIdentifier': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string

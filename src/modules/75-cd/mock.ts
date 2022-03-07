@@ -5,6 +5,8 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import type { ResponsePageServiceResponse } from 'services/cd-ng'
+
 export const mostActiveServiceInfo = {
   data: {
     workloadDeploymentInfoList: [
@@ -150,38 +152,63 @@ export const environmentModal = {
   onCreateOrUpdate: jest.fn()
 }
 
-export const servicesGridView = {
+export const serviceListResponse: ResponsePageServiceResponse | null = {
+  correlationId: '0655d280-1804-4935-91b1-ffdc733a7eb9',
   data: {
-    correlationId: '0655d280-1804-4935-91b1-ffdc733a7eb9',
-    data: {
-      content: [
-        {
-          createdAt: 1644951149242,
-          lastModifiedAt: 1644951149242,
-          service: {
-            accountId: 'px7xd_BFRCi-pfWPYXVjvw',
-            deleted: false,
-            description: '',
-            identifier: 'dfg',
-            name: 'dfg',
-            orgIdentifier: 'default',
-            projectIdentifier: 'Jira',
-            tags: {},
-            version: 1
-          }
+    content: [
+      {
+        createdAt: 1644951149242,
+        lastModifiedAt: 1644951149242,
+        service: {
+          accountId: 'px7xd_BFRCi-pfWPYXVjvw',
+          deleted: false,
+          description: '',
+          identifier: 'dfg',
+          name: 'dfg',
+          orgIdentifier: 'default',
+          projectIdentifier: 'Jira',
+          tags: {},
+          version: 1
         }
-      ],
-      empty: false,
-      pageIndex: 0,
-      pageItemCount: 1,
-      pageSize: 50,
-      totalItems: 1,
-      totalPages: 1
-    }
+      }
+    ],
+    empty: false,
+    pageIndex: 0,
+    pageItemCount: 1,
+    pageSize: 50,
+    totalItems: 1,
+    totalPages: 1
   },
-  onRefresh: jest.fn(),
-  gotoPage: jest.fn(),
-  onServiceSelect: jest.fn()
+  status: 'SUCCESS'
+}
+
+export const serviceListResponseWithoutIdentifier: ResponsePageServiceResponse | null = {
+  correlationId: '0655d280-1804-4935-91b1-ffdc733a7eb9',
+  data: {
+    content: [
+      {
+        createdAt: 1644951149242,
+        lastModifiedAt: 1644951149242,
+        service: {
+          accountId: 'px7xd_BFRCi-pfWPYXVjvw',
+          deleted: false,
+          description: '',
+          name: 'dfg',
+          orgIdentifier: 'default',
+          projectIdentifier: 'Jira',
+          tags: {},
+          version: 1
+        }
+      }
+    ],
+    empty: false,
+    pageIndex: 0,
+    pageItemCount: 1,
+    pageSize: 50,
+    totalItems: 1,
+    totalPages: 1
+  },
+  status: 'SUCCESS'
 }
 
 export const serviceModal = {

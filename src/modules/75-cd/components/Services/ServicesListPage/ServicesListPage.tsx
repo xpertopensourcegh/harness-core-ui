@@ -13,7 +13,8 @@ import {
   Views,
   VisualYamlSelectedView as SelectedView,
   Container,
-  GridListToggle
+  GridListToggle,
+  useToaster
 } from '@harness/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useModalHook } from '@harness/use-modal'
@@ -24,7 +25,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 import { Page } from '@common/exports'
 import RbacButton from '@rbac/components/Button/Button'
-import { GetServiceListQueryParams, useGetServiceList } from 'services/cd-ng'
+import { GetServiceListQueryParams, ServiceResponseDTO, useGetServiceList } from 'services/cd-ng'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { NewEditServiceModalYaml } from './ServiceModal'
@@ -41,12 +42,25 @@ export const ServicesListPage: React.FC = () => {
   const { getString } = useStrings()
   const { fetchDeploymentList } = useServiceStore()
   const [mode, setMode] = useState<SelectedView>(SelectedView.VISUAL)
+  const { showError } = useToaster()
 
   const history = useHistory()
 
   const goToServiceDetails = useCallback(
-    ({ identifier: serviceId }): void => {
-      history.push(routes.toServiceDetails({ accountId, orgIdentifier, projectIdentifier, serviceId, module }))
+    (selectedService: ServiceResponseDTO): void => {
+      if (selectedService?.identifier) {
+        history.push(
+          routes.toServiceDetails({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            serviceId: selectedService.identifier,
+            module
+          })
+        )
+      } else {
+        showError(getString('cd.serviceList.noIdentifier'))
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [accountId, orgIdentifier, projectIdentifier, module]

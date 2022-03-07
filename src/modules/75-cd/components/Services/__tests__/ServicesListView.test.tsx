@@ -8,7 +8,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { servicesGridView } from '@cd/mock'
+import { serviceListResponse } from '@cd/mock'
 import ServicesListView from '../ServicesListView/ServicesListView'
 import { ServiceMenu } from '../ServicesListColumns/ServicesListColumns'
 
@@ -16,13 +16,13 @@ describe('ServiceListView', () => {
   test('render Service list', () => {
     const { container } = render(
       <TestWrapper>
-        <ServicesListView {...servicesGridView} />
+        <ServicesListView data={serviceListResponse} onServiceSelect={jest.fn()} loading={false} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
   })
   test('Should render options after click', async () => {
-    const services = servicesGridView?.data?.data?.content?.map(service => service.service) || []
+    const services = serviceListResponse?.data?.content?.map(service => service.service) || []
 
     const { container } = render(
       <TestWrapper>
