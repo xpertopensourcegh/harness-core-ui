@@ -8,6 +8,7 @@
 import type Highcharts from 'highcharts'
 import type { LogAnalysisClusterChartDTO } from 'services/cv'
 import { RiskValues, getRiskColorValue, getSecondaryRiskColorValue } from '@cv/utils/CommonUtils'
+import type { UseStringsReturn } from 'framework/strings'
 
 export const mapRisk = (risk: LogAnalysisClusterChartDTO['risk']): Highcharts.PointOptionsObject => {
   switch (risk) {
@@ -52,7 +53,7 @@ export const mapRisk = (risk: LogAnalysisClusterChartDTO['risk']): Highcharts.Po
   }
 }
 
-export const chartOptions = (series: Highcharts.SeriesScatterOptions[]) => {
+export const chartOptions = (series: Highcharts.SeriesScatterOptions[], getString: UseStringsReturn['getString']) => {
   return {
     chart: {
       renderTo: 'chart',
@@ -88,7 +89,11 @@ export const chartOptions = (series: Highcharts.SeriesScatterOptions[]) => {
     series,
     tooltip: {
       formatter: function (this: any): any {
-        return `<p>${this?.point?.message}</p>`
+        return `
+        <p><strong>${getString('message')}: </strong>${this?.point?.message}</p></br><p><strong>${getString(
+          'ce.perspectives.workloadDetails.fieldNames.node'
+        )}: </strong> ${this?.point?.hostname}</p>
+        `
       },
       style: {
         textOverflow: 'ellipsis'
