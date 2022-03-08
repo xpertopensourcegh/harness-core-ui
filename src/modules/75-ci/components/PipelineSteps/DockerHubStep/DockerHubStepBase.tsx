@@ -105,7 +105,6 @@ export const DockerHubStepBase = (
                       color={Color.GREY_600}
                       font={{ size: 'small', weight: 'semi-bold' }}
                       style={{ display: 'flex', alignItems: 'center' }}
-                      tooltipProps={{ dataTooltipId: 'dockerHubConnector' }}
                     >
                       {getString('pipelineSteps.dockerHubConnectorLabel')}
                     </Text>

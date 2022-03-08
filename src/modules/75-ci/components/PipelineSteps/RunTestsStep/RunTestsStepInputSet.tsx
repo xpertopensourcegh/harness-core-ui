@@ -65,7 +65,7 @@ export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
                 {getString(stringKey)}
               </Text>
               &nbsp;
-              {getOptionalSubLabel(tooltipId, getString)}
+              {getOptionalSubLabel(getString, tooltipId)}
             </Layout.Horizontal>
           }
           defaultValueToReset=""
@@ -213,7 +213,7 @@ export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
                   {getString('testAnnotationsLabel')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('runTestsTestAnnotations', getString)}
+                {getOptionalSubLabel(getString, 'runTestsTestAnnotations')}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -250,7 +250,7 @@ export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
                     {getString('pipelineSteps.reportPathsLabel')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel('reportPaths', getString)}
+                  {getOptionalSubLabel(getString, 'reportPaths')}
                 </Layout.Horizontal>
               ),
               allowedTypes: allowableTypes.filter(

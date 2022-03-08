@@ -14,7 +14,6 @@ import {
   FormInput,
   Button,
   Switch,
-  HarnessDocTooltip,
   TextInput,
   RUNTIME_INPUT_VALUE,
   Color
@@ -280,8 +279,8 @@ export const EditStageView: React.FC<EditStageView> = ({ data, template, onSubmi
                     onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
                     defaultChecked={formikProps.values.cloneCodebase}
                     disabled={isReadonly}
+                    tooltipProps={{ tooltipId: 'cloneCodebase' }}
                   />
-                  <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
                 </div>
               )}
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}

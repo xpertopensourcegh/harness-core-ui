@@ -7,7 +7,7 @@
 
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { Accordion, Card, Formik, FormikForm, HarnessDocTooltip, Switch, Text } from '@wings-software/uicore'
+import { Accordion, Card, Formik, FormikForm, Switch, Text } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { cloneDeep, debounce, defaultTo, isEqual, uniqBy } from 'lodash-es'
 import cx from 'classnames'
@@ -245,8 +245,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                         label={getString('cloneCodebaseLabel')}
                         onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
                         disabled={isReadonly}
+                        tooltipProps={{ tooltipId: 'cloneCodebase' }}
                       />
-                      <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
                     </div>
                   </FormikForm>
                 </Card>

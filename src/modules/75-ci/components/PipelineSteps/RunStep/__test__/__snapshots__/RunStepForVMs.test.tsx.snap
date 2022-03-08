@@ -210,17 +210,12 @@ exports[`Run Step view Edit View should render properly for AWS VMs build infra 
                   class="Tooltip--acenter"
                   data-tooltip-id="ciRunStep_spec.command"
                 >
-                  <div
-                    class="Text--withDocsTooltip"
-                    data-tooltip-id="runCommand"
+                  <p
+                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal StyledProps--font-weight-bold"
+                    style="display: flex; align-items: center;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal StyledProps--font-weight-bold"
-                      style="display: flex; align-items: center;"
-                    >
-                      commandLabel
-                    </p>
-                  </div>
+                    commandLabel
+                  </p>
                 </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"

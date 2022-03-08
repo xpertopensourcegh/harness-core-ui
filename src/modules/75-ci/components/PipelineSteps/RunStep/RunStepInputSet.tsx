@@ -165,7 +165,7 @@ export const RunStepInputSetBasic: React.FC<RunStepProps> = ({
                       {getString('pipelineSteps.reportPathsLabel')}
                     </Text>
                     &nbsp;
-                    {getOptionalSubLabel('reportPaths', getString)}
+                    {getOptionalSubLabel(getString, 'reportPaths')}
                   </Layout.Horizontal>
                 ),
                 allowedTypes: allowableTypes.filter(

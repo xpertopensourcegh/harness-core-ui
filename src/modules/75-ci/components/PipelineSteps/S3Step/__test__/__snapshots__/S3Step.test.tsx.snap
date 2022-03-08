@@ -133,17 +133,12 @@ exports[`S3 Step Edit View edit mode works 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciS3Base_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="s3Connector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.awsConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.awsConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -675,17 +670,12 @@ exports[`S3 Step Edit View renders runtime inputs 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciS3Base_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="s3Connector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.awsConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.awsConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -1298,17 +1288,12 @@ exports[`S3 Step Edit View should render properly 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciS3Base_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="s3Connector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.awsConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.awsConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -1718,17 +1703,12 @@ exports[`S3 Step InputSet View should render all fields 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="stepTestUtilForm_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="ecrConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.awsConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.awsConnectorLabel
+                </p>
               </span>
             </div>
             <div

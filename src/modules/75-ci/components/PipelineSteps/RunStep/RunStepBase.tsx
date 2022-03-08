@@ -136,7 +136,6 @@ export const RunStepBase = (
                     font={{ size: 'normal', weight: 'bold' }}
                     className={css.inpLabel}
                     style={{ display: 'flex', alignItems: 'center' }}
-                    tooltipProps={{ dataTooltipId: 'runCommand' }}
                   >
                     {getString('commandLabel')}
                   </Text>
@@ -195,7 +194,7 @@ export const RunStepBase = (
                       enableFields={{
                         'spec.privileged': { shouldHide: buildInfrastructureType === 'VM' },
                         'spec.reportPaths': {},
-                        'spec.envVariables': { tooltipId: 'environmentVariables' },
+                        'spec.envVariables': {},
                         'spec.outputVariables': {}
                       }}
                     />

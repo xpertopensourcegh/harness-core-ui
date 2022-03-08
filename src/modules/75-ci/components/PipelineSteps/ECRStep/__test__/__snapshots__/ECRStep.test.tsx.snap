@@ -133,17 +133,12 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciEcrStep_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="ecrConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.awsConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.awsConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -526,17 +521,12 @@ exports[`ECR Step Edit View edit mode works 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="ciEcrStep_spec.tags"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="tags"
+                    <p
+                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                        style="display: flex; align-items: center;"
-                      >
-                        tagsLabel
-                      </p>
-                    </div>
+                      tagsLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1034,17 +1024,12 @@ exports[`ECR Step Edit View renders runtime inputs 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciEcrStep_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="ecrConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.awsConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.awsConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -1507,17 +1492,12 @@ exports[`ECR Step Edit View renders runtime inputs 1`] = `
                   class="Tooltip--acenter"
                   data-tooltip-id="ciEcrStep_spec.tags"
                 >
-                  <div
-                    class="Text--withDocsTooltip"
-                    data-tooltip-id="tags"
+                  <p
+                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="display: flex; align-items: center;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                      style="display: flex; align-items: center;"
-                    >
-                      tagsLabel
-                    </p>
-                  </div>
+                    tagsLabel
+                  </p>
                 </span>
                  
                 <span
@@ -1783,17 +1763,12 @@ exports[`ECR Step Edit View should render properly 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciEcrStep_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="ecrConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.awsConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.awsConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -2125,17 +2100,12 @@ exports[`ECR Step Edit View should render properly 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="ciEcrStep_spec.tags"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="tags"
+                    <p
+                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                        style="display: flex; align-items: center;"
-                      >
-                        tagsLabel
-                      </p>
-                    </div>
+                      tagsLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2491,17 +2461,12 @@ exports[`ECR Step Edit View should render properly 1`] = `
                                     pipelineSteps.labelsLabel
                                   </p>
                                    
-                                  <div
-                                    class="Text--withDocsTooltip"
-                                    data-tooltip-id="labels"
+                                  <p
+                                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                                    style="text-transform: capitalize;"
                                   >
-                                    <p
-                                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                                      style="text-transform: capitalize;"
-                                    >
-                                      common.optionalLabel
-                                    </p>
-                                  </div>
+                                    common.optionalLabel
+                                  </p>
                                 </div>
                               </span>
                               <div
@@ -2593,17 +2558,12 @@ exports[`ECR Step Edit View should render properly 1`] = `
                                     pipelineSteps.buildArgsLabel
                                   </p>
                                    
-                                  <div
-                                    class="Text--withDocsTooltip"
-                                    data-tooltip-id="buildArgs"
+                                  <p
+                                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                                    style="text-transform: capitalize;"
                                   >
-                                    <p
-                                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                                      style="text-transform: capitalize;"
-                                    >
-                                      common.optionalLabel
-                                    </p>
-                                  </div>
+                                    common.optionalLabel
+                                  </p>
                                 </div>
                               </span>
                               <div
@@ -3127,17 +3087,12 @@ exports[`ECR Step Edit View should render properly 1`] = `
                                 pipelineSteps.timeoutLabel
                               </p>
                                
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="timeout"
+                              <p
+                                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                                style="text-transform: capitalize;"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                                  style="text-transform: capitalize;"
-                                >
-                                  common.optionalLabel
-                                </p>
-                              </div>
+                                common.optionalLabel
+                              </p>
                             </div>
                           </span>
                            
@@ -4029,17 +3984,12 @@ exports[`ECR Step InputSet View should render all fields 1`] = `
                         pipelineSteps.labelsLabel
                       </p>
                        
-                      <div
-                        class="Text--withDocsTooltip"
-                        data-tooltip-id="labels"
+                      <p
+                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                        style="text-transform: capitalize;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                          style="text-transform: capitalize;"
-                        >
-                          common.optionalLabel
-                        </p>
-                      </div>
+                        common.optionalLabel
+                      </p>
                     </div>
                   </span>
                   <div
@@ -4245,17 +4195,12 @@ exports[`ECR Step InputSet View should render all fields 1`] = `
                         pipelineSteps.buildArgsLabel
                       </p>
                        
-                      <div
-                        class="Text--withDocsTooltip"
-                        data-tooltip-id="buildArgs"
+                      <p
+                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                        style="text-transform: capitalize;"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                          style="text-transform: capitalize;"
-                        >
-                          common.optionalLabel
-                        </p>
-                      </div>
+                        common.optionalLabel
+                      </p>
                     </div>
                   </span>
                   <div

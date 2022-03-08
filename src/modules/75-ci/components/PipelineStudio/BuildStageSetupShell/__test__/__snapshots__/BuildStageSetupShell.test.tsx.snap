@@ -452,7 +452,12 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        cloneCodebaseLabel
+                        <span
+                          class="Tooltip--acenter Switch--inlineTooltip"
+                          data-tooltip-id="cloneCodebase"
+                        >
+                          cloneCodebaseLabel
+                        </span>
                       </label>
                     </div>
                   </div>

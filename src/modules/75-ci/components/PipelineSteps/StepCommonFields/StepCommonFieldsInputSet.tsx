@@ -65,7 +65,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                   {getString('pipelineSteps.pullLabel')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('imagePullPolicy', getString)}
+                {getOptionalSubLabel(getString, 'imagePullPolicy')}
               </Layout.Horizontal>
             }
             multiTypeInputProps={{
@@ -94,7 +94,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                   {getString('common.shell')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('shell', getString)}
+                {getOptionalSubLabel(getString, 'shell')}
               </Layout.Horizontal>
             }
             multiTypeInputProps={{
@@ -121,7 +121,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                   {getString('pipeline.stepCommonFields.runAsUser')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('runAsUser', getString)}
+                {getOptionalSubLabel(getString, 'runAsUser')}
               </Layout.Horizontal>
             }
             name={`${isEmpty(path) ? '' : `${path}.`}spec.runAsUser`}
@@ -165,7 +165,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                         {getString('pipelineSteps.limitCPULabel')}
                       </Text>
                       &nbsp;
-                      {getOptionalSubLabel('limitCPULabel', getString)}
+                      {getOptionalSubLabel(getString, 'limitCPULabel')}
                     </Layout.Horizontal>
                   }
                   multiTextInputProps={{
@@ -191,7 +191,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                   {getString('pipelineSteps.timeoutLabel')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('timeout', getString)}
+                {getOptionalSubLabel(getString, 'timeout')}
               </Layout.Horizontal>
             }
             name={`${isEmpty(path) ? '' : `${path}.`}timeout`}

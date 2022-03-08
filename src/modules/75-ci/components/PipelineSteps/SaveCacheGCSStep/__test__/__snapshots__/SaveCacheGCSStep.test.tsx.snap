@@ -133,17 +133,12 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="savedCacheGcs_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="gcpConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.gcpConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.gcpConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -451,17 +446,12 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="savedCacheGcs_spec.sourcePaths"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="saveCacheSourcePaths"
+                    <p
+                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                        style="display: flex; align-items: center;"
-                      >
-                        pipelineSteps.sourcePathsLabel
-                      </p>
-                    </div>
+                      pipelineSteps.sourcePathsLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -781,17 +771,12 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="savedCacheGcs_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="gcpConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.gcpConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.gcpConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -1140,17 +1125,12 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
                   class="Tooltip--acenter"
                   data-tooltip-id="savedCacheGcs_spec.sourcePaths"
                 >
-                  <div
-                    class="Text--withDocsTooltip"
-                    data-tooltip-id="saveCacheSourcePaths"
+                  <p
+                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="display: flex; align-items: center;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                      style="display: flex; align-items: center;"
-                    >
-                      pipelineSteps.sourcePathsLabel
-                    </p>
-                  </div>
+                    pipelineSteps.sourcePathsLabel
+                  </p>
                 </span>
                  
                 <span
@@ -1416,17 +1396,12 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="savedCacheGcs_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="gcpConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.gcpConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.gcpConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -1683,17 +1658,12 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="savedCacheGcs_spec.sourcePaths"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="saveCacheSourcePaths"
+                    <p
+                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                        style="display: flex; align-items: center;"
-                      >
-                        pipelineSteps.sourcePathsLabel
-                      </p>
-                    </div>
+                      pipelineSteps.sourcePathsLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2120,17 +2090,12 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="stepTestUtilForm_spec.sourcePaths"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="saveCacheSourcePaths"
+                    <p
+                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                        style="display: flex; align-items: center;"
-                      >
-                        pipelineSteps.sourcePathsLabel
-                      </p>
-                    </div>
+                      pipelineSteps.sourcePathsLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"

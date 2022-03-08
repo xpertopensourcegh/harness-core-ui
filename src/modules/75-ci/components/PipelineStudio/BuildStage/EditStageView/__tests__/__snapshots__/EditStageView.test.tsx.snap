@@ -241,7 +241,12 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                cloneCodebaseLabel
+                <span
+                  class="Tooltip--acenter Switch--inlineTooltip"
+                  data-tooltip-id="cloneCodebase"
+                >
+                  cloneCodebaseLabel
+                </span>
               </label>
             </div>
             <button
@@ -510,7 +515,12 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                cloneCodebaseLabel
+                <span
+                  class="Tooltip--acenter Switch--inlineTooltip"
+                  data-tooltip-id="cloneCodebase"
+                >
+                  cloneCodebaseLabel
+                </span>
               </label>
             </div>
             <div

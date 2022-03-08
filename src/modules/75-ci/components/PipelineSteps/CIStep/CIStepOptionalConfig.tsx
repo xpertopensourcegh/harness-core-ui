@@ -37,8 +37,8 @@ interface CIStepOptionalConfigProps {
 }
 
 export const getOptionalSubLabel = (
-  tooltip: string,
-  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
+  tooltip?: string
 ) => (
   <Text
     tooltipProps={tooltip ? { dataTooltipId: tooltip } : {}}
@@ -60,15 +60,23 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
   const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
 
   const renderMultiTypeMap = React.useCallback(
-    (
-      fieldName: string,
-      stringKey: keyof StringsMap,
-      tooltipId: string,
-      allowableTypes: MultiTypeInputType[],
-      keyLabel?: keyof StringsMap,
-      valueLabel?: keyof StringsMap,
+    ({
+      fieldName,
+      stringKey,
+      tooltipId,
+      allowableTypes,
+      keyLabel,
+      valueLabel,
+      restrictToSingleEntry
+    }: {
+      fieldName: string
+      stringKey: keyof StringsMap
+      tooltipId?: string
+      allowableTypes: MultiTypeInputType[]
+      keyLabel?: keyof StringsMap
+      valueLabel?: keyof StringsMap
       restrictToSingleEntry?: boolean
-    ): React.ReactElement => (
+    }): React.ReactElement => (
       <Container className={cx(css.formGroup, css.bottomMargin5, css.lg)}>
         <MultiTypeMap
           name={fieldName}
@@ -85,7 +93,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString(stringKey)}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel(tooltipId, getString)}
+                {getOptionalSubLabel(getString, tooltipId)}
               </Layout.Horizontal>
             )
           }}
@@ -122,7 +130,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString(stringKey)}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel(tooltipId, getString)}
+                {getOptionalSubLabel(getString, tooltipId)}
               </Layout.Horizontal>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -163,7 +171,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
               {getString(labelKey)}
             </Text>
             &nbsp;
-            {getOptionalSubLabel(tooltipId, getString)}
+            {getOptionalSubLabel(getString, tooltipId)}
           </Layout.Horizontal>
         }
         multiTextInputProps={inputProps}
@@ -208,7 +216,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       allowedTypes
     }: {
       name: string
-      tooltipId: string
+      tooltipId?: string
       labelKey: keyof StringsMap
       placeholderKey?: keyof StringsMap
       allowedTypes?: MultiTypeInputType[]
@@ -231,7 +239,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                 {getString(labelKey)}
               </Text>
               &nbsp;
-              {getOptionalSubLabel(tooltipId, getString)}
+              {tooltipId ? getOptionalSubLabel(getString, tooltipId) : ''}
             </Layout.Horizontal>
           ),
           allowedTypes: allowedTypes
@@ -285,12 +293,11 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.settings')
         ? isInputSetView
           ? renderMultiTypeMapInputSet(`${prefix}spec.settings`, 'settingsLabel', 'pluginSettings')
-          : renderMultiTypeMap(
-              `${prefix}spec.settings`,
-              'settingsLabel',
-              'pluginSettings',
-              isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
-            )
+          : renderMultiTypeMap({
+              fieldName: `${prefix}spec.settings`,
+              stringKey: 'settingsLabel',
+              allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
+            })
         : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.reportPaths') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
@@ -298,31 +305,24 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             name: `${prefix}spec.reportPaths`,
             placeholderKey: 'pipelineSteps.reportPathsPlaceholder',
             labelKey: 'pipelineSteps.reportPathsLabel',
-            tooltipId: 'reportPaths',
             allowedTypes: [MultiTypeInputType.FIXED]
           })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.envVariables')
         ? isInputSetView
-          ? renderMultiTypeMapInputSet(
-              `${prefix}spec.envVariables`,
-              'environmentVariables',
-              enableFields['spec.envVariables'].tooltipId
-            )
-          : renderMultiTypeMap(
-              `${prefix}spec.envVariables`,
-              'environmentVariables',
-              enableFields['spec.envVariables'].tooltipId,
-              isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
-            )
+          ? renderMultiTypeMapInputSet(`${prefix}spec.envVariables`, 'environmentVariables', '')
+          : renderMultiTypeMap({
+              fieldName: `${prefix}spec.envVariables`,
+              stringKey: 'environmentVariables',
+              allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
+            })
         : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.outputVariables') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           {renderMultiTypeList({
             name: `${prefix}spec.outputVariables`,
             labelKey: 'pipelineSteps.outputVariablesLabel',
-            tooltipId: 'outputVariables',
             allowedTypes: [MultiTypeInputType.FIXED]
           })}
         </Container>
@@ -357,15 +357,15 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
               'ci.containerPort',
               true
             )
-          : renderMultiTypeMap(
-              `${prefix}spec.portBindings`,
-              'ci.portBindings',
-              'portBindings',
-              isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep,
-              'ci.hostPort',
-              'ci.containerPort',
-              true
-            )
+          : renderMultiTypeMap({
+              fieldName: `${prefix}spec.portBindings`,
+              stringKey: 'ci.portBindings',
+              tooltipId: 'portBindings',
+              allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep,
+              keyLabel: 'ci.hostPort',
+              valueLabel: 'ci.containerPort',
+              restrictToSingleEntry: true
+            })
         : null}
       {!enableFields['spec.optimize']?.shouldHide &&
       Object.prototype.hasOwnProperty.call(enableFields, 'spec.optimize') ? (
@@ -412,23 +412,21 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.labels')
         ? isInputSetView
-          ? renderMultiTypeMapInputSet(`${prefix}spec.labels`, 'pipelineSteps.labelsLabel', 'labels')
-          : renderMultiTypeMap(
-              `${prefix}spec.labels`,
-              'pipelineSteps.labelsLabel',
-              'labels',
-              isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
-            )
+          ? renderMultiTypeMapInputSet(`${prefix}spec.labels`, 'pipelineSteps.labelsLabel', '')
+          : renderMultiTypeMap({
+              fieldName: `${prefix}spec.labels`,
+              stringKey: 'pipelineSteps.labelsLabel',
+              allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
+            })
         : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.buildArgs')
         ? isInputSetView
-          ? renderMultiTypeMapInputSet(`${prefix}spec.buildArgs`, 'pipelineSteps.buildArgsLabel', 'buildArgs')
-          : renderMultiTypeMap(
-              `${prefix}spec.buildArgs`,
-              'pipelineSteps.buildArgsLabel',
-              'buildArgs',
-              isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
-            )
+          ? renderMultiTypeMapInputSet(`${prefix}spec.buildArgs`, 'pipelineSteps.buildArgsLabel', '')
+          : renderMultiTypeMap({
+              fieldName: `${prefix}spec.buildArgs`,
+              stringKey: 'pipelineSteps.buildArgsLabel',
+              allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
+            })
         : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.endpoint') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
@@ -496,7 +494,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('archiveFormat')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('archiveFormat', getString)}
+                {getOptionalSubLabel(getString, 'archiveFormat')}
               </Layout.Horizontal>
             }
             multiTypeInputProps={{

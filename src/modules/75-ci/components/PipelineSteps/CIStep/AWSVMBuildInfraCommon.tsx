@@ -51,7 +51,7 @@ export const AWSVMBuildInfraCommon: React.FC<AWSVMBuildInfraCommonProps> = props
                 {getString('pipelineSteps.connectorLabel')}
               </Text>
               &nbsp;
-              {showOptionalSublabel ? getOptionalSubLabel('', getString) : null}
+              {showOptionalSublabel ? getOptionalSubLabel(getString) : null}
             </Layout.Horizontal>
           }
           type={[Connectors.GCP, Connectors.AWS, Connectors.DOCKER]}
@@ -91,7 +91,7 @@ export const AWSVMBuildInfraCommon: React.FC<AWSVMBuildInfraCommonProps> = props
                 {getString('imageLabel')}
               </Text>
               &nbsp;
-              {showOptionalSublabel ? getOptionalSubLabel('image', getString) : null}
+              {showOptionalSublabel ? getOptionalSubLabel(getString, 'image') : null}
             </Layout.Horizontal>
           }
           multiTextInputProps={{

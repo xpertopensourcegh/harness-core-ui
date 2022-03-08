@@ -102,7 +102,6 @@ export const PluginStepBase = (
                       color={Color.GREY_600}
                       font={{ size: 'small', weight: 'semi-bold' }}
                       style={{ display: 'flex', alignItems: 'center' }}
-                      tooltipProps={{ dataTooltipId: 'connector' }}
                     >
                       {getString('pipelineSteps.connectorLabel')}
                     </Text>

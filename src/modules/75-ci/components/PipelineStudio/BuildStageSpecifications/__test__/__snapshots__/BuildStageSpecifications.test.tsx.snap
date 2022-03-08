@@ -188,7 +188,12 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  cloneCodebaseLabel
+                  <span
+                    class="Tooltip--acenter Switch--inlineTooltip"
+                    data-tooltip-id="cloneCodebase"
+                  >
+                    cloneCodebaseLabel
+                  </span>
                 </label>
               </div>
             </div>

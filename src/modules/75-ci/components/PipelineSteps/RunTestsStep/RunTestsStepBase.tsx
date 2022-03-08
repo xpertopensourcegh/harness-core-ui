@@ -149,7 +149,7 @@ export const RunTestsStepBase = (
               {renderOptionalSublabel ? (
                 <>
                   &nbsp;
-                  {getOptionalSubLabel(tooltipId, getString)}
+                  {getOptionalSubLabel(getString, tooltipId)}
                 </>
               ) : null}
             </Layout.Horizontal>
@@ -212,7 +212,7 @@ export const RunTestsStepBase = (
                 {getString(fieldLabelKey)}
               </Text>
               &nbsp;
-              {getOptionalSubLabel(tooltipId, getString)}
+              {getOptionalSubLabel(getString, tooltipId)}
             </Layout.Horizontal>
           }
           defaultValueToReset=""
@@ -427,7 +427,7 @@ gradle.projectsEvaluated {
                       {renderMultiTypeTextField({
                         name: 'spec.testAnnotations',
                         fieldLabelKey: 'testAnnotationsLabel',
-                        tooltipId: 'runTestsTestAnnotations',
+                        tooltipId: '',
                         renderOptionalSublabel: true,
                         allowableTypes: AllMultiTypeInputTypesForStep
                       })}
@@ -440,7 +440,7 @@ gradle.projectsEvaluated {
                         {renderMultiTypeFieldSelector({
                           name: 'spec.preCommand',
                           fieldLabelKey: 'ci.preCommandLabel',
-                          tooltipId: 'runTestsPreCommand',
+                          tooltipId: '',
                           allowableTypes: AllMultiTypeInputTypesForStep
                         })}
                         {getMultiTypeFromValue(formik?.values?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
@@ -466,7 +466,7 @@ gradle.projectsEvaluated {
                         {renderMultiTypeFieldSelector({
                           name: 'spec.postCommand',
                           fieldLabelKey: 'ci.postCommandLabel',
-                          tooltipId: 'runTestsPostCommand',
+                          tooltipId: '',
                           allowableTypes: AllMultiTypeInputTypesForStep
                         })}
                         {getMultiTypeFromValue(formik?.values?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (

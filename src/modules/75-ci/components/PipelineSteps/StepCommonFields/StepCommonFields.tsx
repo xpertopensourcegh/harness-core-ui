@@ -258,7 +258,6 @@ const StepCommonFields = ({
                 </Text>
                 &nbsp;
                 <Text
-                  tooltipProps={{ dataTooltipId: 'timeout' }}
                   className={css.inpLabel}
                   color={Color.GREY_400}
                   font={{ size: 'small', weight: 'semi-bold' }}

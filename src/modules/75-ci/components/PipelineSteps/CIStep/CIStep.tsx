@@ -87,12 +87,10 @@ export const CIStep: React.FC<CIStepProps> = props => {
   const renderMultiTypeList = React.useCallback(
     ({
       name,
-      tooltipId,
       labelKey,
       allowableTypes
     }: {
       name: string
-      tooltipId: string
       labelKey: keyof StringsMap
       allowableTypes: MultiTypeInputType[]
     }) => (
@@ -106,7 +104,6 @@ export const CIStep: React.FC<CIStepProps> = props => {
               color={Color.GREY_600}
               font={{ size: 'small', weight: 'semi-bold' }}
               style={{ display: 'flex', alignItems: 'center' }}
-              tooltipProps={{ dataTooltipId: tooltipId }}
             >
               {getString(labelKey)}
             </Text>
@@ -308,7 +305,6 @@ export const CIStep: React.FC<CIStepProps> = props => {
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           {renderMultiTypeList({
             name: `${prefix}spec.sourcePaths`,
-            tooltipId: 'saveCacheSourcePaths',
             labelKey: 'pipelineSteps.sourcePathsLabel',
             allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
           })}
@@ -366,7 +362,6 @@ export const CIStep: React.FC<CIStepProps> = props => {
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           {renderMultiTypeList({
             name: `${prefix}spec.tags`,
-            tooltipId: 'tags',
             labelKey: 'tagsLabel',
             allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
           })}

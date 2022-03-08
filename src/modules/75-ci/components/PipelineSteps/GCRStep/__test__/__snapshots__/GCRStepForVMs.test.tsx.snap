@@ -131,17 +131,12 @@ exports[`GCR Step Edit View should render properly for AWS VMs build infra 1`] =
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciGcrStep_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="gcrConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.gcpConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.gcpConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -473,17 +468,12 @@ exports[`GCR Step Edit View should render properly for AWS VMs build infra 1`] =
                     class="Tooltip--acenter"
                     data-tooltip-id="ciGcrStep_spec.tags"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="tags"
+                    <p
+                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                        style="display: flex; align-items: center;"
-                      >
-                        tagsLabel
-                      </p>
-                    </div>
+                      tagsLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"

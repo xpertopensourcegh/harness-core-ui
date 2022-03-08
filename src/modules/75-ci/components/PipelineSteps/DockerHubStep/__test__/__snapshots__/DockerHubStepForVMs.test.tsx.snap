@@ -131,17 +131,12 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="dockerHubStep_spec.connectorRef"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="dockerHubConnector"
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="display: flex; align-items: center;"
-                  >
-                    pipelineSteps.dockerHubConnectorLabel
-                  </p>
-                </div>
+                  pipelineSteps.dockerHubConnectorLabel
+                </p>
               </span>
             </div>
             <div
@@ -324,17 +319,12 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                     class="Tooltip--acenter"
                     data-tooltip-id="dockerHubStep_spec.tags"
                   >
-                    <div
-                      class="Text--withDocsTooltip"
-                      data-tooltip-id="tags"
+                    <p
+                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      style="display: flex; align-items: center;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                        style="display: flex; align-items: center;"
-                      >
-                        tagsLabel
-                      </p>
-                    </div>
+                      tagsLabel
+                    </p>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -630,17 +620,12 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                                     pipelineSteps.labelsLabel
                                   </p>
                                    
-                                  <div
-                                    class="Text--withDocsTooltip"
-                                    data-tooltip-id="labels"
+                                  <p
+                                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                                    style="text-transform: capitalize;"
                                   >
-                                    <p
-                                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                                      style="text-transform: capitalize;"
-                                    >
-                                      common.optionalLabel
-                                    </p>
-                                  </div>
+                                    common.optionalLabel
+                                  </p>
                                 </div>
                               </span>
                               <div
@@ -732,17 +717,12 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                                     pipelineSteps.buildArgsLabel
                                   </p>
                                    
-                                  <div
-                                    class="Text--withDocsTooltip"
-                                    data-tooltip-id="buildArgs"
+                                  <p
+                                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                                    style="text-transform: capitalize;"
                                   >
-                                    <p
-                                      class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                                      style="text-transform: capitalize;"
-                                    >
-                                      common.optionalLabel
-                                    </p>
-                                  </div>
+                                    common.optionalLabel
+                                  </p>
                                 </div>
                               </span>
                               <div
@@ -912,17 +892,12 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                                 pipelineSteps.timeoutLabel
                               </p>
                                
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="timeout"
+                              <p
+                                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                                style="text-transform: capitalize;"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                                  style="text-transform: capitalize;"
-                                >
-                                  common.optionalLabel
-                                </p>
-                              </div>
+                                common.optionalLabel
+                              </p>
                             </div>
                           </span>
                            
