@@ -805,6 +805,7 @@ export interface StringsMap {
   'rbac.allOrgResources': string
   'rbac.allProjectResources': string
   'rbac.allResources': string
+  'rbac.allResourcesIncludingChildScopes': string
   'rbac.apiKey.confirmDelete': string
   'rbac.apiKey.confirmDeleteTitle': string
   'rbac.apiKey.createLabel': string
