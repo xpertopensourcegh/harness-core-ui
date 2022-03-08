@@ -311,7 +311,7 @@ git:
   bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
   enableAPIAccess: 'Enable API access (recommended)'
   APIAccessDescription: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
-  testRepositoryDescription: Please provide a Repository name to test the credentials. The Connector will still be created at the Account level.
+  testRepositoryDescription: Please provide a repository to test the credentials. This is required just for checking connectivity. The connector will still be created at account level.
   APIAuthentication: 'API Authentication'
   gitHubApp: 'GitHub App'
   installationId: 'GitHub Installation Id'
