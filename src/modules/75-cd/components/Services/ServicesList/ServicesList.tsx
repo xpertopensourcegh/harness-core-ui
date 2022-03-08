@@ -289,6 +289,7 @@ const RenderLastDeploymentStatus: Renderer<CellProps<ServiceListItem>> = ({ row 
         color={Color.WHITE}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         className={css.statusText}
+        lineClamp={1}
       >
         {statusText?.toLocaleUpperCase()}
       </Text>
