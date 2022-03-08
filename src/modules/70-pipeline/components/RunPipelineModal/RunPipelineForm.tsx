@@ -250,6 +250,11 @@ function RunPipelineFormBasic({
     }
   })
 
+  const pipeline: PipelineInfoConfig | undefined = React.useMemo(
+    () => parse(defaultTo(pipelineResponse?.data?.yamlPipeline, ''))?.pipeline,
+    [pipelineResponse?.data?.yamlPipeline]
+  )
+
   const { data: templateRefsResolvedPipeline, loading: loadingResolvedPipeline } = useMutateAsGet(
     useGetYamlWithTemplateRefsResolved,
     {
@@ -263,7 +268,7 @@ function RunPipelineFormBasic({
         getDefaultFromOtherRepo: true
       },
       body: {
-        originalEntityYaml: yamlStringify(parse(defaultTo(pipelineResponse?.data?.yamlPipeline, ''))?.pipeline)
+        originalEntityYaml: yamlStringify(pipeline)
       }
     }
   )
@@ -491,7 +496,7 @@ function RunPipelineFormBasic({
     [selectedInputSets]
   )
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
       const parsedTemplate = parse(template?.data?.inputSetTemplateYaml) as { pipeline: PipelineInfoConfig }
       if (shouldMakeMergeInputSetCall()) {
@@ -511,8 +516,6 @@ function RunPipelineFormBasic({
     orgIdentifier,
     pipelineIdentifier
   ])
-
-  const pipeline: PipelineInfoConfig | undefined = parse(defaultTo(pipelineResponse?.data?.yamlPipeline, ''))?.pipeline
 
   const resolvedPipeline: PipelineInfoConfig | undefined = parse(
     defaultTo(templateRefsResolvedPipeline?.data?.mergedPipelineYaml, '')
