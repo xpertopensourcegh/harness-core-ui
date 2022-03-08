@@ -56,6 +56,7 @@ export interface CustomMetricInterface {
   mappedMetrics: Map<string, CustomMappedMetric>
   initCustomForm: InitAppDCustomFormInterface | InitNewRelicCustomFormInterface
   groupedCreatedMetrics?: GroupedCreatedMetrics
+  shouldBeAbleToDeleteLastMetric?: boolean
   setMappedMetrics: React.Dispatch<React.SetStateAction<CustomSelectedAndMappedMetrics>>
   setCreatedMetrics: React.Dispatch<React.SetStateAction<CreatedMetricsWithSelectedIndex>>
   setGroupedCreatedMetrics: React.Dispatch<React.SetStateAction<GroupedCreatedMetrics>>

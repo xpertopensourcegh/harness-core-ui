@@ -32,7 +32,8 @@ export default function CustomMetric(props: CustomMetricInterface): JSX.Element 
     setMappedMetrics,
     setCreatedMetrics,
     setGroupedCreatedMetrics,
-    initCustomForm
+    initCustomForm,
+    shouldBeAbleToDeleteLastMetric
   } = props
   const { getString } = useStrings()
 
@@ -108,6 +109,7 @@ export default function CustomMetric(props: CustomMetricInterface): JSX.Element 
             removeMetric(removedMetric, updatedMetric, updatedList, smIndex)
           }
           onSelectMetric={(newMetric, updatedList, smIndex) => selectMetric(newMetric, updatedList, smIndex)}
+          shouldBeAbleToDeleteLastMetric={shouldBeAbleToDeleteLastMetric}
         />
       }
       content={children}
