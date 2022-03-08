@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { omit } from 'lodash-es'
+import { defaultTo, omit } from 'lodash-es'
 import * as Yup from 'yup'
 import {
   Button,
@@ -17,7 +17,8 @@ import {
   Container,
   FormikForm,
   VisualYamlSelectedView as SelectedView,
-  VisualYamlToggle
+  VisualYamlToggle,
+  getErrorInfoFromErrorObject
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -55,6 +56,20 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   }
 }
 
+const cleanData = (values: ServiceRequestDTO): ServiceRequestDTO => {
+  const newDescription = values.description?.toString().trim()
+  const newId = values.identifier?.toString().trim()
+  const newName = values.name?.toString().trim()
+  return {
+    name: newName,
+    identifier: newId,
+    orgIdentifier: values.orgIdentifier,
+    projectIdentifier: values.projectIdentifier,
+    description: newDescription,
+    tags: values.tags
+  }
+}
+
 export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = ({
   isEdit,
   data,
@@ -87,8 +102,9 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
   const { showSuccess, showError, clear } = useToaster()
 
   const onSubmit = React.useCallback(
-    async (values: ServiceRequestDTO) => {
+    async (value: ServiceRequestDTO) => {
       try {
+        const values = cleanData(value)
         if (!values.name) {
           showError(getString('fieldRequired', { field: 'Service' }))
         } else if (!values.identifier) {
@@ -115,7 +131,7 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
           }
         }
       } catch (e) {
-        showError(e?.data?.message || e?.message || getString('commonError'))
+        showError(getErrorInfoFromErrorObject(e, true))
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -136,16 +152,11 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
-        const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+        const yaml = defaultTo(yamlHandler?.getLatestYaml(), /* istanbul ignore next */ '')
         const serviceSetYamlVisual = parse(yaml).service as ServiceResponseDTO
         if (serviceSetYamlVisual) {
-          data.name = serviceSetYamlVisual.name || ''
-          data.identifier = serviceSetYamlVisual.identifier || ''
-          data.description = serviceSetYamlVisual.description || ''
-          data.tags = serviceSetYamlVisual.tags || {}
-
           formikRef.current?.setValues({
-            ...omit(data)
+            ...omit(cleanData(serviceSetYamlVisual) as ServiceResponseDTO)
           })
         }
       }
@@ -217,8 +228,8 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
                     existingJSON={{
                       service: {
                         ...omit(formikProps?.values),
-                        description: formikProps.values.description || '',
-                        tags: formikProps.values.tags || {}
+                        description: defaultTo(formikProps.values.description, ''),
+                        tags: defaultTo(formikProps.values.tags, {})
                       }
                     }}
                     bind={setYamlHandler}
@@ -231,7 +242,7 @@ export const NewEditServiceModalYaml: React.FC<NewEditServiceModalPropsYaml> = (
                       type="submit"
                       text={getString('save')}
                       onClick={() => {
-                        const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+                        const latestYaml = defaultTo(yamlHandler?.getLatestYaml(), /* istanbul ignore next */ '')
                         onSubmit(parse(latestYaml)?.service)
                       }}
                     />

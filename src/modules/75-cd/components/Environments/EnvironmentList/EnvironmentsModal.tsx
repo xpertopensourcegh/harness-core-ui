@@ -16,10 +16,11 @@ import {
   VisualYamlSelectedView as SelectedView,
   VisualYamlToggle,
   Container,
-  ThumbnailSelect
+  ThumbnailSelect,
+  getErrorInfoFromErrorObject
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { omit } from 'lodash-es'
+import { defaultTo, isEqual, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
@@ -62,6 +63,22 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   }
 }
 
+const cleanData = (values: EnvironmentResponseDTO): EnvironmentRequestDTO => {
+  const newDescription = values.description?.toString().trim()
+  const newId = values.identifier?.toString().trim()
+  const newName = values.name?.toString().trim()
+  const newType = values.type?.toString().trim()
+  return {
+    name: newName,
+    identifier: newId,
+    orgIdentifier: values.orgIdentifier,
+    projectIdentifier: values.projectIdentifier,
+    description: newDescription,
+    tags: values.tags,
+    type: newType as 'PreProduction' | 'Production'
+  }
+}
+
 export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps> = ({
   isEdit,
   data,
@@ -89,14 +106,15 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
   })
   const { showSuccess, showError, clear } = useToaster()
   const onSubmit = React.useCallback(
-    async (values: EnvironmentRequestDTO) => {
+    async (value: EnvironmentRequestDTO) => {
       try {
+        const values = cleanData(value)
         if (!values.name) {
           showError(getString('fieldRequired', { field: 'Environment' }))
         } else if (!values.identifier) {
           showError(getString('common.validation.fieldIsRequired', { name: 'Identifier' }))
-        } else if (!values.type) {
-          showError(getString('fieldRequired', { field: 'Type' }))
+        } else if (!(isEqual(values.type, 'PreProduction') || isEqual(values.type, 'Production'))) {
+          showError(getString('cd.typeError'))
         } else if (isEdit && id !== values.identifier) {
           showError(getString('cd.editIdError', { id: id }))
         } else if (isEdit) {
@@ -119,7 +137,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
           }
         }
       } catch (e) {
-        showError(e?.data?.message || e?.message || getString('commonError'))
+        showError(getErrorInfoFromErrorObject(e, true))
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -152,17 +170,11 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
-        const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+        const yaml = defaultTo(yamlHandler?.getLatestYaml(), /* istanbul ignore next */ '')
         const envSetYamlVisual = parse(yaml).environment as EnvironmentResponseDTO
         if (envSetYamlVisual) {
-          data.name = envSetYamlVisual.name || ''
-          data.identifier = envSetYamlVisual.identifier || ''
-          data.description = envSetYamlVisual.description || ''
-          data.tags = envSetYamlVisual.tags || {}
-          data.type = envSetYamlVisual.type
-
           formikRef.current?.setValues({
-            ...omit(data)
+            ...omit(cleanData(envSetYamlVisual) as EnvironmentResponseDTO)
           })
         }
       }
@@ -239,9 +251,9 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
                       existingJSON={{
                         environment: {
                           ...omit(formikProps?.values),
-                          description: formikProps.values.description || '',
-                          tags: formikProps.values.tags || {},
-                          type: formikProps.values.type || ''
+                          description: defaultTo(formikProps.values.description, ''),
+                          tags: defaultTo(formikProps.values.tags, {}),
+                          type: defaultTo(formikProps.values.type, '')
                         }
                       }}
                       schema={environmentSchema?.data}
@@ -255,7 +267,7 @@ export const NewEditEnvironmentModalYaml: React.FC<NewEditEnvironmentModalProps>
                         type="submit"
                         text={getString('save')}
                         onClick={() => {
-                          const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+                          const latestYaml = defaultTo(yamlHandler?.getLatestYaml(), /* istanbul ignore next */ '')
                           onSubmit(parse(latestYaml)?.environment)
                         }}
                       />

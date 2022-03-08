@@ -6,7 +6,8 @@
  */
 
 import React from 'react'
-import { render, fireEvent, getByText } from '@testing-library/react'
+import { render, fireEvent, waitFor, act } from '@testing-library/react'
+import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import { serviceModal } from '@cd/mock'
 import { NewEditServiceModalYaml } from '../ServicesListPage/ServiceModal'
@@ -16,10 +17,19 @@ jest.mock('services/pipeline-ng', () => {
     useGetSchemaYaml: jest.fn(() => ({ data: null }))
   }
 })
+const onSave = jest.fn()
+const onClose = jest.fn()
 
+const props = {
+  isEdit: false,
+  data: { name: '', identifier: '', orgIdentifier: 'orgIdentifier', projectIdentifier: 'projectIdentifier' },
+  isService: true,
+  onCreateOrUpdate: onSave,
+  closeModal: onClose
+}
 describe('ServiceModal', () => {
   test('should render Services modal', () => {
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper
         path="account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier/services"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
@@ -28,9 +38,44 @@ describe('ServiceModal', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    fireEvent.click(getByText(document.body, 'save'))
-    fireEvent.click(getByText(document.body, 'YAML'))
-    fireEvent.click(getByText(document.body, 'save'))
+    fireEvent.click(getByText('save'))
+    fireEvent.click(getByText('YAML'))
+    fireEvent.click(getByText('save'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should validate edit mode snapshot', async () => {
+    const { container, getByText } = render(
+      <TestWrapper>
+        <NewEditServiceModalYaml
+          {...props}
+          isEdit={true}
+          isService={false}
+          data={{
+            name: 'Service 101',
+            identifier: 'Service_101',
+            orgIdentifier: 'orgIdentifier',
+            projectIdentifier: 'projectIdentifier'
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('input[value="Service 101"]')).toBeTruthy())
+
+    fillAtForm([
+      {
+        container,
+        fieldId: 'name',
+        type: InputTypes.TEXTFIELD,
+        value: 'Service 102'
+      }
+    ])
+
+    await act(async () => {
+      fireEvent.click(getByText('save'))
+    })
+
     expect(container).toMatchSnapshot()
   })
 })

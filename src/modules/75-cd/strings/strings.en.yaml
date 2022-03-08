@@ -125,6 +125,7 @@ gitOps: GitOps
 addService: Add Service
 addEnvironment: Add Environment
 editIdError: 'ID: {{id}} cannot be edited'
+typeError: 'Type should not be empty and contain either "Production" or "PreProduction"'
 newAdapter: New Adapter
 newGitOpsServer: New GitOps Server
 adapterDetails: Adapter Details
