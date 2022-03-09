@@ -677,6 +677,10 @@ function RunPipelineFormBasic({
     },
     [yamlHandler?.getLatestYaml]
   )
+  const isStageExecutionDisabled = (): boolean => {
+    //stageExecutionData?.data is empty array when allowStageExecution is set to false in advanced tab
+    return Boolean(pipelineExecutionId) || isEmpty(stageExecutionData?.data)
+  }
 
   const blockedStagesSelected = useMemo(() => {
     let areDependentStagesSelected = false
@@ -919,6 +923,7 @@ function RunPipelineFormBasic({
   }
 
   const runModalHeader = (): React.ReactElement => {
+    const stageExecutionDisabledTooltip = isStageExecutionDisabled() ? 'stageExecutionDisabled' : undefined
     return (
       <div className={css.runModalHeader}>
         <Heading
@@ -940,11 +945,11 @@ function RunPipelineFormBasic({
           </GitSyncStoreProvider>
         )}
 
-        <div>
+        <div data-tooltip-id={stageExecutionDisabledTooltip}>
           <MultiSelectDropDown
             popoverClassName={css.disabledStageDropdown}
             hideItemCount={selectedStageData.allStagesSelected}
-            disabled={Boolean(pipelineExecutionId)}
+            disabled={isStageExecutionDisabled()}
             buttonTestId={'stage-select'}
             onChange={onStageSelect}
             onPopoverClose={() => {
@@ -961,6 +966,7 @@ function RunPipelineFormBasic({
             placeholder={selectedStageData.allStagesSelected ? getString('pipeline.allStages') : getString('stages')}
             className={cx({ [css.stagesDropdown]: isGitSyncEnabled })}
           />
+          <HarnessDocTooltip tooltipId={stageExecutionDisabledTooltip} useStandAlone={true} />
         </div>
 
         <div className={css.optionBtns}>
