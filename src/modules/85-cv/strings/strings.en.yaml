@@ -1,6 +1,6 @@
 continuous: '{{$.common.purpose.cv.serviceReliability}}'
 methodLabel: Method Label
-request: Request
+request: '{{ $.common.request }}'
 response: Response
 responseBody: Response Body
 statusCode: Status Code

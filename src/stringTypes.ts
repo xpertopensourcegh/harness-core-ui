@@ -41,6 +41,7 @@ export interface StringsMap {
   'common.advanced': string
   'common.agent': string
   'common.allErrors': string
+  'common.and': string
   'common.apiKeys': string
   'common.apiStatus': string
   'common.apikey': string
@@ -96,6 +97,7 @@ export interface StringsMap {
   'common.billed': string
   'common.blank': string
   'common.branchName': string
+  'common.by': string
   'common.capsAll': string
   'common.ce.autostopping': string
   'common.ce.cost': string
@@ -517,6 +519,7 @@ export interface StringsMap {
   'common.reportName': string
   'common.reportNameRequired': string
   'common.repositoryName': string
+  'common.request': string
   'common.resolveConflict': string
   'common.resourceCenter.bottomlayout.apiDocs': string
   'common.resourceCenter.bottomlayout.changeLog': string
@@ -717,6 +720,9 @@ export interface StringsMap {
   'common.viewUsage': string
   'common.webhookURL': string
   'common.welcome': string
+  'common.whose': string
+  'common.with': string
+  'common.without': string
   'common.yearly': string
   'notifications.buttonSend': string
   'notifications.emailOrAlias': string
@@ -3924,30 +3930,44 @@ export interface StringsMap {
   'ce.perspectives.workloadDetails.fieldNames.workload': string
   'ce.perspectives.workloadDetails.fieldNames.workloadType': string
   'ce.perspectives.workloadDetails.workloadDetailsText': string
+  'ce.recommendation.detailsPage.burstable': string
+  'ce.recommendation.detailsPage.containerHeader': string
   'ce.recommendation.detailsPage.costOptimized': string
   'ce.recommendation.detailsPage.costOptimizedCaps': string
   'ce.recommendation.detailsPage.costOptimizedDetails': string
   'ce.recommendation.detailsPage.currentResources': string
-  'ce.recommendation.detailsPage.customDetails': string
+  'ce.recommendation.detailsPage.customDetailsText1': string
+  'ce.recommendation.detailsPage.customDetailsText2': string
+  'ce.recommendation.detailsPage.customDetailsText3': string
+  'ce.recommendation.detailsPage.guaranteed': string
+  'ce.recommendation.detailsPage.headerText': string
   'ce.recommendation.detailsPage.histogramText': string
   'ce.recommendation.detailsPage.histogramTextDetails1': string
   'ce.recommendation.detailsPage.histogramTextDetails2': string
   'ce.recommendation.detailsPage.howItWorks': string
   'ce.recommendation.detailsPage.idleCost': string
   'ce.recommendation.detailsPage.limitPercentileLegendText': string
+  'ce.recommendation.detailsPage.memoryValueBuffer': string
+  'ce.recommendation.detailsPage.monthlySpendByDate': string
   'ce.recommendation.detailsPage.percentileOfReqAndLimit': string
   'ce.recommendation.detailsPage.performanceOptimized': string
   'ce.recommendation.detailsPage.performanceOptimizedCaps': string
   'ce.recommendation.detailsPage.performanceOptimizedDetails': string
+  'ce.recommendation.detailsPage.qualityOfService': string
   'ce.recommendation.detailsPage.recommendationComputation': string
   'ce.recommendation.detailsPage.recommendedResources': string
   'ce.recommendation.detailsPage.reqPercentileLegendText': string
   'ce.recommendation.detailsPage.resetRecommendationText': string
   'ce.recommendation.detailsPage.resizeText': string
   'ce.recommendation.detailsPage.resourceChanges': string
+  'ce.recommendation.detailsPage.setQoSAndBuffer': string
   'ce.recommendation.detailsPage.timeChangeText': string
   'ce.recommendation.detailsPage.totalCost': string
+  'ce.recommendation.detailsPage.tuneRecommendations': string
+  'ce.recommendation.detailsPage.utilizationDataComputation': string
   'ce.recommendation.detailsPage.viewMoreDetailsText': string
+  'ce.recommendation.detailsPage.workloadMonthlyPotentialCostText': string
+  'ce.recommendation.detailsPage.workloadMonthlySavingsText': string
   'ce.recommendation.listPage.backToPerspectives': string
   'ce.recommendation.listPage.filterHereText': string
   'ce.recommendation.listPage.filters.clusterName': string
@@ -3963,17 +3983,25 @@ export interface StringsMap {
   'ce.recommendation.listPage.listTableHeaders.resourceName': string
   'ce.recommendation.listPage.listTableHeaders.resourceType': string
   'ce.recommendation.listPage.monthlyForcastedCostText': string
+  'ce.recommendation.listPage.monthlyPotentialCostText': string
   'ce.recommendation.listPage.monthlySavingsText': string
   'ce.recommendation.listPage.recommendationDetails.resize': string
   'ce.recommendation.listPage.recommendationTypes.resizing': string
   'ce.recommendation.listPage.recommendationTypes.rightSizing': string
   'ce.recommendation.listPage.recommnedationBreakdown': string
   'ce.recommendation.listPage.uptoText': string
+  'ce.recommendation.recommendationChart.and': string
+  'ce.recommendation.recommendationChart.cpuHistogramHeader': string
   'ce.recommendation.recommendationChart.cpuPlaceholder': string
+  'ce.recommendation.recommendationChart.limitLabel': string
+  'ce.recommendation.recommendationChart.limitLabelRegular': string
+  'ce.recommendation.recommendationChart.memoryHistogramHeader': string
   'ce.recommendation.recommendationChart.memoryLabel': string
   'ce.recommendation.recommendationChart.memoryLabelRegular': string
   'ce.recommendation.recommendationChart.memoryUsagePlaceholder': string
   'ce.recommendation.recommendationChart.noOfSamples': string
+  'ce.recommendation.recommendationChart.request': string
+  'ce.recommendation.recommendationChart.willBeMet': string
   'ce.recommendation.sideNavText': string
   'ce.savedYamlSuccess': string
   'ce.sideNav.perspective': string

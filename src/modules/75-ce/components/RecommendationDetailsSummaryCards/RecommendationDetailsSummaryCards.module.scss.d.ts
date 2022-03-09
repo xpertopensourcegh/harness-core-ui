@@ -7,9 +7,8 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly borderBottom: string
-  readonly borderLeft: string
-  readonly borderRight: string
-  readonly diffContainer: string
+  readonly amount: string
+  readonly potentialSpendCard: string
+  readonly savingsCard: string
 }
 export default styles
