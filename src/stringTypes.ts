@@ -1132,6 +1132,7 @@ export interface StringsMap {
   'secrets.createSSHCredWizard.verifyRetest': string
   'secrets.createSSHCredWizard.verifyStepOne': string
   'secrets.createSSHCredWizard.verifyStepTwo': string
+  'secrets.createSecret': string
   'secrets.incompleteSecret': string
   'secrets.labelPath': string
   'secrets.labelSecretName': string
