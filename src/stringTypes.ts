@@ -2348,6 +2348,7 @@ export interface StringsMap {
   'pipeline.commentModal.info': string
   'pipeline.conditionalExecution.belowExpression': string
   'pipeline.conditionalExecution.condition': string
+  'pipeline.conditionalExecution.conditionLabel': string
   'pipeline.conditionalExecution.statusOption.all': string
   'pipeline.conditionalExecution.statusOption.failure': string
   'pipeline.conditionalExecution.statusOption.success': string

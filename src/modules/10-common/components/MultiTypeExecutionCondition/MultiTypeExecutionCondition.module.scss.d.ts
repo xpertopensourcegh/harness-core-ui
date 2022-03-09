@@ -7,16 +7,6 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly accordionSummary: string
-  readonly conditionalExecutionTitle: string
-  readonly container: string
-  readonly header: string
-  readonly inputWidth: string
-  readonly inputheader: string
-  readonly nestedAccordions: string
-  readonly noMarginLeft: string
-  readonly stagesTreeBulletCircle: string
-  readonly stagesTreeBulletSquare: string
-  readonly topAccordion: string
+  readonly conditionInputContainer: string
 }
 export default styles
