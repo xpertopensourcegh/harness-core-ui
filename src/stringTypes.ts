@@ -2581,6 +2581,7 @@ export interface StringsMap {
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.inputSets.overlayISHelperText': string
   'pipeline.inputSets.selectPlaceholder': string
+  'pipeline.invalidRequest': string
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string
   'pipeline.jiraApprovalStep.execution.allConditionsMsg': string

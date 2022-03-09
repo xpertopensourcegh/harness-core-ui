@@ -103,6 +103,7 @@ import {
   usePipelineVariables
 } from '../PipelineVariablesContext/PipelineVariablesContext'
 import { ApprovalStageInfo, ExpressionsInfo, RequiredStagesInfo } from './RunStageInfoComponents'
+import { PipelineInvalidRequestContent } from './PipelineInvalidRequestContent'
 import css from './RunPipelineForm.module.scss'
 
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
@@ -1224,8 +1225,18 @@ function RunPipelineFormBasic({
       </Formik>
     </>
   )
+  const runPipelineFormContent = (
+    <>
+      {getTemplateError?.message ? (
+        <PipelineInvalidRequestContent onClose={onClose} getTemplateError={getTemplateError} />
+      ) : (
+        runPipelineContent
+      )}
+    </>
+  )
+
   return executionView ? (
-    <div className={css.runFormExecutionView}>{runPipelineContent}</div>
+    <div className={css.runFormExecutionView}>{runPipelineFormContent}</div>
   ) : (
     <RunPipelineFormWrapper
       accountId={accountId}
@@ -1235,7 +1246,7 @@ function RunPipelineFormBasic({
       module={module}
       pipeline={pipeline}
     >
-      {runPipelineContent}
+      {runPipelineFormContent}
     </RunPipelineFormWrapper>
   )
 }

@@ -873,3 +873,4 @@ ci:
     serviceDependencyIdentifier: 'Identifier should match regex {{regex}}'
 imageVersionDeprecated: Image version outdated
 unsupportedImagesWarning: 'You are using unsupported Harness CI images. Harness allows builds to use these images, but we cannot ensure that builds will not fail. Please update the versions of the following image(s) {{summary}}'
+invalidRequest: Invalid Request
