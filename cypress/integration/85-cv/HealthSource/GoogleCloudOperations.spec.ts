@@ -260,7 +260,15 @@ describe('Health Source - Google Cloud Operations', () => {
 
     cy.wait('@dashboardsResponse')
     cy.findAllByRole('button', { name: /Next/g }).last().click()
+    cy.get('textarea[name="query"]').should('not.be.empty')
 
     cy.findByRole('button', { name: /Submit/i }).click()
+
+    cy.contains('div', 'GCO Metric').click()
+    cy.get('.Card--selected [data-icon="service-stackdriver"]').should('be.visible')
+
+    cy.findByRole('button', { name: /Next/i }).click()
+
+    cy.get('textarea[name="query"]').should('not.be.empty')
   })
 })

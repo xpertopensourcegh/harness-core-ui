@@ -25,6 +25,7 @@ import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
+import { HealthSourcesType } from '@cv/constants'
 import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
@@ -69,6 +70,9 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
       const features = getFeatureOption(name, getString)
       return features.some(el => el?.value === formik.values.product.value)
     } else {
+      if (name === Connectors.GCP && formik?.values?.sourceType === HealthSourcesType.Stackdriver) {
+        return true
+      }
       return name == formik?.values?.sourceType
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

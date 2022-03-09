@@ -272,7 +272,7 @@ describe('Create empty monitored service', () => {
     cy.contains('span', 'Submit').click({ force: true })
     cy.get('span[data-icon="Options"]').click()
     cy.contains('div', 'Delete').click()
-    cy.get('.useConfirmationDialog--dialog button[type="button"]').first().click()
+    cy.get('.ConfirmationDialog--dialog button[type="button"]').first().click()
   })
 
   it('should populate AppDynamics healthsource edit mode', () => {
