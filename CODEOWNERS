@@ -5,15 +5,9 @@
 package.json @harness/ui-council
 tsconfig.json @harness/ui-council
 tsconfig-eslint.json @harness/ui-council
-webpack.config.js @harness/ui-council
-webpack.devServerProxy.config.js @harness/ui-council
 jest.config.js @harness/ui-council
 coverage-groups.json @harness/ui-council
 dockerfile @harness/ui-council
-src/framework/ @harness/ui-council
-src/modules/10-common/navigation/ @harness/ui-council
-src/modules/10-common/RouteDefinitions.ts @harness/ui-council
-src/services/ @harness/ui-council
 harnessci.Dockerfile @harness/ui-council
 restful-react.config.js @harness/ui-council
 sonar-project.properties @harness/ui-council
@@ -22,6 +16,13 @@ yarn.lock @harness/ui-council
 .storybook/ @harness/ui-council
 scripts/ @harness/ui-council
 certificates/ @harness/ui-council
+configs/modulefederation.config.js @abhinavrastogi-harness @vkbansal @knagurski @tan-nhu
+configs/ @harness/ui-council @abhinavrastogi-harness @vkbansal
+src/microfrontends/ @abhinavrastogi-harness @vkbansal @knagurski @tan-nhu
+src/framework/ @harness/ui-council
+src/services/ @harness/ui-council
+src/modules/10-common/navigation/ @harness/ui-platform
+src/modules/10-common/RouteDefinitions.ts @harness/ui-council
 src/modules/10-common/layouts @harness/ui-council
 src/modules/15-notifications @harness/ui-platform
 src/modules/18-audit-trail @harness/ui-platform
