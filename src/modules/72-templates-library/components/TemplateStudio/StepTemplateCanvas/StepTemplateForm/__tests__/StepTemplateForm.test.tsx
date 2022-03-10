@@ -6,18 +6,21 @@
  */
 
 import React from 'react'
-import { act, fireEvent, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
-import templateContextMock, {
+import {
+  getTemplateContextMock,
   stepTemplateMock
-} from '@templates-library/components/TemplateStudio/SaveTemplatePopover/_test_/stateMock'
+} from '@templates-library/components/TemplateStudio/__tests__/stateMock'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { StepCommandsProps } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepTemplateFormWithRef } from '@templates-library/components/TemplateStudio/StepTemplateCanvas/StepTemplateForm/StepTemplateForm'
+import { TemplateType } from '@templates-library/utils/templatesUtils'
+import type { StepCommandsRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 
 jest.mock('@pipeline/components/PipelineStudio/StepCommands/StepCommands', () => ({
   ...(jest.requireActual('@pipeline/components/PipelineStudio/StepCommands/StepCommands') as any),
-  StepCommandsWithRef: ({ onChange }: StepCommandsProps) => {
+  StepCommandsWithRef: React.forwardRef(({ onChange }: StepCommandsProps, _ref: StepCommandsRef) => {
     return (
       <div className="step-commands-mock">
         <button
@@ -29,7 +32,7 @@ jest.mock('@pipeline/components/PipelineStudio/StepCommands/StepCommands', () =>
         </button>
       </div>
     )
-  }
+  })
 }))
 
 jest.mock('lodash-es', () => ({
@@ -40,21 +43,46 @@ jest.mock('lodash-es', () => ({
   })
 }))
 
+const stepTemplateContextMock = getTemplateContextMock(TemplateType.Step)
+
 describe('<StepTemplateForm /> tests', () => {
-  test('snapshot test', async () => {
-    const { container, findByText } = render(
+  test('should match snapshop', async () => {
+    const { container } = render(
       <TestWrapper>
-        <TemplateContext.Provider value={templateContextMock}>
+        <TemplateContext.Provider value={stepTemplateContextMock}>
           <StepTemplateFormWithRef />
         </TemplateContext.Provider>
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
 
-    const button = await waitFor(() => findByText('onChange Button'))
-    await act(async () => {
-      fireEvent.click(button as HTMLElement)
+  test('should call updateTemplate with correctly when form is updated', async () => {
+    const { getByText } = render(
+      <TestWrapper>
+        <TemplateContext.Provider value={stepTemplateContextMock}>
+          <StepTemplateFormWithRef />
+        </TemplateContext.Provider>
+      </TestWrapper>
+    )
+
+    const changeButton = getByText('onChange Button')
+    act(() => {
+      fireEvent.click(changeButton as HTMLElement)
     })
-    expect(templateContextMock.updateTemplate).toBeCalled()
+    expect(stepTemplateContextMock.updateTemplate).toBeCalledWith({
+      identifier: 'Test_Template',
+      name: 'Test Template',
+      orgIdentifier: 'default',
+      projectIdentifier: 'Yogesh_Test',
+      spec: {
+        spec: { headers: [], method: 'GET', outputVariables: [], requestBody: '<+input>', url: '<+input>' },
+        timeout: '2m',
+        type: 'Http'
+      },
+      tags: {},
+      type: 'Step',
+      versionLabel: 'v1'
+    })
   })
 })

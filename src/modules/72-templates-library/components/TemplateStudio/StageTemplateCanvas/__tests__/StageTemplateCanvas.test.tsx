@@ -15,7 +15,7 @@ import { accountPathProps, pipelineModuleParams, templatePathProps } from '@comm
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer/__tests__/stateMock'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import { stageTemplateMock } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/_test_/stateMock'
+import { stageTemplateMock } from '@templates-library/components/TemplateStudio/__tests__/stateMock'
 import {
   DefaultNewStageId,
   DefaultNewStageName

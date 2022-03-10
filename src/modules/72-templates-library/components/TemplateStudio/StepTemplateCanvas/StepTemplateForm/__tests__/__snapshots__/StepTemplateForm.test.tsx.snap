@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<StepTemplateForm /> tests snapshot test 1`] = `
+exports[`<StepTemplateForm /> tests should match snapshop 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main StyledProps--background-form"

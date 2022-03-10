@@ -16,7 +16,7 @@ function getString(key: StringKeys): StringKeys {
   return key
 }
 
-describe('templateUtils tests', () => {
+describe('templatesUtils tests', () => {
   test('Test getVersionLabelText method', () => {
     expect(getVersionLabelText(stageTemplateMock, getString)).toEqual('v1')
     expect(getVersionLabelText({ ...stageTemplateMock, stableTemplate: true }, getString)).toEqual(
