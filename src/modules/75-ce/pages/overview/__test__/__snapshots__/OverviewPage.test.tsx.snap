@@ -3,7 +3,7 @@
 exports[`test cases for Overview Page should be able to render the overview dashboard 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main body hasNoBanner"
+    class="StyledProps--font StyledProps--main"
   >
     <div
       class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
@@ -726,7 +726,6 @@ exports[`test cases for Overview Page should be able to render the overview dash
 exports[`test cases for Overview Page should render NoData page when cluster and cloud data are not present 1`] = `
 <div>
   <div
-    class="body hasNoBanner"
     style="background-image: url(test-file-stub); background-size: cover; height: 100%; width: 100%;"
   >
     <div
