@@ -708,6 +708,7 @@ overview:
   addClusterBtn: '+ Add a cluster'
   totalCost: Total Cost
   workload: Workload Resizing
+  nodepool: Nodepool Rightsizing
   savings: savings per month
   cardtitles:
     multipleCloud: Cost by cloud providers

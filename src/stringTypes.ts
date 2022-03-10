@@ -3775,6 +3775,7 @@ export interface StringsMap {
   'ce.overview.noData.explore': string
   'ce.overview.noData.info': string
   'ce.overview.noData.ngDocs': string
+  'ce.overview.nodepool': string
   'ce.overview.savings': string
   'ce.overview.seeAll': string
   'ce.overview.title': string
