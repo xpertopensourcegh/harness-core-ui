@@ -67,6 +67,10 @@ describe('Create empty monitored service', () => {
 
     cy.get('input[name="dynatraceService"]').should('have.value', 'HealthResource')
     cy.contains('span', 'Submit').click({ force: true })
+
+    // Creating the monitored service.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service created').should('be.visible')
   })
 
   it('Add new Dynatrace monitored service with custom metric', () => {
@@ -112,5 +116,9 @@ describe('Create empty monitored service', () => {
 
     // Validation
     cy.contains('span', 'Submit').click({ force: true })
+
+    // Creating the monitored service.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service created').should('be.visible')
   })
 })

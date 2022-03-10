@@ -92,6 +92,10 @@ describe('Configure Datadog health source', () => {
 
     cy.contains('span', 'Submit').click({ force: true })
     cy.contains('div', 'Custom Health Source')
+
+    // Creating the monitored service.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service created').should('be.visible')
   })
 
   it('Add new Custom HealthSource with multiple metric', () => {

@@ -94,6 +94,10 @@ describe('Create empty monitored service', () => {
     cy.get('input[name="appDTier"]').should('have.value', 'docker-tier')
     cy.get('input[name="appdApplication"]').should('have.value', 'cv-app')
     cy.contains('span', 'Submit').click({ force: true })
+
+    // Creating the monitored service.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service created').should('be.visible')
   })
 
   it('Add new AppDynamics monitored service with custom metric', () => {
@@ -164,6 +168,10 @@ describe('Create empty monitored service', () => {
       .scrollIntoView()
       .should('be.visible')
     cy.contains('span', 'Submit').click({ force: true })
+
+    // Creating the monitored service.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service created').should('be.visible')
   })
 
   it('Add new AppDynamics monitored service with multiple custom metric', () => {
@@ -273,6 +281,10 @@ describe('Create empty monitored service', () => {
     cy.get('span[data-icon="Options"]').click()
     cy.contains('div', 'Delete').click()
     cy.get('.ConfirmationDialog--dialog button[type="button"]').first().click()
+
+    // Creating the monitored service.
+    cy.findByRole('button', { name: /Save/i }).click()
+    cy.findByText('Monitored Service created').should('be.visible')
   })
 
   it('should populate AppDynamics healthsource edit mode', () => {
