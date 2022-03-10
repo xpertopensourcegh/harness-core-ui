@@ -137,7 +137,7 @@ validation:
   typeIsRequired: Type is required
   keyIsRequired: '{{$.validation.keyRequired}}'
   fileIsRequired: File is required
-  yamlFilePath: 'File path can only contain valid file/folder name (should contain alphanumerics, _ and -) sepaerated by / and should end with .yaml.'
+  yamlFilePath: 'File path can only contain valid file/folder name (should contain alphanumerics, _ and -) separated by / and should end with .yaml.'
   variableAlreadyExists: Variable with same name already exists
   fieldIsRequired: '{{ name }} is required'
   fieldMustStartWithAlphanumericAndCanNotHaveSpace: '{{ name }} must start with alphanumerics and should not contain whitespaces'
