@@ -104,7 +104,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         />
       </Container>
     ),
-    []
+    [expressions]
   )
 
   const renderMultiTypeMapInputSet = React.useCallback(
@@ -143,7 +143,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         />
       </Container>
     ),
-    []
+    [expressions]
   )
 
   const renderMultiTypeTextField = React.useCallback(
@@ -204,7 +204,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         disabled={readonly}
       />
     ),
-    []
+    [expressions]
   )
 
   const renderMultiTypeList = React.useCallback(
@@ -247,7 +247,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         disabled={readonly}
       />
     ),
-    []
+    [expressions]
   )
 
   return (
