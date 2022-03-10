@@ -170,6 +170,7 @@ testConnectionStep:
     testingURLReachability: Testing reachability to the URL
 validation:
   serviceNowUrl: 'ServiceNow URL is required.'
+  personalAccessToken: Personal Access Token is required
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:

@@ -3406,7 +3406,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                               placeholder="- Select -"
                               style="padding-right: 0px;"
                               type="text"
-                              value=""
+                              value="usernameToken"
                             />
                             <span
                               class="bp3-input-action"
