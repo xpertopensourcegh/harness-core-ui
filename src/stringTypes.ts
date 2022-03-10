@@ -4685,22 +4685,30 @@ export interface StringsMap {
   'cv.copyURL': string
   'cv.currentProductionRisk': string
   'cv.customHealthSource.Querymapping.endTimeLabel': string
+  'cv.customHealthSource.Querymapping.jsonPathTitle': string
   'cv.customHealthSource.Querymapping.label': string
+  'cv.customHealthSource.Querymapping.queryValueJsonPath': string
   'cv.customHealthSource.Querymapping.startAndEndTimeTitle': string
   'cv.customHealthSource.Querymapping.startTimeLabel': string
   'cv.customHealthSource.Querymapping.title': string
   'cv.customHealthSource.Querymapping.validation.body': string
+  'cv.customHealthSource.Querymapping.validation.enableJSONPaths': string
   'cv.customHealthSource.Querymapping.validation.endTime.placeholder': string
   'cv.customHealthSource.Querymapping.validation.endTime.timestamp': string
+  'cv.customHealthSource.Querymapping.validation.logMessageJsonPath': string
   'cv.customHealthSource.Querymapping.validation.path': string
   'cv.customHealthSource.Querymapping.validation.pathWithoutPlaceholder': string
+  'cv.customHealthSource.Querymapping.validation.queryName': string
   'cv.customHealthSource.Querymapping.validation.queryType': string
   'cv.customHealthSource.Querymapping.validation.startAndEndTime': string
   'cv.customHealthSource.Querymapping.validation.startTime.placeholder': string
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
+  'cv.customHealthSource.Querymapping.validation.timestampJsonPath': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
   'cv.customHealthSource.addGroupNameTitle': string
+  'cv.customHealthSource.customHealthLog': string
+  'cv.customHealthSource.customHealthMetric': string
   'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string
@@ -4935,7 +4943,6 @@ export interface StringsMap {
   'cv.monitoringSources.appD.validationsPassed': string
   'cv.monitoringSources.appD.verificationsInProgress': string
   'cv.monitoringSources.assign': string
-  'cv.monitoringSources.backToMapping': string
   'cv.monitoringSources.baselineDeviation': string
   'cv.monitoringSources.buildYourQuery': string
   'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle': string
@@ -5071,7 +5078,6 @@ export interface StringsMap {
   'cv.monitoringSources.queryName': string
   'cv.monitoringSources.queryNameLabel': string
   'cv.monitoringSources.queryNameValidation': string
-  'cv.monitoringSources.reviewPageSubHeading': string
   'cv.monitoringSources.riskCategoryLabel': string
   'cv.monitoringSources.riskProfile': string
   'cv.monitoringSources.serviceInstanceIdentifier': string

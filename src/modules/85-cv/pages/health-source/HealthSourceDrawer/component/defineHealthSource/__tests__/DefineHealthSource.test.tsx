@@ -11,6 +11,8 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import { FeatureFlag } from '@common/featureFlags'
+import * as featureFlags from '@common/hooks/useFeatureFlag'
 import DefineHealthSource from '../DefineHealthSource'
 
 const createModeProps: TestWrapperProps = {
@@ -37,6 +39,17 @@ jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', (
   }
 }))
 
+jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
+  useIndexedDBHook: jest.fn().mockReturnValue({
+    isInitializingDB: false,
+    dbInstance: {
+      put: jest.fn(),
+      get: jest.fn().mockReturnValue(undefined)
+    }
+  }),
+  CVObjectStoreNames: {}
+}))
+
 describe('DefineHealthSource', () => {
   test('should have proper validation', async () => {
     const { getByText } = render(
@@ -58,5 +71,26 @@ describe('DefineHealthSource', () => {
         expect(getByText('cv.onboarding.selectProductScreen.validationText.connectorRef')).not.toBeNull()
       )
     })
+  })
+
+  test('Click on custom health card', async () => {
+    jest.spyOn(featureFlags, 'useFeatureFlag').mockImplementation(flag => {
+      if (flag === FeatureFlag.CHI_CUSTOM_HEALTH_LOGS) {
+        return true
+      }
+      return false
+    })
+    const { getByText, container } = render(
+      <TestWrapper {...createModeProps}>
+        <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
+          <DefineHealthSource />
+        </SetupSourceTabs>
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('CustomHealth')).not.toBeNull())
+    fireEvent.click(container.querySelector('[data-icon="service-custom-connector"]')!)
+    await waitFor(() => expect(container.querySelector('[class*="Card--badge"]')).not.toBeNull())
+    expect(container.querySelector('input[placeholder="- cv.healthSource.featurePlaceholder -"]')).not.toBeNull()
   })
 })

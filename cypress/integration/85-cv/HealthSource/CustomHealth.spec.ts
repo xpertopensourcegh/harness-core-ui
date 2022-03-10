@@ -74,7 +74,7 @@ describe('Configure Datadog health source', () => {
     cy.visitChangeIntelligence()
   })
 
-  it('Add new Custom HealthSource ', () => {
+  it.skip('Add new Custom HealthSource ', () => {
     cy.intercept('GET', baseURLCall, baseURLResponse).as('BaseURLCall')
     cy.intercept('POST', fetchRecordsCall, fetchRecordsRespose).as('FetchRecordsCall')
 
@@ -98,7 +98,7 @@ describe('Configure Datadog health source', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it('Add new Custom HealthSource with multiple metric', () => {
+  it.skip('Add new Custom HealthSource with multiple metric', () => {
     cy.intercept('GET', baseURLCall, baseURLResponse).as('BaseURLCall')
     cy.intercept('POST', fetchRecordsCall, fetchRecordsRespose).as('FetchRecordsCall')
 
@@ -126,7 +126,7 @@ describe('Configure Datadog health source', () => {
     cy.contains('div', 'Custom Health Source')
   })
 
-  it('Custom HealthSource loads in edit mode', () => {
+  it.skip('Custom HealthSource loads in edit mode', () => {
     cy.intercept('GET', '/cv/api/monitored-service/service1_env1?*', monitoredServiceWithCustomHealthSource).as(
       'monitoredServiceCall'
     )
