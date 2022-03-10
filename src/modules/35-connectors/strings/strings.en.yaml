@@ -366,6 +366,7 @@ cdng:
     verificationTypeRequired: Verification type is required
     monitoringServiceRequired: Monitored Service is required
     healthSourceRequired: At least one health source is required
+    timeoutValidation: Timeout should be at least 40 minutes
   verificationSensitivityLabel:
     high: High
     medium: Medium
