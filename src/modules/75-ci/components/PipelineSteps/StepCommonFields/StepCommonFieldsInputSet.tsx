@@ -183,36 +183,42 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             </Text>
 
             <Layout.Horizontal
-              className={cx(css.formGroup, css.lg)}
+              className={cx(css.formGroup, css.lgOverride)}
               style={{ marginTop: 'small', marginBottom: 'small' }}
               spacing="medium"
             >
-              {isLimitMemoryRuntime &&
-                renderMultiTypeTextField({
-                  name: `${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.memory`,
-                  tooltipId: 'limitMemory',
-                  labelKey: 'pipelineSteps.limitMemoryLabel',
-                  inputProps: {
-                    multiTextInputProps: {
-                      expressions,
-                      allowableTypes: AllMultiTypeInputTypesForInputSet
-                    },
-                    disabled: readonly
-                  }
-                })}
-              {isLimitCPURuntime &&
-                renderMultiTypeTextField({
-                  name: `${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.cpu`,
-                  tooltipId: 'limitCPULabel',
-                  labelKey: 'pipelineSteps.limitCPULabel',
-                  inputProps: {
-                    multiTextInputProps: {
-                      expressions,
-                      allowableTypes: AllMultiTypeInputTypesForInputSet
-                    },
-                    disabled: readonly
-                  }
-                })}
+              {isLimitMemoryRuntime && (
+                <Container style={{ flex: 1 }}>
+                  {renderMultiTypeTextField({
+                    name: `${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.memory`,
+                    tooltipId: 'limitMemory',
+                    labelKey: 'pipelineSteps.limitMemoryLabel',
+                    inputProps: {
+                      multiTextInputProps: {
+                        expressions,
+                        allowableTypes: AllMultiTypeInputTypesForInputSet
+                      },
+                      disabled: readonly
+                    }
+                  })}
+                </Container>
+              )}
+              {isLimitCPURuntime && (
+                <Container style={{ flex: 1 }}>
+                  {renderMultiTypeTextField({
+                    name: `${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.cpu`,
+                    tooltipId: 'limitCPULabel',
+                    labelKey: 'pipelineSteps.limitCPULabel',
+                    inputProps: {
+                      multiTextInputProps: {
+                        expressions,
+                        allowableTypes: AllMultiTypeInputTypesForInputSet
+                      },
+                      disabled: readonly
+                    }
+                  })}
+                </Container>
+              )}
             </Layout.Horizontal>
           </Container>
         </>
