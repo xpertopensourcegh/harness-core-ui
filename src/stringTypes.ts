@@ -616,9 +616,10 @@ export interface StringsMap {
   'common.subscriptions.featureFlags.users': string
   'common.subscriptions.noActiveSubscription': string
   'common.subscriptions.overview.details': string
-  'common.subscriptions.overview.expiry': string
+  'common.subscriptions.overview.freeExpiry': string
   'common.subscriptions.overview.plan': string
   'common.subscriptions.overview.subscribe': string
+  'common.subscriptions.overview.trialExpiry': string
   'common.subscriptions.paid': string
   'common.subscriptions.tabs.billing': string
   'common.subscriptions.tabs.overview': string
