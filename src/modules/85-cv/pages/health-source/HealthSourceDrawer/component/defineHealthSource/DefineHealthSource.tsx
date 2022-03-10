@@ -118,11 +118,16 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                             ({ name, icon }) => {
                               const connectorTypeName =
                                 name === HealthSourceTypes.GoogleCloudOperations ? Connectors.GCP : name
+                              const healthsourceName =
+                                name === HealthSourceTypes.CustomHealth ? getString('connectors.customLabel') : name
                               if (isCustomEnabled === false && name === HealthSourceTypes.CustomHealth) {
                                 return null
                               }
                               return (
-                                <div key={name} className={cx(css.squareCardContainer, isEdit && css.disabled)}>
+                                <div
+                                  key={healthsourceName}
+                                  className={cx(css.squareCardContainer, isEdit && css.disabled)}
+                                >
                                   <Card
                                     disabled={false}
                                     interactive={true}
@@ -145,10 +150,13 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                                   <Text
                                     className={css.healthSourceName}
                                     style={{
-                                      color: name === formik.values.sourceType ? 'var(--grey-900)' : 'var(--grey-350)'
+                                      color:
+                                        healthsourceName === formik.values.sourceType
+                                          ? 'var(--grey-900)'
+                                          : 'var(--grey-350)'
                                     }}
                                   >
-                                    {name}
+                                    {healthsourceName}
                                   </Text>
                                 </div>
                               )

@@ -409,7 +409,7 @@ export const sourceData = {
     {
       name: 'New Custom',
       identifier: 'New_Custom',
-      type: 'CustomHealth',
+      type: 'Custom Health',
       spec: {
         connectorRef: 'customhealth',
         metricDefinitions: [
