@@ -784,6 +784,7 @@ cvChanges:
   sourceFilterDefault: 'Sources'
   changesTimeline: 'Changes Timeline'
   monitoredSVC: 'Monitored SVC'
+  clearFilters: 'Clear filters'
 componentValidations:
   requestMethod: Request Method is required
   queryType: Query Type is required

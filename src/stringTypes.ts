@@ -4701,6 +4701,7 @@ export interface StringsMap {
   'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string
+  'cv.cvChanges.clearFilters': string
   'cv.cvChanges.monitoredSVC': string
   'cv.cvChanges.sourceFilterDefault': string
   'cv.cvTrialHomePage.startTrial.description': string
