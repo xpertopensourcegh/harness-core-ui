@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { defaultTo } from 'lodash-es'
 import { Button, ButtonSize, ButtonVariation, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import templateIllustration from '@templates-library/pages/TemplatesPage/images/templates-illustration.svg'
 import { useStrings } from 'framework/strings'
@@ -16,15 +17,18 @@ export interface NoResultsViewProps {
   onReset?: () => void
   text: string
   minimal?: boolean
+  customImgSrc?: string
 }
 
 export default function NoResultsView({
   hasSearchParam = false,
   onReset,
   text,
-  minimal = false
+  minimal = false,
+  customImgSrc
 }: NoResultsViewProps): React.ReactElement {
   const { getString } = useStrings()
+  const imgSrc = defaultTo(customImgSrc, templateIllustration)
   return (
     <Container height={'100%'}>
       {hasSearchParam ? (
@@ -42,7 +46,7 @@ export default function NoResultsView({
         </Layout.Vertical>
       ) : (
         <Layout.Vertical spacing={minimal ? 'large' : 'xxxlarge'} height={'100%'} flex={{ align: 'center-center' }}>
-          <img src={templateIllustration} width={minimal ? '117px' : '220px'} />
+          <img src={imgSrc} width={minimal ? '117px' : '220px'} />
           <Text font={{ size: minimal ? 'small' : 'normal' }} color={Color.GREY_700}>
             {text}
           </Text>

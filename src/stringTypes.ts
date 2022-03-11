@@ -3036,6 +3036,7 @@ export interface StringsMap {
   'templatesLibrary.setAsStableTitle': string
   'templatesLibrary.stableVersion': string
   'templatesLibrary.stageTemplate': string
+  'templatesLibrary.templateHasBeenDeleted': string
   'templatesLibrary.templateInputs': string
   'templatesLibrary.templateScope': string
   'templatesLibrary.templateSettings': string

@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import {
   ButtonSize,
   ButtonVariation,
@@ -39,6 +39,8 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { TemplateYaml } from '@pipeline/components/PipelineStudio/TemplateYaml/TemplateYaml'
+import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
+import templateDoesNotExistSvg from '@templates-library/pages/TemplatesPage/images/template-does-not-exist.svg'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getVersionLabelText } from '@templates-library/utils/templatesUtils'
 import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
@@ -174,6 +176,11 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     [setSelectedParentTab]
   )
 
+  const showNoResultsView = useMemo(
+    () => !loading && !templatesError && isEmpty(selectedTemplate),
+    [loading, templatesError, selectedTemplate]
+  )
+
   return (
     <Container height={'100%'} className={css.container} data-template-id={template.identifier}>
       <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
@@ -182,6 +189,13 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
           <PageError
             message={defaultTo((templatesError.data as Error)?.message, templatesError.message)}
             onClick={reloadTemplates}
+          />
+        )}
+        {showNoResultsView && (
+          <NoResultsView
+            text={getString('templatesLibrary.templateHasBeenDeleted')}
+            minimal={true}
+            customImgSrc={templateDoesNotExistSvg}
           />
         )}
         {!templatesError && selectedTemplate && (
