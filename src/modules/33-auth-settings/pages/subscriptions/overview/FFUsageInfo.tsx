@@ -12,7 +12,7 @@ import { useStrings } from 'framework/strings'
 import { useGetUsageAndLimit } from '@common/hooks/useGetUsageAndLimit'
 import { ModuleName } from 'framework/types/ModuleName'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import UsageInfoCard from './UsageInfoCard'
+import UsageInfoCard, { ErrorContainer } from './UsageInfoCard'
 
 export interface FFUsageInfoProps {
   subscribedUsers: number
@@ -67,11 +67,19 @@ const FeatureFlagsUsersCard: React.FC<FeatureFlagsUsersCardProps> = ({
   const { usageErrorMsg, limitErrorMsg } = errors
   const { refetchUsage, refetchLimit } = refetches
   if (usageErrorMsg) {
-    return <PageError message={usageErrorMsg} onClick={refetchUsage} />
+    return (
+      <ErrorContainer>
+        <PageError message={usageErrorMsg} onClick={refetchUsage} />
+      </ErrorContainer>
+    )
   }
 
   if (limitErrorMsg) {
-    return <PageError message={limitErrorMsg} onClick={refetchLimit} />
+    return (
+      <ErrorContainer>
+        <PageError message={limitErrorMsg} onClick={refetchLimit} />
+      </ErrorContainer>
+    )
   }
 
   return <UsageInfoCard {...props} />
@@ -92,7 +100,11 @@ const FeatureFlags: React.FC<FeatureFlagsProps> = ({ featureFlags, error, refetc
   const props = { usage: featureFlags, leftHeader, tooltip, rightHeader, hasBar }
 
   if (error) {
-    return <PageError message={error} onClick={refetch} />
+    return (
+      <ErrorContainer>
+        <PageError message={error} onClick={refetch} />
+      </ErrorContainer>
+    )
   }
 
   return <UsageInfoCard {...props} />

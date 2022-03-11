@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SubscribedModules should NOT render modules when api call returns modules but module is not enabled 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main container StyledProps--margin-xlarge StyledProps--padding-xlarge StyledProps--background-white"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-bottom-xlarge"
+    >
+      common.account.subscribedModules
+    </p>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+    />
+  </div>
+</div>
+`;
+
 exports[`SubscribedModules should render link to subscriptions page only when no modules returned 1`] = `
 <div>
   <div

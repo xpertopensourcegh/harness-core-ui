@@ -11,6 +11,8 @@ import { Container, Text, Color, Card, Layout, Icon, PageError, PageSpinner } fr
 import type { IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import { useParams, Link } from 'react-router-dom'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, SubscriptionQueryParams } from '@common/interfaces/RouteInterfaces'
@@ -131,6 +133,29 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
 const SubscribedModules: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+
+  function isModuleEnabled(moduleType: ModuleLicenseDTO['moduleType']): boolean | undefined {
+    switch (moduleType) {
+      case ModuleName.CD: {
+        return CDNG_ENABLED
+      }
+      case ModuleName.CE: {
+        return CENG_ENABLED
+      }
+      case ModuleName.CI: {
+        return CING_ENABLED
+      }
+      case ModuleName.CF: {
+        return CFNG_ENABLED
+      }
+      case ModuleName.CV: {
+        return CVNG_ENABLED
+      }
+      default:
+        return undefined
+    }
+  }
 
   const {
     data: accountLicenses,
@@ -164,11 +189,13 @@ const SubscribedModules: React.FC = () => {
       Object.values(modules).map(moduleLicenses => {
         if (moduleLicenses?.length > 0) {
           const latestModuleLicense = moduleLicenses[moduleLicenses.length - 1]
-          return (
-            <div key={latestModuleLicense.moduleType}>
-              <ModuleCard module={latestModuleLicense} />
-            </div>
-          )
+          if (isModuleEnabled(latestModuleLicense.moduleType)) {
+            return (
+              <div key={latestModuleLicense.moduleType}>
+                <ModuleCard module={latestModuleLicense} />
+              </div>
+            )
+          }
         }
       })
     ) : (

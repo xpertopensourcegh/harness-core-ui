@@ -165,8 +165,8 @@ function getLicenseCountByModule({
   switch (licenseData?.moduleType) {
     case ModuleName.CF: {
       const cfModuleLicenseDTO = licenseData as CFModuleLicenseDTO
-      const featureFlagUsers = cfModuleLicenseDTO?.numberOfUsers
-      const monthlyActiveUsers = cfModuleLicenseDTO?.numberOfClientMAUs
+      const featureFlagUsers = cfModuleLicenseDTO?.numberOfUsers?.toLocaleString()
+      const monthlyActiveUsers = cfModuleLicenseDTO?.numberOfClientMAUs?.toLocaleString()
       return (
         <Layout.Vertical spacing="medium">
           <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
@@ -183,7 +183,7 @@ function getLicenseCountByModule({
       const committers =
         ciModuleLicenseDTO?.numberOfCommitters === -1
           ? getString('common.unlimited')
-          : ciModuleLicenseDTO?.numberOfCommitters
+          : ciModuleLicenseDTO?.numberOfCommitters?.toLocaleString()
       return (
         <Layout.Vertical spacing="medium">
           <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
@@ -194,7 +194,7 @@ function getLicenseCountByModule({
     }
     case ModuleName.CD: {
       const cdModuleLicenseDTO = licenseData as CDModuleLicenseDTO
-      const workloads = cdModuleLicenseDTO?.workloads
+      const workloads = cdModuleLicenseDTO?.workloads?.toLocaleString()
       const cdLicenseType = cdModuleLicenseDTO?.cdLicenseType
       const serviceStr =
         cdLicenseType === CD_LICENSE_TYPE.SERVICES
@@ -212,7 +212,9 @@ function getLicenseCountByModule({
     case ModuleName.CE: {
       const ceModuleLicenseDTO = licenseData as CEModuleLicenseDTO
       const spendLimit =
-        ceModuleLicenseDTO?.spendLimit === -1 ? getString('common.unlimited') : `$${ceModuleLicenseDTO?.spendLimit}`
+        ceModuleLicenseDTO?.spendLimit === -1
+          ? getString('common.unlimited')
+          : `$${ceModuleLicenseDTO?.spendLimit?.toLocaleString()}`
       return (
         <Layout.Vertical spacing="medium">
           <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>

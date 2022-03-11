@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Card, Color, Layout, Text, Icon, Popover } from '@wings-software/uicore'
+import { Card, Color, Layout, Text, Icon, Popover, Container } from '@wings-software/uicore'
 import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import PercentageBar from './PercentageBar'
@@ -85,6 +85,10 @@ interface UsageInfoCardProps {
   leftFooter?: string
   rightFooter?: string
   prefix?: string
+}
+
+export const ErrorContainer = ({ children }: { children: React.ReactElement }): React.ReactElement => {
+  return <Container width={300}>{children}</Container>
 }
 
 const UsageInfoCard: React.FC<UsageInfoCardProps> = ({

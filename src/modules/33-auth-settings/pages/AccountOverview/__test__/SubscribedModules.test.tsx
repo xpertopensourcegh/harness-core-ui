@@ -46,13 +46,58 @@ describe('SubscribedModules', () => {
         }
       }
     })
+    const featureFlags = {
+      CING_ENABLED: true
+    }
     const { container, getByText, queryByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
         <SubscribedModules />
       </TestWrapper>
     )
     expect(getByText('common.purpose.ci.integration')).toBeDefined()
     expect(queryByText('common.account.visitSubscriptions.link')).toBeNull()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should NOT render modules when api call returns modules but module is not enabled', () => {
+    useGetAccountLicensesMock.mockImplementation(() => {
+      return {
+        data: {
+          correlationId: '40d39b08-857d-4bd2-9418-af1aafc42d20',
+          data: {
+            accountId: 'HlORRJY8SH2IlwpAGWwkmg',
+            allModuleLicenses: {
+              CI: [
+                {
+                  accountIdentifier: 'HlORRJY8SH2IlwpAGWwkmg',
+                  createdAt: 1618619866814,
+                  edition: 'ENTERPRISE',
+                  expiryTime: 1619829466787,
+                  id: '607a2ddaa8641a3a65f8bbde',
+                  lastModifiedAt: 1618619866814,
+                  licenseType: 'TRIAL',
+                  moduleType: 'CI',
+                  numberOfCommitters: 10,
+                  startTime: 1618619866,
+                  status: 'ACTIVE'
+                }
+              ]
+            }
+          },
+          metaData: null,
+          status: 'SUCCESS'
+        }
+      }
+    })
+    const featureFlags = {
+      CING_ENABLED: false
+    }
+    const { container, queryByText } = render(
+      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
+        <SubscribedModules />
+      </TestWrapper>
+    )
+    expect(queryByText('common.purpose.ci.integration')).not.toBeInTheDocument()
     expect(container).toMatchSnapshot()
   })
 

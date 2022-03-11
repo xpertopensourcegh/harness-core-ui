@@ -6,15 +6,13 @@
  */
 
 import React from 'react'
-import moment from 'moment'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import useCETrialModal from '../useCETrialModal'
 
-moment.now = jest.fn(() => 1482363367071)
-
-const TestComponent = (): React.ReactElement => {
-  const { showModal, hideModal } = useCETrialModal({ onContinue: () => void 0 })
+const TestComponent = ({ experience }: { experience?: ModuleLicenseType }): React.ReactElement => {
+  const { showModal, hideModal } = useCETrialModal({ onContinue: () => void 0, experience })
   return (
     <>
       <button className="open" onClick={showModal} />
@@ -26,8 +24,56 @@ const TestComponent = (): React.ReactElement => {
 describe('open and close the CE Trial Modal', () => {
   describe('Rendering', () => {
     test('should open  the start trial modal', async () => {
+      const defaultLicenseStoreValues = {
+        licenseInformation: {
+          CE: {
+            edition: Editions.ENTERPRISE,
+            expiryTime: 1482363367071
+          }
+        }
+      }
       const { container } = render(
-        <TestWrapper>
+        <TestWrapper defaultLicenseStoreValues={defaultLicenseStoreValues}>
+          <TestComponent experience={ModuleLicenseType.TRIAL} />
+        </TestWrapper>
+      )
+      fireEvent.click(container.querySelector('.open')!)
+
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
+    })
+
+    test('free plan modal', async () => {
+      const defaultLicenseStoreValues = {
+        licenseInformation: {
+          CE: {
+            edition: Editions.FREE,
+            expiryTime: 1482363367071
+          }
+        }
+      }
+      const { container } = render(
+        <TestWrapper defaultLicenseStoreValues={defaultLicenseStoreValues}>
+          <TestComponent experience={ModuleLicenseType.FREE} />
+        </TestWrapper>
+      )
+      fireEvent.click(container.querySelector('.open')!)
+
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
+    })
+
+    test('should open  the start trial modal', async () => {
+      const defaultLicenseStoreValues = {
+        licenseInformation: {
+          CE: {
+            edition: Editions.ENTERPRISE,
+            expiryTime: 1482363367071
+          }
+        }
+      }
+      const { container } = render(
+        <TestWrapper defaultLicenseStoreValues={defaultLicenseStoreValues}>
           <TestComponent />
         </TestWrapper>
       )
@@ -38,8 +84,15 @@ describe('open and close the CE Trial Modal', () => {
     })
 
     test('should close the start trial modal', async () => {
+      const defaultLicenseStoreValues = {
+        licenseInformation: {
+          CE: {
+            edition: Editions.ENTERPRISE
+          }
+        }
+      }
       const { container } = render(
-        <TestWrapper>
+        <TestWrapper defaultLicenseStoreValues={defaultLicenseStoreValues}>
           <TestComponent />
         </TestWrapper>
       )

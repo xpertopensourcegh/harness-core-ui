@@ -10,7 +10,7 @@ import { Layout, PageError } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useGetUsageAndLimit } from '@common/hooks/useGetUsageAndLimit'
-import UsageInfoCard from './UsageInfoCard'
+import UsageInfoCard, { ErrorContainer } from './UsageInfoCard'
 
 const ActiveCloudSpend: React.FC<{
   activeCloudSpend: number
@@ -45,11 +45,19 @@ const CCMUsageInfo: React.FC = () => {
   const { limitErrorMsg, refetchLimit, limit } = limitData
 
   if (usageErrorMsg) {
-    return <PageError message={usageErrorMsg} onClick={() => refetchUsage?.()} />
+    return (
+      <ErrorContainer>
+        <PageError message={usageErrorMsg} onClick={() => refetchUsage?.()} />
+      </ErrorContainer>
+    )
   }
 
   if (limitErrorMsg) {
-    return <PageError message={limitErrorMsg} onClick={() => refetchLimit?.()} />
+    return (
+      <ErrorContainer>
+        <PageError message={limitErrorMsg} onClick={() => refetchLimit?.()} />
+      </ErrorContainer>
+    )
   }
 
   return (

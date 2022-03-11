@@ -11,7 +11,7 @@ import { useStrings } from 'framework/strings'
 import { useGetUsageAndLimit } from '@common/hooks/useGetUsageAndLimit'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { ModuleName } from 'framework/types/ModuleName'
-import UsageInfoCard from './UsageInfoCard'
+import UsageInfoCard, { ErrorContainer } from './UsageInfoCard'
 
 interface ActiveDevelopersProps {
   subscribedUsers: number
@@ -51,11 +51,19 @@ const CIUsageInfo: React.FC = () => {
   const { limitErrorMsg, refetchLimit, limit } = limitData
 
   if (usageErrorMsg) {
-    return <PageError message={usageErrorMsg} onClick={() => refetchUsage?.()} />
+    return (
+      <ErrorContainer>
+        <PageError message={usageErrorMsg} onClick={() => refetchUsage?.()} />
+      </ErrorContainer>
+    )
   }
 
   if (limitErrorMsg) {
-    return <PageError message={limitErrorMsg} onClick={() => refetchLimit?.()} />
+    return (
+      <ErrorContainer>
+        <PageError message={limitErrorMsg} onClick={() => refetchLimit?.()} />
+      </ErrorContainer>
+    )
   }
 
   return (

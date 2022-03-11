@@ -14,7 +14,7 @@ import moment from 'moment'
 import { useStrings } from 'framework/strings'
 
 import { TrialModalTemplate } from '@pipeline/components/TrialModalTemplate/TrialModalTemplate'
-import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { ModuleLicenseType, Editions } from '@common/constants/SubscriptionTypes'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import ceImage from './images/ccm.png'
 
@@ -46,7 +46,8 @@ const CETrial: React.FC<CETrialModalData> = props => {
 
   const expiryTime = ceLicenseInformation?.expiryTime
   const time = moment(expiryTime)
-  const expiryDate = time.format('DD MMM YYYY')
+  const isFree = ceLicenseInformation?.edition === Editions.FREE
+  const expiryDate = isFree ? getString('common.subscriptions.overview.freeExpiry') : time.format('DD MMM YYYY')
   const isTrialPlan = experience === ModuleLicenseType.TRIAL
 
   function getChildComponent(): React.ReactElement {

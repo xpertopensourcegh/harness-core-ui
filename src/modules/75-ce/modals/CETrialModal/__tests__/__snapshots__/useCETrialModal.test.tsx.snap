@@ -1,8 +1,174 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`open and close the CE Trial Modal Rendering free plan modal 1`] = `
+<div
+  class="bp3-dialog dialog ceTrial"
+>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-xxxlarge"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+    >
+      <div
+        class="StyledProps--font StyledProps--main left"
+        style="background: transparent url(test-file-stub) no-repeat; width: 50%;"
+      />
+      <div
+        class="StyledProps--font StyledProps--main setupForm StyledProps--padding-left-xxxlarge"
+        style="width: 50%;"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+        >
+          <p
+            class="StyledProps--font StyledProps--main titleText"
+          >
+            ce.ceTrialHomePage.modal.title
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main expiryText"
+            >
+              common.extendTrial.expiryDate:
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main expiryDate"
+            >
+              common.subscriptions.overview.freeExpiry
+            </p>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical StyledProps--main descriptionBlock StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+          style="height: 35%;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main description"
+            >
+              ce.ceTrialHomePage.modal.welcome
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main description"
+            >
+              ce.ceTrialHomePage.modal.description
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                continue
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`open and close the CE Trial Modal Rendering should close the start trial modal 1`] = `null`;
 
 exports[`open and close the CE Trial Modal Rendering should open  the start trial modal 1`] = `
+<div
+  class="bp3-dialog dialog ceTrial"
+>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-xxxlarge"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+    >
+      <div
+        class="StyledProps--font StyledProps--main left"
+        style="background: transparent url(test-file-stub) no-repeat; width: 50%;"
+      />
+      <div
+        class="StyledProps--font StyledProps--main setupForm StyledProps--padding-left-xxxlarge"
+        style="width: 50%;"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+        >
+          <p
+            class="StyledProps--font StyledProps--main titleText"
+          >
+            ce.ceTrialHomePage.modal.title
+          </p>
+          <span
+            class="StyledProps--font StyledProps--main trialBadge StyledProps--background-orange500 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--inline StyledProps--font-align-center"
+            style="width: 120px;"
+          >
+            common.trialInProgress
+          </span>
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main expiryText"
+            >
+              common.extendTrial.expiryDate:
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main expiryDate"
+            >
+              21 Dec 2016
+            </p>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical StyledProps--main descriptionBlock StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+          style="height: 35%;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main description"
+            >
+              ce.ceTrialHomePage.modal.welcome
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main description"
+            >
+              ce.ceTrialHomePage.modal.description
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                continue
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`open and close the CE Trial Modal Rendering should open  the start trial modal 2`] = `
 <div
   class="bp3-dialog dialog ceTrial"
 >
