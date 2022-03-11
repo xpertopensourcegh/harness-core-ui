@@ -7,14 +7,74 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
-
+import type { ServiceExecutionSummary } from 'services/cd-ng'
 import { CDExecutionSummary } from '../CDExecutionSummary'
-
+import { EnvironmentsList } from '../EnvironmentsList'
+import { ServicesList } from '../ServicesList'
+import { ServicesTableProps, ServicesTable } from '../ServicesTable'
 import props from './props.json'
+
+jest.mock('framework/strings', () => ({
+  useStrings: () => ({
+    getString: (key: string) => key
+  }),
+  String: jest.fn().mockImplementation((prop: any) => {
+    const MockComponent = ({ stringID }: { stringID: string }): React.ReactElement => <div>{stringID}</div>
+
+    return <MockComponent {...prop} />
+  })
+}))
+
+const environmentProps = {
+  environments: ['demo1', 'demo2', 'demo3'],
+  className: 'demo'
+}
+
+const servicesTableProps: ServicesTableProps = {
+  services: [
+    {
+      identifier: 'nginx',
+      displayName: 'todolist',
+      deploymentType: 'Kubernetes',
+      artifacts: {
+        sidecars: [1],
+        primary: []
+      }
+    },
+    {
+      identifier: 'service1',
+      displayName: 'service1',
+      deploymentType: 'Kubernetes'
+    },
+    {
+      identifier: 'nginx',
+      displayName: 'todolist',
+      deploymentType: 'Kubernetes',
+      artifacts: {
+        primary: []
+      }
+    }
+  ] as ServiceExecutionSummary[]
+}
 
 describe('<CDExecutionSummary /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(<CDExecutionSummary {...(props as any)} />)
+    expect(container).toMatchSnapshot()
+  })
+
+  test('render environmentList', () => {
+    const { container } = render(<EnvironmentsList {...environmentProps} />)
+    expect(container).toMatchSnapshot()
+  })
+
+  test('render serviceTable', () => {
+    const { container } = render(<ServicesTable services={servicesTableProps.services} />)
+    expect(container).toMatchSnapshot()
+  })
+
+  test('render serviceList', () => {
+    const { container } = render(<ServicesList services={servicesTableProps.services} limit={2} className={'demo'} />)
     expect(container).toMatchSnapshot()
   })
 })
