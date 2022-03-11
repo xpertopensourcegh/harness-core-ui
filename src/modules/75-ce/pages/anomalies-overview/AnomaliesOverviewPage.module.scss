@@ -44,3 +44,15 @@
   width: 100%;
   padding-top: var(--spacing-medium);
 }
+
+.rowGap8 {
+  row-gap: var(--spacing-small);
+}
+
+.countCard {
+  background-color: var(--grey-100);
+}
+
+.costCard {
+  background-color: var(--red-100);
+}

@@ -5,6 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import { CloudProvider } from '@ce/types'
 import {
   getCPUValueInReadableForm,
   getMemValueInReadableForm,
@@ -16,7 +17,8 @@ import {
 import { convertNumberToFixedDecimalPlaces } from '../convertNumberToFixedDecimalPlaces'
 
 import formatCost from '../formatCost'
-import { clusterInfoUtil } from '../perspectiveUtils'
+import { clusterInfoUtil, DEFAULT_GROUP_BY } from '../perspectiveUtils'
+import { generateGroupBy, getCloudProviderFromFields, getFiltersFromEnityMap } from '../anomaliesUtils'
 
 describe('test cases for recommendation utils', () => {
   test('test cases for CPU value formatter', () => {
@@ -153,5 +155,110 @@ describe('test cases for clusterInfoUtil', () => {
     expect(clusterInfoUtil(['AWS'])).toStrictEqual({ hasClusterAsSource: false, isClusterOnly: false })
     expect(clusterInfoUtil(['CLUSTER'])).toStrictEqual({ hasClusterAsSource: true, isClusterOnly: true })
     expect(clusterInfoUtil(['AWS', 'CLUSTER'])).toStrictEqual({ hasClusterAsSource: true, isClusterOnly: false })
+  })
+})
+
+describe('test cases for anomalyUtils', () => {
+  const entityMap = {
+    gcpProduct: 'Product',
+    gcpProjectId: 'Project',
+    gcpSKUDescription: 'SKUs',
+    clusterName: 'Cluster Name',
+    namespace: 'Namespace',
+    workloadName: 'Workload',
+    awsUsageAccountId: 'Account',
+    awsServicecode: 'Service',
+    awsInstancetype: 'Instance Type',
+    awsUsagetype: 'Usage Type',
+    workloadType: 'Workload Type',
+    awsAccount: 'Account'
+  }
+
+  test('test cases for generateGroupBy utils', () => {
+    expect(generateGroupBy('gcpProduct', CloudProvider.GCP)).toEqual({
+      fieldId: 'gcpProduct',
+      fieldName: 'Product',
+      identifier: 'GCP',
+      identifierName: 'GCP'
+    })
+
+    expect(generateGroupBy('', CloudProvider.GCP)).toEqual(DEFAULT_GROUP_BY)
+  })
+
+  test('test cases for getCloudProviderFromFields', () => {
+    expect(getCloudProviderFromFields(entityMap)).toBe(CloudProvider.GCP)
+    expect(getCloudProviderFromFields({ ...entityMap, gcpProjectId: null })).toBe(CloudProvider.AWS)
+    expect(getCloudProviderFromFields({ ...entityMap, gcpProjectId: null, awsAccount: null })).toBe(
+      CloudProvider.CLUSTER
+    )
+  })
+
+  test('test cases for getFiltersFromEntityMap', () => {
+    const entityMapArray = [
+      {
+        gcpProduct: 'Product',
+        gcpProjectId: 'Project',
+        gcpSKUDescription: 'SKUs',
+        clusterName: 'Cluster Name',
+        namespace: 'Namespace',
+        workloadName: 'Workload',
+        awsUsageAccountId: 'Account',
+        awsServicecode: 'Service',
+        awsInstancetype: 'Instance Type',
+        awsUsagetype: 'Usage Type',
+        workloadType: 'Workload Type',
+        awsAccount: 'Account'
+      },
+      {
+        gcpProduct: 'Product1',
+        gcpProjectId: 'Project1',
+        gcpSKUDescription: 'SKUs1',
+        clusterName: 'Cluster Name1',
+        namespace: 'Namespace1',
+        workloadName: 'Workload1',
+        awsUsageAccountId: 'Account1',
+        awsServicecode: 'Service1',
+        awsInstancetype: 'Instance Type1',
+        awsUsagetype: 'Usage Type1',
+        workloadType: 'Workload Type1',
+        awsAccount: 'Account1'
+      }
+    ]
+
+    expect(getFiltersFromEnityMap(entityMapArray, CloudProvider.GCP)).toEqual([
+      {
+        field: { fieldId: 'gcpProduct', fieldName: 'Product', identifier: 'GCP', identifierName: 'GCP' },
+        operator: 'IN',
+        type: 'VIEW_ID_CONDITION',
+        values: ['Product', 'Product1']
+      },
+      {
+        field: { fieldId: 'gcpProjectId', fieldName: 'Project', identifier: 'GCP', identifierName: 'GCP' },
+        operator: 'IN',
+        type: 'VIEW_ID_CONDITION',
+        values: ['Project', 'Project1']
+      },
+      {
+        field: { fieldId: 'gcpSKUDescription', fieldName: 'SKUs', identifier: 'GCP', identifierName: 'GCP' },
+        operator: 'IN',
+        type: 'VIEW_ID_CONDITION',
+        values: ['SKUs', 'SKUs1']
+      }
+    ])
+
+    expect(getFiltersFromEnityMap(entityMapArray, CloudProvider.AWS)).toEqual([
+      {
+        field: { fieldId: 'awsAccount', fieldName: '', identifier: 'AWS', identifierName: 'AWS' },
+        operator: 'IN',
+        type: 'VIEW_ID_CONDITION',
+        values: ['Account', 'Account1']
+      },
+      {
+        field: { fieldId: 'awsInstancetype', fieldName: 'Instance Type', identifier: 'AWS', identifierName: 'AWS' },
+        operator: 'IN',
+        type: 'VIEW_ID_CONDITION',
+        values: ['Instance Type', 'Instance Type1']
+      }
+    ])
   })
 })

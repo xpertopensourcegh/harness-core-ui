@@ -37,6 +37,9 @@
       "name": "metrics"
     },
     {
+      "name": "costdetails"
+    },
+    {
       "name": "perspective-custom-field"
     },
     {
@@ -131,74 +134,6 @@
         }
       }
     },
-    "/anomaly/widgets": {
-      "post": {
-        "tags": ["anomaly"],
-        "summary": "Get Anomaly Widgets",
-        "description": "",
-        "operationId": "getAnomalyWidgetsData",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/AnomalyQueryDTO"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseListAnomalyWidgetData"
-            }
-          }
-        }
-      }
-    },
-    "/anomaly/summary": {
-      "post": {
-        "tags": ["anomaly"],
-        "summary": "Get Anomalies Summary",
-        "description": "",
-        "operationId": "getAnomaliesSummary",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/AnomalyQueryDTO"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseListAnomalySummary"
-            }
-          }
-        }
-      }
-    },
     "/anomaly/feedback": {
       "put": {
         "tags": ["anomaly"],
@@ -239,77 +174,46 @@
         }
       }
     },
-    "/budgets/forecastCost": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "Deprecated use /perspective/forecastCost instead, Get forecast cost for Perspective.",
+    "/anomaly/summary": {
+      "post": {
+        "tags": ["anomaly"],
+        "summary": "Get Anomalies Summary",
         "description": "",
-        "operationId": "getForecastCost",
+        "operationId": "getAnomaliesSummary",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "accountIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
-            "name": "perspectiveId",
-            "in": "query",
+            "in": "body",
+            "name": "body",
             "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/ResponseDouble"
+              "$ref": "#/definitions/AnomalyQueryDTO"
             }
           }
-        },
-        "deprecated": true
-      }
-    },
-    "/budgets/{id}/costDetails": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "Get cost details for budget",
-        "description": "",
-        "operationId": "getCostDetails",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/ResponseBudgetData"
+              "$ref": "#/definitions/ResponseListAnomalySummary"
             }
           }
         }
       }
     },
-    "/budgets/lastMonthCost": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "Deprecated use /perspective/lastMonthCost instead, Get last month cost for Perspective.",
+    "/anomaly/widgets": {
+      "post": {
+        "tags": ["anomaly"],
+        "summary": "Get Anomaly Widgets",
         "description": "",
-        "operationId": "getLastMonthCost",
+        "operationId": "getAnomalyWidgetsData",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -320,21 +224,22 @@
             "type": "string"
           },
           {
-            "name": "perspectiveId",
-            "in": "query",
+            "in": "body",
+            "name": "body",
             "required": false,
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/AnomalyQueryDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/ResponseDouble"
+              "$ref": "#/definitions/ResponseListAnomalyWidgetData"
             }
           }
-        },
-        "deprecated": true
+        }
       }
     },
     "/budgets/{id}": {
@@ -563,6 +468,104 @@
         }
       }
     },
+    "/budgets/forecastCost": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Deprecated use /perspective/forecastCost instead, Get forecast cost for Perspective.",
+        "description": "",
+        "operationId": "getForecastCost",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/budgets/lastMonthCost": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Deprecated use /perspective/lastMonthCost instead, Get last month cost for Perspective.",
+        "description": "",
+        "operationId": "getLastMonthCost",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/budgets/{id}/costDetails": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Get cost details for budget",
+        "description": "",
+        "operationId": "getCostDetails",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseBudgetData"
+            }
+          }
+        }
+      }
+    },
     "/business-mapping/{id}": {
       "get": {
         "tags": ["business-mapping"],
@@ -710,31 +713,6 @@
         }
       }
     },
-    "/testconnection/firstConnector": {
-      "get": {
-        "tags": ["testconnection"],
-        "summary": "Get connector details",
-        "description": "",
-        "operationId": "get connector details",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseCCMConnectorDetails"
-            }
-          }
-        }
-      }
-    },
     "/testconnection": {
       "post": {
         "tags": ["testconnection"],
@@ -763,6 +741,31 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseConnectorValidationResult"
+            }
+          }
+        }
+      }
+    },
+    "/testconnection/firstConnector": {
+      "get": {
+        "tags": ["testconnection"],
+        "summary": "Get connector details",
+        "description": "",
+        "operationId": "get connector details",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseCCMConnectorDetails"
             }
           }
         }
@@ -799,44 +802,6 @@
             }
           }
         }
-      }
-    },
-    "/yaml/generate-cost-optimisation-yaml": {
-      "post": {
-        "tags": ["yaml"],
-        "summary": "Get Cost Optimisation Yaml",
-        "description": "",
-        "operationId": "getCostOptimisationYamlTemplate",
-        "produces": ["application/json", "application/yaml"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "connectorIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "deprecated": true
       }
     },
     "/yaml/cloudCostK8sClusterSetup": {
@@ -930,6 +895,44 @@
         }
       }
     },
+    "/yaml/generate-cost-optimisation-yaml": {
+      "post": {
+        "tags": ["yaml"],
+        "summary": "Get Cost Optimisation Yaml",
+        "description": "",
+        "operationId": "getCostOptimisationYamlTemplate",
+        "produces": ["application/json", "application/yaml"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "connectorIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
     "/yaml/cloudCostCapabilityCheck": {
       "post": {
         "tags": ["yaml"],
@@ -993,31 +996,6 @@
         }
       }
     },
-    "/connector/gcpserviceaccount": {
-      "get": {
-        "tags": ["connector"],
-        "summary": "Provision and Get GCP Service Account",
-        "description": "",
-        "operationId": "gcpserviceaccount",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseString"
-            }
-          }
-        }
-      }
-    },
     "/connector/awsaccountconnectiondetail": {
       "get": {
         "tags": ["connector"],
@@ -1043,15 +1021,27 @@
         }
       }
     },
-    "/graphql/schema": {
+    "/connector/gcpserviceaccount": {
       "get": {
-        "tags": ["graphql"],
-        "operationId": "getSchema",
-        "produces": ["application/json", "text/plain"],
-        "parameters": [],
+        "tags": ["connector"],
+        "summary": "Provision and Get GCP Service Account",
+        "description": "",
+        "operationId": "gcpserviceaccount",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
           }
         }
       }
@@ -1060,7 +1050,7 @@
       "post": {
         "tags": ["graphql"],
         "operationId": "execute_1",
-        "consumes": ["application/json"],
+        "consumes": ["text/plain"],
         "produces": ["application/json", "text/plain"],
         "parameters": [
           {
@@ -1086,7 +1076,7 @@
             "name": "body",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/GraphQLQuery"
+              "type": "string"
             }
           }
         ],
@@ -1100,6 +1090,19 @@
                 "type": "object"
               }
             }
+          }
+        }
+      }
+    },
+    "/graphql/schema": {
+      "get": {
+        "tags": ["graphql"],
+        "operationId": "getSchema",
+        "produces": ["application/json", "text/plain"],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
           }
         }
       }
@@ -1149,16 +1152,35 @@
         }
       }
     },
-    "/perspective-custom-field/validate": {
+    "/costdetails/tabularformat": {
       "post": {
-        "tags": ["perspective-custom-field"],
-        "summary": "Validate customField",
+        "tags": ["costdetails"],
+        "summary": "Return cost detail in tabular format",
         "description": "",
-        "operationId": "validateCustomField",
+        "operationId": "costdetailtabular",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endTime",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1168,7 +1190,7 @@
             "name": "body",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/ViewCustomField"
+              "$ref": "#/definitions/CostDetailsQueryParamsDTO"
             }
           }
         ],
@@ -1176,7 +1198,111 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseString"
+              "$ref": "#/definitions/ResponsePerspectiveEntityStatsData"
+            }
+          }
+        }
+      }
+    },
+    "/costdetails/timeseriesformat": {
+      "post": {
+        "tags": ["costdetails"],
+        "summary": "Return cost detail in time series format",
+        "description": "",
+        "operationId": "costdetailttimeseries",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CostDetailsQueryParamsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponsePerspectiveTimeSeriesData"
+            }
+          }
+        }
+      }
+    },
+    "/costdetails/overview": {
+      "post": {
+        "tags": ["costdetails"],
+        "summary": "Returns an overview of the cost",
+        "description": "",
+        "operationId": "costdetailoverview",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CostDetailsQueryParamsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseStatsInfo"
             }
           }
         }
@@ -1299,6 +1425,39 @@
             "required": false,
             "schema": {
               "$ref": "#/definitions/CEView"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            }
+          }
+        }
+      }
+    },
+    "/perspective-custom-field/validate": {
+      "post": {
+        "tags": ["perspective-custom-field"],
+        "summary": "Validate customField",
+        "description": "",
+        "operationId": "validateCustomField",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ViewCustomField"
             }
           }
         ],
@@ -1445,162 +1604,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseString"
-            }
-          }
-        }
-      }
-    },
-    "/perspective/forecastCostForPeriod": {
-      "get": {
-        "tags": ["perspective"],
-        "summary": "Get forecast cost for perspective for given period",
-        "description": "",
-        "operationId": "getForecastCostForPeriod",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "startTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "period",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": ["DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY"]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
-            }
-          }
-        }
-      }
-    },
-    "/perspective/forecastCost": {
-      "get": {
-        "tags": ["perspective"],
-        "summary": "Get forecast cost for perspective",
-        "description": "",
-        "operationId": "getForecastCostV2",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
-            }
-          }
-        }
-      }
-    },
-    "/perspective/lastPeriodCost": {
-      "get": {
-        "tags": ["perspective"],
-        "summary": "Get last period cost for perspective",
-        "description": "",
-        "operationId": "getLastPeriodCost",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "startTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "period",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": ["DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY"]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
-            }
-          }
-        }
-      }
-    },
-    "/perspective/lastMonthCost": {
-      "get": {
-        "tags": ["perspective"],
-        "summary": "Get last month cost for perspective",
-        "description": "",
-        "operationId": "getLastMonthCostV2",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
             }
           }
         }
@@ -1776,6 +1779,220 @@
         }
       }
     },
+    "/perspective/getAllPerspectives": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get All perspectives",
+        "description": "",
+        "operationId": "getAllPerspectives",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseListQLCEView"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/forecastCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get forecast cost for perspective",
+        "description": "",
+        "operationId": "getForecastCostV2",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/lastPeriodCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get last period cost for perspective",
+        "description": "",
+        "operationId": "getLastPeriodCost",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": ["DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/lastMonthCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get last month cost for perspective",
+        "description": "",
+        "operationId": "getLastMonthCostV2",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/forecastCostForPeriod": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get forecast cost for perspective for given period",
+        "description": "",
+        "operationId": "getForecastCostForPeriod",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": ["DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/recommendation/details/node-pool": {
+      "get": {
+        "tags": ["recommendationdetails"],
+        "summary": "Node pool Recommendation Details",
+        "description": "",
+        "operationId": "nodeRecommendationDetail",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseNodeRecommendationDTO"
+            }
+          }
+        }
+      }
+    },
     "/recommendation/details/workload": {
       "get": {
         "tags": ["recommendationdetails"],
@@ -1815,106 +2032,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseWorkloadRecommendationDTO"
-            }
-          }
-        }
-      }
-    },
-    "/recommendation/details/node-pool": {
-      "get": {
-        "tags": ["recommendationdetails"],
-        "summary": "Node pool Recommendation Details",
-        "description": "",
-        "operationId": "nodeRecommendationDetail",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseNodeRecommendationDTO"
-            }
-          }
-        }
-      }
-    },
-    "/recommendation/overview/stats": {
-      "post": {
-        "tags": ["recommendationoverview"],
-        "summary": "Recommendations Statistics",
-        "description": "",
-        "operationId": "recommendationStats",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/K8sRecommendationFilterDTO"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseRecommendationOverviewStats"
-            }
-          }
-        }
-      }
-    },
-    "/recommendation/overview/filter-values": {
-      "post": {
-        "tags": ["recommendationoverview"],
-        "summary": "Filter values available for Recommendations",
-        "description": "",
-        "operationId": "recommendationFilterValues",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/FilterValuesDTO"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseListFilterStatsDTO"
             }
           }
         }
@@ -1983,6 +2100,74 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseRecommendationsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/recommendation/overview/stats": {
+      "post": {
+        "tags": ["recommendationoverview"],
+        "summary": "Recommendations Statistics",
+        "description": "",
+        "operationId": "recommendationStats",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/K8sRecommendationFilterDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseRecommendationOverviewStats"
+            }
+          }
+        }
+      }
+    },
+    "/recommendation/overview/filter-values": {
+      "post": {
+        "tags": ["recommendationoverview"],
+        "summary": "Filter values available for Recommendations",
+        "description": "",
+        "operationId": "recommendationFilterValues",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/FilterValuesDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseListFilterStatsDTO"
             }
           }
         }
@@ -2109,6 +2294,9 @@
     "EntityInfo": {
       "type": "object",
       "properties": {
+        "field": {
+          "type": "string"
+        },
         "clusterName": {
           "type": "string"
         },
@@ -2124,7 +2312,7 @@
         "workloadType": {
           "type": "string"
         },
-        "gcpProject": {
+        "gcpProjectId": {
           "type": "string"
         },
         "gcpProduct": {
@@ -2140,6 +2328,12 @@
           "type": "string"
         },
         "awsService": {
+          "type": "string"
+        },
+        "awsInstancetype": {
+          "type": "string"
+        },
+        "awsUsageType": {
           "type": "string"
         }
       }
@@ -2232,6 +2426,22 @@
             "WORKLOAD_TYPE",
             "CLUSTER_ID",
             "CLUSTER_NAME",
+            "CLUSTER_NAMESPACE",
+            "CLUSTER_NAMESPACE_ID",
+            "CLUSTER_WORKLOAD",
+            "CLUSTER_WORKLOAD_ID",
+            "CLUSTER_NODE",
+            "CLUSTER_STORAGE",
+            "CLUSTER_APPLICATION",
+            "CLUSTER_ENVIRONMENT",
+            "CLUSTER_SERVICE",
+            "CLUSTER_CLOUD_PROVIDER",
+            "CLUSTER_ECS_SERVICE",
+            "CLUSTER_ECS_SERVICE_ID",
+            "CLUSTER_ECS_TASK",
+            "CLUSTER_ECS_TASK_ID",
+            "CLUSTER_ECS_LAUNCH_TYPE",
+            "CLUSTER_ECS_LAUNCH_TYPE_ID",
             "NAMESPACE",
             "GCP_PRODUCT",
             "GCP_PROJECT",
@@ -2239,8 +2449,31 @@
             "GCP_SKU_DESCRIPTION",
             "AWS_ACCOUNT",
             "AWS_SERVICE",
+            "AWS_INSTANCE_TYPE",
+            "AWS_USAGE_TYPE",
+            "AZURE_SUBSCRIPTION_GUID",
+            "AZURE_METER_NAME",
+            "AZURE_METER_CATEGORY",
+            "AZURE_METER_SUBCATEGORY",
+            "AZURE_RESOURCE_ID",
+            "AZURE_RESOURCE_GROUP_NAME",
+            "AZURE_RESOURCE_TYPE",
+            "AZURE_RESOURCE",
+            "AZURE_SERVICE_NAME",
+            "AZURE_SERVICE_TIER",
+            "AZURE_INSTANCE_ID",
+            "AZURE_SUBSCRIPTION_NAME",
+            "AZURE_PUBLISHER_NAME",
+            "AZURE_PUBLISHER_TYPE",
+            "AZURE_RESERVATION_ID",
+            "AZURE_RESERVATION_NAME",
+            "AZURE_FREQUENCY",
+            "COMMON_PRODUCT",
+            "COMMON_REGION",
+            "COMMON_NONE",
             "CLOUD_PROVIDER",
             "STATUS",
+            "REGION",
             "ANOMALY_TIME",
             "ACTUAL_COST",
             "EXPECTED_COST",
@@ -2284,6 +2517,22 @@
             "WORKLOAD_TYPE",
             "CLUSTER_ID",
             "CLUSTER_NAME",
+            "CLUSTER_NAMESPACE",
+            "CLUSTER_NAMESPACE_ID",
+            "CLUSTER_WORKLOAD",
+            "CLUSTER_WORKLOAD_ID",
+            "CLUSTER_NODE",
+            "CLUSTER_STORAGE",
+            "CLUSTER_APPLICATION",
+            "CLUSTER_ENVIRONMENT",
+            "CLUSTER_SERVICE",
+            "CLUSTER_CLOUD_PROVIDER",
+            "CLUSTER_ECS_SERVICE",
+            "CLUSTER_ECS_SERVICE_ID",
+            "CLUSTER_ECS_TASK",
+            "CLUSTER_ECS_TASK_ID",
+            "CLUSTER_ECS_LAUNCH_TYPE",
+            "CLUSTER_ECS_LAUNCH_TYPE_ID",
             "NAMESPACE",
             "GCP_PRODUCT",
             "GCP_PROJECT",
@@ -2291,8 +2540,31 @@
             "GCP_SKU_DESCRIPTION",
             "AWS_ACCOUNT",
             "AWS_SERVICE",
+            "AWS_INSTANCE_TYPE",
+            "AWS_USAGE_TYPE",
+            "AZURE_SUBSCRIPTION_GUID",
+            "AZURE_METER_NAME",
+            "AZURE_METER_CATEGORY",
+            "AZURE_METER_SUBCATEGORY",
+            "AZURE_RESOURCE_ID",
+            "AZURE_RESOURCE_GROUP_NAME",
+            "AZURE_RESOURCE_TYPE",
+            "AZURE_RESOURCE",
+            "AZURE_SERVICE_NAME",
+            "AZURE_SERVICE_TIER",
+            "AZURE_INSTANCE_ID",
+            "AZURE_SUBSCRIPTION_NAME",
+            "AZURE_PUBLISHER_NAME",
+            "AZURE_PUBLISHER_TYPE",
+            "AZURE_RESERVATION_ID",
+            "AZURE_RESERVATION_NAME",
+            "AZURE_FREQUENCY",
+            "COMMON_PRODUCT",
+            "COMMON_REGION",
+            "COMMON_NONE",
             "CLOUD_PROVIDER",
             "STATUS",
+            "REGION",
             "ANOMALY_TIME",
             "ACTUAL_COST",
             "EXPECTED_COST",
@@ -2313,6 +2585,22 @@
             "WORKLOAD_TYPE",
             "CLUSTER_ID",
             "CLUSTER_NAME",
+            "CLUSTER_NAMESPACE",
+            "CLUSTER_NAMESPACE_ID",
+            "CLUSTER_WORKLOAD",
+            "CLUSTER_WORKLOAD_ID",
+            "CLUSTER_NODE",
+            "CLUSTER_STORAGE",
+            "CLUSTER_APPLICATION",
+            "CLUSTER_ENVIRONMENT",
+            "CLUSTER_SERVICE",
+            "CLUSTER_CLOUD_PROVIDER",
+            "CLUSTER_ECS_SERVICE",
+            "CLUSTER_ECS_SERVICE_ID",
+            "CLUSTER_ECS_TASK",
+            "CLUSTER_ECS_TASK_ID",
+            "CLUSTER_ECS_LAUNCH_TYPE",
+            "CLUSTER_ECS_LAUNCH_TYPE_ID",
             "NAMESPACE",
             "GCP_PRODUCT",
             "GCP_PROJECT",
@@ -2320,8 +2608,31 @@
             "GCP_SKU_DESCRIPTION",
             "AWS_ACCOUNT",
             "AWS_SERVICE",
+            "AWS_INSTANCE_TYPE",
+            "AWS_USAGE_TYPE",
+            "AZURE_SUBSCRIPTION_GUID",
+            "AZURE_METER_NAME",
+            "AZURE_METER_CATEGORY",
+            "AZURE_METER_SUBCATEGORY",
+            "AZURE_RESOURCE_ID",
+            "AZURE_RESOURCE_GROUP_NAME",
+            "AZURE_RESOURCE_TYPE",
+            "AZURE_RESOURCE",
+            "AZURE_SERVICE_NAME",
+            "AZURE_SERVICE_TIER",
+            "AZURE_INSTANCE_ID",
+            "AZURE_SUBSCRIPTION_NAME",
+            "AZURE_PUBLISHER_NAME",
+            "AZURE_PUBLISHER_TYPE",
+            "AZURE_RESERVATION_ID",
+            "AZURE_RESERVATION_NAME",
+            "AZURE_FREQUENCY",
+            "COMMON_PRODUCT",
+            "COMMON_REGION",
+            "COMMON_NONE",
             "CLOUD_PROVIDER",
             "STATUS",
+            "REGION",
             "ANOMALY_TIME",
             "ACTUAL_COST",
             "EXPECTED_COST",
@@ -2362,6 +2673,22 @@
             "WORKLOAD_TYPE",
             "CLUSTER_ID",
             "CLUSTER_NAME",
+            "CLUSTER_NAMESPACE",
+            "CLUSTER_NAMESPACE_ID",
+            "CLUSTER_WORKLOAD",
+            "CLUSTER_WORKLOAD_ID",
+            "CLUSTER_NODE",
+            "CLUSTER_STORAGE",
+            "CLUSTER_APPLICATION",
+            "CLUSTER_ENVIRONMENT",
+            "CLUSTER_SERVICE",
+            "CLUSTER_CLOUD_PROVIDER",
+            "CLUSTER_ECS_SERVICE",
+            "CLUSTER_ECS_SERVICE_ID",
+            "CLUSTER_ECS_TASK",
+            "CLUSTER_ECS_TASK_ID",
+            "CLUSTER_ECS_LAUNCH_TYPE",
+            "CLUSTER_ECS_LAUNCH_TYPE_ID",
             "NAMESPACE",
             "GCP_PRODUCT",
             "GCP_PROJECT",
@@ -2369,8 +2696,31 @@
             "GCP_SKU_DESCRIPTION",
             "AWS_ACCOUNT",
             "AWS_SERVICE",
+            "AWS_INSTANCE_TYPE",
+            "AWS_USAGE_TYPE",
+            "AZURE_SUBSCRIPTION_GUID",
+            "AZURE_METER_NAME",
+            "AZURE_METER_CATEGORY",
+            "AZURE_METER_SUBCATEGORY",
+            "AZURE_RESOURCE_ID",
+            "AZURE_RESOURCE_GROUP_NAME",
+            "AZURE_RESOURCE_TYPE",
+            "AZURE_RESOURCE",
+            "AZURE_SERVICE_NAME",
+            "AZURE_SERVICE_TIER",
+            "AZURE_INSTANCE_ID",
+            "AZURE_SUBSCRIPTION_NAME",
+            "AZURE_PUBLISHER_NAME",
+            "AZURE_PUBLISHER_TYPE",
+            "AZURE_RESERVATION_ID",
+            "AZURE_RESERVATION_NAME",
+            "AZURE_FREQUENCY",
+            "COMMON_PRODUCT",
+            "COMMON_REGION",
+            "COMMON_NONE",
             "CLOUD_PROVIDER",
             "STATUS",
+            "REGION",
             "ANOMALY_TIME",
             "ACTUAL_COST",
             "EXPECTED_COST",
@@ -2395,6 +2745,22 @@
             "WORKLOAD_TYPE",
             "CLUSTER_ID",
             "CLUSTER_NAME",
+            "CLUSTER_NAMESPACE",
+            "CLUSTER_NAMESPACE_ID",
+            "CLUSTER_WORKLOAD",
+            "CLUSTER_WORKLOAD_ID",
+            "CLUSTER_NODE",
+            "CLUSTER_STORAGE",
+            "CLUSTER_APPLICATION",
+            "CLUSTER_ENVIRONMENT",
+            "CLUSTER_SERVICE",
+            "CLUSTER_CLOUD_PROVIDER",
+            "CLUSTER_ECS_SERVICE",
+            "CLUSTER_ECS_SERVICE_ID",
+            "CLUSTER_ECS_TASK",
+            "CLUSTER_ECS_TASK_ID",
+            "CLUSTER_ECS_LAUNCH_TYPE",
+            "CLUSTER_ECS_LAUNCH_TYPE_ID",
             "NAMESPACE",
             "GCP_PRODUCT",
             "GCP_PROJECT",
@@ -2402,8 +2768,31 @@
             "GCP_SKU_DESCRIPTION",
             "AWS_ACCOUNT",
             "AWS_SERVICE",
+            "AWS_INSTANCE_TYPE",
+            "AWS_USAGE_TYPE",
+            "AZURE_SUBSCRIPTION_GUID",
+            "AZURE_METER_NAME",
+            "AZURE_METER_CATEGORY",
+            "AZURE_METER_SUBCATEGORY",
+            "AZURE_RESOURCE_ID",
+            "AZURE_RESOURCE_GROUP_NAME",
+            "AZURE_RESOURCE_TYPE",
+            "AZURE_RESOURCE",
+            "AZURE_SERVICE_NAME",
+            "AZURE_SERVICE_TIER",
+            "AZURE_INSTANCE_ID",
+            "AZURE_SUBSCRIPTION_NAME",
+            "AZURE_PUBLISHER_NAME",
+            "AZURE_PUBLISHER_TYPE",
+            "AZURE_RESERVATION_ID",
+            "AZURE_RESERVATION_NAME",
+            "AZURE_FREQUENCY",
+            "COMMON_PRODUCT",
+            "COMMON_REGION",
+            "COMMON_NONE",
             "CLOUD_PROVIDER",
             "STATUS",
+            "REGION",
             "ANOMALY_TIME",
             "ACTUAL_COST",
             "EXPECTED_COST",
@@ -2487,7 +2876,7 @@
         "associatedResources": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/EntityInfo"
           }
         },
         "resourceType": {
@@ -2646,6 +3035,33 @@
         }
       }
     },
+    "ResponseBoolean": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "boolean"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "AnomalyFeedbackDTO": {
+      "type": "object",
+      "properties": {
+        "feedback": {
+          "type": "string",
+          "enum": ["TRUE_ANOMALY", "FALSE_ANOMALY", "NOT_RESPONDED"]
+        }
+      }
+    },
     "AnomalySummary": {
       "type": "object",
       "properties": {
@@ -2670,6 +3086,27 @@
         "costImpact": {
           "type": "number",
           "format": "double"
+        }
+      }
+    },
+    "ResponseListAnomalySummary": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnomalySummary"
+          }
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
@@ -2700,135 +3137,6 @@
           "items": {
             "$ref": "#/definitions/AnomalyWidgetData"
           }
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "ResponseListAnomalySummary": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AnomalySummary"
-          }
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "ResponseBoolean": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "boolean"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "AnomalyFeedbackDTO": {
-      "type": "object",
-      "properties": {
-        "feedback": {
-          "type": "string",
-          "enum": ["TRUE_ANOMALY", "FALSE_ANOMALY", "NOT_RESPONDED"]
-        }
-      }
-    },
-    "ResponseDouble": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "number",
-          "format": "double"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "BudgetCostData": {
-      "type": "object",
-      "properties": {
-        "time": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "endTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "actualCost": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgeted": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgetVariance": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgetVariancePercentage": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "BudgetData": {
-      "type": "object",
-      "properties": {
-        "costData": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BudgetCostData"
-          }
-        },
-        "forecastCost": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "ResponseBudgetData": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/BudgetData"
         },
         "metaData": {
           "type": "object"
@@ -2988,6 +3296,12 @@
       "type": "object",
       "discriminator": "type",
       "properties": {
+        "entityIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "entityNames": {
           "type": "array",
           "items": {
@@ -2996,12 +3310,6 @@
         },
         "budgetScopeType": {
           "type": "string"
-        },
-        "entityIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         }
       }
     },
@@ -3098,6 +3406,87 @@
         }
       }
     },
+    "ResponseDouble": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "number",
+          "format": "double"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "BudgetCostData": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "actualCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgeted": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariance": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariancePercentage": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "BudgetData": {
+      "type": "object",
+      "properties": {
+        "costData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BudgetCostData"
+          }
+        },
+        "forecastCost": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ResponseBudgetData": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/BudgetData"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
     "BusinessMapping": {
       "type": "object",
       "properties": {
@@ -3165,6 +3554,9 @@
         },
         "email": {
           "type": "string"
+        },
+        "externalUserId": {
+          "type": "string"
         }
       }
     },
@@ -3191,6 +3583,7 @@
             "USER_DOMAIN_NOT_ALLOWED",
             "MAX_FAILED_ATTEMPT_COUNT_EXCEEDED",
             "RESOURCE_NOT_FOUND",
+            "INVALID_FORMAT",
             "ROLE_DOES_NOT_EXIST",
             "EMAIL_NOT_VERIFIED",
             "EMAIL_VERIFICATION_TOKEN_NOT_FOUND",
@@ -3441,6 +3834,7 @@
             "INSTANCE_STATS_PROCESS_ERROR",
             "INSTANCE_STATS_MIGRATION_ERROR",
             "DEPLOYMENT_MIGRATION_ERROR",
+            "CG_LICENSE_USAGE_ERROR",
             "INSTANCE_STATS_AGGREGATION_ERROR",
             "UNRESOLVED_EXPRESSIONS_ERROR",
             "KRYO_HANDLER_NOT_FOUND_ERROR",
@@ -3455,6 +3849,7 @@
             "SCM_UNPROCESSABLE_ENTITY",
             "PROCESS_EXECUTION_EXCEPTION",
             "SCM_UNAUTHORIZED",
+            "SCM_INTERNAL_SERVER_ERROR",
             "DATA",
             "CONTEXT",
             "PR_CREATION_ERROR",
@@ -3468,7 +3863,15 @@
             "BUCKET_SERVER_ERROR",
             "GIT_SYNC_ERROR",
             "TEMPLATE_EXCEPTION",
-            "ENTITY_REFERENCE_EXCEPTION"
+            "ENTITY_REFERENCE_EXCEPTION",
+            "INVALID_INPUT_SET",
+            "INVALID_OVERLAY_INPUT_SET",
+            "RESOURCE_ALREADY_EXISTS",
+            "INVALID_JSON_PAYLOAD",
+            "POLICY_EVALUATION_FAILURE",
+            "POLICY_SET_ERROR",
+            "INVALID_ARTIFACTORY_REGISTRY_REQUEST",
+            "INVALID_NEXUS_REGISTRY_REQUEST"
           ]
         },
         "level": {
@@ -3493,7 +3896,8 @@
               "VERIFICATION_FAILURE",
               "APPLICATION_ERROR",
               "AUTHORIZATION_ERROR",
-              "TIMEOUT_ERROR"
+              "TIMEOUT_ERROR",
+              "POLICY_EVALUATION_FAILURE"
             ]
           }
         }
@@ -3748,21 +4152,6 @@
         }
       }
     },
-    "CCMConnectorDetails": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "connectorValidationResult": {
-          "$ref": "#/definitions/ConnectorValidationResult"
-        }
-      }
-    },
     "ConnectorValidationResult": {
       "type": "object",
       "properties": {
@@ -3800,24 +4189,6 @@
         "code": {
           "type": "integer",
           "format": "int32"
-        }
-      }
-    },
-    "ResponseCCMConnectorDetails": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/CCMConnectorDetails"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
         }
       }
     },
@@ -5873,6 +6244,9 @@
           "properties": {
             "serviceAccountTokenRef": {
               "type": "string"
+            },
+            "caCertRef": {
+              "type": "string"
             }
           }
         }
@@ -6224,19 +6598,64 @@
             "useVaultAgent": {
               "type": "boolean"
             },
+            "useAwsIam": {
+              "type": "boolean"
+            },
+            "awsRegion": {
+              "type": "string"
+            },
+            "vaultAwsIamRole": {
+              "type": "string"
+            },
+            "xvaultAwsIamServerId": {
+              "type": "string"
+            },
             "default": {
+              "type": "boolean"
+            },
+            "readOnly": {
               "type": "boolean"
             },
             "accessType": {
               "type": "string",
-              "enum": ["APP_ROLE", "TOKEN", "VAULT_AGENT"]
-            },
-            "readOnly": {
-              "type": "boolean"
+              "enum": ["APP_ROLE", "TOKEN", "VAULT_AGENT", "AWS_IAM"]
             }
           }
         }
       ]
+    },
+    "CCMConnectorDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "connectorValidationResult": {
+          "$ref": "#/definitions/ConnectorValidationResult"
+        }
+      }
+    },
+    "ResponseCCMConnectorDetails": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/CCMConnectorDetails"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
     },
     "CELicenseUsageDTO": {
       "type": "object",
@@ -6339,6 +6758,7 @@
             "USER_DOMAIN_NOT_ALLOWED",
             "MAX_FAILED_ATTEMPT_COUNT_EXCEEDED",
             "RESOURCE_NOT_FOUND",
+            "INVALID_FORMAT",
             "ROLE_DOES_NOT_EXIST",
             "EMAIL_NOT_VERIFIED",
             "EMAIL_VERIFICATION_TOKEN_NOT_FOUND",
@@ -6589,6 +7009,7 @@
             "INSTANCE_STATS_PROCESS_ERROR",
             "INSTANCE_STATS_MIGRATION_ERROR",
             "DEPLOYMENT_MIGRATION_ERROR",
+            "CG_LICENSE_USAGE_ERROR",
             "INSTANCE_STATS_AGGREGATION_ERROR",
             "UNRESOLVED_EXPRESSIONS_ERROR",
             "KRYO_HANDLER_NOT_FOUND_ERROR",
@@ -6603,6 +7024,7 @@
             "SCM_UNPROCESSABLE_ENTITY",
             "PROCESS_EXECUTION_EXCEPTION",
             "SCM_UNAUTHORIZED",
+            "SCM_INTERNAL_SERVER_ERROR",
             "DATA",
             "CONTEXT",
             "PR_CREATION_ERROR",
@@ -6616,7 +7038,15 @@
             "BUCKET_SERVER_ERROR",
             "GIT_SYNC_ERROR",
             "TEMPLATE_EXCEPTION",
-            "ENTITY_REFERENCE_EXCEPTION"
+            "ENTITY_REFERENCE_EXCEPTION",
+            "INVALID_INPUT_SET",
+            "INVALID_OVERLAY_INPUT_SET",
+            "RESOURCE_ALREADY_EXISTS",
+            "INVALID_JSON_PAYLOAD",
+            "POLICY_EVALUATION_FAILURE",
+            "POLICY_SET_ERROR",
+            "INVALID_ARTIFACTORY_REGISTRY_REQUEST",
+            "INVALID_NEXUS_REGISTRY_REQUEST"
           ]
         },
         "message": {
@@ -6671,6 +7101,7 @@
             "USER_DOMAIN_NOT_ALLOWED",
             "MAX_FAILED_ATTEMPT_COUNT_EXCEEDED",
             "RESOURCE_NOT_FOUND",
+            "INVALID_FORMAT",
             "ROLE_DOES_NOT_EXIST",
             "EMAIL_NOT_VERIFIED",
             "EMAIL_VERIFICATION_TOKEN_NOT_FOUND",
@@ -6921,6 +7352,7 @@
             "INSTANCE_STATS_PROCESS_ERROR",
             "INSTANCE_STATS_MIGRATION_ERROR",
             "DEPLOYMENT_MIGRATION_ERROR",
+            "CG_LICENSE_USAGE_ERROR",
             "INSTANCE_STATS_AGGREGATION_ERROR",
             "UNRESOLVED_EXPRESSIONS_ERROR",
             "KRYO_HANDLER_NOT_FOUND_ERROR",
@@ -6935,6 +7367,7 @@
             "SCM_UNPROCESSABLE_ENTITY",
             "PROCESS_EXECUTION_EXCEPTION",
             "SCM_UNAUTHORIZED",
+            "SCM_INTERNAL_SERVER_ERROR",
             "DATA",
             "CONTEXT",
             "PR_CREATION_ERROR",
@@ -6948,7 +7381,15 @@
             "BUCKET_SERVER_ERROR",
             "GIT_SYNC_ERROR",
             "TEMPLATE_EXCEPTION",
-            "ENTITY_REFERENCE_EXCEPTION"
+            "ENTITY_REFERENCE_EXCEPTION",
+            "INVALID_INPUT_SET",
+            "INVALID_OVERLAY_INPUT_SET",
+            "RESOURCE_ALREADY_EXISTS",
+            "INVALID_JSON_PAYLOAD",
+            "POLICY_EVALUATION_FAILURE",
+            "POLICY_SET_ERROR",
+            "INVALID_ARTIFACTORY_REGISTRY_REQUEST",
+            "INVALID_NEXUS_REGISTRY_REQUEST"
           ]
         },
         "message": {
@@ -6993,6 +7434,21 @@
               "additionalProperties": {
                 "type": "string"
               }
+            }
+          }
+        }
+      ]
+    },
+    "ScmErrorMetadataDTO": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ErrorMetadataDTO"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "conflictCommitId": {
+              "type": "string"
             }
           }
         }
@@ -7151,6 +7607,726 @@
         }
       }
     },
+    "ClusterData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "totalCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "idleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "networkCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "systemCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuActualIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryActualIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "costTrend": {
+          "type": "number",
+          "format": "double"
+        },
+        "trendType": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "launchType": {
+          "type": "string"
+        },
+        "cloudServiceName": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        },
+        "workloadName": {
+          "type": "string"
+        },
+        "workloadType": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "clusterType": {
+          "type": "string"
+        },
+        "clusterId": {
+          "type": "string"
+        },
+        "instanceId": {
+          "type": "string"
+        },
+        "instanceName": {
+          "type": "string"
+        },
+        "instanceType": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "cloudProvider": {
+          "type": "string"
+        },
+        "maxCpuUtilization": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxMemoryUtilization": {
+          "type": "number",
+          "format": "double"
+        },
+        "avgCpuUtilization": {
+          "type": "number",
+          "format": "double"
+        },
+        "avgMemoryUtilization": {
+          "type": "number",
+          "format": "double"
+        },
+        "unallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "prevBillingAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "appName": {
+          "type": "string"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "serviceName": {
+          "type": "string"
+        },
+        "serviceId": {
+          "type": "string"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "envName": {
+          "type": "string"
+        },
+        "cloudProviderId": {
+          "type": "string"
+        },
+        "clusterName": {
+          "type": "string"
+        },
+        "storageCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryBillingAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuBillingAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageUnallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryUnallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuUnallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageRequest": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageUtilizationValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageActualIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "efficiencyScore": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "efficiencyScoreTrendPercentage": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "InstanceDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "workload": {
+          "type": "string"
+        },
+        "clusterName": {
+          "type": "string"
+        },
+        "clusterId": {
+          "type": "string"
+        },
+        "node": {
+          "type": "string"
+        },
+        "nodePoolName": {
+          "type": "string"
+        },
+        "cloudProviderInstanceId": {
+          "type": "string"
+        },
+        "podCapacity": {
+          "type": "string"
+        },
+        "totalCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "idleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "systemCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "networkCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "unallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuAllocatable": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryAllocatable": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuRequested": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryRequested": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuUnitPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryUnitPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "instanceCategory": {
+          "type": "string"
+        },
+        "machineType": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deleteTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "qosClass": {
+          "type": "string"
+        },
+        "memoryBillingAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuBillingAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageUnallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryUnallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuUnallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "cpuIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageActualIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageUtilizationValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageRequest": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "PerspectiveEntityStatsData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QLCEViewEntityStatsDataPoint"
+          }
+        }
+      }
+    },
+    "QLCEViewEntityStatsDataPoint": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "pricingSource": {
+          "type": "string"
+        },
+        "cost": {
+          "$ref": "#/definitions/Number"
+        },
+        "costTrend": {
+          "$ref": "#/definitions/Number"
+        },
+        "clusterData": {
+          "$ref": "#/definitions/ClusterData"
+        },
+        "instanceDetails": {
+          "$ref": "#/definitions/InstanceDetails"
+        },
+        "storageDetails": {
+          "$ref": "#/definitions/StorageDetails"
+        },
+        "clusterPerspective": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ResponsePerspectiveEntityStatsData": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/PerspectiveEntityStatsData"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "StorageDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "instanceId": {
+          "type": "string"
+        },
+        "instanceName": {
+          "type": "string"
+        },
+        "claimName": {
+          "type": "string"
+        },
+        "claimNamespace": {
+          "type": "string"
+        },
+        "clusterName": {
+          "type": "string"
+        },
+        "clusterId": {
+          "type": "string"
+        },
+        "storageClass": {
+          "type": "string"
+        },
+        "volumeType": {
+          "type": "string"
+        },
+        "cloudProvider": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "storageCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageActualIdleCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageUnallocatedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "capacity": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageRequest": {
+          "type": "number",
+          "format": "double"
+        },
+        "storageUtilizationValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deleteTime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "CostDetailsQueryParamsDTO": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CCMStringFilter"
+          }
+        },
+        "groupBy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "PERSPECTIVE_ID",
+              "WORKLOAD",
+              "WORKLOAD_TYPE",
+              "CLUSTER_ID",
+              "CLUSTER_NAME",
+              "CLUSTER_NAMESPACE",
+              "CLUSTER_NAMESPACE_ID",
+              "CLUSTER_WORKLOAD",
+              "CLUSTER_WORKLOAD_ID",
+              "CLUSTER_NODE",
+              "CLUSTER_STORAGE",
+              "CLUSTER_APPLICATION",
+              "CLUSTER_ENVIRONMENT",
+              "CLUSTER_SERVICE",
+              "CLUSTER_CLOUD_PROVIDER",
+              "CLUSTER_ECS_SERVICE",
+              "CLUSTER_ECS_SERVICE_ID",
+              "CLUSTER_ECS_TASK",
+              "CLUSTER_ECS_TASK_ID",
+              "CLUSTER_ECS_LAUNCH_TYPE",
+              "CLUSTER_ECS_LAUNCH_TYPE_ID",
+              "NAMESPACE",
+              "GCP_PRODUCT",
+              "GCP_PROJECT",
+              "GCP_SKU_ID",
+              "GCP_SKU_DESCRIPTION",
+              "AWS_ACCOUNT",
+              "AWS_SERVICE",
+              "AWS_INSTANCE_TYPE",
+              "AWS_USAGE_TYPE",
+              "AZURE_SUBSCRIPTION_GUID",
+              "AZURE_METER_NAME",
+              "AZURE_METER_CATEGORY",
+              "AZURE_METER_SUBCATEGORY",
+              "AZURE_RESOURCE_ID",
+              "AZURE_RESOURCE_GROUP_NAME",
+              "AZURE_RESOURCE_TYPE",
+              "AZURE_RESOURCE",
+              "AZURE_SERVICE_NAME",
+              "AZURE_SERVICE_TIER",
+              "AZURE_INSTANCE_ID",
+              "AZURE_SUBSCRIPTION_NAME",
+              "AZURE_PUBLISHER_NAME",
+              "AZURE_PUBLISHER_TYPE",
+              "AZURE_RESERVATION_ID",
+              "AZURE_RESERVATION_NAME",
+              "AZURE_FREQUENCY",
+              "COMMON_PRODUCT",
+              "COMMON_REGION",
+              "COMMON_NONE",
+              "CLOUD_PROVIDER",
+              "STATUS",
+              "REGION",
+              "ANOMALY_TIME",
+              "ACTUAL_COST",
+              "EXPECTED_COST",
+              "COST_IMPACT",
+              "ALL"
+            ]
+          }
+        },
+        "timeResolution": {
+          "type": "string",
+          "enum": ["HOUR", "DAY", "MONTH", "WEEK", "QUARTER", "YEAR"]
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sortOrder": {
+          "type": "string",
+          "enum": ["ASCENDING", "DESCENDING"]
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "skipRoundOff": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DataPoint": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/Reference"
+        },
+        "value": {
+          "$ref": "#/definitions/Number"
+        }
+      }
+    },
+    "PerspectiveTimeSeriesData": {
+      "type": "object",
+      "properties": {
+        "stats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesDataPoints"
+          }
+        },
+        "cpuUtilValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesDataPoints"
+          }
+        },
+        "memoryUtilValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesDataPoints"
+          }
+        },
+        "cpuRequest": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesDataPoints"
+          }
+        },
+        "cpuLimit": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesDataPoints"
+          }
+        },
+        "memoryRequest": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesDataPoints"
+          }
+        },
+        "memoryLimit": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesDataPoints"
+          }
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponsePerspectiveTimeSeriesData": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/PerspectiveTimeSeriesData"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "TimeSeriesDataPoints": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataPoint"
+          }
+        },
+        "time": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ResponseStatsInfo": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/StatsInfo"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "StatsInfo": {
+      "type": "object",
+      "properties": {
+        "statsLabel": {
+          "type": "string"
+        },
+        "statsDescription": {
+          "type": "string"
+        },
+        "statsValue": {
+          "type": "string"
+        },
+        "statsTrend": {
+          "$ref": "#/definitions/Number"
+        },
+        "value": {
+          "$ref": "#/definitions/Number"
+        }
+      }
+    },
+    "RestResponseViewCustomField": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/ViewCustomField"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "ViewCustomField": {
       "type": "object",
       "properties": {
@@ -7191,26 +8367,6 @@
         "lastUpdatedAt": {
           "type": "integer",
           "format": "int64"
-        }
-      }
-    },
-    "RestResponseViewCustomField": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/ViewCustomField"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
         }
       }
     },
@@ -7415,132 +8571,80 @@
         }
       }
     },
-    "ContainerHistogramDTO": {
+    "QLCEView": {
       "type": "object",
       "properties": {
-        "containerName": {
+        "id": {
           "type": "string"
         },
-        "cpuHistogram": {
-          "$ref": "#/definitions/HistogramExp"
+        "name": {
+          "type": "string"
         },
-        "memoryHistogram": {
-          "$ref": "#/definitions/HistogramExp"
-        },
-        "containerRecommendation": {
-          "$ref": "#/definitions/ContainerRecommendation"
-        }
-      }
-    },
-    "ContainerRecommendation": {
-      "type": "object",
-      "properties": {
-        "current": {
-          "$ref": "#/definitions/ResourceRequirement"
-        },
-        "burstable": {
-          "$ref": "#/definitions/ResourceRequirement"
-        },
-        "guaranteed": {
-          "$ref": "#/definitions/ResourceRequirement"
-        },
-        "recommended": {
-          "$ref": "#/definitions/ResourceRequirement"
-        },
-        "percentileBased": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/ResourceRequirement"
-          }
-        },
-        "lastDayCost": {
-          "$ref": "#/definitions/Cost"
-        },
-        "numDays": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "totalSamplesCount": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "Cost": {
-      "type": "object",
-      "properties": {
-        "cpu": {
-          "type": "number"
-        },
-        "memory": {
-          "type": "number"
-        }
-      }
-    },
-    "HistogramExp": {
-      "type": "object",
-      "properties": {
-        "firstBucketSize": {
+        "totalCost": {
           "type": "number",
           "format": "double"
         },
-        "growthRatio": {
-          "type": "number",
-          "format": "double"
+        "createdBy": {
+          "type": "string"
         },
-        "numBuckets": {
+        "createdAt": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
-        "minBucket": {
+        "lastUpdatedAt": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
-        "maxBucket": {
-          "type": "integer",
-          "format": "int32"
+        "chartType": {
+          "type": "string",
+          "enum": ["STACKED_TIME_SERIES", "STACKED_LINE_CHART"]
         },
-        "bucketWeights": {
+        "viewType": {
+          "type": "string",
+          "enum": ["SAMPLE", "CUSTOMER", "DEFAULT_AZURE", "DEFAULT"]
+        },
+        "viewState": {
+          "type": "string",
+          "enum": ["DRAFT", "COMPLETED"]
+        },
+        "groupBy": {
+          "$ref": "#/definitions/QLCEViewField"
+        },
+        "timeRange": {
+          "type": "string",
+          "enum": ["LAST_7", "LAST_30", "LAST_MONTH", "CURRENT_MONTH", "CUSTOM"]
+        },
+        "dataSources": {
           "type": "array",
           "items": {
-            "type": "number",
-            "format": "double"
+            "type": "string",
+            "enum": ["CLUSTER", "AWS", "GCP", "AZURE", "COMMON", "CUSTOM", "BUSINESS_MAPPING", "LABEL"]
           }
         },
-        "totalWeight": {
-          "type": "number",
-          "format": "double"
-        },
-        "precomputed": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      }
-    },
-    "ResourceRequirement": {
-      "type": "object",
-      "properties": {
-        "requests": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "limits": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "empty": {
+        "reportScheduledConfigured": {
           "type": "boolean"
         }
       }
     },
-    "ResponseWorkloadRecommendationDTO": {
+    "QLCEViewField": {
+      "type": "object",
+      "properties": {
+        "fieldId": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string",
+          "enum": ["CLUSTER", "AWS", "GCP", "AZURE", "COMMON", "CUSTOM", "BUSINESS_MAPPING", "LABEL"]
+        },
+        "identifierName": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseListQLCEView": {
       "type": "object",
       "properties": {
         "status": {
@@ -7548,36 +8652,16 @@
           "enum": ["SUCCESS", "FAILURE", "ERROR"]
         },
         "data": {
-          "$ref": "#/definitions/WorkloadRecommendationDTO"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QLCEView"
+          }
         },
         "metaData": {
           "type": "object"
         },
         "correlationId": {
           "type": "string"
-        }
-      }
-    },
-    "WorkloadRecommendationDTO": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "containerRecommendations": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/ContainerRecommendation"
-          }
-        },
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ContainerHistogramDTO"
-          }
-        },
-        "lastDayCost": {
-          "$ref": "#/definitions/Cost"
         }
       }
     },
@@ -7848,20 +8932,132 @@
         }
       }
     },
-    "RecommendationOverviewStats": {
+    "ContainerHistogramDTO": {
       "type": "object",
       "properties": {
-        "totalMonthlyCost": {
-          "type": "number",
-          "format": "double"
+        "containerName": {
+          "type": "string"
         },
-        "totalMonthlySaving": {
-          "type": "number",
-          "format": "double"
+        "cpuHistogram": {
+          "$ref": "#/definitions/HistogramExp"
+        },
+        "memoryHistogram": {
+          "$ref": "#/definitions/HistogramExp"
+        },
+        "containerRecommendation": {
+          "$ref": "#/definitions/ContainerRecommendation"
         }
       }
     },
-    "ResponseRecommendationOverviewStats": {
+    "ContainerRecommendation": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "$ref": "#/definitions/ResourceRequirement"
+        },
+        "burstable": {
+          "$ref": "#/definitions/ResourceRequirement"
+        },
+        "guaranteed": {
+          "$ref": "#/definitions/ResourceRequirement"
+        },
+        "recommended": {
+          "$ref": "#/definitions/ResourceRequirement"
+        },
+        "percentileBased": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ResourceRequirement"
+          }
+        },
+        "lastDayCost": {
+          "$ref": "#/definitions/Cost"
+        },
+        "numDays": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalSamplesCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Cost": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "number"
+        },
+        "memory": {
+          "type": "number"
+        }
+      }
+    },
+    "HistogramExp": {
+      "type": "object",
+      "properties": {
+        "firstBucketSize": {
+          "type": "number",
+          "format": "double"
+        },
+        "growthRatio": {
+          "type": "number",
+          "format": "double"
+        },
+        "numBuckets": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "minBucket": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxBucket": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "bucketWeights": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "totalWeight": {
+          "type": "number",
+          "format": "double"
+        },
+        "precomputed": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    },
+    "ResourceRequirement": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ResponseWorkloadRecommendationDTO": {
       "type": "object",
       "properties": {
         "status": {
@@ -7869,7 +9065,49 @@
           "enum": ["SUCCESS", "FAILURE", "ERROR"]
         },
         "data": {
-          "$ref": "#/definitions/RecommendationOverviewStats"
+          "$ref": "#/definitions/WorkloadRecommendationDTO"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "WorkloadRecommendationDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "containerRecommendations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ContainerRecommendation"
+          }
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerHistogramDTO"
+          }
+        },
+        "lastDayCost": {
+          "$ref": "#/definitions/Cost"
+        }
+      }
+    },
+    "ResponseInteger": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "integer",
+          "format": "int32"
         },
         "metaData": {
           "type": "object"
@@ -7937,74 +9175,6 @@
         }
       }
     },
-    "FilterStatsDTO": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "ResponseListFilterStatsDTO": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/FilterStatsDTO"
-          }
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "FilterValuesDTO": {
-      "type": "object",
-      "properties": {
-        "columns": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "filter": {
-          "$ref": "#/definitions/K8sRecommendationFilterDTO"
-        }
-      }
-    },
-    "ResponseInteger": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
     "RecommendationItemDTO": {
       "type": "object",
       "required": ["id", "resourceType"],
@@ -8069,6 +9239,86 @@
         },
         "correlationId": {
           "type": "string"
+        }
+      }
+    },
+    "RecommendationOverviewStats": {
+      "type": "object",
+      "properties": {
+        "totalMonthlyCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "totalMonthlySaving": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ResponseRecommendationOverviewStats": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/RecommendationOverviewStats"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "FilterStatsDTO": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ResponseListFilterStatsDTO": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterStatsDTO"
+          }
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "FilterValuesDTO": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "filter": {
+          "$ref": "#/definitions/K8sRecommendationFilterDTO"
         }
       }
     },

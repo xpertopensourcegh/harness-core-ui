@@ -7,12 +7,29 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
+import { Provider } from 'urql'
+import { fromValue } from 'wonka'
+import type { DocumentNode } from 'graphql'
 import { TestWrapper } from '@common/utils/testUtils'
-
+import { FetchCcmMetaDataDocument, FetchPerspectiveListDocument } from 'services/ce/services'
+import * as FeatureFlag from '@common/hooks/useFeatureFlag'
 import AnomaliesOverviewPage from '../AnomaliesOverviewPage'
+import CCMMetaDataResponse from './CCMMetaDataResponse.json'
+import PerspectiveList from './PerspectiveList.json'
+import AnomalyData from './AnomalyData.json'
+
+jest.mock('@ce/components/CEChart/CEChart', () => 'mock')
 
 jest.mock('services/ce', () => ({
   useListAnomalies: jest.fn().mockImplementation(() => ({
+    mutate: async () => {
+      return {
+        status: 'SUCCESS',
+        data: AnomalyData
+      }
+    }
+  })),
+  useReportAnomalyFeedback: jest.fn().mockImplementation(() => ({
     mutate: async () => {
       return {
         status: 'SUCCESS',
@@ -20,7 +37,7 @@ jest.mock('services/ce', () => ({
       }
     }
   })),
-  useReportAnomalyFeedback: jest.fn().mockImplementation(() => ({
+  useGetAnomalyWidgetsData: jest.fn().mockImplementation(() => ({
     mutate: async () => {
       return {
         status: 'SUCCESS',
@@ -38,13 +55,25 @@ const params = {
 
 describe('test case for anomalies detection overview page', () => {
   test('should be able to render the overview dashboard', async () => {
-    const setMockState = jest.fn()
-    const useStateMock: any = (useState: any) => [useState, setMockState]
-    jest.spyOn(React, 'useState').mockImplementation(useStateMock)
+    jest.spyOn(FeatureFlag, 'useFeatureFlag').mockReturnValue(true)
+
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchCcmMetaDataDocument) {
+          return fromValue(CCMMetaDataResponse)
+        }
+        if (query === FetchPerspectiveListDocument) {
+          return fromValue(PerspectiveList)
+        }
+        return fromValue({})
+      }
+    }
 
     const { container } = render(
       <TestWrapper pathParams={params}>
-        <AnomaliesOverviewPage />
+        <Provider value={responseState as any}>
+          <AnomaliesOverviewPage />
+        </Provider>
       </TestWrapper>
     )
 

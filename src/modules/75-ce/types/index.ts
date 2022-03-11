@@ -93,3 +93,10 @@ export interface PerspectiveQueryParams {
   filters: string
   chartType: string
 }
+
+export enum CloudProvider {
+  AWS = 'AWS',
+  GCP = 'GCP',
+  AZURE = 'AZURE',
+  CLUSTER = 'CLUSTER'
+}

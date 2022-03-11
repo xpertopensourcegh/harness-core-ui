@@ -23,6 +23,8 @@ AnnotationsFactory(Highcharts)
 addBoostCanvastModule(Highcharts)
 addBoostModule(Highcharts)
 
+Highcharts.AST.allowedAttributes.push('onclick')
+
 interface CEChartProps {
   options: Highcharts.Options
 }

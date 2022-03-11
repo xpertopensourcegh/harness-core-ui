@@ -149,3 +149,18 @@ export enum AccessPointFormStep {
   FIRST = 1,
   SECOND = 2
 }
+
+export const allCloudProvidersList = [
+  {
+    label: 'AWS',
+    value: 'aws'
+  },
+  {
+    label: 'Azure',
+    value: 'azure'
+  },
+  {
+    label: 'GCP',
+    value: 'gcp'
+  }
+]

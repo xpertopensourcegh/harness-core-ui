@@ -3371,6 +3371,7 @@ export interface StringsMap {
   'ce.anomalyDetection.tooltip.anomaliesRedirectionText': string
   'ce.anomalyDetection.tooltip.countText': string
   'ce.anomalyDetection.tooltip.filterText': string
+  'ce.anomalyDetection.trend': string
   'ce.anomalyDetection.userFeedbackSuccessMsg': string
   'ce.budgets.addNewBudget': string
   'ce.budgets.budgetDeletedTxt': string

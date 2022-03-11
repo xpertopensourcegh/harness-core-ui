@@ -74,7 +74,7 @@ import { PAGE_NAMES } from '@ce/TrackingEventsConstants'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
-import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
+import { useDeepCompareEffect, useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import type { PerspectiveQueryParams, TimeRangeFilterType } from '@ce/types'
 import { useQueryParamsState } from '@common/hooks/useQueryParamsState'
 import css from './PerspectiveDetailsPage.module.scss'
@@ -258,7 +258,7 @@ const PerspectiveDetailsPage: React.FC = () => {
     }
   }, [perspectiveData])
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     const fetchAnomaliesCount = async () => {
       try {
         const response = await getAnomalies({
@@ -276,7 +276,7 @@ const PerspectiveDetailsPage: React.FC = () => {
     if (isAnomaliesEnabled) {
       fetchAnomaliesCount()
     }
-  }, [isAnomaliesEnabled, timeRange.from, timeRange.to])
+  }, [isAnomaliesEnabled, timeRange.from, timeRange.to, filters, groupBy])
 
   const setFilterUsingChartClick: (value: string) => void = value => {
     setFilters([

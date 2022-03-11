@@ -13,6 +13,7 @@ declare const styles: {
   readonly anomaliesText: string
   readonly anomaliesTooltip: string
   readonly anomaliesWrapper: string
+  readonly anomaliesWrapperTriangle: string
   readonly costWrapper: string
   readonly differenceCostNeg: string
   readonly differenceCostPos: string

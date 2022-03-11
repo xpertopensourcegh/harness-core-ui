@@ -18,14 +18,29 @@ import routes from '@common/RouteDefinitions'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useStrings } from 'framework/strings'
+import { CE_DATE_FORMAT_INTERNAL } from '@ce/utils/momentUtils'
+import { generateGroupBy, getCloudProviderFromFields, getFiltersFromEnityMap } from '@ce/utils/anomaliesUtils'
+import { useUpdateQueryParams } from '@common/hooks'
 import type { ChartConfigType } from './chartUtils'
 import CEChart from '../CEChart/CEChart'
 import ChartLegend from './ChartLegend'
-
 import css from './Chart.module.scss'
 
 export const DAYS_FOR_TICK_INTERVAL = 10
 export const ONE_MONTH = 24 * 3600 * 1000 * 30
+
+function getxAxisFormat(aggregation: QlceViewTimeGroupType, value: number): string {
+  switch (aggregation) {
+    case QlceViewTimeGroupType.Month:
+      return moment(value).utc().format('MMM')
+
+    case QlceViewTimeGroupType.Hour:
+      return moment(value).utc().format('MMM DD HH:00')
+
+    default:
+      return moment(value).utc().format('MMM DD')
+  }
+}
 
 interface GetChartProps {
   chart: ChartConfigType[]
@@ -59,6 +74,7 @@ const GetChart: React.FC<GetChartProps> = ({
     accountId: string
   }>()
   const { getString } = useStrings()
+  const { updateQueryParams } = useUpdateQueryParams()
 
   useEffect(() => {
     // When the chart data changes the legend component is not getting updated due to no deps on data
@@ -78,16 +94,7 @@ const GetChart: React.FC<GetChartProps> = ({
     // Add Tick Interval,
     labels: {
       formatter: function () {
-        switch (aggregation) {
-          case QlceViewTimeGroupType.Month:
-            return moment(this.value).utc().format('MMM')
-
-          case QlceViewTimeGroupType.Hour:
-            return moment(this.value).utc().format('MMM DD HH:00')
-
-          default:
-            return moment(this.value).utc().format('MMM DD')
-        }
+        return getxAxisFormat(aggregation, Number(this.value))
       }
     },
     minPadding: 0.05,
@@ -136,22 +143,42 @@ const GetChart: React.FC<GetChartProps> = ({
       const anchorElm = event.target.id
       const elmId = anchorElm.split('_')
 
-      const queryString = {
-        timeRange: elmId[1]
-      }
+      const time = moment(Number(elmId[1])).format(CE_DATE_FORMAT_INTERNAL)
 
       history.push({
         pathname: routes.toCEAnomalyDetection({
           accountId: accountId
         }),
-        search: qs.stringify(queryString)
+        search: `?${qs.stringify({
+          timeRange: JSON.stringify({
+            to: time,
+            from: time
+          })
+        })}`
       })
+    }
+
+    if (event.target.id.includes('applyFilters')) {
+      const anchorElm = event.target.id
+      const elmId = anchorElm.split('_')
+
+      const time = Number(elmId[1])
+      const anomalyData = anomaliesCountData?.find(el => el.timestamp === time)
+      const resourceData = anomalyData?.associatedResources as unknown as Array<Record<string, string>>
+      if (resourceData?.length && resourceData[0]) {
+        const cloudProvider = getCloudProviderFromFields(resourceData[0])
+        updateQueryParams({
+          groupBy: JSON.stringify(generateGroupBy(resourceData[0].field, cloudProvider)),
+          filters: JSON.stringify(getFiltersFromEnityMap(resourceData, cloudProvider))
+        })
+      }
     }
   }
 
   const labelsText = (item: Record<string, any>) => {
     return `
       <div class=${css.anomaliesWrapper}>
+      <div class=${css.anomaliesWrapperTriangle}></div>
         <span class=${css.anomaliesText}>${item.anomalyCount}</span>
         <span class=${css.anomaliesTooltip}>
           <p class=${css.anomaliesCount}>${getString('ce.anomalyDetection.tooltip.countText', {
@@ -168,7 +195,9 @@ const GetChart: React.FC<GetChartProps> = ({
           <a id="navAnomalies_${item.timestamp}" class=${css.anomaliesNav}>${getString(
       'ce.anomalyDetection.tooltip.anomaliesRedirectionText'
     )}</a>
-          <a class=${css.anomaliesNav}>${getString('ce.anomalyDetection.tooltip.filterText')}</a>
+          <a id="applyFilters_${item.timestamp}" class=${css.anomaliesNav}>${getString(
+      'ce.anomalyDetection.tooltip.filterText'
+    )}</a>
         </span>
       <div>
     `
@@ -180,7 +209,7 @@ const GetChart: React.FC<GetChartProps> = ({
         point: `${item.timestamp}`,
         useHTML: true,
         text: labelsText(item),
-        distance: 5
+        y: -40
       }
     })
 
@@ -196,7 +225,7 @@ const GetChart: React.FC<GetChartProps> = ({
             zoomType: 'x',
             height: 300,
             type: chartType,
-            spacingTop: 20,
+            spacingTop: 40,
             events: {
               load() {
                 setChartObj(this)
@@ -225,9 +254,13 @@ const GetChart: React.FC<GetChartProps> = ({
               labels: anomaliesLabels(),
               draggable: '',
               visible: isAnomaliesEnabled,
+              shapeOptions: {
+                r: 10
+              },
               labelOptions: {
+                crop: false,
                 useHTML: true,
-                backgroundColor: 'white',
+                backgroundColor: 'transparent',
                 borderWidth: 0
               }
             }
