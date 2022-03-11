@@ -6,6 +6,7 @@
  */
 
 import { render, RenderResult, screen, waitFor, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as useFeaturesMock from '@common/hooks/useFeatures'
@@ -26,7 +27,7 @@ const renderComponent = (props: Partial<EnvironmentDialogProps> = {}): RenderRes
   )
 }
 
-describe('CreateEnvironmentButton', () => {
+describe('EnvironmentDialog', () => {
   beforeEach(() =>
     jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: false })
   )
@@ -70,6 +71,60 @@ describe('CreateEnvironmentButton', () => {
     await waitFor(() => {
       expect(screen.queryByText('cf.planEnforcement.upgradeRequiredMau')).not.toBeInTheDocument()
       expect(createEnvironmentButton).not.toBeDisabled()
+    })
+  })
+
+  describe('Environment name validation', () => {
+    beforeEach(() => {
+      jest
+        .spyOn(usePlanEnforcementMock, 'default')
+        .mockReturnValue({ isPlanEnforcementEnabled: false, isFreePlan: false })
+      jest.spyOn(useFeaturesMock, 'useFeature').mockReturnValue({ enabled: false })
+    })
+
+    test('it should show appropriate error message if Environment name is empty', async () => {
+      renderComponent()
+
+      // open the modal
+      userEvent.click(screen.getByRole('button', { name: '+ environment' }))
+
+      // leave environment name blank and submit form
+      userEvent.click(screen.getByRole('button', { name: 'createSecretYAML.create' }))
+
+      await waitFor(() => expect(screen.getByText('fieldRequired')).toBeInTheDocument())
+    })
+
+    test('it should show appropriate error message if Environment name contains a non-ASCII character', async () => {
+      renderComponent()
+
+      // open the modal
+      userEvent.click(screen.getByRole('button', { name: '+ environment' }))
+
+      // enter invalid text and submit form
+      const environmentNameInputField = screen.getByRole('textbox', { name: '' })
+      userEvent.type(environmentNameInputField, 'à')
+
+      userEvent.click(screen.getByRole('button', { name: 'createSecretYAML.create' }))
+
+      await waitFor(() => expect(screen.getByText('common.validation.namePatternIsNotValid')).toBeInTheDocument())
+    })
+
+    test('it should not show error message if Environment name contains an ASCII character', async () => {
+      renderComponent()
+
+      // open the modal
+      userEvent.click(screen.getByRole('button', { name: '+ environment' }))
+
+      // enter valid environment name and submit form
+      const environmentNameInputField = screen.getByRole('textbox', { name: '' })
+      userEvent.type(environmentNameInputField, 'my environment name')
+
+      userEvent.click(screen.getByRole('button', { name: 'createSecretYAML.create' }))
+
+      await waitFor(() => {
+        expect(screen.queryByText('common.validation.namePatternIsNotValid')).not.toBeInTheDocument()
+        expect(screen.queryByText('fieldRequired')).not.toBeInTheDocument()
+      })
     })
   })
 })

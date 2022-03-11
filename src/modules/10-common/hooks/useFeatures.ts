@@ -93,6 +93,7 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
   const isCommunity = useCommunity()
 
   const features = new Map<FeatureIdentifier, CheckFeatureReturn>()
+
   const { featuresRequest, options } = props
 
   function groupFeatures(): { limitFeatures: FeatureIdentifier[]; availFeatures: FeatureIdentifier[] } {

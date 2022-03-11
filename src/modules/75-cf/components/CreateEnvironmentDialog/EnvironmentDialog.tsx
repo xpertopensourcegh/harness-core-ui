@@ -22,7 +22,9 @@ import {
   Text
 } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
+import * as Yup from 'yup'
 import { ResponseEnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/exports'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { getErrorMessage } from '@cf/utils/CFUtils'
@@ -122,7 +124,16 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
   const [openModal, hideModal] = useModalHook(() => {
     return (
       <Dialog enforceFocus={false} isOpen onClose={hideModal} className={css.dialog}>
-        <Formik initialValues={initialValues} formName="cfEnvDialog" onSubmit={handleSubmit} onReset={hideModal}>
+        <Formik
+          initialValues={initialValues}
+          formName="cfEnvDialog"
+          onSubmit={handleSubmit}
+          onReset={hideModal}
+          validationSchema={Yup.object().shape({
+            name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field: 'Environment' }) }),
+            identifier: IdentifierSchema()
+          })}
+        >
           {formikProps => {
             return (
               <Container
