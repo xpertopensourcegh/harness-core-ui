@@ -70,7 +70,7 @@ import FlagOptionsMenuButton from '@cf/components/FlagOptionsMenuButton/FlagOpti
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
-import imageURL from './Feature_Flags_Teepee.svg'
+import imageURL from '@cf/images/Feature_Flags_Teepee.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
 import css from './FeatureFlagsPage.module.scss'

@@ -464,6 +464,11 @@ segmentDetail:
   values: Enter value(s)
   updated: Target Group updated successfully
   searchTarget: Search Target
+  noFlags: There are no Flags specified for this Target Group
+  headingFeatureFlag: FEATURE FLAG
+  headingVariation: VARIATION
+  selectVariation: select variation
+  variationIsRequired: Variation is required
 selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description

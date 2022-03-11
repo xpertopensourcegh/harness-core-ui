@@ -7,7 +7,8 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly layout: string
-  readonly panel: string
+  readonly alignRight: string
+  readonly formLayout: string
+  readonly toolbar: string
 }
 export default styles

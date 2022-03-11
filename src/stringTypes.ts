@@ -4397,20 +4397,25 @@ export interface StringsMap {
   'cf.segmentDetail.criteria': string
   'cf.segmentDetail.directlyAdded': string
   'cf.segmentDetail.excludeTheFollowing': string
+  'cf.segmentDetail.headingFeatureFlag': string
+  'cf.segmentDetail.headingVariation': string
   'cf.segmentDetail.includeTheFollowing': string
   'cf.segmentDetail.noConditionDefined': string
+  'cf.segmentDetail.noFlags': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
   'cf.segmentDetail.noTargetDefined': string
   'cf.segmentDetail.operator': string
   'cf.segmentDetail.removeFomFlag': string
   'cf.segmentDetail.removeRule': string
   'cf.segmentDetail.searchTarget': string
+  'cf.segmentDetail.selectVariation': string
   'cf.segmentDetail.specificTargets': string
   'cf.segmentDetail.specifyIndividualTargets': string
   'cf.segmentDetail.targetBasedOnCondition': string
   'cf.segmentDetail.targetGroupCriteria': string
   'cf.segmentDetail.updated': string
   'cf.segmentDetail.values': string
+  'cf.segmentDetail.variationIsRequired': string
   'cf.segments.create': string
   'cf.segments.delete.message': string
   'cf.segments.delete.title': string

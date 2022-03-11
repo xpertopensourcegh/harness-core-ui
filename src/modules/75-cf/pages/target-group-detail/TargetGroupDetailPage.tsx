@@ -23,6 +23,7 @@ import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
 import { DetailPageTemplate, DetailPageTemplateProps } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import TargetGroupHeader from './components/TargetGroupHeader'
 import TargetGroupCriteria from './components/TargetGroupCriteria'
+import FlagSettingsPanel from './components/FlagSettingsPanel/FlagSettingsPanel'
 
 import css from './TargetGroupDetailPage.module.scss'
 
@@ -97,7 +98,7 @@ const TargetGroupDetailPage: FC = () => {
   )
 
   if (targetGroupLoading || envLoading) {
-    return <ContainerSpinner />
+    return <ContainerSpinner flex={{ align: 'center-center' }} />
   }
 
   if (targetGroupError || envError) {
@@ -136,12 +137,14 @@ const TargetGroupDetailPage: FC = () => {
                   tooltipId="ff_targetGroupDetail_flagSettings_heading"
                 />
               }
-              panel={<div data-testid="flag-settings-panel">Flag settings panel</div>}
+              panel={<FlagSettingsPanel targetGroup={targetGroup as Segment} />}
+              panelClassName={css.panel}
             />
             <Tab
               id="AuditLogsTab"
               title={getString('activityLog')}
               panel={<AuditLogs flagData={targetGroup as Feature} objectType={AuditLogObjectType.Segment} />}
+              panelClassName={css.panel}
             />
           </Tabs>
         </Container>

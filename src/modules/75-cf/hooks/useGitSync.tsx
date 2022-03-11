@@ -6,9 +6,9 @@
  */
 
 import { useParams } from 'react-router-dom'
-import React, { useState, useMemo, useEffect } from 'react'
-import * as yup from 'yup'
+import React, { useEffect, useMemo, useState } from 'react'
 import type { ObjectSchema } from 'yup'
+import * as yup from 'yup'
 import { useModalHook } from '@harness/use-modal'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { GitRepo, GitSyncErrorResponse, useGetGitRepo, usePatchGitRepo } from 'services/cf'
@@ -148,9 +148,7 @@ export const useGitSync = (): UseGitSync => {
         rootFolder: getGitRepo?.data?.repoDetails?.rootFolder || '',
         commitMsg:
           isAutoCommitEnabled && autoCommitMessage
-            ? getString('cf.gitSync.autoCommitMsg', {
-                msg: autoCommitMessage
-              })
+            ? getString('cf.gitSync.autoCommitMsg', { msg: autoCommitMessage })
             : ''
       },
       autoCommit: isAutoCommitEnabled

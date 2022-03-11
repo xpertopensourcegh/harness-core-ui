@@ -31,6 +31,11 @@ jest.mock('@common/components/ContainerSpinner/ContainerSpinner', () => ({
   ContainerSpinner: () => <span data-testid="container-spinner">Container Spinner</span>
 }))
 
+jest.mock('../components/FlagSettingsPanel/FlagSettingsPanel', () => ({
+  __esModule: true,
+  default: () => <span data-testid="flag-settings-panel">Flag Settings Panel</span>
+}))
+
 const renderComponent = (): RenderResult =>
   render(
     <TestWrapper
