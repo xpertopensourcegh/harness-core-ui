@@ -183,21 +183,22 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   const navBtns = (
     <Layout.Horizontal spacing="medium" className={css.footer}>
-      <Button
-        text={getString('ci.previous')}
-        icon="chevron-left"
-        disabled={selectedTabId === BuildTabs.OVERVIEW}
-        onClick={() =>
-          handleTabChange(
-            selectedTabId === BuildTabs.ADVANCED
-              ? BuildTabs.EXECUTION
-              : selectedTabId === BuildTabs.EXECUTION
-              ? BuildTabs.INFRASTRUCTURE
-              : BuildTabs.OVERVIEW
-          )
-        }
-        variation={ButtonVariation.SECONDARY}
-      />
+      {selectedTabId !== BuildTabs.OVERVIEW ? (
+        <Button
+          text={getString('ci.previous')}
+          icon="chevron-left"
+          onClick={() =>
+            handleTabChange(
+              selectedTabId === BuildTabs.ADVANCED
+                ? BuildTabs.EXECUTION
+                : selectedTabId === BuildTabs.EXECUTION
+                ? BuildTabs.INFRASTRUCTURE
+                : BuildTabs.OVERVIEW
+            )
+          }
+          variation={ButtonVariation.SECONDARY}
+        />
+      ) : null}
       {selectedTabId === BuildTabs.ADVANCED ? (
         contextType === PipelineContextType.Pipeline ? (
           <Button
