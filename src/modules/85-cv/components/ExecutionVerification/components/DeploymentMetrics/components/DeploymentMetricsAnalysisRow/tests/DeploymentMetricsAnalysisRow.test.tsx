@@ -36,5 +36,7 @@ describe('Unit tests for DeploymentMetricsAnalysisRow', () => {
     expect(healthSourceTypeToLogo('SPLUNK')).toEqual('service-splunk')
     expect(healthSourceTypeToLogo('STACKDRIVER')).toEqual('service-stackdriver')
     expect(healthSourceTypeToLogo('STACKDRIVER_LOG')).toEqual('service-stackdriver')
+    expect(healthSourceTypeToLogo('CUSTOM_HEALTH_METRIC')).toEqual('service-custom-connector')
+    expect(healthSourceTypeToLogo('CUSTOM_HEALTH_LOG')).toEqual('service-custom-connector')
   })
 })

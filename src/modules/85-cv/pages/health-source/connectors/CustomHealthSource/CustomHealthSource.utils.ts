@@ -163,7 +163,7 @@ const validateAssignComponent = (
 
 export function transformCustomHealthSourceToSetupSource(sourceData: any): CustomHealthSourceSetupSource {
   const healthSource: UpdatedHealthSource = sourceData?.healthSourceList?.find(
-    (source: UpdatedHealthSource) => source.name === sourceData.healthSourceName
+    (source: UpdatedHealthSource) => source.identifier === sourceData.healthSourceIdentifier
   )
 
   if (!healthSource) {

@@ -27,6 +27,9 @@ export function healthSourceTypeToLogo(healthSourceType: any): IconName {
     case 'DATADOG_METRICS':
     case 'DATADOG_LOG':
       return 'service-datadog'
+    case 'CUSTOM_HEALTH_METRIC':
+    case 'CUSTOM_HEALTH_LOG':
+      return 'service-custom-connector'
     default:
       return 'circle'
   }
