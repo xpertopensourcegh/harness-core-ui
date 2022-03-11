@@ -213,11 +213,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                     render={arrayHelpers => (
                       <Layout.Vertical>
                         {(values?.spec?.filePaths as FilePathConfig[])?.map((path: FilePathConfig, index: number) => (
-                          <Layout.Horizontal
-                            key={path.id}
-                            flex={{ distribution: 'space-between' }}
-                            style={{ alignItems: 'end' }}
-                          >
+                          <Layout.Horizontal key={path.id}>
                             <FormInput.MultiTextInput
                               label=""
                               placeholder={getString('cd.filePathPlaceholder')}

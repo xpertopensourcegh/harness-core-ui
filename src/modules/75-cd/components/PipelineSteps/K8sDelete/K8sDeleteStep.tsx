@@ -401,11 +401,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                             (formikProps.values?.spec?.deleteResources?.spec?.manifestPaths ||
                               []) as K8sDeleteConfigHeader[]
                           )?.map((_path: K8sDeleteConfigHeader, index: number) => (
-                            <Layout.Horizontal
-                              key={_path.id}
-                              flex={{ distribution: 'space-between' }}
-                              style={{ alignItems: 'end' }}
-                            >
+                            <Layout.Horizontal key={_path.id}>
                               <FormInput.MultiTextInput
                                 label=""
                                 placeholder={getString('pipelineSteps.manifestPathsPlaceHolder')}

@@ -541,8 +541,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
             class="Layout--vertical StyledProps--main"
           >
             <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
-              style="align-items: end;"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
                 class="bp3-form-group"
@@ -630,8 +629,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
               </button>
             </div>
             <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
-              style="align-items: end;"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
                 class="bp3-form-group"
@@ -1155,8 +1153,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
             class="Layout--vertical StyledProps--main"
           >
             <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
-              style="align-items: end;"
+              class="Layout--horizontal StyledProps--main"
             >
               <div
                 class="bp3-form-group"
