@@ -11,10 +11,6 @@ import type { MonacoEditorProps } from 'react-monaco-editor'
 //@ts-ignore
 import { StaticServices } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneServices'
 StaticServices.configurationService.get().updateValue('files.eol', '\n')
-//@ts-ignore
-import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
-//@ts-ignore
-import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 
 export type ReactMonacoEditorRef =
   | ((instance: ReactMonacoEditor | null) => void)
@@ -52,13 +48,24 @@ const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRe
         'editor.background': '#f3f3fa'
       }
     })
+
+    const getUrlPrefix = () => {
+      let urlPrefix = `${window.location.origin}${window.location.pathname}`
+      if (urlPrefix.charAt(urlPrefix.length - 1) !== '/') {
+        urlPrefix += '/'
+      }
+      return urlPrefix
+    }
+
     //@ts-ignore
     window.MonacoEnvironment = {
       getWorker(_workerId: unknown, label: string) {
         if (label === 'yaml') {
-          return new YamlWorker()
+          const YamlWorker = new Worker(new URL(`${getUrlPrefix()}static/yamlWorker2.js`, import.meta.url))
+          return YamlWorker
         }
-        return new EditorWorker()
+        const EditorWorker = new Worker(new URL(`${getUrlPrefix()}static/editorWorker2.js`, import.meta.url))
+        return EditorWorker
       }
     }
   }
