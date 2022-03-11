@@ -116,6 +116,7 @@ multipleProjects: Multiple Projects
 samlSupport: SAML authentication
 oauthSupport: OAuth authentication
 twoFactorAuthSupport: Two Factor Auth Support
+logoutUrl: Logout URL
 cdCommunityPlan:
   planLink: 'https://harness.io/pricing'
   communityPrice: 'Free and Open Software'

@@ -14,6 +14,7 @@ export interface FormValues {
   groupMembershipAttr: string
   entityIdEnabled: boolean
   entityIdentifier: string
+  logoutUrl?: string
   clientSecret?: string
   clientId?: string
   samlProviderType?: Providers
@@ -39,6 +40,11 @@ export const createFormData = (data: FormValues): FormData => {
   formData.set('authorizationEnabled', JSON.stringify(data.authorizationEnabled))
   formData.set('groupMembershipAttr', data.groupMembershipAttr)
   formData.set('ssoSetupType', AuthenticationMechanisms.SAML)
+
+  if (data.logoutUrl) {
+    formData.set('logoutUrl', data.logoutUrl)
+  }
+
   if (data.samlProviderType) {
     formData.set('samlProviderType', data.samlProviderType)
   }

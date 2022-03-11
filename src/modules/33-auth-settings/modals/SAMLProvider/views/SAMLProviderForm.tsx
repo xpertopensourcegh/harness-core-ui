@@ -86,6 +86,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
     return {
       displayName: defaultTo(samlProvider?.displayName, ''),
       authorizationEnabled: samlProvider ? !!samlProvider?.authorizationEnabled : true,
+      logoutUrl: samlProvider?.logoutUrl,
       groupMembershipAttr: defaultTo(samlProvider?.groupMembershipAttr, ''),
       entityIdEnabled: samlProvider ? !!samlProvider?.entityIdentifier : false,
       entityIdentifier: defaultTo(samlProvider?.entityIdentifier, ''),
@@ -253,6 +254,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                         placeholder={getString('authSettings.chooseFile')}
                         multiple
                       />
+                      <FormInput.Text name="logoutUrl" label={getString('authSettings.logoutUrl')} />
                     </Container>
                     <Container>
                       <Checkbox

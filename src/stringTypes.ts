@@ -1278,6 +1278,7 @@ export interface StringsMap {
   'authSettings.lockoutPolicyUpdated': string
   'authSettings.loginSettingsHaveBeenUpdated': string
   'authSettings.loginViaSAML': string
+  'authSettings.logoutUrl': string
   'authSettings.minLength': string
   'authSettings.multipleOrganizations': string
   'authSettings.multipleProjects': string
