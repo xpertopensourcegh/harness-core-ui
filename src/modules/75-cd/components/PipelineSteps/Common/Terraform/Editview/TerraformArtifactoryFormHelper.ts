@@ -81,12 +81,12 @@ export const getConnectorRef = (isConfig: boolean, isTerraformPlan: boolean, pre
     connectorValue = prevStepData?.formValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
   } else connectorValue = prevStepData?.varFile?.spec?.store?.spec?.connectorRef
 
-  if (size(prevStepData?.identifier) > 5) {
+  if (size(prevStepData) > 5) {
     return prevStepData?.identifier
   }
 
-  if (!isUndefined(connectorValue?.connector?.identifier)) {
-    return connectorValue.connector.identifier
+  if (!isUndefined(connectorValue?.value)) {
+    return connectorValue.value
   }
 
   return connectorValue
