@@ -48,6 +48,17 @@ const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
   UNSYNCED: 'UNSYNCED'
 }
 
+//Select 1st in response as fallback, if default should be slected and it is not availble in response
+const getBranchToBePreselected = (list: GitBranchDTO[], defaultBranch?: string): string => {
+  if (list.length > 0 && defaultBranch) {
+    return list.findIndex(item => item.branchName === defaultBranch) > -1
+      ? defaultBranch
+      : (list[0].branchName as string)
+  } else {
+    return ''
+  }
+}
+
 const GitFilters: React.FC<GitFiltersProps> = props => {
   const {
     defaultValue = { repo: '', branch: '' },
@@ -105,14 +116,15 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   }, [defaultValue.repo, defaultValue.branch])
 
   useEffect(() => {
-    if (!loading && response?.data?.branches?.content?.length) {
-      const defaultBranch = response.data.defaultBranch?.branchName as string
+    const branchList = response?.data?.branches?.content
+    if (!loading && branchList?.length) {
+      const defaultBranch = getBranchToBePreselected(branchList, response?.data?.defaultBranch?.branchName)
       if (isEmpty(selectedGitBranch)) {
         props.onChange({ repo: selectedGitRepo, branch: defaultBranch })
         setSelectedGitBranch(defaultBranch)
       }
       setBranchSelectOptions(
-        response.data.branches.content.map((branch: GitBranchDTO) => {
+        branchList.map((branch: GitBranchDTO) => {
           return {
             label: branch.branchName || '',
             value: branch.branchName || '',
@@ -135,7 +147,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
             projectIdentifier,
             yamlGitConfigIdentifier: selectedGitRepo,
             page,
-            size: 10,
+            size: 100,
             searchTerm
           }
         })
@@ -267,6 +279,9 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
             data-id="gitRepoSelect"
             items={repoSelectOptions}
             onChange={(selected: SelectOption) => {
+              if (selected.value === selectedGitRepo) {
+                return
+              }
               setSelectedGitRepo(selected.value as string)
               // Default branch will be selected after loading branches for new repo and event will be dispatched
               selected.value ? setSelectedGitBranch('') : props.onChange({ repo: '', branch: '' })
