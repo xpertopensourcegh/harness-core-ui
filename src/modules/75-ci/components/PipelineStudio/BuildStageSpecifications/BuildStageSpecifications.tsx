@@ -7,7 +7,7 @@
 
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { Accordion, Card, Formik, FormikForm, Switch, Text } from '@wings-software/uicore'
+import { Accordion, Card, Formik, FormikForm, Switch, Text, MultiTypeInputType } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { cloneDeep, debounce, defaultTo, isEqual, uniqBy } from 'lodash-es'
 import cx from 'classnames'
@@ -258,13 +258,21 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                   <FormikForm className={cx(css.fields, css.contentCard)}>
                     <MultiTypeList
                       name="sharedPaths"
-                      multiTextInputProps={{ expressions, allowableTypes }}
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
                       multiTypeFieldSelectorProps={{
                         label: (
                           <Text tooltipProps={{ dataTooltipId: 'stageSpecificationsSharedPaths' }}>
                             {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
                           </Text>
-                        )
+                        ),
+                        allowedTypes: [
+                          MultiTypeInputType.FIXED,
+                          MultiTypeInputType.EXPRESSION,
+                          MultiTypeInputType.RUNTIME
+                        ]
                       }}
                       disabled={isReadonly}
                     />

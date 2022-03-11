@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, act, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import BuildStageSpecifications from '../BuildStageSpecifications'
@@ -27,13 +27,29 @@ jest.mock('@pipeline/components/ErrorsStrip/ErrorsStripBinded', () => () => <></
 describe('BuildStageSpecifications tests', () => {
   const pipelineContextMockValue = getDummyPipelineContextValue()
   test('renders correctly', async () => {
-    const { container } = render(
+    const { container, getAllByText, getByText } = render(
       <TestWrapper>
         <PipelineContext.Provider value={pipelineContextMockValue}>
           <BuildStageSpecifications />
         </PipelineContext.Provider>
       </TestWrapper>
     )
+
+    expect(getByText('stageDetails')).toBeDefined()
+    expect(getAllByText('pipelineSteps.build.stageSpecifications.sharedPaths').length).toBe(2)
+
+    // Toggle Clone Codebase
+    act(() => {
+      fireEvent.click(getByText('cloneCodebaseLabel'))
+    })
+
+    // Open Advanced section
+    act(() => {
+      fireEvent.click(getByText('advancedTitle'))
+    })
+
+    expect(getByText('pipeline.stageVariables')).toBeTruthy()
+
     expect(container).toMatchSnapshot()
   })
 })

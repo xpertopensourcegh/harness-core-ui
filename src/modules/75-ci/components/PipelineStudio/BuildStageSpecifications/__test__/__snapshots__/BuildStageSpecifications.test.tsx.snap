@@ -307,7 +307,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
         >
           <div
             class="Accordion--panel"
-            data-open="false"
+            data-open="true"
             data-testid="advanced-panel"
             id="advanced-panel"
           >
@@ -332,12 +332,47 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
             </div>
             <div
               class="bp3-collapse Accordion--collapse"
+              style="height: 0px;"
             >
               <div
                 aria-hidden="false"
                 class="bp3-collapse-body"
-                style="transform: translateY(-undefinedpx);"
-              />
+                style="transform: translateY(0);"
+              >
+                <div
+                  class="Accordion--details"
+                  data-testid="advanced-details"
+                >
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card sectionCardVariables"
+                    id="variables"
+                    style="width: 100%;"
+                  >
+                    <div
+                      class="tabSubHeading"
+                    >
+                      pipeline.stageVariables
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="line-height: 24px;"
+                    >
+                      workflowVariableInfo
+                    </p>
+                    <div
+                      class="stageSection"
+                    >
+                      <div
+                        class="stageDetails"
+                      >
+                        <div>
+                          {"a":"a","variables":[],"canAddVariable":true}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
