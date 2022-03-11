@@ -160,7 +160,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.selectedProject, projectIdentifier, orgIdentifier])
+  }, [state.selectedProject, projectIdentifier, orgIdentifier, state.isGitSyncEnabled])
 
   // set selectedProject when projectDetails are fetched
   useEffect(() => {

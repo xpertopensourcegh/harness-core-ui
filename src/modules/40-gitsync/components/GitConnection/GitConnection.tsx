@@ -113,11 +113,8 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
       })
       if (status === 'SUCCESS') {
         showSuccess(getString('gitsync.successfullySavedConnectivityMode'))
-        if (isLastStep) {
-          onSuccess()
-        } else {
-          props.nextStep?.(prevStepData)
-        }
+        onSuccess()
+        props.nextStep?.(prevStepData)
       }
     } catch (e) {
       showError(e.data?.message || e.message)

@@ -163,4 +163,17 @@ describe('Test useCreateGitSyncModal', () => {
       repo: 'https://github.com/wings-software/sunnykesh-gitSync'
     })
   })
+
+  test('should open useCreateGitSyncModal', async () => {
+    const { container, getByText } = render(
+      <GitSyncTestWrapper path={routes.toGitSyncReposAdmin(projectPathProps)} pathParams={pathParams}>
+        <TestComponent />
+      </GitSyncTestWrapper>
+    )
+    fireEvent.click(container.querySelector('.useCreateGitSyncModalTestOpenDialog')!)
+    await waitFor(() => expect(() => getByText('gitsync.configureHarnessFolder')).toBeTruthy())
+    const cancelButton = await findByText(document.body, 'cancel')
+    fireEvent.click(cancelButton)
+    expect(document.body.querySelector('.bp3-dialog')).toEqual(null)
+  })
 })

@@ -6,7 +6,7 @@
  */
 
 import type { GitSyncConfig } from 'services/cd-ng'
-import { getRepoDetailsByIndentifier } from '../gitSyncUtils'
+import { getRepoDetailsByIndentifier, validateFilePath } from '../gitSyncUtils'
 
 describe('Test getRepoDetailsByIndentifier method', () => {
   let repos: GitSyncConfig[] = []
@@ -33,5 +33,9 @@ describe('Test getRepoDetailsByIndentifier method', () => {
   test('should return undefined when identifier is passed as undefined', () => {
     const repoObj = getRepoDetailsByIndentifier(undefined, repos)
     expect(repoObj).toBe(undefined)
+  })
+  test('validate file path', () => {
+    expect(validateFilePath('/src/strings/strings.tsx')).toEqual(false)
+    expect(validateFilePath('src/strings/strings.yaml')).toEqual(true)
   })
 })

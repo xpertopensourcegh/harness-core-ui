@@ -35,6 +35,7 @@ export interface UseCreateGitSyncModalReturn {
 }
 
 const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitSyncModalReturn => {
+  let shouldRefreshOnClose = false
   const { getString } = useStrings()
   const [isEditMode, setIsEditMode] = useState(false)
   const [isNewUser, setIsNewUser] = useState(false)
@@ -59,6 +60,9 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
 
   const [showModal, hideModal] = useModalHook(() => {
     const closeHandler = (): void => {
+      if (shouldRefreshOnClose) {
+        handleSuccess()
+      }
       props.onClose?.()
       hideModal()
     }
@@ -83,8 +87,8 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
           />
           <GitConnection
             name={getString('connectors.selectConnectivityMode')}
-            onSuccess={(data?: GitSyncConfig) => {
-              handleSuccess(data)
+            onSuccess={() => {
+              shouldRefreshOnClose = true
             }}
             isLastStep={false}
           />
@@ -92,6 +96,7 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
             name={getString('gitsync.branchToSync')}
             onClose={closeHandler}
             onSuccess={(data?: GitSyncConfig) => {
+              shouldRefreshOnClose = false
               handleSuccess(data)
             }}
           />
