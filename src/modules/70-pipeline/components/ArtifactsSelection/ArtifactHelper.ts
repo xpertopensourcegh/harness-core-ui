@@ -5,17 +5,15 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import * as Yup from 'yup'
-
+import type { Schema } from 'yup'
 import type { IconName } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
-import { IdentifierSchema } from '@common/utils/Validation'
+import { IdentifierSchemaWithOutName } from '@common/utils/Validation'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
 import { useStrings } from 'framework/strings'
 
-import { StringUtils } from '@common/exports'
 import type { ArtifactType } from './ArtifactInterface'
 
 export enum ModalViewFor {
@@ -94,21 +92,15 @@ export const ArtifactIdentifierValidation = (
   artifactIdentifiers: string[],
   id: string | undefined,
   validationMsg: string
-): { identifier: Yup.Schema<unknown> } => {
+): { identifier: Schema<unknown> } => {
   const { getString } = useStrings()
 
   if (!id) {
     return {
-      identifier: IdentifierSchema({
-        requiredErrorMsg: getString('pipeline.artifactsSelection.validation.sidecarId')
-      }).notOneOf(artifactIdentifiers, validationMsg)
+      identifier: IdentifierSchemaWithOutName(getString).notOneOf(artifactIdentifiers, validationMsg)
     }
   }
   return {
-    identifier: Yup.string()
-      .trim()
-      .required(getString('validation.identifierRequired'))
-      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers)
+    identifier: IdentifierSchemaWithOutName(getString)
   }
 }
