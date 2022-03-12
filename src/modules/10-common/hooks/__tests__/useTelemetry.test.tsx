@@ -20,7 +20,8 @@ jest.mock('@common/hooks/useTelemetryInstance', () => {
       return {
         identify: identifyMock,
         track: trackMock,
-        page: pageMock
+        page: pageMock,
+        initialized: true
       }
     }
   }

@@ -13,7 +13,10 @@ const identifyMock = jest.fn()
 jest.mock('@wings-software/telemetry', () => {
   return jest.fn().mockImplementation(() => {
     return {
-      identify: identifyMock
+      initialized: true,
+      identify: jest.fn().mockImplementation(userId => {
+        identifyMock(userId)
+      })
     }
   })
 })

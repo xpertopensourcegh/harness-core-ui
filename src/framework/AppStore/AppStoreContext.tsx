@@ -116,11 +116,11 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   // here we don't use hook useTelemetry to avoid circular dependencies
   const telemetry = useTelemetryInstance()
   useEffect(() => {
-    if (userInfo?.data?.email) {
+    if (userInfo?.data?.email && telemetry.initialized) {
       telemetry.identify(userInfo?.data?.email)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo?.data?.email])
+  }, [userInfo?.data?.email, telemetry])
 
   // update feature flags in context
   useEffect(() => {
