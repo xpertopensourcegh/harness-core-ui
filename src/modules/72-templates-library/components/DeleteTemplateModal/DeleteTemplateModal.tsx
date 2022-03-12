@@ -140,7 +140,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
             label: option.label,
             value: option.value,
             checked: option.checked,
-            visible: option.label.startsWith(query)
+            visible: option.label.toUpperCase().includes(query.toUpperCase())
           }
         })
       )
