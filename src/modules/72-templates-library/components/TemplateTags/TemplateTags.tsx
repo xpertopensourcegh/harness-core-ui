@@ -21,7 +21,7 @@ export const TemplateTags: React.FC<ListTagsProps> = (props): JSX.Element => {
 
   React.useLayoutEffect(() => {
     const currentHeight = ref?.current?.clientHeight
-    if (currentHeight && currentHeight > 20) {
+    if (currentHeight && currentHeight > 24) {
       setLength(length - 1)
     }
   }, [length])
