@@ -25,7 +25,7 @@ import {
 import { useModalHook } from '@harness/use-modal'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import { get, isEmpty, isEqual, merge, omit, set } from 'lodash-es'
+import { defaultTo, get, isEmpty, isEqual, merge, omit, set } from 'lodash-es'
 import produce from 'immer'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -343,7 +343,10 @@ export function PipelineCanvas({
       } else if (savedTemplate?.templateEntityType === 'Step') {
         const selectedStepId = drawerData.data?.stepConfig?.node.identifier
         if (selectedStepId) {
-          const selectedStep = getStepFromStage(selectedStepId, selectedStage?.stage?.spec?.execution?.steps)
+          const selectedStep = getStepFromStage(selectedStepId, [
+            ...defaultTo(selectedStage?.stage?.spec?.execution?.steps, []),
+            ...defaultTo(selectedStage?.stage?.spec?.execution?.rollbackSteps, [])
+          ])
           if (selectedStep?.step) {
             const processNode = createTemplate(selectedStep?.step, savedTemplate)
             const newPipelineView = produce(pipelineView, draft => {
