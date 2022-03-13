@@ -109,6 +109,7 @@ export const getCFPipelineStages: (
       {stagesCollection.getStage(StageType.PIPELINE, false, getString)} */}
       {stagesCollection.getStage(StageType.APPROVAL, isApprovalStageEnabled, getString)}
       {/* {stagesCollection.getStage(StageType.CUSTOM, false, getString)} */}
+      {stagesCollection.getStage(StageType.Template, false, getString)}
     </PipelineStages>
   )
 }
