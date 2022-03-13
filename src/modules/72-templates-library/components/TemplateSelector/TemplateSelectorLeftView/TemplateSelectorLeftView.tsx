@@ -127,8 +127,8 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
     if (searchParam) {
       searchRef.current.clear()
     }
-    setChildType(undefined)
-  }, [searchParam, searchRef.current])
+    setChildType(selectedChildType)
+  }, [searchParam, searchRef.current, selectedChildType])
 
   const getDropDownItems = React.useCallback((): SelectOption[] => {
     switch (templateType) {
