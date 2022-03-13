@@ -33,6 +33,7 @@ import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemp
 import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { getCDStageValidationSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -193,7 +194,9 @@ export default function DeployStageSetupShell(): JSX.Element {
     validate()
   }, [JSON.stringify(data)])
 
-  const selectedStage = selectedStageId ? getStageFromPipeline(selectedStageId).stage : undefined
+  const selectedStage = selectedStageId
+    ? getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId).stage
+    : undefined
   const originalStage = selectedStageId ? getStageFromPipeline(selectedStageId, originalPipeline).stage : undefined
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
 
@@ -358,9 +361,12 @@ export default function DeployStageSetupShell(): JSX.Element {
           <>
             <Expander />
             <SaveTemplateButton
-              data={selectedStage?.stage}
+              data={selectedStage.stage}
               type={'Stage'}
-              buttonProps={{ margin: { right: 'medium' } }}
+              buttonProps={{
+                margin: { right: 'medium' },
+                disabled: !!selectedStage.stage.spec?.serviceConfig?.useFromStage
+              }}
             />
           </>
         )}
