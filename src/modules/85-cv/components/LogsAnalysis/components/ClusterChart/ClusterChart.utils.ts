@@ -90,9 +90,13 @@ export const chartOptions = (series: Highcharts.SeriesScatterOptions[], getStrin
     tooltip: {
       formatter: function (this: any): any {
         return `
-        <p><strong>${getString('message')}: </strong>${this?.point?.message}</p></br><p><strong>${getString(
-          'ce.perspectives.workloadDetails.fieldNames.node'
-        )}: </strong> ${this?.point?.hostname}</p>
+        <p><strong>${getString('message')}: </strong>${this?.point?.message}</p></br>${
+          this?.point?.hostname
+            ? `<p><strong>${getString('ce.perspectives.workloadDetails.fieldNames.node')}: </strong> ${
+                this.point.hostname
+              }</p>`
+            : ''
+        }
         `
       },
       style: {
