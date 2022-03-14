@@ -9,4 +9,9 @@ import type { HostData } from 'services/cv'
 
 export type HostTestData = { risk: HostData['risk']; points: Highcharts.SeriesLineOptions['data']; name: string }
 
+export type HostControlTestData = Omit<HostTestData, 'risk' | 'name'> & {
+  risk?: HostData['risk']
+  name?: string | null
+}
+
 export const widthPercentagePerGraph = 3.1

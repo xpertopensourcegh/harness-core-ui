@@ -15,14 +15,14 @@ import { useStrings } from 'framework/strings'
 import { chartsConfig } from './DeeploymentMetricsChartConfig'
 import { filterRenderCharts, transformControlAndTestDataToHighChartsSeries } from './DeploymentMetricsAnalysisRow.utils'
 import type { DeploymentMetricsAnalysisRowChartSeries } from './DeploymentMetricsAnalysisRow.types'
-import { widthPercentagePerGraph, HostTestData } from './DeploymentMetricsAnalysisRow.constants'
+import { widthPercentagePerGraph, HostTestData, HostControlTestData } from './DeploymentMetricsAnalysisRow.constants'
 import css from './DeploymentMetricsAnalysisRow.module.scss'
 
 export interface DeploymentMetricsAnalysisRowProps {
   healthSourceType: any
   transactionName: string
   metricName: string
-  controlData?: Highcharts.SeriesLineOptions['data'][]
+  controlData?: HostControlTestData[]
   testData?: HostTestData[]
   className?: string
   risk?: TransactionMetric['risk']
@@ -65,7 +65,7 @@ export function DeploymentMetricsAnalysisRow(props: DeploymentMetricsAnalysisRow
           <HighchartsReact
             key={index}
             highcharts={Highcharts}
-            options={chartsConfig(series, graphWidth, testData?.[index], getString)}
+            options={chartsConfig(series, graphWidth, testData?.[index], controlData?.[index], getString)}
           />
         ))}
       </div>

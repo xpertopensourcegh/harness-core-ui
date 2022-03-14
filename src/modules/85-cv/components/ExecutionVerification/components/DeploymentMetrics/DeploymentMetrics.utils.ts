@@ -11,7 +11,10 @@ import type { MultiSelectOption } from '@harness/uicore'
 import type { GetDataError } from 'restful-react'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import type { DatasourceTypeDTO, RestResponseTransactionMetricInfoSummaryPageDTO } from 'services/cv'
-import type { HostTestData } from './components/DeploymentMetricsAnalysisRow/DeploymentMetricsAnalysisRow.constants'
+import type {
+  HostControlTestData,
+  HostTestData
+} from './components/DeploymentMetricsAnalysisRow/DeploymentMetricsAnalysisRow.constants'
 import type { DeploymentMetricsAnalysisRowProps } from './components/DeploymentMetricsAnalysisRow/DeploymentMetricsAnalysisRow'
 import type { DeploymentNodeAnalysisResult } from '../DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
 
@@ -37,7 +40,7 @@ export function transformMetricData(
     if (!nodes?.length || !transactionMetric?.metricName || !transactionMetric.transactionName) continue
 
     const increment = Math.floor(range.diff() / Math.max(nodes.length - 1, 1))
-    const controlPoints: Highcharts.SeriesLineOptions['data'][] = []
+    const controlPoints: HostControlTestData[] = []
     const testPoints: HostTestData[] = []
 
     for (const hostInfo of nodes) {
@@ -53,7 +56,7 @@ export function transformMetricData(
         hostTestData.push({ x: startOfRange + index * increment, y: dataPoint === -1 ? null : dataPoint })
       })
 
-      controlPoints.push(hostControlData)
+      controlPoints.push({ points: hostControlData, name: hostInfo.nearestControlHost })
       testPoints.push({ points: hostTestData, risk, name: hostName || '' })
     }
 

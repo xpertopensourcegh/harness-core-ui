@@ -10,7 +10,6 @@ import {
   Color,
   Container,
   Text,
-  Icon,
   Pagination,
   PageError,
   NoDataCard,
@@ -22,7 +21,8 @@ import {
   ButtonVariation,
   FontVariation,
   MultiSelectDropDown,
-  MultiSelectOption
+  MultiSelectOption,
+  Icon
 } from '@wings-software/uicore'
 import { isEqual } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -322,9 +322,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
   return (
     <Container className={css.main}>
       <Container className={css.filters}>
-        <Text color={Color.BLACK} font={{ size: 'small', weight: 'bold' }}>
-          {getString('filters.filtersLabel').toLocaleUpperCase()}:
-        </Text>
+        <Icon name="filter" />
         <MultiSelectDropDown
           placeholder={getFilteredText(selectedTransactionName, 'rbac.group')}
           value={selectedTransactionName}
@@ -358,7 +356,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
           data-testid="anomalousFilterCheckbox"
         />
       </Container>
-      <Layout.Horizontal className={css.filterSecondRow} border={{ bottom: true }} margin={{ bottom: 'large' }}>
+      <Layout.Horizontal className={css.filterSecondRow} border={{ bottom: true }}>
         <Container className={css.accordionToggleButtons}>
           {Boolean(currentViewData.length) && (
             <>

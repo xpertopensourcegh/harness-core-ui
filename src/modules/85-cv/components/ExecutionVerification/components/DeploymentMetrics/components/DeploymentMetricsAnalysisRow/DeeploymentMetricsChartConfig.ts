@@ -5,14 +5,17 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import { Color } from '@wings-software/uicore'
+import { getRiskColorValue, getSecondaryRiskColorValue } from '@cv/utils/CommonUtils'
 import type { UseStringsReturn } from 'framework/strings'
-import type { HostTestData } from './DeploymentMetricsAnalysisRow.constants'
+import type { HostControlTestData, HostTestData } from './DeploymentMetricsAnalysisRow.constants'
 import type { DeploymentMetricsAnalysisRowChartSeries } from './DeploymentMetricsAnalysisRow.types'
 
 export function chartsConfig(
   series: DeploymentMetricsAnalysisRowChartSeries[],
   width: number,
   testData: HostTestData | undefined,
+  controlData: HostControlTestData | undefined,
   getString: UseStringsReturn['getString']
 ): Highcharts.Options {
   return {
@@ -53,29 +56,68 @@ export function chartsConfig(
       series: {
         stickyTracking: false,
         lineWidth: 3,
-        turboThreshold: 50000
+        turboThreshold: 50000,
+        states: {
+          inactive: {
+            opacity: 1
+          }
+        }
       }
     },
     tooltip: {
-      formatter: function tooltipFormatter(this: any): string {
-        const { baseData, actualTestData } = series[0]
-
+      formatter: function tooltipFormatter(): string {
         // eslint-disable-next-line
         // @ts-ignore
-        const baseDataValue = baseData?.[this.point.index]?.y
+        const baseDataValue = this.points[0]?.y
         // eslint-disable-next-line
         // @ts-ignore
-        const testDataValue = actualTestData?.points?.[this.point.index]?.y
+        const testDataValue = this.points[1]?.y
 
         // to show "No data" text when the y axis value is null
         const baseDataDisplayValue = baseDataValue?.toFixed(2) ?? getString('noData')
         const testDataDisplayValue = testDataValue?.toFixed(2) ?? getString('noData')
 
-        return `<section class="serviceGuardTimeSeriesTooltip"><p>${getString(
-          'connectors.cdng.baseline'
-        )}: ${baseDataDisplayValue}</p><br/><p>${getString('common.current')}: ${testDataDisplayValue}</p></section>`
+        return `
+        <div class="sectionParent" style="margin-top: 4px">
+        <div class="riskIndicator" style="border: 1px solid ${getRiskColorValue(
+          testData?.risk
+        )};background: ${getSecondaryRiskColorValue(testData?.risk)}; margin:0 10px 0 4px"></div>
+        <div>
+        <p><span style="color: var(--grey-350)">${getString('pipeline.verification.testHost')}:</span> ${
+          testData?.name || getString('noData')
+        }</p> 
+        <p><span style="color: var(--grey-350)">${getString('valueLabel')}:</span> ${testDataDisplayValue}</p>
+        </div>
+        </div>      
+        <div class="sectionParent"> 
+        <div class="riskIndicator" style="border: 1px solid var(--primary-7);background: var(--primary-2); margin:0 10px 0 4px"></div>
+        <div><p><span style="color: var(--grey-350)">${getString('pipeline.verification.controlHost')}:</span> ${
+          controlData?.name || getString('noData')
+        }</p>
+        <p><span style="color: var(--grey-350)">${getString('valueLabel')}:</span> ${baseDataDisplayValue}</p>
+        </div>
+        </div>`
       },
-      outside: true
+      positioner: () => {
+        return {
+          x: 0,
+          y: -115
+        }
+      },
+      useHTML: true,
+      outside: false,
+      className: 'metricsGraph_tooltip',
+      backgroundColor: Color.WHITE,
+      borderColor: Color.GREY_200,
+      borderRadius: 10,
+      shadow: {
+        color: 'rgba(96, 97, 112, 0.56)'
+      },
+      shared: true,
+      shape: 'square',
+      // eslint-disable-next-line
+      // @ts-ignore
+      crosshairs: true
     },
     subtitle: undefined,
     series

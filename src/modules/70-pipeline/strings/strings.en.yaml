@@ -662,6 +662,8 @@ verification:
   expandAll: Expand All
   collapseAll: Collapse All
   predicted: Predicted
+  testHost: Test Host
+  controlHost: Control Host
 
   logs:
     logCluster: Log cluster

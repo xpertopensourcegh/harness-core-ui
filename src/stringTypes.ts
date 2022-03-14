@@ -2970,6 +2970,7 @@ export interface StringsMap {
   'pipeline.verification.anomalousMetricsFilterLabel': string
   'pipeline.verification.baselineTest': string
   'pipeline.verification.collapseAll': string
+  'pipeline.verification.controlHost': string
   'pipeline.verification.controlHostName': string
   'pipeline.verification.currentTest': string
   'pipeline.verification.errorClustersInViolation': string
@@ -3004,6 +3005,7 @@ export interface StringsMap {
   'pipeline.verification.tableHeaders.group': string
   'pipeline.verification.tableHeaders.metricName': string
   'pipeline.verification.tableHeaders.nodes': string
+  'pipeline.verification.testHost': string
   'pipeline.verification.testHostName': string
   'pipeline.verification.testsRan': string
   'pipeline.verification.toGetLatest': string

@@ -28,6 +28,7 @@ export const transactionMetricInfoSummary: RestResponseTransactionMetricInfoSumm
           nodes: [
             {
               hostName: 'dummypipeline-nr-deployment-canary-fdf55df6-z27gv',
+              nearestControlHost: 'a',
               risk: 'NO_ANALYSIS',
               score: 1.0933333333333335,
               controlData: [30.666666666666668, 31.333333333333332, 27, 25.666666666666668, 28],
@@ -231,13 +232,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 30.666666666666668 },
-        { x: 1635869760000, y: 31.333333333333332 },
-        { x: 1635870660000, y: 27 },
-        { x: 1635871560000, y: 25.666666666666668 },
-        { x: 1635872460000, y: 28 }
-      ]
+      {
+        name: 'a',
+        points: [
+          { x: 1635868860000, y: 30.666666666666668 },
+          { x: 1635869760000, y: 31.333333333333332 },
+          { x: 1635870660000, y: 27 },
+          { x: 1635871560000, y: 25.666666666666668 },
+          { x: 1635872460000, y: 28 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Calls per Minute',
@@ -261,13 +265,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 48.666666666666664 },
-        { x: 1635869760000, y: 48.333333333333336 },
-        { x: 1635870660000, y: 49 },
-        { x: 1635871560000, y: 49.333333333333336 },
-        { x: 1635872460000, y: 47 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 48.666666666666664 },
+          { x: 1635869760000, y: 48.333333333333336 },
+          { x: 1635870660000, y: 49 },
+          { x: 1635871560000, y: 49.333333333333336 },
+          { x: 1635872460000, y: 47 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Calls per Minute',
@@ -291,13 +298,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 48.333333333333336 },
-        { x: 1635869760000, y: 48.666666666666664 },
-        { x: 1635870660000, y: 48.666666666666664 },
-        { x: 1635871560000, y: 49.666666666666664 },
-        { x: 1635872460000, y: 46.5 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 48.333333333333336 },
+          { x: 1635869760000, y: 48.666666666666664 },
+          { x: 1635870660000, y: 48.666666666666664 },
+          { x: 1635871560000, y: 49.666666666666664 },
+          { x: 1635872460000, y: 46.5 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Calls per Minute',
@@ -321,13 +331,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 54.666666666666664 },
-        { x: 1635869760000, y: 43.333333333333336 },
-        { x: 1635870660000, y: 48.666666666666664 },
-        { x: 1635871560000, y: 46.666666666666664 },
-        { x: 1635872460000, y: 43 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 54.666666666666664 },
+          { x: 1635869760000, y: 43.333333333333336 },
+          { x: 1635870660000, y: 48.666666666666664 },
+          { x: 1635871560000, y: 46.666666666666664 },
+          { x: 1635872460000, y: 43 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Calls per Minute',
@@ -351,13 +364,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 54.666666666666664 },
-        { x: 1635869760000, y: 43.333333333333336 },
-        { x: 1635870660000, y: 48.666666666666664 },
-        { x: 1635871560000, y: 46.666666666666664 },
-        { x: 1635872460000, y: 43 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 54.666666666666664 },
+          { x: 1635869760000, y: 43.333333333333336 },
+          { x: 1635870660000, y: 48.666666666666664 },
+          { x: 1635871560000, y: 46.666666666666664 },
+          { x: 1635872460000, y: 43 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Calls per Minute',
@@ -381,13 +397,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 0.06666666666666667 },
-        { x: 1635869760000, y: 0.06 },
-        { x: 1635870660000, y: 0.06666666666666667 },
-        { x: 1635871560000, y: 0.06666666666666667 },
-        { x: 1635872460000, y: 0.065 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 0.06666666666666667 },
+          { x: 1635869760000, y: 0.06 },
+          { x: 1635870660000, y: 0.06666666666666667 },
+          { x: 1635871560000, y: 0.06666666666666667 },
+          { x: 1635872460000, y: 0.065 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Apdex',
@@ -411,13 +430,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 0.3333333333333333 },
-        { x: 1635869760000, y: 0 },
-        { x: 1635870660000, y: 0 },
-        { x: 1635871560000, y: 0 },
-        { x: 1635872460000, y: 0 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 0.3333333333333333 },
+          { x: 1635869760000, y: 0 },
+          { x: 1635870660000, y: 0 },
+          { x: 1635871560000, y: 0 },
+          { x: 1635872460000, y: 0 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Apdex',
@@ -441,13 +463,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 1 },
-        { x: 1635869760000, y: 1 },
-        { x: 1635870660000, y: 1 },
-        { x: 1635871560000, y: 1 },
-        { x: 1635872460000, y: 1 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 1 },
+          { x: 1635869760000, y: 1 },
+          { x: 1635870660000, y: 1 },
+          { x: 1635871560000, y: 1 },
+          { x: 1635872460000, y: 1 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Apdex',
@@ -470,7 +495,7 @@ export const transformMetricsExpectedResult = [
   },
   {
     connectorName: 'new relic',
-    controlData: [[]],
+    controlData: [{ name: undefined, points: [] }],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Apdex',
     nodeRiskCount: undefined,
@@ -493,13 +518,16 @@ export const transformMetricsExpectedResult = [
   {
     connectorName: 'new relic',
     controlData: [
-      [
-        { x: 1635868860000, y: 0.6666666666666666 },
-        { x: 1635869760000, y: 0.5 },
-        { x: 1635870660000, y: 0.5 },
-        { x: 1635871560000, y: 0.5 },
-        { x: 1635872460000, y: 0.5 }
-      ]
+      {
+        name: undefined,
+        points: [
+          { x: 1635868860000, y: 0.6666666666666666 },
+          { x: 1635869760000, y: 0.5 },
+          { x: 1635870660000, y: 0.5 },
+          { x: 1635871560000, y: 0.5 },
+          { x: 1635872460000, y: 0.5 }
+        ]
+      }
     ],
     healthSourceType: 'NEW_RELIC',
     metricName: 'Apdex',

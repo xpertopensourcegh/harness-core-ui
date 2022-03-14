@@ -5,10 +5,9 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import type Highcharts from 'highcharts'
 import type { IconName } from '@wings-software/uicore'
 import { getRiskColorValue } from '@cv/utils/CommonUtils'
-import type { HostTestData } from './DeploymentMetricsAnalysisRow.constants'
+import type { HostControlTestData, HostTestData } from './DeploymentMetricsAnalysisRow.constants'
 import type { DeploymentMetricsAnalysisRowChartSeries } from './DeploymentMetricsAnalysisRow.types'
 
 export function healthSourceTypeToLogo(healthSourceType: any): IconName {
@@ -36,7 +35,7 @@ export function healthSourceTypeToLogo(healthSourceType: any): IconName {
 }
 
 export function transformControlAndTestDataToHighChartsSeries(
-  controlData: Highcharts.SeriesSplineOptions['data'][],
+  controlData: HostControlTestData[],
   testData: HostTestData[]
 ): DeploymentMetricsAnalysisRowChartSeries[][] {
   const highchartsOptions: DeploymentMetricsAnalysisRowChartSeries[][] = []
@@ -47,7 +46,7 @@ export function transformControlAndTestDataToHighChartsSeries(
     highchartsOptions.push([
       {
         type: 'spline',
-        data: controlData[index] || [],
+        data: controlData[index].points || [],
         color: 'var(--primary-7)',
         name: testData[index].name,
         connectNulls: true,
@@ -60,7 +59,7 @@ export function transformControlAndTestDataToHighChartsSeries(
         },
         lineWidth: 1,
         dashStyle: 'Dash',
-        baseData: controlData[index] || [],
+        baseData: controlData[index].points || [],
         actualTestData: testData[index] || []
       },
       {
@@ -77,7 +76,7 @@ export function transformControlAndTestDataToHighChartsSeries(
           lineColor: testDataLineColor
         },
         lineWidth: 1,
-        baseData: controlData[index] || [],
+        baseData: controlData[index].points || [],
         actualTestData: testData[index] || []
       }
     ])

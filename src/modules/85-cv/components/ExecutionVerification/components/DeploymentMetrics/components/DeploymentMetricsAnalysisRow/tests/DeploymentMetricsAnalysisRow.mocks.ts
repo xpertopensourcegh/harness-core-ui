@@ -11,20 +11,22 @@ import type { DeploymentMetricsAnalysisRowProps } from '../DeploymentMetricsAnal
 export const InputData: DeploymentMetricsAnalysisRowProps[] = [
   {
     controlData: [
-      [
-        { x: 1623184440000, y: 2.6666666666666665 },
-        { x: 1623184568571, y: 3 },
-        { x: 1623184697142, y: 3 },
-        { x: 1623184825713, y: 2.6666666666666665 },
-        { x: 1623184954284, y: 3 }
-      ],
-      [],
-      [],
-      [],
-      [],
-      [],
-      [],
-      []
+      {
+        points: [
+          { x: 1623184440000, y: 2.6666666666666665 },
+          { x: 1623184568571, y: 3 },
+          { x: 1623184697142, y: 3 },
+          { x: 1623184825713, y: 2.6666666666666665 },
+          { x: 1623184954284, y: 3 }
+        ]
+      },
+      { points: [] },
+      { points: [] },
+      { points: [] },
+      { points: [] },
+      { points: [] },
+      { points: [] },
+      { points: [] }
     ],
     testData: [
       {
@@ -121,7 +123,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -140,7 +142,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -159,7 +161,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -178,7 +180,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -197,7 +199,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -216,7 +218,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -235,7 +237,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -254,7 +256,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -273,7 +275,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
     healthSourceType: 'APP_DYNAMICS'
   },
   {
-    controlData: [[]],
+    controlData: [{ points: [] }],
     testData: [
       {
         points: [
@@ -356,7 +358,9 @@ export const expectedChartConfigData = {
   chart: { height: 120, type: 'spline', width: 312.5806451612903 },
   credits: undefined,
   legend: { enabled: false },
-  plotOptions: { series: { lineWidth: 3, stickyTracking: false, turboThreshold: 50000 } },
+  plotOptions: {
+    series: { lineWidth: 3, states: { inactive: { opacity: 1 } }, stickyTracking: false, turboThreshold: 50000 }
+  },
   series: [
     {
       actualTestData: {
@@ -404,7 +408,20 @@ export const expectedChartConfigData = {
   ],
   subtitle: undefined,
   title: { text: '' },
-  tooltip: { formatter: expect.any(Function), outside: true },
+  tooltip: {
+    backgroundColor: 'white',
+    borderColor: 'grey200',
+    borderRadius: 10,
+    className: 'metricsGraph_tooltip',
+    crosshairs: true,
+    formatter: expect.any(Function),
+    positioner: expect.any(Function),
+    outside: false,
+    shape: 'square',
+    shared: true,
+    shadow: { color: 'rgba(96, 97, 112, 0.56)' },
+    useHTML: true
+  },
   xAxis: {
     labels: { enabled: false },
     tickLength: 0,

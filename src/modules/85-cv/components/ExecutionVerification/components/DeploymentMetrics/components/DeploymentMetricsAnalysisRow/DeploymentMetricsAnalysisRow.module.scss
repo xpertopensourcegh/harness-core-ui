@@ -30,13 +30,18 @@
   }
 
   .graphs {
-    overflow: hidden;
+    overflow: visible !important;
     flex-basis: 100%;
     flex-grow: 1;
 
     > div {
       display: inline-block;
       margin-right: var(--spacing-xsmall) !important;
+      overflow: visible !important;
+
+      > div {
+        overflow: visible !important;
+      }
     }
 
     svg > g path[class='highcharts-area'] {
@@ -70,4 +75,40 @@
   line-height: 24px !important;
   width: fit-content;
   border-radius: 4px;
+}
+
+:global(.metricsGraph_tooltip.highcharts-tooltip) {
+  background: var(--white) !important;
+  width: 100%;
+  min-height: 105%;
+  border: 1px solid var(--grey-200);
+  border-radius: 10px;
+  box-shadow: var(--elevation-3);
+}
+:global(.metricsGraph_tooltip.highcharts-tooltip > span) {
+  padding-top: var(--spacing-xsmall);
+}
+:global(.metricsGraph_tooltip.highcharts-tooltip .sectionParent) {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-small);
+}
+
+:global(.metricsGraph_tooltip.highcharts-tooltip .riskIndicator) {
+  height: 10px;
+  min-width: 10px;
+  border-radius: 1px;
+}
+
+:global(.metricsGraph_tooltip.highcharts-tooltip p) {
+  margin-bottom: var(--spacing-tiny);
+  margin-top: -2px;
+}
+
+:global(.metricsGraph_tooltip.highcharts-tooltip path) {
+  display: none !important;
+}
+
+:global(.metricsGraph_tooltip.highcharts-tooltip *) {
+  box-sizing: border-box;
 }
