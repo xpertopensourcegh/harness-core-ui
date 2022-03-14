@@ -6,19 +6,39 @@
  */
 
 import React, { useCallback } from 'react'
-import { Button, Card, Container, Icon, Layout, Text, FontVariation, ButtonVariation } from '@wings-software/uicore'
+import {
+  Button,
+  Card,
+  Container,
+  Icon,
+  Layout,
+  Text,
+  FontVariation,
+  ButtonVariation,
+  useToaster
+} from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { ModuleName } from 'framework/types/ModuleName'
+import { Module, ModuleName } from 'framework/types/ModuleName'
 import { getModuleLink } from '@projects-orgs/components/ModuleListCard/ModuleListCard'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { getModuleDescriptionsForModuleSelectionDialog, getModuleFullLengthTitle } from '@projects-orgs/utils/utils'
 import { getModuleIcon } from '@common/utils/utils'
-import type { Project } from 'services/cd-ng'
+import {
+  Project,
+  StartFreeLicenseQueryParams,
+  StartTrialDTO,
+  startFreeLicensePromise,
+  startTrialLicensePromise,
+  ResponseModuleLicenseDTO
+} from 'services/cd-ng'
 import ModuleSelectionFactory from '@projects-orgs/factories/ModuleSelectionFactory'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import routes from '@common/RouteDefinitions'
 import css from './useModuleSelect.module.scss'
 
 export interface UseModuleSelectModalProps {
@@ -33,17 +53,172 @@ export interface UseModuleSelectModalReturn {
 interface InfoCards {
   name: ModuleName
 }
+interface GoToModuleBtnProps {
+  selectedModuleName: ModuleName
+  projectData: Project
+}
+interface ModulesRoutesMap extends GoToModuleBtnProps {
+  search?: string
+  accountId: string
+  freePlanEnabled?: boolean
+}
+interface UpdateLicneseStoreAndGotoModulePageProps {
+  planData: ResponseModuleLicenseDTO
+  experienceType: ModuleLicenseType
+}
+const getModulesWithSubscriptionsRoutesMap = ({
+  selectedModuleName,
+  projectData,
+  search = '',
+  accountId,
+  freePlanEnabled = false
+}: ModulesRoutesMap): Map<ModuleName, any> => {
+  const cdCiPath = {
+    pathname: routes.toPipelineStudio({
+      orgIdentifier: projectData.orgIdentifier || '',
+      projectIdentifier: projectData.identifier,
+      pipelineIdentifier: '-1',
+      accountId,
+      module: selectedModuleName.toLowerCase() as Module
+    }),
+    search: `modal=${freePlanEnabled ? ModuleLicenseType.FREE : ModuleLicenseType.TRIAL}`
+  }
+  return new Map([
+    [
+      ModuleName.CE,
+      {
+        pathname: routes.toModuleTrialHome({
+          accountId,
+          module: selectedModuleName.toLocaleLowerCase() as Module
+        }),
+        search: search
+      }
+    ],
+    [
+      ModuleName.CF,
+      {
+        pathname: routes.toCFOnboarding({
+          orgIdentifier: projectData?.orgIdentifier || '',
+          projectIdentifier: projectData.identifier,
+          accountId
+        })
+      }
+    ],
+    [ModuleName.CD, cdCiPath],
+    [ModuleName.CI, cdCiPath]
+  ])
+}
 
+const GoToModuleBtn: React.FC<GoToModuleBtnProps> = props => {
+  const { getString } = useStrings()
+  const { showError } = useToaster()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const { FREE_PLAN_ENABLED } = useFeatureFlags()
+  const history = useHistory()
+  const { selectedModuleName, projectData } = props
+  const { accountId } = useParams<AccountPathProps>()
+  const updateLicenseStoreAndGotoModulePage = ({
+    planData,
+    experienceType
+  }: UpdateLicneseStoreAndGotoModulePageProps): void => {
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      selectedModuleName.toLowerCase() as Module,
+      planData?.data
+    )
+    const moudleRoutePathMap = getModulesWithSubscriptionsRoutesMap({
+      selectedModuleName,
+      projectData,
+      accountId,
+      search: `?experience=${experienceType}&&modal=${experienceType}`,
+      freePlanEnabled: FREE_PLAN_ENABLED
+    })
+    history.push(moudleRoutePathMap.get(selectedModuleName))
+  }
+  const startFreeLicense = (): void => {
+    startFreeLicensePromise({
+      body: undefined,
+      queryParams: {
+        accountIdentifier: accountId,
+        moduleType: selectedModuleName as StartFreeLicenseQueryParams['moduleType']
+      }
+    })
+      .then(planData => {
+        updateLicenseStoreAndGotoModulePage({ planData, experienceType: ModuleLicenseType.FREE })
+      })
+      .catch(err => {
+        showError(err)
+      })
+  }
+  const startTrialLicense = (): void => {
+    startTrialLicensePromise({
+      body: {
+        moduleType: selectedModuleName as StartTrialDTO['moduleType'],
+        edition: Editions.ENTERPRISE
+      },
+      queryParams: { accountIdentifier: accountId }
+    })
+      .then(planData => {
+        updateLicenseStoreAndGotoModulePage({ planData, experienceType: ModuleLicenseType.TRIAL })
+      })
+      .catch(err => {
+        showError(err)
+      })
+  }
+  const getBtnText = (): string => {
+    if (
+      !licenseInformation[selectedModuleName] &&
+      getModulesWithSubscriptionsRoutesMap({ selectedModuleName, projectData, accountId }).has(selectedModuleName)
+    ) {
+      if (FREE_PLAN_ENABLED) {
+        return getString('common.startFreePlan')
+      }
+      return getString('common.startTrial')
+    }
+    return getString('projectsOrgs.goToModuleBtn')
+  }
+  return (
+    <Button
+      text={getBtnText()}
+      variation={ButtonVariation.PRIMARY}
+      onClick={() => {
+        if (
+          projectData &&
+          projectData.orgIdentifier &&
+          (licenseInformation[selectedModuleName] ||
+            !getModulesWithSubscriptionsRoutesMap({ selectedModuleName, projectData, accountId }).has(
+              selectedModuleName
+            ))
+        ) {
+          history.push(
+            getModuleLink({
+              module: selectedModuleName,
+              orgIdentifier: projectData?.orgIdentifier,
+              projectIdentifier: projectData.identifier,
+              accountId
+            })
+          )
+        } else {
+          if (FREE_PLAN_ENABLED) {
+            startFreeLicense()
+          } else {
+            startTrialLicense()
+          }
+        }
+      }}
+    ></Button>
+  )
+}
 export const useModuleSelectModal = ({
   onSuccess,
   onCloseModal
 }: UseModuleSelectModalProps): UseModuleSelectModalReturn => {
   const { getString } = useStrings()
 
-  const history = useHistory()
   const [selectedModuleName, setSelectedModuleName] = React.useState<ModuleName>()
   const [projectData, setProjectData] = React.useState<Project>()
-  const { accountId } = useParams<AccountPathProps>()
+
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const modalProps: IDialogProps = {
     isOpen: true,
@@ -133,23 +308,9 @@ export const useModuleSelectModal = ({
                     <Text font={{ variation: FontVariation.H4 }}>
                       {getString(getModuleFullLengthTitle(selectedModuleName))}
                     </Text>
-                    <Button
-                      text={getString('projectsOrgs.goToModuleBtn')}
-                      width={150}
-                      variation={ButtonVariation.PRIMARY}
-                      onClick={() => {
-                        if (projectData && projectData.orgIdentifier) {
-                          history.push(
-                            getModuleLink({
-                              module: selectedModuleName,
-                              orgIdentifier: projectData?.orgIdentifier,
-                              projectIdentifier: projectData.identifier,
-                              accountId
-                            })
-                          )
-                        }
-                      }}
-                    ></Button>
+                    {projectData && selectedModuleName ? (
+                      <GoToModuleBtn selectedModuleName={selectedModuleName} projectData={projectData} />
+                    ) : null}
                   </Layout.Vertical>
                 )
               : null}

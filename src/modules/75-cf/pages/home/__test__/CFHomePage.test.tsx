@@ -8,7 +8,14 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetLicensesAndSummary, useExtendTrialLicense, useSaveFeedback, useGetProjectList } from 'services/cd-ng'
+import {
+  useGetLicensesAndSummary,
+  useExtendTrialLicense,
+  useSaveFeedback,
+  useGetProjectList,
+  useStartTrialLicense,
+  useStartFreeLicense
+} from 'services/cd-ng'
 import CFHomePage from '../CFHomePage'
 
 const projects = [
@@ -41,6 +48,36 @@ const projects = [
 ]
 
 jest.mock('services/cd-ng')
+const useStartFreeLicenseMock = useStartFreeLicense as jest.MockedFunction<any>
+useStartFreeLicenseMock.mockImplementation(() => {
+  return {
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS',
+        data: {
+          licenseType: 'FREE'
+        }
+      }
+    })
+  }
+})
+const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
+useStartTrialMock.mockImplementation(() => {
+  return {
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS',
+        data: {
+          licenseType: 'TRIAL'
+        }
+      }
+    })
+  }
+})
 const useGetModuleLicenseInfoMock = useGetLicensesAndSummary as jest.MockedFunction<any>
 const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
 useExtendTrialLicenseMock.mockImplementation(() => {

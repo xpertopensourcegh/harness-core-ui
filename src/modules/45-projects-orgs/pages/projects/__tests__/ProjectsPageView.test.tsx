@@ -54,6 +54,24 @@ jest.mock('services/cd-ng', () => ({
   useGetOrganizationList: jest.fn().mockImplementation(() => {
     return { ...orgMockData, refetch: jest.fn(), error: null }
   }),
+  useStartTrialLicense: jest.fn().mockImplementation(() => {
+    return {
+      loading: false,
+      data: {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  }),
+  useStartFreeLicense: jest.fn().mockImplementation(() => {
+    return {
+      loading: false,
+      data: {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  }),
   usePostProject: jest.fn().mockImplementation(() => createMockData),
   useGetProjectAggregateDTOList: jest.fn().mockImplementation(args => {
     getProjectList(args)
@@ -161,6 +179,8 @@ describe('Project Page List', () => {
       fireEvent.click(queryByText(document.body, 'saveAndContinue')!)
       await waitFor(() => queryAllByText(document.body, 'projectsOrgs.purposeList.name'))
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      form = findDialogContainer()
+      fireEvent.click(form?.querySelector('[icon="small-cross"]')!)
       form = findDialogContainer()
       expect(form).not.toBeTruthy()
     }),

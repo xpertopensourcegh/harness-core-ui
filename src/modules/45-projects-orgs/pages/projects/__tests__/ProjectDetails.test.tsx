@@ -51,6 +51,34 @@ jest.mock('@common/hooks', () => ({
 }))
 
 jest.mock('services/cd-ng', () => ({
+  useStartFreeLicense: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementation(() => {
+        return {
+          status: 'SUCCESS',
+          data: {
+            licenseType: 'FREE'
+          }
+        }
+      })
+    }
+  }),
+  useStartTrialLicense: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementation(() => {
+        return {
+          status: 'SUCCESS',
+          data: {
+            licenseType: 'TRIAL'
+          }
+        }
+      })
+    }
+  }),
   useDeleteProject: jest.fn().mockImplementation(() => ({ mutate: deleteProjectMock })),
   usePutProject: jest.fn().mockImplementation(() => createMockData),
   useGetProject: jest.fn().mockImplementation(() => {

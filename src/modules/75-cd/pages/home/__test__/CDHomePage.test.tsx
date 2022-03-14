@@ -105,7 +105,20 @@ jest.mock('services/pipeline-ng', () => ({
     }
   })
 }))
-
+useStartTrialMock.mockImplementation(() => {
+  return {
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS',
+        data: {
+          licenseType: 'TRIAL'
+        }
+      }
+    })
+  }
+})
 describe('CDHomePage snapshot test', () => {
   test('should render HomePageTemplate when return success with data', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
@@ -136,20 +149,7 @@ describe('CDHomePage snapshot test', () => {
         refetch: jest.fn()
       }
     })
-    useStartTrialMock.mockImplementation(() => {
-      return {
-        cancel: jest.fn(),
-        loading: false,
-        mutate: jest.fn().mockImplementationOnce(() => {
-          return {
-            status: 'SUCCESS',
-            data: {
-              licenseType: 'TRIAL'
-            }
-          }
-        })
-      }
-    })
+
     const { container, getByText } = render(
       <TestWrapper
         path="/account/:accountId"

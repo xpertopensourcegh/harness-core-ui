@@ -9,10 +9,13 @@ import React, { useCallback, useState } from 'react'
 import { StepWizard, Button } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
+import { useLocation, useParams } from 'react-router-dom'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { Project } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-
+import paths from '@common/RouteDefinitions'
+import type { ProjectPathProps, SecretsPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
+import { useModuleSelectModal } from '../ModuleSelect/useModuleSelect'
 import { Views } from './Constants'
 import { ProjectCollaboratorsStep } from './views/Collaborators'
 import StepAboutProject from './views/StepAboutProject'
@@ -40,6 +43,10 @@ export const useProjectModal = ({
   const [projectData, setProjectData] = useState<Project>()
   const [refreshProjects, setRefreshProjects] = useState(false)
   const { getString } = useStrings()
+  const { pathname } = useLocation()
+  const params = useParams<ProjectPathProps & SecretsPathProps & ModulePathParams>()
+
+  const isHome = pathname.indexOf(paths.toHome({ accountId: params.accountId })) !== -1
   const modalProps: IDialogProps = {
     isOpen: true,
     enforceFocus: false,
@@ -51,11 +58,19 @@ export const useProjectModal = ({
       overflow: 'auto'
     }
   }
+  const { openModuleSelectModal } = useModuleSelectModal({
+    onSuccess: () => onWizardComplete?.(projectData),
+    onCloseModal: () => onWizardComplete?.(projectData)
+  })
   const wizardCompleteHandler = async (wizardData: Project | undefined): Promise<void> => {
     if (!wizardData) {
       setProjectData(wizardData)
     }
-    onWizardComplete?.(wizardData)
+    if (wizardData && isHome) {
+      openModuleSelectModal(wizardData)
+    } else {
+      onWizardComplete?.(wizardData)
+    }
   }
   const [showModal, hideModal] = useModalHook(
     () => (

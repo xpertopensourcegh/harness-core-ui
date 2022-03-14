@@ -8,7 +8,14 @@
 import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetLicensesAndSummary, useExtendTrialLicense, useSaveFeedback, useGetProjectList } from 'services/cd-ng'
+import {
+  useGetLicensesAndSummary,
+  useExtendTrialLicense,
+  useSaveFeedback,
+  useGetProjectList,
+  useStartTrialLicense,
+  useStartFreeLicense
+} from 'services/cd-ng'
 import CIHomePage from '../CIHomePage'
 
 const projects = [
@@ -68,7 +75,36 @@ const currentUser = {
     }
   ]
 }
-
+const useStartFreeLicenseMock = useStartFreeLicense as jest.MockedFunction<any>
+useStartFreeLicenseMock.mockImplementation(() => {
+  return {
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS',
+        data: {
+          licenseType: 'FREE'
+        }
+      }
+    })
+  }
+})
+const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
+useStartTrialMock.mockImplementation(() => {
+  return {
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS',
+        data: {
+          licenseType: 'TRIAL'
+        }
+      }
+    })
+  }
+})
 describe('CIHomePage', () => {
   test('should render HomePageTemplate when return success with data', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {

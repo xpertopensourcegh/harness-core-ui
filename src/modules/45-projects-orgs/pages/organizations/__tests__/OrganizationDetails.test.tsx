@@ -40,6 +40,24 @@ jest.mock('services/cd-ng', () => ({
       }
     }
   }),
+  useStartTrialLicense: jest.fn().mockImplementation(() => {
+    return {
+      loading: false,
+      data: {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  }),
+  useStartFreeLicense: jest.fn().mockImplementation(() => {
+    return {
+      loading: false,
+      data: {
+        status: 'SUCCESS',
+        data: {}
+      }
+    }
+  }),
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
   useAddUsers: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
