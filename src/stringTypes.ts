@@ -567,6 +567,7 @@ export interface StringsMap {
   'common.showLess': string
   'common.showMore': string
   'common.sidecarArtifactsText': string
+  'common.skip': string
   'common.slack': string
   'common.smtp.configured': string
   'common.smtp.conifg': string
