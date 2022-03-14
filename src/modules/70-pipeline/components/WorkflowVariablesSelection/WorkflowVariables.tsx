@@ -21,6 +21,7 @@ import type {
 
 import { useStrings } from 'framework/strings'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { StageElementWrapperConfig } from 'services/cd-ng'
 import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepViewType } from '../AbstractSteps/Step'
@@ -65,7 +66,7 @@ export default function WorkflowVariables({
   const parentStage = serviceConfig.useFromStage?.stage
   const { variablesPipeline, metadataMap } = usePipelineVariables()
 
-  const [parentStageData, setParentStageData] = React.useState<{ [key: string]: any }>()
+  const [parentStageData, setParentStageData] = React.useState<StageElementWrapperConfig>()
   React.useEffect(() => {
     if (isEmpty(parentStageData) && parentStage) {
       const { stages } = getFlattenedStages(pipeline)
@@ -92,7 +93,7 @@ export default function WorkflowVariables({
         }
       } else {
         const overrideSets = stageSpec.variableOverrideSets || []
-        overrideSets.map(variableSet => {
+        overrideSets.forEach(variableSet => {
           if (variableSet?.overrideSet?.identifier === identifierName) {
             set(variableSet, 'overrideSet.variables', vars)
           }
@@ -116,13 +117,16 @@ export default function WorkflowVariables({
       return (predefinedSetsPath?.variables || []) as Variable[]
     }
     const overrideSets = stageSpec.variableOverrideSets
-    return (overrideSets
-      ?.map(variableSet => {
-        if (variableSet?.overrideSet?.identifier === identifierName) {
-          return variableSet.overrideSet?.variables
-        }
-      })
-      .filter(x => x !== undefined)[0] || []) as Variable[]
+    return defaultTo(
+      overrideSets
+        ?.map(variableSet => {
+          if (variableSet?.overrideSet?.identifier === identifierName) {
+            return variableSet.overrideSet?.variables
+          }
+        })
+        .filter(x => x !== undefined)[0],
+      []
+    ) as Variable[]
   }
 
   const getYamlPropertiesForVariables = (): Variable[] => {
@@ -148,13 +152,16 @@ export default function WorkflowVariables({
 
     const overrideSets = variablesStageSpec?.variableOverrideSets
 
-    return (overrideSets
-      ?.map(variableSet => {
-        if (variableSet?.overrideSet?.identifier === identifierName) {
-          return variableSet.overrideSet?.variables
-        }
-      })
-      .filter(x => x !== undefined)[0] || []) as Variable[]
+    return defaultTo(
+      overrideSets
+        ?.map(variableSet => {
+          if (variableSet?.overrideSet?.identifier === identifierName) {
+            return variableSet.overrideSet?.variables
+          }
+        })
+        .filter(x => x !== undefined)[0],
+      []
+    ) as Variable[]
   }
 
   return (

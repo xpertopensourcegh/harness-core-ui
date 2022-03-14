@@ -23,7 +23,7 @@ export enum StageType {
 
 export const changeEmptyValuesToRunTimeInput = (inputset: any, propertyKey: string): InputSetDTO => {
   if (inputset) {
-    Object.keys(inputset).map(key => {
+    Object.keys(inputset).forEach(key => {
       if (typeof inputset[key] === 'object') {
         changeEmptyValuesToRunTimeInput(inputset[key], key)
       } else if (inputset[key] === '' && ['tags'].indexOf(propertyKey) === -1) {

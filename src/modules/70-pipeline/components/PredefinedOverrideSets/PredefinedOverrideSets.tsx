@@ -9,10 +9,12 @@ import React from 'react'
 import { Layout, Text, SelectOption } from '@wings-software/uicore'
 import { isArray } from 'lodash-es'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+// This file needs to remove or moved
 // eslint-disable-next-line no-restricted-imports
-import { OverrideSetsInputSelector } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
-// eslint-disable-next-line no-restricted-imports
-import type { InputSetSelectorProps } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
+import {
+  OverrideSetsInputSelector,
+  InputSetSelectorProps
+} from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { StageOverridesConfig } from 'services/cd-ng'
 
@@ -79,7 +81,7 @@ export function PredefinedOverrideSets({ currentStage, context }: PredefinedOver
       if (currentValues.length > 1) {
         const _options: SelectOption[] = []
         if (_options) {
-          currentValues.map((overrideSetName: string) => {
+          currentValues.forEach((overrideSetName: string) => {
             _options.push({ label: overrideSetName, value: overrideSetName })
           })
         }

@@ -142,7 +142,9 @@ function ManifestListView({
         set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
       }).stage
 
-      if (newStage) updateStage(newStage)
+      if (newStage) {
+        updateStage(newStage)
+      }
     }
   }
 
