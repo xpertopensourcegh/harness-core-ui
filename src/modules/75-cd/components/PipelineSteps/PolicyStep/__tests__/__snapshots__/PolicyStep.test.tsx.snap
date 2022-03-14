@@ -260,7 +260,12 @@ exports[`Test Policy Step render edit view as edit step 1`] = `
       <label
         class="bp3-label"
       >
-        common.policiesSets.policyset
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="policyStepForm_spec.policySets"
+        >
+          common.policiesSets.policyset
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -616,7 +621,12 @@ exports[`Test Policy Step render edit view as new step 1`] = `
       <label
         class="bp3-label"
       >
-        common.policiesSets.policyset
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="policyStepForm_spec.policySets"
+        >
+          common.policiesSets.policyset
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -977,7 +987,12 @@ exports[`Test Policy Step render runtime inputs in edit step 1`] = `
       <label
         class="bp3-label"
       >
-        common.policiesSets.policyset
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="policyStepForm_spec.policySets"
+        >
+          common.policiesSets.policyset
+        </span>
          
         <span
           class="bp3-text-muted"

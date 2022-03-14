@@ -9,6 +9,8 @@ import React from 'react'
 
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 
+import css from './EvaluationStatusLabel.module.scss'
+
 export enum EvaluationStatus {
   ERROR = 'error',
   PASS = 'pass',
@@ -21,13 +23,12 @@ function EvaluationStatusLabel({ status }: { status: EvaluationStatus }) {
       status={
         status === EvaluationStatus.PASS
           ? 'Success'
-          : status === EvaluationStatus.ERROR
+          : status === EvaluationStatus.ERROR || status === EvaluationStatus.WARNING
           ? 'Errored'
-          : status === EvaluationStatus.WARNING
-          ? 'InterventionWaiting'
           : undefined
       }
       label={status === EvaluationStatus.WARNING ? 'WARNING' : ''}
+      className={status === EvaluationStatus.WARNING ? css.warning : ''}
     />
   )
 }

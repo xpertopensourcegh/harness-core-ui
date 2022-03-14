@@ -120,7 +120,7 @@ exports[`Policy Evaluation View Test error in step evaluation 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-left-large"
           >
-            common.policiesSets.noPolicySets
+            common.policy.noPolicyEvalResult
           </p>
         </div>
       </div>
@@ -244,7 +244,7 @@ exports[`Policy Evaluation View Test failure responses 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-left-large"
           >
-            common.policiesSets.noPolicySets
+            common.policy.noPolicyEvalResult
           </p>
         </div>
       </div>

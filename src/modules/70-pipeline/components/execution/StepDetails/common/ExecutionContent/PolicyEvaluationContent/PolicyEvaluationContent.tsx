@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import { defaultTo, isEmpty } from 'lodash-es'
 import { Link, useParams } from 'react-router-dom'
 
@@ -13,24 +13,69 @@ import { Collapse, Color, Container, Layout, Text } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import type { ExecutionNode } from 'services/pipeline-ng'
 
+import { useDeepCompareEffect } from '@common/hooks'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
 import EvaluationStatusLabel, { EvaluationStatus } from './EvaluationStatusLabel/EvaluationStatusLabel'
+import { EvaluationCount } from './EvaluationCount/EvaluationCount'
 
 import css from './PolicyEvaluationContent.module.scss'
 
+interface EvaluationCounts {
+  [EvaluationStatus.ERROR]: number
+  [EvaluationStatus.WARNING]: number
+  [EvaluationStatus.PASS]: number
+}
+
+export interface EvaluatedPolicy {
+  name: string
+  status: EvaluationStatus
+  identifier?: string
+  denyMessages?: []
+  error?: string
+}
+
 export function PolicyEvaluationContent({ step }: { step: ExecutionNode }) {
   const { getString } = useStrings()
-  const policySetDetails = defaultTo(/* istanbul ignore next */ step?.outcomes?.output?.policySetDetails, {})
+  const [evaluationCounts, setEvaluationCounts] = useState<EvaluationCounts>({
+    error: 0,
+    warning: 0,
+    pass: 0
+  })
 
-  if (isEmpty(policySetDetails)) {
-    return <Text margin={{ left: 'large' }}>{getString('common.policiesSets.noPolicySets')}</Text>
+  const policySetDetails = defaultTo(/* istanbul ignore next */ step?.outcomes?.output?.policySetDetails, {})
+  const policySetIds = Object.keys(policySetDetails)
+
+  useDeepCompareEffect(() => {
+    const counts: EvaluationCounts = {
+      error: 0,
+      warning: 0,
+      pass: 0
+    }
+    for (const policySetId in policySetDetails) {
+      const policyDetails = defaultTo(policySetDetails[policySetId]?.policyDetails, [])
+      for (const policyId in policyDetails) {
+        const policy = policyDetails[policyId] as EvaluatedPolicy
+        if (policy.status) {
+          counts[policy.status] = defaultTo(counts[policy.status], 0) + 1
+        }
+      }
+    }
+    setEvaluationCounts(counts)
+  }, [policySetDetails])
+
+  if (isEmpty(policySetIds)) {
+    return <Text margin={{ left: 'large' }}>{getString('common.policy.noPolicyEvalResult')}</Text>
   } else {
-    const policySetIds = Object.keys(policySetDetails)
     return (
       <Container border={{ top: true }} padding="medium">
-        <Text margin={{ left: 'large' }}>{getString('pipeline.policyEvaluations.title')}</Text>
+        <Layout.Horizontal>
+          <Text margin={{ left: 'small', right: 'large' }}>{getString('pipeline.policyEvaluations.title')}</Text>
+          <EvaluationCount status={EvaluationStatus.ERROR} count={evaluationCounts[EvaluationStatus.ERROR]} />
+          <EvaluationCount status={EvaluationStatus.WARNING} count={evaluationCounts[EvaluationStatus.WARNING]} />
+          <EvaluationCount status={EvaluationStatus.PASS} count={evaluationCounts[EvaluationStatus.PASS]} />
+        </Layout.Horizontal>
         <Layout.Vertical padding={{ top: 'medium', bottom: 'medium' }}>
           {policySetIds.map(id => {
             return <PolicySetInfo key={id} policySet={policySetDetails[id]} />
@@ -102,7 +147,15 @@ function PolicySetInfo({ policySet }: { policySet: { [key: string]: any } }) {
   }
 }
 
-export function PolicyInfo({ policy, scope, numberInList }: { policy: any; scope: string; numberInList: number }) {
+export function PolicyInfo({
+  policy,
+  scope,
+  numberInList
+}: {
+  policy: EvaluatedPolicy
+  scope: string
+  numberInList: number
+}) {
   const { accountId: accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 

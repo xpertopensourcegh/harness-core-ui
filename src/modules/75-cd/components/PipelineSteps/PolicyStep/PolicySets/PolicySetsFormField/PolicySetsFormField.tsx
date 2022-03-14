@@ -9,7 +9,7 @@ import React from 'react'
 import type { FormikErrors, FormikProps } from 'formik'
 import { defaultTo } from 'lodash-es'
 
-import { Button, FormError } from '@harness/uicore'
+import { Button, FormError, FormikTooltipContext, HarnessDocTooltip } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -61,13 +61,16 @@ function PolicySetsFormField({
   const helperText = touched && error ? <FormError name={name} errorMessage={error} /> : undefined
   const intent = touched && error ? Intent.DANGER : Intent.NONE
 
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId = tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : ''
+
   return (
     <FormGroup
       {...rest}
       helperText={helperText}
       intent={intent}
       className={css.formGroup}
-      label={getString('common.policiesSets.policyset')}
+      label={<HarnessDocTooltip tooltipId={dataTooltipId} labelText={getString('common.policiesSets.policyset')} />}
     >
       {policySetIds.map(policySetId => {
         return <MiniPolicySetRenderer policySetId={policySetId} key={policySetId} />

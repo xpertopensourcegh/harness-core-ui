@@ -10,7 +10,7 @@ import { render } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
 
-import { PolicyEvaluationContent, PolicyInfo } from '../PolicyEvaluationContent'
+import { EvaluatedPolicy, PolicyEvaluationContent, PolicyInfo } from '../PolicyEvaluationContent'
 
 import StepProps from '../__mocks__/StepProps.json'
 
@@ -63,7 +63,7 @@ describe('Policy Info under Policy Evaluation Content', () => {
           projectIdentifier: 'project'
         }}
       >
-        <PolicyInfo policy={policy} scope={'Organization'} numberInList={1} />
+        <PolicyInfo policy={policy as EvaluatedPolicy} scope={'Organization'} numberInList={1} />
       </TestWrapper>
     )
 
@@ -80,7 +80,7 @@ describe('Policy Info under Policy Evaluation Content', () => {
           projectIdentifier: 'project'
         }}
       >
-        <PolicyInfo policy={policy} scope={'Account'} numberInList={1} />
+        <PolicyInfo policy={policy as EvaluatedPolicy} scope={'Account'} numberInList={1} />
       </TestWrapper>
     )
 
@@ -97,7 +97,7 @@ describe('Policy Info under Policy Evaluation Content', () => {
           projectIdentifier: 'project'
         }}
       >
-        <PolicyInfo policy={policy} scope={'Account'} numberInList={1} />
+        <PolicyInfo policy={policy as EvaluatedPolicy} scope={'Account'} numberInList={1} />
       </TestWrapper>
     )
 
@@ -114,7 +114,7 @@ describe('Policy Info under Policy Evaluation Content', () => {
           projectIdentifier: 'project'
         }}
       >
-        <PolicyInfo policy={policy} scope={'Account'} numberInList={1} />
+        <PolicyInfo policy={policy as EvaluatedPolicy} scope={'Account'} numberInList={1} />
       </TestWrapper>
     )
 
@@ -131,7 +131,7 @@ describe('Policy Info under Policy Evaluation Content', () => {
           projectIdentifier: 'project'
         }}
       >
-        <PolicyInfo policy={policy} scope={'Project'} numberInList={1} />
+        <PolicyInfo policy={policy as EvaluatedPolicy} scope={'Project'} numberInList={1} />
       </TestWrapper>
     )
 

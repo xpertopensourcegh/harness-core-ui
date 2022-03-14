@@ -426,14 +426,13 @@ export interface StringsMap {
   'common.policiesSets.newPolicyset': string
   'common.policiesSets.noPolicySet': string
   'common.policiesSets.noPolicySetResult': string
-  'common.policiesSets.noPolicySets': string
+  'common.policiesSets.policySetRequired': string
   'common.policiesSets.policySetSearch': string
   'common.policiesSets.policyset': string
   'common.policiesSets.selectPolicySet': string
   'common.policiesSets.stepOne.validId': string
   'common.policiesSets.stepOne.validIdRegex': string
   'common.policiesSets.stepOne.validName': string
-  'common.policy.customInputRequired': string
   'common.policy.evaluations': string
   'common.policy.label': string
   'common.policy.newPolicy': string

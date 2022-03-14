@@ -43,7 +43,7 @@ function PolicyStepWidget(
       type: Yup.string()
         .trim()
         .required(getString('fieldRequired', { field: 'Entity Type' })),
-      policySets: Yup.array().min(1).required(getString('common.policy.customInputRequired')),
+      policySets: Yup.array().min(1).required(getString('common.policiesSets.policySetRequired')),
       policySpec: Yup.object().shape({
         payload: Yup.string()
           .trim()
