@@ -1572,7 +1572,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p
@@ -2246,7 +2246,7 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p
@@ -3547,7 +3547,7 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p
@@ -4931,7 +4931,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p

@@ -237,7 +237,7 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                           <p
                             class="StyledProps--font StyledProps--main"

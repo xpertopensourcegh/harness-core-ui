@@ -21,7 +21,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -993,7 +993,7 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -1382,7 +1382,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -2575,7 +2575,7 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -2907,7 +2907,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -3296,7 +3296,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -3714,7 +3714,7 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -4046,7 +4046,7 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -4466,7 +4466,7 @@ exports[`Test TerraformApply should trigger validation error for expression valu
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -4939,7 +4939,7 @@ exports[`Test TerraformApply should trigger validation error for fixed value 1`]
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -5390,7 +5390,7 @@ exports[`Test TerraformApply should trigger validation error for invalid fixed v
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

@@ -156,7 +156,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

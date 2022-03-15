@@ -129,7 +129,7 @@ exports[`Create Docker Delegate render data 1`] = `
                                     <p
                                       class="StyledProps--font StyledProps--main"
                                     >
-                                      ID
+                                      Id
                                     </p>
                                   </div>
                                   <p

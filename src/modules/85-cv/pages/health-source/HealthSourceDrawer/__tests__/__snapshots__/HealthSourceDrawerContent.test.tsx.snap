@@ -376,7 +376,7 @@ exports[`HealthSource table Should Render all the componetns in edit mode for cl
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -1003,7 +1003,7 @@ exports[`HealthSource table Should Render all the componetns in edit mode for lo
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -1606,7 +1606,7 @@ exports[`HealthSource table should matchsnapshot 1`] = `
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p

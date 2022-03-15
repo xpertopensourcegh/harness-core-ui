@@ -49,7 +49,7 @@ exports[`Create Docker Step1Setup render step1 initial 1`] = `
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  ID
+                                  Id
                                 </p>
                               </div>
                               <p

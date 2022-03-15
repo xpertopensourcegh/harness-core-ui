@@ -21,7 +21,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -294,7 +294,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -602,7 +602,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -875,7 +875,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

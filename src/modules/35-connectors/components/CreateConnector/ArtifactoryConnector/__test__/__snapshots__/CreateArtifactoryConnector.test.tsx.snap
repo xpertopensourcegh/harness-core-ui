@@ -679,7 +679,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

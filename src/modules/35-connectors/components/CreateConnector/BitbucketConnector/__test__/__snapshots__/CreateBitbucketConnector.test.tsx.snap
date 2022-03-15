@@ -158,7 +158,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

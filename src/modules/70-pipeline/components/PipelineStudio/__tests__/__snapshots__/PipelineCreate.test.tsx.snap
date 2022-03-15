@@ -25,7 +25,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -212,7 +212,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -432,7 +432,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -652,7 +652,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

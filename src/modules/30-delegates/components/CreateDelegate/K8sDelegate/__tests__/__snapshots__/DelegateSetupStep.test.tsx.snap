@@ -49,7 +49,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  ID
+                                  Id
                                 </p>
                               </div>
                               <p

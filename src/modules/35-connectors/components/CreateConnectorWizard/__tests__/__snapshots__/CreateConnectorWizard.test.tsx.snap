@@ -148,7 +148,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -535,7 +535,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -911,7 +911,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -1340,7 +1340,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -1731,7 +1731,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP KMS 1
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -2117,7 +2117,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -2502,7 +2502,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -2912,7 +2912,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -3299,7 +3299,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -3686,7 +3686,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -4067,7 +4067,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p

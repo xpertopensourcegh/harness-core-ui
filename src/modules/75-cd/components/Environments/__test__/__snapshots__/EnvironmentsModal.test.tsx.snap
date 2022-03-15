@@ -57,7 +57,7 @@ exports[`Environments should render Environments 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p

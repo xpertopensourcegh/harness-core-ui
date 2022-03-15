@@ -25,7 +25,7 @@ exports[`DockerHub Step Edit View should render properly for AWS VMs build infra
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

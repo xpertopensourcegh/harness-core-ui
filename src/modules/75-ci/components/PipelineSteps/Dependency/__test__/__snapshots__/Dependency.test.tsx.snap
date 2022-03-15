@@ -26,7 +26,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p
@@ -498,7 +498,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p
@@ -970,7 +970,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p
@@ -1442,7 +1442,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p
@@ -1962,7 +1962,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p

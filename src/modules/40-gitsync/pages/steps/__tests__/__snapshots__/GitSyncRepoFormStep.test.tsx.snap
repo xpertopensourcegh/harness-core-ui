@@ -144,7 +144,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p
@@ -755,7 +755,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

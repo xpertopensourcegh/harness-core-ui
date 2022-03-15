@@ -254,7 +254,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -682,7 +682,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -1202,7 +1202,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -1896,7 +1896,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -2325,7 +2325,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -2753,7 +2753,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -3181,7 +3181,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

@@ -40,7 +40,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main"
                       >
-                        ID
+                        Id
                       </p>
                     </div>
                     <p

@@ -57,7 +57,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p
@@ -338,7 +338,7 @@ exports[`Test DeployService Step should render edit service view (service), then
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p
@@ -619,7 +619,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p

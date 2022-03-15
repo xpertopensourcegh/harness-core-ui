@@ -503,7 +503,7 @@ exports[`ServiceNow Approval tests Edit stage - readonly: edit stage view readon
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

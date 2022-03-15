@@ -21,7 +21,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

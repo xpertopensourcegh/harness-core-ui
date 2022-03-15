@@ -44,7 +44,7 @@ exports[`<TemplateSettingsModal /> tests should match snapshot 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
+                          Id
                         </p>
                       </div>
                       <p

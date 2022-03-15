@@ -134,7 +134,7 @@ exports[`Right Drawer tests StepConfig tests Step save succeeds with allowed key
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

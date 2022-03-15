@@ -77,7 +77,7 @@ exports[`Save to git form rendering form to git save form without git credential
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -613,7 +613,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -1147,7 +1147,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

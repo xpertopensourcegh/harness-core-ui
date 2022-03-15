@@ -49,7 +49,7 @@ exports[`DelegateSelectorStep should open Git Sync modal on clicking Save and Co
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

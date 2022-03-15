@@ -2958,7 +2958,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p
@@ -3419,7 +3419,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
+                              Id
                             </p>
                           </div>
                           <p

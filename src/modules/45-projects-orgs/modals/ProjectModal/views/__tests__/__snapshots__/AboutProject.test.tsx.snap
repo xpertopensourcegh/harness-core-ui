@@ -43,7 +43,7 @@ exports[`About Project test create project  1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -457,7 +457,7 @@ exports[`About Project test create project  2`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -973,7 +973,7 @@ exports[`About Project test edit project  1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -1308,7 +1308,7 @@ exports[`About Project test edit project  2`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

@@ -900,7 +900,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -1874,7 +1874,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

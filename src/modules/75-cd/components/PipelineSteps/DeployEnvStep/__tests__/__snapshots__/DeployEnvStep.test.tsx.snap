@@ -60,7 +60,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -445,7 +445,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

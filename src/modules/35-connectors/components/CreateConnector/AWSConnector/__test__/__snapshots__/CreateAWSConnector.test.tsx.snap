@@ -152,7 +152,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p
@@ -504,7 +504,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p
@@ -1384,7 +1384,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

@@ -226,7 +226,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  ID
+                                  Id
                                 </p>
                               </div>
                               <p
@@ -2966,7 +2966,7 @@ exports[`Create Secret Manager Wizard should throw an error when connectors alre
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  ID
+                                  Id
                                 </p>
                               </div>
                               <p

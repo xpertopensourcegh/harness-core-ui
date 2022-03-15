@@ -480,7 +480,7 @@ exports[`ServicesListPage Should open Add-ServiceModal, grid and list view on cl
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

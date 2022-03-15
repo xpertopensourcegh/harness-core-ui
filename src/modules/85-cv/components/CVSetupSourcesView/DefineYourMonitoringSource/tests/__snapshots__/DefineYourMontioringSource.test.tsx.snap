@@ -91,7 +91,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

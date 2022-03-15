@@ -28,7 +28,7 @@ exports[`<TemplateStepWidgetWithRef /> tests snapshot test 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p

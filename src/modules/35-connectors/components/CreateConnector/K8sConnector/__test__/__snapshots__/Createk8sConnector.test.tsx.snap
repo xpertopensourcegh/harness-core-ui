@@ -152,7 +152,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p
@@ -2307,7 +2307,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

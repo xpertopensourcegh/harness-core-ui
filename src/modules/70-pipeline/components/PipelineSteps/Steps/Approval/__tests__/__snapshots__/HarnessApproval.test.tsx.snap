@@ -1026,7 +1026,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -1519,7 +1519,7 @@ exports[`Harness Approval tests Edit stage - submit field values as expressions:
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -2096,7 +2096,7 @@ exports[`Harness Approval tests MinimumCount should be greater than 1: minimum c
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -2650,7 +2650,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

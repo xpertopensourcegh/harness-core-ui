@@ -147,7 +147,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p
@@ -1138,7 +1138,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

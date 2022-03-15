@@ -137,7 +137,7 @@ exports[`Unit tests for cv connector hoc should render form 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

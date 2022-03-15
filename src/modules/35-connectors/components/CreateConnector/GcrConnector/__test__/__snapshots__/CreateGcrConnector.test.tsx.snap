@@ -200,7 +200,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p
@@ -938,7 +938,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

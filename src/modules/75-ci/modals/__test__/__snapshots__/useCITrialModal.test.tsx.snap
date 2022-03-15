@@ -74,7 +74,7 @@ exports[`open and close CITrial Modal Rendering should open and default as Creat
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
+                          Id
                         </p>
                       </div>
                       <p

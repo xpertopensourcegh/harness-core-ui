@@ -304,7 +304,7 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 1`] = `
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p
@@ -1623,7 +1623,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p

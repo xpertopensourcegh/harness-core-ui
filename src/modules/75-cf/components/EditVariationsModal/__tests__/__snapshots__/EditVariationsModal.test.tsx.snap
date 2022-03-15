@@ -40,7 +40,7 @@ exports[`EditVariationsModal it should render correctly 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p
@@ -241,7 +241,7 @@ exports[`EditVariationsModal it should render correctly 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
+                    Id
                   </p>
                 </div>
                 <p

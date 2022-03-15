@@ -73,7 +73,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -340,7 +340,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

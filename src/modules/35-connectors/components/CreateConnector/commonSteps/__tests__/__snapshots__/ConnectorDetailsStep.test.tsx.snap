@@ -40,7 +40,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                       <p
                         class="StyledProps--font StyledProps--main"
                       >
-                        ID
+                        Id
                       </p>
                     </div>
                     <p
@@ -317,7 +317,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main"
                       >
-                        ID
+                        Id
                       </p>
                     </div>
                     <p

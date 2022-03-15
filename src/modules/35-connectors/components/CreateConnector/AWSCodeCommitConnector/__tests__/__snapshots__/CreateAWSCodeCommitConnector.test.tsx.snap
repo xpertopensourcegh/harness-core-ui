@@ -225,7 +225,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

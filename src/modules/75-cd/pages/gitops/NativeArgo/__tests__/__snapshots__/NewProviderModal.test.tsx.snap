@@ -255,7 +255,7 @@ exports[`<NewProviderModal /> tests snapshot test for new provider modal 1`] = `
                                   <p
                                     class="StyledProps--font StyledProps--main"
                                   >
-                                    ID
+                                    Id
                                   </p>
                                 </div>
                                 <p

@@ -25,7 +25,7 @@ exports[`Test SLOName component should render SLOName component 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main"

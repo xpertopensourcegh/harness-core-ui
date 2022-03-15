@@ -23,7 +23,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -380,7 +380,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -791,7 +791,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -1370,7 +1370,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -1727,7 +1727,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -2084,7 +2084,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

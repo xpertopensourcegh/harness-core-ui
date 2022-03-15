@@ -361,7 +361,7 @@ exports[`FlagActivation it should render form correctly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

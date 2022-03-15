@@ -38,7 +38,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -419,7 +419,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

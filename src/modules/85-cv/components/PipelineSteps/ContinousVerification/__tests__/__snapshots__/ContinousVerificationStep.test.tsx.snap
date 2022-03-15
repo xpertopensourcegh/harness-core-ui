@@ -705,7 +705,7 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -1196,7 +1196,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -2001,7 +2001,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

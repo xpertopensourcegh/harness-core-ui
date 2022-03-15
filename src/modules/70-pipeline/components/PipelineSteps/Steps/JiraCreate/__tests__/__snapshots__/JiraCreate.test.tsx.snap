@@ -25,7 +25,7 @@ exports[`Jira Create fetch projects show error if failed to fetch projects 1`] =
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -2340,7 +2340,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

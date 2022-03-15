@@ -181,7 +181,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

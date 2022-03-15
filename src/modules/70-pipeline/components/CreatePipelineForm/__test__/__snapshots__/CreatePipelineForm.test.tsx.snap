@@ -37,7 +37,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -295,7 +295,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -553,7 +553,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p

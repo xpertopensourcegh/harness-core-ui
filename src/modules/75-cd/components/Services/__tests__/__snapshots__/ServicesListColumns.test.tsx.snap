@@ -297,7 +297,7 @@ exports[`ServiceMenu Should go to editModal by clicking edit 2`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

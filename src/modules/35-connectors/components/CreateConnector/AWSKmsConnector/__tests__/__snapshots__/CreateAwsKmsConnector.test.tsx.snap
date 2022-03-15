@@ -170,7 +170,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p
@@ -565,7 +565,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

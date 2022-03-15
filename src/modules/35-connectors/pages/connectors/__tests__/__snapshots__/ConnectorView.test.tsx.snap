@@ -104,7 +104,7 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

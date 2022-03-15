@@ -158,7 +158,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
+                            Id
                           </p>
                         </div>
                         <p

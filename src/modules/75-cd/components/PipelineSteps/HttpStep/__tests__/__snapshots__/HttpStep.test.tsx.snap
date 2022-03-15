@@ -24,7 +24,7 @@ exports[`Http Step edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
+                Id
               </p>
             </div>
             <p
@@ -941,7 +941,7 @@ exports[`Http Step renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
+                Id
               </p>
             </div>
             <p
@@ -1499,7 +1499,7 @@ exports[`Http Step should render edit view as new step 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
+                Id
               </p>
             </div>
             <p

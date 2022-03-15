@@ -43,7 +43,7 @@ exports[`Edit stage view test Should match snapshot when context is provided 1`]
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
+                          Id
                         </p>
                       </div>
                       <p
@@ -416,7 +416,7 @@ exports[`Edit stage view test Should match snapshot when template is provided 1`
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

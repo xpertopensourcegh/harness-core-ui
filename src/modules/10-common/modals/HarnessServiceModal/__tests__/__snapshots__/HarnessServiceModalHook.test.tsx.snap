@@ -60,7 +60,7 @@ exports[`open and close Harness Service Modal Rendering should open and close th
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
+                Id
               </p>
             </div>
             <p

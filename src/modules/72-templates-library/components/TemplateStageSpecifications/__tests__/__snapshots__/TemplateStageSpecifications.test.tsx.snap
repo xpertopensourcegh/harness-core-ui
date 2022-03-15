@@ -35,7 +35,7 @@ exports[`<TemplateStageSpecifications /> tests snapshot test with error 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -195,7 +195,7 @@ exports[`<TemplateStageSpecifications /> tests snapshot test with no template in
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p
@@ -305,7 +305,7 @@ exports[`<TemplateStageSpecifications /> tests snapshot test with template input
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      ID
+                      Id
                     </p>
                   </div>
                   <p

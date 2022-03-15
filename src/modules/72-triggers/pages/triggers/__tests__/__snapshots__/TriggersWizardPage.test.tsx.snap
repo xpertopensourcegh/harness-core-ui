@@ -1500,7 +1500,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p
@@ -2522,7 +2522,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p
@@ -3501,7 +3501,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                               <p
                                 class="StyledProps--font StyledProps--main"
                               >
-                                ID
+                                Id
                               </p>
                             </div>
                             <p

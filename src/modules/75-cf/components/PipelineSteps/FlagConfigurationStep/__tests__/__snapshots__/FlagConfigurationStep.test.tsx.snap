@@ -63,7 +63,7 @@ exports[`FlagConfigurationStep StepViewType.Edit it should render disabled in ed
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
@@ -371,7 +371,7 @@ exports[`FlagConfigurationStep StepViewType.Edit it should render in edit mode 1
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

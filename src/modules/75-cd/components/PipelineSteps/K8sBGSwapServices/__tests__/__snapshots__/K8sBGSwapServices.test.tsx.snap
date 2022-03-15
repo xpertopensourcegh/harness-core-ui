@@ -32,7 +32,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view  1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
+                Id
               </p>
             </div>
             <p
@@ -260,7 +260,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
+                Id
               </p>
             </div>
             <p

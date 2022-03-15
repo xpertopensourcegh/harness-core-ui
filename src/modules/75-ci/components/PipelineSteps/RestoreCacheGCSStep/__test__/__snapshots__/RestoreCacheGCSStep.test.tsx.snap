@@ -25,7 +25,7 @@ exports[`Restore Cache GCS Step Edit View edit mode works 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -492,7 +492,7 @@ exports[`Restore Cache GCS Step Edit View renders runtime inputs 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
@@ -959,7 +959,7 @@ exports[`Restore Cache GCS Step Edit View should render edit view as new step 1`
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
+                  Id
                 </p>
               </div>
               <p
