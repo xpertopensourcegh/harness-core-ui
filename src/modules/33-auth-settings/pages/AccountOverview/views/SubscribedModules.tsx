@@ -16,7 +16,6 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, SubscriptionQueryParams } from '@common/interfaces/RouteInterfaces'
-import type { StringsMap } from 'framework/strings/StringsContext'
 import { useGetAccountLicenses } from 'services/cd-ng'
 import type { ModuleLicenseDTO } from 'services/cd-ng'
 import { Editions } from '@common/constants/SubscriptionTypes'
@@ -26,38 +25,14 @@ interface ModuleCardProps {
   module: ModuleLicenseDTO
 }
 
-const MODULE_PROPS: {
-  [key in ModuleLicenseDTO['moduleType'] as string]: {
-    icon: string
-    title1: string
-    title2: string
-  }
+const MODULE_ICONS: {
+  [key in ModuleLicenseDTO['moduleType'] as string]: string
 } = {
-  CD: {
-    icon: 'cd-main',
-    title1: 'common.purpose.continuous',
-    title2: 'common.purpose.cd.delivery'
-  },
-  CE: {
-    icon: 'ce-main',
-    title1: 'common.purpose.ce.cloudCost',
-    title2: 'common.purpose.ce.management'
-  },
-  CV: {
-    icon: 'cv-main',
-    title1: 'common.purpose.service',
-    title2: 'common.purpose.cv.serviceReliability'
-  },
-  CF: {
-    icon: 'cf-main',
-    title1: 'common.purpose.cf.feature',
-    title2: 'common.purpose.cf.flags'
-  },
-  CI: {
-    icon: 'ci-main',
-    title1: 'common.purpose.continuous',
-    title2: 'common.purpose.ci.integration'
-  }
+  CD: 'cd-with-dark-text',
+  CE: 'ccm-with-dark-text',
+  CV: 'srm-with-dark-text',
+  CF: 'ff-with-dark-text',
+  CI: 'ci-with-dark-text'
 }
 
 const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
@@ -77,31 +52,14 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
       .concat(capitalize(module.licenseType))
       .concat(')')
   }
-  const title1 =
-    module.moduleType && MODULE_PROPS[module.moduleType]
-      ? getString(MODULE_PROPS[module.moduleType].title1 as keyof StringsMap).toUpperCase()
-      : ''
-
-  const title2 =
-    module.moduleType && MODULE_PROPS[module.moduleType]
-      ? getString(MODULE_PROPS[module.moduleType].title2 as keyof StringsMap)
-      : ''
 
   return (
     <Card className={css.subscribedModules}>
       <Container padding={'large'}>
         <Layout.Vertical>
-          <Layout.Horizontal>
-            {module.moduleType && MODULE_PROPS[module.moduleType] && (
-              <Icon name={MODULE_PROPS[module.moduleType].icon as IconName} size={25} margin={{ right: 'small' }} />
-            )}
-            <Layout.Vertical>
-              <Text font={{ size: 'xsmall' }}>{title1}</Text>
-              <Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'large' }} color={Color.BLACK}>
-                {title2}
-              </Text>
-            </Layout.Vertical>
-          </Layout.Horizontal>
+          {module.moduleType && MODULE_ICONS[module.moduleType] && (
+            <Icon name={MODULE_ICONS[module.moduleType] as IconName} className={css.moduleIcons} />
+          )}
           <Layout.Horizontal padding="xsmall" margin={{ bottom: 'large' }} border={{ color: Color.GREY_200 }}>
             <Text font={{ size: 'xsmall' }} margin={{ right: 'xsmall' }}>{`${getString(
               'common.subscriptions.overview.plan'

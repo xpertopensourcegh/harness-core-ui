@@ -10,6 +10,7 @@ declare const styles: {
   readonly container: string
   readonly manageBtn: string
   readonly minWidth: string
+  readonly moduleIcons: string
   readonly nameInput: string
   readonly subscribedModules: string
   readonly zeroPadding: string

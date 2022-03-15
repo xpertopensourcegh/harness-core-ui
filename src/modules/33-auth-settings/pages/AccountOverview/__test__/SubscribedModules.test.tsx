@@ -49,12 +49,11 @@ describe('SubscribedModules', () => {
     const featureFlags = {
       CING_ENABLED: true
     }
-    const { container, getByText, queryByText } = render(
+    const { container, queryByText } = render(
       <TestWrapper defaultAppStoreValues={{ featureFlags }}>
         <SubscribedModules />
       </TestWrapper>
     )
-    expect(getByText('common.purpose.ci.integration')).toBeDefined()
     expect(queryByText('common.account.visitSubscriptions.link')).toBeNull()
     expect(container).toMatchSnapshot()
   })

@@ -302,7 +302,6 @@ describe('Subscriptions Page', () => {
     )
 
     expect(getByText('common.subscriptions.title')).toBeTruthy()
-    expect(getByText('common.purpose.cd.delivery')).toBeTruthy()
     expect(queryByText('common.subscriptions.noActiveSubscription')).not.toBeInTheDocument()
     expect(container).toMatchSnapshot()
   })
@@ -338,7 +337,6 @@ describe('Subscriptions Page', () => {
     )
 
     expect(getByText('common.subscriptions.title')).toBeTruthy()
-    expect(getByText('common.purpose.cd.delivery')).toBeTruthy()
     expect(queryByText('common.subscriptions.noActiveSubscription')).not.toBeInTheDocument()
     expect(container).toMatchSnapshot()
   })
@@ -408,7 +406,6 @@ describe('Subscriptions Page', () => {
     )
 
     expect(getByText('common.subscriptions.title')).toBeTruthy()
-    expect(getByText('common.purpose.cd.delivery')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 

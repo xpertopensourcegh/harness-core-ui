@@ -7,8 +7,8 @@
 
 .moduleSelectCards {
   margin-bottom: 25px !important;
-
   .moduleSelectCard {
+    padding: var(--spacing-small) !important;
     cursor: pointer;
     margin: 0 31px;
 
@@ -65,8 +65,10 @@
 }
 
 .moduleIcons {
-  margin-top: var(--spacing-xsmall) !important;
-  margin-right: var(--spacing-large) !important;
+  svg {
+    width: 200px;
+    height: 50px;
+  }
 }
 
 .banner {

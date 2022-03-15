@@ -10,18 +10,7 @@ import cx from 'classnames'
 
 import moment from 'moment'
 import { useParams, useHistory } from 'react-router-dom'
-import {
-  Card,
-  Color,
-  Container,
-  Icon,
-  IconName,
-  Layout,
-  Text,
-  Heading,
-  PageError,
-  useToaster
-} from '@wings-software/uicore'
+import { Card, Color, Container, Icon, IconName, Layout, Heading, PageError, useToaster } from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -29,7 +18,6 @@ import type { AccountPathProps, Module } from '@common/interfaces/RouteInterface
 import { Editions } from '@common/constants/SubscriptionTypes'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useStrings } from 'framework/strings'
-import type { StringsMap } from 'stringTypes'
 import { ModuleName } from 'framework/types/ModuleName'
 import {
   useGetAccountNG,
@@ -54,40 +42,28 @@ export interface TrialInformation {
 interface ModuleSelectCard {
   icon: IconName
   module: ModuleName
-  title: keyof StringsMap
-  titleDescriptor: keyof StringsMap
 }
 
 const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
   {
-    icon: 'cd-main',
-    module: ModuleName.CD,
-    title: 'common.purpose.continuous',
-    titleDescriptor: 'common.purpose.cd.delivery'
+    icon: 'cd-with-dark-text',
+    module: ModuleName.CD
   },
   {
-    icon: 'ci-main',
-    module: ModuleName.CI,
-    title: 'common.purpose.continuous',
-    titleDescriptor: 'common.purpose.ci.integration'
+    icon: 'ci-with-dark-text',
+    module: ModuleName.CI
   },
   {
-    icon: 'cf-main',
-    module: ModuleName.CF,
-    title: 'common.purpose.cf.feature',
-    titleDescriptor: 'common.purpose.cf.flags'
+    icon: 'ff-with-dark-text',
+    module: ModuleName.CF
   },
   {
-    icon: 'ce-main',
-    module: ModuleName.CE,
-    title: 'common.purpose.ce.cloudCost',
-    titleDescriptor: 'common.purpose.ce.management'
+    icon: 'ccm-with-dark-text',
+    module: ModuleName.CE
   },
   {
-    icon: 'cv-main',
-    module: ModuleName.CV,
-    title: 'common.purpose.service',
-    titleDescriptor: 'common.serviceReliabilityManagement'
+    icon: 'srm-with-dark-text',
+    module: ModuleName.CV
   }
 ]
 const SubscriptionsPage: React.FC = () => {
@@ -208,17 +184,7 @@ const SubscriptionsPage: React.FC = () => {
           selected={isSelected}
           onClick={handleCardClick}
         >
-          <Layout.Horizontal width={200}>
-            <Icon className={css.moduleIcons} name={cardData.icon} size={28} />
-            <Layout.Vertical>
-              <Text color={Color.BLACK} font={{ size: 'xsmall' }}>
-                {getString(cardData.title).toUpperCase()}
-              </Text>
-              <Text color={Color.BLACK} font={{ size: 'medium' }}>
-                {getString(cardData.titleDescriptor)}
-              </Text>
-            </Layout.Vertical>
-          </Layout.Horizontal>
+          <Icon className={css.moduleIcons} name={cardData.icon} />
         </Card>
       )
     })
