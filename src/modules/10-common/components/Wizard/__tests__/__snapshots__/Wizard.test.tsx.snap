@@ -556,3 +556,298 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
   </div>
 </body>
 `;
+
+exports[`Wizard tests Renders/snapshots Initial Render with Visual YAML buttons 1`] = `
+<body>
+  <div />
+  <div>
+    <section
+      class="wizardShell"
+    >
+      <section
+        class="extendedNav"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main sideItems StyledProps--padding-small"
+          level="2"
+        >
+          Wizard Title
+        </h2>
+        <div
+          class="PillToggle--optionBtns positionInHeader"
+        >
+          <div
+            class="PillToggle--item PillToggle--selected"
+            data-name="toggle-option-one"
+            role="button"
+            tabindex="0"
+          >
+            VISUAL
+          </div>
+          <div
+            class="PillToggle--item"
+            data-name="toggle-option-two"
+            role="button"
+            tabindex="0"
+          >
+            YAML
+          </div>
+        </div>
+        <div
+          class="sideItems"
+        />
+      </section>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
+      >
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Panel 1"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="Panel 1"
+                    id="bp3-tab-title_Wizard_Panel 1"
+                    role="tab"
+                    style="width: auto;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <div
+                        class="panelIndexCircle activeIndex"
+                      >
+                        <span
+                          class="panelIndexNumber"
+                        >
+                          1
+                        </span>
+                      </div>
+                      Panel 1
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: initial; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Panel 2"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Panel 2"
+                    id="bp3-tab-title_Wizard_Panel 2"
+                    role="tab"
+                    style="width: auto;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <div
+                        class="panelIndexCircle"
+                      >
+                        <span
+                          class="panelIndexNumber"
+                        >
+                          2
+                        </span>
+                      </div>
+                      Panel 2
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: initial; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Panel 3"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Panel 3"
+                    id="bp3-tab-title_Wizard_Panel 3"
+                    role="tab"
+                    style="width: auto;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <div
+                        class="panelIndexCircle"
+                      >
+                        <span
+                          class="panelIndexNumber"
+                        >
+                          3
+                        </span>
+                      </div>
+                      Panel 3
+                    </span>
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_Wizard_Panel 1"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_Wizard_Panel 1"
+                  role="tabpanel"
+                >
+                  <div
+                    formikprops="[object Object]"
+                  >
+                    <h2>
+                      Form 1
+                    </h2>
+                    <div
+                      class="bp3-form-group"
+                      data-id="name-0"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="wizardForm_name"
+                        >
+                          Name
+                        </span>
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="name"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main footer nonYamlViewFooter"
+              >
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    continue
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cancel
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="footerLine"
+      />
+    </section>
+  </div>
+</body>
+`;

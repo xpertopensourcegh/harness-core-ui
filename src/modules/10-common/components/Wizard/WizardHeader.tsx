@@ -69,7 +69,8 @@ export const WizardHeader = ({
                 handleModeSwitch?.(mode, yamlHandler)
                 setSelectedView(mode)
               } catch (e) {
-                showError(getString('invalidYamlText'))
+                /* istanbul ignore next */
+                showError(getString('common.validation.invalidYamlText'))
                 return
               }
             }}

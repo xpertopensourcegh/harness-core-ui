@@ -11,6 +11,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { FormInput } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { GetYamlSchemaQueryParams } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 
@@ -23,6 +24,14 @@ const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactEle
 const { result } = renderHook(() => useStrings(), { wrapper })
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+jest.mock('@common/components/MonacoTextField/MonacoTextField', () => ({
+  MonacoTextField: function MonacoTextField() {
+    return <div data-name="monaco">Monaco</div>
+  }
+}))
+
 describe('Wizard tests', () => {
   describe('Renders/snapshots', () => {
     test('Initial Render - 3 panels', async () => {
@@ -30,6 +39,49 @@ describe('Wizard tests', () => {
       render(
         <TestWrapper>
           <Wizard {...defaultWizardProps}>
+            <div>
+              <h2>Form 1</h2>
+              <FormInput.Text name="name" label="Name" />
+            </div>
+            <div>
+              <h2>Form 2</h2>
+            </div>
+            <div>
+              <h2>Form 3</h2>
+            </div>
+          </Wizard>
+        </TestWrapper>
+      )
+      // eslint-disable-next-line no-document-body-snapshot
+      expect(document.body).toMatchSnapshot()
+    })
+
+    test('Initial Render with Visual YAML buttons', async () => {
+      const defaultWizardProps = getDefaultProps()
+      const visualYamlProps = {
+        yamlBuilderReadOnlyModeProps: {
+          fileName: 'Trigger.yaml',
+          entityType: 'Triggers' as GetYamlSchemaQueryParams['entityType'],
+          width: 'calc(100vw - 350px)',
+          height: 'calc(100vh - 280px)',
+          showSnippetSection: false,
+          yamlSanityConfig: {
+            removeEmptyString: false,
+            removeEmptyObject: false,
+            removeEmptyArray: false
+          }
+        },
+        yamlObjectKey: 'trigger',
+        showVisualYaml: true,
+        loading: true,
+        positionInHeader: true,
+        handleModeSwitch: jest.fn(),
+        convertFormikValuesToYaml: jest.fn(),
+        onYamlSubmit: jest.fn()
+      }
+      render(
+        <TestWrapper>
+          <Wizard {...defaultWizardProps} visualYamlProps={visualYamlProps}>
             <div>
               <h2>Form 1</h2>
               <FormInput.Text name="name" label="Name" />

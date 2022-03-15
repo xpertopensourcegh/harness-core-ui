@@ -66,6 +66,7 @@ export const WizardFooter = ({
   setSubmittedForm
 }: WizardFooterProps): JSX.Element => {
   const { getString } = useStrings()
+  const invalidYamlString = getString('common.validation.invalidYamlText')
 
   return (
     <Layout.Horizontal className={cx(css.footer, !isYamlView && css.nonYamlViewFooter)}>
@@ -153,7 +154,7 @@ export const WizardFooter = ({
                 (yamlHandler?.getYAMLValidationErrorMap() as unknown as Map<number, string>) ||
                 /* istanbul ignore next */ ''
               if (errorsYaml?.size > 0) {
-                showError(getString('invalidYamlText'))
+                showError(invalidYamlString)
                 return
               }
 
@@ -167,13 +168,15 @@ export const WizardFooter = ({
                 const parsedYaml = parse(latestYaml)
                 const processedFormik = yamlObjectKey ? parsedYaml?.[yamlObjectKey] : parsedYaml
                 if (!parsedYaml) {
-                  showError(getString('invalidYamlText'))
+                  /* istanbul ignore next */
+                  showError(invalidYamlString)
                   return
                 }
                 formikProps.setSubmitting(true)
                 onYamlSubmit?.(processedFormik)
               } catch (e) {
-                showError(getString('invalidYamlText'))
+                /* istanbul ignore next */
+                showError(invalidYamlString)
                 return
               }
             }}
