@@ -9,6 +9,25 @@
     <title>Harness</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <style>
+      .pre-loader-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .pre-loader-text {
+        font: 18px/1.2858 Inter, sans-serif;
+        color: #4f5162;
+        margin-top: 16px;
+      }
+    </style>
     <!-- apiurl -->
     <script type="text/javascript">
       window.getApiBaseUrl = str => {
@@ -82,7 +101,14 @@
     </script>
   </head>
   <body>
-    <div id="react-root"></div>
+    <div id="react-root">
+      <div class="pre-loader-wrapper">
+        <div>
+          <img src="https://static.harness.io/ng-static/images/loader.gif" alt="Loading..." />
+          <div class="pre-loader-text">Loading, please wait...</div>
+        </div>
+      </div>
+    </div>
     <div id="ngTooltipEditorRootParent"></div>
   </body>
 </html>
