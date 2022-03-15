@@ -581,7 +581,7 @@ inputSets:
 
 provisionerSteps: Provisioner Steps
 addStage:
-  title: Select stage type
+  title: Select Stage Type
   description: Hover over stage type for more info.
 pipelineSteps:
   templateStage: Template Stage
