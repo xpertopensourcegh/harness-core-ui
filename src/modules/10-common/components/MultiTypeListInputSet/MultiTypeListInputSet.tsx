@@ -40,8 +40,6 @@ interface MultiTypeListConfigureOptionsProps
 export interface MultiTypeListProps {
   name: string
   placeholder?: string
-  withObjectStructure?: boolean
-  keyName?: string
   multiTypeFieldSelectorProps: Omit<MultiTypeFieldSelectorProps, 'name' | 'defaultValueToReset' | 'children'>
   multiTextInputProps?: Omit<MultiTextInputProps, 'name'>
   enableConfigureOptions?: boolean
@@ -60,8 +58,6 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
   const {
     name,
     placeholder,
-    withObjectStructure,
-    keyName,
     multiTypeFieldSelectorProps,
     multiTextInputProps = {},
     enableConfigureOptions = true,
@@ -80,7 +76,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
     }
     const initialValueInCorrectFormat = (initialValue || []).map((item: string | { [key: string]: string }) => ({
       id: uuid('', nameSpace()),
-      value: withObjectStructure && keyName ? ((item as { [key: string]: string })[keyName] as string) : item
+      value: item
     })) as ListUIType
 
     // Adding a default value
@@ -128,7 +124,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
       const initialValueInCorrectFormat = initialValue.map((item: string | { [key: string]: string }) => ({
         id: uuid('', nameSpace()),
-        value: withObjectStructure && keyName ? (item as { [key: string]: string })[keyName] : item
+        value: typeof item === 'string' ? item : ''
       })) as ListUIType
 
       // Adding a default value
@@ -143,11 +139,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
   React.useEffect(() => {
     let valueInCorrectFormat: ListType = []
     if (Array.isArray(value)) {
-      valueInCorrectFormat = value
-        .filter(item => !!item.value && typeof item.value === 'string')
-        .map(item => {
-          return withObjectStructure && keyName ? { [keyName]: item.value } : item.value
-        }) as ListType
+      valueInCorrectFormat = value.filter(item => !!item.value).map(item => item?.value) as ListType
     }
 
     if (get(formik?.values, name, '') !== RUNTIME_INPUT_VALUE) {
@@ -172,7 +164,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
           {value.map(({ id, value: valueValue }, index: number) => {
             // const valueError = get(error, `[${index}].value`)
 
-            return typeof valueValue === 'string' ? (
+            return (
               <div className={css.group} key={id}>
                 <div style={{ flexGrow: 1 }}>
                   <MultiTextInput
@@ -199,7 +191,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
                   />
                 )}
               </div>
-            ) : null
+            )
           })}
 
           {!disabled && (
