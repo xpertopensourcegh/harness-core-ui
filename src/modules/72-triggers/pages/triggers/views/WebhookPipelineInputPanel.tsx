@@ -17,12 +17,14 @@ import {
   getInputSetForPipelinePromise,
   useGetMergeInputSetFromPipelineTemplateWithListInput
 } from 'services/pipeline-ng'
+import { useGetYamlWithTemplateRefsResolved } from 'services/template-ng'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useMutateAsGet } from '@common/hooks'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import {
   ciCodebaseBuild,
   ciCodebaseBuildPullRequest,
@@ -145,14 +147,36 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   const { getString } = useStrings()
   const ciCodebaseBuildValue = formikProps.values?.pipeline?.properties?.ci?.codebase?.build
   let hasEverRendered = typeof ciCodebaseBuildValue === 'object' && !isEmpty(ciCodebaseBuildValue)
+  const [pipelineWithoutRefs, setPipelineWithoutRefs] = useState<PipelineInfoConfig>(originalPipeline)
+
+  const { data: templateRefsResolvedPipeline } = useMutateAsGet(useGetYamlWithTemplateRefsResolved, {
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier
+    },
+    body: {
+      originalEntityYaml: yamlStringify(originalPipeline || '')
+    }
+  })
+
+  useEffect(() => {
+    try {
+      const pipelineYamlWithoutRefAsString = templateRefsResolvedPipeline?.data?.mergedPipelineYaml
+      if (pipelineYamlWithoutRefAsString) {
+        setPipelineWithoutRefs(parse(pipelineYamlWithoutRefAsString))
+      }
+    } catch (e) {
+      // ignore error
+    }
+  }, [templateRefsResolvedPipeline?.data?.mergedPipelineYaml])
 
   useEffect(() => {
     const shouldInjectCloneCodebase =
-      !isEmpty(formikProps.values.originalPipeline?.properties?.ci?.codebase) &&
-      (formikProps.values.originalPipeline?.stages.some((stage: any) => stage?.stage?.spec?.cloneCodebase) ||
-        formikProps.values.originalPipeline?.stages?.[0]?.parallel?.some(
-          (stage: any) => stage?.stage?.spec?.cloneCodebase
-        ))
+      !isEmpty(pipelineWithoutRefs?.properties?.ci?.codebase) &&
+      (pipelineWithoutRefs?.stages?.some((stage: any) => stage?.stage?.spec?.cloneCodebase) ||
+        pipelineWithoutRefs?.stages?.[0]?.parallel?.some((stage: any) => stage?.stage?.spec?.cloneCodebase))
 
     if (!hasEverRendered && shouldInjectCloneCodebase) {
       const formikValues = cloneDeep(formikProps.values)
@@ -288,7 +312,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
               <div className={css.divider} />
             </div>
             <PipelineInputSetForm
-              originalPipeline={originalPipeline}
+              originalPipeline={pipelineWithoutRefs}
               template={
                 (template?.data?.inputSetTemplateYaml && parse(template.data.inputSetTemplateYaml).pipeline) || {}
               }

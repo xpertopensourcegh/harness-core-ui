@@ -105,6 +105,14 @@ export const pipelineInputInitialValues = {
   identifier: '',
   originalPipeline: {
     identifier: 'p1',
+    properties: {
+      ci: {
+        codebase: {
+          connectorRef: 'github',
+          build: '<+input>'
+        }
+      }
+    },
     stages: [
       {
         stage: {
@@ -122,12 +130,53 @@ export const pipelineInputInitialValues = {
             }
           }
         }
+      },
+      {
+        stage: {
+          name: 'Stage 2',
+          identifier: 'Stage2',
+          type: 'CI',
+          spec: {
+            cloneCodebase: true,
+            infrastructure: {
+              type: 'KubernetesDirect',
+              spec: {
+                connectorRef: 'k8s',
+                namespace: 'default'
+              }
+            },
+            execution: {
+              steps: [
+                {
+                  step: {
+                    type: 'Run',
+                    name: 'Run',
+                    identifier: 'Run',
+                    spec: {
+                      connectorRef: 'docker',
+                      image: 'node',
+                      command: 'echo "test"'
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
       }
     ],
     variables: [{ name: 'newVar', type: 'String', value: '<+input>', default: 'defaultValue' }]
   },
   pipeline: {
     identifier: 'p1',
+    properties: {
+      ci: {
+        codebase: {
+          connectorRef: 'github',
+          build: '<+input>'
+        }
+      }
+    },
     stages: [
       {
         stage: {
@@ -142,6 +191,39 @@ export const pipelineInputInitialValues = {
                   releaseName: RUNTIME_INPUT_VALUE
                 }
               }
+            }
+          }
+        }
+      },
+      {
+        stage: {
+          name: 'Stage 2',
+          identifier: 'Stage2',
+          type: 'CI',
+          spec: {
+            cloneCodebase: true,
+            infrastructure: {
+              type: 'KubernetesDirect',
+              spec: {
+                connectorRef: 'k8s',
+                namespace: 'default'
+              }
+            },
+            execution: {
+              steps: [
+                {
+                  step: {
+                    type: 'Run',
+                    name: 'Run',
+                    identifier: 'Run',
+                    spec: {
+                      connectorRef: 'docker',
+                      image: 'node',
+                      command: 'echo "test"'
+                    }
+                  }
+                }
+              ]
             }
           }
         }

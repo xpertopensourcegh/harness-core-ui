@@ -119,6 +119,13 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
       expect(container).toMatchSnapshot()
     })
 
+    test('Initial Render - Pipeline Input Panel with CI Codebase inputs', async () => {
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() => expect(result.current.getString('triggers.pipelineInputLabel')).toBeTruthy())
+      await waitFor(() => expect(result.current.getString('ciCodebase')).toBeTruthy())
+      expect(container).toMatchSnapshot()
+    })
+
     test('Initial Render - Pipeline Input Panel with two runtime inputs', async () => {
       jest
         .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
