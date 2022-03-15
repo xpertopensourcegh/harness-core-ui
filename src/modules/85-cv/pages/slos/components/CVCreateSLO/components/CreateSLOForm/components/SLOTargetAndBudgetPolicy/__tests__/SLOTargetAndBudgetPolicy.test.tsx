@@ -62,6 +62,7 @@ describe('Test SLOTargetAndBudgetPolicy component', () => {
   test('should render SLOTargetAndBudgetPolicy component', async () => {
     const { container } = render(<WrapperComponent initialValues={initialFormData} />)
     expect(screen.getByTestId('SLO-target-chart')).toBeInTheDocument()
+    expect(container.querySelector('input[name="SLOTargetPercentage"]')).toHaveAttribute('step', 'any')
     expect(container).toMatchSnapshot()
   })
 

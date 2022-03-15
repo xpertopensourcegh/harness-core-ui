@@ -108,6 +108,8 @@ describe('CVCreateSLO', () => {
 
     await waitFor(() => expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true'))
 
+    expect(container.querySelector('input[name="objectiveValue"]')).toHaveAttribute('step', 'any')
+
     userEvent.click(screen.getByText('continue'))
 
     await waitFor(() => {
