@@ -6,9 +6,11 @@
  */
 
 .main {
-  height: 200px !important;
+  height: 100px !important;
   width: 100% !important;
   position: relative;
+  overflow: auto;
+  margin-bottom: 1em !important;
 
   .hexagonList {
     height: 100% !important;
