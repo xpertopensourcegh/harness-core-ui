@@ -59,6 +59,7 @@ filters:
   builtTypePlaceholder: Select Build Type
 selectStagePlaceholder: Search/Select Stage
 selectStage: Select Stage
+stepNamePlaceholder: 'Enter Step Name'
 rightBar:
   editCodebaseConfiguration: Edit Codebase Configuration
 barrierStep:
@@ -66,6 +67,15 @@ barrierStep:
   barrierReferenceRequired: Barrier Reference is required
   barrierReferencePlaceholder: Select or Enter Barrier Reference
 timeRemainingSuffix: remaining till timeout
+utilitiesStep:
+  url: Enter the URL
+  requestBody: Enter the message body
+  assertion: Enter Assertion
+terraformStep:
+  provisionerIdentifier: Enter Provisioner Identifier
+  workspace: Enter Workspace
+kubernetesStep:
+  workload: Enter Workload
 approvalStep:
   message: 'Approval Message'
   approvers: 'Approver(s)'

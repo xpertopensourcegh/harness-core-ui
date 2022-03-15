@@ -307,6 +307,7 @@ function TerraformPlanWidget(
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
                     inputGroupProps={{
+                      placeholder: getString('pipeline.stepNamePlaceholder'),
                       disabled: readonly
                     }}
                   />
@@ -352,6 +353,7 @@ function TerraformPlanWidget(
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
+                  placeholder={getString('pipeline.terraformStep.provisionerIdentifier')}
                   label={getString('pipelineSteps.provisionerIdentifier')}
                   multiTextInputProps={{ expressions, allowableTypes }}
                   disabled={readonly}
@@ -441,6 +443,7 @@ function TerraformPlanWidget(
                       <div className={cx(stepCss.formGroup, stepCss.md)}>
                         <FormInput.MultiTextInput
                           name="spec.configuration.workspace"
+                          placeholder={getString('pipeline.terraformStep.workspace')}
                           label={getString('pipelineSteps.workspace')}
                           multiTextInputProps={{ expressions, allowableTypes }}
                           isOptional={true}

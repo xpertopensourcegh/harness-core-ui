@@ -212,4 +212,29 @@ describe('Test TerraformRollback', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('Minimum time cannot be less than 10s', () => {
+    const response = new TerraformRollback().validateInputSet({
+      data: {
+        name: 'Test A',
+        identifier: 'HTTP_Step',
+        timeout: '1s',
+        type: 'TerraformRollback',
+        spec: {
+          provisionerIdentifier: 'test'
+        }
+      },
+      template: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '<+input>',
+        type: 'TerraformRollback',
+        spec: {
+          provisionerIdentifier: '<+input>'
+        }
+      },
+      viewType: StepViewType.TriggerForm
+    })
+    expect(response).toMatchSnapshot()
+  })
 })

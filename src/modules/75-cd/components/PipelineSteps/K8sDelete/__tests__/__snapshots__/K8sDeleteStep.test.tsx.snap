@@ -103,6 +103,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -375,6 +376,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -682,6 +684,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -952,6 +955,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />

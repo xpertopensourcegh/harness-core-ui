@@ -88,7 +88,10 @@ function K8RolloutDeployWidget(
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep && !readonly}
-                    inputGroupProps={{ disabled: readonly }}
+                    inputGroupProps={{
+                      placeholder: getString('pipeline.stepNamePlaceholder'),
+                      disabled: readonly
+                    }}
                   />
                 </div>
               )}

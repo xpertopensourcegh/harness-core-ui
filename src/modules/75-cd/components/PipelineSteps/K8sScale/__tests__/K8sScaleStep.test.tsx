@@ -488,4 +488,38 @@ describe('Test K8sBlueGreenDeployStep', () => {
 
     expect(container).toMatchSnapshot()
   })
+
+  test('Minimum time cannot be less than 10s', () => {
+    const response = new K8sScaleStep().validateInputSet({
+      data: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '1s',
+        type: 'K8sScale',
+        spec: {
+          instanceSelection: {
+            spec: {
+              count: 10
+            },
+            type: 'Count'
+          },
+          skipSteadyStateCheck: false,
+          workload: 'test'
+        }
+      },
+      template: {
+        name: 'Test_A',
+        identifier: 'Test_A',
+        type: 'K8sScale',
+        spec: {
+          timeout: RUNTIME_INPUT_VALUE,
+          workload: RUNTIME_INPUT_VALUE,
+          skipSteadyStateCheck: false,
+          instanceSelection: { type: 'Count', spec: { count: RUNTIME_INPUT_VALUE } }
+        }
+      },
+      viewType: StepViewType.TriggerForm
+    })
+    expect(response).toMatchSnapshot()
+  })
 })

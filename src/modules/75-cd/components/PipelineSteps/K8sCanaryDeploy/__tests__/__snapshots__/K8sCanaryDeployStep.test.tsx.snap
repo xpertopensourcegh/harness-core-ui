@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test K8sCanaryDeployStep Minimum time cannot be less than 10s 1`] = `Object {}`;
+
 exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
 <div>
   <div
@@ -103,6 +105,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />
@@ -459,6 +462,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -867,6 +871,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />
@@ -1447,6 +1452,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -1803,6 +1809,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -2159,6 +2166,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />

@@ -311,6 +311,7 @@ export default function TerraformEditView(
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
                     inputGroupProps={{
+                      placeholder: getString('pipeline.stepNamePlaceholder'),
                       disabled: readonly
                     }}
                   />
@@ -356,6 +357,7 @@ export default function TerraformEditView(
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
+                  placeholder={getString('pipeline.terraformStep.provisionerIdentifier')}
                   label={getString('pipelineSteps.provisionerIdentifier')}
                   multiTextInputProps={{ expressions, allowableTypes }}
                   disabled={readonly}
@@ -435,6 +437,7 @@ export default function TerraformEditView(
                             <div className={cx(stepCss.formGroup, stepCss.md)}>
                               <FormInput.MultiTextInput
                                 name="spec.configuration.spec.workspace"
+                                placeholder={getString('pipeline.terraformStep.workspace')}
                                 label={getString('pipelineSteps.workspace')}
                                 multiTextInputProps={{ expressions, allowableTypes }}
                                 isOptional={true}

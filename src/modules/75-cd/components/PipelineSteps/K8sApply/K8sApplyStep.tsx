@@ -174,7 +174,10 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
-                    inputGroupProps={{ disabled: isDisabled }}
+                    inputGroupProps={{
+                      placeholder: getString('pipeline.stepNamePlaceholder'),
+                      disabled: isDisabled
+                    }}
                   />
                 </div>
               )}

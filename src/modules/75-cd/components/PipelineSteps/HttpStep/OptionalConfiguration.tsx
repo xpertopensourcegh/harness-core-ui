@@ -37,6 +37,7 @@ export default function OptionalConfiguration(props: {
       <div className={stepCss.formGroup}>
         <FormInput.MultiTextInput
           name="spec.assertion"
+          placeholder={getString('pipeline.utilitiesStep.assertion')}
           label={getString('assertionLabel')}
           isOptional
           optionalLabel={getString('common.optionalLabel')}

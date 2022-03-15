@@ -109,7 +109,10 @@ function K8sBGSwapWidget(
                     <FormInput.InputWithIdentifier
                       inputLabel={getString('name')}
                       isIdentifierEditable={isNewStep}
-                      inputGroupProps={{ disabled: readonly }}
+                      inputGroupProps={{
+                        placeholder: getString('pipeline.stepNamePlaceholder'),
+                        disabled: readonly
+                      }}
                     />
                   </div>
                 )}

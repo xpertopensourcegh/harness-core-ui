@@ -103,6 +103,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -290,6 +291,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -422,6 +424,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
+                            placeholder="pipeline.terraformStep.workspace"
                             type="text"
                             value=""
                           />
@@ -1072,6 +1075,7 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -1259,6 +1263,7 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -1459,6 +1464,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -1646,6 +1652,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -1778,6 +1785,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
+                            placeholder="pipeline.terraformStep.workspace"
                             type="text"
                             value=""
                           />
@@ -2649,6 +2657,7 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -2836,6 +2845,7 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -2979,6 +2989,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -3166,6 +3177,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -3364,6 +3376,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />
@@ -3551,6 +3564,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value=""
               />
@@ -3782,6 +3796,7 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -3969,6 +3984,7 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -4112,6 +4128,7 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -4299,6 +4316,7 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -4530,6 +4548,7 @@ exports[`Test TerraformApply should trigger validation error for expression valu
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -5002,6 +5021,7 @@ exports[`Test TerraformApply should trigger validation error for fixed value 1`]
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -5189,6 +5209,7 @@ exports[`Test TerraformApply should trigger validation error for fixed value 1`]
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value=""
               />
@@ -5451,6 +5472,7 @@ exports[`Test TerraformApply should trigger validation error for invalid fixed v
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -5638,6 +5660,7 @@ exports[`Test TerraformApply should trigger validation error for invalid fixed v
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="$%"
               />

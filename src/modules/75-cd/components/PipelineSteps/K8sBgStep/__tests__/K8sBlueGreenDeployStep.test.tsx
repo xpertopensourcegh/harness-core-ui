@@ -106,4 +106,48 @@ describe('Test K8sBlueGreenDeployStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('should render edit view as edit step with all runtime inputs', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sBlueGreenDeploy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: RUNTIME_INPUT_VALUE,
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE
+          }
+        }}
+        type={StepType.K8sBlueGreenDeploy}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Minimum time cannot be less than 10s', () => {
+    const response = new K8sBlueGreenDeployStep().validateInputSet({
+      data: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '5s',
+        type: 'K8sBlueGreen',
+        spec: {
+          skipDryRun: false
+        }
+      },
+      template: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '<+input>',
+        type: 'K8sBlueGreen',
+        spec: {
+          skipDryRun: false
+        }
+      },
+      viewType: StepViewType.TriggerForm
+    })
+    expect(response).toMatchSnapshot()
+  })
 })

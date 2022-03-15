@@ -268,6 +268,54 @@ describe('Test K8sCanaryDeployStep', () => {
     )
   })
 
+  test('on Edit view for instance type count', async () => {
+    const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
+
+    render(
+      <TestStepWidget
+        initialValues={{
+          identifier: 'Test_A',
+          name: 'Test A',
+          timeout: '10m',
+          spec: {
+            instanceSelection: {
+              spec: {
+                count: 10
+              },
+              type: 'Count'
+            },
+            skipDryRun: false
+          },
+          type: 'K8sCanaryDeploy'
+        }}
+        type={StepType.K8sCanaryDeploy}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+        ref={ref}
+      />
+    )
+    await ref.current?.submitForm()
+
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              count: 10
+            },
+            type: 'Count'
+          },
+          skipDryRun: false
+        },
+        timeout: '10m',
+        type: 'K8sCanaryDeploy'
+      })
+    )
+  })
+
   test('should render variable view', () => {
     const onUpdate = jest.fn()
     const { container } = render(
@@ -326,5 +374,42 @@ describe('Test K8sCanaryDeployStep', () => {
       />
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('Minimum time cannot be less than 10s', () => {
+    const response = new K8sCanaryDeployStep().validateInputSet({
+      data: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '1s',
+        type: 'K8sCanaryDeploy',
+        spec: {
+          instanceSelection: {
+            spec: {
+              count: 10
+            },
+            type: 'Count'
+          },
+          skipDryRun: false
+        }
+      },
+      template: {
+        name: 'Test_A',
+        identifier: 'Test_A',
+        type: 'K8sCanaryDeploy',
+        spec: {
+          skipDryRun: false,
+          timeout: RUNTIME_INPUT_VALUE,
+          instanceSelection: {
+            spec: {
+              count: RUNTIME_INPUT_VALUE
+            },
+            type: 'Count'
+          }
+        }
+      },
+      viewType: StepViewType.TriggerForm
+    })
+    expect(response).toMatchSnapshot()
   })
 })

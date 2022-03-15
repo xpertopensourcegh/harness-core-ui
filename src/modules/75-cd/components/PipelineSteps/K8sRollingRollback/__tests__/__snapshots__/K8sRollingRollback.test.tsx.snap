@@ -112,6 +112,7 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="name"
+                      placeholder="pipeline.stepNamePlaceholder"
                       type="text"
                       value=""
                     />

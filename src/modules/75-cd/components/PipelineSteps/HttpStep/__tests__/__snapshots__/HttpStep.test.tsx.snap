@@ -106,6 +106,7 @@ exports[`Http Step edit mode works 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="name"
+                  placeholder="pipeline.stepNamePlaceholder"
                   type="text"
                   value="My Http Step"
                 />
@@ -1022,6 +1023,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="name"
+                  placeholder="pipeline.stepNamePlaceholder"
                   type="text"
                   value="My Http Step"
                 />
@@ -1577,6 +1579,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="name"
+                  placeholder="pipeline.stepNamePlaceholder"
                   type="text"
                   value=""
                 />
@@ -1693,6 +1696,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.url"
+                  placeholder="pipeline.utilitiesStep.url"
                   type="text"
                   value=""
                 />
@@ -1866,6 +1870,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                 <textarea
                   class="bp3-input input"
                   name="spec.requestBody"
+                  placeholder="pipeline.utilitiesStep.requestBody"
                 />
                 <span
                   class="bp3-popover-wrapper MultiTypeInput--wrapper"

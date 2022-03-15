@@ -92,6 +92,27 @@ describe('Test K8sApplyStep', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should render edit view as edit step with all runtime inputs', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: RUNTIME_INPUT_VALUE,
+          spec: {
+            skipDryRun: RUNTIME_INPUT_VALUE,
+            skipSteadyStateCheck: RUNTIME_INPUT_VALUE,
+            filePaths: RUNTIME_INPUT_VALUE
+          }
+        }}
+        type={StepType.K8sApply}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+
   test('should render variable view', () => {
     const { container } = render(
       <TestStepWidget
@@ -221,5 +242,33 @@ describe('Test K8sApplyStep', () => {
       timeout: '10m',
       type: 'K8sApply'
     })
+  })
+  test('Minimum time cannot be less than 10s', () => {
+    const response = new K8sApplyStep().validateInputSet({
+      data: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '1s',
+        type: 'K8sApplyStep',
+        spec: {
+          skipDryRun: false,
+          skipSteadyStateCheck: false,
+          filePaths: ['test-1', 'test-2']
+        }
+      },
+      template: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '<+input>',
+        type: 'K8sApplyStep',
+        spec: {
+          skipDryRun: false,
+          skipSteadyStateCheck: false,
+          filePaths: RUNTIME_INPUT_VALUE
+        }
+      },
+      viewType: StepViewType.TriggerForm
+    })
+    expect(response).toMatchSnapshot()
   })
 })

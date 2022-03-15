@@ -55,6 +55,7 @@ export default function HttpStepBase(props: {
             inputLabel={getString('name')}
             isIdentifierEditable={isNewStep && !readonly}
             inputGroupProps={{
+              placeholder: getString('pipeline.stepNamePlaceholder'),
               disabled: readonly
             }}
           />
@@ -91,6 +92,7 @@ export default function HttpStepBase(props: {
       <div className={stepCss.formGroup}>
         <FormInput.MultiTextInput
           name="spec.url"
+          placeholder={getString('pipeline.utilitiesStep.url')}
           label={getString('UrlLabel')}
           disabled={readonly}
           multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
@@ -131,6 +133,7 @@ export default function HttpStepBase(props: {
       </div>
       <div className={stepCss.formGroup}>
         <FormMultiTypeTextAreaField
+          placeholder={getString('pipeline.utilitiesStep.requestBody')}
           name="spec.requestBody"
           label={getString('requestBodyLabel')}
           className={css.requestBody}

@@ -107,6 +107,7 @@ Object {
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value="Test A"
                   />
@@ -288,6 +289,7 @@ Object {
                     autocomplete="off"
                     class="bp3-input"
                     name="spec.provisionerIdentifier"
+                    placeholder="pipeline.terraformStep.provisionerIdentifier"
                     type="text"
                     value="provisionerIdentifier"
                   />
@@ -585,6 +587,7 @@ Object {
                   autocomplete="off"
                   class="bp3-input"
                   name="name"
+                  placeholder="pipeline.stepNamePlaceholder"
                   type="text"
                   value="Test A"
                 />
@@ -766,6 +769,7 @@ Object {
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
+                  placeholder="pipeline.terraformStep.provisionerIdentifier"
                   type="text"
                   value="provisionerIdentifier"
                 />
@@ -1117,6 +1121,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -1298,6 +1303,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -1526,6 +1532,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="spec.configuration.workspace"
+                          placeholder="pipeline.terraformStep.workspace"
                           type="text"
                           value=""
                         />
@@ -2548,6 +2555,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -2729,6 +2737,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -3026,6 +3035,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />
@@ -3207,6 +3217,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value=""
               />
@@ -3504,6 +3515,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />
@@ -3685,6 +3697,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value=""
               />
@@ -3984,6 +3997,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -4165,6 +4179,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -4921,6 +4936,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -5102,6 +5118,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />

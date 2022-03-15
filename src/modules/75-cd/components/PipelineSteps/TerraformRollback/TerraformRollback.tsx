@@ -109,6 +109,7 @@ function TerraformRollbackWidget(
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
                     inputGroupProps={{
+                      placeholder: getString('pipeline.stepNamePlaceholder'),
                       disabled: readonly
                     }}
                   />
@@ -142,6 +143,7 @@ function TerraformRollbackWidget(
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
+                  placeholder={getString('pipeline.terraformStep.provisionerIdentifier')}
                   label={getString('pipelineSteps.provisionerIdentifier')}
                   multiTextInputProps={{ expressions, allowableTypes }}
                   disabled={readonly}

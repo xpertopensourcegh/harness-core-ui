@@ -109,7 +109,10 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     <FormInput.InputWithIdentifier
                       inputLabel={getString('name')}
                       isIdentifierEditable={isNewStep}
-                      inputGroupProps={{ disabled: readonly }}
+                      inputGroupProps={{
+                        placeholder: getString('pipeline.stepNamePlaceholder'),
+                        disabled: readonly
+                      }}
                     />
                   </div>
                 )}
@@ -180,6 +183,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.MultiTextInput
                     label={getString('pipelineSteps.workload')}
+                    placeholder={getString('pipeline.kubernetesStep.workload')}
                     name={'spec.workload'}
                     disabled={readonly}
                     multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}

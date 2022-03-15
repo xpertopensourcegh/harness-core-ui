@@ -52,7 +52,10 @@ export default function BaseShellScript(props: {
           <FormInput.InputWithIdentifier
             inputLabel={getString('pipelineSteps.stepNameLabel')}
             isIdentifierEditable={isNewStep && !readonly}
-            inputGroupProps={{ disabled: readonly }}
+            inputGroupProps={{
+              placeholder: getString('pipeline.stepNamePlaceholder'),
+              disabled: readonly
+            }}
           />
         </div>
       )}

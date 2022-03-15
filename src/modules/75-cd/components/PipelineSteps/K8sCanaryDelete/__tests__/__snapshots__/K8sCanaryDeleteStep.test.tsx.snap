@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test K8sCanaryDeleteStep Minimum time cannot be less than 10s 1`] = `
+Object {
+  "timeout": "Value must be greater than or equal to \\"10s\\"",
+}
+`;
+
 exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
 <div>
   <div
@@ -101,6 +107,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -324,6 +331,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />

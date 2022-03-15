@@ -190,6 +190,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -452,6 +453,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />

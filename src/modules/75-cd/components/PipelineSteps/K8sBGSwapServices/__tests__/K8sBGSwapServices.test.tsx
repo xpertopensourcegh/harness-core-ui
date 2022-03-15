@@ -100,4 +100,28 @@ describe('Test K8sBlueGreenDeployStep', () => {
 
     expect(container).toMatchSnapshot()
   })
+  test('Minimum time cannot be less than 10s', () => {
+    const response = new K8sBGSwapServices().validateInputSet({
+      data: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '1s',
+        type: 'K8sBGSwapService',
+        spec: {
+          skipDryRun: false
+        }
+      },
+      template: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '<+input>',
+        type: 'K8sBGSwapService',
+        spec: {
+          skipDryRun: false
+        }
+      },
+      viewType: StepViewType.TriggerForm
+    })
+    expect(response).toMatchSnapshot()
+  })
 })

@@ -2650,6 +2650,7 @@ export interface StringsMap {
   'pipeline.jiraUpdateStep.transitionPlaceholder': string
   'pipeline.jiraUpdateStep.validations.status': string
   'pipeline.keyPlaceholder': string
+  'pipeline.kubernetesStep.workload': string
   'pipeline.lastSevenDays': string
   'pipeline.logs.errorText': string
   'pipeline.logs.retry': string
@@ -2888,9 +2889,12 @@ export interface StringsMap {
   'pipeline.stepDescription.Verify': string
   'pipeline.stepDetails': string
   'pipeline.stepLabel': string
+  'pipeline.stepNamePlaceholder': string
   'pipeline.tagDependencyRequired': string
   'pipeline.targets.title': string
   'pipeline.templateSaved': string
+  'pipeline.terraformStep.provisionerIdentifier': string
+  'pipeline.terraformStep.workspace': string
   'pipeline.testsReports.callgraphField.class': string
   'pipeline.testsReports.callgraphField.file': string
   'pipeline.testsReports.callgraphField.method': string
@@ -2962,6 +2966,9 @@ export interface StringsMap {
   'pipeline.timeRemainingSuffix': string
   'pipeline.uniqueIdentifier': string
   'pipeline.unsupportedImagesWarning': string
+  'pipeline.utilitiesStep.assertion': string
+  'pipeline.utilitiesStep.requestBody': string
+  'pipeline.utilitiesStep.url': string
   'pipeline.variable.typePlaceholder': string
   'pipeline.variable.variableNamePlaceholder': string
   'pipeline.verification.analysisTab.logs': string

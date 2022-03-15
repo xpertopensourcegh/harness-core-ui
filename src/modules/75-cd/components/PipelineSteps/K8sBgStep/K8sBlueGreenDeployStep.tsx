@@ -81,7 +81,10 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
-                    inputGroupProps={{ disabled: readonly }}
+                    inputGroupProps={{
+                      placeholder: getString('pipeline.stepNamePlaceholder'),
+                      disabled: readonly
+                    }}
                   />
                 </div>
               )}

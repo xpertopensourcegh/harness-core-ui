@@ -103,6 +103,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="Test A"
               />
@@ -290,6 +291,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.provisionerIdentifier"
+                placeholder="pipeline.terraformStep.provisionerIdentifier"
                 type="text"
                 value="test"
               />
@@ -422,6 +424,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                             autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
+                            placeholder="pipeline.terraformStep.workspace"
                             type="text"
                             value="testworkspace"
                           />

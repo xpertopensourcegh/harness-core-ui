@@ -95,4 +95,28 @@ describe('Test K8sCanaryDeleteStep', () => {
     )
     expect(container).toMatchSnapshot()
   })
+  test('Minimum time cannot be less than 10s', () => {
+    const response = new K8sCanaryDeleteStep().validateInputSet({
+      data: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '1s',
+        type: 'K8sCanaryDelete',
+        spec: {
+          skipDryRun: false
+        }
+      },
+      template: {
+        name: 'Test A',
+        identifier: 'Test A',
+        timeout: '<+input>',
+        type: 'K8sCanaryDelete',
+        spec: {
+          skipDryRun: false
+        }
+      },
+      viewType: StepViewType.TriggerForm
+    })
+    expect(response).toMatchSnapshot()
+  })
 })

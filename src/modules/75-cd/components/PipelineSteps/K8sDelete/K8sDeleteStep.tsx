@@ -259,7 +259,10 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
-                    inputGroupProps={{ disabled: isDisabled }}
+                    inputGroupProps={{
+                      placeholder: getString('pipeline.stepNamePlaceholder'),
+                      disabled: isDisabled
+                    }}
                   />
                 </div>
               )}

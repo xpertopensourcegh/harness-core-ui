@@ -534,6 +534,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="SSH"
               />
@@ -922,6 +923,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="SSH"
               />
@@ -1312,6 +1314,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="SSH"
               />
@@ -1702,6 +1705,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value="SSH"
               />
@@ -2088,6 +2092,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="name"
+                placeholder="pipeline.stepNamePlaceholder"
                 type="text"
                 value=""
               />
