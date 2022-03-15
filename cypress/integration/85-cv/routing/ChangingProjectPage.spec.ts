@@ -57,4 +57,15 @@ describe('Changing Project Page', () => {
     // Changing project should not show error and render the slos list.
     cy.contains('h2', 'SLO-1').should('be.visible')
   })
+
+  it('should not lose the selected project while switching between account and project scopes', () => {
+    cy.contains('p', 'You have no monitored services')
+
+    cy.contains('span', 'Account Settings').click()
+    cy.contains('h2', 'Account Overview').should('be.visible')
+
+    cy.contains('span', 'Service Reliability').click()
+
+    cy.contains('p', 'You have no monitored services')
+  })
 })
