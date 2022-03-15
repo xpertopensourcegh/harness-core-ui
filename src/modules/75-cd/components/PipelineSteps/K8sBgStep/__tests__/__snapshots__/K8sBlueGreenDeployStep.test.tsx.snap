@@ -379,7 +379,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p

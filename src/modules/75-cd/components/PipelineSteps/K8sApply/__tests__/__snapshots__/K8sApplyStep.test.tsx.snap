@@ -933,7 +933,7 @@ exports[`Test K8sApplyStep should render edit view as edit step with all runtime
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
+              Id
             </p>
           </div>
           <p
