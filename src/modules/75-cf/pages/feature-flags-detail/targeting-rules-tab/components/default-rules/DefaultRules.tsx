@@ -5,19 +5,19 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { Card, FontVariation, FormInput, Heading, SelectOption } from '@harness/uicore'
 import React, { ReactElement } from 'react'
+import { FontVariation, FormInput, Heading, SelectOption } from '@harness/uicore'
 import type { Variation } from 'services/cf'
-import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { CFVariationColors } from '@cf/constants'
 import { useStrings } from 'framework/strings'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 
-export interface FlagEnabledDefaultRulesCardProps {
+export interface DefaultRulesProps {
   featureFlagVariations: Variation[]
   isLoading: boolean
 }
 
-const FlagEnabledDefaultRulesCard = (props: FlagEnabledDefaultRulesCardProps): ReactElement => {
+const DefaultRules = (props: DefaultRulesProps): ReactElement => {
   const { featureFlagVariations, isLoading } = props
 
   const { getString } = useStrings()
@@ -28,23 +28,23 @@ const FlagEnabledDefaultRulesCard = (props: FlagEnabledDefaultRulesCardProps): R
   }))
 
   return (
-    <Card>
+    <>
       <Heading level={3} font={{ variation: FontVariation.H6 }} margin={{ bottom: 'medium' }}>
         <StringWithTooltip stringId="cf.featureFlags.rules.whenFlagEnabled" tooltipId="ff_ffDefaultRules_heading" />
       </Heading>
-      <Heading level={4} font={{ variation: FontVariation.BODY2 }} margin={{ bottom: 'xsmall' }}>
+      <Heading level={4} font={{ variation: FontVariation.BODY2 }} margin={{ bottom: 'small' }}>
         {getString('cf.featureFlags.rules.defaultRule')}
       </Heading>
       <FormInput.Select
         disabled={isLoading}
-        style={{ marginBottom: 0 }}
+        style={{ marginBottom: '0' }}
         label={getString('cf.featureFlags.serve')}
         inline
         name="onVariation"
         items={variationItems}
       />
-    </Card>
+    </>
   )
 }
 
-export default FlagEnabledDefaultRulesCard
+export default DefaultRules

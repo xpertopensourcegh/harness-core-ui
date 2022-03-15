@@ -10,15 +10,15 @@ import { render, screen } from '@testing-library/react'
 import React from 'react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
-import FlagEnabledDefaultRulesCard, { FlagEnabledDefaultRulesCardProps } from '../FlagEnabledDefaultRulesCard'
+import DefaultRules, { DefaultRulesProps } from '../DefaultRules'
 
-const renderComponent = (props: Partial<FlagEnabledDefaultRulesCardProps> = {}): void => {
+const renderComponent = (props: Partial<DefaultRulesProps> = {}): void => {
   render(
     <TestWrapper
       path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags"
       pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
     >
-      <FlagEnabledDefaultRulesCard
+      <DefaultRules
         featureFlagVariations={[
           { identifier: 'true', name: 'True', value: 'true' },
           { identifier: 'false', name: 'False', value: 'false' }

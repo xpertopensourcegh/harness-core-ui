@@ -4228,7 +4228,10 @@ export interface StringsMap {
   'cf.featureFlags.rules.onRequestVariation': string
   'cf.featureFlags.rules.serveToFollowing': string
   'cf.featureFlags.rules.serveVariationToTarget': string
+  'cf.featureFlags.rules.specificTargeting': string
   'cf.featureFlags.rules.toTarget': string
+  'cf.featureFlags.rules.toTargetGroups': string
+  'cf.featureFlags.rules.toTargets': string
   'cf.featureFlags.rules.whenFlagEnabled': string
   'cf.featureFlags.serve': string
   'cf.featureFlags.servePercentageRollout': string

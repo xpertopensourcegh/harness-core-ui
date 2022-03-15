@@ -189,6 +189,9 @@ featureFlags:
     serveToFollowing: 'serve to following:'
     onRequest: On Request
     onRequestVariation: 'On Request, check for condition and serve variation'
+    specificTargeting: 'Specific Targeting'
+    toTargetGroups: 'to Target Groups'
+    toTargets: 'to Targets'
   flagFilters:
     environment: '{{ $.environment }}'
     envDefault: Production (Default)

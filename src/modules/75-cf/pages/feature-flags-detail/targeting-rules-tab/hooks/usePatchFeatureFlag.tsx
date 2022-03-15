@@ -7,13 +7,13 @@
 
 import { useParams } from 'react-router-dom'
 import { getErrorInfoFromErrorObject, useToaster } from '@harness/uicore'
+import { v4 as uuid } from 'uuid'
 import patch from '@cf/utils/instructions'
-import { FeatureState, PatchFeatureQueryParams, usePatchFeature } from 'services/cf'
+import { FeatureState, PatchFeatureQueryParams, TargetMap, usePatchFeature } from 'services/cf'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { showToaster } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
-import type { TargetingRulesFormValues } from '../TargetingRulesTab'
-
+import type { FormVariationMap, TargetGroup, TargetingRulesFormValues } from '../TargetingRulesTab'
 export interface UsePatchFeatureFlagProps {
   featureFlagIdentifier: string
   initialValues: TargetingRulesFormValues
@@ -21,7 +21,7 @@ export interface UsePatchFeatureFlagProps {
 }
 
 interface UsePatchFeatureFlagReturn {
-  saveChanges: (values: TargetingRulesFormValues) => void
+  saveChanges: (newValues: TargetingRulesFormValues) => void
   loading: boolean
 }
 
@@ -45,19 +45,87 @@ const usePatchFeatureFlag = ({
     } as PatchFeatureQueryParams
   })
 
-  const saveChanges = (values: TargetingRulesFormValues): void => {
-    if (values.state !== initialValues.state) {
-      patch.feature.addInstruction(patch.creators.setFeatureFlagState(values.state as FeatureState))
+  const saveChanges = (submittedValues: TargetingRulesFormValues): void => {
+    if (submittedValues.state !== initialValues.state) {
+      patch.feature.addInstruction(patch.creators.setFeatureFlagState(submittedValues.state as FeatureState))
     }
 
-    if (values.onVariation !== initialValues.onVariation) {
-      patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
+    if (submittedValues.onVariation !== initialValues.onVariation) {
+      patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(submittedValues.onVariation as string))
     }
+
+    // for each variation, iterate and compare initial Targets/Target groups against the submitted Targets/Target groups and create instructions
+    initialValues.formVariationMap.forEach((formVariation: FormVariationMap) => {
+      const intialTargetGroups: TargetGroup[] = formVariation.targetGroups
+
+      const submittedTargetGroups: TargetGroup[] =
+        submittedValues.formVariationMap.find(
+          variation => variation.variationIdentifier === formVariation.variationIdentifier
+        )?.targetGroups || []
+
+      const addedTargetGroups: TargetGroup[] = submittedTargetGroups.filter(
+        submittedTargetGroup =>
+          !intialTargetGroups
+            .map(intialTargetGroup => intialTargetGroup.identifier)
+            .includes(submittedTargetGroup.identifier)
+      )
+
+      if (addedTargetGroups.length) {
+        patch.feature.addAllInstructions(
+          addedTargetGroups.map(targetGroup =>
+            patch.creators.addRule({
+              uuid: uuid(),
+              priority: 100,
+              serve: {
+                variation: formVariation.variationIdentifier
+              },
+              clauses: [
+                {
+                  op: 'segmentMatch',
+                  values: [targetGroup.identifier]
+                }
+              ]
+            })
+          )
+        )
+      }
+
+      const removedTargetGroups: TargetGroup[] = intialTargetGroups.filter(
+        targetGroup =>
+          !submittedTargetGroups
+            .map(submittedTargetGroup => submittedTargetGroup.identifier)
+            .includes(targetGroup.identifier)
+      )
+      if (removedTargetGroups.length) {
+        patch.feature.addAllInstructions(
+          removedTargetGroups.map(targetGroup => patch.creators.removeRule(targetGroup.ruleId))
+        )
+      }
+
+      const intialTargetIds = formVariation.targets.map((target: TargetMap) => target.identifier)
+      const submittedTargetIds =
+        submittedValues.formVariationMap
+          .find(variation => variation.variationIdentifier === formVariation.variationIdentifier)
+          ?.targets.map((target: TargetMap) => target.identifier) || []
+
+      const addedTargetIds: string[] = submittedTargetIds.filter(id => !intialTargetIds.includes(id))
+      if (addedTargetIds.length) {
+        patch.feature.addInstruction(
+          patch.creators.addTargetsToVariationTargetMap(formVariation.variationIdentifier, addedTargetIds)
+        )
+      }
+
+      const removedTargetIds: string[] = intialTargetIds.filter(id => !submittedTargetIds.includes(id))
+      if (removedTargetIds.length) {
+        patch.feature.addInstruction(
+          patch.creators.removeTargetsToVariationTargetMap(formVariation.variationIdentifier, removedTargetIds)
+        )
+      }
+    })
 
     patch.feature.onPatchAvailable(async data => {
       try {
         await patchFeature(data)
-
         patch.feature.reset()
         await refetchFlag()
         showToaster(getString('cf.messages.flagUpdated'))

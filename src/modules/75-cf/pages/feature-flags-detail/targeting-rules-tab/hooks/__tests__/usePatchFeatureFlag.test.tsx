@@ -9,9 +9,18 @@ import { renderHook } from '@testing-library/react-hooks'
 import type { FC } from 'react'
 import React from 'react'
 import { waitFor, screen } from '@testing-library/react'
+import * as uuid from 'uuid'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cfServicesMock from 'services/cf'
 import usePatchFeatureFlag, { UsePatchFeatureFlagProps } from '../usePatchFeatureFlag'
+import {
+  targetAddedFixture,
+  targetGroupsAddedFixture,
+  targetGroupsRemovedFixture,
+  targetRemovedFixture
+} from './fixtures/target_groups_and_targets_fixtures'
+
+jest.mock('uuid')
 
 const renderHookUnderTest = (props: Partial<UsePatchFeatureFlagProps> = {}) => {
   const wrapper: FC = ({ children }) => {
@@ -29,7 +38,7 @@ const renderHookUnderTest = (props: Partial<UsePatchFeatureFlagProps> = {}) => {
     () =>
       usePatchFeatureFlag({
         featureFlagIdentifier: '',
-        initialValues: { state: 'off', onVariation: 'False' },
+        initialValues: { state: 'off', onVariation: 'False', formVariationMap: [] },
         refetchFlag: jest.fn(),
         ...props
       }),
@@ -38,73 +47,170 @@ const renderHookUnderTest = (props: Partial<UsePatchFeatureFlagProps> = {}) => {
 }
 
 describe('usePatchFeatureFlag', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
-  test('it should handle saveChanges correctly when values different', async () => {
-    const refetchFlagMock = jest.fn()
-    const mutateMock = jest.fn()
-    jest
-      .spyOn(cfServicesMock, 'usePatchFeature')
-      .mockReturnValue({ mutate: mutateMock.mockResolvedValueOnce({}), cancel: jest.fn(), error: null, loading: false })
-
-    const { result } = renderHookUnderTest({ refetchFlag: refetchFlagMock.mockResolvedValueOnce({}) })
-
-    const newValues = { state: 'on', onVariation: 'True' }
-    result.current.saveChanges(newValues)
-
-    expect(mutateMock).toBeCalledWith({
-      instructions: [
-        {
-          kind: 'setFeatureFlagState',
-          parameters: {
-            state: 'on'
-          }
-        },
-        {
-          kind: 'updateDefaultServe',
-          parameters: {
-            variation: 'True'
-          }
-        }
-      ]
-    })
-
-    await waitFor(() => expect(screen.getByText('cf.messages.flagUpdated')).toBeInTheDocument())
-    expect(refetchFlagMock).toBeCalled()
-  })
-
-  test('it should handle saveChanges correctly when values are the same', async () => {
-    const refetchFlagMock = jest.fn()
-    const mutateMock = jest.fn()
-    jest
-      .spyOn(cfServicesMock, 'usePatchFeature')
-      .mockReturnValue({ mutate: mutateMock.mockResolvedValueOnce({}), cancel: jest.fn(), error: null, loading: false })
-
-    const { result } = renderHookUnderTest({ refetchFlag: refetchFlagMock.mockResolvedValueOnce({}) })
-
-    const newValues = { state: 'off', onVariation: 'False' }
-    result.current.saveChanges(newValues)
-
-    expect(mutateMock).not.toBeCalledWith()
-    expect(refetchFlagMock).not.toBeCalled()
-  })
-
-  test('it should handle exception and show toast correctly', async () => {
-    const mutateMock = jest.fn()
+  const mutateMock = jest.fn()
+  beforeAll(() => {
+    jest.spyOn(uuid, 'v4').mockReturnValue('UUID')
     jest.spyOn(cfServicesMock, 'usePatchFeature').mockReturnValue({
-      mutate: mutateMock.mockRejectedValueOnce({ data: { message: 'ERROR FROM MOCK' } }),
+      mutate: mutateMock.mockResolvedValueOnce({}),
       cancel: jest.fn(),
       error: null,
       loading: false
     })
+  })
 
-    const { result } = renderHookUnderTest()
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
 
-    const newValues = { state: 'on', onVariation: 'True' }
-    result.current.saveChanges(newValues)
+  describe('Flag State/Default Serve', () => {
+    test('it should send correct values when values different', async () => {
+      const refetchFlagMock = jest.fn()
 
-    await waitFor(() => expect(screen.getByText('ERROR FROM MOCK')).toBeInTheDocument())
+      const { result } = renderHookUnderTest({ refetchFlag: refetchFlagMock.mockResolvedValueOnce({}) })
+
+      const newValues = { state: 'on', onVariation: 'True', formVariationMap: [] }
+      result.current.saveChanges(newValues)
+
+      expect(mutateMock).toBeCalledWith({
+        instructions: [
+          {
+            kind: 'setFeatureFlagState',
+            parameters: {
+              state: 'on'
+            }
+          },
+          {
+            kind: 'updateDefaultServe',
+            parameters: {
+              variation: 'True'
+            }
+          }
+        ]
+      })
+
+      await waitFor(() => expect(screen.getByText('cf.messages.flagUpdated')).toBeInTheDocument())
+      expect(refetchFlagMock).toBeCalled()
+    })
+
+    test('it should send correct values when values are the same', async () => {
+      const refetchFlagMock = jest.fn()
+
+      const { result } = renderHookUnderTest({ refetchFlag: refetchFlagMock.mockResolvedValueOnce({}) })
+
+      const newValues = { state: 'off', onVariation: 'False', formVariationMap: [] }
+      result.current.saveChanges(newValues)
+
+      expect(mutateMock).not.toBeCalledWith()
+      expect(refetchFlagMock).not.toBeCalled()
+    })
+  })
+
+  describe('Target Groups and Targets', () => {
+    test('it should send correct values when Target Group added', async () => {
+      const refetchFlagMock = jest.fn()
+
+      const { result } = renderHookUnderTest({
+        refetchFlag: refetchFlagMock.mockResolvedValueOnce({}),
+        initialValues: {
+          onVariation: 'true',
+          state: 'on',
+          formVariationMap: targetGroupsAddedFixture.initialFormVariationMap
+        }
+      })
+
+      const newValues = {
+        state: 'on',
+        onVariation: 'true',
+        formVariationMap: targetGroupsAddedFixture.newFormVariationMap
+      }
+      result.current.saveChanges(newValues)
+
+      expect(mutateMock).toBeCalledWith(targetGroupsAddedFixture.expected)
+      await waitFor(() => expect(refetchFlagMock).toBeCalled())
+    })
+
+    test('it should send correct values when Target Group removed', async () => {
+      const refetchFlagMock = jest.fn()
+
+      const { result } = renderHookUnderTest({
+        refetchFlag: refetchFlagMock.mockResolvedValueOnce({}),
+        initialValues: {
+          onVariation: 'true',
+          state: 'on',
+          formVariationMap: targetGroupsRemovedFixture.initialFormVariationMap
+        }
+      })
+
+      const newValues = {
+        state: 'on',
+        onVariation: 'true',
+        formVariationMap: targetGroupsRemovedFixture.newFormVariationMap
+      }
+      result.current.saveChanges(newValues)
+
+      expect(mutateMock).toBeCalledWith(targetGroupsRemovedFixture.expected)
+      await waitFor(() => expect(refetchFlagMock).toBeCalled())
+    })
+
+    test('it should send correct values when Target added', async () => {
+      const refetchFlagMock = jest.fn()
+
+      const { result } = renderHookUnderTest({
+        refetchFlag: refetchFlagMock.mockResolvedValueOnce({}),
+        initialValues: {
+          onVariation: 'true',
+          state: 'on',
+          formVariationMap: targetAddedFixture.initialFormVariationMap
+        }
+      })
+
+      const newValues = {
+        state: 'on',
+        onVariation: 'true',
+        formVariationMap: targetAddedFixture.newFormVariationMap
+      }
+      result.current.saveChanges(newValues)
+
+      expect(mutateMock).toBeCalledWith(targetAddedFixture.expected)
+      await waitFor(() => expect(refetchFlagMock).toBeCalled())
+    })
+
+    test('it should send correct values when Target removed', async () => {
+      const refetchFlagMock = jest.fn()
+
+      const { result } = renderHookUnderTest({
+        refetchFlag: refetchFlagMock.mockResolvedValueOnce({}),
+        initialValues: {
+          onVariation: 'true',
+          state: 'on',
+          formVariationMap: targetRemovedFixture.initialFormVariationMap
+        }
+      })
+
+      const newValues = { state: 'on', onVariation: 'true', formVariationMap: targetRemovedFixture.newFormVariationMap }
+      result.current.saveChanges(newValues)
+
+      expect(mutateMock).toBeCalledWith(targetRemovedFixture.expected)
+      await waitFor(() => expect(refetchFlagMock).toBeCalled())
+    })
+  })
+
+  describe('Error Handling', () => {
+    test('it should handle exception and show toast correctly', async () => {
+      const mutatePatchMock = jest.fn()
+      jest.spyOn(cfServicesMock, 'usePatchFeature').mockReturnValue({
+        mutate: mutatePatchMock.mockRejectedValueOnce({ data: { message: 'ERROR FROM MOCK' } }),
+        cancel: jest.fn(),
+        error: null,
+        loading: false
+      })
+
+      const { result } = renderHookUnderTest()
+
+      const newValues = { state: 'on', onVariation: 'True', formVariationMap: [] }
+      result.current.saveChanges(newValues)
+
+      await waitFor(() => expect(screen.getByText('ERROR FROM MOCK')).toBeInTheDocument())
+    })
   })
 })
