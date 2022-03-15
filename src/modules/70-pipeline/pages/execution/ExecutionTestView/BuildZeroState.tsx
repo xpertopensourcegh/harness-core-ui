@@ -15,7 +15,7 @@ interface BuildZeroStateProps {
   isLoading?: boolean
 }
 
-const ciHowTos = 'https://ngdocs.harness.io/category/zkhvfo7uc6-ci-how-tos'
+const viewTests = 'https://ngdocs.harness.io/article/sof7n3qjap-viewing-tests'
 const harnessDocs = 'https://docs.harness.io'
 
 export function BuildZeroState(props: BuildZeroStateProps): React.ReactElement {
@@ -39,7 +39,7 @@ export function BuildZeroState(props: BuildZeroStateProps): React.ReactElement {
       <Text style={{ fontSize: '16px' }} padding={{ top: 'xsmall', bottom: 'large' }}>
         {!isLoading && getString('pipeline.testsReports.testsWillAppear')}
       </Text>
-      <a target="_blank" rel="noreferrer" href={isLoading ? harnessDocs : ciHowTos}>
+      <a target="_blank" rel="noreferrer" href={isLoading ? harnessDocs : viewTests}>
         <Text
           style={{ fontSize: '16px' }}
           color={Color.PRIMARY_6}

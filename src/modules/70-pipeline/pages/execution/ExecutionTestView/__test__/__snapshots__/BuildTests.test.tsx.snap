@@ -23898,7 +23898,7 @@ exports[`BuildTests snapshot test should render ZeroState UI 1`] = `
         pipeline.testsReports.testsWillAppear
       </p>
       <a
-        href="https://ngdocs.harness.io/category/zkhvfo7uc6-ci-how-tos"
+        href="https://ngdocs.harness.io/article/sof7n3qjap-viewing-tests"
         rel="noreferrer"
         target="_blank"
       >
