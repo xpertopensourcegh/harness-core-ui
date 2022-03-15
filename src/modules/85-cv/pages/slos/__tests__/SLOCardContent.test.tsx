@@ -7,7 +7,8 @@
 
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import SLOCardContent from '../SLOCard/SLOCardContent'
 import { testWrapperProps, dashboardWidgetsContent } from './CVSLOsListingPage.mock'
@@ -84,5 +85,31 @@ describe('SLOCardContent', () => {
     )
 
     expect(screen.getByText('cv.sloRecalculationInProgress')).toBeInTheDocument()
+  })
+
+  test('it should call useChangeEventTimeline with monitoredServiceIdentifiers', async () => {
+    const refetch = jest.fn()
+    jest.spyOn(cvService, 'useChangeEventTimeline').mockReturnValue({ data: {}, refetch, cancel: jest.fn() } as any)
+
+    render(
+      <TestWrapper {...testWrapperProps}>
+        <SLOCardContent serviceLevelObjective={dashboardWidgetsContent} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => {
+      expect(refetch).toHaveBeenLastCalledWith({
+        queryParams: {
+          monitoredServiceIdentifiers: [dashboardWidgetsContent.monitoredServiceIdentifier],
+          changeCategories: [],
+          changeSourceTypes: [],
+          startTime: 1639993380000,
+          endTime: 1639993440000
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    })
   })
 })

@@ -8,6 +8,7 @@
 import React from 'react'
 import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as cvService from 'services/cv'
 import type { StringKeys } from 'framework/strings'
 import type { RiskData } from 'services/cv'
 import { RiskValues } from '@cv/utils/CommonUtils'
@@ -276,5 +277,34 @@ describe('Unit tests for ServiceHealth', () => {
     }
     const { container } = render(<WrapperComponent {...newProps} />)
     await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(0))
+  })
+
+  test('it should call useGetMonitoredServiceChangeTimeline', async () => {
+    const refetch = jest.fn()
+    jest
+      .spyOn(cvService, 'useGetMonitoredServiceChangeTimeline')
+      .mockReturnValue({ data: {}, refetch, cancel: jest.fn() } as any)
+
+    const newProps = {
+      monitoredServiceIdentifier: 'monitored_service_identifier',
+      serviceIdentifier: '',
+      environmentIdentifier: '',
+      hasChangeSource: true
+    }
+
+    render(<WrapperComponent {...newProps} />)
+
+    await waitFor(() => {
+      expect(refetch).toHaveBeenLastCalledWith({
+        queryParams: expect.objectContaining({
+          accountId: undefined,
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
+          monitoredServiceIdentifier: 'monitored_service_identifier',
+          changeSourceTypes: [],
+          duration: TimePeriodEnum.TWENTY_FOUR_HOURS
+        })
+      })
+    })
   })
 })

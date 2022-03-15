@@ -10,6 +10,7 @@ import type { ChangeSourceTypes as ChangeSourceTypeRequest } from '@cv/pages/Cha
 import type { ChangeSourceTypes } from './ChangeTimeline.constants'
 
 export interface ChangeTimelineProps {
+  useMonitoredServiceChangeTimeline?: boolean
   monitoredServiceIdentifier?: string
   timeFormat?: string
   serviceIdentifier?: string | string[]

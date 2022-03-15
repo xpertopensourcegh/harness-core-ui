@@ -8,7 +8,7 @@
 import React from 'react'
 import { act, findAllByRole, findByText, fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
-
+import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import { RiskValues } from '@cv/utils/CommonUtils'
 import { mockedHealthScoreData } from '@cv/pages/monitored-service/components/ServiceHealth/__tests__/ServiceHealth.mock'
@@ -347,5 +347,26 @@ describe('Unit tests for CVChanges', () => {
     // This is because we take header row too into consideration.
     expect(tRows2.length).toBe(3)
     expect(mockFetch).toHaveBeenCalledTimes(5)
+  })
+
+  test('it should call useChangeEventTimeline with monitoredServiceIdentifiers', async () => {
+    const refetch = jest.fn()
+    jest.spyOn(cvService, 'useChangeEventTimeline').mockReturnValue({ data: {}, refetch, cancel: jest.fn() } as any)
+
+    render(<WrapperComponent />)
+
+    await waitFor(() => {
+      expect(refetch).toHaveBeenLastCalledWith({
+        queryParams: expect.objectContaining({
+          changeCategories: ['Deployment', 'Infrastructure', 'Alert'],
+          changeSourceTypes: ['HarnessCDNextGen', 'HarnessCD', 'K8sCluster', 'PagerDuty'],
+          envIdentifiers: ['env1', 'AppDTestEnv1'],
+          serviceIdentifiers: ['service1', 'AppDService101']
+        }),
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    })
   })
 })

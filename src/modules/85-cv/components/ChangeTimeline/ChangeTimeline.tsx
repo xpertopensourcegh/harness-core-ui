@@ -28,6 +28,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const {
+    useMonitoredServiceChangeTimeline,
     monitoredServiceIdentifier,
     serviceIdentifier,
     environmentIdentifier,
@@ -77,11 +78,16 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
 
   useEffect(() => {
     changeEventTimelineCancel()
-    if (serviceIdentifier && environmentIdentifier) {
+    if (!useMonitoredServiceChangeTimeline) {
       changeEventTimelineRefetch({
         queryParams: {
-          serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
-          envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
+          ...(monitoredServiceIdentifier ? { monitoredServiceIdentifiers: [monitoredServiceIdentifier] } : {}),
+          ...(serviceIdentifier
+            ? { serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier] }
+            : {}),
+          ...(environmentIdentifier
+            ? { envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier] }
+            : {}),
           changeCategories: changeCategories || [],
           changeSourceTypes: changeSourceTypes || [],
           startTime: startTimeRoundedOffToNearest30min as number,
@@ -99,12 +105,14 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
     changeCategories,
     changeSourceTypes,
     serviceIdentifier,
-    environmentIdentifier
+    environmentIdentifier,
+    useMonitoredServiceChangeTimeline,
+    monitoredServiceIdentifier
   ])
 
   useEffect(() => {
     monitoredServiceChangeTimelineCancel()
-    if (monitoredServiceIdentifier) {
+    if (useMonitoredServiceChangeTimeline) {
       monitoredServiceChangeTimelineRefetch({
         queryParams: {
           accountId,
@@ -117,10 +125,19 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         }
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountId, orgIdentifier, projectIdentifier, monitoredServiceIdentifier, changeSourceTypes, duration])
 
-  const { data, error, loading } = monitoredServiceIdentifier
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    monitoredServiceIdentifier,
+    useMonitoredServiceChangeTimeline,
+    changeSourceTypes,
+    duration
+  ])
+
+  const { data, error, loading } = useMonitoredServiceChangeTimeline
     ? {
         data: monitoredServiceChangeTimelineData,
         error: monitoredServiceChangeTimelineError,

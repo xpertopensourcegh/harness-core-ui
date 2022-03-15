@@ -236,7 +236,6 @@ export const CVChanges = ({ updateTime }: { updateTime?: Date }): JSX.Element =>
         <Container>
           <TimeLine
             {...queryParams}
-            monitoredServiceIdentifier={''}
             selectedTimePeriod={selectedTimePeriod}
             timeRange={timeRange}
             setTimeRange={setTimeRange}

@@ -28,7 +28,7 @@ import css from '../CVSLOsListingPage.module.scss'
 
 const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }) => {
   const { getString } = useStrings()
-  const { sloPerformanceTrend, sloTargetPercentage, errorBudgetBurndown, serviceIdentifier, environmentIdentifier } =
+  const { sloPerformanceTrend, sloTargetPercentage, errorBudgetBurndown, monitoredServiceIdentifier } =
     serviceLevelObjective
 
   const [toggle, setToggle] = useState(SLOCardToggleViews.SLO)
@@ -61,11 +61,10 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
   )
 
   const renderChangeTimelineSummary = (): JSX.Element => {
-    if (serviceIdentifier && environmentIdentifier && startTime && endTime) {
+    if (startTime && endTime) {
       return (
         <ChangeTimeline
-          serviceIdentifier={serviceIdentifier}
-          environmentIdentifier={environmentIdentifier}
+          monitoredServiceIdentifier={monitoredServiceIdentifier}
           startTime={startTime}
           endTime={endTime}
           hideTimeline

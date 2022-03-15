@@ -180,6 +180,7 @@ export default function ServiceHealth({
               />
               <ChangeTimeline
                 duration={selectedTimePeriod}
+                useMonitoredServiceChangeTimeline
                 monitoredServiceIdentifier={monitoredServiceIdentifier}
                 startTime={timeRange?.startTime as number}
                 endTime={timeRange?.endTime as number}

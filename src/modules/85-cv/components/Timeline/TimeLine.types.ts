@@ -20,7 +20,7 @@ export interface TimelineProps {
   changeSourceTypes?: ChangeSourceTypes[]
   isOptionalHealthSource?: boolean
   selectedTimePeriod: SelectOption
-  monitoredServiceIdentifier: string | undefined
+  monitoredServiceIdentifier?: string
   timestamps: number[]
   setTimestamps: React.Dispatch<React.SetStateAction<number[]>>
   timeRange?: TimeRangeParams
