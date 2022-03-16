@@ -129,9 +129,7 @@ describe('Test Change Source Drawer', () => {
     )
 
     // change source name input and source type dropdown are rendered
-    await waitFor(() =>
-      expect(container.querySelector('input[value="cv.changeSource.tooltip.incidents"]')).toBeTruthy()
-    )
+    await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.incident"]')).toBeTruthy())
     await waitFor(() => expect(container.querySelector('input[value="PagerDuty"]')).toBeTruthy())
     await waitFor(() => expect(getByText('common.pagerDuty')).toBeTruthy())
 
@@ -174,16 +172,12 @@ describe('Test Change Source Drawer', () => {
     )
 
     // change source name input and source type dropdown are rendered
-    await waitFor(() =>
-      expect(container.querySelector('input[value="cv.changeSource.tooltip.incidents"]')).toBeTruthy()
-    )
+    await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.incident"]')).toBeTruthy())
     await waitFor(() => expect(container.querySelector('input[value="PagerDuty"]')).toBeTruthy())
     await waitFor(() => expect(getByText('common.pagerDuty')).toBeTruthy())
 
     // category dropdown and thumbnailSelect are disabled in editmode
-    await waitFor(() =>
-      expect(container.querySelector('input[value="cv.changeSource.tooltip.incidents"]')).toBeDisabled()
-    )
+    await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.incident"]')).toBeDisabled())
     await waitFor(() => expect(container.querySelector('input[value="PagerDuty"]')).toBeDisabled())
 
     // connector and pagerduty service are visible
@@ -224,10 +218,8 @@ describe('Test Change Source Drawer', () => {
     await waitFor(() => container.querySelector('.menuItem'))
 
     // select alert
-    fireEvent.click(getByText('cv.changeSource.tooltip.incidents'))
-    await waitFor(() =>
-      expect(container.querySelector('input[value="cv.changeSource.tooltip.incidents"]')).toBeTruthy()
-    )
+    fireEvent.click(getByText('cv.changeSource.incident'))
+    await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.incident"]')).toBeTruthy())
   })
 
   test('Ensure that correct category drop down values are rendered when type prop is provided', async () => {
@@ -251,7 +243,7 @@ describe('Test Change Source Drawer', () => {
 
     let menuItemLabels = container.querySelectorAll('[class*="menuItemLabel"]')
     expect(menuItemLabels[0].innerHTML).toEqual('deploymentText')
-    expect(menuItemLabels[1].innerHTML).toEqual('cv.changeSource.tooltip.incidents')
+    expect(menuItemLabels[1].innerHTML).toEqual('cv.changeSource.incident')
 
     rerender(
       <TestWrapper>
@@ -272,7 +264,7 @@ describe('Test Change Source Drawer', () => {
 
     menuItemLabels = container.querySelectorAll('[class*="menuItemLabel"]')
     expect(menuItemLabels[0].innerHTML).toEqual('infrastructureText')
-    expect(menuItemLabels[1].innerHTML).toEqual('cv.changeSource.tooltip.incidents')
+    expect(menuItemLabels[1].innerHTML).toEqual('cv.changeSource.incident')
   })
 
   test('Ensure k8s connector is disabled on edit', async () => {

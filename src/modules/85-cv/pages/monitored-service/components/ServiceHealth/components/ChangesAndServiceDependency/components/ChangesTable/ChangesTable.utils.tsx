@@ -58,5 +58,5 @@ export const renderType: Renderer<CellProps<any>> = ({ row }): JSX.Element => {
 
 export const renderChangeType: Renderer<CellProps<any>> = ({ row }): JSX.Element => {
   const rowdata = row?.original
-  return <Text font={{ size: 'small' }}>{rowdata.category}</Text>
+  return <Text font={{ size: 'small' }}>{rowdata.category === 'Alert' ? 'Incident' : rowdata.category}</Text>
 }

@@ -25,7 +25,7 @@ export const ChangeSourceCategoryName = {
 export const ChangeSourceCategoryOptions = [
   { label: 'deploymentText', value: ChangeSourceCategoryName.DEPLOYMENT },
   { label: 'infrastructureText', value: ChangeSourceCategoryName.INFRASTRUCTURE },
-  { label: 'cv.changeSource.tooltip.incidents', value: ChangeSourceCategoryName.ALERT }
+  { label: 'cv.changeSource.incident', value: ChangeSourceCategoryName.ALERT }
 ]
 
 export const ChangeSourceConnectorOptions: CardSelectOption[] = [

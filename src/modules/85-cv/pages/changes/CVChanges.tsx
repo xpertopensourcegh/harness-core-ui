@@ -124,7 +124,7 @@ export const CVChanges = ({ updateTime }: { updateTime?: Date }): JSX.Element =>
         width: '30%'
       },
       {
-        Header: getString('cv.cvChanges.monitoredSVC' as keyof StringsMap),
+        Header: getString('connectors.cdng.monitoredService.label' as keyof StringsMap),
         Cell: renderImpact,
         accessor: 'serviceIdentifier',
         width: '25%'
@@ -226,7 +226,6 @@ export const CVChanges = ({ updateTime }: { updateTime?: Date }): JSX.Element =>
             text={getString('cv.cvChanges.clearFilters')}
           />
         </Container>
-        s
       </ChangeTimeLineHeader>
       <PBody>
         <HorizontalLayout>

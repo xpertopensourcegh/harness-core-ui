@@ -776,13 +776,12 @@ increaseWithPercentSign: 'Increase %'
 errorBudgetIsSuccessfullyReset: Error Budget is successfully reset
 queryTypeService: Service Based  (used for Health Score and SLI)
 queryTypeHost: Host Based (used for CV)
-forConfigurationYouWillNeedAtLeastOneMonitoredServiceWithAHealthSourceAndAMetric: For configuration, you’ll need at least one Monitored Service with a Health Source, and a Metric.
+forConfigurationYouWillNeedAtLeastOneMonitoredServiceWithAHealthSourceAndAMetric: For configuration, you’ll need a Health Source, and a Metric.
 newMetric: New Metric
 cvChanges:
   changeTypeFilterDefault: 'Change Types'
   sourceFilterDefault: 'Sources'
   changesTimeline: 'Changes Timeline'
-  monitoredSVC: 'Monitored SVC'
   clearFilters: 'Clear filters'
 componentValidations:
   requestMethod: Request Method is required

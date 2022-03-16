@@ -294,7 +294,6 @@ exports[`Unit tests for CVChanges Verify if all the fields are rendered correctl
         </span>
       </button>
     </div>
-    s
   </div>
   <div
     class="css-1ungryv"
@@ -499,7 +498,7 @@ exports[`Unit tests for CVChanges Verify if all the fields are rendered correctl
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
                 >
-                  cv.cvChanges.monitoredSVC
+                  connectors.cdng.monitoredService.label
                 </p>
                 <span
                   class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
@@ -918,7 +917,7 @@ exports[`Unit tests for CVChanges Verify if all the fields are rendered correctl
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Alert
+                    Incident
                   </p>
                 </div>
                 <div
