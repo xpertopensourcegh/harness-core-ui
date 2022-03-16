@@ -289,7 +289,6 @@ failureStrategies:
     Abort: '{{ $.abort }}'
     Ignore: Ignore Failure
     StageRollback: Rollback Stage
-    StepGroupRollback: Rollback Step Group
     ManualIntervention: Manual Intervention
     MarkAsSuccess: Mark As Success
   errorTypeLabels:
