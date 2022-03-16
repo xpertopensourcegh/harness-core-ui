@@ -27,7 +27,6 @@ import * as Yup from 'yup'
 import { noop, pick, defaultTo } from 'lodash-es'
 import { useToaster, StringUtils } from '@common/exports'
 import { usePostGitSync, GitSyncConfig, ConnectorInfoDTO } from 'services/cd-ng'
-
 import { StringKeys, useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
 import { getConnectorDisplayName, GitUrlType } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -307,13 +306,16 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                           live: value?.status?.status === 'SUCCESS',
                           connector: value
                         })
+
+                        let repoValue = ''
                         if (value?.spec?.type === GitUrlType.REPO) {
+                          repoValue = value?.spec?.url
                           setConnectorIdentifierRef(
                             getConnectorIdentifierWithScope(getScopeFromDTO(value), value.identifier)
                           )
-                          setRepositoryURL(value?.spec?.url)
+                          setRepositoryURL(repoValue)
                         }
-                        setFieldValue('repo', value?.spec?.url)
+                        setFieldValue('repo', repoValue)
                         setTestStatus(TestStatus.NOT_INITIATED)
                       }}
                     />
