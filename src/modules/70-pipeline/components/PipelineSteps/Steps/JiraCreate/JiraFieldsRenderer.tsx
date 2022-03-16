@@ -8,7 +8,7 @@
 import React, { useCallback } from 'react'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
-import { Button, FormInput, Layout } from '@wings-software/uicore'
+import { Button, FormInput, Layout, MultiTypeInputType } from '@wings-software/uicore'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { JiraFieldNG } from 'services/cd-ng'
 import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
@@ -19,7 +19,8 @@ import css from './JiraCreate.module.scss'
 export interface JiraFieldsRendererProps {
   selectedFields?: JiraFieldNGWithValue[]
   readonly?: boolean
-  onDelete: (index: number, selectedField: JiraFieldNG) => void
+  onDelete?: (index: number, selectedField: JiraFieldNG) => void
+  jiraContextType?: string
 }
 
 interface MappedComponentInterface {
@@ -27,9 +28,16 @@ interface MappedComponentInterface {
   props: JiraFieldsRendererProps
   expressions: string[]
   index: number
+  jiraContextType?: string
 }
 
-function GetMappedFieldComponent({ selectedField, props, expressions, index }: MappedComponentInterface) {
+function GetMappedFieldComponent({
+  selectedField,
+  props,
+  expressions,
+  index,
+  jiraContextType
+}: MappedComponentInterface) {
   const showTextField = useCallback(() => {
     if (
       selectedField.schema.type === 'string' ||
@@ -55,42 +63,94 @@ function GetMappedFieldComponent({ selectedField, props, expressions, index }: M
 
   if (showTextField()) {
     return (
-      <FormInput.MultiTextInput
-        label={selectedField.name}
-        disabled={isApprovalStepFieldDisabled(props.readonly)}
-        name={`spec.selectedFields[${index}].value`}
-        placeholder={selectedField.name}
-        className={css.md}
-        multiTextInputProps={{
-          expressions
-        }}
-      />
+      <>
+        {jiraContextType === 'JiraCreateDeploymentMode' ? (
+          <FormInput.MultiTextInput
+            label={selectedField.name}
+            disabled={isApprovalStepFieldDisabled(props.readonly)}
+            name={`spec.selectedFields[${index}].value`}
+            placeholder={selectedField.name}
+            className={css.deploymentViewMedium}
+            multiTextInputProps={{
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions
+            }}
+          />
+        ) : (
+          <FormInput.MultiTextInput
+            label={selectedField.name}
+            disabled={isApprovalStepFieldDisabled(props.readonly)}
+            name={`spec.selectedFields[${index}].value`}
+            placeholder={selectedField.name}
+            className={css.md}
+            multiTextInputProps={{
+              expressions
+            }}
+          />
+        )}
+      </>
     )
   } else if (showMultiSelectField()) {
     return (
-      <FormInput.MultiSelectTypeInput
-        selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-        label={selectedField.name}
-        disabled={isApprovalStepFieldDisabled(props.readonly)}
-        name={`spec.selectedFields[${index}].value`}
-        placeholder={selectedField.name}
-        className={cx(css.multiSelect, css.md)}
-        multiSelectTypeInputProps={{
-          expressions
-        }}
-      />
+      <>
+        {jiraContextType === 'JiraCreateDeploymentMode' ? (
+          <FormInput.MultiSelectTypeInput
+            selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
+            label={selectedField.name}
+            disabled={isApprovalStepFieldDisabled(props.readonly)}
+            name={`spec.selectedFields[${index}].value`}
+            placeholder={selectedField.name}
+            className={css.deploymentViewMedium}
+            multiSelectTypeInputProps={{
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions
+            }}
+          />
+        ) : (
+          <FormInput.MultiSelectTypeInput
+            selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
+            label={selectedField.name}
+            disabled={isApprovalStepFieldDisabled(props.readonly)}
+            name={`spec.selectedFields[${index}].value`}
+            placeholder={selectedField.name}
+            className={cx(css.multiSelect, css.md)}
+            multiSelectTypeInputProps={{
+              expressions
+            }}
+          />
+        )}
+      </>
     )
   } else if (showMultiTypeField()) {
     return (
-      <FormInput.MultiTypeInput
-        selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-        label={selectedField.name}
-        name={`spec.selectedFields[${index}].value`}
-        placeholder={selectedField.name}
-        disabled={isApprovalStepFieldDisabled(props.readonly)}
-        className={cx(css.multiSelect, css.md)}
-        multiTypeInputProps={{ expressions }}
-      />
+      <>
+        {jiraContextType === 'JiraCreateDeploymentMode' ? (
+          <FormInput.MultiTypeInput
+            selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
+            label={selectedField.name}
+            name={`spec.selectedFields[${index}].value`}
+            placeholder={selectedField.name}
+            disabled={isApprovalStepFieldDisabled(props.readonly)}
+            className={css.deploymentViewMedium}
+            multiTypeInputProps={{
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions
+            }}
+          />
+        ) : (
+          <FormInput.MultiTypeInput
+            selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
+            label={selectedField.name}
+            name={`spec.selectedFields[${index}].value`}
+            placeholder={selectedField.name}
+            disabled={isApprovalStepFieldDisabled(props.readonly)}
+            className={cx(css.multiSelect, css.md)}
+            multiTypeInputProps={{
+              expressions
+            }}
+          />
+        )}
+      </>
     )
   }
   return null
@@ -98,7 +158,7 @@ function GetMappedFieldComponent({ selectedField, props, expressions, index }: M
 
 export function JiraFieldsRenderer(props: JiraFieldsRendererProps) {
   const { expressions } = useVariablesExpression()
-  const { readonly, selectedFields, onDelete } = props
+  const { readonly, selectedFields, onDelete, jiraContextType } = props
   return selectedFields ? (
     <>
       {selectedFields?.map((selectedField: JiraFieldNG, index: number) => (
@@ -108,14 +168,17 @@ export function JiraFieldsRenderer(props: JiraFieldsRendererProps) {
             props={props}
             expressions={expressions}
             index={index}
+            jiraContextType={jiraContextType}
           />
-          <Button
-            minimal
-            icon="trash"
-            disabled={isApprovalStepFieldDisabled(readonly)}
-            data-testid={`remove-selectedField-${index}`}
-            onClick={() => onDelete(index, selectedField)}
-          />
+          {jiraContextType !== 'JiraCreateDeploymentMode' ? (
+            <Button
+              minimal
+              icon="trash"
+              disabled={isApprovalStepFieldDisabled(readonly)}
+              data-testid={`remove-selectedField-${index}`}
+              onClick={() => onDelete?.(index, selectedField)}
+            />
+          ) : null}
         </Layout.Horizontal>
       ))}
     </>
