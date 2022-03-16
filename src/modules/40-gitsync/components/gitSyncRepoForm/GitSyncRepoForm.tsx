@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Layout,
   Button,
@@ -26,9 +26,9 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { noop, pick, defaultTo } from 'lodash-es'
 import { useToaster, StringUtils } from '@common/exports'
-import { usePostGitSync, GitSyncConfig } from 'services/cd-ng'
+import { usePostGitSync, GitSyncConfig, ConnectorInfoDTO } from 'services/cd-ng'
 
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
 import { getConnectorDisplayName, GitUrlType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import {
@@ -62,14 +62,15 @@ export interface GitSyncRepoFormProps {
   isEditMode: boolean
   isNewUser: boolean
   gitSyncRepoInfo?: GitSyncConfig
+  initialData?: GitSyncFormInterface
 }
 
 interface ModalConfigureProps {
   onClose?: () => void
-  onSuccess?: (data?: GitSyncConfig) => void
+  onSuccess?: (data?: GitSyncConfig, formData?: GitSyncFormInterface) => void
 }
 
-interface GitSyncFormInterface {
+export interface GitSyncFormInterface {
   gitConnectorType: GitSyncConfig['gitConnectorType']
   repo: string
   name: string
@@ -94,6 +95,20 @@ const getConnectorIdentifierWithScope = (scope: Scope, identifier: string): stri
 const getConnectorTypeIcon = (isSelected: boolean, icon: ConnectorCardInterface['icon']): IconName =>
   isSelected ? icon?.selected : icon?.default
 
+const getSubmitButtonText = (isNewUser: boolean): StringKeys => {
+  return isNewUser ? 'continue' : 'save'
+}
+
+export const gitSyncFormDefaultInitialData = {
+  gitConnectorType: Connectors.GITHUB as GitSyncConfig['gitConnectorType'],
+  repo: '',
+  name: '',
+  identifier: '',
+  branch: '',
+  rootfolder: '',
+  gitConnector: undefined
+}
+
 const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier, isNewUser, onClose } = props
   const bitBucketSupported = useFeatureFlag(FeatureFlag.GIT_SYNC_WITH_BITBUCKET)
@@ -106,34 +121,39 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.NOT_INITIATED)
   const modalTitle = isNewUser ? getString('enableGitExperience') : getString('gitsync.configureHarnessFolder')
 
+  const defaultInitialFormData: GitSyncFormInterface = defaultTo(props.initialData, gitSyncFormDefaultInitialData)
+
   const { mutate: createGitSyncRepo, loading: creatingGitSync } = usePostGitSync({
     queryParams: { accountIdentifier: accountId }
   })
 
   const supportedProviders = bitBucketSupported ? gitCards : gitCards.filter(card => card.type !== Connectors.BITBUCKET)
 
-  const defaultInitialFormData: GitSyncFormInterface = {
-    gitConnectorType: Connectors.GITHUB as GitSyncConfig['gitConnectorType'],
-    repo: '',
-    name: '',
-    identifier: '',
-    branch: '',
-    rootfolder: '',
-    gitConnector: undefined
-  }
-
   const [connectorType, setConnectorType] = useState(defaultInitialFormData.gitConnectorType)
 
-  const handleCreate = async (data: GitSyncConfig): Promise<void> => {
+  const handleGitRepoChange = (connector: ConnectorInfoDTO) => {
+    if (connector?.spec?.type === GitUrlType.REPO) {
+      setConnectorIdentifierRef(getConnectorIdentifierWithScope(getScopeFromDTO(connector), connector.identifier))
+      setRepositoryURL(connector?.spec?.url)
+    }
+  }
+
+  useEffect(() => {
+    if (props.initialData?.gitConnector) {
+      handleGitRepoChange(props.initialData.gitConnector.connector)
+    }
+  }, [props.initialData])
+
+  const handleCreate = async (data: GitSyncConfig, formData?: GitSyncFormInterface): Promise<void> => {
     try {
       if (isNewUser) {
-        props.onSuccess?.(data)
+        props.onSuccess?.(data, formData)
         return
       }
       modalErrorHandler?.hide()
       const response = await createGitSyncRepo(data)
       showSuccess(getString('gitsync.successfullCreate', { name: data.name }))
-      props.onSuccess?.(response)
+      props.onSuccess?.(response, formData)
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
@@ -191,7 +211,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                 orgIdentifier: orgIdentifier
               }
               // handleUpdate(data, formData) Edit of gitSync is not supported now
-              handleCreate(gitSyncRepoData)
+              handleCreate(gitSyncRepoData, formData)
             }}
           >
             {({ values: formValues, setFieldValue }) => (
@@ -287,15 +307,13 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                           live: value?.status?.status === 'SUCCESS',
                           connector: value
                         })
-                        let repoValue = ''
                         if (value?.spec?.type === GitUrlType.REPO) {
-                          repoValue = value?.spec?.url
                           setConnectorIdentifierRef(
                             getConnectorIdentifierWithScope(getScopeFromDTO(value), value.identifier)
                           )
                           setRepositoryURL(value?.spec?.url)
                         }
-                        setFieldValue('repo', repoValue)
+                        setFieldValue('repo', value?.spec?.url)
                         setTestStatus(TestStatus.NOT_INITIATED)
                       }}
                     />
@@ -385,7 +403,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                     className={css.formButton}
                     type="submit"
                     intent="primary"
-                    text={isNewUser ? getString('continue') : getString('save')}
+                    text={getString(getSubmitButtonText(isNewUser))}
                     disabled={
                       needSCM ||
                       creatingGitSync ||
