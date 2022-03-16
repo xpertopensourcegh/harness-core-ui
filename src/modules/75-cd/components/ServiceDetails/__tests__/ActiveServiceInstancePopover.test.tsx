@@ -28,4 +28,15 @@ describe('ActiveServiceInstancePopover', () => {
     )
     expect(container).toMatchSnapshot()
   })
+  test('should render loading', () => {
+    jest.spyOn(cdngServices, 'useGetActiveInstancesByServiceIdEnvIdAndBuildIds').mockImplementation(() => {
+      return { loading: true, error: false, data: [], refetch: jest.fn() } as any
+    })
+    const { container } = render(
+      <TestWrapper>
+        <ActiveServiceInstancePopover buildId="buildId" envId="envId" instanceNum={0} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
 })
