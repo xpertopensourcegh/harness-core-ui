@@ -963,6 +963,7 @@ export interface DeploymentVerificationJobInstanceSummary {
   environmentName?: string
   jobName?: string
   logsAnalysisSummary?: LogsAnalysisSummary
+  errorAnalysisSummary?: LogsAnalysisSummary
   progressPercentage?: number
   remainingTimeMs?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
@@ -2404,6 +2405,11 @@ export interface LogSampleRequestDTO {
 }
 
 export interface LogsAnalysisSummary {
+  anomalousClusterCount?: number
+  totalClusterCount?: number
+}
+
+export interface ErrorAnalysisSummary {
   anomalousClusterCount?: number
   totalClusterCount?: number
 }

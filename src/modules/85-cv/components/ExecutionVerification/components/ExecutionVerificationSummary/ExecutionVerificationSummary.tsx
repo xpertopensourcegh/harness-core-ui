@@ -133,6 +133,10 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
             deploymentVerificationJobInstanceSummary?.logsAnalysisSummary?.anomalousClusterCount || 0
           }
           totalLogClusters={deploymentVerificationJobInstanceSummary?.logsAnalysisSummary?.totalClusterCount || 0}
+          errorClustersInViolation={
+            deploymentVerificationJobInstanceSummary?.errorAnalysisSummary?.anomalousClusterCount || 0
+          }
+          totalErrorClusters={deploymentVerificationJobInstanceSummary?.errorAnalysisSummary?.totalClusterCount || 0}
         />
       )}
     </Container>
