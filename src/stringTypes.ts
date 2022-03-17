@@ -4714,7 +4714,8 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.endTimeLabel': string
   'cv.customHealthSource.Querymapping.jsonPathTitle': string
   'cv.customHealthSource.Querymapping.label': string
-  'cv.customHealthSource.Querymapping.queryValueJsonPath': string
+  'cv.customHealthSource.Querymapping.logMessageJsonPath': string
+  'cv.customHealthSource.Querymapping.logMessageJsonPathPlaceholder': string
   'cv.customHealthSource.Querymapping.startAndEndTimeTitle': string
   'cv.customHealthSource.Querymapping.startTimeLabel': string
   'cv.customHealthSource.Querymapping.title': string
