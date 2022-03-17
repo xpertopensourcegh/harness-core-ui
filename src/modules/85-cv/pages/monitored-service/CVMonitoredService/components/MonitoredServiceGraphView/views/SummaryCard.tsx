@@ -9,7 +9,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { createPortal } from 'react-dom'
 import { Container, Color, Icon, PageError } from '@wings-software/uicore'
-import { useGetMonitoredServiceDetails } from 'services/cv'
+import { useGetMonitoredServiceDetailsWithServiceId } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import SummaryCardContent from '../../GraphSummaryCard/GraphSummaryCard'
@@ -19,13 +19,12 @@ import css from '../ServiceDependencyGraph.module.scss'
 export const SummaryCard: React.FC<SummaryCardProps> = ({ point, ...rest }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
-  const { data, loading, refetch, error } = useGetMonitoredServiceDetails({
+  const { data, loading, refetch, error } = useGetMonitoredServiceDetailsWithServiceId({
+    monitoredServiceIdentifier: point?.monitoredServiceIdentifier ?? '',
     queryParams: {
       accountId,
       orgIdentifier,
-      projectIdentifier,
-      serviceIdentifier: point?.serviceRef,
-      environmentIdentifier: point?.environmentRef
+      projectIdentifier
     }
   })
 

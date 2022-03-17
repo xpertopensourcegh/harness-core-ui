@@ -10,11 +10,7 @@ import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { Container, Text } from '@wings-software/uicore'
 import ColumnChart from '@cv/components/ColumnChart/ColumnChart'
-import {
-  useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv,
-  useGetMonitoredServiceOverAllHealthScore,
-  ResponseHistoricalTrend
-} from 'services/cv'
+import { useGetMonitoredServiceOverAllHealthScore, ResponseHistoricalTrend } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ColumnData } from '@cv/components/ColumnChart/ColumnChart.types'
@@ -24,37 +20,11 @@ import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 import css from './HealthScoreChart.module.scss'
 
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
-  const {
-    envIdentifier,
-    serviceIdentifier,
-    monitoredServiceIdentifier,
-    duration,
-    setHealthScoreData,
-    endTime,
-    columChartProps,
-    hasTimelineIntegration
-  } = props
+  const { monitoredServiceIdentifier, duration, setHealthScoreData, endTime, columChartProps, hasTimelineIntegration } =
+    props
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [seriesData, setSeriesData] = useState<ColumnData[]>([])
-
-  const {
-    data: healthScoreDataWithServiceAndEnv,
-    refetch: fetchHealthScore,
-    loading,
-    error
-  } = useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv({
-    queryParams: {
-      environmentIdentifier: envIdentifier,
-      serviceIdentifier,
-      accountId,
-      orgIdentifier,
-      projectIdentifier,
-      duration: duration?.value as TimePeriodEnum,
-      endTime: endTime || Date.now()
-    },
-    lazy: true
-  })
 
   const {
     data: healthScoreDataWithMSIdentifier,
@@ -62,28 +32,15 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
     loading: healthScoreDataWithMSIdentifierLoading,
     error: healthScoreDataWithMSIdentifierError
   } = useGetMonitoredServiceOverAllHealthScore({
-    identifier: monitoredServiceIdentifier ?? '',
+    identifier: monitoredServiceIdentifier,
     queryParams: {
       accountId,
       orgIdentifier,
       projectIdentifier,
       duration: duration?.value as TimePeriodEnum,
       endTime: endTime || Date.now()
-    },
-    lazy: true
+    }
   })
-
-  useEffect(() => {
-    if (monitoredServiceIdentifier) {
-      fetchHealthScoreWithMSIdentifier()
-      return
-    }
-
-    if (envIdentifier && serviceIdentifier) {
-      fetchHealthScore()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [duration?.value, envIdentifier, serviceIdentifier, monitoredServiceIdentifier])
 
   const handleHealthScoreData = (healthScoreData: ResponseHistoricalTrend | null): void => {
     if (healthScoreData?.data?.healthScores && !isEmpty(healthScoreData?.data?.healthScores)) {
@@ -94,13 +51,9 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
   }
 
   useEffect(() => {
-    if (monitoredServiceIdentifier) {
-      handleHealthScoreData(healthScoreDataWithMSIdentifier)
-    } else {
-      handleHealthScoreData(healthScoreDataWithServiceAndEnv)
-    }
+    handleHealthScoreData(healthScoreDataWithMSIdentifier)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [healthScoreDataWithServiceAndEnv, healthScoreDataWithMSIdentifier, monitoredServiceIdentifier])
+  }, [healthScoreDataWithMSIdentifier])
 
   return (
     <Container className={css.main}>
@@ -114,9 +67,9 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
           duration={duration}
           leftOffset={90}
           {...columChartProps}
-          isLoading={loading || healthScoreDataWithMSIdentifierLoading}
-          error={error || healthScoreDataWithMSIdentifierError}
-          refetchOnError={fetchHealthScore}
+          isLoading={healthScoreDataWithMSIdentifierLoading}
+          error={healthScoreDataWithMSIdentifierError}
+          refetchOnError={fetchHealthScoreWithMSIdentifier}
         />
       </Container>
     </Container>

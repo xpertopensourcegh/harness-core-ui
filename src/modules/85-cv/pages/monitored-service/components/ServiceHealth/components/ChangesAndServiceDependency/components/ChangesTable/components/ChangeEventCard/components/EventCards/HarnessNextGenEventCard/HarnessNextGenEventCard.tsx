@@ -21,15 +21,7 @@ import ChangeTitle from '../../ChangeTitle/ChangeTitle'
 import DeploymentTimeDuration from '../../DeploymentTimeDuration/DeploymentTimeDuration'
 import css from '../../../ChangeEventCard.module.scss'
 
-export default function HarnessNextGenEventCard({
-  data,
-  serviceIdentifier,
-  environmentIdentifier
-}: {
-  data: ChangeEventDTO
-  serviceIdentifier?: string
-  environmentIdentifier?: string
-}): JSX.Element {
+export default function HarnessNextGenEventCard({ data }: { data: ChangeEventDTO }): JSX.Element {
   const { getString } = useStrings()
   const changeTitleData: ChangeTitleData = useMemo(() => createChangeTitleData(data), [])
   const changeDetailsData: ChangeDetailsDataInterface = useMemo(() => createChangeDetailsData(data), [])
@@ -79,10 +71,9 @@ export default function HarnessNextGenEventCard({
           </Container>
         </Container>
       ) : null}
-      {data?.eventTime && data.serviceIdentifier && data.envIdentifier && (
+      {data?.eventTime && data.monitoredServiceIdentifier && (
         <ChangeEventServiceHealth
-          serviceIdentifier={serviceIdentifier ?? data.serviceIdentifier}
-          envIdentifier={environmentIdentifier ?? data.envIdentifier}
+          monitoredServiceIdentifier={data.monitoredServiceIdentifier}
           startTime={data.eventTime}
           eventType={data.type}
         />

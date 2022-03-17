@@ -50,13 +50,7 @@ export default function ChangesTable({
   } as IDrawerProps
   const { showDrawer } = useDrawer({
     // eslint-disable-next-line react/display-name
-    createDrawerContent: props => (
-      <ChangeEventCard
-        activityId={props.id}
-        serviceIdentifier={Array.isArray(serviceIdentifier) ? serviceIdentifier[0] : serviceIdentifier}
-        environmentIdentifier={Array.isArray(environmentIdentifier) ? environmentIdentifier[0] : environmentIdentifier}
-      />
-    ),
+    createDrawerContent: props => <ChangeEventCard activityId={props.id} />,
     drawerOptions
   })
 
