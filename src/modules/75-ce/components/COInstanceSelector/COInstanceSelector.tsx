@@ -40,6 +40,7 @@ interface COInstanceSelectorprops {
   onInstancesAddSuccess?: () => void
   loading: boolean
   refresh?: (tomlString?: string) => void
+  isEditFlow: boolean
 }
 
 interface GCPFiltersProps {
@@ -112,8 +113,8 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
   const addInstances = () => {
     const newInstances = [...selectedInstances]
     props.setSelectedInstances(newInstances)
-    props.gatewayDetails.selectedInstances = newInstances
-    props.setGatewayDetails(props.gatewayDetails)
+    const updatedGatewayDetails = { ...props.gatewayDetails, selectedInstances: newInstances }
+    props.setGatewayDetails(updatedGatewayDetails)
     handleSearch('')
     props.onInstancesAddSuccess?.()
   }
@@ -201,6 +202,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
             onResourceGroupSelectCallback={onResourceGroupSelect}
             onGcpFiltersChangeCallback={onGcpFiltersChange}
             selectedInstances={selectedInstances}
+            isEditFlow={props.isEditFlow}
           />
         </Layout.Vertical>
         <InstanceSelectorBody
@@ -228,13 +230,15 @@ interface InstancesFilterProps {
   onResourceGroupSelectCallback: (resourceGroup: SelectOption | null, resourceGroupLoading: boolean) => void
   onGcpFiltersChangeCallback: (values: GCPFiltersProps, loading: boolean) => void
   selectedInstances: InstanceDetails[]
+  isEditFlow: boolean
 }
 
 const InstancesFilter: React.FC<InstancesFilterProps> = ({
   gatewayDetails,
   onResourceGroupSelectCallback,
   onGcpFiltersChangeCallback,
-  selectedInstances
+  selectedInstances,
+  isEditFlow
 }) => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
@@ -379,7 +383,7 @@ const InstancesFilter: React.FC<InstancesFilterProps> = ({
     return (
       <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'large'} style={{ maxWidth: '40%' }}>
         <Select
-          disabled={regionsLoading}
+          disabled={regionsLoading || isEditFlow}
           items={regionsData}
           onChange={setSelectedRegion}
           value={selectedRegion}
@@ -389,7 +393,7 @@ const InstancesFilter: React.FC<InstancesFilterProps> = ({
           name="regionsSelector"
         />
         <Select
-          disabled={zonesLoading}
+          disabled={zonesLoading || isEditFlow}
           items={zonesData}
           onChange={setSelectedZone}
           value={selectedZone}

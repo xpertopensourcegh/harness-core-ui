@@ -54,7 +54,11 @@ co:
           resourceList:
             vms: 'VM(s)'
             asg: 'Auto scaling groups'
-            kubernetes: 'Kubbernetes Cluster'
+            kubernetes: '{{$.connectors.title.k8sCluster}}'
+            gcpVms: 'GCE VM(s)'
+            ec2Vms: 'EC2 VM(s)'
+            ecsService: 'ECS Service'
+            rdsInstances: 'RDS Instances'
       step3:
         title: 'Choose instance fulfilment'
         description:
@@ -260,7 +264,7 @@ co:
     zone: 'Zone'
     subnet: 'Subnet'
     vpcLabel: 'VPC'
-    securityGroupsLabel: 'Security groups'
+    securityGroupsLabel: 'Network tags'
     machineType: 'Machine type'
     select:
       accessPoint: 'Select Access Point'
@@ -271,7 +275,7 @@ co:
       certificate: 'Select Certificate'
       aCertificate: 'Select a certificate'
       vpc: 'Select VPC'
-      securityGroups: 'Select security groups'
+      securityGroups: 'Select network tags'
       dnsProvider: 'Select the {{$.ce.co.accessPoint.dnsProvider}}'
       route53: 'Select Route53 account'
       route53zone: 'Select Route53 hosted zone'

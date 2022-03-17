@@ -3561,7 +3561,11 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.step1.title': string
   'ce.co.autoStoppingRule.helpText.step2.description.heading': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.ec2Vms': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.ecsService': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.gcpVms': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.kubernetes': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.rdsInstances': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms': string
   'ce.co.autoStoppingRule.helpText.step2.title': string
   'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string

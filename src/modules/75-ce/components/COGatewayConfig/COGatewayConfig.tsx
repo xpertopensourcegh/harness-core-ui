@@ -15,6 +15,7 @@ import type { Service } from 'services/lw'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, RESOURCES } from '@ce/constants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { Utils } from '@ce/common/Utils'
 import DefineRule from './steps/DefineRule'
 import ManageResources from './steps/ManageResources/ManageResources'
 import ResourceFulfilment from './steps/ResourceFulfilment'
@@ -33,6 +34,7 @@ interface COGatewayConfigProps {
 
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { trackEvent } = useTelemetry()
+  const isGcpProvider = Utils.isProviderGcp(props.gatewayDetails.provider)
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const [totalStepsCount, setTotalStepsCount] = useState<number>(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
   const [selectedResource, setSelectedResource] = useState<RESOURCES | null>(
@@ -83,7 +85,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       props.gatewayDetails.name !== '' &&
       props.gatewayDetails.idleTimeMins >= CONFIG_IDLE_TIME_CONSTRAINTS.MIN &&
       props.gatewayDetails.idleTimeMins <= CONFIG_IDLE_TIME_CONSTRAINTS.MAX &&
-      (selectedResource === RESOURCES.INSTANCES ? props.gatewayDetails.fullfilment !== '' : true) &&
+      (selectedResource === RESOURCES.INSTANCES && !isGcpProvider ? props.gatewayDetails.fullfilment !== '' : true) &&
       (!_isEmpty(props.gatewayDetails.deps)
         ? props.gatewayDetails.deps.every(_dep => !isNaN(_dep.dep_id as number) && !isNaN(_dep.delay_secs as number))
         : true) &&
