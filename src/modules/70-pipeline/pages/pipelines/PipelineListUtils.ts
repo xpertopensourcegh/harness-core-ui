@@ -45,5 +45,6 @@ export const getIconsForPipeline = (data: PMSPipelineSummaryResponse): IconProps
 export const deploymentTypeLabel: Record<ServiceDefinition['type'], StringKeys> = {
   Kubernetes: 'kubernetesText',
   NativeHelm: 'pipeline.nativeHelm',
-  Ssh: 'SSH'
+  Ssh: 'SSH',
+  ServerlessAwsLambda: 'pipeline.serviceDeploymentTypes.serverlessAwsLambda'
 }

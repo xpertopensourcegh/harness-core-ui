@@ -98,6 +98,18 @@ import OpenShiftParamWithGit from './ManifestWizardSteps/OpenShiftParam/OSWithGi
 import KustomizePatchDetails from './ManifestWizardSteps/KustomizePatchesDetails/KustomizePatchesDetails'
 import css from './ManifestSelection.module.scss'
 
+const showAddManifestBtn = (
+  isReadonly: boolean,
+  allowOnlyOne: boolean,
+  listOfManifests: Array<any>,
+  overrideSetIdentifier?: string
+): boolean => {
+  if (allowOnlyOne && listOfManifests.length === 1) {
+    return false
+  }
+  return !overrideSetIdentifier?.length && !isReadonly
+}
+
 function ManifestListView({
   updateStage,
   identifierName,
@@ -110,7 +122,8 @@ function ManifestListView({
   listOfManifests,
   deploymentType,
   isReadonly,
-  allowableTypes
+  allowableTypes,
+  allowOnlyOne = false
 }: ManifestListViewProps): JSX.Element {
   const [selectedManifest, setSelectedManifest] = useState<ManifestTypes | null>(null)
   const [connectorView, setConnectorView] = useState(false)
@@ -748,7 +761,7 @@ function ManifestListView({
         </Layout.Vertical>
       </Layout.Vertical>
       <Layout.Vertical spacing={'medium'} flex={{ alignItems: 'flex-start' }}>
-        {!overrideSetIdentifier?.length && !isReadonly && (
+        {showAddManifestBtn(isReadonly, allowOnlyOne, listOfManifests, overrideSetIdentifier) && (
           <Button
             className={css.addManifest}
             id="add-manifest"

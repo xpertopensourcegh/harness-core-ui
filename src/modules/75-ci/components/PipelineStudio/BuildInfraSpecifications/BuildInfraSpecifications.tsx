@@ -172,7 +172,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
   const buildInfraTypes: BuildInfraTypeItem[] = [
     {
-      label: getString('serviceDeploymentTypes.kubernetes'),
+      label: getString('pipeline.serviceDeploymentTypes.kubernetes'),
       icon: 'service-kubernetes',
       value: 'KubernetesDirect'
     },
