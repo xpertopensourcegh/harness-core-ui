@@ -30,6 +30,8 @@ export interface RepoBranchSelectProps {
   modalErrorHandler?: ModalErrorHandlerBinding
   connectorIdentifierRef?: string
   repoURL?: string
+  selectedValue?: string
+  onChange?: (selected: SelectOption, options?: SelectOption[]) => void
 }
 
 const getBranchSelectOptions = (data: string[] = []) => {
@@ -42,7 +44,7 @@ const getBranchSelectOptions = (data: string[] = []) => {
 }
 
 const RepoBranchSelect: React.FC<RepoBranchSelectProps> = props => {
-  const { modalErrorHandler, connectorIdentifierRef, repoURL } = props
+  const { modalErrorHandler, connectorIdentifierRef, repoURL, selectedValue } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [branchSelectOptions, setBranchSelectOptions] = useState<SelectOption[]>([])
@@ -114,6 +116,8 @@ const RepoBranchSelect: React.FC<RepoBranchSelectProps> = props => {
         disabled={loading}
         items={branchSelectOptions}
         label={getString('gitsync.selectDefaultBranch')}
+        value={{ label: selectedValue || '', value: selectedValue || '' }}
+        onChange={selected => props.onChange?.(selected, branchSelectOptions)}
         selectProps={{ usePortal: true, popoverClassName: css.gitBranchSelectorPopover }}
       />
       {loading ? (

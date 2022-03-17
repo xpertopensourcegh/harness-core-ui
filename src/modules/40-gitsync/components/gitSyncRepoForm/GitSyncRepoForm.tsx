@@ -20,7 +20,8 @@ import {
   FormInput,
   IconName,
   Card,
-  FontVariation
+  FontVariation,
+  SelectOption
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -96,6 +97,10 @@ const getConnectorTypeIcon = (isSelected: boolean, icon: ConnectorCardInterface[
 
 const getSubmitButtonText = (isNewUser: boolean): StringKeys => {
   return isNewUser ? 'continue' : 'save'
+}
+
+const getSourceCodeTextColor = (isSelected: boolean) => {
+  return isSelected ? Color.BLUE_500 : Color.GREY_500
 }
 
 export const gitSyncFormDefaultInitialData = {
@@ -261,7 +266,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                             />
                           </Card>
 
-                          <Text inline={false} color={isSelected ? Color.BLUE_500 : Color.GREY_500}>
+                          <Text inline={false} color={getSourceCodeTextColor(isSelected)}>
                             {getConnectorDisplayName(cardData.type)}
                           </Text>
                         </Layout.Vertical>
@@ -326,22 +331,24 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                             [css.noSpacing]: formValues.gitConnector?.connector?.spec?.type !== GitUrlType.REPO
                           })}
                           name="repo"
+                          inputGroup={{
+                            onBlur: e => {
+                              const connectorId = formValues.gitConnector?.connector?.identifier
+                              const connectorScope = getScopeFromDTO(
+                                formValues?.gitConnector?.connector as ScopedObjectDTO
+                              )
+                              setConnectorIdentifierRef(
+                                getConnectorIdentifierWithScope(connectorScope, defaultTo(connectorId, ''))
+                              )
+                              setRepositoryURL(
+                                getRepoUrlForConnectorType(formValues, (e.target as HTMLInputElement)?.value)
+                              )
+
+                              setTestStatus(TestStatus.NOT_INITIATED)
+                            }
+                          }}
                           label={getString('common.repositoryName')}
                           disabled={formValues.gitConnector?.connector?.spec?.type === GitUrlType.REPO}
-                          onChange={e => {
-                            const connectorId = formValues.gitConnector?.connector?.identifier
-                            const connectorScope = getScopeFromDTO(
-                              formValues?.gitConnector?.connector as ScopedObjectDTO
-                            )
-                            setConnectorIdentifierRef(
-                              getConnectorIdentifierWithScope(connectorScope, defaultTo(connectorId, ''))
-                            )
-                            setRepositoryURL(
-                              getRepoUrlForConnectorType(formValues, (e.target as HTMLInputElement)?.value)
-                            )
-
-                            setTestStatus(TestStatus.NOT_INITIATED)
-                          }}
                         />
                         {formValues.gitConnector?.connector?.spec?.type !== GitUrlType.REPO ? (
                           <Text
@@ -396,6 +403,12 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       connectorIdentifierRef={connectorIdentifierRef}
                       repoURL={repositoryURL}
                       modalErrorHandler={modalErrorHandler}
+                      onChange={(selected: SelectOption, options?: SelectOption[]) => {
+                        if (!options?.find(branch => branch.value === selected.value)) {
+                          setFieldValue?.('branch', '')
+                        }
+                      }}
+                      selectedValue={formValues.branch}
                     />
                   </Layout.Vertical>
                 </Container>
