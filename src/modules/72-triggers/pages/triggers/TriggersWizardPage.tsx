@@ -1810,7 +1810,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     )
   }
 
-  if (initialValues?.triggerType && !Object.values(TriggerTypes).includes(initialValues.triggerType)) {
+  if (
+    initialValues?.triggerType &&
+    !Object.values(TriggerTypes).includes(initialValues.triggerType) &&
+    !loadingGetTrigger
+  ) {
     return (
       <Layout.Vertical spacing="medium" padding="medium">
         <Page.Body>
