@@ -15665,6 +15665,11 @@ redux@^4.0.4:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
 
+refiner-js@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/refiner-js/-/refiner-js-1.0.2.tgz#b770fef4a87b976f0c982a87b58ed2c47046175f"
+  integrity sha512-/RLNXtd0fITVl68hqJNhb+R7KsK+A9/vZaXfVAs12j9bz6b7kO/1VadT4veTi79wJ9h/b/sSXjb3ceCy/Qb98A==
+
 refractor@^3.1.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/refractor/-/refractor-3.6.0.tgz#ac318f5a0715ead790fcfb0c71f4dd83d977935a"
