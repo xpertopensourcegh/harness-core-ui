@@ -23,7 +23,7 @@ describe('PIPELINE NOTIFICATIONS FLOW', () => {
         cy.clickSubmit()
     })
 
-    it('should be able to configure notifications and check in notification list view', () => {
+    it.skip('should be able to configure notifications and check in notification list view', () => {
 
         cy.intercept('GET', userGroupsCall, { fixture: 'ng/api/aggregate/usergroups' })
         cy.intercept('POST', pipelineVariablesCall, { fixture: 'pipeline/api/notifications/pipelines.variables' })
