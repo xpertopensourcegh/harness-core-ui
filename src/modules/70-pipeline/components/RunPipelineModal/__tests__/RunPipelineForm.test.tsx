@@ -107,6 +107,10 @@ describe('STUDIO MODE', () => {
     })
   })
 
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   test('should toggle visual and yaml mode', async () => {
     const { container, getByText, queryByText } = render(
       <TestWrapper>
@@ -366,7 +370,7 @@ describe('STUDIO MODE', () => {
     })
 
     // Expect the merge APi not to be called
-    await waitFor(() => expect(mockMergeInputSetResponse.mutate).toBeCalled())
+    await waitFor(() => expect(mockMergeInputSetResponse.mutate).not.toBeCalled())
 
     // Save the snapshot - value is present from merge input set API
     expect(container).toMatchSnapshot()
