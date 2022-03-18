@@ -6,7 +6,6 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react'
-import { Popover, Position } from '@blueprintjs/core'
 import {
   Container,
   Text,
@@ -220,20 +219,6 @@ const FullSyncForm: React.FC<ModalConfigureProps & FullSyncFormProps> = props =>
               setDisableBranchSelection(!creatingPR)
             }}
           />
-          {disableCreatePR ? (
-            <Popover
-              position={Position.TOP}
-              content={
-                <Text padding="medium" color={Color.RED_400}>
-                  {getString('common.git.onlyDefaultBranchFound')}
-                </Text>
-              }
-              isOpen={disableCreatePR}
-              popoverClassName={css.tooltip}
-            >
-              <Container margin={{ bottom: 'xlarge' }}></Container>
-            </Popover>
-          ) : null}
           <FormInput.Select
             name="targetBranch"
             items={defaultTo(branches, [])}
