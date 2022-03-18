@@ -265,8 +265,8 @@ manifestTypeLabels:
   ValuesYaml: Values YAML
   HelmChartLabel: Helm Chart
   KustomizeLabel: Kustomize
-  OpenshiftTemplate: Openshift Template
-  OpenshiftParam: Openshift Param
+  OpenshiftTemplate: OpenShift Template
+  OpenshiftParam: OpenShift Param
   KustomizePatches: Kustomize Patches
   ServerlessAwsLambda: Serverless Lambda Manifest
   ServerlessAzure: Serverless Azure Manifest
