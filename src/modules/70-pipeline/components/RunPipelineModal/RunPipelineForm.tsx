@@ -23,7 +23,7 @@ import { useModalHook } from '@harness/use-modal'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
-import { pick, mergeWith, isEmpty, isEqual, defaultTo, keyBy } from 'lodash-es'
+import { mergeWith, isEmpty, isEqual, defaultTo, keyBy } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
@@ -31,7 +31,6 @@ import {
   usePostPipelineExecuteWithInputSetYaml,
   useGetTemplateFromPipeline,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
-  getInputSetForPipelinePromise,
   useGetInputSetsListForPipeline,
   useRePostPipelineExecuteWithInputSetYaml,
   StageExecutionResponse,
@@ -157,7 +156,6 @@ function RunPipelineFormBasic({
     selectedStages: [getAllStageData(getString)],
     selectedStageItems: [getAllStageItem(getString)]
   })
-  const [loadingInputSetUpdate, setLoadingInputSetUpdate] = useState(false)
   const { setPipeline: updatePipelineInVaribalesContext } = usePipelineVariables()
 
   useEffect(() => {
@@ -431,11 +429,7 @@ function RunPipelineFormBasic({
   }, [getTemplateError])
 
   const shouldMakeMergeInputSetCall = useCallback(() => {
-    return (selectedInputSets && selectedInputSets?.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET'
-  }, [selectedInputSets])
-
-  const shouldMakeInputSetCall = useCallback(() => {
-    return selectedInputSets && selectedInputSets.length === 1
+    return !isEmpty(selectedInputSets)
   }, [selectedInputSets])
 
   const makeMergeInputSetCall = useCallback(
@@ -461,42 +455,11 @@ function RunPipelineFormBasic({
     [selectedInputSets]
   )
 
-  const makeInputSetGetCall = useCallback(
-    async (parsedTemplate: { pipeline: PipelineInfoConfig }) => {
-      setLoadingInputSetUpdate(true)
-      const firstInputSet = selectedInputSets?.[0]
-      const data = await getInputSetForPipelinePromise({
-        inputSetIdentifier: firstInputSet?.value as string,
-        queryParams: {
-          accountIdentifier: accountId,
-          projectIdentifier,
-          orgIdentifier,
-          pipelineIdentifier,
-          repoIdentifier: firstInputSet?.gitDetails?.repoIdentifier,
-          branch: firstInputSet?.gitDetails?.branch
-        }
-      })
-      setLoadingInputSetUpdate(false)
-      if (data?.data?.inputSetYaml) {
-        if (firstInputSet?.type === 'INPUT_SET') {
-          const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
-            pipeline: PipelineInfoConfig
-          }
-          const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
-          setCurrentPipeline(toBeUpdated)
-        }
-      }
-    },
-    [selectedInputSets]
-  )
-
   useDeepCompareEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
       const parsedTemplate = parse(template?.data?.inputSetTemplateYaml) as { pipeline: PipelineInfoConfig }
       if (shouldMakeMergeInputSetCall()) {
         makeMergeInputSetCall(parsedTemplate)
-      } else if (shouldMakeInputSetCall()) {
-        makeInputSetGetCall(parsedTemplate)
       } else if (!selectedInputSets?.length && !inputSetYAML?.length) {
         setCurrentPipeline(parsedTemplate)
       }
@@ -891,7 +854,7 @@ function RunPipelineFormBasic({
                     setRunClicked={setRunClicked}
                     inputSets={inputSets}
                     setSelectedInputSets={setSelectedInputSets}
-                    loading={loadingMergeInputSetUpdate || loadingInputSetUpdate}
+                    loading={loadingMergeInputSetUpdate}
                     loadingMergeInputSetUpdate={loadingMergeInputSetUpdate}
                   />
                 ) : (

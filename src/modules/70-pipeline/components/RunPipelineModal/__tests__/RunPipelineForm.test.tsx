@@ -313,7 +313,13 @@ describe('STUDIO MODE', () => {
     })
 
     // Expect the merge APi to be called
-    await waitFor(() => expect(mockMergeInputSetResponse.mutate).toBeCalled())
+    await waitFor(() =>
+      expect(mockMergeInputSetResponse.mutate).toBeCalledWith(
+        expect.objectContaining({
+          inputSetReferences: ['inputset2', 'inputset3']
+        })
+      )
+    )
 
     // Save the snapshot - value is present from merge input set API
     expect(container).toMatchSnapshot('after applying input sets')
@@ -369,8 +375,14 @@ describe('STUDIO MODE', () => {
       fireEvent.click(getByText('pipeline.inputSets.applyInputSet'))
     })
 
-    // Expect the merge APi not to be called
-    await waitFor(() => expect(mockMergeInputSetResponse.mutate).not.toBeCalled())
+    // Expect the merge APi to be called
+    await waitFor(() =>
+      expect(mockMergeInputSetResponse.mutate).toBeCalledWith(
+        expect.objectContaining({
+          inputSetReferences: ['inputset3']
+        })
+      )
+    )
 
     // Save the snapshot - value is present from merge input set API
     expect(container).toMatchSnapshot()
