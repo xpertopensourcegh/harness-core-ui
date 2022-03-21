@@ -17,6 +17,7 @@ import type {
   ResponsePageConnectorResponse
 } from 'services/cd-ng'
 import type { JiraCreateDeploymentModeProps, JiraCreateStepModeProps } from '../types'
+import type { JiraFieldsRendererProps } from '../JiraFieldsRenderer'
 
 export const getJiraCreateEditModeProps = (): JiraCreateStepModeProps => ({
   initialValues: {
@@ -117,6 +118,71 @@ export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProp
           },
           {
             name: 'Description',
+            value: RUNTIME_INPUT_VALUE
+          }
+        ]
+      }
+    }
+  },
+  onUpdate: jest.fn(),
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+})
+
+export const getJiraCreateDeploymentModeForFieldsProps = (): JiraCreateDeploymentModeProps => ({
+  stepViewType: StepViewType.InputSet,
+  initialValues: {
+    name: '',
+    identifier: '',
+    type: 'JiraCreate',
+    spec: {
+      connectorRef: 'cid1',
+      projectKey: 'pid1',
+      issueType: 'id1',
+      fields: [
+        {
+          name: 'Summary',
+          value: 'sid1'
+        },
+        {
+          name: 'Description',
+          value: 'did1'
+        },
+        {
+          name: 'f1',
+          value: ''
+        },
+        {
+          name: 'f2',
+          value: ''
+        },
+        {
+          name: 'f3',
+          value: ''
+        }
+      ]
+    }
+  },
+  inputSetData: {
+    path: '/ab/',
+    template: {
+      name: '',
+      identifier: '',
+      type: 'JiraCreate',
+      spec: {
+        connectorRef: '',
+        projectKey: '',
+        issueType: '',
+        fields: [
+          {
+            name: 'f1',
+            value: RUNTIME_INPUT_VALUE
+          },
+          {
+            name: 'f2',
+            value: RUNTIME_INPUT_VALUE
+          },
+          {
+            name: 'f3',
             value: RUNTIME_INPUT_VALUE
           }
         ]
@@ -331,3 +397,34 @@ export const mockProjectMetadataResponse: UseGetMockData<ResponseJiraIssueCreate
     }
   }
 }
+
+export const getJiraFieldRendererProps = (): JiraFieldsRendererProps => ({
+  selectedFields: [
+    {
+      name: 'f2',
+      value: { label: 'vb2', value: 'vb2' },
+      key: 'f2',
+      allowedValues: [],
+      schema: {
+        typeStr: '',
+        type: 'string'
+      }
+    },
+    {
+      name: 'f3',
+      value: [
+        { label: 'v3', value: 'v3' },
+        { label: 'v32', value: 'v32' }
+      ],
+      key: 'f3',
+      allowedValues: [],
+      schema: {
+        typeStr: '',
+        type: 'option'
+      }
+    }
+  ],
+  readonly: false,
+  onDelete: jest.fn(),
+  jiraContextType: 'JiraCreateDeploymentMode'
+})
