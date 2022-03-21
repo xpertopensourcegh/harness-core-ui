@@ -5,17 +5,8 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import {
-  Layout,
-  Select,
-  Color,
-  Heading,
-  Container,
-  Text,
-  SelectOption,
-  PageError,
-  FontVariation
-} from '@wings-software/uicore'
+import { Layout, Select, Heading, Container, Text, SelectOption, PageError } from '@wings-software/uicore'
+import { Color, FontVariation } from '@harness/design-system'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, uniqWith, isEqual, orderBy } from 'lodash-es'

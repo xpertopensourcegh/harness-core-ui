@@ -12,13 +12,13 @@ import {
   Formik,
   Layout,
   NestedAccordionProvider,
-  Color,
   ButtonVariation,
   PageSpinner,
   VisualYamlSelectedView as SelectedView,
   getErrorInfoFromErrorObject,
   SelectOption
 } from '@wings-software/uicore'
+import { Color } from '@harness/design-system'
 import { useModalHook } from '@harness/use-modal'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'

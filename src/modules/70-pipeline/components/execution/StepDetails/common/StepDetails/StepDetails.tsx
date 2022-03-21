@@ -6,8 +6,8 @@
  */
 
 import React from 'react'
-import { Text, Layout, Color, Icon } from '@wings-software/uicore'
-
+import { Text, Layout, Icon } from '@wings-software/uicore'
+import { Color } from '@harness/design-system'
 import { useParams, Link } from 'react-router-dom'
 import { Duration } from '@common/exports'
 import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
