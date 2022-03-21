@@ -78,7 +78,8 @@ const COEcsSelector: React.FC<COEcsSelectorProps> = props => {
   const {
     data: containers,
     refetch: fetchContainers,
-    loading: loadingContainers
+    loading: loadingContainers,
+    error: fetchContainersError
   } = useGetContainerClustersOfRegion({
     account_id: accountId,
     lazy: true
@@ -136,6 +137,12 @@ const COEcsSelector: React.FC<COEcsSelectorProps> = props => {
       })
     }
   }, [selectedRegion])
+
+  useEffect(() => {
+    if (!_isEmpty(fetchContainersError)) {
+      showError((fetchContainersError?.data as any)?.errors?.join('\n'), 8000)
+    }
+  }, [fetchContainersError])
 
   useEffect(() => {
     setAllClusterServicesForRegion()
