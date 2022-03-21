@@ -825,7 +825,7 @@ function RetryPipeline({
                 branch={branch}
                 isGitSyncEnabled={isGitSyncEnabled}
                 setFormErrors={setFormErrors}
-                getInputSetsList={getInputSetsList}
+                refetchParentData={getInputSetsList}
               />
             </Layout.Horizontal>
           </Layout.Vertical>
