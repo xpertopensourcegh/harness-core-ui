@@ -10,12 +10,10 @@ import { render, act, fireEvent, queryByAttribute, waitFor } from '@testing-libr
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useGetJiraProjects } from 'services/cd-ng'
-import { TestWrapper } from '@common/utils/testUtils'
 import { TestStepWidget, factory } from '../../__tests__/StepTestUtil'
 import { JiraCreate } from '../JiraCreate'
 import {
   getJiraCreateDeploymentModeProps,
-  getJiraCreateDeploymentModeForFieldsProps,
   getJiraCreateEditModeProps,
   getJiraCreateEditModePropsWithValues,
   getJiraCreateInputVariableModeProps,
@@ -23,10 +21,8 @@ import {
   mockProjectMetadataResponse,
   mockProjectsResponse,
   mockProjectsErrorResponse,
-  getJiraCreateEditModePropsWithConnectorId,
-  getJiraFieldRendererProps
+  getJiraCreateEditModePropsWithConnectorId
 } from './JiraCreateTestHelper'
-import { JiraFieldsRenderer } from '../JiraFieldsRenderer'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
@@ -101,23 +97,6 @@ describe('Jira Create tests', () => {
     expect(container).toMatchSnapshot('jira-create-deploymentform')
   })
 
-  test('Basic snapshot - deploymentform mode with optional fields as runtime input', async () => {
-    const props = getJiraCreateDeploymentModeForFieldsProps()
-    const fieldProps = getJiraFieldRendererProps()
-    const { container } = render(
-      <TestWrapper>
-        <JiraFieldsRenderer {...fieldProps}></JiraFieldsRenderer>
-        <TestStepWidget
-          template={props.inputSetData?.template}
-          initialValues={props.initialValues}
-          type={StepType.JiraCreate}
-          stepViewType={StepViewType.DeploymentForm}
-          inputSetData={props.inputSetData}
-        />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot('jira-create-deploymentform-fields-runtime')
-  })
   test('Deploymentform readonly mode', async () => {
     const props = getJiraCreateDeploymentModeProps()
     const { container } = render(
@@ -129,6 +108,7 @@ describe('Jira Create tests', () => {
         inputSetData={{ ...props.inputSetData, path: props.inputSetData?.path || '', readonly: true }}
       />
     )
+
     expect(container).toMatchSnapshot('jira-create-deploymentform-readonly')
   })
 
