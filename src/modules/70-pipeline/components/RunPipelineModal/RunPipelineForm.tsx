@@ -396,7 +396,7 @@ function RunPipelineFormBasic({
       const parsedYAML = parse(inputSetYAML)
       setExistingProvide('provide')
       setCurrentPipeline(parsedYAML)
-    } else if (template?.data?.hasInputSets) {
+    } else {
       setExistingProvide(template?.data?.hasInputSets ? 'existing' : 'provide')
     }
   }, [inputSetYAML, template?.data?.hasInputSets])
