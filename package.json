@@ -17,6 +17,7 @@
     "test": "jest src --silent",
     "test:watch": "jest --watch",
     "lint": "eslint  --rulesdir ./scripts/eslint-rules --ext .ts --ext .tsx src",
+    "lint:style": "stylelint src/**/*.scss",
     "typecheck": "tsc",
     "cypress:ci": "cypress run --config videoUploadOnPasses=false --browser chrome",
     "cypress:open": "cypress open",
@@ -212,6 +213,8 @@
     "nyc": "^15.1.0",
     "patch-package": "^6.4.7",
     "path-to-regexp": "^6.1.0",
+    "postcss": "^8.4.8",
+    "postcss-scss": "^4.0.3",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.3.2",
     "prompts": "^2.4.2",
@@ -221,6 +224,7 @@
     "sass-loader": "^12.1.0",
     "source-map-support": "^0.5.20",
     "style-loader": "^3.3.0",
+    "stylelint": "^14.5.3",
     "swc-loader": "^0.1.15",
     "ts-jest": "^26.5.5",
     "ts-loader": "^9.2.6",
@@ -260,6 +264,7 @@
       "prettier --check"
     ],
     "*.scss": [
+      "stylelint --max-warnings 0",
       "prettier --check"
     ],
     "strings.*.yaml": [
