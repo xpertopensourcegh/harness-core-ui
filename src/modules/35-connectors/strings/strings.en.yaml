@@ -416,7 +416,7 @@ awsKms:
 delegate:
   configure: Configure what Delegates are allowed to connect to this Connector
   delegateSelectorAny: Connect via any available Delegate
-  delegateSelectorSelective: Connect only via Delegates which has all of the following tags
+  delegateSelectorSelective: Connect only via Delegates with all of the following tags
   hearbeat: heartbeat
   matchesSelectors: Matches
   testDelegateConnectivity: Test Delegate Connectivity
