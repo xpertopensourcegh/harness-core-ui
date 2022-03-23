@@ -198,7 +198,8 @@ export default function AppDCustomMetricForm(props: AppDCustomMetricFormInterfac
                   values={{
                     sli: !!formikValues?.sli,
                     healthScore: !!formikValues?.healthScore,
-                    continuousVerification: !!formikValues?.continuousVerification
+                    continuousVerification: !!formikValues?.continuousVerification,
+                    riskCategory: formikValues?.riskCategory
                   }}
                   metricPackResponse={metricPackResponse}
                   hideServiceIdentifier
