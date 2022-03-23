@@ -2746,6 +2746,7 @@ export interface StringsMap {
   'pipeline.nodes': string
   'pipeline.nodesLabel': string
   'pipeline.onlyPositiveInteger': string
+  'pipeline.openInNewTab': string
   'pipeline.openTemplateInNewTabLabel': string
   'pipeline.operatorPlaceholder': string
   'pipeline.outOf': string
