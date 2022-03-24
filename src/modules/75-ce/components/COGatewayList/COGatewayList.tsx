@@ -55,6 +55,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { FeatureDetail } from 'framework/featureStore/featureStoreUtil'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { Utils } from '@ce/common/Utils'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -89,7 +90,9 @@ interface EmptyListPageProps {
 }
 
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
+  const { getString } = useStrings()
   const isK8sRule = tableProps.row.original.kind === 'k8s'
+  const isEcsRule = !_isEmpty(tableProps.row.original.routing?.container_svc)
   const getIcon = () => {
     return tableProps.value === 'spot'
       ? tableProps.row.original.disabled
@@ -103,11 +106,13 @@ function IconCell(tableProps: CellProps<Service>): JSX.Element {
     <Layout.Horizontal spacing="medium">
       {isK8sRule ? (
         <Icon name="app-kubernetes" size={21} />
+      ) : isEcsRule ? (
+        <Icon name="service-ecs" size={21} />
       ) : (
         <img className={css.fulFilmentIcon} src={getIcon()} alt="" width={'20px'} height={'19px'} aria-hidden />
       )}
       <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
-        {tableProps.value}
+        {Utils.getConditionalResult(isEcsRule, getString('ce.common.containerService'), tableProps.value)}
       </Text>
     </Layout.Horizontal>
   )
@@ -195,6 +200,7 @@ function ActivityCell(tableProps: CellProps<Service>): JSX.Element {
 }
 function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
   const { accountId } = useParams<AccountPathProps>()
+  const { getString } = useStrings()
   const isK8sRule = tableProps.row.original.kind === 'k8s'
   const { data, loading: healthLoading } = useHealthOfService({
     account_id: accountId,
@@ -258,7 +264,7 @@ function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
                   marginRight: 5
                 }}
               >
-                No. of instances:
+                {getString('ce.co.noOfInstances')}
               </Text>
               {!resourcesLoading && resources?.response ? (
                 <Link
@@ -290,6 +296,23 @@ function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
               ) : (
                 <Icon name="spinner" size={12} color="blue500" />
               )}
+            </>
+          )}
+          {isEcsRule && (
+            <>
+              <Text
+                style={{
+                  alignSelf: 'center',
+                  color: tableProps.row.original.disabled ? textColor.disable : 'inherit',
+                  marginRight: 5
+                }}
+              >
+                {`${getString('ce.co.noOfTasks')} ${_defaultTo(
+                  tableProps.row.original.routing?.container_svc?.task_count,
+                  0
+                )}`}
+              </Text>
+              {getStateTag(tableProps.row.original.routing?.container_svc?.task_count ? 'active' : 'down')}
             </>
           )}
         </Layout.Horizontal>
@@ -584,7 +607,7 @@ const RulesTableContainer: React.FC<RulesTableContainerProps> = ({
                   Cell: ResourcesCell
                 },
                 {
-                  Header: getString('ce.co.rulesTableHeaders.savings'),
+                  Header: getString('ce.co.rulesTableHeaders.savings').toUpperCase(),
                   width: '15%',
                   Cell: SavingsCell,
                   disableSortBy: true

@@ -7,6 +7,7 @@ common:
   spendTillDate: 'Spend Till Date'
   and: '{{ $.common.andCaps }}'
   or: '{{ $.common.orCaps }}'
+  containerService: 'ECS'
 allRegions: 'All Regions'
 allClusters: 'All Clusters'
 enforcementMessage:
@@ -36,6 +37,8 @@ co:
   searchResultsText: 'Showing {{count}} search results for "{{text}}"'
   emptyResultText: 'No rules found for {{string}}'
   selectResourceGroupPlaceholder: '{{$.select}} Resource Groups'
+  noOfTasks: 'No. of tasks:'
+  noOfInstances: 'No. of instances:'
   landingPageText:
     '<b>AutoStopping Rules</b> dynamically make sure that your <i>non-production workloads</i> are <b>running (and costing you)
     only when you’re using them</b>, and never when they are idle. Additionally, run your workloads on fully
@@ -43,6 +46,10 @@ co:
   breadCrumb:
     rules: 'AutoStopping Rules'
   noData: 'No data available. Please check after sometime'
+  ruleDrawer:
+    usageTime: 'Usage Time'
+    logs: '{{ $.pipeline.verification.analysisTab.logs }}'
+    spendVsSavings: 'Spend vs savings'
   autoStoppingRule:
     limitWarningMessage: You have used {{count}} / {{limit}} free Autostopping rules included in your current plan. Consider upgrading for unlimited Autostopping rules.
     helpText:
@@ -106,6 +113,13 @@ co:
         policyNotEnabled: 'Mixed instance policy is not enabled'
         invalidValueErrorMsg: 'Please enter valid input'
         desiredTaskCount: 'Desired Task Count'
+        desiredCapacity: 'Desired capacity'
+        minCapacity: 'Min capacity'
+        maxCapacity: 'Max capacity'
+        validation:
+          taskCountInteger: 'Desired task count should be a number'
+          taskCountRequired: 'Desired task count cannot be empty'
+          minTaskCount: 'Desired task count must be greater than or equal to 1'
       step4:
         setup: 'Set up'
         advancedConfiguration: 'Advanced Configuration'
@@ -375,7 +389,7 @@ co:
     idleTime: 'IDLE TIME'
     fulfilment: 'COMPUTE TYPE'
     mangedResources: 'RESOURCES MANAGED BY THE RULE'
-    savings: 'CUMULATIVE SAVINGS'
+    savings: 'Cumulative Savings'
     lastActivity: 'LAST ACTIVITY'
     status: 'RULE STATUS'
 
