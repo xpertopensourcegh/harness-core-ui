@@ -7,11 +7,7 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly addFilters: string
-  readonly addMoreFilter: string
-  readonly andOperator: string
-  readonly filterContainer: string
-  readonly filters: string
-  readonly withAndOperation: string
+  readonly defaultValInputBox: string
+  readonly hContainer: string
 }
 export default styles
