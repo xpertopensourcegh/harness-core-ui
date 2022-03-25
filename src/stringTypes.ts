@@ -2137,6 +2137,7 @@ export interface StringsMap {
   'dashboards.homePage.noTags': string
   'dashboards.homePage.removeTagFromFilter': string
   'dashboards.homePage.searchPlaceholder': string
+  'dashboards.modules.cgDeployments': string
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string
