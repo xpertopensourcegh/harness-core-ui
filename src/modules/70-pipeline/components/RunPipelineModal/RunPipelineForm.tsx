@@ -627,6 +627,7 @@ function RunPipelineFormBasic({
           if (!isEqual(lastYaml, parsedYaml)) {
             setCurrentPipeline(parsedYaml as { pipeline: PipelineInfoConfig })
             setLastYaml(parsedYaml)
+            handleValidation(parsedYaml)
           }
         }, POLL_INTERVAL)
         return () => {
