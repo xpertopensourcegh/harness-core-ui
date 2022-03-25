@@ -566,6 +566,7 @@ export interface StringsMap {
   'common.setAsDefault': string
   'common.setAsStable': string
   'common.setup': string
+  'common.sh': string
   'common.shell': string
   'common.showLess': string
   'common.showMore': string

@@ -82,6 +82,7 @@ performAction: Perform Action
 jexlExpression: JEXL Expression
 bash: Bash
 shell: Shell
+sh: Sh
 powershell: Powershell
 pwsh: Pwsh
 input: Input
