@@ -750,7 +750,9 @@ function RunPipelineFormBasic({
         <Formik<Values>
           initialValues={getFormikInitialValues() as Values}
           formName="runPipeline"
-          onSubmit={handleRunPipeline as any}
+          onSubmit={values => {
+            handleRunPipeline(values as PipelineInfoConfig)
+          }}
           enableReinitialize
           validate={handleValidation}
         >
