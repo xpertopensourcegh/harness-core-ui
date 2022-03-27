@@ -8,6 +8,7 @@ common:
   and: '{{ $.common.andCaps }}'
   or: '{{ $.common.orCaps }}'
   containerService: 'ECS'
+  database: 'RDS'
 allRegions: 'All Regions'
 allClusters: 'All Clusters'
 enforcementMessage:
@@ -50,6 +51,8 @@ co:
     usageTime: 'Usage Time'
     logs: '{{ $.pipeline.verification.analysisTab.logs }}'
     spendVsSavings: 'Spend vs savings'
+    dbInstances: 'DB Instance'
+    dbInstancesPlural: 'DB Instances'
   autoStoppingRule:
     limitWarningMessage: You have used {{count}} / {{limit}} free Autostopping rules included in your current plan. Consider upgrading for unlimited Autostopping rules.
     helpText:
@@ -67,7 +70,7 @@ co:
             gcpVms: 'GCE VM(s)'
             ec2Vms: 'EC2 VM(s)'
             ecsService: 'ECS Service'
-            rdsInstances: 'RDS Instances'
+            rdsInstances: 'RDS Instance'
       step3:
         title: 'Choose instance fulfilment'
         description:
@@ -97,13 +100,13 @@ co:
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
           kubernetes: 'Add a cluster to be managed by the AutoStopping Rule.'
           ecs: 'Add an ECS Service to be managed by the AutoStopping Rule'
-          rds: 'Add the RDS instance(s) to be managed by this Autostopping Rule'
+          rds: 'Add the RDS instance to be managed by this Autostopping Rule'
         addResourceCta:
           instance: 'Add an instance'
           asg: 'Add a auto-scaling group'
           kubernetes: 'Add a cluster'
           ecs: 'Add an ECS Service'
-          rds: 'Add RDS instances'
+          rds: 'Add RDS instance'
       step3:
         title: 'Choose to convert the selected instance(s) to spot or remain on-demand. '
         asgTitle: 'Choose the on-demand vs spot ratio for your Auto Scaling group'
@@ -164,6 +167,17 @@ co:
         emptyDescription: 'Select a Region to see all the databases.'
     review:
       configDetails: 'Configuration Details'
+      cloudAccountDetails: 'Cloud account details'
+      selectedCloudAccount: 'Selected cloud account'
+      nameOfRule: 'Name of the rule'
+      idleTimeMins: 'Idle time(mins)'
+      instanceDetails: 'Instance details'
+      serviceDetails: 'Service details'
+      rdsDetails: 'RDS details'
+      hideProgressPage: 'Hide progress page'
+      setupAccessDetails: 'Setup Access details'
+      dnsLinkMapping: 'DNS Link mapping'
+      instanceFulfilment: 'Instance fulfilment'
     setupAccess:
       pageName: 'Setup Access'
       noSetupRequired: No need to setup access for {{source}}. Please move to Review step.
@@ -392,6 +406,12 @@ co:
     savings: 'Cumulative Savings'
     lastActivity: 'LAST ACTIVITY'
     status: 'RULE STATUS'
+  ruleDetailsHeader:
+    idleTime: 'Idle time'
+    resourcesManaged: 'Resources managed'
+    hostName: 'Host name'
+    computeType: 'Compute type'
+    customDomain: 'Custom domain'
 
 learnMore: Learn more about Cloud Cost Management
 ceTrialHomePage:

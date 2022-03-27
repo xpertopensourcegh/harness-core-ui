@@ -59,7 +59,7 @@ export function getInstancesLink(service: Service, resources?: AllResourcesOfAcc
   } else {
     const region = resource?.region || ''
     if (service.kind === GatewayKindType.DATABASE) {
-      return getAwsConsoleDatabaseLink(_defaultTo(region, ''), _defaultTo(resource?.id, ''))
+      return getAwsConsoleDatabaseLink(_defaultTo(region, ''), _defaultTo(resource?.name, ''))
     } else if (service.kind === GatewayKindType.CONTAINERS) {
       return getEcsServicesLink(
         _defaultTo(service.routing?.container_svc?.region, ''),

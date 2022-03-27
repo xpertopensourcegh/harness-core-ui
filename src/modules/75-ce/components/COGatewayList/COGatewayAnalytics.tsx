@@ -30,8 +30,6 @@ import { Utils } from '@ce/common/Utils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
-import odIcon from './images/ondemandIcon.svg'
-import spotIcon from './images/spotIcon.svg'
 import {
   getInstancesLink,
   getRelativeTime,
@@ -44,6 +42,7 @@ import useToggleRuleState from './useToggleRuleState'
 // import SpotvsODChart from './SpotvsODChart'
 import DownloadCLI from '../DownloadCLI/DownloadCLI'
 import FixedScheduleAccordion from './components/FixedScheduleAccordion/FixedScheduleAccordion'
+import ComputeType from './components/ComputeType'
 import css from './COGatewayList.module.scss'
 
 interface COGatewayAnalyticsProps {
@@ -153,6 +152,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
 
   const isK8sRule = Utils.isK8sRule(props.service?.data as Service)
   const isEcsRule = !_isEmpty(props.service?.data.routing?.container_svc)
+  const isRdsRule = !_isEmpty(props.service?.data.routing?.database)
 
   const { data: healthData, loading: healthDataLoading } = useHealthOfService({
     account_id: accountId,
@@ -249,7 +249,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           </Heading>
           <Layout.Vertical spacing="medium" padding={{ top: 'medium', bottom: 'medium' }}>
             <Container className={css.serviceDetailsItemContainer}>
-              <Text className={css.detailItemHeader}>Idle time</Text>
+              <Text className={css.detailItemHeader}>{getString('ce.co.ruleDetailsHeader.idleTime')}</Text>
               <Text className={css.detailItemValue}>{`${props.service?.data.idle_time_mins} min`}</Text>
             </Container>
             {!isK8sRule && (
@@ -277,7 +277,15 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
                           )}
                           target="_blank"
                         >
-                          <Text>{`${resources?.response?.length} ${getString('common.instanceLabel')}`}</Text>
+                          <Text>{`${resources?.response?.length} ${
+                            isRdsRule
+                              ? Utils.getConditionalResult(
+                                  (resources?.response?.length as number) > 1,
+                                  getString('ce.co.ruleDrawer.dbInstancesPlural'),
+                                  getString('ce.co.ruleDrawer.dbInstances')
+                                )
+                              : getString('common.instanceLabel')
+                          }`}</Text>
                         </Link>
                       ) : (
                         <Icon name="spinner" size={12} color="blue500" />
@@ -293,7 +301,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               </Container>
             )}
             <Container className={css.serviceDetailsItemContainer}>
-              <Text className={css.detailItemHeader}>Host name</Text>
+              <Text className={css.detailItemHeader}>{getString('ce.co.ruleDetailsHeader.hostName')}</Text>
               <Layout.Horizontal spacing="small" className={css.detailItemValue}>
                 {isK8sRule ? (
                   <Text style={{ maxWidth: 350, textAlign: 'left' }}>{props.service?.data.host_name}</Text>
@@ -311,7 +319,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             </Container>
             {(!_isEmpty(props.service?.data.custom_domains) || props.service?.data?.routing?.k8s?.CustomDomain) && (
               <Container className={css.serviceDetailsItemContainer}>
-                <Text className={css.detailItemHeader}>Custom Domain</Text>
+                <Text className={css.detailItemHeader}>{getString('ce.co.ruleDetailsHeader.customDomain')}</Text>
                 <div className={css.detailItemValue}>
                   {props.service?.data?.routing?.k8s?.CustomDomain
                     ? renderCustomDomainLink(props.service?.data?.routing?.k8s?.CustomDomain)
@@ -320,27 +328,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               </Container>
             )}
             <Container className={css.serviceDetailsItemContainer}>
-              <Text className={css.detailItemHeader}>Compute type</Text>
-              <Layout.Horizontal spacing="xsmall" className={css.detailItemValue}>
-                {isK8sRule ? (
-                  <Icon name="app-kubernetes" size={18} />
-                ) : isEcsRule ? (
-                  <Icon name="service-ecs" size={18} />
-                ) : (
-                  <img
-                    src={Utils.getConditionalResult(props.service?.data.fulfilment === 'spot', spotIcon, odIcon)}
-                    alt=""
-                    aria-hidden
-                  />
-                )}
-                <Text>
-                  {Utils.getConditionalResult(
-                    isEcsRule,
-                    getString('ce.common.containerService'),
-                    props.service?.data.fulfilment
-                  )}
-                </Text>
-              </Layout.Horizontal>
+              <Text className={css.detailItemHeader}>{getString('ce.co.ruleDetailsHeader.computeType')}</Text>
+              <ComputeType data={props.service?.data as Service} className={css.detailItemValue} />
             </Container>
             {/* <Layout.Vertical spacing="large" padding="medium">
             <Text>Connector</Text>
