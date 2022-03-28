@@ -3459,9 +3459,14 @@ export interface StringsMap {
   'ce.budgets.listPage.timePeriodRemaining': string
   'ce.budgets.listPage.title': string
   'ce.budgets.sideNavText': string
+  'ce.businessMapping.confirmDialogBody': string
+  'ce.businessMapping.confirmDialogHeading': string
   'ce.businessMapping.costBucket.inputName': string
   'ce.businessMapping.costBucket.newButtonText': string
   'ce.businessMapping.costBucket.title': string
+  'ce.businessMapping.created': string
+  'ce.businessMapping.deleted': string
+  'ce.businessMapping.emptySubtitles': string
   'ce.businessMapping.errorMessages.viewConditions': string
   'ce.businessMapping.form.businessMappingPlaceholder': string
   'ce.businessMapping.form.saveText': string
@@ -3476,9 +3481,14 @@ export interface StringsMap {
   'ce.businessMapping.sharedCostBucket.sharingStrategy.equal': string
   'ce.businessMapping.sharedCostBucket.sharingStrategy.fixed': string
   'ce.businessMapping.sharedCostBucket.sharingStrategy.proportional': string
+  'ce.businessMapping.sharedCostBucket.sharingStrategyLabel': string
   'ce.businessMapping.sharedCostBucket.title': string
   'ce.businessMapping.sideNavText': string
   'ce.businessMapping.stepText': string
+  'ce.businessMapping.tableHeadings.costBuckets': string
+  'ce.businessMapping.tableHeadings.createdBy': string
+  'ce.businessMapping.tableHeadings.lastEdit': string
+  'ce.businessMapping.tableHeadings.sharedCosts': string
   'ce.ceTrialHomePage.modal.description': string
   'ce.ceTrialHomePage.modal.title': string
   'ce.ceTrialHomePage.modal.welcome': string
@@ -3795,6 +3805,7 @@ export interface StringsMap {
   'ce.common.newBudget': string
   'ce.common.or': string
   'ce.common.spendTillDate': string
+  'ce.common.totalCount': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
   'ce.connector.AWS.crossAccountRole.instructionLabel': string
@@ -3983,7 +3994,6 @@ export interface StringsMap {
   'ce.perspectives.nodeDetails.aggregation.average': string
   'ce.perspectives.nodeDetails.aggregation.maximum': string
   'ce.perspectives.nodeDetails.nodeDetailsText': string
-  'ce.perspectives.perspectiveCount': string
   'ce.perspectives.perspectiveDeletedTxt': string
   'ce.perspectives.perspectiveReportsMoreTxt': string
   'ce.perspectives.perspectiveReportsTxt': string
