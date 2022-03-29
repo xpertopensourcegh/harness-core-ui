@@ -11,7 +11,7 @@ import { defaultTo } from 'lodash-es'
 import { Spinner } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import { Color, Icon, Layout, Text } from '@harness/uicore'
+import { Button, Color, Layout, Text } from '@harness/uicore'
 import { LinkedPolicy, useGetPolicySet } from 'services/pm'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -64,7 +64,7 @@ export function MiniPolicySetRenderer({ policySetId, deletePolicySet }: MiniPoli
           left: 'medium'
         }}
         margin={{
-          right: 'small'
+          right: 'xsmall'
         }}
       >
         {loading ? (
@@ -87,7 +87,7 @@ export function MiniPolicySetRenderer({ policySetId, deletePolicySet }: MiniPoli
           </>
         ) : null}
       </Layout.Horizontal>
-      <Icon name="main-trash" onClick={onDelete} />
+      <Button icon="main-trash" onClick={onDelete} minimal />
     </Layout.Horizontal>
   )
 }
