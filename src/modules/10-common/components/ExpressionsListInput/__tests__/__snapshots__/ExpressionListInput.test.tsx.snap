@@ -13,7 +13,7 @@ exports[`ExpressionsListInput tests Should render properly with error 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--padding-bottom-small"
         >
           <div
-            class="bp3-form-group bp3-intent-danger expressionsInputContainer"
+            class="bp3-form-group expressionsInputContainer"
             data-id="test.0-0"
           >
             <div
@@ -77,7 +77,7 @@ exports[`ExpressionsListInput tests Should render properly with error 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--padding-bottom-small"
         >
           <div
-            class="bp3-form-group bp3-intent-danger expressionsInputContainer"
+            class="bp3-form-group expressionsInputContainer"
             data-id="test.1-1"
           >
             <div
