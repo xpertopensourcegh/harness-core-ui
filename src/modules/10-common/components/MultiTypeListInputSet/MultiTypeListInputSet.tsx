@@ -74,7 +74,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
   const { getString } = useStrings()
 
   const getStageFormikValues = React.useCallback(() => {
-    if (Object.prototype.hasOwnProperty.call(formik?.values, 'pipeline')) {
+    if (formik?.values && Object.prototype.hasOwnProperty.call(formik?.values, 'pipeline')) {
       return get(formik?.values?.pipeline, name, '')
     }
     return get(formik?.values, name, '')
@@ -135,7 +135,12 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
       const initialValueInCorrectFormat = initialValue.map((item: string | { [key: string]: string }) => ({
         id: uuid('', nameSpace()),
-        value: withObjectStructure && keyName ? (item as { [key: string]: string })[keyName] : item
+        value:
+          withObjectStructure && keyName
+            ? (item as { [key: string]: string })[keyName]
+            : typeof item === 'string'
+            ? item
+            : item?.value
       })) as ListUIType
 
       // Adding a default value
