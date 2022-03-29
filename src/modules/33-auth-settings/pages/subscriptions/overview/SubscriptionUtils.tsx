@@ -196,11 +196,12 @@ function getLicenseCountByModule({
     case ModuleName.CD: {
       const cdModuleLicenseDTO = licenseData as CDModuleLicenseDTO
       const workloads = cdModuleLicenseDTO?.workloads?.toLocaleString()
+      const serviceInstances = cdModuleLicenseDTO?.serviceInstances?.toLocaleString()
       const cdLicenseType = cdModuleLicenseDTO?.cdLicenseType
       const serviceStr =
         cdLicenseType === CD_LICENSE_TYPE.SERVICES
           ? getString('common.subscriptions.cd.services', { workloads: workloads })
-          : getString('common.subscriptions.cd.serviceInstances', { workloads: workloads })
+          : getString('common.subscriptions.cd.serviceInstances', { workloads: serviceInstances })
 
       return (
         <Layout.Vertical spacing="medium">
