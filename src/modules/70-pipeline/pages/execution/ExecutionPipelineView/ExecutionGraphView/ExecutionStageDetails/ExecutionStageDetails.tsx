@@ -31,6 +31,8 @@ import type { ExecutionLayoutState } from '@pipeline/components/ExecutionLayout/
 import ConditionalExecutionTooltipWrapper from '@pipeline/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints/ResourceConstraints'
+import VerifyStepTooltip from './components/VerifyStepTooltip/VerifyStepTooltip'
+import type { FailureInfo } from './components/VerifyStepTooltip/VerifyStepTooltip.types'
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {
@@ -140,7 +142,13 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     data: stepInfo
   }: {
     data: {
-      data: { stepType: string; startTs: number; status: string; stepParameters: { identifier: string } }
+      data: {
+        stepType: string
+        startTs: number
+        status: string
+        stepParameters: { identifier: string }
+        failureInfo: FailureInfo
+      }
       when: NodeRunInfo
     }
   }): JSX.Element => {
@@ -163,6 +171,9 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
               executionId: executionIdentifier
             }}
           />
+        )}
+        {stepInfo?.data?.stepType === StepType.Verify && stepInfo?.data?.status === 'Skipped' && (
+          <VerifyStepTooltip failureInfo={stepInfo?.data?.failureInfo} />
         )}
       </HoverCard>
     )
