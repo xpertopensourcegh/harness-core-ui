@@ -472,6 +472,13 @@ segmentDetail:
   headingVariation: VARIATION
   selectVariation: select variation
   variationIsRequired: Variation is required
+  addFlagNameToTargetGroup: 'Add {{ flagName }} to Target Group'
+  addFlagToTargetGroup: Add Flag to Target Group
+  addFlags: 'Add {{ flagCount }} Flags'
+  addFlag: Add Flag
+  noFlagsAvailable: No flags available
+  updateSuccessful: Update successful
+  flagsAddedSuccessfully: Flag(s) added successfully
 selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description

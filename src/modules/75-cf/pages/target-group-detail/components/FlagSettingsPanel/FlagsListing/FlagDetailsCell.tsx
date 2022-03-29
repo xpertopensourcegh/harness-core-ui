@@ -7,10 +7,10 @@
 
 import React, { FC } from 'react'
 import { FontVariation, Text } from '@harness/uicore'
-import type { TargetGroupFlag } from './FlagSettingsPanel.types'
+import type { Feature } from 'services/cf'
 
 export interface FlagDetailsCellProps {
-  flag: TargetGroupFlag
+  flag: Feature
 }
 
 const FlagDetailsCell: FC<FlagDetailsCellProps> = ({ flag }) => (

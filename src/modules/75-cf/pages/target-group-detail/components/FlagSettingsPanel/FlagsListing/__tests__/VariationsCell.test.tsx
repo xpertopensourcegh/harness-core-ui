@@ -9,13 +9,13 @@ import React from 'react'
 import { render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
+import { mockFeatures } from '@cf/pages/target-group-detail/__tests__/mocks'
 import VariationsCell, { VariationsCellProps } from '../VariationsCell'
-import { mockTargetGroupFlagsMap } from './mocks'
 
 const renderComponent = (props: Partial<VariationsCellProps> = {}): RenderResult =>
   render(
     <TestWrapper>
-      <VariationsCell flag={mockTargetGroupFlagsMap.f1} fieldPrefix="flags[0]" {...props} />
+      <VariationsCell flag={mockFeatures[0]} fieldPrefix="flags[0]" {...props} />
     </TestWrapper>
   )
 
@@ -29,7 +29,7 @@ describe('VariationsCell', () => {
     userEvent.click(input)
 
     await waitFor(() => {
-      mockTargetGroupFlagsMap.f1.flag.variations.forEach(({ name, identifier }) => {
+      mockFeatures[0].variations.forEach(({ name, identifier }) => {
         expect(screen.getByText(name || identifier)).toBeInTheDocument()
       })
     })

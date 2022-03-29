@@ -21,3 +21,13 @@ export interface FlagSettingsFormRow {
 export interface FlagSettingsFormData {
   flags: Record<string, FlagSettingsFormRow>
 }
+
+export enum AddFlagsToTargetGroupDialogStatus {
+  error,
+  loading,
+  initialLoading,
+  noFlags,
+  noSearchResults,
+  ok,
+  submitting
+}

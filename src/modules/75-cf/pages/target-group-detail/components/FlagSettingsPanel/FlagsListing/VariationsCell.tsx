@@ -8,24 +8,24 @@
 import React, { FC, useMemo } from 'react'
 import { FormInput, SelectOption } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
-import type { TargetGroupFlag } from './FlagSettingsPanel.types'
+import type { Feature } from 'services/cf'
 
 export interface VariationsCellProps {
-  flag: TargetGroupFlag
+  flag: Feature
   fieldPrefix: string
+  disabled?: boolean
 }
 
-const VariationsCell: FC<VariationsCellProps> = ({ flag, fieldPrefix }) => {
+const VariationsCell: FC<VariationsCellProps> = ({ flag, fieldPrefix, disabled = false }) => {
   const { getString } = useStrings()
-  const { variations } = flag.flag
 
   const flagItems = useMemo<SelectOption[]>(
     () =>
-      variations.map<SelectOption>(({ identifier, name }) => ({
+      flag.variations.map<SelectOption>(({ identifier, name }) => ({
         label: name || identifier,
         value: identifier
       })),
-    [variations]
+    [flag.variations]
   )
 
   return (
@@ -34,6 +34,7 @@ const VariationsCell: FC<VariationsCellProps> = ({ flag, fieldPrefix }) => {
       name={`${fieldPrefix}.variation`}
       items={flagItems}
       style={{ margin: 0 }}
+      disabled={disabled}
     />
   )
 }

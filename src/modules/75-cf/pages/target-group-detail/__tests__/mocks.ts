@@ -7,7 +7,7 @@
 
 import { pick } from 'lodash-es'
 import type { Feature, Segment, SegmentFlag } from 'services/cf'
-import type { FlagSettingsFormData, TargetGroupFlagsMap } from '../FlagSettingsPanel.types'
+import type { FlagSettingsFormData, TargetGroupFlagsMap } from '../TargetGroupDetailPage.types'
 
 export const mockTargetGroup = {
   environment: 'e1',

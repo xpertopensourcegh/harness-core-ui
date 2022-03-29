@@ -4512,6 +4512,10 @@ export interface StringsMap {
   'cf.rbac.targetgroup.delete': string
   'cf.rbac.targetgroup.edit': string
   'cf.rbac.targetgroup.label': string
+  'cf.segmentDetail.addFlag': string
+  'cf.segmentDetail.addFlagNameToTargetGroup': string
+  'cf.segmentDetail.addFlagToTargetGroup': string
+  'cf.segmentDetail.addFlags': string
   'cf.segmentDetail.addRule': string
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
@@ -4520,11 +4524,13 @@ export interface StringsMap {
   'cf.segmentDetail.criteria': string
   'cf.segmentDetail.directlyAdded': string
   'cf.segmentDetail.excludeTheFollowing': string
+  'cf.segmentDetail.flagsAddedSuccessfully': string
   'cf.segmentDetail.headingFeatureFlag': string
   'cf.segmentDetail.headingVariation': string
   'cf.segmentDetail.includeTheFollowing': string
   'cf.segmentDetail.noConditionDefined': string
   'cf.segmentDetail.noFlags': string
+  'cf.segmentDetail.noFlagsAvailable': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
   'cf.segmentDetail.noTargetDefined': string
   'cf.segmentDetail.operator': string
@@ -4536,6 +4542,7 @@ export interface StringsMap {
   'cf.segmentDetail.specifyIndividualTargets': string
   'cf.segmentDetail.targetBasedOnCondition': string
   'cf.segmentDetail.targetGroupCriteria': string
+  'cf.segmentDetail.updateSuccessful': string
   'cf.segmentDetail.updated': string
   'cf.segmentDetail.values': string
   'cf.segmentDetail.variationIsRequired': string

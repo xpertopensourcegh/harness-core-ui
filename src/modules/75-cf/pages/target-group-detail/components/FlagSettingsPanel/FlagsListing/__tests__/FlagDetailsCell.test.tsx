@@ -9,19 +9,19 @@ import React from 'react'
 import { render, RenderResult, screen } from '@testing-library/react'
 import { cloneDeep, omit } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
+import { mockFeatures } from '@cf/pages/target-group-detail/__tests__/mocks'
 import FlagDetailsCell, { FlagDetailsCellProps } from '../FlagDetailsCell'
-import { mockTargetGroupFlagsMap } from './mocks'
 
 const renderComponent = (props: Partial<FlagDetailsCellProps> = {}): RenderResult =>
   render(
     <TestWrapper>
-      <FlagDetailsCell flag={mockTargetGroupFlagsMap.f1} {...props} />
+      <FlagDetailsCell flag={mockFeatures[0]} {...props} />
     </TestWrapper>
   )
 
 describe('FlagDetailsCell', () => {
   test('it should display the flag name and description', async () => {
-    const flag = cloneDeep(mockTargetGroupFlagsMap.f1)
+    const flag = cloneDeep(mockFeatures[0])
     flag.name = 'TEST FLAG NAME'
     flag.description = 'TEST FLAG DESCRIPTION'
 
@@ -32,7 +32,7 @@ describe('FlagDetailsCell', () => {
   })
 
   test('it should not display the flag description if it is blank', async () => {
-    const flag = omit(mockTargetGroupFlagsMap.f1, 'description')
+    const flag = omit(mockFeatures[0], 'description')
     flag.name = 'TEST FLAG NAME'
 
     renderComponent({ flag })
