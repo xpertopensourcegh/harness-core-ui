@@ -43,6 +43,7 @@ export interface InputSetType {
   pipeline: PipelineInfoConfig
   gitDetails: EntityGitDetails
   entityValidityDetails: EntityValidityDetails
+  outdated?: boolean
 }
 
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {

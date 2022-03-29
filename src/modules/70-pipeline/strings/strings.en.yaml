@@ -582,6 +582,14 @@ inputSets:
   selectPlaceholder: Select Input Set(s)
   aboutInputSets: A Harness Input Set is a group of Pipeline settings and values. You create Input Sets and use them when you run a Pipeline. Input Sets let you use one Pipeline for many scenarios.
   overlayISHelperText: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
+  invalidInputSet1: Your Input Set form contains invalid fields because they are no longer a pipeline runtime input. Would you like us to remove all invalid fields in your form?
+  invalidFields: Invalid Fields
+  removeInvalidFields: Remove Invalid Fields
+  editInYamlView: Edit in YAML view
+  invalidInputSet2: Your input set is not valid anymore because you do not have any pipeline runtime inputs. You may delete this input set, update your pipeline or go back to the Input Set list.
+  invalidInputSet: Invalid Input Set
+  deleteInputSet: Delete Input Set
+  goBackToInputSetList: Go back to Input Set list
 
 provisionerSteps: Provisioner Steps
 addStage:

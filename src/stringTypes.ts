@@ -2604,11 +2604,19 @@ export interface StringsMap {
   'pipeline.inputSets.applyInputSets': string
   'pipeline.inputSets.applyingInputSet': string
   'pipeline.inputSets.applyingInputSets': string
+  'pipeline.inputSets.deleteInputSet': string
+  'pipeline.inputSets.editInYamlView': string
+  'pipeline.inputSets.goBackToInputSetList': string
   'pipeline.inputSets.inputSetNameLabel': string
   'pipeline.inputSets.inputSetPlaceholder': string
+  'pipeline.inputSets.invalidFields': string
+  'pipeline.inputSets.invalidInputSet': string
+  'pipeline.inputSets.invalidInputSet1': string
+  'pipeline.inputSets.invalidInputSet2': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.inputSets.overlayISHelperText': string
+  'pipeline.inputSets.removeInvalidFields': string
   'pipeline.inputSets.selectPlaceholder': string
   'pipeline.invalidRequest': string
   'pipeline.jiraApprovalStep.connectToJira': string
