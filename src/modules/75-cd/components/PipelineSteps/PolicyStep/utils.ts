@@ -6,7 +6,7 @@
  */
 
 import * as Yup from 'yup'
-import { get } from 'lodash-es'
+import { compact, get, isEmpty } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
 
 export const getErrorMessage = (error: any): string =>
@@ -22,7 +22,7 @@ export function getPolicySetValidationSchema({
   return Yup.mixed().test({
     test(value: string | string[]): boolean | Yup.ValidationError {
       if (Array.isArray(value)) {
-        if (value.length) {
+        if (value.length && !isEmpty(compact(value))) {
           return true
         } else {
           // if array length is 0 then create error

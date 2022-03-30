@@ -16,6 +16,7 @@ describe('getPolicySetValidationSchema utils test', () => {
     // no config is passed
     // rejects
     await expect(fn({ minimumErrorMessage, invalidErrorMessage }).validate([])).rejects.toThrow(minimumErrorMessage)
+    await expect(fn({ minimumErrorMessage, invalidErrorMessage }).validate([''])).rejects.toThrow(minimumErrorMessage)
     await expect(fn({ minimumErrorMessage, invalidErrorMessage }).validate('dummy')).rejects.toThrow(
       invalidErrorMessage
     )
