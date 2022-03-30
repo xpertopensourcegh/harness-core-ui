@@ -78,17 +78,20 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
         setCurrentStatus(Status.DONE)
         setCurrentStep(3)
       } else {
-        throw new Error('connectors.ceAws.testConnection.error')
+        throw new Error(result.data?.errorSummary)
       }
-    } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.message)
+    } catch (e: any) {
+      modalErrorHandler?.showDanger(e.message)
       setCurrentStatus(Status.ERROR)
       setCurrentIntent(Intent.DANGER)
     }
   }
+
   useEffect(() => {
-    verifyTestConnection()
-  }, [])
+    if (modalErrorHandler) {
+      verifyTestConnection()
+    }
+  }, [modalErrorHandler])
 
   return (
     <Layout.Vertical className={css.stepContainer}>
