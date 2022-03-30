@@ -2904,8 +2904,6 @@ export interface StringsMap {
   'pipeline.stepDescription.SHELLSCRIPT': string
   'pipeline.stepDescription.SaveCacheGCS': string
   'pipeline.stepDescription.SaveCacheS3': string
-  'pipeline.stepDescription.ServerlessAwsLambdaDeploy': string
-  'pipeline.stepDescription.ServerlessAwsLambdaRollback': string
   'pipeline.stepDescription.ServiceNowApproval': string
   'pipeline.stepDescription.TerraformApply': string
   'pipeline.stepDescription.TerraformDestroy': string
@@ -3333,8 +3331,6 @@ export interface StringsMap {
   'cd.secretManagerRequired': string
   'cd.selectArtifact': string
   'cd.selectRepository': string
-  'cd.serverlessCommandFlagOperations': string
-  'cd.serverlessDeployCommandOptions': string
   'cd.serviceCreated': string
   'cd.serviceDashboard.6monthTrend': string
   'cd.serviceDashboard.activeServiceInstancesLabel': string
