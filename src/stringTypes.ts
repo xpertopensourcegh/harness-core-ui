@@ -480,6 +480,7 @@ export interface StringsMap {
   'common.purpose.change': string
   'common.purpose.changeSelection': string
   'common.purpose.ci.continuous': string
+  'common.purpose.ci.continuousLabel': string
   'common.purpose.ci.description': string
   'common.purpose.ci.descriptionOnly': string
   'common.purpose.ci.integration': string
@@ -4680,6 +4681,36 @@ export interface StringsMap {
   'ci.description': string
   'ci.executionLabel': string
   'ci.fileStore': string
+  'ci.getStartedWithCI.buildPipeline': string
+  'ci.getStartedWithCI.buildyourOwnPipeline': string
+  'ci.getStartedWithCI.chooseAnOption': string
+  'ci.getStartedWithCI.codebaseRepoLabel': string
+  'ci.getStartedWithCI.configInfra': string
+  'ci.getStartedWithCI.connectSCM': string
+  'ci.getStartedWithCI.devFriendly': string
+  'ci.getStartedWithCI.devFriendlyHelpText': string
+  'ci.getStartedWithCI.firstPipeline': string
+  'ci.getStartedWithCI.flexibleInfra': string
+  'ci.getStartedWithCI.flexibleInfraHelpText': string
+  'ci.getStartedWithCI.hostedByHarness': string
+  'ci.getStartedWithCI.integratedCICD': string
+  'ci.getStartedWithCI.integratedCICDHelpText': string
+  'ci.getStartedWithCI.javaLabel': string
+  'ci.getStartedWithCI.languageAgnostic': string
+  'ci.getStartedWithCI.languageAgnosticHelpText': string
+  'ci.getStartedWithCI.parallelization': string
+  'ci.getStartedWithCI.parallelizationHelpText': string
+  'ci.getStartedWithCI.parameterization': string
+  'ci.getStartedWithCI.parameterizationHelpText': string
+  'ci.getStartedWithCI.quicklyCreate': string
+  'ci.getStartedWithCI.security': string
+  'ci.getStartedWithCI.securityHelpText': string
+  'ci.getStartedWithCI.selectRepo': string
+  'ci.getStartedWithCI.startSamplePipeline': string
+  'ci.getStartedWithCI.takeToTheNextLevel': string
+  'ci.getStartedWithCI.ti': string
+  'ci.getStartedWithCI.tiHelpText': string
+  'ci.getStartedWithCI.tryASamplePipeline': string
   'ci.gradleNote1': string
   'ci.gradleNote2': string
   'ci.gradleNotesTitle': string
