@@ -35,9 +35,11 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
   const { getString } = useStrings()
   const { inputSetData, readonly, path, allowableTypes, onUpdate, onChange } = props
   const { expressions } = useVariablesExpression()
+  /* istanbul ignore next */
   const onUpdateRef = (arg: TerraformData): void => {
     onUpdate?.(arg as T)
   }
+  /* istanbul ignore next */
   const onChangeRef = (arg: TerraformData): void => {
     onChange?.(arg as T)
   }
