@@ -32,7 +32,7 @@
 
   :global {
     .bp3-control.bp3-switch input:checked ~ .bp3-control-indicator {
-      background-color: #25a6f7;
+      background-color: var(--primary-4);
     }
   }
 }

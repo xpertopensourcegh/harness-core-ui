@@ -2308,8 +2308,6 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
   'pipeline.approvalTypeRequired': string
-  'pipeline.artifactPathDependencyRequired': string
-  'pipeline.artifactPathFilterLabel': string
   'pipeline.artifactPathLabel': string
   'pipeline.artifactTriggerConfigPanel.artifact': string
   'pipeline.artifactTriggerConfigPanel.artifactReferenceUnique': string
@@ -2328,11 +2326,8 @@ export interface StringsMap {
   'pipeline.artifactTriggerConfigPanel.selectAManifest': string
   'pipeline.artifactTriggerConfigPanel.selectAnArtifact': string
   'pipeline.artifactsSelection.artifactDetails': string
-  'pipeline.artifactsSelection.artifactDirectory': string
-  'pipeline.artifactsSelection.artifactDirectoryPlaceholder': string
   'pipeline.artifactsSelection.artifactNamePlaceholder': string
   'pipeline.artifactsSelection.artifactTyperequired': string
-  'pipeline.artifactsSelection.errors.noRepositories': string
   'pipeline.artifactsSelection.existingDocker.enterTagRegex': string
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
@@ -2341,9 +2336,7 @@ export interface StringsMap {
   'pipeline.artifactsSelection.repositoryPlaceholder': string
   'pipeline.artifactsSelection.repositoryPort': string
   'pipeline.artifactsSelection.repositoryPortPlaceholder': string
-  'pipeline.artifactsSelection.validation.artifactDirectory': string
   'pipeline.artifactsSelection.validation.artifactPath': string
-  'pipeline.artifactsSelection.validation.artifactPathFilter': string
   'pipeline.artifactsSelection.validation.imagePath': string
   'pipeline.artifactsSelection.validation.region': string
   'pipeline.artifactsSelection.validation.repositoryPort': string
@@ -2730,17 +2723,12 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
-  'pipeline.manifestTypeLabels.AwsSAM': string
-  'pipeline.manifestTypeLabels.AzureFunctions': string
   'pipeline.manifestTypeLabels.HelmChartLabel': string
   'pipeline.manifestTypeLabels.K8sManifest': string
   'pipeline.manifestTypeLabels.KustomizeLabel': string
   'pipeline.manifestTypeLabels.KustomizePatches': string
   'pipeline.manifestTypeLabels.OpenshiftParam': string
   'pipeline.manifestTypeLabels.OpenshiftTemplate': string
-  'pipeline.manifestTypeLabels.ServerlessAwsLambda': string
-  'pipeline.manifestTypeLabels.ServerlessAzure': string
-  'pipeline.manifestTypeLabels.ServerlessGCP': string
   'pipeline.manifestTypeLabels.ValuesYaml': string
   'pipeline.moveStage.description': string
   'pipeline.moveStage.title': string
@@ -2839,14 +2827,9 @@ export interface StringsMap {
   'pipeline.serviceDeploymentTypes.amazonEcs': string
   'pipeline.serviceDeploymentTypes.awsCodeDeploy': string
   'pipeline.serviceDeploymentTypes.awsLambda': string
-  'pipeline.serviceDeploymentTypes.awsSAM': string
-  'pipeline.serviceDeploymentTypes.azureFunctions': string
   'pipeline.serviceDeploymentTypes.deployDifferentLabel': string
   'pipeline.serviceDeploymentTypes.kubernetes': string
   'pipeline.serviceDeploymentTypes.pcf': string
-  'pipeline.serviceDeploymentTypes.serverlessAwsLambda': string
-  'pipeline.serviceDeploymentTypes.serverlessAzureFunctions': string
-  'pipeline.serviceDeploymentTypes.serverlessGoogleFunctions': string
   'pipeline.serviceDeploymentTypes.ssh': string
   'pipeline.serviceDeploymentTypes.winrm': string
   'pipeline.serviceNowApprovalStep.connectToServiceNow': string
@@ -7726,10 +7709,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.deploy.create.multipleServices': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.deploy.errors.noArtifactPaths': string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -54,10 +54,10 @@ import type { Scope } from '@common/interfaces/SecretsInterface'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { ArtifactActions } from '@common/constants/TrackingConstants'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import { getSelectedDeploymentType, isServerlessDeploymentType } from '@pipeline/utils/stageHelpers'
 import StepNexusAuthentication from '@connectors/components/CreateConnector/NexusConnector/StepAuth/StepNexusAuthentication'
 import StepArtifactoryAuthentication from '@connectors/components/CreateConnector/ArtifactoryConnector/StepAuth/StepArtifactoryAuthentication'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { getSelectedDeploymentType } from '@pipeline/utils/stageHelpers'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
 import { DockerRegistryArtifact } from './ArtifactRepository/ArtifactLastSteps/DockerRegistryArtifact/DockerRegistryArtifact'
@@ -122,8 +122,7 @@ export default function ArtifactsSelection({
   useEffect(() => {
     if (
       NG_NEXUS_ARTIFACTORY &&
-      !allowedArtifactTypes[deploymentType]?.includes(ENABLED_ARTIFACT_TYPES.Nexus3Registry) &&
-      !isServerlessDeploymentType(deploymentType)
+      !allowedArtifactTypes[deploymentType]?.includes(ENABLED_ARTIFACT_TYPES.Nexus3Registry)
     ) {
       allowedArtifactTypes[deploymentType].push(
         ENABLED_ARTIFACT_TYPES.Nexus3Registry,
@@ -556,8 +555,7 @@ export default function ArtifactsSelection({
       },
       artifactIdentifiers: sideCarArtifact?.map((item: SidecarArtifactWrapper) => item.sidecar?.identifier as string),
       isReadonly: isReadonly,
-      selectedArtifact,
-      selectedDeploymentType: deploymentType
+      selectedArtifact
     }
   }, [
     addArtifact,
@@ -733,7 +731,6 @@ export default function ArtifactsSelection({
       accountId={accountId}
       refetchConnectors={refetchConnectorList}
       isReadonly={isReadonly}
-      allowSidecar={!isServerlessDeploymentType(deploymentType)}
     />
   )
 }

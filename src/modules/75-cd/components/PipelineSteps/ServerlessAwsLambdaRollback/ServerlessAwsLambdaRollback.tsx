@@ -19,7 +19,7 @@ import {
   setFormikRef,
   StepFormikFowardRef
 } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElementConfig, ServerlessAwsLambdaRollbackStepInfo } from 'services/cd-ng'
+import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -39,28 +39,24 @@ import type { StringsMap } from 'stringTypes'
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-interface ServerlessAwsLambdaRollbackData extends StepElementConfig {
-  spec: Omit<ServerlessAwsLambdaRollbackStepInfo, 'skipDryRun'> & { skipDryRun: boolean }
-}
-
 export interface ServerlessAwsLambdaRollbackVariableStepProps {
-  initialValues: ServerlessAwsLambdaRollbackData
+  initialValues: StepElementConfig
   stageIdentifier: string
-  onUpdate?(data: ServerlessAwsLambdaRollbackData): void
+  onUpdate?(data: StepElementConfig): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: ServerlessAwsLambdaRollbackData
+  variablesData: StepElementConfig
 }
 
 interface ServerlessAwsLambdaRollbackProps {
-  initialValues: ServerlessAwsLambdaRollbackData
-  onUpdate?: (data: ServerlessAwsLambdaRollbackData) => void
-  onChange?: (data: ServerlessAwsLambdaRollbackData) => void
+  initialValues: StepElementConfig
+  onUpdate?: (data: StepElementConfig) => void
+  onChange?: (data: StepElementConfig) => void
   allowableTypes: MultiTypeInputType[]
   readonly?: boolean
   stepViewType?: StepViewType
   isNewStep?: boolean
   inputSetData?: {
-    template?: ServerlessAwsLambdaRollbackData
+    template?: StepElementConfig
     path?: string
     readonly?: boolean
   }
@@ -68,15 +64,15 @@ interface ServerlessAwsLambdaRollbackProps {
 
 function ServerlessAwsLambdaRollbackWidget(
   props: ServerlessAwsLambdaRollbackProps,
-  formikRef: StepFormikFowardRef<ServerlessAwsLambdaRollbackData>
+  formikRef: StepFormikFowardRef<StepElementConfig>
 ): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true, readonly, allowableTypes, onChange, stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
     <>
-      <Formik<ServerlessAwsLambdaRollbackData>
-        onSubmit={(values: ServerlessAwsLambdaRollbackData) => {
+      <Formik<StepElementConfig>
+        onSubmit={(values: StepElementConfig) => {
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
         formName="ServerlessAwsLambdaRB"
@@ -89,7 +85,7 @@ function ServerlessAwsLambdaRollbackWidget(
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
         })}
       >
-        {(formik: FormikProps<ServerlessAwsLambdaRollbackData>) => {
+        {(formik: FormikProps<StepElementConfig>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
 
@@ -195,14 +191,14 @@ const ServerlessAwsLambdaRollbackVariableStep: React.FC<ServerlessAwsLambdaRollb
 
 const ServerlessAwsLambdaRollbackWidgetWithRef = React.forwardRef(ServerlessAwsLambdaRollbackWidget)
 
-export class ServerlessAwsLambdaRollbackStep extends PipelineStep<ServerlessAwsLambdaRollbackData> {
+export class ServerlessAwsLambdaRollbackStep extends PipelineStep<StepElementConfig> {
   constructor() {
     super()
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
 
-  renderStep(props: StepProps<ServerlessAwsLambdaRollbackData>): JSX.Element {
+  renderStep(props: StepProps<StepElementConfig>): JSX.Element {
     const {
       initialValues,
       onUpdate,
@@ -252,7 +248,7 @@ export class ServerlessAwsLambdaRollbackStep extends PipelineStep<ServerlessAwsL
     template,
     getString,
     viewType
-  }: ValidateInputSetProps<ServerlessAwsLambdaRollbackData>): FormikErrors<ServerlessAwsLambdaRollbackData> {
+  }: ValidateInputSetProps<StepElementConfig>): FormikErrors<StepElementConfig> {
     const isRequired = viewType === StepViewType.DeploymentForm || viewType === StepViewType.TriggerForm
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
@@ -288,7 +284,7 @@ export class ServerlessAwsLambdaRollbackStep extends PipelineStep<ServerlessAwsL
   protected stepIcon: IconName = 'main-rollback'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.ServerlessAwsLambdaRollback'
 
-  protected defaultValues: ServerlessAwsLambdaRollbackData = {
+  protected defaultValues: StepElementConfig = {
     identifier: '',
     name: '',
     type: StepType.ServerlessAwsLambdaRollback,

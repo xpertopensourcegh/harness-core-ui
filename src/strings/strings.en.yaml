@@ -915,7 +915,6 @@ pipelineSteps:
   deploy:
     errors:
       notags: No tags found with given Image Path
-      noArtifactPaths: No artifact paths found with given Artifact Directory
     create:
       multipleServices: '{{$.multipleService}}'
       deployStageName: Deploy

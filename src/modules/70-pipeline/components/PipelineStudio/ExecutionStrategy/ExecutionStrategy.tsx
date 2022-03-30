@@ -102,9 +102,7 @@ function ExecutionStrategyRef(
     )
   }, [getStageFromPipeline, selectedStage])
 
-  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>(
-    serviceDefinitionType() === 'ServerlessAwsLambda' ? 'Basic' : 'Rolling'
-  )
+  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
 
   const infoByType: { [key: string]: string } = {
     BlueGreen: getString('pipeline.executionStrategy.strategies.blueGreen.description'),

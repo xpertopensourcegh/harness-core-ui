@@ -21,14 +21,10 @@ import cx from 'classnames'
 import { Color, FontVariation } from '@harness/design-system'
 import { useStrings } from 'framework/strings'
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
-import type { PrimaryArtifact, SidecarArtifactWrapper } from 'services/cd-ng'
+import type { SidecarArtifactWrapper } from 'services/cd-ng'
 import { ArtifactIconByType, ModalViewFor } from '../ArtifactHelper'
 import type { ArtifactListViewProps, ArtifactType } from '../ArtifactInterface'
 import css from '../ArtifactsSelection.module.scss'
-
-const getPrimaryArtifactLocation = (primaryArtifact: PrimaryArtifact): string => {
-  return primaryArtifact.spec.imagePath ?? primaryArtifact.spec.artifactPath ?? primaryArtifact.spec.artifactPathFilter
-}
 
 function ArtifactListView({
   accountId,
@@ -40,8 +36,7 @@ function ArtifactListView({
   overrideSetIdentifier,
   removePrimary,
   removeSidecar,
-  addNewArtifact,
-  allowSidecar = true
+  addNewArtifact
 }: ArtifactListViewProps): React.ReactElement {
   const { getString } = useStrings()
   const { color: primaryConnectorColor } = getStatus(
@@ -101,7 +96,9 @@ function ArtifactListView({
                 </div>
                 <div>
                   <Text width={340} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    <span className={css.noWrap}>{getPrimaryArtifactLocation(primaryArtifact)}</span>
+                    <span className={css.noWrap}>
+                      {primaryArtifact.spec.imagePath ?? primaryArtifact.spec.artifactPath}
+                    </span>
                   </Text>
                 </div>
                 {overrideSetIdentifier?.length === 0 && !isReadonly && (
@@ -217,7 +214,7 @@ function ArtifactListView({
             text={getString('pipelineSteps.serviceTab.artifactList.addPrimary')}
           />
         )}
-        {!overrideSetIdentifier?.length && !isReadonly && allowSidecar && (
+        {!overrideSetIdentifier?.length && !isReadonly && (
           <Button
             className={css.addArtifact}
             id="add-artifact"
