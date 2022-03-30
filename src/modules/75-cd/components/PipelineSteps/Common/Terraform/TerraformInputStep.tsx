@@ -48,6 +48,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             name={`${path}.spec.provisionerIdentifier`}
+            placeholder={getString('pipeline.terraformStep.provisionerIdentifier')}
             label={getString('pipelineSteps.provisionerIdentifier')}
             disabled={readonly}
             multiTextInputProps={{

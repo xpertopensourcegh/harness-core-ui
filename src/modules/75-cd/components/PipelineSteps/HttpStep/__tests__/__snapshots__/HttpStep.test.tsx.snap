@@ -628,6 +628,7 @@ exports[`Http Step renders input sets 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.url"
+                placeholder="pipeline.utilitiesStep.url"
                 type="text"
                 value=""
               />
@@ -801,6 +802,7 @@ exports[`Http Step renders input sets 1`] = `
               <textarea
                 class="bp3-input input"
                 name="spec.requestBody"
+                placeholder="pipeline.utilitiesStep.requestBody"
               />
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -967,6 +969,7 @@ exports[`Http Step renders input sets 1`] = `
                       class="bp3-input"
                       disabled=""
                       name="spec.headers[0].key"
+                      placeholder="pipeline.keyPlaceholder"
                       type="text"
                       value=""
                     />
@@ -990,6 +993,7 @@ exports[`Http Step renders input sets 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="spec.headers[0].value"
+                        placeholder="common.valuePlaceholder"
                         type="text"
                         value=""
                       />
@@ -1092,6 +1096,7 @@ exports[`Http Step renders input sets 1`] = `
                       class="bp3-input"
                       disabled=""
                       name="spec.outputVariables[0].name"
+                      placeholder="name"
                       type="text"
                       value=""
                     />
@@ -1115,6 +1120,7 @@ exports[`Http Step renders input sets 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="spec.outputVariables[0].value"
+                        placeholder="valueLabel"
                         type="text"
                         value=""
                       />

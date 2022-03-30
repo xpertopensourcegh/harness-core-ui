@@ -525,6 +525,7 @@ function TerraformPlanWidget(
                       <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                         <MultiTypeList
                           name="spec.configuration.targets"
+                          placeholder={getString('cd.enterTragets')}
                           multiTextInputProps={{
                             expressions,
                             allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)

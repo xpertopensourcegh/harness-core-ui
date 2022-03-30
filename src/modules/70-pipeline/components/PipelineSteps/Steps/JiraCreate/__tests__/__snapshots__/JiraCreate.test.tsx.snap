@@ -106,6 +106,7 @@ exports[`Jira Create fetch projects show error if failed to fetch projects 1`] =
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value=""
                   />
@@ -2422,6 +2423,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
                     class="bp3-input"
                     disabled=""
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value=""
                   />

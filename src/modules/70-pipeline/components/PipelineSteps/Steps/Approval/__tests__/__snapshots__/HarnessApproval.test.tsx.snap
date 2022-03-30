@@ -1129,6 +1129,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
                     class="bp3-input"
                     disabled=""
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value=""
                   />
@@ -1639,6 +1640,7 @@ exports[`Harness Approval tests Edit stage - submit field values as expressions:
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value="harness approval step"
                   />
@@ -2605,6 +2607,7 @@ exports[`Harness Approval tests MinimumCount should be greater than 1: minimum c
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value="harness approval step"
                   />
@@ -3542,6 +3545,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value="harness approval step"
                   />

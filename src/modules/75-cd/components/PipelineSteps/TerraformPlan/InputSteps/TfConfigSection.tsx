@@ -111,6 +111,7 @@ function ConfigSectionRef(props: TerraformPlanProps & { formik?: any }): React.R
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             name={`${path}.spec.configuration.workspace`}
+            placeholder={getString('pipeline.terraformStep.workspace')}
             label={getString('pipelineSteps.workspace')}
             disabled={readonly}
             multiTextInputProps={{

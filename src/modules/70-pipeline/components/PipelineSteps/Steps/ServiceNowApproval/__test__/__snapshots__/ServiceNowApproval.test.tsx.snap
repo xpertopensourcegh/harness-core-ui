@@ -873,6 +873,7 @@ exports[`ServiceNow Approval tests Edit stage - readonly: edit stage view readon
                     class="bp3-input"
                     disabled=""
                     name="name"
+                    placeholder="pipeline.stepNamePlaceholder"
                     type="text"
                     value=""
                   />

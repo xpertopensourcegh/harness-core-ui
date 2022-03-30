@@ -3288,6 +3288,8 @@ export interface StringsMap {
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
   'cd.editIdError': string
+  'cd.enterTragets': string
+  'cd.enterWorkDirectory': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
   'cd.featureRestriction.banners.deploymentsPerMonthLevelUp': string
@@ -3387,6 +3389,7 @@ export interface StringsMap {
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string
+  'cd.specifyTargetHost': string
   'cd.specifyTfVarStore': string
   'cd.stepName': string
   'cd.steps.common.clusterDetails': string

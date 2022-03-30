@@ -526,6 +526,7 @@ export default function TerraformEditView(
                                 allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
                               }}
                               name="spec.configuration.spec.targets"
+                              placeholder={getString('cd.enterTragets')}
                               disabled={readonly}
                               multiTypeFieldSelectorProps={{
                                 label: (
