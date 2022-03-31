@@ -4689,16 +4689,34 @@ export interface StringsMap {
   'ci.fileStore': string
   'ci.getStartedWithCI.buildPipeline': string
   'ci.getStartedWithCI.buildyourOwnPipeline': string
+  'ci.getStartedWithCI.carousel.helptext.complexPipelines': string
+  'ci.getStartedWithCI.carousel.helptext.connectToRepo': string
+  'ci.getStartedWithCI.carousel.helptext.containerizedSteps': string
+  'ci.getStartedWithCI.carousel.helptext.harnessCIFeatures': string
+  'ci.getStartedWithCI.carousel.helptext.pipelineStudio': string
+  'ci.getStartedWithCI.carousel.helptext.seamlessIntegration': string
+  'ci.getStartedWithCI.carousel.helptext.ti': string
+  'ci.getStartedWithCI.carousel.helptext.useCaching': string
+  'ci.getStartedWithCI.carousel.helptext.usePlugins': string
+  'ci.getStartedWithCI.carousel.labels.complexPipelines': string
+  'ci.getStartedWithCI.carousel.labels.containerizedSteps': string
+  'ci.getStartedWithCI.carousel.labels.harnessCIFeatures': string
+  'ci.getStartedWithCI.carousel.labels.integration': string
+  'ci.getStartedWithCI.carousel.labels.useCaching': string
+  'ci.getStartedWithCI.carousel.labels.usePlugins': string
   'ci.getStartedWithCI.chooseAnOption': string
+  'ci.getStartedWithCI.chooseDiffInfra': string
   'ci.getStartedWithCI.codebaseRepoLabel': string
   'ci.getStartedWithCI.configInfra': string
   'ci.getStartedWithCI.connectSCM': string
   'ci.getStartedWithCI.devFriendly': string
   'ci.getStartedWithCI.devFriendlyHelpText': string
+  'ci.getStartedWithCI.duration': string
   'ci.getStartedWithCI.firstPipeline': string
   'ci.getStartedWithCI.flexibleInfra': string
   'ci.getStartedWithCI.flexibleInfraHelpText': string
   'ci.getStartedWithCI.hostedByHarness': string
+  'ci.getStartedWithCI.infraProvisioningFailed': string
   'ci.getStartedWithCI.integratedCICD': string
   'ci.getStartedWithCI.integratedCICDHelpText': string
   'ci.getStartedWithCI.javaLabel': string
@@ -4708,6 +4726,7 @@ export interface StringsMap {
   'ci.getStartedWithCI.parallelizationHelpText': string
   'ci.getStartedWithCI.parameterization': string
   'ci.getStartedWithCI.parameterizationHelpText': string
+  'ci.getStartedWithCI.provisionSecureEnv': string
   'ci.getStartedWithCI.quicklyCreate': string
   'ci.getStartedWithCI.security': string
   'ci.getStartedWithCI.securityHelpText': string
@@ -4716,6 +4735,7 @@ export interface StringsMap {
   'ci.getStartedWithCI.takeToTheNextLevel': string
   'ci.getStartedWithCI.ti': string
   'ci.getStartedWithCI.tiHelpText': string
+  'ci.getStartedWithCI.troubleShootFailedProvisioning': string
   'ci.getStartedWithCI.tryASamplePipeline': string
   'ci.gradleNote1': string
   'ci.gradleNote2': string
