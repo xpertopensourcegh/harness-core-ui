@@ -736,6 +736,7 @@ export interface StringsMap {
   'notifications.emailOrAlias': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
+  'notifications.enterMicrosoftTeamsUrl': string
   'notifications.errors.invalidUrl': string
   'notifications.errors.msTeamUrlRequired': string
   'notifications.eventRequired': string
