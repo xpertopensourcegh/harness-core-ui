@@ -5,13 +5,10 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-.tab-container {
-  height: calc(100vh - 145px);
-  display: grid;
-  grid-template-rows: 1fr 65px;
-  padding-left: var(--spacing-xlarge);
-  padding-right: var(--spacing-xlarge);
-  &:first-child {
-    overflow-y: auto;
-  }
+// needed as the Label component doesn't match the other labels
+.tag-input-label {
+  margin-bottom: 5px !important;
+  color: var(--grey-600);
+  font-size: var(--form-input-font-size);
+  font-weight: 500;
 }

@@ -7,15 +7,6 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly actionButtons: string
-  readonly editBtnsGroup: string
-  readonly editContainer: string
-  readonly envSelect: string
-  readonly environmentHeaderContainer: string
-  readonly formContainer: string
-  readonly switch: string
-  readonly tabContainer: string
-  readonly tabContainerHeight: string
-  readonly tabTitle: string
+  readonly tagInputLabel: string
 }
 export default styles

@@ -4314,6 +4314,7 @@ export interface StringsMap {
   'cf.featureFlags.prerequisitesDesc': string
   'cf.featureFlags.results': string
   'cf.featureFlags.rules.add': string
+  'cf.featureFlags.rules.addTargeting': string
   'cf.featureFlags.rules.customRules': string
   'cf.featureFlags.rules.defaultRule': string
   'cf.featureFlags.rules.defaultRules': string
@@ -4329,6 +4330,9 @@ export interface StringsMap {
   'cf.featureFlags.rules.toTarget': string
   'cf.featureFlags.rules.toTargetGroups': string
   'cf.featureFlags.rules.toTargets': string
+  'cf.featureFlags.rules.validation.selectTargetGroup': string
+  'cf.featureFlags.rules.validation.valueMustAddTo100': string
+  'cf.featureFlags.rules.validation.valueRequired': string
   'cf.featureFlags.rules.whenFlagEnabled': string
   'cf.featureFlags.serve': string
   'cf.featureFlags.servePercentageRollout': string
