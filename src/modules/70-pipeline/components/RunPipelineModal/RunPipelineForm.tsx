@@ -68,7 +68,6 @@ import { PipelineActions } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import type { InputSetDTO } from '@pipeline/utils/types'
 import { useDeepCompareEffect } from '@common/hooks/useDeepCompareEffect'
-import { useGetYamlWithTemplateRefsResolved } from 'services/template-ng'
 import {
   clearRuntimeInput,
   validatePipeline,
@@ -217,7 +216,8 @@ function RunPipelineFormBasic({
       orgIdentifier,
       projectIdentifier,
       repoIdentifier,
-      branch
+      branch,
+      getTemplatesResolvedPipeline: true
     }
   })
 
@@ -226,22 +226,9 @@ function RunPipelineFormBasic({
     [pipelineResponse?.data?.yamlPipeline]
   )
 
-  const { data: templateRefsResolvedPipeline, loading: loadingResolvedPipeline } = useMutateAsGet(
-    useGetYamlWithTemplateRefsResolved,
-    {
-      queryParams: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        pipelineIdentifier,
-        projectIdentifier,
-        repoIdentifier,
-        branch,
-        getDefaultFromOtherRepo: true
-      },
-      body: {
-        originalEntityYaml: yamlStringify(pipeline)
-      }
-    }
+  const resolvedPipeline: PipelineInfoConfig | undefined = React.useMemo(
+    () => parse(defaultTo(pipelineResponse?.data?.resolvedTemplatesPipelineYaml, ''))?.pipeline,
+    [pipelineResponse?.data?.resolvedTemplatesPipelineYaml]
   )
 
   const { mutate: runPipeline, loading: runLoading } = usePostPipelineExecuteWithInputSetYaml({
@@ -451,10 +438,6 @@ function RunPipelineFormBasic({
     orgIdentifier,
     pipelineIdentifier
   ])
-
-  const resolvedPipeline: PipelineInfoConfig | undefined = parse(
-    defaultTo(templateRefsResolvedPipeline?.data?.mergedPipelineYaml, '')
-  )
 
   const valuesPipelineRef = useRef<PipelineInfoConfig>()
 
@@ -702,15 +685,7 @@ function RunPipelineFormBasic({
   }
 
   const shouldShowPageSpinner = (): boolean => {
-    return (
-      loadingPipeline ||
-      loadingResolvedPipeline ||
-      loadingTemplate ||
-      runLoading ||
-      runStageLoading ||
-      reRunLoading ||
-      reRunStagesLoading
-    )
+    return loadingPipeline || loadingTemplate || runLoading || runStageLoading || reRunLoading || reRunStagesLoading
   }
 
   const formRefDom = React.useRef<HTMLElement | undefined>()
