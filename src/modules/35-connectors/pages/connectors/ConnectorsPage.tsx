@@ -143,7 +143,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   useDocumentTitle(getString('connectorsLabel'))
   const isCustomHealthEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
   const isErrorTrackingEnabled = useFeatureFlag(FeatureFlag.ERROR_TRACKING_ENABLED)
-  const isAzureEnabled = useFeatureFlag(FeatureFlag.NG_AZURE)
   const { trackEvent } = useTelemetry()
 
   const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
@@ -342,17 +341,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       return connector === 'CEK8sCluster' && !featureInfo.enabled
     }
 
-    const filterConnectors = (connector: string): boolean => {
-      switch (connector) {
-        case Connectors.ERROR_TRACKING:
-          return isErrorTrackingEnabled
-        case Connectors.AZURE:
-          return isAzureEnabled
-        default:
-          return true
-      }
-    }
-
     return Object.assign(
       {},
       {
@@ -367,7 +355,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               },
               items:
                 item.connectors
-                  ?.filter(connector => filterConnectors(connector))
+                  ?.filter(connector => (connector === 'ErrorTracking' ? isErrorTrackingEnabled : true))
                   .sort((a, b) => (getConnectorDisplayName(a) < getConnectorDisplayName(b) ? -1 : 1))
                   .filter(entry => {
                     const name = entry.valueOf() || ''

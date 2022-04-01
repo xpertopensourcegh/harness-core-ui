@@ -26,7 +26,6 @@ import { HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInter
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { accessTypeOptionsMap } from '@connectors/components/CreateConnector/HashiCorpVault/views/VaultConnectorFormFields'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
-import { AzureSecretKeyType, DelegateTypes } from '../../utils/ConnectorUtils'
 import css from './SavedConnectorDetails.module.scss'
 
 interface SavedConnectorDetailsProps {
@@ -567,55 +566,6 @@ const getAWSSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
   ]
 }
 
-const getAzureSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
-  const connectorInfoSpec = connector?.spec
-  const delegateInCluster = connectorInfoSpec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
-  const authType = connectorInfoSpec?.credential?.spec?.auth?.type
-
-  const schema = [
-    {
-      label: 'connectionMode',
-      value: connectorInfoSpec?.credential?.type
-    },
-    {
-      label: 'environment',
-      value: connectorInfoSpec?.azureEnvironmentType
-    },
-    {
-      label: 'connectors.azure.applicationId',
-      value: connectorInfoSpec?.credential?.spec?.applicationId
-    },
-    {
-      label: 'connectors.tenantId',
-      value: connectorInfoSpec?.credential?.spec?.tenantId
-    },
-    {
-      label: 'authentication',
-      value: authType
-    },
-    {
-      label: 'connectors.azure.clientId',
-      value: connectorInfoSpec?.credentials?.spec?.auth?.spec?.clientId
-    }
-  ]
-
-  return delegateInCluster
-    ? schema
-    : [
-        ...schema,
-        {
-          label:
-            authType === AzureSecretKeyType.SECRET
-              ? 'connectors.azure.auth.secret'
-              : 'connectors.azure.auth.certificate',
-          value:
-            authType === AzureSecretKeyType.SECRET
-              ? connectorInfoSpec?.credential?.spec?.auth?.spec?.secretRef
-              : connectorInfoSpec?.credential?.spec?.auth?.spec?.certificateRef
-        }
-      ]
-}
-
 const getNexusSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
@@ -761,8 +711,6 @@ const getSchemaByType = (
       return getSumologicSchema(connector)
     case Connectors.SERVICE_NOW:
       return getServiceNowSchema(connector)
-    case Connectors.AZURE:
-      return getAzureSchema(connector)
     default:
       return []
   }

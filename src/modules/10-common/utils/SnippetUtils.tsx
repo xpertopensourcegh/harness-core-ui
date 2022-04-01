@@ -62,9 +62,7 @@ const entitySubTypeToTagMap: {
   AwsSecretManager: 'awssecretmanager',
   PagerDuty: 'pagerduty',
   CustomHealth: 'customhealth',
-  ErrorTracking: 'errortracking',
-  Azure: 'azure',
-  Pdc: 'pdc'
+  ErrorTracking: 'errortracking'
 }
 
 export const getSnippetTags = (
