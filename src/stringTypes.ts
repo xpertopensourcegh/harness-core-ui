@@ -3845,20 +3845,29 @@ export interface StringsMap {
   'ce.homepage.slogan': string
   'ce.learnMore': string
   'ce.noSavingsDataMessage': string
+  'ce.nodeRecommendation.addPreferredInstanceFamilies': string
   'ce.nodeRecommendation.aks': string
+  'ce.nodeRecommendation.applyPreferences': string
+  'ce.nodeRecommendation.autoScaling': string
+  'ce.nodeRecommendation.buffer': string
   'ce.nodeRecommendation.compare': string
   'ce.nodeRecommendation.costPerHour': string
+  'ce.nodeRecommendation.cpuAndMemeValWithBuffer': string
   'ce.nodeRecommendation.cpus': string
   'ce.nodeRecommendation.distribution': string
   'ce.nodeRecommendation.eks': string
   'ce.nodeRecommendation.estimatedSavings': string
+  'ce.nodeRecommendation.fetchRecommendationError': string
   'ce.nodeRecommendation.gke': string
   'ce.nodeRecommendation.howItWorks': string
+  'ce.nodeRecommendation.inconsistentResourceReq': string
+  'ce.nodeRecommendation.instaceFamiliesModalDesc': string
   'ce.nodeRecommendation.instanceFam': string
   'ce.nodeRecommendation.item1': string
   'ce.nodeRecommendation.item2': string
   'ce.nodeRecommendation.item3': string
   'ce.nodeRecommendation.item4': string
+  'ce.nodeRecommendation.largestWorkloadReq': string
   'ce.nodeRecommendation.listhead': string
   'ce.nodeRecommendation.maxNode': string
   'ce.nodeRecommendation.mem': string
@@ -3869,13 +3878,23 @@ export interface StringsMap {
   'ce.nodeRecommendation.nodepool': string
   'ce.nodeRecommendation.onDemand': string
   'ce.nodeRecommendation.poolDetails': string
+  'ce.nodeRecommendation.prefMinNodeCount': string
+  'ce.nodeRecommendation.prefResourceNeeds': string
+  'ce.nodeRecommendation.preferredInstanceFamilies': string
+  'ce.nodeRecommendation.ram': string
   'ce.nodeRecommendation.recommended': string
   'ce.nodeRecommendation.resourceNeed': string
+  'ce.nodeRecommendation.resourceUtilInLast': string
+  'ce.nodeRecommendation.savePreferences': string
+  'ce.nodeRecommendation.setInstancePreferences': string
   'ce.nodeRecommendation.spot': string
   'ce.nodeRecommendation.suitable.prod': string
   'ce.nodeRecommendation.suitable.qa': string
   'ce.nodeRecommendation.text1': string
   'ce.nodeRecommendation.text2': string
+  'ce.nodeRecommendation.tuneRecommendationsInfo1': string
+  'ce.nodeRecommendation.tuneRecommendationsInfo2': string
+  'ce.nodeRecommendation.updatePreferences': string
   'ce.overview.addClusterBtn': string
   'ce.overview.addClusterDesc': string
   'ce.overview.cardtitles.aws': string

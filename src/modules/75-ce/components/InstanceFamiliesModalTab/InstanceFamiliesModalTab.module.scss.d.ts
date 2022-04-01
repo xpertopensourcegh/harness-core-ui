@@ -7,9 +7,16 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly actionText: string
-  readonly body: string
-  readonly breadCrumb: string
-  readonly header: string
+  readonly columnCheckbox: string
+  readonly gridContainer: string
+  readonly headerGroup: string
+  readonly hoverBackground: string
+  readonly overrideLabelPadding: string
+  readonly rowCheckbox: string
+  readonly rowCheckboxContainer: string
+  readonly rowCheckboxVisible: string
+  readonly rowHeader: string
+  readonly tableHeader: string
+  readonly visible: string
 }
 export default styles
