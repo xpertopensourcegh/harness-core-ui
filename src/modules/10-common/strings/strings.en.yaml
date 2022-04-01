@@ -806,3 +806,5 @@ and: and
 payload: Payload
 andCaps: AND
 orCaps: OR
+deleteEnvironment:
+  title: 'Delete Environment'

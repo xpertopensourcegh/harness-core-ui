@@ -171,6 +171,7 @@ export interface StringsMap {
   'common.delegateForTask': string
   'common.delegateTokenLabel': string
   'common.delete': string
+  'common.deleteEnvironment.title': string
   'common.deleteService': string
   'common.deleteServiceConfirmation': string
   'common.deleteServiceFailure': string
@@ -3275,6 +3276,8 @@ export interface StringsMap {
   'cd.enterTragets': string
   'cd.enterWorkDirectory': string
   'cd.environmentCreated': string
+  'cd.environmentDelete': string
+  'cd.environmentDeleteMessage': string
   'cd.environmentUpdated': string
   'cd.featureRestriction.banners.deploymentsPerMonthLevelUp': string
   'cd.featureRestriction.banners.dpmWarningActive': string
@@ -3326,6 +3329,8 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.serviceIsRequired': string
   'cd.pipelineSteps.serviceTab.specifyYourService': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
+  'cd.preProduction': string
+  'cd.preProductionType': string
   'cd.releaseNameValidation': string
   'cd.requiredPermissions': string
   'cd.resourceCannotBeEmpty': string
