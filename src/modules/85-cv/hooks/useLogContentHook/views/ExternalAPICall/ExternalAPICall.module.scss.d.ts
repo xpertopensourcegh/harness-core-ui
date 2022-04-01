@@ -7,7 +7,16 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly dialog: string
+  readonly accordionContainer: string
+  readonly collapse: string
+  readonly collapseContent: string
+  readonly collapseHeader: string
+  readonly container: string
+  readonly copy: string
+  readonly error: string
   readonly fullScreen: string
+  readonly noDataContainer: string
+  readonly responseBody: string
+  readonly success: string
 }
 export default styles

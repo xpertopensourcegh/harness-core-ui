@@ -832,3 +832,6 @@ download: Download
 lastOneHour: Last 1 hour
 last12Hours: Last 12 hours
 showingLogsFor: Showing logs for
+externalAPICalls: External API Calls
+somethingWentWrongWhileParsingTheData: Something went wrong while parsing the data
+fetchingDataFrom: Fetching data from

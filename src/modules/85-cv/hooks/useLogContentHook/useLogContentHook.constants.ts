@@ -5,13 +5,4 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import type { State } from './ExecutionLog.types'
-
-export const defaultReducerState: State = {
-  data: [],
-  searchData: {
-    text: '',
-    currentIndex: 0,
-    linesWithResults: []
-  }
-}
+export const PAGE_SIZE = 20

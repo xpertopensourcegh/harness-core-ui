@@ -4968,7 +4968,9 @@ export interface StringsMap {
   'cv.errorBudgetRemaining': string
   'cv.evaluationPeriod': string
   'cv.executionLogs': string
+  'cv.externalAPICalls': string
   'cv.failures': string
+  'cv.fetchingDataFrom': string
   'cv.filter': string
   'cv.forConfigurationYouWillNeedAtLeastOneMonitoredServiceWithAHealthSourceAndAMetric': string
   'cv.friday': string
@@ -5516,6 +5518,7 @@ export interface StringsMap {
   'cv.slos.validations.healthSourceRequired': string
   'cv.slos.validations.nameValidation': string
   'cv.slos.validations.userJourneyRequired': string
+  'cv.somethingWentWrongWhileParsingTheData': string
   'cv.statusCode': string
   'cv.sunday': string
   'cv.thanObjectiveValue': string
