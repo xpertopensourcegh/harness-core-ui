@@ -60,6 +60,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { getEnvironmentRefSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
+import ExperimentalInput from '../K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 import css from './DeployEnvStep.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -621,7 +622,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
     <>
       {getMultiTypeFromValue(inputSetData?.template?.environmentRef) === MultiTypeInputType.RUNTIME && (
         <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-          <FormInput.MultiTypeInput
+          <ExperimentalInput
             label={getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')}
             tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
@@ -638,6 +639,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
             }}
             disabled={inputSetData?.readonly}
             className={css.inputWidth}
+            formik={formik}
           />
           {getMultiTypeFromValue(initialValues?.environmentRef) === MultiTypeInputType.FIXED && (
             <Button

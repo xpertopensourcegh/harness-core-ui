@@ -55,6 +55,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { getServiceRefSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
+import ExperimentalInput from '../K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 import css from './DeployServiceStep.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -600,7 +601,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
     <>
       {getMultiTypeFromValue(inputSetData?.template?.serviceRef) === MultiTypeInputType.RUNTIME && (
         <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-          <FormInput.MultiTypeInput
+          <ExperimentalInput
             tooltipProps={{ dataTooltipId: 'specifyYourService' }}
             label={getString('cd.pipelineSteps.serviceTab.specifyYourService')}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
@@ -617,6 +618,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
             }}
             disabled={inputSetData?.readonly}
             className={css.inputWidth}
+            formik={formik}
           />
           {getMultiTypeFromValue(initialValues?.serviceRef) === MultiTypeInputType.FIXED && (
             <Button
