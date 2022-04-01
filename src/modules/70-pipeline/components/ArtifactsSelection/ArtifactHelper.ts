@@ -26,14 +26,16 @@ export const ArtifactIconByType: Record<ArtifactType, IconName> = {
   Gcr: 'service-gcp',
   Ecr: 'ecr-step',
   Nexus3Registry: 'service-nexus',
-  ArtifactoryRegistry: 'service-artifactory'
+  ArtifactoryRegistry: 'service-artifactory',
+  Acr: 'service-azure'
 }
 export const ArtifactTitleIdByType: Record<ArtifactType, StringKeys> = {
   DockerRegistry: 'dockerRegistry',
   Gcr: 'connectors.GCR.name',
   Ecr: 'connectors.ECR.name',
   Nexus3Registry: 'connectors.nexus.nexusLabel',
-  ArtifactoryRegistry: 'connectors.artifactory.artifactoryLabel'
+  ArtifactoryRegistry: 'connectors.artifactory.artifactoryLabel',
+  Acr: 'pipeline.acrArtifact'
 }
 
 export const ENABLED_ARTIFACT_TYPES: { [key: string]: ArtifactType } = {
