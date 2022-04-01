@@ -5196,6 +5196,7 @@ export interface StringsMap {
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tooManyMetrics': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery': string
+  'cv.monitoringSources.gco.noMetricData': string
   'cv.monitoringSources.gco.product.logs': string
   'cv.monitoringSources.gco.product.metrics': string
   'cv.monitoringSources.gco.productValidationText': string

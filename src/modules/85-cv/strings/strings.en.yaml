@@ -260,6 +260,7 @@ monitoringSources:
       tiers: Tiers
     searchTiersPlaceHolder: 'Search for Tiers'
   gco:
+    noMetricData: No data for current metric
     connectToMonitoringSource: Connect to your Google Cloud Platform
     defaultName: 'My Google Cloud Operations Monitoring Source'
     firstTimeSetupText: 'First time? You can setup a new Connector to Google Cloud Platform. It takes 2 minutes.'
