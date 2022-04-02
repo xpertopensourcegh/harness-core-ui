@@ -1406,6 +1406,7 @@ export interface StringsMap {
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string
   'connectors.baseURL': string
+  'connectors.cantDeleteConnector': string
   'connectors.cdng.artifactTag': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
@@ -1745,6 +1746,7 @@ export interface StringsMap {
   'connectors.connectorDetailsHeader': string
   'connectors.connectorEmptyState': string
   'connectors.connectorNotFound': string
+  'connectors.connectorReferenceText': string
   'connectors.connectorsTitle': string
   'connectors.costVisibility': string
   'connectors.createConnector': string
