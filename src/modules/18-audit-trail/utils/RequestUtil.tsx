@@ -65,7 +65,8 @@ export const resourceTypeToLabelMapping: Record<ResourceDTO['type'], StringKeys>
   CONNECTOR: 'connector',
   API_KEY: 'common.apikey',
   TOKEN: 'token',
-  DELEGATE_TOKEN: 'common.delegateTokenLabel'
+  DELEGATE_TOKEN: 'common.delegateTokenLabel',
+  DELEGATE_GROUPS: 'auditTrail.delegateGroups'
 }
 
 export const getModuleNameFromAuditModule = (auditModule: AuditEventDTO['module']): Module | undefined => {

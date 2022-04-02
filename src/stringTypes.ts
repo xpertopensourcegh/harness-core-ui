@@ -797,6 +797,7 @@ export interface StringsMap {
   'auditTrail.actions.unsuccessfullLogin': string
   'auditTrail.actions.updated': string
   'auditTrail.auditLogAPI': string
+  'auditTrail.delegateGroups': string
   'auditTrail.emptyStateMessage': string
   'auditTrail.emptyStateMessageTitle': string
   'auditTrail.eventSource': string
