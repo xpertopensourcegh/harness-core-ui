@@ -26,3 +26,6 @@ yamlDifference: YAML Difference
 noYamlDifference: There is no YAML difference associated with this event.
 resourceNameLabel: Resource Name
 delegateGroups: Delegate Groups
+excludeLoginEvents: Exclude Login Events
+excludeSystemEvents: Exclude System Events
+allEvents: All Events

@@ -421,6 +421,7 @@ export interface AuditFilterProperties {
   resources?: ResourceDTO[]
   scopes?: ResourceScopeDTO[]
   startTime?: number
+  staticFilter?: 'EXCLUDE_LOGIN_EVENTS' | 'EXCLUDE_SYSTEM_EVENTS'
   tags?: {
     [key: string]: string
   }
