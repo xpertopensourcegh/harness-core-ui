@@ -836,7 +836,9 @@ function RunPipelineFormBasic({
                         onClick={event => {
                           event.stopPropagation()
                           setRunClicked(true)
-                          setFormikState({ submitCount: 1 })
+                          // _formSubmitCount is custom state var used to track submitCount.
+                          // enableReinitialize prop resets the submitCount, so error checks fail.
+                          setFormikState({ _formSubmitCount: 1 } as any)
                           if (
                             (!selectedInputSets || selectedInputSets.length === 0) &&
                             existingProvide === 'existing'
