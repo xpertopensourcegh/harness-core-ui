@@ -412,6 +412,12 @@ function RunPipelineFormBasic({
           }
           const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
           setCurrentPipeline(toBeUpdated)
+
+          try {
+            await handleValidation(toBeUpdated)
+          } catch (e) {
+            // nothing
+          }
         }
       } catch (e: any) {
         showError(getErrorInfoFromErrorObject(e), undefined, 'pipeline.feth.inputSetTemplateYaml.error')
@@ -690,7 +696,7 @@ function RunPipelineFormBasic({
 
   const formRefDom = React.useRef<HTMLElement | undefined>()
   const handleValidation = async (values: any): Promise<void> => {
-    if (values.pipeline) {
+    if (values?.pipeline) {
       values = values.pipeline
     }
     const latestPipeline = { ...currentPipeline, pipeline: values as PipelineInfoConfig }
