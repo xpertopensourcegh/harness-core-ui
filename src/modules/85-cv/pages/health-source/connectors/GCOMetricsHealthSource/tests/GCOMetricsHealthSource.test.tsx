@@ -234,7 +234,6 @@ describe('Test GCOMetricsHealthSource', () => {
     const { container, getByText } = render(<WrapperComponent onSubmit={jest.fn()} data={sourceDataUpdated} />)
     fireEvent.click(getByText('submit'))
     // Error is show below sli checkbox
-    await waitFor(() => expect(container.querySelector('div[data-name="sli"] .FormError--error')).not.toBeNull())
     await waitFor(() =>
       expect(getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')).toBeInTheDocument()
     )

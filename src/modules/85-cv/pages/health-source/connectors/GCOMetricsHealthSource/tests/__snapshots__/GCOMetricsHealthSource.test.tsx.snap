@@ -643,7 +643,8 @@ exports[`Test GCOMetricsHealthSource Should show please Enter Query when ther is
                               class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
                             >
                               <input
-                                name="continuousVerification"
+                                checked=""
+                                name="sli"
                                 type="checkbox"
                               />
                               <span
@@ -651,9 +652,9 @@ exports[`Test GCOMetricsHealthSource Should show please Enter Query when ther is
                               />
                               <span
                                 class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="mapGCOMetrics_continuousVerification"
+                                data-tooltip-id="mapGCOMetrics_sli"
                               >
-                                cv.monitoredServices.continuousVerification
+                                cv.slos.sli
                               </span>
                             </label>
                           </div>
@@ -678,7 +679,7 @@ exports[`Test GCOMetricsHealthSource Should show please Enter Query when ther is
                                 class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                                 data-tooltip-id="mapGCOMetrics_healthScore"
                               >
-                                cv.healthScore
+                                cv.monitoredServices.monitoredServiceTabs.serviceHealth
                               </span>
                             </label>
                           </div>
@@ -693,7 +694,7 @@ exports[`Test GCOMetricsHealthSource Should show please Enter Query when ther is
                               class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
                             >
                               <input
-                                name="sli"
+                                name="continuousVerification"
                                 type="checkbox"
                               />
                               <span
@@ -701,9 +702,9 @@ exports[`Test GCOMetricsHealthSource Should show please Enter Query when ther is
                               />
                               <span
                                 class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="mapGCOMetrics_sli"
+                                data-tooltip-id="mapGCOMetrics_continuousVerification"
                               >
-                                cv.slos.sli
+                                cv.monitoredServices.continuousVerification
                               </span>
                             </label>
                           </div>
