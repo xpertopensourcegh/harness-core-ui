@@ -15,7 +15,6 @@ import {
   ButtonVariation,
   PageSpinner,
   VisualYamlSelectedView as SelectedView,
-  getErrorInfoFromErrorObject,
   SelectOption
 } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
@@ -25,6 +24,7 @@ import { useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEmpty, isEqual, defaultTo, keyBy } from 'lodash-es'
 import type { FormikErrors, FormikProps } from 'formik'
+import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
@@ -135,6 +135,7 @@ function RunPipelineFormBasic({
   const formikRef = React.useRef<FormikProps<PipelineInfoConfig>>()
   const history = useHistory()
   const { getString } = useStrings()
+  const { getRBACErrorMessage } = useRBACError()
   const { isGitSyncEnabled } = useAppStore()
   const [runClicked, setRunClicked] = useState(false)
   const [expressionFormState, setExpressionFormState] = useState<KVPair>({})
@@ -460,7 +461,7 @@ function RunPipelineFormBasic({
           }
         }
       } catch (error: any) {
-        showWarning(defaultTo(getErrorInfoFromErrorObject(error), getString('runPipelineForm.runPipelineFailed')))
+        showWarning(defaultTo(getRBACErrorMessage(error), getString('runPipelineForm.runPipelineFailed')))
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
