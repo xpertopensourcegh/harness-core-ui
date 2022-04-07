@@ -4414,6 +4414,7 @@ export interface StringsMap {
   'cf.featureFlags.rules.validation.selectTargetGroup': string
   'cf.featureFlags.rules.validation.valueMustAddTo100': string
   'cf.featureFlags.rules.validation.valueRequired': string
+  'cf.featureFlags.rules.whenFlagDisabled': string
   'cf.featureFlags.rules.whenFlagEnabled': string
   'cf.featureFlags.serve': string
   'cf.featureFlags.servePercentageRollout': string
