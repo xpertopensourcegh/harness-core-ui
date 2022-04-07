@@ -4670,6 +4670,7 @@ export interface StringsMap {
   'cf.shared.archived': string
   'cf.shared.environment': string
   'cf.shared.evaluations': string
+  'cf.shared.false': string
   'cf.shared.flags': string
   'cf.shared.getStarted': string
   'cf.shared.individual': string
@@ -4685,6 +4686,7 @@ export interface StringsMap {
   'cf.shared.target': string
   'cf.shared.targetManagement': string
   'cf.shared.targets': string
+  'cf.shared.true': string
   'cf.shared.variation': string
   'cf.shared.variations': string
   'cf.targetDetail.addTargetToSegment': string
