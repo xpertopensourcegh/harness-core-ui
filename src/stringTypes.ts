@@ -3436,6 +3436,8 @@ export interface StringsMap {
   'ce.anomalyDetection.notificationAlerts.addAlertSuccessMsg': string
   'ce.anomalyDetection.notificationAlerts.addChannelBtn': string
   'ce.anomalyDetection.notificationAlerts.alertChannelHeading': string
+  'ce.anomalyDetection.notificationAlerts.channelSelectionRequiredMsg': string
+  'ce.anomalyDetection.notificationAlerts.channelUrlRequiredMsg': string
   'ce.anomalyDetection.notificationAlerts.deleteAlertSuccessMsg': string
   'ce.anomalyDetection.notificationAlerts.emailChannelLabel': string
   'ce.anomalyDetection.notificationAlerts.heading': string
