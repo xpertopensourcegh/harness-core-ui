@@ -7,21 +7,28 @@
 
 import React, { FC } from 'react'
 import type { Cell } from 'react-table'
-import { FormInput } from '@harness/uicore'
+import { Button, ButtonVariation } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import type { Feature } from 'services/cf'
 
-const AddFlagCheckboxCell: FC<Cell<Feature>> = ({ row: { original: flag } }) => {
+import css from './FlagsListing.module.scss'
+
+const DeleteFlagButtonCell: FC<Cell<Feature>> = ({ value: { onRowDelete } }) => {
   const { getString } = useStrings()
 
   return (
-    <FormInput.CheckBox
-      label=""
-      aria-label={getString('cf.segmentDetail.addFlagNameToTargetGroup', { flagName: flag.name })}
-      name={`flags.${flag.identifier}.added`}
-      style={{ margin: 0 }}
-    />
+    <div className={css.alignRight}>
+      <Button
+        icon="trash"
+        variation={ButtonVariation.ICON}
+        aria-label={getString('cf.segmentDetail.removeRule')}
+        onClick={e => {
+          e.preventDefault()
+          onRowDelete()
+        }}
+      />
+    </div>
   )
 }
 
-export default AddFlagCheckboxCell
+export default DeleteFlagButtonCell
