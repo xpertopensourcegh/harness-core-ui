@@ -626,8 +626,8 @@ artifactsSelection:
     imageNamePlaceholder: Enter Image Path
     enterTagRegex: Enter Tag Regex
   validation:
-    imagePath: Image Path is a required
-    artifactPath: Artifact Path is a required
+    imagePath: Image Path is required
+    artifactPath: Artifact Path is required
     region: '{{$.validation.regionRequired}}'
     tag: Tag is required
     tagRegex: Tag Regex is required
