@@ -2451,6 +2451,22 @@ export interface StringsMap {
   'pipeline.discard': string
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
+  'pipeline.errorFramework.fixErrors': string
+  'pipeline.errorFramework.fixStage': string
+  'pipeline.errorFramework.fixStep': string
+  'pipeline.errorFramework.header1': string
+  'pipeline.errorFramework.header10': string
+  'pipeline.errorFramework.header11': string
+  'pipeline.errorFramework.header12': string
+  'pipeline.errorFramework.header2': string
+  'pipeline.errorFramework.header3': string
+  'pipeline.errorFramework.header4': string
+  'pipeline.errorFramework.header5': string
+  'pipeline.errorFramework.header6': string
+  'pipeline.errorFramework.header7': string
+  'pipeline.errorFramework.header8': string
+  'pipeline.errorFramework.header9': string
+  'pipeline.errorFramework.pipelineErrorsTitle': string
   'pipeline.estimatedTimeRemaining': string
   'pipeline.execution.actions.abortPipeline': string
   'pipeline.execution.actions.abortStage': string
@@ -3324,6 +3340,8 @@ export interface StringsMap {
   'cd.learnMore': string
   'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
+  'cd.moreIssue': string
+  'cd.moreIssues': string
   'cd.nameEmptyError': string
   'cd.namespaceValidation': string
   'cd.newAdapter': string

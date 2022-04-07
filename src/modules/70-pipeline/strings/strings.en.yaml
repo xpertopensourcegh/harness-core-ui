@@ -913,3 +913,20 @@ serviceDeploymentTypes:
   pcf: TAS
   ssh: Secure Shell
   deployDifferentLabel: Deploy different service
+errorFramework:
+  pipelineErrorsTitle: 'Pipeline cannot be saved because {{fields}} further configuration.'
+  fixErrors: Fix Errors
+  fixStep: Fix Step
+  fixStage: Fix Stage
+  header1: ', stage and steps'
+  header2: ', some stages and steps'
+  header3: ' and stage'
+  header4: ' and some stages'
+  header5: ' and steps'
+  header6: 'pipeline{{stringToAppend}} need'
+  header7: 'stage and steps need'
+  header8: 'some stages and steps need'
+  header9: 'stage needs'
+  header10: 'some stages need'
+  header11: 'some steps need'
+  header12: 'it needs'
