@@ -651,7 +651,7 @@ function RunPipelineFormBasic({
                   selectedView={selectedView}
                   executionView={executionView}
                   pipelineResponse={pipelineResponse}
-                  getTemplateFromPipeline={() => void 0}
+                  getTemplateFromPipeline={getTemplateFromPipeline}
                   template={inputSetYamlResponse}
                   formRefDom={formRefDom}
                   formErrors={formErrors}
