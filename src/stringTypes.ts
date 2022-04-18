@@ -4199,6 +4199,7 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.workloadMonthlyPotentialCostText': string
   'ce.recommendation.detailsPage.workloadMonthlySavingsText': string
   'ce.recommendation.listPage.backToPerspectives': string
+  'ce.recommendation.listPage.byEOM': string
   'ce.recommendation.listPage.filterHereText': string
   'ce.recommendation.listPage.filters.clusterName': string
   'ce.recommendation.listPage.filters.enterCost': string
@@ -4215,6 +4216,7 @@ export interface StringsMap {
   'ce.recommendation.listPage.monthlyForcastedCostText': string
   'ce.recommendation.listPage.monthlyPotentialCostText': string
   'ce.recommendation.listPage.monthlySavingsText': string
+  'ce.recommendation.listPage.recommendationCount': string
   'ce.recommendation.listPage.recommendationDetails.resize': string
   'ce.recommendation.listPage.recommendationTypes.resizing': string
   'ce.recommendation.listPage.recommendationTypes.rightSizing': string
