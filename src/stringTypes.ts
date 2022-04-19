@@ -2291,6 +2291,7 @@ export interface StringsMap {
   'projectsOrgs.welcomeSecondLine': string
   'projectsOrgs.whyCreateProject': string
   'projectsOrgs.youHaveNoProjects': string
+  'pipeline.ACR.name': string
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
