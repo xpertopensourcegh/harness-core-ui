@@ -5545,6 +5545,7 @@ export interface StringsMap {
   'cv.serviceDashboardPage.sevenDays': string
   'cv.serviceDashboardPage.thirtyDays': string
   'cv.serviceDashboardPage.twelveHours': string
+  'cv.serviceDetails': string
   'cv.serviceHealthTrend': string
   'cv.servicesAtRisk': string
   'cv.setup': string
