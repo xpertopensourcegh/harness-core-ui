@@ -3064,19 +3064,28 @@ export interface StringsMap {
   'pipeline.verification.logs.actions': string
   'pipeline.verification.logs.clusterType': string
   'pipeline.verification.logs.copyURL': string
+  'pipeline.verification.logs.countPerMin': string
+  'pipeline.verification.logs.eventCountPerMin': string
+  'pipeline.verification.logs.eventDetails': string
+  'pipeline.verification.logs.eventPreference': string
+  'pipeline.verification.logs.eventPriorityLabel': string
+  'pipeline.verification.logs.eventType': string
   'pipeline.verification.logs.filterByClusterType': string
-  'pipeline.verification.logs.knownEvent': string
+  'pipeline.verification.logs.firstOccurrence': string
+  'pipeline.verification.logs.lastKnownOccurrence': string
   'pipeline.verification.logs.logCluster': string
   'pipeline.verification.logs.messageCount': string
   'pipeline.verification.logs.messageFrequency': string
   'pipeline.verification.logs.noAnalysis': string
+  'pipeline.verification.logs.notARiskLabel': string
+  'pipeline.verification.logs.reasonRequired': string
   'pipeline.verification.logs.risk': string
   'pipeline.verification.logs.sampleEvent': string
   'pipeline.verification.logs.sampleMessage': string
   'pipeline.verification.logs.share': string
+  'pipeline.verification.logs.totalClusters': string
   'pipeline.verification.logs.trend': string
-  'pipeline.verification.logs.unexpectedFrequency': string
-  'pipeline.verification.logs.unknownEvent': string
+  'pipeline.verification.logs.updateEventPreference': string
   'pipeline.verification.logs.urlCopied': string
   'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string
@@ -5151,6 +5160,12 @@ export interface StringsMap {
   'cv.learnMore': string
   'cv.left': string
   'cv.logCluster': string
+  'cv.logs.eventMarkedAs': string
+  'cv.logs.eventPriorityUpdate': string
+  'cv.logs.notARisk': string
+  'cv.logs.priorityOrRiskSelectionRequired': string
+  'cv.logs.radarChartInfo': string
+  'cv.logs.reportedBy': string
   'cv.logsCluster': string
   'cv.maxValue': string
   'cv.messageFrequency': string
@@ -5626,6 +5641,7 @@ export interface StringsMap {
   'cv.tuesday': string
   'cv.turnService': string
   'cv.unexpected': string
+  'cv.unexpectedFrequency': string
   'cv.unit': string
   'cv.unknown': string
   'cv.updatedErrorBudget': string
