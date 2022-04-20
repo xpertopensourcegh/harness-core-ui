@@ -329,7 +329,9 @@ export function RightBar(): JSX.Element {
           updatePipelineView({
             ...pipelineView,
             isDrawerOpened: true,
-            drawerData: { type: DrawerTypes.PipelineNotifications, title: `${pipeline?.name} : Notifications` },
+            drawerData: {
+              type: DrawerTypes.PipelineNotifications
+            },
             isSplitViewOpen: false,
             splitViewData: {}
           })

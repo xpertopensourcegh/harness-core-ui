@@ -49,7 +49,7 @@ import {
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString, getStepFromId } from '../ExecutionGraph/ExecutionGraphUtil'
 import PipelineVariables, { PipelineVariablesRef } from '../PipelineVariables/PipelineVariables'
-import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
+import { PipelineNotifications, PipelineNotificationsRef } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionStrategy/ExecutionStrategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
@@ -312,6 +312,7 @@ export interface CloseDrawerArgs {
   onSearchInputChange?: (value: string) => void
   executionStrategyRef: React.MutableRefObject<ExecutionStrategyRefInterface | null>
   variablesRef: React.MutableRefObject<PipelineVariablesRef | null>
+  notificationsRef: React.MutableRefObject<PipelineNotificationsRef | null>
 }
 
 const closeDrawer = (args: CloseDrawerArgs): void => {
@@ -327,7 +328,8 @@ const closeDrawer = (args: CloseDrawerArgs): void => {
     type,
     onSearchInputChange,
     executionStrategyRef,
-    variablesRef
+    variablesRef,
+    notificationsRef
   } = args
   e?.persist()
   if (checkDuplicateStep(formikRef, data, getString)) {
@@ -346,6 +348,11 @@ const closeDrawer = (args: CloseDrawerArgs): void => {
   if (type === DrawerTypes.PipelineVariables) {
     onSearchInputChange?.('')
     variablesRef.current?.onRequestClose()
+    return
+  }
+
+  if (type === DrawerTypes.PipelineNotifications) {
+    notificationsRef.current?.onRequestClose()
     return
   }
 
@@ -384,6 +391,7 @@ export function RightDrawer(): React.ReactElement {
   const templateStepTemplate = (data?.stepConfig?.node as TemplateStepNode)?.template
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const variablesRef = React.useRef<PipelineVariablesRef | null>(null)
+  const notificationsRef = React.useRef<PipelineNotificationsRef | null>(null)
   const executionStrategyRef = React.useRef<ExecutionStrategyRefInterface | null>(null)
   const { getString } = useStrings()
   const isFullScreenDrawer = FullscreenDrawers.includes(type)
@@ -420,11 +428,7 @@ export function RightDrawer(): React.ReactElement {
       ></RightDrawerTitle>
     )
   } else {
-    if (type === DrawerTypes.PipelineNotifications) {
-      title = getString('notifications.name')
-    } else {
-      title = null
-    }
+    title = null
   }
 
   React.useEffect(() => {
@@ -677,7 +681,8 @@ export function RightDrawer(): React.ReactElement {
       type,
       onSearchInputChange,
       executionStrategyRef,
-      variablesRef
+      variablesRef,
+      notificationsRef
     })
   }
 
@@ -750,7 +755,7 @@ export function RightDrawer(): React.ReactElement {
       {type === DrawerTypes.ExecutionStrategy && (
         <ExecutionStrategy selectedStage={defaultTo(selectedStage, {})} ref={executionStrategyRef} />
       )}
-      {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
+      {type === DrawerTypes.PipelineNotifications && <PipelineNotifications ref={notificationsRef} />}
       {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.AdvancedOptions && (
         <AdvancedOptions

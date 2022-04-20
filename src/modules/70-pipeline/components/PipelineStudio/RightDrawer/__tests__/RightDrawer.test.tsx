@@ -657,7 +657,7 @@ describe('Right Drawer tests', () => {
       )
 
       const notificationHeader = await findAllByText('notifications.name')
-      expect(notificationHeader).toHaveLength(2)
+      expect(notificationHeader).toHaveLength(1)
     })
   })
 
