@@ -5,20 +5,18 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
-import { TooltipContextProvider } from '@wings-software/uicore'
+import { TooltipContextProvider, PageSpinner } from '@wings-software/uicore'
 import { tooltipDictionary } from '@wings-software/ng-tooltip'
 import { setAutoFreeze, enableMapSet } from 'immer'
 import SessionToken from 'framework/utils/SessionToken'
 
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
 import { LicenseStoreProvider } from 'framework/LicenseStore/LicenseStoreContext'
-// eslint-disable-next-line aliased-module-imports
-import RouteDestinations from 'modules/RouteDestinations'
 // eslint-disable-next-line aliased-module-imports
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
@@ -36,6 +34,8 @@ import { PermissionsProvider } from 'framework/rbac/PermissionsContext'
 import { FeaturesProvider } from 'framework/featureStore/FeaturesContext'
 import { useGlobalEventListener } from '@common/hooks'
 import { identifyFullStoryUser } from '../../3rd-party/FullStory'
+
+const RouteDestinations = React.lazy(() => import('modules/RouteDestinations'))
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -199,7 +199,9 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
               <FeaturesProvider>
                 <LicenseStoreProvider>
                   <PermissionsProvider>
-                    <RouteDestinations />
+                    <Suspense fallback={<PageSpinner />}>
+                      <RouteDestinations />
+                    </Suspense>
                     <NGTooltipEditorPortal
                       showTooltipEditor={showTooltipEditor}
                       onEditorClose={onEditorClose}
