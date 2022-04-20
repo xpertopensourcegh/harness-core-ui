@@ -65,6 +65,7 @@ declare interface Window {
   refinerFeedbackToken: string
   saberToken: string
   Saber: any
+  hj: any
 }
 
 declare interface WindowEventMap {

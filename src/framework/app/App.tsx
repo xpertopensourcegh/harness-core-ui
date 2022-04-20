@@ -32,8 +32,8 @@ import routes from '@common/RouteDefinitions'
 import { returnUrlParams } from '@common/utils/routeUtils'
 import { PermissionsProvider } from 'framework/rbac/PermissionsContext'
 import { FeaturesProvider } from 'framework/featureStore/FeaturesContext'
+import { ThirdPartyIntegrations } from '3rd-party/ThirdPartyIntegrations'
 import { useGlobalEventListener } from '@common/hooks'
-import { identifyFullStoryUser } from '../../3rd-party/FullStory'
 
 const RouteDestinations = React.lazy(() => import('modules/RouteDestinations'))
 
@@ -100,11 +100,6 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
       AppStorage.set('lastTokenSetTime', +new Date())
     }
   }, [refreshTokenResponse])
-
-  useEffect(() => {
-    // Allow FullStory to recognize current user
-    identifyFullStoryUser({ username })
-  }, [username])
 
   const checkAndRefreshToken = (): void => {
     const currentTime = +new Date()
@@ -208,6 +203,7 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
                       setPreviewDatasetFromLocalStorage={onPreviewDatasetFromLocalStorage}
                     />
                   </PermissionsProvider>
+                  <ThirdPartyIntegrations />
                 </LicenseStoreProvider>
               </FeaturesProvider>
             </AppErrorBoundary>
