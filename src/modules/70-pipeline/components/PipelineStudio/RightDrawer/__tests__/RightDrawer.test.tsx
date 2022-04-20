@@ -399,19 +399,6 @@ jest.mock('@blueprintjs/core', () => ({
   )
 }))
 
-jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as any),
-  useStrings: jest.fn().mockReturnValue({
-    getString: jest.fn().mockImplementation(val => val)
-  }),
-  loggerFor: jest.fn().mockReturnValue({
-    error: jest.fn(),
-    info: jest.fn(),
-    warn: jest.fn(),
-    debug: jest.fn()
-  })
-}))
-
 jest.mock('../../PiplineHooks/useVariablesExpression', () => ({
   ...(jest.requireActual('../../PiplineHooks/useVariablesExpression') as any),
   useVariablesExpression: jest.fn().mockReturnValue({

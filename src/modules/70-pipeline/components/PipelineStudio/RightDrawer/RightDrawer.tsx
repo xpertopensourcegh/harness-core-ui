@@ -48,7 +48,7 @@ import {
 } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString, getStepFromId } from '../ExecutionGraph/ExecutionGraphUtil'
-import PipelineVariables from '../PipelineVariables/PipelineVariables'
+import PipelineVariables, { PipelineVariablesRef } from '../PipelineVariables/PipelineVariables'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionStrategy/ExecutionStrategy'
@@ -299,24 +299,56 @@ const applyChanges = async (
   }
 }
 
-const closeDrawer = (
-  e: SyntheticEvent<HTMLElement, Event> | undefined,
-  formikRef: React.MutableRefObject<StepFormikRef | null>,
-  data: any,
-  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
-  openConfirmBEUpdateError: () => void,
-  updatePipelineView: (data: PipelineViewData) => void,
-  pipelineView: PipelineViewData,
+export interface CloseDrawerArgs {
+  e?: SyntheticEvent<Element, Event> | undefined
+  formikRef: React.MutableRefObject<StepFormikRef | null>
+  data: any
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
+  openConfirmBEUpdateError: () => void
+  updatePipelineView: (data: PipelineViewData) => void
+  pipelineView: PipelineViewData
   setSelectedStepId: (selectedStepId: string | undefined) => void
-): void => {
+  type: DrawerTypes
+  onSearchInputChange?: (value: string) => void
+  executionStrategyRef: React.MutableRefObject<ExecutionStrategyRefInterface | null>
+  variablesRef: React.MutableRefObject<PipelineVariablesRef | null>
+}
+
+const closeDrawer = (args: CloseDrawerArgs): void => {
+  const {
+    e,
+    formikRef,
+    data,
+    getString,
+    openConfirmBEUpdateError,
+    updatePipelineView,
+    setSelectedStepId,
+    pipelineView,
+    type,
+    onSearchInputChange,
+    executionStrategyRef,
+    variablesRef
+  } = args
   e?.persist()
   if (checkDuplicateStep(formikRef, data, getString)) {
     return
   }
-  if (formikRef.current?.isDirty()) {
+  if (formikRef.current?.isDirty?.()) {
     openConfirmBEUpdateError()
     return
   }
+
+  if (type === DrawerTypes.ExecutionStrategy) {
+    executionStrategyRef.current?.cancelExecutionStrategySelection()
+    return
+  }
+
+  if (type === DrawerTypes.PipelineVariables) {
+    onSearchInputChange?.('')
+    variablesRef.current?.onRequestClose()
+    return
+  }
+
   updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
   setSelectedStepId(undefined)
 }
@@ -351,6 +383,7 @@ export function RightDrawer(): React.ReactElement {
     : null
   const templateStepTemplate = (data?.stepConfig?.node as TemplateStepNode)?.template
   const formikRef = React.useRef<StepFormikRef | null>(null)
+  const variablesRef = React.useRef<PipelineVariablesRef | null>(null)
   const executionStrategyRef = React.useRef<ExecutionStrategyRefInterface | null>(null)
   const { getString } = useStrings()
   const isFullScreenDrawer = FullscreenDrawers.includes(type)
@@ -631,23 +664,26 @@ export function RightDrawer(): React.ReactElement {
     await updateNode(processNode)
   }
 
+  const handleClose = (e?: React.SyntheticEvent<Element, Event>): void => {
+    closeDrawer({
+      e,
+      formikRef,
+      data,
+      getString,
+      openConfirmBEUpdateError,
+      updatePipelineView,
+      pipelineView,
+      setSelectedStepId,
+      type,
+      onSearchInputChange,
+      executionStrategyRef,
+      variablesRef
+    })
+  }
+
   return (
     <Drawer
-      onClose={async e => {
-        if (type === DrawerTypes.PipelineVariables) {
-          onSearchInputChange?.('')
-        }
-        closeDrawer(
-          e,
-          formikRef,
-          data,
-          getString,
-          openConfirmBEUpdateError,
-          updatePipelineView,
-          pipelineView,
-          setSelectedStepId
-        )
-      }}
+      onClose={handleClose}
       usePortal={true}
       autoFocus={true}
       canEscapeKeyClose={type !== DrawerTypes.ExecutionStrategy}
@@ -668,23 +704,7 @@ export function RightDrawer(): React.ReactElement {
       // "classnames" package cannot be used here because it returns an empty string when no classes are applied
       portalClassName={isFullScreenDrawer ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'}
     >
-      <Button
-        minimal
-        className={css.almostFullScreenCloseBtn}
-        icon="cross"
-        withoutBoxShadow
-        onClick={() => {
-          if (type === DrawerTypes.ExecutionStrategy) {
-            executionStrategyRef.current?.cancelExecutionStrategySelection()
-          } else {
-            if (type === DrawerTypes.PipelineVariables) {
-              onSearchInputChange?.('')
-            }
-            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-            setSelectedStepId(undefined)
-          }
-        }}
-      />
+      <Button minimal className={css.almostFullScreenCloseBtn} icon="cross" withoutBoxShadow onClick={handleClose} />
 
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
@@ -725,7 +745,7 @@ export function RightDrawer(): React.ReactElement {
         />
       )}
       {/* TODO */}
-      {type === DrawerTypes.PipelineVariables && <PipelineVariables pipeline={pipeline} />}
+      {type === DrawerTypes.PipelineVariables && <PipelineVariables ref={variablesRef} pipeline={pipeline} />}
       {type === DrawerTypes.Templates && <PipelineTemplates />}
       {type === DrawerTypes.ExecutionStrategy && (
         <ExecutionStrategy selectedStage={defaultTo(selectedStage, {})} ref={executionStrategyRef} />

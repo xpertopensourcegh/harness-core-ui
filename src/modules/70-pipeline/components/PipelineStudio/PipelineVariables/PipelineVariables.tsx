@@ -6,8 +6,15 @@
  */
 
 import React from 'react'
-import { NestedAccordionPanel, NestedAccordionProvider, PageError } from '@wings-software/uicore'
-import { get } from 'lodash-es'
+import {
+  NestedAccordionPanel,
+  NestedAccordionProvider,
+  PageError,
+  useToggleOpen,
+  ConfirmationDialog,
+  Intent
+} from '@harness/uicore'
+import { get, isEqual } from 'lodash-es'
 
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -25,7 +32,16 @@ import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import VariableAccordionSummary from './VariableAccordionSummary'
 import css from './PipelineVariables.module.scss'
 
-export function PipelineVariables(): React.ReactElement {
+export interface PipelineVariablesRef {
+  onRequestClose(): void
+}
+
+export const PipelineVariables = React.forwardRef(PipelineVariablesWithRef)
+
+export function PipelineVariablesWithRef(
+  _props: React.PropsWithChildren<unknown>,
+  ref: React.ForwardedRef<PipelineVariablesRef>
+): React.ReactElement {
   const {
     state: { pipeline, pipelineView },
     stepsFactory,
@@ -44,6 +60,11 @@ export function PipelineVariables(): React.ReactElement {
   } = usePipelineVariables()
   const { getString } = useStrings()
   const [pipelineAsState, setPipelineAsState] = React.useState(pipeline)
+  const {
+    isOpen: isConfirmationDialogOpen,
+    open: openConfirmationDialog,
+    close: closeConfirmationDialog
+  } = useToggleOpen()
 
   const pipelineVariablesRef = React.useRef()
   React.useLayoutEffect(() => {
@@ -59,6 +80,35 @@ export function PipelineVariables(): React.ReactElement {
   React.useEffect(() => {
     setPipelineAsState(pipeline)
   }, [pipeline])
+
+  function closeDrawer(): void {
+    updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+  }
+
+  function onRequestClose(): void {
+    if (!isEqual(pipeline, pipelineAsState)) {
+      openConfirmationDialog()
+      return
+    }
+
+    closeDrawer()
+  }
+
+  function handleConfirmation(confirm: boolean): void {
+    if (confirm) {
+      applyChanges()
+      closeConfirmationDialog()
+      closeDrawer()
+
+      return
+    }
+
+    closeConfirmationDialog()
+  }
+
+  React.useImperativeHandle(ref, () => ({
+    onRequestClose
+  }))
 
   if (initLoading) return <PageSpinner />
 
@@ -89,11 +139,11 @@ export function PipelineVariables(): React.ReactElement {
 
   async function applyChanges(): Promise<void> {
     await updatePipelineInContext(pipelineAsState)
-    updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+    closeDrawer()
   }
 
   async function discardChanges(): Promise<void> {
-    updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+    closeDrawer()
   }
 
   const stagesCards: JSX.Element[] = []
@@ -184,16 +234,32 @@ export function PipelineVariables(): React.ReactElement {
           </div>
         </div>
       )}
+      <ConfirmationDialog
+        titleText={getString('variablesText')}
+        contentText={getString('pipeline.stepConfigHasChanges')}
+        isOpen={isConfirmationDialogOpen}
+        confirmButtonText={getString('applyChanges')}
+        cancelButtonText={getString('cancel')}
+        onClose={handleConfirmation}
+        intent={Intent.WARNING}
+      />
     </div>
   )
 }
 
-export default function PipelineVariablesWrapper(props: { pipeline?: PipelineInfoConfig }): React.ReactElement {
+function PipelineVariablesWrapperWithRef(
+  props: { pipeline?: PipelineInfoConfig },
+  ref: React.ForwardedRef<PipelineVariablesRef>
+): React.ReactElement {
   return (
     <NestedAccordionProvider>
       <PipelineVariablesContextProvider pipeline={props.pipeline} enablePipelineTemplatesResolution>
-        <PipelineVariables />
+        <PipelineVariables ref={ref} />
       </PipelineVariablesContextProvider>
     </NestedAccordionProvider>
   )
 }
+
+const PipelineVariablesWrapper = React.forwardRef(PipelineVariablesWrapperWithRef)
+
+export default PipelineVariablesWrapper
