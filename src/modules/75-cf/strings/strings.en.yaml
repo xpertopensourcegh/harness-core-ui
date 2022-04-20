@@ -131,7 +131,7 @@ clause:
     equalSensitive: 'equals (sensitive)'
     matchSegment: 'Match Target Group'
 featureFlags:
-  newFlag: + Flag
+  newFlag: + New Flag
   typeOfFlag: Select the Type of Flag You Want to Create
   startVariation: Start by selecting the variation type that the flag will use
   booleanBtnText: This is a simple ON/OFF toggle
@@ -244,7 +244,7 @@ targets:
   targetSegment: Target Group
   lastActivity: '{{ $.lastActivity }}'
   createdDate: Created Date
-  create: + Target(s)
+  create: + New Target
   list: Add a target
   upload: Upload a list of targets (CSV files only)
   enterName: 'Enter target name'
@@ -297,7 +297,7 @@ selectSegmentModal:
   flagsUsingThisSegment: FLAGS USING THIS TARGET GROUP
   empty: No Target Group found
 segments:
-  create: + Target Group
+  create: + New Target Group
   targetDefinition: Target Definition
   usingSegment: Flags using this target group
   usingSegmentWithCount: Flags using this target group ({{ count }})
@@ -330,7 +330,7 @@ environments:
     message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
     title: 'SDK Keys'
     emptyName: 'SDK Key name is required'
-    addKey: '+ Add Key'
+    addKey: '+ New SDK Key'
     clientType: '{{ $.cf.testTheFlag.sdkClient }}'
     serverType: '{{ $.cf.testTheFlag.sdkServer }}'
     deleteTitle: 'Confirm Key Delete'

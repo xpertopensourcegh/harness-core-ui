@@ -142,7 +142,7 @@ describe('CreateTargetModal', () => {
     expect(getAllByPlaceholderText(modal, 'cf.targets.enterName').length).toBeDefined
   })
 
-  test('+ Target(s) button should show CreateTargetModal when user is within MAU limit', async () => {
+  test('+ New Target button should show CreateTargetModal when user is within MAU limit', async () => {
     jest.spyOn(useFeaturesMock, 'useGetFirstDisabledFeature').mockReturnValue({ featureEnabled: true })
     jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
 
@@ -157,7 +157,7 @@ describe('CreateTargetModal', () => {
     })
   })
 
-  test('+ Target(s) button should show plan enforcement tooltip when user exceeds MAU limit', async () => {
+  test('+ New Target button should show plan enforcement tooltip when user exceeds MAU limit', async () => {
     jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
     const mockedReturnValue = new Map<FeatureIdentifier, CheckFeatureReturn>()
     mockedReturnValue.set(FeatureIdentifier.MAUS, {

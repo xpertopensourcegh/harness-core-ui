@@ -241,7 +241,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
     <RbacButton
       disabled={disabled}
       onClick={openModal}
-      text={`+ ${getString('environment')}`}
+      text={`+ ${getString('newEnvironment')}`}
       intent="primary"
       padding={{
         top: 'small',
