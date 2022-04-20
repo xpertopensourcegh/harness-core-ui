@@ -334,7 +334,12 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
                         text={getString('save')}
                         onClick={() => {
                           const latestYaml = defaultTo(yamlHandler?.getLatestYaml(), '')
-                          onSubmit(parse(latestYaml)?.environment)
+                          const errorMsg = yamlHandler?.getYAMLValidationErrorMap()
+                          if (errorMsg?.size) {
+                            showError(errorMsg.entries().next().value[1])
+                          } else {
+                            onSubmit(parse(latestYaml)?.environment)
+                          }
                         }}
                       />
                       <Button

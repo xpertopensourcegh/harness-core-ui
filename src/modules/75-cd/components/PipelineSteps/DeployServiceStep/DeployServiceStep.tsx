@@ -288,7 +288,12 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
                       text={getString('save')}
                       onClick={() => {
                         const latestYaml = defaultTo(yamlHandler?.getLatestYaml(), '')
-                        onSubmit(parse(latestYaml)?.service)
+                        const errorMsg = yamlHandler?.getYAMLValidationErrorMap()
+                        if (errorMsg?.size) {
+                          showError(errorMsg.entries().next().value[1])
+                        } else {
+                          onSubmit(parse(latestYaml)?.service)
+                        }
                       }}
                     />
                     <Button variation={ButtonVariation.TERTIARY} onClick={closeModal} text={getString('cancel')} />
