@@ -59,7 +59,8 @@ import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
 import GitSyncConfigTab from '@gitsync/pages/config/GitSyncConfigTab'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
-import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
+import { TargetDetailPage as LegacyTargetDetailPage } from './pages/target-details/TargetDetailPage'
+import TargetDetailPage from './pages/target-detail/TargetDetailPage'
 import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import TargetGroupDetailPage from './pages/target-group-detail/TargetGroupDetailPage'
@@ -145,7 +146,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TARGETGROUP, {
 })
 
 const CFRoutes: FC = () => {
-  const { FFM_1512 } = useFeatureFlags()
+  const { FFM_1512, FFM_1827 } = useFeatureFlags()
 
   return (
     <>
@@ -223,7 +224,7 @@ const CFRoutes: FC = () => {
         })}
         exact
       >
-        <TargetDetailPage />
+        {FFM_1827 ? <TargetDetailPage /> : <LegacyTargetDetailPage />}
       </RouteWithLayout>
 
       <RouteWithLayout
