@@ -392,7 +392,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
     }
   }
 
-  const mouseEnterNodeListener = (event: any) => {
+  const mouseEnterNodeListener = (event: any): void => {
     const eventTemp = event as DefaultNodeEvent
     eventTemp.stopPropagation()
     dynamicPopoverHandler?.hide()
@@ -414,9 +414,10 @@ function ExecutionGraphRef<T extends StageElementConfig>(
     }
   }
 
-  const mouseLeaveNodeListener = (event: any) => {
+  const mouseLeaveNodeListener = (event: any): void => {
     const eventTemp = event as DefaultNodeEvent
     eventTemp.stopPropagation()
+    dynamicPopoverHandler?.hide()
   }
 
   const nodeListeners: NodeModelListener = {
@@ -788,6 +789,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}
+          hoverShowDelay={200}
           render={renderPopover}
           bind={setDynamicPopoverHandler}
         />
