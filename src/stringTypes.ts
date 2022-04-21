@@ -4190,6 +4190,7 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.limitPercentileLegendText': string
   'ce.recommendation.detailsPage.memoryValueBuffer': string
   'ce.recommendation.detailsPage.monthlySpendByDate': string
+  'ce.recommendation.detailsPage.nodepoolDetails': string
   'ce.recommendation.detailsPage.percentileOfReqAndLimit': string
   'ce.recommendation.detailsPage.performanceOptimized': string
   'ce.recommendation.detailsPage.performanceOptimizedCaps': string
