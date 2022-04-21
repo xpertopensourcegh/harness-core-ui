@@ -2391,6 +2391,10 @@ export interface StringsMap {
   'pipeline.buildInfra.readOnlyRootFilesystem': string
   'pipeline.buildInfra.runAsNonRoot': string
   'pipeline.buildRepo': string
+  'pipeline.cannotAddInputSetInvalidPipeline': string
+  'pipeline.cannotAddTriggerInvalidPipeline': string
+  'pipeline.cannotEditTriggerInvalidPipeline': string
+  'pipeline.cannotRunInvalidPipeline': string
   'pipeline.changeTemplate': string
   'pipeline.changeTemplateLabel': string
   'pipeline.ci.validations.port': string
