@@ -5630,6 +5630,7 @@ export interface StringsMap {
   'cv.statusCode': string
   'cv.sunday': string
   'cv.thanObjectiveValue': string
+  'cv.theTrendIsDeterminedForTheSelectedPeriodOverPeriod': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
   'cv.thirdPartyCalls.requestMade': string
