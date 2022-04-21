@@ -54,7 +54,7 @@ import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionStrategy/ExecutionStrategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
-import { FlowControl } from '../FlowControl/FlowControl'
+import { FlowControlWithRef as FlowControl, FlowControlRef } from '../FlowControl/FlowControl'
 import { AdvancedOptions } from '../AdvancedOptions/AdvancedOptions'
 import { RightDrawerTitle } from './RightDrawerTitle'
 
@@ -312,6 +312,7 @@ export interface CloseDrawerArgs {
   onSearchInputChange?: (value: string) => void
   executionStrategyRef: React.MutableRefObject<ExecutionStrategyRefInterface | null>
   variablesRef: React.MutableRefObject<PipelineVariablesRef | null>
+  flowControlRef: React.MutableRefObject<FlowControlRef | null>
   notificationsRef: React.MutableRefObject<PipelineNotificationsRef | null>
 }
 
@@ -329,6 +330,7 @@ const closeDrawer = (args: CloseDrawerArgs): void => {
     onSearchInputChange,
     executionStrategyRef,
     variablesRef,
+    flowControlRef,
     notificationsRef
   } = args
   e?.persist()
@@ -340,6 +342,10 @@ const closeDrawer = (args: CloseDrawerArgs): void => {
     return
   }
 
+  if (type === DrawerTypes.FlowControl) {
+    flowControlRef.current?.onRequestClose()
+    return
+  }
   if (type === DrawerTypes.ExecutionStrategy) {
     executionStrategyRef.current?.cancelExecutionStrategySelection()
     return
@@ -390,6 +396,7 @@ export function RightDrawer(): React.ReactElement {
     : null
   const templateStepTemplate = (data?.stepConfig?.node as TemplateStepNode)?.template
   const formikRef = React.useRef<StepFormikRef | null>(null)
+  const flowControlRef = React.useRef<FlowControlRef | null>(null)
   const variablesRef = React.useRef<PipelineVariablesRef | null>(null)
   const notificationsRef = React.useRef<PipelineNotificationsRef | null>(null)
   const executionStrategyRef = React.useRef<ExecutionStrategyRefInterface | null>(null)
@@ -668,6 +675,16 @@ export function RightDrawer(): React.ReactElement {
     await updateNode(processNode)
   }
 
+  const onDiscard = () => {
+    updatePipelineView({
+      ...pipelineView,
+      isDrawerOpened: false,
+      drawerData: {
+        type: DrawerTypes.AddStep
+      }
+    })
+  }
+
   const handleClose = (e?: React.SyntheticEvent<Element, Event>): void => {
     closeDrawer({
       e,
@@ -682,6 +699,7 @@ export function RightDrawer(): React.ReactElement {
       onSearchInputChange,
       executionStrategyRef,
       variablesRef,
+      flowControlRef,
       notificationsRef
     })
   }
@@ -755,8 +773,8 @@ export function RightDrawer(): React.ReactElement {
       {type === DrawerTypes.ExecutionStrategy && (
         <ExecutionStrategy selectedStage={defaultTo(selectedStage, {})} ref={executionStrategyRef} />
       )}
+      {type === DrawerTypes.FlowControl && <FlowControl ref={flowControlRef} onDiscard={onDiscard} />}
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications ref={notificationsRef} />}
-      {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.AdvancedOptions && (
         <AdvancedOptions
           pipeline={cloneDeep(pipeline)}
@@ -770,15 +788,7 @@ export function RightDrawer(): React.ReactElement {
               }
             })
           }}
-          onDiscard={() => {
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: false,
-              drawerData: {
-                type: DrawerTypes.AddStep
-              }
-            })
-          }}
+          onDiscard={onDiscard}
         />
       )}
       {type === DrawerTypes.PolicySets && <PipelineGovernanceView pipelineName={pipeline.name} />}
