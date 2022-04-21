@@ -643,6 +643,8 @@ slos:
   sloUpdated: SLO updated successfully
   noData: You don’t have any SLO created yet
   noMatchingData: No matching data
+  monitoredServiceText: A Monitored Service is automatically created by Harness by concatenating the names of the Service and Environment.
+  createMonitoredService: Create a Monitored Service
   confirmDeleteSLO: 'Are you sure you want to delete SLO: {{ name }}?'
   sloDeleted: '{{ name }} successfully deleted'
   sli: SLI

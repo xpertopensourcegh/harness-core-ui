@@ -5584,11 +5584,13 @@ export interface StringsMap {
   'cv.slos.contextualHelp.target.rollingWindowBased': string
   'cv.slos.contextualHelp.target.rollingWindowDefinition': string
   'cv.slos.contextualHelp.target.rollingWindowDefinition2': string
+  'cv.slos.createMonitoredService': string
   'cv.slos.createSLO': string
   'cv.slos.deleteSLO': string
   'cv.slos.healthSource': string
   'cv.slos.healthSourceForSLI': string
   'cv.slos.latencySLI': string
+  'cv.slos.monitoredServiceText': string
   'cv.slos.noData': string
   'cv.slos.noMatchingData': string
   'cv.slos.noSLOsStateMessage': string
