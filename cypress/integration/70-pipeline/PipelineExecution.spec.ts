@@ -1,4 +1,5 @@
 import {
+  abortPipelineCall,
   executePipeline,
   pipelineListAPI,
   pipelinesRoute,
@@ -215,6 +216,85 @@ describe('Pipeline Execution', () => {
       cy.get("span[data-icon='execution-success']").should('be.visible')
       cy.contains('div', 'testService').should('be.visible')
       cy.contains('li', 'testEnv').should('be.visible')
+    })
+  })
+
+  it('Pipeline Execution steps phases - Running & Abort', () => {
+    cy.intercept('POST', pipelineListAPI, { fixture: '/pipeline/api/pipelineExecution/getPipelineList' }).as(
+      'pipelineList'
+    )
+    cy.intercept('POST', executePipeline, {
+      fixture: 'pipeline/api/pipelineExecution/successPipeline/executePipeline'
+    }).as('executePipeline')
+
+    cy.intercept('GET', serviceStepAPI, { fixture: 'pipeline/api/pipelineExecution/successPipeline/serviceStep' }).as(
+      'serviceStep'
+    )
+    cy.intercept('GET', serviceStepStageID, {
+      fixture: 'pipeline/api/pipelineExecution/successPipeline/serviceStepStageID'
+    }).as('serviceStepStageID')
+    cy.wait(2000)
+    cy.wait('@pipelineList', {
+      timeout: 10000
+    })
+
+    cy.intercept('PUT', abortPipelineCall, { fixture: 'pipeline/api/pipeline/execute/statusAbort' }).as('statusAbort')
+
+    cy.contains('span', 'Run').click()
+    cy.wait(1000)
+    cy.get('input[type="checkbox"]').eq(0).check({ force: true }).should('be.checked')
+    cy.contains('span', 'Run Pipeline').click()
+    cy.wait(1000)
+    cy.wait('@serviceStep')
+    cy.contains('span', 'Pipeline started successfully').should('be.visible')
+    cy.wait(1000)
+    cy.wait('@serviceStepStageID')
+    cy.wait(2000)
+    cy.get('*[class^="ExecutionStatusLabel"]').should('be.visible')
+
+    cy.get('*[class^="ExecutionStatusLabel"]').should('have.css', 'background-color').and('eq', 'rgb(2, 120, 213)')
+    cy.get('*[class^="ExecutionStatusLabel"]').within(() => {
+      cy.get('span[data-icon="loading"]').should('be.visible')
+      cy.contains('span', 'RUNNING').should('be.visible')
+    })
+    cy.wait(1000)
+    cy.contains('div', 'testPipeline_Cypressss').should('be.visible')
+    cy.intercept('GET', serviceStepStageID, {
+      fixture: 'pipeline/api/pipelineExecution/successPipeline/statusRunning'
+    })
+      .as('statusRunning')
+      .wait(1000)
+    cy.wait('@statusRunning', { timeout: 30000 })
+    cy.get("span[data-icon='spinner']").should('be.visible')
+
+    cy.get('*[class^="ExecutionHeader"]').within(() => {
+      cy.get('*[class^="ExecutionActions"]').within(() => {
+        cy.get('span[icon="stop"]').click()
+      })
+    })
+    cy.wait(1000)
+    cy.contains('span', 'Confirm').click({ force: true })
+    cy.wait(1000)
+
+    cy.intercept(
+      'GET',
+      'pipeline/api/pipelines/execution/executionId?routingId=accountId&orgIdentifier=default&projectIdentifier=project1&accountIdentifier=accountId&stageNodeId=wLwZhu2vSI2M3p_7_gfu_g',
+      { fixture: 'pipeline/api/pipeline/execute/statusAbortResponse' }
+    ).as('abortResponse')
+    cy.intercept('GET', serviceStepStageID, { fixture: 'pipeline/api/pipeline/execute/statusAbortResponse' }).as(
+      'statusAborted'
+    )
+    cy.wait('@statusAborted', { timeout: 30000 })
+
+    cy.get('*[class^="ExecutionStatusLabel"]').should('have.css', 'background-color').and('eq', 'rgb(217, 218, 229)')
+    cy.get('*[class^="ExecutionStatusLabel"]').within(() => {
+      cy.contains('span', 'ABORTED').should('be.visible')
+    })
+
+    cy.get('.Pane.horizontal.Pane1').within(() => {
+      cy.get('.default-node').first().should('be.visible').trigger('mouseover')
+      cy.get('.default-node').first().should('be.visible').trigger('onmouseover')
+      cy.get('.default-node').first().should('be.visible').trigger('mouseenter')
     })
   })
 })

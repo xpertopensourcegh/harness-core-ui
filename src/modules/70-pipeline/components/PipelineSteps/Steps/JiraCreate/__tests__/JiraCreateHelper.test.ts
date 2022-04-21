@@ -228,11 +228,26 @@ describe('Jira Create process form data tests', () => {
     savedFields[1].value = 'P1'
     returned = getInitialValueForSelectedField(savedFields, selectOptionfield)
     expect(returned).toStrictEqual({ label: 'P1', value: 'P1' })
+
+    //Check SINGLE SELECT field values as expression
+    savedFields[1].value = '<+pipeline.priority>'
+    returned = getInitialValueForSelectedField(savedFields, selectOptionfield)
+    expect(returned).toStrictEqual('<+pipeline.priority>')
+
+    //check multiselect field values as Fixed
     savedFields[2].value = 'yes,no'
     returned = getInitialValueForSelectedField(savedFields, multiselectOptionfield)
     expect(returned).toStrictEqual([
       { label: 'yes', value: 'yes' },
       { label: 'no', value: 'no' }
     ])
+    //Check multiselect field values as expression
+    savedFields[2].value = '<+pipeline.yes>'
+    returned = getInitialValueForSelectedField(savedFields, multiselectOptionfield)
+    expect(returned).toStrictEqual('<+pipeline.yes>')
+    //Check multiselect field values as runtime
+    savedFields[2].value = '<+input>'
+    returned = getInitialValueForSelectedField(savedFields, multiselectOptionfield)
+    expect(returned).toStrictEqual('<+input>')
   })
 })

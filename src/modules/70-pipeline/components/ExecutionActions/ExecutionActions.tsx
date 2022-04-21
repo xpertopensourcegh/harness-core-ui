@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Button, Popover, ButtonProps, useConfirmationDialog } from '@harness/uicore'
+import { Button, Popover, ButtonProps, useConfirmationDialog, getErrorInfoFromErrorObject } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { Dialog, IDialogProps, Intent, Menu, MenuItem } from '@blueprintjs/core'
 import { Link, useLocation, matchPath } from 'react-router-dom'
@@ -155,7 +155,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     nodeExecutionId: defaultTo(stageId, '')
   })
 
-  const { showSuccess } = useToaster()
+  const { showSuccess, showError, clear } = useToaster()
   const { getString } = useStrings()
   const location = useLocation()
 
@@ -191,6 +191,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   })
 
   async function executeAction(interruptType: HandleInterruptQueryParams['interruptType']): Promise<void> {
+    clear()
     try {
       const successMessage = getSuccessMessage(getString, interruptType, stageId, stageName)
       await interruptMethod({} as never, {
@@ -202,8 +203,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         }
       })
       showSuccess(successMessage)
-    } catch (_) {
-      //
+    } catch (e) {
+      const errorMessage = getErrorInfoFromErrorObject(e)
+      showError(errorMessage)
     }
   }
 
