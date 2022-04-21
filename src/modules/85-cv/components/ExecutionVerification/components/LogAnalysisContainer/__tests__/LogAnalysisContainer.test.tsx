@@ -9,6 +9,7 @@ import React from 'react'
 import { render, waitFor, screen, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
+import { useQueryParams } from '@common/hooks'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { logsNodeNamesMock, mockedLogAnalysisData, mockedLogChartsData } from './LogAnalysisContainer.mocks'
 import LogAnalysisContainer from '../LogAnalysisView.container'
@@ -40,6 +41,11 @@ jest.spyOn(cvService, 'useGetVerifyStepNodeNames').mockReturnValue({
   data: logsNodeNamesMock,
   refetch: fetchNodeNames
 })
+
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useQueryParams: jest.fn(() => ({}))
+}))
 
 const useGetVerifyStepDeploymentLogAnalysisRadarChartReslutSpy = jest
   .spyOn(cvService, 'useGetVerifyStepDeploymentLogAnalysisRadarChartResult')
@@ -329,7 +335,7 @@ describe('Unit tests for LogAnalysisContainer', () => {
     render(<WrapperComponent {...initialProps} />)
 
     expect(screen.getByTestId(/LogAnalysisList_NoData/)).toBeInTheDocument()
-    expect(screen.getByText(/pipeline.verification.logs.noAnalysis/)).toBeInTheDocument()
+    expect(screen.getByText(/cv.monitoredServices.noMatchingData/)).toBeInTheDocument()
   })
 
   test('should have correct nodes placeholder name', async () => {
@@ -344,5 +350,51 @@ describe('Unit tests for LogAnalysisContainer', () => {
     fireEvent.click(screen.getByText('V'))
 
     expect(filter.querySelector('.MultiSelectDropDown--counter')).toBeInTheDocument()
+  })
+
+  test('should render error UI if logs API fails', () => {
+    const errorObj = {
+      message: 'Failed to fetch: Failed to fetch',
+      data: 'Failed to fetch'
+    }
+
+    jest
+      .spyOn(cvService, 'useGetVerifyStepDeploymentLogAnalysisRadarChartResult')
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .mockReturnValue({
+        data: {},
+        error: errorObj
+      })
+
+    render(<WrapperComponent {...initialProps} hostName={undefined} />)
+
+    expect(screen.getByTestId('LogAnalysisList_error')).toBeInTheDocument()
+    expect(screen.getByText('"Failed to fetch"')).toBeInTheDocument()
+  })
+
+  test('should check whether the log analysis call was called without known filter if it has filterAnomalous query param set to true', async () => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useQueryParams.mockImplementation(() => ({ filterAnomalous: 'true' }))
+
+    render(<WrapperComponent {...initialProps} />)
+
+    await waitFor(() =>
+      expect(useGetVerifyStepDeploymentLogAnalysisRadarChartReslutSpy).toHaveBeenCalledWith({
+        queryParamStringifyOptions: { arrayFormat: 'repeat' },
+        queryParams: {
+          accountId: '1234_accountId',
+          clusterTypes: ['UNKNOWN_EVENT', 'UNEXPECTED_FREQUENCY'],
+          healthSources: undefined,
+          hostNames: ['hostName-1'],
+          maxAngle: 360,
+          minAngle: 0,
+          pageNumber: 0,
+          pageSize: 10
+        },
+        verifyStepExecutionId: 'activityId-1'
+      })
+    )
   })
 })

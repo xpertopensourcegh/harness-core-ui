@@ -1,9 +1,18 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useCallback, useMemo } from 'react'
-import { Container, Icon, NoDataCard, Layout, Text } from '@wings-software/uicore'
+import { Container, Icon, NoDataCard, Layout, Text, PageError } from '@wings-software/uicore'
 import { Color, FontVariation } from '@harness/design-system'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import Boost from 'highcharts/modules/boost'
+import noDataImage from '@cv/assets/noData.svg'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
 import type { LogAnalysisRadarChartProps } from './LogAnalysisRadarChart.types'
 import MultiRangeSlider from './MinMaxSlider'
@@ -17,7 +26,9 @@ const LogAnalysisRadarChart: React.FC<LogAnalysisRadarChartProps> = ({
   clusterChartData,
   handleAngleChange,
   filteredAngle,
-  onRadarPointClick
+  onRadarPointClick,
+  clusterChartError,
+  refetchClusterAnalysis
 }) => {
   const radarChartSeries = getRadarChartSeries(clusterChartData?.resource || [])
 
@@ -43,10 +54,20 @@ const LogAnalysisRadarChart: React.FC<LogAnalysisRadarChartProps> = ({
         <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
       </Container>
     )
+  } else if (clusterChartError) {
+    return (
+      <Container data-testid="RadarChart_error">
+        <PageError
+          message={getErrorMessage(clusterChartError)}
+          onClick={refetchClusterAnalysis}
+          className={styles.noData}
+        />
+      </Container>
+    )
   } else if (!clusterChartData?.resource?.length) {
     return (
-      <Container className={styles.noData} data-testid="RadarChart_noData">
-        <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
+      <Container className={styles.noData}>
+        <NoDataCard message={getString('cv.monitoredServices.noMatchingData')} image={noDataImage} />
       </Container>
     )
   } else {

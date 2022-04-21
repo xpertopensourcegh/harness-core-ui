@@ -6,9 +6,11 @@
  */
 
 import React, { useCallback, useMemo, useState } from 'react'
-import { Container, Icon, NoDataCard } from '@wings-software/uicore'
+import { Container, Icon, NoDataCard, PageError } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
 import { useStrings } from 'framework/strings'
+import noDataImage from '@cv/assets/noData.svg'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { LogAnalysisRow } from '@cv/components/LogsAnalysis/components/LogAnalysisRow/LogAnalysisRow'
 import type { LogAnalysisProps, LogAnalysisRowData } from './LogAnalysis.types'
 import LogAnalysisRadarChartHeader from './components/LogAnalysisRadarChartHeader'
@@ -27,7 +29,10 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
     handleAngleChange,
     filteredAngle,
     activityId,
-    logsError
+    logsError,
+    refetchLogAnalysis,
+    clusterChartError,
+    refetchClusterAnalysis
   } = props
   const { getString } = useStrings()
 
@@ -52,10 +57,16 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
           <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
         </Container>
       )
+    } else if (logsError) {
+      return (
+        <Container data-testid="LogAnalysisList_error">
+          <PageError message={getErrorMessage(logsError)} onClick={refetchLogAnalysis} className={styles.noData} />
+        </Container>
+      )
     } else if (!logAnalysisData.length) {
       return (
         <Container className={styles.noData} data-testid="LogAnalysisList_NoData">
-          <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
+          <NoDataCard message={getString('cv.monitoredServices.noMatchingData')} image={noDataImage} />
         </Container>
       )
     } else {
@@ -90,6 +101,8 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
           handleAngleChange={handleAngleChange}
           filteredAngle={filteredAngle}
           onRadarPointClick={handleLogSelection}
+          clusterChartError={clusterChartError}
+          refetchClusterAnalysis={refetchClusterAnalysis}
         />
       </Container>
       <Container className={styles.tableContent}>{renderLogsData()}</Container>

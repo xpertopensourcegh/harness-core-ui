@@ -181,7 +181,7 @@ export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
         })
       }
     }
-  }, [selectedLog])
+  }, [accountId, data, fetchLogAnalysis, onDrawerHide, selectedLog])
 
   useEffect(() => {
     if (logsLoading) {

@@ -15,12 +15,12 @@ import {
   useGetVerifyStepNodeNames,
   GetVerifyStepDeploymentRadarChartLogAnalysisClustersQueryParams
 } from 'services/cv'
-import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import LogAnalysis from './LogAnalysis'
 import { pageSize, initialPageNumber, POLLING_INTERVAL, StepStatus, EventTypeFullName } from './LogAnalysis.constants'
-import type { ClusterTypes, MinMaxAngleState } from './LogAnalysisView.container.types'
+import type { ClusterTypes, LogAnalysisQueryParams, MinMaxAngleState } from './LogAnalysisView.container.types'
 import type { LogAnalysisContainerProps } from './LogAnalysis.types'
 import { getActivityId } from '../../ExecutionVerificationView.utils'
 import { getClusterTypes, getInitialNodeName } from './LogAnalysis.utils'
@@ -35,11 +35,18 @@ export default function LogAnalysisContainer({
   isErrorTracking
 }: LogAnalysisContainerProps): React.ReactElement {
   const { accountId } = useParams<AccountPathProps>()
-  const { showError } = useToaster()
   const { getString } = useStrings()
-  const [clusterTypeFilters, setClusterTypeFilters] = useState<ClusterTypes>(
-    () => getClusterTypes(getString).map(i => i.value) as ClusterTypes
-  )
+  const pageParams = useQueryParams<LogAnalysisQueryParams>()
+  const [clusterTypeFilters, setClusterTypeFilters] = useState<ClusterTypes>(() => {
+    let filterValues = getClusterTypes(getString).map(i => i.value) as ClusterTypes
+
+    if (pageParams.filterAnomalous === 'true') {
+      filterValues = filterValues?.filter(clusterType => clusterType !== EventTypeFullName.KNOWN_EVENT)
+    }
+
+    return filterValues
+  })
+
   const isMounted = useRef(false)
   const isFirstFilterCall = useRef(true)
   const [selectedHealthSource] = useState<string>()
@@ -182,12 +189,6 @@ export default function LogAnalysisContainer({
   }, [clusterTypeFilters])
 
   useEffect(() => {
-    if (logsError) showError(logsError.message)
-    if (clusterChartError) showError(clusterChartError.message)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logsError, clusterChartError])
-
-  useEffect(() => {
     if (isMounted.current) {
       setLogsDataQueryParams({
         ...logsDataQueryParams,
@@ -258,6 +259,9 @@ export default function LogAnalysisContainer({
         filteredAngle={minMaxAngle}
         logsLoading={logsLoading}
         logsError={logsError}
+        refetchLogAnalysis={fetchLogAnalysis}
+        refetchClusterAnalysis={fetchClusterAnalysis}
+        clusterChartError={clusterChartError}
         clusterChartLoading={clusterChartLoading}
         goToPage={goToLogsPage}
         activityId={activityId}

@@ -61,7 +61,11 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   function handleLogViewChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { checked } = e.target as HTMLInputElement
 
-    updateQueryParams({ view: checked ? 'log' : 'graph', filterAnomalous: 'false' })
+    updateQueryParams({
+      view: checked ? 'log' : 'graph',
+      filterAnomalous: 'false',
+      type: getString('pipeline.verification.analysisTab.metrics')
+    })
   }
 
   React.useEffect(() => {

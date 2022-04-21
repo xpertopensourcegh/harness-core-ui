@@ -129,7 +129,8 @@ export default function getLogAnalysisSpiderChartOptions(
       shadow: {
         color: 'rgba(96, 97, 112, 0.56)'
       },
-      shape: 'square'
+      shape: 'square',
+      outside: true
     },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

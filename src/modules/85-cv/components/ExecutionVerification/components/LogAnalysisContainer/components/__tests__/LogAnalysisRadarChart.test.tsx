@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -91,7 +98,19 @@ describe('LogAnalysisRadarChart', () => {
   test('should render No data UI, if the no data to render the chart', () => {
     render(<WrappedComponent {...initialProps} clusterChartData={{ resource: [] }} />)
 
-    expect(screen.getByTestId('RadarChart_noData')).toBeInTheDocument()
+    expect(screen.getByText('cv.monitoredServices.noMatchingData')).toBeInTheDocument()
+  })
+
+  test('should render ', () => {
+    const errorObj = {
+      message: 'Failed to fetch: Failed to fetch',
+      data: 'Failed to fetch'
+    }
+
+    render(<WrappedComponent {...initialProps} clusterChartError={errorObj} />)
+
+    expect(screen.getByTestId('RadarChart_error')).toBeInTheDocument()
+    expect(screen.getByText('"Failed to fetch"')).toBeInTheDocument()
   })
 
   test('should correct data in chart all required data is present', () => {

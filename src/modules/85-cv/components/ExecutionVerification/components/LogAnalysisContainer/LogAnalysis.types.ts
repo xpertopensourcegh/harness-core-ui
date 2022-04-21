@@ -43,4 +43,7 @@ export interface LogAnalysisProps {
   handleAngleChange: (value: MinMaxAngleState) => void
   filteredAngle: MinMaxAngleState
   logsError?: GetDataError<unknown> | null
+  refetchLogAnalysis?: () => void
+  refetchClusterAnalysis?: () => void
+  clusterChartError?: GetDataError<unknown> | null
 }

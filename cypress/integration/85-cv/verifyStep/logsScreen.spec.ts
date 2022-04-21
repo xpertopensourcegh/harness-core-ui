@@ -168,9 +168,9 @@ describe('Verify step', () => {
 
     // should make correct filter call
 
-    cy.findByTestId('Known').should('exist')
-    cy.findByTestId('Known').should('be.checked')
-    cy.findByTestId('Known').click({ force: true })
+    cy.findByTestId('Unknown').should('exist')
+    cy.findByTestId('Unknown').should('be.checked')
+    cy.findByTestId('Unknown').click({ force: true })
 
     cy.wait('@logsListCLusterFilterCall')
     cy.wait('@logsRadarChartDataCLusterFilterCall')
@@ -183,5 +183,22 @@ describe('Verify step', () => {
       expect(interceptor.request.url).includes('minAngle=30')
     })
     cy.get('.highcharts-scatter-series').should('have.length', 18)
+
+    // if we come via Console view log, filter call should include KNOWN cluster type
+    cy.get('.bp3-switch').click()
+    // clicking again to go to verify step page
+    cy.get('.bp3-switch').click()
+
+    cy.findByText(/^Logs/i).click({ force: true })
+
+    cy.wait('@nodeNames')
+
+    cy.url().should(
+      'include',
+      '/projects/project1/pipelines/appdtest/executions/C9mgNjxSS7-B-qQek27iuA/pipeline?stage=g_LkakmWRPm-wC6rfC2ufg&step=MC56t3BmR4mUBHPuiL6JWQ&view=log&type=Metrics&filterAnomalous=false'
+    )
+
+    cy.findByTestId('Known').should('exist')
+    cy.findByTestId('Known').should('be.checked')
   })
 })

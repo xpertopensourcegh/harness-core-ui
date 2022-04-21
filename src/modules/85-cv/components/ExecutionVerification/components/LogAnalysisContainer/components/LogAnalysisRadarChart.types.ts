@@ -1,3 +1,4 @@
+import type { GetDataError } from 'restful-react'
 import type { EventCount, RestResponseListLogAnalysisRadarChartClusterDTO } from 'services/cv'
 import type { MinMaxAngleState } from '../LogAnalysisView.container.types'
 
@@ -7,6 +8,8 @@ export interface LogAnalysisRadarChartProps {
   handleAngleChange: (value: MinMaxAngleState) => void
   filteredAngle: MinMaxAngleState
   onRadarPointClick: (clusterId: string) => void
+  clusterChartError?: GetDataError<unknown> | null
+  refetchClusterAnalysis?: () => void
 }
 
 export interface MultiRangeSliderProps {
