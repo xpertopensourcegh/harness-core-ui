@@ -3599,6 +3599,8 @@ export interface StringsMap {
   'ce.co.accessPoint.domainName': string
   'ce.co.accessPoint.enterDomain': string
   'ce.co.accessPoint.error': string
+  'ce.co.accessPoint.gcpCertificateId': string
+  'ce.co.accessPoint.gcpSecretId': string
   'ce.co.accessPoint.helpCenter.heading': string
   'ce.co.accessPoint.helpCenter.step1': string
   'ce.co.accessPoint.helpCenter.step2': string

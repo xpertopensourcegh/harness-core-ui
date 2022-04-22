@@ -307,6 +307,8 @@ co:
     vpcLabel: 'VPC'
     securityGroupsLabel: 'Network tags'
     machineType: 'Machine type'
+    gcpCertificateId: 'Certificate Secret Version'
+    gcpSecretId: 'Private Key Secret Version'
     select:
       accessPoint: 'Select Access Point'
       account: 'Select {{$.ce.co.accessPoint.cloudAccount}}'
