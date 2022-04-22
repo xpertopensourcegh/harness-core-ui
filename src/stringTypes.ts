@@ -4455,6 +4455,8 @@ export interface StringsMap {
   'cf.featureFlags.rules.following': string
   'cf.featureFlags.rules.onRequest': string
   'cf.featureFlags.rules.onRequestVariation': string
+  'cf.featureFlags.rules.searchTargetGroups': string
+  'cf.featureFlags.rules.searchTargets': string
   'cf.featureFlags.rules.serveToFollowing': string
   'cf.featureFlags.rules.serveVariationToTarget': string
   'cf.featureFlags.rules.specificTargeting': string
