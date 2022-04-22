@@ -133,10 +133,7 @@ export default function ArtifactsSelection({
     }
 
     if (CUSTOM_ARTIFACT_NG && !allowedArtifactTypes[deploymentType]?.includes(ENABLED_ARTIFACT_TYPES.CustomArtifact)) {
-      allowedArtifactTypes[deploymentType].push(
-        ENABLED_ARTIFACT_TYPES.Nexus3Registry,
-        ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
-      )
+      allowedArtifactTypes[deploymentType].push(ENABLED_ARTIFACT_TYPES.CustomArtifact)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
