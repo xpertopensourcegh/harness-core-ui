@@ -442,6 +442,11 @@ function LandingDashboardDeploymentsWidget(): React.ReactElement {
           label: defaultTo(defaultTo(service.serviceInfo?.serviceName, service.serviceInfo?.serviceIdentifier), ''),
           labelTooltip: renderTooltipForServiceLabel(service),
           labelLink: getServiceDetailsLink(service),
+          tooltipProps: {
+            isDark: true,
+            fill: false,
+            position: 'bottom'
+          },
           barSectionsData:
             sortByValue === 'INSTANCES'
               ? [
