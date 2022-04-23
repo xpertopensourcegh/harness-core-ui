@@ -4082,6 +4082,7 @@ export interface StringsMap {
   'ce.perspectives.confirmDeletePerspectiveTitle': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
+  'ce.perspectives.createPerspective.filters.enterCondition': string
   'ce.perspectives.createPerspective.filters.operator': string
   'ce.perspectives.createPerspective.filters.rulesText1': string
   'ce.perspectives.createPerspective.filters.rulesText2': string
@@ -4096,6 +4097,7 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.nextButton': string
   'ce.perspectives.createPerspective.operatorLabels.in': string
   'ce.perspectives.createPerspective.operatorLabels.notIn': string
+  'ce.perspectives.createPerspective.operatorLabels.opLike': string
   'ce.perspectives.createPerspective.operatorLabels.opNotNull': string
   'ce.perspectives.createPerspective.operatorLabels.opNull': string
   'ce.perspectives.createPerspective.prevButton': string
