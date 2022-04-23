@@ -9607,7 +9607,7 @@ export interface UserInfo {
   token?: string
   twoFactorAuthenticationEnabled?: boolean
   utmInfo?: UtmInfo
-  uuid?: string
+  uuid: string
 }
 
 export interface UserLockoutInfo {
