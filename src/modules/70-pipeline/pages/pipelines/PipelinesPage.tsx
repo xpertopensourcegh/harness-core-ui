@@ -79,8 +79,10 @@ import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag, useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
+import { NewPipelinePopover } from '@pipeline/pages/pipelines/views/NewPipelinePopover/NewPipelinePopover'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -174,6 +176,10 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
     : isCFModule
     ? flagpipelineIllustration
     : pipelineIllustration
+
+  const templatesFeatureFlagEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
+  const pipelineTemplatesFeatureFlagEnabled = useFeatureFlag(FeatureFlag.NG_PIPELINE_TEMPLATE)
+  const isPipelineTemplateEnabled = templatesFeatureFlagEnabled && pipelineTemplatesFeatureFlagEnabled
 
   const goToPipelineDetail = useCallback(
     (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
@@ -637,22 +643,26 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
       {(isReseting || !!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
         <Page.SubHeader>
           <Layout.Horizontal>
-            <RbacButton
-              variation={ButtonVariation.PRIMARY}
-              data-testid="add-pipeline"
-              icon="plus"
-              text={getString('pipeline.newPipelineText')}
-              onClick={() => goToPipeline()}
-              tooltipProps={{
-                dataTooltipId: 'addPipeline'
-              }}
-              permission={{
-                permission: PermissionIdentifier.EDIT_PIPELINE,
-                resource: {
-                  resourceType: ResourceType.PIPELINE
-                }
-              }}
-            />
+            {isPipelineTemplateEnabled ? (
+              <NewPipelinePopover />
+            ) : (
+              <RbacButton
+                variation={ButtonVariation.PRIMARY}
+                data-testid="add-pipeline"
+                icon="plus"
+                text={getString('pipeline.newPipelineText')}
+                onClick={() => goToPipeline()}
+                tooltipProps={{
+                  dataTooltipId: 'addPipeline'
+                }}
+                permission={{
+                  permission: PermissionIdentifier.EDIT_PIPELINE,
+                  resource: {
+                    resourceType: ResourceType.PIPELINE
+                  }
+                }}
+              />
+            )}
             {isGitSyncEnabled && (
               <GitSyncStoreProvider>
                 <GitFilters
@@ -758,23 +768,26 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
                 <Text className={css.aboutPipeline} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
                   {getString('pipeline-list.aboutPipeline')}
                 </Text>
-
-                <RbacButton
-                  variation={ButtonVariation.PRIMARY}
-                  onClick={() => goToPipeline()}
-                  text={getString('common.createPipeline')}
-                  permission={{
-                    permission: PermissionIdentifier.EDIT_PIPELINE,
-                    resource: {
-                      resourceType: ResourceType.PIPELINE
-                    },
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier,
-                      projectIdentifier
-                    }
-                  }}
-                />
+                {isPipelineTemplateEnabled ? (
+                  <NewPipelinePopover text={getString('common.createPipeline')} />
+                ) : (
+                  <RbacButton
+                    variation={ButtonVariation.PRIMARY}
+                    onClick={() => goToPipeline()}
+                    text={getString('common.createPipeline')}
+                    permission={{
+                      permission: PermissionIdentifier.EDIT_PIPELINE,
+                      resource: {
+                        resourceType: ResourceType.PIPELINE
+                      },
+                      resourceScope: {
+                        accountIdentifier: accountId,
+                        orgIdentifier,
+                        projectIdentifier
+                      }
+                    }}
+                  />
+                )}
               </Layout.Vertical>
             )}
           </div>
