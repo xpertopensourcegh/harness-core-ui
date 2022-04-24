@@ -25,6 +25,7 @@ import {
   useGetTemplateInputSetYaml,
   useGetYamlWithTemplateRefsResolved
 } from 'services/template-ng'
+import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -58,6 +59,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
   const [inputSetTemplate, setInputSetTemplate] = React.useState<StepElementConfig | StageElementConfig | null>()
   const [count, setCount] = React.useState<number>(0)
   const { showError } = useToaster()
+  const { getRBACErrorMessage } = useRBACError()
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
@@ -93,7 +95,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
       setCount((JSON.stringify(templateInput).match(/<\+input>/g) || []).length)
       setInputSetTemplate(templateInput)
     } catch (error) {
-      showError(error.message, undefined, 'template.parse.inputSet.error')
+      showError(getRBACErrorMessage(error), undefined, 'template.parse.inputSet.error')
     }
   }, [templateInputYaml?.data])
 

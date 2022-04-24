@@ -300,7 +300,7 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
     queryParams: defaultQueryParamsForFilters
   })
   if (errorFetchingFilters && shouldShowError(errorFetchingFilters)) {
-    showError(errorFetchingFilters?.data || errorFetchingFilters?.message, undefined, 'pipeline.fetch.filter.error')
+    showError(getRBACErrorMessage(errorFetchingFilters), undefined, 'pipeline.fetch.filter.error')
   }
 
   useEffect(() => {
@@ -621,7 +621,7 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
     } catch (err) {
       setIsDeleting(false)
       /* istanbul ignore next */
-      showError(err?.data?.message || err?.message, undefined, 'pipeline.delete.pipeline.error')
+      showError(getRBACErrorMessage(err), undefined, 'pipeline.delete.pipeline.error')
     }
   }
 
