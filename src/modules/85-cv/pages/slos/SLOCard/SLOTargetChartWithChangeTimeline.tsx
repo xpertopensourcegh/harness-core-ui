@@ -72,7 +72,11 @@ const SLOTargetChartWithChangeTimeline: React.FC<SLOTargetChartWithChangeTimelin
     <Container
       style={{ position: 'relative' }}
       className={css.flexGrowOne}
-      onClick={() => setShowTimelineSlider(true)}
+      onClick={() => {
+        if (!showTimelineSlider) {
+          setShowTimelineSlider(true)
+        }
+      }}
       data-testid="timeline-slider-container"
     >
       <Container padding={{ left: isCardView ? 'huge' : 'none' }}>

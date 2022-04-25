@@ -5671,6 +5671,7 @@ export interface StringsMap {
   'cv.windowEndsDay': string
   'cv.windowsEndIsRequired': string
   'cv.yourExistingErrorBudgetIs': string
+  'cv.zoom': string
   'stoSteps.securityStage.description': string
   'stoSteps.stepDescription.ZeroNorth': string
   'stoSteps.zeroNorthImagePlaceholder': string
