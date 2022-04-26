@@ -110,6 +110,26 @@ describe('Unit tests for timeline slider', () => {
         startXPercentage: NaN
       })
     )
+
+    userEvent.click(drags[1])
+    await waitFor(() =>
+      expect(onDragEndMock).toHaveBeenLastCalledWith({
+        endX: 0,
+        endXPercentage: NaN,
+        startX: 0,
+        startXPercentage: NaN
+      })
+    )
+
+    userEvent.click(drags[2])
+    await waitFor(() =>
+      expect(onDragEndMock).toHaveBeenLastCalledWith({
+        endX: 0,
+        endXPercentage: NaN,
+        startX: 0,
+        startXPercentage: NaN
+      })
+    )
   })
 
   test('Ensure that slider appears only when click event is fired when appearOnClick is passed', async () => {
