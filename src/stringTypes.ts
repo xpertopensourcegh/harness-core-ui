@@ -4369,6 +4369,7 @@ export interface StringsMap {
   'cf.environments.apiKeys.serverType': string
   'cf.environments.apiKeys.title': string
   'cf.environments.create.description': string
+  'cf.environments.create.duplicateName': string
   'cf.environments.create.envTypeLabel': string
   'cf.environments.create.nameLabel': string
   'cf.environments.create.title': string
