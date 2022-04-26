@@ -12,6 +12,7 @@ import type { FormikActions } from 'formik'
 import { cloneDeep, get, isEqual } from 'lodash-es'
 import {
   Button,
+  ButtonVariation,
   Container,
   FlexExpander,
   Formik,
@@ -548,6 +549,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                       type="submit"
                       intent="primary"
                       text={getString('save')}
+                      variation={ButtonVariation.PRIMARY}
                       onClick={event => {
                         if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
                           event.preventDefault()
@@ -558,6 +560,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                     <Button
                       minimal
                       text={getString('cancel')}
+                      variation={ButtonVariation.SECONDARY}
                       onClick={(e: MouseEvent) => {
                         e.preventDefault()
                         onCancelEditHandler()

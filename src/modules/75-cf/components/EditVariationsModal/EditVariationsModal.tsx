@@ -11,6 +11,7 @@ import * as yup from 'yup'
 import { isEqual, zip, orderBy, clone } from 'lodash-es'
 import {
   Button,
+  ButtonVariation,
   Text,
   ButtonProps,
   Container,
@@ -362,9 +363,15 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                     text={submitButtonTitle || getString('save')}
                     intent={Intent.PRIMARY}
                     type="submit"
+                    variation={ButtonVariation.PRIMARY}
                     disabled={isEqual(initialValues, formikProps.values) || patchLoading}
                   />
-                  <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
+                  <Button
+                    text={cancelButtonTitle || getString('cancel')}
+                    minimal
+                    onClick={hideModal}
+                    variation={ButtonVariation.SECONDARY}
+                  />
                   <FlexExpander />
                   {patchLoading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
                 </Layout.Horizontal>

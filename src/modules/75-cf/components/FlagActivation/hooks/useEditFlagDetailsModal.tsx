@@ -6,7 +6,16 @@
  */
 
 import React from 'react'
-import { Button, Container, Formik, FormikForm as Form, FormInput, Layout, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Container,
+  Formik,
+  FormikForm as Form,
+  FormInput,
+  Layout,
+  Text
+} from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { Dialog, Divider } from '@blueprintjs/core'
 import * as yup from 'yup'
@@ -142,17 +151,18 @@ const useEditFlagDetailsModal = (props: UseEditFlagDetailsModalProps): UseEditFl
                   </>
                 )}
 
-                <Container>
-                  <Button intent="primary" text={getString('save')} type="submit" />
+                <Layout.Horizontal spacing="small">
+                  <Button intent="primary" text={getString('save')} type="submit" variation={ButtonVariation.PRIMARY} />
                   <Button
                     minimal
                     text={getString('cancel')}
+                    variation={ButtonVariation.SECONDARY}
                     onClick={e => {
                       e.preventDefault()
                       hideEditDetailsModal()
                     }}
                   />
-                </Container>
+                </Layout.Horizontal>
               </Layout.Vertical>
             </Form>
           )}
