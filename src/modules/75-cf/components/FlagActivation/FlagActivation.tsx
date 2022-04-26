@@ -330,7 +330,11 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 }
               : data
           )
-            .then(async () => {
+            .then(async response => {
+              if (isGovernanceError(response)) {
+                handleGovernanceError(response)
+              }
+
               if (!gitSync?.isAutoCommitEnabled && values.autoCommit) {
                 await gitSync?.handleAutoCommit(values.autoCommit)
               }
@@ -345,7 +349,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               if (err.status === GIT_SYNC_ERROR_CODE) {
                 gitSync.handleError(err.data as GitSyncErrorResponse)
               } else {
-                if (isGovernanceError(err)) {
+                if (isGovernanceError(err?.data)) {
                   handleGovernanceError(err.data)
                 } else {
                   showError(get(err, 'data.message', err?.message), 0)

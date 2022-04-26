@@ -4636,6 +4636,7 @@ export interface StringsMap {
   'cf.planEnforcement.upgradeRequiredDev': string
   'cf.planEnforcement.upgradeRequiredMau': string
   'cf.policyEvaluations.failedToSave': string
+  'cf.policyEvaluations.warning': string
   'cf.rbac.category': string
   'cf.rbac.featureflag.delete': string
   'cf.rbac.featureflag.edit': string

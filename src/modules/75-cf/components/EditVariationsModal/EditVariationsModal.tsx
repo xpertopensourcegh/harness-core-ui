@@ -58,6 +58,7 @@ export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 
   cancelButtonTitle?: string
 
   onSuccess: () => void
+  setGovernanceMetadata: (governanceMetadata: any) => void
 }
 
 export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
@@ -70,6 +71,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
   submitButtonTitle,
   cancelButtonTitle,
   onSuccess,
+  setGovernanceMetadata,
   ...props
 }) => {
   const { isPlanEnforcementEnabled } = usePlanEnforcement()
@@ -163,7 +165,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
 
       patch.feature.onPatchAvailable(async data => {
         try {
-          await submitPatch(
+          const response = await submitPatch(
             gitSync?.isGitSyncEnabled
               ? {
                   ...data,
@@ -171,6 +173,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                 }
               : data
           )
+          setGovernanceMetadata(response.details?.governanceMetadata)
 
           if (!gitSync?.isAutoCommitEnabled && values.autoCommit) {
             await gitSync?.handleAutoCommit(values.autoCommit)
@@ -184,8 +187,8 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
           if (error.status === GIT_SYNC_ERROR_CODE) {
             gitSync.handleError(error.data as GitSyncErrorResponse)
           } else {
-            if (isGovernanceError(error)) {
-              handleGovernanceError(error.data)
+            if (isGovernanceError(error?.data)) {
+              handleGovernanceError(error?.data)
             } else {
               showError(getErrorMessage(error), 0, 'cf.submit.patch.error')
             }
