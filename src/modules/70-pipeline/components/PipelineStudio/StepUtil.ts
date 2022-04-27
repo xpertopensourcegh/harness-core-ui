@@ -334,7 +334,7 @@ export const validateStage = ({
 
 interface ValidatePipelineProps {
   pipeline: PipelineInfoConfig
-  template: PipelineInfoConfig
+  template?: PipelineInfoConfig
   viewType: StepViewType
   originalPipeline?: PipelineInfoConfig
   getString?: UseStringsReturn['getString']
