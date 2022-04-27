@@ -23,6 +23,7 @@ changeTemplateLabel: Change Template
 removeTemplateLabel: Remove Template
 openTemplateInNewTabLabel: Open Template in new tab
 previewTemplateLabel: Preview Template YAML
+templateInputs: Template Inputs
 onlyPositiveInteger: Only positive integer values
 depth: Depth
 advancedOptions: Advanced Options

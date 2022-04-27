@@ -2971,6 +2971,7 @@ export interface StringsMap {
   'pipeline.stepNamePlaceholder': string
   'pipeline.tagDependencyRequired': string
   'pipeline.targets.title': string
+  'pipeline.templateInputs': string
   'pipeline.templateSaved': string
   'pipeline.terraformStep.provisionerIdentifier': string
   'pipeline.terraformStep.workspace': string
@@ -3139,7 +3140,6 @@ export interface StringsMap {
   'templatesLibrary.stableVersion': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateHasBeenDeleted': string
-  'templatesLibrary.templateInputs': string
   'templatesLibrary.templateScope': string
   'templatesLibrary.templateSettings': string
   'templatesLibrary.templateSettingsModal.defaultVersionLabel': string
