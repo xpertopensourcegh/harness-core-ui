@@ -5550,6 +5550,7 @@ export interface StringsMap {
   'cv.selectNamespace': string
   'cv.selectOrCreateEnv': string
   'cv.selectQuery': string
+  'cv.selectTimeRange': string
   'cv.selectWorkload': string
   'cv.selectedTimeInterval': string
   'cv.serviceDashboardPage.fifteenMinutes': string
@@ -5570,6 +5571,7 @@ export interface StringsMap {
   'cv.showLess': string
   'cv.showMore': string
   'cv.showYAMLChange': string
+  'cv.showingLogs': string
   'cv.showingLogsFor': string
   'cv.sliMissingDataTypeIsRequired': string
   'cv.sloRecalculationInProgress': string
