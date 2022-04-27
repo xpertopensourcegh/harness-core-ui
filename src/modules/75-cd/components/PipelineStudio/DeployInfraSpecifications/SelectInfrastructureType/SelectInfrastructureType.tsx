@@ -12,7 +12,7 @@ import * as Yup from 'yup'
 import { IconName, GroupedThumbnailSelect } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
-import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { InfraDeploymentType } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 import css from './SelectInfrastructureType.module.scss'
 

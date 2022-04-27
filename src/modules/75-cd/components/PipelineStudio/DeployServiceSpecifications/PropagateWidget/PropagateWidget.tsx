@@ -14,7 +14,7 @@ import * as Yup from 'yup'
 import isEmpty from 'lodash/isEmpty'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
-import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import css from './PropagateWidget.module.scss'
 
 export const setupMode = {

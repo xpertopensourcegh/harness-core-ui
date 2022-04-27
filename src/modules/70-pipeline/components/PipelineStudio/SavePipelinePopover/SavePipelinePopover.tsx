@@ -152,13 +152,13 @@ export function SavePipelinePopover({
   }
 
   const gotoViewWithDetails = React.useCallback(
-    ({ stageId, stepId }: { stageId?: string; stepId?: string } = {}): void => {
+    ({ stageId, stepId, sectionId }: { stageId?: string; stepId?: string; sectionId?: string } = {}): void => {
       hideErrorModal()
       // If Yaml mode, or if pipeline error - stay on yaml mode
       if (isYaml || (!stageId && !stepId)) {
         return
       }
-      setSelection({ stageId, stepId })
+      setSelection(sectionId ? { stageId, stepId, sectionId } : { stageId, stepId })
       updatePipelineView({
         ...pipelineView,
         isSplitViewOpen: true,

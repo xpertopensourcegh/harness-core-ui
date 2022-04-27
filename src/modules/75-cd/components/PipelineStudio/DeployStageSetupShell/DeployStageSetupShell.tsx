@@ -25,7 +25,7 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
-import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { useQueryParams } from '@common/hooks'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
@@ -68,7 +68,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     state: {
       originalPipeline,
       pipelineView,
-      selectionState: { selectedStageId, selectedStepId },
+      selectionState: { selectedStageId, selectedStepId, selectedSectionId },
       templateTypes
     },
     contextType,
@@ -94,7 +94,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     } else {
       setSelectedSectionId(DeployTabs.SERVICE)
     }
-  }, [])
+  }, [selectedSectionId])
 
   React.useEffect(() => {
     if (selectedStepId) {
