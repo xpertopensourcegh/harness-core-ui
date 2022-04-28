@@ -5,27 +5,28 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+/* eslint-disable react/display-name */
 import React from 'react'
 import { render } from '@testing-library/react'
+
 import { TestWrapper } from '@common/utils/testUtils'
-import GitPopoverInfo from '../GitPopoverInfo'
-describe('GitPopover', () => {
-  test('should return content when content is not empty', () => {
+import LogsHeader, { LogsHeaderProps as LogsHeaderPropsInterface } from '../LogsHeader'
+
+const LogsHeaderProps: LogsHeaderPropsInterface = {
+  onNext: jest.fn(),
+  onPrev: jest.fn(),
+  searchDir: '',
+  subHeader: '',
+  redirectToLogView: true
+}
+
+describe('Testing LogsHeader', () => {
+  test('snapshot', () => {
     const { container } = render(
       <TestWrapper>
-        <GitPopoverInfo heading={''} content={'demo'} iconName={'script'} />
+        <LogsHeader {...LogsHeaderProps} />
       </TestWrapper>
     )
-    expect(container).toMatchSnapshot()
-  })
-
-  test('should return null when content is empty', () => {
-    const { container } = render(
-      <TestWrapper>
-        <GitPopoverInfo heading={''} content={''} iconName={'script'} />
-      </TestWrapper>
-    )
-
     expect(container).toMatchSnapshot()
   })
 })
