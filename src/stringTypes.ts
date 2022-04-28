@@ -2137,16 +2137,21 @@ export interface StringsMap {
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string
+  'dashboards.createModal.howToCreate': string
   'dashboards.createModal.namePlaceholder': string
   'dashboards.createModal.nameValidation': string
   'dashboards.createModal.sampleDesc': string
   'dashboards.createModal.sampleTitle': string
   'dashboards.createModal.stepOne': string
   'dashboards.createModal.submitFail': string
+  'dashboards.createModal.success': string
   'dashboards.createModal.view': string
   'dashboards.deleteFolder.confirmDeleteText': string
   'dashboards.deleteFolder.confirmDeleteTitle': string
   'dashboards.deleteFolder.success': string
+  'dashboards.editModal.editDashboard': string
+  'dashboards.editModal.submitFail': string
+  'dashboards.editModal.success': string
   'dashboards.getStarted.subTextVideo1': string
   'dashboards.getStarted.subTextVideo2': string
   'dashboards.getStarted.subTextVideo3': string
@@ -2167,6 +2172,8 @@ export interface StringsMap {
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string
+  'dashboards.shared': string
+  'dashboards.sharedFolderTitle': string
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
