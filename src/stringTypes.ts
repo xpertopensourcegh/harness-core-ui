@@ -1488,7 +1488,6 @@ export interface StringsMap {
   'connectors.ceAws.crossAccountRoleExtention.step4': string
   'connectors.ceAws.crossAccountRoleExtention.step5': string
   'connectors.ceAws.crossAccountRoleExtention.subHeading': string
-  'connectors.ceAws.crossAccountRoleStep1.choosePermissions': string
   'connectors.ceAws.crossAccountRoleStep1.cost': string
   'connectors.ceAws.crossAccountRoleStep1.default.feat1': string
   'connectors.ceAws.crossAccountRoleStep1.default.footer': string
@@ -1507,11 +1506,16 @@ export interface StringsMap {
   'connectors.ceAws.crossAccountRoleStep1.visible.feat2': string
   'connectors.ceAws.crossAccountRoleStep1.visible.heading': string
   'connectors.ceAws.crossAccountRoleStep1.visible.prefix': string
-  'connectors.ceAws.crossAccountRoleStep2.createRole': string
   'connectors.ceAws.crossAccountRoleStep2.dontHaveAccess': string
   'connectors.ceAws.crossAccountRoleStep2.extId': string
   'connectors.ceAws.crossAccountRoleStep2.followInstructions': string
   'connectors.ceAws.crossAccountRoleStep2.heading': string
+  'connectors.ceAws.crossAccountRoleStep2.instructions.i1': string
+  'connectors.ceAws.crossAccountRoleStep2.instructions.i2': string
+  'connectors.ceAws.crossAccountRoleStep2.instructions.i3': string
+  'connectors.ceAws.crossAccountRoleStep2.instructions.i4': string
+  'connectors.ceAws.crossAccountRoleStep2.instructions.i5': string
+  'connectors.ceAws.crossAccountRoleStep2.instructions.templateRedirection': string
   'connectors.ceAws.crossAccountRoleStep2.launchTemplate': string
   'connectors.ceAws.crossAccountRoleStep2.roleArn': string
   'connectors.ceAws.crossAccountRoleStep2.subHeading': string
@@ -1521,13 +1525,21 @@ export interface StringsMap {
   'connectors.ceAws.cur.createNew': string
   'connectors.ceAws.cur.followInstruction': string
   'connectors.ceAws.cur.heading': string
+  'connectors.ceAws.cur.instructions.i1': string
+  'connectors.ceAws.cur.instructions.i2': string
+  'connectors.ceAws.cur.instructions.i3': string
+  'connectors.ceAws.cur.instructions.i4': string
   'connectors.ceAws.cur.launchTemplate': string
   'connectors.ceAws.cur.login': string
+  'connectors.ceAws.cur.noAccountLink': string
   'connectors.ceAws.cur.reportName': string
   'connectors.ceAws.cur.subheading': string
   'connectors.ceAws.cur.validation.bucketRequired': string
   'connectors.ceAws.cur.validation.reportRequired': string
   'connectors.ceAws.curExising.accountID': string
+  'connectors.ceAws.curExising.nextStepHint1': string
+  'connectors.ceAws.curExising.nextStepHint2': string
+  'connectors.ceAws.curExising.searchCUR': string
   'connectors.ceAws.curExising.subHeading': string
   'connectors.ceAws.curExtention.heading': string
   'connectors.ceAws.curExtention.moreHelp.heading': string
