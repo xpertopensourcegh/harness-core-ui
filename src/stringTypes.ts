@@ -3908,6 +3908,7 @@ export interface StringsMap {
   'ce.co.noData': string
   'ce.co.noOfInstances': string
   'ce.co.noOfTasks': string
+  'ce.co.reducedEmissions': string
   'ce.co.ruleDetailsHeader.computeType': string
   'ce.co.ruleDetailsHeader.customDomain': string
   'ce.co.ruleDetailsHeader.hostName': string
@@ -3929,10 +3930,12 @@ export interface StringsMap {
   'ce.co.selectResourceGroupPlaceholder': string
   'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
+  'ce.co.totalEmissions': string
   'ce.common.and': string
   'ce.common.budget': string
   'ce.common.containerService': string
   'ce.common.database': string
+  'ce.common.emissionUnitHTML': string
   'ce.common.newBudget': string
   'ce.common.or': string
   'ce.common.spendTillDate': string
@@ -4052,8 +4055,13 @@ export interface StringsMap {
   'ce.overview.noData.info': string
   'ce.overview.noData.ngDocs': string
   'ce.overview.nodepool': string
+  'ce.overview.recommendationsEmission': string
   'ce.overview.savings': string
   'ce.overview.seeAll': string
+  'ce.overview.sustainability.fromClousUsageTitle': string
+  'ce.overview.sustainability.fromClusterTitle': string
+  'ce.overview.sustainability.idleAndUnallocatedClusters': string
+  'ce.overview.sustainability.tillDate': string
   'ce.overview.title': string
   'ce.overview.totalCost': string
   'ce.overview.workload': string
@@ -4268,6 +4276,9 @@ export interface StringsMap {
   'ce.recommendation.listPage.monthlyForcastedCostText': string
   'ce.recommendation.listPage.monthlyPotentialCostText': string
   'ce.recommendation.listPage.monthlySavingsText': string
+  'ce.recommendation.listPage.potentialEmissionTitle': string
+  'ce.recommendation.listPage.potentialReducedEmissionSubtitle': string
+  'ce.recommendation.listPage.potentialReducedEmissionTitle': string
   'ce.recommendation.listPage.recommendationCount': string
   'ce.recommendation.listPage.recommendationDetails.resize': string
   'ce.recommendation.listPage.recommendationTypes.resizing': string
