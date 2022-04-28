@@ -914,8 +914,6 @@ dashboardDeploymentsWidget:
     singular: Currently running pipeline
     plural: Currently running pipelines
 runtimeInputNotSupported: '{{field}} cannot be runtime inputs'
-security:
-  title: Security
 runPipeline:
   ciCodebaseConfig: CI Codebase Configuration is missing. Codebase is required when the pipeline contains a CI stage that is set to clone codebase.
 buildInfra:
