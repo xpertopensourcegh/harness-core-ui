@@ -58,6 +58,7 @@ import { FlowControlWithRef as FlowControl, FlowControlRef } from '../FlowContro
 import { AdvancedOptions } from '../AdvancedOptions/AdvancedOptions'
 import { RightDrawerTitle } from './RightDrawerTitle'
 
+import { getFlattenedStages } from '../StageBuilder/StageBuilderUtil'
 import css from './RightDrawer.module.scss'
 
 export const FullscreenDrawers: DrawerTypes[] = [
@@ -779,7 +780,7 @@ export function RightDrawer(): React.ReactElement {
             stageType,
             selectedStage?.stage,
             undefined,
-            pipeline.stages
+            getFlattenedStages(pipeline).stages
           )}
           stageType={stageType as StageType}
           onSelect={onStepSelection}
@@ -833,7 +834,7 @@ export function RightDrawer(): React.ReactElement {
             stageType,
             undefined,
             'Provisioner',
-            pipeline.stages
+            getFlattenedStages(pipeline).stages
           )}
           stageType={stageType as StageType}
           isProvisioner={true}
