@@ -18,7 +18,7 @@ import {
 } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { FontVariation } from '@harness/design-system'
-import { get, set, isEmpty, pickBy, identity, isNil } from 'lodash-es'
+import { get, set, isEmpty, pickBy, identity, isNil, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -45,6 +45,11 @@ import { useGitScope } from '@pipeline/utils/CIUtils'
 import { ConnectorRefWidth } from '@pipeline/utils/constants'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { StringsMap } from 'stringTypes'
+import {
+  getCustomStepProps,
+  getStepTypeByDeploymentType,
+  infraDefinitionTypeMapping
+} from '@pipeline/utils/stageHelpers'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -550,7 +555,9 @@ export function StageInputSetFormInternal({
                     ? deploymentStageTemplate?.serviceConfig?.stageOverrides
                     : deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}
                 }
-                type={StepType.K8sServiceSpec}
+                type={getStepTypeByDeploymentType(
+                  defaultTo(deploymentStage?.serviceConfig?.serviceDefinition?.type, '')
+                )}
                 stepViewType={viewType}
                 path={
                   isPropagating
@@ -809,8 +816,10 @@ export function StageInputSetFormInternal({
                   deploymentStage?.infrastructure?.infrastructureDefinition?.spec || /* istanbul ignore next */ {}
                 }
                 type={
-                  (deploymentStage?.infrastructure?.infrastructureDefinition?.type as StepType) ||
-                  /* istanbul ignore next */ StepType.KubernetesDirect
+                  ((infraDefinitionTypeMapping[
+                    deploymentStage?.infrastructure?.infrastructureDefinition?.type as string
+                  ] || deploymentStage?.infrastructure?.infrastructureDefinition?.type) as StepType) ||
+                  StepType.KubernetesDirect
                 }
                 path={`${path}.infrastructure.infrastructureDefinition.spec`}
                 readonly={readonly}
@@ -822,6 +831,10 @@ export function StageInputSetFormInternal({
                   }
                 }}
                 stepViewType={viewType}
+                customStepProps={getCustomStepProps(
+                  deploymentStage?.infrastructure?.infrastructureDefinition?.type || '',
+                  getString
+                )}
               />
             )}
           </div>

@@ -31,7 +31,7 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
 import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
-import { StageType } from '@pipeline/utils/stageHelpers'
+import { getSelectedDeploymentType, isServerlessDeploymentType, StageType } from '@pipeline/utils/stageHelpers'
 import { getCDStageValidationSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStudio/PipelineUtils'
@@ -118,8 +118,12 @@ export default function DeployStageSetupShell(): JSX.Element {
     }
   }, [selectedTabId])
 
-  const { stage: data } = getStageFromPipeline(selectedStageId || '')
-
+  const { stage: data } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
+  const deploymentType = getSelectedDeploymentType(
+    data,
+    getStageFromPipeline,
+    !!data?.stage?.spec?.serviceConfig?.useFromStage?.stage
+  )
   const { data: stageYamlSnippet, loading, refetch } = useGetFailureStrategiesYaml({ lazy: true })
   React.useEffect(() => {
     // do the following one if it is a new stage
@@ -143,7 +147,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const validate = React.useCallback(() => {
     try {
-      getCDStageValidationSchema(getString, contextType).validateSync(data?.stage, {
+      getCDStageValidationSchema(getString, deploymentType, contextType).validateSync(data?.stage, {
         abortEarly: false,
         context: data?.stage
       })
@@ -183,8 +187,14 @@ export default function DeployStageSetupShell(): JSX.Element {
         if (!data?.stage?.spec?.execution) {
           const stageType = data?.stage?.type
           const openExecutionStrategy = stageType ? stagesMap[stageType].openExecutionStrategy : true
+          const selectedDeploymentType = getSelectedDeploymentType(
+            data,
+            getStageFromPipeline,
+            !!data.stage.spec?.serviceConfig.useFromStage?.stage
+          )
+          const isServerlessDeploymentTypeSelected = isServerlessDeploymentType(selectedDeploymentType)
           // if !data?.stage?.spec?.execution and openExecutionStrategy===true show ExecutionStrategy drawer
-          if (openExecutionStrategy) {
+          if (openExecutionStrategy && !isServerlessDeploymentTypeSelected) {
             updatePipelineView({
               ...pipelineView,
               isDrawerOpened: true,
