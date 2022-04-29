@@ -190,21 +190,11 @@ export interface DashboardCardInterface {
 const DashboardCard: React.FC<DashboardCardInterface> = ({ dashboard, clone, deleteById, editDashboard }) => {
   const { getString } = useStrings()
   const { accountId, folderId } = useParams<{ accountId: string; folderId: string }>()
-  const history = useHistory()
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const onCardClick = (): void => {
-    history.push({
-      pathname: routes.toViewCustomDashboard({
-        viewId: dashboard.id,
-        accountId: accountId,
-        folderId: folderId === 'shared' ? 'shared' : dashboard?.resourceIdentifier
-      })
-    })
-  }
-
-  const onCardLinkClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
-    event.preventDefault()
+  const onCardMenuInteraction = (nextOpenState: boolean, e?: React.SyntheticEvent<HTMLElement>): void => {
+    e?.preventDefault()
+    setMenuOpen(nextOpenState)
   }
 
   const onCloneClick = (event: React.MouseEvent<HTMLElement>): void => {
@@ -232,8 +222,8 @@ const DashboardCard: React.FC<DashboardCardInterface> = ({ dashboard, clone, del
   })
 
   return (
-    <a onClick={onCardLinkClick} href={cardPath}>
-      <Card interactive className={cx(css.dashboardCard)} onClick={onCardClick}>
+    <Link to={cardPath}>
+      <Card interactive className={cx(css.dashboardCard)}>
         <Container>
           <CardBody.Menu
             menuContent={
@@ -283,9 +273,7 @@ const DashboardCard: React.FC<DashboardCardInterface> = ({ dashboard, clone, del
             menuPopoverProps={{
               className: Classes.DARK,
               isOpen: menuOpen,
-              onInteraction: nextOpenState => {
-                setMenuOpen(nextOpenState)
-              }
+              onInteraction: onCardMenuInteraction
             }}
           />
           <Layout.Vertical spacing="large">
@@ -313,7 +301,7 @@ const DashboardCard: React.FC<DashboardCardInterface> = ({ dashboard, clone, del
           </Layout.Vertical>
         </Container>
       </Card>
-    </a>
+    </Link>
   )
 }
 
