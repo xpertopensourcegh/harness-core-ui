@@ -7,9 +7,20 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
+  readonly capitalize: string
+  readonly checkbox: string
+  readonly conditionsRow: string
+  readonly conditionsRowHeaders: string
+  readonly field: string
   readonly group: string
   readonly minimalCard: string
+  readonly operatorContainer: string
+  readonly paddingZero: string
+  readonly predefinedRows: string
+  readonly rowContainer: string
+  readonly rowTrashIcon: string
+  readonly sectionHeader: string
+  readonly textContainer: string
   readonly withoutAligning: string
-  readonly withoutSpacing: string
 }
 export default styles

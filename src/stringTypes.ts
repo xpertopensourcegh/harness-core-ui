@@ -2415,13 +2415,24 @@ export interface StringsMap {
   'pipeline.buildInfra.addCapabilities': string
   'pipeline.buildInfra.allowPrivilegeEscalation': string
   'pipeline.buildInfra.automountServiceAccountToken': string
+  'pipeline.buildInfra.claimName': string
   'pipeline.buildInfra.containerSecurityContext': string
   'pipeline.buildInfra.dropCapabilities': string
+  'pipeline.buildInfra.effect': string
+  'pipeline.buildInfra.emptyDirectory': string
+  'pipeline.buildInfra.hostPath': string
+  'pipeline.buildInfra.mountPath': string
+  'pipeline.buildInfra.nodeSelector': string
+  'pipeline.buildInfra.pathType': string
+  'pipeline.buildInfra.persistentVolumeClaim': string
   'pipeline.buildInfra.poolId': string
   'pipeline.buildInfra.priorityClassName': string
   'pipeline.buildInfra.privileged': string
   'pipeline.buildInfra.readOnlyRootFilesystem': string
   'pipeline.buildInfra.runAsNonRoot': string
+  'pipeline.buildInfra.size': string
+  'pipeline.buildInfra.tolerations': string
+  'pipeline.buildInfra.volumes': string
   'pipeline.buildRepo': string
   'pipeline.cannotAddInputSetInvalidPipeline': string
   'pipeline.cannotAddTriggerInvalidPipeline': string
@@ -2429,6 +2440,10 @@ export interface StringsMap {
   'pipeline.cannotRunInvalidPipeline': string
   'pipeline.changeTemplate': string
   'pipeline.changeTemplateLabel': string
+  'pipeline.ci.validations.invalidSize': string
+  'pipeline.ci.validations.keyUnique': string
+  'pipeline.ci.validations.mountPathUnique': string
+  'pipeline.ci.validations.pathRequiredForHostPath': string
   'pipeline.ci.validations.port': string
   'pipeline.ci.validations.serviceDependencyIdentifier': string
   'pipeline.ciCodebase.buildType': string
