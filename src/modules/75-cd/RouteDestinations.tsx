@@ -30,7 +30,8 @@ import {
   userGroupPathProps,
   serviceAccountProps,
   servicePathProps,
-  templatePathProps
+  templatePathProps,
+  environmentGroupPathProps
 } from '@common/utils/routeUtils'
 import type {
   PipelinePathProps,
@@ -124,6 +125,9 @@ import GitSyncConfigTab from '@gitsync/pages/config/GitSyncConfigTab'
 import FullPageLogView from '@pipeline/pages/full-page-log-view/FullPageLogView'
 import { PAGE_NAME } from '@common/pages/pageContext/PageName'
 import { Environments } from './components/Environments/Environments'
+import EnvironmentGroups from './components/EnvironmentGroups/EnvironmentGroups'
+import EnvironmentGroupDetails from './components/EnvironmentGroups/EnvironmentGroupDetails/EnvironmentGroupDetails'
+
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -494,6 +498,26 @@ export default (
       pageName={PAGE_NAME.Environments}
     >
       <Environments />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toEnvironmentGroups({ ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <EnvironmentGroups />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toEnvironmentGroupDetails({
+        ...projectPathProps,
+        ...pipelineModuleParams,
+        ...environmentGroupPathProps
+      })}
+    >
+      <EnvironmentGroupDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

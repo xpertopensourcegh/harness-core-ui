@@ -197,7 +197,24 @@ export interface StringsMap {
   'common.entityReferenceSubTitle': string
   'common.entityReferenceTitle': string
   'common.entityType': string
+  'common.environment.fetchNext': string
   'common.environmentCreated': string
+  'common.environmentGroup.createNew': string
+  'common.environmentGroup.created': string
+  'common.environmentGroup.delete': string
+  'common.environmentGroup.deleteConfirmation': string
+  'common.environmentGroup.deleted': string
+  'common.environmentGroup.edit': string
+  'common.environmentGroup.filters.environmentGroupNamePlaceholder': string
+  'common.environmentGroup.label': string
+  'common.environmentGroup.new': string
+  'common.environmentGroup.noEnvironment': string
+  'common.environmentGroup.updated': string
+  'common.environmentGroup.validation.oneEnvRequired': string
+  'common.environmentGroups.label': string
+  'common.environmentGroups.noEnvironmentGroups.label': string
+  'common.environmentGroups.noEnvironmentGroups.message': string
+  'common.environmentList': string
   'common.environmentUpdated': string
   'common.errorCount': string
   'common.errorHandler.communityForum': string
@@ -399,6 +416,7 @@ export interface StringsMap {
   'common.noDeployments': string
   'common.noInfo': string
   'common.noRefData': string
+  'common.noSearchResultsFound': string
   'common.noexpiration': string
   'common.notEnabled': string
   'common.note': string
@@ -561,6 +579,7 @@ export interface StringsMap {
   'common.saveAsTemplate': string
   'common.savedSuccessfully': string
   'common.scope': string
+  'common.searchOther': string
   'common.searchPlaceholder': string
   'common.seconds': string
   'common.secretKey': string
