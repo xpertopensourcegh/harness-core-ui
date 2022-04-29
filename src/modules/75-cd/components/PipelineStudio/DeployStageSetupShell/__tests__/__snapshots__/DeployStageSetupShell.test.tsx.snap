@@ -1323,7 +1323,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                       <span
                         class="bp3-button-text"
                       >
-                        previous
+                        back
                       </span>
                     </button>
                     <button
@@ -1333,7 +1333,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                       <span
                         class="bp3-button-text"
                       >
-                        next
+                        continue
                       </span>
                       <span
                         class="bp3-icon bp3-icon-chevron-right StyledProps--main"
