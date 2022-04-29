@@ -4114,6 +4114,7 @@ export interface StringsMap {
   'ce.overview.cardtitles.multipleCloud': string
   'ce.overview.cardtitles.topClusters': string
   'ce.overview.cardtitles.topRecommendation': string
+  'ce.overview.ecsService': string
   'ce.overview.noData.autoStopping': string
   'ce.overview.noData.connector': string
   'ce.overview.noData.explore': string
@@ -4293,6 +4294,9 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.customDetailsText1': string
   'ce.recommendation.detailsPage.customDetailsText2': string
   'ce.recommendation.detailsPage.customDetailsText3': string
+  'ce.recommendation.detailsPage.ecsRecommendationHelpText': string
+  'ce.recommendation.detailsPage.ecsRecommendedResources': string
+  'ce.recommendation.detailsPage.ecsServiceDetails': string
   'ce.recommendation.detailsPage.guaranteed': string
   'ce.recommendation.detailsPage.headerText': string
   'ce.recommendation.detailsPage.histogramText': string
@@ -4315,6 +4319,7 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.resetRecommendationText': string
   'ce.recommendation.detailsPage.resizeText': string
   'ce.recommendation.detailsPage.resourceChanges': string
+  'ce.recommendation.detailsPage.setBuffer': string
   'ce.recommendation.detailsPage.setQoSAndBuffer': string
   'ce.recommendation.detailsPage.timeChangeText': string
   'ce.recommendation.detailsPage.totalCost': string
@@ -4349,15 +4354,18 @@ export interface StringsMap {
   'ce.recommendation.listPage.recommendationTypes.resizing': string
   'ce.recommendation.listPage.recommendationTypes.rightSizing': string
   'ce.recommendation.listPage.recommnedationBreakdown': string
+  'ce.recommendation.listPage.service': string
   'ce.recommendation.listPage.uptoText': string
   'ce.recommendation.recommendationChart.and': string
   'ce.recommendation.recommendationChart.cpuHistogramHeader': string
   'ce.recommendation.recommendationChart.cpuPlaceholder': string
+  'ce.recommendation.recommendationChart.cpuValuePlaceholder': string
   'ce.recommendation.recommendationChart.limitLabel': string
   'ce.recommendation.recommendationChart.limitLabelRegular': string
   'ce.recommendation.recommendationChart.memoryHistogramHeader': string
   'ce.recommendation.recommendationChart.memoryLabel': string
   'ce.recommendation.recommendationChart.memoryLabelRegular': string
+  'ce.recommendation.recommendationChart.memoryUsageInMBsPlaceholder': string
   'ce.recommendation.recommendationChart.memoryUsagePlaceholder': string
   'ce.recommendation.recommendationChart.noOfSamples': string
   'ce.recommendation.recommendationChart.request': string

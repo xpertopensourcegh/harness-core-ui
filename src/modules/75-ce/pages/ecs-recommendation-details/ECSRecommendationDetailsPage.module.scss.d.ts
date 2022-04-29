@@ -7,11 +7,8 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly errorContainer: string
-  readonly errorText: string
-  readonly listContainer: string
-  readonly potentialEmissionCard: string
-  readonly potentialReducedEmissionCard: string
-  readonly resourceNameContainer: string
+  readonly actionText: string
+  readonly customImage: string
+  readonly detailsContainer: string
 }
 export default styles

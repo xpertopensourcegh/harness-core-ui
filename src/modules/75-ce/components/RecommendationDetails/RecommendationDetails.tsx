@@ -21,7 +21,7 @@ import {
   getMemoryValueInGBFromExpression,
   getCPUValueInCPUFromExpression
 } from '@ce/utils/formatResourceValue'
-import { RecommendationItem, TimeRangeValue, ResourceObject, QualityOfService } from '@ce/types'
+import { RecommendationItem, TimeRangeValue, ResourceObject, QualityOfService, CustomHighcharts } from '@ce/types'
 import type { RecommendationOverviewStats } from 'services/ce/services'
 
 import formatCost from '@ce/utils/formatCost'
@@ -31,7 +31,7 @@ import { useQueryParamsState } from '@common/hooks/useQueryParamsState'
 import { RecommendationType, ChartColors, PercentileValues } from './constants'
 import RecommendationTabs from './RecommendationTabs'
 import RecommendationDiffViewer from '../RecommendationDiffViewer/RecommendationDiffViewer'
-import RecommendationHistogram, { CustomHighcharts } from '../RecommendationHistogram/RecommendationHistogram'
+import RecommendationHistogram from '../RecommendationHistogram/RecommendationHistogram'
 import limitLegend from './images/limit-legend.svg'
 import requestLegend from './images/request-legend.svg'
 import histogramImg from './images/histogram.gif'

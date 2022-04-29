@@ -1438,6 +1438,10 @@ const routes = {
   toCEPerspectiveDashboard: withAccountId(() => `/ce/perspective`),
   toCEAnomalyDetection: withAccountId(() => `/ce/anomaly-detection`),
   toBusinessMapping: withAccountId(() => `/ce/cost-categories/`),
+  toCEECSRecommendationDetails: withAccountId(
+    ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
+      `/ce/ecs-recommendations/${recommendation}/name/${recommendationName}/details`
+  ),
   /********************************************************************************************************************/
   toSTO: withAccountId(() => `/sto`),
   toSTOHome: withAccountId(() => `/sto/home`),
