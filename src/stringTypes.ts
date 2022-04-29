@@ -1636,6 +1636,10 @@ export interface StringsMap {
   'connectors.ceAzure.billing.extension.video': string
   'connectors.ceAzure.billing.heading': string
   'connectors.ceAzure.billing.instruction': string
+  'connectors.ceAzure.billing.instructions.i1': string
+  'connectors.ceAzure.billing.instructions.i2': string
+  'connectors.ceAzure.billing.instructions.i3': string
+  'connectors.ceAzure.billing.instructions.i4': string
   'connectors.ceAzure.billing.launchAzureConsole': string
   'connectors.ceAzure.billing.login': string
   'connectors.ceAzure.billing.reportName': string
@@ -1665,7 +1669,10 @@ export interface StringsMap {
   'connectors.ceAzure.chooseRequirements.visibility.footer': string
   'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
+  'connectors.ceAzure.existingExports.hints.nextStepHint1': string
+  'connectors.ceAzure.existingExports.hints.nextStepHint2': string
   'connectors.ceAzure.existingExports.instruction': string
+  'connectors.ceAzure.existingExports.searchBillingReports': string
   'connectors.ceAzure.existingExports.subscriptionId': string
   'connectors.ceAzure.existingExports.tenantId': string
   'connectors.ceAzure.guidPlaceholder': string
@@ -1678,8 +1685,13 @@ export interface StringsMap {
   'connectors.ceAzure.overview.subscriptionId': string
   'connectors.ceAzure.overview.tenantId': string
   'connectors.ceAzure.overview.trySuggestion': string
+  'connectors.ceAzure.servicePrincipal.assignRoleCmd': string
+  'connectors.ceAzure.servicePrincipal.costVisibilityCmd': string
   'connectors.ceAzure.servicePrincipal.heading': string
-  'connectors.ceAzure.servicePrincipal.subHeading': string
+  'connectors.ceAzure.servicePrincipal.optimisationCmd': string
+  'connectors.ceAzure.servicePrincipal.registerCommand': string
+  'connectors.ceAzure.servicePrincipal.subHeading1': string
+  'connectors.ceAzure.servicePrincipal.subHeading2': string
   'connectors.ceAzure.steps.billingExports': string
   'connectors.ceAzure.steps.overview': string
   'connectors.ceAzure.steps.requirements': string
