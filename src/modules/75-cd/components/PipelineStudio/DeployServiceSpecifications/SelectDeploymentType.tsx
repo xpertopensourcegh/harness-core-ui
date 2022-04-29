@@ -16,7 +16,7 @@ import { useModalHook } from '@harness/use-modal'
 import { Color, FontVariation } from '@harness/design-system'
 import cx from 'classnames'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { isCommunityPlan } from '@common/utils/utils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { isServerlessDeploymentType, ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
@@ -149,7 +149,6 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
   const { getString } = useStrings()
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
   const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
-  const { licenseInformation } = useLicenseStore()
   const { NG_NATIVE_HELM, SERVERLESS_SUPPORT } = useFeatureFlags()
   const { accountId } = useParams<{
     accountId: string
@@ -218,6 +217,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
 
   const [cgDeploymentTypes, setCgDeploymentTypes] = React.useState(cgSupportedDeploymentTypes)
   const [ngDeploymentTypes, setNgDeploymentTypes] = React.useState(ngSupportedDeploymentTypes)
+  const isCommunity = isCommunityPlan()
 
   const [showCurrentGenSwitcherModal, hideCurrentGenSwitcherModal] = useModalHook(() => {
     return (
@@ -243,7 +243,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
   }, [selectedDeploymentTypeInCG])
 
   React.useEffect(() => {
-    if (isCDCommunity(licenseInformation)) {
+    if (isCommunity) {
       cgSupportedDeploymentTypes.forEach(deploymentType => {
         deploymentType['disabled'] = true
         if (deploymentType.value === 'NativeHelm') {
@@ -283,7 +283,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
       })
       setCgDeploymentTypes(cgTypes)
     }
-  }, [licenseInformation, NG_NATIVE_HELM])
+  }, [NG_NATIVE_HELM])
 
   React.useEffect(() => {
     subscribeForm({ tab: DeployTabs.SERVICE, form: formikRef })
@@ -291,7 +291,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
   }, [formikRef])
 
   const renderDeploymentTypes = React.useCallback((): JSX.Element => {
-    if (!isCDCommunity(licenseInformation)) {
+    if (!isCommunity) {
       const tooltipContent = (
         <article className={cx(deployServiceCsss.cdGenerationSelectionTooltip, deployServiceCsss.tooltipContainer)}>
           <section className={deployServiceCsss.cdGenerationSwitchContainer}>
@@ -394,14 +394,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
         selectedValue={selectedDeploymentType}
       />
     )
-  }, [
-    cgDeploymentTypes,
-    ngSupportedDeploymentTypes,
-    getString,
-    isReadonly,
-    licenseInformation,
-    props.handleDeploymentTypeChange
-  ])
+  }, [cgDeploymentTypes, ngSupportedDeploymentTypes, getString, isReadonly, props.handleDeploymentTypeChange])
 
   return (
     <Formik<{ deploymentType: string }>
