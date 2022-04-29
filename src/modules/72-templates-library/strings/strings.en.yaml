@@ -40,6 +40,7 @@ fetchingActivityLogs: Fetching activity logs
 noActivityLogs: This template has no activity logs
 created: created
 updated: updated
+deleted: deleted
 default: set default to
 sampleTemplateAuditComment: --
 setAsStableTitle: Set as Stable?
