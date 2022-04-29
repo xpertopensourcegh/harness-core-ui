@@ -25,8 +25,8 @@ createNewModal:
   versionLabel: Version Label
   label: Label
   nameError: 'Template Name'
-  namePlaceholder: 'New {{entity}} Name'
-  identifierPlaceholder: 'new_{{entity}}_name'
+  namePlaceholder: 'New {{entity}} Template Name'
+  identifierPlaceholder: 'new_{{entity}}_template_name'
   versionPlaceholder: 'Ex: Version1'
   lastPublishedVersion: 'Last published:'
 saveAsNewLabelModal:
