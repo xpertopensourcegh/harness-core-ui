@@ -29,7 +29,7 @@ import { FontVariation, Color } from '@harness/design-system'
 import { Select } from '@blueprintjs/select'
 
 import { Classes, Menu } from '@blueprintjs/core'
-import { useParams, useHistory } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { useGet } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
 
@@ -139,23 +139,18 @@ const TagsRenderer = (data: DashboardInterface) => {
 const RenderDashboardName: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
   const data = row.original
   const { accountId, folderId } = useParams<{ accountId: string; folderId: string }>()
-  const history = useHistory()
   return (
-    <Text
-      color={Color.BLACK}
-      lineClamp={1}
-      onClick={() => {
-        history.push({
-          pathname: routes.toViewCustomDashboard({
-            viewId: row.id,
-            accountId: accountId,
-            folderId: folderId === 'shared' ? 'shared' : data.resourceIdentifier
-          })
-        })
-      }}
+    <Link
+      to={routes.toViewCustomDashboard({
+        viewId: data.id,
+        accountId: accountId,
+        folderId: folderId === 'shared' ? 'shared' : data.resourceIdentifier
+      })}
     >
-      {data.title}
-    </Text>
+      <Text color={Color.PRIMARY_7} font={{ variation: FontVariation.CARD_TITLE }}>
+        {data.title}
+      </Text>
+    </Link>
   )
 }
 
