@@ -3984,6 +3984,7 @@ export interface StringsMap {
   'ce.co.ruleDrawer.logs': string
   'ce.co.ruleDrawer.spendVsSavings': string
   'ce.co.ruleDrawer.usageTime': string
+  'ce.co.rules': string
   'ce.co.rulesTableHeaders.fulfilment': string
   'ce.co.rulesTableHeaders.idleTime': string
   'ce.co.rulesTableHeaders.lastActivity': string
