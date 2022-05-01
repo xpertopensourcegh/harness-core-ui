@@ -5150,6 +5150,7 @@ export interface StringsMap {
   'cv.considerMissingMetricDataAs': string
   'cv.continuous': string
   'cv.copyURL': string
+  'cv.createdOn': string
   'cv.currentProductionRisk': string
   'cv.customHealthSource.Querymapping.endTimeLabel': string
   'cv.customHealthSource.Querymapping.jsonPathTitle': string
@@ -5291,6 +5292,7 @@ export interface StringsMap {
   'cv.jobNamePlaceholder': string
   'cv.known': string
   'cv.last12Hours': string
+  'cv.lastModifiedOn': string
   'cv.lastOneHour': string
   'cv.lastSuccessfulRun': string
   'cv.learnMore': string
