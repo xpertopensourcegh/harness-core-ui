@@ -252,19 +252,23 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
       })
       setCgDeploymentTypes(cgSupportedDeploymentTypes)
     } else {
+      let ngTypes: DeploymentTypeItem[] = ngSupportedDeploymentTypes
       if (NG_NATIVE_HELM) {
         // If FF enabled - Native Helm will be in NG - left section
-        setNgDeploymentTypes([
-          ...ngSupportedDeploymentTypes,
+        ngTypes = [
+          ...ngTypes,
           ...cgSupportedDeploymentTypes.filter(deploymentType => deploymentType.value === 'NativeHelm')
-        ])
-      } else if (SERVERLESS_SUPPORT) {
-        // If FF enabled - Serverless deployment types will be in NG - left section
-        setNgDeploymentTypes([
-          ...ngSupportedDeploymentTypes,
-          ...cgSupportedDeploymentTypes.filter(deploymentType => isServerlessDeploymentType(deploymentType.value))
-        ])
+        ]
       }
+      if (SERVERLESS_SUPPORT) {
+        // If FF enabled - Serverless deployment types will be in NG - left section
+        ngTypes = [
+          ...ngTypes,
+          ...cgSupportedDeploymentTypes.filter(deploymentType => isServerlessDeploymentType(deploymentType.value))
+        ]
+      }
+      setNgDeploymentTypes(ngTypes)
+
       const cgTypes = getCGTypes(cgSupportedDeploymentTypes, NG_NATIVE_HELM, SERVERLESS_SUPPORT)
       cgTypes.forEach(deploymentType => {
         deploymentType['disabled'] = true
