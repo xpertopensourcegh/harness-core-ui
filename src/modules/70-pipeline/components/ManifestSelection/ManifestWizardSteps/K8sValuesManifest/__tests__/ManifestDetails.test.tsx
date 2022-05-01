@@ -14,7 +14,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
-import ManifestDetails from '../ManifestDetails'
+import K8sValuesManifest from '../K8sValuesManifest'
 
 jest.mock('uuid')
 
@@ -45,7 +45,7 @@ describe('Manifest Details tests', () => {
   test('initial rendering', () => {
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...props} initialValues={initialValues} />
+        <K8sValuesManifest {...props} initialValues={initialValues} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -74,7 +74,7 @@ describe('Manifest Details tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} initialValues={initialValues} />
+        <K8sValuesManifest {...defaultProps} initialValues={initialValues} />
       </TestWrapper>
     )
 
@@ -95,7 +95,7 @@ describe('Manifest Details tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...props} prevStepData={prevStepData} initialValues={initialValues} />
+        <K8sValuesManifest {...props} prevStepData={prevStepData} initialValues={initialValues} />
       </TestWrapper>
     )
 
@@ -162,7 +162,7 @@ describe('Manifest Details tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} />
+        <K8sValuesManifest {...defaultProps} />
       </TestWrapper>
     )
 
@@ -199,7 +199,7 @@ describe('Manifest Details tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} />
+        <K8sValuesManifest {...defaultProps} />
       </TestWrapper>
     )
 
@@ -237,7 +237,7 @@ describe('Manifest Details tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} />
+        <K8sValuesManifest {...defaultProps} />
       </TestWrapper>
     )
 
@@ -293,7 +293,7 @@ describe('Manifest Details tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} />
+        <K8sValuesManifest {...defaultProps} />
       </TestWrapper>
     )
 
@@ -338,7 +338,7 @@ describe('Manifest Details tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} />
+        <K8sValuesManifest {...defaultProps} />
       </TestWrapper>
     )
 
@@ -365,7 +365,7 @@ describe('Manifest Details tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} />
+        <K8sValuesManifest {...defaultProps} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -421,7 +421,7 @@ describe('Manifest Details tests', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <ManifestDetails {...defaultProps} />
+        <K8sValuesManifest {...defaultProps} />
       </TestWrapper>
     )
 

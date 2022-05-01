@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Harness Inc. All rights reserved.
+ * Copyright 2022 Harness Inc. All rights reserved.
  * Use of this source code is governed by the PolyForm Shield 1.0.0 license
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
@@ -13,11 +13,9 @@ import { TestWrapper } from '@common/utils/testUtils'
 import type { ManifestConfig, ManifestConfigWrapper, ServiceSpec } from 'services/cd-ng'
 import { ManifestSourceBaseFactory } from '@cd/factory/ManifestSourceFactory/ManifestSourceBaseFactory'
 import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
-import ServerlessAwsLambdaManifestContent, {
-  ServerlessAwsLambdaManifestRenderProps
-} from '../ServerlessAwsLambdaManifestContent'
 import { KubernetesManifests } from '../../../KubernetesManifests/KubernetesManifests'
 import { template, manifests, manifest, initialValues } from './mock'
+import { ServerlessAwsLambdaManifestSource } from '../ServerlessAwsLambdaManifestSource'
 
 const getProps = () => {
   return {
@@ -35,18 +33,23 @@ const getProps = () => {
     pathFieldlabel: 'common.git.filePath'
   }
 }
+
+const manifestSourceBaseFactory = new ManifestSourceBaseFactory()
+const serverlessAwsLambdaManifestSource = new ServerlessAwsLambdaManifestSource()
+
 describe('ServerlessAwsLambdaManifestContent snapshot', () => {
   test('snapshot with manifest', () => {
     const { container } = render(
       <TestWrapper>
-        <ServerlessAwsLambdaManifestContent
-          {...(getProps() as ServerlessAwsLambdaManifestRenderProps)}
-          manifest={manifest as ManifestConfig}
-          initialValues={initialValues as K8SDirectServiceStep}
-          template={template as ServiceSpec}
-          manifests={manifests as ManifestConfigWrapper[]}
-          isManifestsRuntime={true}
-        />
+        {serverlessAwsLambdaManifestSource.renderContent({
+          ...getProps(),
+          manifest: manifest as ManifestConfig,
+          initialValues: initialValues as K8SDirectServiceStep,
+          template: template as ServiceSpec,
+          manifests: manifests as ManifestConfigWrapper[],
+          isManifestsRuntime: true,
+          manifestSourceBaseFactory
+        })}
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -55,13 +58,14 @@ describe('ServerlessAwsLambdaManifestContent snapshot', () => {
   test('snapshot without manifest', () => {
     const { container } = render(
       <TestWrapper>
-        <ServerlessAwsLambdaManifestContent
-          {...(getProps() as ServerlessAwsLambdaManifestRenderProps)}
-          initialValues={initialValues as K8SDirectServiceStep}
-          template={template as ServiceSpec}
-          manifests={manifests as ManifestConfigWrapper[]}
-          isManifestsRuntime={true}
-        />
+        {serverlessAwsLambdaManifestSource.renderContent({
+          ...getProps(),
+          initialValues: initialValues as K8SDirectServiceStep,
+          template: template as ServiceSpec,
+          manifests: manifests as ManifestConfigWrapper[],
+          isManifestsRuntime: true,
+          manifestSourceBaseFactory
+        })}
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -77,7 +81,7 @@ describe('ServerlessAwsLambdaManifestContent snapshot', () => {
           readonly
           stepViewType={StepViewType.InputSet}
           stageIdentifier="stage-0"
-          manifestSourceBaseFactory={new ManifestSourceBaseFactory()}
+          manifestSourceBaseFactory={manifestSourceBaseFactory}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
         />
       </TestWrapper>
@@ -94,7 +98,7 @@ describe('ServerlessAwsLambdaManifestContent snapshot', () => {
           manifests={manifests as ManifestConfigWrapper[]}
           readonly
           stageIdentifier="stage-0"
-          manifestSourceBaseFactory={new ManifestSourceBaseFactory()}
+          manifestSourceBaseFactory={manifestSourceBaseFactory}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
         />
       </TestWrapper>

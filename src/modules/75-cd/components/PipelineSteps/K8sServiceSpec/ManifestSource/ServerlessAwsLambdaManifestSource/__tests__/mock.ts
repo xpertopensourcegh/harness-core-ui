@@ -20,7 +20,8 @@ export const template = {
               repoName: '<+input>',
               branch: '<+input>'
             }
-          }
+          },
+          configOverridePath: '<+input>'
         }
       }
     }
@@ -53,7 +54,8 @@ export const manifests = [
             repoName: '<+input>',
             branch: '<+input>'
           }
-        }
+        },
+        configOverridePath: '<+input>'
       }
     }
   }
@@ -74,7 +76,8 @@ export const initialValues = {
               repoName: '',
               branch: ''
             }
-          }
+          },
+          configOverridePath: ''
         }
       }
     }
@@ -105,6 +108,7 @@ export const manifest = {
         repoName: '<+input>',
         branch: '<+input>'
       }
-    }
+    },
+    configOverridePath: '<+input>'
   }
 }

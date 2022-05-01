@@ -31,8 +31,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import { isServerlessManifestType } from '@pipeline/utils/stageHelpers'
-import type { ManifestDetailDataType, ManifestTypes } from '../../ManifestInterface'
+import type { K8sValuesManifestDataType, ManifestTypes } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
   GitFetchTypes,
@@ -47,7 +46,7 @@ import DragnDropPaths from '../../DragnDropPaths'
 import { getRepositoryName } from '../ManifestUtils'
 import css from './ManifestDetails.module.scss'
 
-interface ManifestDetailsPropType {
+interface K8sValuesManifestPropType {
   stepName: string
   expressions: string[]
   allowableTypes: MultiTypeInputType[]
@@ -59,10 +58,10 @@ interface ManifestDetailsPropType {
 }
 
 const showAdvancedSection = (selectedManifest: ManifestTypes | null): boolean => {
-  return selectedManifest === ManifestDataType.K8sManifest || selectedManifest === ManifestDataType.ServerlessAwsLambda
+  return selectedManifest === ManifestDataType.K8sManifest
 }
 
-function ManifestDetails({
+function K8sValuesManifest({
   stepName,
   selectedManifest,
   expressions,
@@ -73,7 +72,7 @@ function ManifestDetails({
   previousStep,
   manifestIdsList,
   isReadonly = false
-}: StepProps<ConnectorConfigDTO> & ManifestDetailsPropType): React.ReactElement {
+}: StepProps<ConnectorConfigDTO> & K8sValuesManifestPropType): React.ReactElement {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning
 
@@ -91,7 +90,7 @@ function ManifestDetails({
         : prevStepData?.url
       : null
 
-  const getInitialValues = useCallback((): ManifestDetailDataType => {
+  const getInitialValues = useCallback((): K8sValuesManifestDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
@@ -99,7 +98,6 @@ function ManifestDetails({
         ...specValues,
         identifier: initialValues.identifier,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
-        configOverridePath: initialValues?.spec?.configOverridePath,
         repoName: getRepositoryName(prevStepData, initialValues),
         paths:
           typeof specValues.paths === 'string'
@@ -114,12 +112,11 @@ function ManifestDetails({
       gitFetchType: 'Branch',
       paths: [{ path: '', uuid: uuid('', nameSpace()) }],
       skipResourceVersioning: false,
-      repoName: getRepositoryName(prevStepData, initialValues),
-      configOverridePath: undefined
+      repoName: getRepositoryName(prevStepData, initialValues)
     }
   }, [])
 
-  const submitFormData = (formData: ManifestDetailDataType & { store?: string; connectorRef?: string }): void => {
+  const submitFormData = (formData: K8sValuesManifestDataType & { store?: string; connectorRef?: string }): void => {
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
@@ -135,8 +132,7 @@ function ManifestDetails({
                   ? formData?.paths
                   : formData?.paths?.map((path: { path: string }) => path.path)
             }
-          },
-          configOverridePath: formData?.configOverridePath
+          }
         }
       }
     }
@@ -215,7 +211,7 @@ function ManifestDetails({
           })
         }}
       >
-        {(formik: { setFieldValue: (a: string, b: string) => void; values: ManifestDetailDataType }) => {
+        {(formik: { setFieldValue: (a: string, b: string) => void; values: K8sValuesManifestDataType }) => {
           return (
             <Form>
               <Layout.Vertical
@@ -313,7 +309,6 @@ function ManifestDetails({
                     selectedManifest={selectedManifest}
                     expressions={expressions}
                     allowableTypes={allowableTypes}
-                    allowOnlyOneFilePath={isServerlessManifestType(selectedManifest)}
                   />
 
                   {showAdvancedSection(selectedManifest) && (
@@ -326,64 +321,33 @@ function ManifestDetails({
                         addDomId={true}
                         summary={getString('advancedTitle')}
                         details={
-                          isServerlessManifestType(selectedManifest) ? (
-                            <div
-                              className={cx(css.halfWidth, {
-                                [css.runtimeInput]:
-                                  getMultiTypeFromValue(formik.values?.configOverridePath) ===
-                                  MultiTypeInputType.RUNTIME
-                              })}
-                            >
-                              <FormInput.MultiTextInput
-                                multiTextInputProps={{ expressions, allowableTypes }}
-                                label={getString('pipeline.manifestType.serverlessConfigFilePath')}
-                                placeholder={getString('pipeline.manifestType.serverlessConfigFilePathPlaceholder')}
-                                name="configOverridePath"
+                          <Layout.Horizontal
+                            width={'50%'}
+                            flex={{ justifyContent: 'flex-start', alignItems: 'center' }}
+                            margin={{ bottom: 'huge' }}
+                          >
+                            <FormMultiTypeCheckboxField
+                              name="skipResourceVersioning"
+                              label={getString('skipResourceVersion')}
+                              multiTypeTextbox={{ expressions, allowableTypes }}
+                              className={css.checkbox}
+                            />
+                            {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
+                              MultiTypeInputType.RUNTIME && (
+                              <ConfigureOptions
+                                value={(formik.values?.skipResourceVersioning || '') as string}
+                                type="String"
+                                variableName="skipResourceVersioning"
+                                showRequiredField={false}
+                                showDefaultField={false}
+                                showAdvanced={true}
+                                onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
+                                style={{ alignSelf: 'center', marginTop: 11 }}
+                                className={css.addmarginTop}
+                                isReadonly={isReadonly}
                               />
-
-                              {getMultiTypeFromValue(formik.values?.configOverridePath) ===
-                                MultiTypeInputType.RUNTIME && (
-                                <ConfigureOptions
-                                  value={formik.values?.configOverridePath as string}
-                                  type="String"
-                                  variableName="configOverridePath"
-                                  showRequiredField={false}
-                                  showDefaultField={false}
-                                  showAdvanced={true}
-                                  onChange={value => formik.setFieldValue('configOverridePath', value)}
-                                  isReadonly={isReadonly}
-                                />
-                              )}
-                            </div>
-                          ) : (
-                            <Layout.Horizontal
-                              width={'50%'}
-                              flex={{ justifyContent: 'flex-start', alignItems: 'center' }}
-                              margin={{ bottom: 'huge' }}
-                            >
-                              <FormMultiTypeCheckboxField
-                                name="skipResourceVersioning"
-                                label={getString('skipResourceVersion')}
-                                multiTypeTextbox={{ expressions, allowableTypes }}
-                                className={css.checkbox}
-                              />
-                              {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
-                                MultiTypeInputType.RUNTIME && (
-                                <ConfigureOptions
-                                  value={(formik.values?.skipResourceVersioning || '') as string}
-                                  type="String"
-                                  variableName="skipResourceVersioning"
-                                  showRequiredField={false}
-                                  showDefaultField={false}
-                                  showAdvanced={true}
-                                  onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
-                                  style={{ alignSelf: 'center', marginTop: 11 }}
-                                  className={css.addmarginTop}
-                                  isReadonly={isReadonly}
-                                />
-                              )}
-                            </Layout.Horizontal>
-                          )
+                            )}
+                          </Layout.Horizontal>
                         }
                       />
                     </Accordion>
@@ -413,4 +377,4 @@ function ManifestDetails({
   )
 }
 
-export default ManifestDetails
+export default K8sValuesManifest
