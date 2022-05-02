@@ -3003,6 +3003,24 @@ export interface StringsMap {
   'pipeline.serviceNowApprovalStep.validations.connectorRef': string
   'pipeline.serviceNowApprovalStep.validations.issueNumber': string
   'pipeline.serviceNowApprovalStep.validations.ticketType': string
+  'pipeline.serviceNowCreateStep.addFields': string
+  'pipeline.serviceNowCreateStep.descriptionPlaceholder': string
+  'pipeline.serviceNowCreateStep.fetchingFields': string
+  'pipeline.serviceNowCreateStep.fetchingTemplateDetails': string
+  'pipeline.serviceNowCreateStep.fieldType.configureFields': string
+  'pipeline.serviceNowCreateStep.fieldType.createFromTemplate': string
+  'pipeline.serviceNowCreateStep.noSuchTemplateFound': string
+  'pipeline.serviceNowCreateStep.selectFieldListHelp': string
+  'pipeline.serviceNowCreateStep.shortDescription': string
+  'pipeline.serviceNowCreateStep.shortDescriptionPlaceholder': string
+  'pipeline.serviceNowCreateStep.templateName': string
+  'pipeline.serviceNowCreateStep.templateNamePlaceholder': string
+  'pipeline.serviceNowCreateStep.validations.description': string
+  'pipeline.serviceNowCreateStep.validations.shortDescription': string
+  'pipeline.serviceNowCreateStep.validations.templateName': string
+  'pipeline.serviceNowCreateStep.validations.validTemplateName': string
+  'pipeline.serviceNowUpdateStep.fieldType.applyFromTemplate': string
+  'pipeline.serviceNowUpdateStep.fieldType.updateFields': string
   'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
   'pipeline.stageDataDeleteWarningText': string

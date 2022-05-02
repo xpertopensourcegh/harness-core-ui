@@ -6984,6 +6984,13 @@ export interface ResponseListServiceNowFieldNG {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListServiceNowTemplate {
+  correlationId?: string
+  data?: ServiceNowTemplate[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListServiceNowTicketTypeDTO {
   correlationId?: string
   data?: ServiceNowTicketTypeDTO[]
@@ -8829,6 +8836,19 @@ export interface ServiceNowFieldSchemaNG {
   typeStr: string
 }
 
+export interface ServiceNowFieldValueNG {
+  displayValue?: string
+  value?: string
+}
+
+export interface ServiceNowTemplate {
+  fields: {
+    [key: string]: ServiceNowFieldValueNG
+  }
+  name: string
+  sys_id: string
+}
+
 export interface ServiceNowTicketTypeDTO {
   key: string
   name: string
@@ -8841,7 +8861,7 @@ export type ServiceNowUpdateStepInfo = StepSpecType & {
   templateName?: string
   ticketNumber: string
   ticketType: string
-  useServiceNowTemplate?: boolean
+  useServiceNowTemplate: boolean
 }
 
 export interface ServiceOverrides {
@@ -27790,7 +27810,6 @@ export const getServiceNowIssueCreateMetadataPromise = (
     props,
     signal
   )
-
 export interface GetServiceNowIssueMetadataQueryParams {
   connectorRef: string
   accountIdentifier: string
@@ -27801,6 +27820,68 @@ export interface GetServiceNowIssueMetadataQueryParams {
   repoIdentifier?: string
   getDefaultFromOtherRepo?: boolean
 }
+export interface GetServiceNowTemplateMetadataQueryParams {
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  ticketType?: string
+  templateName?: string
+  limit?: number
+  offset?: number
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetServiceNowTemplateMetadataProps = Omit<
+  GetProps<ResponseListServiceNowTemplate, Failure | Error, GetServiceNowTemplateMetadataQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get ServiceNow template metadata
+ */
+export const GetServiceNowTemplateMetadata = (props: GetServiceNowTemplateMetadataProps) => (
+  <Get<ResponseListServiceNowTemplate, Failure | Error, GetServiceNowTemplateMetadataQueryParams, void>
+    path={`/servicenow/getTemplate`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceNowTemplateMetadataProps = Omit<
+  UseGetProps<ResponseListServiceNowTemplate, Failure | Error, GetServiceNowTemplateMetadataQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get ServiceNow template metadata
+ */
+export const useGetServiceNowTemplateMetadata = (props: UseGetServiceNowTemplateMetadataProps) =>
+  useGet<ResponseListServiceNowTemplate, Failure | Error, GetServiceNowTemplateMetadataQueryParams, void>(
+    `/servicenow/getTemplate`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get ServiceNow template metadata
+ */
+export const getServiceNowTemplateMetadataPromise = (
+  props: GetUsingFetchProps<
+    ResponseListServiceNowTemplate,
+    Failure | Error,
+    GetServiceNowTemplateMetadataQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListServiceNowTemplate, Failure | Error, GetServiceNowTemplateMetadataQueryParams, void>(
+    getConfig('ng/api'),
+    `/servicenow/getTemplate`,
+    props,
+    signal
+  )
 
 export type GetServiceNowIssueMetadataProps = Omit<
   GetProps<ResponseListServiceNowFieldNG, Failure | Error, GetServiceNowIssueMetadataQueryParams, void>,
