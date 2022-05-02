@@ -79,7 +79,7 @@ import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import { useFeatureFlag, useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { NewPipelinePopover } from '@pipeline/pages/pipelines/views/NewPipelinePopover/NewPipelinePopover'
@@ -170,7 +170,6 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
   const isCIModule = module === 'ci'
   const isCFModule = module === 'cf'
   const searchRef = useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
-  const { NG_NATIVE_HELM } = useFeatureFlags()
   const emptyStagePipelineImage = isCIModule
     ? buildpipelineIllustration
     : isCFModule
@@ -457,9 +456,7 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: NG_NATIVE_HELM
-                ? deploymentTypeSelectOptions
-                : deploymentTypeSelectOptions.filter(deploymentType => deploymentType.value !== 'NativeHelm')
+              deploymentType: deploymentTypeSelectOptions
             }}
             type="PipelineSetup"
           />
