@@ -78,6 +78,84 @@ exports[`<StageTemplateDiagram /> tests should render plus button when stage is 
 </div>
 `;
 
+exports[`<StageTemplateDiagram /> tests should render stage button when approval  is selected 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main container StyledProps--background-form StyledProps--padding-left-xxxlarge StyledProps--padding-right-xxxlarge"
+    style="width: 100%;"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-flex-start"
+      style="height: 100%;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+      >
+        Stage Type
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main approvalLayout"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            data-nodeid="create-node"
+          >
+            <div
+              class="defaultNode"
+            >
+              <div
+                draggable="false"
+              >
+                <div
+                  class="defaultCard diamond createNewModal"
+                  style="width: 57px; height: 57px; opacity: 1; border-width: 1px; border-style: solid;"
+                >
+                  <div
+                    class="execution-running-animation"
+                  />
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="approval-stage-icon"
+                  >
+                    <svg
+                      height="28"
+                      viewBox="0 0 33 33"
+                      width="28"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M24.695 13.426l2.025 2.026a1 1 0 010 1.414l-9.871 9.871a1 1 0 01-1.414 0L5.248 16.551a1 1 0 010-1.414l9.844-9.844a1 1 0 011.428.014l3.95 4.106 1.441-1.386-3.95-4.106a3 3 0 00-4.283-.042l-9.844 9.844a3 3 0 000 4.242L14.02 28.152a3 3 0 004.243 0l9.871-9.872a3 3 0 000-4.243l-2.025-2.025-1.415 1.414zm1.4-4.114a1 1 0 00-1.413-1.414l-9.271 9.27-3.783-3.782a1 1 0 10-1.414 1.414l5.197 5.197L26.096 9.312z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--margin-top-xsmall StyledProps--padding-xsmall"
+                  style="cursor: pointer; line-height: 1.6; overflow-wrap: normal; word-break: keep-all; --text-line-clamp: 2; width: 125px;"
+                >
+                  
+                </p>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main stageType StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+          >
+            Approval
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`<StageTemplateDiagram /> tests should render stage button when stage is selected 1`] = `
 <div>
   <div
