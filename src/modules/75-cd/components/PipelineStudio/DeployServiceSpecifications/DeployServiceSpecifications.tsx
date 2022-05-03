@@ -20,7 +20,7 @@ import {
 } from '@wings-software/uicore'
 import { Color, Intent } from '@harness/design-system'
 import produce from 'immer'
-import { debounce, get, isEmpty, set, unset } from 'lodash-es'
+import { debounce, defaultTo, get, isEmpty, set, unset } from 'lodash-es'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
@@ -48,6 +48,7 @@ import { useDeepCompareEffect } from '@common/hooks'
 import {
   deleteStageData,
   doesStageContainOtherData,
+  getStepTypeByDeploymentType,
   ServiceDeploymentType,
   StageType
 } from '@pipeline/utils/stageHelpers'
@@ -411,7 +412,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     deploymentType: selectedDeploymentType as ServiceDefinition['type']
                   }}
                   allowableTypes={allowableTypes}
-                  type={StepType.K8sServiceSpec}
+                  type={getStepTypeByDeploymentType(defaultTo(selectedDeploymentType, ''))}
                   stepViewType={StepViewType.Edit}
                 />
               </Layout.Horizontal>
