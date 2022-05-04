@@ -5843,6 +5843,7 @@ export interface StringsMap {
   'cv.zoom': string
   'stoSteps.securityStage.description': string
   'stoSteps.stepDescription.ZeroNorth': string
+  'stoSteps.targets.testTargets': string
   'stoSteps.zeroNorthImagePlaceholder': string
   /**
    * @deprecated migrate this string to module level file
