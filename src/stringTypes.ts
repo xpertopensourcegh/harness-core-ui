@@ -5044,6 +5044,8 @@ export interface StringsMap {
   'ci.getStartedWithCI.parameterization': string
   'ci.getStartedWithCI.parameterizationHelpText': string
   'ci.getStartedWithCI.provisionSecureEnv': string
+  'ci.getStartedWithCI.provisioningFailed': string
+  'ci.getStartedWithCI.provisioningSuccessful': string
   'ci.getStartedWithCI.quicklyCreate': string
   'ci.getStartedWithCI.searchRepo': string
   'ci.getStartedWithCI.security': string
