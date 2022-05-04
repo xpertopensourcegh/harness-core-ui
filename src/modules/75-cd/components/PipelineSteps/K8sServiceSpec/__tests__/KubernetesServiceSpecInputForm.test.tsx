@@ -510,7 +510,7 @@ describe('VARIABLES', () => {
       </Formik>
     )
 
-    await waitFor(() => expect(queryByText('variablesText')).toBeTruthy())
+    await waitFor(() => expect(queryByText('common.variables')).toBeTruthy())
     expect(container).toMatchSnapshot('variables with default value')
   })
 })

@@ -69,6 +69,10 @@ My: My
 ok: OK
 ID: Id
 org: Org
+variables: Variables
+copyVariableName: Copy variable name
+copyFqn: Copy fully qualified name
+selectType: Select Type
 accountSetting:
   connector:
     loading: 'Loading settings...'
