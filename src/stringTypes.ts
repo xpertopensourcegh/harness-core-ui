@@ -4511,7 +4511,8 @@ export interface StringsMap {
   'cf.environments.apiKeys.emptyName': string
   'cf.environments.apiKeys.keyType': string
   'cf.environments.apiKeys.message': string
-  'cf.environments.apiKeys.noKeysFound': string
+  'cf.environments.apiKeys.noKeysFoundMessage': string
+  'cf.environments.apiKeys.noKeysFoundTitle': string
   'cf.environments.apiKeys.redactionWarning': string
   'cf.environments.apiKeys.serverType': string
   'cf.environments.apiKeys.title': string
