@@ -10,6 +10,7 @@ import { Tabs } from '@harness/uicore'
 import type { Target } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import TargetAttributes from './TargetAttributes/TargetAttributes'
+import TargetGroups from './TargetGroups/TargetGroups'
 
 import css from './LeftBar.module.scss'
 
@@ -31,6 +32,11 @@ const LeftBar: FC<LeftBarProps> = ({ target }) => {
             id: 'targetAttributesPanel',
             title: getString('cf.targetDetail.attributes', { counter: attributesCount }),
             panel: <TargetAttributes target={target} />
+          },
+          {
+            id: 'targetGroupsPanel',
+            title: getString('cf.shared.segments'),
+            panel: <TargetGroups target={target} />
           }
         ]}
       />

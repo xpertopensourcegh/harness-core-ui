@@ -4883,8 +4883,8 @@ export interface StringsMap {
   'cf.targetDetail.deleteTargetSuccess': string
   'cf.targetDetail.environmentLine': string
   'cf.targetDetail.exclude': string
+  'cf.targetDetail.excludeFromSegment': string
   'cf.targetDetail.excludeTargetFromSegment': string
-  'cf.targetDetail.excludefromSegment': string
   'cf.targetDetail.exclusionList': string
   'cf.targetDetail.flagDisabled': string
   'cf.targetDetail.flagSetting': string

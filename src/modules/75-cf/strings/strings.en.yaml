@@ -277,7 +277,7 @@ targetDetail:
   addToSegment: Add to Target Group
   autoAdded: AUTOMATICALLY ADDED THROUGH CONDITIONS
   exclusionList: EXCLUSION LIST
-  excludefromSegment: Exclude from Target Group
+  excludeFromSegment: Exclude from Target Group
   removeSegment: Remove from list
   noSegmentAdded: No Target Group added
   noSegmentMatched: No Target Group matched
