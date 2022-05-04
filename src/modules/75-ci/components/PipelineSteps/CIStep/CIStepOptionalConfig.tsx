@@ -8,7 +8,7 @@
 import React from 'react'
 import { isEmpty, startCase } from 'lodash-es'
 import cx from 'classnames'
-import { Container, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
+import { Container, Layout, MultiTypeInputType, Text, FormInput } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
@@ -20,6 +20,7 @@ import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { MultiTypeListInputSet } from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { getAllowedValuesFromTemplate, shouldRenderRunTimeInputViewWithAllowedValues } from '@pipeline/utils/CIUtils'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { ArchiveFormatOptions } from '../../../constants/Constants'
 import { AllMultiTypeInputTypesForInputSet, AllMultiTypeInputTypesForStep } from './StepUtils'
@@ -35,6 +36,7 @@ interface CIStepOptionalConfigProps {
   formik?: any
   isInputSetView?: boolean
   allowableTypes?: MultiTypeInputType[]
+  template?: Record<string, any>
 }
 
 export const getOptionalSubLabel = (
@@ -108,8 +110,52 @@ export const renderMultiTypeListInputSet = ({
   />
 )
 
+export const renderMultiTypeInputWithAllowedValues = ({
+  name,
+  tooltipId,
+  labelKey,
+  fieldPath,
+  template,
+  expressions,
+  readonly,
+  getString,
+  showOptionalSublabel
+}: {
+  name: string
+  tooltipId?: string
+  labelKey: keyof StringsMap
+  fieldPath: string
+  template?: Record<string, any>
+  expressions: string[]
+  readonly?: boolean
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
+  showOptionalSublabel?: boolean
+}) => {
+  if (!name) {
+    return
+  }
+  if (template && fieldPath) {
+    const items = getAllowedValuesFromTemplate(template, fieldPath)
+    return (
+      <FormInput.MultiTypeInput
+        name={name}
+        label={getString(labelKey).concat(showOptionalSublabel ? ` ${getString('titleOptional')}` : '')}
+        useValue
+        selectItems={items}
+        multiTypeInputProps={{
+          allowableTypes: AllMultiTypeInputTypesForInputSet,
+          expressions,
+          selectProps: { disabled: readonly, items }
+        }}
+        disabled={readonly}
+        tooltipProps={{ dataTooltipId: tooltipId ?? '' }}
+      />
+    )
+  }
+}
+
 export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props => {
-  const { readonly, enableFields, stepViewType, path, formik, isInputSetView } = props
+  const { readonly, enableFields, stepViewType, path, formik, isInputSetView, template } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const prefix = isEmpty(path) ? '' : `${path}.`
@@ -208,32 +254,48 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       name,
       tooltipId,
       labelKey,
-      inputProps
+      inputProps,
+      fieldPath
     }: {
       name: string
       tooltipId: string
       labelKey: keyof StringsMap
       inputProps: MultiTypeTextProps['multiTextInputProps']
-    }) => (
-      <MultiTypeTextField
-        name={name}
-        label={
-          <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-            <Text
-              margin={{ top: 'small' }}
-              className={css.inpLabel}
-              color={Color.GREY_600}
-              font={{ size: 'small', weight: 'semi-bold' }}
-            >
-              {getString(labelKey)}
-            </Text>
-            &nbsp;
-            {getOptionalSubLabel(getString, tooltipId)}
-          </Layout.Horizontal>
-        }
-        multiTextInputProps={inputProps}
-      />
-    ),
+      fieldPath: string
+    }) => {
+      if (isInputSetView && shouldRenderRunTimeInputViewWithAllowedValues(fieldPath, template)) {
+        return renderMultiTypeInputWithAllowedValues({
+          name,
+          tooltipId: tooltipId,
+          labelKey: labelKey,
+          fieldPath,
+          getString,
+          readonly,
+          expressions,
+          template
+        })
+      }
+      return (
+        <MultiTypeTextField
+          name={name}
+          label={
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+              <Text
+                margin={{ top: 'small' }}
+                className={css.inpLabel}
+                color={Color.GREY_600}
+                font={{ size: 'small', weight: 'semi-bold' }}
+              >
+                {getString(labelKey)}
+              </Text>
+              &nbsp;
+              {getOptionalSubLabel(getString, tooltipId)}
+            </Layout.Horizontal>
+          }
+          multiTextInputProps={inputProps}
+        />
+      )
+    },
     []
   )
 
@@ -451,7 +513,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                 allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
               },
               disabled: readonly
-            }
+            },
+            fieldPath: 'spec.dockerfile'
           })}
         </Container>
       ) : null}
@@ -467,7 +530,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                 allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
               },
               disabled: readonly
-            }
+            },
+            fieldPath: 'spec.context'
           })}
         </Container>
       ) : null}
@@ -502,7 +566,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                 allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
               },
               disabled: readonly
-            }
+            },
+            fieldPath: 'spec.endpoint'
           })}
         </Container>
       ) : null}
@@ -519,7 +584,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                 allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
               },
               disabled: readonly
-            }
+            },
+            fieldPath: 'spec.target'
           })}
         </Container>
       ) : null}
@@ -536,7 +602,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                 allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
               },
               disabled: readonly
-            }
+            },
+            fieldPath: 'spec.remoteCacheImage'
           })}
         </Container>
       ) : null}
@@ -615,7 +682,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                 allowableTypes: isInputSetView ? AllMultiTypeInputTypesForInputSet : AllMultiTypeInputTypesForStep
               },
               disabled: readonly
-            }
+            },
+            fieldPath: 'spec.remoteCacheRepo'
           })}
         </Container>
       ) : null}

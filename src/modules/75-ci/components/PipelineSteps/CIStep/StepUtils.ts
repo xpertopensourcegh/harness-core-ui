@@ -5,9 +5,9 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import isEmpty from 'lodash/isEmpty'
+import { isEmpty } from 'lodash-es'
 import type { FormikErrors } from 'formik'
-import { RUNTIME_INPUT_VALUE, MultiTypeInputType } from '@wings-software/uicore'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import type { UseFromStageInfraYaml } from 'services/ci'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StringsMap } from 'stringTypes'
@@ -45,19 +45,6 @@ export const validateConnectorRefAndImageDepdendency = (
     })
   }
   return errors
-}
-
-export const shouldRenderRunTimeInputView = (value: any): boolean => {
-  if (value) {
-    if (typeof value === 'object') {
-      return Object.keys(value).some(
-        key => typeof value[key] === 'string' && value[key].startsWith(RUNTIME_INPUT_VALUE)
-      )
-    } else {
-      return typeof value === 'string' && value.startsWith(RUNTIME_INPUT_VALUE)
-    }
-  }
-  return false
 }
 
 export const AllMultiTypeInputTypesForStep = [
