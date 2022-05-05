@@ -11,11 +11,9 @@ import {
   Layout,
   Text,
   Container,
-  Card,
   Button,
   Heading,
   Icon,
-  CardBody,
   FormInput,
   Formik,
   FormikForm as Form,
@@ -31,10 +29,8 @@ import { Select } from '@blueprintjs/select'
 import { Classes, Dialog, Menu } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
-import { useGet, useMutate } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
 import RbacButton from '@rbac/components/Button/Button'
-import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { Page } from '@common/exports'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -42,8 +38,9 @@ import routes from '@common/RouteDefinitions'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PAGE_SIZE } from '@dashboards/pages/home/HomePage'
+import FolderCard from '@dashboards/components/FolderCard/FolderCard'
 import { useStrings } from 'framework/strings'
-import useDeleteFolder from './useDeleteFolder'
+import { FolderModel, useGetFolders, useCreateFolder } from 'services/custom-dashboards'
 import { useDashboardsContext } from '../DashboardsContext'
 
 import css from '../home/HomePage.module.scss'
@@ -55,16 +52,6 @@ const CustomSelect = Select.ofType<SelectOption>()
 enum Views {
   CREATE,
   EDIT
-}
-
-interface FolderInterface {
-  id: string
-  name: string
-  title: string
-  type: string
-  child_count: number
-  created_at: string
-  data_source: string[]
 }
 
 enum LayoutViews {
@@ -82,9 +69,7 @@ const NewFolderForm = (props: any): JSX.Element => {
   const { accountId } = useParams<AccountPathProps>()
   const [errorMessage, setErrorMessage] = React.useState('')
   const history = useHistory()
-  const { mutate: createFolder, loading } = useMutate({
-    verb: 'POST',
-    path: 'gateway/dashboard/folder',
+  const { mutate: createFolder, loading } = useCreateFolder({
     queryParams: { accountId: accountId }
   })
 
@@ -147,12 +132,8 @@ const NewFolderForm = (props: any): JSX.Element => {
     </Layout.Vertical>
   )
 }
-const folderType: { [key: string]: string } = {
-  SHARED: 'SHARED',
-  ACCOUNT: 'ACCOUNT'
-}
 
-const RenderDashboardName: Renderer<CellProps<FolderInterface>> = ({ row }) => {
+const RenderDashboardName: Renderer<CellProps<FolderModel>> = ({ row }) => {
   const data = row.original
   return (
     <Text color={Color.BLACK} lineClamp={1}>
@@ -161,7 +142,7 @@ const RenderDashboardName: Renderer<CellProps<FolderInterface>> = ({ row }) => {
   )
 }
 
-const RenderDashboardCount: Renderer<CellProps<FolderInterface>> = ({ row }) => {
+const RenderDashboardCount: Renderer<CellProps<FolderModel>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -177,7 +158,7 @@ const RenderDashboardCount: Renderer<CellProps<FolderInterface>> = ({ row }) => 
   )
 }
 
-const columns: CustomColumn<FolderInterface>[] = [
+const columns: CustomColumn<FolderModel>[] = [
   {
     Header: 'Name',
     id: 'name',
@@ -201,15 +182,15 @@ const FoldersPage: React.FC = () => {
   const history = useHistory()
   const { includeBreadcrumbs } = useDashboardsContext()
 
-  const [filteredFoldersList, setFilteredList] = React.useState<FolderInterface[]>([])
+  const [filteredFoldersList, setFilteredList] = React.useState<FolderModel[]>([])
 
   const [view, setView] = useState(Views.CREATE)
-  const [deleteContext, setDeleteContext] = React.useState<FolderInterface>()
+
   const [page, setPage] = useState(0)
 
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [layoutView, setLayoutView] = useState(LayoutViews.GRID)
-  const [sortby, setSortingFilter] = useState<SelectOption>(defaultSortBy)
+  const [sortBy, setSortingFilter] = useState<SelectOption>(defaultSortBy)
 
   const strRefFolders = 'dashboards.homePage.folders'
 
@@ -223,10 +204,10 @@ const FoldersPage: React.FC = () => {
   }, [])
 
   React.useEffect(() => {
-    if (searchTerm || sortby?.value) {
+    if (searchTerm || sortBy?.value) {
       setPage(0)
     }
-  }, [searchTerm, sortby?.value])
+  }, [searchTerm, sortBy?.value])
 
   React.useEffect(() => {
     includeBreadcrumbs([
@@ -242,15 +223,13 @@ const FoldersPage: React.FC = () => {
     loading,
     error,
     refetch: reloadFolders
-  } = useGet({
-    // Inferred from RestfulProvider in index.js
-    path: 'gateway/dashboard/v1/folders',
+  } = useGetFolders({
     queryParams: {
-      accountId: accountId,
+      accountId,
       searchTerm,
       page: page + 1,
       pageSize: PAGE_SIZE,
-      sortBy: sortby?.value
+      sortBy: String(sortBy?.value)
     }
   })
 
@@ -275,7 +254,8 @@ const FoldersPage: React.FC = () => {
 
   React.useEffect(() => {
     if (foldersList) {
-      setFilteredList(foldersList?.resource)
+      const updatedList: FolderModel[] = foldersList?.resource || []
+      setFilteredList(updatedList)
     }
   }, [foldersList])
 
@@ -318,10 +298,8 @@ const FoldersPage: React.FC = () => {
     [view]
   )
 
-  const { openDialog } = useDeleteFolder(deleteContext, onDeleted)
-
   return (
-    <Page.Body loading={loading} error={error?.data?.message}>
+    <Page.Body loading={loading} error={error?.message}>
       <Layout.Horizontal
         spacing="medium"
         background={Color.GREY_0}
@@ -346,7 +324,9 @@ const FoldersPage: React.FC = () => {
           <CustomSelect
             items={sortingOptions}
             filterable={false}
-            itemRenderer={(item, { handleClick }) => <Menu.Item text={item.label} onClick={handleClick} />}
+            itemRenderer={(item, { handleClick, index }) => (
+              <Menu.Item key={`dashboard-sort-select-${index}`} text={item.label} onClick={handleClick} />
+            )}
             onItemSelect={item => {
               setSortingFilter(item)
             }}
@@ -359,7 +339,7 @@ const FoldersPage: React.FC = () => {
               className={css.customSelect}
               text={
                 <Text color={Color.BLACK}>
-                  {getString('dashboards.sortBy')} {sortby?.label}
+                  {getString('dashboards.sortBy')} {sortBy?.label}
                 </Text>
               }
             />
@@ -405,61 +385,8 @@ const FoldersPage: React.FC = () => {
                 center
                 gutter={25}
                 items={filteredFoldersList}
-                renderItem={(folder: FolderInterface) => (
-                  <Card
-                    interactive
-                    className={cx(css.dashboardCard)}
-                    onClick={() => {
-                      history.push({
-                        pathname: routes.toCustomDashboardHome({
-                          folderId: folder?.id ? folder?.id : 'shared',
-                          accountId: accountId
-                        })
-                      })
-                    }}
-                  >
-                    <Container>
-                      {folder?.type !== folderType.SHARED && (
-                        <CardBody.Menu
-                          menuContent={
-                            <Menu>
-                              <RbacMenuItem
-                                text="Delete"
-                                onClick={() => {
-                                  setDeleteContext(folder)
-                                  openDialog()
-                                }}
-                                permission={{
-                                  permission: PermissionIdentifier.EDIT_DASHBOARD,
-                                  resource: {
-                                    resourceType: ResourceType.DASHBOARDS
-                                  }
-                                }}
-                              />
-                            </Menu>
-                          }
-                          menuPopoverProps={{
-                            className: Classes.DARK
-                          }}
-                        />
-                      )}
-
-                      <Layout.Vertical spacing="large">
-                        <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                          {folder?.name}
-                        </Text>
-                        {/* {TagsRenderer(folder)} */}
-                        <Text
-                          icon="dashboard"
-                          iconProps={{ color: Color.GREY_300, size: 24 }}
-                          color={Color.PRIMARY_7}
-                          font={{ size: 'medium', weight: 'semi-bold' }}
-                        >
-                          {folder?.child_count || 0}
-                        </Text>
-                      </Layout.Vertical>
-                    </Container>
-                  </Card>
+                renderItem={(folder: FolderModel) => (
+                  <FolderCard accountId={accountId} folder={folder} onFolderDeleted={onDeleted} />
                 )}
                 keyOf={folder => folder?.id}
               />
@@ -469,7 +396,7 @@ const FoldersPage: React.FC = () => {
 
         {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.LIST && (
           <Container className={css.folderMasonry}>
-            <TableV2<FolderInterface>
+            <TableV2<FolderModel>
               className={css.table}
               columns={columns}
               data={filteredFoldersList || []}
