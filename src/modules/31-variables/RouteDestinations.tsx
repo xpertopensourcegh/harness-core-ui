@@ -11,7 +11,17 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, variablePathProps } from '@common/utils/routeUtils'
 
 import { AccountSideNavProps } from '@common/RouteDestinations'
+import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
 import VariablesPage from './pages/variables/VariablesPage'
+
+const platformLabel = 'auditTrail.Platform'
+AuditTrailFactory.registerResourceHandler('VARIABLE', {
+  moduleIcon: {
+    name: 'variable'
+  },
+  moduleLabel: platformLabel,
+  resourceLabel: 'common.variables'
+})
 
 export default (
   <>

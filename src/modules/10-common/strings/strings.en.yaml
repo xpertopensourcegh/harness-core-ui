@@ -673,6 +673,8 @@ module:
   core: CORE
   pms: PMS
   templateService: TEMPLATESERVICE
+  sto: STO
+  governance: GOVERNANCE
 customPricing: for Custom Pricing
 specified: Specified
 file: File

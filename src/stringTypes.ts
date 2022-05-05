@@ -398,7 +398,9 @@ export interface StringsMap {
   'common.module.ci': string
   'common.module.core': string
   'common.module.cv': string
+  'common.module.governance': string
   'common.module.pms': string
+  'common.module.sto': string
   'common.module.templateService': string
   'common.moduleLabel': string
   'common.monthly': string
@@ -5115,7 +5117,6 @@ export interface StringsMap {
   'ci.successful': string
   'ci.templates': string
   'ci.testSummary': string
-  'ci.titleGovernance': string
   'ci.titleResources': string
   'ci.titleSettings': string
   'ci.welcome': string
