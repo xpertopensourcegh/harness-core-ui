@@ -173,6 +173,7 @@ export const ScheduledReports: React.FC = () => {
   const { mutate: deleteReport } = useDeleteReportSetting({})
   const { openModal, hideModal } = useCreateReportModal({
     onSuccess: () => {
+      trackEvent(USER_JOURNEY_EVENTS.PERSPECTIVE_REPORT_SCHEDULE_DONE, {})
       hideModal()
       refetch()
     }

@@ -17,7 +17,8 @@ const RECOMMENDATION_EVENTS = {
   RECOMMENDATION_EDIT_CPU: PREFIX_CCM_EVENTS + 'recommendation_edit_cpu',
   RECOMMENDATION_EDIT_RAM: PREFIX_CCM_EVENTS + 'recommendation_edit_ram',
   RECOMMENDATION_EDIT_MIN_NODE: PREFIX_CCM_EVENTS + 'recommendation_edit_min_node',
-  NODE_RECOMMENDATION_EDIT_PREFERENCE: PREFIX_CCM_EVENTS + 'node_recommendation_edit_preference'
+  NODE_RECOMMENDATION_EDIT_PREFERENCE: PREFIX_CCM_EVENTS + 'node_recommendation_edit_preference',
+  RECOMMENDATION_PAGE_LOADED: PREFIX_CCM_EVENTS + 'recommendation_page_loaded'
 }
 
 const PERSPECTIVE_EVENTS = {
@@ -28,7 +29,10 @@ const PERSPECTIVE_EVENTS = {
   CREATE_PERSPECTIVE_ADD_NEW_REPORT: PREFIX_CCM_EVENTS + 'create_perspective_add_new_report',
   CREATE_PERSPECTIVE_ADD_NEW_BUDGET: PREFIX_CCM_EVENTS + 'create_perspective_add_new_budget',
   SAVE_PERSPECTIVE: PREFIX_CCM_EVENTS + 'save_perspective',
-  OPEN_PERSPECTIVE_DETAILS: PREFIX_CCM_EVENTS + 'open_perspective_details'
+  OPEN_PERSPECTIVE_DETAILS: PREFIX_CCM_EVENTS + 'open_perspective_details',
+  PERSPECTIVE_LOADED: PREFIX_CCM_EVENTS + 'perspective_list_loaded',
+  PERSPECTIVE_REPORT_SCHEDULE: PREFIX_CCM_EVENTS + 'perspective_report_schedule_trigger',
+  PERSPECTIVE_REPORT_SCHEDULE_DONE: PREFIX_CCM_EVENTS + 'perspective_report_schedule_done'
 }
 
 export const USER_JOURNEY_EVENTS = {
