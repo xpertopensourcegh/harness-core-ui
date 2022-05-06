@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import cx from 'classnames'
 import { Expander } from '@blueprintjs/core'
 import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
 import produce from 'immer'
@@ -287,6 +288,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               {getString('ci.executionLabel')}
             </span>
           }
+          className={cx(css.fullHeight, css.stepGroup)}
           panel={
             selectedStageClone ? (
               <ExecutionGraph

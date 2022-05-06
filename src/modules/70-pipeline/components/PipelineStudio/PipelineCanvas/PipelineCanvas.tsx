@@ -106,6 +106,7 @@ const runModalProps: IDialogProps = {
 }
 
 export interface PipelineCanvasProps {
+  // diagram?: DiagramFactory
   toPipelineStudio: PathFn<PipelineType<PipelinePathProps> & PipelineStudioQueryParams>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
@@ -117,10 +118,11 @@ export interface PipelineCanvasProps {
 }
 
 export function PipelineCanvas({
+  // diagram,
   toPipelineList,
   toPipelineStudio,
   getOtherModal
-}: PipelineCanvasProps): React.ReactElement {
+}: PipelineCanvasProps): JSX.Element {
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const {
     state,
