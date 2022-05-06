@@ -33,6 +33,8 @@ import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { Category, FeatureActions } from '@common/constants/TrackingConstants'
 import css from './AddKeyDialog.module.scss'
 
 interface Props {
@@ -80,6 +82,10 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
   const getTypeOption = (value: string) => keyTypes.find(k => k.value === value) || keyTypes[0]
 
   const handleSubmit = (values: KeyValues): void => {
+    trackEvent(FeatureActions.CreateSDKKeySubmit, {
+      category: Category.FEATUREFLAG,
+      data: values
+    })
     createKey({
       identifier: getIdentifierFromName(values.name),
       name: values.name,
@@ -88,6 +94,8 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
       .then((created: ApiKey) => onCreate(created, hideModal))
       .catch(error => showError(getErrorMessage(error), undefined, 'cf.create.key.error'))
   }
+
+  const { trackEvent } = useTelemetry()
 
   const [openModal, hideModal] = useModalHook(() => {
     return (
@@ -99,7 +107,12 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
             name: NameSchema({ requiredErrorMsg: getEnvString('apiKeys.emptyName') })
           })}
           onSubmit={handleSubmit}
-          onReset={hideModal}
+          onReset={() => {
+            trackEvent(FeatureActions.CreateSDKKeySubmit, {
+              category: Category.FEATUREFLAG
+            })
+            hideModal()
+          }}
         >
           {formikProps => (
             <FormikForm>
@@ -142,7 +155,12 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
   return (
     <RbacButton
       disabled={disabled}
-      onClick={openModal}
+      onClick={() => {
+        trackEvent(FeatureActions.CreateSDKKeyClick, {
+          category: Category.FEATUREFLAG
+        })
+        openModal()
+      }}
       text={getString('cf.environments.apiKeys.addKeyTitle')}
       minimal={!primary}
       intent="primary"
