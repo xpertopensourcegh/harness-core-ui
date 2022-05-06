@@ -2210,11 +2210,7 @@ export interface StringsMap {
   'gitsync.syncFailed': string
   'gitsync.syncStatus': string
   'gitsync.syncSucessToaster': string
-  'dashboards.createFolder.folderDescriptionPlaceholder': string
-  'dashboards.createFolder.folderNameValidation': string
-  'dashboards.createFolder.folderPlaceholder': string
   'dashboards.createFolder.folderSubmitFail': string
-  'dashboards.createFolder.stepOne': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string
@@ -2233,6 +2229,10 @@ export interface StringsMap {
   'dashboards.editModal.editDashboard': string
   'dashboards.editModal.submitFail': string
   'dashboards.editModal.success': string
+  'dashboards.folderForm.folderDescriptionPlaceholder': string
+  'dashboards.folderForm.folderNameValidation': string
+  'dashboards.folderForm.folderPlaceholder': string
+  'dashboards.folderForm.stepOne': string
   'dashboards.getStarted.subTextVideo1': string
   'dashboards.getStarted.subTextVideo2': string
   'dashboards.getStarted.subTextVideo3': string
@@ -2261,6 +2261,7 @@ export interface StringsMap {
   'dashboards.sortBy': string
   'dashboards.switchToGridView': string
   'dashboards.switchToListView': string
+  'dashboards.updateFolder.folderUpdateFail': string
   'dashboards.upgrade': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string

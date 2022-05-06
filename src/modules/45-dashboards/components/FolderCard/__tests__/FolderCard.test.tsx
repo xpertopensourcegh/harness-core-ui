@@ -26,7 +26,7 @@ const testFolder: FolderModel = {
 const defaultProps: FolderCardProps = {
   accountId: '1',
   folder: testFolder,
-  onFolderDeleted: jest.fn()
+  onTriggerFolderRefetch: jest.fn()
 }
 
 const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (

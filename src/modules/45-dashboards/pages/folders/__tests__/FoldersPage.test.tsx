@@ -92,7 +92,7 @@ describe('FoldersPage', () => {
       fireEvent.click(createButton)
     })
 
-    const newFolderComponent = screen.getByText(result.current.getString('dashboards.createFolder.stepOne'))
+    const newFolderComponent = screen.getByText(result.current.getString('dashboards.folderForm.stepOne'))
     await waitFor(() => expect(newFolderComponent).toBeInTheDocument())
   })
 })

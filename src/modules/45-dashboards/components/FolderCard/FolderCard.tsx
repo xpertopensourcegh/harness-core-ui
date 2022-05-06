@@ -7,16 +7,18 @@
 
 import React, { useState } from 'react'
 import cx from 'classnames'
-import { Heading, Layout, Text, Container, Card, CardBody } from '@harness/uicore'
+import { Heading, Layout, Text, Container, Card, CardBody, Dialog } from '@harness/uicore'
 import { Color, FontVariation } from '@harness/design-system'
 import { Link } from 'react-router-dom'
 import { Classes, Menu } from '@blueprintjs/core'
+import { useModalHook } from '@harness/use-modal'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import routes from '@common/RouteDefinitions'
-import useDeleteFolder from '@dashboards/pages/folders/useDeleteFolder'
 import { FolderType } from '@dashboards/constants/FolderType'
+import useDeleteFolder from '@dashboards/pages/folders/useDeleteFolder'
+import UpdateFolder from '@dashboards/pages/folders/form/UpdateFolder'
 import { useStrings } from 'framework/strings'
 import type { FolderModel } from 'services/custom-dashboards'
 import css from '@dashboards/pages/home/HomePage.module.scss'
@@ -24,12 +26,12 @@ import css from '@dashboards/pages/home/HomePage.module.scss'
 export interface FolderCardProps {
   accountId: string
   folder: FolderModel
-  onFolderDeleted: () => void
+  onTriggerFolderRefetch: () => void
 }
 
-const FolderCard: React.FC<FolderCardProps> = ({ accountId, folder, onFolderDeleted }) => {
+const FolderCard: React.FC<FolderCardProps> = ({ accountId, folder, onTriggerFolderRefetch }) => {
   const { getString } = useStrings()
-  const { openDialog } = useDeleteFolder(folder, onFolderDeleted)
+  const { openDialog: openDeleteDialog } = useDeleteFolder(folder, onTriggerFolderRefetch)
   const [menuOpen, setMenuOpen] = useState(false)
 
   const folderPath = routes.toCustomDashboardHome({
@@ -44,8 +46,22 @@ const FolderCard: React.FC<FolderCardProps> = ({ accountId, folder, onFolderDele
 
   const onDeleteCard = (): void => {
     setMenuOpen(false)
-    openDialog()
+    openDeleteDialog()
   }
+
+  const onFormCompleted = (): void => {
+    hideModal()
+    onTriggerFolderRefetch()
+  }
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog isOpen={true} enforceFocus={false} onClose={hideModal} className={cx(css.dashboardDialog, css.create)}>
+        <UpdateFolder onFormCompleted={onFormCompleted} folderData={folder} />
+      </Dialog>
+    ),
+    [folder]
+  )
 
   return (
     <Link to={folderPath}>
@@ -56,6 +72,16 @@ const FolderCard: React.FC<FolderCardProps> = ({ accountId, folder, onFolderDele
               data-testid={'folder-card-menu'}
               menuContent={
                 <Menu>
+                  <RbacMenuItem
+                    text={getString('edit')}
+                    onClick={showModal}
+                    permission={{
+                      permission: PermissionIdentifier.EDIT_DASHBOARD,
+                      resource: {
+                        resourceType: ResourceType.DASHBOARDS
+                      }
+                    }}
+                  />
                   <RbacMenuItem
                     text={getString('delete')}
                     onClick={onDeleteCard}

@@ -23,6 +23,10 @@ export interface CreateDashboardResponse {
   resource?: number
 }
 
+export interface CreateFolderRequestBody {
+  name: string
+}
+
 export interface CreateFolderResponse {
   resource: string
   responseMessages?: string
@@ -60,10 +64,6 @@ export interface FolderModel {
   type: string
 }
 
-export interface FolderRequestBody {
-  name: string
-}
-
 export interface GetFolderResponse {
   resource?: FolderModel[]
   responseMessages?: string
@@ -76,6 +76,21 @@ export interface GetFoldersResponse {
   responseMessages?: string
 }
 
+export interface PatchFolderRequestBody {
+  folderId: string
+  name: string
+}
+
+export interface PatchFolderResponse {
+  resource: PatchFolderResponseResource
+}
+
+export interface PatchFolderResponseResource {
+  accountId: string
+  folderId: string
+  name: string
+}
+
 export interface UpdateDashboardResponse {
   resource: UpdateDashboardResponseResource
 }
@@ -85,16 +100,6 @@ export interface UpdateDashboardResponseResource {
   id: number
   resourceIdentifier: string
   title: string
-}
-
-export interface UpdateFolderResponse {
-  resource: UpdateFolderResponseResource
-}
-
-export interface UpdateFolderResponseResource {
-  accountId: string
-  folderId: string
-  name: string
 }
 
 export interface UpdateDashboardQueryParams {
@@ -154,9 +159,9 @@ export const updateDashboardPromise = (
   )
 
 export interface GetFolderQueryParams {
-  page?: number
-  pageSize?: number
   accountId: string
+  pageSize?: number
+  page?: number
 }
 
 export type GetFolderProps = Omit<GetProps<GetFolderResponse, ErrorResponse, GetFolderQueryParams, void>, 'path'>
@@ -198,13 +203,11 @@ export const getFolderPromise = (
   )
 
 export interface PatchFolderQueryParams {
-  name: string
-  folderId: string
   accountId: string
 }
 
 export type PatchFolderProps = Omit<
-  MutateProps<UpdateFolderResponse, FolderErrorResponse, PatchFolderQueryParams, FolderRequestBody, void>,
+  MutateProps<PatchFolderResponse, FolderErrorResponse, PatchFolderQueryParams, PatchFolderRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -212,7 +215,7 @@ export type PatchFolderProps = Omit<
  * Update a folder's name.
  */
 export const PatchFolder = (props: PatchFolderProps) => (
-  <Mutate<UpdateFolderResponse, FolderErrorResponse, PatchFolderQueryParams, FolderRequestBody, void>
+  <Mutate<PatchFolderResponse, FolderErrorResponse, PatchFolderQueryParams, PatchFolderRequestBody, void>
     verb="PATCH"
     path={`/folder`}
     base={getConfig('dashboard/')}
@@ -221,7 +224,7 @@ export const PatchFolder = (props: PatchFolderProps) => (
 )
 
 export type UsePatchFolderProps = Omit<
-  UseMutateProps<UpdateFolderResponse, FolderErrorResponse, PatchFolderQueryParams, FolderRequestBody, void>,
+  UseMutateProps<PatchFolderResponse, FolderErrorResponse, PatchFolderQueryParams, PatchFolderRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -229,7 +232,7 @@ export type UsePatchFolderProps = Omit<
  * Update a folder's name.
  */
 export const usePatchFolder = (props: UsePatchFolderProps) =>
-  useMutate<UpdateFolderResponse, FolderErrorResponse, PatchFolderQueryParams, FolderRequestBody, void>(
+  useMutate<PatchFolderResponse, FolderErrorResponse, PatchFolderQueryParams, PatchFolderRequestBody, void>(
     'PATCH',
     `/folder`,
     { base: getConfig('dashboard/'), ...props }
@@ -240,15 +243,15 @@ export const usePatchFolder = (props: UsePatchFolderProps) =>
  */
 export const patchFolderPromise = (
   props: MutateUsingFetchProps<
-    UpdateFolderResponse,
+    PatchFolderResponse,
     FolderErrorResponse,
     PatchFolderQueryParams,
-    FolderRequestBody,
+    PatchFolderRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<UpdateFolderResponse, FolderErrorResponse, PatchFolderQueryParams, FolderRequestBody, void>(
+  mutateUsingFetch<PatchFolderResponse, FolderErrorResponse, PatchFolderQueryParams, PatchFolderRequestBody, void>(
     'PATCH',
     getConfig('dashboard/'),
     `/folder`,
@@ -261,7 +264,7 @@ export interface CreateFolderQueryParams {
 }
 
 export type CreateFolderProps = Omit<
-  MutateProps<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, FolderRequestBody, void>,
+  MutateProps<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, CreateFolderRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -269,7 +272,7 @@ export type CreateFolderProps = Omit<
  * Create a new folder.
  */
 export const CreateFolder = (props: CreateFolderProps) => (
-  <Mutate<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, FolderRequestBody, void>
+  <Mutate<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, CreateFolderRequestBody, void>
     verb="POST"
     path={`/folder`}
     base={getConfig('dashboard/')}
@@ -278,7 +281,7 @@ export const CreateFolder = (props: CreateFolderProps) => (
 )
 
 export type UseCreateFolderProps = Omit<
-  UseMutateProps<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, FolderRequestBody, void>,
+  UseMutateProps<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, CreateFolderRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -286,19 +289,26 @@ export type UseCreateFolderProps = Omit<
  * Create a new folder.
  */
 export const useCreateFolder = (props: UseCreateFolderProps) =>
-  useMutate<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, FolderRequestBody, void>('POST', `/folder`, {
-    base: getConfig('dashboard/'),
-    ...props
-  })
+  useMutate<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, CreateFolderRequestBody, void>(
+    'POST',
+    `/folder`,
+    { base: getConfig('dashboard/'), ...props }
+  )
 
 /**
  * Create a new folder.
  */
 export const createFolderPromise = (
-  props: MutateUsingFetchProps<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, FolderRequestBody, void>,
+  props: MutateUsingFetchProps<
+    CreateFolderResponse,
+    ErrorResponse,
+    CreateFolderQueryParams,
+    CreateFolderRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, FolderRequestBody, void>(
+  mutateUsingFetch<CreateFolderResponse, ErrorResponse, CreateFolderQueryParams, CreateFolderRequestBody, void>(
     'POST',
     getConfig('dashboard/'),
     `/folder`,

@@ -14,20 +14,16 @@ import {
   Button,
   Heading,
   Icon,
-  FormInput,
-  Formik,
-  FormikForm as Form,
   Pagination,
   SelectOption,
   ExpandingSearchInput,
   TableV2
 } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
-import { FontVariation, Color } from '@harness/design-system'
+import { Color } from '@harness/design-system'
 import { Select } from '@blueprintjs/select'
 
-import { Classes, Dialog, Menu } from '@blueprintjs/core'
-import * as Yup from 'yup'
+import { Dialog, Menu } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import RbacButton from '@rbac/components/Button/Button'
@@ -40,7 +36,8 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PAGE_SIZE } from '@dashboards/pages/home/HomePage'
 import FolderCard from '@dashboards/components/FolderCard/FolderCard'
 import { useStrings } from 'framework/strings'
-import { FolderModel, useGetFolders, useCreateFolder } from 'services/custom-dashboards'
+import { FolderModel, useGetFolders } from 'services/custom-dashboards'
+import CreateFolder from './form/CreateFolder'
 import { useDashboardsContext } from '../DashboardsContext'
 
 import css from '../home/HomePage.module.scss'
@@ -48,11 +45,6 @@ import css from '../home/HomePage.module.scss'
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
 const CustomSelect = Select.ofType<SelectOption>()
-
-enum Views {
-  CREATE,
-  EDIT
-}
 
 enum LayoutViews {
   LIST,
@@ -62,75 +54,6 @@ enum LayoutViews {
 const defaultSortBy: SelectOption = {
   label: 'Select Option',
   value: ''
-}
-
-const NewFolderForm = (props: any): JSX.Element => {
-  const { getString } = useStrings()
-  const { accountId } = useParams<AccountPathProps>()
-  const [errorMessage, setErrorMessage] = React.useState('')
-  const history = useHistory()
-  const { mutate: createFolder, loading } = useCreateFolder({
-    queryParams: { accountId: accountId }
-  })
-
-  const submitForm = async (formData: { name: string }) => {
-    const response = await createFolder(formData)
-    return response
-  }
-
-  return (
-    <Layout.Vertical padding="xxlarge">
-      <Heading level={3} font={{ variation: FontVariation.H3 }} padding={{ bottom: 'large' }}>
-        {getString('dashboards.createFolder.stepOne')}
-      </Heading>
-      <Formik
-        initialValues={{ name: '' }}
-        formName="createFolderForm"
-        validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('dashboards.createFolder.folderNameValidation'))
-        })}
-        onSubmit={(formData: { name: string }) => {
-          setErrorMessage('')
-          const response = submitForm(formData)
-          response
-            .then(data => {
-              if (data?.resource) {
-                history.push({
-                  pathname: routes.toCustomDashboardHome({
-                    folderId: data?.resource,
-                    accountId: accountId
-                  })
-                })
-                props?.hideModal?.()
-              }
-            })
-            .catch(() => {
-              setErrorMessage(getString('dashboards.createFolder.folderSubmitFail'))
-            })
-        }}
-      >
-        <Form className={css.formContainer}>
-          <Layout.Vertical spacing="large">
-            <FormInput.Text
-              name="name"
-              label={getString('name')}
-              placeholder={getString('dashboards.createFolder.folderPlaceholder')}
-            />
-
-            <Button
-              type="submit"
-              intent="primary"
-              width="150px"
-              text={getString('continue')}
-              disabled={loading}
-              className={css.button}
-            />
-            {errorMessage && <Text intent="danger">{errorMessage}</Text>}
-          </Layout.Vertical>
-        </Form>
-      </Formik>
-    </Layout.Vertical>
-  )
 }
 
 const RenderDashboardName: Renderer<CellProps<FolderModel>> = ({ row }) => {
@@ -183,8 +106,6 @@ const FoldersPage: React.FC = () => {
   const { includeBreadcrumbs } = useDashboardsContext()
 
   const [filteredFoldersList, setFilteredList] = React.useState<FolderModel[]>([])
-
-  const [view, setView] = useState(Views.CREATE)
 
   const [page, setPage] = useState(0)
 
@@ -248,7 +169,7 @@ const FoldersPage: React.FC = () => {
     }
   ]
 
-  const onDeleted = (): void => {
+  const onReload = (): void => {
     reloadFolders?.()
   }
 
@@ -261,41 +182,11 @@ const FoldersPage: React.FC = () => {
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog
-        isOpen={true}
-        enforceFocus={false}
-        onClose={() => {
-          setView(Views.CREATE)
-          hideModal()
-        }}
-        className={cx(css.dashboardFolderDialog, Classes.DIALOG, {
-          [css.create]: view === Views.CREATE
-        })}
-      >
-        {view === Views.CREATE ? (
-          <NewFolderForm
-            name={getString('dashboards.createFolder.stepOne')}
-            formData={{}}
-            hideModal={hideModal}
-            handleViewChange={{}}
-          />
-        ) : null}
-
-        {view === Views.EDIT ? <section>se</section> : null}
-
-        <Button
-          className={css.crossIcon}
-          icon="cross"
-          iconProps={{ size: 18 }}
-          minimal
-          onClick={() => {
-            setView(Views.CREATE)
-            hideModal()
-          }}
-        />
+      <Dialog isOpen={true} enforceFocus={false} onClose={hideModal} className={cx(css.dashboardDialog, css.create)}>
+        <CreateFolder onFormCompleted={hideModal} />
       </Dialog>
     ),
-    [view]
+    []
   )
 
   return (
@@ -310,7 +201,7 @@ const FoldersPage: React.FC = () => {
         <RbacButton
           intent="primary"
           text={getString(strRefFolders)}
-          onClick={() => showModal()}
+          onClick={showModal}
           icon="plus"
           className={css.createButton}
           permission={{
@@ -386,7 +277,7 @@ const FoldersPage: React.FC = () => {
                 gutter={25}
                 items={filteredFoldersList}
                 renderItem={(folder: FolderModel) => (
-                  <FolderCard accountId={accountId} folder={folder} onFolderDeleted={onDeleted} />
+                  <FolderCard accountId={accountId} folder={folder} onTriggerFolderRefetch={onReload} />
                 )}
                 keyOf={folder => folder?.id}
               />
