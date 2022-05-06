@@ -4968,6 +4968,7 @@ export interface StringsMap {
   'cf.targets.pageDescription': string
   'cf.targets.targetSegment': string
   'cf.targets.upload': string
+  'cf.targets.uploadError': string
   'cf.targets.uploadHeadline': string
   'cf.targets.uploadHelp': string
   'cf.targets.uploadStats': string
