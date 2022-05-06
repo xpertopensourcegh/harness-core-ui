@@ -1252,11 +1252,17 @@ export interface StringsMap {
   'secrets.titleSelect': string
   'secrets.typeSSH': string
   'variables.allowedValues': string
+  'variables.confirmDelete': string
+  'variables.confirmDeleteTitle': string
   'variables.defaultValue': string
+  'variables.editVariable': string
   'variables.inputValidation': string
   'variables.newVariable': string
   'variables.noVariableExist': string
   'variables.noVariableFound': string
+  'variables.successCreate': string
+  'variables.successDelete': string
+  'variables.successUpdate': string
   'variables.validation.fixedValue': string
   'variables.validation.type': string
   'variables.validation.validation': string

@@ -118,6 +118,7 @@ const VariablesPage: React.FC = () => {
           variables={variableResponse?.data}
           gotoPage={pageNumber => setPage(pageNumber)}
           refetch={refetch}
+          openCreateUpdateVariableModal={openCreateUpdateVariableModal}
         />
       </Page.Body>
     </>

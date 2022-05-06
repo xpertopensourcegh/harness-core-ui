@@ -5,20 +5,32 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { Layout, TableV2, Text } from '@harness/uicore'
-
-import React, { useMemo } from 'react'
+import { Button, Layout, TableV2, Text, useConfirmationDialog, useToaster } from '@harness/uicore'
+import { useParams } from 'react-router-dom'
+import { Menu, Position, Classes, Intent, Popover } from '@blueprintjs/core'
+import React, { useMemo, useState } from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Color, FontVariation } from '@harness/design-system'
-import { useStrings } from 'framework/strings'
-import type { PageVariableResponseDTO, StringVariableConfigDTO, VariableResponseDTO } from 'services/cd-ng'
+import { String, useStrings } from 'framework/strings'
+import {
+  PageVariableResponseDTO,
+  StringVariableConfigDTO,
+  useDeleteVariable,
+  VariableResponseDTO
+} from 'services/cd-ng'
 import { getValueFromVariableAndValidationType } from '@variables/utils/VariablesUtils'
+
+import useRBACError from '@rbac/utils/useRBACError/useRBACError'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { UseCreateUpdateVariableModalReturn } from '@variables/modals/CreateEditVariableModal/useCreateEditVariableModal'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './VariableListView.module.scss'
 
 interface SecretsListProps {
   variables?: PageVariableResponseDTO
   gotoPage: (pageNumber: number) => void
   refetch?: () => void
+  openCreateUpdateVariableModal: UseCreateUpdateVariableModalReturn['openCreateUpdateVariableModal']
 }
 
 const VariableListView: React.FC<SecretsListProps> = props => {
@@ -78,6 +90,75 @@ const VariableListView: React.FC<SecretsListProps> = props => {
     )
   }
 
+  const RenderColumnAction: Renderer<CellProps<VariableResponseDTO>> = ({ row, column }) => {
+    const data = row.original.variable
+    const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+    const { getRBACErrorMessage } = useRBACError()
+    const { showSuccess, showError } = useToaster()
+    const [menuOpen, setMenuOpen] = useState(false)
+    const { mutate: deleteVariable } = useDeleteVariable({
+      queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+      requestOptions: { headers: { 'content-type': 'application/json' } }
+    })
+    const { openDialog } = useConfirmationDialog({
+      contentText: <String stringID="variables.confirmDelete" vars={{ name: data.name }} />,
+      titleText: <String stringID="variables.confirmDeleteTitle" />,
+      confirmButtonText: <String stringID="delete" />,
+      cancelButtonText: <String stringID="cancel" />,
+      intent: Intent.DANGER,
+      buttonIntent: Intent.DANGER,
+      onCloseDialog: async didConfirm => {
+        if (didConfirm && data.identifier) {
+          try {
+            await deleteVariable(data.identifier)
+            showSuccess(getString('variables.successDelete', { name: data.name }))
+            ;(column as any).refetch?.()
+          } catch (err) {
+            showError(getRBACErrorMessage(err))
+          }
+        }
+      }
+    })
+
+    const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+      e.stopPropagation()
+      setMenuOpen(false)
+      openDialog()
+    }
+
+    const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+      e.stopPropagation()
+      setMenuOpen(false)
+      ;(column as any).openCreateUpdateVariableModal({ variable: data })
+    }
+
+    return (
+      <Layout.Horizontal flex={{ alignItems: 'flex-end' }}>
+        <Popover
+          isOpen={menuOpen}
+          onInteraction={nextOpenState => {
+            setMenuOpen(nextOpenState)
+          }}
+          className={Classes.DARK}
+          position={Position.RIGHT_TOP}
+        >
+          <Button
+            minimal
+            icon="Options"
+            onClick={e => {
+              e.stopPropagation()
+              setMenuOpen(true)
+            }}
+          />
+          <Menu>
+            <RbacMenuItem icon="edit" text={getString('edit')} onClick={handleEdit} />
+            <RbacMenuItem icon="trash" text={getString('delete')} onClick={handleDelete} />
+          </Menu>
+        </Popover>
+      </Layout.Horizontal>
+    )
+  }
+
   const columns: Column<VariableResponseDTO>[] = useMemo(
     () => [
       {
@@ -103,20 +184,30 @@ const VariableListView: React.FC<SecretsListProps> = props => {
       },
       {
         Header: getString('valueLabel'),
-        accessor: row => row.variable.identifier,
+        accessor: row => row.variable.spec.value,
         id: 'value',
-        width: '30%',
+        width: '20%',
         Cell: RenderColumnValue
       },
       {
         Header: getString('variables.defaultValue'),
         accessor: row => row.variable.spec,
         id: 'defaultValue',
-        width: '15%',
+        width: '20%',
         Cell: RenderColumnDefaultValue
+      },
+      {
+        Header: '',
+        accessor: row => row.variable.identifier,
+        id: 'action',
+        width: '5%',
+        Cell: RenderColumnAction,
+        refetch: refetch,
+        openCreateUpdateVariableModal: props.openCreateUpdateVariableModal,
+        disableSortBy: true
       }
     ],
-    [refetch]
+    [refetch, props.openCreateUpdateVariableModal]
   )
 
   return (
