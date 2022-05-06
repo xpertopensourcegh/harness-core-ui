@@ -10,7 +10,7 @@ import type { UseStringsReturn } from 'framework/strings'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import type { StageAttributes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { SecurityStage } from './SecurityStage'
+import { SecurityTestsStage } from './SecurityTestsStage'
 
 const titleKey = 'common.purpose.sto.continuous'
 
@@ -27,7 +27,7 @@ const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsR
   const title = getString(titleKey)
 
   return (
-    <SecurityStage
+    <SecurityTestsStage
       icon={'sto-color-filled'}
       hoverIcon={'security-stage'}
       iconsStyle={{ color: 'var(--primary-8)' }}
