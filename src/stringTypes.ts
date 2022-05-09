@@ -5068,6 +5068,7 @@ export interface StringsMap {
   'ci.getStartedWithCI.firstPipeline': string
   'ci.getStartedWithCI.flexibleInfra': string
   'ci.getStartedWithCI.flexibleInfraHelpText': string
+  'ci.getStartedWithCI.genericGit': string
   'ci.getStartedWithCI.hostedByHarness': string
   'ci.getStartedWithCI.hostedByHarnessBuildLocation': string
   'ci.getStartedWithCI.hosting': string
@@ -5096,6 +5097,7 @@ export interface StringsMap {
   'ci.getStartedWithCI.selectInfra': string
   'ci.getStartedWithCI.selectRepo': string
   'ci.getStartedWithCI.selectYourRepo': string
+  'ci.getStartedWithCI.setUpAuth': string
   'ci.getStartedWithCI.startSamplePipeline': string
   'ci.getStartedWithCI.takeToTheNextLevel': string
   'ci.getStartedWithCI.ti': string
