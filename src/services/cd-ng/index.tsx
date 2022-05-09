@@ -1613,13 +1613,16 @@ export interface ConnectorInfoDTO {
     | 'Pdc'
     | 'AzureRepo'
 }
-
+export interface GovernanceMetadata {
+  [key: string]: any
+}
 export interface ConnectorResponse {
   activityDetails?: ConnectorActivityDetails
   connector?: ConnectorInfoDTO
   createdAt?: number
   entityValidityDetails?: EntityValidityDetails
   gitDetails?: EntityGitDetails
+  governanceMetadata?: GovernanceMetadata
   harnessManaged?: boolean
   lastModifiedAt?: number
   status?: ConnectorConnectivityDetails
