@@ -489,7 +489,8 @@ export const AnomalyAlerts = () => {
   const [selectedAlert, setSelectedAlert] = useState(selectedAlertInitState)
   const { openAnomaliesAlertModal } = useAnomaliesAlertDialog({
     setRefetchingState: setRefetchingState,
-    selectedAlert: selectedAlert
+    selectedAlert: selectedAlert,
+    source: PAGE_NAMES.PERSPECTIVE_BUILDER_PAGE
   })
 
   const {

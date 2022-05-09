@@ -43,6 +43,13 @@ const BUDGET_EVENTS = {
   SAVE_BUDGET: PREFIX_CCM_EVENTS + 'save_budget'
 }
 
+const ANOMALY_EVENTS = {
+  VIEW_ANOMALIES_CLICK: PREFIX_CCM_EVENTS + 'view_anomalies_click',
+  APPLY_ANOMALY_FILTERS: PREFIX_CCM_EVENTS + 'apply_anomaly_filters',
+  ANOMALY_ALERTS_OVERVIEW: PREFIX_CCM_EVENTS + 'anomaly_alerts_overview',
+  SAVE_ANOMALY_ALERTS: PREFIX_CCM_EVENTS + 'save_anomaly_alerts'
+}
+
 export const USER_JOURNEY_EVENTS = {
   AS_NAV_CLICK: PREFIX_CCM_EVENTS + 'as_nav_click',
   LOAD_AS_LANDING_PAGE: PREFIX_CCM_EVENTS + 'load_as_landing_page',
@@ -59,7 +66,8 @@ export const USER_JOURNEY_EVENTS = {
   LOAD_RULE_DETAILS_WINDOW: PREFIX_CCM_EVENTS + 'load_rule_details_window',
   ...PERSPECTIVE_EVENTS,
   ...RECOMMENDATION_EVENTS,
-  ...BUDGET_EVENTS
+  ...BUDGET_EVENTS,
+  ...ANOMALY_EVENTS
 }
 
 export const PAGE_NAMES = {
@@ -72,5 +80,7 @@ export const PAGE_NAMES = {
   START_TRIAL_MODAL: PREFIX_CCM_EVENTS + 'start_trial_modal',
   BUDGET_LANDING_PAGE: PREFIX_CCM_EVENTS + 'budget_landing_page',
   BUDGET_DETAILS_PAGE: PREFIX_CCM_EVENTS + 'budget_details_page',
+  ANOMALY_LANDING_PAGE: PREFIX_CCM_EVENTS + 'anomaly_landing_page',
+  ANOMALY_SETTINGS_FLOW: PREFIX_CCM_EVENTS + 'anomaly_settings_flow',
   PERSPECTIVE_BUILDER_PAGE: PREFIX_CCM_EVENTS + 'perspective_builder_page'
 }
