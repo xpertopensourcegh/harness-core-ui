@@ -12,7 +12,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
-import { ServerlessAwsLambdaDeployStep } from '../ServerlessDeployStep'
+import { ServerlessLambdaDeployStep } from '../ServerlessLambdaDeploy'
 import { initialValuesMock, metaDataMapMock, variablesDataMock } from './mock'
 
 const getRuntimeInputsValues = () => ({
@@ -36,7 +36,7 @@ const getInitialValues = () => ({
 
 describe('Test ServerlessDeployStep - Edit view', () => {
   beforeAll(() => {
-    factory.registerStep(new ServerlessAwsLambdaDeployStep())
+    factory.registerStep(new ServerlessLambdaDeployStep())
   })
 
   test('Serverless Deploy Step rendering properly with empty initial values', () => {
@@ -184,7 +184,7 @@ describe('Test ServerlessDeployStep - Edit view', () => {
 
 describe('Test ServerlessDeployStep - InputSet view', () => {
   beforeAll(() => {
-    factory.registerStep(new ServerlessAwsLambdaDeployStep())
+    factory.registerStep(new ServerlessLambdaDeployStep())
   })
 
   test('Serverless Deploy Step rendering properly with initial values', () => {
@@ -260,7 +260,7 @@ describe('Test ServerlessDeployStep - InputSet view', () => {
 
 describe('Test ServerlessDeployStep - InputVariable view', () => {
   beforeAll(() => {
-    factory.registerStep(new ServerlessAwsLambdaDeployStep())
+    factory.registerStep(new ServerlessLambdaDeployStep())
   })
 
   test('Variables list table is rendering properly', async () => {
@@ -286,7 +286,7 @@ describe('Test ServerlessDeployStep - InputVariable view', () => {
 
 describe('ServerlessDeploy step tests - DeploymentForm', () => {
   beforeAll(() => {
-    factory.registerStep(new ServerlessAwsLambdaDeployStep())
+    factory.registerStep(new ServerlessLambdaDeployStep())
   })
 
   test('should render skipDryRun checkbox field when skipDryRun is made runtime - deploymentform view', async () => {

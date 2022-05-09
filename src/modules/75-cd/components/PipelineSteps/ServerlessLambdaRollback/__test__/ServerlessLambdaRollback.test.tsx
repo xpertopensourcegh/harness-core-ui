@@ -11,7 +11,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
-import { ServerlessAwsLambdaRollbackStep } from '../ServerlessAwsLambdaRollback'
+import { ServerlessLambdaRollbackStep } from '../ServerlessLambdaRollback'
 import { initialValuesMock, metaDataMapMock, variablesDataMock } from './mock'
 
 const getRuntimeInputsValues = () => ({
@@ -32,9 +32,9 @@ const getInitialValues = () => ({
   type: StepType.ServerlessAwsLambdaRollback
 })
 
-describe('Test ServerlessAwsLambdaRollbackStep - Edit view', () => {
+describe('Test ServerlessLambdaRollbackStep - Edit view', () => {
   beforeAll(() => {
-    factory.registerStep(new ServerlessAwsLambdaRollbackStep())
+    factory.registerStep(new ServerlessLambdaRollbackStep())
   })
 
   test('Serverless AWS Lambda Rollback Step rendering properly with empty initial values', () => {
@@ -125,9 +125,9 @@ describe('Test ServerlessAwsLambdaRollbackStep - Edit view', () => {
   })
 })
 
-describe('Test ServerlessAwsLambdaRollbackStep - InputSet view', () => {
+describe('Test ServerlessLambdaRollbackStep - InputSet view', () => {
   beforeAll(() => {
-    factory.registerStep(new ServerlessAwsLambdaRollbackStep())
+    factory.registerStep(new ServerlessLambdaRollbackStep())
   })
 
   test('Serverless AWS Lambda Rollback Step when template is not passed', () => {
@@ -193,9 +193,9 @@ describe('Test ServerlessAwsLambdaRollbackStep - InputSet view', () => {
   })
 })
 
-describe('Test ServerlessAwsLambdaRollbackStep - InputVariable view', () => {
+describe('Test ServerlessLambdaRollbackStep - InputVariable view', () => {
   beforeAll(() => {
-    factory.registerStep(new ServerlessAwsLambdaRollbackStep())
+    factory.registerStep(new ServerlessLambdaRollbackStep())
   })
 
   test('Variables list table is rendering properly', async () => {

@@ -3120,8 +3120,8 @@ export interface StringsMap {
   'pipeline.stepDescription.SHELLSCRIPT': string
   'pipeline.stepDescription.SaveCacheGCS': string
   'pipeline.stepDescription.SaveCacheS3': string
-  'pipeline.stepDescription.ServerlessAwsLambdaDeploy': string
-  'pipeline.stepDescription.ServerlessAwsLambdaRollback': string
+  'pipeline.stepDescription.ServerlessLambdaDeploy': string
+  'pipeline.stepDescription.ServerlessLambdaRollback': string
   'pipeline.stepDescription.ServiceNowApproval': string
   'pipeline.stepDescription.TerraformApply': string
   'pipeline.stepDescription.TerraformDestroy': string

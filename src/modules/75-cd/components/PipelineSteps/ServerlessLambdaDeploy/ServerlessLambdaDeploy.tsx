@@ -40,7 +40,7 @@ import { ServerlessDeployCommandOptions } from './ServerlessDeployCommandOptions
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-interface ServerlessAwsLambdaDeployProps {
+interface ServerlessLambdaDeployProps {
   initialValues: StepElementConfig
   onUpdate?: (data: StepElementConfig) => void
   stepViewType?: StepViewType
@@ -55,8 +55,8 @@ interface ServerlessAwsLambdaDeployProps {
   }
 }
 
-function ServerlessAwsLambdaDeployWidget(
-  props: ServerlessAwsLambdaDeployProps,
+function ServerlessLambdaDeployWidget(
+  props: ServerlessLambdaDeployProps,
   formikRef: StepFormikFowardRef<StepElementConfig>
 ): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true, readonly, onChange, allowableTypes, stepViewType } = props
@@ -134,7 +134,7 @@ function ServerlessAwsLambdaDeployWidget(
   )
 }
 
-const ServerlessAwsLambdaDeployInputStep: React.FC<ServerlessAwsLambdaDeployProps> = ({
+const ServerlessLambdaDeployInputStep: React.FC<ServerlessLambdaDeployProps> = ({
   inputSetData,
   allowableTypes,
   stepViewType
@@ -168,7 +168,7 @@ const ServerlessAwsLambdaDeployInputStep: React.FC<ServerlessAwsLambdaDeployProp
     </>
   )
 }
-export interface ServerlessAwsLambdaDeployVariableStepProps {
+export interface ServerlessLambdaDeployVariableStepProps {
   initialValues: StepElementConfig
   stageIdentifier: string
   onUpdate?(data: StepElementConfig): void
@@ -176,7 +176,7 @@ export interface ServerlessAwsLambdaDeployVariableStepProps {
   variablesData: StepElementConfig
 }
 
-const ServerlessAwsLambdaDeployVariableStep: React.FC<ServerlessAwsLambdaDeployVariableStepProps> = ({
+const ServerlessLambdaDeployVariableStep: React.FC<ServerlessLambdaDeployVariableStepProps> = ({
   variablesData,
   metadataMap,
   initialValues
@@ -191,9 +191,9 @@ const ServerlessAwsLambdaDeployVariableStep: React.FC<ServerlessAwsLambdaDeployV
   )
 }
 
-const ServerlessAwsLambdaDeployRef = React.forwardRef(ServerlessAwsLambdaDeployWidget)
+const ServerlessLambdaDeployRef = React.forwardRef(ServerlessLambdaDeployWidget)
 
-export class ServerlessAwsLambdaDeployStep extends PipelineStep<StepElementConfig> {
+export class ServerlessLambdaDeployStep extends PipelineStep<StepElementConfig> {
   constructor() {
     super()
     this._hasStepVariables = true
@@ -215,7 +215,7 @@ export class ServerlessAwsLambdaDeployStep extends PipelineStep<StepElementConfi
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <ServerlessAwsLambdaDeployInputStep
+        <ServerlessLambdaDeployInputStep
           initialValues={initialValues}
           onUpdate={onUpdate}
           allowableTypes={allowableTypes}
@@ -225,8 +225,8 @@ export class ServerlessAwsLambdaDeployStep extends PipelineStep<StepElementConfi
       )
     } else if (stepViewType === StepViewType.InputVariable) {
       return (
-        <ServerlessAwsLambdaDeployVariableStep
-          {...(customStepProps as ServerlessAwsLambdaDeployVariableStepProps)}
+        <ServerlessLambdaDeployVariableStep
+          {...(customStepProps as ServerlessLambdaDeployVariableStepProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}
         />
@@ -234,7 +234,7 @@ export class ServerlessAwsLambdaDeployStep extends PipelineStep<StepElementConfi
     }
 
     return (
-      <ServerlessAwsLambdaDeployRef
+      <ServerlessLambdaDeployRef
         initialValues={initialValues}
         onUpdate={onUpdate}
         isNewStep={isNewStep}
@@ -285,9 +285,9 @@ export class ServerlessAwsLambdaDeployStep extends PipelineStep<StepElementConfi
   }
 
   protected type = StepType.ServerlessAwsLambdaDeploy
-  protected stepName = 'Serverless Deploy Step'
+  protected stepName = 'Serverless Lambda Deploy Step'
   protected stepIcon: IconName = 'serverless-deploy-step'
-  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.ServerlessAwsLambdaDeploy'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.ServerlessLambdaDeploy'
   protected isHarnessSpecific = true
 
   protected defaultValues: StepElementConfig = {
