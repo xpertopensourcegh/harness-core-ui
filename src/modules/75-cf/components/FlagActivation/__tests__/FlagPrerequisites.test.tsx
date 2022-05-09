@@ -43,12 +43,13 @@ const renderComponent = (): void => {
 describe('FlagPrerequisites', () => {
   test('it should render correctly', async () => {
     renderComponent()
+    await waitFor(() => {
+      expect(screen.getByText('cf.shared.prerequisites')).toBeInTheDocument()
+      expect(screen.getByText('cf.featureFlags.prerequisitesDesc')).toBeInTheDocument()
+      expect(screen.getByText('cf.featureFlags.newPrerequisite')).toBeInTheDocument()
+    })
 
-    await waitFor(() => expect(screen.getByText('cf.shared.prerequisites')).toBeInTheDocument())
-    userEvent.click(screen.getByText('cf.shared.prerequisites'))
-
-    await waitFor(() => expect(screen.getByTestId('add-prerequisites-button')).toBeInTheDocument())
-    userEvent.click(screen.getByTestId('add-prerequisites-button'))
+    userEvent.click(screen.getByText('cf.featureFlags.newPrerequisite'))
 
     await waitFor(() => expect(screen.getByTestId('flag-prerequisite-modal')).toBeInTheDocument())
 

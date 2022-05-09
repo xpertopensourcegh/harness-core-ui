@@ -132,6 +132,8 @@ clause:
     matchSegment: 'Match Target Group'
 featureFlags:
   newFlag: + New Flag
+  true: 'True'
+  false: 'False'
   typeOfFlag: Select the Type of Flag You Want to Create
   startVariation: Start by selecting the variation type that the flag will use
   booleanBtnText: This is a simple ON/OFF toggle
@@ -148,7 +150,8 @@ featureFlags:
   defaultServedOff: '{{defaultVariation}} when flag is OFF'
   createdDate: 'Created: {{date}}'
   modifiedDate: 'Modified: {{date}}'
-  prerequisitesDesc: '(what’s required before enabling flags)'
+  prerequisitesDesc: 'What’s required before enabling this flag'
+  newPrerequisite: New Prerequisite
   ifFlagOnServe: 'If the flag is <strong>ON</strong>, serve '
   ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '
   bucketBy: Bucket by <strong>{{targetField}}</strong>

@@ -4591,6 +4591,7 @@ export interface StringsMap {
   'cf.featureFlags.defaultWillBeServed': string
   'cf.featureFlags.deleteFlag': string
   'cf.featureFlags.deleteFlagMessage': string
+  'cf.featureFlags.false': string
   'cf.featureFlags.flagFilters.any': string
   'cf.featureFlags.flagFilters.apply': string
   'cf.featureFlags.flagFilters.cancel': string
@@ -4639,6 +4640,7 @@ export interface StringsMap {
   'cf.featureFlags.multi': string
   'cf.featureFlags.multiBtnText': string
   'cf.featureFlags.newFlag': string
+  'cf.featureFlags.newPrerequisite': string
   'cf.featureFlags.percentageRollout': string
   'cf.featureFlags.prerequisitesDesc': string
   'cf.featureFlags.results': string
@@ -4673,6 +4675,7 @@ export interface StringsMap {
   'cf.featureFlags.startVariation': string
   'cf.featureFlags.targeting': string
   'cf.featureFlags.toTarget': string
+  'cf.featureFlags.true': string
   'cf.featureFlags.turnOffHeading': string
   'cf.featureFlags.turnOffMessage': string
   'cf.featureFlags.turnOnHeading': string
