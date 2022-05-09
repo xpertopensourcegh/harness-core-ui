@@ -27,7 +27,7 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view for inp
         >
           <label
             class="bp3-label"
-            for=".subscription"
+            for=".subscriptionId"
           >
             <span
               class="Tooltip--acenter"
@@ -58,7 +58,7 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view for inp
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name=".subscription"
+                      name=".subscriptionId"
                       placeholder="cd.steps.azureInfraStep.subscriptionPlaceholder"
                       style="padding-right: 0px;"
                       type="text"
@@ -521,15 +521,15 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view with em
           >
             <div
               class="bp3-form-group inputWidth"
-              data-id="subscription-0"
+              data-id="subscriptionId-0"
             >
               <label
                 class="bp3-label"
-                for="subscription"
+                for="subscriptionId"
               >
                 <span
                   class="Tooltip--acenter"
-                  data-tooltip-id="azureInfra_subscription"
+                  data-tooltip-id="azureInfra_subscriptionId"
                 >
                   cd.steps.azureInfraStep.subscription
                 </span>
@@ -556,7 +556,7 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view with em
                         <input
                           autocomplete="off"
                           class="bp3-input"
-                          name="subscription"
+                          name="subscriptionId"
                           placeholder="cd.steps.azureInfraStep.subscriptionPlaceholder"
                           style="padding-right: 0px;"
                           type="text"
@@ -1033,15 +1033,15 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view with ru
           >
             <div
               class="bp3-form-group inputWidth"
-              data-id="subscription-0"
+              data-id="subscriptionId-0"
             >
               <label
                 class="bp3-label"
-                for="subscription"
+                for="subscriptionId"
               >
                 <span
                   class="Tooltip--acenter"
-                  data-tooltip-id="azureInfra_subscription"
+                  data-tooltip-id="azureInfra_subscriptionId"
                 >
                   cd.steps.azureInfraStep.subscription
                 </span>
@@ -1065,7 +1065,7 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view with ru
                       <input
                         class="bp3-input"
                         disabled=""
-                        name="subscription"
+                        name="subscriptionId"
                         placeholder="<+input>"
                         type="text"
                         value="<+input>"
@@ -1111,7 +1111,7 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view with ru
               >
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main marginTop Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
-                  id="configureOptions_subscription"
+                  id="configureOptions_subscriptionId"
                   tabindex="0"
                   type="button"
                 >
@@ -1567,15 +1567,15 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view with va
           >
             <div
               class="bp3-form-group inputWidth"
-              data-id="subscription-0"
+              data-id="subscriptionId-0"
             >
               <label
                 class="bp3-label"
-                for="subscription"
+                for="subscriptionId"
               >
                 <span
                   class="Tooltip--acenter"
-                  data-tooltip-id="azureInfra_subscription"
+                  data-tooltip-id="azureInfra_subscriptionId"
                 >
                   cd.steps.azureInfraStep.subscription
                 </span>
@@ -1602,11 +1602,11 @@ exports[`Test Azure Infrastructure Spec snapshot Should render edit view with va
                         <input
                           autocomplete="off"
                           class="bp3-input"
-                          name="subscription"
+                          name="subscriptionId"
                           placeholder="cd.steps.azureInfraStep.subscriptionPlaceholder"
                           style="padding-right: 0px;"
                           type="text"
-                          value="subscription"
+                          value="subscriptionId"
                         />
                         <span
                           class="bp3-input-action"

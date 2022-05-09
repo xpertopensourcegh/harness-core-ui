@@ -335,8 +335,6 @@ export interface AccessControlCheckError {
     | 'AZURE_CONFIG_ERROR'
     | 'DATA_PROCESSING_ERROR'
     | 'INVALID_AZURE_AKS_REQUEST'
-    | 'SERVERLESS_EXECUTION_ERROR'
-    | 'VARIABLE_NOT_FOUND_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -2872,8 +2870,6 @@ export interface Error {
     | 'AZURE_CONFIG_ERROR'
     | 'DATA_PROCESSING_ERROR'
     | 'INVALID_AZURE_AKS_REQUEST'
-    | 'SERVERLESS_EXECUTION_ERROR'
-    | 'VARIABLE_NOT_FOUND_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -3262,8 +3258,6 @@ export interface Failure {
     | 'AZURE_CONFIG_ERROR'
     | 'DATA_PROCESSING_ERROR'
     | 'INVALID_AZURE_AKS_REQUEST'
-    | 'SERVERLESS_EXECUTION_ERROR'
-    | 'VARIABLE_NOT_FOUND_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -3536,16 +3530,22 @@ export interface FileDTO {
   type: 'FILE' | 'FOLDER'
 }
 
-export interface FileDtoYamlWrapper {
-  file: FileDTO
+export type FileNodeDTO = FileStoreNodeDTO & {
+  description?: string
+  fileUsage: 'MANIFEST_FILE' | 'CONFIG' | 'SCRIPT'
+  tags?: NGTag[]
 }
-
-export type FileNodeDTO = FileStoreNodeDTO & {}
 
 export interface FileStoreNodeDTO {
   identifier: string
+  lastModifiedAt?: number
+  lastModifiedBy?: string
   name: string
   type: 'FILE' | 'FOLDER'
+}
+
+export interface FileStoreRequest {
+  file: FileDTO
 }
 
 export interface FilesFilterProperties {
@@ -3615,6 +3615,8 @@ export interface FlowControlConfig {
 export interface FolderNodeDTO {
   children?: FileStoreNodeDTO[]
   identifier: string
+  lastModifiedAt?: number
+  lastModifiedBy?: string
   name: string
   type: 'FILE' | 'FOLDER'
 }
@@ -4839,6 +4841,7 @@ export type HttpStoreConfig = StoreConfig & {
 }
 
 export type IdentifierRef = EntityReference & {
+  fullyQualifiedScopeIdentifier?: string
   isDefault?: boolean
   metadata?: {
     [key: string]: string
@@ -5114,7 +5117,7 @@ export type K8sAzureInfrastructure = Infrastructure & {
   namespace: string
   releaseName: string
   resourceGroup: string
-  subscription: string
+  subscriptionId: string
 }
 
 export type K8sBGSwapServicesStepInfo = StepSpecType & {
@@ -5504,6 +5507,10 @@ export interface ModuleLicenseDTO {
   startTime?: number
   status?: 'ACTIVE' | 'DELETED' | 'EXPIRED'
   trialExtended?: boolean
+}
+
+export interface ModuleSource {
+  useConnectorCredentials: ParameterFieldBoolean
 }
 
 export interface NGAuthSettings {
@@ -7158,6 +7165,87 @@ export interface ResponseListConnectorResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListEntityType {
+  correlationId?: string
+  data?: (
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Http'
+    | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
+    | 'HarnessApproval'
+    | 'Barrier'
+    | 'FlagConfiguration'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Files'
+    | 'Service'
+    | 'Environment'
+    | 'EnvironmentGroup'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Verify'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'SecurityStage'
+    | 'SecuritySteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+    | 'FeatureFlags'
+    | 'ServiceNowApproval'
+    | 'ServiceNowCreate'
+    | 'ServiceNowUpdate'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'Security'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
+    | 'ServerlessAwsLambdaDeploy'
+    | 'ServerlessAwsLambdaRollback'
+  )[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListEnvironmentResponse {
   correlationId?: string
   data?: EnvironmentResponse[]
@@ -7358,6 +7446,13 @@ export interface ResponseListUserGroupAggregateDTO {
 export interface ResponseListUserGroupDTO {
   correlationId?: string
   data?: UserGroupDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListUserRepoResponse {
+  correlationId?: string
+  data?: UserRepoResponse[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -7712,8 +7807,6 @@ export interface ResponseMessage {
     | 'AZURE_CONFIG_ERROR'
     | 'DATA_PROCESSING_ERROR'
     | 'INVALID_AZURE_AKS_REQUEST'
-    | 'SERVERLESS_EXECUTION_ERROR'
-    | 'VARIABLE_NOT_FOUND_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -9265,6 +9358,7 @@ export interface ServiceRequestDTO {
   tags?: {
     [key: string]: string
   }
+  yaml?: string
 }
 
 export interface ServiceResponse {
@@ -9706,6 +9800,7 @@ export interface TerraformBackendConfigSpec {
 }
 
 export interface TerraformConfigFilesWrapper {
+  moduleSource?: ModuleSource
   store: StoreConfigWrapper
 }
 
@@ -10092,6 +10187,11 @@ export type UserPrincipal = Principal & {
   username?: string
 }
 
+export interface UserRepoResponse {
+  name?: string
+  namespace?: string
+}
+
 export type UsernamePasswordSettings = NGAuthSettings & {
   loginSettings: LoginSettings
 }
@@ -10350,7 +10450,7 @@ export type EcrRequestDTORequestBody = EcrRequestDTO
 
 export type EnvironmentRequestDTORequestBody = EnvironmentRequestDTO
 
-export type FileDtoYamlWrapperRequestBody = void
+export type FileStoreRequestRequestBody = void
 
 export type FilterDTORequestBody = FilterDTO
 
@@ -21229,6 +21329,61 @@ export const saveFeedbackPromise = (
     signal
   )
 
+export interface ListFilesAndFoldersQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifiers?: string[]
+  searchTerm?: string
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export type ListFilesAndFoldersProps = Omit<
+  GetProps<ResponsePageFileDTO, Failure | Error, ListFilesAndFoldersQueryParams, void>,
+  'path'
+>
+
+/**
+ * List files and folders
+ */
+export const ListFilesAndFolders = (props: ListFilesAndFoldersProps) => (
+  <Get<ResponsePageFileDTO, Failure | Error, ListFilesAndFoldersQueryParams, void>
+    path={`/file-store`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListFilesAndFoldersProps = Omit<
+  UseGetProps<ResponsePageFileDTO, Failure | Error, ListFilesAndFoldersQueryParams, void>,
+  'path'
+>
+
+/**
+ * List files and folders
+ */
+export const useListFilesAndFolders = (props: UseListFilesAndFoldersProps) =>
+  useGet<ResponsePageFileDTO, Failure | Error, ListFilesAndFoldersQueryParams, void>(`/file-store`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * List files and folders
+ */
+export const listFilesAndFoldersPromise = (
+  props: GetUsingFetchProps<ResponsePageFileDTO, Failure | Error, ListFilesAndFoldersQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageFileDTO, Failure | Error, ListFilesAndFoldersQueryParams, void>(
+    getConfig('ng/api'),
+    `/file-store`,
+    props,
+    signal
+  )
+
 export interface CreateQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
@@ -21297,7 +21452,7 @@ export type GetCreatedByListProps = Omit<
  */
 export const GetCreatedByList = (props: GetCreatedByListProps) => (
   <Get<ResponseSetString, Failure | Error, GetCreatedByListQueryParams, void>
-    path={`/file-store/createdBy`}
+    path={`/file-store/files/createdBy`}
     base={getConfig('ng/api')}
     {...props}
   />
@@ -21312,7 +21467,7 @@ export type UseGetCreatedByListProps = Omit<
  * Get list of created by usernames
  */
 export const useGetCreatedByList = (props: UseGetCreatedByListProps) =>
-  useGet<ResponseSetString, Failure | Error, GetCreatedByListQueryParams, void>(`/file-store/createdBy`, {
+  useGet<ResponseSetString, Failure | Error, GetCreatedByListQueryParams, void>(`/file-store/files/createdBy`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -21326,68 +21481,7 @@ export const getCreatedByListPromise = (
 ) =>
   getUsingFetch<ResponseSetString, Failure | Error, GetCreatedByListQueryParams, void>(
     getConfig('ng/api'),
-    `/file-store/createdBy`,
-    props,
-    signal
-  )
-
-export interface DownloadFileQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface DownloadFilePathParams {
-  fileIdentifier: string
-}
-
-export type DownloadFileProps = Omit<
-  GetProps<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>,
-  'path'
-> &
-  DownloadFilePathParams
-
-/**
- * Download file
- */
-export const DownloadFile = ({ fileIdentifier, ...props }: DownloadFileProps) => (
-  <Get<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>
-    path={`/file-store/file/${fileIdentifier}/download`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDownloadFileProps = Omit<
-  UseGetProps<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>,
-  'path'
-> &
-  DownloadFilePathParams
-
-/**
- * Download file
- */
-export const useDownloadFile = ({ fileIdentifier, ...props }: UseDownloadFileProps) =>
-  useGet<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>(
-    (paramsInPath: DownloadFilePathParams) => `/file-store/file/${paramsInPath.fileIdentifier}/download`,
-    { base: getConfig('ng/api'), pathParams: { fileIdentifier }, ...props }
-  )
-
-/**
- * Download file
- */
-export const downloadFilePromise = (
-  {
-    fileIdentifier,
-    ...props
-  }: GetUsingFetchProps<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams> & {
-    fileIdentifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>(
-    getConfig('ng/api'),
-    `/file-store/file/${fileIdentifier}/download`,
+    `/file-store/files/createdBy`,
     props,
     signal
   )
@@ -21414,7 +21508,7 @@ export type ListFilesWithFilterProps = Omit<
 export const ListFilesWithFilter = (props: ListFilesWithFilterProps) => (
   <Mutate<ResponsePageFileDTO, Failure | Error, ListFilesWithFilterQueryParams, FilesFilterProperties, void>
     verb="POST"
-    path={`/file-store/filter`}
+    path={`/file-store/files/filter`}
     base={getConfig('ng/api')}
     {...props}
   />
@@ -21431,7 +21525,7 @@ export type UseListFilesWithFilterProps = Omit<
 export const useListFilesWithFilter = (props: UseListFilesWithFilterProps) =>
   useMutate<ResponsePageFileDTO, Failure | Error, ListFilesWithFilterQueryParams, FilesFilterProperties, void>(
     'POST',
-    `/file-store/filter`,
+    `/file-store/files/filter`,
     { base: getConfig('ng/api'), ...props }
   )
 
@@ -21451,7 +21545,68 @@ export const listFilesWithFilterPromise = (
   mutateUsingFetch<ResponsePageFileDTO, Failure | Error, ListFilesWithFilterQueryParams, FilesFilterProperties, void>(
     'POST',
     getConfig('ng/api'),
-    `/file-store/filter`,
+    `/file-store/files/filter`,
+    props,
+    signal
+  )
+
+export interface DownloadFileQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface DownloadFilePathParams {
+  identifier: string
+}
+
+export type DownloadFileProps = Omit<
+  GetProps<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>,
+  'path'
+> &
+  DownloadFilePathParams
+
+/**
+ * Download file
+ */
+export const DownloadFile = ({ identifier, ...props }: DownloadFileProps) => (
+  <Get<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>
+    path={`/file-store/files/${identifier}/download`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDownloadFileProps = Omit<
+  UseGetProps<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>,
+  'path'
+> &
+  DownloadFilePathParams
+
+/**
+ * Download file
+ */
+export const useDownloadFile = ({ identifier, ...props }: UseDownloadFileProps) =>
+  useGet<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>(
+    (paramsInPath: DownloadFilePathParams) => `/file-store/files/${paramsInPath.identifier}/download`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Download file
+ */
+export const downloadFilePromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams> & {
+    identifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<void, Failure | Error, DownloadFileQueryParams, DownloadFilePathParams>(
+    getConfig('ng/api'),
+    `/file-store/files/${identifier}/download`,
     props,
     signal
   )
@@ -21509,6 +21664,170 @@ export const getFolderNodesPromise = (
     signal
   )
 
+export interface GetReferencedByInScopeQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  entityType?:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Http'
+    | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
+    | 'HarnessApproval'
+    | 'Barrier'
+    | 'FlagConfiguration'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Files'
+    | 'Service'
+    | 'Environment'
+    | 'EnvironmentGroup'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Verify'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'SecurityStage'
+    | 'SecuritySteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+    | 'FeatureFlags'
+    | 'ServiceNowApproval'
+    | 'ServiceNowCreate'
+    | 'ServiceNowUpdate'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'Security'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
+    | 'ServerlessAwsLambdaDeploy'
+    | 'ServerlessAwsLambdaRollback'
+}
+
+export type GetReferencedByInScopeProps = Omit<
+  GetProps<ResponsePageEntitySetupUsageDTO, Failure | Error, GetReferencedByInScopeQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get referenced by entities in scope
+ */
+export const GetReferencedByInScope = (props: GetReferencedByInScopeProps) => (
+  <Get<ResponsePageEntitySetupUsageDTO, Failure | Error, GetReferencedByInScopeQueryParams, void>
+    path={`/file-store/referenced-by-entity-scope`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetReferencedByInScopeProps = Omit<
+  UseGetProps<ResponsePageEntitySetupUsageDTO, Failure | Error, GetReferencedByInScopeQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get referenced by entities in scope
+ */
+export const useGetReferencedByInScope = (props: UseGetReferencedByInScopeProps) =>
+  useGet<ResponsePageEntitySetupUsageDTO, Failure | Error, GetReferencedByInScopeQueryParams, void>(
+    `/file-store/referenced-by-entity-scope`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get referenced by entities in scope
+ */
+export const getReferencedByInScopePromise = (
+  props: GetUsingFetchProps<ResponsePageEntitySetupUsageDTO, Failure | Error, GetReferencedByInScopeQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageEntitySetupUsageDTO, Failure | Error, GetReferencedByInScopeQueryParams, void>(
+    getConfig('ng/api'),
+    `/file-store/referenced-by-entity-scope`,
+    props,
+    signal
+  )
+
+export type GetEntityTypesProps = Omit<GetProps<ResponseListEntityType, Failure | Error, void, void>, 'path'>
+
+/**
+ * Get entity types
+ */
+export const GetEntityTypes = (props: GetEntityTypesProps) => (
+  <Get<ResponseListEntityType, Failure | Error, void, void>
+    path={`/file-store/supported-entity-types`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEntityTypesProps = Omit<UseGetProps<ResponseListEntityType, Failure | Error, void, void>, 'path'>
+
+/**
+ * Get entity types
+ */
+export const useGetEntityTypes = (props: UseGetEntityTypesProps) =>
+  useGet<ResponseListEntityType, Failure | Error, void, void>(`/file-store/supported-entity-types`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get entity types
+ */
+export const getEntityTypesPromise = (
+  props: GetUsingFetchProps<ResponseListEntityType, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListEntityType, Failure | Error, void, void>(
+    getConfig('ng/api'),
+    `/file-store/supported-entity-types`,
+    props,
+    signal
+  )
+
 export interface CreateViaYAMLQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
@@ -21516,7 +21835,7 @@ export interface CreateViaYAMLQueryParams {
 }
 
 export type CreateViaYAMLProps = Omit<
-  MutateProps<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileDtoYamlWrapperRequestBody, void>,
+  MutateProps<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileStoreRequestRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -21524,7 +21843,7 @@ export type CreateViaYAMLProps = Omit<
  * Create file or folder via YAML
  */
 export const CreateViaYAML = (props: CreateViaYAMLProps) => (
-  <Mutate<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileDtoYamlWrapperRequestBody, void>
+  <Mutate<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileStoreRequestRequestBody, void>
     verb="POST"
     path={`/file-store/yaml`}
     base={getConfig('ng/api')}
@@ -21533,7 +21852,7 @@ export const CreateViaYAML = (props: CreateViaYAMLProps) => (
 )
 
 export type UseCreateViaYAMLProps = Omit<
-  UseMutateProps<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileDtoYamlWrapperRequestBody, void>,
+  UseMutateProps<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileStoreRequestRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -21541,7 +21860,7 @@ export type UseCreateViaYAMLProps = Omit<
  * Create file or folder via YAML
  */
 export const useCreateViaYAML = (props: UseCreateViaYAMLProps) =>
-  useMutate<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileDtoYamlWrapperRequestBody, void>(
+  useMutate<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileStoreRequestRequestBody, void>(
     'POST',
     `/file-store/yaml`,
     { base: getConfig('ng/api'), ...props }
@@ -21555,12 +21874,12 @@ export const createViaYAMLPromise = (
     ResponseFileDTO,
     Failure | Error,
     CreateViaYAMLQueryParams,
-    FileDtoYamlWrapperRequestBody,
+    FileStoreRequestRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileDtoYamlWrapperRequestBody, void>(
+  mutateUsingFetch<ResponseFileDTO, Failure | Error, CreateViaYAMLQueryParams, FileStoreRequestRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/file-store/yaml`,
@@ -21583,7 +21902,7 @@ export type UpdateViaYAMLProps = Omit<
     ResponseFileDTO,
     Failure | Error,
     UpdateViaYAMLQueryParams,
-    FileDtoYamlWrapperRequestBody,
+    FileStoreRequestRequestBody,
     UpdateViaYAMLPathParams
   >,
   'path' | 'verb'
@@ -21598,7 +21917,7 @@ export const UpdateViaYAML = ({ identifier, ...props }: UpdateViaYAMLProps) => (
     ResponseFileDTO,
     Failure | Error,
     UpdateViaYAMLQueryParams,
-    FileDtoYamlWrapperRequestBody,
+    FileStoreRequestRequestBody,
     UpdateViaYAMLPathParams
   >
     verb="PUT"
@@ -21613,7 +21932,7 @@ export type UseUpdateViaYAMLProps = Omit<
     ResponseFileDTO,
     Failure | Error,
     UpdateViaYAMLQueryParams,
-    FileDtoYamlWrapperRequestBody,
+    FileStoreRequestRequestBody,
     UpdateViaYAMLPathParams
   >,
   'path' | 'verb'
@@ -21628,7 +21947,7 @@ export const useUpdateViaYAML = ({ identifier, ...props }: UseUpdateViaYAMLProps
     ResponseFileDTO,
     Failure | Error,
     UpdateViaYAMLQueryParams,
-    FileDtoYamlWrapperRequestBody,
+    FileStoreRequestRequestBody,
     UpdateViaYAMLPathParams
   >('PUT', (paramsInPath: UpdateViaYAMLPathParams) => `/file-store/yaml/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -21647,7 +21966,7 @@ export const updateViaYAMLPromise = (
     ResponseFileDTO,
     Failure | Error,
     UpdateViaYAMLQueryParams,
-    FileDtoYamlWrapperRequestBody,
+    FileStoreRequestRequestBody,
     UpdateViaYAMLPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -21656,7 +21975,7 @@ export const updateViaYAMLPromise = (
     ResponseFileDTO,
     Failure | Error,
     UpdateViaYAMLQueryParams,
-    FileDtoYamlWrapperRequestBody,
+    FileStoreRequestRequestBody,
     UpdateViaYAMLPathParams
   >('PUT', getConfig('ng/api'), `/file-store/yaml/${identifier}`, props, signal)
 
@@ -29696,60 +30015,6 @@ export const updateServiceAccountPromise = (
     UpdateServiceAccountPathParams
   >('PUT', getConfig('ng/api'), `/serviceaccount/${identifier}`, props, signal)
 
-export interface GetServiceNowApplicationStatusQueryParams {
-  connectorRef: string
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  branch?: string
-  repoIdentifier?: string
-  getDefaultFromOtherRepo?: boolean
-}
-
-export type GetServiceNowApplicationStatusProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, GetServiceNowApplicationStatusQueryParams, void>,
-  'path'
->
-
-/**
- * Check if harness application is added to ServiceNow instance
- */
-export const GetServiceNowApplicationStatus = (props: GetServiceNowApplicationStatusProps) => (
-  <Get<ResponseBoolean, Failure | Error, GetServiceNowApplicationStatusQueryParams, void>
-    path={`/servicenow/applicationStatus`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetServiceNowApplicationStatusProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, GetServiceNowApplicationStatusQueryParams, void>,
-  'path'
->
-
-/**
- * Check if harness application is added to ServiceNow instance
- */
-export const useGetServiceNowApplicationStatus = (props: UseGetServiceNowApplicationStatusProps) =>
-  useGet<ResponseBoolean, Failure | Error, GetServiceNowApplicationStatusQueryParams, void>(
-    `/servicenow/applicationStatus`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Check if harness application is added to ServiceNow instance
- */
-export const getServiceNowApplicationStatusPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, GetServiceNowApplicationStatusQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, GetServiceNowApplicationStatusQueryParams, void>(
-    getConfig('ng/api'),
-    `/servicenow/applicationStatus`,
-    props,
-    signal
-  )
-
 export interface GetServiceNowIssueCreateMetadataQueryParams {
   connectorRef: string
   accountIdentifier: string
@@ -32188,6 +32453,55 @@ export const getDelegateInstallStatusPromise = (
   getUsingFetch<ResponseDelegateStatus, Failure | Error, GetDelegateInstallStatusQueryParams, void>(
     getConfig('ng/api'),
     `/trial-signup/delegate-install-status`,
+    props,
+    signal
+  )
+
+export interface GetAllUserReposQueryParams {
+  accountIdentifier: string
+  repoRef: string
+}
+
+export type GetAllUserReposProps = Omit<
+  GetProps<ResponseListUserRepoResponse, Failure | Error, GetAllUserReposQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get all repositories of the user from scm
+ */
+export const GetAllUserRepos = (props: GetAllUserReposProps) => (
+  <Get<ResponseListUserRepoResponse, Failure | Error, GetAllUserReposQueryParams, void>
+    path={`/trial-signup/fetch-repo-list`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllUserReposProps = Omit<
+  UseGetProps<ResponseListUserRepoResponse, Failure | Error, GetAllUserReposQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get all repositories of the user from scm
+ */
+export const useGetAllUserRepos = (props: UseGetAllUserReposProps) =>
+  useGet<ResponseListUserRepoResponse, Failure | Error, GetAllUserReposQueryParams, void>(
+    `/trial-signup/fetch-repo-list`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get all repositories of the user from scm
+ */
+export const getAllUserReposPromise = (
+  props: GetUsingFetchProps<ResponseListUserRepoResponse, Failure | Error, GetAllUserReposQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListUserRepoResponse, Failure | Error, GetAllUserReposQueryParams, void>(
+    getConfig('ng/api'),
+    `/trial-signup/fetch-repo-list`,
     props,
     signal
   )
@@ -36437,6 +36751,67 @@ export const deleteVariablePromise = (
     'DELETE',
     getConfig('ng/api'),
     `/variables`,
+    props,
+    signal
+  )
+
+export interface GetVariableQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetVariablePathParams {
+  identifier: string
+}
+
+export type GetVariableProps = Omit<
+  GetProps<ResponseVariableResponseDTO, unknown, GetVariableQueryParams, GetVariablePathParams>,
+  'path'
+> &
+  GetVariablePathParams
+
+/**
+ * Get a Variable
+ */
+export const GetVariable = ({ identifier, ...props }: GetVariableProps) => (
+  <Get<ResponseVariableResponseDTO, unknown, GetVariableQueryParams, GetVariablePathParams>
+    path={`/variables/${identifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetVariableProps = Omit<
+  UseGetProps<ResponseVariableResponseDTO, unknown, GetVariableQueryParams, GetVariablePathParams>,
+  'path'
+> &
+  GetVariablePathParams
+
+/**
+ * Get a Variable
+ */
+export const useGetVariable = ({ identifier, ...props }: UseGetVariableProps) =>
+  useGet<ResponseVariableResponseDTO, unknown, GetVariableQueryParams, GetVariablePathParams>(
+    (paramsInPath: GetVariablePathParams) => `/variables/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Get a Variable
+ */
+export const getVariablePromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<ResponseVariableResponseDTO, unknown, GetVariableQueryParams, GetVariablePathParams> & {
+    identifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseVariableResponseDTO, unknown, GetVariableQueryParams, GetVariablePathParams>(
+    getConfig('ng/api'),
+    `/variables/${identifier}`,
     props,
     signal
   )

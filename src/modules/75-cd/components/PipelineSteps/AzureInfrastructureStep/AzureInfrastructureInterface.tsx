@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import type { MultiTypeInputType, SelectOption } from '@harness/uicore'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
@@ -20,7 +27,7 @@ export const getValue = (item: { label?: string; value?: string } | string | any
 export function getValidationSchema(getString: UseStringsReturn['getString']): Yup.ObjectSchema {
   return Yup.object().shape({
     connectorRef: getConnectorSchema(getString),
-    subscription: Yup.lazy((value): Yup.Schema<unknown> => {
+    subscriptionId: Yup.lazy((value): Yup.Schema<unknown> => {
       /* istanbul ignore else */ if (typeof value === 'string') {
         return Yup.string().required(
           getString('common.validation.fieldIsRequired', { name: getString('pipeline.ACR.subscription') })
