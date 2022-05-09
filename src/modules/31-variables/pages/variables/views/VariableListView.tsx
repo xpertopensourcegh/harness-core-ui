@@ -5,13 +5,13 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { Button, Layout, TableV2, Text, useConfirmationDialog, useToaster } from '@harness/uicore'
+import { Layout, TableV2, Text, useConfirmationDialog, useToaster } from '@harness/uicore'
 import { useParams } from 'react-router-dom'
-import { Menu, Position, Classes, Intent, Popover } from '@blueprintjs/core'
-import React, { useMemo, useState } from 'react'
+import { Intent, PopoverPosition } from '@blueprintjs/core'
+import React, { useMemo } from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Color, FontVariation } from '@harness/design-system'
-import { String, useStrings } from 'framework/strings'
+import { String, useStrings, UseStringsReturn } from 'framework/strings'
 import {
   PageVariableResponseDTO,
   StringVariableConfigDTO,
@@ -23,7 +23,10 @@ import { getValueFromVariableAndValidationType } from '@variables/utils/Variable
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { UseCreateUpdateVariableModalReturn } from '@variables/modals/CreateEditVariableModal/useCreateEditVariableModal'
-import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import css from './VariableListView.module.scss'
 
 interface SecretsListProps {
@@ -33,69 +36,109 @@ interface SecretsListProps {
   openCreateUpdateVariableModal: UseCreateUpdateVariableModalReturn['openCreateUpdateVariableModal']
 }
 
+export const RenderColumnVariable: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
+  const data = row.original.variable
+  const { getString } = useStrings()
+  return (
+    <Layout.Horizontal>
+      <Layout.Vertical>
+        <Text color={Color.BLACK} lineClamp={1} width={230}>
+          {data.name}
+        </Text>
+
+        <Text color={Color.GREY_600} font={{ variation: FontVariation.SMALL }} width={230} lineClamp={1}>
+          {`${getString('common.ID')}: ${data.identifier}`}
+        </Text>
+      </Layout.Vertical>
+    </Layout.Horizontal>
+  )
+}
+
+export const RenderColumnType: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
+  const data = row.original.variable
+  return (
+    <Text color={Color.BLACK} font={{ variation: FontVariation.BODY }}>
+      {data.type}
+    </Text>
+  )
+}
+export const RenderColumnValidation: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
+  const data = row.original.variable
+  return (
+    <Text color={Color.BLACK} font={{ variation: FontVariation.BODY }}>
+      {data.spec.valueType}
+    </Text>
+  )
+}
+
+export const RenderColumnValue: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
+  const data = row.original.variable
+
+  return (
+    <Text color={Color.GREY_600} font={{ variation: FontVariation.FORM_INPUT_TEXT }}>
+      {getValueFromVariableAndValidationType(data)}
+    </Text>
+  )
+}
+export const RenderColumnDefaultValue: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
+  const data = row.original.variable
+  return (
+    <Text color={Color.GREY_600} font={{ variation: FontVariation.FORM_INPUT_TEXT }}>
+      {(data.spec as StringVariableConfigDTO)?.defaultValue}
+    </Text>
+  )
+}
+
+export function VariableListColumnHeader(getString: UseStringsReturn['getString']): Column<VariableResponseDTO>[] {
+  return [
+    {
+      Header: getString('variableLabel'),
+      accessor: row => row.variable.name,
+      id: 'name',
+      width: '25%',
+      Cell: RenderColumnVariable
+    },
+    {
+      Header: getString('typeLabel'),
+      accessor: row => row.variable.type,
+      id: 'type',
+      width: '15%',
+      Cell: RenderColumnType
+    },
+    {
+      Header: getString('variables.inputValidation'),
+      accessor: row => row.variable.spec.valueType,
+      id: 'validation',
+      width: '15%',
+      Cell: RenderColumnValidation
+    },
+    {
+      Header: getString('valueLabel'),
+      accessor: row => row.variable.spec.value,
+      id: 'value',
+      width: '20%',
+      Cell: RenderColumnValue
+    },
+    {
+      Header: getString('variables.defaultValue'),
+      accessor: row => row.variable.spec,
+      id: 'defaultValue',
+      width: '20%',
+      Cell: RenderColumnDefaultValue
+    }
+  ]
+}
+
 const VariableListView: React.FC<SecretsListProps> = props => {
   const { variables, gotoPage, refetch } = props
   const variablesList: VariableResponseDTO[] = useMemo(() => variables?.content || [], [variables?.content])
   const { getString } = useStrings()
-
-  const RenderColumnVariable: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
-    const data = row.original.variable
-    return (
-      <Layout.Horizontal>
-        <Layout.Vertical>
-          <Text color={Color.BLACK} lineClamp={1} width={230}>
-            {data.name}
-          </Text>
-
-          <Text color={Color.GREY_600} font={{ variation: FontVariation.SMALL }} width={230} lineClamp={1}>
-            {`${getString('common.ID')}: ${data.identifier}`}
-          </Text>
-        </Layout.Vertical>
-      </Layout.Horizontal>
-    )
-  }
-
-  const RenderColumnType: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
-    const data = row.original.variable
-    return (
-      <Text color={Color.BLACK} font={{ variation: FontVariation.BODY }}>
-        {data.type}
-      </Text>
-    )
-  }
-  const RenderColumnValidation: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
-    const data = row.original.variable
-    return (
-      <Text color={Color.BLACK} font={{ variation: FontVariation.BODY }}>
-        {data.spec.valueType}
-      </Text>
-    )
-  }
-
-  const RenderColumnValue: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
-    const data = row.original.variable
-
-    return (
-      <Text color={Color.GREY_600} font={{ variation: FontVariation.FORM_INPUT_TEXT }}>
-        {getValueFromVariableAndValidationType(data)}
-      </Text>
-    )
-  }
-  const RenderColumnDefaultValue: Renderer<CellProps<VariableResponseDTO>> = ({ row }) => {
-    const data = row.original.variable
-    return (
-      <Text color={Color.GREY_600} font={{ variation: FontVariation.FORM_INPUT_TEXT }}>
-        {(data.spec as StringVariableConfigDTO)?.defaultValue}
-      </Text>
-    )
-  }
 
   const RenderColumnAction: Renderer<CellProps<VariableResponseDTO>> = ({ row, column }) => {
     const data = row.original.variable
     const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
     const { getRBACErrorMessage } = useRBACError()
     const { showSuccess, showError } = useToaster()
-    const [menuOpen, setMenuOpen] = useState(false)
     const { mutate: deleteVariable } = useDeleteVariable({
       queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
       requestOptions: { headers: { 'content-type': 'application/json' } }
@@ -122,80 +165,51 @@ const VariableListView: React.FC<SecretsListProps> = props => {
 
     const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
       e.stopPropagation()
-      setMenuOpen(false)
       openDialog()
     }
 
     const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
       e.stopPropagation()
-      setMenuOpen(false)
       ;(column as any).openCreateUpdateVariableModal({ variable: data })
     }
 
     return (
       <Layout.Horizontal flex={{ alignItems: 'flex-end' }}>
-        <Popover
-          isOpen={menuOpen}
-          onInteraction={nextOpenState => {
-            setMenuOpen(nextOpenState)
+        <RbacOptionsMenuButton
+          tooltipProps={{
+            position: PopoverPosition.LEFT_TOP,
+            isDark: true,
+            interactionKind: 'click',
+            hasBackdrop: true
           }}
-          className={Classes.DARK}
-          position={Position.RIGHT_TOP}
-        >
-          <Button
-            minimal
-            icon="Options"
-            onClick={e => {
-              e.stopPropagation()
-              setMenuOpen(true)
-            }}
-          />
-          <Menu>
-            <RbacMenuItem icon="edit" text={getString('edit')} onClick={handleEdit} />
-            <RbacMenuItem icon="trash" text={getString('delete')} onClick={handleDelete} />
-          </Menu>
-        </Popover>
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: handleEdit,
+              permission: {
+                resource: { resourceType: ResourceType.VARIABLE },
+                permission: PermissionIdentifier.EDIT_VARIABLE
+              }
+            },
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: handleDelete,
+              permission: {
+                resource: { resourceType: ResourceType.VARIABLE },
+                permission: PermissionIdentifier.DELETE_VARIABLE
+              }
+            }
+          ]}
+        />
       </Layout.Horizontal>
     )
   }
 
   const columns: Column<VariableResponseDTO>[] = useMemo(
     () => [
-      {
-        Header: getString('variableLabel'),
-        accessor: row => row.variable.name,
-        id: 'name',
-        width: '25%',
-        Cell: RenderColumnVariable
-      },
-      {
-        Header: getString('typeLabel'),
-        accessor: row => row.variable.type,
-        id: 'type',
-        width: '15%',
-        Cell: RenderColumnType
-      },
-      {
-        Header: getString('variables.inputValidation'),
-        accessor: row => row.variable.spec.valueType,
-        id: 'validation',
-        width: '15%',
-        Cell: RenderColumnValidation
-      },
-      {
-        Header: getString('valueLabel'),
-        accessor: row => row.variable.spec.value,
-        id: 'value',
-        width: '20%',
-        Cell: RenderColumnValue
-      },
-      {
-        Header: getString('variables.defaultValue'),
-        accessor: row => row.variable.spec,
-        id: 'defaultValue',
-        width: '20%',
-        Cell: RenderColumnDefaultValue
-      },
+      ...VariableListColumnHeader(getString),
       {
         Header: '',
         accessor: row => row.variable.identifier,
