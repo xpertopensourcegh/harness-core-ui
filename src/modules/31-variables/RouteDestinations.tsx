@@ -16,7 +16,6 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
-import VariableResourceModalBody from '@variables/components/VariableResourceModalBody/VariableResourceModalBody'
 import VariablesPage from './pages/variables/VariablesPage'
 
 const platformLabel = 'auditTrail.Platform'
@@ -37,9 +36,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.VARIABLE, {
     [PermissionIdentifier.EDIT_VARIABLE]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.DELETE_VARIABLE]: <String stringID="rbac.permissionLabels.delete" />,
     [PermissionIdentifier.ACCESS_VARIABLE]: <String stringID="rbac.permissionLabels.access" />
-  },
-  // eslint-disable-next-line react/display-name
-  addResourceModalBody: props => <VariableResourceModalBody {...props} />
+  }
+  // enable when BE adds support
+  // addResourceModalBody: props => <VariableResourceModalBody {...props} />
 })
 
 export default (

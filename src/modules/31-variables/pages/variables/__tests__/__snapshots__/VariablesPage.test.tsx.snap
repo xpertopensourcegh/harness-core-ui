@@ -780,36 +780,6 @@ exports[`Variables Page render page at project level - click new variable button
                     />
                     inputTypes.FIXED
                   </label>
-                  <label
-                    class="RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      class="RadioButton--input"
-                      disabled=""
-                      name="valueType"
-                      type="radio"
-                      value="FIXED_SET"
-                    />
-                    <span
-                      class="RadioButton--radioIcon"
-                    />
-                    allowedValues
-                  </label>
-                  <label
-                    class="RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      class="RadioButton--input"
-                      disabled=""
-                      name="valueType"
-                      type="radio"
-                      value="REGEX"
-                    />
-                    <span
-                      class="RadioButton--radioIcon"
-                    />
-                    common.configureOptions.regex
-                  </label>
                 </div>
               </div>
             </div>
