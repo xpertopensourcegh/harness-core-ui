@@ -29,7 +29,8 @@ import {
   useGetBuildDetailsForACRRepository,
   useGetAzureSubscriptions,
   useGetACRRegistriesBySubscription,
-  useGetACRRepositories
+  useGetACRRepositories,
+  AzureSubscriptionDTO
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
@@ -218,25 +219,31 @@ export function ACRArtifact({
   })
 
   useEffect(() => {
-    /* istanbul ignore else */
-    if (!loadingSubscriptions) {
-      const subscriptionValues = [] as SelectOption[]
-      defaultTo(subscriptionsData?.data?.subscriptions, []).map(sub =>
-        subscriptionValues.push({ label: `${sub.subscriptionName}: ${sub.subscriptionId}`, value: sub.subscriptionId })
+    setSubscriptions(
+      defaultTo(subscriptionsData?.data?.subscriptions, []).reduce(
+        (subscriptionValues: SelectOption[], subscription: AzureSubscriptionDTO) => {
+          subscriptionValues.push({
+            label: `${subscription.subscriptionName}: ${subscription.subscriptionId}`,
+            value: subscription.subscriptionId
+          })
+          return subscriptionValues
+        },
+        []
       )
+    )
+  }, [subscriptionsData])
 
-      setSubscriptions(subscriptionValues as SelectOption[])
+  useEffect(() => {
+    const values = getArtifactFormData(
+      initialValues,
+      selectedArtifact as ArtifactType,
+      context === ModalViewFor.SIDECAR
+    ) as ACRArtifactType
 
-      const values = getArtifactFormData(
-        initialValues,
-        selectedArtifact as ArtifactType,
-        context === ModalViewFor.SIDECAR
-      ) as ACRArtifactType
+    formikRef?.current?.setFieldValue('subscriptionId', getSubscription(values))
 
-      formikRef?.current?.setFieldValue('subscriptionId', getSubscription(values))
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subscriptionsData, loadingSubscriptions])
+  }, [subscriptions])
 
   const {
     data: registiresData,
