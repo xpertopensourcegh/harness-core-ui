@@ -238,7 +238,7 @@
     "webpack": "5.70.0"
   },
   "engines": {
-    "node": ">=14.16.0"
+    "node": "^16"
   },
   "lint-staged": {
     "*": [
