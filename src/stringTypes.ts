@@ -5392,7 +5392,7 @@ export interface StringsMap {
   'cv.ignore': string
   'cv.increaseErrorBudgetBy': string
   'cv.increaseErrorBudgetByIsRequired': string
-  'cv.increaseWithPercentSign': string
+  'cv.increaseInMinutes': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string
   'cv.known': string
