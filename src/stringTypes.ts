@@ -4277,12 +4277,14 @@ export interface StringsMap {
   'ce.perspectives.confirmDeletePerspectiveTitle': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
+  'ce.perspectives.createPerspective.filters.chooseOperand': string
   'ce.perspectives.createPerspective.filters.enterCondition': string
   'ce.perspectives.createPerspective.filters.operator': string
   'ce.perspectives.createPerspective.filters.rulesText1': string
   'ce.perspectives.createPerspective.filters.rulesText2': string
   'ce.perspectives.createPerspective.filters.rulesTitle': string
   'ce.perspectives.createPerspective.filters.searchText': string
+  'ce.perspectives.createPerspective.filters.selectAll': string
   'ce.perspectives.createPerspective.filters.selectOperator': string
   'ce.perspectives.createPerspective.filters.selectValues': string
   'ce.perspectives.createPerspective.filters.selectValuesText': string
