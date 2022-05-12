@@ -1256,6 +1256,7 @@ export interface StringsMap {
   'variables.confirmDelete': string
   'variables.confirmDeleteTitle': string
   'variables.defaultValue': string
+  'variables.editVar': string
   'variables.editVariable': string
   'variables.inputValidation': string
   'variables.newVariable': string
