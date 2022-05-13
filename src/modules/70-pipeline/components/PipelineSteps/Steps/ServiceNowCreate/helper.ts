@@ -147,7 +147,9 @@ export const processInitialValues = (values: ServiceNowCreateData): ServiceNowCr
         ?.find(field => field.name === ServiceNowStaticFields.short_description)
         ?.value.toString() as string,
       fields: omitDescNShortDesc(values.spec.fields),
-      templateName: values.spec.templateName
+      templateName: values.spec.templateName,
+      selectedFields: [],
+      templateFields: []
     }
   }
 }

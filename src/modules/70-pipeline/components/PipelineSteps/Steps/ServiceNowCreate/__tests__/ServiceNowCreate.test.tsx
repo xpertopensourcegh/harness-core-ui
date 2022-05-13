@@ -187,8 +187,6 @@ describe('ServiceNow Create tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'serviceNow createe step' } })
     expect(queryByDisplayValue('1d')).toBeTruthy()
-    expect(queryByDisplayValue('short description')).toBeTruthy()
-    expect(queryByDisplayValue('descriptionval')).toBeTruthy()
 
     // Check if fields are populated
     expect(queryByDisplayValue('value1')).toBeTruthy()
@@ -247,7 +245,7 @@ describe('ServiceNow Create tests', () => {
       timeout: '1d',
       type: 'ServiceNowCreate',
       spec: {
-        connectorRef: 'cid1',
+        connectorRef: undefined,
         useServiceNowTemplate: false,
         ticketType: 'INCIDENT',
         delegateSelectors: undefined,

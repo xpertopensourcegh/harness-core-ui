@@ -73,7 +73,9 @@ export const processInitialValues = (values: ServiceNowUpdateData): ServiceNowUp
         ?.value.toString() as string,
       fields: omitDescNShortDesc(values.spec.fields),
       ticketNumber: values.spec.ticketNumber,
-      templateName: values.spec.templateName
+      templateName: values.spec.templateName,
+      selectedFields: [],
+      templateFields: []
     }
   }
 }
