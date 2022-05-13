@@ -245,7 +245,7 @@ describe('ServiceNow Create tests', () => {
       timeout: '1d',
       type: 'ServiceNowCreate',
       spec: {
-        connectorRef: undefined,
+        connectorRef: 'cid1',
         useServiceNowTemplate: false,
         ticketType: 'INCIDENT',
         delegateSelectors: undefined,

@@ -205,7 +205,7 @@ describe('ServiceNow Approval tests', () => {
       timeout: '10m',
       type: 'ServiceNowApproval',
       spec: {
-        connectorRef: undefined,
+        connectorRef: 'c1d1',
         ticketNumber: 'itd1',
         ticketType: 'pid1',
         approvalCriteria: {
