@@ -534,7 +534,6 @@ export const DeployServiceWidget: React.FC<DeployServiceProps> = ({
       <Formik<DeployServiceData>
         formName="deployServiceStepForm"
         onSubmit={noop}
-        enableReinitialize
         validate={values => {
           if (!isEmpty(values.service)) {
             onUpdate?.({ ...omit(values, 'serviceRef') })
