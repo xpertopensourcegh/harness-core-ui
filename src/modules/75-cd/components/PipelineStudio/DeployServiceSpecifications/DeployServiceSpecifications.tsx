@@ -21,13 +21,13 @@ import {
 } from '@wings-software/uicore'
 import { Color, Intent } from '@harness/design-system'
 import produce from 'immer'
-import { debounce, defaultTo, get, isEmpty, set, unset, noop, find } from 'lodash-es'
+import { debounce, defaultTo, find, get, isEmpty, noop, set, unset } from 'lodash-es'
 import { parse } from 'yaml'
 import { Spinner } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
-import type { ProjectPathProps, GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import {
   ServiceConfig,
@@ -145,6 +145,19 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       stage?.stage?.type === StageType.DEPLOY
     ) {
       setDefaultServiceSchema()
+    } else if (
+      scope !== Scope.PROJECT &&
+      stage?.stage?.spec?.serviceConfig &&
+      stage?.stage?.spec?.serviceConfig?.serviceRef !== RUNTIME_INPUT_VALUE
+    ) {
+      const stageData = produce(stage, draft => {
+        if (draft) {
+          set(draft, 'stage.spec.serviceConfig.serviceRef', RUNTIME_INPUT_VALUE)
+        }
+      })
+      if (stageData?.stage) {
+        debounceUpdateStage(stageData?.stage)
+      }
     }
   }, [])
 
@@ -463,10 +476,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 <Card className={stageCss.sectionCard} id="aboutService">
                   <StepWidget
                     type={StepType.DeployService}
-                    readonly={isReadonly || scope === Scope.ORG || scope === Scope.ACCOUNT}
+                    readonly={isReadonly || scope !== Scope.PROJECT}
                     initialValues={{
                       service: get(stage, 'stage.spec.serviceConfig.service', {}),
-                      serviceRef: get(stage, 'stage.spec.serviceConfig.serviceRef', getScopeBasedDefaultServiceRef())
+                      serviceRef:
+                        scope === Scope.PROJECT
+                          ? get(stage, 'stage.spec.serviceConfig.serviceRef', '')
+                          : RUNTIME_INPUT_VALUE
                     }}
                     allowableTypes={allowableTypes}
                     onUpdate={data => updateService(data)}

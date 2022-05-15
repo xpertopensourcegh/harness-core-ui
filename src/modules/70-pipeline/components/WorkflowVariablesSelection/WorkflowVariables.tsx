@@ -7,7 +7,7 @@
 
 import React, { useCallback } from 'react'
 import { Layout } from '@wings-software/uicore'
-import { defaultTo, get, isEmpty, set } from 'lodash-es'
+import { defaultTo, get, isEmpty, isEqual, set } from 'lodash-es'
 import produce from 'immer'
 import type { AllNGVariables as Variable } from '@pipeline/utils/types'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -121,7 +121,9 @@ export default function WorkflowVariables({
           readonly={readonly}
           type={StepType.CustomVariable}
           onUpdate={({ variables }: { variables: Variable[] }) => {
-            updateVariables(variables)
+            if (!isEqual(getInitialValues(), variables)) {
+              updateVariables(variables)
+            }
           }}
           customStepProps={{
             tabName,
