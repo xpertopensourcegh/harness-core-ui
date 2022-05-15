@@ -260,7 +260,7 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
                   data={templateData?.data}
                   gotoPage={setPage}
                   onSelect={setSelectedTemplate}
-                  selectedIdentifier={selectedTemplate?.identifier}
+                  selectedTemplate={selectedTemplate}
                   view={view}
                 />
               </Container>
