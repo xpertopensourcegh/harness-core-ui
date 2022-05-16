@@ -11,3 +11,16 @@
   align-items: center;
   justify-content: center;
 }
+
+.section-card {
+  width: 1024px;
+  margin: var(--spacing-xxlarge) var(--spacing-huge) 0 var(--spacing-huge);
+  padding: var(--spacing-7) !important;
+  &.notwide {
+    width: auto;
+  }
+  background-color: var(--white);
+  .nameIdDescriptionTags {
+    width: 324px;
+  }
+}

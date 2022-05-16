@@ -27,7 +27,7 @@ import { Spinner } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
-import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import {
   ServiceConfig,
@@ -71,7 +71,9 @@ import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const queryParams = useParams<ProjectPathProps & ServicePathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
   const {
     state: {
       pipeline,
@@ -111,17 +113,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   )
   const [previousStageList, setPreviousStageList] = useState<SelectOption[]>([])
   const [currStageData, setCurrStageData] = useState<DeploymentStageElementConfig | undefined>()
+  const [templateToFetch, setTemplateToFetch] = useState<TemplateLinkConfig>()
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const { submitFormsForTab } = useContext(StageErrorContext)
   const { errorMap } = useValidationErrors()
-
-  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-
-  const queryParams = useParams<ProjectPathProps>()
-
-  const [templateToFetch, setTemplateToFetch] = useState<TemplateLinkConfig>()
 
   const { openDialog: openStageDataDeleteWarningDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -168,7 +165,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }, [errorMap])
 
   const { data: serviceResponse } = useGetServiceList({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: queryParams.accountId,
+      orgIdentifier: queryParams.orgIdentifier,
+      projectIdentifier: queryParams.projectIdentifier
+    }
   })
 
   useEffect(() => {
@@ -441,6 +442,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     return scope === Scope.PROJECT ? '' : RUNTIME_INPUT_VALUE
   }, [scope])
 
+  const isContextTypeNotServiceEntity = (): boolean => {
+    return isEmpty(queryParams.serviceId)
+  }
+
   return (
     <Formik formName={'deployServiceSpecifications'} initialValues={{}} onSubmit={noop}>
       <FormikForm>
@@ -479,24 +484,30 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             )}
             {setupModeType === setupMode.DIFFERENT ? (
               <>
-                <div className={stageCss.tabHeading}>{getString('cd.pipelineSteps.serviceTab.aboutYourService')}</div>
-                <Card className={stageCss.sectionCard} id="aboutService">
-                  <StepWidget
-                    type={StepType.DeployService}
-                    readonly={isReadonly || scope !== Scope.PROJECT}
-                    initialValues={{
-                      service: get(stage, 'stage.spec.serviceConfig.service', {}),
-                      serviceRef:
-                        scope === Scope.PROJECT
-                          ? get(stage, 'stage.spec.serviceConfig.serviceRef', '')
-                          : RUNTIME_INPUT_VALUE
-                    }}
-                    allowableTypes={allowableTypes}
-                    onUpdate={data => updateService(data)}
-                    factory={factory}
-                    stepViewType={StepViewType.Edit}
-                  />
-                </Card>
+                {isContextTypeNotServiceEntity() && (
+                  <>
+                    <div className={stageCss.tabHeading}>
+                      {getString('cd.pipelineSteps.serviceTab.aboutYourService')}
+                    </div>
+                    <Card className={stageCss.sectionCard} id="aboutService">
+                      <StepWidget
+                        type={StepType.DeployService}
+                        readonly={isReadonly || scope !== Scope.PROJECT}
+                        initialValues={{
+                          service: get(stage, 'stage.spec.serviceConfig.service', {}),
+                          serviceRef:
+                            scope === Scope.PROJECT
+                              ? get(stage, 'stage.spec.serviceConfig.serviceRef', '')
+                              : RUNTIME_INPUT_VALUE
+                        }}
+                        allowableTypes={allowableTypes}
+                        onUpdate={data => updateService(data)}
+                        factory={factory}
+                        stepViewType={StepViewType.Edit}
+                      />
+                    </Card>
+                  </>
+                )}
                 <div className={stageCss.tabHeading} id="serviceDefinition">
                   {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
                 </div>

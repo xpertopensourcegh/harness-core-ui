@@ -68,6 +68,19 @@ export const ServicesListPage: React.FC = () => {
     [accountId, orgIdentifier, projectIdentifier, module]
   )
 
+  const onServiceCreate = useCallback(
+    (values: ServiceResponseDTO): void => {
+      if (NG_SVC_ENV_REDESIGN) {
+        goToServiceDetails(values)
+      } else {
+        ;(fetchDeploymentList.current as () => void)?.()
+        hideModal()
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
+
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -85,10 +98,7 @@ export const ServicesListPage: React.FC = () => {
             data={{ name: '', identifier: '', orgIdentifier, projectIdentifier }}
             isEdit={false}
             isService
-            onCreateOrUpdate={() => {
-              ;(fetchDeploymentList.current as () => void)?.()
-              hideModal()
-            }}
+            onCreateOrUpdate={values => onServiceCreate(values)}
             closeModal={hideModal}
           />
         </Container>

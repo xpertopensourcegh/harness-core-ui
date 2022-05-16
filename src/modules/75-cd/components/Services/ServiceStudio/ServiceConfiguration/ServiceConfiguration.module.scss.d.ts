@@ -7,6 +7,9 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
+  readonly nameIdDescriptionTags: string
+  readonly notwide: string
   readonly optionBtns: string
+  readonly sectionCard: string
 }
 export default styles

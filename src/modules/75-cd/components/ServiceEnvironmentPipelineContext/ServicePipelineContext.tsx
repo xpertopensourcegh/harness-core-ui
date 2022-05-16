@@ -16,7 +16,7 @@ import {
 import { yamlParse } from '@common/utils/YamlHelperMethods'
 import {
   ActionReturnType,
-  DefaultPipeline,
+  DefaultNewPipelineId,
   initialState,
   PipelineContextActions,
   PipelineReducer,
@@ -170,7 +170,14 @@ export function ServicePipelineProvider({
       )
       const serviceYaml = yamlParse(defaultTo(serviceDetails.yaml, ''))
       const serviceData = merge(serviceYaml, initialServiceState)
-      const refetchedPipeline = produce({ ...DefaultPipeline }, draft => {
+
+      const defaultPipeline = {
+        identifier: defaultTo(serviceDetails.identifier, DefaultNewPipelineId),
+        name: serviceDetails.name as string,
+        description: serviceDetails.description,
+        tags: serviceDetails.tags
+      }
+      const refetchedPipeline = produce({ ...defaultPipeline }, draft => {
         if (!isEmpty(serviceData.service.serviceDefinition)) {
           set(draft, 'stages[0].stage.name', DefaultNewStageName)
           set(draft, 'stages[0].stage.identifier', DefaultNewStageId)
@@ -242,6 +249,7 @@ export function ServicePipelineProvider({
 
   React.useEffect(() => {
     fetchCurrentPipeline()
+    setSelection({ stageId: initialValue.stages?.[0]?.stage?.identifier })
   }, [initialValue])
 
   return (
