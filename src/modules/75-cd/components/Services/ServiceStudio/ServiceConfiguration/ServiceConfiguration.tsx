@@ -15,19 +15,19 @@ import DeployServiceSpecifications from '@cd/components/PipelineStudio/DeploySer
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import { useGetYamlSchema } from 'services/cd-ng'
+import { NGServiceConfig, useGetEntityYamlSchema } from 'services/cd-ng'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import css from './ServiceConfiguration.module.scss'
 
 interface ServiceConfigurationProps {
-  serviceData: any
+  serviceData: NGServiceConfig
 }
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   fileName: `service.yaml`,
   entityType: 'Service',
   width: '100%',
-  height: 194,
+  height: 'calc(100vh - 400px)',
   showSnippetSection: false,
   yamlSanityConfig: {
     removeEmptyString: false,
@@ -48,13 +48,12 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
   const [selectedView, setSelectedView] = useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
 
-  const { data: serviceSchema } = useGetYamlSchema({
+  const { data: serviceSchema } = useGetEntityYamlSchema({
     queryParams: {
       entityType: 'Service',
       projectIdentifier,
       orgIdentifier,
-      accountIdentifier: accountId,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+      accountIdentifier: accountId
     }
   })
 
@@ -88,7 +87,7 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
 
   return (
     <>
-      <div>
+      <div className={css.optionBtns}>
         <VisualYamlToggle
           selectedView={selectedView}
           onChange={nextMode => {

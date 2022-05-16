@@ -413,6 +413,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [templateDetails?.data])
 
+  useEffect(() => {
+    //This is required when serviceDefinition is rendered inside service entity
+    if (!selectedDeploymentType) {
+      setSelectedDeploymentType(getDeploymentType())
+    }
+  }, [stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type])
+
   // Fetches deployment type if current stage is propagated from template based stage
   useEffect(() => {
     if (selectedPropagatedState?.value && checkedItems.overrideSetCheckbox) {

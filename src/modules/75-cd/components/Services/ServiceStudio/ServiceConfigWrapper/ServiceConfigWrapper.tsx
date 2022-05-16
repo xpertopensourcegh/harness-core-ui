@@ -19,7 +19,7 @@ import { PipelineContextType } from '@pipeline/components/PipelineStudio/Pipelin
 import { DefaultPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { sanitize } from '@common/utils/JSONUtils'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
-import type { PipelineInfoConfig, ServiceResponseDTO } from 'services/cd-ng'
+import type { NGServiceConfig, PipelineInfoConfig, ServiceResponseDTO } from 'services/cd-ng'
 import { initialServiceState, DefaultNewStageName, DefaultNewStageId } from '../../utils/ServiceUtils'
 import ServiceStudioDetails from '../ServiceStudioDetails'
 
@@ -43,7 +43,10 @@ function ServiceConfigurationWrapper({ serviceResponse }: ServiceConfigurationWr
   })
   const isReadonly = !isEdit
 
-  const serviceYaml = React.useMemo(() => yamlParse<any>(defaultTo(serviceResponse.yaml, '')), [serviceResponse.yaml])
+  const serviceYaml = React.useMemo(
+    () => yamlParse<NGServiceConfig>(defaultTo(serviceResponse.yaml, '')),
+    [serviceResponse.yaml]
+  )
   const serviceData = merge(serviceYaml, initialServiceState)
 
   const currentPipeline = React.useMemo(
@@ -77,6 +80,7 @@ function ServiceConfigurationWrapper({ serviceResponse }: ServiceConfigurationWr
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier, repoIdentifier, branch }}
       initialValue={currentPipeline as PipelineInfoConfig}
       onUpdatePipeline={onUpdatePipeline}
+      serviceIdentifier={serviceId}
       contextType={PipelineContextType.Pipeline}
       isReadOnly={isReadonly}
     >

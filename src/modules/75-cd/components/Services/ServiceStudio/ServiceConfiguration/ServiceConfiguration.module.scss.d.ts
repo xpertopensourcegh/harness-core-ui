@@ -7,9 +7,6 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly card: string
-  readonly fullWidth: string
-  readonly tabsContainer: string
-  readonly timeRangeContainer: string
+  readonly optionBtns: string
 }
 export default styles

@@ -12,6 +12,10 @@ export enum ServiceTabs {
   ActivityLog = 'activityLog'
 }
 
+export const DefaultNewStageName = 'Stage Name'
+export const DefaultNewStageId = 'stage_id'
+export const DefaultNewServiceId = '-1'
+
 const DefaultService = {
   serviceDefinition: {
     spec: {
@@ -19,9 +23,6 @@ const DefaultService = {
     }
   }
 }
-
-export const DefaultNewStageName = 'Stage Name'
-export const DefaultNewStageId = 'stage_id'
 
 export const initialServiceState = {
   service: { ...DefaultService }
