@@ -3437,6 +3437,7 @@ export interface StringsMap {
   'triggers.triggerOverviewPanel.title': string
   'triggers.triggersSubLabel': string
   'triggers.updateTrigger': string
+  'triggers.updateTriggerDetails': string
   'triggers.validation.actions': string
   'triggers.validation.connector': string
   'triggers.validation.cronExpression': string
