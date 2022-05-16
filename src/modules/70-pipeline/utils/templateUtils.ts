@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { defaultTo, get, isEmpty, set, unset } from 'lodash-es'
+import { defaultTo, get, isEmpty, isEqual, set, unset } from 'lodash-es'
 import produce from 'immer'
 import { parse } from 'yaml'
 import type { PipelineInfoConfig, StageElementConfig, StepElementConfig, TemplateLinkConfig } from 'services/cd-ng'
@@ -30,7 +30,7 @@ import {
 export const TEMPLATE_INPUT_PATH = 'template.templateInputs'
 
 export const getTemplateNameWithLabel = (template?: TemplateSummaryResponse): string => {
-  return `${(template as TemplateSummaryResponse)?.name} (${defaultTo(template?.versionLabel, 'Stable')})`
+  return `${template?.name} (${defaultTo(template?.versionLabel, 'Stable')})`
 }
 
 export const getScopeBasedTemplateRef = (template: TemplateSummaryResponse): string => {
@@ -142,4 +142,20 @@ export const getTemplateTypesByRef = (
     .catch(_ => {
       return {}
     })
+}
+
+export const areTemplatesSame = (template1?: TemplateSummaryResponse, template2?: TemplateSummaryResponse): boolean => {
+  return (
+    isEqual(template1?.name, template2?.name) &&
+    isEqual(template1?.identifier, template2?.identifier) &&
+    isEqual(template1?.projectIdentifier, template2?.projectIdentifier) &&
+    isEqual(template1?.orgIdentifier, template2?.orgIdentifier)
+  )
+}
+
+export const areTemplatesEqual = (
+  template1?: TemplateSummaryResponse,
+  template2?: TemplateSummaryResponse
+): boolean => {
+  return areTemplatesSame(template1, template2) && isEqual(template1?.versionLabel, template2?.versionLabel)
 }
