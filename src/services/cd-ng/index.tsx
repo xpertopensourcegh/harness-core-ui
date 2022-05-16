@@ -2564,6 +2564,14 @@ export type EnvironmentGroupFilterProperties = FilterProperties & {
   envIdentifiers?: string[]
 }
 
+export interface EnvironmentGroupRequestDTO {
+  color?: string
+  identifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  yaml: string
+}
+
 export interface EnvironmentGroupResponse {
   createdAt?: number
   envGroup?: EnvironmentGroupResponseDTO
@@ -5006,9 +5014,27 @@ export interface Infrastructure {
   [key: string]: any
 }
 
+export interface InfrastructureConfig {
+  infrastructureDefinition?: InfrastructureDefinitionConfig
+}
+
 export interface InfrastructureDef {
   provisioner?: ExecutionElementConfig
   spec: Infrastructure
+  type: 'KubernetesDirect' | 'KubernetesGcp' | 'KubernetesAzure' | 'Pdc' | 'ServerlessAwsLambda'
+}
+
+export interface InfrastructureDefinitionConfig {
+  description?: string
+  environmentRef?: string
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  spec: Infrastructure
+  tags?: {
+    [key: string]: string
+  }
   type: 'KubernetesDirect' | 'KubernetesGcp' | 'KubernetesAzure' | 'Pdc' | 'ServerlessAwsLambda'
 }
 
@@ -5026,6 +5052,7 @@ export interface InfrastructureRequestDTO {
   tags?: {
     [key: string]: string
   }
+  type?: 'KubernetesDirect' | 'KubernetesGcp' | 'KubernetesAzure' | 'Pdc' | 'ServerlessAwsLambda'
   yaml?: string
 }
 
@@ -5046,6 +5073,7 @@ export interface InfrastructureResponseDTO {
   tags?: {
     [key: string]: string
   }
+  type?: 'KubernetesDirect' | 'KubernetesGcp' | 'KubernetesAzure' | 'Pdc' | 'ServerlessAwsLambda'
   yaml?: string
 }
 
@@ -7380,6 +7408,13 @@ export interface ResponseGitopsProviderResponse {
 export interface ResponseHealthDeploymentDashboard {
   correlationId?: string
   data?: HealthDeploymentDashboard
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInfrastructureConfig {
+  correlationId?: string
+  data?: InfrastructureConfig
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -10830,6 +10865,8 @@ export type DockerRequestDTORequestBody = DockerRequestDTO
 
 export type EcrRequestDTORequestBody = EcrRequestDTO
 
+export type EnvironmentGroupRequestDTORequestBody = EnvironmentGroupRequestDTO
+
 export type EnvironmentRequestDTORequestBody = EnvironmentRequestDTO
 
 export type FileStoreRequestRequestBody = void
@@ -10894,9 +10931,9 @@ export type YamlSchemaDetailsWrapperRequestBody = YamlSchemaDetailsWrapper
 
 export type GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody = string
 
-export type UnsubscribeBodyRequestBody = string[]
+export type GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody = string
 
-export type UpdateEnvironmentGroupBodyRequestBody = string
+export type SubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -13162,7 +13199,7 @@ export type GetBuildDetailsForArtifactoryArtifactWithYamlProps = Omit<
     ResponseArtifactoryResponseDTO,
     Failure | Error,
     GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -13178,7 +13215,7 @@ export const GetBuildDetailsForArtifactoryArtifactWithYaml = (
     ResponseArtifactoryResponseDTO,
     Failure | Error,
     GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >
     verb="POST"
@@ -13193,7 +13230,7 @@ export type UseGetBuildDetailsForArtifactoryArtifactWithYamlProps = Omit<
     ResponseArtifactoryResponseDTO,
     Failure | Error,
     GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -13209,7 +13246,7 @@ export const useGetBuildDetailsForArtifactoryArtifactWithYaml = (
     ResponseArtifactoryResponseDTO,
     Failure | Error,
     GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >('POST', `/artifacts/artifactory/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
@@ -13221,7 +13258,7 @@ export const getBuildDetailsForArtifactoryArtifactWithYamlPromise = (
     ResponseArtifactoryResponseDTO,
     Failure | Error,
     GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -13230,7 +13267,7 @@ export const getBuildDetailsForArtifactoryArtifactWithYamlPromise = (
     ResponseArtifactoryResponseDTO,
     Failure | Error,
     GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >('POST', getConfig('ng/api'), `/artifacts/artifactory/getBuildDetailsV2`, props, signal)
 
@@ -13508,7 +13545,7 @@ export type GetBuildDetailsForDockerWithYamlProps = Omit<
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -13522,7 +13559,7 @@ export const GetBuildDetailsForDockerWithYaml = (props: GetBuildDetailsForDocker
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >
     verb="POST"
@@ -13537,7 +13574,7 @@ export type UseGetBuildDetailsForDockerWithYamlProps = Omit<
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -13551,7 +13588,7 @@ export const useGetBuildDetailsForDockerWithYaml = (props: UseGetBuildDetailsFor
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >('POST', `/artifacts/docker/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
@@ -13563,7 +13600,7 @@ export const getBuildDetailsForDockerWithYamlPromise = (
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -13572,7 +13609,7 @@ export const getBuildDetailsForDockerWithYamlPromise = (
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >('POST', getConfig('ng/api'), `/artifacts/docker/getBuildDetailsV2`, props, signal)
 
@@ -14830,7 +14867,7 @@ export type GetBuildDetailsForNexusArtifactWithYamlProps = Omit<
     ResponseNexusResponseDTO,
     Failure | Error,
     GetBuildDetailsForNexusArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -14844,7 +14881,7 @@ export const GetBuildDetailsForNexusArtifactWithYaml = (props: GetBuildDetailsFo
     ResponseNexusResponseDTO,
     Failure | Error,
     GetBuildDetailsForNexusArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >
     verb="POST"
@@ -14859,7 +14896,7 @@ export type UseGetBuildDetailsForNexusArtifactWithYamlProps = Omit<
     ResponseNexusResponseDTO,
     Failure | Error,
     GetBuildDetailsForNexusArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -14873,7 +14910,7 @@ export const useGetBuildDetailsForNexusArtifactWithYaml = (props: UseGetBuildDet
     ResponseNexusResponseDTO,
     Failure | Error,
     GetBuildDetailsForNexusArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >('POST', `/artifacts/nexus/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
@@ -14885,7 +14922,7 @@ export const getBuildDetailsForNexusArtifactWithYamlPromise = (
     ResponseNexusResponseDTO,
     Failure | Error,
     GetBuildDetailsForNexusArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -14894,7 +14931,7 @@ export const getBuildDetailsForNexusArtifactWithYamlPromise = (
     ResponseNexusResponseDTO,
     Failure | Error,
     GetBuildDetailsForNexusArtifactWithYamlQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >('POST', getConfig('ng/api'), `/artifacts/nexus/getBuildDetailsV2`, props, signal)
 
@@ -20472,8 +20509,6 @@ export const listReferredByEntitiesPromise = (
 
 export interface CreateEnvironmentGroupQueryParams {
   accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
   branch?: string
   repoIdentifier?: string
   getDefaultFromOtherRepo?: boolean
@@ -20484,7 +20519,7 @@ export type CreateEnvironmentGroupProps = Omit<
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     CreateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     void
   >,
   'path' | 'verb'
@@ -20498,7 +20533,7 @@ export const CreateEnvironmentGroup = (props: CreateEnvironmentGroupProps) => (
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     CreateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     void
   >
     verb="POST"
@@ -20513,7 +20548,7 @@ export type UseCreateEnvironmentGroupProps = Omit<
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     CreateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     void
   >,
   'path' | 'verb'
@@ -20527,7 +20562,7 @@ export const useCreateEnvironmentGroup = (props: UseCreateEnvironmentGroupProps)
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     CreateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     void
   >('POST', `/environmentGroup`, { base: getConfig('ng/api'), ...props })
 
@@ -20539,7 +20574,7 @@ export const createEnvironmentGroupPromise = (
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     CreateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -20548,7 +20583,7 @@ export const createEnvironmentGroupPromise = (
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     CreateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     void
   >('POST', getConfig('ng/api'), `/environmentGroup`, props, signal)
 
@@ -20797,8 +20832,6 @@ export const getEnvironmentGroupPromise = (
 
 export interface UpdateEnvironmentGroupQueryParams {
   accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
   branch?: string
   repoIdentifier?: string
   rootFolder?: string
@@ -20820,7 +20853,7 @@ export type UpdateEnvironmentGroupProps = Omit<
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     UpdateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     UpdateEnvironmentGroupPathParams
   >,
   'path' | 'verb'
@@ -20835,7 +20868,7 @@ export const UpdateEnvironmentGroup = ({ envGroupIdentifier, ...props }: UpdateE
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     UpdateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     UpdateEnvironmentGroupPathParams
   >
     verb="PUT"
@@ -20850,7 +20883,7 @@ export type UseUpdateEnvironmentGroupProps = Omit<
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     UpdateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     UpdateEnvironmentGroupPathParams
   >,
   'path' | 'verb'
@@ -20865,7 +20898,7 @@ export const useUpdateEnvironmentGroup = ({ envGroupIdentifier, ...props }: UseU
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     UpdateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     UpdateEnvironmentGroupPathParams
   >('PUT', (paramsInPath: UpdateEnvironmentGroupPathParams) => `/environmentGroup/${paramsInPath.envGroupIdentifier}`, {
     base: getConfig('ng/api'),
@@ -20884,7 +20917,7 @@ export const updateEnvironmentGroupPromise = (
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     UpdateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     UpdateEnvironmentGroupPathParams
   > & { envGroupIdentifier: string },
   signal?: RequestInit['signal']
@@ -20893,7 +20926,7 @@ export const updateEnvironmentGroupPromise = (
     ResponseEnvironmentGroupResponse,
     Failure | Error,
     UpdateEnvironmentGroupQueryParams,
-    UpdateEnvironmentGroupBodyRequestBody,
+    EnvironmentGroupRequestDTORequestBody,
     UpdateEnvironmentGroupPathParams
   >('PUT', getConfig('ng/api'), `/environmentGroup/${envGroupIdentifier}`, props, signal)
 
@@ -25757,6 +25790,47 @@ export const createInfrastructuresPromise = (
     void
   >('POST', getConfig('ng/api'), `/infrastructures/batch`, props, signal)
 
+export type DummyInfraConfigApiProps = Omit<GetProps<ResponseInfrastructureConfig, Failure | Error, void, void>, 'path'>
+
+/**
+ * This is dummy api to expose infraConfig
+ */
+export const DummyInfraConfigApi = (props: DummyInfraConfigApiProps) => (
+  <Get<ResponseInfrastructureConfig, Failure | Error, void, void>
+    path={`/infrastructures/dummy-infraConfig-api`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDummyInfraConfigApiProps = Omit<
+  UseGetProps<ResponseInfrastructureConfig, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * This is dummy api to expose infraConfig
+ */
+export const useDummyInfraConfigApi = (props: UseDummyInfraConfigApiProps) =>
+  useGet<ResponseInfrastructureConfig, Failure | Error, void, void>(`/infrastructures/dummy-infraConfig-api`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * This is dummy api to expose infraConfig
+ */
+export const dummyInfraConfigApiPromise = (
+  props: GetUsingFetchProps<ResponseInfrastructureConfig, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseInfrastructureConfig, Failure | Error, void, void>(
+    getConfig('ng/api'),
+    `/infrastructures/dummy-infraConfig-api`,
+    props,
+    signal
+  )
+
 export interface UpsertInfrastructureQueryParams {
   accountIdentifier: string
 }
@@ -28463,9 +28537,6 @@ export type GetEntityYamlSchemaProps = Omit<
   'path'
 >
 
-/**
- * Get Entity Yaml Schema
- */
 export const GetEntityYamlSchema = (props: GetEntityYamlSchemaProps) => (
   <Get<ResponseJsonNode, Failure | Error, GetEntityYamlSchemaQueryParams, void>
     path={`/partial-yaml-schema/entityYaml`}
@@ -28479,18 +28550,12 @@ export type UseGetEntityYamlSchemaProps = Omit<
   'path'
 >
 
-/**
- * Get Entity Yaml Schema
- */
 export const useGetEntityYamlSchema = (props: UseGetEntityYamlSchemaProps) =>
   useGet<ResponseJsonNode, Failure | Error, GetEntityYamlSchemaQueryParams, void>(`/partial-yaml-schema/entityYaml`, {
     base: getConfig('ng/api'),
     ...props
   })
 
-/**
- * Get Entity Yaml Schema
- */
 export const getEntityYamlSchemaPromise = (
   props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetEntityYamlSchemaQueryParams, void>,
   signal?: RequestInit['signal']
@@ -28911,7 +28976,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -28923,7 +28988,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -28938,7 +29003,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -28950,7 +29015,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -28966,7 +29031,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -28975,17 +29040,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -28994,22 +29059,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -29018,12 +29083,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -29032,21 +29097,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+  useMutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -38196,6 +38261,56 @@ export const updateVariablePromise = (
     VariableRequestDTORequestBody,
     void
   >('PUT', getConfig('ng/api'), `/variables`, props, signal)
+
+export interface ListVariablesExpressionQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ListVariablesExpressionProps = Omit<
+  GetProps<ResponseListString, Failure | Error, ListVariablesExpressionQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets a map of variable expressions
+ */
+export const ListVariablesExpression = (props: ListVariablesExpressionProps) => (
+  <Get<ResponseListString, Failure | Error, ListVariablesExpressionQueryParams, void>
+    path={`/variables/expressions`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListVariablesExpressionProps = Omit<
+  UseGetProps<ResponseListString, Failure | Error, ListVariablesExpressionQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets a map of variable expressions
+ */
+export const useListVariablesExpression = (props: UseListVariablesExpressionProps) =>
+  useGet<ResponseListString, Failure | Error, ListVariablesExpressionQueryParams, void>(`/variables/expressions`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets a map of variable expressions
+ */
+export const listVariablesExpressionPromise = (
+  props: GetUsingFetchProps<ResponseListString, Failure | Error, ListVariablesExpressionQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, Failure | Error, ListVariablesExpressionQueryParams, void>(
+    getConfig('ng/api'),
+    `/variables/expressions`,
+    props,
+    signal
+  )
 
 export interface DeleteVariableQueryParams {
   accountIdentifier: string
