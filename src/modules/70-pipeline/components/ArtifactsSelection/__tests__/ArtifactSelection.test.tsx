@@ -43,7 +43,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection deploymentType="Kubernetes" isForOverrideSets={false} />
+          <ArtifactsSelection deploymentType="Kubernetes" />
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -55,7 +55,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection deploymentType="Kubernetes" isForOverrideSets={false} />
+          <ArtifactsSelection deploymentType="Kubernetes" />
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -67,11 +67,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection
-            deploymentType="Kubernetes"
-            isForOverrideSets={true}
-            identifierName={'overrideSetIdentifier'}
-          />
+          <ArtifactsSelection deploymentType="Kubernetes" />
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -88,34 +84,11 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection
-            deploymentType="Kubernetes"
-            isForOverrideSets={false}
-            identifierName={'overrideSetIdentifier'}
-            isPropagating={true}
-          />
+          <ArtifactsSelection deploymentType="Kubernetes" isPropagating={true} />
         </PipelineContext.Provider>
       </TestWrapper>
     )
 
-    const addPrimaryArtifact = await findByText(container, 'pipelineSteps.serviceTab.artifactList.addPrimary')
-    expect(addPrimaryArtifact).toBeDefined()
-  })
-
-  test(`renders artifact when  isForPredefinedSets is true`, async () => {
-    const { container } = render(
-      <TestWrapper>
-        <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection
-            deploymentType="Kubernetes"
-            isForOverrideSets={false}
-            identifierName={'overrideSetIdentifier'}
-            isPropagating={false}
-            isForPredefinedSets={true}
-          />
-        </PipelineContext.Provider>
-      </TestWrapper>
-    )
     const addPrimaryArtifact = await findByText(container, 'pipelineSteps.serviceTab.artifactList.addPrimary')
     expect(addPrimaryArtifact).toBeDefined()
   })
@@ -124,14 +97,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection
-            deploymentType="Kubernetes"
-            isForOverrideSets={false}
-            identifierName={'identifierName'}
-            isPropagating={false}
-            isForPredefinedSets={false}
-            overrideSetIdentifier={'overrideSetIdentifier'}
-          />
+          <ArtifactsSelection deploymentType="Kubernetes" isPropagating={false} />
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -142,7 +108,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection deploymentType="Kubernetes" isForOverrideSets={false} isForPredefinedSets={false} />
+          <ArtifactsSelection deploymentType="Kubernetes" />
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -162,7 +128,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection deploymentType="Kubernetes" isForOverrideSets={false} isForPredefinedSets={false} />
+          <ArtifactsSelection deploymentType="Kubernetes" />
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -183,7 +149,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection deploymentType="Kubernetes" isForOverrideSets={false} />
+          <ArtifactsSelection deploymentType="Kubernetes" />
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -279,7 +245,6 @@ describe('ArtifactsSelection tests', () => {
       fetchedConnectorResponse: connectorsData.data as any,
       accountId: 'test',
       refetchConnectors: jest.fn(),
-      overrideSetIdentifier: '',
       isReadonly: false
     }
     const { container } = render(
@@ -312,7 +277,6 @@ describe('ArtifactsSelection tests', () => {
       fetchedConnectorResponse: connectorsData.data as any,
       accountId: 'test',
       refetchConnectors: jest.fn(),
-      overrideSetIdentifier: '',
       isReadonly: false
     }
     const { container } = render(
@@ -345,7 +309,6 @@ describe('ArtifactsSelection tests', () => {
       fetchedConnectorResponse: connectorsData.data as any,
       accountId: 'test',
       refetchConnectors: jest.fn(),
-      overrideSetIdentifier: '',
       isReadonly: false
     }
     const { container } = render(
@@ -365,7 +328,7 @@ describe('ArtifactsSelection tests', () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection deploymentType="Kubernetes" isForOverrideSets={false} />
+          <ArtifactsSelection deploymentType="Kubernetes" />
         </PipelineContext.Provider>
       </TestWrapper>
     )
