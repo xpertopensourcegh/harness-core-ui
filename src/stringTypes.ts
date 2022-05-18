@@ -5939,6 +5939,14 @@ export interface StringsMap {
   'cv.windowsEndIsRequired': string
   'cv.yourExistingErrorBudgetIs': string
   'cv.zoom': string
+  'stoSteps.Critical': string
+  'stoSteps.Info': string
+  'stoSteps.Unassigned': string
+  'stoSteps.failedToGetIssueCounts': string
+  'stoSteps.noScansRunPipelineText': string
+  'stoSteps.noScansText': string
+  'stoSteps.noSecurityIssues': string
+  'stoSteps.noSecurityTests': string
   'stoSteps.securityStage.description': string
   'stoSteps.stepDescription.ZeroNorth': string
   'stoSteps.targets.testTargets': string

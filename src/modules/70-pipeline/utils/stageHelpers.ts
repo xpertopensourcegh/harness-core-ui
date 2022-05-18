@@ -100,6 +100,14 @@ export function hasCIStage(pipelineExecution?: PipelineExecutionSummary): boolea
   return pipelineExecution?.modules?.includes('ci') || !isEmpty(pipelineExecution?.moduleInfo?.ci)
 }
 
+export function hasSTOStage(pipelineExecution?: PipelineExecutionSummary): boolean {
+  return (
+    pipelineExecution?.modules?.includes('sto') ||
+    pipelineExecution?.modules?.includes('ci') ||
+    !isEmpty(pipelineExecution?.moduleInfo?.sto)
+  )
+}
+
 export const getHelperTextString = (
   invalidFields: string[],
   getString: (key: StringKeys) => string,
