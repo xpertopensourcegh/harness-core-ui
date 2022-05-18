@@ -4618,6 +4618,7 @@ export interface StringsMap {
   'cf.environments.delete.message': string
   'cf.environments.delete.title': string
   'cf.environments.empty': string
+  'cf.environments.environmentID': string
   'cf.environments.modifiedBy': string
   'cf.environments.title': string
   'cf.featureFlagDetail.variationCount': string
