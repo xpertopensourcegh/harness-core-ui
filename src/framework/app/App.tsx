@@ -25,7 +25,7 @@ import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { StringsContextProvider } from 'framework/strings/StringsContextProvider'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import { NGTooltipEditorPortal } from 'framework/tooltip/TooltipEditor'
-import AppStorage from 'framework/utils/AppStorage'
+import SecureStorage from 'framework/utils/SecureStorage'
 import { SideNavProvider } from 'framework/SideNavStore/SideNavContext'
 import { useRefreshToken } from 'services/portal'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -101,13 +101,13 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
 
   useEffect(() => {
     if (refreshTokenResponse?.resource) {
-      AppStorage.set('token', refreshTokenResponse.resource)
-      AppStorage.set('lastTokenSetTime', +new Date())
+      SecureStorage.set('token', refreshTokenResponse.resource)
+      SecureStorage.set('lastTokenSetTime', Date.now())
     }
   }, [refreshTokenResponse])
 
   const checkAndRefreshToken = (): void => {
-    const currentTime = +new Date()
+    const currentTime = Date.now()
     const lastTokenSetTime = SessionToken.getLastTokenSetTime() as number
     const refreshInterval = 60 * 60 * 1000 // one hour in milliseconds
     if (currentTime - lastTokenSetTime > refreshInterval && !refreshingToken) {
