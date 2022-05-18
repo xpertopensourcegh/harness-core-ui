@@ -388,7 +388,6 @@ export interface StringsMap {
   'common.link': string
   'common.loading': string
   'common.local': string
-  'common.location': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.manage': string
@@ -2463,13 +2462,14 @@ export interface StringsMap {
   'pipeline.artifactTriggerConfigPanel.artifact': string
   'pipeline.artifactTriggerConfigPanel.artifactReferenceUnique': string
   'pipeline.artifactTriggerConfigPanel.artifactRepository': string
-  'pipeline.artifactTriggerConfigPanel.buildTag': string
+  'pipeline.artifactTriggerConfigPanel.buildTagArtifactPath': string
   'pipeline.artifactTriggerConfigPanel.chartVersionRuntimeInput': string
   'pipeline.artifactTriggerConfigPanel.configureArtifactRuntimeInputs': string
   'pipeline.artifactTriggerConfigPanel.configureInput': string
   'pipeline.artifactTriggerConfigPanel.configureInputs': string
   'pipeline.artifactTriggerConfigPanel.hasRuntimeInputs': string
   'pipeline.artifactTriggerConfigPanel.listenOnNewArtifact': string
+  'pipeline.artifactTriggerConfigPanel.locationRepoPath': string
   'pipeline.artifactTriggerConfigPanel.noArtifacts': string
   'pipeline.artifactTriggerConfigPanel.noSelectableArtifactsFound': string
   'pipeline.artifactTriggerConfigPanel.plusSelect': string

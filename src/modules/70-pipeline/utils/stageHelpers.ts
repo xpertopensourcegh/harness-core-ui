@@ -12,15 +12,16 @@ import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipelin
 import type { StringKeys } from 'framework/strings'
 import type {
   Infrastructure,
-  GetExecutionStrategyYamlQueryParams,
   PipelineInfoConfig,
   StageElementConfig,
-  ServerlessAwsLambdaInfrastructure
+  ServerlessAwsLambdaInfrastructure,
+  ServiceDefinition
 } from 'services/cd-ng'
 import { connectorTypes } from '@pipeline/utils/constants'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { getStageFromPipeline as getStageByPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/helpers'
 import type { DependencyElement } from 'services/ci'
 import type { PipelineGraphState } from '@pipeline/components/PipelineDiagram/types'
 import type { InputSetDTO } from './types'
@@ -207,13 +208,26 @@ export const getSelectedDeploymentType = (
   stage: StageElementWrapper<DeploymentStageElementConfig> | undefined,
   getStageFromPipeline: <T extends StageElementConfig = StageElementConfig>(
     stageId: string,
-    pipeline?: PipelineInfoConfig | undefined
+    pipeline?: PipelineInfoConfig
   ) => PipelineStageWrapper<T>,
   isPropagating = false
-): GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] => {
+): ServiceDefinition['type'] => {
   if (isPropagating) {
     const parentStageId = get(stage, 'stage.spec.serviceConfig.useFromStage.stage', null)
     const parentStage = getStageFromPipeline<DeploymentStageElementConfig>(defaultTo(parentStageId, ''))
+    return get(parentStage, 'stage.stage.spec.serviceConfig.serviceDefinition.type', null)
+  }
+  return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
+}
+
+export const getStageDeploymentType = (
+  pipeline: PipelineInfoConfig,
+  stage: StageElementWrapper<DeploymentStageElementConfig>,
+  isPropagating = false
+): ServiceDefinition['type'] => {
+  if (isPropagating) {
+    const parentStageId = get(stage, 'stage.spec.serviceConfig.useFromStage.stage', null)
+    const parentStage = getStageByPipeline<DeploymentStageElementConfig>(defaultTo(parentStageId, ''), pipeline)
     return get(parentStage, 'stage.stage.spec.serviceConfig.serviceDefinition.type', null)
   }
   return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
