@@ -2931,7 +2931,6 @@ export interface StringsMap {
   'pipeline.manifestType.osTemplatePathPlaceHolder': string
   'pipeline.manifestType.osTemplatePathRequired': string
   'pipeline.manifestType.paramsYamlPath': string
-  'pipeline.manifestType.patchesYamlPath': string
   'pipeline.manifestType.path': string
   'pipeline.manifestType.pathPlaceholder': string
   'pipeline.manifestType.pathRequired': string
