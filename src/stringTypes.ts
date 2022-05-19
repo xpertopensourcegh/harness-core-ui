@@ -2476,6 +2476,7 @@ export interface StringsMap {
   'pipeline.artifactTriggerConfigPanel.runtimeInput': string
   'pipeline.artifactTriggerConfigPanel.selectAManifest': string
   'pipeline.artifactTriggerConfigPanel.selectAnArtifact': string
+  'pipeline.artifactTriggerConfigPanel.tagArtifactPath': string
   'pipeline.artifactsSelection.artifactDetails': string
   'pipeline.artifactsSelection.artifactDirectory': string
   'pipeline.artifactsSelection.artifactDirectoryPlaceholder': string
