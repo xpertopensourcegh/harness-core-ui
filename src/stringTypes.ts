@@ -2245,6 +2245,8 @@ export interface StringsMap {
   'dashboards.createModal.submitFail': string
   'dashboards.createModal.success': string
   'dashboards.createModal.view': string
+  'dashboards.dashboardList.headerFavoriteCount': string
+  'dashboards.dashboardList.headerViewCount': string
   'dashboards.deleteFolder.confirmDeleteText': string
   'dashboards.deleteFolder.confirmDeleteTitle': string
   'dashboards.deleteFolder.success': string
