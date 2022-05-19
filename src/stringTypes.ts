@@ -5995,6 +5995,7 @@ export interface StringsMap {
   'stoSteps.Critical': string
   'stoSteps.Info': string
   'stoSteps.Unassigned': string
+  'stoSteps.continuous': string
   'stoSteps.failedToGetIssueCounts': string
   'stoSteps.noScansRunPipelineText': string
   'stoSteps.noScansText': string
