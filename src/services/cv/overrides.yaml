@@ -151,7 +151,8 @@ allowpaths:
   - /notification-rule/{identifier}
   - /slo/{identifier}/notification-rules
   - /monitored-service/{identifier}/notification-rules
-
+  - /log-dashboard/logs-radar-chart-data
+  - /log-dashboard/logs-radar-chart-cluster
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
