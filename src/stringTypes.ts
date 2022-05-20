@@ -2232,6 +2232,9 @@ export interface StringsMap {
   'gitsync.syncFailed': string
   'gitsync.syncStatus': string
   'gitsync.syncSucessToaster': string
+  'dashboards.cloneDashboardModal.submitFail': string
+  'dashboards.cloneDashboardModal.success': string
+  'dashboards.cloneDashboardModal.title': string
   'dashboards.createFolder.folderSubmitFail': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
