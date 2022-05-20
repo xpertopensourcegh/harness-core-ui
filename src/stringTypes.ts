@@ -3745,6 +3745,7 @@ export interface StringsMap {
   'ce.anomalyDetection.summary.statusWise': string
   'ce.anomalyDetection.summary.totalCountText': string
   'ce.anomalyDetection.tableHeaders.anomalousSpend': string
+  'ce.anomalyDetection.tableHeaders.anomalousVariant': string
   'ce.anomalyDetection.tableHeaders.date': string
   'ce.anomalyDetection.tableHeaders.details': string
   'ce.anomalyDetection.tableHeaders.resource': string

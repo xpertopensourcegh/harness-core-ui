@@ -937,6 +937,7 @@ anomalyDetection:
   tableHeaders:
     date: date
     anomalousSpend: anomalous spend
+    anomalousVariant: variance
     resource: resource
     details: details
     status: '{{ $.ce.co.accessPoint.status }}'
@@ -949,7 +950,7 @@ anomalyDetection:
   userFeedbackSuccessMsg: 'Thanks for your feedback!'
   listFetchingError: Error in showing anomalies
   listFetchingErrorDesc: Come back and check later.
-  trend: '(+{{ trend }}%)'
+  trend: '+{{ trend }}%'
   tooltip:
     countText: '{{ count }} Anomalies'
     anomaliesRedirectionText: View anomalies
