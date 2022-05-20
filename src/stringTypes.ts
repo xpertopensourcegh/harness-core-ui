@@ -3511,6 +3511,7 @@ export interface StringsMap {
   'cd.cloudFormation.errors.getParam': string
   'cd.cloudFormation.errors.name': string
   'cd.cloudFormation.errors.region': string
+  'cd.cloudFormation.errors.role': string
   'cd.cloudFormation.errors.stackName': string
   'cd.cloudFormation.errors.templateBody': string
   'cd.cloudFormation.errors.value': string
