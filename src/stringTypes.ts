@@ -4106,6 +4106,7 @@ export interface StringsMap {
   'ce.co.gatewayConfig.healthCheck': string
   'ce.co.gatewayConfig.healthCheckDescription': string
   'ce.co.gatewayConfig.info': string
+  'ce.co.gatewayConfig.invalidInputError': string
   'ce.co.gatewayConfig.k8sroutingDescription': string
   'ce.co.gatewayConfig.name': string
   'ce.co.gatewayConfig.routingDescription': string
