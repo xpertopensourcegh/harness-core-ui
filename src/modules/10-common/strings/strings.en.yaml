@@ -839,8 +839,6 @@ noexpiration: No Expiration
 subscriptionPlaceholder: 'Select or add Subscription Id'
 azureConnector: Azure Connector
 environmentList: Environment List
-environment:
-  fetchNext: Fetching Environments
 environmentGroup:
   label: Environment Group
   new: New Environment Group
