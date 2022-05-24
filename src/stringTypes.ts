@@ -2002,6 +2002,7 @@ export interface StringsMap {
   'connectors.name_labels.HttpHelmRepo': string
   'connectors.name_labels.Kubernetes': string
   'connectors.name_labels.Nexus': string
+  'connectors.name_labels.PDC': string
   'connectors.name_labels.SecretManager': string
   'connectors.name_labels.Splunk': string
   'connectors.name_labels.gcpKms': string
@@ -2019,6 +2020,13 @@ export interface StringsMap {
   'connectors.nexus.nexusServerUrl': string
   'connectors.pagerDutyConnectorDetails': string
   'connectors.parameters': string
+  'connectors.pdc.editHosts': string
+  'connectors.pdc.errorUploading': string
+  'connectors.pdc.hosts': string
+  'connectors.pdc.hostsRule': string
+  'connectors.pdc.hostsUpload1': string
+  'connectors.pdc.hostsUpload2': string
+  'connectors.pdc.testConnection.step1': string
   'connectors.policyEvaluations.failedToSave': string
   'connectors.policyEvaluations.warning': string
   'connectors.prometheus.urlValidation': string
@@ -2121,6 +2129,7 @@ export interface StringsMap {
   'connectors.title.jira': string
   'connectors.title.k8sCluster': string
   'connectors.title.nexus': string
+  'connectors.title.pdcConnector': string
   'connectors.title.secretManager': string
   'connectors.title.serviceNow': string
   'connectors.title.splunk': string
