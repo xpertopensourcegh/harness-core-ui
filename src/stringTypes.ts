@@ -710,7 +710,9 @@ export interface StringsMap {
   'common.tagName': string
   'common.targetBranch': string
   'common.targetBranchPlaceholder': string
-  'common.template.deleteTemplate.errorWhileDeleting': string
+  'common.template.deleteTemplate.errorWhileDeletingTemplate': string
+  'common.template.deleteTemplate.errorWhileDeletingTemplates': string
+  'common.template.deleteTemplate.templateDeleted': string
   'common.template.deleteTemplate.templatesDeleted': string
   'common.template.label': string
   'common.template.saveAsNewTemplateHeading': string
