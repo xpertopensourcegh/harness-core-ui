@@ -2432,6 +2432,7 @@ export interface StringsMap {
   'pipeline.ACR.subscription': string
   'pipeline.ACR.subscriptionError': string
   'pipeline.ACR.subscriptionPlaceholder': string
+  'pipeline.ACR.tagError': string
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
