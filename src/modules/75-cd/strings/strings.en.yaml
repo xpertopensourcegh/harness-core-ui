@@ -232,6 +232,8 @@ environment:
   deleted: Successfully deleted Environment {{ identifier }}
   fetchNext: Fetching Environments
   createSubTitle: An environment is the representation of where your deployments take place
+  filters:
+    environmentNamePlaceholder: Enter Environment Name
 infrastructure:
   infrastructureDefinitions: Infrastructure Definitions
   noInfrastructureInEnvironment: You have no infrastructures in this environment

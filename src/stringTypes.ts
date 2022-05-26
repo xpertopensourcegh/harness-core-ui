@@ -3584,6 +3584,7 @@ export interface StringsMap {
   'cd.environment.deleteConfirmation': string
   'cd.environment.deleted': string
   'cd.environment.fetchNext': string
+  'cd.environment.filters.environmentNamePlaceholder': string
   'cd.environmentCreated': string
   'cd.environmentDelete': string
   'cd.environmentDeleteMessage': string
