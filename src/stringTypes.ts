@@ -3533,10 +3533,12 @@ export interface StringsMap {
   'cd.cloudFormation.errors.role': string
   'cd.cloudFormation.errors.stackName': string
   'cd.cloudFormation.errors.templateBody': string
+  'cd.cloudFormation.errors.templateRequired': string
   'cd.cloudFormation.errors.value': string
   'cd.cloudFormation.inlineParameterFiles': string
   'cd.cloudFormation.paramFileConnector': string
   'cd.cloudFormation.parameterFileDetails': string
+  'cd.cloudFormation.parameterFilePaths': string
   'cd.cloudFormation.parameterFiles': string
   'cd.cloudFormation.retrieveNames': string
   'cd.cloudFormation.specifyCapabilities': string
@@ -3547,6 +3549,7 @@ export interface StringsMap {
   'cd.cloudFormation.templateFile': string
   'cd.cloudFormation.templateFileConnector': string
   'cd.cloudFormation.templateFileStore': string
+  'cd.cloudFormation.urls': string
   'cd.componentsInstalled': string
   'cd.configFileDetails': string
   'cd.configFilePlaceHolder': string

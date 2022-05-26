@@ -259,6 +259,8 @@ cloudFormation:
   templateFileStore: Template File Store
   retrieveNames: Retrieve Names from template
   awsURL: S3 URL
+  urls: URLs
+  parameterFilePaths: Parameter File Paths
   errors:
     region: AWS Region is required
     role: Role ARN required
@@ -268,3 +270,4 @@ cloudFormation:
     templateBody: Template body required
     awsURL: S3 url required
     getParam: AWS Connector, Region and Template File are required to retrieve parameters
+    templateRequired: Template file required
