@@ -7,7 +7,6 @@
 
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import cx from 'classnames'
 import {
   Card,
   Checkbox,
@@ -543,9 +542,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   /*************************************Service Entity Related code********************************************************/
 
   return (
-    <div className={stageCss.serviceOverrides} ref={scrollRef}>
+    <div className={stageCss.deployStage} ref={scrollRef}>
       <DeployServiceErrors domRef={scrollRef as React.MutableRefObject<HTMLElement | undefined>} />
-      <div className={cx(stageCss.contentSection, stageCss.nonModalView)}>
+      <div className={stageCss.contentSection}>
         {previousStageList.length > 0 && (
           <Container margin={{ bottom: 'xlarge', left: 'xlarge' }}>
             <PropagateWidget

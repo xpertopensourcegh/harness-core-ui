@@ -87,7 +87,7 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
     return null
   }
   return (
-    <>
+    <div className={css.serviceEntity}>
       <div className={css.optionBtns}>
         <VisualYamlToggle
           selectedView={selectedView}
@@ -114,7 +114,7 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
           />
         </Container>
       )}
-    </>
+    </div>
   )
 }
 
