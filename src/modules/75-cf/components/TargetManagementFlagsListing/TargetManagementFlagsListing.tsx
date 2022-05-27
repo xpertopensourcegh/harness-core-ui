@@ -13,23 +13,28 @@ import type { Feature } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import FlagDetailsCell from './FlagDetailsCell'
 import VariationsCell from './VariationsCell'
+import VariationsWithPercentageRolloutCell from './VariationsWithPercentageRolloutCell'
 import AddFlagCheckboxCell from './AddFlagCheckboxCell'
 import DeleteFlagButtonCell from './DeleteFlagButtonCell'
 
 import css from './FlagsListing.module.scss'
 
-export interface FlagsListingProps {
+export interface TargetManagementFlagsListingProps {
   flags: Feature[]
+  includePercentageRollout?: boolean
   includeAddFlagCheckbox?: boolean
   disableRowVariations?: (flag: Feature) => boolean
   onRowDelete?: (flag: Feature) => void
+  ReasonTooltip?: FC
 }
 
-const FlagsListing: FC<FlagsListingProps> = ({
+const TargetManagementFlagsListing: FC<TargetManagementFlagsListingProps> = ({
   flags,
+  includePercentageRollout = false,
   includeAddFlagCheckbox = false,
   onRowDelete,
-  disableRowVariations = () => false
+  disableRowVariations = () => false,
+  ReasonTooltip = ({ children }) => children
 }) => {
   const { getString } = useStrings()
 
@@ -56,9 +61,10 @@ const FlagsListing: FC<FlagsListingProps> = ({
         id: 'variation',
         width: '300px',
         accessor: (flag: Feature) => ({
-          disabled: disableRowVariations(flag)
+          disabled: disableRowVariations(flag),
+          ReasonTooltip
         }),
-        Cell: VariationsCell
+        Cell: includePercentageRollout ? VariationsWithPercentageRolloutCell : VariationsCell
       }
     ]
 
@@ -77,7 +83,8 @@ const FlagsListing: FC<FlagsListingProps> = ({
         width: '5%',
         id: 'actions',
         accessor: (flag: Feature) => ({
-          onRowDelete: () => onRowDelete(flag)
+          onRowDelete: () => onRowDelete(flag),
+          ReasonTooltip
         }),
         Cell: DeleteFlagButtonCell
       })
@@ -86,7 +93,14 @@ const FlagsListing: FC<FlagsListingProps> = ({
     return cols
   }, [disableRowVariations, includeAddFlagCheckbox, onRowDelete])
 
-  return <TableV2<Feature> getRowClassName={() => css.alignBaseline} columns={columns} data={flags} />
+  return (
+    <TableV2<Feature>
+      className={css.autoHeight}
+      getRowClassName={() => css.alignBaseline}
+      columns={columns}
+      data={flags}
+    />
+  )
 }
 
-export default FlagsListing
+export default TargetManagementFlagsListing

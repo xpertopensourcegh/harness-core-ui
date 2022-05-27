@@ -7,7 +7,11 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly alignBaseline: string
-  readonly alignRight: string
+  readonly footer: string
+  readonly layout: string
+  readonly listing: string
+  readonly listingFieldset: string
+  readonly pagination: string
+  readonly toolbar: string
 }
 export default styles

@@ -7,23 +7,21 @@
 
 import type { WeightedVariation } from 'services/cf'
 
-export interface FlagSettingsFormRow extends FlagSettingsVariationCellFields {
-  identifier: string
+export enum STATUS {
+  noFlags,
+  noSearchResults,
+  noFlagsRemaining,
+  ok,
+  submitting
 }
 
-export interface FlagSettingsVariationCellFields {
+export interface TargetManagementFlagConfigurationPanelFormRow {
   variation: string
   percentageRollout?: {
     variations: WeightedVariation[]
   }
 }
 
-export enum AddFlagsToTargetGroupDialogStatus {
-  error,
-  loading,
-  initialLoading,
-  noFlags,
-  noSearchResults,
-  ok,
-  submitting
+export interface TargetManagementFlagConfigurationPanelFormValues {
+  flags: Record<string, TargetManagementFlagConfigurationPanelFormRow>
 }

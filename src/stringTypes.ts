@@ -5006,7 +5006,6 @@ export interface StringsMap {
   'cf.rbac.targetgroup.delete': string
   'cf.rbac.targetgroup.edit': string
   'cf.rbac.targetgroup.label': string
-  'cf.segmentDetail.addFlag': string
   'cf.segmentDetail.addFlagNameToTargetGroup': string
   'cf.segmentDetail.addFlagToTargetGroup': string
   'cf.segmentDetail.addFlags': string
@@ -5117,6 +5116,9 @@ export interface StringsMap {
   'cf.targetDetail.searchPlaceholder': string
   'cf.targetDetail.targetSetting': string
   'cf.targetDetail.title': string
+  'cf.targetManagementFlagConfiguration.addFlag': string
+  'cf.targetManagementFlagConfiguration.allFlagsRemoved': string
+  'cf.targetManagementFlagConfiguration.removeFlag': string
   'cf.targets.ID': string
   'cf.targets.addTargets': string
   'cf.targets.addTargetsLabel': string

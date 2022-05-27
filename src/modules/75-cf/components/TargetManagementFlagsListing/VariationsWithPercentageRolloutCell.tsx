@@ -5,26 +5,31 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { FC, useEffect, useMemo } from 'react'
+import React, { FC, ReactElement, useEffect, useMemo } from 'react'
+import { useFormikContext } from 'formik'
 import get from 'lodash/get'
 import { FormError, FormInput, SelectOption } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import type { Feature } from 'services/cf'
 import { CFVariationColors, PERCENTAGE_ROLLOUT_VALUE } from '@cf/constants'
-import type { FlagSettingsVariationCellFields } from '@cf/pages/target-group-detail/TargetGroupDetailPage.types'
-import useFormValues from '@cf/hooks/useFormValues'
 import PercentageRollout from '@cf/components/PercentageRollout/PercentageRollout'
 
 import css from './VariationsCell.module.scss'
 
-export interface VariationsCellProps {
+export interface VariationsWithPercentageRolloutCellProps {
   row: { original: Feature }
-  value: { disabled?: boolean }
+  value: {
+    disabled?: boolean
+    ReasonTooltip?: FC
+  }
 }
 
-const VariationsCell: FC<VariationsCellProps> = ({ row: { original: flag }, value: { disabled = false } }) => {
+const VariationsWithPercentageRolloutCell: FC<VariationsWithPercentageRolloutCellProps> = ({
+  row: { original: flag },
+  value: { disabled = false, ReasonTooltip = ({ children }) => children as ReactElement }
+}) => {
   const { getString } = useStrings()
-  const { values, setField, errors } = useFormValues<FlagSettingsVariationCellFields>()
+  const { values, setFieldValue, errors } = useFormikContext()
   const fieldPrefix = `flags.${flag.identifier}`
 
   const flagItems = useMemo<SelectOption[]>(
@@ -46,17 +51,17 @@ const VariationsCell: FC<VariationsCellProps> = ({ row: { original: flag }, valu
     [flag.variations]
   )
 
-  const rowValues = useMemo<FlagSettingsVariationCellFields>(() => get(values, fieldPrefix), [values, fieldPrefix])
+  const rowValues = useMemo(() => get(values, fieldPrefix), [values, fieldPrefix])
 
   useEffect(() => {
     if (rowValues?.variation === PERCENTAGE_ROLLOUT_VALUE) {
       flag.variations.forEach(({ identifier }, index) =>
-        setField(`${fieldPrefix}.percentageRollout.variations[${index}].variation`, identifier)
+        setFieldValue(`${fieldPrefix}.percentageRollout.variations[${index}].variation`, identifier)
       )
     } else {
-      setField(`${fieldPrefix}.percentageRollout`, undefined)
+      setFieldValue(`${fieldPrefix}.percentageRollout`, undefined)
     }
-  }, [fieldPrefix, flag.variations, rowValues?.variation, setField])
+  }, [fieldPrefix, flag.variations, rowValues?.variation, setFieldValue])
 
   const percentageRolloutError = useMemo<string>(
     () => get(errors, `${fieldPrefix}.percentageRollout.variations`, '') as string,
@@ -64,31 +69,34 @@ const VariationsCell: FC<VariationsCellProps> = ({ row: { original: flag }, valu
   )
 
   return (
-    <div className={css.wrapper}>
-      <FormInput.Select
-        placeholder={getString('cf.segmentDetail.selectVariation')}
-        name={`${fieldPrefix}.variation`}
-        items={flagItems}
-        disabled={disabled}
-        className={css.input}
-      />
+    <fieldset disabled={disabled} className={css.wrapper}>
+      <ReasonTooltip>
+        <FormInput.Select
+          placeholder={getString('cf.segmentDetail.selectVariation')}
+          name={`${fieldPrefix}.variation`}
+          items={flagItems}
+          className={css.input}
+        />
+      </ReasonTooltip>
 
       {rowValues?.variation === PERCENTAGE_ROLLOUT_VALUE && (
         <>
-          <PercentageRollout
-            variations={flag.variations}
-            prefix={field => `${fieldPrefix}.percentageRollout.${field}`}
-            fieldValues={rowValues.percentageRollout}
-            data-testid="variation-percentage-rollout"
-            hideOverError
-          />
+          <ReasonTooltip>
+            <PercentageRollout
+              variations={flag.variations}
+              prefix={field => `${fieldPrefix}.percentageRollout.${field}`}
+              fieldValues={rowValues.percentageRollout}
+              data-testid="variation-percentage-rollout"
+              hideOverError
+            />
+          </ReasonTooltip>
           {percentageRolloutError && (
             <FormError name={`${fieldPrefix}.percentageRollout`} errorMessage={percentageRolloutError} />
           )}
         </>
       )}
-    </div>
+    </fieldset>
   )
 }
 
-export default VariationsCell
+export default VariationsWithPercentageRolloutCell

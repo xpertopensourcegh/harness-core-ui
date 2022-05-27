@@ -8,40 +8,99 @@
 import React from 'react'
 import { render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import type { Feature, Features } from 'services/cf'
 import * as cfServices from 'services/cf'
 import { TestWrapper } from '@common/utils/testUtils'
-import { mockFeatures, mockTargetGroup } from '@cf/pages/target-group-detail/__tests__/mocks'
-import FlagSettingsPanel, { FlagSettingsPanelProps } from '../FlagSettingsPanel'
-import * as useGetTargetGroupFlagsHook from '../../../hooks/useGetTargetGroupFlags'
+import mockTarget from '@cf/utils/testData/data/mockTarget'
+import { CF_DEFAULT_PAGE_SIZE } from '@cf/utils/CFUtils'
+import FlagSettings, { FlagSettingsProps } from '../FlagSettings'
+
+const mockFlags = [
+  {
+    identifier: 'f1',
+    name: 'Flag 1',
+    variations: [
+      { name: 'Variation 1', identifier: 'v1' },
+      { name: 'Variation 2', identifier: 'v2' },
+      { identifier: 'v3' }
+    ],
+    envProperties: {
+      variationMap: [{ variation: 'v1', targets: [{ identifier: mockTarget.identifier, name: mockTarget.name }] }]
+    }
+  },
+  {
+    identifier: 'f2',
+    name: 'Flag 2',
+    variations: [
+      { name: 'Variation 1', identifier: 'v1' },
+      { name: 'Variation 2', identifier: 'v2' }
+    ],
+    envProperties: {
+      variationMap: [{ variation: 'v1', targets: [{ identifier: mockTarget.identifier, name: mockTarget.name }] }]
+    }
+  },
+  {
+    identifier: 'f3',
+    name: 'Flag 3',
+    variations: [
+      { name: 'Variation 1', identifier: 'v1' },
+      { name: 'Variation 2', identifier: 'v2' }
+    ],
+    envProperties: {
+      variationMap: [{ variation: 'v1', targets: [{ identifier: mockTarget.identifier, name: mockTarget.name }] }]
+    }
+  },
+  {
+    identifier: 'f4',
+    name: 'Flag 4',
+    variations: [
+      { name: 'Variation 1', identifier: 'v1' },
+      { name: 'Variation 2', identifier: 'v2' }
+    ],
+    envProperties: {
+      variationMap: [{ variation: 'v1', targets: [{ identifier: mockTarget.identifier, name: mockTarget.name }] }]
+    }
+  }
+] as Feature[]
+
+const mockResponse = (flags: Feature[] = mockFlags): Features =>
+  ({
+    features: flags,
+    pageIndex: 0,
+    pageSize: CF_DEFAULT_PAGE_SIZE,
+    itemCount: flags.length,
+    pageCount: Math.ceil(flags.length / CF_DEFAULT_PAGE_SIZE),
+    version: 1
+  } as Features)
 
 jest.mock('@common/components/ContainerSpinner/ContainerSpinner', () => ({
   ContainerSpinner: () => <span data-testid="container-spinner">Container Spinner</span>
 }))
 
-const renderComponent = (props: Partial<FlagSettingsPanelProps> = {}): RenderResult =>
+const renderComponent = (props: Partial<FlagSettingsProps> = {}): RenderResult =>
   render(
     <TestWrapper>
-      <FlagSettingsPanel targetGroup={mockTargetGroup} {...props} />
+      <FlagSettings target={mockTarget} {...props} />
     </TestWrapper>
   )
 
-describe('FlagSettingsPanel', () => {
-  const useGetTargetGroupFlagsMock = jest.spyOn(useGetTargetGroupFlagsHook, 'default')
-  const patchSegmentMock = jest.fn()
-  const usePatchSegmentMock = jest.spyOn(cfServices, 'usePatchSegment')
+describe('FlagSettings', () => {
+  const useGetAllFeaturesMock = jest.spyOn(cfServices, 'useGetAllFeatures')
+  const patchTargetMock = jest.fn()
+  const usePatchTargetMock = jest.spyOn(cfServices, 'usePatchTarget')
 
   beforeEach(() => {
     jest.clearAllMocks()
 
-    useGetTargetGroupFlagsMock.mockReturnValue({
-      data: mockFeatures,
+    useGetAllFeaturesMock.mockReturnValue({
+      data: mockResponse(),
       loading: false,
       error: null,
       refetch: jest.fn()
     } as any)
 
-    usePatchSegmentMock.mockReturnValue({
-      mutate: patchSegmentMock
+    usePatchTargetMock.mockReturnValue({
+      mutate: patchTargetMock
     } as any)
   })
 
@@ -49,7 +108,7 @@ describe('FlagSettingsPanel', () => {
     const message = 'ERROR MESSAGE'
     const refetchMock = jest.fn()
 
-    useGetTargetGroupFlagsMock.mockReturnValue({
+    useGetAllFeaturesMock.mockReturnValue({
       data: null,
       loading: false,
       error: { message },
@@ -69,7 +128,7 @@ describe('FlagSettingsPanel', () => {
   })
 
   test('it should show the loading spinner when loading flags', async () => {
-    useGetTargetGroupFlagsMock.mockReturnValue({
+    useGetAllFeaturesMock.mockReturnValue({
       data: null,
       loading: true,
       error: null,
@@ -81,30 +140,30 @@ describe('FlagSettingsPanel', () => {
     expect(screen.getByTestId('container-spinner')).toBeInTheDocument()
   })
 
-  test('it should call the patchSegment hook and reload the flags when the form is submitted with changes', async () => {
+  test('it should call the patchTarget hook and reload the flags when the form is submitted with changes', async () => {
     const refetchMock = jest.fn()
 
-    useGetTargetGroupFlagsMock.mockReturnValue({
-      data: mockFeatures,
+    useGetAllFeaturesMock.mockReturnValue({
+      data: mockResponse(),
       loading: false,
       error: null,
       refetch: refetchMock
     } as any)
 
-    patchSegmentMock.mockResolvedValue(undefined)
+    patchTargetMock.mockResolvedValue(undefined)
 
     renderComponent()
 
     userEvent.click(screen.getAllByRole('button', { name: 'cf.targetManagementFlagConfiguration.removeFlag' })[0])
     await waitFor(() => screen.getByRole('button', { name: 'saveChanges' }))
 
-    expect(patchSegmentMock).not.toHaveBeenCalled()
+    expect(patchTargetMock).not.toHaveBeenCalled()
     expect(refetchMock).not.toHaveBeenCalled()
 
     userEvent.click(screen.getByRole('button', { name: 'saveChanges' }))
 
     await waitFor(() => {
-      expect(patchSegmentMock).toHaveBeenCalled()
+      expect(patchTargetMock).toHaveBeenCalled()
       expect(refetchMock).toHaveBeenCalled()
     })
   })
@@ -113,14 +172,14 @@ describe('FlagSettingsPanel', () => {
     const message = 'ERROR MESSAGE'
     const refetchMock = jest.fn()
 
-    useGetTargetGroupFlagsMock.mockReturnValue({
-      data: mockFeatures,
+    useGetAllFeaturesMock.mockReturnValue({
+      data: mockResponse(),
       loading: false,
       error: null,
       refetch: refetchMock
     } as any)
 
-    patchSegmentMock.mockRejectedValue({ message })
+    patchTargetMock.mockRejectedValue({ message })
 
     renderComponent()
 
@@ -132,7 +191,7 @@ describe('FlagSettingsPanel', () => {
     userEvent.click(screen.getByRole('button', { name: 'saveChanges' }))
 
     await waitFor(() => {
-      expect(patchSegmentMock).toHaveBeenCalled()
+      expect(patchTargetMock).toHaveBeenCalled()
       expect(refetchMock).not.toHaveBeenCalled()
       expect(screen.getByText(message)).toBeInTheDocument()
     })

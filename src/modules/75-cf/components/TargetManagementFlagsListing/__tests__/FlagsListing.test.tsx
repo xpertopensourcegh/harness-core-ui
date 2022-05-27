@@ -9,12 +9,12 @@ import React from 'react'
 import { render, RenderResult, screen } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { mockFeatures } from '@cf/pages/target-group-detail/__tests__/mocks'
-import FlagsListing, { FlagsListingProps } from '../FlagsListing'
+import TargetManagementFlagsListing, { TargetManagementFlagsListingProps } from '../TargetManagementFlagsListing'
 
-const renderComponent = (props: Partial<FlagsListingProps> = {}): RenderResult =>
+const renderComponent = (props: Partial<TargetManagementFlagsListingProps> = {}): RenderResult =>
   render(
     <TestWrapper>
-      <FlagsListing flags={mockFeatures} {...props} />
+      <TargetManagementFlagsListing flags={mockFeatures} {...props} />
     </TestWrapper>
   )
 
@@ -65,13 +65,17 @@ describe('FlagsListing', () => {
     test('it should not show the delete icon when onRowDelete is not passed', async () => {
       renderComponent()
 
-      expect(screen.queryAllByRole('button', { name: 'cf.segmentDetail.removeRule' })).toHaveLength(0)
+      expect(screen.queryAllByRole('button', { name: 'cf.targetManagementFlagConfiguration.removeFlag' })).toHaveLength(
+        0
+      )
     })
 
     test('it should show the delete icon when onRowDelete not passed', async () => {
       renderComponent({ onRowDelete: jest.fn() })
 
-      expect(screen.getAllByRole('button', { name: 'cf.segmentDetail.removeRule' })).toHaveLength(mockFeatures.length)
+      expect(screen.getAllByRole('button', { name: 'cf.targetManagementFlagConfiguration.removeFlag' })).toHaveLength(
+        mockFeatures.length
+      )
     })
   })
 })

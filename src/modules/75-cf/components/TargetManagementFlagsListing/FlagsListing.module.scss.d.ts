@@ -7,7 +7,8 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
+  readonly alignBaseline: string
   readonly alignRight: string
-  readonly formLayout: string
+  readonly autoHeight: string
 }
 export default styles

@@ -13,20 +13,22 @@ import type { Feature } from 'services/cf'
 
 import css from './FlagsListing.module.scss'
 
-const DeleteFlagButtonCell: FC<Cell<Feature>> = ({ value: { onRowDelete } }) => {
+const DeleteFlagButtonCell: FC<Cell<Feature>> = ({ value: { onRowDelete, ReasonTooltip } }) => {
   const { getString } = useStrings()
 
   return (
     <div className={css.alignRight}>
-      <Button
-        icon="trash"
-        variation={ButtonVariation.ICON}
-        aria-label={getString('cf.segmentDetail.removeRule')}
-        onClick={e => {
-          e.preventDefault()
-          onRowDelete()
-        }}
-      />
+      <ReasonTooltip>
+        <Button
+          icon="trash"
+          variation={ButtonVariation.ICON}
+          aria-label={getString('cf.targetManagementFlagConfiguration.removeFlag')}
+          onClick={e => {
+            e.preventDefault()
+            onRowDelete()
+          }}
+        />
+      </ReasonTooltip>
     </div>
   )
 }

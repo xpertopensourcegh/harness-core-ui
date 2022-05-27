@@ -6,21 +6,27 @@
  */
 
 import React, { FC } from 'react'
-import { Button, ButtonVariation, Color, Layout } from '@harness/uicore'
+import { useFormikContext } from 'formik'
 import { Spinner } from '@blueprintjs/core'
+import { Button, ButtonVariation, Layout } from '@harness/uicore'
+import { Color } from '@harness/design-system'
 import { useStrings } from 'framework/strings'
+import { STATUS } from './types'
 
-export interface FlagSettingsFormButtonsProps {
-  submitting: boolean
-  onCancel: () => void
-  onSubmit: () => void
+import css from './TargetManagementFlagConfigurationPanel.module.scss'
+
+export interface FormButtonsProps {
+  state: STATUS
 }
 
-const FlagSettingsFormButtons: FC<FlagSettingsFormButtonsProps> = ({ submitting, onSubmit, onCancel }) => {
+const FormButtons: FC<FormButtonsProps> = ({ state }) => {
   const { getString } = useStrings()
+  const { errors } = useFormikContext()
 
   return (
     <Layout.Horizontal
+      data-testid="listing-buttonbar"
+      className={css.footer}
       spacing="small"
       border={{ top: true, color: Color.GREY_100 }}
       padding={{ top: 'medium', bottom: 'medium', left: 'xlarge', right: 'xlarge' }}
@@ -31,23 +37,15 @@ const FlagSettingsFormButtons: FC<FlagSettingsFormButtonsProps> = ({ submitting,
         text={getString('saveChanges')}
         intent="primary"
         variation={ButtonVariation.PRIMARY}
-        disabled={submitting}
-        onClick={e => {
-          e.preventDefault()
-          onSubmit()
-        }}
+        disabled={state === STATUS.submitting || 'flags' in errors}
       />
       <Button
         type="reset"
         text={getString('cancel')}
-        variation={ButtonVariation.SECONDARY}
-        disabled={submitting}
-        onClick={e => {
-          e.preventDefault()
-          onCancel()
-        }}
+        variation={ButtonVariation.TERTIARY}
+        disabled={state === STATUS.submitting}
       />
-      {submitting && (
+      {state === STATUS.submitting && (
         <span data-testid="saving-spinner">
           <Spinner size={16} />
         </span>
@@ -56,4 +54,4 @@ const FlagSettingsFormButtons: FC<FlagSettingsFormButtonsProps> = ({ submitting,
   )
 }
 
-export default FlagSettingsFormButtons
+export default FormButtons
