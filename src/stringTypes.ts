@@ -4694,6 +4694,8 @@ export interface StringsMap {
   'cf.environments.adminEnvironments': string
   'cf.environments.apiKeys.addKey': string
   'cf.environments.apiKeys.addKeyTitle': string
+  'cf.environments.apiKeys.applicableLanguages': string
+  'cf.environments.apiKeys.clientDescription': string
   'cf.environments.apiKeys.clientType': string
   'cf.environments.apiKeys.create': string
   'cf.environments.apiKeys.deleteMessage': string
@@ -4705,6 +4707,7 @@ export interface StringsMap {
   'cf.environments.apiKeys.noKeysFoundMessage': string
   'cf.environments.apiKeys.noKeysFoundTitle': string
   'cf.environments.apiKeys.redactionWarning': string
+  'cf.environments.apiKeys.serverDescription': string
   'cf.environments.apiKeys.serverType': string
   'cf.environments.apiKeys.title': string
   'cf.environments.create.description': string
