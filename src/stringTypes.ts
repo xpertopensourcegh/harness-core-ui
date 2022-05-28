@@ -226,6 +226,7 @@ export interface StringsMap {
   'common.errorHandler.contactLabel': string
   'common.errorHandler.contactSupport': string
   'common.errorHandler.issueCouldBe': string
+  'common.errorHandler.possibleReasons': string
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.expiration': string
@@ -255,6 +256,7 @@ export interface StringsMap {
   'common.feature.upgradeRequired.pleaseUpgrade': string
   'common.feature.upgradeRequired.requiredPlans': string
   'common.feature.upgradeRequired.title': string
+  'common.fetchingBranches': string
   'common.file': string
   'common.files': string
   'common.filters.clearFilters': string
@@ -300,12 +302,14 @@ export interface StringsMap {
   'common.git.gitLabUrlPlaceholder': string
   'common.git.gitLabUrlPlaceholderSSH': string
   'common.git.gitRepoUrl': string
+  'common.git.inlineStoreLabel': string
   'common.git.installationId': string
   'common.git.newBranchCommitLabel': string
   'common.git.noBranchesFound': string
   'common.git.noUserLabel': string
   'common.git.onlyDefaultBranchFound': string
   'common.git.privateKey': string
+  'common.git.remoteStoreLabel': string
   'common.git.saveResourceLabel': string
   'common.git.selectRepoLabel': string
   'common.git.startPRLabel': string
@@ -322,6 +326,7 @@ export interface StringsMap {
   'common.git.validation.targetBranch': string
   'common.gitDetailsTitle': string
   'common.gitSync.allRepositories': string
+  'common.gitSync.branchFetchFailed': string
   'common.gitSync.branchSyncNotAllowed': string
   'common.gitSync.commitDetailsLabel': string
   'common.gitSync.createResource': string
@@ -2193,7 +2198,6 @@ export interface StringsMap {
   'gitsync.addFolder': string
   'gitsync.addNewHarnessFolderLabel': string
   'gitsync.baseBranch': string
-  'gitsync.branchFetchFailed': string
   'gitsync.branchToSync': string
   'gitsync.configSaveToaster': string
   'gitsync.configureHarnessFolder': string
@@ -2212,7 +2216,6 @@ export interface StringsMap {
   'gitsync.entitiesByRepositories': string
   'gitsync.errorFixed': string
   'gitsync.failedToLoadData': string
-  'gitsync.fetchingBranches': string
   'gitsync.fileContent': string
   'gitsync.folderDetails': string
   'gitsync.fullSyncSubTitle': string
@@ -2225,6 +2228,7 @@ export interface StringsMap {
   'gitsync.markAsDefault': string
   'gitsync.markAsDefaultLabel': string
   'gitsync.moveFolder': string
+  'gitsync.newGitExperienceMessage': string
   'gitsync.pathToHarnessFolder': string
   'gitsync.resyncButtonText': string
   'gitsync.resyncFailToaster': string
@@ -2597,6 +2601,7 @@ export interface StringsMap {
   'pipeline.conditionalExecution.toolTip.stepTitle': string
   'pipeline.copyTemplate': string
   'pipeline.createANewPipeline': string
+  'pipeline.createPipeline.choosePipelineSetupHeader': string
   'pipeline.createPipeline.learnMore': string
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
@@ -2810,7 +2815,7 @@ export interface StringsMap {
   'pipeline.filters.pipelineNamePlaceholder': string
   'pipeline.filters.servicePlaceholder': string
   'pipeline.gitDetails': string
-  'pipeline.gitExperience.noPipelineFound': string
+  'pipeline.gitExperience.noEntityFound': string
   'pipeline.gitExperience.selectDiffBranch': string
   'pipeline.gitExperience.selectRepoBranch': string
   'pipeline.gitExperience.skipNow': string
@@ -3419,6 +3424,7 @@ export interface StringsMap {
   'triggers.pageNotFound': string
   'triggers.pipelineExecutionInput': string
   'triggers.pipelineInputLabel': string
+  'triggers.pipelineReferenceBranch': string
   'triggers.schedulePanel.FRI': string
   'triggers.schedulePanel.MON': string
   'triggers.schedulePanel.SAT': string
@@ -3474,6 +3480,9 @@ export interface StringsMap {
   'triggers.triggerConfigurationPanel.payloadType': string
   'triggers.triggerConfigurationPanel.title': string
   'triggers.triggerConfigurationPanel.triggerName': string
+  'triggers.triggerCouldNotBeSavedContent': string
+  'triggers.triggerCouldNotBeSavedGenericError': string
+  'triggers.triggerCouldNotBeSavedTitle': string
   'triggers.triggerOverviewPanel.title': string
   'triggers.triggersSubLabel': string
   'triggers.updateTrigger': string

@@ -42,6 +42,7 @@ import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getTemplateTypesByRef } from '@pipeline/utils/templateUtils'
+import type { StoreMetadata } from '@common/constants/GitSyncTypes'
 import {
   ActionReturnType,
   DefaultNewPipelineId,
@@ -84,7 +85,8 @@ export const getPipelineByIdentifier = (
         accountIdentifier: params.accountIdentifier,
         orgIdentifier: params.orgIdentifier,
         projectIdentifier: params.projectIdentifier,
-        ...(params.repoIdentifier ? { repoIdentifier: params.repoIdentifier, branch: params.branch } : {})
+        ...(params.branch ? { branch: params.branch } : {}),
+        ...(params.repoIdentifier ? { repoIdentifier: params.repoIdentifier } : {})
       },
       requestOptions: {
         headers: {
@@ -219,6 +221,7 @@ export interface PipelineContextInterface {
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   setTemplateTypes: (data: { [key: string]: string }) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
+  updatePipelineStoreMetadata: (storeMetadata: StoreMetadata, gitDetails: EntityGitDetails) => Promise<void>
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updateEntityValidityDetails: (entityValidityDetails: EntityValidityDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
@@ -246,6 +249,7 @@ interface PipelinePayload {
   pipeline: PipelineInfoConfig | undefined
   originalPipeline?: PipelineInfoConfig
   isUpdated: boolean
+  storeMetadata?: StoreMetadata
   gitDetails: EntityGitDetails
   entityValidityDetails?: EntityValidityDetails
 }
@@ -331,7 +335,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
 
   if ((!data || forceFetch) && pipelineId !== DefaultNewPipelineId) {
     const pipelineWithGitDetails: PipelineInfoConfigWithGitDetails = await getPipelineByIdentifier(
-      { ...queryParams, ...(repoIdentifier && branch ? { repoIdentifier, branch } : {}) },
+      { ...queryParams, ...(repoIdentifier ? { repoIdentifier } : {}), ...(branch ? { branch } : {}) },
       pipelineId,
       signal
     )
@@ -513,6 +517,42 @@ interface UpdateGitDetailsArgs {
   originalPipeline: PipelineInfoConfig
   pipeline: PipelineInfoConfig
 }
+
+const _updateStoreMetadata = async (
+  args: UpdateGitDetailsArgs,
+  storeMetadata: StoreMetadata,
+  gitDetails: EntityGitDetails
+): Promise<void> => {
+  const { dispatch, queryParams, identifier, originalPipeline, pipeline } = args
+  await _deletePipelineCache(queryParams, identifier, {})
+  const id = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    identifier,
+    gitDetails.repoIdentifier || gitDetails.repoName || '',
+    gitDetails.branch || ''
+  )
+  const isUpdated = !isEqual(originalPipeline, pipeline)
+  try {
+    if (IdbPipeline) {
+      const payload: PipelinePayload = {
+        [KeyPath]: id,
+        pipeline,
+        originalPipeline,
+        isUpdated,
+        storeMetadata,
+        gitDetails
+      }
+      await IdbPipeline.put(IdbPipelineStoreName, payload)
+    }
+    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, storeMetadata, gitDetails }))
+  } catch (_) {
+    logger.info(DBNotFoundErrorMessage)
+    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, storeMetadata, gitDetails }))
+  }
+}
+
 const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityGitDetails): Promise<void> => {
   const { dispatch, queryParams, identifier, originalPipeline, pipeline } = args
   await _deletePipelineCache(queryParams, identifier, {})
@@ -738,6 +778,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   view: SelectedView.VISUAL,
   contextType: PipelineContextType.Pipeline,
   allowableTypes: [],
+  updatePipelineStoreMetadata: () => new Promise<void>(() => undefined),
   updateGitDetails: () => new Promise<void>(() => undefined),
   updateEntityValidityDetails: () => new Promise<void>(() => undefined),
   setView: () => void 0,
@@ -814,6 +855,15 @@ export function PipelineProvider({
       branch
     }
   })
+
+  const updatePipelineStoreMetadata = _updateStoreMetadata.bind(null, {
+    dispatch,
+    queryParams,
+    identifier: pipelineIdentifier,
+    originalPipeline: state.originalPipeline,
+    pipeline: state.pipeline
+  })
+
   const updateGitDetails = _updateGitDetails.bind(null, {
     dispatch,
     queryParams,
@@ -821,6 +871,7 @@ export function PipelineProvider({
     originalPipeline: state.originalPipeline,
     pipeline: state.pipeline
   })
+
   const updateEntityValidityDetails = _updateEntityValidityDetails.bind(null, {
     dispatch,
     queryParams,
@@ -1017,6 +1068,7 @@ export function PipelineProvider({
         getStageFromPipeline,
         renderPipelineStage,
         fetchPipeline,
+        updatePipelineStoreMetadata,
         updateGitDetails,
         updateEntityValidityDetails,
         updatePipeline,

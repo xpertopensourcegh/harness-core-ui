@@ -22,7 +22,7 @@ import {
 import { Color } from '@harness/design-system'
 import { Classes, Intent, Menu, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { TimeAgoPopover } from '@common/exports'
@@ -33,6 +33,7 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
+import { StoreType } from '@common/constants/GitSyncTypes'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -42,6 +43,7 @@ import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 
 import css from './PipelineCard.module.scss'
@@ -106,8 +108,9 @@ function ContextMenu({
 
   const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier: (pipeline.identifier || '') as string,
-    repoIdentifier: pipeline?.gitDetails?.repoIdentifier,
-    branch: pipeline?.gitDetails?.branch
+    repoIdentifier: defaultTo(pipeline?.gitDetails?.repoIdentifier, pipeline?.gitDetails?.repoName),
+    branch: pipeline?.gitDetails?.branch,
+    storeType: pipeline.gitDetails?.repoName ? StoreType.REMOTE : StoreType.INLINE
   })
 
   const isPipelineInvalid = pipeline?.entityValidityDetails?.valid === false
@@ -242,6 +245,9 @@ export function PipelineCard({
   >()
   const { isGitSyncEnabled } = { isGitSyncEnabled: true }
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
+  const { storeType, gitDetails: { repoName } = {} } = pipeline
+  const { isGitSimplificationEnabled } = useAppStore()
+  const isPipelineRemote = isGitSimplificationEnabled && storeType === StoreType.REMOTE
   const history = useHistory()
   const goToExecutionPipelineView = (executionId: string | undefined): void => {
     if (executionId && pipeline.identifier) {
@@ -267,8 +273,9 @@ export function PipelineCard({
 
   const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier: (pipeline.identifier || '') as string,
-    repoIdentifier: pipeline?.gitDetails?.repoIdentifier,
-    branch: pipeline?.gitDetails?.branch
+    repoIdentifier: defaultTo(pipeline?.gitDetails?.repoIdentifier, pipeline?.gitDetails?.repoName),
+    branch: pipeline?.gitDetails?.branch,
+    storeType: pipeline.gitDetails?.repoName ? StoreType.REMOTE : StoreType.INLINE
   })
 
   const pipelineIcons = getIconsForPipeline(pipeline)
@@ -334,7 +341,7 @@ export function PipelineCard({
         </Container>
       </Container>
       <Container padding={{ left: 'xlarge', right: 'xlarge' }}>
-        {pipeline.stageNames && !isEmpty(pipeline.stageNames) && (
+        {pipeline.stageNames && !isEmpty(pipeline.stageNames) && !isPipelineRemote && (
           <Container border={{ bottom: true }} padding={{ top: 'medium', bottom: 'medium' }}>
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
               <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
@@ -344,42 +351,64 @@ export function PipelineCard({
             </Layout.Horizontal>
           </Container>
         )}
-        <Container
-          className={css.infoContainer}
-          border={{ bottom: true }}
-          padding={{ top: 'medium', bottom: 'medium' }}
-        >
-          {(module === 'ci' || !!pipeline.filters?.ci?.repoNames?.length) && (
-            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
+        {!isPipelineRemote && (
+          <Container
+            className={css.infoContainer}
+            border={{ bottom: true }}
+            padding={{ top: 'medium', bottom: 'medium' }}
+          >
+            {(module === 'ci' || !!pipeline.filters?.ci?.repoNames?.length) && (
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
+                <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+                  {getString('pipeline.buildRepo')}
+                </Text>
+                {pipeline.filters?.ci?.repoNames?.length ? (
+                  <Text font="small" color={Color.BLACK} lineClamp={1}>
+                    {pipeline.filters?.ci?.repoNames.join(', ')}
+                  </Text>
+                ) : (
+                  <Text font="small" color={Color.GREY_500}>
+                    {getString('none')}
+                  </Text>
+                )}
+              </Layout.Horizontal>
+            )}
+            {(module === 'cd' || !!pipeline.filters?.cd?.serviceNames?.length) && (
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
+                <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+                  {getString('services')}
+                </Text>
+                {pipeline.filters?.cd?.serviceNames?.length ? (
+                  renderEntityWithAdditionalCountInfo(pipeline.filters?.cd?.serviceNames as string[], 'infrastructure')
+                ) : (
+                  <Text font="small" color={Color.GREY_500}>
+                    {getString('none')}
+                  </Text>
+                )}
+              </Layout.Horizontal>
+            )}
+          </Container>
+        )}
+
+        {isPipelineRemote && (
+          <Container
+            className={css.infoContainer}
+            border={{ bottom: true }}
+            padding={{ top: 'medium', bottom: 'medium' }}
+          >
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
               <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
-                {getString('pipeline.buildRepo')}
+                {getString('pipeline.gitRepo')}
               </Text>
-              {pipeline.filters?.ci?.repoNames?.length ? (
-                <Text font="small" color={Color.BLACK} lineClamp={1}>
-                  {pipeline.filters?.ci?.repoNames.join(', ')}
+              <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+                <Icon name="repository" size={10} color={Color.GREY_600} />
+                <Text font={{ size: 'small' }} color={Color.BLACK} title={repoName} lineClamp={1} width={90}>
+                  {repoName}
                 </Text>
-              ) : (
-                <Text font="small" color={Color.GREY_500}>
-                  {getString('none')}
-                </Text>
-              )}
+              </Layout.Horizontal>
             </Layout.Horizontal>
-          )}
-          {(module === 'cd' || !!pipeline.filters?.cd?.serviceNames?.length) && (
-            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
-              <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
-                {getString('services')}
-              </Text>
-              {pipeline.filters?.cd?.serviceNames?.length ? (
-                renderEntityWithAdditionalCountInfo(pipeline.filters?.cd?.serviceNames as string[], 'infrastructure')
-              ) : (
-                <Text font="small" color={Color.GREY_500}>
-                  {getString('none')}
-                </Text>
-              )}
-            </Layout.Horizontal>
-          )}
-        </Container>
+          </Container>
+        )}
 
         {isGitSyncEnabled && !!pipeline.gitDetails?.repoIdentifier && !!pipeline.gitDetails.branch && (
           <Container
