@@ -5860,16 +5860,19 @@ export interface StringsMap {
   'cv.noPreviousErrorBudgetResetHistoryAvailable': string
   'cv.noSLOHasBeenCreated': string
   'cv.nonAnomalous': string
+  'cv.notifications.changeType': string
   'cv.notifications.condition': string
   'cv.notifications.configureAlertConditions': string
   'cv.notifications.deleteNotification': string
   'cv.notifications.deleteNotificationWarning': string
   'cv.notifications.errorBudgetPolicies': string
+  'cv.notifications.healthScoreBelow': string
   'cv.notifications.newNotificationRule': string
   'cv.notifications.notificationName': string
   'cv.notifications.serviceHealth': string
   'cv.notifications.serviceHealthDescription': string
   'cv.notifications.sloDescription': string
+  'cv.notifications.thresholdBelow': string
   'cv.objectiveValue': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
