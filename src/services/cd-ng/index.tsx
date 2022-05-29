@@ -34834,6 +34834,27 @@ export const getAllUserReposPromise = (
     signal
   )
 
+export interface GetListOfAllReposByRefConnectorQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorRef?: string
+}
+
+export type UseGetListOfAllReposByRefConnectorProps = Omit<
+  UseGetProps<ResponseListUserRepoResponse, Failure | Error, GetListOfAllReposByRefConnectorQueryParams, void>,
+  'path'
+>
+
+/**
+ * Lists All Git Repos corresponding to given reference connector
+ */
+export const useGetListOfAllReposByRefConnector = (props: UseGetListOfAllReposByRefConnectorProps) =>
+  useGet<ResponseListUserRepoResponse, Failure | Error, GetListOfAllReposByRefConnectorQueryParams, void>(
+    `/scm/list-all-repos-by-connector`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
 export interface ProvisionResourcesForCIQueryParams {
   accountIdentifier: string
 }
