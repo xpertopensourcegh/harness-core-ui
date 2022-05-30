@@ -1,6 +1,7 @@
 verificationResult: 'Verification result:'
 estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
+clone: Clone Pipeline
 discard: '{{ $.common.discard }}'
 serviceDependencyText: Service Dependency
 serviceDependenciesText: Service Dependencies
@@ -138,7 +139,7 @@ jiraApprovalStep:
       not_in: '{{ key }} is not in'
   validations:
     connectorRef: Jira Connector is required
-    project: Project is required
+    project: '{{$.common.validation.projectIsRequired}}'
     issueKey: Issue Key is required
     issueType: Issue Type is required
     requiredField: This is a required field.

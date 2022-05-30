@@ -766,6 +766,7 @@ export interface StringsMap {
   'common.validation.keyIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.namePatternIsNotValid': string
+  'common.validation.projectIsRequired': string
   'common.validation.provisionerIdentifierIsRequired': string
   'common.validation.provisionerIdentifierPatternIsNotValid': string
   'common.validation.repository': string
@@ -2592,6 +2593,7 @@ export interface StringsMap {
   'pipeline.ciCodebase.validation.optionalSslVerify': string
   'pipeline.clickHere': string
   'pipeline.clickToExpandErrorDetails': string
+  'pipeline.clone': string
   'pipeline.closeStepConfig': string
   'pipeline.collapseIsDisabledWhileStageIsRunning': string
   'pipeline.conditionalExecution.belowExpression': string

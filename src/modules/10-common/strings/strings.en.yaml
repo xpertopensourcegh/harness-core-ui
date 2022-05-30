@@ -176,6 +176,7 @@ validation:
   environmentIsRequired: 'Environment is required'
   subscription: 'Subscription is required'
   repository: 'Repository is required'
+  projectIsRequired: Project is required
 specify: Specify
 role: Role
 projectViewer: Project Viewer
