@@ -249,7 +249,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   }
 
   useEffect(() => {
-    if (inputRef.current === input) {
+    if (inputRef.current === input || firstUpdate.current) {
       fetchData(true)
     } else {
       fetchData(true, true)
