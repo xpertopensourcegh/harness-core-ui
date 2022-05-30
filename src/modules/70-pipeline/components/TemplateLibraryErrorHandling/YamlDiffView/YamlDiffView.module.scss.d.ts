@@ -7,9 +7,7 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly commentsDialog: string
-  readonly infoIcon: string
-  readonly infoTextContainer: string
-  readonly main: string
+  readonly mainContainer: string
+  readonly refreshedHeader: string
 }
 export default styles

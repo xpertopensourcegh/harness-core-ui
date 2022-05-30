@@ -2594,8 +2594,6 @@ export interface StringsMap {
   'pipeline.clickToExpandErrorDetails': string
   'pipeline.closeStepConfig': string
   'pipeline.collapseIsDisabledWhileStageIsRunning': string
-  'pipeline.commentModal.heading': string
-  'pipeline.commentModal.info': string
   'pipeline.conditionalExecution.belowExpression': string
   'pipeline.conditionalExecution.condition': string
   'pipeline.conditionalExecution.conditionLabel': string
@@ -3006,9 +3004,13 @@ export interface StringsMap {
   'pipeline.nodesLabel': string
   'pipeline.onlyPositiveInteger': string
   'pipeline.openInNewTab': string
+  'pipeline.openInPipelineStudio': string
   'pipeline.openTemplateInNewTabLabel': string
   'pipeline.operatorPlaceholder': string
   'pipeline.outOf': string
+  'pipeline.outOfSyncErrorStrip.reconcile': string
+  'pipeline.outOfSyncErrorStrip.unsyncedTemplateInfo': string
+  'pipeline.outOfSyncErrorStrip.updatedTemplateInfo': string
   'pipeline.overrideSets.configure': string
   'pipeline.overrideSets.createOverrideSet': string
   'pipeline.overrideSets.createOverrideSetPlus': string
@@ -3047,6 +3049,14 @@ export interface StringsMap {
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
   'pipeline.recentExecutionText': string
+  'pipeline.reconcileDialog.originalYamlLabel': string
+  'pipeline.reconcileDialog.refreshedYamlLabel': string
+  'pipeline.reconcileDialog.subtitle': string
+  'pipeline.reconcileDialog.title': string
+  'pipeline.reconcileDialog.unsyncedTemplateInfo': string
+  'pipeline.reconcileDialog.updateAllLabel': string
+  'pipeline.reconcileDialog.updateEntityLabel': string
+  'pipeline.reconcileDialog.updatedTemplateInfo': string
   'pipeline.regionPlaceholder': string
   'pipeline.removeTemplate': string
   'pipeline.removeTemplateLabel': string
@@ -3341,6 +3351,8 @@ export interface StringsMap {
   'pipeline.viewLatestExecution': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.alwaysUseStableVersion': string
+  'templatesLibrary.commentModal.heading': string
+  'templatesLibrary.commentModal.info': string
   'templatesLibrary.copyToNewPipeline': string
   'templatesLibrary.copyToPipeline': string
   'templatesLibrary.createNewModal.editHeading': string
