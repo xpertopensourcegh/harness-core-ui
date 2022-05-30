@@ -875,3 +875,4 @@ selectName: Select {{name}}
 override: Override
 plusNewName: + New {{name}}
 fetchingBranches: Fetching branches
+download: Download

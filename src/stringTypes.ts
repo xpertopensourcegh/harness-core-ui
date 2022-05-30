@@ -189,6 +189,7 @@ export interface StringsMap {
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
+  'common.download': string
   'common.duplicateId': string
   'common.duration.3months': string
   'common.duration.6months': string
@@ -4453,6 +4454,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.wizardTitleEdit': string
   'ce.perspectives.confirmDeletePerspectiveMsg': string
   'ce.perspectives.confirmDeletePerspectiveTitle': string
+  'ce.perspectives.cost': string
+  'ce.perspectives.costTrend': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
   'ce.perspectives.createPerspective.filters.chooseOperand': string
@@ -4483,8 +4486,16 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.enterAmount': string
+  'ce.perspectives.excludeRowswithCost': string
+  'ce.perspectives.exportCSV': string
+  'ce.perspectives.exportRowsUpto': string
+  'ce.perspectives.filename': string
+  'ce.perspectives.largeNoOfRowsWarning': string
   'ce.perspectives.newPerspective': string
   'ce.perspectives.newPerspectiveLimitWarning': string
+  'ce.perspectives.noOfRowsGreaterThan': string
+  'ce.perspectives.noOfRowsLessThan': string
   'ce.perspectives.nodeDetails.aggregation.average': string
   'ce.perspectives.nodeDetails.aggregation.maximum': string
   'ce.perspectives.nodeDetails.nodeDetailsText': string

@@ -851,7 +851,7 @@ top: Top
 bottom: Bottom
 executionLogs: Execution Logs
 displayOnlyErrors: Display only errors
-download: Download
+download: '{{ $.common.download }}'
 lastOneHour: Last 1 hour
 last12Hours: Last 12 hours
 showingLogsFor: Showing logs for
