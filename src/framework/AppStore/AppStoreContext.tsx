@@ -203,7 +203,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       }
       setState(prevState => ({
         ...prevState,
-        isGitSimplificationEnabled: state.featureFlags.GIT_SIMPLIFICATION || state.isGitSimplificationEnabled
+        isGitSimplificationEnabled: state.featureFlags.NG_GIT_EXPERIENCE || state.isGitSimplificationEnabled
       }))
     }
   }, [state.featureFlags, state.isGitSimplificationEnabled])
