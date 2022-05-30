@@ -202,6 +202,7 @@ function WebhookPipelineInputPanelForm({
   const [hasEverRendered, setHasEverRendered] = useState(
     typeof ciCodebaseBuildValue === 'object' && !isEmpty(ciCodebaseBuildValue)
   )
+  const [mergingInputSets, setMergingInputSets] = useState<boolean>(false)
 
   const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier, triggerIdentifier } = useParams<{
     projectIdentifier: string
@@ -333,13 +334,7 @@ function WebhookPipelineInputPanelForm({
         fetchInputSets()
       }
     },
-    [
-      formikProps?.values?.inputSetRefs,
-      inputSetSelected,
-      inputSetQueryParams,
-      fetchInputSetsInProgress,
-      setFetchInputSetsInProgress
-    ]
+    [formikProps?.values?.inputSetRefs, inputSetSelected, inputSetQueryParams]
   )
 
   useEffect(() => {
@@ -370,7 +365,14 @@ function WebhookPipelineInputPanelForm({
           })
         }
       }
-      fetchData()
+      setMergingInputSets(true)
+      try {
+        fetchData()
+          .then(() => setMergingInputSets(false))
+          .catch(() => setMergingInputSets(false))
+      } catch (e) {
+        setMergingInputSets(false)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -386,12 +388,11 @@ function WebhookPipelineInputPanelForm({
 
   return (
     <Layout.Vertical className={css.webhookPipelineInputContainer} spacing="large" padding="none">
-      {loading && (
+      {loading || mergingInputSets ? (
         <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
           <PageSpinner />
         </div>
-      )}
-      {!isEmpty(pipeline) && template?.data?.inputSetTemplateYaml && !loading ? (
+      ) : !isEmpty(pipeline) && template?.data?.inputSetTemplateYaml ? (
         <div className={css.inputsetGrid}>
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
@@ -456,7 +457,7 @@ function WebhookPipelineInputPanelForm({
           </div>
         </div>
       ) : (
-        <Layout.Vertical style={{ padding: '0 var(--spacing-small)' }} margin="large" spacing="large">
+        <Layout.Vertical padding={{ left: 'small', right: 'small' }} margin="large" spacing="large">
           <Text className={css.formContentTitle} inline={true} tooltipProps={{ dataTooltipId: 'pipelineInputLabel' }}>
             {getString('triggers.pipelineInputLabel')}
           </Text>

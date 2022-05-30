@@ -378,7 +378,7 @@ export default function TriggersDetailPage(): JSX.Element {
   const isGitSyncEnabled = useMemo(() => !!pipeline?.data?.gitDetails?.branch, [pipeline])
 
   const gitAwareForTriggerEnabled = useMemo(
-    () => isGitSyncEnabled || isGitSimplificationEnabled,
+    () => isGitSyncEnabled && isGitSimplificationEnabled,
     [isGitSyncEnabled, isGitSimplificationEnabled]
   )
 
@@ -473,18 +473,22 @@ export default function TriggersDetailPage(): JSX.Element {
                     tags: triggerResponse?.data?.tags
                   })}
                 />
-                <DetailPageCard
-                  classname={css.inputSet}
-                  title={getString('details')}
-                  content={getDetailsContent({
-                    getString,
-                    conditionsExist,
-                    conditionsArr,
-                    jexlCondition,
-                    cronExpression,
-                    pipelineInputSet
-                  })}
-                />
+                {loadingTrigger ? (
+                  <PageSpinner />
+                ) : (
+                  <DetailPageCard
+                    classname={css.inputSet}
+                    title={getString('details')}
+                    content={getDetailsContent({
+                      getString,
+                      conditionsExist,
+                      conditionsArr,
+                      jexlCondition,
+                      cronExpression,
+                      pipelineInputSet
+                    })}
+                  />
+                )}
               </Layout.Horizontal>
             ) : (
               <div className={css.editor}>

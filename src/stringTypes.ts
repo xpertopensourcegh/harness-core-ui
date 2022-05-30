@@ -3449,6 +3449,7 @@ export interface StringsMap {
   'triggers.pipelineExecutionInput': string
   'triggers.pipelineInputLabel': string
   'triggers.pipelineReferenceBranch': string
+  'triggers.retryTriggerSave': string
   'triggers.schedulePanel.FRI': string
   'triggers.schedulePanel.MON': string
   'triggers.schedulePanel.SAT': string

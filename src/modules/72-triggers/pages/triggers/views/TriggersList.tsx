@@ -34,10 +34,11 @@ import css from './TriggersList.module.scss'
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
   isPipelineInvalid?: boolean
+  gitAwareForTriggerEnabled?: boolean
 }
 
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
-  const { onNewTriggerClick, isPipelineInvalid } = props
+  const { onNewTriggerClick, isPipelineInvalid, gitAwareForTriggerEnabled } = props
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
@@ -257,6 +258,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
           goToEditWizard={goToEditWizard}
           goToDetails={goToDetails}
           isPipelineInvalid={isPipelineInvalid}
+          gitAwareForTriggerEnabled={gitAwareForTriggerEnabled}
         />
       </Page.Body>
     </>

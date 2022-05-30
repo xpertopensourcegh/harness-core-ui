@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import type { FormikErrors, FormikProps } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
 import {
@@ -107,7 +107,9 @@ import {
   getOrderedPipelineVariableValues,
   clearUndefinedArtifactId,
   getModifiedTemplateValues,
-  DEFAULT_TRIGGER_BRANCH
+  DEFAULT_TRIGGER_BRANCH,
+  SAVING_INVALID_TRIGGER_IN_GIT,
+  UPDATING_INVALID_TRIGGER_IN_GIT
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -431,7 +433,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const { isGitSimplificationEnabled } = useAppStore()
 
   const gitAwareForTriggerEnabled = useMemo(
-    () => isGitSyncEnabled || isGitSimplificationEnabled,
+    () => isGitSyncEnabled && isGitSimplificationEnabled,
     [isGitSyncEnabled, isGitSimplificationEnabled]
   )
 
@@ -1359,6 +1361,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
     return errors
   }
+
+  const retryTriggerSubmit = useCallback(({ message }: ResponseNGTriggerResponseWithMessage) => {
+    retryFn.current = () => {
+      setIgnoreError(true)
+      formikRef.current?.handleSubmit()
+    }
+    setRetrySavingConfirmation(message || getString('triggers.triggerCouldNotBeSavedGenericError'))
+    confirmIgnoreErrorAndResubmit()
+  }, [])
+
   // TriggerConfigDTO is NGTriggerConfigV2 with optional identifier
   const submitTrigger = async (triggerYaml: NGTriggerConfigV2 | TriggerConfigDTO): Promise<void> => {
     if (gitAwareForTriggerEnabled) {
@@ -1372,12 +1384,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         )) as ResponseNGTriggerResponseWithMessage
 
         if (status === ResponseStatus.ERROR && gitAwareForTriggerEnabled) {
-          retryFn.current = () => {
-            setIgnoreError(true)
-            formikRef.current?.handleSubmit()
-          }
-          setRetrySavingConfirmation(message || getString('triggers.triggerCouldNotBeSavedGenericError'))
-          confirmIgnoreErrorAndResubmit()
+          retryTriggerSubmit({ message })
         } else if (data?.errors && !isEmpty(data?.errors)) {
           const displayErrors = displayPipelineIntegrityResponse(data.errors)
           setFormErrors(displayErrors)
@@ -1400,7 +1407,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           )
         }
       } catch (err) {
-        setErrorToasterMessage(err?.data?.message)
+        if (
+          err?.data?.status === ResponseStatus.ERROR &&
+          err?.data?.message === UPDATING_INVALID_TRIGGER_IN_GIT &&
+          gitAwareForTriggerEnabled
+        ) {
+          retryTriggerSubmit({ message: getString('triggers.retryTriggerSave') })
+        } else {
+          setErrorToasterMessage(err?.data?.message)
+        }
       } finally {
         setIgnoreError(false)
       }
@@ -1412,12 +1427,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         )) as ResponseNGTriggerResponseWithMessage
 
         if (status === ResponseStatus.ERROR && gitAwareForTriggerEnabled) {
-          retryFn.current = () => {
-            setIgnoreError(true)
-            formikRef.current?.handleSubmit()
-          }
-          setRetrySavingConfirmation(message || getString('triggers.triggerCouldNotBeSavedGenericError'))
-          confirmIgnoreErrorAndResubmit()
+          retryTriggerSubmit({ message })
         } else if (data?.errors && !isEmpty(data?.errors)) {
           const displayErrors = displayPipelineIntegrityResponse(data.errors)
           setFormErrors(displayErrors)
@@ -1440,7 +1450,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           )
         }
       } catch (err) {
-        setErrorToasterMessage(err?.data?.message)
+        if (
+          err?.data?.status === ResponseStatus.ERROR &&
+          err?.data?.message === SAVING_INVALID_TRIGGER_IN_GIT &&
+          gitAwareForTriggerEnabled
+        ) {
+          retryTriggerSubmit({ message: getString('triggers.retryTriggerSave') })
+        } else {
+          setErrorToasterMessage(err?.data?.message)
+        }
       } finally {
         setIgnoreError(false)
       }

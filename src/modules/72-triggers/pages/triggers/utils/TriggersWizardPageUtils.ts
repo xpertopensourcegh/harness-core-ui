@@ -1928,3 +1928,9 @@ export function getTriggerInputSetsBranchQueryParameter({
 }): string {
   return gitAwareForTriggerEnabled ? (pipelineBranchName === DEFAULT_TRIGGER_BRANCH ? '' : pipelineBranchName) : branch
 }
+
+export const UPDATING_INVALID_TRIGGER_IN_GIT =
+  'Invalid request: Failed while updating Trigger: Please check the requested file path / branch / Github repo name if they exist or not.'
+
+export const SAVING_INVALID_TRIGGER_IN_GIT =
+  'Invalid request: Failed while Saving Trigger: Please check the requested file path / branch / Github repo name if they exist or not.'
