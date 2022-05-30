@@ -263,6 +263,7 @@ export interface StringsMap {
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string
+  'common.filters.noResultsFound': string
   'common.filters.saveNewFilter': string
   'common.filters.unsavedFilter': string
   'common.findOutMore': string

@@ -522,6 +522,7 @@ filters:
   saveNewFilter: Save New Filter
   unsavedFilter: Unsaved Filter
   noMatchingFilterData: No Results found matching the Filter criteria
+  noResultsFound: No results found
   clearFilters: Clear Filters
   noFilterSaved: No Filter Saved
 in: in
