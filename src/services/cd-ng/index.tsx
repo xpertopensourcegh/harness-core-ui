@@ -10433,6 +10433,7 @@ export interface TerraformPlanExecutionData {
   command: 'Apply' | 'Destroy'
   configFiles: TerraformConfigFilesWrapper
   environmentVariables?: NGVariable[]
+  exportTerraformPlanJson?: boolean
   secretManagerRef: string
   targets?: string[]
   varFiles?: TerraformVarFileWrapper[]
