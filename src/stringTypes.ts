@@ -911,6 +911,11 @@ export interface StringsMap {
   'rbac.generateToken': string
   'rbac.group': string
   'rbac.in': string
+  'rbac.inheritedScope.accountScopeNoData': string
+  'rbac.inheritedScope.accountScopeTitle': string
+  'rbac.inheritedScope.orgScopeNoData': string
+  'rbac.inheritedScope.orgScopeTitle': string
+  'rbac.inheritedScope.projectOrg': string
   'rbac.linkToOriginalUserGroup': string
   'rbac.manageInheritedGroupText': string
   'rbac.manageSCIMText': string
