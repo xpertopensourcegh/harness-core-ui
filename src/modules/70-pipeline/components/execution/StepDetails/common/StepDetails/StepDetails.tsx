@@ -11,7 +11,7 @@ import { Color } from '@harness/design-system'
 import { useParams, Link } from 'react-router-dom'
 import { Duration } from '@common/exports'
 import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
-import type { ExecutableResponse, ExecutionNode } from 'services/pipeline-ng'
+import type { DelegateInfo, ExecutableResponse, ExecutionNode } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 
@@ -51,6 +51,14 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
     }
   }, [step.executableResponses])
 
+  const showDelegateRow = (delegateList: DelegateInfo[] | undefined, tasks: ExecutableResponse[]): boolean => {
+    return (delegateList && delegateList?.length > 0) || tasks?.length > 0
+  }
+
+  const delegateListContainsTask = (delegateList: DelegateInfo[] | undefined, taskId: string): boolean => {
+    return !!delegateList?.find((item: DelegateInfo) => item.taskId === taskId)
+  }
+
   return (
     <table className={css.detailsTable}>
       <tbody>
@@ -87,77 +95,75 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
             <td>{label.value}</td>
           </tr>
         ))}
-        {step.delegateInfoList && step.delegateInfoList.length > 0 ? (
-          <tr className={css.delegateRow}>
-            <th>{getString('delegate.DelegateName')}</th>
-            <td>
-              <Layout.Vertical spacing="xsmall">
-                {step.delegateInfoList.map((item, index) => (
-                  <div key={`${item.id}-${index}`}>
-                    <Text font={{ size: 'small', weight: 'bold' }}>
-                      <String
-                        stringID="common.delegateForTask"
-                        vars={{ delegate: item.name, taskName: item.taskName }}
-                        useRichText
-                      />
-                    </Text>{' '}
-                    (
-                    <Text
-                      font={{ size: 'small' }}
-                      onClick={() =>
-                        openDelegateSelectionLogsModal({
-                          taskId: item.taskId as string,
-                          taskName: item.taskName as string,
-                          delegateName: item.name as string
-                        })
-                      }
-                      style={{ cursor: 'pointer' }}
-                      color={Color.PRIMARY_7}
-                    >
-                      {getString('common.logs.delegateSelectionLogs')}
-                    </Text>
-                    )
-                  </div>
-                ))}
-              </Layout.Vertical>
-            </td>
-          </tr>
-        ) : step.delegateInfoList?.length === 0 &&
-          taskList.length > 0 &&
-          isExecutionCompletedWithBadState(step.status) ? (
+        {showDelegateRow(step.delegateInfoList, taskList) && (
           <tr className={css.delegateRow}>
             <th>
-              <Icon className={css.iconLabel} size={12} name="warning-sign" color={Color.ORANGE_500} />
-              {getString('delegate.DelegateName')}
+              {isExecutionCompletedWithBadState(step.status) && (
+                <Icon className={css.iconLabel} size={12} name="warning-sign" color={Color.ORANGE_500} />
+              )}
+              {getString('delegate.delegates')}
             </th>
             <td>
               <Layout.Vertical spacing="xsmall">
-                {taskList.map((item, index) => (
-                  <div key={`${item.taskId}-${index}`}>
-                    <Text font={{ size: 'small', weight: 'bold' }} color={Color.ORANGE_500}>
-                      <String stringID="common.noDelegateForTask" vars={{ taskName: item.taskName }} useRichText />
-                    </Text>{' '}
-                    (
-                    <Text
-                      font={{ size: 'small' }}
-                      onClick={() =>
-                        openDelegateSelectionLogsModal({
-                          taskId: item.taskId as string,
-                          taskName: item.taskName as string
-                        })
-                      }
-                      style={{ cursor: 'pointer' }}
-                      color={Color.PRIMARY_7}
-                    >
-                      {getString('common.logs.delegateSelectionLogs')}
-                    </Text>
+                {step.delegateInfoList &&
+                  step.delegateInfoList.length > 0 &&
+                  step.delegateInfoList.map((item, index) => (
+                    <div key={`${item.id}-${index}`}>
+                      <Text font={{ size: 'small', weight: 'bold' }}>
+                        <String
+                          stringID="common.delegateForTask"
+                          vars={{ delegate: item.name, taskName: item.taskName }}
+                          useRichText
+                        />
+                      </Text>{' '}
+                      (
+                      <Text
+                        font={{ size: 'small' }}
+                        onClick={() =>
+                          openDelegateSelectionLogsModal({
+                            taskId: item.taskId as string,
+                            taskName: item.taskName as string,
+                            delegateName: item.name as string
+                          })
+                        }
+                        style={{ cursor: 'pointer' }}
+                        color={Color.PRIMARY_7}
+                      >
+                        {getString('common.logs.delegateSelectionLogs')}
+                      </Text>
+                      )
+                    </div>
+                  ))}
+                {taskList &&
+                  taskList.length > 0 &&
+                  taskList.map((item, index) =>
+                    delegateListContainsTask(step.delegateInfoList, item.taskId) ? null : (
+                      <div key={`${item.taskId}-${index}`}>
+                        <Text font={{ size: 'small', weight: 'bold' }} color={Color.ORANGE_500}>
+                          <String stringID="common.noDelegateForTask" vars={{ taskName: item.taskName }} useRichText />
+                        </Text>{' '}
+                        (
+                        <Text
+                          font={{ size: 'small' }}
+                          onClick={() =>
+                            openDelegateSelectionLogsModal({
+                              taskId: item.taskId as string,
+                              taskName: item.taskName as string
+                            })
+                          }
+                          style={{ cursor: 'pointer' }}
+                          color={Color.PRIMARY_7}
+                        >
+                          {getString('common.logs.delegateSelectionLogs')}
+                        </Text>
+                        )
+                      </div>
                     )
-                  </div>
-                ))}
+                  )}
               </Layout.Vertical>
             </td>
           </tr>
-        ) : null}
+        )}
         {/* TODO - this will be moved to step level once the support is added in pipeline factory */}
         {step.stepType === StepType.Verify &&
           deploymentTag &&
