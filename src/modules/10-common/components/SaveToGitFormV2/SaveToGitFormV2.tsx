@@ -229,7 +229,6 @@ const SaveToGitFormV2: React.FC<ModalConfigureProps & SaveToGitFormV2Props> = pr
                         large
                         onChange={() => handleBranchTypeChange(true, formik)}
                         checked={isNewBranch}
-                        disabled={resource.type === 'InputSets'}
                       >
                         <Icon name="git-new-branch" color={Color.GREY_700}></Icon>
                         <Text inline margin={{ left: 'small' }}>

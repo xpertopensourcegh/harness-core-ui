@@ -548,7 +548,11 @@ export function PipelineCanvas({
   function onCloseRunPipelineModal(): void {
     closeRunPipelineModal()
     setInputSetYaml('')
-    replaceQueryParams({ repoIdentifier: repoIdentifier, branch: branch }, { skipNulls: true }, true)
+    replaceQueryParams(
+      { repoIdentifier: repoIdentifier, branch: branch, connectorRef, storeType, repoName },
+      { skipNulls: true },
+      true
+    )
   }
 
   React.useEffect(() => {
