@@ -118,27 +118,33 @@ function AttachPathYamlFlow({
   if (ManifestToPathMap[manifestType]) {
     return (
       <section className={css.valuesList}>
-        {valuesPaths?.map((valuesPathValue: string, index: number) => (
-          <section className={css.valuesListItem} key={`${valuesPathValue}-${index}`}>
-            <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
-              <Layout.Horizontal>
-                <Text inline lineClamp={1} width={25}>
-                  {index + 1}.
-                </Text>
-                <Icon name="valuesFIle" inline padding={{ right: 'medium' }} size={24} />
-                <Text lineClamp={1} inline>
-                  {valuesPathValue}
-                </Text>
-              </Layout.Horizontal>
+        {getMultiTypeFromValue(valuesPaths) === MultiTypeInputType.FIXED &&
+          valuesPaths?.map((valuesPathValue: string, index: number) => (
+            <section className={css.valuesListItem} key={`${valuesPathValue}-${index}`}>
+              <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+                <Layout.Horizontal>
+                  <Text inline lineClamp={1} width={25}>
+                    {index + 1}.
+                  </Text>
+                  <Icon name="valuesFIle" inline padding={{ right: 'medium' }} size={24} />
+                  <Text lineClamp={1} inline>
+                    {valuesPathValue}
+                  </Text>
+                </Layout.Horizontal>
 
-              {!isReadonly && (
-                <span>
-                  <Button iconProps={{ size: 18 }} icon="main-trash" onClick={() => removeValuesYaml(index)} minimal />
-                </span>
-              )}
-            </Layout.Horizontal>
-          </section>
-        ))}
+                {!isReadonly && (
+                  <span>
+                    <Button
+                      iconProps={{ size: 18 }}
+                      icon="main-trash"
+                      onClick={() => removeValuesYaml(index)}
+                      minimal
+                    />
+                  </span>
+                )}
+              </Layout.Horizontal>
+            </section>
+          ))}
         {!isReadonly && (
           <Button
             className={css.addValuesYaml}

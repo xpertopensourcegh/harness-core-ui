@@ -200,6 +200,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         setSelectedDeploymentType(serviceInfo.type as ServiceDeploymentType)
         setIsReadOnlyView(true)
       }
+    } else {
+      //If old service entity is selected back, the readonly view should be false and deployment type should be unselected
+      setIsReadOnlyView(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedServiceResponse])
