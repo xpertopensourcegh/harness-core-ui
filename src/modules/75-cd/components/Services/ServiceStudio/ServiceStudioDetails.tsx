@@ -143,7 +143,7 @@ function ServiceStudioDetails(props: ServiceStudioDetailsProps): React.ReactElem
           />
 
           <Tab id={ServiceTabs.REFERENCED_BY} title={getString('refrencedBy')} panel={props.refercedByPanel} />
-          <Tab id={ServiceTabs.ActivityLog} title={getString('activityLog')} panel={<></>} />
+          {/* <Tab id={ServiceTabs.ActivityLog} title={getString('activityLog')} panel={<></>} /> */}
         </Tabs>
         {selectedTabId === ServiceTabs.Configuration && (
           <Layout.Horizontal className={css.btnContainer}>
