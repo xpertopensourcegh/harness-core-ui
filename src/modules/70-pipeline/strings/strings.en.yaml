@@ -9,7 +9,7 @@ stepLabel: '{{name}} (Id: {{identifier}})'
 enableVerificationOptions: Enable verification options
 openInPipelineStudio: Open in Pipeline Studio
 closeStepConfig: Step Config
-stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
+stepConfigHasChanges: Form has some unsaved changes, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details
 stageVariables: Stage Variables
