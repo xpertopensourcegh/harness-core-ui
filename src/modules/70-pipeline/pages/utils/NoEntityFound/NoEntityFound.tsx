@@ -137,7 +137,7 @@ function NoEntityFound(props: NoEntityFoundProps): JSX.Element {
             connectorRef={connectorRef}
             repoName={repoName}
             branch={branch}
-            flags={{ borderless: false, showRepo: false, normalInputStyle: true }}
+            flags={{ borderless: false, showRepo: false, normalInputStyle: true, fallbackDefaultBranch: true }}
             onBranchChange={onGitBranchChange}
           />
         )}
