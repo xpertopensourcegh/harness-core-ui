@@ -7,13 +7,12 @@
 
 import React from 'react'
 import { isEqual } from 'lodash-es'
-// eslint-disable-next-line
 import { ConfigurationsWithRef } from '@cv/pages/monitored-service/components/Configurations/Configurations'
-// eslint-disable-next-line
 import type { MonitoredServiceForm } from '@cv/pages/monitored-service/components/Configurations/components/Service/Service.types'
 import type { JsonNode } from 'services/template-ng'
-import { TemplateContext } from '../TemplateContext/TemplateContext'
-import type { TemplateFormRef } from '../TemplateStudio'
+import { MonitoredServiceProvider } from '@cv/pages/monitored-service/MonitoredServiceContext'
+import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
+import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 
 const MonitoredServiceTemplateCanvas = (_props: unknown, formikRef: TemplateFormRef) => {
   const { state, updateTemplate } = React.useContext(TemplateContext)
@@ -37,7 +36,9 @@ const MonitoredServiceTemplateCanvas = (_props: unknown, formikRef: TemplateForm
   }
 
   return (
-    <ConfigurationsWithRef templateValue={state.template} isTemplate={true} ref={formikRef} updateTemplate={onUpdate} />
+    <MonitoredServiceProvider isTemplate>
+      <ConfigurationsWithRef templateValue={state.template} ref={formikRef} updateTemplate={onUpdate} />
+    </MonitoredServiceProvider>
   )
 }
 

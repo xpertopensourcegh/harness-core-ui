@@ -819,6 +819,7 @@ customHealthSource:
   addGroupNameTitle: Add New Custom Health Group Name
   customHealthMetric: Custom Health Metrics
   customHealthLog: Custom Health Log
+  chartRuntimeWarning: Runtime inputs will be required to verify your configurations
   Querymapping:
     title: Query specifications and mapping
     jsonPathTitle: JSON path selection

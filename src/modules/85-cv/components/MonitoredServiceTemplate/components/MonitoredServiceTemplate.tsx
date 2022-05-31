@@ -10,7 +10,7 @@ import { Color } from '@harness/design-system'
 import { Template, TemplateProps } from '@templates-library/components/AbstractTemplate/Template'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import type { NGTemplateInfoConfig } from 'services/template-ng'
-import { MonitoredTemplateCanvasWithRef } from '@templates-library/components/TemplateStudio/MonitoredServiceTemplateCanvas/MonitoredServiceTemplateCanvas'
+import { MonitoredTemplateCanvasWithRef } from './MonitoredServiceTemplateCanvas'
 
 export class MonitoredServiceTemplate extends Template<NGTemplateInfoConfig> {
   protected type = TemplateType.MonitoredService

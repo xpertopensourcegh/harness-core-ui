@@ -11,10 +11,9 @@ import { Container, Button } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
-import { MonitoredServiceTemplate } from '@templates-library/components/Templates/MonitoredServiceTemplate/MonitoredServiceTemplate'
+import { getTemplateContextMock } from '@templates-library/components/TemplateStudio/__tests__/stateMock'
 import { MonitoredTemplateCanvasWithRef } from '../MonitoredServiceTemplateCanvas'
-
-import { getTemplateContextMock } from '../../__tests__/stateMock'
+import { MonitoredServiceTemplate } from '../MonitoredServiceTemplate'
 
 const stepTemplateContextMock = getTemplateContextMock(TemplateType.MonitoredService)
 

@@ -5480,6 +5480,7 @@ export interface StringsMap {
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
   'cv.customHealthSource.addGroupNameTitle': string
+  'cv.customHealthSource.chartRuntimeWarning': string
   'cv.customHealthSource.customHealthLog': string
   'cv.customHealthSource.customHealthMetric': string
   'cv.customHealthSource.fetchRecordsButton': string
