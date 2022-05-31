@@ -183,6 +183,7 @@ export interface ApiCallLogDTOField {
   name?: string
   type?: 'JSON' | 'XML' | 'NUMBER' | 'URL' | 'TEXT' | 'TIMESTAMP'
   value?: string
+  tags?: string
 }
 
 export interface AppDMetricDefinitions {
