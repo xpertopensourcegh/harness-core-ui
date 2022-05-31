@@ -6017,6 +6017,7 @@ export interface StringsMap {
   'cv.showingLogs': string
   'cv.showingLogsFor': string
   'cv.sliMissingDataTypeIsRequired': string
+  'cv.sloGraphUserHint': string
   'cv.sloRecalculationInProgress': string
   'cv.slos.backToSLI': string
   'cv.slos.configureSLIQueries': string
@@ -6087,6 +6088,7 @@ export interface StringsMap {
   'cv.slos.userJourneyPlaceholder': string
   'cv.slos.validations.healthSourceRequired': string
   'cv.slos.validations.nameValidation': string
+  'cv.slos.validations.specialCharacters': string
   'cv.slos.validations.userJourneyRequired': string
   'cv.somethingWentWrongWhileParsingTheData': string
   'cv.statusCode': string
