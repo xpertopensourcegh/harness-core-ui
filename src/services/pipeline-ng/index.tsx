@@ -774,6 +774,7 @@ export interface ExecutionInfo {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
@@ -783,11 +784,13 @@ export interface ExecutionInfo {
 }
 
 export interface ExecutionInputDTO {
+  inputInstanceId?: string
   inputTemplate?: string
   nodeExecutionId?: string
 }
 
 export interface ExecutionInputStatus {
+  inputInstanceId?: string
   nodeExecutionId?: string
   status?: 'Failed' | 'Success'
 }
@@ -839,6 +842,7 @@ export interface ExecutionNode {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
@@ -1371,6 +1375,7 @@ export interface GraphLayoutNode {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
@@ -1965,6 +1970,7 @@ export type PipelineExecutionFilterProperties = FilterProperties & {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
@@ -1987,6 +1993,7 @@ export interface PipelineExecutionSummary {
   executionErrorInfo?: ExecutionErrorInfo
   executionTriggerInfo?: ExecutionTriggerInfo
   failedStagesCount?: number
+  failureInfo?: FailureInfoDTO
   gitDetails?: EntityGitDetails
   governanceMetadata?: GovernanceMetadata
   layoutNodeMap?: {
@@ -2033,6 +2040,7 @@ export interface PipelineExecutionSummary {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
@@ -2136,6 +2144,7 @@ export interface PlanExecution {
     | 'APPROVAL_WAITING'
     | 'RESOURCE_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'INPUT_WAITING'
     | 'UNRECOGNIZED'
   uuid?: string
   validUntil?: string
@@ -3182,6 +3191,7 @@ export interface RetryStageInfo {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
@@ -3599,6 +3609,7 @@ export interface ExecutionSummaryInfo {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
@@ -8017,6 +8028,7 @@ export interface GetListOfExecutionsQueryParams {
     | 'Skipped'
     | 'Pausing'
     | 'ApprovalRejected'
+    | 'InputWaiting'
     | 'NOT_STARTED'
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
