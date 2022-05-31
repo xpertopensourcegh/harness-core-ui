@@ -277,10 +277,12 @@ export function SavePipelinePopover({
       if ((response as any)?.metadata?.schemaErrors?.length) {
         setUpdatePipelineAPIResponse(response)
         showErrorModal()
-        if (isGitSyncEnabled || currStoreMetadata?.storeType == StoreType.REMOTE) {
+        if (isGitSyncEnabled || currStoreMetadata?.storeType === StoreType.REMOTE) {
           // isGitSyncEnabled true
           throw { code: SCHEMA_VALIDATION_FAILED }
         }
+      } else if (isGitSyncEnabled || currStoreMetadata?.storeType === StoreType.REMOTE) {
+        throw response
       } else {
         showError(
           getRBACErrorMessage({ data: response as AccessControlCheckError }) || getString('errorWhileSaving'),

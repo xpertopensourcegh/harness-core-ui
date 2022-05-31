@@ -331,6 +331,10 @@ const getTemplateType = (pipeline: PipelineInfoConfig, queryParams: GetPipelineQ
   )
 }
 
+const getRepoIdentifierName = (gitDetails?: EntityGitDetails) => {
+  return gitDetails?.repoIdentifier || gitDetails?.repoName || ''
+}
+
 const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipelineUnboundProps): Promise<void> => {
   const { dispatch, queryParams, pipelineIdentifier: identifier, gitDetails } = props
   const { forceFetch = false, forceUpdate = false, newPipelineId, signal, repoIdentifier, branch } = params
@@ -380,7 +384,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
       defaultTo(queryParams.orgIdentifier, ''),
       defaultTo(queryParams.projectIdentifier, ''),
       pipelineId,
-      defaultTo(gitDetails.repoIdentifier, defaultTo(pipelineWithGitDetails?.gitDetails?.repoIdentifier, '')),
+      defaultTo(gitDetails.repoIdentifier, getRepoIdentifierName(pipelineWithGitDetails.gitDetails)),
       defaultTo(gitDetails.branch, defaultTo(pipelineWithGitDetails?.gitDetails?.branch, ''))
     )
 
@@ -394,16 +398,19 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
       'gitDetails',
       'entityValidityDetails',
       'repo',
-      'branch'
+      'branch',
+      'connectorRef',
+      'filePath'
     )
     const payload: PipelinePayload = {
       [KeyPath]: id,
       pipeline,
       originalPipeline: cloneDeep(pipeline),
       isUpdated: false,
-      gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
-        ? pipelineWithGitDetails.gitDetails
-        : data?.gitDetails ?? {},
+      gitDetails:
+        pipelineWithGitDetails?.gitDetails?.objectId || pipelineWithGitDetails?.gitDetails?.commitId
+          ? pipelineWithGitDetails.gitDetails
+          : data?.gitDetails ?? {},
       entityValidityDetails: defaultTo(
         pipelineWithGitDetails?.entityValidityDetails,
         defaultTo(data?.entityValidityDetails, {})
@@ -427,9 +434,10 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           originalPipeline: cloneDeep(pipeline),
           isBEPipelineUpdated: !isEqual(pipeline, data.originalPipeline),
           isUpdated: !isEqual(pipeline, data.pipeline),
-          gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
-            ? pipelineWithGitDetails.gitDetails
-            : defaultTo(data?.gitDetails, {}),
+          gitDetails:
+            pipelineWithGitDetails?.gitDetails?.objectId || pipelineWithGitDetails?.gitDetails?.commitId
+              ? pipelineWithGitDetails.gitDetails
+              : defaultTo(data?.gitDetails, {}),
           templateTypes,
           entityValidityDetails: defaultTo(
             pipelineWithGitDetails?.entityValidityDetails,
@@ -562,7 +570,7 @@ const _updateStoreMetadata = async (
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
     identifier,
-    gitDetails.repoIdentifier || gitDetails.repoName || '',
+    getRepoIdentifierName(gitDetails),
     gitDetails.branch || ''
   )
   const isUpdated = !isEqual(originalPipeline, pipeline)
