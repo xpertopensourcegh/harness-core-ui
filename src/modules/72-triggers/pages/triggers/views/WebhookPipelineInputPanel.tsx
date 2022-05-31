@@ -236,7 +236,7 @@ function WebhookPipelineInputPanelForm({
   useEffect(() => {
     const shouldInjectCloneCodebase = isCloneCodebaseEnabledAtLeastOneStage(resolvedPipeline)
 
-    if (!hasEverRendered && shouldInjectCloneCodebase && !isEdit) {
+    if (!gitAwareForTriggerEnabled && !hasEverRendered && shouldInjectCloneCodebase && !isEdit) {
       const formikValues = cloneDeep(formikProps.values)
       const isPipelineFromTemplate = !!formikValues?.pipeline?.template
       const newPipelineObject = getPipelineWithInjectedWithCloneCodebase({
@@ -245,13 +245,16 @@ function WebhookPipelineInputPanelForm({
         isPipelineFromTemplate
       })
 
-      formikValues.pipeline = mergeTemplateWithInputSetData({
+      const mergedPipeline = mergeTemplateWithInputSetData({
         inputSetPortion: { pipeline: newPipelineObject },
         templatePipeline: { pipeline: newPipelineObject },
         allValues: { pipeline: resolvedPipeline },
         shouldUseDefaultValues: triggerIdentifier === 'new'
       })
-      formikProps.setValues(formikValues)
+      formikProps.setValues({
+        ...formikValues,
+        pipeline: mergedPipeline.pipeline
+      })
     }
 
     setHasEverRendered(true)
@@ -262,7 +265,8 @@ function WebhookPipelineInputPanelForm({
     resolvedPipeline?.stages,
     resolvedPipeline,
     triggerIdentifier,
-    isEdit
+    isEdit,
+    gitAwareForTriggerEnabled
   ])
 
   const inputSetQueryParams = useMemo(

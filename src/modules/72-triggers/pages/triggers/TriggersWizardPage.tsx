@@ -252,7 +252,9 @@ const getArtifactManifestTriggerYaml = ({
     selectedArtifact,
     stageId,
     manifestType: onEditManifestType,
-    artifactType
+    artifactType,
+    pipelineBranchName = DEFAULT_TRIGGER_BRANCH,
+    inputSetRefs
   } = val
 
   replaceRunTimeVariables({ manifestType, artifactType, selectedArtifact })
@@ -355,7 +357,9 @@ const getArtifactManifestTriggerYaml = ({
         ...artifactSourceSpec
       }
     },
-    inputYaml: stringifyPipelineRuntimeInput
+    inputYaml: stringifyPipelineRuntimeInput,
+    pipelineBranchName: _gitAwareForTriggerEnabled ? pipelineBranchName : null,
+    inputSetRefs: _gitAwareForTriggerEnabled ? inputSetRefs : null
   }
   if (artifactType) {
     if (triggerYaml?.source?.spec && Object.getOwnPropertyDescriptor(triggerYaml?.source?.spec, 'manifestRef')) {
@@ -396,7 +400,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     artifactType
   } = queryParamsOnNew || {}
 
-  const { data: template } = useMutateAsGet(useGetTemplateFromPipeline, {
+  const { data: template, loading: fetchingTemplate } = useMutateAsGet(useGetTemplateFromPipeline, {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -409,7 +413,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   })
 
   const { data: triggerResponse, loading: loadingGetTrigger } = useGetTrigger({
-    // const { data: triggerResponse, refetch: getTriggerDetails, loading: loadingGetTrigger } = useGetTrigger({
     triggerIdentifier,
     queryParams: {
       accountIdentifier: accountId,
@@ -510,7 +513,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       return { trigger: res }
     } else if (values.triggerType === TriggerTypes.SCHEDULE) {
       const res = getScheduleTriggerYaml({ values })
-
+      if (gitAwareForTriggerEnabled) {
+        delete res.inputYaml
+      }
       return { trigger: res }
     } else if (values.triggerType === TriggerTypes.MANIFEST || values.triggerType === TriggerTypes.ARTIFACT) {
       const res = getArtifactManifestTriggerYaml({
@@ -523,7 +528,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipelineIdentifier,
         gitAwareForTriggerEnabled
       })
-
+      if (gitAwareForTriggerEnabled) {
+        delete res.inputYaml
+      }
       return { trigger: res }
     }
   }
@@ -545,7 +552,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: PipelineInfoConfig } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
   const [artifactManifestType, setArtifactManifestType] = useState<string | undefined>(undefined)
-  const [mergedPipelineKey, setMergedPipelineKey] = useState<number>(0)
+  const [isMergedPipelineReady, setIsMergedPipelineReady] = useState<boolean>(false)
 
   const [onEditInitialValues, setOnEditInitialValues] = useState<
     | FlatOnEditValuesInterface
@@ -582,40 +589,54 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     (pipelineResponse?.data?.resolvedTemplatesPipelineYaml as any) || ''
   )?.pipeline
 
+  const shouldRenderWizard = useMemo(() => {
+    return !loadingGetTrigger && !fetchingTemplate
+  }, [loadingGetTrigger, fetchingTemplate])
+
   useDeepCompareEffect(() => {
-    if (onEditInitialValues?.pipeline && template?.data?.inputSetTemplateYaml && mergedPipelineKey < 1) {
-      let newOnEditPipeline = merge(
-        parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-        onEditInitialValues.pipeline || {}
-      )
+    if (shouldRenderWizard && template?.data?.inputSetTemplateYaml !== undefined) {
+      if (onEditInitialValues?.pipeline && !isMergedPipelineReady) {
+        let newOnEditPipeline = merge(
+          parse(template?.data?.inputSetTemplateYaml)?.pipeline,
+          onEditInitialValues.pipeline || {}
+        )
 
-      /*this check is needed as when trigger is already present with 1 stage and then tries to add parallel stage,
+        /*this check is needed as when trigger is already present with 1 stage and then tries to add parallel stage,
       we need to have correct yaml with both stages as a part of parallel*/
-      if (
-        newOnEditPipeline?.stages?.some((stages: { stage: any; parallel: any }) => stages?.stage && stages?.parallel)
-      ) {
-        openDialog() // give warning to update trigger
-        newOnEditPipeline = parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
-      }
+        if (
+          newOnEditPipeline?.stages?.some((stages: { stage: any; parallel: any }) => stages?.stage && stages?.parallel)
+        ) {
+          openDialog() // give warning to update trigger
+          newOnEditPipeline = parse(template?.data?.inputSetTemplateYaml)?.pipeline
+        }
 
-      const newPipeline = clearRuntimeInput(newOnEditPipeline)
-      setOnEditInitialValues({
-        ...onEditInitialValues,
-        pipeline: newPipeline as unknown as PipelineInfoConfig
-      })
-      setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
-      setMergedPipelineKey(1)
-    } else if (template?.data?.inputSetTemplateYaml) {
-      const inpuSet = clearRuntimeInput(memoizedParse<Pipeline>(template?.data?.inputSetTemplateYaml || '').pipeline)
-      const newPipeline = mergeTemplateWithInputSetData({
-        inputSetPortion: { pipeline: inpuSet },
-        templatePipeline: { pipeline: inpuSet },
-        allValues: { pipeline: defaultTo(resolvedPipeline, {} as PipelineInfoConfig) },
-        shouldUseDefaultValues: true
-      })
-      setCurrentPipeline(newPipeline)
+        const newPipeline = clearRuntimeInput(newOnEditPipeline)
+        setOnEditInitialValues({
+          ...onEditInitialValues,
+          pipeline: newPipeline as unknown as PipelineInfoConfig
+        })
+        if (!isMergedPipelineReady) {
+          setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
+          setIsMergedPipelineReady(true)
+        }
+      } else if (!isMergedPipelineReady) {
+        const inpuSet = clearRuntimeInput(memoizedParse<Pipeline>(template?.data?.inputSetTemplateYaml).pipeline)
+        const newPipeline = mergeTemplateWithInputSetData({
+          inputSetPortion: { pipeline: inpuSet },
+          templatePipeline: { pipeline: inpuSet },
+          allValues: { pipeline: defaultTo(resolvedPipeline, {} as PipelineInfoConfig) },
+          shouldUseDefaultValues: true
+        })
+        setCurrentPipeline(newPipeline)
+      }
     }
-  }, [template?.data?.inputSetTemplateYaml, onEditInitialValues?.pipeline, resolvedPipeline])
+  }, [
+    template?.data?.inputSetTemplateYaml,
+    onEditInitialValues?.pipeline,
+    resolvedPipeline,
+    fetchingTemplate,
+    loadingGetTrigger
+  ])
 
   useEffect(() => {
     if (triggerResponse?.data?.enabled === false) {
@@ -1102,6 +1123,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           description,
           tags,
           inputYaml,
+          pipelineBranchName = DEFAULT_TRIGGER_BRANCH,
+          inputSetRefs = [],
           source: {
             spec: {
               spec: { expression }
@@ -1140,6 +1163,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipeline: pipelineJson,
         triggerType: TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
         expression,
+        pipelineBranchName,
+        inputSetRefs,
         ...newExpressionBreakdown,
         selectedScheduleTab: scheduleTabsId.CUSTOM // only show CUSTOM on edit
       }
@@ -1167,6 +1192,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           description,
           tags,
           inputYaml,
+          pipelineBranchName = DEFAULT_TRIGGER_BRANCH,
+          inputSetRefs = [],
           source: { type },
           source
         }
@@ -1236,6 +1263,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         manifestType: selectedArtifact?.type,
         stageId: source?.spec?.stageIdentifier,
         inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
+        pipelineBranchName,
+        inputSetRefs,
         selectedArtifact,
         versionValue,
         versionOperator,
@@ -1268,7 +1297,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       tags,
       pipeline: pipelineRuntimeInput,
       triggerType: formikValueTriggerType,
-      expression
+      expression,
+      pipelineBranchName = DEFAULT_TRIGGER_BRANCH,
+      inputSetRefs
     } = val
 
     // actions will be required thru validation
@@ -1293,7 +1324,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           }
         }
       },
-      inputYaml: stringifyPipelineRuntimeInput
+      inputYaml: stringifyPipelineRuntimeInput,
+      pipelineBranchName: gitAwareForTriggerEnabled ? pipelineBranchName : undefined,
+      inputSetRefs: gitAwareForTriggerEnabled ? inputSetRefs : undefined
     })
   }
 
@@ -1523,6 +1556,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipeline: newPipeline,
         originalPipeline,
         resolvedPipeline,
+        pipelineBranchName: DEFAULT_TRIGGER_BRANCH,
         ...getDefaultExpressionBreakdownValues(scheduleTabsId.MINUTES)
       }
     } else if (isArtifactOrManifestTrigger(triggerType)) {
@@ -1538,6 +1572,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         originalPipeline,
         resolvedPipeline,
         inputSetTemplateYamlObj,
+        pipelineBranchName: DEFAULT_TRIGGER_BRANCH,
         selectedArtifact: {}
       }
     }
@@ -1911,7 +1946,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         wizardType="webhook"
         // defaultTabId="Schedule"
         submitLabel={isEdit ? getString('triggers.updateTrigger') : getString('triggers.createTrigger')}
-        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
+        disableSubmit={
+          loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled || fetchingTemplate
+        }
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
         visualYamlProps={{
@@ -1962,7 +1999,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onHide={returnToTriggersPage}
         submitLabel={isEdit ? getString('triggers.updateTrigger') : getString('triggers.createTrigger')}
         wizardType="artifacts"
-        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
+        disableSubmit={
+          loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled || fetchingTemplate
+        }
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
         visualYamlProps={{
@@ -1981,7 +2020,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       >
         <ArtifactTriggerConfigPanel />
         <ArtifactConditionsPanel />
-        <WebhookPipelineInputPanel />
+        <WebhookPipelineInputPanel gitAwareForTriggerEnabled={gitAwareForTriggerEnabled} />
       </Wizard>
     )
   }
@@ -2009,7 +2048,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onHide={returnToTriggersPage}
         // defaultTabId="Conditions"
         submitLabel={isEdit ? getString('triggers.updateTrigger') : getString('triggers.createTrigger')}
-        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
+        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || fetchingTemplate}
         isEdit={isEdit}
         wizardType="scheduled"
         errorToasterMessage={errorToasterMessage}
@@ -2028,7 +2067,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       >
         <TriggerOverviewPanel />
         <SchedulePanel />
-        <WebhookPipelineInputPanel />
+        <WebhookPipelineInputPanel gitAwareForTriggerEnabled={gitAwareForTriggerEnabled} />
       </Wizard>
     )
   }
@@ -2036,7 +2075,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   if (
     initialValues?.triggerType &&
     !Object.values(TriggerTypes).includes(initialValues.triggerType) &&
-    !loadingGetTrigger
+    shouldRenderWizard
   ) {
     return (
       <Layout.Vertical spacing="medium" padding="medium">
@@ -2047,17 +2086,17 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     )
   }
 
-  return triggerIdentifier && !wizardMap ? (
+  return triggerIdentifier && !wizardMap && shouldRenderWizard ? (
     <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
       <PageSpinner />
     </div>
   ) : (
     <>
       <Page.Body>
-        {!loadingGetTrigger && initialValues.triggerType === TriggerTypes.WEBHOOK && renderWebhookWizard()}
-        {!loadingGetTrigger && initialValues.triggerType === TriggerTypes.SCHEDULE && renderScheduleWizard()}
+        {shouldRenderWizard && initialValues.triggerType === TriggerTypes.WEBHOOK && renderWebhookWizard()}
+        {shouldRenderWizard && initialValues.triggerType === TriggerTypes.SCHEDULE && renderScheduleWizard()}
 
-        {!loadingGetTrigger && isArtifactOrManifestTrigger(initialValues.triggerType) && renderArtifactWizard()}
+        {shouldRenderWizard && isArtifactOrManifestTrigger(initialValues.triggerType) && renderArtifactWizard()}
       </Page.Body>
     </>
   )
