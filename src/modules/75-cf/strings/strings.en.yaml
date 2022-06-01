@@ -243,6 +243,13 @@ featureFlags:
     totalEvaluations: Total Evaluations
 featureFlagDetail:
   variationCount: '{{ count }} variations'
+flagFilters:
+  active: Active Flags
+  allFlags: All Flags
+  enabled: Enabled Flags
+  last24: Changed Last 24 Hours
+  permanent: Permanent
+  potentiallyStale: Potentially Stale
 targets:
   ID: '{{ $.common.ID }}'
   name: name

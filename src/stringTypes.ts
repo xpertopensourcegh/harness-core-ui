@@ -4904,6 +4904,12 @@ export interface StringsMap {
   'cf.featureFlags.turnOnMessage': string
   'cf.featureFlags.typeOfFlag': string
   'cf.featureNotReady': string
+  'cf.flagFilters.active': string
+  'cf.flagFilters.allFlags': string
+  'cf.flagFilters.enabled': string
+  'cf.flagFilters.last24': string
+  'cf.flagFilters.permanent': string
+  'cf.flagFilters.potentiallyStale': string
   'cf.gitSync.autoCommitLabel': string
   'cf.gitSync.autoCommitMsg': string
   'cf.gitSync.autoCommitStatusLabel': string
