@@ -34,7 +34,6 @@
     .connectorName {
       display: inline-flex;
       color: var(--grey-500);
-      margin-right: var(--spacing-small);
       max-width: 236px;
       text-overflow: ellipsis;
     }
@@ -46,7 +45,8 @@
     padding-top: var(--spacing-small);
     .valuesPathList {
       display: grid;
-      grid-template-columns: 420px 1fr 80px;
+      grid-template-columns: 380px 1fr 80px;
+      column-gap: var(--spacing-8);
       align-items: center;
     }
   }
@@ -67,7 +67,8 @@
 
 .manifestList {
   display: grid;
-  grid-template-columns: 200px 250px 250px minmax(10px, 1fr) 80px;
+  grid-template-columns: 180px 230px 230px minmax(10px, 1fr) 80px;
+  column-gap: var(--spacing-medium);
   align-items: center;
   &.list-header {
     border-bottom: solid 1px var(--grey-100);
