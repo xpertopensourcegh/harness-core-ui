@@ -3301,6 +3301,7 @@ export interface StringsMap {
   'pipeline.testsReports.willBeDisplayedIfAvailable': string
   'pipeline.timeRemainingSuffix': string
   'pipeline.uniqueIdentifier': string
+  'pipeline.uniqueName': string
   'pipeline.unsupportedImagesWarning': string
   'pipeline.utilitiesStep.assertion': string
   'pipeline.utilitiesStep.requestBody': string

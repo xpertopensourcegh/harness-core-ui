@@ -240,8 +240,8 @@ manifestType:
   bitBucketLabel: 'Bitbucket'
   InheritFromManifest: 'Inherit From Manifest'
   httpHelmRepoConnectorLabel: 'HTTP Helm'
-  manifestIdentifier: Manifest Identifier
-  manifestPlaceholder: Enter Manifest Identifier
+  manifestIdentifier: Manifest Name
+  manifestPlaceholder: Enter Manifest Name
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
@@ -610,6 +610,7 @@ testsReports:
     addRunTestsStep: Add 'Run Tests step' to your Pipeline
     requiresEnterprisePlan: Requires Enterprise Plan to access Test Intelligence
 uniqueIdentifier: Identifier must be unique
+uniqueName: Name must be unique
 inputSets:
   inputSetNameLabel: Input Set Name
   applyInputSet: Apply Input Set
