@@ -916,15 +916,13 @@ function ExecutionGraphRef<T extends StageElementConfig>(
       applyExistingStates(newStateMap, state.states)
       if (hasDependencies && (stageCloneRef.current?.stage as BuildStageElementConfig)?.spec?.serviceDependencies) {
         getDependenciesState(
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          (stageCloneRef.current.stage as BuildStageElementConfig).spec!.serviceDependencies!,
+          (stageCloneRef.current.stage as BuildStageElementConfig)?.spec?.serviceDependencies as any,
           newStateMap
         )
         applyExistingStates(newStateMap, state.states)
         if ((originalStage?.stage as BuildStageElementConfig)?.spec?.serviceDependencies) {
           updateDependenciesState(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            (originalStage!.stage as BuildStageElementConfig)!.spec!.serviceDependencies!,
+            (originalStage!.stage as BuildStageElementConfig)?.spec?.serviceDependencies as any,
             newStateMap
           )
         }
@@ -945,7 +943,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
       setState(prevState => ({
         ...prevState,
         stepsData: (stageCloneRef.current.stage as BuildStageElementConfig).spec?.execution as ExecutionElementConfig,
-        dependenciesData: (stageCloneRef.current.stage as BuildStageElementConfig).spec?.serviceDependencies || []
+        dependenciesData: (stageCloneRef.current.stage as BuildStageElementConfig)?.spec?.serviceDependencies as any
       }))
     }
   }, [stage, ref])

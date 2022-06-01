@@ -477,7 +477,7 @@ export function RightDrawer(): React.ReactElement {
       if (!step) {
         drawerType = DrawerTypes.ConfigureService
         // 2. search for step in serviceDependencies
-        const depStep = (selectedStage?.stage as BuildStageElementConfig)?.spec?.serviceDependencies?.find(
+        const depStep = ((selectedStage?.stage as BuildStageElementConfig)?.spec?.serviceDependencies as any)?.find(
           (item: DependencyElement) => item.identifier === selectedStepId
         )
         step = depStep
@@ -524,11 +524,11 @@ export function RightDrawer(): React.ReactElement {
         ...((item as StepElementConfig).description && { description: (item as StepElementConfig).description }),
         spec: (item as StepElementConfig).spec
       }
-      if (!(pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies?.length) {
+      if (!((pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies as any)?.length) {
         set(pipelineStage, 'stage.spec.serviceDependencies', [])
       }
       addService(
-        defaultTo((pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies, []),
+        defaultTo((pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies as any, []),
         newServiceData
       )
       if (pipelineStage.stage) {
@@ -543,9 +543,11 @@ export function RightDrawer(): React.ReactElement {
     } else if (data?.stepConfig?.addOrEdit === 'edit' && pipelineStage) {
       const node = data?.stepConfig?.node as DependencyElement
       if (node) {
-        const serviceDependency = (pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies?.find(
+        const serviceDependency = (
+          (pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies as any
+        )?.find(
           // NOTE: "node.identifier" is used as item.identifier may contain changed identifier
-          dep => dep.identifier === node.identifier
+          (dep: DependencyElement) => dep.identifier === node.identifier
         )
 
         if (serviceDependency) {

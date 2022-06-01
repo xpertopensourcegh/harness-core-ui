@@ -30,7 +30,7 @@ import { FontVariation } from '@harness/design-system'
 import cx from 'classnames'
 import { produce } from 'immer'
 import type { FormikProps } from 'formik'
-import Volumes, { VolumesInterface, VolumesTypes } from '@pipeline/components/Volumes/Volumes'
+import Volumes, { VolumesTypes } from '@pipeline/components/Volumes/Volumes'
 import MultiTypeCustomMap from '@common/components/MultiTypeCustomMap/MultiTypeCustomMap'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import {
@@ -63,7 +63,17 @@ import { MultiTypeList } from '@common/components/MultiTypeList/MultiTypeList'
 import { useHostedBuilds } from '@common/hooks/useHostedBuild'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
-import type { K8sDirectInfraYaml, UseFromStageInfraYaml, VmInfraYaml, VmPoolYaml, Infrastructure } from 'services/ci'
+import type {
+  K8sDirectInfraYaml,
+  UseFromStageInfraYaml,
+  VmInfraYaml,
+  VmPoolYaml,
+  Infrastructure,
+  CIVolume,
+  EmptyDirYaml,
+  PersistentVolumeClaimYaml,
+  HostPathYaml
+} from 'services/ci'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { k8sLabelRegex, k8sAnnotationRegex } from '@common/utils/StringUtils'
 import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
@@ -81,6 +91,7 @@ import { CIBuildInfrastructureType } from '../../../constants/Constants'
 import css from './BuildInfraSpecifications.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
+type VolumeInterface = CIVolume | EmptyDirYaml | PersistentVolumeClaimYaml | HostPathYaml
 const logger = loggerFor(ModuleName.CD)
 const k8sClusterKeyRef = 'connectors.title.k8sCluster'
 const namespaceKeyRef = 'pipelineSteps.build.infraSpecifications.namespace'
@@ -96,7 +107,7 @@ interface KubernetesBuildInfraFormValues {
   annotations?: MultiTypeMapUIType
   labels?: MultiTypeMapUIType
   priorityClassName?: string
-  volumes?: VolumesInterface
+  volumes?: VolumeInterface[]
   automountServiceAccountToken?: boolean
   privileged?: boolean
   allowPrivilegeEscalation?: boolean
@@ -531,7 +542,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             : values.tolerations
 
           const filteredVolumes = Array.isArray(values.volumes)
-            ? values.volumes.filter((volume: VolumesInterface) => volume.mountPath && volume.type)
+            ? values.volumes.filter(
+                (volume: EmptyDirYaml | PersistentVolumeClaimYaml | HostPathYaml) => volume.mountPath && volume.type
+              )
             : values.volumes
 
           const harnessImageConnectorRef =
@@ -1326,7 +1339,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                 const pattern = /^\d+(\.\d+)?$|^\d+(\.\d+)?(G|M|Gi|Mi)$|^$/
                 // invalid if size doesn't follow pattern or is an integer without units
                 const isSizeInvalid = value?.some(
-                  (volume: VolumesInterface) =>
+                  (volume: EmptyDirYaml) =>
                     volume?.spec?.size &&
                     (!pattern.test(volume.spec.size) || !isNaN(volume.spec.size as unknown as number))
                 )
@@ -1337,7 +1350,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             .test({
               test: value => {
                 const isPathMissing = value?.some(
-                  (volume: VolumesInterface) => volume.type === VolumesTypes.HostPath && !volume.spec?.path
+                  (volume: HostPathYaml) => volume.type === VolumesTypes.HostPath && !volume.spec?.path
                 )
                 return !isPathMissing
               },
@@ -1345,7 +1358,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             })
             .test({
               test: value => {
-                const isTypeMissing = value?.some((volume: VolumesInterface) => volume.mountPath && !volume.type)
+                const isTypeMissing = value?.some(
+                  (volume: EmptyDirYaml | PersistentVolumeClaimYaml | HostPathYaml) => volume.mountPath && !volume.type
+                )
                 return !isTypeMissing
               },
               message: 'Type is required'
