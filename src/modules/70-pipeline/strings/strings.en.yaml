@@ -234,7 +234,7 @@ serviceNowUpdateStep:
     applyFromTemplate: Apply from template
     updateFields: Update Fields
 manifestType:
-  attachPath: + Attach / Edit {{manifestPath}}
+  attachPath: + Attach {{manifestPath}}
   manifestTyperequired: Manifest Type is required
   gitConnectorLabel: 'Git'
   bitBucketLabel: 'Bitbucket'

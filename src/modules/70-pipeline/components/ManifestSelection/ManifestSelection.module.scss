@@ -41,14 +41,18 @@
   }
 }
 .valuesList {
-  margin: 0 36px;
-  width: 93%;
+  margin-left: 30px;
   .valuesListItem {
-    padding: var(--spacing-small);
-    background-color: var(--grey-100);
+    padding-top: var(--spacing-small);
+    .valuesPathList {
+      display: grid;
+      grid-template-columns: 420px 1fr 80px;
+      align-items: center;
+    }
   }
   .addValuesYaml {
     padding-left: 0 !important;
+    padding-top: var(--spacing-medium);
   }
 }
 .addManifest {
@@ -63,7 +67,7 @@
 
 .manifestList {
   display: grid;
-  grid-template-columns: 200px 200px 300px minmax(10px, 1fr) 80px;
+  grid-template-columns: 200px 250px 250px minmax(10px, 1fr) 80px;
   align-items: center;
   &.list-header {
     border-bottom: solid 1px var(--grey-100);

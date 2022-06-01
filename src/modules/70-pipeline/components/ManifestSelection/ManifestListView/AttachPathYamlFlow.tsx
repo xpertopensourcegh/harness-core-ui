@@ -30,6 +30,7 @@ import DragnDropPaths from '../DragnDropPaths'
 import css from '../ManifestSelection.module.scss'
 
 interface AttachPathYamlFlowType {
+  renderConnectorField: JSX.Element
   manifestType: PrimaryManifestType
   allowableTypes: MultiTypeInputType[]
   expressions: string[]
@@ -40,6 +41,7 @@ interface AttachPathYamlFlowType {
 }
 
 function AttachPathYamlFlow({
+  renderConnectorField,
   manifestType,
   valuesPaths,
   expressions,
@@ -121,28 +123,29 @@ function AttachPathYamlFlow({
         {getMultiTypeFromValue(valuesPaths) === MultiTypeInputType.FIXED &&
           valuesPaths?.map((valuesPathValue: string, index: number) => (
             <section className={css.valuesListItem} key={`${valuesPathValue}-${index}`}>
-              <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+              <div className={css.valuesPathList}>
                 <Layout.Horizontal>
                   <Text inline lineClamp={1} width={25}>
                     {index + 1}.
                   </Text>
                   <Icon name="valuesFIle" inline padding={{ right: 'medium' }} size={24} />
-                  <Text lineClamp={1} inline>
-                    {valuesPathValue}
-                  </Text>
+                  <Text lineClamp={1}>{valuesPathValue}</Text>
                 </Layout.Horizontal>
-
+                {renderConnectorField}
                 {!isReadonly && (
                   <span>
-                    <Button
-                      iconProps={{ size: 18 }}
-                      icon="main-trash"
-                      onClick={() => removeValuesYaml(index)}
-                      minimal
-                    />
+                    <Layout.Horizontal>
+                      <Button icon="Edit" iconProps={{ size: 14 }} onClick={showModal} minimal />
+                      <Button
+                        iconProps={{ size: 14 }}
+                        icon="main-trash"
+                        onClick={() => removeValuesYaml(index)}
+                        minimal
+                      />
+                    </Layout.Horizontal>
                   </span>
                 )}
-              </Layout.Horizontal>
+              </div>
             </section>
           ))}
         {!isReadonly && (
