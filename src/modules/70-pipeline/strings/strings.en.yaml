@@ -527,6 +527,8 @@ dashboards:
   successfulBuilds: Successful Builds
   pipelineHealth: Pipeline health
   totalExecutions: Total Executions
+  pipelineExecution: Pipeline Executions
+  executionsLabel: '# of Executions'
   successRate: Success Rate
   meanDuration: Mean Duration
   medianDuration: Median Duration

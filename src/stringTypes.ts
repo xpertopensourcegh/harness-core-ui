@@ -2634,6 +2634,7 @@ export interface StringsMap {
   'pipeline.dashboards.activeDeployments': string
   'pipeline.dashboards.buildExecutions': string
   'pipeline.dashboards.buildHealth': string
+  'pipeline.dashboards.executionsLabel': string
   'pipeline.dashboards.failedBuilds': string
   'pipeline.dashboards.failedDeployments': string
   'pipeline.dashboards.meanDuration': string
@@ -2646,6 +2647,7 @@ export interface StringsMap {
   'pipeline.dashboards.noRepositories': string
   'pipeline.dashboards.noWorkloads': string
   'pipeline.dashboards.pendingDeployments': string
+  'pipeline.dashboards.pipelineExecution': string
   'pipeline.dashboards.pipelineHealth': string
   'pipeline.dashboards.successRate': string
   'pipeline.dashboards.successfulBuilds': string
