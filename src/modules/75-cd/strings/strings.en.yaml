@@ -158,7 +158,7 @@ serviceDashboard:
 noEnvironment:
   title: No Environments Available
   message: Create an environment and let’s start configuring the deployment
-gitOps: GitOps
+gitOps: '{{ $.common.gitOps }}'
 addService: Add Service
 addEnvironment: Add Environment
 editIdError: 'ID: {{id}} cannot be edited'

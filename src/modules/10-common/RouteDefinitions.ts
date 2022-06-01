@@ -715,6 +715,13 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops`
   ),
+  toAccountResourcesGitOps: withAccountId(() => {
+    const path = `resources/gitops`
+    return getScopeBasedRoute({
+      scope: {},
+      path
+    })
+  }),
   toServices: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`

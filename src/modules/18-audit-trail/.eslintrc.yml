@@ -26,6 +26,7 @@ rules:
         - modules/75-ci/*
         - modules/85-cv/*
         - modules/85-sto-steps/*
+        - modules/90-gitops/*
         - '@rbac/*'
         - '@governance/*'
         - '@sto/*'
@@ -47,6 +48,7 @@ rules:
         - '@ci/*'
         - '@cv/*'
         - '@sto-steps/*'
+        - '@gitops/*'
       paths:
         - lodash
         - name: yaml

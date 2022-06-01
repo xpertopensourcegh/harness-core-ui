@@ -10,11 +10,13 @@ rules:
         - modules/75-cf/*
         - modules/85-cv/*
         - modules/85-sto-steps/*
+        - modules/90-gitops/*
         - '@cd/*'
         - '@ce/*'
         - '@cf/*'
         - '@cv/*'
         - '@sto-steps/*'
+        - '@gitops/*'
       paths:
         - lodash
         - name: yaml

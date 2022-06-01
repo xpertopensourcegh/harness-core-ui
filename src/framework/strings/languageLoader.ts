@@ -34,6 +34,7 @@ import cf from '@cf/strings/strings.en.yaml'
 import ci from '@ci/strings/strings.en.yaml'
 import cv from '@cv/strings/strings.en.yaml'
 import stoSteps from '@sto-steps/strings/strings.en.yaml'
+import gitops from '@gitops/strings/strings.en.yaml'
 
 export default function languageLoader() {
   return {
@@ -60,6 +61,7 @@ export default function languageLoader() {
     cf,
     ci,
     cv,
-    stoSteps
+    stoSteps,
+    gitops
   }
 }

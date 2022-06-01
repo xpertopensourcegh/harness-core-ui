@@ -7,6 +7,7 @@
 
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import GitOpsRoutes from '@gitops/RouteDestinations'
 import auditTrailRoutes from '@audit-trail/RouteDestinations'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
@@ -90,6 +91,7 @@ export default function RouteDestinations(): React.ReactElement {
       {CING_ENABLED ? CIRoutes.props.children : null}
       {CDNG_ENABLED ? CDRoutes.props.children : null}
       {CVNG_ENABLED ? CVRoutes.props.children : null}
+      {GitOpsRoutes.props.children}
       {SECURITY && STORoutes.props.children}
       <Route path="/account/:accountId/settings">
         <AuthSettingsRoutes />
