@@ -21,17 +21,12 @@ export default function usePercentageRolloutValidationSchema(): yup.Schema<any> 
           .object({
             variations: yup
               .array()
-              .of(
-                yup.object({
-                  weight: yup.number().integer().min(0).max(100).default(0).required()
-                })
-              )
               .test(
                 'invalidTotalError',
                 getString('cf.percentageRollout.invalidTotalError'),
                 (variations?: { weight: number }[]) =>
                   (variations || /* istanbul ignore next */ [])
-                    .map(({ weight }) => weight)
+                    .map(({ weight }) => weight || 0)
                     .reduce((total, weight) => total + weight, 0) === 100
               )
           })

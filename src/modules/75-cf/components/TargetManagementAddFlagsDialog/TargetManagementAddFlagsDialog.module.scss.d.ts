@@ -7,7 +7,7 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly body: string
-  readonly layout: string
+  readonly fieldset: string
+  readonly pagination: string
 }
 export default styles

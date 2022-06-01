@@ -8,15 +8,19 @@
 import React, { FC } from 'react'
 import { Container } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
-import { NoData } from '@cf/components/NoData/NoData'
-import imageUrl from '@cf/images/Feature_Flags_Teepee.svg'
+import flagsImageUrl from '@cf/images/Feature_Flags_Teepee.svg'
+import { NoData, NoDataProps } from './NoData'
 
-const NoSearchResults: FC = () => {
+export interface NoSearchResultsProps {
+  imageURL?: NoDataProps['imageURL']
+}
+
+const NoSearchResults: FC<NoSearchResultsProps> = ({ imageURL = flagsImageUrl }) => {
   const { getString } = useStrings()
 
   return (
     <Container height="100%" flex={{ align: 'center-center' }} data-testid="no-data-no-search-results">
-      <NoData imageURL={imageUrl} message={getString('cf.noResultMatch')} />
+      <NoData imageURL={imageURL} message={getString('cf.noResultMatch')} />
     </Container>
   )
 }

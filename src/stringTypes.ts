@@ -5068,7 +5068,6 @@ export interface StringsMap {
   'cf.rbac.targetgroup.label': string
   'cf.segmentDetail.addFlagNameToTargetGroup': string
   'cf.segmentDetail.addFlagToTargetGroup': string
-  'cf.segmentDetail.addFlags': string
   'cf.segmentDetail.addRule': string
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
@@ -5083,14 +5082,12 @@ export interface StringsMap {
   'cf.segmentDetail.includeTheFollowing': string
   'cf.segmentDetail.noConditionDefined': string
   'cf.segmentDetail.noFlags': string
-  'cf.segmentDetail.noFlagsAvailable': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
   'cf.segmentDetail.noTargetDefined': string
   'cf.segmentDetail.operator': string
   'cf.segmentDetail.removeFomFlag': string
   'cf.segmentDetail.removeRule': string
   'cf.segmentDetail.searchTarget': string
-  'cf.segmentDetail.selectVariation': string
   'cf.segmentDetail.specificTargets': string
   'cf.segmentDetail.specifyIndividualTargets': string
   'cf.segmentDetail.targetBasedOnCondition': string
@@ -5146,6 +5143,7 @@ export interface StringsMap {
   'cf.shared.true': string
   'cf.shared.variation': string
   'cf.shared.variations': string
+  'cf.targetDetail.addFlagToTarget': string
   'cf.targetDetail.addTargetToSegment': string
   'cf.targetDetail.addTargetToTargetGroup': string
   'cf.targetDetail.addToSegment': string
@@ -5177,8 +5175,11 @@ export interface StringsMap {
   'cf.targetDetail.targetSetting': string
   'cf.targetDetail.title': string
   'cf.targetManagementFlagConfiguration.addFlag': string
+  'cf.targetManagementFlagConfiguration.addFlags': string
   'cf.targetManagementFlagConfiguration.allFlagsRemoved': string
+  'cf.targetManagementFlagConfiguration.noFlagsAvailable': string
   'cf.targetManagementFlagConfiguration.removeFlag': string
+  'cf.targetManagementFlagConfiguration.selectVariation': string
   'cf.targets.ID': string
   'cf.targets.addTargets': string
   'cf.targets.addTargetsLabel': string

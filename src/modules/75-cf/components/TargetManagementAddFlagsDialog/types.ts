@@ -5,14 +5,12 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-.body {
-  overflow: auto;
-  padding: 0 var(--spacing-tiny);
-}
-
-.layout {
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: var(--spacing-small);
+export enum STATUS {
+  error = 'ERROR',
+  loading = 'LOADING',
+  initialLoading = 'INITIAL_LOADING',
+  noFlags = 'NO_FLAGS',
+  noSearchResults = 'NO_SEARCH_RESULTS',
+  ok = 'OK',
+  submitting = 'SUBMITTING'
 }

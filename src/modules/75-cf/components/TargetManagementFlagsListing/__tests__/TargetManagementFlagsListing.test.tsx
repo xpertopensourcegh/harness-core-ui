@@ -6,7 +6,9 @@
  */
 
 import React from 'react'
-import { render, RenderResult, screen } from '@testing-library/react'
+import { render, RenderResult, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { Formik } from 'formik'
 import { TestWrapper } from '@common/utils/testUtils'
 import { mockFeatures } from '@cf/pages/target-group-detail/__tests__/mocks'
 import TargetManagementFlagsListing, { TargetManagementFlagsListingProps } from '../TargetManagementFlagsListing'
@@ -14,11 +16,13 @@ import TargetManagementFlagsListing, { TargetManagementFlagsListingProps } from 
 const renderComponent = (props: Partial<TargetManagementFlagsListingProps> = {}): RenderResult =>
   render(
     <TestWrapper>
-      <TargetManagementFlagsListing flags={mockFeatures} {...props} />
+      <Formik initialValues={{ flags: {} }} onSubmit={jest.fn()}>
+        <TargetManagementFlagsListing flags={mockFeatures} {...props} />
+      </Formik>
     </TestWrapper>
   )
 
-describe('FlagsListing', () => {
+describe('TargetManagementFlagsListing', () => {
   test('it should display a row for each flag', async () => {
     renderComponent()
 
@@ -34,6 +38,9 @@ describe('FlagsListing', () => {
       renderComponent()
 
       expect(screen.queryAllByRole('checkbox')).toHaveLength(0)
+      for (const input of document.querySelectorAll('input')) {
+        expect(input).toBeEnabled()
+      }
     })
 
     test('it should display the add flag checkbox if includeAddFlagCheckbox is set', async () => {
@@ -41,23 +48,21 @@ describe('FlagsListing', () => {
 
       expect(screen.queryAllByRole('checkbox')).toHaveLength(mockFeatures.length)
     })
-  })
 
-  describe('disableRowVariations', () => {
-    test('it should not disable rows when disableRowVariations returns false', async () => {
-      renderComponent({ disableRowVariations: jest.fn().mockReturnValue(false) })
+    test('it should enable variations selection when the add flag checkbox is not checked', async () => {
+      renderComponent({ includeAddFlagCheckbox: true, flags: [mockFeatures[0]] })
 
-      for (const input of document.querySelectorAll('input')) {
-        expect(input).toBeEnabled()
-      }
-    })
-
-    test('it should disable rows when disableRowVariations returns true', async () => {
-      renderComponent({ disableRowVariations: jest.fn().mockReturnValue(true) })
-
-      for (const input of document.querySelectorAll('input')) {
+      for (const input of document.querySelectorAll('input:not([type="checkbox"])')) {
         expect(input).toBeDisabled()
       }
+
+      userEvent.click(screen.getByRole('checkbox'))
+
+      await waitFor(() => {
+        for (const input of document.querySelectorAll('input:not([type="checkbox"])')) {
+          expect(input).toBeEnabled()
+        }
+      })
     })
   })
 
