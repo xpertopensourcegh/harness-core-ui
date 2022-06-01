@@ -62,6 +62,7 @@ export const getSLODetailsForSLO_1 = `/cv/api/slo-dashboard/widget/SLO_1?routing
 export const getSLODetailsForSLO_2 = `/cv/api/slo-dashboard/widget/SLO_2?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&startTime=1651717500000&endTime=1651731600000`
 export const getSLODetailsForSLO_3 = `/cv/api/slo-dashboard/widget/SLO_3?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&startTime=1651717500000&endTime=1651731600000`
 export const getSLODetailsForSLO_4 = `/cv/api/slo-dashboard/widget/SLO_4?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&startTime=1651717500000&endTime=1651731600000`
+export const createNotification = `/cv/api/notification-rule?routingId=${accountId}&accountId=${accountId}`
 
 export const listSLOsCallResponse = {
   status: 'SUCCESS',
@@ -1312,4 +1313,37 @@ export const mockedExecutionSummary = {
   },
   metaData: null,
   correlationId: '592d8d1e-8fec-4d44-8169-c0af331b6b72'
+}
+
+export const createNotificationResponse = {
+  metaData: {},
+  resource: {
+    notificationRule: {
+      orgIdentifier: 'SRM',
+      projectIdentifier: 'SRMSLOTesting',
+      identifier: 'slonotification',
+      name: 'slo-notification',
+      type: 'ServiceLevelObjective',
+      conditions: [
+        {
+          type: 'ErrorBudgetBurnRate',
+          spec: {
+            threshold: 5,
+            lookBackDuration: '60m'
+          }
+        }
+      ],
+      notificationMethod: {
+        type: 'Slack',
+        spec: {
+          userGroups: null,
+          webhookUrl: 'https://hooks.slack.com/services/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'
+        }
+      }
+    },
+    enabled: false,
+    createdAt: 1654005710328,
+    lastModifiedAt: 1654005710328
+  },
+  responseMessages: []
 }
