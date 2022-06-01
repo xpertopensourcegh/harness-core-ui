@@ -2569,7 +2569,7 @@ export interface StringsMap {
   'pipeline.buildInfra.nodeSelector': string
   'pipeline.buildInfra.pathType': string
   'pipeline.buildInfra.persistentVolumeClaim': string
-  'pipeline.buildInfra.poolId': string
+  'pipeline.buildInfra.poolName': string
   'pipeline.buildInfra.priorityClassName': string
   'pipeline.buildInfra.privileged': string
   'pipeline.buildInfra.readOnlyRootFilesystem': string

@@ -624,6 +624,105 @@ export function StageInputSetFormInternal({
     [expressions]
   )
 
+  const renderVMInfra = React.useCallback((): JSX.Element | null => {
+    const poolName = (deploymentStageTemplate.infrastructure as any).spec?.spec?.poolName
+    // poolId deprecated
+    const poolId = (deploymentStageTemplate.infrastructure as any).spec?.spec?.identifier
+    return (
+      <>
+        {(poolName || poolId) && (
+          <Container className={stepCss.bottomMargin3}>
+            {renderMultiTypeTextField({
+              name: `${namePath}infrastructure.spec.spec.${poolName ? 'poolName' : 'identifier'}`,
+              tooltipId: 'poolName',
+              labelKey: 'pipeline.buildInfra.poolName',
+              inputProps: {
+                multiTextInputProps: {
+                  expressions,
+                  allowableTypes: allowableTypes
+                },
+                disabled: readonly
+              },
+              fieldPath: poolName ? 'spec.spec.poolName' : 'spec.spec.identifier'
+            })}
+          </Container>
+        )}
+        {(deploymentStageTemplate.infrastructure as any).spec?.spec?.os ? (
+          shouldRenderRunTimeInputViewWithAllowedValues('spec.spec.os', deploymentStageTemplate.infrastructure) ? (
+            renderMultiTypeInputWithAllowedValues({
+              name: `${namePath}infrastructure.spec.spec.os`,
+              tooltipId: 'os',
+              labelKey: osLabel,
+              placeholderKey: osLabel,
+              fieldPath: 'spec.spec.os',
+              allowedTypes: [MultiTypeInputType.FIXED]
+            })
+          ) : (
+            <Container className={stepCss.bottomMargin3}>
+              <MultiTypeSelectField
+                label={
+                  <Text
+                    tooltipProps={{ dataTooltipId: 'os' }}
+                    font={{ variation: FontVariation.FORM_LABEL }}
+                    margin={{ bottom: 'xsmall' }}
+                  >
+                    {getString(osLabel)}
+                  </Text>
+                }
+                name={`${namePath}infrastructure.spec.spec.os`}
+                style={{ width: 300, paddingBottom: 'var(--spacing-small)' }}
+                multiTypeInputProps={{
+                  selectItems: [
+                    { label: getString('delegate.cardData.linux.name'), value: OsTypes.Linux },
+                    { label: getString('pipeline.infraSpecifications.osTypes.macos'), value: OsTypes.MacOS },
+                    { label: getString('pipeline.infraSpecifications.osTypes.windows'), value: OsTypes.Windows }
+                  ],
+                  multiTypeInputProps: {
+                    allowableTypes: [MultiTypeInputType.FIXED]
+                  },
+                  disabled: readonly
+                }}
+                useValue
+              />
+            </Container>
+          )
+        ) : null}
+        {(deploymentStageTemplate.infrastructure as any).spec?.spec?.harnessImageConnectorRef ? (
+          shouldRenderRunTimeInputViewWithAllowedValues(
+            'spec.spec.harnessImageConnectorRef',
+            deploymentStageTemplate.infrastructure
+          ) ? (
+            renderMultiTypeInputWithAllowedValues({
+              name: `${namePath}infrastructure.spec.spec.harnessImageConnectorRef`,
+              tooltipId: 'harnessImageConnectorRef',
+              labelKey: harnessImageConnectorRef,
+              placeholderKey: 'connectors.placeholder.harnessImageConnectorRef',
+              fieldPath: 'spec.spec.harnessImageConnectorRef',
+              allowedTypes: [MultiTypeInputType.FIXED]
+            })
+          ) : (
+            <Container className={stepCss.bottomMargin3}>
+              <FormConnectorReferenceField
+                width={getConnectorRefWidth(viewType)}
+                name={`${namePath}infrastructure.spec.spec.harnessImageConnectorRef`}
+                label={
+                  <Text font={{ variation: FontVariation.FORM_LABEL }}>{getString(harnessImageConnectorRef)}</Text>
+                }
+                placeholder={getString('connectors.placeholder.harnessImageConnectorRef')}
+                accountIdentifier={accountId}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                gitScope={gitScope}
+                disabled={readonly}
+                type={Connectors.DOCKER}
+              />
+            </Container>
+          )
+        ) : null}
+      </>
+    )
+  }, [expressions])
+
   React.useEffect(() => {
     if (scope !== Scope.PROJECT) {
       if (
@@ -802,102 +901,7 @@ export function StageInputSetFormInternal({
                 ) : null}
               </>
             ) : (deploymentStageTemplate.infrastructure as any).type === 'VM' ? (
-              <>
-                {(deploymentStageTemplate.infrastructure as any).spec?.spec?.identifier ? (
-                  <Container className={stepCss.bottomMargin3}>
-                    {renderMultiTypeTextField({
-                      name: `${namePath}infrastructure.spec.spec.identifier`,
-                      tooltipId: 'poolId',
-                      labelKey: 'pipeline.buildInfra.poolId',
-                      inputProps: {
-                        multiTextInputProps: {
-                          expressions,
-                          allowableTypes: allowableTypes
-                        },
-                        disabled: readonly
-                      },
-                      fieldPath: 'spec.spec.identifier'
-                    })}
-                  </Container>
-                ) : null}
-                {(deploymentStageTemplate.infrastructure as any).spec?.spec?.os ? (
-                  shouldRenderRunTimeInputViewWithAllowedValues(
-                    'spec.spec.os',
-                    deploymentStageTemplate.infrastructure
-                  ) ? (
-                    renderMultiTypeInputWithAllowedValues({
-                      name: `${namePath}infrastructure.spec.spec.os`,
-                      tooltipId: 'os',
-                      labelKey: osLabel,
-                      placeholderKey: osLabel,
-                      fieldPath: 'spec.spec.os',
-                      allowedTypes: [MultiTypeInputType.FIXED]
-                    })
-                  ) : (
-                    <Container className={stepCss.bottomMargin3}>
-                      <MultiTypeSelectField
-                        label={
-                          <Text
-                            tooltipProps={{ dataTooltipId: 'os' }}
-                            font={{ variation: FontVariation.FORM_LABEL }}
-                            margin={{ bottom: 'xsmall' }}
-                          >
-                            {getString(osLabel)}
-                          </Text>
-                        }
-                        name={`${namePath}infrastructure.spec.spec.os`}
-                        style={{ width: 300, paddingBottom: 'var(--spacing-small)' }}
-                        multiTypeInputProps={{
-                          selectItems: [
-                            { label: getString('delegate.cardData.linux.name'), value: OsTypes.Linux },
-                            { label: getString('pipeline.infraSpecifications.osTypes.macos'), value: OsTypes.MacOS },
-                            { label: getString('pipeline.infraSpecifications.osTypes.windows'), value: OsTypes.Windows }
-                          ],
-                          multiTypeInputProps: {
-                            allowableTypes: [MultiTypeInputType.FIXED]
-                          },
-                          disabled: readonly
-                        }}
-                        useValue
-                      />
-                    </Container>
-                  )
-                ) : null}
-                {(deploymentStageTemplate.infrastructure as any).spec?.spec?.harnessImageConnectorRef ? (
-                  shouldRenderRunTimeInputViewWithAllowedValues(
-                    'spec.spec.harnessImageConnectorRef',
-                    deploymentStageTemplate.infrastructure
-                  ) ? (
-                    renderMultiTypeInputWithAllowedValues({
-                      name: `${namePath}infrastructure.spec.spec.harnessImageConnectorRef`,
-                      tooltipId: 'harnessImageConnectorRef',
-                      labelKey: harnessImageConnectorRef,
-                      placeholderKey: 'connectors.placeholder.harnessImageConnectorRef',
-                      fieldPath: 'spec.spec.harnessImageConnectorRef',
-                      allowedTypes: [MultiTypeInputType.FIXED]
-                    })
-                  ) : (
-                    <Container className={stepCss.bottomMargin3}>
-                      <FormConnectorReferenceField
-                        width={getConnectorRefWidth(viewType)}
-                        name={`${namePath}infrastructure.spec.spec.harnessImageConnectorRef`}
-                        label={
-                          <Text font={{ variation: FontVariation.FORM_LABEL }}>
-                            {getString(harnessImageConnectorRef)}
-                          </Text>
-                        }
-                        placeholder={getString('connectors.placeholder.harnessImageConnectorRef')}
-                        accountIdentifier={accountId}
-                        projectIdentifier={projectIdentifier}
-                        orgIdentifier={orgIdentifier}
-                        gitScope={gitScope}
-                        disabled={readonly}
-                        type={Connectors.DOCKER}
-                      />
-                    </Container>
-                  )
-                ) : null}
-              </>
+              renderVMInfra()
             ) : null}
             {(deploymentStageTemplate.infrastructure as K8sDirectInfraYaml).spec?.volumes && (
               <Container data-name="100width" className={stepCss.bottomMargin5}>

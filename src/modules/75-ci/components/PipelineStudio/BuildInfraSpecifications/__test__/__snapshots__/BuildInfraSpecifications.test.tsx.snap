@@ -177,12 +177,12 @@ exports[`BuildInfraSpecifications snapshot tests for AWS Build Infra Render AWS 
                         >
                           <div
                             class="Text--withDocsTooltip"
-                            data-tooltip-id="poolId"
+                            data-tooltip-id="poolName"
                           >
                             <p
                               class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
-                              pipeline.buildInfra.poolId
+                              pipeline.buildInfra.poolName
                             </p>
                           </div>
                           <div
@@ -205,7 +205,7 @@ exports[`BuildInfraSpecifications snapshot tests for AWS Build Infra Render AWS 
                                     <input
                                       autocomplete="off"
                                       class="bp3-input"
-                                      name="poolId"
+                                      name="poolName"
                                       type="text"
                                       value=""
                                     />

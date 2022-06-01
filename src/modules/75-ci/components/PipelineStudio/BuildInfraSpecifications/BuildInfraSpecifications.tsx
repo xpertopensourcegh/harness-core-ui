@@ -95,7 +95,7 @@ type VolumeInterface = CIVolume | EmptyDirYaml | PersistentVolumeClaimYaml | Hos
 const logger = loggerFor(ModuleName.CD)
 const k8sClusterKeyRef = 'connectors.title.k8sCluster'
 const namespaceKeyRef = 'pipelineSteps.build.infraSpecifications.namespace'
-const poolIdKeyRef = 'pipeline.buildInfra.poolId'
+const poolNameKeyRef = 'pipeline.buildInfra.poolName'
 
 interface KubernetesBuildInfraFormValues {
   connectorRef?: string
@@ -129,7 +129,8 @@ interface ContainerSecurityContext {
   runAsUser?: number
 }
 interface AWSVMInfraFormValues {
-  poolId?: string
+  poolId?: string // deprecated
+  poolName?: string
   harnessImageConnectorRef?: string
   os?: string
 }
@@ -251,6 +252,57 @@ const getFieldSchema = (
   } else {
     return yup.string()
   }
+}
+
+const renderUseFromStageVM = ({
+  propagatedStage,
+  getString
+}: {
+  propagatedStage?: { stage?: BuildStageElementConfig }
+  getString: UseStringsReturn['getString']
+}): JSX.Element => {
+  const poolName = ((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.poolName
+  // poolId is deprecated
+  const poolId = ((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.identifier
+
+  return (
+    <>
+      {(poolName || poolId) && (
+        <>
+          <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
+            {getString(poolNameKeyRef)}
+          </Text>
+          <Text color="black" margin={{ bottom: 'medium' }}>
+            {poolName || poolId}
+          </Text>
+        </>
+      )}
+      {((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.os && (
+        <>
+          <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
+            {getString('pipeline.infraSpecifications.os')}
+          </Text>
+          <Text color="black" margin={{ bottom: 'medium' }}>
+            {((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.os}
+          </Text>
+        </>
+      )}
+      {((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec
+        ?.harnessImageConnectorRef && (
+        <>
+          <Text font={{ variation: FontVariation.FORM_LABEL }} margin={{ bottom: 'xsmall' }}>
+            {getString(harnessImageConnectorRefKey)}
+          </Text>
+          <Text color="black" margin={{ bottom: 'medium' }}>
+            {
+              ((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec
+                ?.harnessImageConnectorRef
+            }
+          </Text>
+        </>
+      )}
+    </>
+  )
 }
 
 export default function BuildInfraSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
@@ -474,15 +526,17 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           }
         } else if (infraType === CIBuildInfrastructureType.VM) {
           const identifier =
-            ((stage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.identifier || ''
+            ((stage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.poolName ||
+            ((stage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.identifier ||
+            ''
           if (!isEmpty(identifier)) {
             return {
-              poolId: identifier,
+              poolName: identifier,
               ...getVmInfraPayload
             }
           } else {
             return {
-              poolId: '',
+              poolName: '',
               ...getVmInfraPayload
             }
           }
@@ -497,7 +551,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           annotations: '',
           labels: '',
           buildInfraType: undefined,
-          poolId: undefined,
+          poolName: undefined,
           harnessImageConnectorRef: undefined,
           os: OsTypes.Linux,
           ...additionalDefaultFields
@@ -511,7 +565,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       annotations: '',
       labels: '',
       buildInfraType: undefined,
-      poolId: undefined,
+      poolName: undefined,
       harnessImageConnectorRef: undefined,
       os: OsTypes.Linux,
       ...additionalDefaultFields
@@ -637,7 +691,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                   spec: {
                     type: 'Pool',
                     spec: {
-                      identifier: values.poolId,
+                      poolName: values.poolName,
                       harnessImageConnectorRef,
                       os: values.os
                     }
@@ -1058,15 +1112,15 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           <MultiTypeTextField
             label={
               <Text
-                tooltipProps={{ dataTooltipId: 'poolId' }}
+                tooltipProps={{ dataTooltipId: 'poolName' }}
                 font={{ variation: FontVariation.FORM_LABEL }}
                 margin={{ bottom: 'xsmall' }}
               >
-                {getString('pipeline.buildInfra.poolId')}
+                {getString('pipeline.buildInfra.poolName')}
               </Text>
             }
-            name={'poolId'}
-            style={{ width: 300, paddingBottom: 'var(--spacing-small)' }}
+            name={'poolName'}
+            style={{ width: 300 }}
             multiTextInputProps={{
               multiTextInputProps: { expressions, allowableTypes },
               disabled: isReadonly
@@ -1392,14 +1446,14 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                 return true
               }
             ),
-          poolId: yup
+          poolName: yup
             .string()
             .nullable()
             .test(
-              'pool id required only for New configuration',
-              getString('fieldRequired', { field: getString(poolIdKeyRef) }) || '',
-              function (poolId) {
-                if (isEmpty(poolId) && currentMode === Modes.NewConfiguration) {
+              'pool name required only for New configuration',
+              getString('fieldRequired', { field: getString(poolNameKeyRef) }) || '',
+              function (poolName) {
+                if (isEmpty(poolName) && currentMode === Modes.NewConfiguration) {
                   return false
                 }
                 return true
@@ -1805,65 +1859,10 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                     </Accordion>
                                   </>
                                 ) : buildInfraType === CIBuildInfrastructureType.VM ? (
-                                  <>
-                                    {((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)
-                                      ?.spec?.identifier && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                        >
-                                          {getString(poolIdKeyRef)}
-                                        </Text>
-                                        <Text color="black" margin={{ bottom: 'medium' }}>
-                                          {
-                                            (
-                                              (propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)
-                                                ?.spec as VmPoolYaml
-                                            )?.spec?.identifier
-                                          }
-                                        </Text>
-                                      </>
-                                    )}
-                                    {((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)
-                                      ?.spec?.os && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                        >
-                                          {getString('pipeline.infraSpecifications.os')}
-                                        </Text>
-                                        <Text color="black" margin={{ bottom: 'medium' }}>
-                                          {
-                                            (
-                                              (propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)
-                                                ?.spec as VmPoolYaml
-                                            )?.spec?.os
-                                          }
-                                        </Text>
-                                      </>
-                                    )}
-                                    {((propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)
-                                      ?.spec?.harnessImageConnectorRef && (
-                                      <>
-                                        <Text
-                                          font={{ variation: FontVariation.FORM_LABEL }}
-                                          margin={{ bottom: 'xsmall' }}
-                                        >
-                                          {getString(harnessImageConnectorRefKey)}
-                                        </Text>
-                                        <Text color="black" margin={{ bottom: 'medium' }}>
-                                          {
-                                            (
-                                              (propagatedStage?.stage?.spec?.infrastructure as VmInfraYaml)
-                                                ?.spec as VmPoolYaml
-                                            )?.spec?.harnessImageConnectorRef
-                                          }
-                                        </Text>
-                                      </>
-                                    )}
-                                  </>
+                                  renderUseFromStageVM({
+                                    propagatedStage,
+                                    getString
+                                  })
                                 ) : null}
                               </div>
                               {/* New configuration section */}
