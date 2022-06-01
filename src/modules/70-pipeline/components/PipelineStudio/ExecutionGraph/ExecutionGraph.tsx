@@ -1147,7 +1147,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}
-          hoverShowDelay={200}
+          hoverShowDelay={500}
           render={renderPopover}
           bind={setDynamicPopoverHandler}
           usePortal
