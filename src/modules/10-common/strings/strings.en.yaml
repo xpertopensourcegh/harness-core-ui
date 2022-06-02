@@ -880,3 +880,4 @@ plusNewName: + New {{name}}
 fetchingBranches: Fetching branches
 download: Download
 gitOps: GitOps
+showHarnessManagedError: Harness Managed Resource cannot be edited

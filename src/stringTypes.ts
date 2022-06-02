@@ -625,6 +625,7 @@ export interface StringsMap {
   'common.setup': string
   'common.sh': string
   'common.shell': string
+  'common.showHarnessManagedError': string
   'common.showLess': string
   'common.showMore': string
   'common.sidecarArtifactsText': string
