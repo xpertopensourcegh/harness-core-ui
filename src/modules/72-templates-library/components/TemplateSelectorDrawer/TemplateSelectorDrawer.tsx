@@ -8,27 +8,21 @@
 import React, { useCallback } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateSelector } from '@templates-library/components/TemplateSelector/TemplateSelector'
-import css from './TemplateDrawer.module.scss'
+import { useTemplateSelectorContext } from '@templates-library/components/TemplateSelectorContext/TemplateSelectorContext'
+import css from './TemplateSelectorDrawer.module.scss'
 
-export const TemplateDrawer: React.FC = (): JSX.Element => {
+export const TemplateSelectorDrawer: React.FC = (): JSX.Element => {
   const {
-    state: {
-      isLoading,
-      templateView: {
-        isTemplateDrawerOpened,
-        templateDrawerData: { type, data }
-      }
-    }
-  } = usePipelineContext()
-  const { onCancel } = data?.selectorData || {}
+    state: { isDrawerOpened, selectorData }
+  } = useTemplateSelectorContext()
+  const { onCancel } = selectorData || {}
 
   const closeTemplateView = useCallback(() => {
     onCancel?.()
   }, [onCancel])
 
-  if (isLoading || !isTemplateDrawerOpened) {
+  if (!isDrawerOpened) {
     return <></>
   }
 
@@ -42,9 +36,8 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
       enforceFocus={false}
       hasBackdrop={true}
       size={'1287px'}
-      isOpen={isTemplateDrawerOpened}
+      isOpen={true}
       position={Position.RIGHT}
-      data-type={type}
     >
       <Button
         minimal

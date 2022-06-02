@@ -51,7 +51,7 @@ import CDSideNav from '@cd/components/CDSideNav/CDSideNav'
 import CDHomePage from '@cd/pages/home/CDHomePage'
 import CDDashboardPage from '@cd/pages/dashboard/CDDashboardPage'
 import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
-import CDPipelineStudio from '@cd/pages/pipeline-studio/CDPipelineStudio'
+import CDPipelineStudioWrapper from '@cd/pages/pipeline-studio/CDPipelineStudioWrapper'
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
@@ -509,7 +509,7 @@ export default (
       pageName={PAGE_NAME.CDPipelineStudio}
     >
       <PipelineDetails>
-        <CDPipelineStudio />
+        <CDPipelineStudioWrapper />
       </PipelineDetails>
     </RouteWithLayout>
     <RouteWithLayout

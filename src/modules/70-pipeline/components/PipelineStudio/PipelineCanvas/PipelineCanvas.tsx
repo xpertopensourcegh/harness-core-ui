@@ -65,7 +65,6 @@ import { createTemplate } from '@pipeline/utils/templateUtils'
 import StageBuilder from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder'
 import { TemplatePipelineBuilder } from '@pipeline/components/PipelineStudio/PipelineTemplateBuilder/TemplatePipelineBuilder/TemplatePipelineBuilder'
 import { SavePipelinePopover } from '@pipeline/components/PipelineStudio/SavePipelinePopover/SavePipelinePopover'
-import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
 import { useSaveTemplateListener } from '@pipeline/components/PipelineStudio/hooks/useSaveTemplateListener'
 import { StoreMetadata, StoreType } from '@common/constants/GitSyncTypes'
 import GitRemoteDetails from '@common/components/GitRemoteDetails/GitRemoteDetails'
@@ -139,7 +138,8 @@ export function PipelineCanvas({
     isReadonly,
     updatePipelineView,
     setSelectedStageId,
-    setSelectedSectionId
+    setSelectedSectionId,
+    getTemplate
   } = usePipelineContext()
   const {
     repoIdentifier,
@@ -183,7 +183,6 @@ export function PipelineCanvas({
     }> &
       GitQueryParams
   >()
-  const { getTemplate } = useTemplateSelector()
 
   const { data: template } = useMutateAsGet(useGetTemplateFromPipeline, {
     queryParams: {

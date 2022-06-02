@@ -68,10 +68,13 @@ import {
   StageType
 } from '@pipeline/utils/stageHelpers'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import {
+  getIdentifierFromValue,
+  getScopeBasedProjectPathParams,
+  getScopeFromValue
+} from '@common/components/EntityReference/EntityReference'
 import { useGetTemplate } from 'services/template-ng'
 import { Page } from '@common/exports'
-import { getScopeBasedQueryParams } from '@templates-library/utils/templatesUtils'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
@@ -238,7 +241,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       stages.forEach((item, index) => {
         if (index < stageIndex) {
           if (item.stage?.template) {
-            const stageType = get(templateTypes, getIdentifierFromValue(item.stage.template.templateRef))
+            const stageType = get(templateTypes, item.stage.template.templateRef)
             if (currentStageType === stageType) {
               newPreviousStageList.push({
                 label: `Stage [${item.stage?.name}] - [Template]`,
@@ -447,7 +450,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
       fetchTemplate({
         queryParams: {
-          ...getScopeBasedQueryParams(queryParams, templateScope),
+          ...getScopeBasedProjectPathParams(queryParams, templateScope),
           repoIdentifier,
           branch,
           getDefaultFromOtherRepo: true,

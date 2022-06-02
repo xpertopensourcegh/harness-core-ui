@@ -29,7 +29,7 @@ import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { TrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
 import { FeatureFlag } from '@common/featureFlags'
 import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
-import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
+import { useTemplateSelector } from '@templates-library/hooks/useTemplateSelector'
 import css from './CIPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
@@ -37,6 +37,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { getString } = useStrings()
   const history = useHistory()
+  const { getTemplate } = useTemplateSelector()
 
   const getTrialPipelineCreateForm = (
     onSubmit: (values: PipelineInfoConfig) => void,
@@ -90,6 +91,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
       }
       stepsFactory={factory}
       runPipeline={handleRunPipeline}
+      getTemplate={getTemplate}
     >
       <PipelineStudio
         className={css.container}
@@ -99,7 +101,6 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineList={routes.toPipelines}
         getOtherModal={getOtherModal}
       />
-      <TemplateDrawer />
     </PipelineProvider>
   )
 }

@@ -8,10 +8,9 @@
 import React from 'react'
 import { act, fireEvent, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer/__tests__/stateMock'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
-import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { useTemplateSelector } from '@templates-library/hooks/useTemplateSelector'
+import { TemplateSelectorContext } from '@templates-library/components/TemplateSelectorContext/TemplateSelectorContext'
+import { templateSelectorContextMock } from '@templates-library/components/TemplateSelectorContext/stateMocks'
 
 function Wrapped(): React.ReactElement {
   const { getTemplate } = useTemplateSelector()
@@ -25,25 +24,21 @@ function Wrapped(): React.ReactElement {
 describe('useTemplateSelector Test', () => {
   test('should work as expected', async () => {
     const { getByText } = render(
-      <PipelineContext.Provider value={pipelineContextMock}>
+      <TemplateSelectorContext.Provider value={templateSelectorContextMock}>
         <TestWrapper>
           <Wrapped />
         </TestWrapper>
-      </PipelineContext.Provider>
+      </TemplateSelectorContext.Provider>
     )
 
     const getTemplateBtn = getByText('Get Template')
     await act(async () => {
       fireEvent.click(getTemplateBtn)
     })
-    expect(pipelineContextMock.updateTemplateView).toBeCalledWith({
-      isTemplateDrawerOpened: true,
-      templateDrawerData: {
-        data: {
-          selectorData: { onCancel: expect.any(Function), onSubmit: expect.any(Function), templateType: 'Step' }
-        },
-        type: TemplateDrawerTypes.UseTemplate
-      }
+    expect(templateSelectorContextMock.openTemplateSelector).toBeCalledWith({
+      onCancel: expect.any(Function),
+      onSubmit: expect.any(Function),
+      templateType: 'Step'
     })
   })
 })

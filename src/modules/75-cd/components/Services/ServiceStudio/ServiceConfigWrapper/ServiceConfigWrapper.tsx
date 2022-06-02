@@ -21,6 +21,7 @@ import { sanitize } from '@common/utils/JSONUtils'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
 import type { NGServiceConfig, PipelineInfoConfig } from 'services/cd-ng'
 import { useServiceContext } from '@cd/context/ServiceContext'
+import { useTemplateSelector } from '@templates-library/hooks/useTemplateSelector'
 import {
   initialServiceState,
   DefaultNewStageName,
@@ -38,6 +39,7 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
   const { accountId, orgIdentifier, projectIdentifier, serviceId } = useParams<ProjectPathProps & ServicePathProps>()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const { serviceResponse, isServiceCreateModalView } = useServiceContext()
+  const { getTemplate } = useTemplateSelector()
 
   const [isEdit] = usePermission({
     resource: {
@@ -128,6 +130,7 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
       serviceIdentifier={serviceId}
       contextType={PipelineContextType.Pipeline}
       isReadOnly={!isEdit}
+      getTemplate={getTemplate}
     >
       <ServiceStudioDetails serviceData={currentService} {...props} />
     </ServicePipelineProvider>

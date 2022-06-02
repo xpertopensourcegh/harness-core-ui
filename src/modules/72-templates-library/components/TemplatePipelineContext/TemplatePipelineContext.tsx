@@ -6,11 +6,13 @@
  */
 
 import React from 'react'
-import { cloneDeep, isEqual, noop } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isEqual, noop } from 'lodash-es'
 import { MultiTypeInputType, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
+import merge from 'lodash-es/merge'
 import {
   findAllByKey,
   PipelineContext,
+  PipelineContextInterface,
   PipelineContextType
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { getTemplateTypesByRef } from '@pipeline/utils/templateUtils'
@@ -18,8 +20,7 @@ import {
   initialState,
   PipelineContextActions,
   PipelineReducer,
-  PipelineViewData,
-  TemplateViewData
+  PipelineViewData
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { useLocalStorage } from '@common/hooks'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
@@ -46,6 +47,7 @@ export interface TemplatePipelineProviderProps {
   onUpdatePipeline: (pipeline: PipelineInfoConfig) => void
   contextType: PipelineContextType
   isReadOnly: boolean
+  getTemplate: PipelineContextInterface['getTemplate']
 }
 
 export function TemplatePipelineProvider({
@@ -54,6 +56,7 @@ export function TemplatePipelineProvider({
   onUpdatePipeline,
   isReadOnly,
   contextType,
+  getTemplate,
   children
 }: React.PropsWithChildren<TemplatePipelineProviderProps>): React.ReactElement {
   const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
@@ -136,10 +139,6 @@ export function TemplatePipelineProvider({
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
 
-  const updateTemplateView = React.useCallback((data: TemplateViewData) => {
-    dispatch(PipelineContextActions.updateTemplateView({ templateView: data }))
-  }, [])
-
   const fetchPipeline = async () => {
     const templateRefs = findAllByKey('templateRef', initialValue)
     dispatch(
@@ -195,6 +194,24 @@ export function TemplatePipelineProvider({
   const scope = getScopeFromDTO(queryParams)
 
   React.useEffect(() => {
+    const templateRefs = findAllByKey('templateRef', state.pipeline).filter(templateRef =>
+      isEmpty(get(state.templateTypes, templateRef))
+    )
+    getTemplateTypesByRef(
+      {
+        ...queryParams,
+        templateListType: 'Stable',
+        repoIdentifier: state.gitDetails.repoIdentifier,
+        branch: state.gitDetails.repoIdentifier,
+        getDefaultFromOtherRepo: true
+      },
+      templateRefs
+    ).then(resp => {
+      PipelineContextActions.setTemplateTypes({ templateTypes: merge(state.templateTypes, resp) })
+    })
+  }, [state.pipeline])
+
+  React.useEffect(() => {
     fetchPipeline()
   }, [initialValue])
 
@@ -220,7 +237,6 @@ export function TemplatePipelineProvider({
         updatePipeline,
         updateStage,
         updatePipelineView,
-        updateTemplateView,
         pipelineSaved: noop,
         deletePipelineCache: Promise.resolve,
         isReadonly: isReadOnly,
@@ -230,7 +246,8 @@ export function TemplatePipelineProvider({
         setSelectedSectionId: noop,
         setSelection,
         getStagePathFromPipeline,
-        setTemplateTypes: noop
+        setTemplateTypes: noop,
+        getTemplate: getTemplate
       }}
     >
       {children}

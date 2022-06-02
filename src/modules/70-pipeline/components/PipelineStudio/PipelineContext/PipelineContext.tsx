@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { deleteDB, IDBPDatabase, openDB } from 'idb'
-import { cloneDeep, defaultTo, isEmpty, isEqual, isNil, omit, pick } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, isEqual, isNil, omit, pick } from 'lodash-es'
 import { parse } from 'yaml'
 import { IconName, MultiTypeInputType, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
@@ -44,7 +44,7 @@ import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { getTemplateTypesByRef } from '@pipeline/utils/templateUtils'
+import { GetTemplateProps, GetTemplateResponse, getTemplateTypesByRef } from '@pipeline/utils/templateUtils'
 import type { StoreMetadata } from '@common/constants/GitSyncTypes'
 import {
   ActionReturnType,
@@ -56,8 +56,7 @@ import {
   PipelineReducer,
   PipelineReducerState,
   PipelineViewData,
-  SelectionState,
-  TemplateViewData
+  SelectionState
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
@@ -245,7 +244,6 @@ export interface PipelineContextInterface {
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updateEntityValidityDetails: (entityValidityDetails: EntityValidityDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
-  updateTemplateView: (data: TemplateViewData) => void
   deletePipelineCache: (gitDetails?: EntityGitDetails) => Promise<void>
   getStageFromPipeline<T extends StageElementConfig = StageElementConfig>(
     stageId: string,
@@ -262,6 +260,7 @@ export interface PipelineContextInterface {
   setSelectedSectionId: (selectedSectionId: string | undefined) => void
   setSelection: (selectionState: PipelineSelectionState) => void
   getStagePathFromPipeline(stageId: string, prefix?: string, pipeline?: PipelineInfoConfig): string
+  getTemplate: (data: GetTemplateProps) => Promise<GetTemplateResponse>
 }
 
 interface PipelinePayload {
@@ -827,7 +826,6 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   renderPipelineStage: () => <div />,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
-  updateTemplateView: () => undefined,
   updateStage: () => new Promise<void>(() => undefined),
   getStageFromPipeline: () => ({ stage: undefined, parent: undefined }),
   setYamlHandler: () => undefined,
@@ -839,7 +837,8 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
   setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
   setSelection: (_selectedState: PipelineSelectionState | undefined) => undefined,
-  getStagePathFromPipeline: () => ''
+  getStagePathFromPipeline: () => '',
+  getTemplate: () => new Promise<GetTemplateResponse>(() => undefined)
 })
 
 export interface PipelineProviderProps {
@@ -849,6 +848,7 @@ export interface PipelineProviderProps {
   stagesMap: StagesMap
   runPipeline: (identifier: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
+  getTemplate: PipelineContextInterface['getTemplate']
 }
 
 export function PipelineProvider({
@@ -858,7 +858,8 @@ export function PipelineProvider({
   renderPipelineStage,
   stepsFactory,
   stagesMap,
-  runPipeline
+  runPipeline,
+  getTemplate
 }: React.PropsWithChildren<PipelineProviderProps>): React.ReactElement {
   const contextType = PipelineContextType.Pipeline
   const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
@@ -968,10 +969,6 @@ export function PipelineProvider({
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
 
-  const updateTemplateView = React.useCallback((data: TemplateViewData) => {
-    dispatch(PipelineContextActions.updateTemplateView({ templateView: data }))
-  }, [])
-
   // stage/step selection
   const queryParamStateSelection = usePipelineQuestParamState()
   const setSelection = (selectedState: PipelineSelectionState) => {
@@ -1002,6 +999,24 @@ export function PipelineProvider({
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParamStateSelection.stepId, queryParamStateSelection.stageId, queryParamStateSelection.sectionId])
+
+  React.useEffect(() => {
+    const templateRefs = findAllByKey('templateRef', state.pipeline).filter(templateRef =>
+      isEmpty(get(state.templateTypes, templateRef))
+    )
+    getTemplateTypesByRef(
+      {
+        ...queryParams,
+        templateListType: 'Stable',
+        repoIdentifier: state.gitDetails.repoIdentifier,
+        branch: state.gitDetails.repoIdentifier,
+        getDefaultFromOtherRepo: true
+      },
+      templateRefs
+    ).then(resp => {
+      setTemplateTypes(merge(state.templateTypes, resp))
+    })
+  }, [state.pipeline])
 
   const getStageFromPipeline = React.useCallback(
     <T extends StageElementConfig = StageElementConfig>(
@@ -1114,7 +1129,6 @@ export function PipelineProvider({
         updatePipeline,
         updateStage,
         updatePipelineView,
-        updateTemplateView,
         pipelineSaved,
         deletePipelineCache,
         isReadonly,
@@ -1125,7 +1139,8 @@ export function PipelineProvider({
         setSelectedSectionId,
         setSelection,
         getStagePathFromPipeline,
-        setTemplateTypes
+        setTemplateTypes,
+        getTemplate
       }}
     >
       {children}

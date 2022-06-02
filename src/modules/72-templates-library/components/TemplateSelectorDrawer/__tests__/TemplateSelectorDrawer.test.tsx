@@ -10,10 +10,10 @@ import { act, fireEvent, render } from '@testing-library/react'
 import { waitFor } from '@testing-library/dom'
 import produce from 'immer'
 import { set } from 'lodash-es'
+import { TemplateSelectorDrawer } from '@templates-library/components/TemplateSelectorDrawer/TemplateSelectorDrawer'
 import { TestWrapper } from '@common/utils/testUtils'
-import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import pipelineContextMock from '@pipeline/components/PipelineStudio/RightDrawer/__tests__/stateMock'
-import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
+import { TemplateSelectorContext } from '@templates-library/components/TemplateSelectorContext/TemplateSelectorContext'
+import { templateSelectorContextMock } from '@templates-library/components/TemplateSelectorContext/stateMocks'
 
 jest.mock('@blueprintjs/core', () => ({
   ...(jest.requireActual('@blueprintjs/core') as any),
@@ -33,55 +33,38 @@ jest.mock('@templates-library/components/TemplateSelector/TemplateSelector', () 
   }
 }))
 
-const pipelineContext = produce(pipelineContextMock, draft => {
-  set(draft, 'state.templateView.templateDrawerData.data.selectorData.onCancel', jest.fn())
+const contextMock = produce(templateSelectorContextMock, draft => {
+  set(draft, 'state.isDrawerOpened', true)
 })
 
-describe('<TemplateDrawer /> tests', () => {
+describe('<TemplateSelectorDrawer /> tests', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   test('should match snapshot', async () => {
     const { container } = render(
-      <PipelineContext.Provider value={pipelineContext}>
+      <TemplateSelectorContext.Provider value={contextMock}>
         <TestWrapper>
-          <TemplateDrawer />
+          <TemplateSelectorDrawer />
         </TestWrapper>
-      </PipelineContext.Provider>
+      </TemplateSelectorContext.Provider>
     )
     expect(container).toMatchSnapshot()
   })
 
-  test('should reset when loading', async () => {
-    const loadingPipelineContextMock = produce(pipelineContext, draft => {
-      set(draft, 'state.isLoading', true)
-    })
-
-    const { container } = render(
-      <PipelineContext.Provider value={loadingPipelineContextMock}>
-        <TestWrapper>
-          <TemplateDrawer />
-        </TestWrapper>
-      </PipelineContext.Provider>
-    )
-    expect(container.childElementCount).toBe(0)
-  })
-
   test('should close drawer on clicking close button', async () => {
     const { getByRole } = render(
-      <PipelineContext.Provider value={pipelineContext}>
+      <TemplateSelectorContext.Provider value={contextMock}>
         <TestWrapper>
-          <TemplateDrawer />
+          <TemplateSelectorDrawer />
         </TestWrapper>
-      </PipelineContext.Provider>
+      </TemplateSelectorContext.Provider>
     )
     const closeBtn = getByRole('button', { name: 'cross' })
     act(() => {
       fireEvent.click(closeBtn)
     })
-    await waitFor(() =>
-      expect(pipelineContext.state.templateView.templateDrawerData.data?.selectorData?.onCancel).toBeCalled()
-    )
+    await waitFor(() => expect(contextMock.state.selectorData?.onCancel).toBeCalled())
   })
 })
