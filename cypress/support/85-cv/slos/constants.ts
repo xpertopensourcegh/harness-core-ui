@@ -52,6 +52,7 @@ export const resetErrorBudget = `/cv/api/slo/SLO1/resetErrorBudget?routingId=${a
 export const getSLOExecutionLogs = `/cv/api/slo/SLO1/logs?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&logType=ExecutionLog&errorLogsOnly=false&pageNumber=0&startTime=*&endTime=*&pageSize=20`
 export const getSLO_APICallLogs = `cv/api/slo/SLO1/logs?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&logType=ApiCallLog&errorLogsOnly=false&pageNumber=0&startTime=*&endTime=*&pageSize=20`
 export const getChangeEventTimeline = `/cv/api/account/${accountId}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/timeline?routingId=${accountId}&monitoredServiceIdentifiers=cvng_prod&startTime=1641364526709&endTime=1641450926709`
+export const getMonitoredServiceChangeDetails = `/cv/api/monitored-service/cvng_prod/change-details?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const getChangeEventList = `/cv/api/account/${accountId}/org/${orgIdentifier}/project/${projectIdentifier}/change-event?routingId=${accountId}&monitoredServiceIdentifiers=cvng_prod&startTime=1641364526709&endTime=1641450926709&pageIndex=0&pageSize=10`
 export const getMonitoredServiceChangeEventSummary = `/cv/api/change-event/monitored-service-summary?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&monitoredServiceIdentifier=cvng_prod&startTime=1641364526709&endTime=1641450926709`
 export const getChangeEventDetail = `/cv/api/account/${accountId}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/_bDpV3daRFm7MYlqidI5Sw?routingId=${accountId}`
@@ -1075,18 +1076,12 @@ export const getMonitoredServiceOverAllHealthScoreResponse = {
 }
 
 export const getSLODashboardWidgetsResponse = {
-  data: {
-    totalItems: 4,
-    totalPages: 1,
-    pageIndex: 0,
-    pageItemCount: 4,
-    content: [
-      { title: 'SLO 1', sloIdentifier: 'SLO_1' },
-      { title: 'SLO 2', sloIdentifier: 'SLO_2' },
-      { title: 'SLO 3', sloIdentifier: 'SLO_3' },
-      { title: 'SLO 4', sloIdentifier: 'SLO_4' }
-    ]
-  }
+  resource: [
+    { name: 'SLO 1', identifier: 'SLO_1' },
+    { name: 'SLO 2', identifier: 'SLO_2' },
+    { name: 'SLO 3', identifier: 'SLO_3' },
+    { name: 'SLO 4', identifier: 'SLO_4' }
+  ]
 }
 
 export const getSLODashboardWidgetsEmptyResponse = {
