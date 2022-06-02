@@ -147,6 +147,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   })
 
   useEffect(() => {
+    //When service.serviceRef is present refetch serviceAPI to populate deployment type and service definition
     if (getServiceEntityServiceRef(stage?.stage)) {
       const stageServiceRef = (stage?.stage?.spec as any)?.service?.serviceRef
       refetchServiceData({
@@ -240,6 +241,17 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       const currentStageType = stage?.stage?.type
       stages.forEach((item, index) => {
         if (index < stageIndex) {
+          //If the new stage or stage template has new service entity(stage.spec.service.serviceRef), propogate from stage is not allowed.
+          if (NG_SVC_ENV_REDESIGN) {
+            /* istanbul ignore else */
+            if (
+              (item.stage?.spec as any)?.service?.serviceRef ||
+              (item.stage?.template && !stage?.stage?.spec?.serviceConfig?.useFromStage?.stage)
+            ) {
+              return
+            }
+          }
+
           if (item.stage?.template) {
             const stageType = get(templateTypes, item.stage.template.templateRef)
             if (currentStageType === stageType) {
@@ -537,13 +549,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }
 
   const shouldRenderDeployServiceStep = (): boolean => {
-    if (isNewServiceEntity()) {
-      if ((stage?.stage?.spec as any)?.service?.serviceConfigRef) {
-        return true
-      }
-      return false
+    if (!isNewServiceEntity()) {
+      return true
     }
-    return true
+    return false
   }
   /*************************************Service Entity Related code********************************************************/
 
