@@ -433,7 +433,7 @@ function WebhookPipelineInputPanelForm({
                     }}
                     value={selectedInputSets}
                     selectedValueClass={css.inputSetSelectedValue}
-                    selectedRepo={repoIdentifier}
+                    selectedRepo={gitAwareForTriggerEnabled ? repoName : repoIdentifier}
                     selectedBranch={getTriggerInputSetsBranchQueryParameter({
                       gitAwareForTriggerEnabled,
                       pipelineBranchName: formikProps?.values?.pipelineBranchName,
