@@ -318,6 +318,7 @@ export function PipelineCanvas({
                 repo: repoName || gitDetails.repoIdentifier || '',
                 branch: branch || gitDetails.branch || '',
                 connectorRef: connectorRef || '',
+                storeType: storeType || '',
                 filePath: gitDetails.filePath
               })}
               closeModal={onCloseCreate}
