@@ -134,6 +134,7 @@ export interface StringsMap {
   'common.confictOccured': string
   'common.config': string
   'common.configureOptions.advancedHelp': string
+  'common.configureOptions.askDuringExecution': string
   'common.configureOptions.configureOptions': string
   'common.configureOptions.defaultValue': string
   'common.configureOptions.enterTags': string

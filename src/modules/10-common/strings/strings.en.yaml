@@ -117,6 +117,7 @@ configureOptions:
   jexlLabel: 'Values ({{ $.common.jexlExpression }})'
   values: 'Values'
   enterTags: 'Enter values'
+  askDuringExecution: Request input value when the stage/step is being executed
   validationErrors:
     regExIsRequired: 'Regex value is required'
     defaultRegExValid: Default value should validate with regex provided
