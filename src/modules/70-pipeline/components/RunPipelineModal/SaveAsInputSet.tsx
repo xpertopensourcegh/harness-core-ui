@@ -50,13 +50,13 @@ interface UseCreateUpdateInputSetReturnType {
     initialStoreMetadata?: StoreMetadata,
     gitDetails?: SaveToGitFormInterface | undefined,
     payload?: Omit<InputSetDTO, 'repo' | 'branch'> | undefined
-  ) => Promise<UseSaveSuccessResponse>
+  ) => Promise<ResponseInputSetResponse>
   createUpdateInputSetWithGitDetails: (
     savedInputSetObj: InputSetDTO,
     initialGitDetails: EntityGitDetails,
     initialStoreMetadata: StoreMetadata,
     gitDetails: SaveToGitFormInterface
-  ) => Promise<UseSaveSuccessResponse>
+  ) => Promise<ResponseInputSetResponse>
 }
 
 const useCreateUpdateInputSet = (
@@ -85,7 +85,7 @@ const useCreateUpdateInputSet = (
     initialStoreMetadata?: StoreMetadata,
     gitDetails?: SaveToGitFormInterface,
     payload?: Omit<InputSetDTO, 'repo' | 'branch'>
-  ): Promise<UseSaveSuccessResponse> => {
+  ): Promise<ResponseInputSetResponse> => {
     try {
       const response = await createInputSet(
         yamlStringify({
@@ -115,9 +115,7 @@ const useCreateUpdateInputSet = (
       } else {
         showSuccess(getString('inputSets.inputSetSaved'))
       }
-      return {
-        status: response?.status // nextCallback can be added if required
-      }
+      return response
     } catch (e) {
       showError(getRBACErrorMessage(e))
       // throw error here so that it's uncaught in handleSubmit and we don'tr end up reloading the modal
@@ -157,7 +155,7 @@ interface SaveAsInputSetProps {
   isGitSyncEnabled?: boolean
   isGitSimplificationEnabled?: boolean
   setFormErrors: Dispatch<SetStateAction<FormikErrors<InputSetDTO>>>
-  refetchParentData: () => void
+  refetchParentData: (newId?: string) => void
 }
 
 function SaveAsInputSet({
@@ -215,14 +213,17 @@ function SaveAsInputSet({
     onSuccess: (
       data: SaveToGitFormInterface,
       _payload?: Omit<InputSetDTO, 'repo' | 'branch'>
-    ): Promise<UseSaveSuccessResponse> =>
+    ): Promise<ResponseInputSetResponse> =>
       Promise.resolve(
         createUpdateInputSetWithGitDetails(
           defaultTo(_payload, savedInputSetObj),
           initialGitDetails,
           initialStoreMetadata,
           data
-        )
+        ).then(res => {
+          refetchParentData(res?.data?.identifier)
+          return res
+        })
       )
   })
 
@@ -256,8 +257,8 @@ function SaveAsInputSet({
             payload: inputSetObj
           })
         } else {
-          createUpdateInputSet(inputSetObj).then(() => {
-            refetchParentData()
+          createUpdateInputSet(inputSetObj).then(data => {
+            refetchParentData(data?.data?.identifier)
           })
         }
       }

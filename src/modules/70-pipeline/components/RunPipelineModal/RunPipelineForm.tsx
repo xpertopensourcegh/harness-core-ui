@@ -671,6 +671,13 @@ function RunPipelineFormBasic({
     return <PageSpinner />
   }
 
+  function handleInputSetSave(newId?: string): void {
+    if (newId) {
+      setSelectedInputSets([{ label: newId, value: newId, type: 'INPUT_SET' }])
+    }
+    getTemplateFromPipeline()
+  }
+
   let runPipelineFormContent: React.ReactElement | null = null
 
   if (validateTemplateInputsResponse?.data?.validYaml === false) {
@@ -867,7 +874,7 @@ function RunPipelineFormBasic({
                       isGitSyncEnabled={isGitSyncEnabled}
                       isGitSimplificationEnabled={isGitSimplificationEnabled}
                       setFormErrors={setFormErrors}
-                      refetchParentData={getTemplateFromPipeline}
+                      refetchParentData={handleInputSetSave}
                     />
                   </Layout.Horizontal>
                 )}
