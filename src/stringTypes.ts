@@ -2931,6 +2931,12 @@ export interface StringsMap {
   'pipeline.keyPlaceholder': string
   'pipeline.kubernetesStep.workload': string
   'pipeline.lastSevenDays': string
+  'pipeline.lockStep.keyPlaceholder': string
+  'pipeline.lockStep.keyRequired': string
+  'pipeline.lockStep.resourceKey': string
+  'pipeline.lockStep.scope': string
+  'pipeline.lockStep.scopePlaceholder': string
+  'pipeline.lockStep.scopeRequired': string
   'pipeline.logs.errorText': string
   'pipeline.logs.retry': string
   'pipeline.logs.sectionName': string
@@ -3209,6 +3215,7 @@ export interface StringsMap {
   'pipeline.stepDescription.K8sRollingDeploy': string
   'pipeline.stepDescription.K8sRollingRollback': string
   'pipeline.stepDescription.K8sScale': string
+  'pipeline.stepDescription.Lock': string
   'pipeline.stepDescription.Plugin': string
   'pipeline.stepDescription.Policy': string
   'pipeline.stepDescription.ResourceConstraint': string
