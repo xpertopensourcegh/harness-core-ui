@@ -4510,11 +4510,32 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.emptyStateDesc': string
+  'ce.perspectives.emptyStateTitle': string
   'ce.perspectives.enterAmount': string
   'ce.perspectives.excludeRowswithCost': string
   'ce.perspectives.exportCSV': string
   'ce.perspectives.exportRowsUpto': string
   'ce.perspectives.filename': string
+  'ce.perspectives.folders.createNewFolder': string
+  'ce.perspectives.folders.createNewFolderHeading': string
+  'ce.perspectives.folders.currentFolderLabel': string
+  'ce.perspectives.folders.customFolders': string
+  'ce.perspectives.folders.deletedConfirmationDesc': string
+  'ce.perspectives.folders.deletedConfirmationTitle': string
+  'ce.perspectives.folders.folderCreated': string
+  'ce.perspectives.folders.folderDeleted': string
+  'ce.perspectives.folders.folderMoved': string
+  'ce.perspectives.folders.folderNameLabel': string
+  'ce.perspectives.folders.folderNamePlaceholder': string
+  'ce.perspectives.folders.folderNameRequired': string
+  'ce.perspectives.folders.folderSelectionRequired': string
+  'ce.perspectives.folders.heading': string
+  'ce.perspectives.folders.moveExistingFolder': string
+  'ce.perspectives.folders.moveFolderTitle': string
+  'ce.perspectives.folders.moveToLabel': string
+  'ce.perspectives.folders.newFolder': string
+  'ce.perspectives.folders.selectPerspectiveLabel': string
   'ce.perspectives.largeNoOfRowsWarning': string
   'ce.perspectives.newPerspective': string
   'ce.perspectives.newPerspectiveLimitWarning': string

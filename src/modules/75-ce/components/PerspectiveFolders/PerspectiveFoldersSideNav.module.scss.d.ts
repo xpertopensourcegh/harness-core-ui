@@ -7,14 +7,17 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly bodyWrapper: string
-  readonly count: string
-  readonly disabledMode: string
-  readonly excludeSideNavOverlay: string
-  readonly header: string
-  readonly limitWarningTooltipCtn: string
-  readonly quickFilter: string
-  readonly search: string
-  readonly selected: string
+  readonly active: string
+  readonly checkbox: string
+  readonly customFoldersNav: string
+  readonly foldersList: string
+  readonly icon: string
+  readonly link: string
+  readonly loader: string
+  readonly perpectiveSearchWrapper: string
+  readonly perspectiveListWrapper: string
+  readonly sidenav: string
+  readonly sidenavText: string
+  readonly sidenavWrapper: string
 }
 export default styles
