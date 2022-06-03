@@ -21,6 +21,50 @@ const cloudProviderToEntityMapping = {
   [CloudProvider.AZURE]: azureEntities
 }
 
+export const anomalyFilterValueColumns = [
+  'clustername',
+  'namespace',
+  'workloadname',
+  'gcpproject',
+  'gcpproduct',
+  'gcpskudescription',
+  'awsaccount',
+  'awsservice',
+  'awsusagetype'
+]
+
+export const filterKeyToKeyMapping: Record<string, string> = {
+  gcpProducts: 'gcpproduct',
+  gcpProjects: 'gcpproject',
+  gcpSKUDescriptions: 'gcpskudescription',
+  k8sClusterNames: 'clustername',
+  k8sNamespaces: 'namespace',
+  k8sWorkloadNames: 'workloadname',
+  awsAccounts: 'awsaccount',
+  awsServices: 'awsservice',
+  awsUsageTypes: 'awsusagetype'
+}
+
+export const filterKeyToLabelMapping: Record<string, string> = {
+  gcpProducts: 'GCP Product',
+  gcpProjects: 'GCP Project',
+  gcpSKUDescriptions: 'GCP SKU Description',
+  k8sClusterNames: 'Cluster Name',
+  k8sNamespaces: 'Namespace',
+  k8sWorkloadNames: 'Workload',
+  awsAccounts: 'AWS Account',
+  awsServices: 'AWS Service',
+  awsUsageTypes: 'AWS Usage Type',
+  azureSubscriptions: 'AZURE Subscription',
+  azureServiceNames: 'AZURE Service Name',
+  azureResources: 'AZURE Resource'
+}
+
+export const k8sFilterKeys = ['k8sClusterNames', 'k8sNamespaces', 'k8sWorkloadNames']
+export const gcpFilterKeys = ['gcpProjects', 'gcpProducts', 'gcpSKUDescriptions']
+export const awsFilterKeys = ['awsAccounts', 'awsServices', 'awsUsageTypes']
+export const azureFilterKeys = ['azureSubscriptions', 'azureServiceNames', 'azureResources']
+
 const fieldToFieldNameMapping: Record<string, string> = {
   gcpProduct: 'Product',
   gcpProjectId: 'Project',
@@ -45,7 +89,7 @@ export function generateFilters(
 ): QlceViewFilterInput[] {
   const filters: any = []
   const relatedEntities = cloudProviderToEntityMapping[cloudProvider]
-  relatedEntities.length &&
+  relatedEntities?.length &&
     relatedEntities.forEach(entity => {
       if (entityMap[entity]) {
         filters.push({

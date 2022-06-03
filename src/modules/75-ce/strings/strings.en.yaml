@@ -28,6 +28,7 @@ pageErrorMsg:
   noBudgetMsg: No Budgets created yet
   noBudgetInfo: You budget amounts, thresholds and alerts on perspectives.
   noRecommendations: 'Currently there are no recommendations for your clusters.'
+  noFilteredRecommendations: There are no recommendations for the filters applied.
   recommendationDesc: 'Recommendations are shown only for cluster data (workloads and nodes). Add now to get started.'
 homepage:
   slogan: 'Get granular cloud cost visibility, enable powerful cost optimization through intelligent automation, and set vital budgets and forecasts for cost governance. Take your cloud cost management to the next level with Harness.'
@@ -564,6 +565,11 @@ recommendation:
       name: '{{ $.name }}'
       namespace: '{{ $.common.namespace }}'
       enterCost: Enter Cost
+      potentialSpend: Potential Spend ($)
+      savings: Savings ($)
+      spendPlaceholder: Enter minimum Potential spend
+      savingsPlaceholder: Enter minimum savings
+      resourceName: '{{ $.auditTrail.resourceNameLabel }}'
     listTableHeaders:
       monthlySavings: 'MONTHLY SAVINGS'
       resourceName: 'RESOURCE NAME'
@@ -976,6 +982,13 @@ anomalyDetection:
     groupByNoneValue: none
     groupByPerspectivePlaceholder: All Perspectives
     groupByCloudProvidersPlaceholder: All Cloud Providers
+    awsFilters: AWS Filters
+    clusterFilters: Cluster Filters
+    gcpFilters: GCP Filters
+    azureFilters: Azure Filters
+    actualSpend: Actual Spend ($)
+    spendPlaceholder: Enter minimum spend
+    anomalousSpend: Anomalous Spend ($)
   summary:
     totalCountText: Anomalies Detected
     costImpacted: Total Cost Impact

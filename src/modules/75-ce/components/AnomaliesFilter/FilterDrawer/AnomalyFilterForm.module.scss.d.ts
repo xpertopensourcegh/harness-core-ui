@@ -7,15 +7,12 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly checkbox: string
-  readonly costInput: string
-  readonly costInputContainer: string
-  readonly costText: string
-  readonly filterPillContainer: string
-  readonly filterValue: string
+  readonly anomalyFilterForm: string
+  readonly badge: string
+  readonly cpFilters: string
+  readonly expanded: string
+  readonly filterCard: string
   readonly label: string
-  readonly menuItem: string
-  readonly popoverContainer: string
-  readonly visible: string
+  readonly pointer: string
 }
 export default styles

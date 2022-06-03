@@ -3822,11 +3822,18 @@ export interface StringsMap {
   'ce.anomalyDetection.alertType': string
   'ce.anomalyDetection.checkLater': string
   'ce.anomalyDetection.createNewAnomalyAlert': string
+  'ce.anomalyDetection.filters.actualSpend': string
+  'ce.anomalyDetection.filters.anomalousSpend': string
+  'ce.anomalyDetection.filters.awsFilters': string
+  'ce.anomalyDetection.filters.azureFilters': string
+  'ce.anomalyDetection.filters.clusterFilters': string
+  'ce.anomalyDetection.filters.gcpFilters': string
   'ce.anomalyDetection.filters.groupByCloudProvidersPlaceholder': string
   'ce.anomalyDetection.filters.groupByNoneLabel': string
   'ce.anomalyDetection.filters.groupByNonePlaceholder': string
   'ce.anomalyDetection.filters.groupByNoneValue': string
   'ce.anomalyDetection.filters.groupByPerspectivePlaceholder': string
+  'ce.anomalyDetection.filters.spendPlaceholder': string
   'ce.anomalyDetection.listFetchingError': string
   'ce.anomalyDetection.listFetchingErrorDesc': string
   'ce.anomalyDetection.noData': string
@@ -4432,6 +4439,7 @@ export interface StringsMap {
   'ce.pageErrorMsg.noBudgetInfo': string
   'ce.pageErrorMsg.noBudgetMsg': string
   'ce.pageErrorMsg.noDataMsg': string
+  'ce.pageErrorMsg.noFilteredRecommendations': string
   'ce.pageErrorMsg.noRecommendations': string
   'ce.pageErrorMsg.perspectiveNoData': string
   'ce.pageErrorMsg.recommendationDesc': string
@@ -4668,6 +4676,11 @@ export interface StringsMap {
   'ce.recommendation.listPage.filters.minSaving': string
   'ce.recommendation.listPage.filters.name': string
   'ce.recommendation.listPage.filters.namespace': string
+  'ce.recommendation.listPage.filters.potentialSpend': string
+  'ce.recommendation.listPage.filters.resourceName': string
+  'ce.recommendation.listPage.filters.savings': string
+  'ce.recommendation.listPage.filters.savingsPlaceholder': string
+  'ce.recommendation.listPage.filters.spendPlaceholder': string
   'ce.recommendation.listPage.forecatedCostSubText': string
   'ce.recommendation.listPage.listTableHeaders.monthlyCost': string
   'ce.recommendation.listPage.listTableHeaders.monthlySavings': string

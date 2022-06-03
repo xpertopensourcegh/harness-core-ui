@@ -9,16 +9,17 @@ import React from 'react'
 import { queryByText, render, fireEvent, getByText, waitFor, getAllByText } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
+import SavedFilterData from '@ce/pages/recommendationList/__test__/FiltersData.json'
 
-import type { CcmMetaData } from 'services/ce/services'
-import CCMMetaDataResponse from '@ce/pages/anomalies-overview/__test__/CCMMetaDataResponse.json'
-import AnomaliesFilter from '../AnomaliesFilter'
-import SavedFilterData from './SavedFilterData.json'
+import RecommendationFilters from '../RecommendationFilters'
+import {
+  getRecommendationFilterPropertiesFromForm,
+  getRecommendationFormValuesFromFilterProperties
+} from '../FilterDrawer/utils'
 import FilterValues from './FilterValues.json'
-import { getAnomalyFilterPropertiesFromForm, getAnomalyFormValuesFromFilterProperties } from '../FilterDrawer/utils'
 
 jest.mock('services/ce', () => ({
-  useAnomalyFilterValues: jest.fn().mockImplementation(() => ({
+  useRecommendationFilterValues: jest.fn().mockImplementation(() => ({
     mutate: async () => {
       return {
         status: 'SUCCESS',
@@ -30,7 +31,7 @@ jest.mock('services/ce', () => ({
     .fn()
     .mockImplementationOnce(() => {
       return {
-        data: {},
+        data: FilterValues.data,
         refetch: jest.fn(),
         loading: false
       }
@@ -66,22 +67,16 @@ const params = {
 }
 
 const defaultProps = {
-  timeRange: {
-    to: '2022-10-02',
-    from: '2022-10-02'
-  },
-  setTimeRange: jest.fn(),
-  applyFilters: jest.fn(),
-  ccmMetaData: CCMMetaDataResponse.data.ccmMetaData as CcmMetaData
+  applyFilters: jest.fn()
 }
 
 const findDrawerContainer = (): HTMLElement | null => document.querySelector('.bp3-drawer')
 
-describe('Test Cases for AnomaliesFilter Component', () => {
-  test('Should be able to render the AnomaliesFilter Component / No saved filter', async () => {
+describe('Test Cases for RecommendationFilters Component', () => {
+  test('Should be able to render the RecommendationFilters Component / No saved filter', async () => {
     const { container } = render(
       <TestWrapper pathParams={params}>
-        <AnomaliesFilter {...defaultProps} />
+        <RecommendationFilters {...defaultProps} />
       </TestWrapper>
     )
 
@@ -93,7 +88,7 @@ describe('Test Cases for AnomaliesFilter Component', () => {
 
     const { container } = render(
       <TestWrapper pathParams={params}>
-        <AnomaliesFilter {...defaultProps} applyFilters={applyFiltersMock} />
+        <RecommendationFilters {...defaultProps} applyFilters={applyFiltersMock} />
       </TestWrapper>
     )
 
@@ -109,7 +104,7 @@ describe('Test Cases for AnomaliesFilter Component', () => {
 
     const { container } = render(
       <TestWrapper pathParams={params}>
-        <AnomaliesFilter {...defaultProps} applyFilters={applyFiltersMock} />
+        <RecommendationFilters {...defaultProps} applyFilters={applyFiltersMock} />
       </TestWrapper>
     )
 
@@ -118,8 +113,8 @@ describe('Test Cases for AnomaliesFilter Component', () => {
     const drawer = findDrawerContainer()
     expect(getByText(drawer!, 'Filter')).toBeDefined()
 
-    fireEvent.click(getByText(drawer!, 'Filter2'))
-    expect(getAllByText(drawer!, 'Filter2').length).toBe(2)
+    fireEvent.click(getByText(drawer!, 'Test 2'))
+    expect(getAllByText(drawer!, 'Test 2').length).toBe(2)
 
     fireEvent.click(getByText(drawer!, 'filters.newFilter'))
 
@@ -140,7 +135,7 @@ describe('Test Cases for AnomaliesFilter Component', () => {
 
     const { container } = render(
       <TestWrapper pathParams={params}>
-        <AnomaliesFilter {...defaultProps} applyFilters={applyFiltersMock} />
+        <RecommendationFilters {...defaultProps} applyFilters={applyFiltersMock} />
       </TestWrapper>
     )
 
@@ -149,14 +144,10 @@ describe('Test Cases for AnomaliesFilter Component', () => {
     const drawer = findDrawerContainer()
     expect(getByText(drawer!, 'Filter')).toBeDefined()
 
-    fireEvent.click(drawer?.querySelectorAll('[data-icon="chevron-down"]')[0]!) // Expand Cluster Filters Card
-    fireEvent.click(drawer?.querySelectorAll('[data-icon="chevron-down"]')[0]!) // Expand GCP Filters Card
-    fireEvent.click(drawer?.querySelectorAll('[data-icon="chevron-down"]')[0]!) // Expand AWS Filters Card
-
     fillAtForm([
       {
         container: drawer!,
-        fieldId: 'minActualAmount',
+        fieldId: 'minCost',
         type: InputTypes.TEXTFIELD,
         value: '50'
       }
@@ -168,27 +159,27 @@ describe('Test Cases for AnomaliesFilter Component', () => {
     fillAtForm([
       {
         container: drawer!,
-        fieldId: 'minActualAmount',
+        fieldId: 'minCost',
         type: InputTypes.TEXTFIELD,
         value: '100'
       },
       {
         container: drawer!,
-        fieldId: 'minAnomalousSpend',
+        fieldId: 'minSaving',
         type: InputTypes.TEXTFIELD,
         value: '200'
       },
       {
         container: drawer!,
-        fieldId: 'k8sClusterNames',
+        fieldId: 'clusterNames',
         type: InputTypes.MULTISELECT,
         multiSelectValues: ['Cluster Name 1']
       },
       {
         container: drawer!,
-        fieldId: 'awsAccounts',
+        fieldId: 'namespaces',
         type: InputTypes.MULTISELECT,
-        multiSelectValues: ['3']
+        multiSelectValues: ['namespaces12']
       }
     ])
 
@@ -201,39 +192,31 @@ describe('Test Cases for AnomaliesFilter Component', () => {
 })
 
 const mockFilterProperties = {
-  awsAccounts: ['mock1'],
-  awsServices: ['mock1'],
-  awsUsageTypes: ['mock1'],
-  gcpProducts: ['mock1'],
-  gcpProjects: ['mock1'],
-  gcpSKUDescriptions: ['mock1'],
-  k8sClusterNames: ['mock1'],
-  k8sNamespaces: ['mock1'],
-  k8sWorkloadNames: ['mock1'],
-  minActualAmount: 100,
-  minAnomalousSpend: 200
+  k8sRecommendationFilterPropertiesDTO: {
+    clusterNames: ['mock1'],
+    names: ['mock1'],
+    namespaces: ['mock1'],
+    resourceTypes: ['WORKLOAD'] as ('WORKLOAD' | 'NODE_POOL' | 'ECS_SERVICE')[]
+  },
+  minCost: 1000,
+  minSaving: 300
 }
 
 const mockFormValues = {
-  awsAccounts: [{ label: 'mock1', value: 'mock1' }],
-  awsServices: [{ label: 'mock1', value: 'mock1' }],
-  awsUsageTypes: [{ label: 'mock1', value: 'mock1' }],
-  gcpProducts: [{ label: 'mock1', value: 'mock1' }],
-  gcpProjects: [{ label: 'mock1', value: 'mock1' }],
-  gcpSKUDescriptions: [{ label: 'mock1', value: 'mock1' }],
-  k8sClusterNames: [{ label: 'mock1', value: 'mock1' }],
-  k8sNamespaces: [{ label: 'mock1', value: 'mock1' }],
-  k8sWorkloadNames: [{ label: 'mock1', value: 'mock1' }],
-  minActualAmount: 100,
-  minAnomalousSpend: 200
+  clusterNames: [{ label: 'mock1', value: 'mock1' }],
+  names: [{ label: 'mock1', value: 'mock1' }],
+  namespaces: [{ label: 'mock1', value: 'mock1' }],
+  resourceTypes: [{ label: 'WORKLOAD', value: 'WORKLOAD' }],
+  minCost: 1000,
+  minSaving: 300
 }
 
 describe('Test Cases for Filter Drawer Utils', () => {
   test('Test Cases for Utils', () => {
-    expect(getAnomalyFormValuesFromFilterProperties(mockFilterProperties)).toMatchObject(mockFormValues)
-    expect(getAnomalyFilterPropertiesFromForm(mockFormValues)).toMatchObject({
+    expect(getRecommendationFormValuesFromFilterProperties(mockFilterProperties)).toMatchObject(mockFormValues)
+    expect(getRecommendationFilterPropertiesFromForm(mockFormValues)).toMatchObject({
       ...mockFilterProperties,
-      filterType: 'Anomaly'
+      filterType: 'CCMRecommendation'
     })
   })
 })
