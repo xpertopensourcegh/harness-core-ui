@@ -28,6 +28,7 @@ import {
 import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import RetryPipeline from '../RetryPipeline/RetryPipeline'
@@ -149,8 +150,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     repoIdentifier,
     connectorRef,
     repoName,
-    stagesExecuted,
-    storeType
+    storeType,
+    stagesExecuted
   } = params
   const { mutate: interrupt } = useHandleInterrupt({
     planExecutionId: executionIdentifier
@@ -163,6 +164,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   const { showSuccess, showError, clear } = useToaster()
   const { getString } = useStrings()
   const location = useLocation()
+  const { isGitSyncEnabled } = useAppStore()
 
   const { openDialog: openAbortDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -276,10 +278,11 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier,
     executionId: executionIdentifier,
-    repoIdentifier: defaultTo(repoIdentifier, repoName),
+    repoIdentifier: isGitSyncEnabled ? repoIdentifier : repoName,
     branch,
-    stagesExecuted,
-    storeType
+    connectorRef,
+    storeType,
+    stagesExecuted
   })
 
   /*--------------------------------------Run Pipeline---------------------------------------------*/

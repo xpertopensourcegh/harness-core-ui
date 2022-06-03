@@ -242,7 +242,10 @@ export function PipelineCanvas({
               accountId,
               module,
               branch: selectedBranch,
-              repoIdentifier: repoIdentifier
+              repoIdentifier,
+              repoName,
+              connectorRef,
+              storeType
             })
           )
           location.reload()
@@ -580,6 +583,7 @@ export function PipelineCanvas({
               module={module}
               inputSetYAML={inputSetYaml || ''}
               inputSetSelected={getInputSetSelected()}
+              connectorRef={connectorRef}
               repoIdentifier={isPipelineRemote ? repoName : repoIdentifier}
               branch={branch}
               onClose={() => {

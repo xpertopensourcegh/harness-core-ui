@@ -11,6 +11,7 @@ import { defaultTo, find, identity } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { ButtonVariation, Text } from '@harness/uicore'
 import { String as StrTemplate, useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import type { StageDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import factory from '@pipeline/factories/ExecutionFactory'
@@ -26,13 +27,14 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { extractInfo } from '@common/components/ErrorHandler/ErrorHandler'
-import { StoreType } from '@common/constants/GitSyncTypes'
+import type { StoreType } from '@common/constants/GitSyncTypes'
 import css from './ExecutionStageDetailsHeader.module.scss'
 
 export function ExecutionStageDetailsHeader(): React.ReactElement {
   const { selectedStageId, pipelineStagesMap, refetch, pipelineExecutionDetail, allNodeMap } = useExecutionContext()
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } =
     useParams<PipelineType<ExecutionPathProps>>()
+  const { isGitSyncEnabled } = useAppStore()
   const stage = pipelineStagesMap.get(selectedStageId)
   const stageDetail = factory.getStageDetails(stage?.nodeType as StageType)
   const shouldShowError = isExecutionFailed(stage?.status)
@@ -90,15 +92,13 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
 
   const { openRunPipelineModal } = useRunPipelineModal({
     pipelineIdentifier,
-    repoIdentifier: defaultTo(
-      pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier,
-      pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoName
-    ),
+    repoIdentifier: isGitSyncEnabled
+      ? pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier
+      : pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoName,
     branch: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch,
-    stagesExecuted: [stage?.nodeIdentifier || ''],
-    storeType: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoName
-      ? StoreType.REMOTE
-      : StoreType.INLINE
+    connectorRef: pipelineExecutionDetail?.pipelineExecutionSummary?.connectorRef,
+    storeType: pipelineExecutionDetail?.pipelineExecutionSummary?.storeType as StoreType,
+    stagesExecuted: [stage?.nodeIdentifier || '']
   })
 
   return (
