@@ -374,7 +374,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           }
         })
       }
-      if (draft?.stage?.spec?.serviceConfig.serviceDefinition) {
+      if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
         delete draft.stage.spec.serviceConfig.serviceDefinition
       }
     })
@@ -514,7 +514,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       if (isConfirmed) {
         deleteStageData(currStageData)
         await debounceUpdateStage(currStageData)
-        setSelectedDeploymentType(currStageData?.spec?.serviceConfig.serviceDefinition?.type as ServiceDeploymentType)
+        setSelectedDeploymentType(currStageData?.spec?.serviceConfig?.serviceDefinition?.type as ServiceDeploymentType)
       }
     }
   })
