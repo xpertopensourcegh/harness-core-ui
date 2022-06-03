@@ -11,7 +11,7 @@ import { DEFAULT_GROUP_BY } from './perspectiveUtils'
 
 const gcpEntities = ['gcpProduct', 'gcpProjectId', 'gcpSKUDescription']
 const awsEntities = ['awsUsageAccountId', 'awsServiceCode', 'awsInstancetype', 'awsUsageType']
-const azureEntities: string[] = []
+const azureEntities = ['azureSubscriptionGuid', 'azureMeterCategory', 'azureResourceGroup']
 const clusterEntities = ['clusterName', 'namespace', 'workloadName', 'workloadType']
 
 const cloudProviderToEntityMapping = {
@@ -33,7 +33,10 @@ const fieldToFieldNameMapping: Record<string, string> = {
   awsInstancetype: 'Instance Type',
   awsUsageType: 'Usage Type',
   workloadType: 'Workload Type',
-  gcpSkuDescription: 'SKUs'
+  gcpSkuDescription: 'SKUs',
+  azureSubscriptionGuid: 'Subscription ID',
+  azureMeterCategory: 'Meter category',
+  azureResourceGroup: 'Resource group name'
 }
 
 export function generateFilters(
@@ -79,6 +82,9 @@ export function getCloudProviderFromFields(entityMap: Record<string, string | nu
   }
   if (entityMap.awsUsageAccountId) {
     return CloudProvider.AWS
+  }
+  if (entityMap.azureSubscriptionGuid) {
+    return CloudProvider.AZURE
   }
   return CloudProvider.CLUSTER
 }
