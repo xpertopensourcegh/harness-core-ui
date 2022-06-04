@@ -5417,6 +5417,20 @@ export interface StringsMap {
   'ci.runTestsMavenSetupText1': string
   'ci.runTestsMavenSetupText2': string
   'ci.runTestsMavenSetupTitle': string
+  'ci.runTestsStep.bazel': string
+  'ci.runTestsStep.buildEnvironment': string
+  'ci.runTestsStep.csharp': string
+  'ci.runTestsStep.dotNetCore': string
+  'ci.runTestsStep.dotnet': string
+  'ci.runTestsStep.fivePointZero': string
+  'ci.runTestsStep.frameworkVersion': string
+  'ci.runTestsStep.gradle': string
+  'ci.runTestsStep.java': string
+  'ci.runTestsStep.maven': string
+  'ci.runTestsStep.nUnitConsole': string
+  'ci.runTestsStep.namespaces': string
+  'ci.runTestsStep.sixPointZero': string
+  'ci.runTestsStep.validation.namespacesRequiredWhenCsharp': string
   'ci.save': string
   'ci.secrets': string
   'ci.successful': string
