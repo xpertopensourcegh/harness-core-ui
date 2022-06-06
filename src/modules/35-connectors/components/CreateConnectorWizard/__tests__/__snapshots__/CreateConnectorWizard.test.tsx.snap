@@ -763,8 +763,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
@@ -1602,8 +1602,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
@@ -2101,8 +2101,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
@@ -2562,8 +2562,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP KMS 1
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
@@ -4243,8 +4243,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Jira 1`] 
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
@@ -4700,8 +4700,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
@@ -5920,8 +5920,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
@@ -6791,8 +6791,8 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
           class="DefaultContainer--defaultContainer DefaultContainer--visibleContainer"
         >
           <div
-            background="white"
-            class="StyledProps--main StyledProps--background-white"
+            background="blue50"
+            class="StyledProps--main StyledProps--background-blue50"
             style="height: 100%;"
           >
             <div
