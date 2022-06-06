@@ -841,7 +841,7 @@ export function PipelineCanvas({
                   </div>
                 )}
                 {isUpdated && !isReadonly && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
-                <SavePipelinePopover toPipelineStudio={toPipelineStudio} isValidYaml={isValidYaml} />
+                <SavePipelinePopover toPipelineStudio={toPipelineStudio} />
                 {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
                   <Button
                     disabled={!isUpdated}
