@@ -40,7 +40,7 @@ interface TemplateMenuItem {
 
 export interface TemplateBarProps {
   templateLinkConfig: TemplateLinkConfig
-  onOpenTemplateSelector: (selectedTemplate?: TemplateSummaryResponse) => void
+  onOpenTemplateSelector: (selectedTemplate: TemplateSummaryResponse) => void
   onRemoveTemplate: () => Promise<void>
   className?: string
 }
@@ -77,11 +77,17 @@ export function TemplateBar(props: TemplateBarProps): JSX.Element {
     [data?.data]
   )
 
+  const onChangeTemplate = () => {
+    if (selectedTemplate) {
+      onOpenTemplateSelector(selectedTemplate)
+    }
+  }
+
   const { openDialog: openRemoveTemplateDialog } = useConfirmationDialog({
     intent: Intent.DANGER,
     buttonIntent: Intent.DANGER,
     cancelButtonText: getString('cancel'),
-    contentText: getString('pipeline.removeTemplate'),
+    contentText: getString('pipeline.removeTemplate', { entity: selectedTemplate?.templateEntityType?.toLowerCase() }),
     titleText: `${getString('common.remove')} ${getTemplateNameWithLabel(selectedTemplate)}?`,
     confirmButtonText: getString('common.remove'),
     onCloseDialog: async isConfirmed => {
@@ -138,7 +144,7 @@ export function TemplateBar(props: TemplateBarProps): JSX.Element {
             {
               icon: 'command-switch',
               label: getString('pipeline.changeTemplateLabel'),
-              onClick: () => onOpenTemplateSelector(selectedTemplate)
+              onClick: onChangeTemplate
             },
             {
               icon: 'main-trash',

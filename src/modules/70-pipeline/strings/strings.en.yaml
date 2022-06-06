@@ -16,7 +16,7 @@ stageVariables: Stage Variables
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target
-removeTemplate: The applied template will be removed from your stage.
+removeTemplate: 'The applied template will be removed from this {{entity}}.'
 changeTemplate: 'Applying {{name}} to your {{entity}} might reset some fields.'
 cloneSuccess: 'Pipeline {{name}} has been cloned successfully as {{cloneName}}'
 templateSaved: 'Template {{name}} has been published successfully. Applying {{name}} to your {{entity}} might reset some fields.'
