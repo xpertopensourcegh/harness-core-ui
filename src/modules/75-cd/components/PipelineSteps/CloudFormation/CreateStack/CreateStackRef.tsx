@@ -439,11 +439,23 @@ export const CreateStack = (
                   allowedTypes={allowableTypes}
                   skipRenderValueInExpressionLabel
                   disabled={readonly}
+                  expressionRender={() => {
+                    /* istanbul ignore next */
+                    return (
+                      <TFMonaco
+                        name="spec.configuration.templateFile.spec.templateBody"
+                        formik={formik}
+                        title={templateFile}
+                        expressions={expressions}
+                      />
+                    )
+                  }}
                 >
                   <TFMonaco
                     name="spec.configuration.templateFile.spec.templateBody"
                     formik={formik}
                     title={templateFile}
+                    expressions={expressions}
                   />
                 </MultiTypeFieldSelector>
                 {
