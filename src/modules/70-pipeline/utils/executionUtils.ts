@@ -703,6 +703,11 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
   return ExecutionPipelineNodeType.NORMAL
 }
 
+export const cloudFormationSteps: StepType[] = [
+  StepType.CloudFormationCreateStack,
+  StepType.CloudFormationDeleteStack,
+  StepType.CloudFormationRollbackStack
+]
 export function getIconDataBasedOnType(nodeData?: ExecutionNode): {
   icon: IconName
   iconSize: number
@@ -718,14 +723,16 @@ export function getIconDataBasedOnType(nodeData?: ExecutionNode): {
       return { icon: 'traffic-lights', iconSize: 40 }
     }
     const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeData?.stepType || '')
+    const iconSize = cloudFormationSteps.includes(nodeData.stepType as StepType) ? 32 : 28
     return {
       icon,
-      iconSize: 20
+      iconSize
     }
   }
+
   return {
     icon: 'cross',
-    iconSize: 20
+    iconSize: 28
   }
 }
 

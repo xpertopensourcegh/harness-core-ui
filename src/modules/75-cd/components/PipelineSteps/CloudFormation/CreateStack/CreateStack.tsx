@@ -36,6 +36,7 @@ export class CFCreateStack extends PipelineStep<CreateStackStepInfo> {
   protected stepIcon: IconName = 'cloud-formation-create'
   protected stepName = 'CloudFormation Create Stack'
   protected stepDescription: keyof StringsMap = 'cd.cloudFormation.createDescription'
+  protected stepIconSize = 32
 
   protected defaultValues: CreateStackStepInfo = {
     type: StepType.CloudFormationCreateStack,
