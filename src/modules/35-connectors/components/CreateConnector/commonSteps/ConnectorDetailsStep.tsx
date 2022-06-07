@@ -37,6 +37,8 @@ import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/c
 import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { useConnectorWizard } from '@connectors/components/CreateConnectorWizard/ConnectorWizardContext'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
 
@@ -139,6 +141,11 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       }
     }
   }
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.ConnectorDetailsStepLoad, {
+    category: Category.CONNECTOR
+  })
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
@@ -148,6 +155,9 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       <Container className={css.connectorForm}>
         <Formik<DetailsForm>
           onSubmit={formData => {
+            trackEvent(ConnectorActions.ConnectorDetailsStepSubmit, {
+              category: Category.CONNECTOR
+            })
             handleSubmit(formData)
           }}
           formName={`connectorDetailsStepForm${props.type}`}

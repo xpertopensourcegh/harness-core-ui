@@ -44,6 +44,8 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { FeatureFlag } from '@common/featureFlags'
 import { useConnectorGovernanceModal } from '@connectors/hooks/useConnectorGovernanceModal'
 import { useConnectorWizard } from '@connectors/components/CreateConnectorWizard/ConnectorWizardContext'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
 
 export interface SetupVaultFormData {
   vaultName?: string
@@ -159,6 +161,12 @@ const SetupVault: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> 
     }
   }
 
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.SetupVaultLoad, {
+    category: Category.CONNECTOR
+  })
+
   return loadingFormData ? (
     <PageSpinner />
   ) : (
@@ -175,6 +183,9 @@ const SetupVault: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> 
           vaultName: Yup.string().required(getString('connectors.azureKeyVault.validation.vaultName'))
         })}
         onSubmit={formData => {
+          trackEvent(ConnectorActions.SetupVaultSubmit, {
+            category: Category.CONNECTOR
+          })
           handleCreateOrEdit(formData)
         }}
       >

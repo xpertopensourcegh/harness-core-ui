@@ -12,7 +12,7 @@ import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import { useTelemetry } from '@common/hooks/useTelemetry'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
 import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
 import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
@@ -72,8 +72,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
   const onSuccessWithEventTracking = (data?: ConnectorRequestBody): void | Promise<void> => {
     props.onSuccess(data)
     trackEvent(ConnectorActions.SaveCreateConnector, {
-      category: Category.CONNECTOR,
-      data
+      category: Category.CONNECTOR
     })
   }
 
@@ -97,12 +96,10 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
 
   const { ERROR_TRACKING_ENABLED, NG_AZURE } = useFeatureFlags()
 
-  React.useEffect(() => {
-    trackEvent(ConnectorActions.StartCreateConnector, {
-      category: Category.CONNECTOR
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useTrackEvent(ConnectorActions.StartCreateConnector, {
+    category: Category.CONNECTOR,
+    connector_type: type
+  })
 
   switch (type) {
     case Connectors.CUSTOM:

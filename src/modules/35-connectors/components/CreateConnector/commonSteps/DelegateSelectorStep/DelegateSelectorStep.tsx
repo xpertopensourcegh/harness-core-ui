@@ -38,6 +38,8 @@ import {
 import { CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import useCreateEditConnector, { BuildPayloadProps } from '@connectors/hooks/useCreateEditConnector'
 import { useConnectorWizard } from '@connectors/components/CreateConnectorWizard/ConnectorWizardContext'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface DelegateSelectorStepData extends BuildPayloadProps {
@@ -170,6 +172,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     loading
 
   const connectorName = (prevStepData as ConnectorConfigDTO)?.name || (connectorInfo as ConnectorInfoDTO)?.name
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.DelegateSelectorStepLoad, {
+    category: Category.CONNECTOR
+  })
 
   return (
     <>
@@ -206,6 +213,9 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           //   })
           // })}
           onSubmit={stepData => {
+            trackEvent(ConnectorActions.DelegateSelectorStepSubmit, {
+              category: Category.CONNECTOR
+            })
             modalErrorHandler?.hide()
             const updatedStepData = {
               ...stepData,

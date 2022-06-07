@@ -30,6 +30,9 @@ import {
 } from '@connectors/interfaces/ConnectorInterface'
 import { PageSpinner } from '@common/components'
 import { useConnectorWizard } from '@connectors/components/CreateConnectorWizard/ConnectorWizardContext'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
+import { Connectors } from '@connectors/constants'
 import AwsKmsAccessKeyForm from './AwsKmsAccessKeyForm'
 
 const externalIdRegExpression = /^\S*$/
@@ -84,6 +87,13 @@ const AwsKmsConfig: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingConnectorSecrets])
 
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.ConfigLoad, {
+    category: Category.CONNECTOR,
+    connector_type: Connectors.AWSKms
+  })
+
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
@@ -132,6 +142,10 @@ const AwsKmsConfig: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps
           })
         })}
         onSubmit={formData => {
+          trackEvent(ConnectorActions.ConfigSubmit, {
+            category: Category.CONNECTOR,
+            connector_type: Connectors.AWSKms
+          })
           nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepDetailsProps)
         }}
       >

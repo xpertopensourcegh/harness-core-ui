@@ -31,6 +31,9 @@ import {
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { useStrings } from 'framework/strings'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
+import { Connectors } from '@connectors/constants'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
 import { useConnectorWizard } from '../../../CreateConnectorWizard/ConnectorWizardContext'
@@ -338,9 +341,20 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   }, [loadingConnectorSecrets])
 
   const handleSubmit = (formData: ConnectorConfigDTO) => {
+    trackEvent(ConnectorActions.DetailsStepSubmit, {
+      category: Category.CONNECTOR,
+      connector_type: Connectors.K8
+    })
     nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as Stepk8ClusterDetailsProps)
   }
   useConnectorWizard({ helpPanel: { referenceId: 'KubernetesConnectorDetails', contentWidth: 1100 } })
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.DetailsStepLoad, {
+    category: Category.CONNECTOR,
+    connector_type: Connectors.K8
+  })
+
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (

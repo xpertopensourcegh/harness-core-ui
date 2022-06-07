@@ -13,6 +13,9 @@ import { buildPrometheusPayload } from '@connectors/pages/connectors/utils/Conne
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
+import { Connectors } from '@connectors/constants'
 import { cvConnectorHOC } from '../CommonCVConnector/CVConnectorHOC'
 import type { ConnectionConfigProps } from '../CommonCVConnector/constants'
 import { initializePrometheusConnectorWithStepData } from './utils'
@@ -50,6 +53,13 @@ export function PrometheusConfigStep(props: ConnectionConfigProps): JSX.Element 
       .catch(() => setInitialValues(DefaultInitialValues))
   }, [accountId, orgIdentifier, prevStepData, projectIdentifier])
 
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.CreateConnectorLoad, {
+    category: Category.CONNECTOR,
+    connector_type: Connectors.Prometheus
+  })
+
   return (
     <Container className={css.credentials}>
       <StepDetailsHeader connectorTypeLabel={getString('connectors.prometheusLabel')} />
@@ -61,6 +71,10 @@ export function PrometheusConfigStep(props: ConnectionConfigProps): JSX.Element 
         })}
         formName="prometheusConnForm"
         onSubmit={(formData: ConnectorConfigDTO) => {
+          trackEvent(ConnectorActions.CreateConnectorSubmit, {
+            category: Category.CONNECTOR,
+            connector_type: Connectors.Prometheus
+          })
           nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
         }}
       >

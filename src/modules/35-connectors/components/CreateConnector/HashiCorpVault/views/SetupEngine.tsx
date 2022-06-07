@@ -52,6 +52,8 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { FeatureFlag } from '@common/featureFlags'
 import { useConnectorGovernanceModal } from '@connectors/hooks/useConnectorGovernanceModal'
 import { useConnectorWizard } from '@connectors/components/CreateConnectorWizard/ConnectorWizardContext'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
 
 const defaultInitialFormData: SetupEngineFormData = {
   secretEngine: '',
@@ -220,6 +222,12 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
     }
   }
 
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.SetupEngineLoad, {
+    category: Category.CONNECTOR
+  })
+
   return loadingFormData || savingDataInProgress ? (
     <PageSpinner message={savingDataInProgress ? getString('connectors.hashiCorpVault.saveInProgress') : undefined} />
   ) : (
@@ -249,6 +257,9 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
           })
         })}
         onSubmit={formData => {
+          trackEvent(ConnectorActions.SetupEngineSubmit, {
+            category: Category.CONNECTOR
+          })
           handleCreateOrEdit(formData)
         }}
       >

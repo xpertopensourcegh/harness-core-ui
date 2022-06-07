@@ -18,6 +18,9 @@ import type { ConnectorConfigDTO, ConnectorInfoDTO, AwsCredential } from 'servic
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import type { ConnectorDetailsProps } from '@connectors/interfaces/ConnectorInterface'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
+import { Connectors } from '@connectors/constants'
 import { useConnectorWizard } from '../../../CreateConnectorWizard/ConnectorWizardContext'
 import css from './StepAWSAuthentication.module.scss'
 interface StepAWSAuthenticationProps extends ConnectorInfoDTO {
@@ -65,8 +68,19 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
   }, [loadingConnectorSecrets])
 
   const handleSubmit = (formData: ConnectorConfigDTO) => {
+    trackEvent(ConnectorActions.AuthenticationStepSubmit, {
+      category: Category.CONNECTOR,
+      connector_type: Connectors.AWS
+    })
     nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepAWSAuthenticationProps)
   }
+
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.AuthenticationStepLoad, {
+    category: Category.CONNECTOR,
+    connector_type: Connectors.AWS
+  })
 
   return loadingConnectorSecrets ? (
     <PageSpinner />

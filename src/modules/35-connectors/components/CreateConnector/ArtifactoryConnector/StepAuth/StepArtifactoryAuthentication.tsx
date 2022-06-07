@@ -27,6 +27,9 @@ import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
+import { Connectors } from '@connectors/constants'
 import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from '../../NexusConnector/StepAuth/StepNexusConnector.module.scss'
 
@@ -95,9 +98,21 @@ const StepArtifactoryAuthentication: React.FC<
   }, [loadingConnectorSecrets])
 
   const handleSubmit = (formData: ConnectorConfigDTO) => {
+    trackEvent(ConnectorActions.AuthenticationStepSubmit, {
+      category: Category.CONNECTOR,
+      connector_type: Connectors.Artifactory
+    })
     nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepArtifactoryAuthenticationProps)
   }
   useGetHelpPanel('AritfactoryDetails', 900)
+
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.AuthenticationStepLoad, {
+    category: Category.CONNECTOR,
+    connector_type: Connectors.Artifactory
+  })
+
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (

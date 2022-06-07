@@ -98,7 +98,8 @@ export const Connectors: ConnectorType = {
   SERVICE_NOW: 'ServiceNow',
   CUSTOM_HEALTH: 'CustomHealth',
   ERROR_TRACKING: 'ErrorTracking',
-  AZURE: 'Azure'
+  AZURE: 'Azure',
+  AWSSECRETMANAGER: 'AwsSecretManager'
 }
 
 export const ConnectorInfoText = {

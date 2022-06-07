@@ -26,7 +26,11 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { setupJiraFormData, useGetHelpPanel } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { Connectors } from '@connectors/constants'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
+
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
 
 import css from './JiraConnector.module.scss'
 
@@ -83,6 +87,14 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
     }
   }, [loadingConnectorSecrets])
   useGetHelpPanel('JiraConnectorDetails', 900)
+
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.DetailsStepLoad, {
+    category: Category.CONNECTOR,
+    connector_type: Connectors.Jira
+  })
+
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
@@ -102,6 +114,10 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
           passwordRef: Yup.object().required(getString('validation.password'))
         })}
         onSubmit={stepData => {
+          trackEvent(ConnectorActions.DetailsStepSubmit, {
+            category: Category.CONNECTOR,
+            connector_type: Connectors.Jira
+          })
           nextStep?.({ ...props.connectorInfo, ...prevStepData, ...stepData } as JiraFormProps)
         }}
       >

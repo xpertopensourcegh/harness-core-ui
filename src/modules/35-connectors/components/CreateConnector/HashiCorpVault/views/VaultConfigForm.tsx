@@ -20,7 +20,10 @@ import {
   VaultConfigFormData,
   HashiCorpVaultAccessTypes
 } from '@connectors/interfaces/ConnectorInterface'
+import { Connectors } from '@connectors/constants'
 import { useConnectorWizard } from '@connectors/components/CreateConnectorWizard/ConnectorWizardContext'
+import { useTelemetry, useTrackEvent } from '@common/hooks/useTelemetry'
+import { Category, ConnectorActions } from '@common/constants/TrackingConstants'
 import VaultConnectorFormFields from './VaultConnectorFormFields'
 
 const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> = ({
@@ -61,6 +64,13 @@ const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsPr
       })
     }
   }, [isEditMode, connectorInfo])
+
+  const { trackEvent } = useTelemetry()
+
+  useTrackEvent(ConnectorActions.ConfigLoad, {
+    category: Category.CONNECTOR,
+    connector_type: Connectors.Vault
+  })
 
   return loadingFormData ? (
     <PageSpinner />
@@ -147,6 +157,10 @@ const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsPr
           })
         })}
         onSubmit={formData => {
+          trackEvent(ConnectorActions.ConfigSubmit, {
+            category: Category.CONNECTOR,
+            connector_type: Connectors.Vault
+          })
           nextStep?.({ ...connectorInfo, ...prevStepData, ...formData } as StepDetailsProps)
         }}
       >
