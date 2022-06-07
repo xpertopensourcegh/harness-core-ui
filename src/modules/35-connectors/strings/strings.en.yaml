@@ -74,6 +74,7 @@ addHeader: Add Header
 addParameter: Add Parameter
 baseURL: Base URL
 requestMethod: Request Method
+optionalAuthentication: Authentication (optional)
 connectivityMode:
   title: 'Connectivity Mode'
   validation: 'Please select connectivity mode'

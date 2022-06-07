@@ -7,7 +7,8 @@
 
 import React from 'react'
 import { noop } from 'lodash-es'
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import * as secretField from '@secrets/utils/SecretField'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
@@ -17,6 +18,7 @@ import { onNextMock } from '../../CommonCVConnector/__mocks__/CommonCVConnectorM
 jest.mock('../../CommonCVConnector/CVConnectorHOC')
 // file that imports mocked component must be placed after jest.mock
 import CreatePrometheusConnector from '../CreatePrometheusConnector'
+import { connectorMock, editConnectorMock } from './__mocks__/CreatePrometheusConnector.mock'
 
 const PrometheusURL = 'http://1234.45.565.67:8080'
 
@@ -75,9 +77,12 @@ describe('Create prometheus connector Wizard', () => {
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
         accountId: 'dummyAccountId',
+        headers: [{ value: { fieldType: 'TEXT' } }],
         orgIdentifier: 'dummyOrgId',
+        passwordRef: undefined,
         projectIdentifier: 'dummyProjectId',
-        url: PrometheusURL
+        url: 'http://1234.45.565.67:8080',
+        username: undefined
       })
     )
   })
@@ -93,15 +98,23 @@ describe('Create prometheus connector Wizard', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={{ url: PrometheusURL + '/' } as unknown as ConnectorInfoDTO}
+          connectorInfo={connectorMock as unknown as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
 
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
 
+    screen.debug(container, 30000)
+
     // expect recieved value to be there
-    expect(container.querySelector(`input[value="${PrometheusURL + '/'}"]`)).not.toBeNull()
+    expect(container.querySelector(`input[value="${PrometheusURL}"]`)).not.toBeNull()
+    expect(container.querySelector('input[value="testUsername"]')).not.toBeNull()
+    expect(screen.getByText(/passwordHarness/)).toBeInTheDocument()
+    expect(screen.getByText(/<github app>/)).toBeInTheDocument()
+    expect(container.querySelector('input[value="testKey2"]')).not.toBeNull()
+    expect(container.querySelector('input[value="testKey"]')).not.toBeNull()
+    expect(container.querySelector('input[value="testValue"]')).not.toBeNull()
 
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'http://sfsfsf.com', type: InputTypes.TEXTFIELD })
@@ -110,12 +123,61 @@ describe('Create prometheus connector Wizard', () => {
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        url: 'http://sfsfsf.com'
+        accountId: 'zEaak-FLS425IEO7OLzMUg',
+        delegateSelectors: ['abc'],
+        headers: [
+          {
+            key: 'testKey2',
+            value: {
+              fieldType: 'ENCRYPTED',
+              secretField: {
+                identifier: 'github_app',
+                name: 'github app',
+                referenceString: 'account.github_app',
+                type: 'SecretText'
+              }
+            }
+          },
+          {
+            key: 'testKey',
+            value: { '': { type: 'TEXT', value: 'testValue' }, fieldType: 'TEXT', textField: 'testValue' }
+          }
+        ],
+        identifier: 'testName',
+        name: 'testName',
+        orgIdentifier: 'CVNG',
+        passwordRef: {
+          identifier: 'passwordHarness',
+          name: 'passwordHarness',
+          referenceString: 'account.passwordHarness',
+          type: 'SecretText'
+        },
+        projectIdentifier: 'SRMQASignoff',
+        spec: {
+          accountId: 'zEaak-FLS425IEO7OLzMUg',
+          delegateSelectors: ['abc'],
+          passwordRef: 'passwordHarness',
+          url: 'http://1234.45.565.67:8080',
+          username: 'testUsername'
+        },
+        type: 'Prometheus',
+        url: 'http://sfsfsf.com',
+        username: 'testUsername'
       })
     )
   })
 
   test('Ensure edit flow works', async () => {
+    jest.spyOn(secretField, 'setSecretField').mockReturnValue(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      Promise.resolve({
+        identifier: 'passwordHarness',
+        name: 'passwordHarness',
+        referenceString: 'account.passwordHarness',
+        type: 'SecretText'
+      })
+    )
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreatePrometheusConnector
@@ -126,7 +188,7 @@ describe('Create prometheus connector Wizard', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={{ spec: { url: PrometheusURL } } as unknown as ConnectorInfoDTO}
+          connectorInfo={editConnectorMock as unknown as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -135,17 +197,40 @@ describe('Create prometheus connector Wizard', () => {
 
     // expect recieved value to be there
     expect(container.querySelector(`input[value="${PrometheusURL}"]`)).not.toBeNull()
+    expect(container.querySelector('input[value="testUsername"]')).not.toBeNull()
+    expect(screen.getByText(/passwordHarness/)).toBeInTheDocument()
+
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'http://dgdgtrty.com', type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'username', value: 'updatedUserName', type: InputTypes.TEXTFIELD })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        spec: {
-          url: 'http://1234.45.565.67:8080'
+        accountId: 'zEaak-FLS425IEO7OLzMUg',
+        delegateSelectors: ['abc'],
+        headers: [{ key: '', value: { fieldType: 'TEXT', textField: '' } }],
+        identifier: 'testName',
+        name: 'testName',
+        orgIdentifier: 'CVNG',
+        passwordRef: {
+          identifier: 'passwordHarness',
+          name: 'passwordHarness',
+          referenceString: 'account.passwordHarness',
+          type: 'SecretText'
         },
-        url: 'http://dgdgtrty.com'
+        projectIdentifier: 'SRMQASignoff',
+        spec: {
+          accountId: 'zEaak-FLS425IEO7OLzMUg',
+          delegateSelectors: ['abc'],
+          passwordRef: 'passwordHarness',
+          url: 'http://1234.45.565.67:8080',
+          username: 'testUsername'
+        },
+        type: 'Prometheus',
+        url: 'http://dgdgtrty.com',
+        username: 'updatedUserName'
       })
     )
   })

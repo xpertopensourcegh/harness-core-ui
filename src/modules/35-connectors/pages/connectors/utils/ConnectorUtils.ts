@@ -33,6 +33,7 @@ import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
 import { setSecretField } from '@secrets/utils/SecretField'
 import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import { transformStepHeadersAndParamsForPayloadForPrometheus } from '@connectors/components/CreateConnector/PrometheusConnector/utils'
 import { transformStepHeadersAndParamsForPayload } from '@connectors/components/CreateConnector/CustomHealthConnector/components/CustomHealthHeadersAndParams/CustomHealthHeadersAndParams.utils'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 import { useConnectorWizard } from '../../../components/CreateConnectorWizard/ConnectorWizardContext'
@@ -1394,9 +1395,12 @@ export const buildPrometheusPayload = (formData: FormData) => {
       projectIdentifier: formData.projectIdentifier,
       orgIdentifier: formData.orgIdentifier,
       spec: {
+        ...transformStepHeadersAndParamsForPayloadForPrometheus(formData.headers),
         delegateSelectors: formData.delegateSelectors || {},
         url: formData.url,
-        accountId: formData.accountId
+        accountId: formData.accountId,
+        username: formData.username,
+        passwordRef: formData?.passwordRef?.identifier
       }
     }
   }
