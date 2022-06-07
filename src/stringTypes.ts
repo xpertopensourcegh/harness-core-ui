@@ -2590,7 +2590,6 @@ export interface StringsMap {
   'pipeline.cannotAddTriggerInvalidPipeline': string
   'pipeline.cannotEditTriggerInvalidPipeline': string
   'pipeline.cannotRunInvalidPipeline': string
-  'pipeline.changeTemplate': string
   'pipeline.changeTemplateLabel': string
   'pipeline.ci.validations.invalidSize': string
   'pipeline.ci.validations.keyUnique': string
@@ -2624,7 +2623,6 @@ export interface StringsMap {
   'pipeline.conditionalExecution.toolTip.resolvedVariables': string
   'pipeline.conditionalExecution.toolTip.stageTitle': string
   'pipeline.conditionalExecution.toolTip.stepTitle': string
-  'pipeline.copyTemplate': string
   'pipeline.createANewPipeline': string
   'pipeline.createPipeline.choosePipelineSetupHeader': string
   'pipeline.createPipeline.learnMore': string
@@ -3383,10 +3381,12 @@ export interface StringsMap {
   'pipeline.viewLatestExecution': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.alwaysUseStableVersion': string
+  'templatesLibrary.changeTemplate': string
   'templatesLibrary.commentModal.heading': string
   'templatesLibrary.commentModal.info': string
+  'templatesLibrary.copyTemplate': string
+  'templatesLibrary.copyTemplateLabel': string
   'templatesLibrary.copyToNewPipeline': string
-  'templatesLibrary.copyToPipeline': string
   'templatesLibrary.createNewModal.editHeading': string
   'templatesLibrary.createNewModal.heading': string
   'templatesLibrary.createNewModal.identifierPlaceholder': string
@@ -3425,7 +3425,7 @@ export interface StringsMap {
   'templatesLibrary.templatesLabel': string
   'templatesLibrary.templatesPage.noTemplates': string
   'templatesLibrary.updated': string
-  'templatesLibrary.useTemplate': string
+  'templatesLibrary.useTemplateLabel': string
   'triggers.aboutTriggers': string
   'triggers.activityActivation': string
   'triggers.activityDays': string

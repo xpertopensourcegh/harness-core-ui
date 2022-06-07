@@ -13,7 +13,7 @@ import { Color } from '@harness/design-system'
 import { useModalHook } from '@harness/use-modal'
 import { Classes, Dialog, Intent, Menu, Position } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
@@ -87,9 +87,18 @@ export function TemplateBar(props: TemplateBarProps): JSX.Element {
     intent: Intent.DANGER,
     buttonIntent: Intent.DANGER,
     cancelButtonText: getString('cancel'),
-    contentText: getString('pipeline.removeTemplate', { entity: selectedTemplate?.templateEntityType?.toLowerCase() }),
-    titleText: `${getString('common.remove')} ${getTemplateNameWithLabel(selectedTemplate)}?`,
-    confirmButtonText: getString('common.remove'),
+    contentText: (
+      <String
+        stringID="pipeline.removeTemplate"
+        vars={{
+          name: getTemplateNameWithLabel(selectedTemplate),
+          entity: selectedTemplate?.templateEntityType?.toLowerCase()
+        }}
+        useRichText={true}
+      />
+    ),
+    titleText: `${getString('pipeline.removeTemplateLabel')}?`,
+    confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         await onRemoveTemplate()
