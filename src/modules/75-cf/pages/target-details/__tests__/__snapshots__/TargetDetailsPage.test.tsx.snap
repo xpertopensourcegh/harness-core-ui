@@ -429,7 +429,7 @@ exports[`TargetDetailPage TargetDetailPage should render data correctly 1`] = `
               <div
                 aria-hidden="false"
                 aria-labelledby="bp3-tab-title_targetSettings_attributes"
-                class="bp3-tab-panel"
+                class="bp3-tab-panel tabPanel"
                 id="bp3-tab-panel_targetSettings_attributes"
                 role="tabpanel"
               >
@@ -976,7 +976,7 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
               <div
                 aria-hidden="false"
                 aria-labelledby="bp3-tab-title_targetSettings_segments"
-                class="bp3-tab-panel"
+                class="bp3-tab-panel tabPanel"
                 id="bp3-tab-panel_targetSettings_segments"
                 role="tabpanel"
               >
