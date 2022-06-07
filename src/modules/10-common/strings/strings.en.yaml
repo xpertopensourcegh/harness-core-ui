@@ -271,6 +271,7 @@ purpose:
     moduleSelectionSubHeading: Take your feature rollout processes to the next level using our Harness Feature Flags
   sto:
     continuous: Security Tests
+    moduleSelectionSubHeading: Take your security tests to the next level using our Harness Security Tests
 trialInProgress: Trial in progress
 trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
 letsGetYouStarted: Let’s get you started

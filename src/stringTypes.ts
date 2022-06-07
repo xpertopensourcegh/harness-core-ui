@@ -554,6 +554,7 @@ export interface StringsMap {
   'common.purpose.setup': string
   'common.purpose.startATrial': string
   'common.purpose.sto.continuous': string
+  'common.purpose.sto.moduleSelectionSubHeading': string
   'common.purpose.welcome': string
   'common.pwsh': string
   'common.readOnly': string
@@ -2437,6 +2438,7 @@ export interface StringsMap {
   'projectsOrgs.purposeList.name': string
   'projectsOrgs.purposeList.selectAModule': string
   'projectsOrgs.purposeList.service': string
+  'projectsOrgs.purposeList.sto': string
   'projectsOrgs.purposeList.time': string
   'projectsOrgs.purposeList.verification': string
   'projectsOrgs.recentActivities': string
