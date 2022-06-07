@@ -50,6 +50,7 @@ import CreateCustomHealthConnector from '../CreateConnector/CustomHealthConnecto
 import CreateErrorTrackingConnector from '../CreateConnector/ErrorTrackingConnector/CreateErrorTrackingConnector'
 import CreateAzureConnector from '../CreateConnector/AzureConnector/CreateAzureConnector'
 import { ConnectorWizardContextProvider } from './ConnectorWizardContext'
+import CreateJenkinsConnector from '../CreateConnector/JenkinsConnector/CreateJenkinsConnector'
 
 interface CreateConnectorWizardProps {
   accountId: string
@@ -172,6 +173,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return ERROR_TRACKING_ENABLED ? <CreateErrorTrackingConnector {...commonProps} /> : null
     case Connectors.AZURE:
       return NG_AZURE ? <CreateAzureConnector {...commonProps} /> : null
+    case Connectors.JENKINS:
+      return <CreateJenkinsConnector {...commonProps} />
     default:
       return null
   }

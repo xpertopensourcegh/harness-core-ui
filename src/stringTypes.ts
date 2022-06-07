@@ -1532,6 +1532,7 @@ export interface StringsMap {
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string
   'connectors.baseURL': string
+  'connectors.bearerToken': string
   'connectors.cantDeleteConnector': string
   'connectors.cdng.artifactTag': string
   'connectors.cdng.baseline': string
@@ -1989,6 +1990,12 @@ export interface StringsMap {
   'connectors.helmRepo.helmRepoUrl': string
   'connectors.httpHelm.httpHelmRepoUrl': string
   'connectors.ifReq': string
+  'connectors.jenkins.bearerTokenRequired': string
+  'connectors.jenkins.jenkins': string
+  'connectors.jenkins.jenkinsUrl': string
+  'connectors.jenkins.jenkinsUrlRequired': string
+  'connectors.jenkins.passwordAPIToken': string
+  'connectors.jenkins.usernamePasswordAPIToken': string
   'connectors.jira.jiraUrl': string
   'connectors.k8.OIDCClientId': string
   'connectors.k8.OIDCIssuerUrl': string
@@ -2461,7 +2468,6 @@ export interface StringsMap {
   'pipeline.ACR.subscriptionError': string
   'pipeline.ACR.subscriptionPlaceholder': string
   'pipeline.ACR.tagError': string
-  'pipeline.Jenkins.name': string
   'pipeline.OverviewEmptyStates.createPipelineHeaderMsg': string
   'pipeline.OverviewEmptyStates.createPipelineInfo': string
   'pipeline.OverviewEmptyStates.runPipelineHeaderMsg': string

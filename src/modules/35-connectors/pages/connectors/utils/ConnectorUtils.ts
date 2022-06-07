@@ -551,6 +551,35 @@ export const setupDockerFormData = async (connectorInfo: ConnectorInfoDTO, accou
   return formData
 }
 
+export const setupJenkinsFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    jenkinsUrl: connectorInfo.spec.jenkinsUrl,
+    authType: connectorInfo.spec.auth.type,
+    username:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD &&
+      (connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef)
+        ? {
+            value: connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef,
+            type: connectorInfo.spec.auth.spec.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
+    password:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
+        ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
+        : undefined,
+    bearerToken:
+      connectorInfo.spec.auth.type === AuthTypes.BEARER_TOKEN ? connectorInfo.spec.auth.spec.tokenRef : undefined
+  }
+  return formData
+}
+
 export const setupHelmFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
   const scopeQueryParams: GetSecretV2QueryParams = {
     accountIdentifier: accountId,
@@ -942,6 +971,39 @@ export const buildDockerPayload = (formData: FormData) => {
             }
           : {
               type: formData.authType
+            }
+    }
+  }
+  return { connector: savedData }
+}
+
+export const buildJenkinsPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: Connectors.JENKINS,
+    spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      jenkinsUrl: formData.jenkinsUrl.trim(),
+      auth:
+        formData.authType === AuthTypes.USER_PASSWORD
+          ? {
+              type: formData.authType,
+              spec: {
+                username: formData.username.type === ValueType.TEXT ? formData.username.value : undefined,
+                usernameRef: formData.username.type === ValueType.ENCRYPTED ? formData.username.value : undefined,
+                passwordRef: formData.password.referenceString
+              }
+            }
+          : {
+              type: formData.authType,
+              spec: {
+                tokenRef: formData.bearerToken.referenceString
+              }
             }
     }
   }
@@ -1778,6 +1840,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'error-tracking'
     case Connectors.AZURE:
       return 'microsoft-azure'
+    case Connectors.JENKINS:
+      return 'service-jenkins'
     default:
       return 'cog'
   }

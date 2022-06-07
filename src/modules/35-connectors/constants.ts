@@ -99,7 +99,8 @@ export const Connectors: ConnectorType = {
   CUSTOM_HEALTH: 'CustomHealth',
   ERROR_TRACKING: 'ErrorTracking',
   AZURE: 'Azure',
-  AWSSECRETMANAGER: 'AwsSecretManager'
+  AWSSECRETMANAGER: 'AwsSecretManager',
+  JENKINS: 'Jenkins'
 }
 
 export const ConnectorInfoText = {

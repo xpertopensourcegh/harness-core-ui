@@ -1067,8 +1067,6 @@ ACR:
   repositoryPlaceholder: 'Select or add Repository'
   repositoryError: 'No repository found with given Registry'
   tagError: 'No tags found with given Connector, Subscription Id, Registry and Repository'
-Jenkins:
-  name: Jenkins
 OverviewEmptyStates:
   createPipelineHeaderMsg: Set up a Pipeline and run your first deployment!
   createPipelineInfo: A Harness Pipeline is a series of stages that performs operations like building and deploying software.

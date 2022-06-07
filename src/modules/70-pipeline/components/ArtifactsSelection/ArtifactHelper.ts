@@ -40,7 +40,7 @@ export const ArtifactTitleIdByType: Record<ArtifactType, StringKeys> = {
   ArtifactoryRegistry: 'connectors.artifactory.artifactoryLabel',
   CustomArtifact: 'common.repo_provider.customLabel',
   Acr: 'pipeline.ACR.name',
-  Jenkins: 'pipeline.Jenkins.name'
+  Jenkins: 'connectors.jenkins.jenkins'
 }
 
 export const ENABLED_ARTIFACT_TYPES: { [key: string]: ArtifactType } = {
@@ -68,11 +68,17 @@ export const ArtifactConnectorLabelMap: Record<string, string> = {
   Ecr: 'AWS',
   Nexus3Registry: 'Nexus',
   ArtifactoryRegistry: 'Artifactory',
-  Acr: 'Azure'
+  Acr: 'Azure',
+  Jenkins: 'Jenkins'
 }
 
 export const allowedArtifactTypes: Record<ServiceDefinition['type'], Array<ArtifactType>> = {
-  Kubernetes: [ENABLED_ARTIFACT_TYPES.DockerRegistry, ENABLED_ARTIFACT_TYPES.Gcr, ENABLED_ARTIFACT_TYPES.Ecr],
+  Kubernetes: [
+    ENABLED_ARTIFACT_TYPES.DockerRegistry,
+    ENABLED_ARTIFACT_TYPES.Gcr,
+    ENABLED_ARTIFACT_TYPES.Ecr
+    // ENABLED_ARTIFACT_TYPES.Jenkins
+  ],
   NativeHelm: [ENABLED_ARTIFACT_TYPES.DockerRegistry, ENABLED_ARTIFACT_TYPES.Gcr, ENABLED_ARTIFACT_TYPES.Ecr],
   ServerlessAwsLambda: [ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry],
   Ssh: [],
