@@ -77,6 +77,7 @@ import { useGetTemplate } from 'services/template-ng'
 import { Page } from '@common/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
+import type { DeployServiceData } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceInterface'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -544,6 +545,19 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     return ''
   }, [stage])
 
+  const getDeployServiceWidgetInitValues = React.useCallback((): DeployServiceData => {
+    const initValues: DeployServiceData = {
+      service: getServiceEntityBasedService(),
+      isNewServiceEntity: isNewServiceEntity(),
+      serviceRef: scope === Scope.PROJECT ? getServiceEntityBasedServiceRef() : RUNTIME_INPUT_VALUE
+    }
+    if (isNewServiceEntity()) {
+      initValues.deploymentType = (stage?.stage?.spec as any).deploymentType
+    }
+    return initValues
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const isNewServiceEntity = (): boolean => {
     return (NG_SVC_ENV_REDESIGN as boolean) && isEmptyServiceConfigPath(stage?.stage as DeploymentStageElementConfig)
   }
@@ -598,11 +612,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 <StepWidget
                   type={StepType.DeployService}
                   readonly={isReadonly || scope !== Scope.PROJECT}
-                  initialValues={{
-                    service: getServiceEntityBasedService(),
-                    isNewServiceEntity: isNewServiceEntity(),
-                    serviceRef: scope === Scope.PROJECT ? getServiceEntityBasedServiceRef() : RUNTIME_INPUT_VALUE
-                  }}
+                  initialValues={getDeployServiceWidgetInitValues()}
                   allowableTypes={allowableTypes}
                   onUpdate={data => updateService(data)}
                   factory={factory}
@@ -618,7 +628,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 </div>
                 <SelectDeploymentType
                   selectedDeploymentType={selectedDeploymentType}
-                  isReadonly={isReadonly}
+                  viewContext="setup"
+                  isReadonly={isReadonly || isReadonlyView}
                   handleDeploymentTypeChange={handleDeploymentTypeChange}
                 />
                 <Layout.Horizontal>

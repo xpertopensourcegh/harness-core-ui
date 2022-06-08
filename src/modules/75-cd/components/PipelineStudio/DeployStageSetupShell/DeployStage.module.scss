@@ -66,3 +66,27 @@
     margin-top: 0 !important;
   }
 }
+
+.stage-view {
+  margin-top: var(--spacing-3);
+  display: block;
+  padding-top: var(--spacing-medium);
+  padding-bottom: var(--spacing-7);
+  .info {
+    font-size: 13px;
+  }
+  .deployment-type-heading {
+    font-size: var(--font-size-normal);
+    color: var(--grey-600);
+    font-weight: 500;
+    margin-bottom: var(--spacing-5);
+  }
+  .thumbnailSelect {
+    &:global(.bp3-form-group) {
+      margin-bottom: 0px;
+    }
+  }
+  .cardListContainer {
+    margin-top: 0 !important;
+  }
+}

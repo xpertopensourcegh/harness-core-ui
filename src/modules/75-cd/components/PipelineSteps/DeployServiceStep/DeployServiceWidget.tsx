@@ -79,16 +79,19 @@ function DeployServiceWidget({
 
   const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
-  const isNewServiceEntityDialog = (): boolean => {
+  const isNewServiceEntity = (): boolean => {
     return !!initialValues.isNewServiceEntity
   }
-
   const {
     data: serviceResponse,
     error,
     loading
   } = useGetServiceList({
-    queryParams
+    queryParams: {
+      ...queryParams
+      //This is commented temporarily , as BE is returning empty response
+      // type: isNewServiceEntity() ? initialValues.deploymentType : undefined
+    }
   })
 
   const {
@@ -245,8 +248,8 @@ function DeployServiceWidget({
     canEscapeKeyClose: false,
     canOutsideClickClose: false,
     enforceFocus: false,
-    className: isNewServiceEntityDialog() ? css.editServiceDialog : '',
-    style: isNewServiceEntityDialog() ? { width: 1114 } : {}
+    className: isNewServiceEntity() ? css.editServiceDialog : '',
+    style: isNewServiceEntity() ? { width: 1114 } : {}
   }
   const serviceEntityProps = state.isEdit
     ? {
@@ -261,7 +264,7 @@ function DeployServiceWidget({
         title={state.isEdit ? getString('editService') : getString('newService')}
         {...DIALOG_PROPS}
       >
-        {isNewServiceEntityDialog() ? (
+        {isNewServiceEntity() ? (
           <ServiceEntityEditModal
             {...serviceEntityProps}
             onCloseModal={hideModal}

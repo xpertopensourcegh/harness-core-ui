@@ -3205,6 +3205,7 @@ export interface StringsMap {
   'pipeline.serviceNowUpdateStep.fieldType.updateFields': string
   'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
+  'pipeline.stageDataDeleteWarningContent': string
   'pipeline.stageDataDeleteWarningText': string
   'pipeline.stageDataDeleteWarningTitle': string
   'pipeline.stageDependencyError': string
