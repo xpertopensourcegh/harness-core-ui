@@ -27,6 +27,7 @@ export interface GitQueryParams {
   repoName?: EntityGitDetails['repoName']
   connectorRef?: string
   storeType?: StoreType
+  filePathTouched?: string
 }
 
 export interface InputSetGitQueryParams extends GitQueryParams {

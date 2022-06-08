@@ -55,16 +55,21 @@ const getConnectorIdentifierWithScope = (scope: Scope, identifier: string): stri
 export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.ReactElement {
   const { formikProps, isEdit, showRemoteTypeSelection = true, disableFields = {} } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { branch, connectorRef, repoName } = useQueryParams<GitQueryParams>()
+  const { branch, connectorRef, repoName, filePathTouched } = useQueryParams<GitQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams()
   const { getString } = useStrings()
   const [errorResponse, setErrorResponse] = useState<ResponseMessage[]>([])
 
   useEffect(() => {
     !isEdit &&
+      filePathTouched !== 'true' &&
       formikProps?.values?.identifier &&
       formikProps.setFieldValue('filePath', `.harness/${formikProps.values.identifier}.yaml`)
-  }, [formikProps?.values?.identifier, isEdit])
+  }, [formikProps?.values?.identifier, isEdit, filePathTouched])
+
+  useEffect(() => {
+    if (!filePathTouched && formikProps?.touched?.filePath) updateQueryParams({ filePathTouched: 'true' })
+  }, [filePathTouched, formikProps?.touched?.filePath, updateQueryParams])
 
   useEffect(() => {
     setErrorResponse([])
