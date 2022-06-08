@@ -244,6 +244,8 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
 
   const goToPipelineDetail = useCallback(
     (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
+      const isRemotePipeline = isGitSimplificationEnabled && pipeline?.storeType === StoreType.REMOTE
+
       history.push(
         routes.toPipelineDeploymentList({
           projectIdentifier,
@@ -252,7 +254,10 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
           accountId,
           module,
           branch: pipeline?.gitDetails?.branch,
-          repoIdentifier: pipeline?.gitDetails?.repoIdentifier
+          repoIdentifier: isRemotePipeline ? pipeline?.gitDetails?.repoName : pipeline?.gitDetails?.repoIdentifier,
+          repoName: pipeline?.gitDetails?.repoName,
+          connectorRef: pipeline?.connectorRef,
+          storeType: isRemotePipeline ? StoreType.REMOTE : undefined
         })
       )
     },
@@ -272,8 +277,8 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
           module,
           branch: pipeline?.gitDetails?.branch,
           repoIdentifier: isRemotePipeline ? pipeline?.gitDetails?.repoName : pipeline?.gitDetails?.repoIdentifier,
-          repoName: isRemotePipeline ? pipeline?.gitDetails?.repoName : undefined,
-          connectorRef: isRemotePipeline ? pipeline?.connectorRef : undefined,
+          repoName: pipeline?.gitDetails?.repoName,
+          connectorRef: pipeline?.connectorRef,
           storeType: isRemotePipeline ? StoreType.REMOTE : undefined
         })
       )
