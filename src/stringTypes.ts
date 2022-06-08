@@ -6205,6 +6205,7 @@ export interface StringsMap {
   'cv.slos.validations.specialCharacters': string
   'cv.slos.validations.userJourneyRequired': string
   'cv.somethingWentWrongWhileParsingTheData': string
+  'cv.srmTitle': string
   'cv.statusCode': string
   'cv.sunday': string
   'cv.thanObjectiveValue': string
