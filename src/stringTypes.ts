@@ -335,8 +335,6 @@ export interface StringsMap {
   'common.git.validation.repoRequired': string
   'common.git.validation.sameBranches': string
   'common.git.validation.targetBranch': string
-  'common.git.validation.yamlPath': string
-  'common.git.validation.yamlPathInvalid': string
   'common.gitDetailsTitle': string
   'common.gitOps': string
   'common.gitSync.allRepositories': string
@@ -2264,6 +2262,12 @@ export interface StringsMap {
   'gitsync.fullSyncSubTitle': string
   'gitsync.fullSyncTitle': string
   'gitsync.gitEnabledBlockedTooltip': string
+  'gitsync.gitSyncForm.createNewYaml': string
+  'gitsync.gitSyncForm.enterYamlPath': string
+  'gitsync.gitSyncForm.useExistingYaml': string
+  'gitsync.gitSyncForm.yamlPathInvalid': string
+  'gitsync.gitSyncForm.yamlPathLabel': string
+  'gitsync.gitSyncForm.yamlPathRequired': string
   'gitsync.harnessFolderHeader': string
   'gitsync.harnessFolderText': string
   'gitsync.label': string

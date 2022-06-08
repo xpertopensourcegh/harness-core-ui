@@ -77,8 +77,8 @@ export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.R
           name="remoteType"
           radioGroup={{ inline: true }}
           items={[
-            { label: 'Use Existing Yaml', value: 'import', disabled: true },
-            { label: 'Create New Yaml', value: 'create', disabled: isEdit }
+            { label: getString('gitsync.gitSyncForm.useExistingYaml'), value: 'import', disabled: true },
+            { label: getString('gitsync.gitSyncForm.createNewYaml'), value: 'create', disabled: isEdit }
           ]}
           onChange={elm => {
             formikProps.setFieldValue(
@@ -99,7 +99,7 @@ export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.R
             type={['Github', 'Bitbucket']}
             selected={formikProps.values.connectorRef || connectorRef}
             error={formikProps.submitCount > 0 ? formikProps?.errors?.connectorRef : undefined}
-            label={'Select Git Connector'}
+            label={getString('connectors.title.gitConnector')}
             placeholder={`- ${getString('select')} -`}
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
@@ -148,8 +148,8 @@ export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.R
           />
           <FormInput.Text
             name="filePath"
-            label={'Yaml Path'}
-            placeholder={'Enter Yaml path'}
+            label={getString('gitsync.gitSyncForm.yamlPathLabel')}
+            placeholder={getString('gitsync.gitSyncForm.enterYamlPath')}
             disabled={isEdit || disableFields.filePath}
           />
         </Layout.Vertical>
