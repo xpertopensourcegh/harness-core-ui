@@ -1566,6 +1566,7 @@ export interface CodeBase {
   connectorRef: string
   depth?: number
   prCloneStrategy?: 'MergeCommit' | 'SourceBranch'
+  projectName?: string
   repoName?: string
   resources?: ContainerResource
   sslVerify?: boolean
@@ -2064,6 +2065,7 @@ export type DatadogConnectorDTO = ConnectorConfigDTO & {
 export interface DelegateConfiguration {
   action?: 'SELF_DESTRUCT'
   delegateVersions?: string[]
+  validTillNextRelease?: boolean
   validUntil?: number
 }
 
@@ -2072,6 +2074,16 @@ export interface DelegateConnectionDetails {
   lastHeartbeat?: number
   uuid?: string
   version?: string
+}
+
+export interface DelegateDownloadRequest {
+  clusterPermissionType?: 'CLUSTER_ADMIN' | 'CLUSTER_VIEWER' | 'NAMESPACE_ADMIN'
+  customClusterNamespace?: string
+  description?: string
+  name: string
+  size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  tags?: string[]
+  tokenName?: string
 }
 
 export interface DelegateEntityOwner {
@@ -2119,7 +2131,6 @@ export interface DelegateGroupDetails {
   delegateConfigurationId?: string
   delegateDescription?: string
   delegateGroupIdentifier?: string
-  delegateInsightsDetails?: DelegateInsightsDetails
   delegateInstanceDetails?: DelegateInner[]
   delegateType?: string
   groupCustomSelectors?: string[]
@@ -2154,15 +2165,6 @@ export interface DelegateInner {
   lastHeartbeat?: number
   tokenActive?: boolean
   uuid?: string
-}
-
-export interface DelegateInsightsBarDetails {
-  counts?: PairDelegateInsightsTypeLong[]
-  timeStamp?: number
-}
-
-export interface DelegateInsightsDetails {
-  insights?: DelegateInsightsBarDetails[]
 }
 
 export interface DelegateMetaInfo {
@@ -6324,9 +6326,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -6855,25 +6858,13 @@ export type PagerDutyConnectorDTO = ConnectorConfigDTO & {
   delegateSelectors?: string[]
 }
 
-export interface Pair {
-  key?: { [key: string]: any }
-  left?: { [key: string]: any }
-  right?: { [key: string]: any }
-  value?: { [key: string]: any }
-}
-
-export interface PairDelegateInsightsTypeLong {
-  key?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
-  left?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
-  right?: number
-  value?: number
-}
-
 export type ParallelStageElementConfig = StageElementWrapperConfig[]
 
 export type ParallelStepElementConfig = ExecutionWrapperConfig[]
 
 export interface ParameterField {
+  defaultValue?: { [key: string]: any }
+  executionInput?: boolean
   expression?: boolean
   expressionValue?: string
   inputSetValidator?: InputSetValidator
@@ -6884,6 +6875,8 @@ export interface ParameterField {
 }
 
 export interface ParameterFieldBoolean {
+  defaultValue?: boolean
+  executionInput?: boolean
   expression?: boolean
   expressionValue?: string
   inputSetValidator?: InputSetValidator
@@ -6894,6 +6887,10 @@ export interface ParameterFieldBoolean {
 }
 
 export interface ParameterFieldMapStringString {
+  defaultValue?: {
+    [key: string]: string
+  }
+  executionInput?: boolean
   expression?: boolean
   expressionValue?: string
   inputSetValidator?: InputSetValidator
@@ -6906,6 +6903,8 @@ export interface ParameterFieldMapStringString {
 }
 
 export interface ParameterFieldString {
+  defaultValue?: string
+  executionInput?: boolean
   expression?: boolean
   expressionValue?: string
   inputSetValidator?: InputSetValidator
@@ -11504,6 +11503,8 @@ export type ClusterRequestRequestBody = ClusterRequest
 
 export type ConnectorRequestBody = Connector
 
+export type DelegateDownloadRequestRequestBody = DelegateDownloadRequest
+
 export type DelegateGroupTagsRequestBody = DelegateGroupTags
 
 export type DelegateProfileDetailsNgRequestBody = DelegateProfileDetailsNg
@@ -11550,9 +11551,9 @@ export type ScimUserRequestBody = ScimUser
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+export type SecretRequestWrapperRequestBody = void
 
-export type SecretRequestWrapper2RequestBody = void
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -11580,7 +11581,7 @@ export type GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody = string
 
 export type GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody = string
 
-export type UnsubscribeBodyRequestBody = string[]
+export type SubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -20858,6 +20859,124 @@ export const getDelegateGroupsUsingTokenPromise = (
   getUsingFetch<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsUsingTokenQueryParams, void>(
     getConfig('ng/api'),
     `/delegate-token-ng/delegate-groups`,
+    props,
+    signal
+  )
+
+export interface DownloadDockerDelegateYamlQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DownloadDockerDelegateYamlProps = Omit<
+  MutateProps<void, void, DownloadDockerDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Downloads a docker delegate yaml file.
+ */
+export const DownloadDockerDelegateYaml = (props: DownloadDockerDelegateYamlProps) => (
+  <Mutate<void, void, DownloadDockerDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>
+    verb="POST"
+    path={`/download-delegates/docker`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDownloadDockerDelegateYamlProps = Omit<
+  UseMutateProps<void, void, DownloadDockerDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Downloads a docker delegate yaml file.
+ */
+export const useDownloadDockerDelegateYaml = (props: UseDownloadDockerDelegateYamlProps) =>
+  useMutate<void, void, DownloadDockerDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>(
+    'POST',
+    `/download-delegates/docker`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Downloads a docker delegate yaml file.
+ */
+export const downloadDockerDelegateYamlPromise = (
+  props: MutateUsingFetchProps<
+    void,
+    void,
+    DownloadDockerDelegateYamlQueryParams,
+    DelegateDownloadRequestRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, DownloadDockerDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/download-delegates/docker`,
+    props,
+    signal
+  )
+
+export interface DownloadKubernetesDelegateYamlQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DownloadKubernetesDelegateYamlProps = Omit<
+  MutateProps<void, void, DownloadKubernetesDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Downloads a kubernetes delegate yaml file.
+ */
+export const DownloadKubernetesDelegateYaml = (props: DownloadKubernetesDelegateYamlProps) => (
+  <Mutate<void, void, DownloadKubernetesDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>
+    verb="POST"
+    path={`/download-delegates/kubernetes`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDownloadKubernetesDelegateYamlProps = Omit<
+  UseMutateProps<void, void, DownloadKubernetesDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Downloads a kubernetes delegate yaml file.
+ */
+export const useDownloadKubernetesDelegateYaml = (props: UseDownloadKubernetesDelegateYamlProps) =>
+  useMutate<void, void, DownloadKubernetesDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>(
+    'POST',
+    `/download-delegates/kubernetes`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Downloads a kubernetes delegate yaml file.
+ */
+export const downloadKubernetesDelegateYamlPromise = (
+  props: MutateUsingFetchProps<
+    void,
+    void,
+    DownloadKubernetesDelegateYamlQueryParams,
+    DelegateDownloadRequestRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, DownloadKubernetesDelegateYamlQueryParams, DelegateDownloadRequestRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/download-delegates/kubernetes`,
     props,
     signal
   )
@@ -30658,7 +30777,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -30670,7 +30789,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -30685,7 +30804,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -30697,7 +30816,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -30713,7 +30832,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -30722,17 +30841,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -30741,22 +30860,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -30765,12 +30884,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -30779,21 +30898,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+  useMutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -39033,7 +39152,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -39043,7 +39162,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -39056,7 +39175,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -39070,7 +39189,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -39082,7 +39201,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -39091,7 +39210,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -39484,7 +39603,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -39498,7 +39617,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >
     verb="POST"
@@ -39513,7 +39632,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -39527,7 +39646,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -39539,7 +39658,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -39548,7 +39667,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -39683,7 +39802,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -39698,7 +39817,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -39713,7 +39832,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -39728,7 +39847,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -39747,7 +39866,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -39756,7 +39875,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -39775,7 +39894,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -39790,7 +39909,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -39805,7 +39924,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -39820,7 +39939,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -39839,7 +39958,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -39848,7 +39967,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

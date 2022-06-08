@@ -336,6 +336,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                     <Button
                       margin={{ top: 'medium' }}
                       type="submit"
+                      disabled={shouldRenderDeploymentType() && isEmpty(selectedDeploymentType)}
                       variation={ButtonVariation.PRIMARY}
                       text={getString('pipelineSteps.build.create.setupStage')}
                     />

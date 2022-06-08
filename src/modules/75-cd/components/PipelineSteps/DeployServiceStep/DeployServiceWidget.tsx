@@ -88,9 +88,8 @@ function DeployServiceWidget({
     loading
   } = useGetServiceList({
     queryParams: {
-      ...queryParams
-      //This is commented temporarily , as BE is returning empty response
-      // type: isNewServiceEntity() ? initialValues.deploymentType : undefined
+      ...queryParams,
+      type: isNewServiceEntity() ? initialValues.deploymentType : undefined
     }
   })
 
