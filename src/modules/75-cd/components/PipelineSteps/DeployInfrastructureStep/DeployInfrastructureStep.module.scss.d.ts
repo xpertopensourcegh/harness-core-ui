@@ -7,18 +7,11 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly accordion: string
-  readonly cardListContainer: string
-  readonly contentSection: string
-  readonly deployStage: string
-  readonly deploymentTypeHeading: string
-  readonly editServiceModal: string
-  readonly info: string
-  readonly paddedSection: string
-  readonly sectionCard: string
-  readonly stageView: string
-  readonly tabHeading: string
-  readonly tabSubHeading: string
+  readonly formRow: string
+  readonly grid: string
+  readonly inputWidth: string
+  readonly label: string
   readonly thumbnailSelect: string
+  readonly yamlToggleEnv: string
 }
 export default styles
