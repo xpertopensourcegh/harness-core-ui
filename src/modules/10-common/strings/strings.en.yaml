@@ -890,6 +890,7 @@ fetchingBranches: Fetching branches
 download: Download
 gitOps: GitOps
 showHarnessManagedError: Harness Managed Resource cannot be edited
+contentRequired: Content is required
 
 # Chaos Module
 chaosText: Chaos

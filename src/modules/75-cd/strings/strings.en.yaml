@@ -84,7 +84,6 @@ varFileDetails: Var File Details
 varFile: Var File
 backEndConfig: Backend Configuration
 gitFetchTypeRequired: Git Fetch Type Required
-contentRequired: Content is required
 specifyTfVarStore: Specify Terraform Var File Store
 addTFVarFileLabel: 'Add File Path'
 enterWorkDirectory: Enter Working Directory
@@ -294,3 +293,6 @@ cloudFormation:
     templateRequired: Template file required
   deploymentTypes:
     pdc: PDC
+
+overrideYaml: Override Yaml Values
+manifestId: Manifest Id

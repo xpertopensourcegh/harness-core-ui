@@ -159,6 +159,7 @@ export interface StringsMap {
   'common.connectThroughPlatformInfo': string
   'common.connectivityErrors': string
   'common.contactSupport': string
+  'common.contentRequired': string
   'common.copy': string
   'common.copyFqn': string
   'common.copyVariableName': string
@@ -3663,7 +3664,6 @@ export interface StringsMap {
   'cd.confirmProviderDelete': string
   'cd.connectionIssueInfo': string
   'cd.connectionIssueSuggestion': string
-  'cd.contentRequired': string
   'cd.continuous': string
   'cd.createdGitOpsServerSuccessfully': string
   'cd.createdSuccessfully': string
@@ -3716,6 +3716,7 @@ export interface StringsMap {
   'cd.launchArgo': string
   'cd.learnMore': string
   'cd.learnMoreAboutHarnessAdapter': string
+  'cd.manifestId': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.moreIssue': string
   'cd.moreIssues': string
@@ -3730,6 +3731,7 @@ export interface StringsMap {
   'cd.notReachable': string
   'cd.overrideType': string
   'cd.overrideValue': string
+  'cd.overrideYaml': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.environmentTab.environmentIsRequired': string
   'cd.pipelineSteps.environmentTab.newEnvironment': string

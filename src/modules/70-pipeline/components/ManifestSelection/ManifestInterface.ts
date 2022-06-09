@@ -29,7 +29,16 @@ export type ManifestTypes =
 
 export type PrimaryManifestType = 'K8sManifest' | 'HelmChart' | 'OpenshiftTemplate' | 'Kustomize'
 
-export type ManifestStores = 'Git' | 'Github' | 'GitLab' | 'Bitbucket' | 'Http' | 'S3' | 'Gcs' | 'InheritFromManifest'
+export type ManifestStores =
+  | 'Git'
+  | 'Github'
+  | 'GitLab'
+  | 'Bitbucket'
+  | 'Http'
+  | 'S3'
+  | 'Gcs'
+  | 'InheritFromManifest'
+  | 'Inline'
 export type HelmVersionOptions = 'V2' | 'V3'
 export interface ManifestSelectionProps {
   isPropagating?: boolean
@@ -160,4 +169,9 @@ export interface ServerlessManifestDataType extends K8sValuesManifestDataType {
 export interface InheritFromManifestDataType {
   identifier: string
   paths: any
+}
+
+export interface InlineDataType {
+  identifier: string
+  content: string
 }

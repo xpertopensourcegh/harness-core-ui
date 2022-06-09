@@ -51,7 +51,8 @@ export const ManifestStoreMap: { [key: string]: ManifestStores } = {
   Http: 'Http',
   S3: 'S3',
   Gcs: 'Gcs',
-  InheritFromManifest: 'InheritFromManifest'
+  InheritFromManifest: 'InheritFromManifest',
+  Inline: 'Inline'
 }
 
 export const allowedManifestTypes: Record<string, Array<ManifestTypes>> = {
@@ -120,7 +121,8 @@ export const ManifestIconByType: Record<ManifestStores, IconName> = {
   Http: 'service-helm',
   S3: 'service-service-s3',
   Gcs: 'gcs-step',
-  InheritFromManifest: 'custom-artifact'
+  InheritFromManifest: 'custom-artifact',
+  Inline: 'custom-artifact'
 }
 
 export const ManifestStoreTitle: Record<ManifestStores, StringKeys> = {
@@ -131,7 +133,8 @@ export const ManifestStoreTitle: Record<ManifestStores, StringKeys> = {
   Http: 'pipeline.manifestType.httpHelmRepoConnectorLabel',
   S3: 'connectors.S3',
   Gcs: 'connectors.GCS.fullName',
-  InheritFromManifest: 'pipeline.manifestType.InheritFromManifest'
+  InheritFromManifest: 'pipeline.manifestType.InheritFromManifest',
+  Inline: 'inline'
 }
 
 export const ManifestToConnectorMap: Record<ManifestStores | string, ConnectorInfoDTO['type']> = {
@@ -144,7 +147,10 @@ export const ManifestToConnectorMap: Record<ManifestStores | string, ConnectorIn
   Gcs: Connectors.GCP
 }
 
-export const ManifestToConnectorLabelMap: Record<Exclude<ManifestStores, 'InheritFromManifest'>, StringKeys> = {
+export const ManifestToConnectorLabelMap: Record<
+  Exclude<ManifestStores, 'Inline' | 'InheritFromManifest'>,
+  StringKeys
+> = {
   Git: 'pipeline.manifestType.gitConnectorLabel',
   Github: 'common.repo_provider.githubLabel',
   GitLab: 'common.repo_provider.gitlabLabel',
