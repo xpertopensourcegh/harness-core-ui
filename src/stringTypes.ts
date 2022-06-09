@@ -4862,6 +4862,7 @@ export interface StringsMap {
   'cf.environments.apiKeys.deleteTitle': string
   'cf.environments.apiKeys.emptyName': string
   'cf.environments.apiKeys.keyType': string
+  'cf.environments.apiKeys.lastUsed': string
   'cf.environments.apiKeys.message': string
   'cf.environments.apiKeys.noKeysFoundMessage': string
   'cf.environments.apiKeys.noKeysFoundTitle': string
