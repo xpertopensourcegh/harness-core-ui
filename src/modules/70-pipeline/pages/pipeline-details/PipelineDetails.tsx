@@ -13,7 +13,7 @@ import { matchPath, useLocation, useParams, useRouteMatch } from 'react-router-d
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener, useQueryParams, useUpdateQueryParams } from '@common/hooks'
-import { useGetPipelineSummary } from 'services/pipeline-ng'
+import { Error, useGetPipelineSummary } from 'services/pipeline-ng'
 import { useGetListOfBranchesWithStatus } from 'services/cd-ng'
 import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -185,7 +185,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   }
 
   if (error?.data && isEmpty(pipeline) && (isGitSyncEnabled || isGitSimplificationEnabled)) {
-    return <NoEntityFound identifier={pipelineIdentifier} entityType={'pipeline'} />
+    return <NoEntityFound identifier={pipelineIdentifier} entityType={'pipeline'} errorObj={error.data as Error} />
   }
 
   return (

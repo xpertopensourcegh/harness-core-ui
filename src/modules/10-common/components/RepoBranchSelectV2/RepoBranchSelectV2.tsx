@@ -84,7 +84,7 @@ const RepoBranchSelectV2: React.FC<RepoBranchSelectProps> = props => {
     selectProps,
     showIcons = true,
     showErrorInModal = false,
-    fallbackDefaultBranch = false
+    fallbackDefaultBranch = true
   } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()

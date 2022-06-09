@@ -868,8 +868,8 @@ function RunPipelineFormBasic({
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
                       connectorRef={connectorRef}
-                      repoIdentifier={repoIdentifier}
-                      branch={branch}
+                      repoIdentifier={repoIdentifier || pipelineResponse?.data?.gitDetails?.repoName}
+                      branch={branch || pipelineResponse?.data?.gitDetails?.branch}
                       storeType={storeType}
                       isGitSyncEnabled={isGitSyncEnabled}
                       isGitSimplificationEnabled={isGitSimplificationEnabled}
