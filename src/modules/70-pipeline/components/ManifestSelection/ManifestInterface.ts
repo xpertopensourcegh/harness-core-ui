@@ -43,6 +43,7 @@ export type HelmVersionOptions = 'V2' | 'V3'
 export interface ManifestSelectionProps {
   isPropagating?: boolean
   deploymentType: ServiceDefinition['type']
+  isReadonlyServiceMode: boolean
   readonly: boolean
 }
 

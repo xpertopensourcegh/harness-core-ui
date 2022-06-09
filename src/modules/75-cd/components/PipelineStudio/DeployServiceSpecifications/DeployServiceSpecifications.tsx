@@ -79,6 +79,7 @@ import { Page } from '@common/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
 import type { DeployServiceData } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceInterface'
+import { useCache } from '@common/hooks/useCache'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -133,6 +134,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const { stages } = getFlattenedStages(pipeline)
   const { submitFormsForTab } = useContext(StageErrorContext)
   const { errorMap } = useValidationErrors()
+  const { setCache } = useCache()
 
   const memoizedQueryParam = useMemo(
     () => ({
@@ -203,6 +205,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         if (stageData?.stage) {
           debounceUpdateStage(stageData?.stage)
         }
+        //setting service data in cache to reuse it in manifests, artifacts, variables
+        const serviceCacheId = `${pipeline.identifier}-${selectedStageId}-service`
+        setCache(serviceCacheId, serviceInfo)
+
         setSelectedDeploymentType(serviceInfo.type as ServiceDeploymentType)
         setIsReadOnlyView(true)
       }
@@ -640,7 +646,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     initialValues={{
                       stageIndex,
                       setupModeType,
-                      deploymentType: selectedDeploymentType as ServiceDefinition['type']
+                      deploymentType: selectedDeploymentType as ServiceDefinition['type'],
+                      isReadonlyServiceMode: isReadonlyView
                     }}
                     allowableTypes={allowableTypes}
                     type={getStepTypeByDeploymentType(defaultTo(selectedDeploymentType, ''))}
