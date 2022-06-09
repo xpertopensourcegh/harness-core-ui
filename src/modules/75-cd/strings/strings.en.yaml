@@ -293,6 +293,14 @@ cloudFormation:
     templateRequired: Template file required
   deploymentTypes:
     pdc: PDC
-
+gitOpsCluster: 'GitOps Clusters'
+selectGitopsCluster: 'Select GitOps Clusters to add to Environment'
+clustersSelected: 'Clusters Selected'
+selectClusterLabel: 'Select Cluster(s)'
+noLinkedClusters: 'No Linked Clusters Available'
+selectedLabel: 'Selected'
+successfullyLinkedClusters: 'SuccessFully Linked Clusters'
+unLink: 'UnLink'
+unLinkedCluster: 'Unlinked Successfully'
 overrideYaml: Override Yaml Values
 manifestId: Manifest Id

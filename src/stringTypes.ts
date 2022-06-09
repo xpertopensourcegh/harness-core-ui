@@ -3648,6 +3648,7 @@ export interface StringsMap {
   'cd.cloudFormation.templateFileConnector': string
   'cd.cloudFormation.templateFileStore': string
   'cd.cloudFormation.urls': string
+  'cd.clustersSelected': string
   'cd.componentsInstalled': string
   'cd.configFileDetails': string
   'cd.configFilePlaceHolder': string
@@ -3702,6 +3703,7 @@ export interface StringsMap {
   'cd.filePathRequired': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
+  'cd.gitOpsCluster': string
   'cd.gitOpsWizardTitle': string
   'cd.harnessManagedGitOpsWizardTitle': string
   'cd.infrastructure.createNew': string
@@ -3727,6 +3729,7 @@ export interface StringsMap {
   'cd.noEnvironment.message': string
   'cd.noEnvironment.title': string
   'cd.noGitOpsServerText': string
+  'cd.noLinkedClusters': string
   'cd.notReachable': string
   'cd.overrideType': string
   'cd.overrideValue': string
@@ -3763,7 +3766,10 @@ export interface StringsMap {
   'cd.searchPlaceholder': string
   'cd.secretManagerRequired': string
   'cd.selectArtifact': string
+  'cd.selectClusterLabel': string
+  'cd.selectGitopsCluster': string
   'cd.selectRepository': string
+  'cd.selectedLabel': string
   'cd.serverlessDeployCommandOptions': string
   'cd.serviceCreated': string
   'cd.serviceDashboard.6monthTrend': string
@@ -3836,10 +3842,13 @@ export interface StringsMap {
   'cd.steps.pdcStep.specifyHostsOption': string
   'cd.steps.serverless.regionPlaceholder': string
   'cd.steps.serverless.stagePlaceholder': string
+  'cd.successfullyLinkedClusters': string
   'cd.terraformVarFiles': string
   'cd.testConnectionStepName': string
   'cd.tfVarStore': string
   'cd.typeError': string
+  'cd.unLink': string
+  'cd.unLinkedCluster': string
   'cd.updatedGitOpsServerSuccessfully': string
   'cd.updatedSuccessfully': string
   'cd.updating': string
