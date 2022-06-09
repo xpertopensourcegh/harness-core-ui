@@ -799,7 +799,6 @@ userLabel: User
 resourceLabel: Resource
 resourceTypeLabel: Resource Type
 moduleLabel: 'Module'
-timePstLabel: Time (PST)
 resourceGroupLabel: Resource Group
 roleAssignmentLabel: Role Assignment
 triggerLabel: Trigger

@@ -746,7 +746,6 @@ export interface StringsMap {
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
   'common.test.retest': string
-  'common.timePstLabel': string
   'common.tokens': string
   'common.totalLines': string
   'common.totalSelected': string
