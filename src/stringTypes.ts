@@ -4595,6 +4595,7 @@ export interface StringsMap {
   'ce.perspectives.noOfRowsLessThan': string
   'ce.perspectives.nodeDetails.aggregation.average': string
   'ce.perspectives.nodeDetails.aggregation.maximum': string
+  'ce.perspectives.nodeDetails.header': string
   'ce.perspectives.nodeDetails.nodeDetailsText': string
   'ce.perspectives.perspectiveDeletedTxt': string
   'ce.perspectives.perspectiveReportsMoreTxt': string
