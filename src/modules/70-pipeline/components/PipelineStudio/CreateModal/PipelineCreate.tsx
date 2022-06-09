@@ -279,12 +279,7 @@ export default function CreatePipelines({
               </>
             ) : null}
             {storeType?.type === StoreType.REMOTE ? (
-              <GitSyncForm
-                formikProps={formikProps as any}
-                handleSubmit={noop}
-                isEdit={isEdit}
-                showRemoteTypeSelection={!isEdit}
-              />
+              <GitSyncForm formikProps={formikProps as any} handleSubmit={noop} isEdit={isEdit} />
             ) : null}
 
             {isGitSimplificationEnabled ? (

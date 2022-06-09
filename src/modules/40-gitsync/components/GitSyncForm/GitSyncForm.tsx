@@ -53,7 +53,7 @@ const getConnectorIdentifierWithScope = (scope: Scope, identifier: string): stri
 }
 
 export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.ReactElement {
-  const { formikProps, isEdit, showRemoteTypeSelection = true, disableFields = {} } = props
+  const { formikProps, isEdit, showRemoteTypeSelection = false, disableFields = {} } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { branch, connectorRef, repoName, filePathTouched } = useQueryParams<GitQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams()
@@ -143,6 +143,11 @@ export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.R
             connectorIdentifierRef={formikProps.values.connectorRef?.value || connectorRef}
             repoName={formikProps?.values?.repo}
             onChange={(selected: SelectOption) => {
+              // This is to handle auto fill after default selection, without it form validation will fail
+              if (formikProps.values.branch !== selected.value) {
+                formikProps.setFieldValue?.('branch', selected.value)
+              }
+
               if (errorResponse?.length === 0) {
                 updateQueryParams({ branch: selected.value as string })
               }
