@@ -148,6 +148,7 @@ serviceDashboard:
   deployedBy: Deployed By
   artifact: artifact
   totalPipelines: Total Pipelines
+  totalDeployments: Total Deployments
   noPipelines: No pipeline execution in {{timeRange}} matches the given criteria
   envName: Env Name
   noActiveServiceInstances: No Active Service Instances

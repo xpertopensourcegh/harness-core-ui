@@ -110,7 +110,7 @@ export default function DeploymentExecutionsChart(props: any) {
               },
               yAxis: {
                 title: {
-                  text: '# of Deployments'
+                  text: getString('pipeline.dashboards.executionsLabel')
                 }
               }
             }}
