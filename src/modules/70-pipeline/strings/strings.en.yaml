@@ -853,6 +853,7 @@ stepDescription:
   Policy: Evaluate policy during pipeline execution
   ServerlessLambdaDeploy: Create the Lambda functions defined in this Stage.
   ServerlessLambdaRollback: Deploy the previous successful version as a new version.
+  createPR: Create PR
 executionStrategy:
   executionStrategies: Execution Strategies
   useStrategy: Use Strategy

@@ -74,7 +74,8 @@ export enum StepType {
   ServerlessAwsInfra = 'ServerlessAwsInfra',
   CloudFormationRollbackStack = 'RollbackStack',
   CloudFormationDeleteStack = 'DeleteStack',
-  CloudFormationCreateStack = 'CreateStack'
+  CloudFormationCreateStack = 'CreateStack',
+  CreatePR = 'CreatePR'
 }
 
 export interface PipelineInfrastructureV2 extends PipelineInfrastructure {
