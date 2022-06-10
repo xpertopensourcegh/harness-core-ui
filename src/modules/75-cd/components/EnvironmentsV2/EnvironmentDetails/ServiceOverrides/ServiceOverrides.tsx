@@ -7,12 +7,11 @@
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { defaultTo, isNil } from 'lodash-es'
+import { defaultTo, get, isNil } from 'lodash-es'
 import cx from 'classnames'
 import { parse } from 'yaml'
 
 import {
-  Button,
   FormInput,
   getMultiTypeFromValue,
   ButtonSize,
@@ -40,8 +39,12 @@ import { String, useStrings } from 'framework/strings'
 import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/TextInputWithCopyBtn'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import type { EnvironmentPathProps, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
 
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 
@@ -91,10 +94,6 @@ export function ServiceOverrides(): React.ReactElement {
     }
   }, [servicesLoading, services])
 
-  // TODO: Handle RBAC
-  const readonly = false
-  const canAddOverride = true
-
   const createNewOverride = () => {
     setIsEdit(false)
     setSelectedVariable({
@@ -136,7 +135,7 @@ export function ServiceOverrides(): React.ReactElement {
 
   const handleDeleteOverride = async (variableOverrides: NGVariable[], index: number, serviceRef?: string) => {
     const variablesCount = variableOverrides.length
-    if (variablesCount === index + 1) {
+    if (variablesCount === 1) {
       try {
         const response = await deleteServiceOverridePromise({
           queryParams: {
@@ -159,6 +158,12 @@ export function ServiceOverrides(): React.ReactElement {
       }
     } else {
       try {
+        const parsedYaml = parse(
+          defaultTo(
+            serviceOverrides?.data?.content?.filter(override => override.serviceRef === serviceRef)?.[0].yaml,
+            '{}'
+          )
+        ) as NGServiceOverrideConfig
         const response = await upsertServiceOverridePromise({
           queryParams: {
             accountIdentifier: accountId
@@ -167,7 +172,18 @@ export function ServiceOverrides(): React.ReactElement {
             orgIdentifier,
             projectIdentifier,
             environmentRef: environmentIdentifier,
-            serviceRef
+            serviceRef,
+            yaml: yamlStringify({
+              ...parsedYaml,
+              serviceOverrides: {
+                ...parsedYaml.serviceOverrides,
+                variableOverrides: variableOverrides.splice(index, index + 1).map(override => ({
+                  name: get(override, 'name'),
+                  type: get(override, 'type'),
+                  value: get(override, 'value')
+                }))
+              }
+            })
           }
         })
 
@@ -192,11 +208,17 @@ export function ServiceOverrides(): React.ReactElement {
           <Text color={Color.GREY_700} margin={{ bottom: 'small' }} font={{ weight: 'bold' }}>
             {getString('cd.serviceOverrides')}
           </Text>
-          <Button
+          <RbacButton
             size={ButtonSize.SMALL}
             variation={ButtonVariation.LINK}
             onClick={createNewOverride}
             text={getString('common.plusNewName', { name: getString('common.override') })}
+            permission={{
+              resource: {
+                resourceType: ResourceType.ENVIRONMENT
+              },
+              permission: PermissionIdentifier.EDIT_ENVIRONMENT
+            }}
           />
         </Layout.Horizontal>
         <Text>{getString('cd.serviceOverridesHelperText')}</Text>
@@ -263,53 +285,65 @@ export function ServiceOverrides(): React.ReactElement {
                           />
                         )}
                         <div className={css.actionButtons}>
-                          {canAddOverride && (
-                            <React.Fragment>
-                              <Button
-                                icon="Edit"
-                                disabled={readonly}
-                                tooltip={<String className={css.tooltip} stringID="common.editVariableType" />}
-                                data-testid={`edit-variable-${index}`}
-                                onClick={() => {
-                                  setSelectedVariable({
-                                    variable,
-                                    serviceRef: defaultTo(serviceRef, '')
-                                  })
-                                  setIsEdit(true)
-                                  showModal()
-                                }}
-                                minimal
-                              />
-                              <Button
-                                icon="main-trash"
-                                disabled={readonly}
-                                data-testid={`delete-variable-${index}`}
-                                tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
-                                onClick={() => handleDeleteOverride(variableOverrides, index, serviceRef)}
-                                minimal
-                              />
-                            </React.Fragment>
-                          )}
+                          <React.Fragment>
+                            <RbacButton
+                              icon="Edit"
+                              tooltip={<String className={css.tooltip} stringID="common.editVariableType" />}
+                              data-testid={`edit-variable-${index}`}
+                              onClick={() => {
+                                setSelectedVariable({
+                                  variable,
+                                  serviceRef: defaultTo(serviceRef, '')
+                                })
+                                setIsEdit(true)
+                                showModal()
+                              }}
+                              minimal
+                              permission={{
+                                resource: {
+                                  resourceType: ResourceType.ENVIRONMENT
+                                },
+                                permission: PermissionIdentifier.EDIT_ENVIRONMENT
+                              }}
+                            />
+                            <RbacButton
+                              icon="main-trash"
+                              data-testid={`delete-variable-${index}`}
+                              tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
+                              onClick={() => handleDeleteOverride(variableOverrides, index, serviceRef)}
+                              minimal
+                              permission={{
+                                resource: {
+                                  resourceType: ResourceType.ENVIRONMENT
+                                },
+                                permission: PermissionIdentifier.EDIT_ENVIRONMENT
+                              }}
+                            />
+                          </React.Fragment>
                         </div>
                       </div>
                     </div>
                   )
                 })}
-                {canAddOverride && (
-                  <Button
-                    size={ButtonSize.SMALL}
-                    variation={ButtonVariation.LINK}
-                    onClick={() => {
-                      setSelectedVariable({
-                        variable: { name: '', type: 'String', value: '' },
-                        serviceRef: defaultTo(serviceRef, '')
-                      })
-                      setIsEdit(false)
-                      showModal()
-                    }}
-                    text={getString('common.plusAddName', { name: getString('common.override') })}
-                  />
-                )}
+                <RbacButton
+                  size={ButtonSize.SMALL}
+                  variation={ButtonVariation.LINK}
+                  onClick={() => {
+                    setSelectedVariable({
+                      variable: { name: '', type: 'String', value: '' },
+                      serviceRef: defaultTo(serviceRef, '')
+                    })
+                    setIsEdit(false)
+                    showModal()
+                  }}
+                  text={getString('common.plusAddName', { name: getString('common.override') })}
+                  permission={{
+                    resource: {
+                      resourceType: ResourceType.ENVIRONMENT
+                    },
+                    permission: PermissionIdentifier.EDIT_ENVIRONMENT
+                  }}
+                />
               </Card>
             </Container>
           )
