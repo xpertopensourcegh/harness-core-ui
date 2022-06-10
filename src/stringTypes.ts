@@ -563,6 +563,8 @@ export interface StringsMap {
   'common.purpose.startATrial': string
   'common.purpose.sto.continuous': string
   'common.purpose.sto.moduleSelectionSubHeading': string
+  'common.purpose.sto.security': string
+  'common.purpose.sto.tests': string
   'common.purpose.welcome': string
   'common.pwsh': string
   'common.readOnly': string
@@ -2440,6 +2442,7 @@ export interface StringsMap {
   'projectsOrgs.gotoCloudCosts': string
   'projectsOrgs.gotoDeployments': string
   'projectsOrgs.gotoFeatureFlags': string
+  'projectsOrgs.gotoSTO': string
   'projectsOrgs.invite': string
   'projectsOrgs.inviteCollab': string
   'projectsOrgs.landingDashboard.atAGlance': string
