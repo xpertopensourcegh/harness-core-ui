@@ -303,35 +303,26 @@ exports[`Test cloudformation remote tags step one should click each repo option 
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -795,35 +786,26 @@ exports[`Test cloudformation remote tags step one should click each repo option 
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -1287,35 +1269,26 @@ exports[`Test cloudformation remote tags step one should click each repo option 
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -1779,35 +1752,26 @@ exports[`Test cloudformation remote tags step one should click each repo option 
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -2270,35 +2234,26 @@ exports[`Test cloudformation remote tags step one should error when submitting 1
                   >
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -2732,35 +2687,26 @@ exports[`Test cloudformation remote tags step one should open new connector moda
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -3224,35 +3170,26 @@ exports[`Test cloudformation remote tags step one should open new connector moda
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -3716,35 +3653,26 @@ exports[`Test cloudformation remote tags step one should render tags details inc
                     Aws
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -4332,35 +4260,26 @@ exports[`Test cloudformation remote tags step one should render with initial dat
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -4863,35 +4782,26 @@ exports[`Test cloudformation remote tags step one should render with no initial 
                   >
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -5324,35 +5234,26 @@ exports[`Test cloudformation remote tags step one should render with runtime dat
                   >
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>
@@ -5801,35 +5702,26 @@ exports[`Test cloudformation remote tags step one should submit step one 1`] = `
                     Github
                      
                     connector
-                    <span
-                      class="bp3-popover-wrapper"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
                     >
                       <span
-                        class="bp3-popover-target"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                          tabindex="0"
-                          type="button"
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="question"
-                          >
-                            <svg
-                              height="14"
-                              viewBox="0 0 14 14"
-                              width="14"
-                            >
-                              <path
-                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                fill="#9AA5B5"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
                       </span>
-                    </span>
+                    </button>
                   </p>
                 </span>
               </div>

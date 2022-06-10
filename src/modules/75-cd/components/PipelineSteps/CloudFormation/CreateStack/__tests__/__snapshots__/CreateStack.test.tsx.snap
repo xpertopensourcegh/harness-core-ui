@@ -531,6 +531,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
           >
             <p
               class="StyledProps--font StyledProps--main"
+              data-tooltip-id="cloudFormationTemplate"
               style="color: rgb(11, 11, 13);"
             >
               cd.cloudFormation.templateFile
@@ -729,6 +730,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                 >
                   <label
                     class="Label--main configLabel"
+                    data-tooltip-id="cloudFormationParameterFiles"
                   >
                     optionalField
                   </label>
@@ -858,6 +860,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                 >
                   <label
                     class="Label--main configLabel"
+                    data-tooltip-id="cloudFormationParameterOverrides"
                   >
                     optionalField
                   </label>
@@ -1955,6 +1958,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
           >
             <p
               class="StyledProps--font StyledProps--main"
+              data-tooltip-id="cloudFormationTemplate"
               style="color: rgb(11, 11, 13);"
             >
               cd.cloudFormation.templateFile
@@ -2153,6 +2157,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                 >
                   <label
                     class="Label--main configLabel"
+                    data-tooltip-id="cloudFormationParameterFiles"
                   >
                     optionalField
                   </label>
@@ -2174,6 +2179,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                 >
                   <label
                     class="Label--main configLabel"
+                    data-tooltip-id="cloudFormationParameterOverrides"
                   >
                     optionalField
                   </label>
@@ -3271,6 +3277,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
           >
             <p
               class="StyledProps--font StyledProps--main"
+              data-tooltip-id="cloudFormationTemplate"
               style="color: rgb(11, 11, 13);"
             >
               cd.cloudFormation.templateFile
@@ -3469,6 +3476,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                 >
                   <label
                     class="Label--main configLabel"
+                    data-tooltip-id="cloudFormationParameterFiles"
                   >
                     optionalField
                   </label>
@@ -3598,6 +3606,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                 >
                   <label
                     class="Label--main configLabel"
+                    data-tooltip-id="cloudFormationParameterOverrides"
                   >
                     optionalField
                   </label>
@@ -4658,6 +4667,7 @@ exports[`Test Cloudformation create stack should be able to submit 1`] = `
       >
         <label
           class="Label--main configLabel"
+          data-tooltip-id="cloudFormationTemplate"
         >
           cd.cloudFormation.templateFile
         </label>
@@ -5314,6 +5324,7 @@ exports[`Test Cloudformation create stack should open and close remote template 
       >
         <label
           class="Label--main configLabel"
+          data-tooltip-id="cloudFormationTemplate"
         >
           cd.cloudFormation.templateFile
         </label>
@@ -5968,6 +5979,7 @@ exports[`Test Cloudformation create stack should render edit view as new step 1`
       >
         <label
           class="Label--main configLabel"
+          data-tooltip-id="cloudFormationTemplate"
         >
           cd.cloudFormation.templateFile
         </label>
@@ -6676,6 +6688,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
           >
             <p
               class="StyledProps--font StyledProps--main"
+              data-tooltip-id="cloudFormationTemplate"
               style="color: rgb(11, 11, 13);"
             >
               cd.cloudFormation.templateFile
@@ -7380,6 +7393,7 @@ exports[`Test Cloudformation create stack should render runtime components 1`] =
       >
         <label
           class="Label--main configLabel"
+          data-tooltip-id="cloudFormationTemplate"
         >
           cd.cloudFormation.templateFile
         </label>
@@ -8109,6 +8123,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
           >
             <p
               class="StyledProps--font StyledProps--main"
+              data-tooltip-id="cloudFormationTemplate"
               style="color: rgb(11, 11, 13);"
             >
               cd.cloudFormation.templateFile
@@ -8813,6 +8828,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
           >
             <p
               class="StyledProps--font StyledProps--main"
+              data-tooltip-id="cloudFormationTemplate"
               style="color: rgb(11, 11, 13);"
             >
               cd.cloudFormation.templateFile
@@ -9517,6 +9533,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
           >
             <p
               class="StyledProps--font StyledProps--main"
+              data-tooltip-id="cloudFormationTemplate"
               style="color: rgb(11, 11, 13);"
             >
               cd.cloudFormation.templateFile

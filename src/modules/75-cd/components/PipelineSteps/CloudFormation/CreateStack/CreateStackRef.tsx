@@ -26,7 +26,7 @@ import {
   Icon,
   useToaster
 } from '@harness/uicore'
-import { map, get } from 'lodash-es'
+import { map, get, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
@@ -39,6 +39,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { useListAwsRegions } from 'services/portal'
 import { useCFCapabilitiesForAws, useCFStatesForAws, useGetIamRolesForAws } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
@@ -46,17 +47,24 @@ import { TFMonaco } from '../../Common/Terraform/Editview/TFMonacoEditor'
 import CFRemoteWizard from './RemoteFilesForm/CFRemoteWizard'
 import { InlineParameterFile } from './InlineParameterFile'
 import { Tags } from './TagsInput/Tags'
-import { Parameter, CloudFormationCreateStackProps, TemplateTypes } from '../CloudFormationInterfaces.types'
+import type { Parameter, CloudFormationCreateStackProps } from '../CloudFormationInterfaces.types'
 import { onDragStart, onDragEnd, onDragLeave, onDragOver, onDrop } from '../DragHelper'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from '../CloudFormation.module.scss'
+
+enum TemplateTypes {
+  Remote = 'Remote',
+  S3URL = 'S3URL',
+  Inline = 'Inline'
+}
 
 export const CreateStack = (
   { allowableTypes, isNewStep, readonly = false, initialValues, onUpdate, onChange }: CloudFormationCreateStackProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element => {
   const { getString } = useStrings()
+  const { getRBACErrorMessage } = useRBACError()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { expressions } = useVariablesExpression()
   const [showModal, setShowModal] = useState(false)
@@ -129,17 +137,16 @@ export const CreateStack = (
 
   useEffect(() => {
     if (regionError) {
-      showError(regionError.message)
+      showError(getRBACErrorMessage(regionError as any))
     }
     if (capabilitiesError) {
-      showError(capabilitiesError.message)
+      showError(getRBACErrorMessage(capabilitiesError))
     }
     if (statesError) {
-      showError(statesError.message)
+      showError(getRBACErrorMessage(statesError))
     }
     if (rolesError) {
-      const message = rolesError?.message
-      showError(message)
+      showError(getRBACErrorMessage(rolesError))
     }
     /*  eslint-disable-next-line react-hooks/exhaustive-deps  */
   }, [regionError, capabilitiesError, statesError, rolesError])
@@ -153,7 +160,7 @@ export const CreateStack = (
       }
       setAwsRoles(roles)
     }
-    if (!roleData && awsRef) {
+    if (!roleData && !isEmpty(awsRef) && getMultiTypeFromValue(awsRef) === MultiTypeInputType.FIXED) {
       refetch()
     }
   }, [roleData, awsRef])
@@ -338,12 +345,21 @@ export const CreateStack = (
                 width={300}
                 setRefValue
                 onChange={(value: any, _unused, _multiType) => {
-                  /* istanbul ignore next */
-                  if (value?.record?.identifier !== awsRef) {
-                    setAwsRef(value?.record?.identifier)
+                  const scope = value?.scope
+                  let newConnectorRef: string
+                  if (scope === 'org' || scope === 'account') {
+                    newConnectorRef = `${scope}.${value?.record?.identifier}`
+                  } else if (getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME) {
+                    newConnectorRef = value
+                  } else {
+                    newConnectorRef = value?.record?.identifier
                   }
                   /* istanbul ignore next */
-                  setFieldValue('spec.configuration.connectorRef', value?.record?.identifier || value)
+                  if (value?.record?.identifier !== awsRef) {
+                    setAwsRef(newConnectorRef)
+                  }
+                  /* istanbul ignore next */
+                  setFieldValue('spec.configuration.connectorRef', newConnectorRef)
                 }}
               />
             </div>
@@ -372,7 +388,11 @@ export const CreateStack = (
             <Layout.Horizontal flex={{ alignItems: 'flex-start' }}>
               {(templateFileType === TemplateTypes.Remote || templateFileType === TemplateTypes.S3URL) && (
                 <Layout.Vertical>
-                  <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
+                  <Label
+                    data-tooltip-id={'cloudFormationTemplate'}
+                    style={{ color: Color.GREY_900 }}
+                    className={css.configLabel}
+                  >
                     {templateFile}
                   </Label>
                 </Layout.Vertical>
@@ -430,7 +450,11 @@ export const CreateStack = (
               <>
                 <MultiTypeFieldSelector
                   name="spec.configuration.templateFile.spec.templateBody"
-                  label={<Text style={{ color: 'rgb(11, 11, 13)' }}>{templateFile}</Text>}
+                  label={
+                    <Text data-tooltip-id={'cloudFormationTemplate'} style={{ color: 'rgb(11, 11, 13)' }}>
+                      {templateFile}
+                    </Text>
+                  }
                   defaultValueToReset=""
                   allowedTypes={allowableTypes}
                   skipRenderValueInExpressionLabel
@@ -525,7 +549,11 @@ export const CreateStack = (
                 details={
                   <div className={css.optionalDetails}>
                     <Layout.Vertical>
-                      <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
+                      <Label
+                        data-tooltip-id={'cloudFormationParameterFiles'}
+                        style={{ color: Color.GREY_900 }}
+                        className={css.configLabel}
+                      >
                         {getString('optionalField', { name: getString('cd.cloudFormation.parameterFiles') })}
                       </Label>
                       {remoteParameterFiles && (
@@ -606,7 +634,11 @@ export const CreateStack = (
                       </Layout.Horizontal>
                     </Layout.Vertical>
                     <Layout.Vertical className={css.addMarginBottom}>
-                      <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
+                      <Label
+                        data-tooltip-id={'cloudFormationParameterOverrides'}
+                        style={{ color: Color.GREY_900 }}
+                        className={css.configLabel}
+                      >
                         {getString('optionalField', { name: getString('cd.cloudFormation.inlineParameterFiles') })}
                       </Label>
                       <div className={cx(css.configFile, css.addMarginBottom)}>
@@ -736,7 +768,8 @@ export const CreateStack = (
                       isBranch: remoteTemplateFile?.gitFetchType === 'Branch',
                       filePath: remoteTemplateFile?.paths?.[0],
                       branch: remoteTemplateFile?.branch,
-                      commitId: remoteTemplateFile?.commitId
+                      commitId: remoteTemplateFile?.commitId,
+                      repoName: remoteTemplateFile?.repoName
                     }
                   : undefined
               }
