@@ -912,9 +912,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}`
   ),
   toExecutionPipelineView: withAccountId(
     ({
@@ -922,9 +923,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/pipeline`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}/pipeline`
   ),
   toExecutionInputsView: withAccountId(
     ({
@@ -932,9 +934,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/inputs`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}/inputs`
   ),
   toExecutionArtifactsView: withAccountId(
     ({
@@ -942,9 +945,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/artifacts`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}/artifacts`
   ),
   toExecutionTestsView: withAccountId(
     ({
@@ -952,9 +956,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/tests`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}/tests`
   ),
   toExecutionCommitsView: withAccountId(
     ({
@@ -962,9 +967,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/commits`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}/commits`
   ),
   toExecutionPolicyEvaluationsView: withAccountId(
     ({
@@ -972,9 +978,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/policy-evaluations`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}/policy-evaluations`
   ),
   toExecutionSecurityView: withAccountId(
     ({
@@ -982,9 +989,10 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       executionIdentifier,
-      module
+      module,
+      source
     }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/security`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/${source}/${executionIdentifier}/security`
   ),
   /********************************************************************************************************************/
   toTemplates: withAccountId(

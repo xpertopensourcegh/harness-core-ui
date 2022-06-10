@@ -588,6 +588,7 @@ export function PipelineCanvas({
               connectorRef={connectorRef}
               repoIdentifier={isPipelineRemote ? repoName : repoIdentifier}
               branch={branch}
+              source="executions"
               onClose={() => {
                 onCloseRunPipelineModal()
               }}

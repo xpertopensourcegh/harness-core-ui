@@ -98,6 +98,7 @@ export interface TriggerPathProps extends PipelinePathProps {
 
 export interface ExecutionPathProps extends PipelinePathProps {
   executionIdentifier: string
+  source: 'deployments' | 'executions' | 'builds' | ':source(deployments|executions|builds)'
 }
 
 export interface BuildPathProps extends ProjectPathProps {
