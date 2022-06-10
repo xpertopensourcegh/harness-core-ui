@@ -281,6 +281,14 @@ cloudFormation:
   awsURL: S3 URL
   urls: URLs
   parameterFilePaths: Parameter File Paths
+  remoteTags: Specify Remote Tags File...
+  tagsConnector: Tags Connector
+  tagsFileStore: Tags File Store
+  remoteTagsConnector: Remote Tags Connector
+  remoteTagsFileStore: Remote Tags File Store
+  remoteTagsDetails: Remote Tags
+  remoteTagsFilePath: Remote Tags File Path
+  remoteTagsUrlPath: Remote Tags S3 URL
   errors:
     region: AWS Region is required
     role: Role ARN required

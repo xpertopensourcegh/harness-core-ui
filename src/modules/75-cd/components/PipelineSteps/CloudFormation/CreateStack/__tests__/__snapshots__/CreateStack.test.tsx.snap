@@ -1155,6 +1155,28 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                   class="divider"
                 />
                 <div
+                  class="templateSelect"
+                >
+                  <select
+                    class="templateDropdown"
+                    data-testid="tagsOptions"
+                    name="spec.configuration.templateFile.type"
+                  >
+                    <option
+                      data-testid="inline"
+                      value="Inline"
+                    >
+                      inline
+                    </option>
+                    <option
+                      data-testid="remote"
+                      value="Remote"
+                    >
+                      remote
+                    </option>
+                  </select>
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -1171,12 +1193,11 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                           class="Tooltip--acenter"
                           data-tooltip-id="cloudFormationCreateStack_spec.configuration.tags.spec.content"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="color: rgb(11, 11, 13);"
+                          <label
+                            class="Label--main configLabel"
                           >
                             optionalField
-                          </p>
+                          </label>
                         </span>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2450,6 +2471,28 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                   class="divider"
                 />
                 <div
+                  class="templateSelect"
+                >
+                  <select
+                    class="templateDropdown"
+                    data-testid="tagsOptions"
+                    name="spec.configuration.templateFile.type"
+                  >
+                    <option
+                      data-testid="inline"
+                      value="Inline"
+                    >
+                      inline
+                    </option>
+                    <option
+                      data-testid="remote"
+                      value="Remote"
+                    >
+                      remote
+                    </option>
+                  </select>
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -2466,12 +2509,11 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                           class="Tooltip--acenter"
                           data-tooltip-id="cloudFormationCreateStack_spec.configuration.tags.spec.content"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="color: rgb(11, 11, 13);"
+                          <label
+                            class="Label--main configLabel"
                           >
                             optionalField
-                          </p>
+                          </label>
                         </span>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
@@ -3853,6 +3895,28 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                   class="divider"
                 />
                 <div
+                  class="templateSelect"
+                >
+                  <select
+                    class="templateDropdown"
+                    data-testid="tagsOptions"
+                    name="spec.configuration.templateFile.type"
+                  >
+                    <option
+                      data-testid="inline"
+                      value="Inline"
+                    >
+                      inline
+                    </option>
+                    <option
+                      data-testid="remote"
+                      value="Remote"
+                    >
+                      remote
+                    </option>
+                  </select>
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -3869,12 +3933,11 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                           class="Tooltip--acenter"
                           data-tooltip-id="cloudFormationCreateStack_spec.configuration.tags.spec.content"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="color: rgb(11, 11, 13);"
+                          <label
+                            class="Label--main configLabel"
                           >
                             optionalField
-                          </p>
+                          </label>
                         </span>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"

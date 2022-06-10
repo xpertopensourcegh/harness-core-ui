@@ -263,3 +263,47 @@ export const RemoteFileStorePath = (isParam: boolean, isS3: boolean): keyof Stri
 
 /* istanbul ignore next */
 export const isRuntime = (value: string): boolean => getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME
+
+export const FormatRemoteTagsData = (initialValues: any, prevStepData: any) => {
+  const region = prevStepData?.spec?.store?.spec?.region
+  const connectorRef = prevStepData?.spec?.store?.spec?.connectorRef
+  const connectorRefValue = connectorRef?.value || connectorRef
+
+  const initialConnectorRef = initialValues?.spec?.configuration?.tags?.spec?.store?.spec?.connectorRef
+  const initialConnectorRefValue = initialConnectorRef?.value || initialConnectorRef
+
+  const tags = {
+    types: 'Remote',
+    spec: {
+      store: {
+        type: prevStepData?.selectedConnector,
+        spec: {
+          connectorRef,
+          ...(prevStepData?.selectedConnector == 'S3' && region && { region })
+        }
+      }
+    }
+  }
+
+  // if we change the connector reset the initial form data
+  if (connectorRefValue !== initialConnectorRefValue) {
+    return tags
+  }
+
+  const filePath = initialValues?.spec?.configuration?.tags?.spec?.store?.spec?.paths
+  const paths = isRuntime(filePath) ? [filePath] : filePath
+  const initialTags = initialValues?.spec?.configuration?.tags?.spec?.store?.spec
+  tags.spec.store.spec.paths = paths
+  if (prevStepData?.selectedConnector !== 'S3') {
+    const gitDetails = {
+      ...tags?.spec?.store?.spec,
+      ...(initialTags?.repoName && { repoName: initialTags?.repoName }),
+      ...(initialTags?.gitFetchType && { gitFetchType: initialTags?.gitFetchType }),
+      ...(initialTags?.branch && { branch: initialTags?.branch }),
+      ...(initialTags?.commitId && { commitId: initialTags?.commitId })
+    }
+    tags.spec.store.spec = gitDetails
+  }
+
+  return tags
+}

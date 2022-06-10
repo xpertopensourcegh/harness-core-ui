@@ -45,17 +45,12 @@ import { Connectors } from '@connectors/constants'
 import { TFMonaco } from '../../Common/Terraform/Editview/TFMonacoEditor'
 import CFRemoteWizard from './RemoteFilesForm/CFRemoteWizard'
 import { InlineParameterFile } from './InlineParameterFile'
-import type { Parameter, CloudFormationCreateStackProps } from '../CloudFormationInterfaces.types'
+import { Tags } from './TagsInput/Tags'
+import { Parameter, CloudFormationCreateStackProps, TemplateTypes } from '../CloudFormationInterfaces.types'
 import { onDragStart, onDragEnd, onDragLeave, onDragOver, onDrop } from '../DragHelper'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from '../CloudFormation.module.scss'
-
-enum TemplateTypes {
-  Remote = 'Remote',
-  S3URL = 'S3URL',
-  Inline = 'Inline'
-}
 
 export const CreateStack = (
   { allowableTypes, isNewStep, readonly = false, initialValues, onUpdate, onChange }: CloudFormationCreateStackProps,
@@ -143,7 +138,8 @@ export const CreateStack = (
       showError(statesError.message)
     }
     if (rolesError) {
-      showError(rolesError.message)
+      const message = rolesError?.message
+      showError(message)
     }
     /*  eslint-disable-next-line react-hooks/exhaustive-deps  */
   }, [regionError, capabilitiesError, statesError, rolesError])
@@ -675,43 +671,7 @@ export const CreateStack = (
                     </MultiTypeFieldSelector>
 
                     <div className={css.divider} />
-                    <div className={cx(stepCss.formGroup, stepCss.alignStart, css.addMarginTop, css.addMarginBottom)}>
-                      <MultiTypeFieldSelector
-                        name="spec.configuration.tags.spec.content"
-                        label={
-                          <Text style={{ color: 'rgb(11, 11, 13)' }}>
-                            {getString('optionalField', { name: getString('tagsLabel') })}
-                          </Text>
-                        }
-                        defaultValueToReset=""
-                        allowedTypes={allowableTypes.filter(item => item !== MultiTypeInputType.EXPRESSION)}
-                        skipRenderValueInExpressionLabel
-                        disabled={readonly}
-                      >
-                        <TFMonaco
-                          name="spec.configuration.tags.spec.content"
-                          formik={formik}
-                          title={getString('tagsLabel')}
-                        />
-                      </MultiTypeFieldSelector>
-                      {
-                        /* istanbul ignore next */
-                        getMultiTypeFromValue(values.tags) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={values.spec?.configuration?.spec?.tags?.spec?.content}
-                            type="String"
-                            variableName="spec.configuration.tags.spec.content"
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => {
-                              setFieldValue('spec.configuration.tags.spec.content', value)
-                            }}
-                            isReadonly={readonly}
-                          />
-                        )
-                      }
-                    </div>
+                    <Tags formik={formik} allowableTypes={allowableTypes} readonly={readonly} regions={regions} />
                     <MultiTypeFieldSelector
                       name="spec.configuration.skipOnStackStatuses"
                       label={

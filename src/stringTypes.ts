@@ -3645,6 +3645,12 @@ export interface StringsMap {
   'cd.cloudFormation.parameterFileDetails': string
   'cd.cloudFormation.parameterFilePaths': string
   'cd.cloudFormation.parameterFiles': string
+  'cd.cloudFormation.remoteTags': string
+  'cd.cloudFormation.remoteTagsConnector': string
+  'cd.cloudFormation.remoteTagsDetails': string
+  'cd.cloudFormation.remoteTagsFilePath': string
+  'cd.cloudFormation.remoteTagsFileStore': string
+  'cd.cloudFormation.remoteTagsUrlPath': string
   'cd.cloudFormation.retrieveNames': string
   'cd.cloudFormation.rollbackDescription': string
   'cd.cloudFormation.specifyCapabilities': string
@@ -3652,6 +3658,8 @@ export interface StringsMap {
   'cd.cloudFormation.specifyParameterFiles': string
   'cd.cloudFormation.specifyTemplateFile': string
   'cd.cloudFormation.stackName': string
+  'cd.cloudFormation.tagsConnector': string
+  'cd.cloudFormation.tagsFileStore': string
   'cd.cloudFormation.templateFile': string
   'cd.cloudFormation.templateFileConnector': string
   'cd.cloudFormation.templateFileStore': string
