@@ -239,8 +239,6 @@ artifactRepoTooltip: Enter the name of the repository where the artifact source 
 serverlessDeployCommandOptions: Serverless Deploy Command Options
 artifactVersion: ARTIFACT VERSION
 useConnectorCredentials: 'Use Connector Credentials'
-serviceOverrides: Service Overrides
-serviceOverridesHelperText: Override existing variables or defined new variables based on the selected service
 configurationVariable: Configuration Variable
 overrideValue: Override Value
 overrideType: Override Type
@@ -252,6 +250,11 @@ environment:
   createSubTitle: An environment is the representation of where your deployments take place
   filters:
     environmentNamePlaceholder: Enter Environment Name
+serviceOverrides:
+  label: Service Overrides
+  helperText: Override existing variables or define new variables based on the selected service
+  deleted: Successfully deleted Service Override
+  deletedOneVariable: Successfully deleted variable from service override
 infrastructure:
   infrastructureDefinitions: Infrastructure Definitions
   noInfrastructureInEnvironment: You have no infrastructures in this environment

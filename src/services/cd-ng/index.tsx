@@ -1206,6 +1206,14 @@ export interface AzureSubscriptionsDTO {
 
 export type AzureSystemAssignedMSIAuth = AzureAuthCredentialDTO & { [key: string]: any }
 
+export interface AzureTagDTO {
+  tag: string
+}
+
+export interface AzureTagsDTO {
+  tags?: AzureTagDTO[]
+}
+
 export type AzureUserAssignedMSIAuth = AzureAuthCredentialDTO & {
   clientId: string
 }
@@ -1433,6 +1441,23 @@ export type CVLicenseSummaryDTO = LicensesWithSummaryDTO & {}
 
 export type CVModuleLicenseDTO = ModuleLicenseDTO & {}
 
+export interface CardDTO {
+  addressCity?: string
+  addressCountry?: string
+  addressLine1?: string
+  addressLine2?: string
+  addressState?: string
+  addressZip?: string
+  brand?: string
+  cvcCheck?: string
+  expireMonth?: number
+  expireYear?: number
+  funding?: string
+  id?: string
+  last4?: string
+  name?: string
+}
+
 export interface CcmConnectorFilter {
   awsAccountId?: string
   azureSubscriptionId?: string
@@ -1567,6 +1592,7 @@ export interface ClusterYaml {
   metadata?: string
   ref: string
 }
+
 export interface CodeBase {
   build: Build
   connectorRef: string
@@ -1591,13 +1617,11 @@ export interface ConfigFile {
 
 export interface ConfigFileAttributeStepParameters {
   store?: StoreConfigWrapperParameters
-  type?: 'LocalFile' | 'Encrypted' | 'Remote'
 }
 
 export interface ConfigFileAttributes {
   configFileAttributeStepParameters?: ConfigFileAttributeStepParameters
   store: StoreConfigWrapper
-  type: 'LocalFile' | 'Encrypted' | 'Remote'
 }
 
 export interface ConfigFileOverrideSetWrapper {
@@ -2041,6 +2065,18 @@ export type CustomRestrictionMetadataDTO = RestrictionMetadataDTO & {}
 
 export type CustomStageConfig = StageInfoConfig & {
   execution: ExecutionElementConfig
+}
+
+export interface CustomerDTO {
+  billingEmail?: string
+  companyName?: string
+}
+
+export interface CustomerDetailDTO {
+  billingEmail?: string
+  companyName?: string
+  customerId?: string
+  defaultSource?: string
 }
 
 export interface DOMConfiguration {
@@ -3855,6 +3891,15 @@ export interface FeedbackFormDTO {
   suggestion?: string
 }
 
+export interface FfSubscriptionDTO {
+  accountId?: string
+  edition?: string
+  numberOfDevelopers?: number
+  numberOfMau?: number
+  paymentFreq?: string
+  premiumSupport?: boolean
+}
+
 export interface FieldValues {
   fieldValues?: {
     [key: string]: string[]
@@ -3885,6 +3930,7 @@ export type FileNodeDTO = FileStoreNodeDTO & {
   description?: string
   fileUsage: 'MANIFEST_FILE' | 'CONFIG' | 'SCRIPT'
   mimeType?: string
+  size?: number
   tags?: NGTag[]
 }
 
@@ -5060,12 +5106,13 @@ export interface HarnessServiceInfoNG {
 }
 
 export type HarnessStore = StoreConfig & {
-  filePath: string
-  fileReference: string
-  /**
-   * io.harness.cdng.manifest.yaml.harness.HarnessFileType
-   */
-  fileType: 'FileStore' | 'Encrypted'
+  files?: HarnessStoreFile[]
+}
+
+export interface HarnessStoreFile {
+  isEncrypted: boolean
+  path: string
+  ref: string
 }
 
 export interface HealthDeploymentDashboard {
@@ -5472,6 +5519,33 @@ export interface Invite {
   projectIdentifier?: string
   roleBindings?: RoleBinding[]
   userGroups?: string[]
+}
+
+export interface InvoiceDetailDTO {
+  amountDue?: number
+  clientSecret?: string
+  invoiceId?: string
+  items?: ItemDTO[]
+  nextPaymentAttempt?: number
+  paymentIntent?: PaymentIntentDetailDTO
+  periodEnd?: number
+  periodStart?: number
+  subscriptionId?: string
+  totalAmount?: number
+}
+
+export interface ItemDTO {
+  amount?: number
+  description?: string
+  price?: PriceDTO
+  proration?: boolean
+  quantity?: number
+}
+
+export interface ItemParams {
+  lookupKey?: string
+  priceId?: string
+  quantity?: number
 }
 
 export interface JenkinsAuthCredentialsDTO {
@@ -6129,6 +6203,8 @@ export interface ModuleLicenseDTO {
   lastModifiedAt?: number
   licenseType?: 'TRIAL' | 'PAID'
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  premiumSupport?: boolean
+  selfService?: boolean
   startTime?: number
   status?: 'ACTIVE' | 'DELETED' | 'EXPIRED'
   trialExtended?: boolean
@@ -6174,7 +6250,7 @@ export interface NGServiceOverrideConfig {
 export interface NGServiceOverrideInfoConfig {
   environmentRef: string
   serviceRef: string
-  variableOverrides?: NGVariable[]
+  variables?: NGVariable[]
 }
 
 export interface NGServiceV2InfoConfig {
@@ -6239,6 +6315,13 @@ export type NewRelicConnectorDTO = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   newRelicAccountId: string
   url: string
+}
+
+export interface NextActionDetailDTO {
+  type?: string
+  useStripeSdk?: {
+    [key: string]: { [key: string]: any }
+  }
 }
 
 export interface NexusAuthCredentials {
@@ -6398,7 +6481,6 @@ export interface OciHelmAuthenticationDTO {
 export type OciHelmChartConfig = StoreConfig & {
   basePath?: string
   config?: OciHelmChartStoreConfigWrapper
-  identifier?: string
   metadata?: string
 }
 
@@ -6413,7 +6495,7 @@ export interface OciHelmChartStoreConfigWrapper {
 }
 
 export type OciHelmChartStoreGenericConfig = OciHelmChartStoreConfig & {
-  connectorRef?: string
+  connectorRef?: ParameterFieldString
   metadata?: string
 }
 
@@ -7055,6 +7137,17 @@ export interface PatchRequest {
   schemas: string[]
 }
 
+export interface PaymentIntentDetailDTO {
+  clientSecret?: string
+  id?: string
+  nextAction?: NextActionDetailDTO
+  status?: string
+}
+
+export interface PaymentMethodCollectionDTO {
+  paymentMethods?: CardDTO[]
+}
+
 export type PdcInfrastructure = Infrastructure & {
   attributeFilters?: {
     [key: string]: string
@@ -7064,6 +7157,10 @@ export type PdcInfrastructure = Infrastructure & {
   delegateSelectors?: string[]
   hostFilters?: string[]
   hosts?: string[]
+}
+
+export interface PendingUpdateDetailDTO {
+  expiresAt?: number
 }
 
 export type PercentageInstanceSelection = InstanceSelectionBase & {
@@ -7194,6 +7291,24 @@ export type PolicyStepInfo = StepSpecType & {
 
 export interface PollingResponseDTO {
   pollingResponse?: string[]
+}
+
+export interface PriceCollectionDTO {
+  prices?: PriceDTO[]
+}
+
+export interface PriceDTO {
+  active?: boolean
+  currency?: string
+  lookupKey?: string
+  metaData?: {
+    [key: string]: string
+  }
+  priceId?: string
+  productId?: string
+  tierMode?: 'volume' | 'graduated'
+  tiersDTO?: TiersDTO[]
+  unitAmount?: number
 }
 
 export interface PrimaryArtifact {
@@ -7638,6 +7753,13 @@ export interface ResponseAzureSubscriptionsDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseAzureTagsDTO {
+  correlationId?: string
+  data?: AzureTagsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseAzureWebAppNamesDTO {
   correlationId?: string
   data?: AzureWebAppNamesDTO
@@ -7718,6 +7840,13 @@ export interface ResponseCreatePRDTO {
 export interface ResponseCreatePRResponse {
   correlationId?: string
   data?: CreatePRResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseCustomerDetailDTO {
+  correlationId?: string
+  data?: CustomerDetailDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -8012,6 +8141,13 @@ export interface ResponseInstancesByBuildIdList {
 export interface ResponseInvite {
   correlationId?: string
   data?: Invite
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInvoiceDetailDTO {
+  correlationId?: string
+  data?: InvoiceDetailDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -8381,6 +8517,13 @@ export interface ResponseListSourceCodeManagerDTO {
 export interface ResponseListString {
   correlationId?: string
   data?: string[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListSubscriptionDetailDTO {
+  correlationId?: string
+  data?: SubscriptionDetailDTO[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -9115,6 +9258,13 @@ export interface ResponsePasswordChangeResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePaymentMethodCollectionDTO {
+  correlationId?: string
+  data?: PaymentMethodCollectionDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePipelineConfig {
   correlationId?: string
   data?: PipelineConfig
@@ -9132,6 +9282,13 @@ export interface ResponsePipelinesExecutionDashboardInfo {
 export interface ResponsePollingResponseDTO {
   correlationId?: string
   data?: PollingResponseDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePriceCollectionDTO {
+  correlationId?: string
+  data?: PriceCollectionDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -9362,6 +9519,13 @@ export interface ResponseString {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseSubscriptionDetailDTO {
+  correlationId?: string
+  data?: SubscriptionDetailDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseTimeValuePairListDTOEnvIdCountPair {
   correlationId?: string
   data?: TimeValuePairListDTOEnvIdCountPair
@@ -9435,6 +9599,13 @@ export interface ResponseValidationResultDTO {
 export interface ResponseVariableResponseDTO {
   correlationId?: string
   data?: VariableResponseDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseVoid {
+  correlationId?: string
+  data?: Void
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -10678,7 +10849,6 @@ export type SshServiceSpec = ServiceSpec & {}
 export type SshWinRmAzureInfrastructure = Infrastructure & {
   connectorRef: string
   credentialsRef: string
-  delegateSelectors?: string[]
   resourceGroup: string
   subscriptionId: string
   tags?: {
@@ -10875,6 +11045,27 @@ export type StringVariableConfigDTO = VariableConfigDTO & {
   regex?: string
 }
 
+export interface SubscriptionDTO {
+  customerId?: string
+  items?: ItemParams[]
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  paymentMethodId?: string
+}
+
+export interface SubscriptionDetailDTO {
+  accountIdentifier?: string
+  cancelAt?: number
+  canceledAt?: number
+  clientSecret?: string
+  customerId?: string
+  latestInvoice?: string
+  latestInvoiceDetail?: InvoiceDetailDTO
+  moduletype?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  pendingUpdate?: PendingUpdateDetailDTO
+  status?: string
+  subscriptionId?: string
+}
+
 export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
   accessIdRef: string
   accessKeyRef: string
@@ -11015,6 +11206,11 @@ export interface Throwable {
   message?: string
   stackTrace?: StackTraceElement[]
   suppressed?: Throwable[]
+}
+
+export interface TiersDTO {
+  unitAmount?: number
+  upTo?: number
 }
 
 export interface TimeBasedDeploymentInfo {
@@ -11598,6 +11794,8 @@ export type ClusterRequestRequestBody = ClusterRequest
 
 export type ConnectorRequestBody = Connector
 
+export type CustomerDTORequestBody = CustomerDTO
+
 export type DelegateDownloadRequestRequestBody = DelegateDownloadRequest
 
 export type DelegateGroupTagsRequestBody = DelegateGroupTags
@@ -11646,9 +11844,9 @@ export type ScimUserRequestBody = ScimUser
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+export type SecretRequestWrapperRequestBody = void
 
-export type SecretRequestWrapper2RequestBody = void
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -11661,6 +11859,8 @@ export type SignupDTORequestBody = SignupDTO
 export type SourceCodeManagerDTORequestBody = SourceCodeManagerDTO
 
 export type StartTrialDTORequestBody = StartTrialDTO
+
+export type SubscriptionDTORequestBody = SubscriptionDTO
 
 export type TokenDTORequestBody = TokenDTO
 
@@ -11676,7 +11876,7 @@ export type GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody = string
 
 export type GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody = string
 
-export type UnsubscribeBodyRequestBody = string[]
+export type ProcessPollingResultNgBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -16696,6 +16896,7 @@ export interface CFParametersForAwsQueryParams {
   commitId?: string
   awsConnectorRef: string
   gitConnectorRef?: string
+  repoName?: string
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
@@ -17291,6 +17492,71 @@ export const getAzureClustersPromise = (
   getUsingFetch<ResponseAzureClustersDTO, Failure | Error, GetAzureClustersQueryParams, GetAzureClustersPathParams>(
     getConfig('ng/api'),
     `/azure/subscriptions/${subscriptionId}/resourceGroups/${resourceGroup}/clusters`,
+    props,
+    signal
+  )
+
+export interface GetSubscriptionTagsQueryParams {
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface GetSubscriptionTagsPathParams {
+  subscriptionId: string
+}
+
+export type GetSubscriptionTagsProps = Omit<
+  GetProps<ResponseAzureTagsDTO, Failure | Error, GetSubscriptionTagsQueryParams, GetSubscriptionTagsPathParams>,
+  'path'
+> &
+  GetSubscriptionTagsPathParams
+
+/**
+ * Gets azure tags by subscription
+ */
+export const GetSubscriptionTags = ({ subscriptionId, ...props }: GetSubscriptionTagsProps) => (
+  <Get<ResponseAzureTagsDTO, Failure | Error, GetSubscriptionTagsQueryParams, GetSubscriptionTagsPathParams>
+    path={`/azure/subscriptions/${subscriptionId}/tags`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetSubscriptionTagsProps = Omit<
+  UseGetProps<ResponseAzureTagsDTO, Failure | Error, GetSubscriptionTagsQueryParams, GetSubscriptionTagsPathParams>,
+  'path'
+> &
+  GetSubscriptionTagsPathParams
+
+/**
+ * Gets azure tags by subscription
+ */
+export const useGetSubscriptionTags = ({ subscriptionId, ...props }: UseGetSubscriptionTagsProps) =>
+  useGet<ResponseAzureTagsDTO, Failure | Error, GetSubscriptionTagsQueryParams, GetSubscriptionTagsPathParams>(
+    (paramsInPath: GetSubscriptionTagsPathParams) => `/azure/subscriptions/${paramsInPath.subscriptionId}/tags`,
+    { base: getConfig('ng/api'), pathParams: { subscriptionId }, ...props }
+  )
+
+/**
+ * Gets azure tags by subscription
+ */
+export const getSubscriptionTagsPromise = (
+  {
+    subscriptionId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseAzureTagsDTO,
+    Failure | Error,
+    GetSubscriptionTagsQueryParams,
+    GetSubscriptionTagsPathParams
+  > & { subscriptionId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseAzureTagsDTO, Failure | Error, GetSubscriptionTagsQueryParams, GetSubscriptionTagsPathParams>(
+    getConfig('ng/api'),
+    `/azure/subscriptions/${subscriptionId}/tags`,
     props,
     signal
   )
@@ -22972,6 +23238,57 @@ export const getEnvironmentListV2Promise = (
     void
   >('POST', getConfig('ng/api'), `/environmentsV2/listV2`, props, signal)
 
+export interface GetEnvironmentInputsQueryParams {
+  environmentIdentifier: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetEnvironmentInputsProps = Omit<
+  GetProps<ResponseString, Failure | Error, GetEnvironmentInputsQueryParams, void>,
+  'path'
+>
+
+/**
+ * This api returns Environment inputs YAML
+ */
+export const GetEnvironmentInputs = (props: GetEnvironmentInputsProps) => (
+  <Get<ResponseString, Failure | Error, GetEnvironmentInputsQueryParams, void>
+    path={`/environmentsV2/runtimeInputs`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnvironmentInputsProps = Omit<
+  UseGetProps<ResponseString, Failure | Error, GetEnvironmentInputsQueryParams, void>,
+  'path'
+>
+
+/**
+ * This api returns Environment inputs YAML
+ */
+export const useGetEnvironmentInputs = (props: UseGetEnvironmentInputsProps) =>
+  useGet<ResponseString, Failure | Error, GetEnvironmentInputsQueryParams, void>(`/environmentsV2/runtimeInputs`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * This api returns Environment inputs YAML
+ */
+export const getEnvironmentInputsPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, GetEnvironmentInputsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, GetEnvironmentInputsQueryParams, void>(
+    getConfig('ng/api'),
+    `/environmentsV2/runtimeInputs`,
+    props,
+    signal
+  )
+
 export interface DeleteServiceOverrideQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -23163,6 +23480,58 @@ export const upsertServiceOverridePromise = (
     ServiceOverrideRequestDTO,
     void
   >('POST', getConfig('ng/api'), `/environmentsV2/serviceOverrides`, props, signal)
+
+export interface GetServiceOverrideInputsQueryParams {
+  environmentIdentifier: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+}
+
+export type GetServiceOverrideInputsProps = Omit<
+  GetProps<ResponseString, Failure | Error, GetServiceOverrideInputsQueryParams, void>,
+  'path'
+>
+
+/**
+ * This api returns Service Override inputs YAML
+ */
+export const GetServiceOverrideInputs = (props: GetServiceOverrideInputsProps) => (
+  <Get<ResponseString, Failure | Error, GetServiceOverrideInputsQueryParams, void>
+    path={`/environmentsV2/serviceOverrides/runtimeInputs`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceOverrideInputsProps = Omit<
+  UseGetProps<ResponseString, Failure | Error, GetServiceOverrideInputsQueryParams, void>,
+  'path'
+>
+
+/**
+ * This api returns Service Override inputs YAML
+ */
+export const useGetServiceOverrideInputs = (props: UseGetServiceOverrideInputsProps) =>
+  useGet<ResponseString, Failure | Error, GetServiceOverrideInputsQueryParams, void>(
+    `/environmentsV2/serviceOverrides/runtimeInputs`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * This api returns Service Override inputs YAML
+ */
+export const getServiceOverrideInputsPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, GetServiceOverrideInputsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, GetServiceOverrideInputsQueryParams, void>(
+    getConfig('ng/api'),
+    `/environmentsV2/serviceOverrides/runtimeInputs`,
+    props,
+    signal
+  )
 
 export interface UpsertEnvironmentV2QueryParams {
   accountIdentifier: string
@@ -27725,6 +28094,59 @@ export const dummyInfraConfigApiPromise = (
     signal
   )
 
+export interface GetInfrastructureInputsQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  environmentIdentifier: string
+  infraIdentifiers?: string[]
+  deployToAll?: boolean
+}
+
+export type GetInfrastructureInputsProps = Omit<
+  GetProps<ResponseString, Failure | Error, GetInfrastructureInputsQueryParams, void>,
+  'path'
+>
+
+/**
+ * This api returns Infrastructure Definition inputs YAML
+ */
+export const GetInfrastructureInputs = (props: GetInfrastructureInputsProps) => (
+  <Get<ResponseString, Failure | Error, GetInfrastructureInputsQueryParams, void>
+    path={`/infrastructures/runtimeInputs`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInfrastructureInputsProps = Omit<
+  UseGetProps<ResponseString, Failure | Error, GetInfrastructureInputsQueryParams, void>,
+  'path'
+>
+
+/**
+ * This api returns Infrastructure Definition inputs YAML
+ */
+export const useGetInfrastructureInputs = (props: UseGetInfrastructureInputsProps) =>
+  useGet<ResponseString, Failure | Error, GetInfrastructureInputsQueryParams, void>(`/infrastructures/runtimeInputs`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * This api returns Infrastructure Definition inputs YAML
+ */
+export const getInfrastructureInputsPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, GetInfrastructureInputsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, GetInfrastructureInputsQueryParams, void>(
+    getConfig('ng/api'),
+    `/infrastructures/runtimeInputs`,
+    props,
+    signal
+  )
+
 export interface UpsertInfrastructureQueryParams {
   accountIdentifier: string
 }
@@ -30874,7 +31296,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -30886,7 +31308,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -30901,7 +31323,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -30913,7 +31335,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -30929,7 +31351,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -30938,17 +31360,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -30957,22 +31379,28 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<
+    ResponsePollingResponseDTO,
+    Failure | Error,
+    void,
+    ProcessPollingResultNgBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -30981,12 +31409,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -30995,21 +31423,22 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+    'POST',
+    `/polling/unsubscribe`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -35536,6 +35965,797 @@ export const updateSourceCodeManagersPromise = (
     UpdateSourceCodeManagersPathParams
   >('PUT', getConfig('ng/api'), `/source-code-manager/${identifier}`, props, signal)
 
+export interface ListSubscriptionsQueryParams {
+  accountIdentifier: string
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+}
+
+export type ListSubscriptionsProps = Omit<
+  GetProps<ResponseListSubscriptionDetailDTO, Failure | Error, ListSubscriptionsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Lists the subscriptions
+ */
+export const ListSubscriptions = (props: ListSubscriptionsProps) => (
+  <Get<ResponseListSubscriptionDetailDTO, Failure | Error, ListSubscriptionsQueryParams, void>
+    path={`/subscriptions`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListSubscriptionsProps = Omit<
+  UseGetProps<ResponseListSubscriptionDetailDTO, Failure | Error, ListSubscriptionsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Lists the subscriptions
+ */
+export const useListSubscriptions = (props: UseListSubscriptionsProps) =>
+  useGet<ResponseListSubscriptionDetailDTO, Failure | Error, ListSubscriptionsQueryParams, void>(`/subscriptions`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Lists the subscriptions
+ */
+export const listSubscriptionsPromise = (
+  props: GetUsingFetchProps<ResponseListSubscriptionDetailDTO, Failure | Error, ListSubscriptionsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListSubscriptionDetailDTO, Failure | Error, ListSubscriptionsQueryParams, void>(
+    getConfig('ng/api'),
+    `/subscriptions`,
+    props,
+    signal
+  )
+
+export interface CreateFfSubscriptionQueryParams {
+  accountIdentifier: string
+}
+
+export type CreateFfSubscriptionProps = Omit<
+  MutateProps<ResponseInvoiceDetailDTO, Failure | Error, CreateFfSubscriptionQueryParams, FfSubscriptionDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Creates a feature flag subscription
+ */
+export const CreateFfSubscription = (props: CreateFfSubscriptionProps) => (
+  <Mutate<ResponseInvoiceDetailDTO, Failure | Error, CreateFfSubscriptionQueryParams, FfSubscriptionDTO, void>
+    verb="POST"
+    path={`/subscriptions`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateFfSubscriptionProps = Omit<
+  UseMutateProps<ResponseInvoiceDetailDTO, Failure | Error, CreateFfSubscriptionQueryParams, FfSubscriptionDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Creates a feature flag subscription
+ */
+export const useCreateFfSubscription = (props: UseCreateFfSubscriptionProps) =>
+  useMutate<ResponseInvoiceDetailDTO, Failure | Error, CreateFfSubscriptionQueryParams, FfSubscriptionDTO, void>(
+    'POST',
+    `/subscriptions`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Creates a feature flag subscription
+ */
+export const createFfSubscriptionPromise = (
+  props: MutateUsingFetchProps<
+    ResponseInvoiceDetailDTO,
+    Failure | Error,
+    CreateFfSubscriptionQueryParams,
+    FfSubscriptionDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseInvoiceDetailDTO, Failure | Error, CreateFfSubscriptionQueryParams, FfSubscriptionDTO, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/subscriptions`,
+    props,
+    signal
+  )
+
+export interface CreateCustomerQueryParams {
+  accountIdentifier: string
+}
+
+export type CreateCustomerProps = Omit<
+  MutateProps<ResponseCustomerDetailDTO, Failure | Error, CreateCustomerQueryParams, CustomerDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Creates the customer
+ */
+export const CreateCustomer = (props: CreateCustomerProps) => (
+  <Mutate<ResponseCustomerDetailDTO, Failure | Error, CreateCustomerQueryParams, CustomerDTORequestBody, void>
+    verb="POST"
+    path={`/subscriptions/customers`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateCustomerProps = Omit<
+  UseMutateProps<ResponseCustomerDetailDTO, Failure | Error, CreateCustomerQueryParams, CustomerDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Creates the customer
+ */
+export const useCreateCustomer = (props: UseCreateCustomerProps) =>
+  useMutate<ResponseCustomerDetailDTO, Failure | Error, CreateCustomerQueryParams, CustomerDTORequestBody, void>(
+    'POST',
+    `/subscriptions/customers`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Creates the customer
+ */
+export const createCustomerPromise = (
+  props: MutateUsingFetchProps<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    CreateCustomerQueryParams,
+    CustomerDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseCustomerDetailDTO, Failure | Error, CreateCustomerQueryParams, CustomerDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/subscriptions/customers`,
+    props,
+    signal
+  )
+
+export interface RetrieveCustomerQueryParams {
+  accountIdentifier: string
+}
+
+export interface RetrieveCustomerPathParams {
+  customerId: string
+}
+
+export type RetrieveCustomerProps = Omit<
+  GetProps<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>,
+  'path'
+> &
+  RetrieveCustomerPathParams
+
+/**
+ * Retrieves the customer
+ */
+export const RetrieveCustomer = ({ customerId, ...props }: RetrieveCustomerProps) => (
+  <Get<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>
+    path={`/subscriptions/customers/${customerId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseRetrieveCustomerProps = Omit<
+  UseGetProps<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>,
+  'path'
+> &
+  RetrieveCustomerPathParams
+
+/**
+ * Retrieves the customer
+ */
+export const useRetrieveCustomer = ({ customerId, ...props }: UseRetrieveCustomerProps) =>
+  useGet<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>(
+    (paramsInPath: RetrieveCustomerPathParams) => `/subscriptions/customers/${paramsInPath.customerId}`,
+    { base: getConfig('ng/api'), pathParams: { customerId }, ...props }
+  )
+
+/**
+ * Retrieves the customer
+ */
+export const retrieveCustomerPromise = (
+  {
+    customerId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    RetrieveCustomerQueryParams,
+    RetrieveCustomerPathParams
+  > & { customerId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>(
+    getConfig('ng/api'),
+    `/subscriptions/customers/${customerId}`,
+    props,
+    signal
+  )
+
+export interface UpdateCustomerQueryParams {
+  accountIdentifier: string
+}
+
+export interface UpdateCustomerPathParams {
+  customerId: string
+}
+
+export type UpdateCustomerProps = Omit<
+  MutateProps<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    UpdateCustomerQueryParams,
+    CustomerDTORequestBody,
+    UpdateCustomerPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateCustomerPathParams
+
+/**
+ * Updates the customer
+ */
+export const UpdateCustomer = ({ customerId, ...props }: UpdateCustomerProps) => (
+  <Mutate<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    UpdateCustomerQueryParams,
+    CustomerDTORequestBody,
+    UpdateCustomerPathParams
+  >
+    verb="PUT"
+    path={`/subscriptions/customers/${customerId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateCustomerProps = Omit<
+  UseMutateProps<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    UpdateCustomerQueryParams,
+    CustomerDTORequestBody,
+    UpdateCustomerPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateCustomerPathParams
+
+/**
+ * Updates the customer
+ */
+export const useUpdateCustomer = ({ customerId, ...props }: UseUpdateCustomerProps) =>
+  useMutate<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    UpdateCustomerQueryParams,
+    CustomerDTORequestBody,
+    UpdateCustomerPathParams
+  >('PUT', (paramsInPath: UpdateCustomerPathParams) => `/subscriptions/customers/${paramsInPath.customerId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { customerId },
+    ...props
+  })
+
+/**
+ * Updates the customer
+ */
+export const updateCustomerPromise = (
+  {
+    customerId,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    UpdateCustomerQueryParams,
+    CustomerDTORequestBody,
+    UpdateCustomerPathParams
+  > & { customerId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    UpdateCustomerQueryParams,
+    CustomerDTORequestBody,
+    UpdateCustomerPathParams
+  >('PUT', getConfig('ng/api'), `/subscriptions/customers/${customerId}`, props, signal)
+
+export interface CheckSubscriptionExistsQueryParams {
+  subscriptionId: string
+}
+
+export type CheckSubscriptionExistsProps = Omit<
+  GetProps<RestResponseBoolean, Failure | Error, CheckSubscriptionExistsQueryParams, void>,
+  'path'
+>
+
+export const CheckSubscriptionExists = (props: CheckSubscriptionExistsProps) => (
+  <Get<RestResponseBoolean, Failure | Error, CheckSubscriptionExistsQueryParams, void>
+    path={`/subscriptions/exists`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCheckSubscriptionExistsProps = Omit<
+  UseGetProps<RestResponseBoolean, Failure | Error, CheckSubscriptionExistsQueryParams, void>,
+  'path'
+>
+
+export const useCheckSubscriptionExists = (props: UseCheckSubscriptionExistsProps) =>
+  useGet<RestResponseBoolean, Failure | Error, CheckSubscriptionExistsQueryParams, void>(`/subscriptions/exists`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const checkSubscriptionExistsPromise = (
+  props: GetUsingFetchProps<RestResponseBoolean, Failure | Error, CheckSubscriptionExistsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseBoolean, Failure | Error, CheckSubscriptionExistsQueryParams, void>(
+    getConfig('ng/api'),
+    `/subscriptions/exists`,
+    props,
+    signal
+  )
+
+export interface RetrieveUpcomingInvoiceQueryParams {
+  accountIdentifier: string
+}
+
+export type RetrieveUpcomingInvoiceProps = Omit<
+  MutateProps<
+    ResponseInvoiceDetailDTO,
+    Failure | Error,
+    RetrieveUpcomingInvoiceQueryParams,
+    SubscriptionDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Retrieves the upcoming Invoice details
+ */
+export const RetrieveUpcomingInvoice = (props: RetrieveUpcomingInvoiceProps) => (
+  <Mutate<
+    ResponseInvoiceDetailDTO,
+    Failure | Error,
+    RetrieveUpcomingInvoiceQueryParams,
+    SubscriptionDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/subscriptions/invoices/preview`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseRetrieveUpcomingInvoiceProps = Omit<
+  UseMutateProps<
+    ResponseInvoiceDetailDTO,
+    Failure | Error,
+    RetrieveUpcomingInvoiceQueryParams,
+    SubscriptionDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Retrieves the upcoming Invoice details
+ */
+export const useRetrieveUpcomingInvoice = (props: UseRetrieveUpcomingInvoiceProps) =>
+  useMutate<
+    ResponseInvoiceDetailDTO,
+    Failure | Error,
+    RetrieveUpcomingInvoiceQueryParams,
+    SubscriptionDTORequestBody,
+    void
+  >('POST', `/subscriptions/invoices/preview`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Retrieves the upcoming Invoice details
+ */
+export const retrieveUpcomingInvoicePromise = (
+  props: MutateUsingFetchProps<
+    ResponseInvoiceDetailDTO,
+    Failure | Error,
+    RetrieveUpcomingInvoiceQueryParams,
+    SubscriptionDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseInvoiceDetailDTO,
+    Failure | Error,
+    RetrieveUpcomingInvoiceQueryParams,
+    SubscriptionDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/subscriptions/invoices/preview`, props, signal)
+
+export interface ListPaymentMethodsQueryParams {
+  accountIdentifier: string
+  customerId: string
+}
+
+export type ListPaymentMethodsProps = Omit<
+  GetProps<ResponsePaymentMethodCollectionDTO, Failure | Error, ListPaymentMethodsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Lists all payment methods for the customer
+ */
+export const ListPaymentMethods = (props: ListPaymentMethodsProps) => (
+  <Get<ResponsePaymentMethodCollectionDTO, Failure | Error, ListPaymentMethodsQueryParams, void>
+    path={`/subscriptions/payment_methods`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListPaymentMethodsProps = Omit<
+  UseGetProps<ResponsePaymentMethodCollectionDTO, Failure | Error, ListPaymentMethodsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Lists all payment methods for the customer
+ */
+export const useListPaymentMethods = (props: UseListPaymentMethodsProps) =>
+  useGet<ResponsePaymentMethodCollectionDTO, Failure | Error, ListPaymentMethodsQueryParams, void>(
+    `/subscriptions/payment_methods`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Lists all payment methods for the customer
+ */
+export const listPaymentMethodsPromise = (
+  props: GetUsingFetchProps<ResponsePaymentMethodCollectionDTO, Failure | Error, ListPaymentMethodsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePaymentMethodCollectionDTO, Failure | Error, ListPaymentMethodsQueryParams, void>(
+    getConfig('ng/api'),
+    `/subscriptions/payment_methods`,
+    props,
+    signal
+  )
+
+export interface RetrieveProductPricesQueryParams {
+  accountIdentifier: string
+  moduleType: string
+}
+
+export type RetrieveProductPricesProps = Omit<
+  GetProps<ResponsePriceCollectionDTO, Failure | Error, RetrieveProductPricesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Retrieves product prices
+ */
+export const RetrieveProductPrices = (props: RetrieveProductPricesProps) => (
+  <Get<ResponsePriceCollectionDTO, Failure | Error, RetrieveProductPricesQueryParams, void>
+    path={`/subscriptions/prices`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseRetrieveProductPricesProps = Omit<
+  UseGetProps<ResponsePriceCollectionDTO, Failure | Error, RetrieveProductPricesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Retrieves product prices
+ */
+export const useRetrieveProductPrices = (props: UseRetrieveProductPricesProps) =>
+  useGet<ResponsePriceCollectionDTO, Failure | Error, RetrieveProductPricesQueryParams, void>(`/subscriptions/prices`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Retrieves product prices
+ */
+export const retrieveProductPricesPromise = (
+  props: GetUsingFetchProps<ResponsePriceCollectionDTO, Failure | Error, RetrieveProductPricesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePriceCollectionDTO, Failure | Error, RetrieveProductPricesQueryParams, void>(
+    getConfig('ng/api'),
+    `/subscriptions/prices`,
+    props,
+    signal
+  )
+
+export type SyncStripeEventProps = Omit<
+  MutateProps<RestResponseVoid, Failure | Error, void, GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const SyncStripeEvent = (props: SyncStripeEventProps) => (
+  <Mutate<RestResponseVoid, Failure | Error, void, GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody, void>
+    verb="POST"
+    path={`/subscriptions/sync_event`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSyncStripeEventProps = Omit<
+  UseMutateProps<RestResponseVoid, Failure | Error, void, GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useSyncStripeEvent = (props: UseSyncStripeEventProps) =>
+  useMutate<RestResponseVoid, Failure | Error, void, GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody, void>(
+    'POST',
+    `/subscriptions/sync_event`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+export const syncStripeEventPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseVoid,
+    Failure | Error,
+    void,
+    GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseVoid, Failure | Error, void, GetBuildDetailsForAcrArtifactWithYamlBodyRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/subscriptions/sync_event`,
+    props,
+    signal
+  )
+
+export interface CancelSubscriptionQueryParams {
+  accountIdentifier: string
+}
+
+export type CancelSubscriptionProps = Omit<
+  MutateProps<ResponseVoid, Failure | Error, CancelSubscriptionQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Cancel a subscription
+ */
+export const CancelSubscription = (props: CancelSubscriptionProps) => (
+  <Mutate<ResponseVoid, Failure | Error, CancelSubscriptionQueryParams, string, void>
+    verb="DELETE"
+    path={`/subscriptions`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCancelSubscriptionProps = Omit<
+  UseMutateProps<ResponseVoid, Failure | Error, CancelSubscriptionQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Cancel a subscription
+ */
+export const useCancelSubscription = (props: UseCancelSubscriptionProps) =>
+  useMutate<ResponseVoid, Failure | Error, CancelSubscriptionQueryParams, string, void>('DELETE', `/subscriptions`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Cancel a subscription
+ */
+export const cancelSubscriptionPromise = (
+  props: MutateUsingFetchProps<ResponseVoid, Failure | Error, CancelSubscriptionQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseVoid, Failure | Error, CancelSubscriptionQueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/subscriptions`,
+    props,
+    signal
+  )
+
+export interface RetrieveSubscriptionQueryParams {
+  accountIdentifier: string
+}
+
+export interface RetrieveSubscriptionPathParams {
+  subscriptionId: string
+}
+
+export type RetrieveSubscriptionProps = Omit<
+  GetProps<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    RetrieveSubscriptionQueryParams,
+    RetrieveSubscriptionPathParams
+  >,
+  'path'
+> &
+  RetrieveSubscriptionPathParams
+
+/**
+ * Retrieves a subscription
+ */
+export const RetrieveSubscription = ({ subscriptionId, ...props }: RetrieveSubscriptionProps) => (
+  <Get<ResponseSubscriptionDetailDTO, Failure | Error, RetrieveSubscriptionQueryParams, RetrieveSubscriptionPathParams>
+    path={`/subscriptions/${subscriptionId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseRetrieveSubscriptionProps = Omit<
+  UseGetProps<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    RetrieveSubscriptionQueryParams,
+    RetrieveSubscriptionPathParams
+  >,
+  'path'
+> &
+  RetrieveSubscriptionPathParams
+
+/**
+ * Retrieves a subscription
+ */
+export const useRetrieveSubscription = ({ subscriptionId, ...props }: UseRetrieveSubscriptionProps) =>
+  useGet<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    RetrieveSubscriptionQueryParams,
+    RetrieveSubscriptionPathParams
+  >((paramsInPath: RetrieveSubscriptionPathParams) => `/subscriptions/${paramsInPath.subscriptionId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { subscriptionId },
+    ...props
+  })
+
+/**
+ * Retrieves a subscription
+ */
+export const retrieveSubscriptionPromise = (
+  {
+    subscriptionId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    RetrieveSubscriptionQueryParams,
+    RetrieveSubscriptionPathParams
+  > & { subscriptionId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    RetrieveSubscriptionQueryParams,
+    RetrieveSubscriptionPathParams
+  >(getConfig('ng/api'), `/subscriptions/${subscriptionId}`, props, signal)
+
+export interface UpdateSubscriptionQueryParams {
+  accountIdentifier: string
+}
+
+export interface UpdateSubscriptionPathParams {
+  subscriptionId: string
+}
+
+export type UpdateSubscriptionProps = Omit<
+  MutateProps<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    UpdateSubscriptionQueryParams,
+    SubscriptionDTORequestBody,
+    UpdateSubscriptionPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSubscriptionPathParams
+
+/**
+ * Updates a subscription
+ */
+export const UpdateSubscription = ({ subscriptionId, ...props }: UpdateSubscriptionProps) => (
+  <Mutate<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    UpdateSubscriptionQueryParams,
+    SubscriptionDTORequestBody,
+    UpdateSubscriptionPathParams
+  >
+    verb="PUT"
+    path={`/subscriptions/${subscriptionId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateSubscriptionProps = Omit<
+  UseMutateProps<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    UpdateSubscriptionQueryParams,
+    SubscriptionDTORequestBody,
+    UpdateSubscriptionPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSubscriptionPathParams
+
+/**
+ * Updates a subscription
+ */
+export const useUpdateSubscription = ({ subscriptionId, ...props }: UseUpdateSubscriptionProps) =>
+  useMutate<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    UpdateSubscriptionQueryParams,
+    SubscriptionDTORequestBody,
+    UpdateSubscriptionPathParams
+  >('PUT', (paramsInPath: UpdateSubscriptionPathParams) => `/subscriptions/${paramsInPath.subscriptionId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { subscriptionId },
+    ...props
+  })
+
+/**
+ * Updates a subscription
+ */
+export const updateSubscriptionPromise = (
+  {
+    subscriptionId,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    UpdateSubscriptionQueryParams,
+    SubscriptionDTORequestBody,
+    UpdateSubscriptionPathParams
+  > & { subscriptionId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSubscriptionDetailDTO,
+    Failure | Error,
+    UpdateSubscriptionQueryParams,
+    SubscriptionDTORequestBody,
+    UpdateSubscriptionPathParams
+  >('PUT', getConfig('ng/api'), `/subscriptions/${subscriptionId}`, props, signal)
+
 export interface GetTokenQueryParams {
   tokenId?: string
 }
@@ -39249,7 +40469,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -39259,7 +40479,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -39272,7 +40492,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -39286,7 +40506,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -39298,7 +40518,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -39307,7 +40527,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -39700,7 +40920,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -39714,7 +40934,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >
     verb="POST"
@@ -39729,7 +40949,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -39743,7 +40963,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -39755,7 +40975,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -39764,7 +40984,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -39899,7 +41119,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -39914,7 +41134,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -39929,7 +41149,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -39944,7 +41164,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -39963,7 +41183,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -39972,7 +41192,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -39991,7 +41211,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -40006,7 +41226,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -40021,7 +41241,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -40036,7 +41256,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -40055,7 +41275,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -40064,7 +41284,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

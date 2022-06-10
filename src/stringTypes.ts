@@ -3879,8 +3879,10 @@ export interface StringsMap {
   'cd.serviceDashboard.totalPipelines': string
   'cd.serviceDashboard.totalServices': string
   'cd.serviceList.noIdentifier': string
-  'cd.serviceOverrides': string
-  'cd.serviceOverridesHelperText': string
+  'cd.serviceOverrides.deleted': string
+  'cd.serviceOverrides.deletedOneVariable': string
+  'cd.serviceOverrides.helperText': string
+  'cd.serviceOverrides.label': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string
