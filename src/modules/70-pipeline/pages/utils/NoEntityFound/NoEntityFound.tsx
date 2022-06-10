@@ -63,7 +63,11 @@ function NoEntityFound(props: NoEntityFoundProps): JSX.Element {
 
   const onGitBranchChange = React.useMemo(
     () => (selectedFilter: GitFilterScope) => {
-      if (branch !== selectedFilter.branch) {
+      // Reason for adding branch check :
+      // For GitX, if branch is not given BranchSelectV2 will internally select default and
+      // notify parent with this callback. For that we do not want to reload the page.
+      // For old GitSync branch is always availble so this check for branch will not matter.
+      if (branch && branch !== selectedFilter.branch) {
         if (entityType === 'pipeline') {
           history.push(
             routes.toPipelineStudio({
