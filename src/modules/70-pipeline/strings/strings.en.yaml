@@ -248,6 +248,9 @@ manifestType:
   httpHelmRepoConnectorLabel: 'HTTP Helm'
   manifestIdentifier: Manifest Name
   manifestPlaceholder: Enter Manifest Name
+  ociHelmConnectorLabel: OCI Helm
+  basePathPlaceholder: Enter Base Path
+  basePath: Base Path
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
@@ -300,6 +303,9 @@ manifestType:
     chartNamePlaceHolder: 'Enter Chart Name'
     chartVersionPlaceHolder: 'Enter Chart Version'
     chartVersionRequired: 'Chart Version is required'
+  oci:
+    basePathRequired: 'Base Path is required'
+    chartVersionValidation: '"latest" tag is not supported as chart version'
 manifestTypeLabels:
   K8sManifest: K8s Manifest
   ValuesYaml: Values YAML

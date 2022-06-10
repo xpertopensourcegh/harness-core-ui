@@ -1567,7 +1567,6 @@ export interface ClusterYaml {
   metadata?: string
   ref: string
 }
-
 export interface CodeBase {
   build: Build
   connectorRef: string
@@ -1681,6 +1680,7 @@ export interface ConnectorCatalogueItem {
     | 'Pdc'
     | 'AzureRepo'
     | 'Jenkins'
+    | 'OciHelmRepo'
   )[]
 }
 
@@ -1756,6 +1756,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Pdc'
     | 'AzureRepo'
     | 'Jenkins'
+    | 'OciHelmRepo'
   )[]
 }
 
@@ -1808,6 +1809,7 @@ export interface ConnectorInfoDTO {
     | 'Pdc'
     | 'AzureRepo'
     | 'Jenkins'
+    | 'OciHelmRepo'
 }
 
 export interface ConnectorResponse {
@@ -1877,6 +1879,7 @@ export interface ConnectorTypeStatistics {
     | 'Pdc'
     | 'AzureRepo'
     | 'Jenkins'
+    | 'OciHelmRepo'
 }
 
 export interface ConnectorValidationResult {
@@ -6383,6 +6386,49 @@ export type OauthSettings = SSOSettings & {
   filter?: string
 }
 
+export interface OciHelmAuthCredentialsDTO {
+  [key: string]: any
+}
+
+export interface OciHelmAuthenticationDTO {
+  spec?: OciHelmAuthCredentialsDTO
+  type: 'UsernamePassword' | 'Anonymous'
+}
+
+export type OciHelmChartConfig = StoreConfig & {
+  basePath?: string
+  config?: OciHelmChartStoreConfigWrapper
+  identifier?: string
+  metadata?: string
+}
+
+export interface OciHelmChartStoreConfig {
+  [key: string]: any
+}
+
+export interface OciHelmChartStoreConfigWrapper {
+  metadata?: string
+  spec: OciHelmChartStoreConfig
+  type: 'Generic'
+}
+
+export type OciHelmChartStoreGenericConfig = OciHelmChartStoreConfig & {
+  connectorRef?: string
+  metadata?: string
+}
+
+export type OciHelmConnectorDTO = ConnectorConfigDTO & {
+  auth?: OciHelmAuthenticationDTO
+  delegateSelectors?: string[]
+  helmRepoUrl: string
+}
+
+export type OciHelmUsernamePasswordDTO = OciHelmAuthCredentialsDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
+}
+
 export type OktaAddOperation = PatchOperation & {
   value?: JsonNode
 }
@@ -10801,6 +10847,7 @@ export interface StoreConfigWrapper {
     | 'S3Url'
     | 'InheritFromManifest'
     | 'Harness'
+    | 'OciHelmChart'
 }
 
 export interface StoreConfigWrapperParameters {
@@ -17397,6 +17444,7 @@ export interface GetConnectorListQueryParams {
     | 'Pdc'
     | 'AzureRepo'
     | 'Jenkins'
+    | 'OciHelmRepo'
   category?:
     | 'CLOUD_PROVIDER'
     | 'SECRET_MANAGER'
@@ -17691,6 +17739,7 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'Pdc'
     | 'AzureRepo'
     | 'Jenkins'
+    | 'OciHelmRepo'
 }
 
 export type GetAllAllowedFieldValuesProps = Omit<
@@ -40647,6 +40696,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Pdc'
     | 'AzureRepo'
     | 'Jenkins'
+    | 'OciHelmRepo'
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
@@ -40748,6 +40798,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'azure'
     | 'pdc'
     | 'azurerepo'
+    | 'ocihelmrepo'
   )[]
 }
 

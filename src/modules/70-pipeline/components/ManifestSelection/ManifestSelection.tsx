@@ -24,6 +24,7 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { useCache } from '@common/hooks/useCache'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView/ManifestListView'
+import { getConnectorPath } from './ManifestWizardSteps/ManifestUtils'
 
 export default function ManifestSelection({
   isPropagating,
@@ -87,8 +88,8 @@ export default function ManifestSelection({
   const getConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
     return listOfManifests?.length
       ? listOfManifests.map((data: any) => ({
-          scope: getScopeFromValue(data?.manifest?.spec?.store?.spec?.connectorRef),
-          identifier: getIdentifierFromValue(data?.manifest?.spec?.store?.spec?.connectorRef)
+          scope: getScopeFromValue(getConnectorPath(data?.manifest?.spec?.store?.type, data?.manifest)),
+          identifier: getIdentifierFromValue(getConnectorPath(data?.manifest?.spec?.store?.type, data?.manifest))
         }))
       : []
   }
