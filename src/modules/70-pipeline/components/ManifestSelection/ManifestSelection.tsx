@@ -9,7 +9,7 @@ import React, { useMemo } from 'react'
 import { Layout, shouldShowError, useToaster } from '@harness/uicore'
 
 import { useParams } from 'react-router-dom'
-import { defaultTo, get } from 'lodash-es'
+import { defaultTo, get, isEmpty } from 'lodash-es'
 import { useGetConnectorListV2, PageConnectorResponse, ServiceDefinition } from 'services/cd-ng'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
@@ -48,6 +48,7 @@ export default function ManifestSelection({
   const { getRBACErrorMessage } = useRBACError()
   const getServiceCacheId = `${pipeline.identifier}-${selectedStageId}-service`
   const { getCache } = useCache([getServiceCacheId])
+  const serviceInfo = getCache<ServiceDefinition>(getServiceCacheId)
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<
     PipelineType<{
@@ -70,8 +71,7 @@ export default function ManifestSelection({
   })
 
   const listOfManifests = useMemo(() => {
-    if (isReadonlyServiceMode) {
-      const serviceInfo = getCache(getServiceCacheId) as ServiceDefinition
+    if (isReadonlyServiceMode && !isEmpty(serviceInfo)) {
       return defaultTo(serviceInfo?.spec.manifests, [])
     }
     if (isPropagating) {
@@ -79,7 +79,7 @@ export default function ManifestSelection({
     }
 
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
-  }, [isReadonlyServiceMode, isPropagating, stage, getCache, getServiceCacheId])
+  }, [isReadonlyServiceMode, serviceInfo, isPropagating, stage])
 
   useDeepCompareEffect(() => {
     refetchConnectorList()

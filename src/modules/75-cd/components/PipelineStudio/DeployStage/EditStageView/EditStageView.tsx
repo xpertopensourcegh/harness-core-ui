@@ -18,6 +18,7 @@ import {
   ThumbnailSelect,
   ButtonVariation,
   useConfirmationDialog
+  // FormInput
 } from '@harness/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import { Color, Intent } from '@harness/design-system'
@@ -49,7 +50,8 @@ import type { TemplateSummaryResponse } from 'services/template-ng'
 import { createTemplate, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { hasStageData, ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import SelectDeploymentType from '../../DeployServiceSpecifications/SelectDeploymentType'
 import css from './EditStageView.module.scss'
 import stageCss from '../../DeployStageSetupShell/DeployStage.module.scss'
@@ -70,7 +72,8 @@ interface Values {
   description?: string
   tags?: { [key: string]: string }
   serviceType: string
-  deploymentType: string | undefined
+  deploymentType?: string
+  gitOpsEnabled?: boolean
 }
 
 export const EditStageView: React.FC<EditStageViewProps> = ({
@@ -122,7 +125,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
   const { errorMap } = useValidationErrors()
   const { subscribeForm, unSubscribeForm, submitFormsForTab } = React.useContext(StageErrorContext)
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
-  const { NG_SVC_ENV_REDESIGN } = useFeatureFlags()
+  const isSvcEnvEntityEnabled = useFeatureFlag(FeatureFlag.NG_SVC_ENV_REDESIGN)
   const getDeploymentType = (): ServiceDeploymentType => {
     return get(data, 'stage.spec.deploymentType')
   }
@@ -183,6 +186,9 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
         if (values.tags) {
           data.stage.tags = values.tags
         }
+        // if (values.gitOpsEnabled) {
+        //   set(data, 'stage.spec.gitOpsEnabled', values.gitOpsEnabled)
+        // }
         onSubmit?.(data, values.identifier)
       }
     }
@@ -219,9 +225,9 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
 
   const shouldRenderDeploymentType = (): boolean => {
     if (context) {
-      return !!NG_SVC_ENV_REDESIGN && !isEmpty(selectedDeploymentType)
+      return !!isSvcEnvEntityEnabled && !isEmpty(selectedDeploymentType)
     }
-    return !!NG_SVC_ENV_REDESIGN
+    return !!isSvcEnvEntityEnabled
   }
 
   return (
@@ -249,6 +255,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
               tags: data?.stage?.tags || {},
               serviceType: newStageData[0].value,
               deploymentType: selectedDeploymentType
+              // gitOpsEnabled: data?.stage?.spec?.gitOpsEnabled
             }}
             formName="cdEditStage"
             onSubmit={handleSubmit}
@@ -325,14 +332,17 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                   )}
 
                   {shouldRenderDeploymentType() && (
-                    <div>
-                      <SelectDeploymentType
-                        viewContext={context}
-                        selectedDeploymentType={selectedDeploymentType}
-                        isReadonly={isReadonly}
-                        handleDeploymentTypeChange={handleDeploymentTypeChange}
-                      />
-                    </div>
+                    <>
+                      <div>
+                        <SelectDeploymentType
+                          viewContext={context}
+                          selectedDeploymentType={selectedDeploymentType}
+                          isReadonly={isReadonly}
+                          handleDeploymentTypeChange={handleDeploymentTypeChange}
+                        />
+                      </div>
+                      {/* <FormInput.CheckBox name="gitOpsEnabled" label={getString('common.gitOps')} /> */}
+                    </>
                   )}
 
                   {!context && (
