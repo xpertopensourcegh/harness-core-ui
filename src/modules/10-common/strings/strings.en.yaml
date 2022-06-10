@@ -663,10 +663,13 @@ default: Default
 searchPlaceholder: Search by name or Id
 monthly: Monthly
 perMonth: /month
+perYear: /year
 hourly: Hourly
 daily: Daily
 yearly: Yearly
 billed: Billed
+subtotal: Subtotal
+annually: annually
 plans:
   title: Upgrade to get the most out of Harness
   featureComparison: Show All Feature Comparison
