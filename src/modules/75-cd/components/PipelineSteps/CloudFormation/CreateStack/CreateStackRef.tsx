@@ -43,6 +43,7 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { useListAwsRegions } from 'services/portal'
 import { useCFCapabilitiesForAws, useCFStatesForAws, useGetIamRolesForAws } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
+import { useQueryParams } from '@common/hooks'
 import { TFMonaco } from '../../Common/Terraform/Editview/TFMonacoEditor'
 import CFRemoteWizard from './RemoteFilesForm/CFRemoteWizard'
 import { InlineParameterFile } from './InlineParameterFile'
@@ -86,6 +87,8 @@ export const CreateStack = (
       accountId
     }
   })
+  const query = useQueryParams()
+  const sectionId = (query as any).sectionId || ''
 
   useEffect(() => {
     if (regionData && !regions.length) {
@@ -203,7 +206,7 @@ export const CreateStack = (
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      formName="cloudFormationCreateStack"
+      formName={`cloudFormationCreateStack-${sectionId}`}
       validate={values => {
         const payload = {
           ...values

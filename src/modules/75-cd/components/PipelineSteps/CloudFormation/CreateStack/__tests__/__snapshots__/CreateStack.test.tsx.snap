@@ -84,7 +84,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -123,7 +123,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -197,7 +197,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -268,7 +268,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -390,7 +390,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -527,7 +527,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.templateFile.spec.templateBody"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.templateFile.spec.templateBody"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -630,7 +630,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -893,7 +893,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.roleArn"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.roleArn"
                       >
                         optionalField
                       </span>
@@ -997,7 +997,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.capabilities"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.capabilities"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -1194,7 +1194,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="cloudFormationCreateStack_spec.configuration.tags.spec.content"
+                          data-tooltip-id="cloudFormationCreateStack-_spec.configuration.tags.spec.content"
                         >
                           <label
                             class="Label--main configLabel"
@@ -1294,7 +1294,7 @@ exports[`Test Cloudformation create stack should be able to open and close inlin
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.skipOnStackStatuses"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.skipOnStackStatuses"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -1511,7 +1511,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -1550,7 +1550,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -1624,7 +1624,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -1695,7 +1695,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -1817,7 +1817,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -1954,7 +1954,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.templateFile.spec.templateBody"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.templateFile.spec.templateBody"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -2057,7 +2057,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -2212,7 +2212,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.roleArn"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.roleArn"
                       >
                         optionalField
                       </span>
@@ -2316,7 +2316,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.capabilities"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.capabilities"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -2513,7 +2513,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="cloudFormationCreateStack_spec.configuration.tags.spec.content"
+                          data-tooltip-id="cloudFormationCreateStack-_spec.configuration.tags.spec.content"
                         >
                           <label
                             class="Label--main configLabel"
@@ -2613,7 +2613,7 @@ exports[`Test Cloudformation create stack should be able to open optional dropdo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.skipOnStackStatuses"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.skipOnStackStatuses"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -2830,7 +2830,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -2869,7 +2869,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -2943,7 +2943,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -3014,7 +3014,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -3136,7 +3136,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -3273,7 +3273,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.templateFile.spec.templateBody"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.templateFile.spec.templateBody"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -3376,7 +3376,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -3639,7 +3639,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.roleArn"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.roleArn"
                       >
                         optionalField
                       </span>
@@ -3743,7 +3743,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.capabilities"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.capabilities"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -3940,7 +3940,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="cloudFormationCreateStack_spec.configuration.tags.spec.content"
+                          data-tooltip-id="cloudFormationCreateStack-_spec.configuration.tags.spec.content"
                         >
                           <label
                             class="Label--main configLabel"
@@ -4040,7 +4040,7 @@ exports[`Test Cloudformation create stack should be able to open remote param mo
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="cloudFormationCreateStack_spec.configuration.skipOnStackStatuses"
+                        data-tooltip-id="cloudFormationCreateStack-_spec.configuration.skipOnStackStatuses"
                       >
                         <p
                           class="StyledProps--font StyledProps--main"
@@ -4257,7 +4257,7 @@ exports[`Test Cloudformation create stack should be able to submit 1`] = `
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -4296,7 +4296,7 @@ exports[`Test Cloudformation create stack should be able to submit 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -4370,7 +4370,7 @@ exports[`Test Cloudformation create stack should be able to submit 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -4441,7 +4441,7 @@ exports[`Test Cloudformation create stack should be able to submit 1`] = `
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -4563,7 +4563,7 @@ exports[`Test Cloudformation create stack should be able to submit 1`] = `
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -4751,7 +4751,7 @@ exports[`Test Cloudformation create stack should be able to submit 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -4929,7 +4929,7 @@ exports[`Test Cloudformation create stack should open and close remote template 
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -4968,7 +4968,7 @@ exports[`Test Cloudformation create stack should open and close remote template 
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -5042,7 +5042,7 @@ exports[`Test Cloudformation create stack should open and close remote template 
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -5113,7 +5113,7 @@ exports[`Test Cloudformation create stack should open and close remote template 
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -5220,7 +5220,7 @@ exports[`Test Cloudformation create stack should open and close remote template 
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -5408,7 +5408,7 @@ exports[`Test Cloudformation create stack should open and close remote template 
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -5584,7 +5584,7 @@ exports[`Test Cloudformation create stack should render edit view as new step 1`
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -5623,7 +5623,7 @@ exports[`Test Cloudformation create stack should render edit view as new step 1`
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -5697,7 +5697,7 @@ exports[`Test Cloudformation create stack should render edit view as new step 1`
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -5768,7 +5768,7 @@ exports[`Test Cloudformation create stack should render edit view as new step 1`
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -5875,7 +5875,7 @@ exports[`Test Cloudformation create stack should render edit view as new step 1`
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -6063,7 +6063,7 @@ exports[`Test Cloudformation create stack should render edit view as new step 1`
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -6241,7 +6241,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -6280,7 +6280,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -6354,7 +6354,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -6425,7 +6425,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -6547,7 +6547,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -6684,7 +6684,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.templateFile.spec.templateBody"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.templateFile.spec.templateBody"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -6787,7 +6787,7 @@ exports[`Test Cloudformation create stack should render edit view as new step wi
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -6967,7 +6967,7 @@ exports[`Test Cloudformation create stack should render runtime components 1`] =
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -7006,7 +7006,7 @@ exports[`Test Cloudformation create stack should render runtime components 1`] =
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -7085,7 +7085,7 @@ exports[`Test Cloudformation create stack should render runtime components 1`] =
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -7195,7 +7195,7 @@ exports[`Test Cloudformation create stack should render runtime components 1`] =
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -7317,7 +7317,7 @@ exports[`Test Cloudformation create stack should render runtime components 1`] =
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -7477,7 +7477,7 @@ exports[`Test Cloudformation create stack should render runtime components 1`] =
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -7691,7 +7691,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -7730,7 +7730,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -7804,7 +7804,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -7875,7 +7875,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -7982,7 +7982,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -8119,7 +8119,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.templateFile.spec.templateBody"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.templateFile.spec.templateBody"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -8220,7 +8220,7 @@ exports[`Test Cloudformation create stack should show api aws statues loading st
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -8396,7 +8396,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -8435,7 +8435,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -8509,7 +8509,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -8580,7 +8580,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -8687,7 +8687,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -8824,7 +8824,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.templateFile.spec.templateBody"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.templateFile.spec.templateBody"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -8925,7 +8925,7 @@ exports[`Test Cloudformation create stack should show api capabilities loading s
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>
@@ -9101,7 +9101,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_name"
+              data-tooltip-id="cloudFormationCreateStack-_name"
             >
               name
             </span>
@@ -9140,7 +9140,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_timeout"
+            data-tooltip-id="cloudFormationCreateStack-_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -9214,7 +9214,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.provisionerIdentifier"
+            data-tooltip-id="cloudFormationCreateStack-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -9285,7 +9285,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
         >
           <span
             class="Tooltip--acenter bp3-label"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.connectorRef"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.connectorRef"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
@@ -9392,7 +9392,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="cloudFormationCreateStack_spec.configuration.region"
+              data-tooltip-id="cloudFormationCreateStack-_spec.configuration.region"
             >
               regionLabel
             </span>
@@ -9529,7 +9529,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.templateFile.spec.templateBody"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.templateFile.spec.templateBody"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -9630,7 +9630,7 @@ exports[`Test Cloudformation create stack should show api regions loading state 
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="cloudFormationCreateStack_spec.configuration.stackName"
+            data-tooltip-id="cloudFormationCreateStack-_spec.configuration.stackName"
           >
             cd.cloudFormation.stackName
           </span>

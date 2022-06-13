@@ -33,6 +33,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useListAwsRegions } from 'services/portal'
 import { useGetIamRolesForAws } from 'services/cd-ng'
+import { useQueryParams } from '@common/hooks'
 import { Connectors } from '@connectors/constants'
 import { DeleteStackTypes, CloudFormationDeleteStackProps } from '../CloudFormationInterfaces.types'
 import { isRuntime } from '../CloudFormationHelper'
@@ -49,6 +50,8 @@ export const CloudFormationDeleteStack = (
   const [regions, setRegions] = useState<MultiSelectOption[]>([])
   const [awsRoles, setAwsRoles] = useState<MultiSelectOption[]>([])
   const [awsRef, setAwsRef] = useState<string>('')
+  const query = useQueryParams()
+  const sectionId = (query as any).sectionId || ''
 
   const { data: regionData, loading: regionLoading } = useListAwsRegions({
     queryParams: {
@@ -105,7 +108,7 @@ export const CloudFormationDeleteStack = (
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      formName="cloudFormationDeleteStack"
+      formName={`cloudFormationDeleteStack-${sectionId}`}
       validate={values => {
         const payload = {
           ...values
