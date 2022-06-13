@@ -55,6 +55,7 @@ updating: 'Updating {{entity}} {{name}}'
 creating: 'Creating {{entity}} {{name}}'
 successfullCreate: '{{entity}} {{name}} created successfully'
 successfullUpdate: '{{entity}} {{name}} updated successfully'
+dataSubmitSuccess: 'Data has been submitted successfully'
 entityType: Entity Type
 approve: Approve
 reject: Reject

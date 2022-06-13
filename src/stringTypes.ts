@@ -172,6 +172,7 @@ export interface StringsMap {
   'common.customPricing': string
   'common.daily': string
   'common.dashboards': string
+  'common.dataSubmitSuccess': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -3207,6 +3208,8 @@ export interface StringsMap {
   'pipeline.runPipelineForm.notifyOnlyMe': string
   'pipeline.runstageError': string
   'pipeline.runtimeInputNotSupported': string
+  'pipeline.runtimeInputs': string
+  'pipeline.runtimeInputsSubmittedMsg': string
   'pipeline.savingInProgress': string
   'pipeline.scriptInputVariables': string
   'pipeline.scriptOutputVariables': string
