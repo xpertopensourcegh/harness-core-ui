@@ -4240,6 +4240,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.step1.title': string
   'ce.co.autoStoppingRule.helpText.step2.description.heading': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.azureVms': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.ec2Vms': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.ecsService': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.gcpVms': string
@@ -4333,6 +4334,8 @@ export interface StringsMap {
   'ce.co.dryRunMode': string
   'ce.co.dryRunModeLabel': string
   'ce.co.emptyResultText': string
+  'ce.co.filters.namespaceLabel': string
+  'ce.co.filters.resourceTypeLabelWithExample': string
   'ce.co.gatewayAccess.accessDescription': string
   'ce.co.gatewayAccess.backgroundTasks': string
   'ce.co.gatewayAccess.dnsLink': string
@@ -4390,7 +4393,9 @@ export interface StringsMap {
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
   'ce.co.noDataForActiveRulesMsg': string
+  'ce.co.noDataForDateRange': string
   'ce.co.noDataForDryRunMsg': string
+  'ce.co.noDataForSearchAndDateRange': string
   'ce.co.noOfInstances': string
   'ce.co.noOfTasks': string
   'ce.co.reducedEmissions': string
