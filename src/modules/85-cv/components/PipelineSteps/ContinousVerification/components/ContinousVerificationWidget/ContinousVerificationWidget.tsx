@@ -78,16 +78,8 @@ export function ContinousVerificationWidget(
     spec: Yup.object().shape({
       type: Yup.string().required(getString('connectors.cdng.validations.verificationTypeRequired')),
       spec: Yup.object().shape({
-        duration: Yup.mixed().test(
-          'duration',
-          getString('connectors.cdng.validations.durationRequired'),
-          value => value !== ''
-        ),
-        sensitivity: Yup.mixed().test(
-          'sensitivity',
-          getString('connectors.cdng.validations.sensitivityRequired'),
-          value => value !== ''
-        ),
+        duration: Yup.string().required(getString('connectors.cdng.validations.durationRequired')),
+        sensitivity: Yup.string().required(getString('connectors.cdng.validations.sensitivityRequired')),
         deploymentTag: Yup.string().required(getString('connectors.cdng.validations.deploymentTagRequired'))
       })
     })

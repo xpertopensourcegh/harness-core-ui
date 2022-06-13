@@ -14,29 +14,28 @@ exports[`Test ContinousVerificationStep Step renders empty inputSetView 1`] = `
           class="StyledProps--font StyledProps--main container"
         >
           <div
-            class="StyledProps--font StyledProps--main container"
+            class="StyledProps--font StyledProps--main content"
           >
             <div
-              class="StyledProps--font StyledProps--main content"
+              class="emptyFields"
             >
               <div
-                class="emptyFields"
+                class="emptyFieldItem"
               >
-                <div
-                  class="emptyFieldItem"
-                >
-                  
+                
               connectors.cdng.runTimeMonitoredService.pleaseSpecify 
               service
               and
               environment
               connectors.cdng.runTimeMonitoredService.toFetchMonitoredService
             
-                </div>
               </div>
             </div>
           </div>
         </div>
+        <div
+          class="StyledProps--font StyledProps--main container"
+        />
       </div>
     </form>
     <p
@@ -75,28 +74,28 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
           class="StyledProps--font StyledProps--main container"
         >
           <div
-            class="StyledProps--font StyledProps--main container"
+            class="StyledProps--font StyledProps--main content"
           >
             <div
-              class="StyledProps--font StyledProps--main content"
+              class="emptyFields"
             >
               <div
-                class="emptyFields"
+                class="emptyFieldItem"
               >
-                <div
-                  class="emptyFieldItem"
-                >
-                  
+                
               connectors.cdng.runTimeMonitoredService.pleaseSpecify 
               service
               and
               environment
               connectors.cdng.runTimeMonitoredService.toFetchMonitoredService
             
-                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main container"
+        >
           <div
             class="StyledProps--font StyledProps--main itemRuntimeSetting"
           >
