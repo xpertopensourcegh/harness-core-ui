@@ -1617,10 +1617,12 @@ export interface StringsMap {
   'connectors.cdng.monitoredService.backToVerifyStep': string
   'connectors.cdng.monitoredService.creatingMonitoredService': string
   'connectors.cdng.monitoredService.creatingMonitoredServiceError': string
+  'connectors.cdng.monitoredService.fetchingHealthSources': string
   'connectors.cdng.monitoredService.fetchingMonitoredService': string
   'connectors.cdng.monitoredService.fetchingMonitoredServiceError': string
   'connectors.cdng.monitoredService.label': string
   'connectors.cdng.monitoredService.monitoredServiceText': string
+  'connectors.cdng.monitoredServiceType': string
   'connectors.cdng.noJobsConfigured': string
   'connectors.cdng.runTimeMonitoredService.backToRunPipeline': string
   'connectors.cdng.runTimeMonitoredService.fetchingMonitoredServiceError': string

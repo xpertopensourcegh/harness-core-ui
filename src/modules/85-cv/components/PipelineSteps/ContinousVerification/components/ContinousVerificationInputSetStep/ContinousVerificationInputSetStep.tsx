@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect, useMemo, useState } from 'react'
-import { FormInput, FormikForm, Container, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { FormInput, FormikForm, Container, RUNTIME_INPUT_VALUE, useToaster } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
 import { parse } from 'yaml'
@@ -18,12 +18,16 @@ import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useGetPipeline } from 'services/pipeline-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { useGetAllMonitoredServicesWithTimeSeriesHealthSources } from 'services/cv'
+import { getMonitoredServiceOptions } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { spec } from '../../types'
 import { checkIfRunTimeInput } from '../../utils'
 import type { ContinousVerificationProps } from './types'
 import {
   baseLineOptions,
   durationOptions,
+  monitoredServiceRefPath,
   trafficSplitPercentageOptions,
   VerificationSensitivityOptions
 } from '../../constants'
@@ -33,6 +37,8 @@ import {
   getInfraAndServiceFromStage
 } from './components/ContinousVerificationInputSetStep.utils'
 
+import { MONITORED_SERVICE_TYPE } from '../ContinousVerificationWidget/components/ContinousVerificationWidgetSections/components/SelectMonitoredServiceType/SelectMonitoredServiceType.constants'
+import { getMultiTypeInputProps } from '../ContinousVerificationWidget/components/ContinousVerificationWidgetSections/components/VerificationJobFields/VerificationJobFields.utils'
 import css from './ContinousVerificationInputSetStep.module.scss'
 
 export function ContinousVerificationInputSetStep(
@@ -44,9 +50,11 @@ export function ContinousVerificationInputSetStep(
   >()
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const { showError } = useToaster()
   const [pipeline, setPipeline] = useState<{ pipeline: PipelineInfoConfig } | undefined>()
   const prefix = isEmpty(path) ? '' : `${path}.`
   const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = (template?.spec?.spec as spec) || {}
+  const { monitoredService } = template?.spec || {}
   const { data: pipelineData, refetch: fetchPipeline } = useGetPipeline({
     pipelineIdentifier,
     queryParams: {
@@ -55,6 +63,24 @@ export function ContinousVerificationInputSetStep(
       projectIdentifier,
       getTemplatesResolvedPipeline: template?.type === StepType.Verify
     },
+    lazy: true
+  })
+
+  const queryParams = useMemo(() => {
+    return {
+      accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  }, [accountId, orgIdentifier, projectIdentifier])
+
+  const {
+    data: monitoredServicesData,
+    refetch: fecthMonitoredServices,
+    loading: monitoredServicesLoading,
+    error: monitoredServicesDataError
+  } = useGetAllMonitoredServicesWithTimeSeriesHealthSources({
+    queryParams,
     lazy: true
   })
 
@@ -71,6 +97,21 @@ export function ContinousVerificationInputSetStep(
     }
   }, [pipelineData?.data?.yamlPipeline, pipelineData?.data?.resolvedTemplatesPipelineYaml])
 
+  useEffect(() => {
+    if (monitoredService?.spec?.monitoredServiceRef && monitoredService?.type === MONITORED_SERVICE_TYPE.CONFIGURED) {
+      fecthMonitoredServices()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monitoredService?.spec?.monitoredServiceRef, monitoredService?.type])
+
+  useEffect(() => {
+    const error = monitoredServicesDataError
+    if (error) {
+      showError(getErrorMessage(error))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monitoredServicesDataError])
+
   const { serviceIdentifierFromStage, envIdentifierDataFromStage } = useMemo(() => {
     return getInfraAndServiceFromStage(pipeline)
   }, [pipeline])
@@ -80,9 +121,33 @@ export function ContinousVerificationInputSetStep(
     return { serviceIdentifier: serviceIdentifierData, envIdentifier: envIdentifierData }
   }, [pipeline, formik])
 
-  return (
-    <FormikForm>
-      {(serviceIdentifierFromStage === RUNTIME_INPUT_VALUE || envIdentifierDataFromStage === RUNTIME_INPUT_VALUE) && (
+  const monitoredServicesOptions = useMemo(
+    () => getMonitoredServiceOptions(monitoredServicesData?.data),
+    [monitoredServicesData]
+  )
+
+  const renderRunTimeMonitoredService = (): JSX.Element => {
+    if (
+      monitoredService?.type === MONITORED_SERVICE_TYPE.CONFIGURED &&
+      checkIfRunTimeInput(monitoredService?.spec?.monitoredServiceRef)
+    ) {
+      return (
+        <Container className={css.itemRuntimeSetting}>
+          <FormInput.MultiTypeInput
+            name={`${prefix}${monitoredServiceRefPath}`}
+            label={'Monitored Service'}
+            useValue
+            placeholder={monitoredServicesLoading ? getString('loading') : 'Select Monitored Service'}
+            selectItems={monitoredServicesOptions}
+            multiTypeInputProps={getMultiTypeInputProps(expressions, allowableTypes)}
+          />
+        </Container>
+      )
+    } else if (
+      serviceIdentifierFromStage === RUNTIME_INPUT_VALUE ||
+      envIdentifierDataFromStage === RUNTIME_INPUT_VALUE
+    ) {
+      return (
         <RunTimeMonitoredService
           serviceIdentifier={serviceIdentifier}
           envIdentifier={envIdentifier}
@@ -90,9 +155,16 @@ export function ContinousVerificationInputSetStep(
           initialValues={initialValues}
           prefix={prefix}
         />
-      )}
+      )
+    } else {
+      return <></>
+    }
+  }
 
+  return (
+    <FormikForm>
       <Container className={css.container}>
+        {renderRunTimeMonitoredService()}
         {checkIfRunTimeInput(sensitivity) && (
           <Container className={css.itemRuntimeSetting}>
             <FormInput.MultiTypeInput
