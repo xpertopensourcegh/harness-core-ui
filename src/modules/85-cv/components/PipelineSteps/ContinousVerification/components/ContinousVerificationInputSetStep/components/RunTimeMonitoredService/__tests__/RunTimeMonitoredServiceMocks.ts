@@ -12,7 +12,7 @@ export const initialValues = {
     type: 'Rolling',
     spec: {},
     monitoredService: {
-      type: 'DEFAULT',
+      type: 'Default',
       spec: {}
     },
     healthSources: [

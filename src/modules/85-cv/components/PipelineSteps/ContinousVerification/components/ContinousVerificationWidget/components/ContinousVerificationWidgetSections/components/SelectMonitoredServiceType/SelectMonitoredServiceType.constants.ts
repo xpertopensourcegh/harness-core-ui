@@ -6,9 +6,9 @@
  */
 
 export enum MONITORED_SERVICE_TYPE {
-  DEFAULT = 'DEFAULT',
-  CONFIGURED = 'CONFIGURED',
-  TEMPLATE = 'TEMPLATE'
+  DEFAULT = 'Default',
+  CONFIGURED = 'Configured',
+  TEMPLATE = 'Template'
 }
 
 export const monitoredServiceTypes = [
