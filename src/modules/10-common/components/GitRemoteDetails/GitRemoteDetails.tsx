@@ -17,7 +17,7 @@ interface GitRemoteDetailsProps {
   repoName?: string
   filePath?: string
   branch?: string
-  onBranchChange?: (selectedFilter: { branch: string }) => void
+  onBranchChange?: (selectedFilter: { branch: string }, selectedByUser?: boolean) => void
   flags?: {
     borderless?: boolean
     showRepo?: boolean
@@ -79,10 +79,13 @@ const GitRemoteDetails = ({
           noLabel={true}
           connectorIdentifierRef={connectorRef}
           repoName={repoName}
-          onChange={(selected: SelectOption): void => {
-            onBranchChange?.({
-              branch: selected.value as string
-            })
+          onChange={(selected: SelectOption, selectedByUser?: boolean): void => {
+            onBranchChange?.(
+              {
+                branch: selected.value as string
+              },
+              selectedByUser
+            )
           }}
           selectedValue={branch}
           branchSelectorClassName={css.branchSelector}
