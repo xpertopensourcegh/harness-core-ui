@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Lock Step - Input Set it should render empty input sets: empty input sets 1`] = `
+exports[`Queue Step - Input Set it should render empty input sets: empty input sets 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -27,7 +27,7 @@ exports[`Lock Step - Input Set it should render empty input sets: empty input se
 </div>
 `;
 
-exports[`Lock Step - Input Set it should render input set: Input Set - view 1`] = `
+exports[`Queue Step - Input Set it should render input set: Input Set - view 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -117,7 +117,7 @@ exports[`Lock Step - Input Set it should render input set: Input Set - view 1`] 
             class="Tooltip--acenter"
             data-tooltip-id="stepTestUtilForm_/abc.spec.key"
           >
-            pipeline.lockStep.resourceKey
+            pipeline.queueStep.resourceKey
           </span>
            
           <span
@@ -137,7 +137,7 @@ exports[`Lock Step - Input Set it should render input set: Input Set - view 1`] 
                 autocomplete="off"
                 class="bp3-input"
                 name="/abc.spec.key"
-                placeholder="pipeline.lockStep.keyPlaceholder"
+                placeholder="pipeline.queueStep.keyPlaceholder"
                 type="text"
                 value=""
               />
@@ -188,7 +188,7 @@ exports[`Lock Step - Input Set it should render input set: Input Set - view 1`] 
             class="Tooltip--acenter"
             data-tooltip-id="stepTestUtilForm_/abc.spec.scope"
           >
-            pipeline.lockStep.scope
+            pipeline.queueStep.scope
           </span>
            
           <span
@@ -214,7 +214,7 @@ exports[`Lock Step - Input Set it should render input set: Input Set - view 1`] 
                     autocomplete="off"
                     class="bp3-input"
                     name="/abc.spec.scope"
-                    placeholder="pipeline.lockStep.scopePlaceholder"
+                    placeholder="pipeline.queueStep.scopePlaceholder"
                     style="padding-right: 0px;"
                     type="text"
                     value=""
@@ -299,7 +299,7 @@ exports[`Lock Step - Input Set it should render input set: Input Set - view 1`] 
 </div>
 `;
 
-exports[`Lock Step it should render as new step - stepViewType Edit: Create Case 1`] = `
+exports[`Queue Step it should render as new step - stepViewType Edit: Create Case 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -381,7 +381,7 @@ exports[`Lock Step it should render as new step - stepViewType Edit: Create Case
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="lockStep_name"
+              data-tooltip-id="queueStep_name"
             >
               name
             </span>
@@ -420,7 +420,7 @@ exports[`Lock Step it should render as new step - stepViewType Edit: Create Case
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="lockStep_timeout"
+            data-tooltip-id="queueStep_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -494,9 +494,9 @@ exports[`Lock Step it should render as new step - stepViewType Edit: Create Case
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="lockStep_spec.key"
+            data-tooltip-id="queueStep_spec.key"
           >
-            pipeline.lockStep.resourceKey
+            pipeline.queueStep.resourceKey
           </span>
            
           <span
@@ -516,7 +516,7 @@ exports[`Lock Step it should render as new step - stepViewType Edit: Create Case
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.key"
-                placeholder="pipeline.lockStep.keyPlaceholder"
+                placeholder="pipeline.queueStep.keyPlaceholder"
                 type="text"
                 value=""
               />
@@ -565,9 +565,9 @@ exports[`Lock Step it should render as new step - stepViewType Edit: Create Case
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="lockStep_spec.scope"
+            data-tooltip-id="queueStep_spec.scope"
           >
-            pipeline.lockStep.scope
+            pipeline.queueStep.scope
           </span>
            
           <span
@@ -593,7 +593,7 @@ exports[`Lock Step it should render as new step - stepViewType Edit: Create Case
                     autocomplete="off"
                     class="bp3-input"
                     name="spec.scope"
-                    placeholder="pipeline.lockStep.scopePlaceholder"
+                    placeholder="pipeline.queueStep.scopePlaceholder"
                     style="padding-right: 0px;"
                     type="text"
                     value="common.stage"
@@ -660,7 +660,7 @@ exports[`Lock Step it should render as new step - stepViewType Edit: Create Case
 </div>
 `;
 
-exports[`Lock Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] = `
+exports[`Queue Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -703,7 +703,7 @@ exports[`Lock Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] =
                   class="bp3-editable-text-content"
                   style="height: 1px; line-height: 1px; min-width: 0;"
                 >
-                  My_Lock_Step
+                  My_Queue_Step
                 </span>
               </div>
             </span>
@@ -744,7 +744,7 @@ exports[`Lock Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] =
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="lockStep_name"
+              data-tooltip-id="queueStep_name"
             >
               name
             </span>
@@ -764,7 +764,7 @@ exports[`Lock Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] =
                 class="bp3-input"
                 name="name"
                 type="text"
-                value="My Lock Step"
+                value="My Queue Step"
               />
             </div>
           </div>
@@ -783,7 +783,7 @@ exports[`Lock Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] =
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="lockStep_timeout"
+            data-tooltip-id="queueStep_timeout"
           >
             pipelineSteps.timeoutLabel
           </span>
@@ -896,9 +896,9 @@ exports[`Lock Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] =
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="lockStep_spec.key"
+            data-tooltip-id="queueStep_spec.key"
           >
-            pipeline.lockStep.resourceKey
+            pipeline.queueStep.resourceKey
           </span>
            
           <span
@@ -1005,9 +1005,9 @@ exports[`Lock Step renders RunTime Inputs: Edit Case - with runtime inputs 1`] =
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="lockStep_spec.scope"
+            data-tooltip-id="queueStep_spec.scope"
           >
-            pipeline.lockStep.scope
+            pipeline.queueStep.scope
           </span>
            
           <span

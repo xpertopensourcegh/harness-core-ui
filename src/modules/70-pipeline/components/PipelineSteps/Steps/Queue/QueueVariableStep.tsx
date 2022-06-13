@@ -11,13 +11,13 @@ import type { StepElementConfig } from 'services/cd-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
-export interface LockVariableViewProps {
+export interface QueueVariableViewProps {
   metadataMap: Record<string, VariableResponseMapValue>
   variablesData: StepElementConfig // check if this type is correct
   originalData: StepElementConfig
 }
 
-function LockVariableStep({ metadataMap, originalData, variablesData }: LockVariableViewProps) {
+function QueueVariableStep({ metadataMap, originalData, variablesData }: QueueVariableViewProps) {
   return (
     <VariablesListTable
       className={pipelineVariableCss.variablePaddingL3}
@@ -28,4 +28,4 @@ function LockVariableStep({ metadataMap, originalData, variablesData }: LockVari
   )
 }
 
-export default LockVariableStep
+export default QueueVariableStep

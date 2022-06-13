@@ -15,19 +15,19 @@ import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/Pipe
 import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import LockWidget from './LockWidget'
-import LockInputStep from './LockInputStep'
-import LockVariableStep, { LockVariableViewProps } from './LockVariableStep'
-import { LockData, SCOPE_KEYS } from './helper'
+import QueueWidget from './QueueWidget'
+import QueueInputStep from './QueueInputStep'
+import QueueVariableStep, { QueueVariableViewProps } from './QueueVariableStep'
+import { QueueData, SCOPE_KEYS } from './helper'
 
-const LockWidgetWithRef = React.forwardRef(LockWidget)
-export class LockStep extends PipelineStep<LockData> {
+const QueueWidgetWithRef = React.forwardRef(QueueWidget)
+export class QueueStep extends PipelineStep<QueueData> {
   constructor() {
     super()
     this._hasStepVariables = true
   }
 
-  renderStep(props: StepProps<LockData>): JSX.Element {
+  renderStep(props: StepProps<QueueData>): JSX.Element {
     const {
       initialValues,
       onUpdate,
@@ -42,7 +42,7 @@ export class LockStep extends PipelineStep<LockData> {
     } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <LockInputStep
+        <QueueInputStep
           initialValues={initialValues}
           onUpdate={onUpdate}
           stepViewType={defaultTo(stepViewType, StepViewType.Edit)}
@@ -53,15 +53,15 @@ export class LockStep extends PipelineStep<LockData> {
       )
     } else if (stepViewType === StepViewType.InputVariable) {
       return (
-        <LockVariableStep
+        <QueueVariableStep
           originalData={initialValues}
-          variablesData={(customStepProps as LockVariableViewProps)?.variablesData as any}
-          metadataMap={(customStepProps as LockVariableViewProps)?.metadataMap}
+          variablesData={(customStepProps as QueueVariableViewProps)?.variablesData as any}
+          metadataMap={(customStepProps as QueueVariableViewProps)?.metadataMap}
         />
       )
     }
     return (
-      <LockWidgetWithRef
+      <QueueWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
         isNewStep={isNewStep}
@@ -74,8 +74,8 @@ export class LockStep extends PipelineStep<LockData> {
     )
   }
 
-  validateInputSet({ data, template, getString, viewType }: ValidateInputSetProps<LockData>): Record<string, any> {
-    const errors: FormikErrors<LockData> = {}
+  validateInputSet({ data, template, getString, viewType }: ValidateInputSetProps<QueueData>): Record<string, any> {
+    const errors: FormikErrors<QueueData> = {}
     const isRequired = viewType === StepViewType.DeploymentForm || viewType === StepViewType.TriggerForm
     if (isEmpty(data?.timeout) && getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
@@ -104,7 +104,7 @@ export class LockStep extends PipelineStep<LockData> {
       isRequired &&
       isEmpty(data?.spec?.key)
     ) {
-      set(errors, 'spec.key', getString?.('pipeline.lockStep.keyRequired'))
+      set(errors, 'spec.key', getString?.('pipeline.queueStep.keyRequired'))
     }
 
     if (
@@ -112,7 +112,7 @@ export class LockStep extends PipelineStep<LockData> {
       isRequired &&
       isEmpty(data?.spec?.scope)
     ) {
-      set(errors, 'spec.scope', getString?.('pipeline.lockStep.scopeRequired'))
+      set(errors, 'spec.scope', getString?.('pipeline.queueStep.scopeRequired'))
     }
 
     /* istanbul ignore else */
@@ -122,20 +122,20 @@ export class LockStep extends PipelineStep<LockData> {
     return errors
   }
 
-  processFormData(values: LockData): LockData {
+  processFormData(values: QueueData): QueueData {
     return values
   }
 
-  protected type = StepType.Lock
+  protected type = StepType.Queue
   protected stepName = 'Queue'
   protected stepIcon: IconName = 'queue-step'
-  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Lock'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Queue'
 
-  protected defaultValues: LockData = {
+  protected defaultValues: QueueData = {
     identifier: '',
     timeout: '10m',
     name: '',
-    type: StepType.Lock,
+    type: StepType.Queue,
     spec: {
       key: '',
       scope: SCOPE_KEYS.STAGE

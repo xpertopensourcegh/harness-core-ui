@@ -11,31 +11,31 @@ import type { StepElementConfig } from 'services/cd-ng'
 import type { StringsMap } from 'stringTypes'
 
 export const SCOPE_KEYS = {
-  PIPELINE: 'PIPELINE',
-  STAGE: 'STAGE',
-  STEP_GROUP: 'STEP_GROUP',
-  PLAN: 'PLAN'
+  PIPELINE: 'Pipeline',
+  STAGE: 'Stage',
+  STEP_GROUP: 'StepGroup',
+  PLAN: 'Plan'
 }
 
-export interface LockData extends StepElementConfig {
+export interface QueueData extends StepElementConfig {
   spec: {
     key: string
     scope: string
   }
 }
 
-export interface LockProps {
-  initialValues: LockData
-  onUpdate?: (data: LockData) => void
+export interface QueueProps {
+  initialValues: QueueData
+  onUpdate?: (data: QueueData) => void
   stepViewType: StepViewType
   allowableTypes: MultiTypeInputType[]
   isNewStep?: boolean
   inputSetData?: {
-    template?: LockData
+    template?: QueueData
     path?: string
     readonly?: boolean
   }
-  onChange?: (data: LockData) => void
+  onChange?: (data: QueueData) => void
   readonly?: boolean
 }
 

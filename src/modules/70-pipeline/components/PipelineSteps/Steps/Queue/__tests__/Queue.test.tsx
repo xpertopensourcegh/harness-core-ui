@@ -11,20 +11,20 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { LockStep } from '../Lock'
+import { QueueStep } from '../Queue'
 
-describe('Lock Step', () => {
+describe('Queue Step', () => {
   beforeAll(() => {
-    factory.registerStep(new LockStep())
+    factory.registerStep(new QueueStep())
   })
 
   test('it should render as new step - stepViewType Edit', () => {
     const { container, getByText } = render(
-      <TestStepWidget initialValues={{}} type={StepType.Lock} stepViewType={StepViewType.Edit} />
+      <TestStepWidget initialValues={{}} type={StepType.Queue} stepViewType={StepViewType.Edit} />
     )
     expect(getByText('pipelineSteps.timeoutLabel')).toBeDefined()
-    expect(getByText('pipeline.lockStep.resourceKey')).toBeDefined()
-    expect(getByText('pipeline.lockStep.scope')).toBeDefined()
+    expect(getByText('pipeline.queueStep.resourceKey')).toBeDefined()
+    expect(getByText('pipeline.queueStep.scope')).toBeDefined()
     expect(container).toMatchSnapshot('Create Case')
   })
 
@@ -32,8 +32,8 @@ describe('Lock Step', () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const onUpdate = jest.fn()
     const initialValues = {
-      identifier: 'My_Lock_Step',
-      name: 'My Lock Step',
+      identifier: 'My_Queue_Step',
+      name: 'My Queue Step',
       timeout: RUNTIME_INPUT_VALUE,
       spec: {
         key: RUNTIME_INPUT_VALUE,
@@ -44,7 +44,7 @@ describe('Lock Step', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={initialValues}
-        type={StepType.Lock}
+        type={StepType.Queue}
         stepViewType={StepViewType.Edit}
         ref={ref}
         onUpdate={onUpdate}
@@ -54,14 +54,14 @@ describe('Lock Step', () => {
     expect(container).toMatchSnapshot('Edit Case - with runtime inputs')
     await act(() => ref.current?.submitForm()!)
     expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'My_Lock_Step',
-      name: 'My Lock Step',
+      identifier: 'My_Queue_Step',
+      name: 'My Queue Step',
       spec: {
         key: '<+input>',
         scope: '<+input>'
       },
       timeout: '<+input>',
-      type: 'Lock'
+      type: 'Queue'
     })
   })
 
@@ -69,8 +69,8 @@ describe('Lock Step', () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const onUpdate = jest.fn()
     const initialValues = {
-      identifier: 'My_Lock_Step',
-      name: 'My Lock Step',
+      identifier: 'My_Queue_Step',
+      name: 'My Queue Step',
       timeout: '1d',
       spec: {
         key: 'dummy_key',
@@ -81,7 +81,7 @@ describe('Lock Step', () => {
     render(
       <TestStepWidget
         initialValues={initialValues}
-        type={StepType.Lock}
+        type={StepType.Queue}
         stepViewType={StepViewType.Edit}
         ref={ref}
         onUpdate={onUpdate}
@@ -90,14 +90,14 @@ describe('Lock Step', () => {
 
     await act(() => ref.current?.submitForm()!)
     expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'My_Lock_Step',
-      name: 'My Lock Step',
+      identifier: 'My_Queue_Step',
+      name: 'My Queue Step',
       spec: {
         key: 'dummy_key',
         scope: 'PIPELINE'
       },
       timeout: '1d',
-      type: 'Lock'
+      type: 'Queue'
     })
   })
 
@@ -107,7 +107,7 @@ describe('Lock Step', () => {
     const { container, getByText } = render(
       <TestStepWidget
         initialValues={{}}
-        type={StepType.Lock}
+        type={StepType.Queue}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
         ref={ref}
@@ -115,20 +115,20 @@ describe('Lock Step', () => {
     )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'My LockAndQueue Step' } })
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'My QueueAndQueue Step' } })
     fireEvent.change(queryByNameAttribute('spec.key')!, { target: { value: 'this is dummy key' } })
     // fireEvent.change(queryByNameAttribute('spec.method')!, { target: { value: 'PIPELINE' } })
 
     await act(() => ref.current?.submitForm()!)
     expect(onUpdate).toHaveBeenCalledWith({
-      identifier: 'My_LockAndQueue_Step',
-      name: 'My LockAndQueue Step',
+      identifier: 'My_QueueAndQueue_Step',
+      name: 'My QueueAndQueue Step',
       spec: {
         key: 'this is dummy key',
-        scope: 'STAGE'
+        scope: 'Stage'
       },
       timeout: '10m',
-      type: 'Lock'
+      type: 'Queue'
     })
 
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
@@ -138,16 +138,16 @@ describe('Lock Step', () => {
   })
 })
 
-describe('Lock Step - Input Set', () => {
+describe('Queue Step - Input Set', () => {
   beforeAll(() => {
-    factory.registerStep(new LockStep())
+    factory.registerStep(new QueueStep())
   })
 
   test('it should render input set', () => {
     const onUpdate = jest.fn()
     const initialValues = {
-      identifier: 'My_Lock_Step',
-      name: 'My Lock Step',
+      identifier: 'My_Queue_Step',
+      name: 'My Queue Step',
       timeout: RUNTIME_INPUT_VALUE,
       spec: {
         key: RUNTIME_INPUT_VALUE,
@@ -158,7 +158,7 @@ describe('Lock Step - Input Set', () => {
       <TestStepWidget
         initialValues={{}}
         template={initialValues}
-        type={StepType.Lock}
+        type={StepType.Queue}
         stepViewType={StepViewType.InputSet}
         onUpdate={onUpdate}
         path="/abc"
@@ -176,7 +176,7 @@ describe('Lock Step - Input Set', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{}}
-        type={StepType.Lock}
+        type={StepType.Queue}
         stepViewType={StepViewType.InputSet}
         template={{}}
         path=""

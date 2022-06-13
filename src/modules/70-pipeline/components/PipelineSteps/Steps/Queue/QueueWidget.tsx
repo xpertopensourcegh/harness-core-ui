@@ -19,10 +19,10 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { LockProps, LockData, getScopeOptions } from './helper'
+import { QueueProps, QueueData, getScopeOptions } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-function LockWidget(props: LockProps, formikRef: StepFormikFowardRef<LockData>): React.ReactElement {
+function QueueWidget(props: QueueProps, formikRef: StepFormikFowardRef<QueueData>): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true, onChange, stepViewType, allowableTypes, readonly } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -30,11 +30,11 @@ function LockWidget(props: LockProps, formikRef: StepFormikFowardRef<LockData>):
 
   return (
     <>
-      <Formik<LockData>
-        onSubmit={(values: LockData) => {
+      <Formik<QueueData>
+        onSubmit={(values: QueueData) => {
           onUpdate?.(values)
         }}
-        formName="lockStep"
+        formName="queueStep"
         initialValues={initialValues}
         validate={data => {
           onChange?.(data)
@@ -45,12 +45,12 @@ function LockWidget(props: LockProps, formikRef: StepFormikFowardRef<LockData>):
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            key: Yup.string().required(getString('pipeline.lockStep.keyRequired')),
-            scope: Yup.string().required(getString('pipeline.lockStep.scopeRequired'))
+            key: Yup.string().required(getString('pipeline.queueStep.keyRequired')),
+            scope: Yup.string().required(getString('pipeline.queueStep.scopeRequired'))
           })
         })}
       >
-        {(formik: FormikProps<LockData>) => {
+        {(formik: FormikProps<QueueData>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
@@ -91,10 +91,10 @@ function LockWidget(props: LockProps, formikRef: StepFormikFowardRef<LockData>):
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.MultiTextInput
-                  label={getString('pipeline.lockStep.resourceKey')}
+                  label={getString('pipeline.queueStep.resourceKey')}
                   name="spec.key"
                   multiTextInputProps={{ expressions, allowableTypes }}
-                  placeholder={getString('pipeline.lockStep.keyPlaceholder')}
+                  placeholder={getString('pipeline.queueStep.keyPlaceholder')}
                   disabled={!!readonly}
                 />
 
@@ -117,9 +117,9 @@ function LockWidget(props: LockProps, formikRef: StepFormikFowardRef<LockData>):
                   selectItems={scopeOptions}
                   disabled={readonly}
                   multiTypeInputProps={{ expressions, disabled: readonly, allowableTypes }}
-                  label={getString('pipeline.lockStep.scope')}
+                  label={getString('pipeline.queueStep.scope')}
                   name="spec.scope"
-                  placeholder={getString('pipeline.lockStep.scopePlaceholder')}
+                  placeholder={getString('pipeline.queueStep.scopePlaceholder')}
                 />
                 {getMultiTypeFromValue(values.spec.scope) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -142,4 +142,4 @@ function LockWidget(props: LockProps, formikRef: StepFormikFowardRef<LockData>):
   )
 }
 
-export default LockWidget
+export default QueueWidget

@@ -12,10 +12,10 @@ import { FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-sof
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { getScopeOptions, LockProps } from './helper'
+import { getScopeOptions, QueueProps } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-function LockInputStep({ inputSetData, readonly, allowableTypes }: LockProps) {
+function QueueInputStep({ inputSetData, readonly, allowableTypes }: QueueProps) {
   const { expressions } = useVariablesExpression()
   const path = inputSetData?.path || ''
   const prefix = isEmpty(path) ? '' : `${path}.`
@@ -42,10 +42,10 @@ function LockInputStep({ inputSetData, readonly, allowableTypes }: LockProps) {
       {getMultiTypeFromValue(inputSetData?.template?.spec?.key) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.sm)}>
           <FormInput.MultiTextInput
-            label={getString('pipeline.lockStep.resourceKey')}
+            label={getString('pipeline.queueStep.resourceKey')}
             name={`${prefix}spec.key`}
             multiTextInputProps={{ expressions, allowableTypes }}
-            placeholder={getString('pipeline.lockStep.keyPlaceholder')}
+            placeholder={getString('pipeline.queueStep.keyPlaceholder')}
             disabled={!!readonly}
           />
         </div>
@@ -53,7 +53,7 @@ function LockInputStep({ inputSetData, readonly, allowableTypes }: LockProps) {
       {getMultiTypeFromValue(inputSetData?.template?.spec?.scope) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.sm)}>
           <FormInput.MultiTypeInput
-            label={getString('pipeline.lockStep.scope')}
+            label={getString('pipeline.queueStep.scope')}
             name={`${prefix}spec.scope`}
             useValue
             selectItems={scopeOptions}
@@ -63,7 +63,7 @@ function LockInputStep({ inputSetData, readonly, allowableTypes }: LockProps) {
               allowableTypes
             }}
             disabled={readonly}
-            placeholder={getString('pipeline.lockStep.scopePlaceholder')}
+            placeholder={getString('pipeline.queueStep.scopePlaceholder')}
           />
         </div>
       )}
@@ -71,4 +71,4 @@ function LockInputStep({ inputSetData, readonly, allowableTypes }: LockProps) {
   )
 }
 
-export default LockInputStep
+export default QueueInputStep
