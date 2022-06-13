@@ -79,12 +79,12 @@ const GitRemoteDetails = ({
           noLabel={true}
           connectorIdentifierRef={connectorRef}
           repoName={repoName}
-          onChange={(selected: SelectOption, selectedByUser?: boolean): void => {
+          onChange={(selected: SelectOption, defaultSelected = false): void => {
             onBranchChange?.(
               {
                 branch: selected.value as string
               },
-              selectedByUser
+              defaultSelected
             )
           }}
           selectedValue={branch}
