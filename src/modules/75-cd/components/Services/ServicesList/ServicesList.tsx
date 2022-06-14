@@ -7,10 +7,20 @@
 
 import React, { useCallback, useMemo, useState } from 'react'
 import cx from 'classnames'
-import { useHistory, useParams } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
-import { Button, Layout, Popover, TagsPopover, Text, useConfirmationDialog, useToaster, Dialog } from '@harness/uicore'
+import {
+  Button,
+  Layout,
+  Popover,
+  TagsPopover,
+  Text,
+  useConfirmationDialog,
+  useToaster,
+  Dialog,
+  Icon
+} from '@harness/uicore'
 import { Color, Intent } from '@harness/design-system'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { defaultTo, pick } from 'lodash-es'
@@ -413,6 +423,14 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
     openDialog()
   }
 
+  const openInNewTab = routes.toServiceStudio({
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    serviceId: data.identifier,
+    module
+  })
+
   return (
     <Layout.Horizontal>
       <Popover
@@ -432,6 +450,15 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
           }}
         />
         <Menu style={{ minWidth: 'unset' }}>
+          <Link
+            className={cx('bp3-menu-item', css.openNewTabStyle)}
+            target="_blank"
+            to={openInNewTab}
+            onClick={e => e.stopPropagation()}
+          >
+            <Icon name="launch" style={{ marginRight: '5px' }} />
+            {getString('pipeline.openInNewTab')}
+          </Link>
           <RbacMenuItem
             icon="edit"
             text={getString('edit')}
