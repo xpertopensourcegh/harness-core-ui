@@ -5752,6 +5752,7 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.metricPathType.dropdown': string
   'cv.healthSource.connectors.AppDynamics.metricPathType.text': string
   'cv.healthSource.connectors.AppDynamics.selectedPathLabel': string
+  'cv.healthSource.connectors.AppDynamics.serviceInstance': string
   'cv.healthSource.connectors.AppDynamics.tierPlaceholder': string
   'cv.healthSource.connectors.AppDynamics.trierLabel': string
   'cv.healthSource.connectors.AppDynamics.validation.application': string
@@ -6317,6 +6318,7 @@ export interface StringsMap {
   'cv.srmTitle': string
   'cv.statusCode': string
   'cv.sunday': string
+  'cv.templates.healthSourceDetails': string
   'cv.thanObjectiveValue': string
   'cv.theTrendIsDeterminedForTheSelectedPeriodOverPeriod': string
   'cv.thirdPartyCalls.modalTitle': string

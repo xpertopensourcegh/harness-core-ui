@@ -26,6 +26,7 @@ import TemplateResourceModal from './components/RbacResourceModals/TemplateResou
 import TemplateResourceRenderer from './components/RbacResourceModals/TemplateResourceRenderer'
 import './components/PipelineSteps'
 import './components/TemplateStage'
+import './components/Templates'
 
 /**
  * Register RBAC resources

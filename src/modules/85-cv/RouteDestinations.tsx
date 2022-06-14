@@ -32,16 +32,22 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
+import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
+import { TemplateSelectorDrawer } from '@templates-library/components/TemplateSelectorDrawer/TemplateSelectorDrawer'
+import { TemplateSelectorContextProvider } from '@templates-library/components/TemplateSelectorContext/TemplateSelectorContext'
 import { inputSetTemplatePromise } from 'services/cv'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { CVChanges } from '@cv/pages/changes/CVChanges'
+import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 import { editParams, isVerifyStepPresent } from './utils/routeUtils'
 import CVSLOsListingPage from './pages/slos/CVSLOsListingPage'
 import CVSLODetailsPage from './pages/slos/CVSLODetailsPage/CVSLODetailsPage'
 import CVCreateSLO from './pages/slos/components/CVCreateSLO/CVCreateSLO'
 import ChildAppMounter from '../../microfrontends/ChildAppMounter'
+import { MonitoredServiceProvider } from './pages/monitored-service/MonitoredServiceContext'
+import MonitoredServiceInputSetsTemplate from './pages/monitored-service/MonitoredServiceInputSetsTemplate'
 import { ErrorTracking } from './ErrorTrackingApp'
 
 PubSubPipelineActions.subscribe(
@@ -119,7 +125,20 @@ export default (
       sidebarProps={CVSideNavProps}
       path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
-      <CVMonitoredService />
+      <MonitoredServiceProvider isTemplate={false}>
+        <TemplateSelectorContextProvider>
+          <CVMonitoredService />
+          <TemplateSelectorDrawer />
+        </TemplateSelectorContextProvider>
+      </MonitoredServiceProvider>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVMonitoringServicesInputSets({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <MonitoredServiceInputSetsTemplate />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -179,7 +198,24 @@ export default (
         })
       ]}
     >
-      <MonitoredServicePage />
+      <MonitoredServiceProvider isTemplate={false}>
+        <MonitoredServicePage />
+      </MonitoredServiceProvider>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <ConnectorsPage />
+    </RouteWithLayout>
+    {/* uncomment once BE integration is complete  */}
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toTemplates({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <TemplatesPage />
     </RouteWithLayout>
 
     {/* Replace TemplateStudioWrapper route with following code once BE integration is complete: */}
