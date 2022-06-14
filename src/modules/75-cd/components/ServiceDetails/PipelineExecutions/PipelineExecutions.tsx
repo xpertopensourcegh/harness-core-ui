@@ -93,7 +93,12 @@ export const PipelineExecutions: React.FC = () => {
           <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
             {`${getString('cd.serviceDashboard.totalDeployments')}: ${deployments.length}`}
           </Text>
-          <ExpandingSearchInput flip width={200} placeholder={getString('search')} throttle={200} onChange={onSearch} />
+          <ExpandingSearchInput
+            placeholder={getString('search')}
+            throttle={200}
+            onChange={onSearch}
+            className={css.searchIconStyle}
+          />
         </Layout.Horizontal>
         <Container className={css.executionCardContainer}>{getComponent()}</Container>
       </Layout.Vertical>
