@@ -97,11 +97,14 @@ pipelineSteps:
   environmentTab:
     specifyYourEnvironment: Specify Environment
     specifyYourInfrastructure: Specify Infrastructure
+    specifyEnvironmentOrGroup: Specify environment or environment group
+    specifyGitOpsClusters: Specify GitOps Clusters
     selectEnvironment: '- Select Environment -'
     selectInfrastructure: '- Select Infrastructure -'
     plusNewEnvironment: '+ {{$.newEnvironment}}'
     newEnvironment: '{{$.newEnvironment}}'
     environmentIsRequired: '{{ $.common.validation.environmentIsRequired }}'
+    deployToAll: Deploy in parallel on all infrastructure
   serviceTab:
     stageOverrides: Stage Overrides
     overrideChanges: Override artifacts, manifests, service variables for this stage

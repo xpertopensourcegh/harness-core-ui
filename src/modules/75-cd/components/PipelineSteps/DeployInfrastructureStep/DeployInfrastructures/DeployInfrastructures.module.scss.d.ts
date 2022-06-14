@@ -8,11 +8,5 @@
 // this is an auto-generated file, do not update this manually
 declare const styles: {
   readonly dialogStyles: string
-  readonly formRow: string
-  readonly grid: string
-  readonly inputWidth: string
-  readonly label: string
-  readonly thumbnailSelect: string
-  readonly yamlToggleEnv: string
 }
 export default styles

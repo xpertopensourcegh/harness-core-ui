@@ -44,6 +44,7 @@ import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderPr
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { yamlParse, yamlStringify } from '@common/utils/YamlHelperMethods'
+import { PipelineContextType } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 import { PageHeaderTitle, PageHeaderToolbar } from './EnvironmentDetailsPageHeader'
 import EnvironmentConfiguration from './EnvironmentConfiguration/EnvironmentConfiguration'
@@ -226,6 +227,8 @@ export default function EnvironmentDetails() {
                             setYamlHandler={setYamlHandler}
                             isModified={isModified}
                             data={data}
+                            isEdit
+                            context={PipelineContextType.Standalone}
                           />
                         )
                       },

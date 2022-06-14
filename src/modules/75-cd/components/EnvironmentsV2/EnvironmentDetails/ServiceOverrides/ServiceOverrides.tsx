@@ -166,6 +166,13 @@ export function ServiceOverrides(): React.ReactElement {
             '{}'
           )
         ) as NGServiceOverrideConfig
+
+        variables.splice(index, 1).map(override => ({
+          name: get(override, 'name'),
+          type: get(override, 'type'),
+          value: get(override, 'value')
+        }))
+
         const response = await upsertServiceOverridePromise({
           queryParams: {
             accountIdentifier: accountId
@@ -179,11 +186,7 @@ export function ServiceOverrides(): React.ReactElement {
               ...parsedYaml,
               serviceOverrides: {
                 ...parsedYaml.serviceOverrides,
-                variables: variables.splice(index, index + 1).map(override => ({
-                  name: get(override, 'name'),
-                  type: get(override, 'type'),
-                  value: get(override, 'value')
-                }))
+                variables
               }
             })
           }
