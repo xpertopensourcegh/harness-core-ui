@@ -119,7 +119,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCECORules({
-        accountId
+        accountId,
+        params: ''
       })
     )
   }

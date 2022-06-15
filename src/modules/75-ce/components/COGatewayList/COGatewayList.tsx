@@ -468,7 +468,7 @@ const EmptyListPage: React.FC<EmptyListPageProps> = () => {
       <NGBreadcrumbs
         links={[
           {
-            url: routes.toCECORules({ accountId }),
+            url: routes.toCECORules({ accountId, params: '' }),
             label: getString('ce.co.breadCrumb.rules')
           }
         ]}

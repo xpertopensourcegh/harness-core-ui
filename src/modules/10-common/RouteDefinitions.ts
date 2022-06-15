@@ -1436,7 +1436,9 @@ const routes = {
     ({ gatewayIdentifier }: { gatewayIdentifier: string }) => `/ce/autostopping-rules/edit/${gatewayIdentifier}`
   ),
   toCECOAccessPoints: withAccountId(() => `/ce/access-points`),
-  toCECORules: withAccountId(() => `/ce/autostopping-rules`),
+  toCECORules: withAccountId(
+    ({ params }: { params: string }) => `/ce/autostopping-rules` + (params ? `?${params}` : '')
+  ),
   toCERecommendations: withAccountId(() => `/ce/recommendations`),
   toCERecommendationDetails: withAccountId(
     ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
