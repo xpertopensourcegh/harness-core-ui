@@ -75,6 +75,7 @@ import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineAc
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import { RightBar } from '../RightBar/RightBar'
 import StudioGitPopover from '../StudioGitPopover'
+import usePipelineErrors from './PipelineErrors/usePipelineErrors'
 import css from './PipelineCanvas.module.scss'
 
 interface OtherModalProps {
@@ -172,7 +173,8 @@ export function PipelineCanvas({
     gitDetails,
     entityValidityDetails,
     templateError,
-    templateInputsErrorNodeSummary
+    templateInputsErrorNodeSummary,
+    yamlSchemaErrorWrapper
   } = state
 
   const { getString } = useStrings()
@@ -219,6 +221,7 @@ export function PipelineCanvas({
 
   const history = useHistory()
   const { isGitSimplificationEnabled } = useAppStore()
+  const { openPipelineErrorsModal } = usePipelineErrors()
   const isYaml = view === SelectedView.YAML
   const [isYamlError, setYamlError] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
@@ -226,6 +229,12 @@ export function PipelineCanvas({
   const [disableVisualView, setDisableVisualView] = React.useState(entityValidityDetails?.valid === false)
   const [useTemplate, setUseTemplate] = React.useState<boolean>(false)
   const isPipelineRemote = isGitSimplificationEnabled && storeType === StoreType.REMOTE
+
+  React.useEffect(() => {
+    if (isGitSyncEnabled || isPipelineRemote) {
+      openPipelineErrorsModal(yamlSchemaErrorWrapper?.schemaErrors)
+    }
+  }, [yamlSchemaErrorWrapper, isGitSyncEnabled, isPipelineRemote])
 
   const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -836,6 +845,7 @@ export function PipelineCanvas({
               onChange={nextMode => {
                 handleViewChange(nextMode)
               }}
+              showDisableToggleReason={true}
             />
             <div>
               <div className={css.savePublishContainer}>

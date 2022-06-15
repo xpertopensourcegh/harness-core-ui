@@ -14,6 +14,7 @@ import {
   queryByAttribute,
   findByTestId as findByTestIdGlobal
 } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { useGetPreflightCheckResponse, startPreflightCheckPromise, useGetPipeline } from 'services/pipeline-ng'
 
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -110,7 +111,9 @@ describe('STUDIO MODE', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(getByText('YAML'))
+    const yamlSwitch = getByText('YAML')
+    await waitFor(() => expect(yamlSwitch).not.toHaveClass('disabledMode'))
+    userEvent.click(yamlSwitch)
     const editorDiv = container.querySelector('.editor')
     await waitFor(() => expect(editorDiv).toBeTruthy())
 

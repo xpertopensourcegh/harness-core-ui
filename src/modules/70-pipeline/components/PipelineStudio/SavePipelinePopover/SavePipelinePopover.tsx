@@ -220,7 +220,7 @@ export function SavePipelinePopover({ toPipelineStudio }: SavePipelinePopoverPro
       clear()
       setSchemaErrorView(true)
       if ((response as any)?.metadata?.schemaErrors?.length) {
-        openPipelineErrorsModal(response)
+        openPipelineErrorsModal((response as any)?.metadata?.schemaErrors)
         if (isGitSyncEnabled || currStoreMetadata?.storeType === StoreType.REMOTE) {
           // isGitSyncEnabled true
           throw { code: SCHEMA_VALIDATION_FAILED }

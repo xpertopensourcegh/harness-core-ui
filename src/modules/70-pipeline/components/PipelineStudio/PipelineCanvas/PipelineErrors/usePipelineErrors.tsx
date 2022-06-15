@@ -8,6 +8,7 @@
 import React from 'react'
 import { VisualYamlSelectedView } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
+import type { YamlSchemaErrorDTO } from 'services/pipeline-ng'
 import { SplitViewTypes } from '../../PipelineContext/PipelineActions'
 import { usePipelineContext } from '../../PipelineContext/PipelineContext'
 import PipelineErrors from './PipelineErrors'
@@ -25,7 +26,7 @@ export default function usePipelineErrors(): UsePipelineErrorsReturnType {
     updatePipelineView
   } = usePipelineContext()
   const isYaml = view === VisualYamlSelectedView.YAML
-  const [updatePipelineAPIResponse, setUpdatePipelineAPIResponse] = React.useState<any>()
+  const [schemaErrors, setSchemaErrors] = React.useState<YamlSchemaErrorDTO[]>()
 
   const gotoViewWithDetails = React.useCallback(
     ({ stageId, stepId, sectionId }: { stageId?: string; stepId?: string; sectionId?: string } = {}): void => {
@@ -47,17 +48,17 @@ export default function usePipelineErrors(): UsePipelineErrorsReturnType {
   const [showErrorModal, hideErrorModal] = useModalHook(
     () => (
       <PipelineErrors
-        errors={updatePipelineAPIResponse?.metadata?.schemaErrors}
+        errors={schemaErrors as YamlSchemaErrorDTO[]}
         gotoViewWithDetails={gotoViewWithDetails}
         onClose={hideErrorModal}
       />
     ),
-    [updatePipelineAPIResponse]
+    [schemaErrors]
   )
 
-  const openPipelineErrorsModal = (response: any) => {
-    if ((response as any)?.metadata?.schemaErrors?.length) {
-      setUpdatePipelineAPIResponse(response)
+  const openPipelineErrorsModal = (schemaErrorsToShow: YamlSchemaErrorDTO[]) => {
+    if (schemaErrorsToShow?.length) {
+      setSchemaErrors(schemaErrorsToShow)
       showErrorModal()
     }
   }
