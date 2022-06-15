@@ -16,6 +16,7 @@ interface GitRemoteDetailsProps {
   connectorRef?: string
   repoName?: string
   filePath?: string
+  fileUrl?: string
   branch?: string
   onBranchChange?: (selectedFilter: { branch: string }, selectedByUser?: boolean) => void
   flags?: {
@@ -27,10 +28,25 @@ interface GitRemoteDetailsProps {
   }
 }
 
+const getTooltipContent = (filePath: string, fileUrl?: string) => {
+  // fileUrl will available only once entity is saved in Git,
+  // it will not be available while creating the entities
+  if (fileUrl) {
+    return (
+      <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+        <Text className={css.tooltip}>{fileUrl}</Text>
+      </a>
+    )
+  } else {
+    return <Text className={css.tooltip}>{filePath}</Text>
+  }
+}
+
 const GitRemoteDetails = ({
   connectorRef,
   repoName,
   filePath,
+  fileUrl,
   branch = '',
   onBranchChange,
   flags: { borderless = true, showRepo = true, normalInputStyle = false, readOnly = false } = {}
@@ -47,7 +63,7 @@ const GitRemoteDetails = ({
             }}
           />
           <Text
-            tooltip={filePath && <Text className={css.tooltip}>{filePath}</Text>}
+            tooltip={filePath && getTooltipContent(filePath, fileUrl)}
             tooltipProps={{
               isDark: true,
               interactionKind: PopoverInteractionKind.HOVER,

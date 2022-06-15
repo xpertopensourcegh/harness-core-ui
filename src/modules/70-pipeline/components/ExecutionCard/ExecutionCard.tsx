@@ -206,6 +206,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                         repoName={pipelineExecution?.gitDetails?.repoName}
                         branch={pipelineExecution?.gitDetails?.branch}
                         filePath={pipelineExecution?.gitDetails?.filePath}
+                        fileUrl={pipelineExecution?.gitDetails?.fileUrl}
                         flags={{ readOnly: true }}
                       />
                     </div>

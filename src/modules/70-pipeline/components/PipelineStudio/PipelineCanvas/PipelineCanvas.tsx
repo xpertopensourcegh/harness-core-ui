@@ -830,6 +830,7 @@ export function PipelineCanvas({
                   connectorRef={connectorRef}
                   repoName={repoName || gitDetails.repoName || gitDetails.repoIdentifier || ''}
                   filePath={gitDetails.filePath || ''}
+                  fileUrl={gitDetails.fileUrl || ''}
                   branch={branch || ''}
                   onBranchChange={onGitBranchChange}
                   flags={{

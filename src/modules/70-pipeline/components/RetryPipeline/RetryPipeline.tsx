@@ -688,6 +688,7 @@ function RetryPipeline({
                     repoName={repoIdentifier}
                     branch={branch}
                     filePath={pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.filePath}
+                    fileUrl={pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.fileUrl}
                     flags={{ readOnly: true }}
                   />
                 ) : (

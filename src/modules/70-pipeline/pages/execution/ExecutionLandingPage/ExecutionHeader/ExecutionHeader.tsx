@@ -215,6 +215,7 @@ export function ExecutionHeader(): React.ReactElement {
                 repoName={pipelineExecutionSummary.gitDetails.repoName}
                 branch={pipelineExecutionSummary.gitDetails.branch}
                 filePath={pipelineExecutionSummary.gitDetails.filePath}
+                fileUrl={pipelineExecutionSummary.gitDetails.fileUrl}
                 flags={{ readOnly: true }}
               />
             </div>
