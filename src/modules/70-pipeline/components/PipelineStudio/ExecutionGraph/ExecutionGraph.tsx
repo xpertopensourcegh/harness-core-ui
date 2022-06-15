@@ -551,6 +551,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
   const mouseLeaveNodeListener = (event: any): void => {
     const eventTemp = event as DefaultNodeEvent
     eventTemp.stopPropagation?.()
+    dynamicPopoverHandler?.hide()
   }
 
   const nodeListeners: NodeModelListener = {
