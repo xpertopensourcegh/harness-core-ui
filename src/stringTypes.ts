@@ -3112,6 +3112,8 @@ export interface StringsMap {
   'pipeline.multiStageExecution': string
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
+  'pipeline.myPipelineRunsText': string
+  'pipeline.mySecurityTestsText': string
   'pipeline.nativeHelm': string
   'pipeline.neverRan': string
   'pipeline.newPipelineText': string
@@ -5548,6 +5550,7 @@ export interface StringsMap {
   'ci.next': string
   'ci.noData': string
   'ci.optimize': string
+  'ci.pipelineSteps.build.infraSpecifications.whereToRunSTO': string
   'ci.portBindings': string
   'ci.postCommandLabel': string
   'ci.prSymbol': string

@@ -808,6 +808,8 @@ artifactPathDependencyRequired: required to fetch the artifact paths
 artifactRepositoryDependencyRequired: 'Artifactory Connector is required to fetch repositories. You can make this field Runtime input otherwise.'
 myDeploymentsText: My Deployments
 myBuildsText: My Builds
+mySecurityTestsText: My Security Tests
+myPipelineRunsText: My Pipeline Runs
 noBuckets: No buckets found with given region
 gitRepo: Git Repo
 buildRepo: Build Repo

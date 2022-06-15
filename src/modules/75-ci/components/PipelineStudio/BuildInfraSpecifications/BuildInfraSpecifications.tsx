@@ -61,6 +61,7 @@ import type {
 import { useGitScope } from '@pipeline/utils/CIUtils'
 import { MultiTypeList } from '@common/components/MultiTypeList/MultiTypeList'
 import { useHostedBuilds } from '@common/hooks/useHostedBuild'
+import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type {
@@ -306,6 +307,7 @@ const renderUseFromStageVM = ({
 }
 
 export default function BuildInfraSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
+  const { module } = useParams<Partial<PipelineType<PipelinePathProps>>>()
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const gitScope = useGitScope()
@@ -1512,7 +1514,16 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             return (
               <Layout.Vertical>
                 <Text font={{ variation: FontVariation.H5 }} id="infrastructureDefinition">
-                  {getString('pipelineSteps.build.infraSpecifications.whereToRun')}
+                  {getString(
+                    (() => {
+                      switch (module) {
+                        case 'sto':
+                          return 'ci.pipelineSteps.build.infraSpecifications.whereToRunSTO'
+                        default:
+                          return 'pipelineSteps.build.infraSpecifications.whereToRun'
+                      }
+                    })()
+                  )}
                 </Text>
                 <FormikForm>
                   <Layout.Horizontal spacing="xxlarge">

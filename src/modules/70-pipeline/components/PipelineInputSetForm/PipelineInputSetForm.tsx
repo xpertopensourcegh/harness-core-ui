@@ -24,7 +24,7 @@ import DelegateSelectorPanel from '@pipeline/components/PipelineSteps/AdvancedSt
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDeepCompareEffect } from '@common/hooks'
 import { TEMPLATE_INPUT_PATH } from '@pipeline/utils/templateUtils'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -210,6 +210,7 @@ export function PipelineInputSetFormInternal(props: PipelineInputSetFormProps): 
     viewTypeMetadata,
     allowableTypes
   } = props
+  const { module } = useParams<Partial<PipelineType<PipelinePathProps>>>()
   const { getString } = useStrings()
   const isTemplatePipeline = !!template.template
   const finalTemplate = isTemplatePipeline ? (template?.template?.templateInputs as PipelineInfoConfig) : template
@@ -307,9 +308,27 @@ export function PipelineInputSetFormInternal(props: PipelineInputSetFormProps): 
                 data-name="ci-codebase-title"
                 color={Color.BLACK_100}
                 font={{ weight: 'semi-bold' }}
-                tooltipProps={{ dataTooltipId: 'ciCodebase' }}
+                tooltipProps={{
+                  dataTooltipId: (() => {
+                    switch (module) {
+                      case 'ci':
+                        return 'ciCodebase'
+                      default:
+                        return 'codebase'
+                    }
+                  })()
+                }}
               >
-                {getString('ciCodebase')}
+                {getString(
+                  (() => {
+                    switch (module) {
+                      case 'ci':
+                        return 'ciCodebase'
+                      default:
+                        return 'codebase'
+                    }
+                  })()
+                )}
               </Text>
             </Layout.Horizontal>
             <div className={css.topAccordion}>

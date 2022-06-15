@@ -81,13 +81,13 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 >
                   <div
                     class="Text--withDocsTooltip"
-                    data-tooltip-id="ciCodebase"
+                    data-tooltip-id="codebase"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
                       data-name="ci-codebase-title"
                     >
-                      ciCodebase
+                      codebase
                     </p>
                   </div>
                 </div>
