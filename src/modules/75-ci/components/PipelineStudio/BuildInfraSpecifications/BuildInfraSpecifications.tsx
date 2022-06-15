@@ -718,12 +718,14 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             delete (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml).spec.runAsUser
           }
         } else {
-          set(draft, 'stage.spec.infrastructure', {
-            type: CIBuildInfrastructureType.KubernetesHosted,
-            ...(delegateProvisioningStatus === ProvisioningStatus.SUCCESS && {
-              spec: { identifier: KUBERNETES_HOSTED_INFRA_ID }
+          if (get(stage, 'stage.spec.infrastructure.spec.identifier') !== KUBERNETES_HOSTED_INFRA_ID) {
+            set(draft, 'stage.spec.infrastructure', {
+              type: CIBuildInfrastructureType.KubernetesHosted,
+              ...(delegateProvisioningStatus === ProvisioningStatus.SUCCESS && {
+                spec: { identifier: KUBERNETES_HOSTED_INFRA_ID }
+              })
             })
-          })
+          }
         }
       })
       const shouldUpdate = stageData.stage && JSON.stringify(stage.stage) !== JSON.stringify(stageData.stage)
@@ -1066,6 +1068,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
               <ProvisioningStatusPill
                 provisioningStatus={delegateProvisioningStatus}
                 onStartProvisioning={() => initiateProvisioning()}
+                showProvisioningStatus={false}
               />
             </Container>
           </Layout.Vertical>
