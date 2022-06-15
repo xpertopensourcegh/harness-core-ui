@@ -216,7 +216,8 @@ export class CreatePr extends PipelineStep<CreatePRStepData> {
     type: StepType.CreatePR,
     timeout: '10m',
     spec: {
-      overrideConfig: false
+      overrideConfig: false,
+      shell: 'Bash'
     }
   }
 }

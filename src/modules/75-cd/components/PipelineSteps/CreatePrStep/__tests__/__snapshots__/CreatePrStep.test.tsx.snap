@@ -288,7 +288,7 @@ exports[`Test CreatePRStep expand override config panel 1`] = `
                             placeholder="- scriptType -"
                             style="padding-right: 0px;"
                             type="text"
-                            value=""
+                            value="Bash"
                           />
                           <span
                             class="bp3-input-action"
