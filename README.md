@@ -39,7 +39,7 @@ $ git clone git@github.com:harness/harness-core-ui.git
 $ cd harness-core-ui
 ```
 
-4. Add config to make Harness Github Package Registry accessible
+4. Add config to make Harness Github Package Registry accessible. Before running this step, make sure your github personal access token is authorized for both "wings-software" and "harness", step is here: https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on
 
 ```
 $ yarn setup-github-registry
