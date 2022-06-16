@@ -833,14 +833,14 @@ perspectives:
       percent: '% of Budget'
       createAlert: '+ add new alert'
   folders:
-    heading: '{{ $.dashboards.homePage.folders }}'
-    customFolders: My Folders
+    customFolders: '{{ $.dashboards.homePage.folders }}'
     newFolder: New folder
     createNewFolderHeading: Create new Folder for Perspectives
     folderNamePlaceholder: Enter folder name
     selectPerspectiveLabel: Include perspectives
     folderCreated: Perspective Folder created successfully!!
     folderDeleted: Folder deleted successfully!!
+    folderUpdated: Folder updated successfully!!
     moveFolderTitle: Move to folder
     currentFolderLabel: Current Folder
     moveExistingFolder: Move to an existing folder
@@ -852,7 +852,7 @@ perspectives:
     folderSelectionRequired: Please select any folder to move.
     deletedConfirmationTitle: Delete Folder
     deletedConfirmationDesc: Deleting the folder will not delete the perspectives, all perspectives in the current folder will be moved to the default folder.
-  emptyStateTitle: You have not created any perspectives yet
+  emptyStateTitle: You have not created any perspectives yet in this folder
   emptyStateDesc: Create a new one or explore our Out of the box perspectives
 overview:
   title: '{{ $.overview }}'
