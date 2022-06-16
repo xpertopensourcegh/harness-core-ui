@@ -29,10 +29,10 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { showGetStartedTabInMainMenu } = useSideNavContext()
   const { enabledHostedBuildsForFreeUsers } = useHostedBuilds()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
-  const isCIorCD = module === 'ci' || module === 'cd'
+  const isCIorCDorSTO = module === 'ci' || module === 'cd' || module === 'sto'
   const isCV = module === 'cv'
   const canUsePolicyEngine = useAnyEnterpriseLicense()
-  const getGitSyncEnabled = isCIorCD || !module
+  const getGitSyncEnabled = isCIorCDorSTO || !module
 
   return (
     <NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}>
@@ -48,7 +48,7 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
             to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
           />
         ) : null}
-        {NG_TEMPLATES && isCIorCD && (
+        {NG_TEMPLATES && isCIorCDorSTO && (
           <SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} />
         )}
         {CVNG_TEMPLATE_MONITORED_SERVICE && isCV && (
@@ -57,7 +57,7 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
             to={routes.toTemplates({ ...params, templateType: 'MonitoredService' })}
           />
         )}
-        {OPA_PIPELINE_GOVERNANCE && isCIorCD && canUsePolicyEngine && (
+        {OPA_PIPELINE_GOVERNANCE && isCIorCDorSTO && canUsePolicyEngine && (
           <SidebarLink label={getString('common.governance')} to={routes.toGovernance(params as GovernancePathProps)} />
         )}
         {enabledHostedBuildsForFreeUsers && !showGetStartedTabInMainMenu && module === 'ci' && (
