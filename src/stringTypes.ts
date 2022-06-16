@@ -2916,6 +2916,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.strategiesRequired': string
   'pipeline.failureStrategies.validation.strategyRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
+  'pipeline.failureTypetext': string
   'pipeline.featureRestriction.initialDeploymentLimitExceeded': string
   'pipeline.featureRestriction.initialDeploymentWarning': string
   'pipeline.featureRestriction.integratedApprovalsJira': string
