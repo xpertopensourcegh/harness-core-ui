@@ -3898,6 +3898,7 @@ export interface StringsMap {
   'cd.serviceDashboard.totalDeployments': string
   'cd.serviceDashboard.totalPipelines': string
   'cd.serviceDashboard.totalServices': string
+  'cd.serviceDashboard.unitDay': string
   'cd.serviceList.noIdentifier': string
   'cd.serviceOverrides.deleted': string
   'cd.serviceOverrides.deletedOneVariable': string

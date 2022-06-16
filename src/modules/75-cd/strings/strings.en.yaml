@@ -160,6 +160,7 @@ serviceDashboard:
   helmChartName: Helm Chart Name
   helmRopoUrl: Repo URL
   manageServiceLabel: Manage Services
+  unitDay: '/Day'
 noEnvironment:
   title: No Environments Available
   message: Create an environment and let’s start configuring the deployment
