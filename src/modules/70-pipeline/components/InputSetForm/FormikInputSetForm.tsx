@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import * as Yup from 'yup'
 import { defaultTo, isEmpty, omit, isUndefined, noop } from 'lodash-es'
 import {
@@ -19,6 +19,7 @@ import {
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
+import cx from 'classnames'
 import type { FormikErrors, FormikProps } from 'formik'
 import type {
   ResponsePMSPipelineResponseDTO,
@@ -91,6 +92,8 @@ interface FormikInputSetFormProps {
   isGitSimplificationEnabled?: boolean
   yamlHandler?: YamlBuilderHandlerBinding
   setYamlHandler: React.Dispatch<React.SetStateAction<YamlBuilderHandlerBinding | undefined>>
+  className?: string
+  onCancel?: () => void
   filePath?: string
 }
 
@@ -212,6 +215,8 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
     isGitSimplificationEnabled,
     yamlHandler,
     setYamlHandler,
+    className,
+    onCancel,
     filePath
   } = props
   const { getString } = useStrings()
@@ -282,6 +287,9 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
       shouldUseDefaultValues: !isEdit
     })
   }, [inputSet, isEdit, resolvedPipeline])
+  const hasError = useMemo(() => {
+    return formErrors && Object.keys(formErrors).length > 0
+  }, [formErrors])
 
   const storeMetadata = {
     repo: isGitSyncEnabled ? defaultTo(repoIdentifier, '') : defaultTo(repoName, ''),
@@ -293,7 +301,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
   }
 
   return (
-    <Container className={css.inputSetForm}>
+    <Container className={cx(css.inputSetForm, className, hasError ? css.withError : '')}>
       <Layout.Vertical
         spacing="medium"
         ref={ref => {
@@ -411,7 +419,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
                           &nbsp; &nbsp;
                           <Button
                             variation={ButtonVariation.TERTIARY}
-                            onClick={history.goBack}
+                            onClick={onCancel || history.goBack}
                             text={getString('cancel')}
                           />
                         </Layout.Horizontal>
@@ -477,9 +485,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
                       &nbsp; &nbsp;
                       <Button
                         variation={ButtonVariation.TERTIARY}
-                        onClick={() => {
-                          history.goBack()
-                        }}
+                        onClick={onCancel || history.goBack}
                         text={getString('cancel')}
                       />
                     </Layout.Horizontal>

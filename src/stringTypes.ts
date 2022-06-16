@@ -2959,6 +2959,7 @@ export interface StringsMap {
   'pipeline.inputSets.applyInputSets': string
   'pipeline.inputSets.applyingInputSet': string
   'pipeline.inputSets.applyingInputSets': string
+  'pipeline.inputSets.createNewInputSet': string
   'pipeline.inputSets.deleteInputSet': string
   'pipeline.inputSets.editInYamlView': string
   'pipeline.inputSets.goBackToInputSetList': string

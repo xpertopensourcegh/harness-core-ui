@@ -39,7 +39,8 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { InputSetValue } from '@pipeline/components/InputSetSelector/utils'
 import { mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
 import { memoizedParse } from '@common/utils/YamlHelperMethods'
-import type { Pipeline } from '@pipeline/utils/types'
+import type { InputSetDTO, Pipeline } from '@pipeline/utils/types'
+import NewInputSetModal from '@pipeline/components/InputSetForm/NewInputSetModal'
 import {
   ciCodebaseBuild,
   ciCodebaseBuildPullRequest,
@@ -49,7 +50,10 @@ import {
   eventTypes,
   getTriggerInputSetsBranchQueryParameter,
   DEFAULT_TRIGGER_BRANCH,
-  getErrorMessage
+  getErrorMessage,
+  TriggerGitEventTypes,
+  TriggerGitEvent,
+  ciCodebaseBuildIssueComment
 } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
@@ -387,7 +391,13 @@ function WebhookPipelineInputPanelForm({
         fetchInputSets()
       }
     },
-    [formikProps?.values?.inputSetRefs, inputSetSelected, inputSetQueryParams]
+    [
+      formikProps?.values?.inputSetRefs,
+      inputSetSelected,
+      inputSetQueryParams,
+      fetchInputSetsInProgress,
+      selectedInputSets
+    ]
   )
 
   useEffect(() => {
@@ -464,6 +474,30 @@ function WebhookPipelineInputPanelForm({
     }, 1000),
     [selectedInputSets]
   )
+  const [showNewInputSetModal, setShowNewInputSetModal] = useState(false)
+  const inputSetInitialValue = useMemo(() => {
+    const event = formikProps?.values?.event
+    const properties = TriggerGitEventTypes.includes(event)
+      ? {
+          ci: {
+            codebase: {
+              build: {
+                ...(event === TriggerGitEvent.PUSH ? ciCodebaseBuild : undefined),
+                ...(event === TriggerGitEvent.ISSUE_COMMENT ? ciCodebaseBuildIssueComment : undefined),
+                ...(event === TriggerGitEvent.PULL_REQUEST ? ciCodebaseBuildPullRequest : undefined)
+              }
+            }
+          }
+        }
+      : undefined
+
+    return {
+      pipeline: {
+        // ...formikProps?.values?.pipeline,
+        properties
+      }
+    } as InputSetDTO
+  }, [formikProps])
 
   useEffect(() => {
     setInputSetError(formikProps?.errors?.inputSetRefs)
@@ -510,10 +544,37 @@ function WebhookPipelineInputPanelForm({
                     selectedValueClass={css.inputSetSelectedValue}
                     selectedRepo={gitAwareForTriggerEnabled ? repoName : repoIdentifier}
                     selectedBranch={inputSetSelectedBranch}
+                    showNewInputSet={gitAwareForTriggerEnabled}
+                    onNewInputSetClick={() => setShowNewInputSetModal(true)}
                   />
                 </GitSyncStoreProvider>
                 {inputSetError ? <Text intent="danger">{inputSetError}</Text> : null}
                 <div className={css.divider} />
+                {showNewInputSetModal && (
+                  <NewInputSetModal
+                    inputSetInitialValue={inputSetInitialValue}
+                    isModalOpen={showNewInputSetModal}
+                    closeModal={() => setShowNewInputSetModal(false)}
+                    onCreateSuccess={response => {
+                      const inputSet = response.data as InputSetResponse
+                      const _inputSetSelected = (selectedInputSets || []).concat({
+                        label: inputSet.name as string,
+                        value: inputSet.identifier as string,
+                        type: 'INPUT_SET',
+                        gitDetails: inputSet.gitDetails
+                      })
+
+                      setInputSetError('')
+                      setSelectedInputSets(_inputSetSelected)
+
+                      formikProps.setValues({
+                        ...formikProps.values,
+                        inputSetSelected: _inputSetSelected,
+                        inputSetRefs: (formikProps.values.inputSetRefs || []).concat(inputSet.identifier)
+                      })
+                    }}
+                  />
+                )}
               </div>
             ) : null}
             {gitAwareForTriggerEnabled && (

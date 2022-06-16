@@ -648,6 +648,13 @@ export const ciCodebaseBuildPullRequest = {
   }
 }
 
+export const ciCodebaseBuildIssueComment = {
+  type: 'tag',
+  spec: {
+    tag: '<+trigger.tag>'
+  }
+}
+
 export const getConnectorName = (connector?: ConnectorResponse): string =>
   `${
     connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
@@ -1949,3 +1956,15 @@ export const SAVING_INVALID_TRIGGER_IN_GIT =
 
 export const getErrorMessage = (error: any): string =>
   get(error, 'data.error', get(error, 'data.message', error?.message))
+
+export enum TriggerGitEvent {
+  PULL_REQUEST = 'PullRequest',
+  ISSUE_COMMENT = 'IssueComment',
+  PUSH = 'Push'
+}
+
+export const TriggerGitEventTypes: Readonly<string[]> = [
+  TriggerGitEvent.PULL_REQUEST,
+  TriggerGitEvent.ISSUE_COMMENT,
+  TriggerGitEvent.PUSH
+]

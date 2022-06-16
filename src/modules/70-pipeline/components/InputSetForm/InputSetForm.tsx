@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { defaultTo, omit, pick } from 'lodash-es'
+import { defaultTo, merge, noop, omit, pick } from 'lodash-es'
 import {
   Layout,
   NestedAccordionProvider,
@@ -87,6 +87,14 @@ const getDefaultInputSet = (
 
 export interface InputSetFormProps {
   executionView?: boolean
+
+  // Props to support embedding InputSetForm (create new) in a modal
+  // @see src/modules/70-pipeline/components/InputSetForm/NewInputSetModal.tsx
+  inputSetInitialValue?: InputSetDTO
+  isNewInModal?: boolean
+  className?: string
+  onCancel?: () => void
+  onCreateSuccess?: (response: ResponseInputSetResponse) => void
 }
 
 const getInputSet = (
@@ -147,7 +155,7 @@ const getInputSet = (
 }
 
 export function InputSetForm(props: InputSetFormProps): React.ReactElement {
-  const { executionView } = props
+  const { executionView, inputSetInitialValue, isNewInModal, className, onCancel, onCreateSuccess = noop } = props
   const { getString } = useStrings()
   const history = useHistory()
   const [isEdit, setIsEdit] = React.useState(false)
@@ -274,7 +282,14 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
     }
   })
 
-  const { handleSubmit } = useSaveInputSet({ createInputSet, updateInputSet, inputSetResponse, isEdit, setFormErrors })
+  const { handleSubmit } = useSaveInputSet({
+    createInputSet,
+    updateInputSet,
+    inputSetResponse,
+    isEdit,
+    setFormErrors,
+    onCreateSuccess
+  })
 
   const inputSet: InputSetDTO | InputSetType = React.useMemo(() => {
     if (inputSetUpdateResponse) {
@@ -446,7 +461,7 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
   }, [inputSet.entityValidityDetails?.valid])
 
   React.useEffect(() => {
-    if (inputSetIdentifier !== '-1') {
+    if (inputSetIdentifier !== '-1' && !isNewInModal) {
       setIsEdit(true)
       refetch({ pathParams: { inputSetIdentifier: inputSetIdentifier } })
       refetchTemplate()
@@ -479,10 +494,14 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
     }
   }, [loadingInputSet])
 
-  useDocumentTitle([
-    defaultTo(parse(defaultTo(pipeline?.data?.yamlPipeline, ''))?.pipeline?.name, getString('pipelines')),
-    isEdit ? defaultTo(inputSetResponse?.data?.name, '') : getString('inputSets.newInputSetLabel')
-  ])
+  useDocumentTitle(
+    isNewInModal
+      ? document.title
+      : [
+          defaultTo(parse(defaultTo(pipeline?.data?.yamlPipeline, ''))?.pipeline?.name, getString('pipelines')),
+          isEdit ? defaultTo(inputSetResponse?.data?.name, '') : getString('inputSets.newInputSetLabel')
+        ]
+  )
 
   const getFilePath = React.useCallback(
     (inputSetYamlVisual: InputSetDTO) => {
@@ -530,7 +549,7 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
   const child = React.useCallback(
     () => (
       <FormikInputSetForm
-        inputSet={inputSet}
+        inputSet={isNewInModal && inputSetInitialValue ? merge(inputSet, inputSetInitialValue) : inputSet}
         template={template}
         pipeline={pipeline}
         resolvedTemplatesPipelineYaml={pipeline?.data?.resolvedTemplatesPipelineYaml}
@@ -545,6 +564,8 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
         isEdit={isEdit}
         isGitSyncEnabled={isGitSyncEnabled}
         isGitSimplificationEnabled={isGitSimplificationEnabled}
+        className={className}
+        onCancel={onCancel}
         filePath={filePath}
       />
     ),
