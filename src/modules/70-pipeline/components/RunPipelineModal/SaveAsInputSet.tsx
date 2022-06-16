@@ -236,8 +236,7 @@ function SaveAsInputSet({
         'connectorRef',
         'repoName',
         'filePath',
-        'storeType',
-        'remoteType'
+        'storeType'
       )
       setSavedInputSetObj(inputSetObj)
       setInitialGitDetails(gitDetails as EntityGitDetails)
@@ -338,7 +337,6 @@ function SaveAsInputSet({
                           formikProps={createInputSetFormikProps as any}
                           handleSubmit={noop}
                           isEdit={false}
-                          showRemoteTypeSelection={false}
                           disableFields={{
                             connectorRef: true,
                             repoName: true,

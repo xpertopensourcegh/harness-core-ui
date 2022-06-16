@@ -91,6 +91,7 @@ interface FormikInputSetFormProps {
   isGitSimplificationEnabled?: boolean
   yamlHandler?: YamlBuilderHandlerBinding
   setYamlHandler: React.Dispatch<React.SetStateAction<YamlBuilderHandlerBinding | undefined>>
+  filePath?: string
 }
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -179,11 +180,12 @@ const onSubmitClick = (
         formikProps.values,
         {
           repoIdentifier: formikProps.values.repo,
-          branch: formikProps.values.branch
+          branch: formikProps.values.branch,
+          repoName: formikProps.values.repo
         },
         {
           connectorRef: formikProps.values.connectorRef,
-          repoName: formikProps.values.repoName,
+          repoName: formikProps.values.repo,
           branch: formikProps.values.branch,
           filePath: formikProps.values.filePath,
           storeType: formikProps.values.storeType
@@ -209,7 +211,8 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
     isGitSyncEnabled,
     isGitSimplificationEnabled,
     yamlHandler,
-    setYamlHandler
+    setYamlHandler,
+    filePath
   } = props
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
@@ -280,6 +283,15 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
     })
   }, [inputSet, isEdit, resolvedPipeline])
 
+  const storeMetadata = {
+    repo: isGitSyncEnabled ? defaultTo(repoIdentifier, '') : defaultTo(repoName, ''),
+    branch: defaultTo(branch, ''),
+    connectorRef: defaultTo(connectorRef, ''),
+    repoName: defaultTo(repoName, ''),
+    storeType: defaultTo(storeType, StoreType.INLINE),
+    filePath: defaultTo(inputSet.gitDetails?.filePath, filePath)
+  }
+
   return (
     <Container className={css.inputSetForm}>
       <Layout.Vertical
@@ -291,12 +303,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
         <Formik<InputSetDTO & GitContextProps & StoreMetadata>
           initialValues={{
             ...init,
-            repo: defaultTo(repoIdentifier, ''),
-            branch: defaultTo(branch, ''),
-            connectorRef: defaultTo(connectorRef, ''),
-            repoName: defaultTo(repoName, ''),
-            storeType: defaultTo(storeType, StoreType.INLINE),
-            filePath: inputSet.gitDetails?.filePath
+            ...storeMetadata
           }}
           enableReinitialize={true}
           formName="inputSetForm"
@@ -307,11 +314,12 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
               values,
               {
                 repoIdentifier: values.repo,
-                branch: values.branch
+                branch: values.branch,
+                repoName: values.repo
               },
               {
                 connectorRef: values.connectorRef,
-                repoName: values.repoName,
+                repoName: values.repo,
                 branch: values.branch,
                 filePath: values.filePath,
                 storeType: values.storeType
@@ -364,7 +372,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
                                   formikProps={formikProps as any}
                                   handleSubmit={noop}
                                   isEdit={isEdit}
-                                  showRemoteTypeSelection={false}
+                                  initialValues={storeMetadata}
                                   disableFields={
                                     !isEdit
                                       ? {
@@ -426,8 +434,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
                             'connectorRef',
                             'repoName',
                             'filePath',
-                            'storeType',
-                            'remoteType'
+                            'storeType'
                           )
                         }}
                         bind={setYamlHandler}

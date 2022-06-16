@@ -123,8 +123,7 @@ const getInputSet = (
         pipeline: clearRuntimeInput(parsedPipelineWithValues),
         gitDetails: defaultTo(inputSetObj.gitDetails, {}),
         entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {}),
-        outdated: inputSetObj.outdated,
-        storeType: inputSetObj.storeType
+        outdated: inputSetObj.outdated
       }
     }
     return {
@@ -137,8 +136,7 @@ const getInputSet = (
       pipeline: clearRuntimeInput(parsedPipelineWithValues),
       gitDetails: defaultTo(inputSetObj.gitDetails, {}),
       entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {}),
-      outdated: inputSetObj.outdated,
-      storeType: inputSetObj.storeType
+      outdated: inputSetObj.outdated
     }
   }
   return getDefaultInputSet(
@@ -486,6 +484,19 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
     isEdit ? defaultTo(inputSetResponse?.data?.name, '') : getString('inputSets.newInputSetLabel')
   ])
 
+  const getFilePath = React.useCallback(
+    (inputSetYamlVisual: InputSetDTO) => {
+      if (inputSet.gitDetails?.filePath) {
+        return inputSet.gitDetails?.filePath
+      }
+      if (filePath) {
+        return filePath
+      }
+      return inputSetYamlVisual.identifier ? `.harness/${inputSetYamlVisual.identifier}.yaml` : ''
+    },
+    [inputSet, filePath]
+  )
+
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
@@ -504,8 +515,9 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
             connectorRef: defaultTo(connectorRef, ''),
             repoName: defaultTo(repoName, ''),
             storeType: defaultTo(storeType, StoreType.INLINE),
-            filePath: defaultTo(inputSet.gitDetails?.filePath, filePath)
+            filePath: getFilePath(inputSetYamlVisual)
           })
+          setFilePath(getFilePath(inputSetYamlVisual))
         }
       } else {
         setFilePath(formikRef.current?.values.filePath)
@@ -533,6 +545,7 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
         isEdit={isEdit}
         isGitSyncEnabled={isGitSyncEnabled}
         isGitSimplificationEnabled={isGitSimplificationEnabled}
+        filePath={filePath}
       />
     ),
     [
@@ -550,7 +563,8 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
       executionView,
       isEdit,
       isGitSyncEnabled,
-      sanitiseInputSetLoading
+      sanitiseInputSetLoading,
+      filePath
     ]
   )
 
