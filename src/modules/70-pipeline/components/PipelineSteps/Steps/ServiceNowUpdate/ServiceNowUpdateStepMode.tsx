@@ -240,7 +240,7 @@ function FormContent({
         enforceFocus={false}
         isOpen
         onClose={hideDynamicFieldsModal}
-        title={getString('pipeline.jiraCreateStep.addFields')}
+        title={getString('pipeline.serviceNowCreateStep.addFields')}
       >
         <ServiceNowDynamicFieldsSelector
           connectorRef={connectorRefFixedValue || ''}
