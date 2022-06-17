@@ -249,6 +249,12 @@ export const getSelectedDeploymentType = (
   return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
 }
 
+export const getDeploymentTypeWithSvcEnvFF = (
+  stage: StageElementWrapper<DeploymentStageElementConfig> | undefined
+): ServiceDefinition['type'] => {
+  return get(stage, 'stage.spec.deploymentType', null)
+}
+
 export const getStageDeploymentType = (
   pipeline: PipelineInfoConfig,
   stage: StageElementWrapper<DeploymentStageElementConfig>,
@@ -367,6 +373,13 @@ export const deleteStageData = (stage?: DeploymentStageElementConfig): void => {
       stage.spec.execution.steps.splice(0)
     }
     delete stage?.spec?.execution?.rollbackSteps
+  }
+}
+export const deleteServiceData = (stage?: DeploymentStageElementConfig): void => {
+  if (stage) {
+    delete stage?.spec?.serviceConfig?.serviceDefinition?.spec.artifacts
+    delete stage?.spec?.serviceConfig?.serviceDefinition?.spec.manifests
+    delete stage?.spec?.serviceConfig?.serviceDefinition?.spec.variables
   }
 }
 //This is to delete stage data in case of new service/ env entity

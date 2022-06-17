@@ -38,7 +38,7 @@ interface ServiceConfigurationWrapperProps {
 function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): React.ReactElement {
   const { accountId, orgIdentifier, projectIdentifier, serviceId } = useParams<ProjectPathProps & ServicePathProps>()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
-  const { serviceResponse, isServiceCreateModalView } = useServiceContext()
+  const { serviceResponse, isServiceCreateModalView, selectedDeploymentType } = useServiceContext()
   const { getTemplate } = useTemplateSelector()
 
   const [isEdit] = usePermission({
@@ -58,13 +58,16 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
   )
   const getServiceData = React.useCallback((): NGServiceConfig => {
     if (isServiceCreateModalView) {
-      return newServiceState
+      return produce(newServiceState, draft => {
+        set(draft, 'service.serviceDefinition.type', selectedDeploymentType)
+      })
     } else {
       if (!isEmpty(serviceYaml?.service?.serviceDefinition)) {
         return serviceYaml
       }
       return merge(serviceYaml, initialServiceState)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const [currentService, setCurrentService] = React.useState(getServiceData())

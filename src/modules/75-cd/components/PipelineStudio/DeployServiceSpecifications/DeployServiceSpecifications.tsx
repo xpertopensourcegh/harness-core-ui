@@ -56,7 +56,7 @@ import { useValidationErrors } from '@pipeline/components/PipelineStudio/Pipline
 import {
   DeployTabs,
   getServiceEntityServiceRef,
-  isEmptyServiceConfigPath
+  isNewServiceEnvEntity
 } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
@@ -552,22 +552,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const getDeployServiceWidgetInitValues = React.useCallback((): DeployServiceData => {
     const initValues: DeployServiceData = {
       service: getServiceEntityBasedService(),
-      isNewServiceEntity: isNewServiceEntity(),
+      isNewServiceEntity: isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig),
       serviceRef: scope === Scope.PROJECT ? getServiceEntityBasedServiceRef() : RUNTIME_INPUT_VALUE
     }
-    if (isNewServiceEntity()) {
+    if (isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig)) {
       initValues.deploymentType = (stage?.stage?.spec as any).deploymentType
     }
     return initValues
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const isNewServiceEntity = (): boolean => {
-    return isSvcEnvEntityEnabled && isEmptyServiceConfigPath(stage?.stage as DeploymentStageElementConfig)
-  }
-
   const shouldRenderDeployServiceStep = (): boolean => {
-    if (!isNewServiceEntity()) {
+    if (!isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig)) {
       return true
     }
     return false

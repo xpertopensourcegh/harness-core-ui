@@ -175,7 +175,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
   }
   const { openDialog: openStageDataDeleteWarningDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
-    contentText: getString('pipeline.stageDataDeleteWarningContent'),
+    contentText: getString('pipeline.stageDataDeleteWarningText'),
     titleText: getString('pipeline.stageDataDeleteWarningTitle'),
     confirmButtonText: getString('confirm'),
     intent: Intent.WARNING,
@@ -322,11 +322,13 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                           handleDeploymentTypeChange={handleDeploymentTypeChange}
                         />
                       </div>
-                      <FormInput.CheckBox
-                        name="gitOpsEnabled"
-                        label={getString('common.gitOps')}
-                        className={css.gitOpsCheck}
-                      />
+                      {selectedDeploymentType === ServiceDeploymentType['Kubernetes'] && (
+                        <FormInput.CheckBox
+                          name="gitOpsEnabled"
+                          label={getString('common.gitOps')}
+                          className={css.gitOpsCheck}
+                        />
+                      )}
                     </>
                   )}
 

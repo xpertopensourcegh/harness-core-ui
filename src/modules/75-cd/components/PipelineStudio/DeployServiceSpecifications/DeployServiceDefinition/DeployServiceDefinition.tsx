@@ -19,7 +19,7 @@ import type { K8SDirectServiceStep } from '@cd/components/PipelineSteps/K8sServi
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
-  deleteStageData,
+  deleteServiceData,
   doesStageContainOtherData,
   getStepTypeByDeploymentType,
   ServiceDeploymentType
@@ -41,13 +41,20 @@ function DeployServiceDefinition(): React.ReactElement {
     allowableTypes,
     isReadonly
   } = usePipelineContext()
-  const { isServiceEntityModalView } = useServiceContext()
+  const {
+    isServiceEntityModalView,
+    isServiceCreateModalView,
+    selectedDeploymentType: defaultDeploymentType
+  } = useServiceContext()
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { getString } = useStrings()
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 
   const getDeploymentType = (): ServiceDeploymentType => {
+    if (isServiceCreateModalView) {
+      return defaultDeploymentType
+    }
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type')
   }
   const [selectedDeploymentType, setSelectedDeploymentType] = useState<ServiceDeploymentType | undefined>(
@@ -74,13 +81,13 @@ function DeployServiceDefinition(): React.ReactElement {
 
   const { openDialog: openStageDataDeleteWarningDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
-    contentText: getString('pipeline.stageDataDeleteWarningText'),
-    titleText: getString('pipeline.stageDataDeleteWarningTitle'),
+    contentText: getString('pipeline.serviceDataDeleteWarningText'),
+    titleText: getString('pipeline.serviceDataDeleteWarningTitle'),
     confirmButtonText: getString('confirm'),
     intent: Intent.WARNING,
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
-        deleteStageData(currStageData)
+        deleteServiceData(currStageData)
         await debounceUpdateStage(currStageData)
         setSelectedDeploymentType(currStageData?.spec?.serviceConfig?.serviceDefinition?.type as ServiceDeploymentType)
       }
@@ -113,7 +120,7 @@ function DeployServiceDefinition(): React.ReactElement {
       <SelectDeploymentType
         viewContext="setup"
         selectedDeploymentType={selectedDeploymentType}
-        isReadonly={isReadonly}
+        isReadonly={isServiceEntityModalView ? true : isReadonly}
         handleDeploymentTypeChange={handleDeploymentTypeChange}
       />
       <Layout.Horizontal>

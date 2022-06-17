@@ -25,7 +25,14 @@ import { useParams } from 'react-router-dom'
 import type { FormikProps, FormikValues } from 'formik'
 import type { IDialogProps } from '@blueprintjs/core'
 import produce from 'immer'
-import { ServiceRequestDTO, ServiceResponseDTO, ServiceYaml, useGetServiceList, useGetServiceV2 } from 'services/cd-ng'
+import {
+  ServiceDefinition,
+  ServiceRequestDTO,
+  ServiceResponseDTO,
+  ServiceYaml,
+  useGetServiceList,
+  useGetServiceV2
+} from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
@@ -97,7 +104,7 @@ function DeployServiceWidget({
   } = useGetServiceList({
     queryParams: {
       ...queryParams,
-      type: isNewServiceEntity() ? initialValues.deploymentType : undefined
+      type: (isNewServiceEntity() ? initialValues.deploymentType : undefined) as ServiceDefinition['type']
     }
   })
 
@@ -264,7 +271,9 @@ function DeployServiceWidget({
         isLoading: serviceDataLoading,
         serviceCacheKey: `${pipeline.identifier}-${selectedStageId}-service`
       }
-    : {}
+    : {
+        selectedDeploymentType: initialValues.deploymentType
+      }
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog

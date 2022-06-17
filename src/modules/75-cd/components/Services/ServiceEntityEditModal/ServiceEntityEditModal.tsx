@@ -11,6 +11,7 @@ import { defaultTo } from 'lodash-es'
 import type { ServiceResponseDTO, ServiceYaml } from 'services/cd-ng'
 import ServiceConfigurationWrapper from '@cd/components/Services/ServiceStudio/ServiceConfigWrapper/ServiceConfigWrapper'
 import { ServiceContextProvider } from '@cd/context/ServiceContext'
+import type { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 
 interface ServiceEntityEditModalProps {
   onCloseModal: () => void
@@ -19,6 +20,7 @@ interface ServiceEntityEditModalProps {
   serviceResponse?: ServiceResponseDTO
   isLoading?: boolean
   serviceCacheKey?: string
+  selectedDeploymentType?: ServiceDeploymentType
 }
 function ServiceEntityEditModal({
   isServiceCreateModalView,
@@ -26,7 +28,8 @@ function ServiceEntityEditModal({
   onCloseModal,
   serviceResponse,
   isLoading,
-  serviceCacheKey
+  serviceCacheKey,
+  selectedDeploymentType
 }: ServiceEntityEditModalProps): React.ReactElement {
   if (isLoading) {
     return (
@@ -45,6 +48,7 @@ function ServiceEntityEditModal({
       isServiceEntityPage={true}
       isServiceCreateModalView={isServiceCreateModalView}
       serviceCacheKey={defaultTo(serviceCacheKey, '')}
+      selectedDeploymentType={selectedDeploymentType as ServiceDeploymentType}
     >
       <ServiceConfigurationWrapper />
     </ServiceContextProvider>

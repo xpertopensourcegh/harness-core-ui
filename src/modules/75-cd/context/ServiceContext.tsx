@@ -8,6 +8,7 @@
 import React from 'react'
 import { noop } from 'lodash-es'
 import type { ServiceResponseDTO, ServiceYaml } from 'services/cd-ng'
+import type { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 
 export interface ServiceContextValues {
   serviceResponse: ServiceResponseDTO
@@ -17,6 +18,7 @@ export interface ServiceContextValues {
   isServiceEntityPage: boolean
   isServiceCreateModalView: boolean
   serviceCacheKey: string
+  selectedDeploymentType: ServiceDeploymentType
 }
 
 export const ServiceContext = React.createContext<ServiceContextValues>({
@@ -26,7 +28,8 @@ export const ServiceContext = React.createContext<ServiceContextValues>({
   isServiceEntityModalView: false,
   isServiceEntityPage: false,
   isServiceCreateModalView: false,
-  serviceCacheKey: ''
+  serviceCacheKey: '',
+  selectedDeploymentType: '' as ServiceDeploymentType
 })
 
 export interface ServiceContextProviderProps extends ServiceContextValues {
