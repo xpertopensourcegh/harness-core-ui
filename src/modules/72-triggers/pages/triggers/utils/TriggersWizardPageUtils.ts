@@ -1942,17 +1942,15 @@ export function getTriggerInputSetsBranchQueryParameter({
   branch?: string
 }): string {
   return gitAwareForTriggerEnabled
-    ? pipelineBranchName === DEFAULT_TRIGGER_BRANCH
+    ? [
+        ciCodebaseBuildIssueComment.spec.tag,
+        ciCodebaseBuildPullRequest.spec.number,
+        ciCodebaseBuild.spec.branch
+      ].includes(pipelineBranchName)
       ? branch
       : pipelineBranchName
     : branch
 }
-
-export const UPDATING_INVALID_TRIGGER_IN_GIT =
-  'Invalid request: Failed while updating Trigger: Please check the requested file path / branch / Github repo name if they exist or not.'
-
-export const SAVING_INVALID_TRIGGER_IN_GIT =
-  'Invalid request: Failed while Saving Trigger: Please check the requested file path / branch / Github repo name if they exist or not.'
 
 export const getErrorMessage = (error: any): string =>
   get(error, 'data.error', get(error, 'data.message', error?.message))

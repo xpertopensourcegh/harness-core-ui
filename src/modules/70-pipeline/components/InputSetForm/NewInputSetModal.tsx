@@ -14,7 +14,7 @@ import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSet
 import css from './InputSetForm.module.scss'
 
 export interface NewInputSetModalProps {
-  inputSetInitialValue: InputSetDTO
+  inputSetInitialValue?: InputSetDTO
   isModalOpen: boolean
   closeModal: () => void
   onCreateSuccess: (response: ResponseInputSetResponse) => void

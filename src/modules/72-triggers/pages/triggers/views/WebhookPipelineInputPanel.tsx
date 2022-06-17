@@ -49,7 +49,6 @@ import {
   TriggerTypes,
   eventTypes,
   getTriggerInputSetsBranchQueryParameter,
-  DEFAULT_TRIGGER_BRANCH,
   getErrorMessage,
   TriggerGitEventTypes,
   TriggerGitEvent,
@@ -364,6 +363,12 @@ function WebhookPipelineInputPanelForm({
           .then(results => {
             const error = (results || []).find(result => get(result, 'status') === 'ERROR')
             if (error) {
+              if (!inputSetSelected) {
+                formikProps.setValues({
+                  ...formikProps.values,
+                  inputSetSelected: []
+                })
+              }
               setInputSetError(getErrorMessage(error))
             } else if (results?.length) {
               const inputSets = (results as unknown as { data: InputSetResponse }[]).map(
@@ -396,7 +401,8 @@ function WebhookPipelineInputPanelForm({
       inputSetSelected,
       inputSetQueryParams,
       fetchInputSetsInProgress,
-      selectedInputSets
+      selectedInputSets,
+      formikProps
     ]
   )
 
@@ -448,8 +454,19 @@ function WebhookPipelineInputPanelForm({
     pipelineIdentifier,
     resolvedPipeline
   ])
-  const pipelineBranchNamePlaceHolder =
-    formikProps?.values?.triggerType === TriggerTypes.WEBHOOK ? DEFAULT_TRIGGER_BRANCH : getString('common.branchName')
+  const pipelineReferenceBranchPlaceHolder = useMemo(() => {
+    if (formikProps?.values?.triggerType === TriggerTypes.WEBHOOK) {
+      switch (formikProps?.values?.event) {
+        case TriggerGitEvent.ISSUE_COMMENT:
+          return ciCodebaseBuildIssueComment.spec.tag
+        case TriggerGitEvent.PULL_REQUEST:
+          return ciCodebaseBuildPullRequest.spec.number
+        default:
+          return ciCodebaseBuild.spec.branch
+      }
+    }
+    return getString('common.branchName')
+  }, [formikProps?.values?.triggerType, formikProps?.values?.event, getString])
 
   const showPipelineInputSetSelector = useMemo(
     () => !isEmpty(pipeline) && !!template?.data?.inputSetTemplateYaml,
@@ -477,27 +494,24 @@ function WebhookPipelineInputPanelForm({
   const [showNewInputSetModal, setShowNewInputSetModal] = useState(false)
   const inputSetInitialValue = useMemo(() => {
     const event = formikProps?.values?.event
-    const properties = TriggerGitEventTypes.includes(event)
-      ? {
-          ci: {
-            codebase: {
-              build: {
-                ...(event === TriggerGitEvent.PUSH ? ciCodebaseBuild : undefined),
-                ...(event === TriggerGitEvent.ISSUE_COMMENT ? ciCodebaseBuildIssueComment : undefined),
-                ...(event === TriggerGitEvent.PULL_REQUEST ? ciCodebaseBuildPullRequest : undefined)
+    return TriggerGitEventTypes.includes(event) && !!pipeline?.properties?.ci?.codebase
+      ? ({
+          pipeline: {
+            properties: {
+              ci: {
+                codebase: {
+                  build: {
+                    ...(event === TriggerGitEvent.PUSH ? ciCodebaseBuild : undefined),
+                    ...(event === TriggerGitEvent.ISSUE_COMMENT ? ciCodebaseBuildIssueComment : undefined),
+                    ...(event === TriggerGitEvent.PULL_REQUEST ? ciCodebaseBuildPullRequest : undefined)
+                  }
+                }
               }
             }
           }
-        }
+        } as unknown as InputSetDTO)
       : undefined
-
-    return {
-      pipeline: {
-        // ...formikProps?.values?.pipeline,
-        properties
-      }
-    } as InputSetDTO
-  }, [formikProps])
+  }, [formikProps, pipeline?.properties?.ci?.codebase])
 
   useEffect(() => {
     setInputSetError(formikProps?.errors?.inputSetRefs)
@@ -591,7 +605,7 @@ function WebhookPipelineInputPanelForm({
                 <Container className={cx(css.refBranchOuter, css.halfWidth)}>
                   <FormInput.Text
                     name="pipelineBranchName"
-                    placeholder={pipelineBranchNamePlaceHolder}
+                    placeholder={pipelineReferenceBranchPlaceHolder}
                     inputGroup={{
                       onInput: reevaluateInputSetMerge
                     }}
