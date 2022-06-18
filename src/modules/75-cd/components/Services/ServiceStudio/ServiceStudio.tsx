@@ -45,6 +45,7 @@ function ServiceStudio(): React.ReactElement | null {
         isServiceCreateModalView={false}
         serviceCacheKey={''}
         selectedDeploymentType={'' as ServiceDeploymentType}
+        gitOpsEnabled={false}
       >
         <ServiceConfigurationWrapper
           summaryPanel={<ServiceDetailsSummary />}

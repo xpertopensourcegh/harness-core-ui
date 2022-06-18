@@ -21,6 +21,7 @@ interface ServiceEntityEditModalProps {
   isLoading?: boolean
   serviceCacheKey?: string
   selectedDeploymentType?: ServiceDeploymentType
+  gitOpsEnabled?: boolean
 }
 function ServiceEntityEditModal({
   isServiceCreateModalView,
@@ -29,7 +30,8 @@ function ServiceEntityEditModal({
   serviceResponse,
   isLoading,
   serviceCacheKey,
-  selectedDeploymentType
+  selectedDeploymentType,
+  gitOpsEnabled
 }: ServiceEntityEditModalProps): React.ReactElement {
   if (isLoading) {
     return (
@@ -49,6 +51,7 @@ function ServiceEntityEditModal({
       isServiceCreateModalView={isServiceCreateModalView}
       serviceCacheKey={defaultTo(serviceCacheKey, '')}
       selectedDeploymentType={selectedDeploymentType as ServiceDeploymentType}
+      gitOpsEnabled={defaultTo(gitOpsEnabled, false)}
     >
       <ServiceConfigurationWrapper />
     </ServiceContextProvider>

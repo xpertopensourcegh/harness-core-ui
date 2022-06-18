@@ -46,6 +46,7 @@ import { getServiceRefSchema } from '@cd/components/PipelineSteps/PipelineStepsU
 import RbacButton from '@rbac/components/Button/Button'
 import ServiceEntityEditModal from '@cd/components/Services/ServiceEntityEditModal/ServiceEntityEditModal'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DeployServiceData, DeployServiceProps, DeployServiceState } from './DeployServiceInterface'
 import { flexStart, isEditService } from './DeployServiceUtils'
 import { NewEditServiceModal } from './NewEditServiceModal'
@@ -63,8 +64,11 @@ function DeployServiceWidget({
     state: {
       pipeline,
       selectionState: { selectedStageId }
-    }
+    },
+    getStageFromPipeline
   } = usePipelineContext()
+
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -272,7 +276,8 @@ function DeployServiceWidget({
         serviceCacheKey: `${pipeline.identifier}-${selectedStageId}-service`
       }
     : {
-        selectedDeploymentType: initialValues.deploymentType
+        selectedDeploymentType: initialValues.deploymentType,
+        gitOpsEnabled: stage?.stage?.spec?.gitOpsEnabled
       }
   const [showModal, hideModal] = useModalHook(
     () => (

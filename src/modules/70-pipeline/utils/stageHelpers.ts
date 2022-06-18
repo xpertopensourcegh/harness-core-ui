@@ -379,7 +379,6 @@ export const deleteServiceData = (stage?: DeploymentStageElementConfig): void =>
   if (stage) {
     delete stage?.spec?.serviceConfig?.serviceDefinition?.spec.artifacts
     delete stage?.spec?.serviceConfig?.serviceDefinition?.spec.manifests
-    delete stage?.spec?.serviceConfig?.serviceDefinition?.spec.variables
   }
 }
 //This is to delete stage data in case of new service/ env entity

@@ -6,7 +6,7 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { Intent, Layout, useConfirmationDialog } from '@harness/uicore'
+import { Checkbox, Intent, Layout, useConfirmationDialog } from '@harness/uicore'
 import { debounce, defaultTo, get } from 'lodash-es'
 import produce from 'immer'
 import cx from 'classnames'
@@ -26,6 +26,7 @@ import {
 } from '@pipeline/utils/stageHelpers'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { useServiceContext } from '@cd/context/ServiceContext'
+import type { ServicePipelineConfig } from '@cd/components/Services/utils/ServiceUtils'
 import { setupMode } from '../PropagateWidget/PropagateWidget'
 import SelectDeploymentType from '../SelectDeploymentType'
 import css from './DeployServiceDefinition.module.scss'
@@ -38,13 +39,16 @@ function DeployServiceDefinition(): React.ReactElement {
     },
     getStageFromPipeline,
     updateStage,
+    updatePipeline,
     allowableTypes,
     isReadonly
   } = usePipelineContext()
+
   const {
     isServiceEntityModalView,
     isServiceCreateModalView,
-    selectedDeploymentType: defaultDeploymentType
+    selectedDeploymentType: defaultDeploymentType,
+    gitOpsEnabled: defaultGitOpsValue
   } = useServiceContext()
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
@@ -57,10 +61,20 @@ function DeployServiceDefinition(): React.ReactElement {
     }
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type')
   }
+
+  const getGitOpsCheckValue = (): boolean => {
+    if (isServiceCreateModalView) {
+      return defaultGitOpsValue
+    }
+    return defaultTo((pipeline as ServicePipelineConfig).gitOpsEnabled, false)
+  }
+
   const [selectedDeploymentType, setSelectedDeploymentType] = useState<ServiceDeploymentType | undefined>(
     getDeploymentType()
   )
+  const [gitOpsEnabled, setGitOpsEnabled] = useState(getGitOpsCheckValue())
   const [currStageData, setCurrStageData] = useState<DeploymentStageElementConfig | undefined>()
+  const disabledState = isServiceEntityModalView ? true : isReadonly
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = useCallback(
@@ -79,12 +93,16 @@ function DeployServiceDefinition(): React.ReactElement {
     }
   }, [stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type])
 
-  const { openDialog: openStageDataDeleteWarningDialog } = useConfirmationDialog({
+  const serviceDataDialogProps = {
     cancelButtonText: getString('cancel'),
     contentText: getString('pipeline.serviceDataDeleteWarningText'),
     titleText: getString('pipeline.serviceDataDeleteWarningTitle'),
     confirmButtonText: getString('confirm'),
-    intent: Intent.WARNING,
+    intent: Intent.WARNING
+  }
+
+  const { openDialog: openServiceDataDeleteWarningDialog } = useConfirmationDialog({
+    ...serviceDataDialogProps,
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         deleteServiceData(currStageData)
@@ -93,6 +111,30 @@ function DeployServiceDefinition(): React.ReactElement {
       }
     }
   })
+  const { openDialog: openManifestDataDeleteWarningDialog } = useConfirmationDialog({
+    ...serviceDataDialogProps,
+    onCloseDialog: async isConfirmed => {
+      if (isConfirmed) {
+        if (stage?.stage) {
+          delete stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec.manifests
+        }
+        await debounceUpdateStage(currStageData)
+      } else {
+        setGitOpsEnabled(!gitOpsEnabled)
+        updatePipeline({ ...pipeline, gitOpsEnabled: !gitOpsEnabled } as ServicePipelineConfig)
+      }
+    }
+  })
+
+  const handleGitOpsCheckChanged = (ev: React.FormEvent<HTMLInputElement>): void => {
+    const checked = ev.currentTarget.checked
+    setGitOpsEnabled(checked)
+    updatePipeline({ ...pipeline, gitOpsEnabled: checked } as ServicePipelineConfig)
+
+    if (doesStageContainOtherData(stage?.stage)) {
+      openManifestDataDeleteWarningDialog()
+    }
+  }
 
   const handleDeploymentTypeChange = useCallback(
     (deploymentType: ServiceDeploymentType): void => {
@@ -103,7 +145,7 @@ function DeployServiceDefinition(): React.ReactElement {
         })
         if (doesStageContainOtherData(stageData?.stage)) {
           setCurrStageData(stageData?.stage)
-          openStageDataDeleteWarningDialog()
+          openServiceDataDeleteWarningDialog()
         } else {
           setSelectedDeploymentType(deploymentType)
           updateStage(stageData?.stage as StageElementConfig)
@@ -120,9 +162,20 @@ function DeployServiceDefinition(): React.ReactElement {
       <SelectDeploymentType
         viewContext="setup"
         selectedDeploymentType={selectedDeploymentType}
-        isReadonly={isServiceEntityModalView ? true : isReadonly}
+        isReadonly={disabledState}
         handleDeploymentTypeChange={handleDeploymentTypeChange}
       />
+      {selectedDeploymentType === ServiceDeploymentType['Kubernetes'] && (
+        <Checkbox
+          label="Gitops"
+          name="gitOpsEnabled"
+          checked={gitOpsEnabled}
+          onChange={handleGitOpsCheckChanged}
+          // disabled={disabledState}
+          //GitOps checkbox is disabled temporarily until Release repo manifest is added
+          disabled={true}
+        />
+      )}
       <Layout.Horizontal>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}

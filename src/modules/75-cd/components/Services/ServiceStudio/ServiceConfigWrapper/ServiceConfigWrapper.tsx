@@ -27,7 +27,8 @@ import {
   DefaultNewStageName,
   DefaultNewStageId,
   setNameIDDescription,
-  newServiceState
+  newServiceState,
+  ServicePipelineConfig
 } from '../../utils/ServiceUtils'
 import ServiceStudioDetails from '../ServiceStudioDetails'
 
@@ -77,7 +78,8 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
       name: serviceYaml?.service?.name,
       identifier: defaultTo(serviceYaml?.service?.identifier, DefaultNewPipelineId),
       description: serviceYaml?.service?.description,
-      tags: serviceYaml?.service?.tags
+      tags: serviceYaml?.service?.tags,
+      gitOpsEnabled: serviceYaml?.service?.gitOpsEnabled
     }
     return produce({ ...defaultPipeline }, draft => {
       if (!isEmpty(serviceYaml?.service?.serviceDefinition)) {
@@ -112,7 +114,7 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
     })
   }, [])
 
-  const onUpdatePipeline = async (pipelineConfig: PipelineInfoConfig): Promise<void> => {
+  const onUpdatePipeline = async (pipelineConfig: ServicePipelineConfig): Promise<void> => {
     const stage = get(pipelineConfig, 'stages[0].stage.spec.serviceConfig.serviceDefinition')
     sanitize(stage, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
 
