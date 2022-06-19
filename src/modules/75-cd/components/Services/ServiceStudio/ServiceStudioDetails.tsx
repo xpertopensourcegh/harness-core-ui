@@ -89,19 +89,19 @@ function ServiceStudioDetails(props: ServiceStudioDetailsProps): React.ReactElem
       const response = isServiceCreateModalView ? await createService(body) : await updateService(body)
       if (response.status === 'SUCCESS') {
         if (isServiceEntityModalView) {
-          if (isServiceCreateModalView) {
-            onServiceCreate?.({
-              identifier: props.serviceData.service?.identifier as string,
-              name: props.serviceData.service?.name as string
-            })
-          } else {
-            if (!isEmpty(response.data?.service?.yaml) && !isEmpty(serviceCacheKey)) {
-              const parsedYaml = yamlParse<NGServiceConfig>(defaultTo(response.data?.service?.yaml, ''))
+          const serviceResponse = response.data?.service
+
+          if (!isServiceCreateModalView) {
+            if (!isEmpty(serviceResponse?.yaml) && !isEmpty(serviceCacheKey)) {
+              const parsedYaml = yamlParse<NGServiceConfig>(defaultTo(serviceResponse?.yaml, ''))
               const serviceInfo = parsedYaml.service?.serviceDefinition
               setCache(serviceCacheKey, serviceInfo)
             }
-            onCloseModal?.()
           }
+          onServiceCreate?.({
+            identifier: serviceResponse?.identifier as string,
+            name: serviceResponse?.name as string
+          })
         } else {
           showSuccess(getString('common.serviceCreated'))
           fetchPipeline({ forceFetch: true, forceUpdate: true })

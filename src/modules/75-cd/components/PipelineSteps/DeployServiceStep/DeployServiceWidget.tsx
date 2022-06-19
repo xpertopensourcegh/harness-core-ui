@@ -211,14 +211,19 @@ function DeployServiceWidget({
     }
   }
 
-  const onServiceEntityCreate = (newServiceInfo: ServiceYaml): void => {
+  const onServiceEntityCreateorUpdate = (newServiceInfo: ServiceYaml): void => {
     hideModal()
     formikRef.current?.setValues({ serviceRef: newServiceInfo.identifier, ...(state.isService && { service: {} }) })
     const newServiceData = produce(services, draft => {
-      draft?.unshift({
-        identifier: newServiceInfo.identifier,
-        name: newServiceInfo.name
-      })
+      const existingServiceIndex = draft?.findIndex(item => item.identifier === newServiceInfo.identifier) as number
+      if (existingServiceIndex >= 0) {
+        draft?.splice(existingServiceIndex, 1, newServiceInfo)
+      } else {
+        draft?.unshift({
+          identifier: newServiceInfo.identifier,
+          name: newServiceInfo.name
+        })
+      }
     })
     setService(newServiceData)
   }
@@ -290,7 +295,7 @@ function DeployServiceWidget({
           <ServiceEntityEditModal
             {...serviceEntityProps}
             onCloseModal={hideModal}
-            onServiceCreate={onServiceEntityCreate}
+            onServiceCreate={onServiceEntityCreateorUpdate}
             isServiceCreateModalView={!state.isEdit}
           />
         ) : (
