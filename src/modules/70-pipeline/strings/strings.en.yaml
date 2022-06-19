@@ -493,6 +493,9 @@ duration: Duration
 and: '{{ $.common.andCaps }}'
 gitDetails: git details
 runtimeInputs: Runtime Inputs
+releaseRepo: Release Repo
+addReleaseRepo: + Add Release Repo Manifest
+releaseRepoStore: Release Repo Store
 runtimeInputsSubmittedMsg: Inputs have been submitted successfully
 pipelineInputPanel:
   noRuntimeInputs: 'No Runtime Inputs'

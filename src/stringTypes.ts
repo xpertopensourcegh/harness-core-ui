@@ -2557,6 +2557,7 @@ export interface StringsMap {
   'pipeline.OverviewEmptyStates.runPipelineHeaderMsg': string
   'pipeline.OverviewEmptyStates.runPipelineInfo': string
   'pipeline.aboutYourStage.stageNamePlaceholder': string
+  'pipeline.addReleaseRepo': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
   'pipeline.advancedOptions': string
@@ -3190,6 +3191,8 @@ export interface StringsMap {
   'pipeline.reconcileDialog.updateEntityLabel': string
   'pipeline.reconcileDialog.updatedTemplateInfo': string
   'pipeline.regionPlaceholder': string
+  'pipeline.releaseRepo': string
+  'pipeline.releaseRepoStore': string
   'pipeline.removeTemplate': string
   'pipeline.removeTemplateLabel': string
   'pipeline.replacedExpressions': string
