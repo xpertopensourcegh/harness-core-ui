@@ -128,7 +128,7 @@ describe('Configure Datadog health source', () => {
     cy.contains('div', 'Custom Health Source')
   })
 
-  it('Custom HealthSource loads in edit mode', () => {
+  it.skip('Custom HealthSource loads in edit mode', () => {
     cy.intercept('GET', '/cv/api/monitored-service/service1_env1?*', monitoredServiceWithCustomHealthSource).as(
       'monitoredServiceCall'
     )

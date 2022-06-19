@@ -981,11 +981,15 @@ export interface StringsMap {
   'rbac.resourceGroup.summary': string
   'rbac.resourceGroup.updateResourceGroupDialogTitle': string
   'rbac.resourceGroup.updateSuccess': string
+  'rbac.resourceScope.accountResourcesIncluded': string
   'rbac.resourceScope.includeAccResources': string
   'rbac.resourceScope.includeOrgResources': string
   'rbac.resourceScope.includeProjResources': string
   'rbac.resourceScope.label': string
   'rbac.resourceScope.noProjects': string
+  'rbac.resourceScope.numberOfOrgsAndProjects': string
+  'rbac.resourceScope.numberOfProjects': string
+  'rbac.resourceScope.orgResourcesIncluded': string
   'rbac.resourceScope.select': string
   'rbac.resourceScope.selectOrg': string
   'rbac.resourceScope.selectOrgsandProjects': string
@@ -1006,8 +1010,11 @@ export interface StringsMap {
   'rbac.scopeItems.accountAll': string
   'rbac.scopeItems.accountOnly': string
   'rbac.scopeItems.allProjects': string
+  'rbac.scopeItems.noOrgs': string
+  'rbac.scopeItems.noProjects': string
   'rbac.scopeItems.orgAll': string
   'rbac.scopeItems.orgOnly': string
+  'rbac.scopeItems.orgsAndProjects': string
   'rbac.scopeItems.projectOnly': string
   'rbac.scopeItems.specificOrgsAndProjects': string
   'rbac.scopeItems.specificProjects': string
