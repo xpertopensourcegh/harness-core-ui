@@ -2387,6 +2387,11 @@ export interface StringsMap {
   'dashboards.createModal.view': string
   'dashboards.dashboardList.headerFavoriteCount': string
   'dashboards.dashboardList.headerViewCount': string
+  'dashboards.dashboardSortingOptions.default': string
+  'dashboards.dashboardSortingOptions.mostLiked': string
+  'dashboards.dashboardSortingOptions.mostViewed': string
+  'dashboards.dashboardSortingOptions.recentlyCreated': string
+  'dashboards.dashboardSortingOptions.recentlyViewed': string
   'dashboards.deleteFolder.confirmDeleteText': string
   'dashboards.deleteFolder.confirmDeleteTitle': string
   'dashboards.deleteFolder.success': string

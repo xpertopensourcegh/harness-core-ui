@@ -74,3 +74,9 @@ getStarted:
 dashboardList:
   headerViewCount: 'View Count'
   headerFavoriteCount: 'Favorite Count'
+dashboardSortingOptions:
+  default: 'Select Option'
+  recentlyViewed: 'Recently Viewed'
+  recentlyCreated: 'Recently Created'
+  mostViewed: 'Most Viewed'
+  mostLiked: 'Most Liked'
