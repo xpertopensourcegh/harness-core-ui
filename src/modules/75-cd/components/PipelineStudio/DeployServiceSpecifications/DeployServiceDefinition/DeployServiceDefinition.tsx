@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Checkbox, Intent, Layout, useConfirmationDialog } from '@harness/uicore'
 import { debounce, defaultTo, get } from 'lodash-es'
 import produce from 'immer'
@@ -85,13 +85,15 @@ function DeployServiceDefinition(): React.ReactElement {
     ),
     [updateStage]
   )
-
-  useEffect(() => {
-    //This is required when serviceDefinition is rendered inside service entity
-    if (!selectedDeploymentType) {
-      setSelectedDeploymentType(getDeploymentType())
-    }
-  }, [stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceUpdatePipeline = useCallback(
+    debounce(
+      (changedPipeline: ServicePipelineConfig) =>
+        changedPipeline ? updatePipeline(changedPipeline) : /* istanbul ignore next */ Promise.resolve(),
+      300
+    ),
+    [updatePipeline]
+  )
 
   const serviceDataDialogProps = {
     cancelButtonText: getString('cancel'),
@@ -115,24 +117,21 @@ function DeployServiceDefinition(): React.ReactElement {
     ...serviceDataDialogProps,
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
-        if (stage?.stage) {
-          delete stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec.manifests
-        }
-        await debounceUpdateStage(currStageData)
-      } else {
+        deleteServiceData(stage?.stage)
+        await debounceUpdateStage(stage?.stage)
         setGitOpsEnabled(!gitOpsEnabled)
-        updatePipeline({ ...pipeline, gitOpsEnabled: !gitOpsEnabled } as ServicePipelineConfig)
+        debounceUpdatePipeline({ ...pipeline, gitOpsEnabled: !gitOpsEnabled } as ServicePipelineConfig)
       }
     }
   })
 
   const handleGitOpsCheckChanged = (ev: React.FormEvent<HTMLInputElement>): void => {
     const checked = ev.currentTarget.checked
-    setGitOpsEnabled(checked)
-    updatePipeline({ ...pipeline, gitOpsEnabled: checked } as ServicePipelineConfig)
-
     if (doesStageContainOtherData(stage?.stage)) {
       openManifestDataDeleteWarningDialog()
+    } else {
+      setGitOpsEnabled(checked)
+      debounceUpdatePipeline({ ...pipeline, gitOpsEnabled: checked } as ServicePipelineConfig)
     }
   }
 

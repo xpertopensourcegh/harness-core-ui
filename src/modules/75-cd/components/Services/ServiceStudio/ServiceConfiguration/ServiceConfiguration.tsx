@@ -6,12 +6,12 @@
  */
 
 import React, { useState } from 'react'
-import { VisualYamlToggle, VisualYamlSelectedView as SelectedView, Container } from '@harness/uicore'
+import { VisualYamlToggle, VisualYamlSelectedView as SelectedView, Tag, ButtonVariation } from '@harness/uicore'
 import { cloneDeep, defaultTo, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import produce from 'immer'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { NGServiceConfig, useGetEntityYamlSchema } from 'services/cd-ng'
@@ -19,6 +19,10 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import DeployServiceDefinition from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceDefinition/DeployServiceDefinition'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { useServiceContext } from '@cd/context/ServiceContext'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { useStrings } from 'framework/strings'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { setNameIDDescription } from '../../utils/ServiceUtils'
 import ServiceStepBasicInfo from './ServiceStepBasicInfo'
 import css from './ServiceConfiguration.module.scss'
@@ -41,13 +45,19 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 }
 
 function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React.ReactElement | null {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier, serviceId } = useParams<ProjectPathProps & ServicePathProps>()
   const {
-    state: { pipeline: service },
+    state: {
+      pipeline: service,
+      pipelineView: { isYamlEditable },
+      pipelineView
+    },
     updatePipeline,
+    updatePipelineView,
     isReadonly
   } = usePipelineContext()
   const { isServiceCreateModalView } = useServiceContext()
+  const { getString } = useStrings()
 
   const [selectedView, setSelectedView] = useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
@@ -103,16 +113,40 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
           <DeployServiceDefinition />
         </>
       ) : (
-        <Container>
+        <div className={css.yamlBuilder}>
           <YAMLBuilder
             {...yamlBuilderReadOnlyModeProps}
+            key={isYamlEditable.toString()}
+            isReadOnlyMode={isReadonly || !isYamlEditable}
+            onEnableEditMode={() => {
+              updatePipelineView({ ...pipelineView, isYamlEditable: true })
+            }}
+            isEditModeSupported={!isReadonly}
             existingJSON={serviceData}
             bind={setYamlHandler}
             schema={serviceSchema?.data}
             showSnippetSection={false}
-            isEditModeSupported={!isReadonly}
           />
-        </Container>
+          {isReadonly || !isYamlEditable ? (
+            <div className={css.buttonsWrapper}>
+              <Tag>{getString('common.readOnly')}</Tag>
+              <RbacButton
+                permission={{
+                  resource: {
+                    resourceType: ResourceType.SERVICE,
+                    resourceIdentifier: defaultTo(serviceId, '')
+                  },
+                  permission: PermissionIdentifier.EDIT_SERVICE
+                }}
+                variation={ButtonVariation.SECONDARY}
+                text={getString('common.editYaml')}
+                onClick={() => {
+                  updatePipelineView({ ...pipelineView, isYamlEditable: true })
+                }}
+              />
+            </div>
+          ) : null}
+        </div>
       )}
     </div>
   )
