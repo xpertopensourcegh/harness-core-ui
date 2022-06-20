@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { set } from 'lodash-es'
+import { defaultTo, set } from 'lodash-es'
 import type { PipelineInfoConfig, ServiceDefinition } from 'services/cd-ng'
 
 export type ServicePipelineConfig = PipelineInfoConfig & { gitOpsEnabled: boolean }
@@ -57,5 +57,5 @@ export const setNameIDDescription = (draftData: PipelineInfoConfig, updatedData:
   set(draftData, 'name', updatedData.name)
   set(draftData, 'description', updatedData.description)
   set(draftData, 'tags', updatedData.tags)
-  set(draftData, 'gitOpsEnabled', updatedData.gitOpsEnabled)
+  set(draftData, 'gitOpsEnabled', defaultTo(updatedData.gitOpsEnabled, false))
 }

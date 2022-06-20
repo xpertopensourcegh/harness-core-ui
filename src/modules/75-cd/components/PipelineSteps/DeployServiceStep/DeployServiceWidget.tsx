@@ -369,54 +369,57 @@ function DeployServiceWidget({
                   expressions,
                   onChange: val => onServiceChange(val as SelectOption, values, setFieldValue),
                   selectProps: {
-                    disabled: loading,
-                    addClearBtn: true && !readonly,
-                    items: selectOptions || []
+                    addClearBtn: !readonly,
+                    items: defaultTo(selectOptions, [])
                   },
                   allowableTypes
                 }}
                 selectItems={selectOptions || []}
               />
-              {isEditService(values) && !loading ? (
-                <RbacButton
-                  size={ButtonSize.SMALL}
-                  text={getString('editService')}
-                  variation={ButtonVariation.LINK}
-                  id="edit-service"
-                  disabled={readonly}
-                  permission={{
-                    permission: PermissionIdentifier.EDIT_SERVICE,
-                    resource: {
-                      resourceType: ResourceType.SERVICE,
-                      resourceIdentifier: services ? (services[0]?.identifier as string) : ''
-                    },
-                    options: {
-                      skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
-                    }
-                  }}
-                  onClick={() => editService(values)}
-                />
-              ) : (
-                <RbacButton
-                  size={ButtonSize.SMALL}
-                  text={getString('cd.pipelineSteps.serviceTab.plusNewService')}
-                  variation={ButtonVariation.LINK}
-                  id="add-new-service"
-                  disabled={readonly}
-                  permission={{
-                    permission: PermissionIdentifier.EDIT_SERVICE,
-                    resource: {
-                      resourceType: ResourceType.SERVICE
-                    }
-                  }}
-                  onClick={() => {
-                    setState({
-                      isEdit: false,
-                      isService: false
-                    })
-                    showModal()
-                  }}
-                />
+              {getMultiTypeFromValue(formik.values.serviceRef) === MultiTypeInputType.FIXED && (
+                <>
+                  {isEditService(values) && !loading ? (
+                    <RbacButton
+                      size={ButtonSize.SMALL}
+                      text={getString('editService')}
+                      variation={ButtonVariation.LINK}
+                      id="edit-service"
+                      disabled={readonly}
+                      permission={{
+                        permission: PermissionIdentifier.EDIT_SERVICE,
+                        resource: {
+                          resourceType: ResourceType.SERVICE,
+                          resourceIdentifier: services ? (services[0]?.identifier as string) : ''
+                        },
+                        options: {
+                          skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+                        }
+                      }}
+                      onClick={() => editService(values)}
+                    />
+                  ) : (
+                    <RbacButton
+                      size={ButtonSize.SMALL}
+                      text={getString('cd.pipelineSteps.serviceTab.plusNewService')}
+                      variation={ButtonVariation.LINK}
+                      id="add-new-service"
+                      disabled={readonly}
+                      permission={{
+                        permission: PermissionIdentifier.EDIT_SERVICE,
+                        resource: {
+                          resourceType: ResourceType.SERVICE
+                        }
+                      }}
+                      onClick={() => {
+                        setState({
+                          isEdit: false,
+                          isService: false
+                        })
+                        showModal()
+                      }}
+                    />
+                  )}
+                </>
               )}
             </Layout.Horizontal>
           )

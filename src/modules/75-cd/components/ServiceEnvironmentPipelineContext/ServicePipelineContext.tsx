@@ -183,9 +183,9 @@ export function ServicePipelineProvider({
       const defaultPipeline = {
         identifier: defaultTo(serviceDetails.identifier, DefaultNewPipelineId),
         name: serviceDetails.name as string,
-        description: serviceDetails.description,
-        tags: serviceDetails.tags,
-        gitOpsEnabled: serviceData.service.gitOpsEnabled
+        description: serviceData.service.description,
+        tags: serviceData.service.tags,
+        gitOpsEnabled: defaultTo(serviceData.service.gitOpsEnabled, false)
       }
       const refetchedPipeline = produce({ ...defaultPipeline }, draft => {
         if (!isEmpty(serviceData.service.serviceDefinition)) {

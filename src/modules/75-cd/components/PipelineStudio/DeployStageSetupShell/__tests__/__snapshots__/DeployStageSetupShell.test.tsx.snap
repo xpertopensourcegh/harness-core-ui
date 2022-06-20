@@ -409,17 +409,6 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                         </div>
                       </div>
                     </div>
-                    <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link Button--size Button--small"
-                      id="add-new-service"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-button-text"
-                      >
-                        cd.pipelineSteps.serviceTab.plusNewService
-                      </span>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -543,7 +532,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                         common.comingSoon
                       </div>
                       <div
-                        class="tabSubHeading ng-tooltip-native"
+                        class="tabSubHeading currentGenSupported ng-tooltip-native"
                         data-tooltip-id="supportedInFirstGeneration"
                       >
                         common.currentlySupportedOn

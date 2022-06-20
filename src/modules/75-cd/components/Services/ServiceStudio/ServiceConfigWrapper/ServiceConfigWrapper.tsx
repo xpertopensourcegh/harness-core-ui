@@ -72,14 +72,13 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
   }, [])
 
   const [currentService, setCurrentService] = React.useState(getServiceData())
-
   const currentPipeline = React.useMemo(() => {
     const defaultPipeline = {
       name: serviceYaml?.service?.name,
       identifier: defaultTo(serviceYaml?.service?.identifier, DefaultNewPipelineId),
       description: serviceYaml?.service?.description,
       tags: serviceYaml?.service?.tags,
-      gitOpsEnabled: serviceYaml?.service?.gitOpsEnabled
+      gitOpsEnabled: defaultTo(serviceYaml?.service?.gitOpsEnabled, false)
     }
     return produce({ ...defaultPipeline }, draft => {
       if (!isEmpty(serviceYaml?.service?.serviceDefinition)) {

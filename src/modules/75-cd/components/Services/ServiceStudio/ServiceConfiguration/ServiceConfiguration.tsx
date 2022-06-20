@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { VisualYamlToggle, VisualYamlSelectedView as SelectedView, Tag, ButtonVariation } from '@harness/uicore'
 import { cloneDeep, defaultTo, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -14,7 +14,7 @@ import produce from 'immer'
 import type { ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-import { NGServiceConfig, useGetEntityYamlSchema } from 'services/cd-ng'
+import { NGServiceConfig, PipelineInfoConfig, useGetEntityYamlSchema } from 'services/cd-ng'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import DeployServiceDefinition from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceDefinition/DeployServiceDefinition'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
@@ -70,23 +70,37 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
     }
   })
 
-  const handleModeSwitch = React.useCallback(
+  const getUpdatedPipelineYaml = useCallback((): PipelineInfoConfig | undefined => {
+    const yaml = defaultTo(yamlHandler?.getLatestYaml(), '')
+    const serviceSetYamlVisual = parse(yaml).service
+
+    if (serviceSetYamlVisual) {
+      return produce({ ...service }, draft => {
+        setNameIDDescription(draft, serviceSetYamlVisual)
+        set(
+          draft,
+          'stages[0].stage.spec.serviceConfig.serviceDefinition',
+          cloneDeep(serviceSetYamlVisual.serviceDefinition)
+        )
+      })
+    }
+  }, [service, yamlHandler])
+
+  const onYamlChange = useCallback(
+    (yamlChanged: boolean): void => {
+      if (yamlChanged) {
+        const newServiceData = getUpdatedPipelineYaml()
+        newServiceData && updatePipeline(newServiceData)
+      }
+    },
+    [getUpdatedPipelineYaml, updatePipeline]
+  )
+
+  const handleModeSwitch = useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
-        const yaml = defaultTo(yamlHandler?.getLatestYaml(), '')
-        const serviceSetYamlVisual = parse(yaml).service
-
-        if (serviceSetYamlVisual) {
-          const newServiceData = produce({ ...service }, draft => {
-            setNameIDDescription(draft, serviceSetYamlVisual)
-            set(
-              draft,
-              'stages[0].stage.spec.serviceConfig.serviceDefinition',
-              cloneDeep(serviceSetYamlVisual.serviceDefinition)
-            )
-          })
-          updatePipeline(newServiceData)
-        }
+        const newServiceData = getUpdatedPipelineYaml()
+        newServiceData && updatePipeline(newServiceData)
       }
       setSelectedView(view)
     },
@@ -118,6 +132,7 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
             {...yamlBuilderReadOnlyModeProps}
             key={isYamlEditable.toString()}
             isReadOnlyMode={isReadonly || !isYamlEditable}
+            onChange={onYamlChange}
             onEnableEditMode={() => {
               updatePipelineView({ ...pipelineView, isYamlEditable: true })
             }}

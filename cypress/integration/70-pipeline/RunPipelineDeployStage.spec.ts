@@ -162,7 +162,7 @@ describe('RUN PIPELINE MODAL - deploy stage', () => {
       cy.contains('span', 'cypress').should('be.visible')
     })
 
-    it('visual to variable view for stage configuration', () => {
+    it.skip('visual to variable view for stage configuration', () => {
       // Toggle to variable view
       cy.contains('span', 'Variables').click()
       cy.wait(2000)
