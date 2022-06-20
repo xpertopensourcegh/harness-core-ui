@@ -40,7 +40,7 @@ describe('Health Source - Prometheus', () => {
     cy.visitChangeIntelligence()
   })
 
-  it('should be able to add Prometheus Health Source with manual query', () => {
+  it.skip('should be able to add Prometheus Health Source with manual query', () => {
     cy.addNewMonitoredServiceWithServiceAndEnv()
     cy.populateDefineHealthSource(Connectors.PROMETHEUS, 'prometheus-sale', 'Prometheus')
 

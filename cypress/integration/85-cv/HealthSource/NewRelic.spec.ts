@@ -85,7 +85,7 @@ describe('Create empty monitored service', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it('Add new NewRelic monitored service with custom metric', () => {
+  it.skip('Add new NewRelic monitored service with custom metric', () => {
     cy.intercept('GET', applicationCall, applicationResponse).as('ApplicationCall')
     cy.intercept('GET', metricPackCall, metricPackResponse).as('MetricPackCall')
     cy.intercept('GET', metricDataCall, metricDataResponse).as('MetricDataCall')

@@ -373,7 +373,7 @@ describe('Create SLO', () => {
     cy.contains('span', 'SLO created successfully').should('be.visible')
   })
 
-  it('should throw duplication error for the same SLO identifier', () => {
+  it.skip('should throw duplication error for the same SLO identifier', () => {
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
     cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)

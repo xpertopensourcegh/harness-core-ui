@@ -24,7 +24,7 @@ describe('Create empty monitored service', () => {
     cy.visitChangeIntelligence()
   })
 
-  it('Add new Dynatrace monitored service ', () => {
+  it.skip('Add new Dynatrace monitored service ', () => {
     cy.intercept('GET', service.call, service.response).as('ServiceCall')
     cy.intercept('GET', metricPack.call, metricPack.response).as('MetricPackCall')
 
@@ -73,7 +73,7 @@ describe('Create empty monitored service', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it('Add new Dynatrace monitored service with custom metric', () => {
+  it.skip('Add new Dynatrace monitored service with custom metric', () => {
     cy.intercept('GET', queries.call, queries.response).as('QueriesCall')
     cy.intercept('GET', service.call, service.response).as('ServiceCall')
     cy.intercept('GET', metricPack.call, metricPack.response).as('MetricPackCall')

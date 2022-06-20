@@ -41,7 +41,7 @@ describe('Configure Datadog health source', () => {
     cy.visitChangeIntelligence()
   })
 
-  it('Add new Datadog metric health source for a monitored service ', () => {
+  it.skip('Add new Datadog metric health source for a monitored service ', () => {
     cy.addNewMonitoredServiceWithServiceAndEnv()
 
     cy.populateDefineHealthSource(Connectors.DATADOG, connectorIdentifier, 'Data dog')
@@ -149,7 +149,7 @@ describe('Configure Datadog health source', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it('should be able to edit the existing Datadog Logs health source', () => {
+  it.skip('should be able to edit the existing Datadog Logs health source', () => {
     //intercepting calls
     cy.intercept('GET', dataLogsIndexes.getDatadogLogsIndexes, dataLogsIndexes.getDatadogLogsIndexesResponse).as(
       'getLogsIndexes'
@@ -232,7 +232,7 @@ describe('Configure Datadog health source', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it('should be able to edit an existing Data dog health source', () => {
+  it.skip('should be able to edit an existing Data dog health source', () => {
     const searchTerm = 'docker'
     cy.intercept('GET', '/cv/api/monitored-service/service1_env1?*', dataDogMonitoredService)
     cy.wait(1000)
