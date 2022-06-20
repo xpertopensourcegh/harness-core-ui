@@ -633,6 +633,7 @@ const FeatureFlagsPage: React.FC = () => {
       retryOnError={() => {
         setPageNumber(0)
         refetchEnvironments()
+        refetch()
       }}
     >
       {hasFeatureFlags && (
