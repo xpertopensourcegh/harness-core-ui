@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Accordion, Card, Container, RUNTIME_INPUT_VALUE, Text } from '@wings-software/uicore'
+import { Accordion, Card, Container, MultiTypeInputType, RUNTIME_INPUT_VALUE, Text } from '@wings-software/uicore'
 import { debounce, defaultTo, get, isEmpty, isNil, omit, set } from 'lodash-es'
 import produce from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -120,7 +120,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
           set(draft, 'stage.spec', {
             ...stage.stage?.spec,
             infrastructure: {
-              environmentRef: getScopeBasedDefaultEnvironmentRef(),
+              environmentRef: scope === Scope.PROJECT ? '' : RUNTIME_INPUT_VALUE,
               infrastructureDefinition: {},
               allowSimultaneousDeployments: false
             }
@@ -131,7 +131,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
     } else if (
       scope !== Scope.PROJECT &&
       stage?.stage?.spec?.infrastructure &&
-      stage?.stage?.spec?.infrastructure?.environmentRef !== RUNTIME_INPUT_VALUE
+      isEmpty(stage?.stage?.spec?.infrastructure?.environmentRef)
     ) {
       const stageData = produce(stage, draft => {
         if (draft) {
@@ -166,10 +166,6 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
     debounceUpdateStage(stageData?.stage)
     setProvisionerEnabled(false)
   }
-
-  const getScopeBasedDefaultEnvironmentRef = React.useCallback(() => {
-    return scope === Scope.PROJECT ? '' : RUNTIME_INPUT_VALUE
-  }, [scope])
 
   const selectedDeploymentType = React.useMemo(() => {
     return getSelectedDeploymentType(
@@ -503,15 +499,19 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
           <Card className={stageCss.sectionCard}>
             <StepWidget
               type={StepType.DeployEnvironment}
-              readonly={isReadonly || scope !== Scope.PROJECT}
+              readonly={isReadonly}
               initialValues={{
                 environment: get(stage, 'stage.spec.infrastructure.environment', {}),
                 environmentRef:
                   scope === Scope.PROJECT
                     ? get(stage, 'stage.spec.infrastructure.environmentRef', '')
-                    : RUNTIME_INPUT_VALUE
+                    : get(stage, 'stage.spec.infrastructure.environmentRef', '') || RUNTIME_INPUT_VALUE
               }}
-              allowableTypes={allowableTypes}
+              allowableTypes={
+                scope === Scope.PROJECT
+                  ? allowableTypes
+                  : allowableTypes.filter(item => item !== MultiTypeInputType.FIXED)
+              }
               onUpdate={val => updateEnvStep(val)}
               factory={factory}
               stepViewType={StepViewType.Edit}

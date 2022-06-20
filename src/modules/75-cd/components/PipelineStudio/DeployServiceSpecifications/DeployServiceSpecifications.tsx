@@ -13,6 +13,7 @@ import {
   Checkbox,
   Container,
   Layout,
+  MultiTypeInputType,
   RUNTIME_INPUT_VALUE,
   SelectOption,
   Text,
@@ -172,7 +173,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       } else if (
         scope !== Scope.PROJECT &&
         stage?.stage?.spec?.serviceConfig &&
-        stage?.stage?.spec?.serviceConfig?.serviceRef !== RUNTIME_INPUT_VALUE
+        isEmpty(stage?.stage?.spec?.serviceConfig?.serviceRef)
       ) {
         const stageData = produce(stage, draft => {
           if (draft) {
@@ -347,7 +348,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         set(draft, 'stage.spec', {
           ...stage?.stage?.spec,
           serviceConfig: {
-            serviceRef: getScopeBasedDefaultServiceRef(),
+            serviceRef: scope === Scope.PROJECT ? '' : RUNTIME_INPUT_VALUE,
             serviceDefinition: {
               spec: {
                 variables: []
@@ -524,10 +525,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   })
 
-  const getScopeBasedDefaultServiceRef = React.useCallback(() => {
-    return scope === Scope.PROJECT ? '' : RUNTIME_INPUT_VALUE
-  }, [scope])
-
   /*************************************Service Entity Related code********************************************************/
   const getServiceEntityBasedServiceRef = React.useCallback(() => {
     const stageObj = get(stage, 'stage.spec', {})
@@ -553,7 +550,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     const initValues: DeployServiceData = {
       service: getServiceEntityBasedService(),
       isNewServiceEntity: isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig),
-      serviceRef: scope === Scope.PROJECT ? getServiceEntityBasedServiceRef() : RUNTIME_INPUT_VALUE
+      serviceRef:
+        scope === Scope.PROJECT
+          ? getServiceEntityBasedServiceRef()
+          : getServiceEntityBasedServiceRef() || RUNTIME_INPUT_VALUE
     }
     if (isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig)) {
       initValues.deploymentType = (stage?.stage?.spec as any).deploymentType
@@ -611,9 +611,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <Card className={stageCss.sectionCard} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}
-                  readonly={isReadonly || scope !== Scope.PROJECT}
+                  readonly={isReadonly}
                   initialValues={getDeployServiceWidgetInitValues()}
-                  allowableTypes={allowableTypes}
+                  allowableTypes={
+                    scope === Scope.PROJECT
+                      ? allowableTypes
+                      : allowableTypes.filter(item => item !== MultiTypeInputType.FIXED)
+                  }
                   onUpdate={data => updateService(data)}
                   factory={factory}
                   stepViewType={StepViewType.Edit}

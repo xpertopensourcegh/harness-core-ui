@@ -727,13 +727,13 @@ export function StageInputSetFormInternal({
     if (scope !== Scope.PROJECT) {
       if (
         deploymentStageTemplate?.serviceConfig?.serviceRef &&
-        deploymentStageInputSet?.serviceConfig?.serviceRef !== RUNTIME_INPUT_VALUE
+        isEmpty(deploymentStageInputSet?.serviceConfig?.serviceRef)
       ) {
         formik?.setValues(set(formik?.values, `${path}.serviceConfig.serviceRef`, RUNTIME_INPUT_VALUE))
       }
       if (
         deploymentStageTemplate?.infrastructure?.environmentRef &&
-        deploymentStageInputSet?.infrastructure?.environmentRef !== RUNTIME_INPUT_VALUE
+        isEmpty(deploymentStageInputSet?.infrastructure?.environmentRef)
       ) {
         formik?.setValues(set(formik?.values, `${path}.infrastructure.environmentRef`, RUNTIME_INPUT_VALUE))
       }
@@ -754,8 +754,12 @@ export function StageInputSetFormInternal({
                 type={StepType.DeployService}
                 stepViewType={viewType}
                 path={`${path}.serviceConfig`}
-                allowableTypes={allowableTypes}
-                readonly={readonly || scope !== Scope.PROJECT}
+                allowableTypes={
+                  scope === Scope.PROJECT
+                    ? allowableTypes
+                    : allowableTypes.filter(item => item !== MultiTypeInputType.FIXED)
+                }
+                readonly={readonly}
                 customStepProps={{ stageIdentifier }}
               />
             )}
@@ -1109,9 +1113,13 @@ export function StageInputSetFormInternal({
                 template={deploymentStageTemplate?.infrastructure || {}}
                 type={StepType.DeployEnvironment}
                 stepViewType={viewType}
-                allowableTypes={allowableTypes}
+                allowableTypes={
+                  scope === Scope.PROJECT
+                    ? allowableTypes
+                    : allowableTypes.filter(item => item !== MultiTypeInputType.FIXED)
+                }
                 path={`${path}.infrastructure`}
-                readonly={readonly || scope !== Scope.PROJECT}
+                readonly={readonly}
               />
             )}
             {deploymentStageTemplate.infrastructure.infrastructureDefinition && (
