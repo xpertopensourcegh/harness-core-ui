@@ -18,7 +18,7 @@ export interface ErrorTrackingLocation {
 
 /* istanbul ignore next */
 interface ChildAppProps {
-  componentLocation: ErrorTrackingLocation
+  componentLocation?: ErrorTrackingLocation
 }
 
 /* istanbul ignore next */
@@ -31,5 +31,5 @@ export interface EventListProps extends ChildAppProps {
   versionId?: string
   fromDateTime: number
   toDateTime: number
-  routeDefinitions: Record<string, unknown>
+  toBaseRouteDefinition?: () => string
 }

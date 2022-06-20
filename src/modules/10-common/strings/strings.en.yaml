@@ -278,6 +278,8 @@ purpose:
     moduleSelectionSubHeading: Take your security tests to the next level using our Harness Security Tests
     security: Security
     tests: '{{$.tests}}'
+  errorTracking:
+    title: Error Tracking
 trialInProgress: Trial in progress
 trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
 letsGetYouStarted: Let’s get you started

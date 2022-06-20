@@ -67,6 +67,7 @@ import { ServiceNowCreateUpdateView } from '@pipeline/components/execution/StepD
 import { ModuleName } from 'framework/types/ModuleName'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 import { JiraCreateUpdateView } from './components/execution/StepDetails/views/JiraCreateUpdateView/JiraCreateUpdateView'
+import ExecutionErrorTrackingView from './pages/execution/ExecutionErrorTrackingView/ExecutionErrorTrackingView'
 /**
  * Register RBAC resources
  */
@@ -366,6 +367,21 @@ export function PipelineRouteDestinations({
       >
         <ExecutionLandingPage>
           <ExecutionSecurityView />
+        </ExecutionLandingPage>
+      </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={sidebarProps}
+        layout={MinimalLayout}
+        path={routes.toExecutionErrorTrackingView({
+          ...accountPathProps,
+          ...executionPathProps,
+          ...moduleParams
+        })}
+        pageName={PAGE_NAME.ErrorTrackingListPage}
+      >
+        <ExecutionLandingPage>
+          <ExecutionErrorTrackingView />
         </ExecutionLandingPage>
       </RouteWithLayout>
       <RouteWithLayout

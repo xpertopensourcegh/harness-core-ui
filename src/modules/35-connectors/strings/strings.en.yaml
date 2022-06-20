@@ -111,7 +111,6 @@ title:
   sumologic: 'SumoLogic'
   ceAws: 'AWS Connector '
   gcpKms: GCP Key Management Service
-  errorTracking: 'Error Tracking'
   azure: 'Azure Cloud Provider'
   harnessImageConnectorRef: 'Override Image Connector'
 placeholder:

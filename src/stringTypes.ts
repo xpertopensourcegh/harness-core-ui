@@ -558,6 +558,7 @@ export interface StringsMap {
   'common.purpose.cv.serviceReliability': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
+  'common.purpose.errorTracking.title': string
   'common.purpose.howToProceed': string
   'common.purpose.moduleSuccess': string
   'common.purpose.selectAModule': string
@@ -2237,7 +2238,6 @@ export interface StringsMap {
   'connectors.title.ceAzureConnector': string
   'connectors.title.datadog': string
   'connectors.title.delegateSelection': string
-  'connectors.title.errorTracking': string
   'connectors.title.gcpConnector': string
   'connectors.title.gcpKms': string
   'connectors.title.gitConnector': string

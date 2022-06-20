@@ -1951,7 +1951,7 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
   }
 }
 
-export const getConnectorDisplayName = (type: string) => {
+export const getConnectorDisplayName = (type: string): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return 'Kubernetes cluster'
@@ -2019,6 +2019,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'GCP'
     case Connectors.AZURE:
       return 'Azure'
+    case Connectors.ERROR_TRACKING:
+      return 'Error Tracking'
     default:
       return ''
   }

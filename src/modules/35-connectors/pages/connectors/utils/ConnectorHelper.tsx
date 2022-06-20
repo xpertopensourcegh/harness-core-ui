@@ -141,7 +141,7 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
     case Connectors.AZURE_KEY_VAULT:
       return 'connectors.title.azureKeyVault'
     case Connectors.ERROR_TRACKING:
-      return 'connectors.title.errorTracking'
+      return 'common.purpose.errorTracking.title'
     case Connectors.AZURE:
       return 'connectors.title.azure'
     default:
