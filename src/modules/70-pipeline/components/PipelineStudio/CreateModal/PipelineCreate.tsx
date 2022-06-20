@@ -107,9 +107,7 @@ export default function CreatePipelines({
   const { updateQueryParams } = useUpdateQueryParams()
   const { isGitSyncEnabled, isGitSimplificationEnabled } = useAppStore()
   const { trackEvent } = useTelemetry()
-  const templatesFeatureFlagEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
-  const pipelineTemplatesFeatureFlagEnabled = useFeatureFlag(FeatureFlag.NG_PIPELINE_TEMPLATE)
-  const isPipelineTemplateEnabled = templatesFeatureFlagEnabled && pipelineTemplatesFeatureFlagEnabled
+  const isPipelineTemplateEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const newInitialValues = React.useMemo(() => {
     return produce(initialValues, draft => {
       if (draft.identifier === DefaultNewPipelineId) {
