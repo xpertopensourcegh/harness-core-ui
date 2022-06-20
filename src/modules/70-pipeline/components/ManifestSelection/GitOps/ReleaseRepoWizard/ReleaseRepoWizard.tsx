@@ -9,7 +9,6 @@ import { MultiTypeInputType, StepWizard } from '@harness/uicore'
 import React from 'react'
 import { get } from 'lodash-es'
 
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import type { ReleaseRepoManifest } from 'services/cd-ng'
@@ -17,9 +16,9 @@ import { useStrings } from 'framework/strings'
 
 import RepoStore from './RepoStore'
 import RepoDetails from './RepoDetails'
-import type { ManifestStores, ManifestTypes } from '../ManifestInterface'
+import type { ManifestStores, ManifestTypes } from '../../ManifestInterface'
 
-import css from '../ManifestWizard/ManifestWizard.module.scss'
+import css from '../../ManifestWizard/ManifestWizard.module.scss'
 
 interface StepChangeData<SharedObject> {
   prevStep?: number
@@ -54,10 +53,12 @@ function ReleaseRepoWizard({
   newConnectorSteps,
   onClose,
   handleSubmit,
-  manifest
+  manifest,
+  allowableTypes,
+  isReadonly
 }: ReleaseRepoStepProps): React.ReactElement {
   const { getString } = useStrings()
-  const { allowableTypes, isReadonly } = usePipelineContext()
+
   const { expressions } = useVariablesExpression()
 
   const onStepChange = (arg: StepChangeData<any>): void => {
