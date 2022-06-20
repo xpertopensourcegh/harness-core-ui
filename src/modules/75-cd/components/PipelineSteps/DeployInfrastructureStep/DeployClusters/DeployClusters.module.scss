@@ -5,17 +5,13 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-.dialogStyles {
-  width: 1184px !important;
-}
-
-.formRow {
+.clusterMultiSelect {
   :global {
-    .bp3-form-group {
-      margin-bottom: 0px;
-    }
-    .TextInput--main {
-      margin-bottom: 0px !important;
+    .bp3-multi-select {
+      height: auto !important;
+      min-height: var(--spacing-8);
+      max-height: var(--spacing-12);
+      overflow: scroll;
     }
   }
 }

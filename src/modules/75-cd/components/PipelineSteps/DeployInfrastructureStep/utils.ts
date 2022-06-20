@@ -9,28 +9,23 @@ import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
 
-import { getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@harness/uicore'
-import type { EnvironmentResponseDTO, PipelineInfrastructure } from 'services/cd-ng'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
+import type { DeploymentStageConfig, EnvironmentResponseDTO } from 'services/cd-ng'
 
-import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
-export interface PipelineInfrastructureV2 extends PipelineInfrastructure {
-  environmentOrEnvGroupRef?: SelectOption
-  environmentGroup?: any
-  environmentRef2?: any
-  infrastructureRef?: any
-  deployToAll?: boolean
-}
+import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+
+import type { DeployInfrastructureStepConfig } from './DeployInfrastructureStep'
 
 export interface DeployInfrastructureProps {
-  initialValues: PipelineInfrastructureV2
-  onUpdate?: (data: PipelineInfrastructureV2) => void
+  initialValues: DeployInfrastructureStepConfig
+  onUpdate?: (data: DeployInfrastructureStepConfig) => void
   readonly: boolean
   allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   inputSetData?: {
-    template?: PipelineInfrastructureV2
+    template?: DeployInfrastructureStepConfig
     path?: string
     readonly?: boolean
   }
@@ -39,25 +34,26 @@ export interface DeployInfrastructureProps {
 export interface DeployInfrastructureState {
   isEdit: boolean
   isEnvironment: boolean
-  formik?: FormikProps<PipelineInfrastructureV2>
+  formik?: FormikProps<DeploymentStageConfig>
   data?: EnvironmentResponseDTO
 }
 
-export function isEditEnvironment(data: PipelineInfrastructureV2): boolean {
-  if (
-    getMultiTypeFromValue(data.environmentOrEnvGroupRef) !== MultiTypeInputType.RUNTIME &&
-    !isEmpty(data.environmentOrEnvGroupRef)
-  ) {
+export function isEditEnvironment(data?: EnvironmentResponseDTO): boolean {
+  if (!isEmpty(data?.identifier)) {
     return true
   }
   return false
 }
 
-export function isEditInfrastructure(data: any): boolean {
-  if (
-    getMultiTypeFromValue(data.infrastructureRef) !== MultiTypeInputType.RUNTIME &&
-    !isEmpty(data.infrastructureRef)
-  ) {
+export function isEditEnvironmentOrEnvGroup(data?: EnvironmentResponseDTO): boolean {
+  if (!isEmpty(data?.identifier)) {
+    return true
+  }
+  return false
+}
+
+export function isEditInfrastructure(data?: string): boolean {
+  if (!isEmpty(data)) {
     return true
   }
   return false

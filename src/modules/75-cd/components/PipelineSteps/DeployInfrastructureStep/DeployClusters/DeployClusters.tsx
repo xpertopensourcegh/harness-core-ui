@@ -7,17 +7,10 @@
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { defaultTo, get, isNil } from 'lodash-es'
-import type { FormikProps } from 'formik'
+import { defaultTo, get, isEmpty, isEqual, isNil, uniqBy } from 'lodash-es'
+import { connect, FormikProps } from 'formik'
 
-import {
-  FormInput,
-  getMultiTypeFromValue,
-  MultiSelectOption,
-  MultiTypeInputType,
-  SelectOption,
-  useToaster
-} from '@harness/uicore'
+import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption, useToaster } from '@harness/uicore'
 
 import { useStrings } from 'framework/strings'
 import { ClusterResponse, useGetClusterList } from 'services/cd-ng'
@@ -26,32 +19,25 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep'
 
-import type { PipelineInfrastructureV2 } from '../utils'
+import css from './DeployClusters.module.scss'
 
 interface DeployClusterProps {
-  formikRef: React.MutableRefObject<FormikProps<unknown> | null>
+  formik?: FormikProps<DeployInfrastructureStepConfig>
   readonly?: boolean
-  initialValues?: PipelineInfrastructureV2
   environmentIdentifier: string
   allowableTypes: MultiTypeInputType[]
 }
 
-export default function DeployClusters({
-  formikRef,
-  readonly,
-  environmentIdentifier,
-  allowableTypes
-}: DeployClusterProps) {
+function DeployClusters({ formik, readonly, environmentIdentifier, allowableTypes }: DeployClusterProps) {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<PipelinePathProps>()
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { getRBACErrorMessage } = useRBACError()
-  const { expressions } = useVariablesExpression()
 
   const [clustersRefType, setClustersRefType] = useState<MultiTypeInputType>(
-    getMultiTypeFromValue((formikRef.current as any)?.values?.clusterRef)
+    getMultiTypeFromValue(formik?.values?.clusterRef)
   )
 
   const {
@@ -87,6 +73,20 @@ export default function DeployClusters({
   }, [clusters])
 
   useEffect(() => {
+    if (!isEmpty(clustersSelectOptions) && !isNil(clustersSelectOptions) && formik?.values?.clusterRef) {
+      if (getMultiTypeFromValue(formik?.values?.clusterRef) === MultiTypeInputType.FIXED) {
+        const allClusterOptions = [...clustersSelectOptions]
+        allClusterOptions.push(...(formik?.values?.clusterRef as SelectOption[]))
+        const filteredClusterOptions = uniqBy(allClusterOptions, 'value')
+
+        if (!isEqual(clustersSelectOptions, filteredClusterOptions)) {
+          setClustersSelectOptions(filteredClusterOptions)
+        }
+      }
+    }
+  }, [clustersSelectOptions])
+
+  useEffect(() => {
     if (!isNil(clustersError)) {
       showError(getRBACErrorMessage(clustersError))
     }
@@ -97,6 +97,7 @@ export default function DeployClusters({
       label={getString('cd.pipelineSteps.environmentTab.specifyGitOpsClusters')}
       tooltipProps={{ dataTooltipId: 'specifyGitOpsClusters' }}
       name="clusterRef"
+      className={css.clusterMultiSelect}
       disabled={readonly || (clustersRefType === MultiTypeInputType.FIXED && clustersLoading)}
       placeholder={
         clustersLoading ? getString('loading') : getString('cd.pipelineSteps.environmentTab.specifyGitOpsClusters')
@@ -104,19 +105,14 @@ export default function DeployClusters({
       multiSelectTypeInputProps={{
         onTypeChange: setClustersRefType,
         width: 280,
-        onChange: items => {
-          formikRef.current?.setFieldValue(
-            'gitOpsClusters',
-            (items as MultiSelectOption[])?.map(item => item.value)
-          )
-        },
         multiSelectProps: {
           items: defaultTo(clustersSelectOptions, [])
         },
-        expressions,
         allowableTypes
       }}
       selectItems={defaultTo(clustersSelectOptions, [])}
     />
   )
 }
+
+export default connect(DeployClusters)

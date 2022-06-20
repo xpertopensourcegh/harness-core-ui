@@ -6,8 +6,8 @@
  */
 
 import React, { useEffect, useState } from 'react'
-import { defaultTo, get, isNil } from 'lodash-es'
-import type { FormikProps } from 'formik'
+import { defaultTo, get, isEmpty, isNil } from 'lodash-es'
+import { connect, FormikProps } from 'formik'
 
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@harness/uicore'
 
@@ -15,37 +15,25 @@ import { useStrings } from 'framework/strings'
 import type { EnvironmentResponse, EnvironmentResponseDTO } from 'services/cd-ng'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-
-import type { PipelineInfrastructureV2 } from '../utils'
+import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep'
 
 interface DeployEnvironmentInEnvGroupProps {
-  formikRef: React.MutableRefObject<FormikProps<unknown> | null>
+  formik?: FormikProps<DeployInfrastructureStepConfig>
   readonly: boolean
-  initialValues?: PipelineInfrastructureV2
   selectedEnvironmentGroup: any
   allowableTypes: MultiTypeInputType[]
   setSelectedEnvironment: any
 }
 
-export default function DeployEnvironmentInEnvGroup({
-  formikRef,
+function DeployEnvironmentInEnvGroup({
+  formik,
   readonly,
-  // initialValues,
   selectedEnvironmentGroup,
   allowableTypes,
   setSelectedEnvironment
 }: DeployEnvironmentInEnvGroupProps) {
-  // const { accountId, projectIdentifier, orgIdentifier } = useParams<PipelinePathProps>()
   const { getString } = useStrings()
-  // const { showError } = useToaster()
-  // const { getRBACErrorMessage } = useRBACError()
   const { expressions } = useVariablesExpression()
-
-  const [infrastructureRefType, setInfrastructureRefType] = useState<MultiTypeInputType>(
-    getMultiTypeFromValue((formikRef.current as any)?.values?.infrastructureRef)
-  )
-
-  const infrastructuresLoading = false
 
   const [environments, setEnvironments] = useState<EnvironmentResponseDTO[]>()
   const [environmentsSelectOptions, setEnvironmentsSelectOptions] = useState<SelectOption[]>()
@@ -73,50 +61,54 @@ export default function DeployEnvironmentInEnvGroup({
     }
   }, [environments])
 
-  // useEffect(() => {
-  //   if (
-  //     !isEmpty(infrastructuresSelectOptions) &&
-  //     !isNil(infrastructuresSelectOptions) &&
-  //     (initialValues as any)?.infrastructureRef
-  //   ) {
-  //     if (getMultiTypeFromValue((initialValues as any)?.infrastructureRef) === MultiTypeInputType.FIXED) {
-  //       const doesExist =
-  //         infrastructuresSelectOptions.filter(
-  //           infra => infra.value === ((initialValues as any)?.infrastructureRef as unknown as string)
-  //         ).length > 0
-  //       if (!doesExist) {
-  //         if (!readonly) {
-  //           formikRef.current?.setFieldValue('infrastructureRef', '')
-  //         } else {
-  //           const options = [...infrastructuresSelectOptions]
-  //           options.push({
-  //             label: (initialValues as any)?.infrastructureRef,
-  //             value: (initialValues as any)?.infrastructureRef
-  //           })
-  //           setInfrastructuresSelectOptions(options)
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [infrastructuresSelectOptions])
+  useEffect(() => {
+    if (
+      !isEmpty(environmentsSelectOptions) &&
+      !isNil(environmentsSelectOptions) &&
+      formik?.values?.environmentInEnvGroupRef
+    ) {
+      if (getMultiTypeFromValue(formik?.values?.environmentInEnvGroupRef) === MultiTypeInputType.FIXED) {
+        const existingEnvironment = environments?.find(
+          environment => environment.identifier === formik?.values?.environmentInEnvGroupRef
+        )
+        if (!existingEnvironment) {
+          if (!readonly) {
+            formik?.setFieldValue('environmentInEnvGroupRef', '')
+          } else {
+            const options = [...environmentsSelectOptions]
+            options.push({
+              label: formik?.values?.environmentInEnvGroupRef as string,
+              value: formik?.values?.environmentInEnvGroupRef as string
+            })
+            setEnvironmentsSelectOptions(options)
+          }
+        } else {
+          formik?.setFieldValue('environmentInEnvGroupRef', {
+            label: existingEnvironment.name,
+            value: existingEnvironment.identifier
+          })
+          setSelectedEnvironment(existingEnvironment)
+        }
+      }
+    }
+  }, [environmentsSelectOptions])
 
   return (
     <FormInput.MultiTypeInput
       label={getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')}
       tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
-      name="environmentInEnvGrouRef"
-      disabled={readonly || (infrastructureRefType === MultiTypeInputType.FIXED && infrastructuresLoading)}
-      placeholder={
-        infrastructuresLoading
-          ? getString('loading')
-          : getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')
-      }
+      name="environmentInEnvGroupRef"
+      disabled={readonly}
+      placeholder={getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')}
       multiTypeInputProps={{
-        onTypeChange: setInfrastructureRefType,
         width: 280,
         onChange: item => {
-          if ((item as SelectOption).value !== (formikRef.current?.values as any)?.environmentRef2) {
-            formikRef.current?.setFieldValue('environmentRef2', item)
+          if ((item as SelectOption).value !== formik?.values?.environmentInEnvGroupRef) {
+            formik?.setValues({
+              ...formik.values,
+              environmentInEnvGroupRef: item as SelectOption,
+              clusterRef: []
+            })
             setSelectedEnvironment(
               environments?.find(environment => environment.identifier === (item as SelectOption).value)
             )
@@ -133,3 +125,5 @@ export default function DeployEnvironmentInEnvGroup({
     />
   )
 }
+
+export default connect(DeployEnvironmentInEnvGroup)

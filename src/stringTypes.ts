@@ -3815,8 +3815,10 @@ export interface StringsMap {
   'cd.infrastructure.delete': string
   'cd.infrastructure.deleteConfirmation': string
   'cd.infrastructure.deleted': string
+  'cd.infrastructure.edit': string
   'cd.infrastructure.infrastructureDefinitions': string
   'cd.infrastructure.noInfrastructureInEnvironment': string
+  'cd.infrastructure.updated': string
   'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
@@ -3839,8 +3841,12 @@ export interface StringsMap {
   'cd.overrideValue': string
   'cd.overrideYaml': string
   'cd.pathCannotBeEmpty': string
+  'cd.pipelineSteps.environmentTab.clusterIsRequired': string
   'cd.pipelineSteps.environmentTab.deployToAll': string
+  'cd.pipelineSteps.environmentTab.environmentInEnvGroupIsRequired': string
   'cd.pipelineSteps.environmentTab.environmentIsRequired': string
+  'cd.pipelineSteps.environmentTab.environmentOrEnvGroupIsRequired': string
+  'cd.pipelineSteps.environmentTab.infrastructureIsRequired': string
   'cd.pipelineSteps.environmentTab.newEnvironment': string
   'cd.pipelineSteps.environmentTab.plusNewEnvironment': string
   'cd.pipelineSteps.environmentTab.selectEnvironment': string
