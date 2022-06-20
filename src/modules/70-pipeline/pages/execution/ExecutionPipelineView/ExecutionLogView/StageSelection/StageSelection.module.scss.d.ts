@@ -7,9 +7,14 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly btn: string
+  readonly accordionDetails: string
+  readonly accordionPanel: string
+  readonly accordionSummary: string
+  readonly heatmap: string
   readonly icon: string
-  readonly menuItem: string
-  readonly select: string
+  readonly mainAccordion: string
+  readonly mainContainer: string
+  readonly spinner: string
+  readonly statusHeader: string
 }
 export default styles

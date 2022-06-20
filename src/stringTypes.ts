@@ -3140,6 +3140,8 @@ export interface StringsMap {
   'pipeline.noPipelineText': string
   'pipeline.nodes': string
   'pipeline.nodesLabel': string
+  'pipeline.numOfStage': string
+  'pipeline.numOfStages': string
   'pipeline.onlyPositiveInteger': string
   'pipeline.openInNewTab': string
   'pipeline.openInPipelineStudio': string

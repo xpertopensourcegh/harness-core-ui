@@ -7,8 +7,12 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly logContent: string
-  readonly logsContainer: string
-  readonly stageTree: string
+  readonly aborted: string
+  readonly expired: string
+  readonly failed: string
+  readonly running: string
+  readonly statusIcon: string
+  readonly success: string
+  readonly suspended: string
 }
 export default styles

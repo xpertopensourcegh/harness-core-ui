@@ -6,6 +6,8 @@ discard: '{{ $.common.discard }}'
 serviceDependencyText: Service Dependency
 serviceDependenciesText: Service Dependencies
 stepLabel: '{{name}} (Id: {{identifier}})'
+numOfStage: 1 stage
+numOfStages: '{{n}} stages'
 enableVerificationOptions: Enable verification options
 openInPipelineStudio: Open in Pipeline Studio
 closeStepConfig: Step Config
