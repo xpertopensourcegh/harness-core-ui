@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { DateRange, DateRangePicker } from '@blueprintjs/datetime'
 import { FormGroup, InputGroup } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -29,9 +29,11 @@ export default function InputDatePicker(props: InputDatePickerProps) {
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<{ data: null }> | undefined
   >()
-  const [chartTimeRange, setChartTimeRange] = useState<{ startTime: number; endTime: number }>()
   const getValue = (): DateRange | undefined => {
-    return [new Date(chartTimeRange?.startTime || 0), new Date(chartTimeRange?.endTime || 0)]
+    return [
+      new Date(formikProps?.values?.timeRange?.startTime || 0),
+      new Date(formikProps?.values?.timeRange?.endTime || 0)
+    ]
   }
 
   const hideDynamicPopover = () => {
@@ -64,10 +66,6 @@ export default function InputDatePicker(props: InputDatePickerProps) {
                 startTime: selectedDates[0]?.getTime(),
                 endTime: selectedDates[1]?.getTime()
               }
-            })
-            setChartTimeRange?.({
-              startTime: selectedDates[0]?.getTime() || 0,
-              endTime: selectedDates[1]?.getTime() || 0
             })
           }}
         />
