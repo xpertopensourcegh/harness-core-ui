@@ -13,7 +13,7 @@ import {
   PipelineContextInterface
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { ServiceContext, ServiceContextValues } from '@cd/context/ServiceContext'
-import DeployServiceDefinition from '../DeployServiceDefinition/DeployServiceDefinition'
+import DeployServiceDefinition from '../DeployServiceDefinition'
 
 import {
   mockStageReturnWithManifest,
