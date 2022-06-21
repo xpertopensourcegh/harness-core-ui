@@ -698,7 +698,7 @@ exports[`Release repo list view  render with no manifests 1`] = `
         <span
           class="bp3-button-text"
         >
-          Add Release Repo Manifest
+          pipeline.addReleaseRepo
         </span>
       </button>
     </div>

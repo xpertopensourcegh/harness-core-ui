@@ -192,7 +192,7 @@ describe('Release repo list view ', () => {
       </TestWrapper>
     )
 
-    const addFileButton = await findByText(container, 'Add Release Repo Manifest')
+    const addFileButton = await findByText(container, 'pipeline.addReleaseRepo')
     expect(addFileButton).toBeDefined()
     fireEvent.click(addFileButton)
     const portal = document.getElementsByClassName('bp3-dialog')[0]
