@@ -89,6 +89,14 @@ export default function ManifestSelection({
     refetchConnectorList()
   }, [stage, listOfManifests])
 
+  const isGitOpsEnabled = useMemo(() => {
+    if (isReadonlyServiceMode) {
+      return get(stage, 'stage.spec.gitOpsEnabled', false)
+    } else {
+      return (pipeline as ReleaseRepoPipeline).gitOpsEnabled
+    }
+  }, [isReadonlyServiceMode, pipeline, stage])
+
   const getConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
     return defaultTo(listOfManifests, []).length
       ? listOfManifests.map((data: any) => ({
@@ -113,7 +121,6 @@ export default function ManifestSelection({
         setFetchedConnectorResponse(connectorResponse)
       }
     } catch (e) {
-      /* istanbul ignore next */
       /* istanbul ignore else */
       if (shouldShowError(e)) {
         showError(getRBACErrorMessage(e))
@@ -121,35 +128,27 @@ export default function ManifestSelection({
     }
   }
 
+  const manifestListViewCommonProps = {
+    isPropagating,
+    stage,
+    updateStage,
+    connectors: fetchedConnectorResponse,
+    refetchConnectors: refetchConnectorList,
+    isReadonly: readonly,
+    deploymentType,
+    listOfManifests,
+    allowableTypes
+  }
   return (
     <Layout.Vertical>
-      {!(pipeline as ReleaseRepoPipeline).gitOpsEnabled ? (
+      {!isGitOpsEnabled ? (
         <ManifestListView
-          isPropagating={isPropagating}
+          {...manifestListViewCommonProps}
           pipeline={pipeline}
-          updateStage={updateStage}
-          stage={stage}
-          connectors={fetchedConnectorResponse}
-          refetchConnectors={refetchConnectorList}
-          listOfManifests={listOfManifests}
-          isReadonly={readonly}
-          deploymentType={deploymentType}
-          allowableTypes={allowableTypes}
           allowOnlyOne={isServerlessDeploymentType(deploymentType)}
         />
       ) : (
-        <ReleaseRepoListView
-          isPropagating={isPropagating}
-          updateStage={updateStage}
-          stage={stage}
-          connectors={fetchedConnectorResponse}
-          refetchConnectors={refetchConnectorList}
-          listOfManifests={listOfManifests}
-          isReadonly={readonly}
-          deploymentType={deploymentType}
-          allowableTypes={allowableTypes}
-          allowOnlyOne={true}
-        />
+        <ReleaseRepoListView {...manifestListViewCommonProps} allowOnlyOne={true} />
       )}
     </Layout.Vertical>
   )

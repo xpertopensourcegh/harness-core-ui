@@ -7,7 +7,7 @@
 
 import React, { useCallback, useState } from 'react'
 import { Card, Checkbox, Intent, Layout, useConfirmationDialog } from '@harness/uicore'
-import { debounce, defaultTo, get } from 'lodash-es'
+import { debounce, defaultTo, get, set } from 'lodash-es'
 import produce from 'immer'
 import cx from 'classnames'
 import type { ServiceDefinition, StageElementConfig } from 'services/cd-ng'
@@ -109,7 +109,21 @@ function DeployServiceDefinition(): React.ReactElement {
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         deleteServiceData(currStageData)
-        await debounceUpdateStage(currStageData)
+        if (gitOpsEnabled) {
+          await debounceUpdatePipeline(
+            produce({ ...pipeline } as ServicePipelineConfig, draft => {
+              set(draft, 'gitOpsEnabled', false)
+              set(
+                draft,
+                'stages[0].stage.spec.serviceConfig.serviceDefinition.type',
+                currStageData?.spec?.serviceConfig?.serviceDefinition?.type
+              )
+            })
+          )
+          setGitOpsEnabled(false)
+        } else {
+          await debounceUpdateStage(currStageData)
+        }
         setSelectedDeploymentType(currStageData?.spec?.serviceConfig?.serviceDefinition?.type as ServiceDeploymentType)
       }
     }
