@@ -353,7 +353,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       ? [
           {
             label: getString('ci.buildInfra.vMs'),
-            icon: 'service-aws',
+            icon: 'service-vm',
             value: CIBuildInfrastructureType.VM
           } as Item
         ]
