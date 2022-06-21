@@ -24,6 +24,16 @@ interface ExecutionCompareYamlsProps {
   onClose: () => void
 }
 
+const DIFF_EDITOR_OPTIONS: MonacoEditorProps['options'] = {
+  fontFamily: "'Roboto Mono', monospace",
+  fontSize: 13,
+  minimap: {
+    enabled: false
+  },
+  readOnly: true,
+  scrollBeyondLastLine: false
+}
+
 export function ExecutionCompareYamls({ compareItems, onClose }: ExecutionCompareYamlsProps): ReactElement {
   const { module, accountId } = useParams<PipelineType<PipelinePathProps>>()
 
@@ -93,17 +103,7 @@ export function ExecutionCompareYamls({ compareItems, onClose }: ExecutionCompar
             original={dataOne?.data?.executionYaml}
             value={dataTwo?.data?.executionYaml}
             language={'yaml'}
-            options={
-              {
-                fontFamily: "'Roboto Mono', monospace",
-                fontSize: 13,
-                minimap: {
-                  enabled: false
-                },
-                readOnly: true,
-                scrollBeyondLastLine: false
-              } as MonacoEditorProps['options']
-            }
+            options={DIFF_EDITOR_OPTIONS}
           />
         </>
       )}

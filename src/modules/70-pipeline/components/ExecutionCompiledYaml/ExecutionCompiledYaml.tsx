@@ -24,6 +24,16 @@ export interface ExecutionCompiledYamlProps {
   onClose: () => void
 }
 
+const EDITOR_OPTIONS: MonacoEditorProps['options'] = {
+  fontFamily: "'Roboto Mono', monospace",
+  fontSize: 13,
+  minimap: {
+    enabled: false
+  },
+  readOnly: true,
+  scrollBeyondLastLine: false
+}
+
 export function ExecutionCompiledYaml({ executionSummary, onClose }: ExecutionCompiledYamlProps): ReactElement {
   const { accountId } = useParams<AccountPathProps>()
 
@@ -81,17 +91,7 @@ export function ExecutionCompiledYaml({ executionSummary, onClose }: ExecutionCo
               height="100%"
               value={data?.data?.executionYaml}
               language={'yaml'}
-              options={
-                {
-                  fontFamily: "'Roboto Mono', monospace",
-                  fontSize: 13,
-                  minimap: {
-                    enabled: false
-                  },
-                  readOnly: true,
-                  scrollBeyondLastLine: false
-                } as MonacoEditorProps['options']
-              }
+              options={EDITOR_OPTIONS}
             />
           )}
         </>
