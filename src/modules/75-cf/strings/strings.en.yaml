@@ -94,6 +94,7 @@ editVariation:
   defaultRulesDesc: "Changes will only apply to newly created environments. Existing environments won't be affected"
   envNote: Changes will only apply to newly created environments. Existing environments won’t be affected.
   applyToExistingEnvironments: Also apply to existing environments
+  remove: Remove variation
 addPrerequisites:
   addPrerequisitesHeading: Add Prerequisites
   addPrerequisitesDesc: The following must be met before your flag can be enabled

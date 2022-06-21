@@ -4990,6 +4990,7 @@ export interface StringsMap {
   'cf.editVariation.applyToExistingEnvironments': string
   'cf.editVariation.defaultRulesDesc': string
   'cf.editVariation.envNote': string
+  'cf.editVariation.remove': string
   'cf.editVariation.subTitle': string
   'cf.editVariation.title': string
   'cf.environments.adminEnvironments': string
