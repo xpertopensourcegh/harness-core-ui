@@ -21,7 +21,8 @@ import {
   Container,
   getMultiTypeFromValue,
   Icon,
-  MultiTypeInputType
+  MultiTypeInputType,
+  PageSpinner
 } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import { isEmpty, isUndefined, set, uniqBy, get } from 'lodash-es'
@@ -30,6 +31,7 @@ import { FontVariation } from '@harness/design-system'
 import cx from 'classnames'
 import { produce } from 'immer'
 import type { FormikProps } from 'formik'
+import { useGetDelegateGroupByIdentifier } from 'services/portal'
 import Volumes, { VolumesTypes } from '@pipeline/components/Volumes/Volumes'
 import MultiTypeCustomMap from '@common/components/MultiTypeCustomMap/MultiTypeCustomMap'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
@@ -97,6 +99,7 @@ const logger = loggerFor(ModuleName.CD)
 const k8sClusterKeyRef = 'connectors.title.k8sCluster'
 const namespaceKeyRef = 'pipelineSteps.build.infraSpecifications.namespace'
 const poolNameKeyRef = 'pipeline.buildInfra.poolName'
+const provisionedByHarnessDelegateIdentifier = '_harness_kubernetes_delegate' // unique identifier of delegate installed and managed by Harness for Hosted by Harness infra offering
 
 interface KubernetesBuildInfraFormValues {
   connectorRef?: string
@@ -327,12 +330,22 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     orgIdentifier: string
     accountId: string
   }>()
+  const {
+    data: delegateDetails,
+    refetch: fetchDelegateDetails,
+    loading: fetchingDelegateDetails
+  } = useGetDelegateGroupByIdentifier({
+    identifier: provisionedByHarnessDelegateIdentifier,
+    queryParams: { accountId },
+    lazy: true
+  })
   const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
   const formikRef = React.useRef<FormikProps<BuildInfraFormValues>>()
   const { initiateProvisioning, delegateProvisioningStatus } = useProvisionDelegateForHostedBuilds()
   const { CI_VM_INFRASTRUCTURE } = useFeatureFlags()
   const { enabledHostedBuildsForFreeUsers } = useHostedBuilds()
   const showThumbnailSelect = CI_VM_INFRASTRUCTURE || enabledHostedBuildsForFreeUsers
+  const [isProvisionedByHarnessDelegateHealthy, setIsProvisionedByHarnessDelegateHealthy] = useState<boolean>(false)
 
   const BuildInfraTypes: ThumbnailSelectProps['items'] = [
     ...(enabledHostedBuildsForFreeUsers
@@ -380,6 +393,18 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
   const [buildInfraType, setBuildInfraType] = useState<Infrastructure['type'] | undefined>(
     showThumbnailSelect ? undefined : CIBuildInfrastructureType.KubernetesDirect
   )
+
+  React.useEffect(() => {
+    if (!fetchingDelegateDetails && delegateDetails?.resource && delegateDetails.resource?.activelyConnected) {
+      setIsProvisionedByHarnessDelegateHealthy(true)
+    }
+  }, [fetchingDelegateDetails, delegateDetails])
+
+  React.useEffect(() => {
+    if (isProvisionedByHarnessDelegateHealthy) {
+      formikRef?.current?.validateForm()
+    }
+  }, [isProvisionedByHarnessDelegateHealthy])
 
   React.useEffect(() => {
     if (delegateProvisioningStatus === ProvisioningStatus.IN_PROGRESS) {
@@ -725,7 +750,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           if (get(stage, 'stage.spec.infrastructure.spec.identifier') !== KUBERNETES_HOSTED_INFRA_ID) {
             set(draft, 'stage.spec.infrastructure', {
               type: CIBuildInfrastructureType.KubernetesHosted,
-              ...(delegateProvisioningStatus === ProvisioningStatus.SUCCESS && {
+              ...((isProvisionedByHarnessDelegateHealthy ||
+                delegateProvisioningStatus === ProvisioningStatus.SUCCESS) && {
                 spec: { identifier: KUBERNETES_HOSTED_INFRA_ID }
               })
             })
@@ -1061,8 +1087,13 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       case CIBuildInfrastructureType.VM:
         return renderAWSVMBuildInfraForm()
       case CIBuildInfrastructureType.KubernetesHosted:
-        /* For Hosted K8s Build Infra, we populate infrastructure yaml only once provisioning is done. Once done, option to provision should not be shown. */
-        return !(stage?.stage?.spec?.infrastructure as any)?.spec?.identifier ? (
+        /* Button to start provisioning should be shown only if provisioned delegate is not healthy */
+        return fetchingDelegateDetails ? (
+          <PageSpinner />
+        ) : isProvisionedByHarnessDelegateHealthy ? (
+          <></>
+        ) : !(stage?.stage?.spec?.infrastructure as any)?.spec?.identifier ? (
+          /* For Hosted K8s Build Infra, populate infrastructure yaml only once provisioning is done. Once done, button to start provisioning should go away. */
           <Layout.Vertical spacing="medium">
             <Text font={{ variation: FontVariation.FORM_INPUT_TEXT }}>
               {getString('ci.getStartedWithCI.provisioningHelpText')}
@@ -1082,7 +1113,13 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       default:
         return <></>
     }
-  }, [buildInfraType, delegateProvisioningStatus, stage])
+  }, [
+    buildInfraType,
+    delegateProvisioningStatus,
+    stage,
+    isProvisionedByHarnessDelegateHealthy,
+    fetchingDelegateDetails
+  ])
 
   const renderHarnessImageConnectorRefField = React.useCallback((): React.ReactElement => {
     return (
@@ -2054,6 +2091,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                     onChange={val => {
                                       const infraType = val as Infrastructure['type']
                                       setBuildInfraType(infraType)
+                                      if (infraType === CIBuildInfrastructureType.KubernetesHosted) {
+                                        fetchDelegateDetails()
+                                      }
 
                                       // macOs is only supported for VMs - default to linux
                                       const os =
