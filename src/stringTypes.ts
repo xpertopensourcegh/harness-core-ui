@@ -3046,6 +3046,7 @@ export interface StringsMap {
   'pipeline.keyPlaceholder': string
   'pipeline.kubernetesStep.workload': string
   'pipeline.lastSevenDays': string
+  'pipeline.linuxOnly': string
   'pipeline.logs.errorText': string
   'pipeline.logs.retry': string
   'pipeline.logs.sectionName': string

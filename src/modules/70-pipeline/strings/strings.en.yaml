@@ -51,6 +51,7 @@ startedOn: Started On
 nodes: nodes
 nodesLabel: Nodes
 poweredByHarness: powered by Harness
+linuxOnly: Supported on Linux only
 outOf: Out Of
 clickToExpandErrorDetails: Click to expand error details
 approvalStage:
@@ -840,13 +841,13 @@ stepDescription:
   K8sRollingDeploy: Use a rolling update to schedule new pods on nodes with available resources. This step uses the number of replicas you specified in the Deployment manifest.
   Plugin: Use Docker containers to perform predefined tasks like deploy code, publish artifacts, send notifications, and more.
   Run: Execute one or more commands on a container image in a CI stage.
-  GCR: Build an image and push it to Google Container Registry (GCR).
-  ECR: Build an image and push it to AWS Elastic Container Registry (ECR).
+  GCR: Build a Docker image and push it to Google Container Registry (GCR).
+  ECR: Build a Docker image and push it to AWS Elastic Container Registry (ECR).
   SaveCacheGCS: Preserve files and directories between builds using Google Cloud Storage (GCS).
   RestoreCacheGCS: Restore saved files and directories between builds using Google Cloud Storage (GCS).
   SaveCacheS3: Preserve files and directories between builds using AWS S3.
   RestoreCacheS3: Restore saved files and directories between builds using AWS S3.
-  DockerHub: Build a Docker image from a Dockerfile and push it to a Docker registry.
+  DockerHub: Build a Docker image and push it to a Docker registry.
   GCS: Upload artifacts to Google Cloud Storage (GCS).
   S3: Upload artifacts to AWS S3.
   JFrogArtifactory: Upload artifacts to JFrog Artifactory.
