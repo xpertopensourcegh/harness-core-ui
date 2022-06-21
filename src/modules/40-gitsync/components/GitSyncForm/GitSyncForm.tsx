@@ -51,7 +51,9 @@ const getConnectorIdentifierWithScope = (scope: Scope, identifier: string): stri
   return scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${identifier}` : identifier
 }
 
-export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.ReactElement {
+export function GitSyncForm<T extends GitSyncFormFields = GitSyncFormFields>(
+  props: GitSyncFormProps<T>
+): React.ReactElement {
   const { formikProps, isEdit, disableFields = {}, initialValues, errorData } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { branch, connectorRef, repoName } = useQueryParams<GitQueryParams>()
@@ -88,7 +90,7 @@ export function GitSyncForm(props: GitSyncFormProps<GitSyncFormFields>): React.R
             width={350}
             type={['Github', 'Bitbucket']}
             selected={formikProps.values.connectorRef || connectorRef}
-            error={formikProps.submitCount > 0 ? formikProps?.errors?.connectorRef : undefined}
+            error={formikProps.submitCount > 0 ? (formikProps?.errors?.connectorRef as string) : undefined}
             label={getString('connectors.title.gitConnector')}
             placeholder={`- ${getString('select')} -`}
             accountIdentifier={accountId}

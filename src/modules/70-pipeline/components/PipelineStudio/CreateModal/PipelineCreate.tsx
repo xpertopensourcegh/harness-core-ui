@@ -5,25 +5,14 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { noop, omit, pick } from 'lodash-es'
 import produce from 'immer'
 import * as Yup from 'yup'
-import {
-  Container,
-  Formik,
-  FormikForm,
-  Button,
-  ButtonVariation,
-  Text,
-  IconName,
-  CardSelect,
-  Layout,
-  Icon
-} from '@wings-software/uicore'
-import { Color, FontVariation } from '@wings-software/design-system'
+import { Container, Formik, FormikForm, Button, ButtonVariation, Text } from '@wings-software/uicore'
+import { FontVariation } from '@wings-software/design-system'
 import { Divider } from '@blueprintjs/core'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
@@ -44,20 +33,13 @@ import { GitSyncForm } from '@gitsync/components/GitSyncForm/GitSyncForm'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { StoreMetadata, StoreType } from '@common/constants/GitSyncTypes'
+import { InlineRemoteSelect } from '@common/components/InlineRemoteSelect/InlineRemoteSelect'
 import { yamlPathRegex } from '@common/utils/StringUtils'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
-interface CardInterface {
-  type: string
-  title: string
-  info: string
-  icon: IconName
-  size: number
-  disabled?: boolean
-}
 interface UseTemplate {
   useTemplate?: boolean
 }
@@ -103,7 +85,7 @@ export default function CreatePipelines({
 }: PipelineCreateProps): JSX.Element {
   const { getString } = useStrings()
   const { pipelineIdentifier } = useParams<{ pipelineIdentifier: string }>()
-  const { storeType: storeTypeParam = 'INLINE' } = useQueryParams<GitQueryParams>()
+  const { storeType: storeTypeParam = StoreType.INLINE } = useQueryParams<GitQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams()
   const { isGitSyncEnabled, isGitSimplificationEnabled } = useAppStore()
   const { trackEvent } = useTelemetry()
@@ -116,35 +98,12 @@ export default function CreatePipelines({
     })
   }, [initialValues])
 
-  const PipelineModeCards: CardInterface[] = [
-    {
-      type: StoreType.INLINE,
-      title: getString('inline'),
-      info: getString('common.git.inlineStoreLabel'),
-      icon: 'repository',
-      size: 16,
-      disabled: pipelineIdentifier !== DefaultNewPipelineId && storeTypeParam === StoreType.REMOTE
-    },
-    {
-      type: StoreType.REMOTE,
-      title: getString('remote'),
-      info: getString('common.git.remoteStoreLabel'),
-      icon: 'remote-setup',
-      size: 20,
-      disabled: pipelineIdentifier !== DefaultNewPipelineId && storeTypeParam === 'INLINE'
-    }
-  ]
-
-  const [storeType, setStoreType] = useState<CardInterface | undefined>(() =>
-    PipelineModeCards.find(card => card.type === storeTypeParam)
-  )
-
   const validationSchema = React.useMemo(
     () =>
       Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('createPipeline.pipelineNameRequired') }),
         identifier: IdentifierSchema(),
-        ...(isGitSimplificationEnabled && storeType?.type === StoreType.REMOTE
+        ...(isGitSimplificationEnabled && storeTypeParam === StoreType.REMOTE
           ? {
               repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
               branch: Yup.string().trim().required(getString('common.git.validation.branchRequired')),
@@ -161,7 +120,7 @@ export default function CreatePipelines({
             }
           : {})
       }),
-    [getString, isGitSimplificationEnabled, isGitSyncEnabled, storeType?.type]
+    [getString, isGitSimplificationEnabled, isGitSyncEnabled, storeTypeParam]
   )
 
   const isEdit = React.useMemo(
@@ -179,10 +138,6 @@ export default function CreatePipelines({
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit])
-
-  useEffect(() => {
-    !!storeType?.type && updateQueryParams({ storeType: storeType?.type })
-  }, [storeType])
 
   const handleSubmit = (values: CreatePipelinesValue): void => {
     logger.info(JSON.stringify(values))
@@ -234,39 +189,22 @@ export default function CreatePipelines({
                 <Text font={{ variation: FontVariation.H6 }} className={css.choosePipelineSetupHeader}>
                   {getString('pipeline.createPipeline.choosePipelineSetupHeader')}
                 </Text>
-                <CardSelect
-                  data={PipelineModeCards}
-                  cornerSelected
+                <InlineRemoteSelect
                   className={css.pipelineCardWrapper}
-                  renderItem={(item: CardInterface) => (
-                    <Layout.Horizontal flex spacing={'small'}>
-                      <Icon
-                        name={item.icon}
-                        size={item.size}
-                        color={storeType?.type === item.type ? Color.PRIMARY_7 : Color.GREY_600}
-                      />
-                      <Container>
-                        <Text
-                          font={{ variation: FontVariation.FORM_TITLE }}
-                          color={storeType?.type === item.type ? Color.PRIMARY_7 : Color.GREY_800}
-                        >
-                          {item.title}
-                        </Text>
-                        <Text>{item.info}</Text>
-                      </Container>
-                    </Layout.Horizontal>
-                  )}
-                  selected={storeType}
-                  onChange={(item: CardInterface) => {
+                  selected={storeTypeParam}
+                  getCardDisabledStatus={(current, selected) =>
+                    pipelineIdentifier !== DefaultNewPipelineId && current !== selected
+                  }
+                  onChange={item => {
                     if (pipelineIdentifier === DefaultNewPipelineId) {
                       formikProps?.setFieldValue('storeType', item.type)
-                      setStoreType(item)
+                      updateQueryParams({ storeType: item.type })
                     }
                   }}
                 />
               </>
             ) : null}
-            {storeType?.type === StoreType.REMOTE ? (
+            {storeTypeParam === StoreType.REMOTE ? (
               <GitSyncForm
                 formikProps={formikProps as any}
                 handleSubmit={noop}
@@ -276,7 +214,7 @@ export default function CreatePipelines({
             ) : null}
 
             {isGitSimplificationEnabled ? (
-              <Divider className={cx({ [css.gitSimplificationDivider]: storeType?.type === StoreType.INLINE })} />
+              <Divider className={cx({ [css.gitSimplificationDivider]: storeTypeParam === StoreType.INLINE })} />
             ) : null}
 
             {!isEdit && isPipelineTemplateEnabled && (
