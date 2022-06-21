@@ -50,9 +50,12 @@ describe('Pipeline Execution History', () => {
     }).as('executionSummary')
     cy.visitPageAssertion()
     // Check Run button in header
-    cy.get('.PageSubHeader--container').within(() => {
-      cy.findByText('Run').click()
-    })
+    cy.wait(1000)
+    cy.get('.PageSubHeader--container')
+      .should('be.visible')
+      .within(() => {
+        cy.findByText('Run').click()
+      })
     cy.get('.RunPipelineForm-module_footer_BfhlT2').within(() => {
       cy.findByText('Run Pipeline').should('exist')
       cy.findByText('Cancel').should('exist')

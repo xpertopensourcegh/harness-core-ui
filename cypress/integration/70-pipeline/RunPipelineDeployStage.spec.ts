@@ -110,7 +110,7 @@ describe('RUN PIPELINE MODAL - deploy stage', () => {
       })
 
       cy.wait(1000)
-
+      cy.visitPageAssertion('#aboutService')
       // Service tab config
       cy.get('input[name="serviceRef"]').click({ force: true })
       cy.contains('p', 'testService').click({ force: true })
@@ -162,7 +162,7 @@ describe('RUN PIPELINE MODAL - deploy stage', () => {
       cy.contains('span', 'cypress').should('be.visible')
     })
 
-    it.skip('visual to variable view for stage configuration', () => {
+    it('visual to variable view for stage configuration', () => {
       // Toggle to variable view
       cy.contains('span', 'Variables').click()
       cy.wait(2000)

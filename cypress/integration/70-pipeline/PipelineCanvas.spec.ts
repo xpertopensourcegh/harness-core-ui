@@ -430,7 +430,7 @@ describe('ServerlessAwsLambda as deployment type', () => {
     cy.contains('span', '<+input>').should('be.visible')
   })
 
-  it.skip(`select Serverless Lambda deployment type and validate execution tab`, () => {
+  it(`select Serverless Lambda deployment type and validate execution tab`, () => {
     cy.intercept('GET', pipelineDetails, {
       fixture: 'pipeline/api/pipelines/pipelineDetailsWithoutServiceDefinitionType'
     }).as('pipelineDetails')
@@ -452,9 +452,8 @@ describe('ServerlessAwsLambda as deployment type', () => {
 
     // Select Stage
     cy.contains('p', 'Stage 1').click()
-    cy.wait(1000)
     cy.wait('@servicesCall')
-    cy.wait('@cdFailureStrategiesYaml')
+    cy.wait(1000)
     cy.wait('@stepLibrary')
     cy.wait(1000)
 
@@ -492,7 +491,7 @@ describe('ServerlessAwsLambda as deployment type', () => {
     cy.contains('p', 'Serverless Rollback Step 1').should('be.visible')
   })
 
-  it.skip(`select Kubernetes deployment type and check for execution strategies`, () => {
+  it(`select Kubernetes deployment type and check for execution strategies`, () => {
     cy.intercept('GET', pipelineDetails, {
       fixture: 'pipeline/api/pipelines/pipelineDetailsWithoutServiceDefinitionType'
     }).as('pipelineDetails')
@@ -517,7 +516,6 @@ describe('ServerlessAwsLambda as deployment type', () => {
     cy.contains('p', 'Stage 1').click()
     cy.wait(1000)
     cy.wait('@servicesCall')
-    cy.wait('@cdFailureStrategiesYaml')
     cy.wait('@stepLibrary')
     cy.wait(1000)
 
