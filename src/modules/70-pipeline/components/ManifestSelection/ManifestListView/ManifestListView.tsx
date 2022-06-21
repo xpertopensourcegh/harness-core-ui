@@ -64,7 +64,8 @@ import {
   manifestTypeLabels,
   allowedManifestTypes,
   ManifestTypetoStoreMap,
-  ManifestToPathKeyMap
+  ManifestToPathKeyMap,
+  showAddManifestBtn
 } from '../Manifesthelper'
 import type { ConnectorRefLabelType } from '../../ArtifactsSelection/ArtifactInterface'
 import type {
@@ -91,17 +92,6 @@ import ConnectorField from './ConnectorField'
 import HelmWithOCI from '../ManifestWizardSteps/HelmWithOCI/HelmWithOCI'
 import { getConnectorPath } from '../ManifestWizardSteps/ManifestUtils'
 import css from '../ManifestSelection.module.scss'
-
-export const showAddManifestBtn = (
-  isReadonly: boolean,
-  allowOnlyOne: boolean,
-  listOfManifests: Array<any>
-): boolean => {
-  if (allowOnlyOne && listOfManifests.length === 1) {
-    return false
-  }
-  return !isReadonly
-}
 
 function ManifestListView({
   updateStage,

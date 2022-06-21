@@ -25,6 +25,8 @@ import { useCache } from '@common/hooks/useCache'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView/ManifestListView'
 import { getConnectorPath } from './ManifestWizardSteps/ManifestUtils'
+import ReleaseRepoListView from './GitOps/ReleaseRepoListView/ReleaseRepoListView'
+import type { ReleaseRepoPipeline } from './Manifesthelper'
 
 export default function ManifestSelection({
   isPropagating,
@@ -71,6 +73,8 @@ export default function ManifestSelection({
   })
 
   const listOfManifests = useMemo(() => {
+    /* istanbul ignore next */
+    /* istanbul ignore else */
     if (isReadonlyServiceMode && !isEmpty(serviceInfo)) {
       return defaultTo(serviceInfo?.spec.manifests, [])
     }
@@ -86,10 +90,14 @@ export default function ManifestSelection({
   }, [stage, listOfManifests])
 
   const getConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
-    return listOfManifests?.length
+    return defaultTo(listOfManifests, []).length
       ? listOfManifests.map((data: any) => ({
-          scope: getScopeFromValue(getConnectorPath(data?.manifest?.spec?.store?.type, data?.manifest)),
-          identifier: getIdentifierFromValue(getConnectorPath(data?.manifest?.spec?.store?.type, data?.manifest))
+          scope: getScopeFromValue(
+            getConnectorPath(get(data, 'manifest.spec.store.type', ''), get(data, 'manifest', null))
+          ),
+          identifier: getIdentifierFromValue(
+            getConnectorPath(get(data, 'manifest.spec.store.type', ''), get(data, 'manifest', null))
+          )
         }))
       : []
   }
@@ -99,11 +107,14 @@ export default function ManifestSelection({
       const connectorList = getConnectorList()
       const connectorIdentifiers = connectorList.map((item: { scope: string; identifier: string }) => item.identifier)
       const response = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
-      if (response?.data) {
+      /* istanbul ignore else */
+      if (get(response, 'data', null)) {
         const { data: connectorResponse } = response
         setFetchedConnectorResponse(connectorResponse)
       }
     } catch (e) {
+      /* istanbul ignore next */
+      /* istanbul ignore else */
       if (shouldShowError(e)) {
         showError(getRBACErrorMessage(e))
       }
@@ -112,19 +123,34 @@ export default function ManifestSelection({
 
   return (
     <Layout.Vertical>
-      <ManifestListView
-        isPropagating={isPropagating}
-        pipeline={pipeline}
-        updateStage={updateStage}
-        stage={stage}
-        connectors={fetchedConnectorResponse}
-        refetchConnectors={refetchConnectorList}
-        listOfManifests={listOfManifests}
-        isReadonly={readonly}
-        deploymentType={deploymentType}
-        allowableTypes={allowableTypes}
-        allowOnlyOne={isServerlessDeploymentType(deploymentType)}
-      />
+      {!(pipeline as ReleaseRepoPipeline).gitOpsEnabled ? (
+        <ManifestListView
+          isPropagating={isPropagating}
+          pipeline={pipeline}
+          updateStage={updateStage}
+          stage={stage}
+          connectors={fetchedConnectorResponse}
+          refetchConnectors={refetchConnectorList}
+          listOfManifests={listOfManifests}
+          isReadonly={readonly}
+          deploymentType={deploymentType}
+          allowableTypes={allowableTypes}
+          allowOnlyOne={isServerlessDeploymentType(deploymentType)}
+        />
+      ) : (
+        <ReleaseRepoListView
+          isPropagating={isPropagating}
+          updateStage={updateStage}
+          stage={stage}
+          connectors={fetchedConnectorResponse}
+          refetchConnectors={refetchConnectorList}
+          listOfManifests={listOfManifests}
+          isReadonly={readonly}
+          deploymentType={deploymentType}
+          allowableTypes={allowableTypes}
+          allowOnlyOne={true}
+        />
+      )}
     </Layout.Vertical>
   )
 }

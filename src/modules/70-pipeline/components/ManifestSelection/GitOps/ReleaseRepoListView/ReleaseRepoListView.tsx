@@ -43,17 +43,21 @@ import {
   buildGitlabPayload
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useQueryParams } from '@common/hooks/useQueryParams'
-import { allowedManifestTypes, manifestStoreTypes, ManifestToConnectorMap } from '../../Manifesthelper'
+import {
+  allowedManifestTypes,
+  manifestStoreTypes,
+  ManifestToConnectorMap,
+  showAddManifestBtn
+} from '../../Manifesthelper'
 
-import type { ManifestStores, ReleaseRepoListViewProps } from '../../ManifestInterface'
+import type { ManifestStores } from '../../ManifestInterface'
 
 import { getConnectorPath } from '../../ManifestWizardSteps/ManifestUtils'
-
-import { showAddManifestBtn } from '../../ManifestListView/ManifestListView'
 
 import ConnectorField from '../../ManifestListView/ConnectorField'
 
 import ReleaseRepoWizard from '../ReleaseRepoWizard/ReleaseRepoWizard'
+import type { ReleaseRepoListViewProps } from '../ReleaseRepoInterface'
 
 import css from '../../ManifestSelection.module.scss'
 
