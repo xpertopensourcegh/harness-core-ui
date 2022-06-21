@@ -36,7 +36,7 @@ import {
   resetErrorBudget
 } from '../../../support/85-cv/slos/constants'
 
-describe('CVSLOsListingPage', () => {
+describe.skip('CVSLOsListingPage', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false)
     cy.login('test', 'test')
