@@ -2385,7 +2385,6 @@ export interface StringsMap {
   'dashboards.createModal.submitFail': string
   'dashboards.createModal.success': string
   'dashboards.createModal.view': string
-  'dashboards.dashboardList.headerFavoriteCount': string
   'dashboards.dashboardList.headerViewCount': string
   'dashboards.dashboardSortingOptions.default': string
   'dashboards.dashboardSortingOptions.mostLiked': string

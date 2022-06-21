@@ -103,10 +103,6 @@ const HomePage: React.FC = () => {
     {
       label: getString('dashboards.dashboardSortingOptions.mostViewed'),
       value: 'view_count desc'
-    },
-    {
-      label: getString('dashboards.dashboardSortingOptions.mostLiked'),
-      value: 'favorite_count desc'
     }
   ]
 
