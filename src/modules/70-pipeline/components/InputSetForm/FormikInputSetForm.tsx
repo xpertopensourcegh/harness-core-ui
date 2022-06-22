@@ -47,6 +47,7 @@ import {
   getPipelineWithoutCodebaseInputs
 } from '@pipeline/utils/CIUtils'
 import { mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
+import { getYamlFileName } from '@pipeline/utils/yamlUtils'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -300,6 +301,8 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
     filePath: defaultTo(inputSet.gitDetails?.filePath, filePath)
   }
 
+  const isPipelineRemote = isGitSimplificationEnabled && storeType === StoreType.REMOTE
+
   return (
     <Container className={cx(css.inputSetForm, className, hasError ? css.withError : '')}>
       <Layout.Vertical
@@ -374,7 +377,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
                                 />
                               </GitSyncStoreProvider>
                             )}
-                            {isGitSimplificationEnabled && storeType === StoreType.REMOTE && (
+                            {isPipelineRemote && (
                               <Container className={css.gitRemoteDetailsForm}>
                                 <GitSyncForm
                                   formikProps={formikProps as any}
@@ -452,6 +455,11 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
                         width="calc(100vw - 350px)"
                         showSnippetSection={false}
                         isEditModeSupported={isEditable}
+                        fileName={getYamlFileName({
+                          isPipelineRemote,
+                          filePath: inputSet?.gitDetails?.filePath,
+                          defaultName: yamlBuilderReadOnlyModeProps.fileName
+                        })}
                       />
                     </Layout.Vertical>
                     <Layout.Horizontal className={css.footer} padding="xlarge">

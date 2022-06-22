@@ -68,6 +68,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import type { CreateUpdateInputSetsReturnType, InputSetDTO } from '@pipeline/utils/types'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { getOverlayErrors } from '@pipeline/utils/runPipelineUtils'
+import { getYamlFileName } from '@pipeline/utils/yamlUtils'
 import { ErrorsStrip } from '../ErrorsStrip/ErrorsStrip'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import {
@@ -175,6 +176,7 @@ export function OverlayInputSetForm({
   const { showSuccess, showError, clear } = useToaster()
   const { getRBACErrorMessage } = useRBACError()
   const [formErrors, setFormErrors] = React.useState<Record<string, any>>({})
+  const isPipelineRemote = gitSimplification && storeType === StoreType.REMOTE
   const commonQueryParams = useMemo(() => {
     return {
       accountIdentifier: accountId,
@@ -640,7 +642,7 @@ export function OverlayInputSetForm({
                               />
                             </GitSyncStoreProvider>
                           )}
-                          {!isGitSyncEnabled && gitSimplification && storeType === StoreType.REMOTE && (
+                          {!isGitSyncEnabled && isPipelineRemote && (
                             <Container>
                               <GitSyncForm
                                 formikProps={formikProps as any}
@@ -725,6 +727,11 @@ export function OverlayInputSetForm({
                           isReadOnlyMode={isReadOnly}
                           showSnippetSection={false}
                           isEditModeSupported={!isReadOnly}
+                          fileName={getYamlFileName({
+                            isPipelineRemote,
+                            filePath: inputSet?.gitDetails?.filePath,
+                            defaultName: yamlBuilderReadOnlyModeProps.fileName
+                          })}
                         />
                       )}
                       <Layout.Horizontal padding={{ top: 'medium' }}>
