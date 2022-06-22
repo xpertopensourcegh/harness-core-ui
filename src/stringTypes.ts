@@ -3077,6 +3077,17 @@ export interface StringsMap {
   'pipeline.logs.errorText': string
   'pipeline.logs.retry': string
   'pipeline.logs.sectionName': string
+  'pipeline.loopingStrategy.deleteModal.content': string
+  'pipeline.loopingStrategy.deleteModal.title': string
+  'pipeline.loopingStrategy.helperText.for': string
+  'pipeline.loopingStrategy.helperText.matrix': string
+  'pipeline.loopingStrategy.helperText.parallelism': string
+  'pipeline.loopingStrategy.learnMore': string
+  'pipeline.loopingStrategy.subTitle': string
+  'pipeline.loopingStrategy.title': string
+  'pipeline.loopingStrategy.toggleTypeModal.content': string
+  'pipeline.loopingStrategy.toggleTypeModal.title': string
+  'pipeline.loopingStrategy.warningText': string
   'pipeline.manifestToConnectorLabelMap.AWSLabel': string
   'pipeline.manifestType.InheritFromManifest': string
   'pipeline.manifestType.attachPath': string

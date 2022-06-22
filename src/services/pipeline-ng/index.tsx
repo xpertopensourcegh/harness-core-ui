@@ -712,6 +712,11 @@ export interface Error {
     | 'INVALID_AZURE_AKS_REQUEST'
     | 'AWS_IAM_ERROR'
     | 'AWS_CF_ERROR'
+    | 'AWS_INSTANCE_ERROR'
+    | 'AWS_VPC_ERROR'
+    | 'AWS_TAG_ERROR'
+    | 'AWS_ASG_ERROR'
+    | 'AWS_LOAD_BALANCER_ERROR'
     | 'SCM_INTERNAL_SERVER_ERROR_V2'
     | 'SCM_UNAUTHORIZED_ERROR_V2'
     | 'SPOTINST_NULL_ERROR'
@@ -787,7 +792,7 @@ export interface ExecutionInfo {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
   uuid?: string
 }
 
@@ -855,7 +860,7 @@ export interface ExecutionNode {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
   stepDetails?: {
     [key: string]: {
       [key: string]: { [key: string]: any }
@@ -1196,6 +1201,11 @@ export interface Failure {
     | 'INVALID_AZURE_AKS_REQUEST'
     | 'AWS_IAM_ERROR'
     | 'AWS_CF_ERROR'
+    | 'AWS_INSTANCE_ERROR'
+    | 'AWS_VPC_ERROR'
+    | 'AWS_TAG_ERROR'
+    | 'AWS_ASG_ERROR'
+    | 'AWS_LOAD_BALANCER_ERROR'
     | 'SCM_INTERNAL_SERVER_ERROR_V2'
     | 'SCM_UNAUTHORIZED_ERROR_V2'
     | 'SPOTINST_NULL_ERROR'
@@ -1314,6 +1324,16 @@ export interface GitlabEventSpec {
   [key: string]: any
 }
 
+export type GitlabIssueCommentSpec = GitlabEventSpec & {
+  actions?: 'Create'[]
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
 export type GitlabPRSpec = GitlabEventSpec & {
   actions?: ('Open' | 'Close' | 'Reopen' | 'Merge' | 'Update' | 'Sync')[]
   autoAbortPreviousExecutions?: boolean
@@ -1335,7 +1355,7 @@ export type GitlabPushSpec = GitlabEventSpec & {
 
 export type GitlabSpec = WebhookTriggerSpecV2 & {
   spec?: GitlabEventSpec
-  type?: 'MergeRequest' | 'Push'
+  type?: 'MergeRequest' | 'Push' | 'IssueComment'
 }
 
 export interface GovernanceMetadata {
@@ -1391,7 +1411,7 @@ export interface GraphLayoutNode {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
   stepDetails?: {
     [key: string]: {
       [key: string]: { [key: string]: any }
@@ -1987,7 +2007,7 @@ export type PipelineExecutionFilterProperties = FilterProperties & {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
   )[]
   timeRange?: TimeRange
 }
@@ -2058,7 +2078,7 @@ export interface PipelineExecutionSummary {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
   storeType?: 'INLINE' | 'REMOTE'
   successfulStagesCount?: number
   tags?: NGTag[]
@@ -2287,6 +2307,7 @@ export interface ResourceDTO {
     | 'MONITORED_SERVICE'
     | 'CHAOS_AGENT'
     | 'CHAOS_WORKFLOW'
+    | 'SERVICE_LEVEL_OBJECTIVE'
 }
 
 export interface ResourceScopeDTO {
@@ -2475,7 +2496,7 @@ export interface ResponseListGitlabPRAction {
 
 export interface ResponseListGitlabTriggerEvent {
   correlationId?: string
-  data?: ('MergeRequest' | 'Push')[]
+  data?: ('MergeRequest' | 'Push' | 'IssueComment')[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2878,6 +2899,11 @@ export interface ResponseMessage {
     | 'INVALID_AZURE_AKS_REQUEST'
     | 'AWS_IAM_ERROR'
     | 'AWS_CF_ERROR'
+    | 'AWS_INSTANCE_ERROR'
+    | 'AWS_VPC_ERROR'
+    | 'AWS_TAG_ERROR'
+    | 'AWS_ASG_ERROR'
+    | 'AWS_LOAD_BALANCER_ERROR'
     | 'SCM_INTERNAL_SERVER_ERROR_V2'
     | 'SCM_UNAUTHORIZED_ERROR_V2'
     | 'SPOTINST_NULL_ERROR'
@@ -3220,7 +3246,7 @@ export interface RetryStageInfo {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
 }
 
 export interface RunStageRequestDTO {
@@ -3380,6 +3406,10 @@ export interface StepData {
     | 'DELETE_STACK'
     | 'ROLLBACK_STACK'
     | 'COMMAND'
+    | 'AZURE_SLOT_DEPLOYMENT'
+    | 'AZURE_TRAFFIC_SHIFT'
+    | 'AZURE_SWAP_SLOT'
+    | 'AZURE_WEBAPP_ROLLBACK'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -3646,7 +3676,7 @@ export interface ExecutionSummaryInfo {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
   lastExecutionTs?: number
   numOfErrors?: number[]
 }
@@ -3680,9 +3710,9 @@ export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
 
 export type RunStageRequestDTORequestBody = RunStageRequestDTO
 
-export type UpdateInputSetForPipelineBodyRequestBody = string
+export type CustomWebhookEndpointBodyRequestBody = string
 
-export type WebhookEndpointBodyRequestBody = string
+export type UpdateInputSetForPipelineBodyRequestBody = string
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval' | 'ServiceNowApproval'
@@ -8065,7 +8095,7 @@ export interface GetListOfExecutionsQueryParams {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
-    | 'Waiting'
+    | 'WAITING'
   )[]
   myDeployments?: boolean
   branch?: string
@@ -8705,8 +8735,14 @@ export interface ImportPipelinePathParams {
 }
 
 export type ImportPipelineProps = Omit<
-  GetProps<ResponsePMSPipelineResponseDTO, Failure | Error, ImportPipelineQueryParams, ImportPipelinePathParams>,
-  'path'
+  MutateProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    ImportPipelineQueryParams,
+    PipelineImportRequest,
+    ImportPipelinePathParams
+  >,
+  'path' | 'verb'
 > &
   ImportPipelinePathParams
 
@@ -8714,7 +8750,14 @@ export type ImportPipelineProps = Omit<
  * Get Pipeline YAML from Git Repository
  */
 export const ImportPipeline = ({ pipelineIdentifier, ...props }: ImportPipelineProps) => (
-  <Get<ResponsePMSPipelineResponseDTO, Failure | Error, ImportPipelineQueryParams, ImportPipelinePathParams>
+  <Mutate<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    ImportPipelineQueryParams,
+    PipelineImportRequest,
+    ImportPipelinePathParams
+  >
+    verb="POST"
     path={`/pipelines/import/${pipelineIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -8722,8 +8765,14 @@ export const ImportPipeline = ({ pipelineIdentifier, ...props }: ImportPipelineP
 )
 
 export type UseImportPipelineProps = Omit<
-  UseGetProps<ResponsePMSPipelineResponseDTO, Failure | Error, ImportPipelineQueryParams, ImportPipelinePathParams>,
-  'path'
+  UseMutateProps<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    ImportPipelineQueryParams,
+    PipelineImportRequest,
+    ImportPipelinePathParams
+  >,
+  'path' | 'verb'
 > &
   ImportPipelinePathParams
 
@@ -8731,10 +8780,17 @@ export type UseImportPipelineProps = Omit<
  * Get Pipeline YAML from Git Repository
  */
 export const useImportPipeline = ({ pipelineIdentifier, ...props }: UseImportPipelineProps) =>
-  useGet<ResponsePMSPipelineResponseDTO, Failure | Error, ImportPipelineQueryParams, ImportPipelinePathParams>(
-    (paramsInPath: ImportPipelinePathParams) => `/pipelines/import/${paramsInPath.pipelineIdentifier}`,
-    { base: getConfig('pipeline/api'), pathParams: { pipelineIdentifier }, ...props }
-  )
+  useMutate<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    ImportPipelineQueryParams,
+    PipelineImportRequest,
+    ImportPipelinePathParams
+  >('POST', (paramsInPath: ImportPipelinePathParams) => `/pipelines/import/${paramsInPath.pipelineIdentifier}`, {
+    base: getConfig('pipeline/api'),
+    pathParams: { pipelineIdentifier },
+    ...props
+  })
 
 /**
  * Get Pipeline YAML from Git Repository
@@ -8743,20 +8799,22 @@ export const importPipelinePromise = (
   {
     pipelineIdentifier,
     ...props
-  }: GetUsingFetchProps<
-    ResponsePMSPipelineResponseDTO,
+  }: MutateUsingFetchProps<
+    ResponsePipelineSaveResponse,
     Failure | Error,
     ImportPipelineQueryParams,
+    PipelineImportRequest,
     ImportPipelinePathParams
   > & { pipelineIdentifier: string },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePMSPipelineResponseDTO, Failure | Error, ImportPipelineQueryParams, ImportPipelinePathParams>(
-    getConfig('pipeline/api'),
-    `/pipelines/import/${pipelineIdentifier}`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponsePipelineSaveResponse,
+    Failure | Error,
+    ImportPipelineQueryParams,
+    PipelineImportRequest,
+    ImportPipelinePathParams
+  >('POST', getConfig('pipeline/api'), `/pipelines/import/${pipelineIdentifier}`, props, signal)
 
 export interface GetPipelineListQueryParams {
   accountIdentifier: string
@@ -10873,7 +10931,13 @@ export interface CustomWebhookEndpointQueryParams {
 }
 
 export type CustomWebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  MutateProps<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -10881,7 +10945,7 @@ export type CustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const CustomWebhookEndpoint = (props: CustomWebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/custom`}
     base={getConfig('pipeline/api')}
@@ -10894,7 +10958,7 @@ export type UseCustomWebhookEndpointProps = Omit<
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -10904,11 +10968,13 @@ export type UseCustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const useCustomWebhookEndpoint = (props: UseCustomWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
-    'POST',
-    `/webhook/custom`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
+  useMutate<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >('POST', `/webhook/custom`, { base: getConfig('pipeline/api'), ...props })
 
 /**
  * accept custom webhook event
@@ -10918,7 +10984,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -10927,7 +10993,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/webhook/custom`, props, signal)
 
@@ -11240,7 +11306,7 @@ export interface WebhookEndpointQueryParams {
 }
 
 export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -11248,7 +11314,7 @@ export type WebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
@@ -11257,7 +11323,13 @@ export const WebhookEndpoint = (props: WebhookEndpointProps) => (
 )
 
 export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  UseMutateProps<
+    ResponseString,
+    Failure | Error,
+    WebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -11265,7 +11337,7 @@ export type UseWebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>(
     'POST',
     `/webhook/trigger`,
     { base: getConfig('pipeline/api'), ...props }
@@ -11279,18 +11351,18 @@ export const webhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     WebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
-    'POST',
-    getConfig('pipeline/api'),
-    `/webhook/trigger`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseString,
+    Failure | Error,
+    WebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >('POST', getConfig('pipeline/api'), `/webhook/trigger`, props, signal)
 
 export interface TriggerProcessingDetailsQueryParams {
   accountIdentifier: string
@@ -11393,6 +11465,7 @@ export const getWebhookTriggerTypesPromise = (
 export interface GetSchemaYamlQueryParams {
   entityType:
     | 'CreatePR'
+    | 'GITOPS_MERGE_PR'
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
@@ -11449,7 +11522,7 @@ export interface GetSchemaYamlQueryParams {
     | 'ServiceNowCreate'
     | 'ServiceNowUpdate'
     | 'GovernancePolicies'
-    | 'Policy'
+    | 'POLICY_STEP'
     | 'Run'
     | 'RunTests'
     | 'Plugin'
@@ -11472,6 +11545,11 @@ export interface GetSchemaYamlQueryParams {
     | 'RollbackStack'
     | 'Infrastructure'
     | 'Command'
+    | 'StrategyNode'
+    | 'AZURE_SLOT_DEPLOYMENT_STEP'
+    | 'AzureTrafficShift'
+    | 'AzureSwapSlot'
+    | 'AzureWebAppRollback'
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
@@ -11530,6 +11608,7 @@ export interface GetStepYamlSchemaQueryParams {
   yamlGroup?: string
   entityType?:
     | 'CreatePR'
+    | 'GITOPS_MERGE_PR'
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
@@ -11586,7 +11665,7 @@ export interface GetStepYamlSchemaQueryParams {
     | 'ServiceNowCreate'
     | 'ServiceNowUpdate'
     | 'GovernancePolicies'
-    | 'Policy'
+    | 'POLICY_STEP'
     | 'Run'
     | 'RunTests'
     | 'Plugin'
@@ -11609,6 +11688,11 @@ export interface GetStepYamlSchemaQueryParams {
     | 'RollbackStack'
     | 'Infrastructure'
     | 'Command'
+    | 'StrategyNode'
+    | 'AZURE_SLOT_DEPLOYMENT_STEP'
+    | 'AzureTrafficShift'
+    | 'AzureSwapSlot'
+    | 'AzureWebAppRollback'
   scope?: 'account' | 'org' | 'project' | 'unknown'
 }
 

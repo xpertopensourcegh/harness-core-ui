@@ -68,7 +68,7 @@ import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { CollapseForm } from './CollapseForm'
 import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import { StepWidget } from '../AbstractSteps/StepWidget'
-import { ConditionalExecutionForm } from './StageAdvancedInputSetForm'
+import { ConditionalExecutionForm, StrategyForm } from './StageAdvancedInputSetForm'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { StepViewType } from '../AbstractSteps/Step'
 import { OsTypes } from '../../utils/constants'
@@ -182,6 +182,11 @@ function StepFormInternal({
             allowableTypes={allowableTypes}
           />
         </Container>
+      )}
+      {(template?.step as any)?.strategy && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <StrategyForm path={`${path}.strategy`} readonly={readonly} />
+        </div>
       )}
     </div>
   )

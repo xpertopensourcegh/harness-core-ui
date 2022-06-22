@@ -129,7 +129,9 @@ export function StageFormInternal({
           allowableTypes={allowableTypes}
         />
       )}
-      {(!isEmpty(template?.stage?.when) || !isEmpty(template?.stage?.delegateSelectors)) && (
+      {(!isEmpty(template?.stage?.when) ||
+        !isEmpty(template?.stage?.delegateSelectors) ||
+        !isEmpty(template?.stage?.strategy)) && (
         <StageAdvancedInputSetForm
           stageIdentifier={allValues?.stage?.identifier}
           path={path}

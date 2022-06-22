@@ -31,7 +31,6 @@ export default function STOExecutionCardSummary(
 
   switch (pipelineStatus) {
     case 'Running':
-    case 'Waiting':
     case 'AsyncWaiting':
     case 'TaskWaiting':
     case 'TimedWaiting':
