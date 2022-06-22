@@ -76,7 +76,7 @@ export enum NodeType {
   NG_SECTION_WITH_ROLLBACK_INFO = 'NG_SECTION_WITH_ROLLBACK_INFO',
   NG_EXECUTION = 'NG_EXECUTION',
   StepGroupNode = 'StepGroupNode',
-  'GITOPS CLUSTERS' = 'GITOPS CLUSTERS'
+  'GITOPS_CLUSTERS' = 'GITOPS CLUSTERS'
 }
 
 export const NonSelectableNodes: NodeType[] = [
