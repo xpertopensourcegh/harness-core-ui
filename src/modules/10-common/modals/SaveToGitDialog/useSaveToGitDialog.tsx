@@ -49,6 +49,7 @@ export interface OpenSaveToGitDialogValue<T> {
   isEditing: boolean
   resource: GitResourceInterface
   payload: T
+  disableCreatingNewBranch?: boolean
   _modalProps?: IDialogProps
 }
 
@@ -61,6 +62,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   props: UseSaveToGitDialogProps<T>
 ): UseSaveToGitDialogReturn<T> {
   const [isEditMode, setIsEditMode] = useState(false)
+  const [_disableCreatingNewBranch, setDisableCreatingNewBranch] = useState(false)
   const [payloadData, setPayloadData] = useState<T>()
   const [resource, setResource] = useState<GitResourceInterface>({
     type: Entities.CONNECTORS,
@@ -385,6 +387,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
             orgIdentifier={orgIdentifier}
             projectIdentifier={projectIdentifier}
             isEditing={isEditMode}
+            disableCreatingNewBranch={_disableCreatingNewBranch}
             resource={resource}
             onSuccess={data => {
               handleSuccessV2(data, payloadData, resource.gitDetails?.objectId)
@@ -399,6 +402,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
               orgIdentifier={orgIdentifier}
               projectIdentifier={projectIdentifier}
               isEditing={isEditMode}
+              disableCreatingNewBranch={_disableCreatingNewBranch}
               resource={resource}
               onSuccess={data => {
                 handleSuccess(data, payloadData, resource.gitDetails?.objectId)
@@ -414,8 +418,15 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   }, [isEditMode, resource])
 
   return {
-    openSaveToGitDialog: ({ isEditing, resource: resourceData, _modalProps, payload }: OpenSaveToGitDialogValue<T>) => {
+    openSaveToGitDialog: ({
+      isEditing,
+      resource: resourceData,
+      _modalProps,
+      payload,
+      disableCreatingNewBranch
+    }: OpenSaveToGitDialogValue<T>) => {
       setIsEditMode(isEditing)
+      setDisableCreatingNewBranch(Boolean(disableCreatingNewBranch))
       setPayloadData(payload)
       setResource(resourceData)
       setModalProps(defaultTo(_modalProps, modalProps))
