@@ -16,7 +16,8 @@ import {
   projectPathProps,
   servicePathProps,
   environmentGroupPathProps,
-  environmentPathProps
+  environmentPathProps,
+  pipelineModuleParams
 } from '@common/utils/routeUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
@@ -42,6 +43,7 @@ import { TemplateRouteDestinations } from '@templates-library/RouteDestinations'
 import { TriggersRouteDestinations } from '@triggers/RouteDestinations'
 import { VariableRouteDestinations } from '@variables/RouteDestinations'
 import { SecretRouteDestinations } from '@secrets/RouteDestinations'
+import FileStorePage from '@filestore/pages/filestore/FileStorePage'
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -339,6 +341,15 @@ export default (
       })}
     >
       <EnvironmentGroupDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toFileStore({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      pageName={PAGE_NAME.FileStorePage}
+    >
+      <FileStorePage />
     </RouteWithLayout>
 
     {

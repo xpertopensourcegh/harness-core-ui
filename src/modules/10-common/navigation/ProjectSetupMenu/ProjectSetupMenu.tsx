@@ -25,11 +25,13 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { NG_TEMPLATES, OPA_PIPELINE_GOVERNANCE, NG_VARIABLES, CVNG_TEMPLATE_MONITORED_SERVICE } = useFeatureFlags()
+  const { NG_TEMPLATES, OPA_PIPELINE_GOVERNANCE, NG_VARIABLES, CVNG_TEMPLATE_MONITORED_SERVICE, NG_FILE_STORE } =
+    useFeatureFlags()
   const { showGetStartedTabInMainMenu } = useSideNavContext()
   const { enabledHostedBuildsForFreeUsers } = useHostedBuilds()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
   const isCIorCDorSTO = module === 'ci' || module === 'cd' || module === 'sto'
+  const isCIorCD = module === 'ci' || module === 'cd'
   const isCV = module === 'cv'
   const canUsePolicyEngine = useAnyEnterpriseLicense()
   const getGitSyncEnabled = isCIorCDorSTO || !module
@@ -59,6 +61,9 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
         )}
         {OPA_PIPELINE_GOVERNANCE && isCIorCDorSTO && canUsePolicyEngine && (
           <SidebarLink label={getString('common.governance')} to={routes.toGovernance(params as GovernancePathProps)} />
+        )}
+        {isCIorCD && NG_FILE_STORE && (
+          <SidebarLink label={getString('resourcePage.fileStore')} to={routes.toFileStore(params)} />
         )}
         {enabledHostedBuildsForFreeUsers && !showGetStartedTabInMainMenu && module === 'ci' && (
           <SidebarLink label={getString('getStarted')} to={routes.toGetStartedWithCI({ ...params, module })} />

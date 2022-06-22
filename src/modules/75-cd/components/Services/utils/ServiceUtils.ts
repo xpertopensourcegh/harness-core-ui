@@ -13,7 +13,7 @@ export type ServicePipelineConfig = PipelineInfoConfig & { gitOpsEnabled: boolea
 export enum ServiceTabs {
   SUMMARY = 'summaryTab',
   Configuration = 'configuration',
-  REFERENCED_BY = 'refrencedByTab',
+  REFERENCED_BY = 'referencedByTab',
   ActivityLog = 'activityLog'
 }
 
