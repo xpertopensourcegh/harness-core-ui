@@ -2571,6 +2571,7 @@ export interface StringsMap {
   'pipeline.addReleaseRepo': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
+  'pipeline.additionalConfiguration': string
   'pipeline.advancedOptions': string
   'pipeline.allStages': string
   'pipeline.and': string
@@ -5612,6 +5613,7 @@ export interface StringsMap {
   'ci.runTestsStep.nUnitConsole': string
   'ci.runTestsStep.namespaces': string
   'ci.runTestsStep.sixPointZero': string
+  'ci.runTestsStep.testReportPaths': string
   'ci.runTestsStep.validation.namespacesRequiredWhenCsharp': string
   'ci.save': string
   'ci.secrets': string

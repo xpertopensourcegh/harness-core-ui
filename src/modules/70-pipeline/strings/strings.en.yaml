@@ -30,6 +30,7 @@ templateInputs: Template Inputs
 onlyPositiveInteger: Only positive integer values
 depth: Depth
 advancedOptions: Advanced Options
+additionalConfiguration: Additional Configuration
 pipelineTimeoutSettings: Pipeline Timeout Settings
 pipelineTimeoutHelpText: Enter a timeout for the entire Pipeline. You can change this setting at any time.
 stageExecutionSettings: Stage Execution Settings
@@ -851,7 +852,7 @@ stepDescription:
   GCS: Upload artifacts to Google Cloud Storage (GCS).
   S3: Upload artifacts to AWS S3.
   JFrogArtifactory: Upload artifacts to JFrog Artifactory.
-  RunTests: Execute unit, integration, and other tests on a CI container image.
+  RunTests: Execute unit tests for Java and .NET with Harness Test Intelligence. For all other tests, use the "Run" step
   HarnessApproval: Add manual approvals as steps and stages.
   JiraApproval: Use Jira issues to approve steps and stages.
   Verify: Verify a deployment using your monitoring tools.

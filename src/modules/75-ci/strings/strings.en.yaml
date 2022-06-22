@@ -55,6 +55,7 @@ runTestsStep:
   fivePointZero: '5.0'
   sixPointZero: '6.0'
   namespaces: Namespaces
+  testReportPaths: Test Report Paths
   validation:
     namespacesRequiredWhenCsharp: 'Namespaces is required in case Language is C#'
 runTestsMavenSetupTitle: Maven setup
