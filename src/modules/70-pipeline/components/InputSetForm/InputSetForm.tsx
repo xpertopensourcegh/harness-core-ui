@@ -103,8 +103,7 @@ const getInputSet = (
   inputSetResponse: ResponseInputSetResponse | null,
   template: ResponseInputSetTemplateWithReplacedExpressionsResponse | null,
   mergeTemplate?: string,
-  isGitSyncEnabled = false,
-  isRemotePipeline = false
+  isGitSyncEnabled = false
 ): InputSetDTO | InputSetType => {
   if (inputSetResponse?.data) {
     const inputSetObj = inputSetResponse?.data
@@ -120,7 +119,7 @@ const getInputSet = (
       ? defaultTo(parse(defaultTo(mergeTemplate, ''))?.pipeline, {})
       : parsedInputSetObj?.inputSet?.pipeline
 
-    if ((isGitSyncEnabled || isRemotePipeline) && parsedInputSetObj && parsedInputSetObj.inputSet) {
+    if (isGitSyncEnabled && parsedInputSetObj && parsedInputSetObj.inputSet) {
       return {
         name: parsedInputSetObj.inputSet.name,
         tags: parsedInputSetObj.inputSet.tags,
@@ -299,8 +298,7 @@ export function InputSetForm(props: InputSetFormProps): React.ReactElement {
         inputSetUpdateResponse,
         template,
         mergeTemplate,
-        isGitSyncEnabled,
-        isGitSimplificationEnabled && inputSetResponse?.data?.storeType === StoreType.REMOTE
+        isGitSyncEnabled
       )
     }
     return getInputSet(orgIdentifier, projectIdentifier, inputSetResponse, template, mergeTemplate, isGitSyncEnabled)

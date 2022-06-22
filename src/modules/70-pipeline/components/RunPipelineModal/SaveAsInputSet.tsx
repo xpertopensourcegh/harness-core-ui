@@ -276,10 +276,10 @@ function SaveAsInputSet({
               onSubmit={input => {
                 handleSubmit(
                   input,
-                  { repoIdentifier: input.repo, branch: input.branch },
+                  { repoIdentifier: input.repo, branch: input.branch, repoName: input.repo },
                   {
                     connectorRef: input.connectorRef,
-                    repoName: input.repoName,
+                    repoName: input.repo,
                     branch: input.branch,
                     filePath: input.filePath,
                     storeType: input.storeType
