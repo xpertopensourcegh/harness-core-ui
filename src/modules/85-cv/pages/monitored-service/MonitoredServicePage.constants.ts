@@ -10,5 +10,3 @@ export enum MonitoredServiceEnum {
   Configurations = 'Configurations',
   SLOs = 'SLOs'
 }
-
-export const monitoredServiceInfrastructureType = 'Infrastructure'

@@ -13,7 +13,7 @@ import { FontVariation, Color } from '@harness/design-system'
 import { useStrings } from 'framework/strings'
 import type { ToolbarProps } from '../MonitoredServicePage.types'
 import type { ExtendedMonitoredServiceDTO } from '../components/Configurations/Configurations.utils'
-import { monitoredServiceInfrastructureType } from '../MonitoredServicePage.constants'
+import { MonitoredServiceType } from '../components/Configurations/components/Service/components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 
 const DetailsToolbar: React.FC<ToolbarProps> = ({ loading, monitoredService, lastModifiedAt }) => {
   const { getString } = useStrings()
@@ -38,7 +38,7 @@ const DetailsToolbar: React.FC<ToolbarProps> = ({ loading, monitoredService, las
           &nbsp; {`${moment(lastModifiedAt).format('lll')}`}
         </Text>
       </Layout.Horizontal>
-      {monitoredService?.type === monitoredServiceInfrastructureType ? (
+      {monitoredService?.type === MonitoredServiceType.INFRASTRUCTURE ? (
         <Layout.Horizontal>
           <Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL }}>
             {`${getString('environment')}:`}
