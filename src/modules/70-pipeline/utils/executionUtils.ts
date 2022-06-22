@@ -75,7 +75,8 @@ export enum NodeType {
   APPROVAL_STAGE = 'APPROVAL_STAGE',
   NG_SECTION_WITH_ROLLBACK_INFO = 'NG_SECTION_WITH_ROLLBACK_INFO',
   NG_EXECUTION = 'NG_EXECUTION',
-  StepGroupNode = 'StepGroupNode'
+  StepGroupNode = 'StepGroupNode',
+  'GITOPS CLUSTERS' = 'GITOPS CLUSTERS'
 }
 
 export const NonSelectableNodes: NodeType[] = [
@@ -106,7 +107,8 @@ export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   NG_FORK: 'fork',
   DEPLOYMENT_STAGE_STEP: 'circle',
   APPROVAL_STAGE: 'approval-stage-icon',
-  StepGroupNode: 'step-group'
+  StepGroupNode: 'step-group',
+  'GITOPS CLUSTERS': 'gitops-clusters'
 }
 
 export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
