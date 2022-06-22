@@ -51,6 +51,7 @@ import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStud
 import { hasStageData, ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
+import type { DeployInfrastructureStepConfig } from '@cd/components/PipelineSteps/DeployInfrastructureStep/DeployInfrastructureStep'
 import SelectDeploymentType from '../../DeployServiceSpecifications/SelectDeploymentType'
 import type { EditStageFormikType, EditStageViewProps } from '../EditStageViewInterface'
 import css from './EditStageView.module.scss'
@@ -236,7 +237,8 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
               tags: data?.stage?.tags || {},
               serviceType: newStageData[0].value,
               deploymentType: selectedDeploymentType,
-              gitOpsEnabled: data?.stage?.spec?.gitOpsEnabled
+              //DeployInfrastructureStepConfig type is temporarily added until pipeline DTO for new entity gets merged
+              gitOpsEnabled: (data?.stage?.spec as DeployInfrastructureStepConfig)?.gitOpsEnabled
             }}
             formName="cdEditStage"
             onSubmit={handleSubmit}

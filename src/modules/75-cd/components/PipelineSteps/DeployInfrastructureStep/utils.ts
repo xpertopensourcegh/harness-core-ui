@@ -95,3 +95,44 @@ export function validateStepForm({
   }
   return errors
 }
+
+export interface InfraStructureDefinitionYaml {
+  inputs?: {
+    [key: string]: { [key: string]: any }
+  }
+  metadata?: string
+  ref: string
+}
+
+export interface ClusterYaml {
+  metadata?: string
+  ref: string
+}
+
+export interface EnvironmentYamlV2 {
+  deployToAll: boolean
+  environmentInputs?: {
+    [key: string]: { [key: string]: any }
+  }
+  environmentRef: string
+  gitOpsClusters?: ClusterYaml[]
+  infrastructureDefinitions?: InfraStructureDefinitionYaml[]
+  serviceOverrideInputs?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface EnvironmentGroupYaml {
+  deployToAll?: boolean
+  envGroupConfig?: EnvironmentYamlV2[]
+  envGroupRef: string
+  metadata?: string
+}
+
+export interface ServiceYamlV2 {
+  metadata?: string
+  serviceInputs?: {
+    [key: string]: { [key: string]: any }
+  }
+  serviceRef: string
+}

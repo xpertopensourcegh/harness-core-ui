@@ -50,6 +50,7 @@ import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes
 import type { DeployServiceData, DeployServiceProps, DeployServiceState } from './DeployServiceInterface'
 import { flexStart, isEditService } from './DeployServiceUtils'
 import { NewEditServiceModal } from './NewEditServiceModal'
+import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep/DeployInfrastructureStep'
 import css from './DeployServiceStep.module.scss'
 
 function DeployServiceWidget({
@@ -282,7 +283,8 @@ function DeployServiceWidget({
       }
     : {
         selectedDeploymentType: initialValues.deploymentType,
-        gitOpsEnabled: stage?.stage?.spec?.gitOpsEnabled
+        //DeployInfrastructureStepConfig type is temporarily added until pipeline DTO for new entity gets merged
+        gitOpsEnabled: (stage?.stage?.spec as DeployInfrastructureStepConfig)?.gitOpsEnabled
       }
   const [showModal, hideModal] = useModalHook(
     () => (
