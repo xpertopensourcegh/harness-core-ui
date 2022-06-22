@@ -22,6 +22,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
+import { isEmpty } from 'lodash-es'
 import { useToaster } from '@common/components'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import { useStrings } from 'framework/strings'
@@ -122,7 +123,12 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
-            key: Yup.string().trim().required(getString('notifications.validationPDKey'))
+            key: Yup.string()
+              .trim()
+              .when('userGroups', {
+                is: val => isEmpty(val),
+                then: Yup.string().trim().required(getString('notifications.validationPDKey'))
+              })
           })}
           initialValues={{
             key: '',
