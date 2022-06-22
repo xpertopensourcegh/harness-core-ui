@@ -9,7 +9,7 @@ import {
 } from '../../../support/85-cv/monitoredService/health-sources/Dynatrace/constants'
 import { Connectors } from '../../../utils/connctors-utils'
 
-describe.skip('Create empty monitored service', () => {
+describe('Create empty monitored service', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => {
       return false
@@ -24,7 +24,7 @@ describe.skip('Create empty monitored service', () => {
     cy.visitChangeIntelligence()
   })
 
-  it.skip('Add new Dynatrace monitored service ', () => {
+  it('Add new Dynatrace monitored service ', () => {
     cy.intercept('GET', service.call, service.response).as('ServiceCall')
     cy.intercept('GET', metricPack.call, metricPack.response).as('MetricPackCall')
 
@@ -73,7 +73,7 @@ describe.skip('Create empty monitored service', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it.skip('Add new Dynatrace monitored service with custom metric', () => {
+  it('Add new Dynatrace monitored service with custom metric', () => {
     cy.intercept('GET', queries.call, queries.response).as('QueriesCall')
     cy.intercept('GET', service.call, service.response).as('ServiceCall')
     cy.intercept('GET', metricPack.call, metricPack.response).as('MetricPackCall')

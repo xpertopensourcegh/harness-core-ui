@@ -26,7 +26,7 @@ import {
 import { errorResponse } from '../../../support/85-cv/slos/constants'
 import { Connectors } from '../../../utils/connctors-utils'
 
-describe.skip('Configure Datadog health source', () => {
+describe('Configure Datadog health source', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => {
       return false
@@ -41,7 +41,7 @@ describe.skip('Configure Datadog health source', () => {
     cy.visitChangeIntelligence()
   })
 
-  it.skip('Add new Datadog metric health source for a monitored service ', () => {
+  it('Add new Datadog metric health source for a monitored service ', () => {
     cy.addNewMonitoredServiceWithServiceAndEnv()
 
     cy.populateDefineHealthSource(Connectors.DATADOG, connectorIdentifier, 'Data dog')
@@ -103,7 +103,7 @@ describe.skip('Configure Datadog health source', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it.skip('Add new Datadog logs health source for a monitored service ', () => {
+  it('Add new Datadog logs health source for a monitored service ', () => {
     cy.addNewMonitoredServiceWithServiceAndEnv()
     cy.populateDefineHealthSource(Connectors.DATADOG, connectorIdentifier, 'Data dog')
 
@@ -149,7 +149,7 @@ describe.skip('Configure Datadog health source', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it.skip('should be able to edit the existing Datadog Logs health source', () => {
+  it('should be able to edit the existing Datadog Logs health source', () => {
     //intercepting calls
     cy.intercept('GET', dataLogsIndexes.getDatadogLogsIndexes, dataLogsIndexes.getDatadogLogsIndexesResponse).as(
       'getLogsIndexes'
@@ -232,7 +232,7 @@ describe.skip('Configure Datadog health source', () => {
     cy.findByText('Monitored Service created').should('be.visible')
   })
 
-  it.skip('should be able to edit an existing Data dog health source', () => {
+  it('should be able to edit an existing Data dog health source', () => {
     const searchTerm = 'docker'
     cy.intercept('GET', '/cv/api/monitored-service/service1_env1?*', dataDogMonitoredService)
     cy.wait(1000)

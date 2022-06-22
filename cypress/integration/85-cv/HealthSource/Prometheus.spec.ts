@@ -25,7 +25,7 @@ import {
 import { errorResponse } from '../../../support/85-cv/slos/constants'
 import { Connectors } from '../../../utils/connctors-utils'
 
-describe.skip('Health Source - Prometheus', () => {
+describe('Health Source - Prometheus', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => {
       return false
@@ -40,7 +40,7 @@ describe.skip('Health Source - Prometheus', () => {
     cy.visitChangeIntelligence()
   })
 
-  it.skip('should be able to add Prometheus Health Source with manual query', () => {
+  it('should be able to add Prometheus Health Source with manual query', () => {
     cy.addNewMonitoredServiceWithServiceAndEnv()
     cy.populateDefineHealthSource(Connectors.PROMETHEUS, 'prometheus-sale', 'Prometheus')
 

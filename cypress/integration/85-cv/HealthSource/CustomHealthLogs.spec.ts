@@ -50,7 +50,7 @@ function populateMetricValues() {
   cy.get('[class*="JsonSelector-module_selectableKey"]').first().click({ force: true })
 }
 
-describe.skip('Configure Datadog health source', () => {
+describe('Configure Datadog health source', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => {
       return false
@@ -65,7 +65,7 @@ describe.skip('Configure Datadog health source', () => {
     cy.visitChangeIntelligence()
   })
 
-  it.skip('Add new Custom HealthSource ', () => {
+  it('Add new Custom HealthSource ', () => {
     cy.intercept('GET', baseURLCall, baseURLResponse).as('BaseURLCall')
     cy.intercept('POST', fetchRecordsCall, fetchRecordsRespose).as('FetchRecordsCall')
 
