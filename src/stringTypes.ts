@@ -5574,6 +5574,8 @@ export interface StringsMap {
   'ci.getStartedWithCI.languageAgnostic': string
   'ci.getStartedWithCI.languageAgnosticHelpText': string
   'ci.getStartedWithCI.learnMoreAboutPermissions': string
+  'ci.getStartedWithCI.oAuthFailed': string
+  'ci.getStartedWithCI.oAuthInProgress': string
   'ci.getStartedWithCI.oAuthLabel': string
   'ci.getStartedWithCI.onCloudLabel': string
   'ci.getStartedWithCI.onPremLabel': string

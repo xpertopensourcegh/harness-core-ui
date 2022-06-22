@@ -15,5 +15,16 @@ export const DEFAULT_ORG_NAME = 'Default Organization'
 export enum Status {
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',
-  FAILURE = 'FAILURE'
+  FAILURE = 'FAILURE',
+  IN_PROGRESS = 'IN_PROGRESS',
+  TO_DO = 'TO_DO'
+}
+
+export enum Environment {
+  LOCALHOST = 'localhost',
+  PR = 'pr',
+  QA = 'qa',
+  PRE_QA = 'stress',
+  UAT = 'uat',
+  APP = 'app'
 }

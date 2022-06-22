@@ -16,6 +16,8 @@ import { AllBuildLocationsForSaaS, Hosting, InfraProvisiongWizardStepId } from '
 
 const pathParams = { accountId: 'accountId', orgIdentifier: 'orgId', projectIdentifier: 'projectId' }
 
+const updateConnector = jest.fn()
+const createConnector = jest.fn()
 jest.mock('services/cd-ng', () => ({
   useCreateDefaultScmConnector: jest.fn().mockImplementation(() => {
     return {
@@ -43,7 +45,9 @@ jest.mock('services/cd-ng', () => ({
           ]
         })
     }
-  })
+  }),
+  useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
+  useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector }))
 }))
 
 describe('Test SelectGitProvider component', () => {
@@ -96,6 +100,7 @@ describe('Test SelectGitProvider component', () => {
 
   test('User selects Github provider and Access Token authentication method', async () => {
     window.open = jest.fn()
+    global.fetch = jest.fn()
     const { container, getByText, getAllByText } = render(
       <TestWrapper
         path={routes.toGetStartedWithCI({
@@ -171,6 +176,66 @@ describe('Test SelectGitProvider component', () => {
     })
     // should show correct error messages once test connection is done
     expect(getAllByText('ci.getStartedWithCI.fieldIsMissing').length).toBe(2)
+  })
+
+  test('User selects Github provider and OAuth authentication method', async () => {
+    window.open = jest.fn()
+    window.addEventListener = jest.fn()
+    global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        text: () => Promise.resolve('https://github.com/auth/login')
+      })
+    )
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toGetStartedWithCI({
+          ...pathParams,
+          module: 'ci'
+        })}
+        pathParams={{
+          ...pathParams,
+          module: 'ci'
+        }}
+      >
+        <SelectGitProvider enableNextBtn={jest.fn()} disableNextBtn={jest.fn()} selectedHosting={Hosting.SaaS} />
+      </TestWrapper>
+    )
+    await act(async () => {
+      fireEvent.click((Array.from(container.querySelectorAll('div[class*="bp3-card"]')) as HTMLElement[])[0])
+    })
+
+    await act(async () => {
+      fireEvent.click(getByText('ci.getStartedWithCI.oAuthLabel'))
+    })
+    expect(global.fetch).not.toBeCalled()
+  })
+
+  test('User selects Gitlab provider and OAuth authentication method', async () => {
+    window.open = jest.fn()
+    window.addEventListener = jest.fn()
+    global.fetch = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toGetStartedWithCI({
+          ...pathParams,
+          module: 'ci'
+        })}
+        pathParams={{
+          ...pathParams,
+          module: 'ci'
+        }}
+      >
+        <SelectGitProvider enableNextBtn={jest.fn()} disableNextBtn={jest.fn()} selectedHosting={Hosting.SaaS} />
+      </TestWrapper>
+    )
+    await act(async () => {
+      fireEvent.click((Array.from(container.querySelectorAll('div[class*="bp3-card"]')) as HTMLElement[])[1])
+    })
+
+    await act(async () => {
+      fireEvent.click(getByText('ci.getStartedWithCI.oAuthLabel'))
+    })
+    expect(global.fetch).not.toBeCalled()
   })
 
   test('User selects Gitlab provider and Access Key authentication method', async () => {

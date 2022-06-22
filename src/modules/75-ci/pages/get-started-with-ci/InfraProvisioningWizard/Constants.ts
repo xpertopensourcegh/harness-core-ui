@@ -118,7 +118,11 @@ export interface GitProvider {
 }
 
 export const AllSaaSGitProviders: GitProvider[] = [
-  { icon: 'github', label: 'common.repo_provider.githubLabel', type: Connectors.GITHUB },
+  {
+    icon: 'github',
+    label: 'common.repo_provider.githubLabel',
+    type: Connectors.GITHUB
+  },
   { icon: 'gitlab', label: 'common.repo_provider.gitlabLabel', type: Connectors.GITLAB },
   { icon: 'bitbucket-blue', label: 'pipeline.manifestType.bitBucketLabel', type: Connectors.BITBUCKET }
 ]
@@ -224,7 +228,9 @@ export const getFullRepoName = (repository: UserRepoResponse): string => {
 export const DELEGATE_INSTALLATION_REFETCH_DELAY = 10000
 export const MAX_TIMEOUT_DELEGATE_INSTALLATION = 1000 * 60 * 10 // ten minutes
 
-export const OAUTH_REDIRECT_URL_PREFIX = `${location.protocol}//${location.host}/gateway/`
+export const GATEWAY_URL = `${location.protocol}//${location.host}/gateway`
+
+export const OAUTH_REDIRECT_URL_PREFIX = `${GATEWAY_URL}/api/secrets/oauth2Redirect`
 
 export const BitbucketPRTriggerActions: BitbucketPRSpec['actions'] = ['Create', 'Update']
 

@@ -197,6 +197,8 @@ getStartedWithCI:
   fieldIsMissing: '{{field}} is missing'
   startProvisioning: Start Provisioning
   provisioningHelpText: Provision the '{{ $.ci.getStartedWithCI.hostedByHarness }}' Infrastructure (~2 mins)
+  oAuthInProgress: OAuth in progress...
+  oAuthFailed: OAuth Failed
   carousel:
     labels:
       harnessCIFeatures: Harness CI
