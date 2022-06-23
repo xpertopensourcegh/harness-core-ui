@@ -89,11 +89,7 @@ const setStageIds = ({
     data.data?.pipelineExecutionSummary?.status as ExecutionStatus
   )
 
-  const runningStep = getActiveStep(
-    data.data.executionGraph || {},
-    undefined,
-    data.data.pipelineExecutionSummary?.layoutNodeMap
-  )
+  const runningStep = getActiveStep(data.data.executionGraph, data.data.pipelineExecutionSummary)
 
   if (runningStage) {
     setAutoSelectedStageId(runningStage)
@@ -101,8 +97,8 @@ const setStageIds = ({
   }
 
   if (runningStep) {
-    setAutoSelectedStepId(runningStep)
-    setSelectedStepId(runningStep)
+    setAutoSelectedStepId(runningStep.node)
+    setSelectedStepId(runningStep.node)
   }
 }
 

@@ -161,8 +161,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   if (layoutState === ExecutionLayoutState.RIGHT) {
     Object.assign(stageGraphPaneStyles, {
       position: 'sticky',
-      top: 'var(--execution-stage-details-height)',
-      heigth: 'min-content'
+      top: 'var(--execution-stage-details-height)'
     })
   } else if (layoutState === ExecutionLayoutState.BOTTOM) {
     stageGraphPaneStyles = {

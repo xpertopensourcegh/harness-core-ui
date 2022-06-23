@@ -83,8 +83,10 @@ export const NonSelectableNodes: NodeType[] = [
   NodeType.NG_SECTION,
   NodeType.FORK,
   NodeType.DEPLOYMENT_STAGE_STEP,
-  NodeType.APPROVAL_STAGE
+  NodeType.APPROVAL_STAGE,
+  NodeType.NG_EXECUTION
 ]
+
 export const TopLevelNodes: NodeType[] = [
   NodeType.NG_SECTION,
   NodeType.ROLLBACK_OPTIONAL_CHILD_CHAIN,
@@ -307,12 +309,19 @@ export function getActiveStageForPipeline(
   return null
 }
 
+export interface StepStatus {
+  node: string
+  interrupted: boolean
+  success: boolean
+}
+
 export function getActiveStep(
-  graph: ExecutionGraph,
-  nodeId?: string,
-  layoutNodeMap?: Record<string, GraphLayoutNode>
-): string | null {
+  graph: ExecutionGraph = {},
+  pipelineExecutionSummary: PipelineExecutionSummary = {},
+  nodeId?: string
+): StepStatus | null {
   const { rootNodeId, nodeMap, nodeAdjacencyListMap } = graph
+  const { status: pipelineStatus, layoutNodeMap } = pipelineExecutionSummary
 
   if (!nodeMap || !nodeAdjacencyListMap) {
     return null
@@ -329,35 +338,48 @@ export function getActiveStep(
     return null
   }
 
+  let selectedStep: StepStatus | null = null
+
   if (Array.isArray(nodeAdjacencyList.children) && nodeAdjacencyList.children.length > 0) {
     const n = nodeAdjacencyList.children.length
 
     for (let i = 0; i < n; i++) {
       const childNodeId = nodeAdjacencyList.children[i]
-      const step = getActiveStep(graph, childNodeId, layoutNodeMap)
+      selectedStep = getActiveStep(graph, pipelineExecutionSummary, childNodeId)
 
-      if (typeof step === 'string') return step
+      if (selectedStep && selectedStep.interrupted) {
+        return selectedStep
+      }
     }
   }
 
   if (nodeAdjacencyList.nextIds && nodeAdjacencyList.nextIds[0]) {
-    const step = getActiveStep(graph, nodeAdjacencyList.nextIds[0], layoutNodeMap)
+    selectedStep = getActiveStep(graph, pipelineExecutionSummary, nodeAdjacencyList.nextIds[0])
 
-    if (typeof step === 'string') return step
+    if (selectedStep && selectedStep.interrupted) return selectedStep
+  }
+
+  // pipeline is success and we are in root node
+  if (isExecutionSuccess(pipelineStatus) && selectedStep?.success) {
+    return selectedStep
   }
 
   if (
     !NonSelectableNodes.includes(node.stepType as NodeType) &&
     currentNodeId !== rootNodeId &&
-    !has(layoutNodeMap, node.setupId || '') &&
-    (isExecutionRunning(node.status) ||
-      isExecutionWaiting(node.status) ||
-      isExecutionCompletedWithBadState(node.status))
+    !has(layoutNodeMap, node.setupId || '')
   ) {
-    return currentNodeId
+    return {
+      node: currentNodeId,
+      interrupted:
+        isExecutionRunning(node.status) ||
+        isExecutionWaiting(node.status) ||
+        isExecutionCompletedWithBadState(node.status),
+      success: isExecutionSuccess(node.status)
+    }
   }
 
-  return null
+  return selectedStep
 }
 
 export function getIconFromStageModule(stageModule: 'cd' | 'ci' | string | undefined, stageType?: string): IconName {
