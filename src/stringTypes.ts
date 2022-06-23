@@ -1913,6 +1913,8 @@ export interface StringsMap {
   'connectors.ceGcp.billingExport.followInstruction': string
   'connectors.ceGcp.billingExport.heading': string
   'connectors.ceGcp.billingExport.launchTemplate': string
+  'connectors.ceGcp.billingExport.setupNew': string
+  'connectors.ceGcp.billingExport.subHeading': string
   'connectors.ceGcp.billingExport.tableIdLabel': string
   'connectors.ceGcp.billingExtention.heading': string
   'connectors.ceGcp.billingExtention.link1': string
@@ -1947,9 +1949,17 @@ export interface StringsMap {
   'connectors.ceGcp.chooseRequirements.heading': string
   'connectors.ceGcp.chooseRequirements.info': string
   'connectors.ceGcp.chooseRequirements.name': string
+  'connectors.ceGcp.existingCurTable.nextStepHint1': string
+  'connectors.ceGcp.existingCurTable.nextStepHint2': string
+  'connectors.ceGcp.existingCurTable.projectId': string
+  'connectors.ceGcp.existingCurTable.searchPlaceholder': string
   'connectors.ceGcp.gcp': string
   'connectors.ceGcp.grantPermission.bigQueryButtonText': string
   'connectors.ceGcp.grantPermission.heading': string
+  'connectors.ceGcp.grantPermission.inventory.completePermissionStep': string
+  'connectors.ceGcp.grantPermission.inventory.computeEngine': string
+  'connectors.ceGcp.grantPermission.inventory.step1': string
+  'connectors.ceGcp.grantPermission.inventory.step2': string
   'connectors.ceGcp.grantPermission.optimization.step1': string
   'connectors.ceGcp.grantPermission.optimization.step2': string
   'connectors.ceGcp.grantPermission.optimization.step3': string
@@ -1960,6 +1970,8 @@ export interface StringsMap {
   'connectors.ceGcp.grantPermission.step5': string
   'connectors.ceGcp.grantPermission.step6': string
   'connectors.ceGcp.grantPermission.step7': string
+  'connectors.ceGcp.overview.alreadyExist': string
+  'connectors.ceGcp.overview.alreadyExistInfo': string
   'connectors.ceGcp.overview.heading': string
   'connectors.ceGcp.overview.projectIdLabel': string
   'connectors.ceGcp.testConnection.error': string
