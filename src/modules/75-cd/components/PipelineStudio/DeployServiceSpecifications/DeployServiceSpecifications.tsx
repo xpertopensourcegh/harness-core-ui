@@ -85,7 +85,15 @@ import { useCache } from '@common/hooks/useCache'
 import { FeatureFlag } from '@common/featureFlags'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
-export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
+export interface DeployServiceSpecificationsProps {
+  setDefaultServiceSchema: () => Promise<void>
+  children: React.ReactNode
+}
+
+export default function DeployServiceSpecifications({
+  setDefaultServiceSchema,
+  children
+}: DeployServiceSpecificationsProps): JSX.Element {
   const { getString } = useStrings()
   const isSvcEnvEntityEnabled = useFeatureFlag(FeatureFlag.NG_SVC_ENV_REDESIGN)
   const queryParams = useParams<ProjectPathProps & ServicePathProps>()
@@ -104,7 +112,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     updateStage
   } = usePipelineContext()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = useCallback(
     debounce(
@@ -368,26 +375,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       debounceUpdateStage(stageData?.stage)
     }
   }, [selectedPropagatedState])
-
-  const setDefaultServiceSchema = (): Promise<void> => {
-    const stageData = produce(stage, draft => {
-      if (draft) {
-        set(draft, 'stage.spec', {
-          ...stage?.stage?.spec,
-          serviceConfig: {
-            serviceRef: scope === Scope.PROJECT ? '' : RUNTIME_INPUT_VALUE,
-            serviceDefinition: {
-              spec: {
-                variables: []
-              }
-            }
-          }
-        })
-      }
-    })
-
-    return debounceUpdateStage(stageData?.stage)
-  }
 
   const setStageOverrideSchema = (): Promise<void> => {
     const stageData = produce(stage, draft => {
@@ -723,7 +710,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           ))
         )}
         {((setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.value) ||
-          setupModeType === setupMode.DIFFERENT) && <Container margin={{ top: 'xxlarge' }}>{props.children}</Container>}
+          setupModeType === setupMode.DIFFERENT) && <Container margin={{ top: 'xxlarge' }}>{children}</Container>}
       </div>
     </div>
   )

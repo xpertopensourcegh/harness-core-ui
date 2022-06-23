@@ -26,6 +26,8 @@ import connectorListJSON from './connectorList.json'
 import mockListSecrets from './mockListSecret.json'
 import services, { servicesV2Mock } from './servicesMock'
 
+const setDefaultServiceSchema = jest.fn()
+const mockchildren = <div />
 const getOverrideContextValue = (): PipelineContextInterface => {
   return {
     ...overridePipelineContext,
@@ -100,7 +102,9 @@ describe('Deploy service stage specifications', () => {
       <TestWrapper>
         <Formik initialValues={{}} onSubmit={noop} formName="deployServiceSpecificationsTest">
           <PipelineContext.Provider value={getOverrideContextValue()}>
-            <DeployServiceSpecifications />
+            <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
+              {mockchildren}
+            </DeployServiceSpecifications>
           </PipelineContext.Provider>
         </Formik>
       </TestWrapper>
@@ -145,7 +149,9 @@ describe('Deploy service stage specifications', () => {
       <TestWrapper>
         <Formik initialValues={{}} onSubmit={noop} formName="deployServiceSpecificationsTest">
           <PipelineContext.Provider value={getOverrideContextValue()}>
-            <DeployServiceSpecifications />
+            <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
+              {mockchildren}
+            </DeployServiceSpecifications>
           </PipelineContext.Provider>
         </Formik>
       </TestWrapper>
@@ -159,7 +165,9 @@ describe('Deploy service stage specifications', () => {
       <TestWrapper>
         <Formik initialValues={{}} onSubmit={noop} formName="deployServiceSpecificationsTest">
           <PipelineContext.Provider value={getOverrideContextValue()}>
-            <DeployServiceSpecifications />
+            <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
+              {mockchildren}
+            </DeployServiceSpecifications>
           </PipelineContext.Provider>
         </Formik>
       </TestWrapper>
@@ -184,7 +192,9 @@ describe('Deploy service stage specifications', () => {
         <Formik initialValues={{}} onSubmit={noop} formName="deployServiceSpecificationsTest">
           <PipelineContext.Provider value={getOverrideContextValue()}>
             <StageErrorContext.Provider value={errorContextProvider}>
-              <DeployServiceSpecifications />
+              <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
+                {mockchildren}
+              </DeployServiceSpecifications>
             </StageErrorContext.Provider>
           </PipelineContext.Provider>
         </Formik>
@@ -199,7 +209,9 @@ describe('Deploy service stage specifications', () => {
     const { getByText } = render(
       <TestWrapper defaultFeatureFlagValues={{ SERVERLESS_SUPPORT: true }}>
         <PipelineContext.Provider value={getOverrideContextValue()}>
-          <DeployServiceSpecifications />
+          <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
+            {mockchildren}
+          </DeployServiceSpecifications>
         </PipelineContext.Provider>
       </TestWrapper>
     )
@@ -215,7 +227,9 @@ describe('Deploy service stage specifications', () => {
     const { getByText } = render(
       <TestWrapper defaultFeatureFlagValues={{ SERVERLESS_SUPPORT: true }}>
         <PipelineContext.Provider value={getOverrideContextValue()}>
-          <DeployServiceSpecifications />
+          <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
+            {mockchildren}
+          </DeployServiceSpecifications>
         </PipelineContext.Provider>
       </TestWrapper>
     )
