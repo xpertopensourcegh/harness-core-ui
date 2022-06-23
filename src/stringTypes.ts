@@ -1195,9 +1195,11 @@ export interface StringsMap {
   'delegates.delegateNotInstalled.checkClusterConfig2': string
   'delegates.delegateNotInstalled.checkClusterPermission': string
   'delegates.delegateNotInstalled.checkClusterPermission2': string
+  'delegates.delegateNotInstalled.checkError': string
   'delegates.delegateNotInstalled.checkFirewallPorts': string
   'delegates.delegateNotInstalled.checkProxy': string
   'delegates.delegateNotInstalled.contactHarness': string
+  'delegates.delegateNotInstalled.containerRunning': string
   'delegates.delegateNotInstalled.crashloopError': string
   'delegates.delegateNotInstalled.curlHarnessIO': string
   'delegates.delegateNotInstalled.curlHarnessIO2': string
@@ -1206,22 +1208,30 @@ export interface StringsMap {
   'delegates.delegateNotInstalled.eventErrorBlock': string
   'delegates.delegateNotInstalled.goodToGo': string
   'delegates.delegateNotInstalled.harnessErrorValidation': string
+  'delegates.delegateNotInstalled.heartbeatFailed': string
+  'delegates.delegateNotInstalled.logsError': string
   'delegates.delegateNotInstalled.permissionError': string
   'delegates.delegateNotInstalled.podComeUp': string
   'delegates.delegateNotInstalled.podCommand': string
   'delegates.delegateNotInstalled.pullError': string
+  'delegates.delegateNotInstalled.removeDocker': string
   'delegates.delegateNotInstalled.statusOfCluster': string
   'delegates.delegateNotInstalled.tabs.commonProblems.checkEndPoint': string
   'delegates.delegateNotInstalled.tabs.commonProblems.checkTheDelegateLogs': string
   'delegates.delegateNotInstalled.tabs.commonProblems.description1': string
   'delegates.delegateNotInstalled.tabs.commonProblems.description2': string
   'delegates.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.removeOlderDelegate': string
   'delegates.delegateNotInstalled.tabs.commonProblems.title': string
   'delegates.delegateNotInstalled.tabs.commonProblems.troubleshoot': string
   'delegates.delegateNotInstalled.tabs.troubleshooting': string
   'delegates.delegateNotInstalled.title': string
   'delegates.delegateNotInstalled.verifyField2': string
   'delegates.delegateNotInstalled.verifyField3': string
+  'delegates.delegateNotInstalled.verifyLogs1': string
+  'delegates.delegateNotInstalled.verifyLogs2': string
+  'delegates.delegateNotInstalled.verifyStatus1': string
+  'delegates.delegateNotInstalled.verifyStatus2': string
   'delegates.delegatePermissions.clusterReadContent': string
   'delegates.delegatePermissions.clusterReadTitle': string
   'delegates.delegatePermissions.clusterWriteContent': string

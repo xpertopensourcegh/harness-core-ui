@@ -87,9 +87,9 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
 
-  const [troubleshoterOpen, setOpenTroubleshoter] = useState<{ isConnected: boolean | undefined } | undefined>(
-    undefined
-  )
+  const [troubleshoterOpen, setOpenTroubleshoter] = useState<
+    { isConnected: boolean | undefined; delegateType: string | undefined } | undefined
+  >(undefined)
 
   const queryParams: GetDelegateGroupsNGV2WithFilterQueryParams = useMemo(
     () =>
@@ -490,7 +490,10 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
         style={{ width: '680px', height: '100%' }}
         onClose={() => setOpenTroubleshoter(undefined)}
       >
-        <DelegateInstallationError showDelegateInstalledMessage={false} />
+        <DelegateInstallationError
+          showDelegateInstalledMessage={false}
+          delegateType={troubleshoterOpen?.delegateType}
+        />
       </Dialog>
       {!hideHeader && (
         <Layout.Horizontal className={css.header}>
@@ -549,7 +552,12 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
                   <DelegateListingItem
                     key={delegate.delegateGroupIdentifier}
                     delegate={delegate}
-                    setOpenTroubleshoter={setOpenTroubleshoter}
+                    setOpenTroubleshoter={() =>
+                      setOpenTroubleshoter({
+                        isConnected: troubleshoterOpen?.isConnected,
+                        delegateType: delegate?.delegateType
+                      })
+                    }
                   />
                 ))}
               </Container>
