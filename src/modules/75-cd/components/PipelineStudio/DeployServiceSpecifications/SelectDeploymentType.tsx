@@ -156,7 +156,7 @@ export default function SelectDeploymentType({
   const { getString } = useStrings()
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
   const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
-  const { SERVERLESS_SUPPORT, SSH_NG } = useFeatureFlags()
+  const { SERVERLESS_SUPPORT, SSH_NG, AZURE_WEBAPP_NG } = useFeatureFlags()
 
   const { accountId } = useParams<{
     accountId: string
@@ -184,8 +184,15 @@ export default function SelectDeploymentType({
         value: ServiceDeploymentType.ssh
       })
     }
+    if (AZURE_WEBAPP_NG) {
+      baseTypes.push({
+        label: 'Azure Web App',
+        icon: 'microsoft-azure',
+        value: ServiceDeploymentType.AzureWebApp
+      })
+    }
     return [...baseTypes, ...getServerlessDeploymentTypes(getString, SERVERLESS_SUPPORT)] as DeploymentTypeItem[]
-  }, [getString, SERVERLESS_SUPPORT, SSH_NG])
+  }, [getString, SERVERLESS_SUPPORT, SSH_NG, AZURE_WEBAPP_NG])
 
   // Suppported in CG (First Gen - Old Version of Harness App)
   const cgSupportedDeploymentTypes: DeploymentTypeItem[] = React.useMemo(() => {
