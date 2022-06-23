@@ -19,12 +19,11 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 
-import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep'
-
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import css from './DeployClusters.module.scss'
 
 interface DeployClusterProps {
-  formik?: FormikProps<DeployInfrastructureStepConfig>
+  formik?: FormikProps<DeployStageConfig>
   readonly?: boolean
   environmentIdentifier: string
   allowableTypes: MultiTypeInputType[]

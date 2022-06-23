@@ -14,18 +14,17 @@ import type { DeploymentStageConfig, EnvironmentResponseDTO } from 'services/cd-
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 
-import type { DeployInfrastructureStepConfig } from './DeployInfrastructureStep'
-
 export interface DeployInfrastructureProps {
-  initialValues: DeployInfrastructureStepConfig
-  onUpdate?: (data: DeployInfrastructureStepConfig) => void
+  initialValues: DeployStageConfig
+  onUpdate?: (data: DeployStageConfig) => void
   readonly: boolean
   allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   inputSetData?: {
-    template?: DeployInfrastructureStepConfig
+    template?: DeployStageConfig
     path?: string
     readonly?: boolean
   }
@@ -94,45 +93,4 @@ export function validateStepForm({
     }
   }
   return errors
-}
-
-export interface InfraStructureDefinitionYaml {
-  inputs?: {
-    [key: string]: { [key: string]: any }
-  }
-  metadata?: string
-  ref: string
-}
-
-export interface ClusterYaml {
-  metadata?: string
-  ref: string
-}
-
-export interface EnvironmentYamlV2 {
-  deployToAll: boolean
-  environmentInputs?: {
-    [key: string]: { [key: string]: any }
-  }
-  environmentRef: string
-  gitOpsClusters?: ClusterYaml[]
-  infrastructureDefinitions?: InfraStructureDefinitionYaml[]
-  serviceOverrideInputs?: {
-    [key: string]: { [key: string]: any }
-  }
-}
-
-export interface EnvironmentGroupYaml {
-  deployToAll?: boolean
-  envGroupConfig?: EnvironmentYamlV2[]
-  envGroupRef: string
-  metadata?: string
-}
-
-export interface ServiceYamlV2 {
-  metadata?: string
-  serviceInputs?: {
-    [key: string]: { [key: string]: any }
-  }
-  serviceRef: string
 }

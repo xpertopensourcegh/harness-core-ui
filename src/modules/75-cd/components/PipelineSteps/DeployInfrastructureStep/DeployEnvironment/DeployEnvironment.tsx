@@ -36,15 +36,15 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import AddEditEnvironmentModal from '../AddEditEnvironmentModal'
 import { isEditEnvironment } from '../utils'
-import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep'
 
 import css from '../DeployInfrastructureStep.module.scss'
 
 interface DeployEnvironmentProps {
-  initialValues: DeployInfrastructureStepConfig
-  formik?: FormikProps<DeployInfrastructureStepConfig>
+  initialValues: DeployStageConfig
+  formik?: FormikProps<DeployStageConfig>
   readonly?: boolean
   allowableTypes: MultiTypeInputType[]
 }

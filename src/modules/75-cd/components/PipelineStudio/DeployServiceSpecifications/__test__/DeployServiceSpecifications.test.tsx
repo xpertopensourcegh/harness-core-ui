@@ -60,6 +60,9 @@ jest.mock('services/cd-ng', () => ({
   })),
   useGetServiceList: jest.fn().mockImplementation(() => ({ loading: false, data: servicesV2Mock, refetch: jest.fn() })),
   useGetServiceV2: jest.fn().mockImplementation(() => ({ loading: false, data: {}, refetch: jest.fn() })),
+  useGetRuntimeInputsServiceEntity: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: {}, refetch: jest.fn() })),
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockListSecrets)),
   useGetServiceListForProject: jest
     .fn()

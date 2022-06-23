@@ -10,31 +10,14 @@ import type { FormikErrors } from 'formik'
 import { defaultTo, isEmpty } from 'lodash-es'
 
 import { getMultiTypeFromValue, IconName, MultiTypeInputType, RUNTIME_INPUT_VALUE, SelectOption } from '@harness/uicore'
-import type { DeploymentStageConfig, PipelineInfrastructure, ServiceConfig } from 'services/cd-ng'
-
 import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { DeployInfrastructureWidget } from './DeployInfrastructureWidget'
 import DeployInfrastructureInputStep from './DeployInfrastructureInputStep'
-import type { EnvironmentGroupYaml, EnvironmentYamlV2, ServiceYamlV2 } from './utils'
 
-export interface DeployInfrastructureStepConfig
-  extends Omit<DeploymentStageConfig, 'execution' | 'infrastructure' | 'serviceConfig'> {
-  infrastructure?: PipelineInfrastructure
-  serviceConfig?: ServiceConfig
-  environment?: EnvironmentYamlV2
-  environmentGroup?: EnvironmentGroupYaml
-  gitOpsEnabled?: boolean
-  service?: ServiceYamlV2
-  infrastructureRef?: string
-  environmentOrEnvGroupRef?: SelectOption | string
-  environmentInEnvGroupRef?: SelectOption | string
-  clusterRef?: SelectOption[] | string
-  isEnvGroup?: boolean
-}
-
-export class DeployInfrastructureStep extends Step<DeployInfrastructureStepConfig> {
+export class DeployInfrastructureStep extends Step<DeployStageConfig> {
   lastFetched: number
 
   protected stepPaletteVisible = false
@@ -42,14 +25,14 @@ export class DeployInfrastructureStep extends Step<DeployInfrastructureStepConfi
   protected stepName = 'Deploy Infrastructure'
   protected stepIcon: IconName = 'main-environments'
 
-  protected defaultValues: DeployInfrastructureStepConfig = {} as DeployInfrastructureStepConfig
+  protected defaultValues: DeployStageConfig = {} as DeployStageConfig
 
   constructor() {
     super()
     this.lastFetched = new Date().getTime()
   }
 
-  private processInitialValues(initialValues: DeployInfrastructureStepConfig): DeployInfrastructureStepConfig {
+  private processInitialValues(initialValues: DeployStageConfig): DeployStageConfig {
     const gitOpsEnabled = initialValues.gitOpsEnabled
     const isEnvGroup = Boolean(initialValues.environmentGroup)
     return {
@@ -100,7 +83,7 @@ export class DeployInfrastructureStep extends Step<DeployInfrastructureStepConfi
     }
   }
 
-  private processFormData(data: DeployInfrastructureStepConfig): any {
+  private processFormData(data: DeployStageConfig): any {
     const gitOpsEnabled = data.gitOpsEnabled
     const isEnvGroup = data.isEnvGroup
 
@@ -164,7 +147,7 @@ export class DeployInfrastructureStep extends Step<DeployInfrastructureStepConfi
     }
   }
 
-  renderStep(props: StepProps<DeployInfrastructureStepConfig>): JSX.Element {
+  renderStep(props: StepProps<DeployStageConfig>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false, allowableTypes } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -195,8 +178,8 @@ export class DeployInfrastructureStep extends Step<DeployInfrastructureStepConfi
     template,
     getString,
     viewType
-  }: ValidateInputSetProps<DeployInfrastructureStepConfig>): FormikErrors<DeployInfrastructureStepConfig> {
-    const errors: FormikErrors<DeployInfrastructureStepConfig> = {}
+  }: ValidateInputSetProps<DeployStageConfig>): FormikErrors<DeployStageConfig> {
+    const errors: FormikErrors<DeployStageConfig> = {}
     const isRequired = viewType === StepViewType.DeploymentForm || viewType === StepViewType.TriggerForm
     if (
       isEmpty(data?.environment?.environmentRef) &&

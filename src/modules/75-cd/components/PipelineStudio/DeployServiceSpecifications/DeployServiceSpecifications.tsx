@@ -37,6 +37,7 @@ import {
   StageElementConfig,
   StageElementWrapperConfig,
   TemplateLinkConfig,
+  useGetRuntimeInputsServiceEntity,
   useGetServiceList,
   useGetServiceV2
 } from 'services/cd-ng'
@@ -154,17 +155,30 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     queryParams: memoizedQueryParam,
     lazy: true
   })
+  const { data: serviceInputsResponse, refetch: refetchServiceInputs } = useGetRuntimeInputsServiceEntity({
+    serviceIdentifier: '',
+    queryParams: memoizedQueryParam,
+    lazy: true
+  })
 
   useEffect(() => {
     //When service.serviceRef is present refetch serviceAPI to populate deployment type and service definition
     if (getServiceEntityServiceRef(stage?.stage)) {
       const stageServiceRef = (stage?.stage?.spec as any)?.service?.serviceRef
-      refetchServiceData({
+      const params = {
         pathParams: {
           serviceIdentifier: stageServiceRef
         },
         queryParams: memoizedQueryParam
-      })
+      }
+      Promise.all([
+        refetchServiceData({
+          ...params
+        }),
+        refetchServiceInputs({
+          ...params
+        })
+      ])
     } else {
       if (
         !stage?.stage?.spec?.serviceConfig?.serviceDefinition &&
@@ -193,7 +207,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   //This is to refetch the service API and update stage on change of service from service select
   useEffect(() => {
     const serviceData = selectedServiceResponse?.data?.service as ServiceResponseDTO
-    if (!isEmpty(serviceData?.yaml)) {
+    //serviceInputsData is the runtime data for service inputs
+    const serviceInputsData = serviceInputsResponse?.data?.inputSetTemplateYaml
+
+    if (!isEmpty(serviceData?.yaml) && serviceInputsResponse?.data) {
+      const serviceInputSetResponse = yamlParse(defaultTo(serviceInputsData, ''))
       const parsedYaml = yamlParse<NGServiceConfig>(defaultTo(serviceData.yaml, ''))
       const serviceInfo = parsedYaml.service?.serviceDefinition
       if (serviceInfo) {
@@ -201,6 +219,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           if (draft) {
             set(draft, 'stage.spec.deploymentType', serviceInfo?.type)
             set(draft, 'stage.spec.service.serviceRef', parsedYaml.service?.identifier)
+            if ((serviceInputSetResponse as any)?.serviceInputs) {
+              set(draft, 'stage.spec.service.serviceInputs', (serviceInputSetResponse as any)?.serviceInputs)
+            } else {
+              unset(draft, 'stage.spec.service.serviceInputs')
+            }
           }
         })
         if (stageData?.stage) {
@@ -219,7 +242,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       setIsReadOnlyView(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedServiceResponse])
+  }, [selectedServiceResponse, serviceInputsResponse])
 
   useEffect(() => {
     if (errorMap.size > 0) {
@@ -426,12 +449,20 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       await debounceUpdateStage(stageData?.stage)
 
       if (isSvcEnvEntityEnabled && value.serviceRef) {
-        refetchServiceData({
+        const params = {
           pathParams: {
             serviceIdentifier: value.serviceRef
           },
           queryParams: memoizedQueryParam
-        })
+        }
+        Promise.all([
+          refetchServiceData({
+            ...params
+          }),
+          refetchServiceInputs({
+            ...params
+          })
+        ])
       }
     },
     [debounceUpdateStage, memoizedQueryParam, refetchServiceData, stage]

@@ -47,10 +47,10 @@ import RbacButton from '@rbac/components/Button/Button'
 import ServiceEntityEditModal from '@cd/components/Services/ServiceEntityEditModal/ServiceEntityEditModal'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import type { DeployServiceData, DeployServiceProps, DeployServiceState } from './DeployServiceInterface'
 import { flexStart, isEditService } from './DeployServiceUtils'
 import { NewEditServiceModal } from './NewEditServiceModal'
-import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep/DeployInfrastructureStep'
 import css from './DeployServiceStep.module.scss'
 
 function DeployServiceWidget({
@@ -283,8 +283,8 @@ function DeployServiceWidget({
       }
     : {
         selectedDeploymentType: initialValues.deploymentType,
-        //DeployInfrastructureStepConfig type is temporarily added until pipeline DTO for new entity gets merged
-        gitOpsEnabled: (stage?.stage?.spec as DeployInfrastructureStepConfig)?.gitOpsEnabled
+        //DeployStageConfig type is temporarily added until pipeline DTO for new entity gets merged
+        gitOpsEnabled: (stage?.stage?.spec as DeployStageConfig)?.gitOpsEnabled
       }
   const [showModal, hideModal] = useModalHook(
     () => (

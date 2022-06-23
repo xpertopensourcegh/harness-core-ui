@@ -36,10 +36,10 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import ExperimentalInput from '../K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 import AddEditEnvironmentModal from './AddEditEnvironmentModal'
 import type { DeployInfrastructureProps } from './utils'
-import type { DeployInfrastructureStepConfig } from './DeployInfrastructureStep'
 
 import css from './DeployInfrastructureStep.module.scss'
 
@@ -54,7 +54,7 @@ interface DeployInfrastructureState {
   data?: EnvironmentResponseDTO
 }
 
-function isEditEnvironment(data: DeployInfrastructureStepConfig): boolean {
+function isEditEnvironment(data: DeployStageConfig): boolean {
   if (
     getMultiTypeFromValue(data.environment?.environmentRef) !== MultiTypeInputType.RUNTIME &&
     !isEmpty(data.environment?.environmentRef)

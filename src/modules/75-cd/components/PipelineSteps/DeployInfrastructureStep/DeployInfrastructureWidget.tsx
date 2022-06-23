@@ -22,7 +22,7 @@ import {
   getNonGitOpsEnvironmentRefSchema
 } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 
-import type { DeployInfrastructureStepConfig } from './DeployInfrastructureStep'
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import type { DeployInfrastructureProps } from './utils'
 import DeployEnvironment from './DeployEnvironment/DeployEnvironment'
 import DeployInfrastructures from './DeployInfrastructures/DeployInfrastructures'
@@ -41,7 +41,7 @@ export function DeployInfrastructureWidget({
 }: DeployInfrastructureProps): JSX.Element {
   const { getString } = useStrings()
 
-  const formikRef = useRef<FormikProps<DeployInfrastructureStepConfig> | null>(null)
+  const formikRef = useRef<FormikProps<DeployStageConfig> | null>(null)
 
   const { subscribeForm, unSubscribeForm } = useContext(StageErrorContext)
   useEffect(() => {
@@ -50,10 +50,10 @@ export function DeployInfrastructureWidget({
   }, [])
 
   return (
-    <Formik<DeployInfrastructureStepConfig>
+    <Formik<DeployStageConfig>
       formName="deployInfrastructureStepForm"
       onSubmit={noop}
-      validate={(values: DeployInfrastructureStepConfig) => {
+      validate={(values: DeployStageConfig) => {
         onUpdate?.({ ...values })
       }}
       initialValues={initialValues}

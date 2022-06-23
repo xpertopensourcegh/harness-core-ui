@@ -15,10 +15,10 @@ import { useStrings } from 'framework/strings'
 import type { EnvironmentResponse, EnvironmentResponseDTO } from 'services/cd-ng'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep'
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 
 interface DeployEnvironmentInEnvGroupProps {
-  formik?: FormikProps<DeployInfrastructureStepConfig>
+  formik?: FormikProps<DeployStageConfig>
   readonly: boolean
   selectedEnvironmentGroup: any
   allowableTypes: MultiTypeInputType[]

@@ -43,7 +43,7 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 
 import CreateEnvironmentGroupModal from '@cd/components/EnvironmentGroups/CreateEnvironmentGroupModal'
 
-import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep'
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import AddEditEnvironmentModal from '../AddEditEnvironmentModal'
 import { isEditEnvironmentOrEnvGroup } from '../utils'
 import DeployClusters from '../DeployClusters/DeployClusters'
@@ -60,9 +60,9 @@ function DeployEnvironmentOrEnvGroup({
   formik,
   allowableTypes
 }: {
-  initialValues: DeployInfrastructureStepConfig
+  initialValues: DeployStageConfig
   readonly: boolean
-  formik?: FormikProps<DeployInfrastructureStepConfig>
+  formik?: FormikProps<DeployStageConfig>
   allowableTypes: MultiTypeInputType[]
 }): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<PipelinePathProps>()

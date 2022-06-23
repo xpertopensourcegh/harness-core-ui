@@ -38,16 +38,16 @@ import InfrastructureModal from '@cd/components/EnvironmentsV2/EnvironmentDetail
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { isEditInfrastructure } from '../utils'
-import type { DeployInfrastructureStepConfig } from '../DeployInfrastructureStep'
 
 import css from './DeployInfrastructures.module.scss'
 
 interface DeployInfrastructuresProps {
-  formik?: FormikProps<DeployInfrastructureStepConfig>
+  formik?: FormikProps<DeployStageConfig>
   readonly?: boolean
   allowableTypes: MultiTypeInputType[]
-  initialValues: DeployInfrastructureStepConfig
+  initialValues: DeployStageConfig
 }
 
 function DeployInfrastructures({ initialValues, formik, readonly, allowableTypes }: DeployInfrastructuresProps) {

@@ -70,7 +70,8 @@ jest.mock('services/cd-ng', () => ({
     },
     loading: false
   }),
-  useGetExecutionStrategyYaml: jest.fn().mockReturnValue({})
+  useGetExecutionStrategyYaml: jest.fn().mockReturnValue({}),
+  useGetRuntimeInputsServiceEntity: jest.fn().mockReturnValue({})
 }))
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
