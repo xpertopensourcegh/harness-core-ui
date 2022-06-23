@@ -322,6 +322,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                           selectedDeploymentType={selectedDeploymentType}
                           isReadonly={isReadonly}
                           handleDeploymentTypeChange={handleDeploymentTypeChange}
+                          shouldShowGitops={false}
                         />
                       </div>
                       {selectedDeploymentType === ServiceDeploymentType['Kubernetes'] && (

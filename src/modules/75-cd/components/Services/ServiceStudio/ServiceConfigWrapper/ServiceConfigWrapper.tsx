@@ -39,7 +39,7 @@ interface ServiceConfigurationWrapperProps {
 function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): React.ReactElement {
   const { accountId, orgIdentifier, projectIdentifier, serviceId } = useParams<ProjectPathProps & ServicePathProps>()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
-  const { serviceResponse, isServiceCreateModalView, selectedDeploymentType } = useServiceContext()
+  const { serviceResponse, isServiceCreateModalView, selectedDeploymentType, gitOpsEnabled } = useServiceContext()
   const { getTemplate } = useTemplateSelector()
 
   const [isEdit] = usePermission({
@@ -61,6 +61,7 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
     if (isServiceCreateModalView) {
       return produce(newServiceState, draft => {
         set(draft, 'service.serviceDefinition.type', selectedDeploymentType)
+        set(draft, 'service.gitOpsEnabled', gitOpsEnabled)
       })
     } else {
       if (!isEmpty(serviceYaml?.service?.serviceDefinition)) {
@@ -103,6 +104,7 @@ function ServiceConfigurationWrapper(props: ServiceConfigurationWrapperProps): R
       if (!isEmpty(currentService?.service?.serviceDefinition)) {
         set(draft, 'stages[0].stage.name', DefaultNewStageName)
         set(draft, 'stages[0].stage.identifier', DefaultNewStageId)
+        set(draft, 'gitOpsEnabled', currentService.service?.gitOpsEnabled)
         set(
           draft,
           'stages[0].stage.spec.serviceConfig.serviceDefinition',

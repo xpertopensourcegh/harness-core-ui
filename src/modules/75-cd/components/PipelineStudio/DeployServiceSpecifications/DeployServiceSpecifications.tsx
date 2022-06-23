@@ -115,7 +115,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   )
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const getDeploymentType = (): ServiceDeploymentType => {
-    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type')
+    return isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig)
+      ? get(stage, 'stage.spec.deploymentType')
+      : get(stage, 'stage.spec.serviceConfig.serviceDefinition.type')
   }
 
   const [setupModeType, setSetupMode] = useState('')
@@ -127,6 +129,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const [selectedDeploymentType, setSelectedDeploymentType] = useState<ServiceDeploymentType | undefined>(
     getDeploymentType()
   )
+  const [gitOpsEnabled, setGitOpsEnabled] = useState(false)
   const [previousStageList, setPreviousStageList] = useState<SelectOption[]>([])
   const [currStageData, setCurrStageData] = useState<DeploymentStageElementConfig | undefined>()
   const [templateToFetch, setTemplateToFetch] = useState<TemplateLinkConfig>()
@@ -208,6 +211,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         setCache(serviceCacheId, serviceInfo)
 
         setSelectedDeploymentType(serviceInfo.type as ServiceDeploymentType)
+        setGitOpsEnabled(!!parsedYaml.service?.gitOpsEnabled)
         setIsReadOnlyView(true)
       }
     } else {
@@ -569,7 +573,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     return false
   }
   /*************************************Service Entity Related code********************************************************/
-
   return (
     <div className={stageCss.deployStage} ref={scrollRef}>
       <DeployServiceErrors domRef={scrollRef as React.MutableRefObject<HTMLElement | undefined>} />
@@ -635,6 +638,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   viewContext="setup"
                   isReadonly={isReadonly || isReadonlyView}
                   handleDeploymentTypeChange={handleDeploymentTypeChange}
+                  shouldShowGitops={isNewServiceEnvEntity(
+                    isSvcEnvEntityEnabled,
+                    stage?.stage as DeploymentStageElementConfig
+                  )}
+                  gitOpsEnabled={gitOpsEnabled}
                 />
                 <Layout.Horizontal>
                   <StepWidget<K8SDirectServiceStep>

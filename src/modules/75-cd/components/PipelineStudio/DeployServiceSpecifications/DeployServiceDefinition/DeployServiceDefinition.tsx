@@ -6,7 +6,7 @@
  */
 
 import React, { useCallback, useState } from 'react'
-import { Card, Checkbox, Intent, Layout, useConfirmationDialog } from '@harness/uicore'
+import { Intent, Layout, useConfirmationDialog } from '@harness/uicore'
 import { debounce, defaultTo, get, set } from 'lodash-es'
 import produce from 'immer'
 import cx from 'classnames'
@@ -30,7 +30,6 @@ import type { ServicePipelineConfig } from '@cd/components/Services/utils/Servic
 import { setupMode } from '../PropagateWidget/PropagateWidget'
 import SelectDeploymentType from '../SelectDeploymentType'
 import css from './DeployServiceDefinition.module.scss'
-import stageCss from '../../DeployStageSetupShell/DeployStage.module.scss'
 
 function DeployServiceDefinition(): React.ReactElement {
   const {
@@ -176,20 +175,12 @@ function DeployServiceDefinition(): React.ReactElement {
       <SelectDeploymentType
         viewContext="setup"
         selectedDeploymentType={selectedDeploymentType}
+        gitOpsEnabled={gitOpsEnabled}
         isReadonly={disabledState}
         handleDeploymentTypeChange={handleDeploymentTypeChange}
+        shouldShowGitops={true}
+        handleGitOpsCheckChanged={handleGitOpsCheckChanged}
       />
-      {selectedDeploymentType === ServiceDeploymentType['Kubernetes'] && (
-        <Card className={stageCss.sectionCard}>
-          <Checkbox
-            label="Gitops"
-            name="gitOpsEnabled"
-            checked={gitOpsEnabled}
-            onChange={handleGitOpsCheckChanged}
-            disabled={disabledState}
-          />
-        </Card>
-      )}
       <Layout.Horizontal>
         <StepWidget<K8SDirectServiceStep>
           factory={factory}

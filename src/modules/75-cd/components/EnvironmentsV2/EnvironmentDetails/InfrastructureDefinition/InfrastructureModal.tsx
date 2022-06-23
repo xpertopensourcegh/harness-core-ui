@@ -339,6 +339,7 @@ function BootstrapDeployInfraDefinition({
                       selectedDeploymentType={selectedDeploymentType}
                       isReadonly={false}
                       handleDeploymentTypeChange={handleDeploymentTypeChange}
+                      shouldShowGitops={false}
                     />
                   )}
                   {(selectedDeploymentType || infrastructureDefinition) && <DeployInfraDefinition />}
