@@ -210,7 +210,11 @@ export const CDDashboardPage: React.FC = () => {
   const pipelineExecutionSummary = pipelineExecution?.data || {}
 
   if (loadingWorkloads || pipelineLoading) {
-    return <PageSpinner />
+    return (
+      <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+        <PageSpinner />
+      </div>
+    )
   }
 
   return (
