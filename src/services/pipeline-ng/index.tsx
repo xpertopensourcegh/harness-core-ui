@@ -135,6 +135,34 @@ export type AwsCodeCommitSpec = WebhookTriggerSpecV2 & {
   type?: 'Push'
 }
 
+export interface AzureRepoEventSpec {
+  projectName?: string
+}
+
+export type AzureRepoPRSpec = AzureRepoEventSpec & {
+  actions?: ('Create' | 'Update' | 'Merge')[]
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type AzureRepoPushSpec = AzureRepoEventSpec & {
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type AzureRepoSpec = WebhookTriggerSpecV2 & {
+  spec?: AzureRepoEventSpec
+  type?: 'PullRequest' | 'Push'
+}
+
 export interface BarrierExecutionInfo {
   identifier?: string
   name?: string
@@ -736,6 +764,7 @@ export interface ErrorNodeSummary {
   childrenErrorNodes?: ErrorNodeSummary[]
   nodeInfo?: NodeInfo
   templateInfo?: TemplateInfo
+  templateResponse?: TemplateResponse
 }
 
 export interface ExecutableResponse {
@@ -1478,6 +1507,15 @@ export interface InputSetErrorWrapper {
   uuidToErrorResponseMap?: {
     [key: string]: InputSetErrorResponse
   }
+}
+
+export interface InputSetImportRequestDTO {
+  inputSetDescription?: string
+  inputSetName?: string
+}
+
+export interface InputSetImportResponseDTO {
+  identifier?: string
 }
 
 export interface InputSetResponse {
@@ -2308,6 +2346,11 @@ export interface ResourceDTO {
     | 'CHAOS_AGENT'
     | 'CHAOS_WORKFLOW'
     | 'SERVICE_LEVEL_OBJECTIVE'
+    | 'PERSPECTIVE'
+    | 'PERSPECTIVE_BUDGET'
+    | 'PERSPECTIVE_REPORT'
+    | 'COST_CATEGORY'
+    | 'SMTP'
 }
 
 export interface ResourceScopeDTO {
@@ -2399,6 +2442,13 @@ export interface ResponseFilterDTO {
 export interface ResponseHarnessApprovalInstanceAuthorization {
   correlationId?: string
   data?: HarnessApprovalInstanceAuthorization
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInputSetImportResponseDTO {
+  correlationId?: string
+  data?: InputSetImportResponseDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2540,7 +2590,7 @@ export interface ResponseListWebhookAction {
 
 export interface ResponseListWebhookTriggerType {
   correlationId?: string
-  data?: ('Github' | 'Gitlab' | 'Bitbucket' | 'Custom' | 'AwsCodeCommit')[]
+  data?: ('AzureRepo' | 'Github' | 'Gitlab' | 'Bitbucket' | 'Custom' | 'AwsCodeCommit')[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3479,6 +3529,28 @@ export interface TemplateLinkConfig {
   versionLabel?: string
 }
 
+export interface TemplateResponse {
+  accountId: string
+  childType?: string
+  description?: string
+  entityValidityDetails?: EntityValidityDetails
+  gitDetails?: EntityGitDetails
+  identifier: string
+  lastUpdatedAt?: number
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  stableTemplate?: boolean
+  tags?: {
+    [key: string]: string
+  }
+  templateEntityType?: 'Step' | 'Stage' | 'Pipeline' | 'MonitoredService'
+  templateScope?: 'account' | 'org' | 'project' | 'unknown'
+  version?: number
+  versionLabel?: string
+  yaml?: string
+}
+
 export interface TemplateStageNode {
   description?: string
   identifier: string
@@ -3605,7 +3677,7 @@ export interface WebhookEventProcessingDetails {
 
 export type WebhookTriggerConfigV2 = NGTriggerSpecV2 & {
   spec?: WebhookTriggerSpecV2
-  type?: 'Github' | 'Gitlab' | 'Bitbucket' | 'Custom' | 'AwsCodeCommit'
+  type?: 'AzureRepo' | 'Github' | 'Gitlab' | 'Bitbucket' | 'Custom' | 'AwsCodeCommit'
 }
 
 export interface WebhookTriggerSpecV2 {
@@ -3710,9 +3782,9 @@ export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
 
 export type RunStageRequestDTORequestBody = RunStageRequestDTO
 
-export type CustomWebhookEndpointBodyRequestBody = string
-
 export type UpdateInputSetForPipelineBodyRequestBody = string
+
+export type WebhookEndpointBodyRequestBody = string
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval' | 'ServiceNowApproval'
@@ -4740,6 +4812,103 @@ export const createInputSetForPipelinePromise = (
     UpdateInputSetForPipelineBodyRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/inputSets`, props, signal)
+
+export interface ImportInputSetQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  connectorRef?: string
+  repoName?: string
+  branch?: string
+  filePath?: string
+}
+
+export interface ImportInputSetPathParams {
+  inputSetIdentifier: string
+}
+
+export type ImportInputSetProps = Omit<
+  MutateProps<
+    ResponseInputSetImportResponseDTO,
+    Failure | Error,
+    ImportInputSetQueryParams,
+    InputSetImportRequestDTO,
+    ImportInputSetPathParams
+  >,
+  'path' | 'verb'
+> &
+  ImportInputSetPathParams
+
+/**
+ * Get Input Set YAML from Git Repository
+ */
+export const ImportInputSet = ({ inputSetIdentifier, ...props }: ImportInputSetProps) => (
+  <Mutate<
+    ResponseInputSetImportResponseDTO,
+    Failure | Error,
+    ImportInputSetQueryParams,
+    InputSetImportRequestDTO,
+    ImportInputSetPathParams
+  >
+    verb="POST"
+    path={`/inputSets/import/${inputSetIdentifier}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseImportInputSetProps = Omit<
+  UseMutateProps<
+    ResponseInputSetImportResponseDTO,
+    Failure | Error,
+    ImportInputSetQueryParams,
+    InputSetImportRequestDTO,
+    ImportInputSetPathParams
+  >,
+  'path' | 'verb'
+> &
+  ImportInputSetPathParams
+
+/**
+ * Get Input Set YAML from Git Repository
+ */
+export const useImportInputSet = ({ inputSetIdentifier, ...props }: UseImportInputSetProps) =>
+  useMutate<
+    ResponseInputSetImportResponseDTO,
+    Failure | Error,
+    ImportInputSetQueryParams,
+    InputSetImportRequestDTO,
+    ImportInputSetPathParams
+  >('POST', (paramsInPath: ImportInputSetPathParams) => `/inputSets/import/${paramsInPath.inputSetIdentifier}`, {
+    base: getConfig('pipeline/api'),
+    pathParams: { inputSetIdentifier },
+    ...props
+  })
+
+/**
+ * Get Input Set YAML from Git Repository
+ */
+export const importInputSetPromise = (
+  {
+    inputSetIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseInputSetImportResponseDTO,
+    Failure | Error,
+    ImportInputSetQueryParams,
+    InputSetImportRequestDTO,
+    ImportInputSetPathParams
+  > & { inputSetIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseInputSetImportResponseDTO,
+    Failure | Error,
+    ImportInputSetQueryParams,
+    InputSetImportRequestDTO,
+    ImportInputSetPathParams
+  >('POST', getConfig('pipeline/api'), `/inputSets/import/${inputSetIdentifier}`, props, signal)
 
 export interface GetMergeInputSetFromPipelineTemplateWithListInputQueryParams {
   accountIdentifier: string
@@ -10931,13 +11100,7 @@ export interface CustomWebhookEndpointQueryParams {
 }
 
 export type CustomWebhookEndpointProps = Omit<
-  MutateProps<
-    ResponseString,
-    Failure | Error,
-    CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >,
+  MutateProps<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -10945,7 +11108,7 @@ export type CustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const CustomWebhookEndpoint = (props: CustomWebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/custom`}
     base={getConfig('pipeline/api')}
@@ -10958,7 +11121,7 @@ export type UseCustomWebhookEndpointProps = Omit<
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -10968,13 +11131,11 @@ export type UseCustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const useCustomWebhookEndpoint = (props: UseCustomWebhookEndpointProps) =>
-  useMutate<
-    ResponseString,
-    Failure | Error,
-    CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >('POST', `/webhook/custom`, { base: getConfig('pipeline/api'), ...props })
+  useMutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    `/webhook/custom`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
 
 /**
  * accept custom webhook event
@@ -10984,7 +11145,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -10993,7 +11154,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/webhook/custom`, props, signal)
 
@@ -11306,7 +11467,7 @@ export interface WebhookEndpointQueryParams {
 }
 
 export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>,
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -11314,7 +11475,7 @@ export type WebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
@@ -11323,13 +11484,7 @@ export const WebhookEndpoint = (props: WebhookEndpointProps) => (
 )
 
 export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<
-    ResponseString,
-    Failure | Error,
-    WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >,
+  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -11337,7 +11492,7 @@ export type UseWebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>(
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
     'POST',
     `/webhook/trigger`,
     { base: getConfig('pipeline/api'), ...props }
@@ -11351,18 +11506,18 @@ export const webhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
+    WebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<
-    ResponseString,
-    Failure | Error,
-    WebhookEndpointQueryParams,
-    CustomWebhookEndpointBodyRequestBody,
-    void
-  >('POST', getConfig('pipeline/api'), `/webhook/trigger`, props, signal)
+  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/webhook/trigger`,
+    props,
+    signal
+  )
 
 export interface TriggerProcessingDetailsQueryParams {
   accountIdentifier: string

@@ -387,6 +387,9 @@ export interface StringsMap {
   'common.headers': string
   'common.home': string
   'common.hourly': string
+  'common.import': string
+  'common.importEntityFromGit': string
+  'common.importFromGit': string
   'common.in': string
   'common.input': string
   'common.instanceLabel': string
@@ -3011,6 +3014,7 @@ export interface StringsMap {
   'pipeline.gitRepo': string
   'pipeline.imagePathLabel': string
   'pipeline.imageVersionDeprecated': string
+  'pipeline.importSuccessMessage': string
   'pipeline.infraSpecifications.initTimeout': string
   'pipeline.infraSpecifications.initTimeoutPlaceholder': string
   'pipeline.infraSpecifications.namespacePlaceholder': string

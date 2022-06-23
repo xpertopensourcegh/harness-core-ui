@@ -33,6 +33,7 @@ pipeline: Pipeline
 templateStartLabel: Start with Template
 duplicateId: 'Duplicate Identifier'
 createPipeline: Create a Pipeline
+importFromGit: Import From Git
 production: Production
 addVariable: Add Variable
 advanced: '{{ $.advancedTitle }}'
@@ -902,6 +903,8 @@ download: Download
 gitOps: GitOps
 showHarnessManagedError: Harness Managed Resource cannot be edited
 contentRequired: Content is required
+import: Import
+importEntityFromGit: Import {{resourceType}} From Git
 
 # Chaos Module
 chaosText: Chaos
