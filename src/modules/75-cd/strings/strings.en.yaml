@@ -151,6 +151,7 @@ serviceDashboard:
   instanceCountHistory: Instance Count History
   instanceDetails: Instance Details
   pod: pod
+  function: function
   deployedAt: Deployed At
   deployedBy: Deployed By
   artifact: artifact
