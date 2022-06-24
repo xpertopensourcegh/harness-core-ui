@@ -10556,6 +10556,7 @@ export interface SecretResponseWrapper {
   draft?: boolean
   secret: SecretDTOV2
   updatedAt?: number
+  governanceMetadata?: GovernanceMetadata
 }
 
 export interface SecretSpecDTO {

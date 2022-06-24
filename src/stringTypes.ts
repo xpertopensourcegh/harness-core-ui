@@ -1318,6 +1318,8 @@ export interface StringsMap {
   'secrets.labelType': string
   'secrets.labelValue': string
   'secrets.noSecrets': string
+  'secrets.policyEvaluations.failedToSave': string
+  'secrets.policyEvaluations.warning': string
   'secrets.secret.configureSecret': string
   'secrets.secret.inlineSecret': string
   'secrets.secret.labelFile': string
@@ -1337,6 +1339,7 @@ export interface StringsMap {
   'secrets.secret.secretActivity': string
   'secrets.secret.secretCreated': string
   'secrets.secret.secretNotFound': string
+  'secrets.secret.successMessage': string
   'secrets.secret.titleCreateFile': string
   'secrets.secret.titleCreateText': string
   'secrets.secret.titleEditFile': string
