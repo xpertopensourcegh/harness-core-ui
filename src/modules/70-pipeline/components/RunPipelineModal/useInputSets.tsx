@@ -100,6 +100,9 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
     }
   })
 
+  // Reason for sending repoIdentifier and pipelineRepoID both as same values
+  // input sets are only saved in same repo and same branch that of pipeline's or default branch of other repos
+  // getDefaultFromOtherRepo: true takes care of fetching input sets from other repo, default branches
   const {
     data: inputSetData,
     loading: loadingInputSetsData,
@@ -114,9 +117,12 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      branch,
+      pipelineIdentifier,
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch,
       repoIdentifier,
-      pipelineIdentifier
+      branch,
+      getDefaultFromOtherRepo: true
     }
   })
 
