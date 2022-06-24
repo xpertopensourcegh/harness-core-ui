@@ -167,6 +167,23 @@ describe('ServicesList', () => {
       '/account/dummy/undefined/orgs/dummy/projects/dummy/services/asdfasdf'
     )
   })
+
+  test('should go to latest execution after click', async () => {
+    const responseData = serviceDetails.data.serviceDeploymentDetailsList as unknown as ServiceDetailsDTO[]
+    const { container, getByTestId } = renderSetup(responseData)
+
+    const pipelineExecutionId =
+      serviceDetails.data.serviceDeploymentDetailsList[1].lastPipelineExecuted?.pipelineExecutionId
+    const planExecutionId = serviceDetails.data.serviceDeploymentDetailsList[1].lastPipelineExecuted?.planExecutionId
+    expect(container.querySelector(`[data-testid="${pipelineExecutionId}"]`)).toBeDefined()
+    fireEvent.click(container.querySelector(`[data-testid="${pipelineExecutionId}"]`) as HTMLElement)
+
+    //should take user to latest pipeline execution
+    await waitFor(() => getByTestId('location'))
+    expect(getByTestId('location')).toHaveTextContent(
+      `/account/dummy/undefined/orgs/dummy/projects/dummy/pipelines/Test/deployments/${planExecutionId}/pipeline`
+    )
+  })
 })
 
 describe('DeploymentType in ServicesList ', () => {

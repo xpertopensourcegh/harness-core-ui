@@ -166,6 +166,8 @@ serviceDashboard:
   helmRopoUrl: Repo URL
   manageServiceLabel: Manage Services
   unitDay: '/Day'
+  lastPipelineExecution: Last Pipeline Execution
+  noLastDeployment: No last deployment exist
 noEnvironment:
   title: No Environments Available
   message: Create an environment and let’s start configuring the deployment
