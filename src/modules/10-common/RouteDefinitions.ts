@@ -1503,7 +1503,7 @@ const routes = {
   ),
   toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
-  toCEBudgetDetails: withAccountId(
+  toCEBudgetDetailsOld: withAccountId(
     ({
       budgetId,
       budgetName
@@ -1511,6 +1511,15 @@ const routes = {
       budgetId: string
       budgetName: string
     }) => `/ce/budget/${budgetId}/${budgetName}`
+  ),
+  toCEBudgetDetails: withAccountId(
+    ({
+      budgetId,
+      budgetName
+    }: AccountPathProps & {
+      budgetId: string
+      budgetName: string
+    }) => `/ce/budgets/${budgetId}/${budgetName}`
   ),
   toCEPerspectiveWorkloadDetails: withAccountId(
     ({

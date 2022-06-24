@@ -18,6 +18,8 @@ import type { AccountPathProps, Module } from '@common/interfaces/RouteInterface
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import { MinimalLayout } from '@common/layouts'
 import SessionToken from 'framework/utils/SessionToken'
+// eslint-disable-next-line no-restricted-imports
+import ChildAppMounter from 'microfrontends/ChildAppMounter'
 
 import CESideNav from '@ce/components/CESideNav/CESideNav'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -28,6 +30,7 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { BannerType } from '@common/layouts/Constants'
 import { FEATURE_USAGE_WARNING_LIMIT } from '@common/layouts/FeatureBanner'
 import { PAGE_NAME } from '@common/pages/pageContext/PageName'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import CEHomePage from './pages/home/CEHomePage'
 import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
 import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPage'
@@ -99,6 +102,9 @@ featureFactory.registerFeaturesByModule('ce', {
   }
 })
 
+// eslint-disable-next-line import/no-unresolved
+const CcmMicroFrontendPath = React.lazy(() => import('ccmui/MicroFrontendApp'))
+
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
   subtitle: 'CLOUD COST',
@@ -130,6 +136,24 @@ const RedirectToOverviewPage = (): React.ReactElement => {
     <Redirect
       to={routes.toCEOverview({
         accountId
+      })}
+    />
+  )
+}
+
+const RedirectToBudgetDetails = (): React.ReactElement => {
+  const { accountId, budgetId, budgetName } = useParams<{
+    accountId: string
+    budgetId: string
+    budgetName: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toCEBudgetDetails({
+        accountId,
+        budgetName,
+        budgetId
       })}
     />
   )
@@ -187,6 +211,8 @@ const getRequestOptions = (): Partial<RequestInit> => {
 
 const CERoutes: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
+  const { CCM_MICRO_FRONTEND } = useFeatureFlags()
+  const enableMicroFrontend = CCM_MICRO_FRONTEND
 
   const urqlClient = React.useMemo(() => {
     const url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
@@ -276,28 +302,45 @@ const CERoutes: React.FC = () => {
           <CECOLoadBalancersPage />
         </RouteWithLayout>
 
-        <RouteWithLayout
-          licenseRedirectData={licenseRedirectData}
-          sidebarProps={CESideNavProps}
-          path={routes.toCEBudgets({ ...accountPathProps })}
-          exact
-          pageName={PAGE_NAME.CEBudgets}
-        >
-          <Budgets />
-        </RouteWithLayout>
+        {!enableMicroFrontend ? (
+          <RouteWithLayout
+            licenseRedirectData={licenseRedirectData}
+            sidebarProps={CESideNavProps}
+            path={routes.toCEBudgets({ ...accountPathProps })}
+            pageName={PAGE_NAME.CEBudgets}
+            exact
+          >
+            <Budgets />
+          </RouteWithLayout>
+        ) : null}
 
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
-          path={routes.toCEBudgetDetails({
+          path={routes.toCEBudgetDetailsOld({
             ...accountPathProps,
             budgetId: ':budgetId',
             budgetName: ':budgetName'
           })}
           pageName={PAGE_NAME.CEBudgetDetails}
         >
-          <BudgetDetails />
+          <RedirectToBudgetDetails />
         </RouteWithLayout>
+
+        {!enableMicroFrontend ? (
+          <RouteWithLayout
+            licenseRedirectData={licenseRedirectData}
+            sidebarProps={CESideNavProps}
+            path={routes.toCEBudgetDetails({
+              ...accountPathProps,
+              budgetId: ':budgetId',
+              budgetName: ':budgetName'
+            })}
+            pageName={PAGE_NAME.CEBudgetDetails}
+          >
+            <BudgetDetails />
+          </RouteWithLayout>
+        ) : null}
 
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
@@ -467,6 +510,7 @@ const CERoutes: React.FC = () => {
         >
           <BusinessMapping />
         </RouteWithLayout>
+
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
@@ -476,6 +520,19 @@ const CERoutes: React.FC = () => {
         >
           <OverviewPage />
         </RouteWithLayout>
+
+        {enableMicroFrontend ? (
+          <RouteWithLayout
+            path={[
+              routes.toCEBudgets({ ...accountPathProps }),
+              routes.toCEBudgetDetails({ ...accountPathProps, budgetId: ':budgetId', budgetName: ':budgetName' })
+            ]}
+            sidebarProps={CESideNavProps}
+          >
+            <ChildAppMounter ChildApp={CcmMicroFrontendPath} />
+          </RouteWithLayout>
+        ) : null}
+
         <Route path="*">
           <NotFoundPage />
         </Route>
