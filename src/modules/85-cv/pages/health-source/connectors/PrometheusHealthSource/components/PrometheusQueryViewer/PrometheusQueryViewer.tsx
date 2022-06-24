@@ -11,7 +11,15 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Container, Text, Utils, useConfirmationDialog, Button } from '@wings-software/uicore'
+import {
+  Container,
+  Text,
+  Utils,
+  useConfirmationDialog,
+  Button,
+  MultiTypeInputType,
+  getMultiTypeFromValue
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ResponseListPrometheusSampleData, useGetSampleData } from 'services/cv'
@@ -45,6 +53,7 @@ interface ChartAndRecordsProps {
   isQueryExecuted?: boolean
   fetchData: () => void
   onChange: PrometheusQueryViewerProps['onChange']
+  isQueryRuntimeOrEpression?: boolean
 }
 
 const DrawerProps: IDrawerProps = {
@@ -60,7 +69,7 @@ const DrawerProps: IDrawerProps = {
 }
 
 export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
-  const { query, error, loading, data, onChange, isQueryExecuted, fetchData } = props
+  const { query, error, loading, data, onChange, isQueryExecuted, fetchData, isQueryRuntimeOrEpression } = props
   const { getString } = useStrings()
 
   const { options: highchartsOptions, records } = useMemo(() => {
@@ -83,6 +92,18 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
           queryNotExecutedMessage={getString('cv.monitoringSources.prometheus.submitQueryToSeeRecords')}
         />
       </>
+    )
+  } else if (!records?.length && isQueryRuntimeOrEpression) {
+    return (
+      <Records
+        fetchRecords={fetchData}
+        loading={loading}
+        data={!query?.length ? null : records}
+        error={error}
+        query={query}
+        isQueryExecuted={isQueryExecuted}
+        queryNotExecutedMessage={getString('cv.customHealthSource.chartRuntimeWarning')}
+      />
     )
   }
   return (
@@ -134,7 +155,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     }
   })
   const isManualQuery = Boolean(values?.isManualQuery)
-
+  const isQueryRuntimeOrEpression = getMultiTypeFromValue(query) !== MultiTypeInputType.FIXED
   let content = (
     <>
       {isTemplate ? (
@@ -143,12 +164,14 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
           label={getString('cv.query')}
           defaultValueToReset=""
           skipRenderValueInExpressionLabel
+          allowedTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           expressionRender={() => {
             return (
               <ShellScriptMonacoField
                 name={PrometheusMonitoringSourceFieldNames.QUERY}
                 scriptType={'Bash'}
                 expressions={expressions}
+                editorOptions={{ lineNumbers: 'off' }}
               />
             )
           }}
@@ -156,7 +179,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
           <ShellScriptMonacoField
             name={PrometheusMonitoringSourceFieldNames.QUERY}
             scriptType={'Bash'}
-            expressions={expressions}
+            editorOptions={{ lineNumbers: 'off' }}
           />
           <Button
             intent="primary"
@@ -229,6 +252,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
         data={data}
         error={getErrorMessage(error)}
         loading={loading}
+        isQueryRuntimeOrEpression={isQueryRuntimeOrEpression}
       />
     </>
   )
@@ -243,7 +267,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
 
   return (
     <Container className={cx(css.main, className)}>
-      <Text className={css.labelText}>{getString('cv.query')}</Text>
+      {!isTemplate && <Text className={css.labelText}>{getString('cv.query')}</Text>}
       {content}
     </Container>
   )

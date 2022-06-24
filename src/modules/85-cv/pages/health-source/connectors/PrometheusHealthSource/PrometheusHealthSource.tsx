@@ -265,6 +265,8 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
                             healthScore: !!formikProps?.values?.healthScore,
                             continuousVerification: !!formikProps?.values?.continuousVerification
                           }}
+                          isTemplate={isTemplate}
+                          expressions={expressions}
                           metricPackResponse={metricPackResponse}
                           labelNamesResponse={labelNamesResponse}
                         />

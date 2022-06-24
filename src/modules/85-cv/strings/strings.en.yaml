@@ -194,6 +194,7 @@ monitoringSources:
   queryName: Query Name
   riskProfile: Risk Profile
   riskCategoryLabel: Risk Category
+  riskCategoryTemplateNote: Provide in format 'Category / MetricType'
   baselineDeviation: Deviation Compared to Baseline
   higherCounts: Higher value is higher risk
   lowerCounts: Lower value is higher risk

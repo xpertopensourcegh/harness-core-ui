@@ -6230,6 +6230,7 @@ export interface StringsMap {
   'cv.monitoringSources.queryNameLabel': string
   'cv.monitoringSources.queryNameValidation': string
   'cv.monitoringSources.riskCategoryLabel': string
+  'cv.monitoringSources.riskCategoryTemplateNote': string
   'cv.monitoringSources.riskProfile': string
   'cv.monitoringSources.serviceInstanceIdentifier': string
   'cv.monitoringSources.serviceValidation': string

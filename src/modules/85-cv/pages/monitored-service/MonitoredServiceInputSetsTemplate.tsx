@@ -72,12 +72,18 @@ export const getLabelByName = (name: string, getString: UseStringsReturn['getStr
       return getString('cv.healthSource.connectors.AppDynamics.metricPathType.text')
     case 'serviceInstanceMetricPath':
       return getString('cv.healthSource.connectors.AppDynamics.serviceInstance')
+    case 'serviceInstanceFieldName':
+      return getString('cv.monitoringSources.serviceInstanceIdentifier')
     case 'connectorRef':
       return getString('connectors.selectConnector')
     case 'query':
       return getString('cv.query')
+    case 'category':
+      return `Category for ${getString('cv.monitoringSources.riskCategoryLabel')}`
+    case 'metricType':
+      return `Metric type for ${getString('cv.monitoringSources.riskCategoryLabel')}`
     default:
-      return ''
+      return name
   }
 }
 
