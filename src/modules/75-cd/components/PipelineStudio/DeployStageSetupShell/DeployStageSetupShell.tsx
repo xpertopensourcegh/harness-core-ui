@@ -31,7 +31,10 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
-import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
+import {
+  DeployTabs,
+  isNewServiceEnvEntity
+} from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { useQueryParams } from '@common/hooks'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
@@ -50,6 +53,7 @@ import DeployServiceSpecifications from '../DeployServiceSpecifications/DeploySe
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
 import DeployAdvancedSpecifications from '../DeployAdvancedSpecifications/DeployAdvancedSpecifications'
 import DeployEnvSpecifications from '../DeployEnvSpecifications/DeployEnvSpecifications'
+import DeployServiceEntitySpecifications from '../DeployServiceSpecifications/DeployServiceEntitySpecifications'
 import css from './DeployStageSetupShell.module.scss'
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
@@ -369,6 +373,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           }
           data-testid="overview"
         />
+
         <Tab
           id={DeployTabs.SERVICE}
           title={
@@ -378,9 +383,13 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
           panel={
-            <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
-              {navBtns}
-            </DeployServiceSpecifications>
+            isNewServiceEnvEntity(NG_SVC_ENV_REDESIGN, selectedStage?.stage as DeploymentStageElementConfig) ? (
+              <DeployServiceEntitySpecifications>{navBtns}</DeployServiceEntitySpecifications>
+            ) : (
+              <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
+                {navBtns}
+              </DeployServiceSpecifications>
+            )
           }
           data-testid="service"
         />
