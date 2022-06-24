@@ -48,6 +48,12 @@ export interface ClusterYaml {
   ref: string
 }
 
+export type EnvironmentInEnvGroup = {
+  name: string
+  deployToAll?: boolean
+  clusters?: ClusterYaml[]
+}
+
 export interface DeployStageConfig
   extends Omit<DeploymentStageConfig, 'execution' | 'infrastructure' | 'serviceConfig'> {
   infrastructure?: PipelineInfrastructure
@@ -58,7 +64,9 @@ export interface DeployStageConfig
   service?: ServiceYamlV2
   infrastructureRef?: string
   environmentOrEnvGroupRef?: SelectOption | string
-  environmentInEnvGroupRef?: SelectOption | string
+  environmentOrEnvGroupAsRuntime?: string
+  environmentInEnvGroupRef?: SelectOption[] | string
+  environmentsInEnvGroup?: EnvironmentInEnvGroup[] | string
   clusterRef?: SelectOption[] | string
   isEnvGroup?: boolean
   deploymentType?: ServiceDefinition['type']

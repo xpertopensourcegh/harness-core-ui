@@ -10,7 +10,14 @@ import { useParams } from 'react-router-dom'
 import { defaultTo, get, isEmpty, isEqual, isNil, uniqBy } from 'lodash-es'
 import { connect, FormikProps } from 'formik'
 
-import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption, useToaster } from '@harness/uicore'
+import {
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  RUNTIME_INPUT_VALUE,
+  SelectOption,
+  useToaster
+} from '@harness/uicore'
 
 import { useStrings } from 'framework/strings'
 import { ClusterResponse, useGetClusterList } from 'services/cd-ng'
@@ -20,6 +27,8 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 
 import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
+import { ALL_SELECTED } from '../utils'
+
 import css from './DeployClusters.module.scss'
 
 interface DeployClusterProps {
@@ -63,11 +72,12 @@ function DeployClusters({ formik, readonly, environmentIdentifier, allowableType
 
   useEffect(() => {
     if (!isNil(clusters)) {
-      setClustersSelectOptions(
-        clusters.map(cluster => {
+      setClustersSelectOptions([
+        { label: getString('cd.pipelineSteps.environmentTab.allClustersSelected'), value: ALL_SELECTED },
+        ...clusters.map(cluster => {
           return { label: defaultTo(cluster.clusterRef, ''), value: defaultTo(cluster.clusterRef, '') }
         })
-      )
+      ])
     }
   }, [clusters])
 
@@ -107,7 +117,22 @@ function DeployClusters({ formik, readonly, environmentIdentifier, allowableType
         multiSelectProps: {
           items: defaultTo(clustersSelectOptions, [])
         },
-        allowableTypes
+        allowableTypes,
+        onChange: items => {
+          if (items !== RUNTIME_INPUT_VALUE && (items as SelectOption[]).length !== 1) {
+            const selectAllItemIndex = (items as SelectOption[]).findIndex(item => item.value === ALL_SELECTED)
+
+            if (selectAllItemIndex === 0) {
+              formik?.setFieldValue('clusterRef', (items as SelectOption[]).slice(1))
+            } else if (selectAllItemIndex === (items as SelectOption[]).length - 1) {
+              formik?.setFieldValue('clusterRef', (items as SelectOption[]).slice(-1))
+            } else {
+              formik?.setFieldValue('clusterRef', items)
+            }
+          } else {
+            formik?.setFieldValue('clusterRef', items)
+          }
+        }
       }}
       selectItems={defaultTo(clustersSelectOptions, [])}
     />

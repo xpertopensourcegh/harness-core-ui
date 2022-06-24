@@ -7,15 +7,24 @@
 
 import React from 'react'
 import type { FormikErrors } from 'formik'
-import { defaultTo, isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 
-import { getMultiTypeFromValue, IconName, MultiTypeInputType, RUNTIME_INPUT_VALUE, SelectOption } from '@harness/uicore'
+import { getMultiTypeFromValue, IconName, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@harness/uicore'
+
 import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { DeployInfrastructureWidget } from './DeployInfrastructureWidget'
 import DeployInfrastructureInputStep from './DeployInfrastructureInputStep'
+import {
+  processNonGitOpsInitialValues,
+  processGitOpsEnvGroupInitialValues,
+  processGitOpsEnvironmentInitialValues,
+  processNonGitOpsFormValues,
+  processGitOpsEnvironmentFormValues,
+  processGitOpsEnvGroupFormValues
+} from './utils'
 
 export class DeployInfrastructureStep extends Step<DeployStageConfig> {
   lastFetched: number
@@ -37,48 +46,10 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
     const isEnvGroup = Boolean(initialValues.environmentGroup)
     return {
       gitOpsEnabled,
-      ...(gitOpsEnabled === false && {
-        environment: {
-          environmentRef: defaultTo(initialValues.environment?.environmentRef, ''),
-          deployToAll: defaultTo(initialValues.environment?.deployToAll, false)
-        },
-        infrastructureRef: (initialValues.environment?.infrastructureDefinitions?.[0].ref ||
-          initialValues.environment?.infrastructureDefinitions ||
-          '') as string
-      }),
-      ...(gitOpsEnabled === true && {
-        ...(!isEnvGroup && {
-          isEnvGroup,
-          environmentOrEnvGroupRef: defaultTo(initialValues.environment?.environmentRef, ''),
-          deployToAll: defaultTo(initialValues.environment?.deployToAll, false),
-          clusterRef:
-            getMultiTypeFromValue(initialValues.environment?.gitOpsClusters as any) === MultiTypeInputType.RUNTIME
-              ? RUNTIME_INPUT_VALUE
-              : initialValues.environment?.gitOpsClusters?.map(cluster => {
-                  return {
-                    label: cluster.ref,
-                    value: cluster.ref
-                  }
-                })
-        }),
-        ...(isEnvGroup && {
-          isEnvGroup,
-          environmentOrEnvGroupRef: defaultTo(initialValues.environmentGroup?.envGroupRef, ''),
-          environmentInEnvGroupRef:
-            typeof initialValues.environmentGroup?.envGroupConfig === 'string'
-              ? RUNTIME_INPUT_VALUE
-              : defaultTo(initialValues.environmentGroup?.envGroupConfig?.[0].environmentRef, ''),
-          deployToAll: defaultTo(initialValues.environment?.deployToAll, false),
-          clusterRef:
-            typeof initialValues.environmentGroup?.envGroupConfig?.[0]?.gitOpsClusters === 'string'
-              ? RUNTIME_INPUT_VALUE
-              : initialValues.environmentGroup?.envGroupConfig?.[0]?.gitOpsClusters?.map(cluster => {
-                  return {
-                    label: cluster.ref,
-                    value: cluster.ref
-                  }
-                })
-        })
+      ...(!gitOpsEnabled && processNonGitOpsInitialValues(initialValues)),
+      ...(gitOpsEnabled && {
+        ...(!isEnvGroup && processGitOpsEnvironmentInitialValues(initialValues)),
+        ...(isEnvGroup && processGitOpsEnvGroupInitialValues(initialValues))
       })
     }
   }
@@ -88,61 +59,17 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
     const isEnvGroup = data.isEnvGroup
 
     return {
-      ...(gitOpsEnabled === false && {
-        environment: {
-          environmentRef:
-            data.environment?.environmentRef === RUNTIME_INPUT_VALUE
-              ? RUNTIME_INPUT_VALUE
-              : data.environment?.environmentRef,
-          deployToAll: defaultTo(data.environment?.deployToAll, false),
-          ...(data.infrastructureRef && {
-            infrastructureDefinitions:
-              data.infrastructureRef === RUNTIME_INPUT_VALUE
-                ? RUNTIME_INPUT_VALUE
-                : [
-                    {
-                      ref: data.infrastructureRef
-                    }
-                  ]
-          })
-        }
-      }),
+      ...(gitOpsEnabled === false && processNonGitOpsFormValues(data)),
       ...(gitOpsEnabled === true && {
-        ...(!isEnvGroup &&
-          data.environmentOrEnvGroupRef !== RUNTIME_INPUT_VALUE && {
-            environment: {
-              environmentRef:
-                data.environmentOrEnvGroupRef === RUNTIME_INPUT_VALUE
-                  ? RUNTIME_INPUT_VALUE
-                  : defaultTo((data.environmentOrEnvGroupRef as SelectOption)?.value, ''),
-              deployToAll: defaultTo(data.environment?.deployToAll, false),
-              gitOpsClusters:
-                data.clusterRef === RUNTIME_INPUT_VALUE
-                  ? RUNTIME_INPUT_VALUE
-                  : (data.clusterRef as SelectOption[])?.map(cluster => ({ ref: cluster.value }))
+        ...(data.environmentOrEnvGroupRef === RUNTIME_INPUT_VALUE
+          ? {
+              ...(data.environmentOrEnvGroupAsRuntime === 'Environment' && processGitOpsEnvironmentFormValues(data)),
+              ...(data.environmentOrEnvGroupAsRuntime === 'Environment Group' && processGitOpsEnvGroupFormValues(data))
             }
-          }),
-        ...((isEnvGroup || data.environmentOrEnvGroupRef === RUNTIME_INPUT_VALUE) && {
-          environmentGroup: {
-            envGroupRef:
-              data.environmentOrEnvGroupRef === RUNTIME_INPUT_VALUE
-                ? RUNTIME_INPUT_VALUE
-                : defaultTo((data.environmentOrEnvGroupRef as SelectOption)?.value, ''),
-            envGroupConfig:
-              data.environmentInEnvGroupRef === RUNTIME_INPUT_VALUE
-                ? RUNTIME_INPUT_VALUE
-                : [
-                    {
-                      environmentRef: (data.environmentInEnvGroupRef as SelectOption)?.value,
-                      deployToAll: defaultTo(data.environment?.deployToAll, false),
-                      gitOpsClusters:
-                        data.clusterRef === RUNTIME_INPUT_VALUE
-                          ? RUNTIME_INPUT_VALUE
-                          : (data.clusterRef as SelectOption[])?.map(cluster => ({ ref: cluster.value }))
-                    }
-                  ]
-          }
-        })
+          : {
+              ...(!isEnvGroup && processGitOpsEnvironmentFormValues(data)),
+              ...(isEnvGroup && processGitOpsEnvGroupFormValues(data))
+            })
       })
     }
   }
@@ -168,7 +95,7 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
         readonly={readonly}
         onUpdate={data => onUpdate?.(this.processFormData(data as any))}
         stepViewType={stepViewType}
-        allowableTypes={allowableTypes}
+        allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
       />
     )
   }
