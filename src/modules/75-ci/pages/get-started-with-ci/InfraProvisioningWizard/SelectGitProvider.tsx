@@ -49,6 +49,12 @@ import { Status } from '@common/utils/Constants'
 import { ErrorHandler } from '@common/components/ErrorHandler/ErrorHandler'
 import { Connectors } from '@connectors/constants'
 import {
+  getBackendServerUrl,
+  isEnvironmentAllowedForOAuth,
+  OAUTH_REDIRECT_URL_PREFIX,
+  OAUTH_PLACEHOLDER_VALUE
+} from '@connectors/components/CreateConnector/CreateConnectorUtils'
+import {
   AllSaaSGitProviders,
   AllOnPremGitProviders,
   GitAuthenticationMethod,
@@ -58,14 +64,9 @@ import {
   Hosting,
   GitProviderPermissions,
   ACCOUNT_SCOPE_PREFIX,
-  DEFAULT_HARNESS_KMS,
-  OAUTH_REDIRECT_URL_PREFIX
+  DEFAULT_HARNESS_KMS
 } from './Constants'
-import {
-  getBackendServerUrl,
-  getOAuthConnectorPayload,
-  isEnvironmentAllowedForOAuth
-} from '../../../utils/HostedBuildsUtils'
+import { getOAuthConnectorPayload } from '../../../utils/HostedBuildsUtils'
 
 import css from './InfraProvisioningWizard.module.scss'
 
@@ -124,36 +125,43 @@ const SelectGitProviderRef = (
   })
   const { showError, clear } = useToaster()
   const [isOAuthSetup, setIsOAuthSetup] = useState<boolean>(false)
-  const PLACEHOLDER = 'placeholder'
 
   //#region OAuth validation and integration
   const disableOAuthForGitProvider = useMemo(() => {
-    return gitProvider?.type && [Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET].includes(gitProvider.type)
+    return gitProvider?.type && [Connectors.GITLAB, Connectors.BITBUCKET].includes(gitProvider.type)
   }, [gitProvider?.type])
 
   /* Event listener for OAuth server event, this is essential for landing user back to the same tab from where the OAuth started, once it's done */
-  const handleOAuthServerEvent = (event: any): void => {
-    if (!gitProvider) {
-      return
-    }
-    if (event.origin !== getBackendServerUrl() && !isEnvironmentAllowedForOAuth()) {
-      setOAuthStatus(Status.FAILURE)
-      return
-    }
-    if (!event || !event.data) {
-      setOAuthStatus(Status.FAILURE)
-      return
-    }
-    const { accessTokenRef, refreshTokenRef, status, errorMessage } = event.data
-    //safeguard against backend server sending multiple oauth events, which could lead to multiple duplicate connectors getting created
-    if (!oAuthSecretIntercepted.current) {
-      if ((status as string).toLowerCase() === Status.SUCCESS.toLowerCase()) {
-        oAuthSecretIntercepted.current = true
-        createOAuthConnector({ tokenRef: accessTokenRef, refreshTokenRef })
-      } else if (errorMessage !== PLACEHOLDER) {
+  const handleOAuthServerEvent = (event: MessageEvent): void => {
+    if (oAuthStatus === Status.IN_PROGRESS) {
+      if (!gitProvider) {
+        return
+      }
+      if (event.origin !== getBackendServerUrl() && !isEnvironmentAllowedForOAuth()) {
         setOAuthStatus(Status.FAILURE)
-        clear()
-        showError(getString('ci.getStartedWithCI.oAuthFailed'))
+        return
+      }
+      if (!event || !event.data) {
+        setOAuthStatus(Status.FAILURE)
+        return
+      }
+      const { accessTokenRef, refreshTokenRef, status, errorMessage } = event.data
+      // valid oauth event from server will always have some value
+      if (accessTokenRef && refreshTokenRef && status && errorMessage) {
+        //safeguard against backend server sending multiple oauth events, which could lead to multiple duplicate connectors getting created
+        if (!oAuthSecretIntercepted.current) {
+          if (
+            accessTokenRef !== OAUTH_PLACEHOLDER_VALUE &&
+            (status as string).toLowerCase() === Status.SUCCESS.toLowerCase()
+          ) {
+            oAuthSecretIntercepted.current = true
+            createOAuthConnector({ tokenRef: accessTokenRef, refreshTokenRef })
+          } else if (errorMessage !== OAUTH_PLACEHOLDER_VALUE) {
+            setOAuthStatus(Status.FAILURE)
+            clear()
+            showError(getString('connectors.oAuth.failed'))
+          }
+        }
       }
     }
   }
@@ -193,11 +201,11 @@ const SelectGitProviderRef = (
             })
             .catch(_err => {
               clear()
-              showError(getString('ci.getStartedWithCI.oAuthFailed'))
+              showError(getString('connectors.oAuth.failed'))
             })
         } catch (_err) {
           clear()
-          showError(getString('ci.getStartedWithCI.oAuthFailed'))
+          showError(getString('connectors.oAuth.failed'))
         }
       }
     },
@@ -772,7 +780,7 @@ const SelectGitProviderRef = (
   return (
     <Layout.Vertical width="70%">
       {authMethod === GitAuthenticationMethod.OAuth && oAuthStatus === Status.IN_PROGRESS ? (
-        <PageSpinner message={getString('ci.getStartedWithCI.oAuthInProgress')} />
+        <PageSpinner message={getString('connectors.oAuth.inProgress')} />
       ) : null}
       <Text font={{ variation: FontVariation.H4 }}>{getString('ci.getStartedWithCI.codeRepo')}</Text>
       <Formik<SelectGitProviderInterface>
@@ -857,15 +865,15 @@ const SelectGitProviderRef = (
                           <Button
                             className={css.authMethodBtn}
                             round
-                            text={getString('ci.getStartedWithCI.oAuthLabel')}
+                            text={getString('common.oAuthLabel')}
                             onClick={async () => {
+                              formikProps.setFieldValue('gitAuthenticationMethod', GitAuthenticationMethod.OAuth)
+                              setOAuthStatus(Status.IN_PROGRESS)
                               setIsOAuthSetup(false)
                               oAuthSecretIntercepted.current = false
-                              formikProps.setFieldValue('gitAuthenticationMethod', GitAuthenticationMethod.OAuth)
                               setAuthMethod(GitAuthenticationMethod.OAuth)
                               if (gitProvider?.type) {
                                 try {
-                                  setOAuthStatus(Status.IN_PROGRESS)
                                   const { headers } = getRequestOptions()
                                   const oauthRedirectEndpoint = `${OAUTH_REDIRECT_URL_PREFIX}?provider=${gitProvider.type.toLowerCase()}&accountId=${accountId}`
                                   const response = await fetch(oauthRedirectEndpoint, {
@@ -877,14 +885,15 @@ const SelectGitProviderRef = (
                                   }
                                 } catch (e) {
                                   setOAuthStatus(Status.FAILURE)
+                                  clear()
+                                  showError(getString('connectors.oAuth.failed'))
                                 }
                               }
                             }}
                             intent={authMethod === GitAuthenticationMethod.OAuth ? 'primary' : 'none'}
                             disabled={
-                              disableOAuthForGitProvider
-                              // ||
-                              // (gitProvider?.type === Connectors.GITHUB && oAuthStatus === Status.IN_PROGRESS)
+                              disableOAuthForGitProvider ||
+                              (gitProvider?.type === Connectors.GITHUB && oAuthStatus === Status.IN_PROGRESS)
                             }
                             tooltipProps={
                               disableOAuthForGitProvider

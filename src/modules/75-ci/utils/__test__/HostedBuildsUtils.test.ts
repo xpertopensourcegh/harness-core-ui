@@ -8,10 +8,9 @@ import { get } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
 import {
   getBackendServerUrl,
-  getOAuthConnectorPayload,
-  getPRTriggerActions,
   isEnvironmentAllowedForOAuth
-} from '../HostedBuildsUtils'
+} from '@connectors/components/CreateConnector/CreateConnectorUtils'
+import { getOAuthConnectorPayload, getPRTriggerActions } from '../HostedBuildsUtils'
 import {
   GitHubPRTriggerActions,
   GitlabPRTriggerActions,

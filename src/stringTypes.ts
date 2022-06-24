@@ -454,6 +454,7 @@ export interface StringsMap {
   'common.note': string
   'common.noteAccountSwitch': string
   'common.notificationPreferences': string
+  'common.oAuthLabel': string
   'common.ok': string
   'common.on': string
   'common.onPremSaaSPlansMsg': string
@@ -2154,6 +2155,7 @@ export interface StringsMap {
   'connectors.k8.skipDefaultValidation': string
   'connectors.k8.validation.clientKeyAlgo': string
   'connectors.k8sConnection': string
+  'connectors.linkToGitProvider': string
   'connectors.loginToMasterAccount': string
   'connectors.name': string
   'connectors.name_labels.AWS': string
@@ -2187,6 +2189,11 @@ export interface StringsMap {
   'connectors.newRelicLabel': string
   'connectors.nexus.nexusLabel': string
   'connectors.nexus.nexusServerUrl': string
+  'connectors.oAuth.accessRevoked': string
+  'connectors.oAuth.configured': string
+  'connectors.oAuth.failed': string
+  'connectors.oAuth.inProgress': string
+  'connectors.oAuth.reConfigured': string
   'connectors.ociHelm.ociHelmUrl': string
   'connectors.optionalAuthentication': string
   'connectors.pagerDutyConnectorDetails': string
@@ -2205,6 +2212,7 @@ export interface StringsMap {
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
   'connectors.readMore': string
+  'connectors.relinkToGitProvider': string
   'connectors.reportNameRequired': string
   'connectors.requestMethod': string
   'connectors.roleARN': string
@@ -5625,9 +5633,6 @@ export interface StringsMap {
   'ci.getStartedWithCI.languageAgnostic': string
   'ci.getStartedWithCI.languageAgnosticHelpText': string
   'ci.getStartedWithCI.learnMoreAboutPermissions': string
-  'ci.getStartedWithCI.oAuthFailed': string
-  'ci.getStartedWithCI.oAuthInProgress': string
-  'ci.getStartedWithCI.oAuthLabel': string
   'ci.getStartedWithCI.onCloudLabel': string
   'ci.getStartedWithCI.onPremLabel': string
   'ci.getStartedWithCI.parallelization': string

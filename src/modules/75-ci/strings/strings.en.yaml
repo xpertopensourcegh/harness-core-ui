@@ -173,7 +173,6 @@ getStartedWithCI:
   onPremLabel: On-prem
   codeRepo: Which code repository do you use?
   authMethod: Select your Authentication method
-  oAuthLabel: OAuth
   accessTokenLabel: Access Token
   codeRepoLabel: Code repository
   authMethodLabel: Authentication method
@@ -198,8 +197,6 @@ getStartedWithCI:
   fieldIsMissing: '{{field}} is missing'
   startProvisioning: Start Provisioning
   provisioningHelpText: Provision the '{{ $.ci.getStartedWithCI.hostedByHarness }}' Infrastructure (~2 mins)
-  oAuthInProgress: OAuth in progress...
-  oAuthFailed: OAuth Failed
   carousel:
     labels:
       harnessCIFeatures: Harness CI

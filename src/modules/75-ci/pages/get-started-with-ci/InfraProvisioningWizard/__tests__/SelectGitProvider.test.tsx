@@ -94,7 +94,7 @@ describe('Test SelectGitProvider component', () => {
     })
     expect(gitProviderCards[0].classList.contains('Card--selected')).toBe(true)
 
-    expect(getByText('ci.getStartedWithCI.oAuthLabel')).toBeInTheDocument()
+    expect(getByText('common.oAuthLabel')).toBeInTheDocument()
     expect(getByText('ci.getStartedWithCI.accessTokenLabel')).toBeInTheDocument()
   })
 
@@ -121,7 +121,7 @@ describe('Test SelectGitProvider component', () => {
 
     // Access token field should be visible only for Access Token auth method
     await act(async () => {
-      fireEvent.click(getByText('ci.getStartedWithCI.oAuthLabel'))
+      fireEvent.click(getByText('common.oAuthLabel'))
     })
     expect(container.querySelector('span[data-tooltip-id="accessToken"]')).not.toBeTruthy()
     // Test Connection button look up should fail
@@ -205,9 +205,9 @@ describe('Test SelectGitProvider component', () => {
     })
 
     await act(async () => {
-      fireEvent.click(getByText('ci.getStartedWithCI.oAuthLabel'))
+      fireEvent.click(getByText('common.oAuthLabel'))
     })
-    expect(global.fetch).not.toBeCalled()
+    expect(global.fetch).toBeCalled()
   })
 
   test('User selects Gitlab provider and OAuth authentication method', async () => {
@@ -233,7 +233,7 @@ describe('Test SelectGitProvider component', () => {
     })
 
     await act(async () => {
-      fireEvent.click(getByText('ci.getStartedWithCI.oAuthLabel'))
+      fireEvent.click(getByText('common.oAuthLabel'))
     })
     expect(global.fetch).not.toBeCalled()
   })
@@ -260,7 +260,7 @@ describe('Test SelectGitProvider component', () => {
 
     // Access Key field should be visible only for Access Key auth method
     await act(async () => {
-      fireEvent.click(getByText('ci.getStartedWithCI.oAuthLabel'))
+      fireEvent.click(getByText('common.oAuthLabel'))
     })
     expect(container.querySelector('span[data-tooltip-id="accessKey"]')).not.toBeTruthy()
     // Test Connection button look up should fail
@@ -331,7 +331,7 @@ describe('Test SelectGitProvider component', () => {
 
     // Username and Application Password fields should be visible only for Username & Application Password auth method
     await act(async () => {
-      fireEvent.click(getByText('ci.getStartedWithCI.oAuthLabel'))
+      fireEvent.click(getByText('common.oAuthLabel'))
     })
     expect(container.querySelector('span[data-tooltip-id="username"]')).not.toBeTruthy()
     expect(container.querySelector('span[data-tooltip-id="applicationPassword"]')).not.toBeTruthy()

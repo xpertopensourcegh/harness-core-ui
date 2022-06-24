@@ -877,3 +877,11 @@ policyEvaluations:
   failedToSave: Connector cannot be saved due to the policy evaluation failures
   warning: Connector saved with policy warnings
 sameCredentialsAsAbove: Same credentials as above
+linkToGitProvider: 'Link to {{gitProvider}}'
+relinkToGitProvider: 'Re-link to {{gitProvider}}'
+oAuth:
+  inProgress: OAuth in progress...
+  failed: OAuth failed
+  configured: OAuth configured successfully
+  reConfigured: OAuth re-configured successfully
+  accessRevoked: Access revoked. Please reconfigure the connection.

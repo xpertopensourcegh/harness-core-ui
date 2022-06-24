@@ -7,7 +7,6 @@
 
 import { set } from 'lodash-es'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
-import { Environment } from '@common/utils/Constants'
 import { Connectors } from '@connectors/constants'
 import {
   BitbucketPRTriggerActions,
@@ -94,14 +93,4 @@ export const getPRTriggerActions = (gitProviderType: ConnectorInfoDTO['type']) =
     default:
       return []
   }
-}
-
-export const getBackendServerUrl = (): string => {
-  return `${location.protocol}//${location.hostname}`
-}
-
-export const isEnvironmentAllowedForOAuth = (): boolean => {
-  return Object.values(Environment).some((env: Environment) =>
-    location.hostname.toLowerCase().startsWith(env.toLowerCase())
-  )
 }
