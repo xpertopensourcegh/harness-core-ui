@@ -42,6 +42,7 @@ exports[`Launch Button test Input date picker render  1`] = `
             </div>
           </div>
         </div>
+        <div />
       </div>
     </form>
   </div>
