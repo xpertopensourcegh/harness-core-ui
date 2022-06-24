@@ -88,6 +88,7 @@ export interface RenderColumnFlagProps {
   toggleFeatureFlag: UseToggleFeatureFlag
   governance: UseGovernancePayload
   update: (status: boolean) => void
+  refetchFlags: () => void
 }
 
 export const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
@@ -96,7 +97,8 @@ export const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
   toggleFeatureFlag,
   governance,
   cell: { row },
-  update
+  update,
+  refetchFlags
 }) => {
   const data = row.original
   const [status, setStatus] = useState(isFeatureFlagOn(data))
@@ -151,6 +153,7 @@ export const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
 
       setStatus(!status)
       update(!status)
+      refetchFlags()
     } catch (error: any) {
       if (error.status === GIT_SYNC_ERROR_CODE) {
         gitSync.handleError(error.data as GitSyncErrorResponse)
@@ -526,6 +529,7 @@ const FeatureFlagsPage: React.FC = () => {
                   setFeatures({ ...features } as Features)
                 }
               }}
+              refetchFlags={() => refetch({ queryParams })}
             />
           )
         }

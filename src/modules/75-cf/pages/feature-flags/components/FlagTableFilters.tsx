@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { Color } from '@harness/design-system'
 import { FilterProps, TableFilters } from '@cf/components/TableFilters/TableFilters'
 import type { Features } from 'services/cf'
 import { FeatureFlagStatus } from '../FlagStatus'
@@ -56,13 +57,15 @@ export const featureFlagFilters = (features: Features | null): Array<FilterProps
     queryProps: { key: FlagFilterKeys.STATUS, value: FlagFilterValues.ACTIVE },
     label: 'cf.flagFilters.active',
     total: features?.featureCounts?.totalActive || 0,
-    tooltipId: 'ff_flagFilters_activeFlags'
+    tooltipId: 'ff_flagFilters_activeFlags',
+    filterTotalColor: Color.PRIMARY_5
   },
   {
     queryProps: { key: FlagFilterKeys.STATUS, value: FlagFilterValues.POTENTIALLY_STALE },
     label: 'cf.flagFilters.potentiallyStale',
     total: features?.featureCounts?.totalPotentiallyStale || 0,
-    tooltipId: 'ff_flagFilters_potentiallyStaleFlags'
+    tooltipId: 'ff_flagFilters_potentiallyStaleFlags',
+    filterTotalColor: Color.ORANGE_800
   }
 ]
 
