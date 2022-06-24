@@ -18,11 +18,24 @@ export interface FilterCardProps {
 export const FilterCard: React.FC<FilterCardProps> = ({ filter, selected, updateTableFilter }) => {
   const { getString } = useStrings()
   return (
-    <Card interactive elevation={1} onClick={() => updateTableFilter(!selected ? filter : {})} selected={selected}>
-      <Text font={{ variation: FontVariation.SMALL }} lineClamp={1} tooltipProps={{ dataTooltipId: filter.tooltipId }}>
+    <Card
+      interactive
+      elevation={1}
+      onClick={() => updateTableFilter(!selected ? filter : {})}
+      selected={selected}
+      data-testid="filter-card"
+    >
+      <Text
+        font={{ variation: FontVariation.SMALL }}
+        lineClamp={1}
+        tooltipProps={{ dataTooltipId: filter.tooltipId }}
+        data-testid="filter-label"
+      >
         {getString(filter.label)}
       </Text>
-      <Text font={{ variation: FontVariation.H2, weight: 'light' }}>{filter.total}</Text>
+      <Text font={{ variation: FontVariation.H2, weight: 'light' }} data-testid="filter-total">
+        {filter.total}
+      </Text>
     </Card>
   )
 }

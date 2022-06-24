@@ -180,6 +180,9 @@ featureFlags:
   activity: '{{ $.activity }}'
   results: Results
   makeSure: Make sure your code is deployed
+  changeOrReset: Change your filter criteria or reset
+  resetFilters: Reset Filters
+  clearSearch: Clear Search
   rules:
     whenFlagEnabled: When the Flag is Enabled
     whenFlagDisabled: When the Flag is Disabled
@@ -248,9 +251,9 @@ flagFilters:
   active: Active Flags
   allFlags: All Flags
   enabled: Enabled Flags
-  last24: Changed Last 24 Hours
-  permanent: Permanent
-  potentiallyStale: Potentially Stale
+  recentlyAccessed: Recently Changed Flags
+  permanent: Permanent Flags
+  potentiallyStale: Potentially Stale Flags
 targets:
   ID: '{{ $.common.ID }}'
   name: name

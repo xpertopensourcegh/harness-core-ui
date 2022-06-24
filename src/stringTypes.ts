@@ -5102,6 +5102,8 @@ export interface StringsMap {
   'cf.featureFlags.booleanBtnText': string
   'cf.featureFlags.bucketBy': string
   'cf.featureFlags.bucketOverflow': string
+  'cf.featureFlags.changeOrReset': string
+  'cf.featureFlags.clearSearch': string
   'cf.featureFlags.commaSeparator': string
   'cf.featureFlags.createdDate': string
   'cf.featureFlags.customRuleMessage': string
@@ -5163,6 +5165,7 @@ export interface StringsMap {
   'cf.featureFlags.newPrerequisite': string
   'cf.featureFlags.percentageRollout': string
   'cf.featureFlags.prerequisitesDesc': string
+  'cf.featureFlags.resetFilters': string
   'cf.featureFlags.results': string
   'cf.featureFlags.rules.add': string
   'cf.featureFlags.rules.addTargeting': string
@@ -5205,9 +5208,9 @@ export interface StringsMap {
   'cf.flagFilters.active': string
   'cf.flagFilters.allFlags': string
   'cf.flagFilters.enabled': string
-  'cf.flagFilters.last24': string
   'cf.flagFilters.permanent': string
   'cf.flagFilters.potentiallyStale': string
+  'cf.flagFilters.recentlyAccessed': string
   'cf.gitSync.autoCommitLabel': string
   'cf.gitSync.autoCommitMsg': string
   'cf.gitSync.autoCommitStatusLabel': string

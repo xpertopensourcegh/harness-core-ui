@@ -6,8 +6,8 @@
  */
 
 import React, { ReactNode } from 'react'
-import { Button, ButtonProps, ButtonVariation, Container, Heading, Layout, Text } from '@wings-software/uicore'
-import type { LayoutProps } from '@wings-software/uicore/dist/layouts/Layout'
+import { Button, ButtonProps, ButtonVariation, Container, Heading, Layout, Text } from '@harness/uicore'
+import type { LayoutProps } from '@harness/uicore/dist/layouts/Layout'
 import { Color, FontVariation } from '@harness/design-system'
 import css from './NoData.module.scss'
 
@@ -15,10 +15,11 @@ export interface NoDataProps extends LayoutProps {
   imageURL: string
   message: string
   description?: ReactNode
-  width?: number
+  width?: number | string
   buttonText?: string
   buttonWidth?: number
   onClick?: ButtonProps['onClick']
+  buttonProps?: ButtonProps
 }
 
 export const NoData: React.FC<NoDataProps> = ({
@@ -29,6 +30,7 @@ export const NoData: React.FC<NoDataProps> = ({
   buttonText,
   buttonWidth,
   onClick,
+  buttonProps,
   children,
   ...props
 }) => {
@@ -57,6 +59,7 @@ export const NoData: React.FC<NoDataProps> = ({
           text={buttonText}
           width={buttonWidth}
           onClick={onClick}
+          {...buttonProps}
         />
       )}
 

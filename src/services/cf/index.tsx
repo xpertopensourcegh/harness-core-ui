@@ -321,27 +321,27 @@ export interface FeatureCounts {
   /**
    * The total number of flags with a active status in a project/environment
    */
-  totalActive?: number
+  totalActive: number
   /**
    * The total number of flags that are turned on in a project/environment
    */
-  totalEnabled?: number
+  totalEnabled: number
   /**
    * The total number of flags in the project/environment
    */
-  totalFeatures?: number
+  totalFeatures: number
   /**
    * The total number of permanent flags in a project/environment
    */
-  totalPermanent?: number
+  totalPermanent: number
   /**
    * The total number of flags with a potentially-stale status in a project/environment
    */
-  totalPotentiallyStale?: number
+  totalPotentiallyStale: number
   /**
    * The total number of flags with a recently-accessed status in a project/environment
    */
-  totalRecentlyAccessed?: number
+  totalRecentlyAccessed: number
 }
 
 /**

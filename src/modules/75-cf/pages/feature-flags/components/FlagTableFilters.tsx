@@ -11,7 +11,7 @@ import type { Features } from 'services/cf'
 import { FeatureFlagStatus } from '../FlagStatus'
 
 export interface FlagTableFiltersProps {
-  features?: Features | null
+  features: Features | null
   currentFilter: FilterProps | Record<string, any>
   updateTableFilter: (filter: FilterProps | Record<string, any>) => void
 }
@@ -28,7 +28,7 @@ export const FlagFilterValues = {
   PERMANENT: 'permanent'
 }
 
-export const featureFlagFilters = (features?: Features | null): Array<FilterProps> => [
+export const featureFlagFilters = (features: Features | null): Array<FilterProps> => [
   {
     queryProps: {},
     label: 'cf.flagFilters.allFlags',
@@ -48,8 +48,9 @@ export const featureFlagFilters = (features?: Features | null): Array<FilterProp
   },
   {
     queryProps: { key: FlagFilterKeys.STATUS, value: FlagFilterValues.RECENTLY_ACCESSED },
-    label: 'cf.flagFilters.last24',
-    total: features?.featureCounts?.totalRecentlyAccessed || 0
+    label: 'cf.flagFilters.recentlyAccessed',
+    total: features?.featureCounts?.totalRecentlyAccessed || 0,
+    tooltipId: 'ff_flagFilters_recentlyAccessed'
   },
   {
     queryProps: { key: FlagFilterKeys.STATUS, value: FlagFilterValues.ACTIVE },
