@@ -46,6 +46,7 @@ import { CFCreateStack } from './CloudFormation/CreateStack/CreateStack'
 import { CreatePr } from './CreatePrStep/CreatePrStep'
 import { MergePR } from './MergePrStep/MergePrStep'
 import { AzureWebAppRollback } from './AzureWebAppRollback/AzureWebAppRollback'
+import { AzureSlotDeployment } from './AzureSlotDeployment/AzureSlotDeployment'
 
 factory.registerStep(new HttpStep())
 factory.registerStep(new K8RolloutDeployStep())
@@ -86,3 +87,4 @@ factory.registerStep(new CFCreateStack())
 factory.registerStep(new CreatePr())
 factory.registerStep(new MergePR())
 factory.registerStep(new AzureWebAppRollback())
+factory.registerStep(new AzureSlotDeployment())

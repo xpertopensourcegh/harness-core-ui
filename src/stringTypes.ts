@@ -3390,6 +3390,7 @@ export interface StringsMap {
   'pipeline.stepCommonFields.validation.invalidLimitMemory': string
   'pipeline.stepCommonFields.validation.mustBeANumber': string
   'pipeline.stepConfigHasChanges': string
+  'pipeline.stepDescription.AzureSlotDeployment': string
   'pipeline.stepDescription.Barrier': string
   'pipeline.stepDescription.DockerHub': string
   'pipeline.stepDescription.ECR': string
