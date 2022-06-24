@@ -6,14 +6,17 @@
  */
 
 import React, { useEffect, useMemo, useState } from 'react'
+import { isEmpty } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Container, Text, Utils, useConfirmationDialog } from '@wings-software/uicore'
+import { Container, Text, Utils, useConfirmationDialog, Button } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ResponseListPrometheusSampleData, useGetSampleData } from 'services/cv'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Records } from '@cv/components/Records/Records'
 import { QueryContent } from '@cv/components/QueryViewer/QueryViewer'
@@ -30,6 +33,8 @@ export interface PrometheusQueryViewerProps {
   className?: string
   connectorIdentifier?: string
   onChange: (fieldName: string, value: any) => void
+  isTemplate?: boolean
+  expressions?: string[]
 }
 
 interface ChartAndRecordsProps {
@@ -94,7 +99,7 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
 }
 
 export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.Element {
-  const { values, className, connectorIdentifier, onChange } = props
+  const { values, className, connectorIdentifier, onChange, isTemplate, expressions } = props
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [isQueryExecuted, setIsQueryExecuted] = useState(false)
@@ -129,35 +134,82 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     }
   })
   const isManualQuery = Boolean(values?.isManualQuery)
+
   let content = (
     <>
-      <QueryContent
-        handleFetchRecords={async () => {
-          cancel()
-          await refetch({
-            queryParams: {
-              accountId,
-              projectIdentifier,
-              orgIdentifier,
-              query: query || '',
-              tracingId: Utils.randomId(),
-              connectorIdentifier: connectorIdentifier as string
+      {isTemplate ? (
+        <MultiTypeFieldSelector
+          name={PrometheusMonitoringSourceFieldNames.QUERY}
+          label={getString('cv.query')}
+          defaultValueToReset=""
+          skipRenderValueInExpressionLabel
+          expressionRender={() => {
+            return (
+              <ShellScriptMonacoField
+                name={PrometheusMonitoringSourceFieldNames.QUERY}
+                scriptType={'Bash'}
+                expressions={expressions}
+              />
+            )
+          }}
+        >
+          <ShellScriptMonacoField
+            name={PrometheusMonitoringSourceFieldNames.QUERY}
+            scriptType={'Bash'}
+            expressions={expressions}
+          />
+          <Button
+            intent="primary"
+            text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
+            onClick={async () => {
+              cancel()
+              await refetch({
+                queryParams: {
+                  accountId,
+                  projectIdentifier,
+                  orgIdentifier,
+                  query: query || '',
+                  tracingId: Utils.randomId(),
+                  connectorIdentifier: connectorIdentifier as string
+                }
+              })
+              if (!isQueryExecuted) {
+                setIsQueryExecuted(true)
+              }
+            }}
+            disabled={isEmpty(query) || loading}
+          />
+        </MultiTypeFieldSelector>
+      ) : (
+        <QueryContent
+          handleFetchRecords={async () => {
+            cancel()
+            await refetch({
+              queryParams: {
+                accountId,
+                projectIdentifier,
+                orgIdentifier,
+                query: query || '',
+                tracingId: Utils.randomId(),
+                connectorIdentifier: connectorIdentifier as string
+              }
+            })
+            if (!isQueryExecuted) {
+              setIsQueryExecuted(true)
             }
-          })
-          if (!isQueryExecuted) {
-            setIsQueryExecuted(true)
-          }
-        }}
-        query={query}
-        loading={loading}
-        textAreaName={PrometheusMonitoringSourceFieldNames.QUERY}
-        onClickExpand={setIsDrawerOpen}
-        onEditQuery={!isManualQuery ? openDialog : undefined}
-        isDialogOpen={isDrawerOpen}
-        textAreaProps={{ readOnly: !isManualQuery }}
-        mandatoryFields={[values?.prometheusMetric]}
-        isAutoFetch={!isManualQuery}
-      />
+          }}
+          query={query}
+          loading={loading}
+          textAreaName={PrometheusMonitoringSourceFieldNames.QUERY}
+          onClickExpand={setIsDrawerOpen}
+          onEditQuery={!isManualQuery ? openDialog : undefined}
+          isDialogOpen={isDrawerOpen}
+          textAreaProps={{ readOnly: !isManualQuery }}
+          mandatoryFields={[values?.prometheusMetric]}
+          isAutoFetch={!isManualQuery}
+        />
+      )}
+
       <ChartAndRecords
         fetchData={async () =>
           refetch({

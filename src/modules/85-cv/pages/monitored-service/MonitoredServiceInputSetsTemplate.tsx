@@ -74,6 +74,8 @@ export const getLabelByName = (name: string, getString: UseStringsReturn['getStr
       return getString('cv.healthSource.connectors.AppDynamics.serviceInstance')
     case 'connectorRef':
       return getString('connectors.selectConnector')
+    case 'query':
+      return getString('cv.query')
     default:
       return ''
   }
@@ -296,7 +298,7 @@ export default function MonitoredServiceInputSetsTemplate({ templateData }: { te
                       <Text font={'normal'} color={Color.BLACK} style={{ paddingBottom: spacingMedium }}>
                         {getString('cv.healthSource.nameLabel')}: {healthSource?.name}
                       </Text>
-                      {runtimeInputs.length ? (
+                      {runtimeInputs.length || metricDefinitions.length ? (
                         runtimeInputs.map(input => {
                           if (input.name === 'connectorRef' && !isReadOnlyInputSet) {
                             return (
