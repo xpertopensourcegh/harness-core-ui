@@ -24,7 +24,6 @@ import type { ContinousVerificationProps } from './types'
 import {
   baseLineOptions,
   durationOptions,
-  monitoredServiceRefPath,
   trafficSplitPercentageOptions,
   VerificationSensitivityOptions
 } from '../../constants'
@@ -92,15 +91,14 @@ export function ContinousVerificationInputSetStep(
       return (
         <ConfiguredRunTimeMonitoredService
           prefix={prefix}
-          monitoredServiceRefPath={monitoredServiceRefPath}
           expressions={expressions}
           allowableTypes={allowableTypes}
           monitoredService={monitoredService}
         />
       )
     } else if (
-      serviceIdentifierFromStage === RUNTIME_INPUT_VALUE ||
-      envIdentifierDataFromStage === RUNTIME_INPUT_VALUE
+      (serviceIdentifierFromStage === RUNTIME_INPUT_VALUE || envIdentifierDataFromStage === RUNTIME_INPUT_VALUE) &&
+      monitoredService?.type === MONITORED_SERVICE_TYPE.DEFAULT
     ) {
       return (
         <RunTimeMonitoredService

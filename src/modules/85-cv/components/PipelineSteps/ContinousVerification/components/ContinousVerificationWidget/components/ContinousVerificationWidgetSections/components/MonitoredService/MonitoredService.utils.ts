@@ -24,7 +24,7 @@ export const getNewSpecs = (
 }
 
 export const isAnExpression = (value: string): boolean => {
-  return value.startsWith('<+') || (value.startsWith('<') && value !== RUNTIME_INPUT_VALUE)
+  return value?.startsWith('<+') || (value?.startsWith('<') && value !== RUNTIME_INPUT_VALUE)
 }
 
 export const getServiceIdFromStage = (stage: StageElementWrapper<DeploymentStageElementConfig>): string => {
