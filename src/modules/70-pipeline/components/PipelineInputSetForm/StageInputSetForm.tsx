@@ -844,7 +844,7 @@ export function StageInputSetFormInternal({
             {!isNil((deploymentStage as any)?.deploymentType) && (
               /* istanbul ignore next */ <StepWidget<ServiceSpec>
                 factory={factory}
-                initialValues={deploymentStageInputSet?.service?.serviceInputs.serviceDefinition?.spec || {}}
+                initialValues={deploymentStageInputSet?.service?.serviceInputs?.serviceDefinition?.spec || {}}
                 allowableTypes={allowableTypes}
                 template={
                   (deploymentStageTemplate as unknown as DeployStageConfig)?.service?.serviceInputs?.serviceDefinition
@@ -861,7 +861,7 @@ export function StageInputSetFormInternal({
                 }}
                 onUpdate={(data: any) => {
                   /* istanbul ignore next */
-                  if (deploymentStageInputSet?.service?.serviceInputs.serviceDefinition?.spec) {
+                  if (deploymentStageInputSet?.service?.serviceInputs?.serviceDefinition?.spec) {
                     deploymentStageInputSet.service.serviceInputs.serviceDefinition.spec = data
                     formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
                   }

@@ -90,7 +90,10 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
     (yamlChanged: boolean): void => {
       if (yamlChanged) {
         const newServiceData = getUpdatedPipelineYaml()
-        newServiceData && updatePipeline(newServiceData)
+        const errorMap = yamlHandler?.getYAMLValidationErrorMap?.()
+        if (!(errorMap && errorMap.size > 0)) {
+          newServiceData && updatePipeline(newServiceData)
+        }
       }
     },
     [getUpdatedPipelineYaml, updatePipeline]

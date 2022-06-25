@@ -103,23 +103,26 @@ function DeployServiceDefinition(): React.ReactElement {
     intent: Intent.WARNING
   }
 
+  const updateDeploymentTypeWithGitops = async (deploymentType?: ServiceDeploymentType): Promise<void> => {
+    await debounceUpdatePipeline(
+      produce({ ...pipeline } as ServicePipelineConfig, draft => {
+        set(draft, 'gitOpsEnabled', false)
+        set(
+          draft,
+          'stages[0].stage.spec.serviceConfig.serviceDefinition.type',
+          defaultTo(deploymentType, currStageData?.spec?.serviceConfig?.serviceDefinition?.type)
+        )
+      })
+    )
+    setGitOpsEnabled(false)
+  }
   const { openDialog: openServiceDataDeleteWarningDialog } = useConfirmationDialog({
     ...serviceDataDialogProps,
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         deleteServiceData(currStageData)
         if (gitOpsEnabled) {
-          await debounceUpdatePipeline(
-            produce({ ...pipeline } as ServicePipelineConfig, draft => {
-              set(draft, 'gitOpsEnabled', false)
-              set(
-                draft,
-                'stages[0].stage.spec.serviceConfig.serviceDefinition.type',
-                currStageData?.spec?.serviceConfig?.serviceDefinition?.type
-              )
-            })
-          )
-          setGitOpsEnabled(false)
+          updateDeploymentTypeWithGitops()
         } else {
           await debounceUpdateStage(currStageData)
         }
@@ -161,7 +164,11 @@ function DeployServiceDefinition(): React.ReactElement {
           openServiceDataDeleteWarningDialog()
         } else {
           setSelectedDeploymentType(deploymentType)
-          updateStage(stageData?.stage as StageElementConfig)
+          if (gitOpsEnabled) {
+            updateDeploymentTypeWithGitops(deploymentType)
+          } else {
+            updateStage(stageData?.stage as StageElementConfig)
+          }
         }
       }
     },

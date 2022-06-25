@@ -8,7 +8,14 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Card, Container, Layout, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import {
+  Card,
+  Container,
+  getMultiTypeFromValue,
+  Layout,
+  MultiTypeInputType,
+  RUNTIME_INPUT_VALUE
+} from '@harness/uicore'
 import produce from 'immer'
 import { debounce, defaultTo, get, isEmpty, noop, set, unset } from 'lodash-es'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -35,18 +42,15 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import {
   DeployTabs,
-  getServiceEntityServiceRef,
-  isNewServiceEnvEntity
+  getServiceEntityServiceRef
 } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { getStepTypeByDeploymentType, ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
 import type { DeployServiceData } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceInterface'
 import { useCache } from '@common/hooks/useCache'
-import { FeatureFlag } from '@common/featureFlags'
 import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { setupMode } from './PropagateWidget/PropagateWidget'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
@@ -59,7 +63,6 @@ export default function DeployServiceEntitySpecifications({
   children
 }: DeployServiceEntitySpecificationsProps): JSX.Element {
   const { getString } = useStrings()
-  const isSvcEnvEntityEnabled = useFeatureFlag(FeatureFlag.NG_SVC_ENV_REDESIGN)
   const queryParams = useParams<ProjectPathProps & ServicePathProps>()
 
   const {
@@ -169,8 +172,6 @@ export default function DeployServiceEntitySpecifications({
       if (serviceInfo) {
         const stageData = produce(stage, draft => {
           if (draft) {
-            set(draft, 'stage.spec.deploymentType', serviceInfo?.type)
-            set(draft, 'stage.spec.service.serviceRef', parsedYaml.service?.identifier)
             if ((serviceInputSetResponse as any)?.serviceInputs) {
               set(draft, 'stage.spec.service.serviceInputs', (serviceInputSetResponse as any)?.serviceInputs)
             } else {
@@ -189,9 +190,6 @@ export default function DeployServiceEntitySpecifications({
         setGitOpsEnabled(!!parsedYaml.service?.gitOpsEnabled)
         setIsReadOnlyView(true)
       }
-    } else {
-      //If old service entity is selected back, the readonly view should be false and deployment type should be unselected
-      setIsReadOnlyView(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedServiceResponse, serviceInputsResponse])
@@ -212,11 +210,14 @@ export default function DeployServiceEntitySpecifications({
         } else {
           serviceObj.serviceRef = value.serviceRef
           delete serviceObj.service
+          if (getMultiTypeFromValue(value.serviceRef) !== MultiTypeInputType.FIXED) {
+            delete serviceObj.serviceInputs
+          }
         }
       })
       await debounceUpdateStage(stageData?.stage)
 
-      if (isSvcEnvEntityEnabled && value.serviceRef) {
+      if (value.serviceRef && getMultiTypeFromValue(value.serviceRef) === MultiTypeInputType.FIXED) {
         const params = {
           pathParams: {
             serviceIdentifier: value.serviceRef
@@ -231,6 +232,8 @@ export default function DeployServiceEntitySpecifications({
             ...params
           })
         ])
+      } else {
+        setIsReadOnlyView(false)
       }
     },
     [debounceUpdateStage, memoizedQueryParam, refetchServiceData, stage]
@@ -255,15 +258,14 @@ export default function DeployServiceEntitySpecifications({
   const getDeployServiceWidgetInitValues = React.useCallback((): DeployServiceData => {
     const initValues: DeployServiceData = {
       service: getServiceEntityBasedService(),
-      isNewServiceEntity: isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig),
+      isNewServiceEntity: true,
       serviceRef:
         scope === Scope.PROJECT
           ? getServiceEntityBasedServiceRef()
-          : getServiceEntityBasedServiceRef() || RUNTIME_INPUT_VALUE
+          : getServiceEntityBasedServiceRef() || RUNTIME_INPUT_VALUE,
+      deploymentType: (stage?.stage?.spec as DeployStageConfig).deploymentType as ServiceDeploymentType
     }
-    if (isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig)) {
-      initValues.deploymentType = (stage?.stage?.spec as any).deploymentType
-    }
+
     return initValues
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -300,10 +302,7 @@ export default function DeployServiceEntitySpecifications({
               viewContext="setup"
               isReadonly={isReadonly || isReadonlyView}
               handleDeploymentTypeChange={noop}
-              shouldShowGitops={isNewServiceEnvEntity(
-                isSvcEnvEntityEnabled,
-                stage?.stage as DeploymentStageElementConfig
-              )}
+              shouldShowGitops={true}
               gitOpsEnabled={gitOpsEnabled}
             />
             <Layout.Horizontal>
