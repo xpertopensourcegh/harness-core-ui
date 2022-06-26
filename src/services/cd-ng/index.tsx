@@ -2789,6 +2789,7 @@ export interface EntityDetail {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
 }
 
 export interface EntityGitDetails {
@@ -3794,6 +3795,7 @@ export interface FeatureRestrictionDetailListRequestDTO {
     | 'AZURE_TRAFFIC_SHIFT'
     | 'AZURE_SWAP_SLOT'
     | 'AZURE_WEBAPP_ROLLBACK'
+    | 'JENKINS_BUILD'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -3855,6 +3857,7 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'AZURE_TRAFFIC_SHIFT'
     | 'AZURE_SWAP_SLOT'
     | 'AZURE_WEBAPP_ROLLBACK'
+    | 'JENKINS_BUILD'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -3918,6 +3921,7 @@ export interface FeatureRestrictionDetailsDTO {
     | 'AZURE_TRAFFIC_SHIFT'
     | 'AZURE_SWAP_SLOT'
     | 'AZURE_WEBAPP_ROLLBACK'
+    | 'JENKINS_BUILD'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -3989,6 +3993,7 @@ export interface FeatureRestrictionMetadataDTO {
     | 'AZURE_TRAFFIC_SHIFT'
     | 'AZURE_SWAP_SLOT'
     | 'AZURE_WEBAPP_ROLLBACK'
+    | 'JENKINS_BUILD'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4356,6 +4361,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
   searchTerm?: string
@@ -4449,6 +4455,7 @@ export interface GitEntityFilterProperties {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
@@ -4575,6 +4582,7 @@ export interface GitFullSyncEntityInfoDTO {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   errorMessage?: string
   filePath?: string
   identifier?: string
@@ -4676,6 +4684,7 @@ export interface GitFullSyncEntityInfoFilterKeys {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   )[]
   syncStatus?: 'QUEUED' | 'SUCCESS' | 'FAILED' | 'OVERRIDDEN'
 }
@@ -4859,6 +4868,7 @@ export interface GitSyncEntityDTO {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   entityUrl?: string
   folderPath?: string
   gitConnectorId?: string
@@ -4954,6 +4964,7 @@ export interface GitSyncEntityListDTO {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -5066,6 +5077,7 @@ export interface GitSyncErrorDTO {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
   failureReason?: string
   repoId?: string
@@ -5741,6 +5753,15 @@ export type JenkinsBearerTokenDTO = JenkinsAuthCredentialsDTO & {
   tokenRef: string
 }
 
+export type JenkinsBuildStepInfo = StepSpecType & {
+  captureEnvironmentVariable?: boolean
+  connectorRef: string
+  delegateSelectors?: string[]
+  jobName: string
+  jobParameter?: JenkinsParameterField[]
+  unstableStatusAsSuccess?: boolean
+}
+
 export type JenkinsConnectorDTO = ConnectorConfigDTO & {
   auth?: JenkinsAuthenticationDTO
   delegateSelectors?: string[]
@@ -5749,6 +5770,11 @@ export type JenkinsConnectorDTO = ConnectorConfigDTO & {
 
 export interface JenkinsJobDetailsDTO {
   jobDetails?: JobDetails[]
+}
+
+export interface JenkinsParameterField {
+  name?: string
+  value: string
 }
 
 export type JenkinsUserNamePasswordDTO = JenkinsAuthCredentialsDTO & {
@@ -7718,6 +7744,7 @@ export interface ReferencedByDTO {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
 }
 
 export type ReleaseRepoManifest = ManifestAttributes & {
@@ -8564,6 +8591,7 @@ export interface ResponseListEntityType {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   )[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
@@ -8656,6 +8684,13 @@ export interface ResponseListJiraProjectBasicNG {
 export interface ResponseListJiraStatusNG {
   correlationId?: string
   data?: JiraStatusNG[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListJobParameter {
+  correlationId?: string
+  data?: JobParameter[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -12737,6 +12772,7 @@ export interface ListActivitiesQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   referredByEntityType?:
     | 'CreatePR'
     | 'GITOPS_MERGE_PR'
@@ -12824,6 +12860,7 @@ export interface ListActivitiesQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -13015,6 +13052,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   referredByEntityType?:
     | 'CreatePR'
     | 'GITOPS_MERGE_PR'
@@ -13102,6 +13140,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -16046,6 +16085,95 @@ export const getBuildsForJenkinsPromise = (
     GetBuildsForJenkinsQueryParams,
     GetBuildsForJenkinsPathParams
   >(getConfig('ng/api'), `/artifacts/jenkins/job/${jobName}/builds`, props, signal)
+
+export interface GetJobParametersForJenkinsQueryParams {
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export interface GetJobParametersForJenkinsPathParams {
+  jobName: string
+}
+
+export type GetJobParametersForJenkinsProps = Omit<
+  GetProps<
+    ResponseListJobParameter,
+    Failure | Error,
+    GetJobParametersForJenkinsQueryParams,
+    GetJobParametersForJenkinsPathParams
+  >,
+  'path'
+> &
+  GetJobParametersForJenkinsPathParams
+
+/**
+ * Gets Jenkins Job paramter
+ */
+export const GetJobParametersForJenkins = ({ jobName, ...props }: GetJobParametersForJenkinsProps) => (
+  <Get<
+    ResponseListJobParameter,
+    Failure | Error,
+    GetJobParametersForJenkinsQueryParams,
+    GetJobParametersForJenkinsPathParams
+  >
+    path={`/artifacts/jenkins/job/${jobName}/details`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetJobParametersForJenkinsProps = Omit<
+  UseGetProps<
+    ResponseListJobParameter,
+    Failure | Error,
+    GetJobParametersForJenkinsQueryParams,
+    GetJobParametersForJenkinsPathParams
+  >,
+  'path'
+> &
+  GetJobParametersForJenkinsPathParams
+
+/**
+ * Gets Jenkins Job paramter
+ */
+export const useGetJobParametersForJenkins = ({ jobName, ...props }: UseGetJobParametersForJenkinsProps) =>
+  useGet<
+    ResponseListJobParameter,
+    Failure | Error,
+    GetJobParametersForJenkinsQueryParams,
+    GetJobParametersForJenkinsPathParams
+  >((paramsInPath: GetJobParametersForJenkinsPathParams) => `/artifacts/jenkins/job/${paramsInPath.jobName}/details`, {
+    base: getConfig('ng/api'),
+    pathParams: { jobName },
+    ...props
+  })
+
+/**
+ * Gets Jenkins Job paramter
+ */
+export const getJobParametersForJenkinsPromise = (
+  {
+    jobName,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseListJobParameter,
+    Failure | Error,
+    GetJobParametersForJenkinsQueryParams,
+    GetJobParametersForJenkinsPathParams
+  > & { jobName: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseListJobParameter,
+    Failure | Error,
+    GetJobParametersForJenkinsQueryParams,
+    GetJobParametersForJenkinsPathParams
+  >(getConfig('ng/api'), `/artifacts/jenkins/job/${jobName}/details`, props, signal)
 
 export interface GetArtifactPathForJenkinsQueryParams {
   connectorRef?: string
@@ -22315,6 +22443,7 @@ export interface FetchFeatureRestrictionMetadataPathParams {
     | 'AZURE_TRAFFIC_SHIFT'
     | 'AZURE_SWAP_SLOT'
     | 'AZURE_WEBAPP_ROLLBACK'
+    | 'JENKINS_BUILD'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -22446,6 +22575,7 @@ export const fetchFeatureRestrictionMetadataPromise = (
       | 'AZURE_TRAFFIC_SHIFT'
       | 'AZURE_SWAP_SLOT'
       | 'AZURE_WEBAPP_ROLLBACK'
+      | 'JENKINS_BUILD'
       | 'SECURITY'
       | 'DEVELOPERS'
       | 'MONTHLY_ACTIVE_USERS'
@@ -22553,6 +22683,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -25342,6 +25473,7 @@ export interface GetReferencedByQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   searchTerm?: string
 }
 
@@ -26639,6 +26771,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -26794,6 +26927,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'AzureTrafficShift'
       | 'AzureSwapSlot'
       | 'AzureWebAppRollback'
+      | 'JenkinsBuild'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -31279,6 +31413,7 @@ export interface GetStepYamlSchemaQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   yamlGroup?: string
 }
 
@@ -31494,6 +31629,7 @@ export interface GetEntityYamlSchemaQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
 }
 
 export type GetEntityYamlSchemaProps = Omit<
@@ -42657,6 +42793,7 @@ export interface GetYamlSchemaQueryParams {
     | 'AzureTrafficShift'
     | 'AzureSwapSlot'
     | 'AzureWebAppRollback'
+    | 'JenkinsBuild'
   subtype?:
     | 'K8sCluster'
     | 'Git'

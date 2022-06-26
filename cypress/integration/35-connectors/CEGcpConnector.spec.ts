@@ -1,9 +1,9 @@
 import {
+  accountConnectorTestConnection,
   accountResourceConnectors,
   ceConnectorOverviewSave,
   connectorsCatalogueAPI,
-  getGcpPermissions,
-  testConnection
+  getGcpPermissions
 } from '../../support/35-connectors/constants'
 import { featureFlagsCall, pageHeaderClassName } from '../../support/70-pipeline/constants'
 
@@ -55,7 +55,9 @@ describe('CE GCP Connector', () => {
     cy.intercept('GET', getGcpPermissions, { fixture: 'ng/api/connectors/CEConnectors/getGcpPermission.json' }).as(
       'getGcpPermission'
     )
-    cy.intercept('POST', testConnection, { fixture: '/ng/api/connectors/testConnection.json' }).as('testConnection')
+    cy.intercept('POST', accountConnectorTestConnection, { fixture: '/ng/api/connectors/testConnection.json' }).as(
+      'testConnection'
+    )
 
     cy.visitPageAssertion(pageHeaderClassName)
     cy.wait('@connectorsCatalogue')

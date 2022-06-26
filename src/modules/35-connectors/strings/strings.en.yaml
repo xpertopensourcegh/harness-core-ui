@@ -296,6 +296,9 @@ jenkins:
   bearerTokenRequired: Bearer token is required
   usernamePasswordAPIToken: 'Username and Password/APIToken'
   passwordAPIToken: 'Password/APIToken'
+  jenkinsConnectorLabel: 'Jenkins Connector'
+  jobNameLabel: 'Job Name'
+  jobParameterLabel: 'Job Parameter (Optional)'
   jenkins: 'Jenkins'
   jenkinsUrlRequired: 'Jenkins Registry URL is required'
   jenkinsUrl: 'Jenkins Registry URL'
@@ -363,7 +366,6 @@ customHealth:
   valueRequired: Value is required.
   keyRequired: Key is required.
 cdng:
-  jobName: Job Name
   continousVerificationType: Continous Verification Type
   monitoredServiceType: Monitored Service Type
   artifactTag: Artifact Tag
