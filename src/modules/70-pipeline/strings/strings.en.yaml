@@ -55,6 +55,7 @@ poweredByHarness: powered by Harness
 linuxOnly: Supported on Linux only
 outOf: Out Of
 clickToExpandErrorDetails: Click to expand error details
+totalCount: 'Total: {{ count }}'
 approvalStage:
   settingUpStage: Getting stage data
 filters:
@@ -116,6 +117,8 @@ queueStep:
   scopeRequired: Scope is required
   scopePlaceholder: Select Scope
   scope: Scope (to release constraint)
+  queuedExecutions: Queued Executions
+  queuedByResourceKey: 'Queued by Resource Key:'
 jiraApprovalStep:
   connectToJira: Connect to Jira
   connectorRef: Jira Connector

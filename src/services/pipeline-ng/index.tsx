@@ -2351,7 +2351,9 @@ export interface Principal {
 
 export interface ResourceConstraintDetail {
   pipelineIdentifier?: string
+  pipelineName?: string
   planExecutionId?: string
+  startTs?: number
   state?: 'BLOCKED' | 'ACTIVE' | 'FINISHED' | 'REJECTED'
 }
 
