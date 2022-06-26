@@ -767,6 +767,12 @@ export interface ErrorNodeSummary {
   templateResponse?: TemplateResponse
 }
 
+export interface ExcludeConfig {
+  exclude?: {
+    [key: string]: string
+  }
+}
+
 export interface ExecutableResponse {
   [key: string]: any
 }
@@ -899,6 +905,7 @@ export interface ExecutionNode {
     [key: string]: { [key: string]: any }
   }
   stepType?: string
+  strategyMetadata?: StrategyMetadata
   unitProgresses?: UnitProgress[]
   uuid?: string
 }
@@ -1476,6 +1483,11 @@ export type HarnessApprovalInstanceDetails = ApprovalInstanceDetailsDTO & {
   includePipelineExecutionHistory?: boolean
 }
 
+export interface HarnessForConfig {
+  iteration?: number
+  maxConcurrency?: number
+}
+
 export type HelmManifestSpec = ManifestTypeSpec & {
   chartName?: string
   chartVersion?: string
@@ -1587,6 +1599,11 @@ export interface InputSetTemplateWithReplacedExpressionsResponse {
   replacedExpressions?: string[]
 }
 
+export interface InputSetValidator {
+  parameters?: string
+  validatorType?: 'ALLOWED_VALUES' | 'REGEX'
+}
+
 export interface InterruptConfig {
   issuedBy: IssuedBy
   retryInterruptConfig?: RetryInterruptConfig
@@ -1687,6 +1704,15 @@ export interface ManualIssuer {
 
 export type MarkAsSuccessFailureActionConfig = FailureStrategyActionConfig & {
   type: 'MarkAsSuccess'
+}
+
+export type MatrixConfig = MatrixConfigInterface & {
+  exclude?: ParameterFieldListExcludeConfig
+  maxConcurrency?: number
+}
+
+export interface MatrixConfigInterface {
+  [key: string]: any
 }
 
 export interface MeanMedianInfo {
@@ -1986,6 +2012,30 @@ export interface Pageable {
   unpaged?: boolean
 }
 
+export interface ParameterField {
+  defaultValue?: { [key: string]: any }
+  executionInput?: boolean
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: { [key: string]: any }
+}
+
+export interface ParameterFieldListExcludeConfig {
+  defaultValue?: ExcludeConfig[]
+  executionInput?: boolean
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: ExcludeConfig[]
+}
+
 export interface PipelineCountInfo {
   failure?: number
   success?: number
@@ -2233,6 +2283,7 @@ export interface PmsAbstractStepNode {
   failureStrategies?: FailureStrategyConfig[]
   identifier: string
   name: string
+  strategy?: StrategyConfig
   timeout?: string
   when?: StepWhenCondition
 }
@@ -3485,6 +3536,12 @@ export interface StepPalleteModuleInfo {
 export interface StepWhenCondition {
   condition?: string
   stageStatus: 'Success' | 'Failure' | 'All'
+}
+
+export interface StrategyConfig {
+  for?: HarnessForConfig
+  matrix?: MatrixConfigInterface
+  parallelism?: number
 }
 
 export interface StrategyMetadata {

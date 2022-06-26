@@ -3394,6 +3394,7 @@ export interface ExecutionWrapperConfig {
   parallel?: ParallelStepElementConfig
   step?: StepElementConfig
   stepGroup?: StepGroupElementConfig
+  graphDataType?: string
 }
 
 export interface Failure {
@@ -11130,6 +11131,22 @@ export interface StackTraceElement {
   nativeMethod?: boolean
 }
 
+export interface HarnessForConfig {
+  iteration?: number
+}
+
+export interface ExcludeConfig {
+  exclude?: {
+    [key: string]: string
+  }
+}
+
+export interface StrategyConfig {
+  batchSize?: number
+  for?: HarnessForConfig
+  matrix?: MatrixConfig
+}
+
 export interface StageElementConfig {
   delegateSelectors?: string[]
   description?: string
@@ -11150,6 +11167,7 @@ export interface StageElementConfig {
 export interface StageElementWrapperConfig {
   parallel?: ParallelStageElementConfig
   stage?: StageElementConfig
+  graphDataType?: string
 }
 
 export interface StageInfoConfig {
@@ -11296,9 +11314,9 @@ export interface StoreConfigWrapperParameters {
 }
 
 export interface StrategyConfig {
+  batchSize?: number
   for?: HarnessForConfig
-  matrix?: MatrixConfigInterface
-  parallelism?: number
+  matrix?: MatrixConfig
 }
 
 export type StringNGVariable = NGVariable & {

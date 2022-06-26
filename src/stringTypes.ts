@@ -385,6 +385,7 @@ export interface StringsMap {
   'common.headerCompanyName': string
   'common.headerDefaultAccount': string
   'common.headers': string
+  'common.hideAll': string
   'common.home': string
   'common.hourly': string
   'common.import': string
@@ -2626,6 +2627,7 @@ export interface StringsMap {
   'pipeline.ACR.subscriptionError': string
   'pipeline.ACR.subscriptionPlaceholder': string
   'pipeline.ACR.tagError': string
+  'pipeline.MatrixNode.maxConcurrency': string
   'pipeline.OverviewEmptyStates.createPipelineHeaderMsg': string
   'pipeline.OverviewEmptyStates.createPipelineInfo': string
   'pipeline.OverviewEmptyStates.runPipelineHeaderMsg': string

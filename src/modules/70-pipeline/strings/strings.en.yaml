@@ -1117,3 +1117,5 @@ OverviewEmptyStates:
   runPipelineHeaderMsg: You haven’t tried running your pipelines yet.
   runPipelineInfo: Click the button below to select a pipeline and get your deployments started.
 importSuccessMessage: '{{resourceType}} has been imported successfully'
+MatrixNode:
+  maxConcurrency: 'Max Concurrency:'

@@ -8,7 +8,7 @@
 import React from 'react'
 import { Accordion, AccordionHandle } from '@harness/uicore'
 import { Spinner } from '@blueprintjs/core'
-import { defaultTo } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 
 import { useUpdateQueryParams } from '@common/hooks'
 import { processExecutionData } from '@pipeline/utils/executionUtils'
@@ -32,6 +32,7 @@ export function StageSelection(): React.ReactElement {
     pipelineExecutionDetail,
     selectedStageId,
     selectedStepId,
+    selectedStageExecutionId,
     queryParams,
     loading
   } = useExecutionContext()
@@ -44,9 +45,12 @@ export function StageSelection(): React.ReactElement {
     let timer: number
 
     if (accordionRef.current && selectedStageId) {
-      accordionRef.current.open(selectedStageId)
+      const newIdentifier = isEmpty(selectedStageExecutionId)
+        ? selectedStageId
+        : [selectedStageId, selectedStageExecutionId].join('|')
+      accordionRef.current.open(newIdentifier)
       const scrollPanelIntoView = (): void => {
-        const panel = document.querySelector(`[data-testid="${selectedStageId}-panel"]`)
+        const panel = document.querySelector(`[data-testid="${newIdentifier}-panel"]`)
         if (panel && containerRef.current) {
           const rect = panel.getBoundingClientRect()
           containerRef.current.scrollTop += rect.top - SCROLL_OFFSET
@@ -65,7 +69,7 @@ export function StageSelection(): React.ReactElement {
         window.clearTimeout(timer)
       }
     }
-  }, [selectedStageId])
+  }, [selectedStageId, selectedStageExecutionId])
 
   const tree = React.useMemo(
     () => processExecutionData(pipelineExecutionDetail?.executionGraph),
@@ -77,8 +81,13 @@ export function StageSelection(): React.ReactElement {
   }
 
   function handleAccordionChange(stageId: string | string[]): void {
-    if (typeof stageId === 'string' && stageId && selectedStageId !== stageId) {
-      updateQueryParams({ stage: stageId })
+    const [stageNodeId, stageNodeExecId] = Array.isArray(stageId) ? stageId : (stageId || '').split('|')
+
+    if (typeof stageId === 'string' && stageId && stageNodeId) {
+      updateQueryParams({
+        stage: stageNodeId,
+        stageExecId: stageNodeExecId
+      })
     }
   }
 
@@ -108,33 +117,36 @@ export function StageSelection(): React.ReactElement {
         summaryClassName={css.accordionSummary}
         detailsClassName={css.accordionDetails}
       >
-        {stageEntries.map(([identifier, stage]) => (
-          <Accordion.Panel
-            key={identifier}
-            id={identifier}
-            disabled={isExecutionSkipped(stage.status) || isExecutionNotStarted(stage.status)}
-            summary={
-              <div>
-                <StatusIcon className={css.icon} status={stage.status as ExecutionStatus} />
-                <span>{stage.name}</span>
-              </div>
-            }
-            details={
-              identifier === selectedStageId && !loading ? (
-                <StepsTree
-                  allNodeMap={allNodeMap}
-                  nodes={tree}
-                  selectedStepId={selectedStepId}
-                  onStepSelect={handleStepSelect}
-                  retryStep={queryParams.retryStep}
-                  isRoot
-                />
-              ) : (
-                <Spinner size={20} className={css.spinner} />
-              )
-            }
-          />
-        ))}
+        {stageEntries.map(([identifier, stage]) => {
+          const newIdentifier = stage?.strategyMetadata ? [stage.nodeUuid, stage.nodeExecutionId].join('|') : identifier
+          return (
+            <Accordion.Panel
+              key={newIdentifier}
+              id={newIdentifier}
+              disabled={isExecutionSkipped(stage.status) || isExecutionNotStarted(stage.status)}
+              summary={
+                <div>
+                  <StatusIcon className={css.icon} status={stage.status as ExecutionStatus} />
+                  <span>{stage.name}</span>
+                </div>
+              }
+              details={
+                newIdentifier.includes(selectedStageExecutionId || selectedStageId) && !loading ? (
+                  <StepsTree
+                    allNodeMap={allNodeMap}
+                    nodes={tree}
+                    selectedStepId={selectedStepId}
+                    onStepSelect={handleStepSelect}
+                    retryStep={queryParams.retryStep}
+                    isRoot
+                  />
+                ) : (
+                  <Spinner size={20} className={css.spinner} />
+                )
+              }
+            />
+          )
+        })}
       </Accordion>
     </div>
   )
