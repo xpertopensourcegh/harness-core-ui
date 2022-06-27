@@ -17,6 +17,7 @@ import produce from 'immer'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import {
   DeploymentStageConfig,
+  GetExecutionStrategyYamlQueryParams,
   StageElementConfig,
   useGetExecutionStrategyYaml,
   useGetFailureStrategiesYaml
@@ -48,6 +49,7 @@ import {
 import { getCDStageValidationSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStudio/PipelineUtils'
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -175,17 +177,29 @@ export default function DeployStageSetupShell(): JSX.Element {
     }
   }, [selectedTabId])
 
-  const selectedDeploymentType = getSelectedDeploymentType(
-    selectedStage,
-    getStageFromPipeline,
-    !!selectedStage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+  const selectedDeploymentType = isNewServiceEnvEntity(
+    NG_SVC_ENV_REDESIGN,
+    selectedStage as DeploymentStageElementConfig
   )
+    ? (selectedStage?.stage?.spec as DeployStageConfig)?.deploymentType
+    : getSelectedDeploymentType(
+        selectedStage,
+        getStageFromPipeline,
+        !!selectedStage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+      )
+
+  const strategyType = isNewServiceEnvEntity(NG_SVC_ENV_REDESIGN, selectedStage as DeploymentStageElementConfig)
+    ? 'GitOps'
+    : selectedDeploymentType === ServiceDeploymentType.ServerlessAwsLambda
+    ? 'Basic'
+    : 'Rolling'
+
   const { data: stageYamlSnippet, loading, refetch } = useGetFailureStrategiesYaml({ lazy: true })
 
   const { data: yamlSnippet, refetch: refetchYamlSnippet } = useGetExecutionStrategyYaml({
     queryParams: {
-      serviceDefinitionType: selectedDeploymentType,
-      strategyType: selectedDeploymentType === ServiceDeploymentType.ServerlessAwsLambda ? 'Basic' : 'Rolling'
+      serviceDefinitionType: selectedDeploymentType as GetExecutionStrategyYamlQueryParams['serviceDefinitionType'],
+      strategyType
     },
     lazy: true
   })
@@ -198,7 +212,8 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (
-      isServerlessDeploymentType(selectedDeploymentType) &&
+      (isServerlessDeploymentType(selectedDeploymentType || '') ||
+        (selectedStage?.stage?.spec as DeployStageConfig)?.gitOpsEnabled) &&
       yamlSnippet?.data &&
       selectedStage &&
       isEmpty(selectedStage.stage?.spec?.execution)
@@ -238,13 +253,15 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const validate = React.useCallback(() => {
     try {
-      getCDStageValidationSchema(getString, selectedDeploymentType, NG_SVC_ENV_REDESIGN, contextType).validateSync(
-        selectedStage?.stage,
-        {
-          abortEarly: false,
-          context: selectedStage?.stage
-        }
-      )
+      getCDStageValidationSchema(
+        getString,
+        selectedDeploymentType as GetExecutionStrategyYamlQueryParams['serviceDefinitionType'],
+        NG_SVC_ENV_REDESIGN,
+        contextType
+      ).validateSync(selectedStage?.stage, {
+        abortEarly: false,
+        context: selectedStage?.stage
+      })
       setIncompleteTabs({})
     } catch (error) {
       if (error.name !== 'ValidationError') {
@@ -284,12 +301,15 @@ export default function DeployStageSetupShell(): JSX.Element {
         if (!selectedStage?.stage?.spec?.execution) {
           const stageType = selectedStage?.stage?.type
           const openExecutionStrategy = stageType ? stagesMap[stageType].openExecutionStrategy : true
-          const isServerlessDeploymentTypeSelected = isServerlessDeploymentType(selectedDeploymentType)
-          // Show executiomn strategies when openExecutionStrategy is true and deployment type is not serverless
+          const isServerlessDeploymentTypeSelected = isServerlessDeploymentType(selectedDeploymentType || '')
+          const gitOpsEnabled = (selectedStage?.stage?.spec as DeployStageConfig)?.gitOpsEnabled
+          // Show executiomn strategies when openExecutionStrategy is true and deployment type is not serverless and
+          // when gitOpsEnabled to true
           if (
             openExecutionStrategy &&
             !isServerlessDeploymentTypeSelected &&
-            selectedSectionId === DeployTabs.EXECUTION
+            selectedSectionId === DeployTabs.EXECUTION &&
+            !gitOpsEnabled
           ) {
             updatePipelineView({
               ...pipelineView,
