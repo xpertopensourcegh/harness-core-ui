@@ -23,7 +23,8 @@ import {
   Layout,
   useToaster,
   VisualYamlSelectedView as SelectedView,
-  VisualYamlToggle
+  VisualYamlToggle,
+  Tag
 } from '@harness/uicore'
 import { Color } from '@harness/design-system'
 
@@ -59,6 +60,11 @@ import { getInfrastructureDefinitionValidationSchema } from '@cd/components/Pipe
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import { InfrastructurePipelineProvider } from '@cd/context/InfrastructurePipelineContext'
 import { useTemplateSelector } from '@templates-library/hooks/useTemplateSelector'
+
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+
 import css from './InfrastructureDefinition.module.scss'
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -167,6 +173,8 @@ function BootstrapDeployInfraDefinition({
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const [isSavingInfrastructure, setIsSavingInfrastructure] = useState(false)
   const [selectedDeploymentType, setSelectedDeploymentType] = useState<ServiceDeploymentType | undefined>()
+  const [isYamlEditable, setIsYamlEditable] = useState(false)
+  const [invalidYaml, setInvalidYaml] = useState(false)
   const formikRef = useRef<FormikProps<InfrastructureConfig>>()
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 
@@ -186,11 +194,24 @@ function BootstrapDeployInfraDefinition({
     }
   })
 
+  const handleYamlChange = useCallback((): void => {
+    const errors = yamlHandler?.getYAMLValidationErrorMap()
+    const hasError = errors?.size ? true : false
+    setInvalidYaml(hasError)
+    const yaml = defaultTo(yamlHandler?.getLatestYaml(), '{}')
+    const yamlVisual = parse(yaml).infrastructureDefinition as InfrastructureConfig
+    if (yamlVisual) {
+      formikRef.current?.setValues({
+        ...yamlVisual
+      })
+    }
+  }, [yamlHandler])
+
   const handleModeSwitch = useCallback(
     /* istanbul ignore next */ (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
         const yaml = defaultTo(yamlHandler?.getLatestYaml(), '{}')
-        const yamlVisual = parse(yaml).environment as InfrastructureConfig
+        const yamlVisual = parse(yaml).infrastructureDefinition as InfrastructureConfig
 
         if (yamlHandler?.getYAMLValidationErrorMap()?.size) {
           showError(getString('common.validation.invalidYamlText'))
@@ -298,6 +319,10 @@ function BootstrapDeployInfraDefinition({
     [stage, updateStage]
   )
 
+  const handleEditMode = (): void => {
+    setIsYamlEditable(true)
+  }
+
   return (
     <Formik<InfrastructureDefinitionConfig>
       initialValues={{
@@ -345,26 +370,48 @@ function BootstrapDeployInfraDefinition({
                   {(selectedDeploymentType || infrastructureDefinition) && <DeployInfraDefinition />}
                 </>
               ) : (
-                <YAMLBuilder
-                  {...yamlBuilderReadOnlyModeProps}
-                  existingJSON={{
-                    infrastructureDefinition: {
-                      ...formikProps.values,
-                      orgIdentifier,
-                      projectIdentifier,
-                      environmentRef: environmentIdentifier || envIdentifier,
-                      type: (pipeline.stages?.[0].stage?.spec as DeploymentStageConfig)?.infrastructure
-                        ?.infrastructureDefinition?.type,
-                      spec: (pipeline.stages?.[0].stage?.spec as DeploymentStageConfig)?.infrastructure
-                        ?.infrastructureDefinition?.spec,
-                      allowSimultaneousDeployments: (pipeline.stages?.[0].stage?.spec as DeploymentStageConfig)
-                        ?.infrastructure?.allowSimultaneousDeployments
-                    } as InfrastructureDefinitionConfig
-                  }}
-                  schema={environmentSchema?.data}
-                  bind={setYamlHandler}
-                  showSnippetSection={false}
-                />
+                <div className={css.yamlBuilder}>
+                  <YAMLBuilder
+                    {...yamlBuilderReadOnlyModeProps}
+                    existingJSON={{
+                      infrastructureDefinition: {
+                        ...formikProps.values,
+                        orgIdentifier,
+                        projectIdentifier,
+                        environmentRef: environmentIdentifier || envIdentifier,
+                        type: (pipeline.stages?.[0].stage?.spec as DeploymentStageConfig)?.infrastructure
+                          ?.infrastructureDefinition?.type,
+                        spec: (pipeline.stages?.[0].stage?.spec as DeploymentStageConfig)?.infrastructure
+                          ?.infrastructureDefinition?.spec,
+                        allowSimultaneousDeployments: (pipeline.stages?.[0].stage?.spec as DeploymentStageConfig)
+                          ?.infrastructure?.allowSimultaneousDeployments
+                      } as InfrastructureDefinitionConfig
+                    }}
+                    key={isYamlEditable.toString()}
+                    schema={environmentSchema?.data}
+                    bind={setYamlHandler}
+                    showSnippetSection={false}
+                    isReadOnlyMode={!isYamlEditable}
+                    onChange={handleYamlChange}
+                    onEnableEditMode={handleEditMode}
+                  />
+                  {!isYamlEditable ? (
+                    <div className={css.buttonWrapper}>
+                      <Tag>{getString('common.readOnly')}</Tag>
+                      <RbacButton
+                        permission={{
+                          resource: {
+                            resourceType: ResourceType.ENVIRONMENT
+                          },
+                          permission: PermissionIdentifier.EDIT_ENVIRONMENT
+                        }}
+                        variation={ButtonVariation.SECONDARY}
+                        text={getString('common.editYaml')}
+                        onClick={handleEditMode}
+                      />
+                    </div>
+                  ) : null}
+                </div>
               )}
             </Container>
 
@@ -385,7 +432,7 @@ function BootstrapDeployInfraDefinition({
                     } as InfrastructureDefinitionConfig)
                   }
                 }}
-                disabled={isSavingInfrastructure}
+                disabled={isSavingInfrastructure || invalidYaml}
                 loading={isSavingInfrastructure}
               />
               <Button
