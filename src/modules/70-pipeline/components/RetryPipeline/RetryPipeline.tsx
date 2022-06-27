@@ -65,7 +65,11 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { StoreType } from '@common/constants/GitSyncTypes'
-import { getFeaturePropsForRunPipelineButton, mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
+import {
+  clearRuntimeInput,
+  getFeaturePropsForRunPipelineButton,
+  mergeTemplateWithInputSetData
+} from '@pipeline/utils/runPipelineUtils'
 import type { InputSetDTO, Pipeline } from '@pipeline/utils/types'
 import { PipelineErrorView } from '@pipeline/components/RunPipelineModal/PipelineErrorView'
 import { YamlBuilderMemo } from '@common/components/YAMLBuilder/YamlBuilder'
@@ -77,7 +81,7 @@ import factory from '../PipelineSteps/PipelineStepFactory'
 
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { StepViewType } from '../AbstractSteps/Step'
-import { clearRuntimeInput, getErrorsList, validatePipeline } from '../PipelineStudio/StepUtil'
+import { getErrorsList, validatePipeline } from '../PipelineStudio/StepUtil'
 
 import SaveAsInputSet from '../RunPipelineModal/SaveAsInputSet'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'

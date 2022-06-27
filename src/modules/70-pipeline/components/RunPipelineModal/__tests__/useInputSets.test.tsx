@@ -10,9 +10,9 @@ import { waitFor } from '@testing-library/react'
 import { parse } from 'yaml'
 import { useGetTemplateFromPipeline, useGetMergeInputSetFromPipelineTemplateWithListInput } from 'services/pipeline-ng'
 
+import { clearRuntimeInput } from '@pipeline/utils/runPipelineUtils'
 import { useInputSets } from '../useInputSets'
 import type { UseInputSetsProps } from '../useInputSets'
-import { clearRuntimeInput } from '../../PipelineStudio/StepUtil'
 jest.mock('services/pipeline-ng', () => ({
   useGetTemplateFromPipeline: jest.fn(() => ({})),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({}))

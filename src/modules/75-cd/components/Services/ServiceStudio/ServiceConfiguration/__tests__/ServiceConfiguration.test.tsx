@@ -59,11 +59,10 @@ const getContextValue = (mockData: any): PipelineContextInterface => {
   return {
     ...pipelineContext,
     getStageFromPipeline: jest.fn(() => mockData),
-    updateStage: jest.fn(() => {
-      undefined
-    }),
-    updatePipeline: jest.fn(() => undefined),
-    updatePipelineView: jest.fn(() => undefined)
+    updateStage: jest.fn(),
+    updatePipeline: jest.fn(),
+    updatePipelineView: jest.fn(),
+    setView: jest.fn()
   } as any
 }
 

@@ -54,6 +54,7 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
     },
     updatePipeline,
     updatePipelineView,
+    setView,
     isReadonly
   } = usePipelineContext()
   const { isServiceCreateModalView } = useServiceContext()
@@ -91,7 +92,7 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
       if (yamlChanged) {
         const newServiceData = getUpdatedPipelineYaml()
         const errorMap = yamlHandler?.getYAMLValidationErrorMap?.()
-        if (!(errorMap && errorMap.size > 0)) {
+        if (!errorMap || errorMap.size === 0) {
           newServiceData && updatePipeline(newServiceData)
         }
       }
@@ -105,6 +106,7 @@ function ServiceConfiguration({ serviceData }: ServiceConfigurationProps): React
         const newServiceData = getUpdatedPipelineYaml()
         newServiceData && updatePipeline(newServiceData)
       }
+      setView(view)
       setSelectedView(view)
     },
     [yamlHandler?.getLatestYaml, serviceSchema]

@@ -23,6 +23,7 @@ export interface DeployServiceProps {
   }
   allowableTypes: MultiTypeInputType[]
   serviceLabel?: string
+  customStepProps?: { stageIdentifier: string; isNewServiceEntity: boolean }
 }
 
 export interface DeployServiceState {

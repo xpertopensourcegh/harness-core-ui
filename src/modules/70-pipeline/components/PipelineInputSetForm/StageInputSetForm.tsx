@@ -827,18 +827,18 @@ export function StageInputSetFormInternal({
             {(deploymentStageTemplate as unknown as DeployStageConfig).service?.serviceRef && (
               /* istanbul ignore next */ <StepWidget<ServiceConfig>
                 factory={factory}
-                initialValues={(deploymentStageTemplate as unknown as DeployStageConfig).service || {}}
+                initialValues={(deploymentStageInputSet as unknown as DeployStageConfig).service || {}}
                 template={(deploymentStageTemplate as unknown as DeployStageConfig).service || {}}
                 type={StepType.DeployService}
                 stepViewType={viewType}
-                path={`${path}.serviceConfig`}
+                path={`${path}.service`}
                 allowableTypes={
                   scope === Scope.PROJECT
                     ? allowableTypes
                     : allowableTypes.filter(item => item !== MultiTypeInputType.FIXED)
                 }
                 readonly={readonly}
-                customStepProps={{ stageIdentifier }}
+                customStepProps={{ stageIdentifier, isNewServiceEntity: true }}
               />
             )}
             {!isNil((deploymentStage as any)?.deploymentType) && (

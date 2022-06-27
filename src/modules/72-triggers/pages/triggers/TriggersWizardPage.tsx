@@ -27,7 +27,7 @@ import { Page, useToaster } from '@common/exports'
 import Wizard from '@common/components/Wizard/Wizard'
 import { connectorUrlType } from '@connectors/constants'
 import routes from '@common/RouteDefinitions'
-import { mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
+import { clearRuntimeInput, mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
 import type { Pipeline } from '@pipeline/utils/types'
 import {
   PipelineInfoConfig,
@@ -59,7 +59,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { clearRuntimeInput, validatePipeline } from '@pipeline/components/PipelineStudio/StepUtil'
+import { validatePipeline } from '@pipeline/components/PipelineStudio/StepUtil'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {

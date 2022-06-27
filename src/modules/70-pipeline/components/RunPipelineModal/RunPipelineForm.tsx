@@ -53,6 +53,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import {
   ALL_STAGE_VALUE,
+  clearRuntimeInput,
   getAllStageData,
   getAllStageItem,
   getFeaturePropsForRunPipelineButton,
@@ -73,7 +74,7 @@ import { useDeepCompareEffect } from '@common/hooks/useDeepCompareEffect'
 import { StoreType } from '@common/constants/GitSyncTypes'
 import { YamlBuilderMemo } from '@common/components/YAMLBuilder/YamlBuilder'
 import { PipelineErrorView } from '@pipeline/components/RunPipelineModal/PipelineErrorView'
-import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
+import { validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 
 import factory from '../PipelineSteps/PipelineStepFactory'

@@ -19,13 +19,13 @@ import {
 } from 'services/pipeline-ng'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
+  clearRuntimeInput,
   getStageIdentifierFromStageData,
   mergeTemplateWithInputSetData,
   StageSelectionData
 } from '@pipeline/utils/runPipelineUtils'
 
 import type { InputSetValue } from '../InputSetSelector/utils'
-import { clearRuntimeInput } from '../PipelineStudio/StepUtil'
 
 const memoizedParse = memoize(parse)
 

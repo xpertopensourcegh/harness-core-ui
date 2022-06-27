@@ -72,3 +72,7 @@ export interface DeployStageConfig
   isEnvGroup?: boolean
   deploymentType?: ServiceDefinition['type']
 }
+
+export interface ServiceInputsConfig {
+  serviceInputs: ServiceDefinition
+}
