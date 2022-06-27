@@ -980,6 +980,17 @@ exports[`MANIFEST renders the K8 manifest: manifest form skeleton 1`] = `
       >
         pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests
       </div>
+      <div>
+        <p
+          class="StyledProps--font StyledProps--main inputheader StyledProps--margin-top-medium"
+        >
+          manifestId
+        </p>
+        <div
+          class="Layout--vertical StyledProps--main inputWidth layoutVerticalSpacing"
+          data-name="manifest"
+        />
+      </div>
     </div>
   </div>
 </div>
