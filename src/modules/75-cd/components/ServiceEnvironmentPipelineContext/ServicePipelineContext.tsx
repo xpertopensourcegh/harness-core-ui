@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { cloneDeep, defaultTo, isEmpty, isEqual, merge, noop, set } from 'lodash-es'
-import { MultiTypeInputType, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
+import { MultiTypeInputType, VisualYamlSelectedView as SelectedView } from '@harness/uicore'
 import produce from 'immer'
 import {
   PipelineContext,
@@ -139,7 +139,10 @@ export function ServicePipelineProvider({
     }
     const isUpdated = !isEqual(state.originalPipeline, pipeline)
     await dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
-    onUpdatePipeline?.(pipeline as ServicePipelineConfig)
+
+    if (view === SelectedView.VISUAL) {
+      onUpdatePipeline?.(pipeline as ServicePipelineConfig)
+    }
   }
 
   const updateStage = React.useCallback(
