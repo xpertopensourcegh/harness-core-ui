@@ -58,7 +58,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
     <Layout.Vertical spacing="medium">
       {!!(template?.artifacts?.primary?.type || template?.artifacts?.sidecars?.length) && (
         <KubernetesArtifacts
-          type={allValues?.artifacts?.primary?.type || ''}
+          type={template?.artifacts?.primary?.type || ''}
           template={template}
           artifacts={allValues?.artifacts}
           artifactSourceBaseFactory={artifactSourceBaseFactory}
