@@ -27,7 +27,6 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 
 import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
-import { ALL_SELECTED } from '../utils'
 
 import css from './DeployClusters.module.scss'
 
@@ -73,7 +72,7 @@ function DeployClusters({ formik, readonly, environmentIdentifier, allowableType
   useEffect(() => {
     if (!isNil(clusters)) {
       setClustersSelectOptions([
-        { label: getString('cd.pipelineSteps.environmentTab.allClustersSelected'), value: ALL_SELECTED },
+        { label: getString('cd.pipelineSteps.environmentTab.allClustersSelected'), value: getString('all') },
         ...clusters.map(cluster => {
           return { label: defaultTo(cluster.clusterRef, ''), value: defaultTo(cluster.clusterRef, '') }
         })
@@ -120,7 +119,7 @@ function DeployClusters({ formik, readonly, environmentIdentifier, allowableType
         allowableTypes,
         onChange: items => {
           if (items !== RUNTIME_INPUT_VALUE && (items as SelectOption[]).length !== 1) {
-            const selectAllItemIndex = (items as SelectOption[]).findIndex(item => item.value === ALL_SELECTED)
+            const selectAllItemIndex = (items as SelectOption[]).findIndex(item => item.value === getString('all'))
 
             if (selectAllItemIndex === 0) {
               formik?.setFieldValue('clusterRef', (items as SelectOption[]).slice(1))

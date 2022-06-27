@@ -20,7 +20,6 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 
 import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
-import { ALL_SELECTED } from '../utils'
 
 import css from './DeployClustersInMultiEnvironment.module.scss'
 
@@ -63,8 +62,8 @@ function DeployClustersInMultiEnvironment({ formik }: DeployClustersInMultiEnvir
     if (!isNil(clusters)) {
       setClustersSelectOptions([
         {
-          label: 'All',
-          value: ALL_SELECTED,
+          label: getString('all'),
+          value: getString('all'),
           parentLabel: selectedEnvironment,
           parentValue: selectedEnvironment
         },

@@ -10,10 +10,12 @@ import { useParams } from 'react-router-dom'
 import { defaultTo, get, isEmpty, isNil } from 'lodash-es'
 import { parse } from 'yaml'
 import { connect, FormikProps } from 'formik'
+import { Spinner } from '@blueprintjs/core'
 
 import {
   ButtonSize,
   ButtonVariation,
+  Container,
   Dialog,
   FormInput,
   getMultiTypeFromValue,
@@ -25,7 +27,13 @@ import {
 import { useModalHook } from '@harness/use-modal'
 
 import { useStrings } from 'framework/strings'
-import { EnvironmentResponse, EnvironmentResponseDTO, useGetEnvironmentListV2 } from 'services/cd-ng'
+import {
+  EnvironmentResponse,
+  EnvironmentResponseDTO,
+  useGetEnvironmentInputs,
+  useGetEnvironmentListV2,
+  useGetServiceOverrideInputs
+} from 'services/cd-ng'
 
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
@@ -47,9 +55,10 @@ interface DeployEnvironmentProps {
   formik?: FormikProps<DeployStageConfig>
   readonly?: boolean
   allowableTypes: MultiTypeInputType[]
+  serviceRef?: string
 }
 
-function DeployEnvironment({ initialValues, readonly, formik, allowableTypes }: DeployEnvironmentProps) {
+function DeployEnvironment({ initialValues, readonly, formik, allowableTypes, serviceRef }: DeployEnvironmentProps) {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<PipelinePathProps>()
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -70,12 +79,72 @@ function DeployEnvironment({ initialValues, readonly, formik, allowableTypes }: 
     }
   })
 
+  const {
+    data: environmentInputsResponse,
+    loading: environmentInputsLoading,
+    refetch: refetchEnvironmentInputs
+  } = useGetEnvironmentInputs({
+    lazy: true
+  })
+
+  const {
+    data: serviceOverrideInputsResponse,
+    loading: serviceOverrideInputsLoading,
+    refetch: refetchServiceOverrideInputs
+  } = useGetServiceOverrideInputs({
+    lazy: true
+  })
+
   const [environments, setEnvironments] = useState<EnvironmentResponseDTO[]>()
   const [selectedEnvironment, setSelectedEnvironment] = useState<EnvironmentResponseDTO>()
   const [environmentsSelectOptions, setEnvironmentsSelectOptions] = useState<SelectOption[]>()
   const [environmentRefType, setEnvironmentRefType] = useState<MultiTypeInputType>(
     getMultiTypeFromValue(initialValues.environment?.environmentRef)
   )
+
+  useEffect(() => {
+    if (
+      !environmentInputsLoading &&
+      !serviceOverrideInputsLoading &&
+      (environmentInputsResponse?.data?.inputSetTemplateYaml ||
+        serviceOverrideInputsResponse?.data?.inputSetTemplateYaml)
+    ) {
+      const parsedEnvironmentYaml = parse(defaultTo(environmentInputsResponse?.data?.inputSetTemplateYaml, '{}'))
+      const parsedServiceOverridesYaml = parse(
+        defaultTo(serviceOverrideInputsResponse?.data?.inputSetTemplateYaml, '{}')
+      )
+      formik?.setValues({
+        ...formik.values,
+        environment: {
+          ...formik.values.environment,
+          ...parsedEnvironmentYaml,
+          ...parsedServiceOverridesYaml
+        }
+      } as DeployStageConfig)
+    }
+  }, [environmentInputsLoading, serviceOverrideInputsLoading])
+
+  useEffect(() => {
+    if (selectedEnvironment?.identifier) {
+      const queryParams = {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        environmentIdentifier: selectedEnvironment?.identifier
+      }
+      refetchEnvironmentInputs({
+        queryParams
+      })
+      if (!isNil(serviceRef) && !isEmpty(serviceRef)) {
+        refetchServiceOverrideInputs({
+          queryParams: {
+            ...queryParams,
+            serviceIdentifier: serviceRef
+          }
+        })
+      }
+    }
+  }, [selectedEnvironment])
 
   useEffect(() => {
     if (!environmentsLoading && !get(environmentsResponse, 'data.empty')) {
@@ -204,6 +273,11 @@ function DeployEnvironment({ initialValues, readonly, formik, allowableTypes }: 
         }}
         selectItems={defaultTo(environmentsSelectOptions, [])}
       />
+      {(environmentInputsLoading || serviceOverrideInputsLoading) && (
+        <Container margin={{ top: 'xlarge' }}>
+          <Spinner size={20} />
+        </Container>
+      )}
       {environmentRefType === MultiTypeInputType.FIXED && (
         <RbacButton
           margin={{ top: 'xlarge' }}

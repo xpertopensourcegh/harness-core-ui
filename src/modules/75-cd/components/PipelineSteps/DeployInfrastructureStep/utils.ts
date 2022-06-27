@@ -17,6 +17,7 @@ import {
   MultiSelectWithSubmenuOption
 } from '@harness/uicore'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
+import type { UseStringsReturn } from 'framework/strings'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
@@ -29,14 +30,13 @@ export interface DeployInfrastructureProps {
   readonly: boolean
   allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
+  serviceRef?: string
   inputSetData?: {
     template?: DeployStageConfig
     path?: string
     readonly?: boolean
   }
 }
-
-export const ALL_SELECTED = 'All'
 
 export function isEditEnvironment(data?: EnvironmentResponseDTO): boolean {
   if (!isEmpty(data?.identifier)) {
@@ -113,9 +113,15 @@ export function processNonGitOpsFormValues(data: DeployStageConfig) {
     environment: {
       environmentRef: data.environment?.environmentRef,
       deployToAll: data.environment?.environmentRef === RUNTIME_INPUT_VALUE ? true : false,
+      ...(data.environment?.environmentInputs && { environmentInputs: data.environment?.environmentInputs }),
+      ...(data.environment?.serviceOverrideInputs && {
+        serviceOverrideInputs: data.environment?.serviceOverrideInputs
+      }),
+      ...data?.infrastructureInputs,
       ...(data.environment?.environmentRef &&
         data.environment?.environmentRef !== RUNTIME_INPUT_VALUE &&
-        data.infrastructureRef && {
+        data.infrastructureRef &&
+        !data?.infrastructureInputs && {
           infrastructureDefinitions:
             data.infrastructureRef === RUNTIME_INPUT_VALUE
               ? RUNTIME_INPUT_VALUE
@@ -129,7 +135,10 @@ export function processNonGitOpsFormValues(data: DeployStageConfig) {
   }
 }
 
-export function processGitOpsEnvironmentInitialValues(initialValues: DeployStageConfig) {
+export function processGitOpsEnvironmentInitialValues(
+  initialValues: DeployStageConfig,
+  getString: UseStringsReturn['getString']
+) {
   return {
     isEnvGroup: false,
     environmentOrEnvGroupRef: defaultTo(initialValues.environment?.environmentRef, ''),
@@ -141,8 +150,8 @@ export function processGitOpsEnvironmentInitialValues(initialValues: DeployStage
         : initialValues.environment?.deployToAll
         ? [
             {
-              label: 'All Clusters in Environment',
-              value: ALL_SELECTED
+              label: getString('cd.pipelineSteps.environmentTab.allClustersSelected'),
+              value: getString('all')
             }
           ]
         : defaultTo(initialValues.environment?.gitOpsClusters, [])?.map(cluster => {
@@ -154,8 +163,8 @@ export function processGitOpsEnvironmentInitialValues(initialValues: DeployStage
   }
 }
 
-export function processGitOpsEnvironmentFormValues(data: DeployStageConfig) {
-  const allClustersSelected = (data.clusterRef as SelectOption[])?.[0].value === ALL_SELECTED
+export function processGitOpsEnvironmentFormValues(data: DeployStageConfig, getString: UseStringsReturn['getString']) {
+  const allClustersSelected = (data.clusterRef as SelectOption[])?.[0].value === getString('all')
 
   return {
     environment: {
@@ -176,7 +185,10 @@ export function processGitOpsEnvironmentFormValues(data: DeployStageConfig) {
   }
 }
 
-export function processGitOpsEnvGroupInitialValues(initialValues: DeployStageConfig) {
+export function processGitOpsEnvGroupInitialValues(
+  initialValues: DeployStageConfig,
+  getString: UseStringsReturn['getString']
+) {
   return {
     isEnvGroup: true,
     environmentOrEnvGroupRef: defaultTo(initialValues.environmentGroup?.envGroupRef, ''),
@@ -187,7 +199,7 @@ export function processGitOpsEnvGroupInitialValues(initialValues: DeployStageCon
         : initialValues.environmentGroup?.deployToAll
         ? [
             {
-              name: ALL_SELECTED
+              name: getString('all')
             }
           ]
         : defaultTo(initialValues.environmentGroup?.envGroupConfig, [])?.map(environment => {
@@ -198,38 +210,38 @@ export function processGitOpsEnvGroupInitialValues(initialValues: DeployStageCon
             }
           }),
     deployToAll: defaultTo(initialValues.environmentGroup?.deployToAll, false),
-    clusterRef: initialValues.environmentGroup?.deployToAll
-      ? RUNTIME_INPUT_VALUE
-      : initialValues.environmentGroup?.envGroupConfig?.reduce((prev, environment) => {
-          return [
-            ...prev,
-            ...(environment.deployToAll
-              ? [
-                  {
-                    label: `All`,
-                    value: 'All',
-                    parentLabel: environment.environmentRef,
-                    parentValue: environment.environmentRef
-                  }
-                ]
-              : defaultTo(
-                  environment?.gitOpsClusters?.map(cluster => ({
-                    label: cluster.ref,
-                    value: cluster.ref,
-                    parentLabel: environment.environmentRef,
-                    parentValue: environment.environmentRef
-                  })),
-                  []
-                ))
-          ]
-        }, [] as MultiSelectWithSubmenuOption[])
+    ...(getMultiTypeFromValue(initialValues.environmentGroup?.envGroupConfig as any) !== MultiTypeInputType.RUNTIME && {
+      clusterRef: initialValues.environmentGroup?.envGroupConfig?.reduce((prev, environment) => {
+        return [
+          ...prev,
+          ...(environment.deployToAll
+            ? [
+                {
+                  label: getString('all'),
+                  value: getString('all'),
+                  parentLabel: environment.environmentRef,
+                  parentValue: environment.environmentRef
+                }
+              ]
+            : defaultTo(
+                environment?.gitOpsClusters?.map(cluster => ({
+                  label: cluster.ref,
+                  value: cluster.ref,
+                  parentLabel: environment.environmentRef,
+                  parentValue: environment.environmentRef
+                })),
+                []
+              ))
+        ]
+      }, [] as MultiSelectWithSubmenuOption[])
+    })
   }
 }
 
-export function processGitOpsEnvGroupFormValues(data: DeployStageConfig) {
+export function processGitOpsEnvGroupFormValues(data: DeployStageConfig, getString: UseStringsReturn['getString']) {
   const environmentClusterMap: any = {}
   ;(data.clusterRef as MultiSelectWithSubmenuOption[])?.forEach(cluster => {
-    if (cluster.value !== 'All') {
+    if (cluster.value !== getString('all')) {
       try {
         environmentClusterMap[get(cluster, 'parentValue', '')].push(cluster.value)
       } catch (e: any) {
@@ -238,7 +250,7 @@ export function processGitOpsEnvGroupFormValues(data: DeployStageConfig) {
     }
   })
 
-  const allEnvironmentsSelected = (data.environmentInEnvGroupRef as SelectOption[])?.[0].value === ALL_SELECTED
+  const allEnvironmentsSelected = (data.environmentInEnvGroupRef as SelectOption[])?.[0].value === getString('all')
 
   return {
     environmentGroup: {

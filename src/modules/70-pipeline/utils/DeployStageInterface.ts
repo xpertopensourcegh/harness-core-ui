@@ -59,6 +59,7 @@ export interface DeployStageConfig
   infrastructure?: PipelineInfrastructure
   serviceConfig?: ServiceConfig
   environment?: EnvironmentYamlV2
+  infrastructureInputs?: any // TODO: Change type on creation
   environmentGroup?: EnvironmentGroupYaml
   gitOpsEnabled?: boolean
   service?: ServiceYamlV2

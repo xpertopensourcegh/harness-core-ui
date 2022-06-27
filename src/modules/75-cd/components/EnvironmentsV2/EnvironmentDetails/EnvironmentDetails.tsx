@@ -236,7 +236,7 @@ export default function EnvironmentDetails() {
                         id: EnvironmentDetailsTab.SERVICE_OVERRIDES,
                         title: (
                           <Text font={{ size: 'normal' }} color={Color.BLACK}>
-                            {getString('cd.serviceOverrides.label')}
+                            {getString('common.serviceOverrides')}
                           </Text>
                         ),
                         panel: <ServiceOverrides />

@@ -640,6 +640,7 @@ export interface StringsMap {
   'common.selectVersion': string
   'common.selected': string
   'common.serviceCreated': string
+  'common.serviceOverrides': string
   'common.serviceReliabilityManagement': string
   'common.serviceType': string
   'common.serviceUpdated': string
@@ -4030,7 +4031,6 @@ export interface StringsMap {
   'cd.serviceOverrides.deleted': string
   'cd.serviceOverrides.deletedOneVariable': string
   'cd.serviceOverrides.helperText': string
-  'cd.serviceOverrides.label': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string

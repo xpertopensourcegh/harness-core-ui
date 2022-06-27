@@ -10,10 +10,13 @@ import { useParams } from 'react-router-dom'
 import { defaultTo, get, isEmpty, isNil } from 'lodash-es'
 import { connect, FormikProps } from 'formik'
 import cx from 'classnames'
+import { parse } from 'yaml'
+import { Spinner } from '@blueprintjs/core'
 
 import {
   ButtonSize,
   ButtonVariation,
+  Container,
   Dialog,
   FormInput,
   getMultiTypeFromValue,
@@ -25,7 +28,12 @@ import {
 import { useModalHook } from '@harness/use-modal'
 
 import { useStrings } from 'framework/strings'
-import { InfrastructureResponse, InfrastructureResponseDTO, useGetInfrastructureList } from 'services/cd-ng'
+import {
+  InfrastructureResponse,
+  InfrastructureResponseDTO,
+  useGetInfrastructureInputs,
+  useGetInfrastructureList
+} from 'services/cd-ng'
 
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
@@ -58,7 +66,7 @@ function DeployInfrastructures({ initialValues, formik, readonly, allowableTypes
   const { expressions } = useVariablesExpression()
 
   const environmentIdentifier = useMemo(() => {
-    return formik?.values?.environment?.environmentRef
+    return defaultTo(formik?.values?.environment?.environmentRef, '')
   }, [formik?.values?.environment?.environmentRef])
 
   const {
@@ -74,12 +82,50 @@ function DeployInfrastructures({ initialValues, formik, readonly, allowableTypes
     }
   })
 
+  const {
+    data: infrastructureInputsResponse,
+    loading: infrastructureInputsLoading,
+    refetch: refetchInfrastructureInputs
+  } = useGetInfrastructureInputs({
+    lazy: true
+  })
+
   const [infrastructures, setInfrastructures] = useState<InfrastructureResponseDTO[]>()
   const [selectedInfrastructure, setSelectedInfrastructure] = useState<string | undefined>()
   const [infrastructuresSelectOptions, setInfrastructuresSelectOptions] = useState<SelectOption[]>()
   const [infrastructureRefType, setInfrastructureRefType] = useState<MultiTypeInputType>(
     getMultiTypeFromValue(initialValues.infrastructureRef)
   )
+
+  useEffect(() => {
+    if (!infrastructureInputsLoading && infrastructureInputsResponse?.data?.inputSetTemplateYaml) {
+      const parsedInfrastructureDefinitionYaml = parse(
+        defaultTo(infrastructureInputsResponse?.data?.inputSetTemplateYaml, '{}')
+      )
+      formik?.setValues({
+        ...formik.values,
+        infrastructureInputs: parsedInfrastructureDefinitionYaml
+      } as DeployStageConfig)
+    }
+  }, [infrastructureInputsLoading])
+
+  useEffect(() => {
+    if (selectedInfrastructure) {
+      const parsedInfraYaml = parse(defaultTo(selectedInfrastructure, '{}'))
+      refetchInfrastructureInputs({
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          environmentIdentifier,
+          infraIdentifiers: [parsedInfraYaml?.infrastructureDefinition?.identifier]
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'comma'
+        }
+      })
+    }
+  }, [selectedInfrastructure])
 
   useEffect(() => {
     if (!infrastructuresLoading && !get(infrastructuresResponse, 'data.empty')) {
@@ -217,6 +263,11 @@ function DeployInfrastructures({ initialValues, formik, readonly, allowableTypes
         }}
         selectItems={defaultTo(infrastructuresSelectOptions, [])}
       />
+      {infrastructureInputsLoading && (
+        <Container margin={{ top: 'xlarge' }}>
+          <Spinner size={20} />
+        </Container>
+      )}
       {infrastructureRefType === MultiTypeInputType.FIXED && (
         <RbacButton
           margin={{ top: 'xlarge' }}

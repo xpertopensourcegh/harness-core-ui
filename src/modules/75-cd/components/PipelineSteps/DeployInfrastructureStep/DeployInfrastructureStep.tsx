@@ -10,6 +10,7 @@ import type { FormikErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 
 import { getMultiTypeFromValue, IconName, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@harness/uicore'
+import type { UseStringsReturn } from 'framework/strings'
 
 import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -41,20 +42,23 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
     this.lastFetched = new Date().getTime()
   }
 
-  private processInitialValues(initialValues: DeployStageConfig): DeployStageConfig {
+  private processInitialValues(
+    initialValues: DeployStageConfig,
+    getString: UseStringsReturn['getString']
+  ): DeployStageConfig {
     const gitOpsEnabled = initialValues.gitOpsEnabled
     const isEnvGroup = Boolean(initialValues.environmentGroup)
     return {
       gitOpsEnabled,
       ...(!gitOpsEnabled && processNonGitOpsInitialValues(initialValues)),
       ...(gitOpsEnabled && {
-        ...(!isEnvGroup && processGitOpsEnvironmentInitialValues(initialValues)),
-        ...(isEnvGroup && processGitOpsEnvGroupInitialValues(initialValues))
+        ...(!isEnvGroup && processGitOpsEnvironmentInitialValues(initialValues, getString)),
+        ...(isEnvGroup && processGitOpsEnvGroupInitialValues(initialValues, getString))
       })
     }
   }
 
-  private processFormData(data: DeployStageConfig): any {
+  private processFormData(data: DeployStageConfig, getString: UseStringsReturn['getString']): any {
     const gitOpsEnabled = data.gitOpsEnabled
     const isEnvGroup = data.isEnvGroup
 
@@ -63,25 +67,36 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
       ...(gitOpsEnabled === true && {
         ...(data.environmentOrEnvGroupRef === RUNTIME_INPUT_VALUE
           ? {
-              ...(data.environmentOrEnvGroupAsRuntime === 'Environment' && processGitOpsEnvironmentFormValues(data)),
-              ...(data.environmentOrEnvGroupAsRuntime === 'Environment Group' && processGitOpsEnvGroupFormValues(data))
+              ...(data.environmentOrEnvGroupAsRuntime === 'Environment' &&
+                processGitOpsEnvironmentFormValues(data, getString)),
+              ...(data.environmentOrEnvGroupAsRuntime === 'Environment Group' &&
+                processGitOpsEnvGroupFormValues(data, getString))
             }
           : {
-              ...(!isEnvGroup && processGitOpsEnvironmentFormValues(data)),
-              ...(isEnvGroup && processGitOpsEnvGroupFormValues(data))
+              ...(!isEnvGroup && processGitOpsEnvironmentFormValues(data, getString)),
+              ...(isEnvGroup && processGitOpsEnvGroupFormValues(data, getString))
             })
       })
     }
   }
 
   renderStep(props: StepProps<DeployStageConfig>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false, allowableTypes } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      readonly = false,
+      allowableTypes,
+      customStepProps
+    } = props
+
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <DeployInfrastructureInputStep
           initialValues={initialValues}
           readonly={readonly}
-          onUpdate={data => onUpdate?.(this.processFormData(data as any))}
+          onUpdate={data => onUpdate?.(this.processFormData(data, (customStepProps as any).getString))}
           stepViewType={stepViewType}
           allowableTypes={allowableTypes}
           inputSetData={inputSetData}
@@ -91,11 +106,12 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
 
     return (
       <DeployInfrastructureWidget
-        initialValues={this.processInitialValues(initialValues)}
+        initialValues={this.processInitialValues(initialValues, (customStepProps as any).getString)}
         readonly={readonly}
-        onUpdate={data => onUpdate?.(this.processFormData(data as any))}
+        onUpdate={data => onUpdate?.(this.processFormData(data, (customStepProps as any).getString))}
         stepViewType={stepViewType}
         allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+        serviceRef={(customStepProps as any).serviceRef}
       />
     )
   }

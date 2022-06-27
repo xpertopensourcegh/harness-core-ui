@@ -16,7 +16,6 @@ import type { EnvironmentGroupResponseDTO, EnvironmentResponse, EnvironmentRespo
 
 import type { DeployStageConfig, EnvironmentInEnvGroup } from '@pipeline/utils/DeployStageInterface'
 
-import { ALL_SELECTED } from '../utils'
 import DeployClustersInMultiEnvironment from '../DeployClustersInMultiEnvironment/DeployClustersInMultiEnvironment'
 
 import css from './DeployEnvironmentInEnvGroup.module.scss'
@@ -55,7 +54,10 @@ function DeployEnvironmentInEnvGroup({
   useEffect(() => {
     if (!isNil(environments)) {
       setEnvironmentsSelectOptions([
-        { label: getString('cd.pipelineSteps.environmentTab.allEnvironmentsInEnvGroupSelected'), value: ALL_SELECTED },
+        {
+          label: getString('cd.pipelineSteps.environmentTab.allEnvironmentsInEnvGroupSelected'),
+          value: getString('all')
+        },
         ...environments.map(environment => {
           return { label: defaultTo(environment.name, ''), value: defaultTo(environment.identifier, '') }
         })
@@ -74,11 +76,11 @@ function DeployEnvironmentInEnvGroup({
           environment => environment.name
         )
 
-        if (environmentsSelected?.[0] === ALL_SELECTED) {
+        if (environmentsSelected?.[0] === getString('all')) {
           formik?.setFieldValue('environmentInEnvGroupRef', [
             {
               label: getString('cd.pipelineSteps.environmentTab.allEnvironmentsInEnvGroupSelected'),
-              value: ALL_SELECTED
+              value: getString('all')
             }
           ])
         } else {
@@ -128,7 +130,7 @@ function DeployEnvironmentInEnvGroup({
           allowableTypes: [MultiTypeInputType.FIXED],
           onChange: items => {
             if (items !== RUNTIME_INPUT_VALUE && (items as SelectOption[]).length !== 1) {
-              const selectAllItemIndex = (items as SelectOption[]).findIndex(item => item.value === ALL_SELECTED)
+              const selectAllItemIndex = (items as SelectOption[]).findIndex(item => item.value === getString('all'))
 
               if (selectAllItemIndex === 0) {
                 formik?.setFieldValue('environmentInEnvGroupRef', (items as SelectOption[]).slice(1))
@@ -145,7 +147,7 @@ function DeployEnvironmentInEnvGroup({
         selectItems={defaultTo(environmentsSelectOptions, [])}
       />
       {!!defaultTo(formik?.values?.environmentInEnvGroupRef, []).length &&
-        (formik?.values?.environmentInEnvGroupRef as SelectOption[])?.[0].value !== ALL_SELECTED &&
+        (formik?.values?.environmentInEnvGroupRef as SelectOption[])?.[0].value !== getString('all') &&
         formik?.values?.environmentInEnvGroupRef !== RUNTIME_INPUT_VALUE && (
           <DeployClustersInMultiEnvironment allowableTypes={allowableTypes} />
         )}

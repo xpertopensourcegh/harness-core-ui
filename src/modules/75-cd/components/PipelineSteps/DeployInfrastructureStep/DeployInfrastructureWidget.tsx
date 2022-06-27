@@ -32,7 +32,8 @@ export function DeployInfrastructureWidget({
   initialValues,
   onUpdate,
   readonly,
-  allowableTypes
+  allowableTypes,
+  serviceRef
 }: DeployInfrastructureProps): JSX.Element {
   const { getString } = useStrings()
 
@@ -65,7 +66,12 @@ export function DeployInfrastructureWidget({
           >
             {!initialValues.gitOpsEnabled ? (
               <>
-                <DeployEnvironment initialValues={initialValues} readonly={readonly} allowableTypes={allowableTypes} />
+                <DeployEnvironment
+                  initialValues={initialValues}
+                  readonly={readonly}
+                  allowableTypes={allowableTypes}
+                  serviceRef={serviceRef}
+                />
                 {formik.values.environment?.environmentRef &&
                   getMultiTypeFromValue(formik.values.environment?.environmentRef) === MultiTypeInputType.FIXED && (
                     <DeployInfrastructures

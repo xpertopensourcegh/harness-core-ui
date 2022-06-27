@@ -872,6 +872,50 @@ export function StageInputSetFormInternal({
         </div>
       )}
 
+      {isSvcEnvEntityEnabled && (deploymentStageTemplate as DeployStageConfig).environment?.environmentInputs && (
+        <div id={`Stage.${stageIdentifier}.Environment`} className={cx(css.accordionSummary)}>
+          <div className={css.inputheader}>{getString('environmentVariables')}</div>
+          <div className={css.nestedAccordions}>
+            <StepWidget
+              factory={factory}
+              initialValues={deploymentStageTemplate}
+              allowableTypes={allowableTypes}
+              template={deploymentStageTemplate}
+              type={StepType.DeployInfrastructure}
+              stepViewType={viewType}
+              path={`${path}.environment.environmentInputs`}
+              readonly={readonly}
+              customStepProps={{
+                getString,
+                allValues: (deploymentStage as DeployStageConfig)?.environment
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {isSvcEnvEntityEnabled && (deploymentStageTemplate as DeployStageConfig).environment?.serviceOverrideInputs && (
+        <div id={`Stage.${stageIdentifier}.Environment`} className={cx(css.accordionSummary)}>
+          <div className={css.inputheader}>{getString('common.serviceOverrides')}</div>
+          <div className={css.nestedAccordions}>
+            <StepWidget
+              factory={factory}
+              initialValues={deploymentStageTemplate}
+              allowableTypes={allowableTypes}
+              template={deploymentStageTemplate}
+              type={StepType.DeployInfrastructure}
+              stepViewType={viewType}
+              path={`${path}.environment.serviceOverrideInputs`}
+              readonly={readonly}
+              customStepProps={{
+                getString,
+                allValues: (deploymentStage as DeployStageConfig)?.environment
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       {deploymentStageTemplate.infrastructure && (
         <div id={`Stage.${stageIdentifier}.Infrastructure`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('infrastructureText')}</div>
