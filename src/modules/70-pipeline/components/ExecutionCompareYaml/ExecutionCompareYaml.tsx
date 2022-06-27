@@ -17,9 +17,9 @@ import { PipelineExecutionSummary, useGetExecutionData } from 'services/pipeline
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { String } from 'framework/strings'
 
-import css from './ExecutionCompareYamls.module.scss'
+import css from './ExecutionCompareYaml.module.scss'
 
-interface ExecutionCompareYamlsProps {
+interface ExecutionCompareYamlProps {
   compareItems?: PipelineExecutionSummary[]
   onClose: () => void
 }
@@ -34,7 +34,7 @@ const DIFF_EDITOR_OPTIONS: MonacoEditorProps['options'] = {
   scrollBeyondLastLine: false
 }
 
-export function ExecutionCompareYamls({ compareItems, onClose }: ExecutionCompareYamlsProps): ReactElement {
+export function ExecutionCompareYaml({ compareItems, onClose }: ExecutionCompareYamlProps): ReactElement {
   const { module, accountId } = useParams<PipelineType<PipelinePathProps>>()
 
   const { data: dataOne, loading: loadingOne } = useGetExecutionData({

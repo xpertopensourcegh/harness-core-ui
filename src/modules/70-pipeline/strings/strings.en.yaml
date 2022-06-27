@@ -442,7 +442,7 @@ execution:
   currentExecution: Current Execution
   timePrefix: 'Execution Time: '
   compareAction: Compare
-  compareExecutionsTitle: Select executions to compare the compiled YAML’s
+  compareExecutionsTitle: Select executions to compare the compiled YAML
   ignoreFailedWarningText: A failed step was ignored because the step’s Failure Strategy is Ignore Failure. The step’s failure did not impact the Pipeline’s success.
   iotab:
     noInputText: No input found for current step
@@ -466,7 +466,7 @@ execution:
     abortStage: Abort Stage
     downloadLogs: Download logs
     viewCompiledYaml: View Compiled YAML
-    compareYamls: Compare YAML’s
+    compareYaml: Compare YAML
   layouts:
     bottom: Align to bottom
     right: Align to right

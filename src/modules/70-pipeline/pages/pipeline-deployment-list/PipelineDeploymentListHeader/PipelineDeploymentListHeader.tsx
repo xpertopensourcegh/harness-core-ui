@@ -24,8 +24,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
-import { ExecutionCompareYamls } from '@pipeline/components/ExecutionCompareYamls/ExecutionCompareYamls'
-import { useExecutionCompareContext } from '@pipeline/components/ExecutionCompareYamls/ExecutionCompareContext'
+import { ExecutionCompareYaml } from '@pipeline/components/ExecutionCompareYaml/ExecutionCompareYaml'
+import { useExecutionCompareContext } from '@pipeline/components/ExecutionCompareYaml/ExecutionCompareContext'
 import { useFiltersContext } from '../FiltersContext/FiltersContext'
 import { ExecutionFilters } from './ExecutionFilters/ExecutionFilters'
 import type { QuickStatusParam } from '../types'
@@ -107,7 +107,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
           </Layout.Horizontal>
         </Page.SubHeader>
         {showCompareExecutionDrawer && (
-          <ExecutionCompareYamls
+          <ExecutionCompareYaml
             compareItems={compareItems}
             onClose={() => {
               close()
