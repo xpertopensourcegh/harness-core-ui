@@ -5661,6 +5661,7 @@ export interface StringsMap {
   'ci.getStartedWithCI.k8sBuildLocation': string
   'ci.getStartedWithCI.languageAgnostic': string
   'ci.getStartedWithCI.languageAgnosticHelpText': string
+  'ci.getStartedWithCI.learnMoreAboutCI': string
   'ci.getStartedWithCI.learnMoreAboutPermissions': string
   'ci.getStartedWithCI.onCloudLabel': string
   'ci.getStartedWithCI.onPremLabel': string
@@ -5673,7 +5674,6 @@ export interface StringsMap {
   'ci.getStartedWithCI.provisioningFailed': string
   'ci.getStartedWithCI.provisioningHelpText': string
   'ci.getStartedWithCI.provisioningSuccessful': string
-  'ci.getStartedWithCI.quicklyCreate': string
   'ci.getStartedWithCI.searchRepo': string
   'ci.getStartedWithCI.security': string
   'ci.getStartedWithCI.securityHelpText': string
