@@ -75,7 +75,7 @@ export function TemplatePipelineSpecifications(): JSX.Element {
       getDefaultFromOtherRepo: true
     },
     body: {
-      originalEntityYaml: yamlStringify(dummyPipeline.current)
+      originalEntityYaml: yamlStringify({ pipeline: dummyPipeline.current })
     }
   })
 
@@ -108,7 +108,7 @@ export function TemplatePipelineSpecifications(): JSX.Element {
 
   React.useEffect(() => {
     if (pipelineResponse?.data?.mergedPipelineYaml) {
-      setAllValues(parse(pipelineResponse?.data?.mergedPipelineYaml))
+      setAllValues(parse(pipelineResponse.data.mergedPipelineYaml).pipeline)
     }
   }, [pipelineResponse?.data?.mergedPipelineYaml])
 
