@@ -8,6 +8,7 @@
 import type { SelectOption } from '@harness/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
+import { noop } from 'lodash-es'
 import type { UseStringsReturn } from 'framework/strings'
 import type { JenkinsStepData } from './types'
 
@@ -16,7 +17,7 @@ export const resetForm = (
   parent: string,
   prefix: string,
   updateJobName?: boolean
-) => {
+): void => {
   if (parent === 'connectorRef') {
     if (updateJobName) {
       formik.setFieldValue(`${prefix}spec.jobName`, '')
@@ -50,3 +51,30 @@ export const variableSchema = (
       type: Yup.string().trim().required(getString('common.validation.typeIsRequired'))
     })
   )
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const useGetJobParametersForJenkins = (_props: any) => {
+  return {
+    refetch: (_params: any) => noop,
+    data: {
+      status: 'SUCCESS',
+      data: [
+        {
+          name: 'booleankey',
+          options: ['true', 'false'],
+          defaultValue: 'true',
+          description: ''
+        },
+        {
+          name: 'name',
+          options: [],
+          defaultValue: 'test name',
+          description: ''
+        },
+        { name: 'test', options: [], defaultValue: '123', description: '' }
+      ],
+      metaData: null,
+      correlationId: 'ad95ea52-11ea-43a3-ba16-e5c3312e6cb0'
+    }
+  }
+}

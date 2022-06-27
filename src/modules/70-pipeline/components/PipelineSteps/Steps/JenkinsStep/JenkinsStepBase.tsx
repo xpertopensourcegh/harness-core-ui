@@ -29,7 +29,7 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { StepFormikFowardRef, StepViewType, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
-import { JobDetails, useGetJobDetailsForJenkins, useGetJobParametersForJenkins } from 'services/cd-ng'
+import { JobDetails, useGetJobDetailsForJenkins } from 'services/cd-ng'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useQueryParams } from '@common/hooks'
 import type {
@@ -47,7 +47,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import type { JenkinsStepProps } from './JenkinsStep'
 import { getGenuineValue } from '../JiraApproval/helper'
 import type { JenkinsFormContentInterface, JenkinsStepData, jobParameterInterface, SubmenuSelectOption } from './types'
-import { resetForm, scriptInputType, variableSchema } from './helper'
+import { resetForm, scriptInputType, variableSchema, useGetJobParametersForJenkins } from './helper'
 import OptionalConfiguration from './OptionalConfiguration'
 import { getNameAndIdentifierSchema } from '../StepsValidateUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -85,31 +85,31 @@ function FormContent({
     }
   })
 
-  const { refetch: refetchJobParameters, data: jobParameterResponse } = useGetJobParametersForJenkins({
+  const { refetch: refetchJobParameters } = useGetJobParametersForJenkins({
     lazy: true,
     jobName: ''
   })
 
-  useEffect(() => {
-    if (jobParameterResponse?.data) {
-      const parameterData: jobParameterInterface[] =
-        jobParameterResponse?.data?.map(item => {
-          return {
-            name: item.name,
-            value: item.defaultValue,
-            type: 'String',
-            id: uuid()
-          } as any
-        }) || []
-      formik.setValues({
-        ...formik.values,
-        spec: {
-          ...formik.values.spec,
-          jobParameter: parameterData
-        }
-      })
-    }
-  }, [jobParameterResponse])
+  // useEffect(() => {
+  //   if (jobParameterResponse?.data) {
+  //     const parameterData: jobParameterInterface[] =
+  //       jobParameterResponse?.data?.map(item => {
+  //         return {
+  //           name: item.name,
+  //           value: item.defaultValue,
+  //           type: 'String',
+  //           id: uuid()
+  //         } as jobParameterInterface
+  //       }) || []
+  //     formik.setValues({
+  //       ...formik.values,
+  //       spec: {
+  //         ...formik.values.spec,
+  //         jobParameter: parameterData
+  //       }
+  //     })
+  //   }
+  // }, [jobParameterResponse])
 
   useEffect(() => {
     if (typeof formik.values.spec.jobName === 'string' && jobsResponse?.data?.jobDetails?.length) {

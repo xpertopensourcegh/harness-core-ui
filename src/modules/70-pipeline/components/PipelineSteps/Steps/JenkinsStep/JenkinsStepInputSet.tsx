@@ -18,10 +18,10 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { JobDetails, useGetJobDetailsForJenkins, useGetJobParametersForJenkins } from 'services/cd-ng'
+import { JobDetails, useGetJobDetailsForJenkins } from 'services/cd-ng'
 import { MultiTypeFieldSelector } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
-import type { jobParameterInterface, SubmenuSelectOption } from './types'
-import { resetForm } from './helper'
+import type { SubmenuSelectOption } from './types'
+import { resetForm, useGetJobParametersForJenkins } from './helper'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import stepCss from './JenkinsStep.module.scss'
 
@@ -72,28 +72,28 @@ function JenkinsStepInputSet(formContentProps: any): JSX.Element {
     }
   })
 
-  const { refetch: refetchJobParameters, data: jobParameterResponse } = useGetJobParametersForJenkins({
+  const { refetch: refetchJobParameters } = useGetJobParametersForJenkins({
     lazy: true,
     jobName: ''
   })
 
-  useEffect(() => {
-    if (jobParameterResponse?.data) {
-      const parameterData: jobParameterInterface[] =
-        jobParameterResponse?.data?.map(item => {
-          return {
-            name: item.name,
-            value: item.defaultValue,
-            type: 'String'
-          } as any
-        }) || []
-      const clonedFormik = cloneDeep(formik.values)
-      set(clonedFormik, `${prefix}spec.jobParameter`, parameterData)
-      formik.setValues({
-        ...clonedFormik
-      })
-    }
-  }, [jobParameterResponse])
+  // useEffect(() => {
+  //   if (jobParameterResponse?.data) {
+  //     const parameterData: jobParameterInterface[] =
+  //       jobParameterResponse?.data?.map(item => {
+  //         return {
+  //           name: item.name,
+  //           value: item.defaultValue,
+  //           type: 'String'
+  //         } as jobParameterInterface
+  //       }) || []
+  //     const clonedFormik = cloneDeep(formik.values)
+  //     set(clonedFormik, `${prefix}spec.jobParameter`, parameterData)
+  //     formik.setValues({
+  //       ...clonedFormik
+  //     })
+  //   }
+  // }, [jobParameterResponse])
 
   useEffect(() => {
     if (typeof get(formik, `values.${prefix}spec.jobName`) === 'string' && jobsResponse?.data?.jobDetails?.length) {
@@ -105,7 +105,7 @@ function JenkinsStepInputSet(formContentProps: any): JSX.Element {
           submenuItems: [],
           hasSubItems: targetjob?.folder
         }
-        set(formik, `values.${prefix}spec.jobName`, jobObj as any)
+        set(formik, `values.${prefix}spec.jobName`, jobObj)
       }
     }
     if (lastOpenedJob.current) {
@@ -125,7 +125,7 @@ function JenkinsStepInputSet(formContentProps: any): JSX.Element {
           hasSubItems: job.folder
         }
       })
-      setJobDetails(jobs || ([] as any))
+      setJobDetails(jobs || [])
     }
   }, [jobsResponse])
 
@@ -167,7 +167,6 @@ function JenkinsStepInputSet(formContentProps: any): JSX.Element {
             orgIdentifier={orgIdentifier}
             width={385}
             setRefValue
-            // disabled={isApprovalStepFieldDisabled(readonly)}
             multiTypeProps={{
               allowableTypes,
               expressions
