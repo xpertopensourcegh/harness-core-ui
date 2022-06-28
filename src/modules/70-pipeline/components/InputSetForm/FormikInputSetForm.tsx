@@ -22,11 +22,11 @@ import { parse } from 'yaml'
 import cx from 'classnames'
 import type { FormikErrors, FormikProps } from 'formik'
 import type {
+  PipelineInfoConfig,
   ResponsePMSPipelineResponseDTO,
   EntityGitDetails,
   ResponseInputSetTemplateWithReplacedExpressionsResponse
 } from 'services/pipeline-ng'
-import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { NameIdDescriptionTags } from '@common/components'

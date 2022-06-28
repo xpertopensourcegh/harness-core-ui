@@ -12,12 +12,8 @@ import { Color } from '@harness/design-system'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import produce from 'immer'
-import type {
-  DeploymentStageConfig,
-  PipelineInfoConfig,
-  StageElementConfig,
-  StageElementWrapperConfig
-} from 'services/cd-ng'
+import type { DeploymentStageConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementWrapperConfig, StageElementConfig } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'

@@ -12,12 +12,8 @@ import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import produce from 'immer'
 import { parse } from 'yaml'
-import type {
-  StageElementWrapperConfig,
-  PageConnectorResponse,
-  PipelineInfoConfig,
-  DeploymentStageConfig
-} from 'services/cd-ng'
+import type { PageConnectorResponse, DeploymentStageConfig } from 'services/cd-ng'
+import type { StageElementWrapperConfig, PipelineInfoConfig } from 'services/pipeline-ng'
 import type * as Diagram from '@pipeline/components/Diagram'
 import {
   getIdentifierFromValue,

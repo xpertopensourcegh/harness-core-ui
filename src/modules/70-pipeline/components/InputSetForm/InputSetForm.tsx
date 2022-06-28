@@ -23,7 +23,7 @@ import { FontVariation, Color, Intent } from '@harness/design-system'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { FormikProps } from 'formik'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import {
   useGetTemplateFromPipeline,

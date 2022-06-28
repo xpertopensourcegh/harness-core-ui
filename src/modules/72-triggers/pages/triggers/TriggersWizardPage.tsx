@@ -29,14 +29,9 @@ import { connectorUrlType } from '@connectors/constants'
 import routes from '@common/RouteDefinitions'
 import { clearRuntimeInput, mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
 import type { Pipeline } from '@pipeline/utils/types'
+import { useGetConnector, GetConnectorQueryParams, getConnectorListV2Promise, Failure } from 'services/cd-ng'
 import {
   PipelineInfoConfig,
-  useGetConnector,
-  GetConnectorQueryParams,
-  getConnectorListV2Promise,
-  Failure
-} from 'services/cd-ng'
-import {
   useGetPipeline,
   useGetTemplateFromPipeline,
   useCreateTrigger,

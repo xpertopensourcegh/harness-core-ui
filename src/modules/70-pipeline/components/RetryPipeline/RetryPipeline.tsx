@@ -31,7 +31,7 @@ import { Classes, Dialog, Tooltip } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 
 import {
   getInputSetForPipelinePromise,

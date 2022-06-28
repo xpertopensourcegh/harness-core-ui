@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { noop } from 'lodash-es'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 
 export interface RunPipelineFormContextValues {
   template: PipelineInfoConfig

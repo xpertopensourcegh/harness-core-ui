@@ -18,7 +18,7 @@ import { get, isEqual, set } from 'lodash-es'
 
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import type { PipelineInfoConfig, StageElementWrapperConfig, StageElementConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementWrapperConfig, StageElementConfig } from 'services/pipeline-ng'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import {
   PipelineVariablesContextProvider,

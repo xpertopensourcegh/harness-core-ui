@@ -9,8 +9,12 @@ import produce from 'immer'
 import { isEmpty, set, get } from 'lodash-es'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import type { StageElementConfig, StageElementWrapperConfig, StepElementConfig } from 'services/cd-ng'
-import type { StepPalleteModuleInfo } from 'services/pipeline-ng'
+import type {
+  StepPalleteModuleInfo,
+  StageElementConfig,
+  StageElementWrapperConfig,
+  StepElementConfig
+} from 'services/pipeline-ng'
 import {
   StepOrStepGroupOrTemplateStepData,
   TabTypes,

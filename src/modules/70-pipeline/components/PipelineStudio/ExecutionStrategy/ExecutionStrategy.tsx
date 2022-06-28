@@ -26,11 +26,10 @@ import produce from 'immer'
 import {
   DeploymentStageConfig,
   GetExecutionStrategyYamlQueryParams,
-  StageElementConfig,
-  StageElementWrapperConfig,
   useGetExecutionStrategyList,
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
+import type { StageElementConfig, StageElementWrapperConfig } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'

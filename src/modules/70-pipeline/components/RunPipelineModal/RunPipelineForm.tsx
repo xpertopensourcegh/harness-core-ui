@@ -24,8 +24,10 @@ import { useHistory } from 'react-router-dom'
 import { isEmpty, defaultTo, keyBy } from 'lodash-es'
 import type { FormikErrors, FormikProps } from 'formik'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
-import type { PipelineConfig, PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
+  PipelineConfig,
+  PipelineInfoConfig,
+  ResponseJsonNode,
   useGetPipeline,
   usePostPipelineExecuteWithInputSetYaml,
   useRePostPipelineExecuteWithInputSetYaml,

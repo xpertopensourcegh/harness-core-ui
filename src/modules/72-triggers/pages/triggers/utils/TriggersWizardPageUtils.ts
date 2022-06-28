@@ -7,10 +7,10 @@
 
 import { isNull, isUndefined, omitBy, isEmpty, get, set, flatten, cloneDeep } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
-import type { PipelineInfoConfig, ConnectorResponse, ManifestConfigWrapper, NGVariable } from 'services/cd-ng'
+import type { ConnectorResponse, ManifestConfigWrapper } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { NGTriggerSourceV2 } from 'services/pipeline-ng'
+import type { NGTriggerSourceV2, PipelineInfoConfig, NGVariable } from 'services/pipeline-ng'
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'

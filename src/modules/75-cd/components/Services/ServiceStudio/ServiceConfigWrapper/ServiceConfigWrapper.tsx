@@ -19,7 +19,8 @@ import { PipelineContextType } from '@pipeline/components/PipelineStudio/Pipelin
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { sanitize } from '@common/utils/JSONUtils'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
-import type { NGServiceConfig, PipelineInfoConfig } from 'services/cd-ng'
+import type { NGServiceConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 import { useServiceContext } from '@cd/context/ServiceContext'
 import { useTemplateSelector } from '@templates-library/hooks/useTemplateSelector'
 import {

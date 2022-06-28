@@ -32,17 +32,14 @@ import {
   getStageFromPipeline as _getStageFromPipeline,
   getStagePathFromPipeline as _getStagePathFromPipeline
 } from '@pipeline/components/PipelineStudio/PipelineContext/helpers'
-import {
-  getServiceV2Promise,
-  GetServiceV2QueryParams,
-  NGServiceConfig,
-  PipelineInfoConfig,
-  ServiceResponseDTO,
-  StageElementConfig,
-  StageElementWrapperConfig
-} from 'services/cd-ng'
+import { getServiceV2Promise, GetServiceV2QueryParams, NGServiceConfig, ServiceResponseDTO } from 'services/cd-ng'
 import type { PipelineSelectionState } from '@pipeline/components/PipelineStudio/PipelineQueryParamState/usePipelineQueryParam'
-import type { GetPipelineQueryParams } from 'services/pipeline-ng'
+import type {
+  GetPipelineQueryParams,
+  StageElementConfig,
+  PipelineInfoConfig,
+  StageElementWrapperConfig
+} from 'services/pipeline-ng'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import {

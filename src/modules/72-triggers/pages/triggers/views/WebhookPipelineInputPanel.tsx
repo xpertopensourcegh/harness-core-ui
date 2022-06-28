@@ -21,8 +21,9 @@ import { Color } from '@harness/design-system'
 import { merge, cloneDeep, isEmpty, defaultTo, get, debounce } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
-import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import {
+  PipelineInfoConfig,
+  StageElementWrapperConfig,
   useGetTemplateFromPipeline,
   getInputSetForPipelinePromise,
   useGetMergeInputSetFromPipelineTemplateWithListInput,

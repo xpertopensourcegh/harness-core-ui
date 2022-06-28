@@ -34,8 +34,6 @@ import {
   InfrastructureConfig,
   InfrastructureDefinitionConfig,
   InfrastructureRequestDTORequestBody,
-  PipelineInfoConfig,
-  StageElementConfig,
   useCreateInfrastructure,
   useGetYamlSchema,
   useUpdateInfrastructure
@@ -53,6 +51,7 @@ import { DefaultPipeline } from '@pipeline/components/PipelineStudio/PipelineCon
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { ServiceDeploymentType, StageType } from '@pipeline/utils/stageHelpers'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { PipelineInfoConfig, StageElementConfig } from 'services/pipeline-ng'
 
 import DeployInfraDefinition from '@cd/components/PipelineStudio/DeployInfraSpecifications/DeployInfraDefinition/DeployInfraDefinition'
 import { DefaultNewStageId, DefaultNewStageName } from '@cd/components/Services/utils/ServiceUtils'

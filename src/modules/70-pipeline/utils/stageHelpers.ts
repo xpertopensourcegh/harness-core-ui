@@ -8,15 +8,14 @@
 import { defaultTo, get, isEmpty } from 'lodash-es'
 import { v4 as uuid } from 'uuid'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
-import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
-import type { StringKeys } from 'framework/strings'
 import type {
-  Infrastructure,
+  GraphLayoutNode,
+  PipelineExecutionSummary,
   PipelineInfoConfig,
-  StageElementConfig,
-  ServerlessAwsLambdaInfrastructure,
-  ServiceDefinition
-} from 'services/cd-ng'
+  StageElementConfig
+} from 'services/pipeline-ng'
+import type { StringKeys } from 'framework/strings'
+import type { Infrastructure, ServerlessAwsLambdaInfrastructure, ServiceDefinition } from 'services/cd-ng'
 import { connectorTypes } from '@pipeline/utils/constants'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'

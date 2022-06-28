@@ -13,8 +13,7 @@ import type { AllNGVariables, Pipeline } from '@pipeline/utils/types'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { FeaturesProps } from 'framework/featureStore/featureStoreUtil'
 import type { UseStringsReturn } from 'framework/strings'
-import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import type { InputSetErrorResponse } from 'services/pipeline-ng'
+import type { InputSetErrorResponse, PipelineInfoConfig, StageElementWrapperConfig } from 'services/pipeline-ng'
 import {
   INPUT_EXPRESSION_REGEX_STRING,
   isExecionInput

@@ -22,9 +22,9 @@ import type {
   DockerBuildDetailsDTO,
   EcrBuildDetailsDTO,
   GcrBuildDetailsDTO,
-  NexusBuildDetailsDTO,
-  PipelineInfoConfig
+  NexusBuildDetailsDTO
 } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 import { checkIfQueryParamsisNotEmpty, RegistryHostNames } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import type { ArtifactType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { clearRuntimeInputValue } from '../K8sServiceSpecHelper'

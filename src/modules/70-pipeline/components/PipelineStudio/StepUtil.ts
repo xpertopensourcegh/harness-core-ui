@@ -10,19 +10,18 @@ import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
 import { isEmpty, has, set, reduce, isObject, memoize, isBoolean, get } from 'lodash-es'
 import * as Yup from 'yup'
 import type { K8sDirectInfraYaml } from 'services/ci'
-import type {
-  StageElementConfig,
-  ExecutionWrapperConfig,
-  PipelineInfoConfig,
-  DeploymentStageConfig,
-  Infrastructure,
-  StageElementWrapperConfig,
-  StepElementConfig
-} from 'services/cd-ng'
+import type { DeploymentStageConfig, Infrastructure } from 'services/cd-ng'
 
 import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import type { TemplateStepNode } from 'services/pipeline-ng'
+import type {
+  TemplateStepNode,
+  StageElementWrapperConfig,
+  StepElementConfig,
+  PipelineInfoConfig,
+  ExecutionWrapperConfig,
+  StageElementConfig
+} from 'services/pipeline-ng'
 import { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { getPrCloneStrategyOptions } from '@pipeline/utils/constants'
 import { CodebaseTypes, isCloneCodebaseEnabledAtLeastOneStage } from '@pipeline/utils/CIUtils'

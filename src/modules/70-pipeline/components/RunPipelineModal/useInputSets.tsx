@@ -17,7 +17,7 @@ import {
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   ResponseInputSetTemplateWithReplacedExpressionsResponse
 } from 'services/pipeline-ng'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 import {
   clearRuntimeInput,
   getStageIdentifierFromStageData,

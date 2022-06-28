@@ -9,7 +9,7 @@ import isMatch from 'lodash-es/isMatch'
 import has from 'lodash-es/has'
 import { get } from 'lodash-es'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 import { validateCICodebase, getErrorsList, validatePipeline } from '../StepUtil'
 import {
   pipelineTemplateWithRuntimeInput,

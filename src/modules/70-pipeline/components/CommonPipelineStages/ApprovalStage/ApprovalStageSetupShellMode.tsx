@@ -16,8 +16,13 @@ import { Color } from '@harness/design-system'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { GetInitialStageYamlSnippetQueryParams, useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
-import type { ApprovalStageConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
+import {
+  ApprovalStageConfig,
+  GetInitialStageYamlSnippetQueryParams,
+  useGetInitialStageYamlSnippet,
+  StageElementWrapperConfig
+} from 'services/pipeline-ng'
+import type { StageElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'

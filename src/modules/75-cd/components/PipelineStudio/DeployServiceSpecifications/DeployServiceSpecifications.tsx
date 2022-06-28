@@ -29,14 +29,7 @@ import { useStrings } from 'framework/strings'
 
 import type { GitQueryParams, ProjectPathProps, ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import {
-  ServiceConfig,
-  ServiceDefinition,
-  StageElementConfig,
-  StageElementWrapperConfig,
-  TemplateLinkConfig,
-  useGetServiceList
-} from 'services/cd-ng'
+import { ServiceConfig, ServiceDefinition, TemplateLinkConfig, useGetServiceList } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
@@ -62,6 +55,7 @@ import {
   ServiceDeploymentType,
   StageType
 } from '@pipeline/utils/stageHelpers'
+import type { StageElementConfig, StageElementWrapperConfig } from 'services/pipeline-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import {
   getIdentifierFromValue,

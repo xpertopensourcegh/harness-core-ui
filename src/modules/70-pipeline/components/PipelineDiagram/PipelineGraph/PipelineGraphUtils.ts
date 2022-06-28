@@ -8,7 +8,6 @@
 import { defaultTo, get, throttle } from 'lodash-es'
 import type { IconName } from '@harness/uicore'
 import { v4 as uuid } from 'uuid'
-import type { ExecutionWrapperConfig, StageElementWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import {
   isCustomGeneratedString,
   StepTypeToPipelineIconMap
@@ -16,7 +15,12 @@ import {
 import { stageTypeToIconMap } from '@pipeline/utils/constants'
 import type { DependencyElement } from 'services/ci'
 import { getDefaultBuildDependencies } from '@pipeline/utils/stageHelpers'
-import type { TemplateStepNode } from 'services/pipeline-ng'
+import type {
+  TemplateStepNode,
+  ExecutionWrapperConfig,
+  StageElementWrapperConfig,
+  StepElementConfig
+} from 'services/pipeline-ng'
 import { getConditionalExecutionFlag } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagramUtils'
 import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import { NodeType, PipelineGraphState, SVGPathRecord, PipelineGraphType, KVPair } from '../types'
@@ -73,7 +77,7 @@ const getFinalSVGArrowPath = (id1 = '', id2 = '', options?: DrawSVGPathOptions):
     //  child node is at top
     const curveLeftToTop = `Q${horizontalMid},${node1VerticalMid} ${horizontalMid},${node1VerticalMid - 20}`
     const curveBottomToRight = `Q${horizontalMid},${node2VerticalMid} ${horizontalMid + 20},${node2VerticalMid}`
-    finalSVGPath = `M${startPoint} L${horizontalMid - 20},${node1VerticalMid} ${curveLeftToTop} 
+    finalSVGPath = `M${startPoint} L${horizontalMid - 20},${node1VerticalMid} ${curveLeftToTop}
     L${horizontalMid},${node2VerticalMid + 20} ${curveBottomToRight} L${endPoint}`
   } else if (node1Y === node2Y) {
     // both nodes are at same level vertically
@@ -101,10 +105,10 @@ const getFinalSVGArrowPath = (id1 = '', id2 = '', options?: DrawSVGPathOptions):
       const curveLBparallel = `Q${updatedStart + 20},${node1VerticalMid} ${updatedStart + 20},${node1VerticalMid + 20} `
       const curveTRparallel = `Q${updatedStart + 20},${node2VerticalMid} ${updatedStart + 40},${node2VerticalMid}`
 
-      const firstCurve = `M${parallelLinkStart} 
-      ${curveLBparallel} 
-      L${updatedStart + 20},${node2VerticalMid - 20} 
-      ${curveTRparallel} 
+      const firstCurve = `M${parallelLinkStart}
+      ${curveLBparallel}
+      L${updatedStart + 20},${node2VerticalMid - 20}
+      ${curveTRparallel}
       L${getScaledValue(node1.left, scalingFactor)},${node2VerticalMid}`
 
       let secondCurve = ''
@@ -147,7 +151,7 @@ const getFinalSVGArrowPath = (id1 = '', id2 = '', options?: DrawSVGPathOptions):
         [id2]: { pathData: secondCurve, dataProps: options?.dataProps }
       }
     } else {
-      finalSVGPath = `M${startPoint} L${horizontalMid - 20},${node1VerticalMid} ${curveLeftToBottom} 
+      finalSVGPath = `M${startPoint} L${horizontalMid - 20},${node1VerticalMid} ${curveLeftToBottom}
     L${horizontalMid},${node2VerticalMid - 20} ${curveTopToRight} L${endPoint}`
     }
   }

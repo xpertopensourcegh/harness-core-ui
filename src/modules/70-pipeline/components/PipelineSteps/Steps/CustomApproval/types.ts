@@ -8,7 +8,7 @@
 import type { SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { UseStringsReturn } from 'framework/strings'
-import type { CustomApprovalStepInfo, StepElementConfig } from 'services/cd-ng'
+import type { CustomApprovalStepInfo, StepElementConfig } from 'services/pipeline-ng'
 import type { ApprovalRejectionCriteria } from '@pipeline/components/PipelineSteps/Steps/Common/types'
 
 export const scriptInputType: SelectOption[] = [
