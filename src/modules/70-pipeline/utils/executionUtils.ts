@@ -36,6 +36,7 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import { PipelineGraphState, PipelineGraphType } from '@pipeline/components/PipelineDiagram/types'
+import { getConditionalExecutionFlag } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagramUtils'
 import { isApprovalStep } from './stepUtils'
 import { StageType } from './stageHelpers'
 
@@ -1027,6 +1028,7 @@ export const processExecutionDataForGraph = (stages?: PipelineGraphState[]): Pip
           : currentStage?.type,
         data: {
           ...currentStage.data,
+          conditionalExecutionEnabled: getConditionalExecutionFlag(currentStage?.data?.nodeRunInfo),
           identifier: currentStageData?.nodeUuid || /* istanbul ignore next */ '',
           name: currentStageData?.name || currentStageData?.nodeIdentifier || /* istanbul ignore next */ '',
           status: currentStageData?.status as any,
@@ -1056,6 +1058,7 @@ export const processExecutionDataForGraph = (stages?: PipelineGraphState[]): Pip
             status: node?.status as never,
             data: {
               ...node,
+              conditionalExecutionEnabled: getConditionalExecutionFlag(node?.nodeRunInfo),
               identifier: node?.nodeUuid || /* istanbul ignore next */ '',
               name: node?.name || node?.nodeIdentifier || /* istanbul ignore next */ '',
               status: node?.status as never,
@@ -1085,6 +1088,7 @@ export const processExecutionDataForGraph = (stages?: PipelineGraphState[]): Pip
           : currentStage?.type,
         data: {
           ...stage,
+          conditionalExecutionEnabled: getConditionalExecutionFlag(stage?.nodeRunInfo),
           identifier: stage?.nodeUuid || /* istanbul ignore next */ '',
           name: stage?.name || stage?.nodeIdentifier || /* istanbul ignore next */ '',
           status: stage?.status as any,
