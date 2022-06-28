@@ -6,11 +6,7 @@
  */
 
 .mainContainer {
-  position: relative;
-  .leftHeader {
-    width: calc(50% - 15px);
-  }
-  .refreshedHeader {
-    flex: 1;
+  .contentContainer {
+    flex-grow: 1;
   }
 }
