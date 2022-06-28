@@ -32,6 +32,11 @@ const context: PipelineContextInterface = {
         type: StageType.DEPLOY,
         description: '',
         spec: {
+          serviceConfig: {
+            serviceDefinition: {
+              type: 'Kubernetes'
+            }
+          },
           execution: {}
         },
         failureStrategies: {}
@@ -70,7 +75,7 @@ jest.mock('services/cd-ng', () => ({
     },
     loading: false
   }),
-  useGetExecutionStrategyYaml: jest.fn().mockReturnValue({}),
+  useGetExecutionStrategyYaml: jest.fn().mockReturnValue({ refetch: jest.fn() }),
   useGetRuntimeInputsServiceEntity: jest.fn().mockReturnValue({})
 }))
 

@@ -19,7 +19,7 @@ import {
   Container,
   PageError
 } from '@wings-software/uicore'
-import { defaultTo, get, isEmpty, set, startCase } from 'lodash-es'
+import { defaultTo, isEmpty, set, startCase } from 'lodash-es'
 import { Color } from '@harness/design-system'
 import cx from 'classnames'
 import produce from 'immer'
@@ -34,12 +34,7 @@ import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { PageSpinner } from '@common/components'
-import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import {
-  getDeploymentTypeWithSvcEnvFF,
-  getSelectedDeploymentType,
-  ServiceDeploymentType
-} from '@pipeline/utils/stageHelpers'
+import { getServiceDefinitionType, ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
@@ -116,15 +111,7 @@ function ExecutionStrategyRef(
   const logger = loggerFor(ModuleName.CD)
 
   const serviceDefinitionType = useCallback((): GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] => {
-    const isPropagating = get(selectedStage, 'stage.spec.serviceConfig.useFromStage', null)
-    if (isNewServiceEnvEntity(isSvcEnvEntityEnabled, selectedStage?.stage as DeploymentStageElementConfig)) {
-      return getDeploymentTypeWithSvcEnvFF(selectedStage as StageElementWrapper<DeploymentStageElementConfig>)
-    }
-    return getSelectedDeploymentType(
-      selectedStage as StageElementWrapper<DeploymentStageElementConfig>,
-      getStageFromPipeline,
-      isPropagating
-    )
+    return getServiceDefinitionType(selectedStage, getStageFromPipeline, isNewServiceEnvEntity, isSvcEnvEntityEnabled)
   }, [getStageFromPipeline, isSvcEnvEntityEnabled, selectedStage])
   const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>(
     serviceDefinitionType() === ServiceDeploymentType.ServerlessAwsLambda ? 'Basic' : 'Rolling'

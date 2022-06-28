@@ -12,10 +12,16 @@ import type {
   GraphLayoutNode,
   PipelineExecutionSummary,
   PipelineInfoConfig,
-  StageElementConfig
+  StageElementConfig,
+  StageElementWrapperConfig
 } from 'services/pipeline-ng'
 import type { StringKeys } from 'framework/strings'
-import type { Infrastructure, ServerlessAwsLambdaInfrastructure, ServiceDefinition } from 'services/cd-ng'
+import type {
+  GetExecutionStrategyYamlQueryParams,
+  Infrastructure,
+  ServerlessAwsLambdaInfrastructure,
+  ServiceDefinition
+} from 'services/cd-ng'
 import { connectorTypes } from '@pipeline/utils/constants'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
@@ -256,6 +262,26 @@ export const getDeploymentTypeWithSvcEnvFF = (
   stage: StageElementWrapper<DeploymentStageElementConfig> | undefined
 ): ServiceDefinition['type'] => {
   return get(stage, 'stage.spec.deploymentType', null)
+}
+
+export const getServiceDefinitionType = (
+  selectedStage: StageElementWrapperConfig | undefined,
+  getStageFromPipeline: <T extends StageElementConfig = StageElementConfig>(
+    stageId: string,
+    pipeline?: PipelineInfoConfig
+  ) => PipelineStageWrapper<T>,
+  isNewServiceEnvEntity: (isSvcEnvEntityEnabled: boolean, stage: DeploymentStageElementConfig) => boolean,
+  isSvcEnvEntityEnabled: boolean
+): GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] => {
+  const isPropagating = get(selectedStage, 'stage.spec.serviceConfig.useFromStage', null)
+  if (isNewServiceEnvEntity(isSvcEnvEntityEnabled, selectedStage?.stage as DeploymentStageElementConfig)) {
+    return getDeploymentTypeWithSvcEnvFF(selectedStage as StageElementWrapper<DeploymentStageElementConfig>)
+  }
+  return getSelectedDeploymentType(
+    selectedStage as StageElementWrapper<DeploymentStageElementConfig>,
+    getStageFromPipeline,
+    isPropagating
+  )
 }
 
 export const getStageDeploymentType = (

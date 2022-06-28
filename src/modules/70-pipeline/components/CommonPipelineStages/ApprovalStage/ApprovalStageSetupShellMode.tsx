@@ -7,7 +7,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import cx from 'classnames'
-import { unset } from 'lodash-es'
+import { unset, capitalize as _capitalize } from 'lodash-es'
 import YAML from 'yaml'
 import produce from 'immer'
 import { Button, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
@@ -28,6 +28,7 @@ import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemp
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStudio/PipelineUtils'
+import { useQueryParams } from '@common/hooks'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import ApprovalAdvancedSpecifications from './ApprovalStageAdvanced'
@@ -54,9 +55,19 @@ export function ApprovalStageSetupShellMode(): React.ReactElement {
     updatePipeline,
     updateStage
   } = pipelineContext
+  const query = useQueryParams()
 
   const [loadGraph, setLoadGraph] = React.useState(false)
   const { stage: selectedStage } = getStageFromPipeline<ApprovalStageElementConfig>(selectedStageId)
+
+  React.useEffect(() => {
+    const sectionId = (query as any).sectionId || ''
+    if (sectionId?.length && tabHeadings.includes(_capitalize(sectionId))) {
+      setSelectedTabId(_capitalize(sectionId))
+    } else {
+      setSelectedTabId(tabHeadings[1])
+    }
+  }, [])
 
   React.useEffect(() => {
     if (selectedStepId) {
