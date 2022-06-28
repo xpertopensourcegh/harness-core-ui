@@ -235,7 +235,7 @@ function ManifestListView({
 
   const attachPathYaml = useCallback(
     (manifestPathData: any, manifestId: string, manifestType: PrimaryManifestType): void => {
-      const manifestData = listOfManifests.find(manifestObj => manifestObj.manifest.identifier === manifestId)
+      const manifestData = listOfManifests?.find(manifestObj => manifestObj.manifest.identifier === manifestId)
       set(manifestData, `manifest.spec.${ManifestToPathKeyMap[manifestType]}`, manifestPathData)
       updateStageData()
     },
@@ -244,8 +244,8 @@ function ManifestListView({
 
   const removeValuesYaml = useCallback(
     (valuesYamlIndex: number, manifestId: string, manifestType: PrimaryManifestType): void => {
-      const manifestData = listOfManifests.find(manifestObj => manifestObj.manifest.identifier === manifestId)
-      manifestData.manifest.spec[ManifestToPathKeyMap[manifestType]].splice(valuesYamlIndex, 1)
+      const manifestData = listOfManifests?.find(manifestObj => manifestObj.manifest.identifier === manifestId)
+      manifestData?.manifest.spec[ManifestToPathKeyMap[manifestType]].splice(valuesYamlIndex, 1)
       updateStageData()
     },
     []
