@@ -435,8 +435,8 @@ export const InfraProvisioningWizard: React.FC<InfraProvisioningWizardProps> = p
         <MultiStepProgressIndicator
           progressMap={
             new Map([
-              [0, wizardStepStatus.get(InfraProvisiongWizardStepId.SelectGitProvider) || 'TODO'],
-              [1, wizardStepStatus.get(InfraProvisiongWizardStepId.SelectRepository) || 'TODO']
+              [0, { StepStatus: wizardStepStatus.get(InfraProvisiongWizardStepId.SelectGitProvider) || 'TODO' }],
+              [1, { StepStatus: wizardStepStatus.get(InfraProvisiongWizardStepId.SelectRepository) || 'TODO' }]
             ])
           }
         />
