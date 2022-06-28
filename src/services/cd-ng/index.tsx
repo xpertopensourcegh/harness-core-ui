@@ -2201,7 +2201,7 @@ export interface DelegateDownloadRequest {
   customClusterNamespace?: string
   description?: string
   name: string
-  size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  size?: 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
   tags?: string[]
   tokenName?: string
 }
@@ -2217,7 +2217,7 @@ export type DelegateFilterProperties = FilterProperties & {
   delegateType?: string
   description?: string
   hostName?: string
-  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
+  status?: 'CONNECTED' | 'DISCONNECTED' | 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
 }
 
 export interface DelegateGroup {
@@ -2366,7 +2366,7 @@ export interface DelegateSetupDetails {
   name: string
   orgIdentifier?: string
   projectIdentifier?: string
-  size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  size?: 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
   tags?: string[]
   tokenName?: string
 }
@@ -2376,7 +2376,7 @@ export interface DelegateSizeDetails {
   label?: string
   ram?: number
   replicas?: number
-  size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  size?: 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
 }
 
 export interface DelegateTokenDetails {
@@ -2714,6 +2714,7 @@ export interface EntityDetail {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -4286,6 +4287,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -4380,6 +4382,7 @@ export interface GitEntityFilterProperties {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -4507,6 +4510,7 @@ export interface GitFullSyncEntityInfoDTO {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -4609,6 +4613,7 @@ export interface GitFullSyncEntityInfoFilterKeys {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -4793,6 +4798,7 @@ export interface GitSyncEntityDTO {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -4889,6 +4895,7 @@ export interface GitSyncEntityListDTO {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -5002,6 +5009,7 @@ export interface GitSyncErrorDTO {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -6460,6 +6468,7 @@ export interface NGProperties {
 }
 
 export interface NGServiceConfig {
+  metadata?: string
   service?: NGServiceV2InfoConfig
 }
 
@@ -6477,6 +6486,7 @@ export interface NGServiceV2InfoConfig {
   description?: string
   gitOpsEnabled?: boolean
   identifier: string
+  metadata?: string
   name: string
   serviceDefinition?: ServiceDefinition
   tags?: {
@@ -7622,6 +7632,11 @@ export type PrometheusConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export type QueueStepInfo = StepSpecType & {
+  key: string
+  scope: 'Pipeline' | 'Stage'
+}
+
 export interface RateLimitProtection {
   incorrectAttemptTimestamps?: number[]
   lastNotificationSentToSecOpsAt?: number
@@ -7669,6 +7684,7 @@ export interface ReferencedByDTO {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -7799,7 +7815,7 @@ export type ResourceConstraintStepInfo = StepSpecType & {
   holdingScope: 'PLAN' | 'PIPELINE' | 'STAGE' | 'STEP_GROUP'
   name: string
   permits: number
-  resourceUnit: string
+  resourceUnit: ParameterFieldString
 }
 
 export interface ResourceDTO {
@@ -8516,6 +8532,7 @@ export interface ResponseListEntityType {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -11380,6 +11397,16 @@ export type StringVariableConfigDTO = VariableConfigDTO & {
   regex?: string
 }
 
+export interface StripeBillingDTO {
+  city?: string
+  country?: string
+  creditCardId?: string
+  line1?: string
+  line2?: string
+  state?: string
+  zipCode?: string
+}
+
 export interface SubscriptionDTO {
   customerId?: string
   items?: ItemParams[]
@@ -12185,9 +12212,9 @@ export type ScimUserRequestBody = ScimUser
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = void
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
-export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+export type SecretRequestWrapper2RequestBody = void
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -12709,6 +12736,7 @@ export interface ListActivitiesQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -12797,6 +12825,7 @@ export interface ListActivitiesQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -12989,6 +13018,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -13077,6 +13107,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -22620,6 +22651,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -22742,6 +22774,146 @@ export const listReferredByEntitiesPromise = (
   getUsingFetch<ResponsePageEntitySetupUsageDTO, unknown, ListReferredByEntitiesQueryParams, void>(
     getConfig('ng/api'),
     `/entitySetupUsage`,
+    props,
+    signal
+  )
+
+export interface ListAllEntityUsageByFqnQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  accountIdentifier?: string
+  referredEntityFQN?: string
+  referredEntityType?:
+    | 'CreatePR'
+    | 'GITOPS_MERGE_PR'
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Http'
+    | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
+    | 'HarnessApproval'
+    | 'Barrier'
+    | 'Queue'
+    | 'FlagConfiguration'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
+    | 'K8sApply'
+    | 'K8sBlueGreenDeploy'
+    | 'K8sRollingDeploy'
+    | 'K8sRollingRollback'
+    | 'K8sScale'
+    | 'K8sDelete'
+    | 'K8sBGSwapServices'
+    | 'K8sCanaryDelete'
+    | 'TerraformApply'
+    | 'TerraformPlan'
+    | 'TerraformDestroy'
+    | 'TerraformRollback'
+    | 'HelmDeploy'
+    | 'HelmRollback'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Files'
+    | 'Service'
+    | 'Environment'
+    | 'EnvironmentGroup'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Verify'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'SecurityStage'
+    | 'SecuritySteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+    | 'FeatureFlags'
+    | 'ServiceNowApproval'
+    | 'ServiceNowCreate'
+    | 'ServiceNowUpdate'
+    | 'GovernancePolicies'
+    | 'POLICY_STEP'
+    | 'Run'
+    | 'RunTests'
+    | 'Plugin'
+    | 'RestoreCacheGCS'
+    | 'RestoreCacheS3'
+    | 'SaveCacheGCS'
+    | 'SaveCacheS3'
+    | 'Security'
+    | 'ArtifactoryUpload'
+    | 'GCSUpload'
+    | 'S3Upload'
+    | 'BuildAndPushGCR'
+    | 'BuildAndPushECR'
+    | 'BuildAndPushDockerRegistry'
+    | 'CreateStack'
+    | 'DeleteStack'
+    | 'ServerlessAwsLambdaDeploy'
+    | 'ServerlessAwsLambdaRollback'
+    | 'CustomStage'
+    | 'RollbackStack'
+    | 'Infrastructure'
+    | 'Command'
+    | 'StrategyNode'
+    | 'AZURE_SLOT_DEPLOYMENT_STEP'
+    | 'AzureTrafficShift'
+    | 'AzureSwapSlot'
+    | 'AzureWebAppRollback'
+  searchTerm?: string
+}
+
+export type ListAllEntityUsageByFqnProps = Omit<
+  GetProps<ResponsePageEntitySetupUsageDTO, unknown, ListAllEntityUsageByFqnQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Entities referring this resource if fqn is given
+ */
+export const ListAllEntityUsageByFqn = (props: ListAllEntityUsageByFqnProps) => (
+  <Get<ResponsePageEntitySetupUsageDTO, unknown, ListAllEntityUsageByFqnQueryParams, void>
+    path={`/entitySetupUsage/v2`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListAllEntityUsageByFqnProps = Omit<
+  UseGetProps<ResponsePageEntitySetupUsageDTO, unknown, ListAllEntityUsageByFqnQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Entities referring this resource if fqn is given
+ */
+export const useListAllEntityUsageByFqn = (props: UseListAllEntityUsageByFqnProps) =>
+  useGet<ResponsePageEntitySetupUsageDTO, unknown, ListAllEntityUsageByFqnQueryParams, void>(`/entitySetupUsage/v2`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get Entities referring this resource if fqn is given
+ */
+export const listAllEntityUsageByFqnPromise = (
+  props: GetUsingFetchProps<ResponsePageEntitySetupUsageDTO, unknown, ListAllEntityUsageByFqnQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageEntitySetupUsageDTO, unknown, ListAllEntityUsageByFqnQueryParams, void>(
+    getConfig('ng/api'),
+    `/entitySetupUsage/v2`,
     props,
     signal
   )
@@ -25410,6 +25582,7 @@ export interface GetReferencedByQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -26708,6 +26881,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -26864,6 +27038,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'JiraApproval'
       | 'HarnessApproval'
       | 'Barrier'
+      | 'Queue'
       | 'FlagConfiguration'
       | 'ShellScript'
       | 'K8sCanaryDeploy'
@@ -31350,6 +31525,7 @@ export interface GetStepYamlSchemaQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -31566,6 +31742,7 @@ export interface GetEntityYamlSchemaQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
@@ -36992,6 +37169,63 @@ export const createFfSubscriptionPromise = (
     signal
   )
 
+export interface UpdateBillingQueryParams {
+  accountIdentifier: string
+}
+
+export type UpdateBillingProps = Omit<
+  MutateProps<ResponseCustomerDetailDTO, Failure | Error, UpdateBillingQueryParams, StripeBillingDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Updates the customer's billing information
+ */
+export const UpdateBilling = (props: UpdateBillingProps) => (
+  <Mutate<ResponseCustomerDetailDTO, Failure | Error, UpdateBillingQueryParams, StripeBillingDTO, void>
+    verb="PUT"
+    path={`/subscriptions/billing`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateBillingProps = Omit<
+  UseMutateProps<ResponseCustomerDetailDTO, Failure | Error, UpdateBillingQueryParams, StripeBillingDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Updates the customer's billing information
+ */
+export const useUpdateBilling = (props: UseUpdateBillingProps) =>
+  useMutate<ResponseCustomerDetailDTO, Failure | Error, UpdateBillingQueryParams, StripeBillingDTO, void>(
+    'PUT',
+    `/subscriptions/billing`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Updates the customer's billing information
+ */
+export const updateBillingPromise = (
+  props: MutateUsingFetchProps<
+    ResponseCustomerDetailDTO,
+    Failure | Error,
+    UpdateBillingQueryParams,
+    StripeBillingDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseCustomerDetailDTO, Failure | Error, UpdateBillingQueryParams, StripeBillingDTO, void>(
+    'PUT',
+    getConfig('ng/api'),
+    `/subscriptions/billing`,
+    props,
+    signal
+  )
+
 export interface CreateCustomerQueryParams {
   accountIdentifier: string
 }
@@ -37316,6 +37550,48 @@ export const retrieveUpcomingInvoicePromise = (
     SubscriptionDTORequestBody,
     void
   >('POST', getConfig('ng/api'), `/subscriptions/invoices/preview`, props, signal)
+
+export interface PayInvoiceQueryParams {
+  invoiceId: string
+}
+
+export type PayInvoiceProps = Omit<
+  MutateProps<RestResponseVoid, Failure | Error, PayInvoiceQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+export const PayInvoice = (props: PayInvoiceProps) => (
+  <Mutate<RestResponseVoid, Failure | Error, PayInvoiceQueryParams, void, void>
+    verb="POST"
+    path={`/subscriptions/pay_invoice`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePayInvoiceProps = Omit<
+  UseMutateProps<RestResponseVoid, Failure | Error, PayInvoiceQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+export const usePayInvoice = (props: UsePayInvoiceProps) =>
+  useMutate<RestResponseVoid, Failure | Error, PayInvoiceQueryParams, void, void>(
+    'POST',
+    `/subscriptions/pay_invoice`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+export const payInvoicePromise = (
+  props: MutateUsingFetchProps<RestResponseVoid, Failure | Error, PayInvoiceQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseVoid, Failure | Error, PayInvoiceQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/subscriptions/pay_invoice`,
+    props,
+    signal
+  )
 
 export interface ListPaymentMethodsQueryParams {
   accountIdentifier: string
@@ -41390,7 +41666,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -41400,7 +41676,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -41413,7 +41689,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -41427,7 +41703,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -41439,7 +41715,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -41448,7 +41724,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -41841,7 +42117,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -41855,7 +42131,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >
     verb="POST"
@@ -41870,7 +42146,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -41884,7 +42160,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -41896,7 +42172,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -41905,7 +42181,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -42040,7 +42316,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -42055,7 +42331,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -42070,7 +42346,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -42085,7 +42361,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -42104,7 +42380,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -42113,7 +42389,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -42132,7 +42408,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -42147,7 +42423,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -42162,7 +42438,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -42177,7 +42453,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -42196,7 +42472,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -42205,7 +42481,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 
@@ -42730,6 +43006,7 @@ export interface GetYamlSchemaQueryParams {
     | 'JiraApproval'
     | 'HarnessApproval'
     | 'Barrier'
+    | 'Queue'
     | 'FlagConfiguration'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
