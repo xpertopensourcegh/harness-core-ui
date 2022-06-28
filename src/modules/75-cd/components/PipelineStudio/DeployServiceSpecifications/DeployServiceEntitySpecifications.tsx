@@ -51,7 +51,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { yamlParse } from '@common/utils/YamlHelperMethods'
 import type { DeployServiceData } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceInterface'
 import { useCache } from '@common/hooks/useCache'
-import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
+import type { DeployStageConfig, ServiceInputsConfig } from '@pipeline/utils/DeployStageInterface'
 import { setupMode } from './PropagateWidget/PropagateWidget'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
@@ -172,8 +172,13 @@ export default function DeployServiceEntitySpecifications({
       if (serviceInfo) {
         const stageData = produce(stage, draft => {
           if (draft) {
-            if ((serviceInputSetResponse as any)?.serviceInputs) {
-              set(draft, 'stage.spec.service.serviceInputs', (serviceInputSetResponse as any)?.serviceInputs)
+            if ((serviceInputSetResponse as ServiceInputsConfig)?.serviceInputs) {
+              set(draft, 'stage.spec.service.serviceRef', parsedYaml.service?.identifier)
+              set(
+                draft,
+                'stage.spec.service.serviceInputs',
+                (serviceInputSetResponse as ServiceInputsConfig)?.serviceInputs
+              )
             } else {
               unset(draft, 'stage.spec.service.serviceInputs')
             }
