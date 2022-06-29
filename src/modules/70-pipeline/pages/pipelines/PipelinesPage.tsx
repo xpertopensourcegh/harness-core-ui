@@ -195,7 +195,7 @@ function PipelinesPage({ mockData }: CDPipelinesPageProps): React.ReactElement {
 
   function handleQueryChange(query: string): void {
     if (query) {
-      updateQueryParams({ searchTerm: query })
+      updateQueryParams({ searchTerm: query, page: defaultPageNumber.toString() })
     } else {
       updateQueryParams({ searchTerm: [] as any }) // removes the param
     }

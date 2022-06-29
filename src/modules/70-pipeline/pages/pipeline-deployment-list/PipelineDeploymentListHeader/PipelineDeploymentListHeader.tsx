@@ -54,7 +54,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
 
   function handleQueryChange(query: string): void {
     if (query) {
-      updateQueryParams({ searchTerm: query })
+      updateQueryParams({ searchTerm: query, page: defaultPageNumber })
     } else {
       updateQueryParams({ searchTerm: [] as any }) // removes the param
     }
