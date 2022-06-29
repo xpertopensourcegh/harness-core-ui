@@ -674,7 +674,7 @@ export interface StringsMap {
   'common.smtp.preConfiguredSubject': string
   'common.smtp.savingSMTP': string
   'common.smtp.smtpConnectivity': string
-  'common.smtp.startTSL': string
+  'common.smtp.startTLS': string
   'common.smtp.testConnection': string
   'common.smtp.updatingSMTP': string
   'common.smtp.validationBody': string

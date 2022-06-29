@@ -790,7 +790,7 @@ smtp:
   smtpConnectivity: SMTP Connectivity Test
   port: Port
   enableSSL: Enable SSL
-  startTSL: Start TSL
+  startTLS: Start TLS
   fromAddress: From Address
   testConnection: Test Connection
   portRequired: Port is required
