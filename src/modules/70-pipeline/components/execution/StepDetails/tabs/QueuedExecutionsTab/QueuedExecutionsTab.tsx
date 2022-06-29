@@ -10,6 +10,8 @@ import { capitalize } from 'lodash-es'
 import classnames from 'classnames'
 import { useParams, NavLink } from 'react-router-dom'
 import moment from 'moment'
+import { Spinner } from '@blueprintjs/core'
+import { Layout } from '@harness/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings, StringKeys } from 'framework/strings'
 import type { Module } from 'framework/types/ModuleName'
@@ -48,7 +50,7 @@ const renderData = (
 ) => {
   const resourceConstraints = resourceConstraintsData?.data?.resourceConstraints || []
   if (!resourceConstraints.length) {
-    return 'Empty Data'
+    return 'No Executions'
   }
   const { executionIdentifier, orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = params
 
@@ -73,16 +75,20 @@ const renderData = (
               className={classnames(css.queuedExecutionsListItem, { [css.queuedExecutionsCurrentListItem]: isCurrent })}
             >
               <div className={css.listItemName}>
-                <NavLink
-                  to={route}
-                  onClick={e => {
-                    e.preventDefault()
-                    const baseUrl = window.location.href.split('#')[0]
-                    window.open(`${baseUrl}#${route}`)
-                  }}
-                >
-                  {resourceConstraint.pipelineName}
-                </NavLink>
+                {isCurrent ? (
+                  resourceConstraint.pipelineName
+                ) : (
+                  <NavLink
+                    to={route}
+                    onClick={e => {
+                      e.preventDefault()
+                      const baseUrl = window.location.href.split('#')[0]
+                      window.open(`${baseUrl}#${route}`)
+                    }}
+                  >
+                    {resourceConstraint.pipelineName}
+                  </NavLink>
+                )}
               </div>
               <div className={css.listItemTime}>
                 {moment(resourceConstraint.startTs).format('DD/MM/YYYY, h:mm:ss a')}
@@ -123,7 +129,9 @@ export function QueuedExecutionsTab(props: ExecutionStepDetailsTabProps): React.
   }, [resourceUnit])
 
   return resourceConstraintsLoading ? (
-    <div>loading</div>
+    <Layout.Vertical height="100px" flex={{ justifyContent: 'center' }}>
+      <Spinner size={Spinner.SIZE_SMALL} />
+    </Layout.Vertical>
   ) : (
     <div className={stepDetailsTabCss.detailsTab}>
       <div className={css.header}>
