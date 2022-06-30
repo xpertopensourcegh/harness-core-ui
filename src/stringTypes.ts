@@ -6401,6 +6401,7 @@ export interface StringsMap {
   'cv.selectTimeRange': string
   'cv.selectWorkload': string
   'cv.selectedTimeInterval': string
+  'cv.sensitivityValidation': string
   'cv.serviceDashboardPage.fifteenMinutes': string
   'cv.serviceDashboardPage.fiveMinutes': string
   'cv.serviceDashboardPage.fourHours': string

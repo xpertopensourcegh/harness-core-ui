@@ -659,6 +659,7 @@ healthSource:
     queryTextareaPlaceholder: 'Please write a splunk query that outputs table for time, value. Use span of 1m. Example: source="access_log" status < 400 | bucket _time span=1m | stats p99(response_time) as value by _time | rename _time as time | fields time value'
 templates:
   healthSourceDetails: Health Source Details
+sensitivityValidation: Sensitivity should be high, medium or low
 slos:
   title: SLOs
   deleteSLO: Delete SLO
