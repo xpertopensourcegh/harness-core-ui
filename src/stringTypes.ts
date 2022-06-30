@@ -3430,6 +3430,7 @@ export interface StringsMap {
   'pipeline.stepCommonFields.validation.mustBeANumber': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDescription.AzureSlotDeployment': string
+  'pipeline.stepDescription.AzureTrafficShift': string
   'pipeline.stepDescription.Barrier': string
   'pipeline.stepDescription.CustomApproval': string
   'pipeline.stepDescription.DockerHub': string
@@ -3556,6 +3557,7 @@ export interface StringsMap {
   'pipeline.testsReports.willBeDisplayedIfAvailable': string
   'pipeline.timeRemainingSuffix': string
   'pipeline.totalCount': string
+  'pipeline.traffic': string
   'pipeline.uniqueIdentifier': string
   'pipeline.uniqueName': string
   'pipeline.unsupportedImagesWarning': string
