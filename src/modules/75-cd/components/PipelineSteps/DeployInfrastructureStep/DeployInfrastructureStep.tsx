@@ -7,15 +7,16 @@
 
 import React from 'react'
 import type { FormikErrors } from 'formik'
-import { isEmpty } from 'lodash-es'
+import { get, isEmpty, set } from 'lodash-es'
 
 import { getMultiTypeFromValue, IconName, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@harness/uicore'
 import type { UseStringsReturn } from 'framework/strings'
 
 import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { AllNGVariables } from '@pipeline/utils/types'
 
-import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
+import type { DeployStageConfig, InfraStructureDefinitionYaml } from '@pipeline/utils/DeployStageInterface'
 import { DeployInfrastructureWidget } from './DeployInfrastructureWidget'
 import DeployInfrastructureInputStep from './DeployInfrastructureInputStep'
 import {
@@ -124,13 +125,95 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
   }: ValidateInputSetProps<DeployStageConfig>): FormikErrors<DeployStageConfig> {
     const errors: FormikErrors<DeployStageConfig> = {}
     const isRequired = viewType === StepViewType.DeploymentForm || viewType === StepViewType.TriggerForm
-    if (
-      isEmpty(data?.environment?.environmentRef) &&
-      isRequired &&
-      getMultiTypeFromValue(template?.environment?.environmentRef) === MultiTypeInputType.RUNTIME
-    ) {
-      errors.environment = getString?.('cd.pipelineSteps.environmentTab.environmentIsRequired')
+
+    data?.environment?.serviceOverrideInputs?.variables?.forEach((variable: AllNGVariables, index: number) => {
+      const currentVariableTemplate = get(template, `environment.serviceOverrideInputs.variables[${index}].value`, '')
+
+      if (
+        isRequired &&
+        ((isEmpty(variable.value) && variable.type !== 'Number') ||
+          (variable.type === 'Number' && (typeof variable.value !== 'number' || isNaN(variable.value)))) &&
+        getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `serviceOverrideInputs.variables.[${index}].value`,
+          getString?.('fieldRequired', { field: variable.name })
+        )
+      }
+    })
+
+    if (!(errors as any)?.serviceOverrideInputs?.variables?.length) {
+      delete (errors as any)?.serviceOverrideInputs
     }
+
+    data?.environment?.environmentInputs?.variables?.forEach((variable: AllNGVariables, index: number) => {
+      const currentVariableTemplate = get(template, `environment.environmentInputs.variables[${index}].value`, '')
+
+      if (
+        isRequired &&
+        ((isEmpty(variable.value) && variable.type !== 'Number') ||
+          (variable.type === 'Number' && (typeof variable.value !== 'number' || isNaN(variable.value)))) &&
+        getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `environmentInputs.variables.[${index}].value`,
+          getString?.('fieldRequired', { field: variable.name })
+        )
+      }
+    })
+
+    if (!(errors as any)?.environmentInputs?.variables?.length) {
+      delete (errors as any)?.environmentInputs
+    }
+
+    data?.environment?.infrastructureDefinitions?.forEach(
+      (infrastructureDefinition: InfraStructureDefinitionYaml, index: number) => {
+        const currentVariableTemplate = get(template, `environment.infrastructureDefinitions[${index}].inputs.spec`, '')
+
+        if (
+          isRequired &&
+          isEmpty(infrastructureDefinition.inputs?.spec.connectorRef) &&
+          getMultiTypeFromValue(currentVariableTemplate.connectorRef) === MultiTypeInputType.RUNTIME
+        ) {
+          set(
+            errors,
+            `infrastructureDefinitions[${index}].inputs.spec.connectorRef`,
+            getString?.('fieldRequired', { field: getString('connector') })
+          )
+        }
+
+        if (
+          isRequired &&
+          isEmpty(infrastructureDefinition.inputs?.spec.namespace) &&
+          getMultiTypeFromValue(currentVariableTemplate.namespace) === MultiTypeInputType.RUNTIME
+        ) {
+          set(
+            errors,
+            `infrastructureDefinitions[${index}].inputs.spec.namespace`,
+            getString?.('fieldRequired', { field: getString('common.namespace') })
+          )
+        }
+
+        if (
+          isRequired &&
+          isEmpty(infrastructureDefinition.inputs?.spec.releaseName) &&
+          getMultiTypeFromValue(currentVariableTemplate.releaseName) === MultiTypeInputType.RUNTIME
+        ) {
+          set(
+            errors,
+            `infrastructureDefinitions[${index}].inputs.spec.releaseName`,
+            getString?.('fieldRequired', { field: getString('common.releaseName') })
+          )
+        }
+      }
+    )
+
+    if (!(errors as any)?.infrastructureDefinitions?.length) {
+      delete (errors as any)?.infrastructureDefinitions
+    }
+
     return errors
   }
 }

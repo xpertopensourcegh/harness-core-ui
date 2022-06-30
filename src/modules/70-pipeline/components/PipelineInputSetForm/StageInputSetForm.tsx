@@ -920,6 +920,80 @@ export function StageInputSetFormInternal({
         </div>
       )}
 
+      {isSvcEnvEntityEnabled && (deploymentStageTemplate as DeployStageConfig).environment?.infrastructureDefinitions && (
+        <div id={`Stage.${stageIdentifier}.Environment`} className={cx(css.accordionSummary)}>
+          <div className={css.inputheader}>{getString('infrastructureText')}</div>
+          {(deploymentStageTemplate as DeployStageConfig).environment?.infrastructureDefinitions
+            ?.map((infrastructureDefinition, index) => {
+              if (infrastructureDefinition.inputs?.spec) {
+                return (
+                  <>
+                    {infrastructureDefinition.inputs?.spec.connectorRef && (
+                      <Container className={stepCss.bottomMargin3}>
+                        <FormMultiTypeConnectorField
+                          width={300}
+                          name={`${namePath}environment.infrastructureDefinitions.${index}.inputs.spec.connectorRef`}
+                          label={
+                            <Text font={{ variation: FontVariation.FORM_LABEL }}>
+                              {getString('connectors.title.k8sCluster')}
+                            </Text>
+                          }
+                          placeholder={getString(
+                            'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
+                          )}
+                          accountIdentifier={accountId}
+                          projectIdentifier={projectIdentifier}
+                          orgIdentifier={orgIdentifier}
+                          gitScope={gitScope}
+                          multiTypeProps={{ expressions, disabled: readonly, allowableTypes }}
+                          setRefValue
+                        />
+                      </Container>
+                    )}
+
+                    {infrastructureDefinition.inputs?.spec.namespace && (
+                      <Container className={stepCss.bottomMargin3}>
+                        {renderMultiTypeTextField({
+                          name: `${namePath}environment.infrastructureDefinitions.${index}.inputs.spec.namespace`,
+                          tooltipId: 'namespace',
+                          labelKey: 'pipelineSteps.build.infraSpecifications.namespace',
+                          inputProps: {
+                            multiTextInputProps: {
+                              expressions,
+                              allowableTypes: allowableTypes
+                            },
+                            disabled: readonly
+                          },
+                          fieldPath: 'inputs.spec.namespace'
+                        })}
+                      </Container>
+                    )}
+
+                    {infrastructureDefinition.inputs?.spec.releaseName && (
+                      <Container className={stepCss.bottomMargin3}>
+                        {renderMultiTypeTextField({
+                          name: `${namePath}environment.infrastructureDefinitions.${index}.inputs.spec.releaseName`,
+                          tooltipId: 'releaseName',
+                          labelKey: 'common.releaseName',
+                          inputProps: {
+                            multiTextInputProps: {
+                              expressions,
+                              allowableTypes: allowableTypes
+                            },
+                            disabled: readonly
+                          },
+                          fieldPath: 'inputs.spec.releaseName'
+                        })}
+                      </Container>
+                    )}
+                  </>
+                )
+              }
+            })
+            .filter(data => data)}
+        </div>
+      )}
+
       {deploymentStageTemplate.infrastructure && (
         <div id={`Stage.${stageIdentifier}.Infrastructure`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('infrastructureText')}</div>

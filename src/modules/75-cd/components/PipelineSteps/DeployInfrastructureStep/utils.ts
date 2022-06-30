@@ -102,7 +102,7 @@ export function processNonGitOpsInitialValues(initialValues: DeployStageConfig) 
       environmentRef: defaultTo(initialValues.environment?.environmentRef, ''),
       deployToAll: defaultTo(initialValues.environment?.deployToAll, false)
     },
-    infrastructureRef: (initialValues.environment?.infrastructureDefinitions?.[0].identifier ||
+    infrastructureRef: (initialValues.environment?.infrastructureDefinitions?.[0]?.identifier ||
       initialValues.environment?.infrastructureDefinitions ||
       '') as string
   }
@@ -164,7 +164,7 @@ export function processGitOpsEnvironmentInitialValues(
 }
 
 export function processGitOpsEnvironmentFormValues(data: DeployStageConfig, getString: UseStringsReturn['getString']) {
-  const allClustersSelected = (data.clusterRef as SelectOption[])?.[0].value === getString('all')
+  const allClustersSelected = (data.clusterRef as SelectOption[])?.[0]?.value === getString('all')
 
   return {
     environment: {
@@ -250,7 +250,7 @@ export function processGitOpsEnvGroupFormValues(data: DeployStageConfig, getStri
     }
   })
 
-  const allEnvironmentsSelected = (data.environmentInEnvGroupRef as SelectOption[])?.[0].value === getString('all')
+  const allEnvironmentsSelected = (data.environmentInEnvGroupRef as SelectOption[])?.[0]?.value === getString('all')
 
   return {
     environmentGroup: {

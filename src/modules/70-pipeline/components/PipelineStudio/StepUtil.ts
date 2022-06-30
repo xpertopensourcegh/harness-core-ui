@@ -25,6 +25,7 @@ import type {
 import { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { getPrCloneStrategyOptions } from '@pipeline/utils/constants'
 import { CodebaseTypes, isCloneCodebaseEnabledAtLeastOneStage } from '@pipeline/utils/CIUtils'
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 // eslint-disable-next-line no-restricted-imports
@@ -231,7 +232,19 @@ export const validateStage = ({
       }
     }
 
-    // TODO: errors
+    if (stage.type === 'Deployment' && (templateStageConfig as DeployStageConfig)?.environment) {
+      const step = factory.getStep(StepType.DeployInfrastructure)
+      const errorsResponse = step?.validateInputSet({
+        data: stageConfig,
+        template: templateStageConfig as DeployStageConfig,
+        getString,
+        viewType
+      })
+
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'spec.environment', errorsResponse)
+      }
+    }
 
     if (stage.type === 'Deployment' && templateStageConfig?.infrastructure?.environmentRef) {
       const step = factory.getStep(StepType.DeployEnvironment)
