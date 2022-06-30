@@ -4205,6 +4205,7 @@ export interface StringsMap {
   'ce.businessMapping.costBucket.inputName': string
   'ce.businessMapping.costBucket.newButtonText': string
   'ce.businessMapping.costBucket.title': string
+  'ce.businessMapping.costCategory': string
   'ce.businessMapping.created': string
   'ce.businessMapping.deleted': string
   'ce.businessMapping.emptySubtitles': string
@@ -4761,6 +4762,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
   'ce.perspectives.budgets.monthToDateSpend': string
+  'ce.perspectives.budgets.perspectiveBudgets': string
   'ce.perspectives.budgets.perspectiveCreateBudgetTitle': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriod': string
@@ -4865,6 +4867,7 @@ export interface StringsMap {
   'ce.perspectives.reports.emailPlaceholder': string
   'ce.perspectives.reports.frequency': string
   'ce.perspectives.reports.msg': string
+  'ce.perspectives.reports.perspectiveReport': string
   'ce.perspectives.reports.recipientLabel': string
   'ce.perspectives.reports.recipients': string
   'ce.perspectives.reports.reportDeletedTxt': string
