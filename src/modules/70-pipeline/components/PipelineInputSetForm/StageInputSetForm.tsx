@@ -838,10 +838,14 @@ export function StageInputSetFormInternal({
                     : allowableTypes.filter(item => item !== MultiTypeInputType.FIXED)
                 }
                 readonly={readonly}
-                customStepProps={{ stageIdentifier, isNewServiceEntity: true }}
+                customStepProps={{
+                  stageIdentifier,
+                  isNewServiceEntity: true,
+                  deploymentType: (deploymentStage as unknown as DeployStageConfig)?.deploymentType
+                }}
               />
             )}
-            {!isNil((deploymentStage as any)?.deploymentType) && (
+            {!isNil((deploymentStage as unknown as DeployStageConfig)?.deploymentType) && (
               /* istanbul ignore next */ <StepWidget<ServiceSpec>
                 factory={factory}
                 initialValues={deploymentStageInputSet?.service?.serviceInputs?.serviceDefinition?.spec || {}}
