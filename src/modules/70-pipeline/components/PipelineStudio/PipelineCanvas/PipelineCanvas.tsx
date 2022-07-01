@@ -495,8 +495,8 @@ export function PipelineCanvas({
   React.useEffect(() => {
     if (useTemplate && (!isGitSyncEnabled || !isEmpty(gitDetails))) {
       getPipelineTemplate()
-        .catch(_error => {
-          onCloseCreate()
+        .catch(_ => {
+          // Do nothing.. user cancelled template selection
         })
         .finally(() => {
           setUseTemplate(false)
