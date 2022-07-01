@@ -16,7 +16,7 @@ import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
-import type { DeployStageConfig, InfraStructureDefinitionYaml } from '@pipeline/utils/DeployStageInterface'
+import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { DeployInfrastructureWidget } from './DeployInfrastructureWidget'
 import DeployInfrastructureInputStep from './DeployInfrastructureInputStep'
 import {
@@ -166,52 +166,6 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
 
     if (!(errors as any)?.environmentInputs?.variables?.length) {
       delete (errors as any)?.environmentInputs
-    }
-
-    data?.environment?.infrastructureDefinitions?.forEach(
-      (infrastructureDefinition: InfraStructureDefinitionYaml, index: number) => {
-        const currentVariableTemplate = get(template, `environment.infrastructureDefinitions[${index}].inputs.spec`, '')
-
-        if (
-          isRequired &&
-          isEmpty(infrastructureDefinition.inputs?.spec.connectorRef) &&
-          getMultiTypeFromValue(currentVariableTemplate.connectorRef) === MultiTypeInputType.RUNTIME
-        ) {
-          set(
-            errors,
-            `infrastructureDefinitions[${index}].inputs.spec.connectorRef`,
-            getString?.('fieldRequired', { field: getString('connector') })
-          )
-        }
-
-        if (
-          isRequired &&
-          isEmpty(infrastructureDefinition.inputs?.spec.namespace) &&
-          getMultiTypeFromValue(currentVariableTemplate.namespace) === MultiTypeInputType.RUNTIME
-        ) {
-          set(
-            errors,
-            `infrastructureDefinitions[${index}].inputs.spec.namespace`,
-            getString?.('fieldRequired', { field: getString('common.namespace') })
-          )
-        }
-
-        if (
-          isRequired &&
-          isEmpty(infrastructureDefinition.inputs?.spec.releaseName) &&
-          getMultiTypeFromValue(currentVariableTemplate.releaseName) === MultiTypeInputType.RUNTIME
-        ) {
-          set(
-            errors,
-            `infrastructureDefinitions[${index}].inputs.spec.releaseName`,
-            getString?.('fieldRequired', { field: getString('common.releaseName') })
-          )
-        }
-      }
-    )
-
-    if (!(errors as any)?.infrastructureDefinitions?.length) {
-      delete (errors as any)?.infrastructureDefinitions
     }
 
     return errors

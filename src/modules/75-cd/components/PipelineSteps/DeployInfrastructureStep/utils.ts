@@ -117,19 +117,20 @@ export function processNonGitOpsFormValues(data: DeployStageConfig) {
       ...(data.environment?.serviceOverrideInputs && {
         serviceOverrideInputs: data.environment?.serviceOverrideInputs
       }),
-      ...data?.infrastructureInputs,
       ...(data.environment?.environmentRef &&
         data.environment?.environmentRef !== RUNTIME_INPUT_VALUE &&
-        data.infrastructureRef &&
-        !data?.infrastructureInputs && {
-          infrastructureDefinitions:
-            data.infrastructureRef === RUNTIME_INPUT_VALUE
-              ? RUNTIME_INPUT_VALUE
-              : [
-                  {
-                    identifier: data.infrastructureRef
-                  }
-                ]
+        data.infrastructureRef && {
+          ...data?.infrastructureInputs,
+          ...(!data?.infrastructureInputs && {
+            infrastructureDefinitions:
+              data.infrastructureRef === RUNTIME_INPUT_VALUE
+                ? RUNTIME_INPUT_VALUE
+                : [
+                    {
+                      identifier: data.infrastructureRef
+                    }
+                  ]
+          })
         })
     }
   }
