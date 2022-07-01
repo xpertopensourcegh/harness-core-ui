@@ -4562,6 +4562,13 @@ export interface StringsMap {
   'ce.co.noOfInstances': string
   'ce.co.noOfTasks': string
   'ce.co.reducedEmissions': string
+  'ce.co.resourcesManagedDescription.asg': string
+  'ce.co.resourcesManagedDescription.azureVm': string
+  'ce.co.resourcesManagedDescription.ec2': string
+  'ce.co.resourcesManagedDescription.ecs': string
+  'ce.co.resourcesManagedDescription.gcpVm': string
+  'ce.co.resourcesManagedDescription.k8s': string
+  'ce.co.resourcesManagedDescription.rds': string
   'ce.co.ruleDetailsHeader.computeType': string
   'ce.co.ruleDetailsHeader.customDomain': string
   'ce.co.ruleDetailsHeader.hostName': string
@@ -4572,6 +4579,17 @@ export interface StringsMap {
   'ce.co.ruleDrawer.logs': string
   'ce.co.ruleDrawer.spendVsSavings': string
   'ce.co.ruleDrawer.usageTime': string
+  'ce.co.ruleState.coolingDown': string
+  'ce.co.ruleState.running': string
+  'ce.co.ruleState.stopped': string
+  'ce.co.ruleState.warmingUp': string
+  'ce.co.ruleTypes.asg': string
+  'ce.co.ruleTypes.ec2': string
+  'ce.co.ruleTypes.ecs': string
+  'ce.co.ruleTypes.gcpVm': string
+  'ce.co.ruleTypes.ig': string
+  'ce.co.ruleTypes.k8s': string
+  'ce.co.ruleTypes.rds': string
   'ce.co.rules': string
   'ce.co.rulesTableHeaders.fulfilment': string
   'ce.co.rulesTableHeaders.idleTime': string
@@ -4596,9 +4614,12 @@ export interface StringsMap {
   'ce.co.totalEmissions': string
   'ce.common.and': string
   'ce.common.budget': string
+  'ce.common.collapse': string
   'ce.common.containerService': string
   'ce.common.database': string
+  'ce.common.disabled': string
   'ce.common.emissionUnitHTML': string
+  'ce.common.expand': string
   'ce.common.newBudget': string
   'ce.common.or': string
   'ce.common.refresh': string
