@@ -859,6 +859,8 @@ perspectives:
       exceeds: exceeds
       percent: '% of Budget'
       createAlert: '+ add new alert'
+      enterPercent: Enter %
+      emailPlaceholder: Enter email IDs/email groups/Slack webhook url
   folders:
     customFolders: '{{ $.dashboards.homePage.folders }}'
     newFolder: New folder

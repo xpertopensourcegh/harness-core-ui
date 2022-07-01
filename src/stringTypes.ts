@@ -4770,6 +4770,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
   'ce.perspectives.budgets.configureAlerts.createAlert': string
+  'ce.perspectives.budgets.configureAlerts.emailPlaceholder': string
+  'ce.perspectives.budgets.configureAlerts.enterPercent': string
   'ce.perspectives.budgets.configureAlerts.exceeds': string
   'ce.perspectives.budgets.configureAlerts.forecasted': string
   'ce.perspectives.budgets.configureAlerts.percent': string
