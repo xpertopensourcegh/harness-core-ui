@@ -7,13 +7,8 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly defaultNode: string
-  readonly icon: string
-  readonly marker: string
-  readonly markerEndNode: string
-  readonly markerStartNode: string
-  readonly nodeStart: string
-  readonly stageNode: string
-  readonly stepNode: string
+  readonly runningAnimation: string
+  readonly stepCount: string
+  readonly stepCountWrapper: string
 }
 export default styles
