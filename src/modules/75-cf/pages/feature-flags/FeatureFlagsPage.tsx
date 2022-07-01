@@ -648,7 +648,14 @@ const FeatureFlagsPage: React.FC = () => {
     >
       <Container padding={{ top: 'medium', right: 'xlarge', left: 'xlarge' }}>
         {FILTER_FEATURE_FLAGS && hasFeatureFlags && (
-          <FlagTableFilters features={features} currentFilter={flagFilter} updateTableFilter={setFlagFilter} />
+          <FlagTableFilters
+            features={features}
+            currentFilter={flagFilter}
+            updateTableFilter={currentFilter => {
+              setPageNumber(0)
+              setFlagFilter(currentFilter)
+            }}
+          />
         )}
         {!emptyFeatureFlags ? (
           <TableV2<Feature>
