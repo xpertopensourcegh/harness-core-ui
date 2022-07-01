@@ -36,7 +36,7 @@ const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
       inline
       icon={isSuccess ? 'full-circle' : 'warning-sign'}
       iconProps={{
-        size: props.iconSize || isSuccess ? 6 : 12,
+        size: props.iconSize || (isSuccess ? 6 : 12),
         color: props.indicatorColor ? props.indicatorColor : isSuccess ? Color.GREEN_500 : Color.RED_500
       }}
       tooltip={
