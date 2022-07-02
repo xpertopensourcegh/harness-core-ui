@@ -5982,10 +5982,12 @@ export interface LandingDashboardRequestCD {
 }
 
 export interface LastWorkloadInfo {
+  authorInfo?: AuthorInfo
   deploymentType?: string
   endTime?: number
   startTime?: number
   status?: string
+  triggerType?: string
 }
 
 export interface LdapConnectionSettings {
@@ -7390,6 +7392,11 @@ export type PrometheusConnectorDTO = ConnectorConfigDTO & {
   passwordRef?: string
   url: string
   username?: string
+}
+
+export type QueueStepInfo = StepSpecType & {
+  key: string
+  scope: 'Pipeline' | 'Stage'
 }
 
 export interface RateLimitProtection {
