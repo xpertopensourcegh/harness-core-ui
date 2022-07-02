@@ -1693,12 +1693,17 @@ export interface StringsMap {
   'connectors.cdng.runTimeMonitoredService.toFetchMonitoredService': string
   'connectors.cdng.selectTheJobNameFirst': string
   'connectors.cdng.trafficsplit': string
+  'connectors.cdng.validations.applicationNameValidation': string
+  'connectors.cdng.validations.completeMetricPathValidation': string
   'connectors.cdng.validations.deploymentTagRequired': string
   'connectors.cdng.validations.durationRequired': string
   'connectors.cdng.validations.healthSourceRequired': string
   'connectors.cdng.validations.jobNameRequired': string
   'connectors.cdng.validations.monitoringServiceRequired': string
   'connectors.cdng.validations.sensitivityRequired': string
+  'connectors.cdng.validations.serviceInstanceFieldNameValidation': string
+  'connectors.cdng.validations.serviceInstanceMetricPathValidation': string
+  'connectors.cdng.validations.tierNameValidation': string
   'connectors.cdng.validations.timeoutValidation': string
   'connectors.cdng.validations.verificationTypeRequired': string
   'connectors.cdng.verificationSensitivityLabel.high': string
