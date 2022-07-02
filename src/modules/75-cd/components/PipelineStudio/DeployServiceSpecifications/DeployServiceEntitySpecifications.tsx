@@ -210,17 +210,18 @@ export default function DeployServiceEntitySpecifications({
   const updateService = useCallback(
     async (value: ServiceConfig) => {
       const stageData = produce(stage, draft => {
-        const serviceObj = get(draft, 'stage.spec.service', {})
-        if (value.service) {
-          serviceObj.service = value.service
-          delete serviceObj.serviceRef
-        } else {
-          serviceObj.serviceRef = value.serviceRef
-          delete serviceObj.service
-          if (getMultiTypeFromValue(value.serviceRef) === MultiTypeInputType.EXPRESSION) {
-            delete serviceObj.serviceInputs
-          } else if (getMultiTypeFromValue(value.serviceRef) === MultiTypeInputType.RUNTIME) {
-            serviceObj.serviceInputs = RUNTIME_INPUT_VALUE
+        if (draft) {
+          if (value.service) {
+            set(draft, 'stage.spec.service.service', value.service)
+            unset(draft, 'stage.spec.service.serviceRef')
+          } else {
+            set(draft, 'stage.spec.service.serviceRef', value.serviceRef)
+            unset(draft, 'stage.spec.service.service')
+            if (getMultiTypeFromValue(value.serviceRef) === MultiTypeInputType.EXPRESSION) {
+              unset(draft, 'stage.spec.service.serviceInputs')
+            } else if (getMultiTypeFromValue(value.serviceRef) === MultiTypeInputType.RUNTIME) {
+              set(draft, 'stage.spec.service.serviceInputs', RUNTIME_INPUT_VALUE)
+            }
           }
         }
       })
