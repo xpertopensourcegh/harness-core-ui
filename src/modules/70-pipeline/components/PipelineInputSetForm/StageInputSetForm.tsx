@@ -841,7 +841,8 @@ export function StageInputSetFormInternal({
                 customStepProps={{
                   stageIdentifier,
                   isNewServiceEntity: true,
-                  deploymentType: (deploymentStage as unknown as DeployStageConfig)?.deploymentType
+                  deploymentType: (deploymentStage as unknown as DeployStageConfig)?.deploymentType,
+                  gitOpsEnabled: (deploymentStage as unknown as DeployStageConfig)?.gitOpsEnabled
                 }}
               />
             )}

@@ -18,6 +18,7 @@ import {
 } from '@harness/uicore'
 import { defaultTo, get, isEmpty } from 'lodash-es'
 import type { FormikContextType, FormikValues } from 'formik'
+import { connect } from 'formik'
 import { useModalHook } from '@harness/use-modal'
 import type { IDialogProps } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -82,7 +83,8 @@ function DeployServiceEntityInputStep({
   } = useGetServiceAccessList({
     queryParams: {
       ...queryParams,
-      type: customStepProps?.deploymentType as ServiceDefinition['type']
+      type: customStepProps?.deploymentType as ServiceDefinition['type'],
+      gitOpsEnabled: defaultTo(customStepProps?.gitOpsEnabled, false)
     }
   })
 
@@ -184,7 +186,7 @@ function DeployServiceEntityInputStep({
         />
       </Dialog>
     ),
-    [selectedServiceResponse]
+    [selectedServiceResponse, serviceDataLoading]
   )
   const onClose = useCallback(() => {
     hideModal()
@@ -267,4 +269,4 @@ function DeployServiceEntityInputStep({
   )
 }
 
-export default DeployServiceEntityInputStep
+export const DeployServiceEntityInputStepFormik = connect(DeployServiceEntityInputStep)

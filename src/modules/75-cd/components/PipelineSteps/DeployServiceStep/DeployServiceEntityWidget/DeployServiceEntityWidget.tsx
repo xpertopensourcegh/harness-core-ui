@@ -1,11 +1,11 @@
 /*
- * Copyright 2021 Harness Inc. All rights reserved.
+ * Copyright 2022 Harness Inc. All rights reserved.
  * Use of this source code is governed by the PolyForm Shield 1.0.0 license
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
   ButtonSize,
   ButtonVariation,
@@ -25,7 +25,8 @@ import { defaultTo, isEmpty, isNil, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikProps, FormikValues } from 'formik'
 import type { IDialogProps } from '@blueprintjs/core'
-import { ServiceRequestDTO, ServiceYaml, useGetServiceList } from 'services/cd-ng'
+import produce from 'immer'
+import { ServiceDefinition, ServiceResponseDTO, ServiceYaml, useGetServiceList, useGetServiceV2 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
@@ -37,12 +38,13 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { getServiceRefSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 import RbacButton from '@rbac/components/Button/Button'
-import type { DeployServiceData, DeployServiceProps, DeployServiceState } from './DeployServiceInterface'
-import { flexStart, isEditService } from './DeployServiceUtils'
-import { NewEditServiceModal } from './NewEditServiceModal'
-import css from './DeployServiceStep.module.scss'
+import ServiceEntityEditModal from '@cd/components/Services/ServiceEntityEditModal/ServiceEntityEditModal'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import type { DeployServiceData, DeployServiceProps, DeployServiceState } from '../DeployServiceInterface'
+import { flexStart, isEditService } from '../DeployServiceUtils'
+import css from '../DeployServiceStep.module.scss'
 
-function DeployServiceWidget({
+function DeployServiceEntityWidget({
   initialValues,
   onUpdate,
   readonly,
@@ -50,6 +52,12 @@ function DeployServiceWidget({
   serviceLabel
 }: DeployServiceProps): React.ReactElement {
   const { getString } = useStrings()
+  const {
+    state: {
+      pipeline,
+      selectionState: { selectedStageId }
+    }
+  } = usePipelineContext()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -59,6 +67,14 @@ function DeployServiceWidget({
       accountId: string
     }>
   >()
+  const queryParams = useMemo(
+    () => ({
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }),
+    [accountId, orgIdentifier, projectIdentifier]
+  )
   const { showError } = useToaster()
   const { getRBACErrorMessage } = useRBACError()
   const { expressions } = useVariablesExpression()
@@ -78,10 +94,20 @@ function DeployServiceWidget({
     loading
   } = useGetServiceList({
     queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
+      ...queryParams,
+      type: initialValues.deploymentType as ServiceDefinition['type'],
+      gitOpsEnabled: initialValues.gitOpsEnabled
     }
+  })
+
+  const {
+    data: selectedServiceResponse,
+    refetch: refetchServiceData,
+    loading: serviceDataLoading
+  } = useGetServiceV2({
+    serviceIdentifier: '',
+    queryParams,
+    lazy: true
   })
 
   useEffect(() => {
@@ -153,24 +179,21 @@ function DeployServiceWidget({
     }
   }
 
-  const updateServicesList = (value: ServiceRequestDTO): void => {
-    formikRef.current?.setValues({ serviceRef: value.identifier, ...(state.isService && { service: {} }) })
-    if (!isNil(services)) {
-      const newService = {
-        identifier: defaultTo(value.identifier, ''),
-        name: defaultTo(value.name, ''),
-        description: value.description,
-        tags: value.tags
-      }
-      const newServicesList = [...services]
-      const existingIndex = newServicesList.findIndex(item => item.identifier === value.identifier)
-      if (existingIndex >= 0) {
-        newServicesList.splice(existingIndex, 1, newService)
+  const onServiceEntityCreateorUpdate = (newServiceInfo: ServiceYaml): void => {
+    hideModal()
+    formikRef.current?.setValues({ serviceRef: newServiceInfo.identifier, ...(state.isService && { service: {} }) })
+    const newServiceData = produce(services, draft => {
+      const existingServiceIndex = draft?.findIndex(item => item.identifier === newServiceInfo.identifier) as number
+      if (existingServiceIndex >= 0) {
+        draft?.splice(existingServiceIndex, 1, newServiceInfo)
       } else {
-        newServicesList.unshift(newService)
+        draft?.unshift({
+          identifier: newServiceInfo.identifier,
+          name: newServiceInfo.name
+        })
       }
-      setService(newServicesList)
-    }
+    })
+    setService(newServiceData)
   }
 
   const onServiceChange = (
@@ -184,7 +207,14 @@ function DeployServiceWidget({
     }
   }
 
-  const editService = (values: FormikValues): void => {
+  const editService = async (values: FormikValues): Promise<void> => {
+    await refetchServiceData({
+      pathParams: {
+        serviceIdentifier: values.serviceRef
+      },
+      queryParams
+    })
+
     if (values.service?.identifier) {
       setState({
         isEdit: true,
@@ -207,8 +237,21 @@ function DeployServiceWidget({
     autoFocus: true,
     canEscapeKeyClose: false,
     canOutsideClickClose: false,
-    enforceFocus: false
+    enforceFocus: false,
+    className: css.editServiceDialog,
+    style: { width: 1114 }
   }
+  const serviceEntityProps = state.isEdit
+    ? {
+        serviceResponse: selectedServiceResponse?.data?.service as ServiceResponseDTO,
+        isLoading: serviceDataLoading,
+        serviceCacheKey: `${pipeline.identifier}-${selectedStageId}-service`
+      }
+    : {
+        selectedDeploymentType: initialValues.deploymentType,
+        //DeployStageConfig type is temporarily added until pipeline DTO for new entity gets merged
+        gitOpsEnabled: initialValues.gitOpsEnabled
+      }
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -216,25 +259,15 @@ function DeployServiceWidget({
         title={state.isEdit ? getString('editService') : getString('newService')}
         {...DIALOG_PROPS}
       >
-        <NewEditServiceModal
-          data={{
-            name: defaultTo(state.data?.name, ''),
-            identifier: defaultTo(state.data?.identifier, ''),
-            orgIdentifier,
-            projectIdentifier,
-            ...state.data
-          }}
-          isEdit={state.isEdit}
-          isService={state.isService}
-          onCreateOrUpdate={value => {
-            updateServicesList(value)
-            onClose.call(null)
-          }}
-          closeModal={onClose}
+        <ServiceEntityEditModal
+          {...serviceEntityProps}
+          onCloseModal={hideModal}
+          onServiceCreate={onServiceEntityCreateorUpdate}
+          isServiceCreateModalView={!state.isEdit}
         />
       </Dialog>
     ),
-    [state]
+    [state, selectedServiceResponse, serviceDataLoading]
   )
 
   const onClose = React.useCallback(() => {
@@ -346,4 +379,4 @@ function DeployServiceWidget({
     </>
   )
 }
-export default DeployServiceWidget
+export default DeployServiceEntityWidget
