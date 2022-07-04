@@ -152,6 +152,8 @@ serviceDashboard:
   6monthTrend: 6 month trend
   instanceCountHistory: Instance Count History
   instanceDetails: Instance Details
+  instancesDetails: Instances Details
+  moreDetails: More Details >
   pod: pod
   function: function
   deployedAt: Deployed At
