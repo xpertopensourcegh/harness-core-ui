@@ -6575,7 +6575,7 @@ export interface StringsMap {
   'stoSteps.Info': string
   'stoSteps.Unassigned': string
   'stoSteps.continuous': string
-  'stoSteps.exceptions': string
+  'stoSteps.exemptions': string
   'stoSteps.failedToGetIssueCounts': string
   'stoSteps.issues': string
   'stoSteps.noScansRunPipelineText': string
