@@ -12,7 +12,7 @@ import { FontVariation, Color } from '@harness/design-system'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
-import { get, set } from 'lodash-es'
+import { get, isEmpty, set } from 'lodash-es'
 
 import type { IconProps } from '@harness/icons'
 import produce from 'immer'
@@ -689,6 +689,10 @@ function ManifestListView({
                   getConnectorPath(manifest?.spec?.store?.type, manifest),
                   connectors
                 )
+                const manifestLocation = get(
+                  manifest?.spec,
+                  getManifestLocation(manifest?.type as ManifestTypes, manifest?.spec?.store?.type)
+                )
 
                 return (
                   <div className={css.rowItem} key={`${manifest?.identifier}-${index}`}>
@@ -707,25 +711,11 @@ function ManifestListView({
                         color
                       )}
 
-                      {!!get(
-                        manifest?.spec,
-                        getManifestLocation(manifest?.type as ManifestTypes, manifest?.spec?.store?.type)
-                      )?.length && (
+                      {!isEmpty(manifestLocation) && (
                         <span>
                           <Text lineClamp={1} width={200}>
                             <span className={css.noWrap}>
-                              {typeof get(
-                                manifest?.spec,
-                                getManifestLocation(manifest?.type as ManifestTypes, manifest?.spec?.store?.type)
-                              ) === 'string'
-                                ? get(
-                                    manifest?.spec,
-                                    getManifestLocation(manifest?.type as ManifestTypes, manifest?.spec?.store?.type)
-                                  )
-                                : get(
-                                    manifest?.spec,
-                                    getManifestLocation(manifest?.type as ManifestTypes, manifest?.spec?.store?.type)
-                                  ).join(', ')}
+                              {typeof manifestLocation === 'string' ? manifestLocation : manifestLocation.join(', ')}
                             </span>
                           </Text>
                         </span>
