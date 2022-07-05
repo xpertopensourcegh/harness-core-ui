@@ -1190,6 +1190,8 @@ export interface StringsMap {
   'delegates.delegateCreation.dockerPrerequisites.sysReq': string
   'delegates.delegateCreation.dockerPrerequisites.title': string
   'delegates.delegateCreation.downloadScript': string
+  'delegates.delegateCreation.installerSelectionRequired': string
+  'delegates.delegateCreation.installerText': string
   'delegates.delegateDeleted': string
   'delegates.delegateIdentifier': string
   'delegates.delegateInstances': string
