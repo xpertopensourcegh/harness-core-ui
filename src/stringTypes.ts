@@ -2870,7 +2870,9 @@ export interface StringsMap {
   'pipeline.depth': string
   'pipeline.discard': string
   'pipeline.duration': string
+  'pipeline.enableVerificationHelpText': string
   'pipeline.enableVerificationOptions': string
+  'pipeline.enableVerificationTitle': string
   'pipeline.errorFramework.fixErrors': string
   'pipeline.errorFramework.fixStage': string
   'pipeline.errorFramework.fixStep': string
