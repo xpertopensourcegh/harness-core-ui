@@ -1140,33 +1140,6 @@ export interface StringsMap {
   'rbac.youAreNotAuthorizedTo': string
   'governance.permissions.governancePolicies': string
   'governance.permissions.governancePolicySets': string
-  'filestore.cantDeleteFile': string
-  'filestore.confirmDeleteFile': string
-  'filestore.deletedSuccessMessage': string
-  'filestore.editFileDetails': string
-  'filestore.editFolderDetails': string
-  'filestore.errors.cannotRender': string
-  'filestore.errors.deleted': string
-  'filestore.errors.fileUsage': string
-  'filestore.fileReferenceText': string
-  'filestore.fileSuccessCreated': string
-  'filestore.fileSuccessSaved': string
-  'filestore.filter.fileUsagePlaceholder': string
-  'filestore.folderSuccessCreated': string
-  'filestore.folderSuccessSaved': string
-  'filestore.newFile': string
-  'filestore.newFolder': string
-  'filestore.noFilesDescription': string
-  'filestore.noFilesInFolderTitle': string
-  'filestore.noFilesInStore': string
-  'filestore.noFilesTitle': string
-  'filestore.referenceButtonText': string
-  'filestore.uploadFileFolder': string
-  'filestore.view.fileName': string
-  'filestore.view.fileUsage': string
-  'filestore.view.lastModifiedBy': string
-  'filestore.view.noPreview': string
-  'filestore.view.replaceFile': string
   'delegates.GBRam': string
   'delegates.configNameRequired': string
   'delegates.createDelegate': string
@@ -1375,6 +1348,34 @@ export interface StringsMap {
   'secrets.titleCreate': string
   'secrets.titleSelect': string
   'secrets.typeSSH': string
+  'filestore.cantDeleteFile': string
+  'filestore.confirmDeleteFile': string
+  'filestore.deletedSuccessMessage': string
+  'filestore.editFileDetails': string
+  'filestore.editFolderDetails': string
+  'filestore.errors.cannotRender': string
+  'filestore.errors.deleted': string
+  'filestore.errors.fileUsage': string
+  'filestore.fileReferenceText': string
+  'filestore.fileSuccessCreated': string
+  'filestore.fileSuccessSaved': string
+  'filestore.filter.fileUsagePlaceholder': string
+  'filestore.folderSuccessCreated': string
+  'filestore.folderSuccessSaved': string
+  'filestore.newFile': string
+  'filestore.newFolder': string
+  'filestore.noFilesDescription': string
+  'filestore.noFilesInFolderTitle': string
+  'filestore.noFilesInStore': string
+  'filestore.noFilesTitle': string
+  'filestore.referenceButtonText': string
+  'filestore.searchResult': string
+  'filestore.uploadFileFolder': string
+  'filestore.view.fileName': string
+  'filestore.view.fileUsage': string
+  'filestore.view.lastModifiedBy': string
+  'filestore.view.noPreview': string
+  'filestore.view.replaceFile': string
   'variables.allowedValues': string
   'variables.confirmDelete': string
   'variables.confirmDeleteTitle': string
