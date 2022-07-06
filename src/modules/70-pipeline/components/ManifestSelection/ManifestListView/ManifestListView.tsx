@@ -714,9 +714,7 @@ function ManifestListView({
                       {!isEmpty(manifestLocation) && (
                         <span>
                           <Text lineClamp={1} width={200}>
-                            <span className={css.noWrap}>
-                              {typeof manifestLocation === 'string' ? manifestLocation : manifestLocation.join(', ')}
-                            </span>
+                            {typeof manifestLocation === 'string' ? manifestLocation : manifestLocation.join(', ')}
                           </Text>
                         </span>
                       )}
