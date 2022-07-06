@@ -2798,6 +2798,7 @@ export interface StringsMap {
   'pipeline.clone': string
   'pipeline.cloneSuccess': string
   'pipeline.closeStepConfig': string
+  'pipeline.codeSource': string
   'pipeline.collapseIsDisabledWhileStageIsRunning': string
   'pipeline.commonApprovalStep.execution.allConditionsMsg': string
   'pipeline.commonApprovalStep.execution.anyConditionsMsg': string
@@ -3147,6 +3148,8 @@ export interface StringsMap {
   'pipeline.jiraUpdateStep.validations.status': string
   'pipeline.keyPlaceholder': string
   'pipeline.kubernetesStep.workload': string
+  'pipeline.lastExecution': string
+  'pipeline.lastModified': string
   'pipeline.lastSevenDays': string
   'pipeline.linuxOnly': string
   'pipeline.logs.errorText': string
@@ -3316,6 +3319,7 @@ export interface StringsMap {
   'pipeline.queueStep.scopePlaceholder': string
   'pipeline.queueStep.scopeRequired': string
   'pipeline.recentExecutionText': string
+  'pipeline.recentTenExecutions': string
   'pipeline.reconcileDialog.originalYamlLabel': string
   'pipeline.reconcileDialog.refreshedYamlLabel': string
   'pipeline.reconcileDialog.subtitle': string
@@ -3633,6 +3637,7 @@ export interface StringsMap {
   'pipeline.verification.waitForAnalysis': string
   'pipeline.verificationResult': string
   'pipeline.viewLatestExecution': string
+  'pipeline.viewPipeline': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.alwaysUseStableVersion': string
   'templatesLibrary.changeTemplate': string

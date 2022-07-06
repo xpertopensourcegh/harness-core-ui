@@ -1158,3 +1158,8 @@ importSuccessMessage: '{{resourceType}} has been imported successfully'
 MatrixNode:
   maxConcurrency: 'Max Concurrency:'
 traffic: Traffic
+viewPipeline: View Pipeline
+codeSource: 'Code Source'
+recentTenExecutions: 'Recent 10 Executions'
+lastExecution: 'Last Execution'
+lastModified: 'Last Modified'
