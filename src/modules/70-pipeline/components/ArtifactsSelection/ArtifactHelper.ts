@@ -26,6 +26,15 @@ export const isAllowedArtifactDeploymentTypes = (deploymentType: ServiceDefiniti
   return deploymentType === ServiceDeploymentType.Kubernetes || deploymentType === ServiceDeploymentType.NativeHelm
 }
 
+export const isAdditionAllowed = (deploymentType: ServiceDefinition['type'], isReadOnly: boolean): boolean => {
+  return (
+    !isReadOnly &&
+    (deploymentType === ServiceDeploymentType.Kubernetes ||
+      deploymentType === ServiceDeploymentType.NativeHelm ||
+      deploymentType === ServiceDeploymentType.ServerlessAwsLambda)
+  )
+}
+
 export const ArtifactIconByType: Record<ArtifactType, IconName> = {
   DockerRegistry: 'service-dockerhub',
   Gcr: 'service-gcp',

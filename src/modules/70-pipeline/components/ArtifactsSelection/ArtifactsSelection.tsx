@@ -82,7 +82,8 @@ import {
   ArtifactTitleIdByType,
   allowedArtifactTypes,
   ModalViewFor,
-  isAllowedArtifactDeploymentTypes
+  isAllowedArtifactDeploymentTypes,
+  isAdditionAllowed
 } from './ArtifactHelper'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import NexusArtifact from './ArtifactRepository/ArtifactLastSteps/NexusArtifact/NexusArtifact'
@@ -669,6 +670,7 @@ export default function ArtifactsSelection({
       accountId={accountId}
       refetchConnectors={refetchConnectorList}
       isReadonly={readonly}
+      isAdditionAllowed={isAdditionAllowed(deploymentType, readonly)}
     />
   )
 }
