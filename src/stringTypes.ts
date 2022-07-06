@@ -3831,6 +3831,7 @@ export interface StringsMap {
   'cd.artifactRepoTooltip': string
   'cd.artifactVersion': string
   'cd.azureWebAppRollbackDescription': string
+  'cd.azureWebAppSwapSlotDescription': string
   'cd.backEndConfig': string
   'cd.cdLaunchText': string
   'cd.cdSwitchToFirstGen.description1': string
