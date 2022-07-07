@@ -6604,6 +6604,7 @@ export interface StringsMap {
   'stoSteps.noSecurityIssues': string
   'stoSteps.noSecurityTests': string
   'stoSteps.scans': string
+  'stoSteps.securityReview': string
   'stoSteps.securityStage.description': string
   'stoSteps.stepDescription.ZeroNorth': string
   'stoSteps.targets.testTargets': string

@@ -147,6 +147,16 @@ export default (
       <ChildAppMounter ChildApp={STOApp} />
     </RouteWithLayout>
 
+    <RouteWithLayout
+      sidebarProps={STOSideNavProps}
+      path={[
+        routes.toSTOSecurityReview({ ...accountPathProps }),
+        routes.toSTOProjectSecurityReview({ ...accountPathProps, ...projectPathProps })
+      ]}
+    >
+      <ChildAppMounter ChildApp={STOApp} />
+    </RouteWithLayout>
+
     <Route path="/account/:accountId/:module(sto)">
       <PipelineRouteDestinations
         pipelineStudioComponent={CIPipelineStudio}
