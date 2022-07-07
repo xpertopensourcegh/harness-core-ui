@@ -6150,7 +6150,9 @@ export interface StringsMap {
   'cv.monitoringSources.appD.appdMetricDetail': string
   'cv.monitoringSources.appD.appdPathDetail': string
   'cv.monitoringSources.appD.appdPathTitle': string
+  'cv.monitoringSources.appD.applicationName': string
   'cv.monitoringSources.appD.basePathPlaceholder': string
+  'cv.monitoringSources.appD.completeMetricPath': string
   'cv.monitoringSources.appD.connectToMonitoringSource': string
   'cv.monitoringSources.appD.createConnectorText': string
   'cv.monitoringSources.appD.defaultAppDMetricName': string
@@ -6183,6 +6185,9 @@ export interface StringsMap {
   'cv.monitoringSources.appD.searchPlaceholderApplications': string
   'cv.monitoringSources.appD.searchTiersPlaceHolder': string
   'cv.monitoringSources.appD.selectProduct': string
+  'cv.monitoringSources.appD.serviceInstanceFieldName': string
+  'cv.monitoringSources.appD.serviceInstanceMetricPath': string
+  'cv.monitoringSources.appD.tierName': string
   'cv.monitoringSources.appD.tiersMappedToServices': string
   'cv.monitoringSources.appD.validation': string
   'cv.monitoringSources.appD.validationMsg': string
