@@ -22,7 +22,7 @@ import { useParams } from 'react-router-dom'
 import { FontVariation } from '@harness/design-system'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { get } from 'lodash-es'
+import { defaultTo, get } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
@@ -71,16 +71,16 @@ function CustomRemoteManifest({
 
   const getInitialValues = (): CustomManifestManifestDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
-
+    const valuesPaths = get(initialValues, 'spec.valuesPaths')
     if (specValues) {
       return {
         ...specValues,
         identifier: initialValues.identifier,
-        skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
+        skipResourceVersioning: get(initialValues, 'spec.skipResourceVersioning'),
         valuesPaths:
-          typeof initialValues?.spec?.valuesPaths === 'string'
-            ? initialValues?.spec?.valuesPaths
-            : initialValues?.spec?.valuesPaths?.map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
+          typeof valuesPaths === 'string'
+            ? valuesPaths
+            : defaultTo(valuesPaths, []).map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
       }
     }
     return {
@@ -96,29 +96,34 @@ function CustomRemoteManifest({
   const submitFormData = (
     formData: CustomManifestManifestDataType & { store?: string; connectorRef?: string }
   ): void => {
-    const manifestObj: ManifestConfigWrapper = {
-      manifest: {
-        identifier: formData.identifier,
-        type: selectedManifest as ManifestTypes,
-        spec: {
-          store: {
-            type: formData?.store,
-            spec: {
-              filePath: formData?.filePath,
-              extractionScript: formData?.extractionScript,
-              delegateSelectors: formData?.delegateSelectors
-            }
-          },
-          valuesPaths:
-            typeof formData?.valuesPaths === 'string'
-              ? formData?.valuesPaths
-              : formData?.valuesPaths?.map((path: { path: string }) => path.path),
-          skipResourceVersioning: formData?.skipResourceVersioning
+    /* istanbul ignore else */
+    if (formData) {
+      const manifestObj: ManifestConfigWrapper = {
+        manifest: {
+          identifier: formData.identifier,
+          type: selectedManifest as ManifestTypes,
+          spec: {
+            store: {
+              type: formData.store,
+              spec: {
+                filePath: formData.filePath,
+                extractionScript: formData.extractionScript,
+                delegateSelectors: formData.delegateSelectors
+              }
+            },
+            valuesPaths:
+              typeof formData.valuesPaths === 'string'
+                ? formData.valuesPaths
+                : defaultTo(formData.valuesPaths as Array<{ path: string }>, []).map(
+                    (path: { path: string }) => path.path
+                  ),
+            skipResourceVersioning: formData.skipResourceVersioning
+          }
         }
       }
-    }
 
-    handleSubmit(manifestObj)
+      handleSubmit(manifestObj)
+    }
   }
 
   return (
@@ -131,7 +136,7 @@ function CustomRemoteManifest({
         initialValues={getInitialValues()}
         formName="manifestDetails"
         validationSchema={Yup.object().shape({
-          ...ManifestIdentifierValidation(manifestIdsList, initialValues?.identifier, getString('pipeline.uniqueName')),
+          ...ManifestIdentifierValidation(manifestIdsList, initialValues.identifier, getString('pipeline.uniqueName')),
           paths: Yup.lazy((value): Yup.Schema<unknown> => {
             if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
               return Yup.array().of(
@@ -173,6 +178,7 @@ function CustomRemoteManifest({
                       style={{ width: 450 }}
                       skipRenderValueInExpressionLabel
                       expressionRender={() => (
+                        /* istanbul ignore next */
                         <MonacoTextField
                           name={'extractionScript'}
                           expressions={expressions}
@@ -199,15 +205,15 @@ function CustomRemoteManifest({
                       name="filePath"
                     />
 
-                    {getMultiTypeFromValue(formik.values?.filePath) === MultiTypeInputType.RUNTIME && (
+                    {getMultiTypeFromValue(get(formik, 'values.filePath')) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        value={formik.values?.filePath as string}
+                        value={get(formik, 'values.filePath') as string}
                         type="String"
                         variableName="filePath"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
-                        onChange={value => formik.setFieldValue('filePath', value)}
+                        onChange={/* istanbul ignore next */ value => formik.setFieldValue('filePath', value)}
                         isReadonly={isReadonly}
                       />
                     )}
@@ -236,7 +242,7 @@ function CustomRemoteManifest({
                   )}
 
                   <Accordion
-                    activeId={initialValues?.spec?.skipResourceVersioning ? getString('advancedTitle') : ''}
+                    activeId={get(initialValues, 'spec.skipResourceVersioning') ? getString('advancedTitle') : ''}
                     className={css.advancedStepOpen}
                   >
                     <Accordion.Panel
@@ -255,10 +261,10 @@ function CustomRemoteManifest({
                             multiTypeTextbox={{ expressions, allowableTypes }}
                             className={css.checkbox}
                           />
-                          {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
+                          {getMultiTypeFromValue(get(formik, 'values.skipResourceVersioning')) ===
                             MultiTypeInputType.RUNTIME && (
                             <ConfigureOptions
-                              value={(formik.values?.skipResourceVersioning || '') as string}
+                              value={get(formik, 'values.skipResourceVersioning', '') as string}
                               type="String"
                               variableName="skipResourceVersioning"
                               showRequiredField={false}

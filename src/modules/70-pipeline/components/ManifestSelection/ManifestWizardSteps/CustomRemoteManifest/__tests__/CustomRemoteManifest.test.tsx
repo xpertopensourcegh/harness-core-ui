@@ -58,7 +58,7 @@ describe('Custom remote tests', () => {
   test('initial rendering', () => {
     const { container } = render(
       <TestWrapper>
-        <CustomRemoteManifest {...props} initialValues={initialValues} />
+        <CustomRemoteManifest {...props} initialValues={{} as any} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -74,8 +74,7 @@ describe('Custom remote tests', () => {
         filePath: RUNTIME_INPUT_VALUE,
         extractionScript: RUNTIME_INPUT_VALUE,
         valuesPaths: ['test'],
-        delegateSelectors: ['test'],
-        skipResourceVersioning: false
+        delegateSelectors: ['test']
       },
       prevStepData: {
         store: 'CustomRemote'
@@ -96,7 +95,7 @@ describe('Custom remote tests', () => {
     const prevStepData = {
       store: 'CustomRemote'
     }
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper>
         <CustomRemoteManifest {...props} prevStepData={prevStepData} initialValues={initialValues} />
       </TestWrapper>
@@ -109,6 +108,12 @@ describe('Custom remote tests', () => {
       fireEvent.change(queryByNameAttribute('extractionScript')!, { target: { value: 'script' } })
       fireEvent.change(queryByNameAttribute('valuesPaths[0].path')!, { target: { value: 'test-path' } })
     })
+
+    userEvent.click(getByText('advancedTitle'))
+    const skipResourceVersioningCheckbox = queryByNameAttribute('skipResourceVersioning')
+    expect(skipResourceVersioningCheckbox).toBeTruthy()
+    userEvent.click(skipResourceVersioningCheckbox!)
+
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledTimes(1)
@@ -117,7 +122,7 @@ describe('Custom remote tests', () => {
           identifier: 'testidentifier',
           type: 'K8sManifest',
           spec: {
-            skipResourceVersioning: false,
+            skipResourceVersioning: true,
             valuesPaths: ['test-path'],
             store: {
               spec: {

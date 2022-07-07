@@ -73,7 +73,7 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
     projectIdentifier,
     connectorRef: getFinalQueryParamData(
       getDefaultQueryParam(
-        manifest?.spec.store?.spec.connectorRef,
+        manifest?.spec?.store?.spec.connectorRef,
         get(initialValues, `${manifestPath}.spec.store.spec.connectorRef`, '')
       )
     ),
@@ -90,7 +90,7 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
       ...commonQueryParam,
       region: getFinalQueryParamData(
         getDefaultQueryParam(
-          manifest?.spec.store?.spec.region,
+          manifest?.spec?.store?.spec.region,
           get(initialValues, `${manifestPath}.spec.store.spec.region`, '')
         )
       )
@@ -153,11 +153,11 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
               if (
                 !s3BucketList?.data &&
                 getDefaultQueryParam(
-                  manifest?.spec.store.spec.connectorRef,
+                  manifest?.spec?.spec.connectorRef,
                   get(initialValues, `${manifestPath}.spec.store.spec.connectorRef`, '')
                 ) &&
                 getDefaultQueryParam(
-                  manifest?.spec.store?.spec.region,
+                  manifest?.spec?.store?.spec.region,
                   get(initialValues, `${manifestPath}.spec.store.spec.region`, '')
                 )
               ) {
@@ -193,7 +193,7 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
               if (
                 !gcsBucketData?.data &&
                 getDefaultQueryParam(
-                  manifest?.spec.store.spec.connectorRef,
+                  manifest?.spec?.store.spec.connectorRef,
                   get(initialValues, `${manifestPath}.spec.store.spec.connectorRef`, '')
                 )
               ) {
@@ -269,7 +269,7 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            type={ManifestToConnectorMap[defaultTo(manifest?.spec.store?.type, '')]}
+            type={ManifestToConnectorMap[defaultTo(manifest?.spec?.store?.type, '')]}
             onChange={(selected, _itemType, multiType) => {
               const item = selected as unknown as { record?: GitConfigDTO; scope: Scope }
               if (multiType === MultiTypeInputType.FIXED) {
