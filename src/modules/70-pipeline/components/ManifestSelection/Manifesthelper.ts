@@ -16,6 +16,7 @@ import { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import type {
   HelmVersionOptions,
   ManifestStores,
+  ManifestStoreTypeWithoutConnector,
   ManifestStoreWithoutConnector,
   ManifestTypes,
   PrimaryManifestType
@@ -91,7 +92,8 @@ export const ManifestStoreMap: { [key: string]: ManifestStores } = {
   Gcs: 'Gcs',
   InheritFromManifest: 'InheritFromManifest',
   Inline: 'Inline',
-  Harness: 'Harness'
+  Harness: 'Harness',
+  CustomRemote: 'CustomRemote'
 }
 
 export const allowedManifestTypes: Record<string, Array<ManifestTypes>> = {
@@ -119,7 +121,7 @@ export const manifestStoreTypes: Array<ManifestStores> = [
   // ManifestStoreMap.Harness
 ]
 export const ManifestTypetoStoreMap: Record<ManifestTypes, ManifestStores[]> = {
-  K8sManifest: manifestStoreTypes,
+  K8sManifest: [...manifestStoreTypes],
   Values: [...manifestStoreTypes, ManifestStoreMap.InheritFromManifest],
   HelmChart: [
     ...manifestStoreTypes,
@@ -129,7 +131,7 @@ export const ManifestTypetoStoreMap: Record<ManifestTypes, ManifestStores[]> = {
     ManifestStoreMap.Gcs
   ],
   Kustomize: manifestStoreTypes,
-  OpenshiftTemplate: manifestStoreTypes,
+  OpenshiftTemplate: [...manifestStoreTypes],
   OpenshiftParam: [...manifestStoreTypes, ManifestStoreMap.InheritFromManifest],
   KustomizePatches: [...manifestStoreTypes, ManifestStoreMap.InheritFromManifest],
   ServerlessAwsLambda: manifestStoreTypes
@@ -173,7 +175,8 @@ export const ManifestIconByType: Record<ManifestStores, IconName> = {
   Gcs: 'gcs-step',
   InheritFromManifest: 'custom-artifact',
   Inline: 'custom-artifact',
-  Harness: 'harness'
+  Harness: 'harness',
+  CustomRemote: 'custom-remote-manifest'
 }
 
 export const ManifestStoreTitle: Record<ManifestStores, StringKeys> = {
@@ -187,7 +190,8 @@ export const ManifestStoreTitle: Record<ManifestStores, StringKeys> = {
   Gcs: 'connectors.GCS.fullName',
   InheritFromManifest: 'pipeline.manifestType.InheritFromManifest',
   Inline: 'inline',
-  Harness: 'harness'
+  Harness: 'harness',
+  CustomRemote: 'pipeline.manifestType.customRemote'
 }
 
 export const ManifestToConnectorMap: Record<ManifestStores | string, ConnectorInfoDTO['type']> = {
@@ -202,7 +206,7 @@ export const ManifestToConnectorMap: Record<ManifestStores | string, ConnectorIn
 }
 
 export const ManifestToConnectorLabelMap: Record<
-  Exclude<ManifestStores, 'InheritFromManifest' | 'Harness' | 'Inline'>,
+  Exclude<ManifestStores, ManifestStoreTypeWithoutConnector>,
   StringKeys
 > = {
   Git: 'pipeline.manifestType.gitConnectorLabel',
@@ -246,18 +250,24 @@ export const ManifestIdentifierValidation = (
 }
 
 export const doesStorehasConnector = (selectedStore: ManifestStoreWithoutConnector): boolean => {
-  return [ManifestStoreMap.InheritFromManifest, ManifestStoreMap.Harness, ManifestStoreMap.Inline].includes(
-    selectedStore
-  )
+  return [
+    ManifestStoreMap.InheritFromManifest,
+    ManifestStoreMap.Harness,
+    ManifestStoreMap.Inline,
+    ManifestStoreMap.CustomRemote
+  ].includes(selectedStore)
 }
 
 export function isConnectorStoreType(): boolean {
-  return !(ManifestStoreMap.InheritFromManifest || ManifestStoreMap.Harness || ManifestStoreMap.Inline)
+  return !(ManifestStoreMap.InheritFromManifest || ManifestStoreMap.Harness || ManifestStoreMap.Inline,
+  ManifestStoreMap.CustomRemote)
 }
 export function getManifestLocation(manifestType: ManifestTypes, manifestStore: ManifestStores): string {
   switch (true) {
     case manifestStore === ManifestStoreMap.Harness:
       return 'store.spec.files'
+    case manifestStore === ManifestStoreMap.CustomRemote:
+      return 'store.spec.filePath'
     case [
       ManifestDataType.K8sManifest,
       ManifestDataType.Values,
