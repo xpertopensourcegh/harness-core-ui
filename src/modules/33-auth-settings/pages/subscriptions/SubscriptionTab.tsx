@@ -11,7 +11,7 @@ import cx from 'classnames'
 import { useParams, useHistory } from 'react-router-dom'
 import { Button, Layout } from '@wings-software/uicore'
 import type { Editions } from '@common/constants/SubscriptionTypes'
-import { SUBSCRIPTION_TAB_NAMES, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { SubscriptionTabNames, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { ModuleName } from 'framework/types/ModuleName'
@@ -29,17 +29,17 @@ import SubscriptionPlans from './plans/SubscriptionPlans'
 import css from './SubscriptionsPage.module.scss'
 
 export interface SubscriptionTabInfo {
-  name: SUBSCRIPTION_TAB_NAMES
+  name: SubscriptionTabNames
   label: keyof StringsMap
 }
 
 export const SUBSCRIPTION_TABS: SubscriptionTabInfo[] = [
   {
-    name: SUBSCRIPTION_TAB_NAMES.OVERVIEW,
+    name: SubscriptionTabNames.OVERVIEW,
     label: 'common.subscriptions.tabs.overview'
   },
   {
-    name: SUBSCRIPTION_TAB_NAMES.PLANS,
+    name: SubscriptionTabNames.PLANS,
     label: 'common.subscriptions.tabs.plans'
   }
   // {
@@ -79,7 +79,7 @@ const SubscriptionTab = ({
 
   const [selectedSubscriptionTab, setSelectedSubscriptionTab] = useState<SubscriptionTabInfo>(SUBSCRIPTION_TABS[0])
   const { getString } = useStrings()
-  const { tab: queryTab } = useQueryParams<{ tab?: SUBSCRIPTION_TAB_NAMES }>()
+  const { tab: queryTab } = useQueryParams<{ tab?: SubscriptionTabNames }>()
   const { accountId } = useParams<AccountPathProps>()
   const history = useHistory()
 
@@ -135,9 +135,9 @@ const SubscriptionTab = ({
 
   function getTabComponent(): React.ReactElement | null {
     switch (selectedSubscriptionTab.name) {
-      case SUBSCRIPTION_TAB_NAMES.PLANS:
+      case SubscriptionTabNames.PLANS:
         return <SubscriptionPlans module={selectedModule} />
-      case SUBSCRIPTION_TAB_NAMES.OVERVIEW:
+      case SubscriptionTabNames.OVERVIEW:
       default:
         return (
           <SubscriptionOverview
