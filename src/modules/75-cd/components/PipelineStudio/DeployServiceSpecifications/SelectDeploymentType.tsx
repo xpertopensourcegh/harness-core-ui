@@ -27,7 +27,7 @@ import { useModalHook } from '@harness/use-modal'
 import { Color, FontVariation } from '@harness/design-system'
 import cx from 'classnames'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import { isCommunityPlan } from '@common/utils/utils'
+import { useGetCommunity } from '@common/utils/utils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
@@ -245,7 +245,7 @@ export default function SelectDeploymentType({
 
   const [cgDeploymentTypes, setCgDeploymentTypes] = React.useState(cgSupportedDeploymentTypes)
   const [ngDeploymentTypes, setNgDeploymentTypes] = React.useState(ngSupportedDeploymentTypes)
-  const isCommunity = isCommunityPlan()
+  const isCommunity = useGetCommunity()
 
   const [showCurrentGenSwitcherModal, hideCurrentGenSwitcherModal] = useModalHook(() => {
     return (

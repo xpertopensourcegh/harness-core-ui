@@ -21,7 +21,7 @@ import type { AccountPathProps, Module } from '@common/interfaces/RouteInterface
 
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { StringsMap } from 'stringTypes'
-import { isCommunityPlan } from '@common/utils/utils'
+import { useGetCommunity } from '@common/utils/utils'
 
 import SubscriptionOverview from './overview/SubscriptionOverview'
 import SubscriptionBanner from './SubscriptionBanner'
@@ -75,7 +75,7 @@ const SubscriptionTab = ({
   refetchGetLicense
 }: SubscriptionTabProps): ReactElement => {
   const { PLANS_ENABLED } = useFeatureFlags()
-  const isCommunity = isCommunityPlan()
+  const isCommunity = useGetCommunity()
 
   const [selectedSubscriptionTab, setSelectedSubscriptionTab] = useState<SubscriptionTabInfo>(SUBSCRIPTION_TABS[0])
   const { getString } = useStrings()
