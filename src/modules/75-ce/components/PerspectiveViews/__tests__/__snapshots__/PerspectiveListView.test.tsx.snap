@@ -100,9 +100,9 @@ exports[`test cases for perspective list view should be able to render list view
             <div
               class="StyledProps--font StyledProps--main nameContainer"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                style="display: flex; align-items: center;"
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800"
+                style="display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
@@ -121,7 +121,7 @@ exports[`test cases for perspective list view should be able to render list view
                   </svg>
                 </span>
                 mock_name_1
-              </p>
+              </span>
               <div
                 class="StyledProps--font StyledProps--main sampleRibbon"
               />
@@ -262,9 +262,9 @@ exports[`test cases for perspective list view should be able to render list view
             <div
               class="StyledProps--font StyledProps--main nameContainer"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                style="display: flex; align-items: center;"
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800"
+                style="display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
@@ -283,7 +283,7 @@ exports[`test cases for perspective list view should be able to render list view
                   </svg>
                 </span>
                 mock_name_2
-              </p>
+              </span>
               <div
                 class="StyledProps--font StyledProps--main sampleRibbon"
               />
@@ -430,9 +430,9 @@ exports[`test cases for perspective list view should be able to render list view
             <div
               class="StyledProps--font StyledProps--main nameContainer"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                style="display: flex; align-items: center;"
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800"
+                style="display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
@@ -451,7 +451,7 @@ exports[`test cases for perspective list view should be able to render list view
                   </svg>
                 </span>
                 mock_name_3
-              </p>
+              </span>
               <div
                 class="StyledProps--font StyledProps--main sampleRibbon"
               />
@@ -585,9 +585,9 @@ exports[`test cases for perspective list view should be able to render list view
             <div
               class="StyledProps--font StyledProps--main nameContainer"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                style="display: flex; align-items: center;"
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey800"
+                style="display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
@@ -606,7 +606,7 @@ exports[`test cases for perspective list view should be able to render list view
                   </svg>
                 </span>
                 mock_name_4
-              </p>
+              </span>
               <div
                 class="StyledProps--font StyledProps--main sampleRibbon"
               />

@@ -4157,7 +4157,6 @@ export interface StringsMap {
   'ce.anomalyDetection.filters.groupByNoneLabel': string
   'ce.anomalyDetection.filters.groupByNonePlaceholder': string
   'ce.anomalyDetection.filters.groupByNoneValue': string
-  'ce.anomalyDetection.filters.groupByPerspectivePlaceholder': string
   'ce.anomalyDetection.filters.spendPlaceholder': string
   'ce.anomalyDetection.listFetchingError': string
   'ce.anomalyDetection.listFetchingErrorDesc': string
@@ -4888,6 +4887,7 @@ export interface StringsMap {
   'ce.perspectives.exportCSV': string
   'ce.perspectives.exportRowsUpto': string
   'ce.perspectives.filename': string
+  'ce.perspectives.folders.allPerspective': string
   'ce.perspectives.folders.createNewFolder': string
   'ce.perspectives.folders.createNewFolderHeading': string
   'ce.perspectives.folders.currentFolderLabel': string
