@@ -57,7 +57,7 @@ function DeployServiceEntityInputStep({
   const { expressions } = useVariablesExpression()
   const { showError, clear } = useToaster()
   const { getRBACErrorMessage } = useRBACError()
-  const { template, updateTemplate } = useRunPipelineFormContext()
+  const { template: getTemplate, updateTemplate } = useRunPipelineFormContext()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
       orgIdentifier: string
@@ -110,10 +110,11 @@ function DeployServiceEntityInputStep({
   }))
 
   useEffect(() => {
-    if (initialValues.serviceRef) {
-      const serviceInputsTemplate = get(template, `${inputSetData?.path}.serviceInputs`)
+    if (initialValues.serviceRef && inputSetData?.path) {
+      const serviceInputsTemplate = getTemplate(`${inputSetData?.path}.serviceInputs`)
       const serviceInputsFormikValue = get(formik?.values, `${inputSetData?.path}.serviceInputs`)
       if (
+        typeof serviceInputsTemplate === 'string' &&
         getMultiTypeFromValue(serviceInputsTemplate) === MultiTypeInputType.RUNTIME &&
         !isEmpty(serviceInputsFormikValue)
       ) {
