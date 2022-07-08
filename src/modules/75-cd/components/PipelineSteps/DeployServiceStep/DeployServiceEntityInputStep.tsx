@@ -130,23 +130,28 @@ function DeployServiceEntityInputStep({
   }, [])
 
   useEffect(() => {
-    const serviceInputsData = serviceInputsResponse?.data?.inputSetTemplateYaml
-    if (serviceInputsData) {
-      const serviceInputSetResponse = yamlParse<ServiceInputsConfig>(defaultTo(serviceInputsData, ''))
-      if (serviceInputSetResponse) {
-        updateTemplate(serviceInputSetResponse?.serviceInputs, `${inputSetData?.path}.serviceInputs`)
+    if (serviceInputsResponse?.data) {
+      const serviceInputsData = serviceInputsResponse?.data?.inputSetTemplateYaml
+      if (serviceInputsData) {
+        const serviceInputSetResponse = yamlParse<ServiceInputsConfig>(defaultTo(serviceInputsData, ''))
+        if (serviceInputSetResponse) {
+          updateTemplate(serviceInputSetResponse?.serviceInputs, `${inputSetData?.path}.serviceInputs`)
 
-        const serviceInputsFormikValue = get(formik?.values, `${inputSetData?.path}.serviceInputs`)
-        if (isEmpty(serviceInputsFormikValue)) {
-          formik?.setFieldValue(
-            `${inputSetData?.path}.serviceInputs`,
-            clearRuntimeInput(serviceInputSetResponse?.serviceInputs)
-          )
+          const serviceInputsFormikValue = get(formik?.values, `${inputSetData?.path}.serviceInputs`)
+          if (isEmpty(serviceInputsFormikValue)) {
+            formik?.setFieldValue(
+              `${inputSetData?.path}.serviceInputs`,
+              clearRuntimeInput(serviceInputSetResponse?.serviceInputs)
+            )
+          }
         }
+      } else {
+        updateTemplate({}, `${inputSetData?.path}.serviceInputs`)
+        formik?.setFieldValue(`${inputSetData?.path}`, { serviceRef: initialValues.serviceRef })
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [serviceInputsResponse])
+  }, [serviceInputsResponse?.data])
 
   const onServiceEntityUpdate = (newServiceInfo: ServiceYaml): void => {
     refetchServiceList()
