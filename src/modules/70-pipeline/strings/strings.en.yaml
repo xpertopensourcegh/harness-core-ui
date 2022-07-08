@@ -300,8 +300,6 @@ manifestType:
   kustomizePathHelperText: Enter the path from the root of the Source Provider repo to the folder containing kustomization.yaml
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
   helmCommandFlagLabel: Helm Command Flags (optional)
-  helmCommandType: Command Type
-  helmCommandTypePlaceholder: Enter Command Type
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
@@ -1161,6 +1159,10 @@ OverviewEmptyStates:
 importSuccessMessage: '{{resourceType}} has been imported successfully'
 MatrixNode:
   maxConcurrency: 'Max Concurrency:'
+fieldLabels:
+  commandType: Command Type
+fieldPlaceholders:
+  commandType: Enter Command Type
 traffic: Traffic
 viewPipeline: View Pipeline
 codeSource: 'Code Source'

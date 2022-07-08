@@ -3044,6 +3044,8 @@ export interface StringsMap {
   'pipeline.featureRestriction.subscription90PercentLimit': string
   'pipeline.featureRestriction.subscriptionExceededLimit': string
   'pipeline.featureRestriction.unlimitedBuildsRequiredPlan': string
+  'pipeline.fieldLabels.commandType': string
+  'pipeline.fieldPlaceholders.commandType': string
   'pipeline.filters.builtTypePlaceholder': string
   'pipeline.filters.deploymentTypePlaceholder': string
   'pipeline.filters.environmentPlaceholder': string
@@ -3191,8 +3193,6 @@ export interface StringsMap {
   'pipeline.manifestType.gitFetchTypeLabel': string
   'pipeline.manifestType.helmCommandFlagLabel': string
   'pipeline.manifestType.helmCommandFlags': string
-  'pipeline.manifestType.helmCommandType': string
-  'pipeline.manifestType.helmCommandTypePlaceholder': string
   'pipeline.manifestType.helmSkipResourceVersion': string
   'pipeline.manifestType.helmVersionRequired': string
   'pipeline.manifestType.http.chartName': string
@@ -4088,6 +4088,21 @@ export interface StringsMap {
   'cd.steps.azureInfraStep.resourceGroupPlaceholder': string
   'cd.steps.azureInfraStep.subscription': string
   'cd.steps.azureInfraStep.subscriptionPlaceholder': string
+  'cd.steps.commands.addCommand': string
+  'cd.steps.commands.destinationPath': string
+  'cd.steps.commands.destinationPathPlaceholder': string
+  'cd.steps.commands.editCommand': string
+  'cd.steps.commands.fileToTail': string
+  'cd.steps.commands.fileToTailPlaceholder': string
+  'cd.steps.commands.filesAndPatterns': string
+  'cd.steps.commands.patternToSearch': string
+  'cd.steps.commands.patternToSearchPlaceholder': string
+  'cd.steps.commands.runOnDelegate': string
+  'cd.steps.commands.runTheCommands': string
+  'cd.steps.commands.scriptTypePlaceholder': string
+  'cd.steps.commands.sourceTypeLabel': string
+  'cd.steps.commands.validation.destinationPathRequired': string
+  'cd.steps.commands.validation.sourceTypeRequired': string
   'cd.steps.common.clusterDetails': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
