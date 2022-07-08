@@ -42,7 +42,7 @@ export interface LoopingStrategyProps {
   onUpdateStrategy?: (strategy: StrategyConfig) => void
 }
 
-const DOCUMENT_URL = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
+const DOCUMENT_URL = 'https://docs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
 const strategyEntries = Object.entries(AvailableStrategies) as [LoopingStrategyEnum, Strategy][]
 
 export function LoopingStrategy({

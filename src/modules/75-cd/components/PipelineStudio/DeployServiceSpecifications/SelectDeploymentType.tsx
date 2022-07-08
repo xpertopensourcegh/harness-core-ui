@@ -334,7 +334,7 @@ export default function SelectDeploymentType({
             </Text>
             <a
               className={deployServiceCsss.learnMore}
-              href="https://ngdocs.harness.io/article/1fjmm4by22"
+              href="https://docs.harness.io/article/1fjmm4by22"
               rel="noreferrer"
               target="_blank"
             >
