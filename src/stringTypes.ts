@@ -2934,6 +2934,7 @@ export interface StringsMap {
   'pipeline.executionFilters.labels.Waiting': string
   'pipeline.executionFrequency': string
   'pipeline.executionList.EnvironmentsText': string
+  'pipeline.executionList.artifactDeployedText': string
   'pipeline.executionList.servicesDeployedText': string
   'pipeline.executionStatus.Aborted': string
   'pipeline.executionStatus.Aborting': string
