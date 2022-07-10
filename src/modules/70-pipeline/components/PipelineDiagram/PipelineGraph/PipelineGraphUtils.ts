@@ -495,6 +495,7 @@ const transformStepsData = (
           graphType,
           ...step,
           isInComplete: isCustomGeneratedString(step.step.identifier) || hasErrors,
+          loopingStrategyEnabled: !!step.step?.strategy,
           conditionalExecutionEnabled: isExecutionView
             ? getConditionalExecutionFlag(step.step?.when)
             : step.step?.when
@@ -552,6 +553,7 @@ const transformStepsData = (
           data: {
             ...first,
             isInComplete: isCustomGeneratedString(first?.step?.identifier as string) || hasErrors,
+            loopingStrategyEnabled: !!first.step?.strategy,
             conditionalExecutionEnabled: isExecutionView
               ? getConditionalExecutionFlag(first.step?.when)
               : first.step?.when
@@ -583,6 +585,7 @@ const transformStepsData = (
             type: 'StepGroup',
             nodeType: 'StepGroup',
             icon: iconName,
+            loopingStrategyEnabled: !!(step.stepGroup as any)?.strategy,
             conditionalExecutionEnabled: isExecutionView
               ? getConditionalExecutionFlag(step.stepGroup?.when)
               : step.stepGroup?.when
@@ -609,6 +612,7 @@ const transformStepsData = (
             type: stepData?.name as string,
             nodeType: stepData?.name as string,
             icon: iconName,
+            loopingStrategyEnabled: !!stepData?.strategy,
             conditionalExecutionEnabled: isExecutionView
               ? getConditionalExecutionFlag(stepData?.when)
               : stepData?.when
