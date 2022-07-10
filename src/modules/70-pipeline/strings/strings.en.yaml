@@ -122,6 +122,7 @@ queueStep:
   queuedExecutions: Queued Executions
   queuedByResourceKey: 'Queued by Resource Key:'
 jenkinsStep:
+  addJobParameters: Add Job Parameter
   validations:
     jobName: Jobname is a required field
   jobNamePlaceholder: Select Job Name
