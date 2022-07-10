@@ -2767,6 +2767,7 @@ export interface StringsMap {
   'pipeline.buildInfra.size': string
   'pipeline.buildInfra.tolerations': string
   'pipeline.buildInfra.volumes': string
+  'pipeline.buildRegex': string
   'pipeline.buildRepo': string
   'pipeline.cannotAddInputSetInvalidPipeline': string
   'pipeline.cannotAddTriggerInvalidPipeline': string
@@ -2869,6 +2870,7 @@ export interface StringsMap {
   'pipeline.enableVerificationHelpText': string
   'pipeline.enableVerificationOptions': string
   'pipeline.enableVerificationTitle': string
+  'pipeline.enterBuildRegex': string
   'pipeline.errorFramework.fixErrors': string
   'pipeline.errorFramework.fixStage': string
   'pipeline.errorFramework.fixStep': string
@@ -3090,6 +3092,7 @@ export interface StringsMap {
   'pipeline.inputSets.removeInvalidFields': string
   'pipeline.inputSets.selectPlaceholder': string
   'pipeline.invalidRequest': string
+  'pipeline.jenkinsBuild': string
   'pipeline.jenkinsStep.addJobParameters': string
   'pipeline.jenkinsStep.captureEnvironmentVariable': string
   'pipeline.jenkinsStep.jobNamePlaceholder': string
@@ -3361,6 +3364,8 @@ export interface StringsMap {
   'pipeline.savingInProgress': string
   'pipeline.scriptInputVariables': string
   'pipeline.scriptOutputVariables': string
+  'pipeline.selectArtifactPathPlaceholder': string
+  'pipeline.selectJenkinsBuildsPlaceholder': string
   'pipeline.selectOrCreateForm.description': string
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string

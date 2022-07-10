@@ -551,6 +551,10 @@ duration: Duration
 and: '{{ $.common.andCaps }}'
 gitDetails: git details
 runtimeInputs: Runtime Inputs
+jenkinsBuild: Jenkins Builds
+enterBuildRegex: Enter Build Regex
+buildRegex: Build Regex
+selectJenkinsBuildsPlaceholder: Select Jenkins Build
 releaseRepo: Release Repo
 addReleaseRepo: + Add Release Repo Manifest
 releaseRepoStore: Release Repo Store
@@ -738,6 +742,7 @@ infraSpecifications:
     macos: MacOS
 imagePathLabel: Image Path
 artifactPathLabel: Artifact Path
+selectArtifactPathPlaceholder: Select or Enter an Artifact Path (Optional)
 artifactPathFilterLabel: Artifact Path Filter
 artifactsSelection:
   repositoryPort: Repository Port
