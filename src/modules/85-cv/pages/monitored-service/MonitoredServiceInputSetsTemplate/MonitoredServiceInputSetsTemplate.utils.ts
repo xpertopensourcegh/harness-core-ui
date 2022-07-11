@@ -10,7 +10,7 @@ import { getMultiTypeFromValue, MultiTypeInputType } from '@harness/uicore'
 import type { UseStringsReturn } from 'framework/strings'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { ConnectorInfoDTO } from 'services/cv'
-import { getLabelByNameForTemplateInputs } from '../CVMonitoredService/MonitoredServiceInputSetsTemplate.utils'
+import { getValidationLabelByNameForTemplateInputs } from '../CVMonitoredService/MonitoredServiceInputSetsTemplate.utils'
 
 export const getLabelByName = (name: string, getString: UseStringsReturn['getString']): string => {
   switch (name) {
@@ -94,7 +94,7 @@ export const validateInputSet = (value: any, getString: UseStringsReturn['getStr
   const datawithpath = getNestedEmptyFieldsWithPath(value, [], '')
   const errors: { [key: string]: string } = {}
   datawithpath.forEach(item => {
-    errors[item.path.slice(1)] = getLabelByNameForTemplateInputs(item.name, getString)
+    errors[item.path.slice(1)] = getValidationLabelByNameForTemplateInputs(item.name, getString)
   })
   return errors
 }
