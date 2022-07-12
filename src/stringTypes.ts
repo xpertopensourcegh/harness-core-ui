@@ -3849,7 +3849,6 @@ export interface StringsMap {
   'cd.artifactName': string
   'cd.artifactPaths': string
   'cd.artifactRepoTooltip': string
-  'cd.artifactVersion': string
   'cd.azureWebAppRollbackDescription': string
   'cd.azureWebAppSwapSlotDescription': string
   'cd.backEndConfig': string
@@ -4053,6 +4052,13 @@ export interface StringsMap {
   'cd.serviceDashboard.executionId': string
   'cd.serviceDashboard.frequency': string
   'cd.serviceDashboard.function': string
+  'cd.serviceDashboard.headers.artifactVersion': string
+  'cd.serviceDashboard.headers.clusters': string
+  'cd.serviceDashboard.headers.environment': string
+  'cd.serviceDashboard.headers.infras': string
+  'cd.serviceDashboard.headers.infrastructures': string
+  'cd.serviceDashboard.headers.instances': string
+  'cd.serviceDashboard.headers.pipelineExecution': string
   'cd.serviceDashboard.helmChartDetails': string
   'cd.serviceDashboard.helmChartName': string
   'cd.serviceDashboard.helmRopoUrl': string
