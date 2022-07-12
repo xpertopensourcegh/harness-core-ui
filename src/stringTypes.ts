@@ -781,6 +781,7 @@ export interface StringsMap {
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
   'common.triggerLabel': string
+  'common.triggerName': string
   'common.triggersLabel': string
   'common.unlimited': string
   'common.unsavedChanges': string
@@ -2942,6 +2943,7 @@ export interface StringsMap {
   'pipeline.executionFilters.labels.Success': string
   'pipeline.executionFilters.labels.Waiting': string
   'pipeline.executionFrequency': string
+  'pipeline.executionId': string
   'pipeline.executionList.EnvironmentsText': string
   'pipeline.executionList.artifactDeployedText': string
   'pipeline.executionList.servicesDeployedText': string
@@ -3157,6 +3159,7 @@ export interface StringsMap {
   'pipeline.jiraUpdateStep.validations.status': string
   'pipeline.keyPlaceholder': string
   'pipeline.kubernetesStep.workload': string
+  'pipeline.lastExecutedBy': string
   'pipeline.lastExecution': string
   'pipeline.lastModified': string
   'pipeline.lastSevenDays': string
@@ -3807,7 +3810,6 @@ export interface StringsMap {
   'triggers.triggerConfigurationPanel.listenOnNewWebhook': string
   'triggers.triggerConfigurationPanel.payloadType': string
   'triggers.triggerConfigurationPanel.title': string
-  'triggers.triggerConfigurationPanel.triggerName': string
   'triggers.triggerCouldNotBeSavedContent': string
   'triggers.triggerCouldNotBeSavedGenericError': string
   'triggers.triggerCouldNotBeSavedTitle': string

@@ -1177,3 +1177,5 @@ codeSource: 'Code Source'
 recentTenExecutions: 'Recent 10 Executions'
 lastExecution: 'Last Execution'
 lastModified: 'Last Modified'
+executionId: Execution Id
+lastExecutedBy: Last Executed By
