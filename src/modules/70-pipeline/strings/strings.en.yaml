@@ -118,7 +118,7 @@ queueStep:
   keyRequired: Resource Key is required
   scopeRequired: Scope is required
   scopePlaceholder: Select Scope
-  scope: Scope (to release constraint)
+  scope: Run next queued execution after completion of
   queuedExecutions: Queued Executions
   queuedByResourceKey: 'Queued by Resource Key:'
 jenkinsStep:
