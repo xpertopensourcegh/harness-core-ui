@@ -13,7 +13,6 @@ import type { StageElementConfig, PageConnectorResponse, ServiceDefinition, Conn
 export interface ReleaseRepoListViewProps {
   updateStage: (stage: StageElementConfig) => Promise<void>
   stage: StageElementWrapper | undefined
-  isPropagating?: boolean
   connectors: PageConnectorResponse | undefined
   refetchConnectors: () => void
   listOfManifests: Array<any>

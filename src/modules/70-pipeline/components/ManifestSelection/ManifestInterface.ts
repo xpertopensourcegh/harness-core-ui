@@ -7,9 +7,14 @@
 
 import type { MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import type { ManifestConfig, ManifestConfigWrapper, PageConnectorResponse, ServiceDefinition } from 'services/cd-ng'
-import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import type { PipelineInfoConfig, StageElementConfig } from 'services/pipeline-ng'
+import type {
+  ConnectorConfigDTO,
+  ManifestConfig,
+  ManifestConfigWrapper,
+  PageConnectorResponse,
+  ServiceDefinition
+} from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/pipeline-ng'
 
 export type ManifestTypes =
   | 'K8sManifest'
@@ -52,15 +57,15 @@ export interface ManifestSelectionProps {
 
 export interface ManifestListViewProps {
   pipeline: PipelineInfoConfig
-  updateStage: (stage: StageElementConfig) => Promise<void>
-  stage: StageElementWrapper | undefined
-  isPropagating?: boolean
   connectors: PageConnectorResponse | undefined
-  refetchConnectors: () => void
-  listOfManifests: Array<any>
+  listOfManifests: ManifestConfigWrapper[]
   isReadonly: boolean
   deploymentType: ServiceDefinition['type']
   allowableTypes: MultiTypeInputType[]
+  updateManifestList: (obj: ManifestConfigWrapper, idx: number) => void
+  removeManifestConfig: (idx: number) => void
+  attachPathYaml: (formData: ConnectorConfigDTO, manifestId: string, manifestType: PrimaryManifestType) => void
+  removeValuesYaml: (index: number, manifestId: string, manifestType: PrimaryManifestType) => void
   allowOnlyOne?: boolean
 }
 

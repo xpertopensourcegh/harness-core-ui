@@ -70,7 +70,6 @@ interface ReleaseRepoStepInitData {
 function ReleaseRepoListView({
   updateStage,
   stage,
-  isPropagating,
   connectors,
   refetchConnectors,
   listOfManifests,
@@ -108,9 +107,7 @@ function ReleaseRepoListView({
   }
 
   const updateStageData = (): void => {
-    const path = isPropagating
-      ? 'stage.spec.serviceConfig.stageOverrides.manifests'
-      : 'stage.spec.serviceConfig.serviceDefinition.spec.manifests'
+    const path = 'stage.spec.serviceConfig.serviceDefinition.spec.manifests'
 
     /* istanbul ignore next */
     /* istanbul ignore else */
