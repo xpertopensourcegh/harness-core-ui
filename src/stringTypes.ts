@@ -3150,6 +3150,7 @@ export interface StringsMap {
   'pipeline.jiraCreateStep.selectFromFieldList': string
   'pipeline.jiraCreateStep.selectProject': string
   'pipeline.jiraCreateStep.summaryPlaceholder': string
+  'pipeline.jiraCreateStep.unsupportedRequiredFieldsError': string
   'pipeline.jiraCreateStep.validations.summary': string
   'pipeline.jiraUpdateStep.fetchingStatus': string
   'pipeline.jiraUpdateStep.projectIssueTypeDisclaimer': string
