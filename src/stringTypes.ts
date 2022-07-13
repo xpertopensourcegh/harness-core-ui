@@ -3736,6 +3736,7 @@ export interface StringsMap {
   'triggers.createTrigger': string
   'triggers.cronLabel': string
   'triggers.deleteTrigger': string
+  'triggers.error.webhookRegistrationFailed': string
   'triggers.inputSetIsRequired': string
   'triggers.lastActivationAt': string
   'triggers.lastActivationDetails': string
