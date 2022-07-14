@@ -14,6 +14,7 @@ import type { SelectHealthSourceServicesProps } from './SelectHealthSourceServic
 import css from './SelectHealthSourceServices.module.scss'
 
 export default function SelectHealthSourceServices({
+  key,
   values,
   metricPackResponse,
   labelNamesResponse,
@@ -51,9 +52,11 @@ export default function SelectHealthSourceServices({
         ) : null}
         {isTemplate && values.continuousVerification && Boolean(labelNamesResponse) === false && (
           <FormInput.MultiTextInput
+            key={key}
             name={'serviceInstanceMetricPath'}
             label="ServiceInstanceLabel"
             multiTextInputProps={{
+              expressions,
               allowableTypes: [MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
             }}
           />

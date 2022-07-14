@@ -24,4 +24,5 @@ export type SelectHealthSourceServicesProps = {
   showOnlySLI?: boolean
   expressions?: string[]
   isConnectorRuntimeOrExpression?: boolean
+  key?: string
 }

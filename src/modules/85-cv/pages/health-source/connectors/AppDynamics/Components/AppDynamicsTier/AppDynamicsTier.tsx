@@ -85,7 +85,9 @@ export default function AppDynamicsTier({
           const selectedItem = item as string | SelectOption
           const selectedValue = typeof selectedItem === 'string' ? selectedItem : selectedItem?.label?.toString()
           setAppDTierCustomField(selectedValue as string)
-          if (!(formikValues?.appdApplication === RUNTIME_INPUT_VALUE || formikValues?.appDTier === '<+input>')) {
+          if (
+            !(formikValues?.appdApplication === RUNTIME_INPUT_VALUE || formikValues?.appDTier === RUNTIME_INPUT_VALUE)
+          ) {
             await onValidate(formikValues?.appdApplication, selectedValue, formikValues.metricData)
           }
         }}
@@ -100,7 +102,9 @@ export default function AppDynamicsTier({
       value={setAppDynamicsTier(tierLoading, formikValues?.appDTier, tierOptions) as SelectOption}
       onChange={async item => {
         setAppDTierCustomField(item.label)
-        if (!(formikValues?.appdApplication === RUNTIME_INPUT_VALUE || formikValues?.appDTier === '<+input>')) {
+        if (
+          !(formikValues?.appdApplication === RUNTIME_INPUT_VALUE || formikValues?.appDTier === RUNTIME_INPUT_VALUE)
+        ) {
           await onValidate(formikValues.appdApplication, item.label as string, formikValues.metricData)
         }
       }}
