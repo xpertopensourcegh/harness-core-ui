@@ -46,6 +46,7 @@ import GitRemoteDetails from '@common/components/GitRemoteDetails/GitRemoteDetai
 import { DashboardSelected, ServiceExecutionsCard } from '../ServiceExecutionsCard/ServiceExecutionsCard'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import { useExecutionCompareContext } from '../ExecutionCompareYaml/ExecutionCompareContext'
+import { TimePopoverWithLocal } from './TimeAgoPopoverWithLocal'
 import css from './ExecutionCard.module.scss'
 
 export interface ExecutionCardProps {
@@ -55,12 +56,14 @@ export interface ExecutionCardProps {
   isPipelineInvalid?: boolean
   showGitDetails?: boolean
   onViewCompiledYaml?: () => void
+  isCDOverview?: boolean
 }
 
 function ExecutionCardFooter({
   pipelineExecution,
-  variant
-}: Pick<ExecutionCardProps, 'pipelineExecution' | 'variant'>): React.ReactElement {
+  variant,
+  isCDOverview = false
+}: Pick<ExecutionCardProps, 'pipelineExecution' | 'variant' | 'isCDOverview'>): React.ReactElement {
   const fontVariation = variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL
   const variantSize = variant === CardVariant.Minimal ? 10 : 14
   return (
@@ -95,17 +98,31 @@ function ExecutionCardFooter({
         </Text>
       </div>
       <div className={css.timers}>
-        <TimeAgoPopover
-          iconProps={{
-            size: variantSize,
-            color: Color.GREY_900
-          }}
-          icon="calendar"
-          time={defaultTo(pipelineExecution?.startTs, 0)}
-          inline={false}
-          className={css.timeAgo}
-          font={{ variation: fontVariation }}
-        />
+        {isCDOverview ? (
+          <TimePopoverWithLocal
+            iconProps={{
+              size: variantSize,
+              color: Color.GREY_900
+            }}
+            icon="calendar"
+            time={defaultTo(pipelineExecution?.startTs, 0)}
+            inline={false}
+            className={css.timeAgo}
+            font={{ variation: fontVariation }}
+          />
+        ) : (
+          <TimeAgoPopover
+            iconProps={{
+              size: variantSize,
+              color: Color.GREY_900
+            }}
+            icon="calendar"
+            time={defaultTo(pipelineExecution?.startTs, 0)}
+            inline={false}
+            className={css.timeAgo}
+            font={{ variation: fontVariation }}
+          />
+        )}
         <Duration
           icon="time"
           className={css.duration}
@@ -373,7 +390,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             ) : null}
           </div>
         </div>
-        <ExecutionCardFooter pipelineExecution={pipelineExecution} variant={variant} />
+        <ExecutionCardFooter pipelineExecution={pipelineExecution} variant={variant} isCDOverview={IS_OVERVIEWPAGE} />
       </div>
     </Card>
   )
