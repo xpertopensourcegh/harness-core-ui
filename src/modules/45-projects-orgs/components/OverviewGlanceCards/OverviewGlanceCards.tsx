@@ -156,22 +156,19 @@ const OverviewGlanceCards: React.FC<OverviewGlanceCardsProp> = props => {
     countResponse?.data?.response || glanceCardData?.data?.response || {}
 
   return (
-    <Layout.Horizontal spacing="large">
-      <Layout.Vertical spacing="large">
+    <Layout.Horizontal spacing="large" className={css.container}>
+      <div className={css.glanceCards}>
         <RenderGlanceCard loading={!!loading} data={getDataForCard(OverviewGalanceCard.PROJECT, projectsCountDetail)} />
-        <RenderGlanceCard loading={!!loading} data={getDataForCard(OverviewGalanceCard.ENV, envCountDetail)} />
-      </Layout.Vertical>
-      <Layout.Vertical spacing="large">
         <RenderGlanceCard
           loading={!!loading}
           data={getDataForCard(OverviewGalanceCard.SERVICES, servicesCountDetail)}
         />
-
+        <RenderGlanceCard loading={!!loading} data={getDataForCard(OverviewGalanceCard.ENV, envCountDetail)} />
         <RenderGlanceCard
           loading={!!loading}
           data={getDataForCard(OverviewGalanceCard.PIPELINES, pipelinesCountDetail)}
         />
-      </Layout.Vertical>
+      </div>
     </Layout.Horizontal>
   )
 }

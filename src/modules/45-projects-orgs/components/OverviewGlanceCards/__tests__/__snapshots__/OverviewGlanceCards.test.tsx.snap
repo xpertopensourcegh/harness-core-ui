@@ -3,10 +3,10 @@
 exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
 <div>
   <div
-    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main container"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+      class="glanceCards"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card card styledCard"
@@ -59,6 +59,39 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
+          data-icon="services"
+        >
+          <svg
+            height="24"
+            viewBox="0 0 16 16"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M6.74 2.098a.6.6 0 01.6-.6h1.2a.6.6 0 01.6.6v1.4a4.57 4.57 0 011.083.448l.996-.993a.6.6 0 01.847 0l.85.847a.6.6 0 010 .85l-.993.99c.191.333.342.692.445 1.071h1.408a.6.6 0 01.6.6v1.2a.6.6 0 01-.6.6h-1.408a4.54 4.54 0 01-.447 1.073l.994.99a.6.6 0 010 .85l-.85.846a.6.6 0 01-.848 0l-.996-.992a4.574 4.574 0 01-1.08.445v1.401a.6.6 0 01-.6.6h-1.2a.6.6 0 01-.6-.6v-1.4a4.573 4.573 0 01-1.082-.447l-.996.992a.6.6 0 01-.847 0l-.85-.846a.6.6 0 010-.85l.993-.99a4.536 4.536 0 01-.447-1.072H2.106a.6.6 0 01-.6-.6v-1.2a.6.6 0 01.6-.6h1.406a4.52 4.52 0 01.446-1.072l-.993-.989a.6.6 0 010-.85l.85-.847a.6.6 0 01.847 0l.996.992c.336-.192.7-.343 1.083-.446V2.098zm.8.2v1.353a.607.607 0 01-.47.59c-.402.094-.78.252-1.122.462a.607.607 0 01-.747-.084L4.24 3.66l-.567.565.96.956a.607.607 0 01.084.75c-.21.339-.368.713-.463 1.111a.607.607 0 01-.588.47h-1.36v.8h1.36c.29 0 .526.204.588.468.095.399.253.773.463 1.112a.607.607 0 01-.084.75l-.96.955.567.565.963-.959a.607.607 0 01.747-.084c.341.21.719.369 1.121.463.265.061.47.297.47.589v1.353h.8v-1.353a.61.61 0 01.47-.59 3.773 3.773 0 001.121-.462.607.607 0 01.747.085l.963.959.567-.565-.96-.955a.607.607 0 01-.084-.75c.21-.34.369-.714.463-1.113a.607.607 0 01.59-.469h1.359v-.8h-1.36a.607.607 0 01-.589-.469 3.735 3.735 0 00-.462-1.11.607.607 0 01.085-.75l.96-.957-.567-.564-.963.959a.607.607 0 01-.747.084A3.773 3.773 0 008.81 4.24a.607.607 0 01-.47-.59V2.298h-.8zM8.016 6.1a1.9 1.9 0 100 3.8 1.9 1.9 0 000-3.8zM5.315 8a2.7 2.7 0 115.4 0 2.7 2.7 0 01-5.4 0z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
+        >
+          11
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+          style="--text-line-clamp: 1;"
+        >
+          services
+        </p>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card card"
+      >
+        <span
+          class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
           data-icon="infrastructure"
         >
           <svg
@@ -91,43 +124,6 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
           style="--text-line-clamp: 1;"
         >
           environments
-        </p>
-      </div>
-    </div>
-    <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-    >
-      <div
-        class="bp3-card bp3-elevation-0 Card--card card"
-      >
-        <span
-          class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
-          data-icon="services"
-        >
-          <svg
-            height="24"
-            viewBox="0 0 16 16"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M6.74 2.098a.6.6 0 01.6-.6h1.2a.6.6 0 01.6.6v1.4a4.57 4.57 0 011.083.448l.996-.993a.6.6 0 01.847 0l.85.847a.6.6 0 010 .85l-.993.99c.191.333.342.692.445 1.071h1.408a.6.6 0 01.6.6v1.2a.6.6 0 01-.6.6h-1.408a4.54 4.54 0 01-.447 1.073l.994.99a.6.6 0 010 .85l-.85.846a.6.6 0 01-.848 0l-.996-.992a4.574 4.574 0 01-1.08.445v1.401a.6.6 0 01-.6.6h-1.2a.6.6 0 01-.6-.6v-1.4a4.573 4.573 0 01-1.082-.447l-.996.992a.6.6 0 01-.847 0l-.85-.846a.6.6 0 010-.85l.993-.99a4.536 4.536 0 01-.447-1.072H2.106a.6.6 0 01-.6-.6v-1.2a.6.6 0 01.6-.6h1.406a4.52 4.52 0 01.446-1.072l-.993-.989a.6.6 0 010-.85l.85-.847a.6.6 0 01.847 0l.996.992c.336-.192.7-.343 1.083-.446V2.098zm.8.2v1.353a.607.607 0 01-.47.59c-.402.094-.78.252-1.122.462a.607.607 0 01-.747-.084L4.24 3.66l-.567.565.96.956a.607.607 0 01.084.75c-.21.339-.368.713-.463 1.111a.607.607 0 01-.588.47h-1.36v.8h1.36c.29 0 .526.204.588.468.095.399.253.773.463 1.112a.607.607 0 01-.084.75l-.96.955.567.565.963-.959a.607.607 0 01.747-.084c.341.21.719.369 1.121.463.265.061.47.297.47.589v1.353h.8v-1.353a.61.61 0 01.47-.59 3.773 3.773 0 001.121-.462.607.607 0 01.747.085l.963.959.567-.565-.96-.955a.607.607 0 01-.084-.75c.21-.34.369-.714.463-1.113a.607.607 0 01.59-.469h1.359v-.8h-1.36a.607.607 0 01-.589-.469 3.735 3.735 0 00-.462-1.11.607.607 0 01.085-.75l.96-.957-.567-.564-.963.959a.607.607 0 01-.747.084A3.773 3.773 0 008.81 4.24a.607.607 0 01-.47-.59V2.298h-.8zM8.016 6.1a1.9 1.9 0 100 3.8 1.9 1.9 0 000-3.8zM5.315 8a2.7 2.7 0 115.4 0 2.7 2.7 0 01-5.4 0z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <p
-          class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
-        >
-          11
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
-          style="--text-line-clamp: 1;"
-        >
-          services
         </p>
       </div>
       <div
