@@ -22,11 +22,11 @@ import { numberFormatter } from '@cd/components/Services/common'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, PipelinePathProps, ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { ActiveServiceInstancePopover } from './ActiveServiceInstancePopover'
-import css from './ActiveServiceInstancesV2.module.scss'
+import css from './ActiveServiceInstances.module.scss'
 
 const TOTAL_VISIBLE_INSTANCES = 7
 
-interface TableRowData {
+export interface TableRowData {
   artifactVersion?: string
   envId?: string
   envName?: string
@@ -42,7 +42,7 @@ interface TableRowData {
   totalInfras?: number
 }
 
-const getFullTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifact[]): TableRowData[] => {
+export const getFullTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifact[]): TableRowData[] => {
   const tableData: TableRowData[] = []
   instanceGroupedByArtifact?.forEach(artifact => {
     if (artifact.artifactVersion && artifact.instanceGroupedByEnvironmentList) {
@@ -69,7 +69,7 @@ const getFullTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifact[
   return tableData
 }
 
-const getPreviewTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifact[]): TableRowData[] => {
+export const getPreviewTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifact[]): TableRowData[] => {
   const tableData: TableRowData[] = []
   instanceGroupedByArtifact?.forEach(artifact => {
     artifact.instanceGroupedByEnvironmentList?.forEach((env, envIndex) => {
@@ -91,7 +91,7 @@ const getPreviewTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifa
   return tableData
 }
 
-const getSummaryTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifact[]): TableRowData[] => {
+export const getSummaryTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifact[]): TableRowData[] => {
   const tableData: TableRowData[] = []
   let artifactVersion: string | undefined
   let envName: string | undefined
@@ -130,13 +130,18 @@ const getSummaryTableData = (instanceGroupedByArtifact?: InstanceGroupedByArtifa
   return tableData
 }
 
-const RenderArtifactVersion: Renderer<CellProps<TableRowData>> = ({
+export const RenderArtifactVersion: Renderer<CellProps<TableRowData>> = ({
   row: {
     original: { artifactVersion, showArtifact }
   }
 }) => {
   return showArtifact ? (
-    <Text font={{ size: 'small', weight: 'semi-bold' }} lineClamp={1} color={Color.GREY_800}>
+    <Text
+      style={{ maxWidth: '200px', paddingRight: 'var(--spacing-5)' }}
+      font={{ size: 'small', weight: 'semi-bold' }}
+      lineClamp={1}
+      color={Color.GREY_800}
+    >
       {artifactVersion}
     </Text>
   ) : (
@@ -144,7 +149,7 @@ const RenderArtifactVersion: Renderer<CellProps<TableRowData>> = ({
   )
 }
 
-const RenderEnvironment: Renderer<CellProps<TableRowData>> = ({
+export const RenderEnvironment: Renderer<CellProps<TableRowData>> = ({
   row: {
     original: { showEnv, envName, totalEnvs }
   }
@@ -174,15 +179,20 @@ const RenderEnvironment: Renderer<CellProps<TableRowData>> = ({
   )
 }
 
-const RenderInfra: Renderer<CellProps<TableRowData>> = ({
+export const RenderInfra: Renderer<CellProps<TableRowData>> = ({
   row: {
     original: { infraName, totalInfras }
   }
 }) => {
   return infraName ? (
     <Container flex>
-      <Layout.Horizontal>
-        <Text font={{ size: 'small', weight: 'semi-bold' }} lineClamp={1} color={Color.GREY_800}>
+      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} width={'100%'}>
+        <Text
+          style={{ paddingRight: 'var(--spacing-2)' }}
+          font={{ size: 'small', weight: 'semi-bold' }}
+          lineClamp={1}
+          color={Color.GREY_800}
+        >
           {infraName}
         </Text>
         {totalInfras && totalInfras > 1 && (
@@ -191,6 +201,7 @@ const RenderInfra: Renderer<CellProps<TableRowData>> = ({
             style={{ lineHeight: 'small' }}
             className={css.plusMore}
             color={Color.GREY_500}
+            width={'30%'}
           >
             + {totalInfras - 1}
           </Text>
@@ -202,7 +213,7 @@ const RenderInfra: Renderer<CellProps<TableRowData>> = ({
   )
 }
 
-const RenderInfraCount: Renderer<CellProps<TableRowData>> = ({
+export const RenderInfraCount: Renderer<CellProps<TableRowData>> = ({
   row: {
     original: { totalInfras }
   }
@@ -283,7 +294,7 @@ const RenderInstances: Renderer<CellProps<TableRowData>> = ({
 }
 
 // Inspired by 'ServicesList > RenderLastDeployment', consider reusing
-const RenderPipelineExecution: Renderer<CellProps<TableRowData>> = ({
+export const RenderPipelineExecution: Renderer<CellProps<TableRowData>> = ({
   row: {
     original: { lastPipelineExecutionId, lastPipelineExecutionName, lastDeployedAt }
   }
@@ -368,21 +379,21 @@ const columnsProperties = {
   },
   infras: {
     width: {
-      preview: '15%',
+      preview: '12%',
       summary: '17%',
       full: '17%'
     }
   },
   instancesCount: {
     width: {
-      preview: '10%',
+      preview: '8%',
       summary: '5%',
       full: '5%'
     }
   },
   instances: {
     width: {
-      preview: '27%',
+      preview: '32%',
       summary: '28%',
       full: '28%'
     }

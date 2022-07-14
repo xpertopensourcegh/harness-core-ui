@@ -183,6 +183,7 @@ serviceDashboard:
   instanceCountHistory: Instance Count History
   instanceDetails: Instance Details
   instancesDetails: Instances Details
+  deploymentDetails: Deployment Details
   moreDetails: More Details >
   headers:
     artifactVersion: Artifact Version
