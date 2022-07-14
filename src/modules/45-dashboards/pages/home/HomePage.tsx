@@ -108,7 +108,8 @@ const HomePage: React.FC = () => {
     CE: false,
     CD: false,
     CI: false,
-    CF: false
+    CF: false,
+    STO: false
   }
 
   const [customTags, setCustomTags] = useQueryParamsState<string[]>('customTags', [])
