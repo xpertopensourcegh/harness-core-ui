@@ -4944,10 +4944,16 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.operatorLabels.opLike': string
   'ce.perspectives.createPerspective.operatorLabels.opNotNull': string
   'ce.perspectives.createPerspective.operatorLabels.opNull': string
+  'ce.perspectives.createPerspective.preferences.changeLater': string
+  'ce.perspectives.createPerspective.preferences.includeOthers': string
+  'ce.perspectives.createPerspective.preferences.includeUnallocated': string
   'ce.perspectives.createPerspective.prevButton': string
   'ce.perspectives.createPerspective.preview.groupBy': string
   'ce.perspectives.createPerspective.preview.title': string
   'ce.perspectives.createPerspective.proTipText': string
+  'ce.perspectives.createPerspective.tabHeaders.perspectiveBuilder': string
+  'ce.perspectives.createPerspective.tabHeaders.preferences': string
+  'ce.perspectives.createPerspective.tabHeaders.reportsAndBudget': string
   'ce.perspectives.createPerspective.title': string
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
