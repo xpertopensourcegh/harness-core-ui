@@ -5440,7 +5440,6 @@ export interface StringsMap {
   'cf.onboarding.readme.javascript': string
   'cf.onboarding.readme.nodejs': string
   'cf.onboarding.readme.python': string
-  'cf.onboarding.sdkButtonLabel': string
   'cf.onboarding.sdkKeyLabel': string
   'cf.onboarding.secret': string
   'cf.onboarding.selectEnvironment': string
