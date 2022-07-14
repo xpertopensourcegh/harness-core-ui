@@ -74,7 +74,6 @@ function HarnessFileStore({
       files: [''],
       valuesPaths: ['']
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }
 
   const submitFormData = (formData: HarnessFileStoreFormData & { store?: string; connectorRef?: string }): void => {

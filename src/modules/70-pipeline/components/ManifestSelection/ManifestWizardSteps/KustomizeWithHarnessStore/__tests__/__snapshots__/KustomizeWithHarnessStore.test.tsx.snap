@@ -281,7 +281,7 @@ exports[`Harness File Store with Kustomize Manifest tests initial rendering 1`] 
                       class="Tooltip--acenter"
                       data-tooltip-id="kustomizeHarnessFileStore_patchesPaths"
                     >
-                      pipeline.manifestType.valuesYamlPath
+                      pipeline.manifestTypeLabels.KustomizePatches
                     </span>
                     <div
                       class="bp3-popover-wrapper typeSelectorWrapper"
@@ -779,7 +779,7 @@ exports[`Harness File Store with Kustomize Manifest tests when fields are runtim
                       class="Tooltip--acenter"
                       data-tooltip-id="kustomizeHarnessFileStore_patchesPaths"
                     >
-                      pipeline.manifestType.valuesYamlPath
+                      pipeline.manifestTypeLabels.KustomizePatches
                     </span>
                     <div
                       class="bp3-popover-wrapper typeSelectorWrapper"

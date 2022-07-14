@@ -83,7 +83,7 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
         <KustomizeWithHarnessStore {...defaultProps} initialValues={initialValues} />
       </TestWrapper>
     )
-    const patchesPaths = getByText('pipeline.manifestType.valuesYamlPath')
+    const patchesPaths = getByText('pipeline.manifestTypeLabels.KustomizePatches')
     expect(patchesPaths).toBeDefined()
     const manifestScope = getByText('pipeline.manifestType.manifestScope')
     expect(manifestScope).toBeDefined()

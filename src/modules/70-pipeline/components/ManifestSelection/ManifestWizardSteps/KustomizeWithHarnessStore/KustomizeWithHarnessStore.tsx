@@ -77,7 +77,6 @@ function KustomizeWithHarnessStore({
       patchesPaths: [''],
       skipResourceVersioning: false
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }
 
   const submitFormData = (
@@ -211,7 +210,7 @@ function KustomizeWithHarnessStore({
                       defaultValueToReset={['']}
                       allowedTypes={allowableTypes.filter(allowedType => allowedType !== MultiTypeInputType.EXPRESSION)}
                       name="patchesPaths"
-                      label={getString('pipeline.manifestType.valuesYamlPath')}
+                      label={getString('pipeline.manifestTypeLabels.KustomizePatches')}
                     >
                       <FieldArray
                         name="patchesPaths"
