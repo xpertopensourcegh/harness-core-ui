@@ -2665,6 +2665,25 @@ export interface StringsMap {
   'pipeline.advancedOptions': string
   'pipeline.allStages': string
   'pipeline.and': string
+  'pipeline.appServiceConfig.applicationSettings.file': string
+  'pipeline.appServiceConfig.applicationSettings.fileDetails': string
+  'pipeline.appServiceConfig.applicationSettings.filePath': string
+  'pipeline.appServiceConfig.applicationSettings.fileSource': string
+  'pipeline.appServiceConfig.applicationSettings.name': string
+  'pipeline.appServiceConfig.applicationSettings.scriptFile': string
+  'pipeline.appServiceConfig.applicationSettings.scriptFileDetails': string
+  'pipeline.appServiceConfig.applicationSettings.scriptFileSource': string
+  'pipeline.appServiceConfig.applicationSettings.subtitle': string
+  'pipeline.appServiceConfig.connectionStrings.file': string
+  'pipeline.appServiceConfig.connectionStrings.fileDetails': string
+  'pipeline.appServiceConfig.connectionStrings.filePath': string
+  'pipeline.appServiceConfig.connectionStrings.fileSource': string
+  'pipeline.appServiceConfig.connectionStrings.name': string
+  'pipeline.appServiceConfig.connectionStrings.scriptFile': string
+  'pipeline.appServiceConfig.connectionStrings.scriptFileDetails': string
+  'pipeline.appServiceConfig.connectionStrings.scriptFileSource': string
+  'pipeline.appServiceConfig.connectionStrings.subtitle': string
+  'pipeline.appServiceConfig.title': string
   'pipeline.approvalCriteria.allConditions': string
   'pipeline.approvalCriteria.anyCondition': string
   'pipeline.approvalCriteria.approvalCriteria': string
@@ -3466,6 +3485,12 @@ export interface StringsMap {
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string
   'pipeline.startedOn': string
+  'pipeline.startupScript.file': string
+  'pipeline.startupScript.fileDetails': string
+  'pipeline.startupScript.fileSource': string
+  'pipeline.startupScript.name': string
+  'pipeline.startupScript.scriptFilePath': string
+  'pipeline.startupScript.subtitle': string
   'pipeline.stepCommonFields.ifNotPresent': string
   'pipeline.stepCommonFields.runAsUser': string
   'pipeline.stepCommonFields.validation.invalidLimitCPU': string
@@ -4121,6 +4146,16 @@ export interface StringsMap {
   'cd.steps.azureInfraStep.resourceGroupPlaceholder': string
   'cd.steps.azureInfraStep.subscription': string
   'cd.steps.azureInfraStep.subscriptionPlaceholder': string
+  'cd.steps.azureWebAppInfra.azureWebApp': string
+  'cd.steps.azureWebAppInfra.deploymentSlotError': string
+  'cd.steps.azureWebAppInfra.deploymentSlotPlaceHolder': string
+  'cd.steps.azureWebAppInfra.subscription': string
+  'cd.steps.azureWebAppInfra.subscriptionPlaceholder': string
+  'cd.steps.azureWebAppInfra.targetSlotError': string
+  'cd.steps.azureWebAppInfra.targetSlotInfoText': string
+  'cd.steps.azureWebAppInfra.targetSlotPlaceHolder': string
+  'cd.steps.azureWebAppInfra.webAppNameError': string
+  'cd.steps.azureWebAppInfra.webAppPlaceholder': string
   'cd.steps.commands.addCommand': string
   'cd.steps.commands.destinationPath': string
   'cd.steps.commands.destinationPathPlaceholder': string

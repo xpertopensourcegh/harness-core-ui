@@ -237,9 +237,14 @@ export const isSSHWinRMDeploymentType = (deploymentType: string): boolean => {
   return deploymentType === ServiceDeploymentType.winrm || deploymentType === ServiceDeploymentType.ssh
 }
 
+export const isAzureWebAppDeploymentType = (deploymentType: string): boolean => {
+  return deploymentType === ServiceDeploymentType.AzureWebApp
+}
+
 export const detailsHeaderName: Record<string, string> = {
   [ServiceDeploymentType.ServerlessAwsLambda]: 'Amazon Web Services Details',
   [ServiceDeploymentType.ServerlessAzureFunctions]: 'Azure Details',
+  [ServiceDeploymentType.AzureWebApp]: 'Web App Details',
   [ServiceDeploymentType.ServerlessGoogleFunctions]: 'GCP Details',
   [ServiceDeploymentType.Pdc]: 'Infrastructure definition',
   [ServiceDeploymentType.winrm]: 'WinRM'
@@ -433,6 +438,9 @@ export const infraDefinitionTypeMapping: { [key: string]: string } = {
 export const getStepTypeByDeploymentType = (deploymentType: string): StepType => {
   if (isServerlessDeploymentType(deploymentType)) {
     return StepType.ServerlessAwsLambda
+  }
+  if (deploymentType === ServiceDeploymentType.AzureWebApp) {
+    return StepType.AzureWebAppServiceSpec
   }
   return StepType.K8sServiceSpec
 }
