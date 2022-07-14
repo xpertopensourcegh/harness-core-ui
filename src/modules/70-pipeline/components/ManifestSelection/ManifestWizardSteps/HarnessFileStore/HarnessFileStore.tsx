@@ -20,11 +20,10 @@ import { FontVariation } from '@harness/design-system'
 import { FieldArray, Form } from 'formik'
 import * as Yup from 'yup'
 import { defaultTo, get } from 'lodash-es'
-import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import FileStoreSelectField from '@filestore/components/FileStoreSelectField/FileStoreSelectField'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import FileStoreSelectField from '@filestore/components/MultiTypeFileSelect/FileStoreSelect/FileStoreSelectField'
 import { ManifestDataType, ManifestIdentifierValidation, ManifestStoreMap } from '../../Manifesthelper'
 import type { HarnessFileStoreDataType, HarnessFileStoreFormData, ManifestTypes } from '../../ManifestInterface'
 import css from '../K8sValuesManifest/ManifestDetails.module.scss'
@@ -67,16 +66,13 @@ function HarnessFileStore({
       return {
         ...specValues,
         identifier: initialValues.identifier,
-        valuesPaths:
-          typeof valuesPaths === 'string'
-            ? valuesPaths
-            : defaultTo(valuesPaths, []).map((path: string) => ({ uuid: uuid(path, nameSpace()) }))
+        valuesPaths
       }
     }
     return {
       identifier: '',
       files: [''],
-      valuesPaths: [{ uuid: uuid('', nameSpace()) }]
+      valuesPaths: ['']
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }
@@ -92,16 +88,10 @@ function HarnessFileStore({
             store: {
               type: ManifestStoreMap.Harness,
               spec: {
-                files:
-                  typeof formData.files === 'string'
-                    ? formData.files
-                    : defaultTo(formData.files, []).map((file: any) => `${file.scope}:${file.path}`)
+                files: formData.files
               }
             },
-            valuesPaths:
-              typeof formData.valuesPaths === 'string'
-                ? formData.valuesPaths
-                : defaultTo(formData.valuesPaths, []).map((valueObj: any) => `${valueObj.scope}:${valueObj.path}`)
+            valuesPaths: formData.valuesPaths
           }
         }
       }
@@ -117,7 +107,7 @@ function HarnessFileStore({
 
       <Formik
         initialValues={getInitialValues()}
-        formName="manifestDetails"
+        formName="harnessFileStore"
         validationSchema={Yup.object().shape({
           ...ManifestIdentifierValidation(manifestIdsList, initialValues?.identifier, getString('pipeline.uniqueName'))
         })}

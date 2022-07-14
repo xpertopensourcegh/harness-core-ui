@@ -45,7 +45,7 @@ import {
   buildGitlabPayload
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useQueryParams } from '@common/hooks/useQueryParams'
-import { allowedManifestTypes, manifestStoreTypes, showAddManifestBtn } from '../../Manifesthelper'
+import { allowedManifestTypes, gitStoreTypes, showAddManifestBtn } from '../../Manifesthelper'
 
 import type { ManifestStores } from '../../ManifestInterface'
 
@@ -354,7 +354,7 @@ function ReleaseRepoListView({
         <div className={css.createConnectorWizard}>
           <ReleaseRepoWizard
             types={allowedManifestTypes[deploymentType]}
-            manifestStoreTypes={manifestStoreTypes}
+            manifestStoreTypes={gitStoreTypes}
             labels={getLabels()}
             newConnectorView={connectorView}
             expressions={expressions}

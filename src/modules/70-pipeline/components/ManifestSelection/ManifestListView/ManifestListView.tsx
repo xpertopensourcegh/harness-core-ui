@@ -83,6 +83,7 @@ import ConnectorField from './ConnectorField'
 import HelmWithOCI from '../ManifestWizardSteps/HelmWithOCI/HelmWithOCI'
 import { getConnectorPath } from '../ManifestWizardSteps/ManifestUtils'
 import HarnessFileStore from '../ManifestWizardSteps/HarnessFileStore/HarnessFileStore'
+import KustomizeWithHarnessStore from '../ManifestWizardSteps/KustomizeWithHarnessStore/KustomizeWithHarnessStore'
 import css from '../ManifestSelection.module.scss'
 
 const DIALOG_PROPS: IDialogProps = {
@@ -253,8 +254,11 @@ function ManifestListView({
       case selectedManifest === ManifestDataType.OpenshiftTemplate && isGitTypeStores:
         manifestDetailStep = <OpenShiftTemplateWithGit {...lastStepProps()} />
         break
-      case selectedManifest === ManifestDataType.Kustomize:
+      case selectedManifest === ManifestDataType.Kustomize && isGitTypeStores:
         manifestDetailStep = <KustomizeWithGIT {...lastStepProps()} />
+        break
+      case selectedManifest === ManifestDataType.Kustomize && manifestStore === ManifestStoreMap.Harness:
+        manifestDetailStep = <KustomizeWithHarnessStore {...lastStepProps()} />
         break
       case selectedManifest === ManifestDataType.OpenshiftParam && isGitTypeStores:
         manifestDetailStep = <OpenShiftParamWithGit {...lastStepProps()} />
@@ -270,7 +274,7 @@ function ManifestListView({
       ) && manifestStore === ManifestStoreMap.InheritFromManifest:
         manifestDetailStep = <InheritFromManifest {...lastStepProps()} />
         break
-      case manifestStore === ManifestStoreMap.Harness:
+      case selectedManifest !== ManifestDataType.Kustomize && manifestStore === ManifestStoreMap.Harness:
         manifestDetailStep = <HarnessFileStore {...lastStepProps()} />
         break
       case [

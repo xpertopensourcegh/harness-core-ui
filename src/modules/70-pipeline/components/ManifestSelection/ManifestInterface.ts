@@ -201,8 +201,15 @@ export interface HarnessFileStoreDataType {
 }
 export interface HarnessFileStoreFormData {
   identifier: string
-  files: any[]
-  valuesPaths: any[]
+  files: Array<{ path: string }> | string
+  valuesPaths: Array<{ path: string }> | string
+}
+export interface KustomizeWithHarnessStorePropTypeDataType {
+  identifier: string
+  files: string[] | string
+  patchesPaths: string[] | string
+  manifestScope: string
+  skipResourceVersioning: boolean
 }
 export interface CustomManifestManifestDataType {
   identifier: string

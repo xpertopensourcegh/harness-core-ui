@@ -34,7 +34,7 @@ export interface FileStoreSelectProps {
   placeholder?: string
   readonly?: boolean
   formik: FormikContextType<any>
-  onChange: (value: string) => void
+  onChange?: (value: string) => void
 }
 
 interface FormikFileStoreInput extends FileStoreSelectProps {
@@ -62,7 +62,8 @@ function FileStoreInput(props: FormikFileStoreInput): React.ReactElement {
   const modalFileStore = useFileStoreModal({
     applySelected: value => {
       const { scope, path } = value
-      onChange(prepareFileStoreValue(scope, path))
+      onChange?.(prepareFileStoreValue(scope, path))
+      formik.setFieldValue(name, prepareFileStoreValue(scope, path))
     }
   })
   const placeholder_ = defaultTo(placeholder, getString('select'))

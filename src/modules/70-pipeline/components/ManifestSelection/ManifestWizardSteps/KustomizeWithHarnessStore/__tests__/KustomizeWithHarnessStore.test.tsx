@@ -13,16 +13,14 @@ import {
   queryByAttribute,
   render,
   waitFor,
-  getByText as getElementByText,
-  queryByText
+  getByText as getElementByText
 } from '@testing-library/react'
 import { MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import userEvent from '@testing-library/user-event'
-import { omit } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
-import HarnessFileStore from '../HarnessFileStore'
+import KustomizeWithHarnessStore from '../KustomizeWithHarnessStore'
 
 jest.mock('uuid')
 jest.mock('services/portal', () => ({
@@ -36,7 +34,7 @@ const props = {
   expressions: [],
   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   handleSubmit: jest.fn(),
-  selectedManifest: 'K8sManifest' as ManifestTypes,
+  selectedManifest: 'Kustomize' as ManifestTypes,
   manifestIdsList: [],
   isReadonly: false,
   prevStepData: {}
@@ -44,18 +42,20 @@ const props = {
 const initialValues = {
   identifier: '',
   spec: {},
-  type: ManifestDataType.K8sManifest,
+  type: ManifestDataType.Kustomize,
   files: [],
-  valuesPaths: []
+  manifestScope: '',
+  skipResourceVersioning: false,
+  patchesPaths: []
 }
 
-describe('Harness File Store tests', () => {
+describe('Harness File Store with Kustomize Manifest tests', () => {
   beforeEach(() => jest.spyOn(uuid, 'v5').mockReturnValue('MockedUUID'))
 
   test('initial rendering', () => {
     const { container } = render(
       <TestWrapper>
-        <HarnessFileStore {...props} initialValues={initialValues} />
+        <KustomizeWithHarnessStore {...props} initialValues={initialValues} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -69,7 +69,9 @@ describe('Harness File Store tests', () => {
       initialValues: {
         identifier: 'test',
         files: RUNTIME_INPUT_VALUE,
-        valuesPaths: RUNTIME_INPUT_VALUE
+        manifestScope: RUNTIME_INPUT_VALUE,
+        patchesPaths: RUNTIME_INPUT_VALUE,
+        skipResourceVersioning: RUNTIME_INPUT_VALUE
       },
       prevStepData: {
         store: 'Harness'
@@ -78,27 +80,29 @@ describe('Harness File Store tests', () => {
     }
     const { container, getByText } = render(
       <TestWrapper>
-        <HarnessFileStore {...defaultProps} initialValues={initialValues} />
+        <KustomizeWithHarnessStore {...defaultProps} initialValues={initialValues} />
       </TestWrapper>
     )
-    const valuesPaths = getByText('pipeline.manifestType.valuesYamlPath')
-    expect(valuesPaths).toBeDefined()
+    const patchesPaths = getByText('pipeline.manifestType.valuesYamlPath')
+    expect(patchesPaths).toBeDefined()
+    const manifestScope = getByText('pipeline.manifestType.manifestScope')
+    expect(manifestScope).toBeDefined()
     expect(container).toMatchSnapshot()
   })
-
   test('submits with right payload', async () => {
     const prevStepData = {
       store: 'Harness'
     }
     const { container } = render(
       <TestWrapper>
-        <HarnessFileStore {...props} prevStepData={prevStepData} initialValues={initialValues} />
+        <KustomizeWithHarnessStore {...props} prevStepData={prevStepData} initialValues={initialValues} />
       </TestWrapper>
     )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
-      fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
+      fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'test-identifier' } })
+      fireEvent.change(queryByNameAttribute('manifestScope')!, { target: { value: 'scope' } })
     })
 
     fireEvent.click(container.querySelector('button[type="submit"]')!)
@@ -115,10 +119,11 @@ describe('Harness File Store tests', () => {
       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
       initialValues: {
         identifier: 'testidentifier',
-        type: ManifestDataType.K8sManifest,
+        type: ManifestDataType.Kustomize,
         spec: {
           skipResourceVersioning: false,
-          valuesPaths: ['test-path'],
+          manifestScope: 'scope',
+          patchesPaths: ['test-path'],
           store: {
             spec: {
               files: ['file path']
@@ -130,13 +135,13 @@ describe('Harness File Store tests', () => {
       prevStepData: {
         store: 'Harness'
       },
-      selectedManifest: 'K8sManifest' as ManifestTypes,
+      selectedManifest: 'Kustomize' as ManifestTypes,
       handleSubmit: jest.fn(),
       previousStep: jest.fn()
     }
     const { getByText } = render(
       <TestWrapper>
-        <HarnessFileStore {...defaultProps} />
+        <KustomizeWithHarnessStore {...defaultProps} />
       </TestWrapper>
     )
     const backButton = getByText('back').parentElement
@@ -145,7 +150,7 @@ describe('Harness File Store tests', () => {
     expect(defaultProps.previousStep).toHaveBeenCalledWith(defaultProps.prevStepData)
   })
 
-  test('when extractionScript, skipResourceVersioning and file path is runtime input', async () => {
+  test('when files, skipResourceVersioning and manifestScope runtime input', async () => {
     const defaultProps = {
       ...props,
       stepName: 'Manifest details',
@@ -153,7 +158,9 @@ describe('Harness File Store tests', () => {
       initialValues: {
         identifier: 'test',
         spec: {
-          valuesPaths: ['values-path'],
+          patchesPaths: RUNTIME_INPUT_VALUE,
+          manifestScope: RUNTIME_INPUT_VALUE,
+          skipResourceVersioning: RUNTIME_INPUT_VALUE,
           store: {
             spec: {
               files: RUNTIME_INPUT_VALUE
@@ -169,12 +176,22 @@ describe('Harness File Store tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <HarnessFileStore {...defaultProps} />
+        <KustomizeWithHarnessStore {...defaultProps} />
       </TestWrapper>
     )
 
     const filesInput = queryByAttribute('name', container, 'files') as HTMLInputElement
     expect(filesInput.value).toBe('<+input>')
+
+    const manifestScope = queryByAttribute('name', container, 'manifestScope') as HTMLInputElement
+    expect(manifestScope.value).toBe('<+input>')
+
+    const skipResourceVersioningField = queryByAttribute(
+      'name',
+      container,
+      'skipResourceVersioning'
+    ) as HTMLInputElement
+    expect(skipResourceVersioningField.value).toBe('<+input>')
   })
 
   test('going back to prev step and submitting to next step works as expected', async () => {
@@ -185,9 +202,11 @@ describe('Harness File Store tests', () => {
       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
       initialValues: {
         identifier: 'testidentifier',
-        type: ManifestDataType.K8sManifest,
+        type: ManifestDataType.Kustomize,
         spec: {
-          valuesPaths: ['values-path'],
+          patchesPaths: ['values-path'],
+          skipResourceVersioning: true,
+          manifestScope: 'manifest-scope',
           store: {
             spec: {
               files: RUNTIME_INPUT_VALUE
@@ -198,13 +217,13 @@ describe('Harness File Store tests', () => {
       prevStepData: {
         store: 'Harness'
       },
-      selectedManifest: 'K8sManifest' as ManifestTypes,
+      selectedManifest: 'Kustomize' as ManifestTypes,
       handleSubmit: jest.fn(),
       previousStep: jest.fn()
     }
     const { container, getByText } = render(
       <TestWrapper>
-        <HarnessFileStore {...defaultProps} />
+        <KustomizeWithHarnessStore {...defaultProps} />
       </TestWrapper>
     )
     const backButton = getByText('back').parentElement
@@ -215,34 +234,5 @@ describe('Harness File Store tests', () => {
     userEvent.click(submitButton!)
     const titleText = getElementByText(container, 'Manifest details')
     expect(titleText).toBeDefined()
-  })
-
-  test('valuesPaths is not present when selected manifest is of type Values', () => {
-    const manifestProps = {
-      stepName: 'Manifest details',
-      expressions: [],
-      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
-      handleSubmit: jest.fn(),
-      selectedManifest: 'Values' as ManifestTypes,
-      manifestIdsList: [],
-      isReadonly: false,
-      prevStepData: {}
-    }
-    const defaultProps = {
-      ...manifestProps,
-      prevStepData: {
-        store: 'Harness'
-      },
-      initialValues: { ...omit(initialValues, 'type', 'valuesPaths'), type: ManifestDataType.Values },
-      handleSubmit: jest.fn()
-    }
-
-    const { container } = render(
-      <TestWrapper>
-        <HarnessFileStore {...defaultProps} />
-      </TestWrapper>
-    )
-    const valuesPathsText = queryByText(container, 'pipeline.manifestType.valuesYamlPath')
-    expect(valuesPathsText).toBeNull()
   })
 })

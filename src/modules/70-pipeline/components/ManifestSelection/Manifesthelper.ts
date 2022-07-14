@@ -119,28 +119,28 @@ export const allowedManifestTypes: Record<string, Array<ManifestTypes>> = {
   AzureWebApp: []
 }
 
-export const manifestStoreTypes: Array<ManifestStores> = [
+export const gitStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
   ManifestStoreMap.Github,
   ManifestStoreMap.GitLab,
   ManifestStoreMap.Bitbucket
-  // ManifestStoreMap.Harness
 ]
 export const ManifestTypetoStoreMap: Record<ManifestTypes, ManifestStores[]> = {
-  K8sManifest: [...manifestStoreTypes],
-  Values: [...manifestStoreTypes, ManifestStoreMap.InheritFromManifest],
+  K8sManifest: [...gitStoreTypes, ManifestStoreMap.Harness],
+  Values: [...gitStoreTypes, ManifestStoreMap.InheritFromManifest, ManifestStoreMap.Harness],
   HelmChart: [
-    ...manifestStoreTypes,
+    ...gitStoreTypes,
     ManifestStoreMap.Http,
     ManifestStoreMap.OciHelmChart,
     ManifestStoreMap.S3,
-    ManifestStoreMap.Gcs
+    ManifestStoreMap.Gcs,
+    ManifestStoreMap.Harness
   ],
-  Kustomize: manifestStoreTypes,
-  OpenshiftTemplate: [...manifestStoreTypes],
-  OpenshiftParam: [...manifestStoreTypes, ManifestStoreMap.InheritFromManifest],
-  KustomizePatches: [...manifestStoreTypes, ManifestStoreMap.InheritFromManifest],
-  ServerlessAwsLambda: manifestStoreTypes
+  Kustomize: [...gitStoreTypes, ManifestStoreMap.Harness],
+  OpenshiftTemplate: [...gitStoreTypes, ManifestStoreMap.Harness],
+  OpenshiftParam: [...gitStoreTypes, ManifestStoreMap.InheritFromManifest, ManifestStoreMap.Harness],
+  KustomizePatches: [...gitStoreTypes, ManifestStoreMap.InheritFromManifest, ManifestStoreMap.Harness],
+  ServerlessAwsLambda: gitStoreTypes
 }
 
 export const manifestTypeIcons: Record<ManifestTypes, IconName> = {

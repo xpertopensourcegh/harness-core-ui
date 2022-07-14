@@ -337,6 +337,9 @@ manifestType:
   customRemoteExtractedFileLocation: Extracted Manifest File Location
   customRemoteExtractedFileLocationPlaceholder: Enter Extracted Manifest File Location
   paramsYamlPath: Openshift Parameters
+  manifestScope: Manifest Scope
+  manifestScopePlaceholder: Enter Manifest Scope
+  manifestScopeRequired: Manifest Scope is required
   http:
     chartName: 'Chart Name'
     chartVersion: 'Chart Version'

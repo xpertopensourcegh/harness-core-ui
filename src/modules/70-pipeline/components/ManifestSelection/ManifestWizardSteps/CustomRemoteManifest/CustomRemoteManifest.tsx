@@ -161,7 +161,7 @@ function CustomRemoteManifest({
 
       <Formik
         initialValues={getInitialValues()}
-        formName="manifestDetails"
+        formName="customRemoteManifest"
         validationSchema={Yup.object().shape({
           ...ManifestIdentifierValidation(manifestIdsList, initialValues?.identifier, getString('pipeline.uniqueName')),
           paths: Yup.lazy((value): Yup.Schema<unknown> => {
