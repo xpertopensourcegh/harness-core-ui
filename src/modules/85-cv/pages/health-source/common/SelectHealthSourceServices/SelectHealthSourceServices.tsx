@@ -22,7 +22,8 @@ export default function SelectHealthSourceServices({
   hideSLIAndHealthScore,
   isTemplate,
   expressions,
-  showOnlySLI = false
+  showOnlySLI = false,
+  isConnectorRuntimeOrExpression
 }: SelectHealthSourceServicesProps): JSX.Element {
   const { getString } = useStrings()
   const { continuousVerification, healthScore, serviceInstance, riskCategory } = values
@@ -67,6 +68,7 @@ export default function SelectHealthSourceServices({
           continuousVerificationEnabled={continuousVerification && !hideServiceIdentifier}
           serviceInstance={serviceInstance}
           riskCategory={riskCategory}
+          isConnectorRuntimeOrExpression={isConnectorRuntimeOrExpression}
         />
       )}
     </Container>
