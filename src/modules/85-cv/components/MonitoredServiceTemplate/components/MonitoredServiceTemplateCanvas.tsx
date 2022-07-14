@@ -30,8 +30,6 @@ const MonitoredServiceTemplateCanvas = (_props: unknown, formikRef: TemplateForm
           environmentRef: formikValue?.environmentRef,
           type: formikValue?.type,
           sources: formikValue?.sources || {},
-          name: '<+monitoredService.serviceRef> <+monitoredService.environmentRef>',
-          identifier: '<+monitoredService.serviceRef>_<+monitoredService.environmentRef>',
           variables: state?.template?.spec?.variables
         } as JsonNode
       })
