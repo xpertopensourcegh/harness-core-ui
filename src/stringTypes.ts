@@ -1255,12 +1255,18 @@ export interface StringsMap {
   'delegates.permissionRequired': string
   'delegates.questionForceDeleteDelegate': string
   'delegates.replicaText': string
+  'delegates.reviewScript.descriptionHelmProxySettings': string
   'delegates.reviewScript.docLink': string
   'delegates.reviewScript.docLinkAfter': string
   'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
   'delegates.selectors': string
+  'delegates.successVerification.addHelmRepoCmd': string
+  'delegates.successVerification.addHelmRepoLabel': string
+  'delegates.successVerification.applyYAMLTitleForHelm': string
   'delegates.successVerification.checkingForHeartbeat': string
+  'delegates.successVerification.installHelmChartCmd': string
+  'delegates.successVerification.installHelmChartLabel': string
   'delegates.successfullyUpdatedConfig': string
   'delegates.tokens.createdBySystem': string
   'delegates.tokens.delegateTokens': string
