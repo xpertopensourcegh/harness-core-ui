@@ -43,6 +43,7 @@ import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactor
 
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitRemoteDetails from '@common/components/GitRemoteDetails/GitRemoteDetails'
+import type { ServiceDeploymentInfo } from 'services/cd-ng'
 import { DashboardSelected, ServiceExecutionsCard } from '../ServiceExecutionsCard/ServiceExecutionsCard'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import { useExecutionCompareContext } from '../ExecutionCompareYaml/ExecutionCompareContext'
@@ -188,17 +189,22 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
     if (checkboxRef.current?.contains(e.target)) return
     const { pipelineIdentifier: cardPipelineId, planExecutionId } = pipelineExecution
     if (!disabled && cardPipelineId && planExecutionId) {
-      history.push(
-        routes.toExecutionPipelineView({
-          orgIdentifier,
-          pipelineIdentifier: cardPipelineId,
-          executionIdentifier: planExecutionId,
-          projectIdentifier,
-          accountId,
-          module,
-          source
-        })
-      )
+      const route = routes.toExecutionPipelineView({
+        orgIdentifier,
+        pipelineIdentifier: cardPipelineId,
+        executionIdentifier: planExecutionId,
+        projectIdentifier,
+        accountId,
+        module,
+        source
+      })
+
+      //opening in new tab is required for cards present in dashboards
+      if (IS_SERVICEDETAIL || IS_OVERVIEWPAGE) {
+        window.open(`#${route}`)
+      } else {
+        history.push(route)
+      }
     }
   }
 
@@ -361,7 +367,9 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 <div style={{ position: 'relative' }}>
                   <ServiceExecutionsCard
                     envIdentifiers={pipelineExecution?.moduleInfo?.cd?.envIdentifiers as string[]}
-                    serviceIdentifiers={pipelineExecution?.moduleInfo?.cd?.serviceIdentifiers as string[]}
+                    serviceIdentifiers={
+                      pipelineExecution?.moduleInfo?.cd?.serviceIdentifiers as ServiceDeploymentInfo[]
+                    }
                     caller={IS_SERVICEDETAIL ? DashboardSelected.SERVICEDETAIL : DashboardSelected.OVERVIEW}
                   />
                 </div>

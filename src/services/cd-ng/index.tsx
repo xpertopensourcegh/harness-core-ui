@@ -864,6 +864,7 @@ export type AuditFilterProperties = FilterProperties & {
     | 'UNSUCCESSFUL_LOGIN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
+    | 'ERROR_BUDGET_RESET'
   )[]
   endTime?: number
   environments?: Environment[]
@@ -10733,6 +10734,7 @@ export interface ServiceDeployment {
 }
 
 export interface ServiceDeploymentInfo {
+  image?: string
   serviceName?: string
   serviceTag?: string
 }
@@ -19860,6 +19862,62 @@ export const getDeploymentHealthPromise = (
   getUsingFetch<ResponseHealthDeploymentDashboard, Failure | Error, GetDeploymentHealthQueryParams, void>(
     getConfig('ng/api'),
     `/dashboard/deploymentHealth`,
+    props,
+    signal
+  )
+
+export interface GetActiveServiceDeploymentsQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+}
+
+export type GetActiveServiceDeploymentsProps = Omit<
+  GetProps<ResponseInstanceGroupedByArtifactList, Failure | Error, GetActiveServiceDeploymentsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Information about artifacts for a particular service, deployed to different environments
+ */
+export const GetActiveServiceDeployments = (props: GetActiveServiceDeploymentsProps) => (
+  <Get<ResponseInstanceGroupedByArtifactList, Failure | Error, GetActiveServiceDeploymentsQueryParams, void>
+    path={`/dashboard/getActiveServiceDeployments`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActiveServiceDeploymentsProps = Omit<
+  UseGetProps<ResponseInstanceGroupedByArtifactList, Failure | Error, GetActiveServiceDeploymentsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Information about artifacts for a particular service, deployed to different environments
+ */
+export const useGetActiveServiceDeployments = (props: UseGetActiveServiceDeploymentsProps) =>
+  useGet<ResponseInstanceGroupedByArtifactList, Failure | Error, GetActiveServiceDeploymentsQueryParams, void>(
+    `/dashboard/getActiveServiceDeployments`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Information about artifacts for a particular service, deployed to different environments
+ */
+export const getActiveServiceDeploymentsPromise = (
+  props: GetUsingFetchProps<
+    ResponseInstanceGroupedByArtifactList,
+    Failure | Error,
+    GetActiveServiceDeploymentsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseInstanceGroupedByArtifactList, Failure | Error, GetActiveServiceDeploymentsQueryParams, void>(
+    getConfig('ng/api'),
+    `/dashboard/getActiveServiceDeployments`,
     props,
     signal
   )

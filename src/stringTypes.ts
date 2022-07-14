@@ -3076,6 +3076,7 @@ export interface StringsMap {
   'pipeline.gitPullRequestNumber': string
   'pipeline.gitRepo': string
   'pipeline.imagePathLabel': string
+  'pipeline.imageTag': string
   'pipeline.imageVersionDeprecated': string
   'pipeline.importSuccessMessage': string
   'pipeline.infraSpecifications.initTimeout': string
