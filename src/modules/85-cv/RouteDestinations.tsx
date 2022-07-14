@@ -33,11 +33,14 @@ import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import { CVChanges } from '@cv/pages/changes/CVChanges'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import type { ResourceDTO } from 'services/audit'
 import type { ResourceScope } from 'services/cd-ng'
 import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
 import { ErrorTracking } from '@et/ErrorTrackingApp'
+import { String } from 'framework/strings'
+import RbacFactory from '@rbac/factories/RbacFactory'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ChildAppMounter from '../../microfrontends/ChildAppMounter'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 import { editParams } from './utils/routeUtils'
@@ -130,6 +133,34 @@ AuditTrailFactory.registerResourceHandler(ResourceType.SERVICE_LEVEL_OBJECTIVE, 
       })
     }
     return undefined
+  }
+})
+
+RbacFactory.registerResourceCategory(ResourceCategory.CHANGEINTELLIGENCE_FUNCTION, {
+  icon: 'cv-main',
+  label: 'common.purpose.cv.serviceReliability'
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.MONITOREDSERVICE, {
+  icon: 'cv-main',
+  label: 'cv.monitoredServices.title',
+  category: ResourceCategory.CHANGEINTELLIGENCE_FUNCTION,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_MONITORED_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_MONITORED_SERVICE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_MONITORED_SERVICE]: <String stringID="delete" />,
+    [PermissionIdentifier.TOGGLE_MONITORED_SERVICE]: <String stringID="cf.rbac.featureflag.toggle" />
+  }
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.SLO, {
+  icon: 'cv-main',
+  label: 'cv.SLO',
+  category: ResourceCategory.CHANGEINTELLIGENCE_FUNCTION,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_SLO_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_SLO_SERVICE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_SLO_SERVICE]: <String stringID="delete" />
   }
 })
 
