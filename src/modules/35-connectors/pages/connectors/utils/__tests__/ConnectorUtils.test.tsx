@@ -23,7 +23,9 @@ import {
   getReferredEntityLabelByType,
   getConnectorDisplayName,
   getIconByType,
-  isSMConnector
+  isSMConnector,
+  getCompleteConnectorUrl,
+  GitAuthenticationProtocol
 } from '../ConnectorUtils'
 
 jest.mock('services/cd-ng', () => ({
@@ -1030,4 +1032,47 @@ describe('Connector Utils', () => {
       expect(isSMConnector('AwsSecretManager')).toBeTruthy()
       expect(isSMConnector()).toBeUndefined()
     })
+
+  test('Test getCompleteConnectorUrl method', () => {
+    expect(
+      getCompleteConnectorUrl({
+        partialUrl: '',
+        repoName: 'test-repo',
+        connectorType: Connectors.AZURE_REPO,
+        gitAuthProtocol: GitAuthenticationProtocol.HTTPS
+      })
+    ).toBe('')
+    expect(
+      getCompleteConnectorUrl({
+        partialUrl: 'https://github.com/harness',
+        repoName: '',
+        connectorType: Connectors.GITHUB,
+        gitAuthProtocol: GitAuthenticationProtocol.HTTPS
+      })
+    ).toBe('')
+    expect(
+      getCompleteConnectorUrl({
+        partialUrl: 'https://github.com/harness',
+        repoName: 'test-repo',
+        connectorType: Connectors.GITHUB,
+        gitAuthProtocol: GitAuthenticationProtocol.HTTPS
+      })
+    ).toBe('https://github.com/harness/test-repo')
+    expect(
+      getCompleteConnectorUrl({
+        partialUrl: 'https://dev.azure.com/harness',
+        repoName: 'test-repo',
+        connectorType: Connectors.AZURE_REPO,
+        gitAuthProtocol: GitAuthenticationProtocol.HTTPS
+      })
+    ).toBe('https://dev.azure.com/harness/_git/test-repo')
+    expect(
+      getCompleteConnectorUrl({
+        partialUrl: 'ssh://dev.azure.com/harness',
+        repoName: 'test-repo',
+        connectorType: Connectors.AZURE_REPO,
+        gitAuthProtocol: GitAuthenticationProtocol.SSH
+      })
+    ).toBe('ssh://dev.azure.com/harness/test-repo')
+  })
 })

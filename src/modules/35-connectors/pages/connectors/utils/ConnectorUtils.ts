@@ -2274,3 +2274,32 @@ export const showEditAndViewPermission = (connectorType: string) => {
   const connectorsList: string[] = [Connectors.CE_KUBERNETES, Connectors.CEAWS, Connectors.CE_AZURE, Connectors.CE_GCP]
   return Boolean(connectorsList.includes(connectorType))
 }
+
+export enum GitAuthenticationProtocol {
+  HTTP = 'http',
+  HTTPS = 'https',
+  SSH = 'ssh'
+}
+
+export const getCompleteConnectorUrl = ({
+  partialUrl,
+  repoName,
+  connectorType,
+  gitAuthProtocol
+}: {
+  partialUrl: string
+  repoName: string
+  connectorType: ConnectorConfigDTO['type']
+  gitAuthProtocol: GitAuthenticationProtocol
+}): string => {
+  if (!partialUrl || !repoName || !connectorType) {
+    return ''
+  }
+  return (partialUrl[partialUrl.length - 1] === '/' ? partialUrl : partialUrl + '/')
+    .concat(
+      connectorType === Connectors.AZURE_REPO && gitAuthProtocol.toLowerCase() !== GitAuthenticationProtocol.SSH
+        ? '_git/'
+        : ''
+    )
+    .concat(repoName)
+}

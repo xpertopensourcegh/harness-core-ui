@@ -50,7 +50,7 @@ validation:
   identifier: '{{$.validation.identifierRequired}}'
   event: 'Event is required.'
   connector: '{{$.connectors.validation.connectorIsRequired}}'
-  repoName: 'Repository Name is required for Connector with Account URL Type.'
+  repoName: 'Repository Name is required for connector with Account/Project URL type'
   actions: 'Actions is required.'
   operator: 'Operator is required with Matches Value.'
   matchesValue: 'Matches Value is required with Operator.'
