@@ -47,7 +47,7 @@ import type { ServiceDeploymentInfo } from 'services/cd-ng'
 import { DashboardSelected, ServiceExecutionsCard } from '../ServiceExecutionsCard/ServiceExecutionsCard'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import { useExecutionCompareContext } from '../ExecutionCompareYaml/ExecutionCompareContext'
-import { TimePopoverWithLocal } from './TimeAgoPopoverWithLocal'
+import { TimePopoverWithLocal } from './TimePopoverWithLocal'
 import css from './ExecutionCard.module.scss'
 
 export interface ExecutionCardProps {
@@ -57,14 +57,14 @@ export interface ExecutionCardProps {
   isPipelineInvalid?: boolean
   showGitDetails?: boolean
   onViewCompiledYaml?: () => void
-  isCDOverview?: boolean
+  isCD?: boolean
 }
 
 function ExecutionCardFooter({
   pipelineExecution,
   variant,
-  isCDOverview = false
-}: Pick<ExecutionCardProps, 'pipelineExecution' | 'variant' | 'isCDOverview'>): React.ReactElement {
+  isCD = false
+}: Pick<ExecutionCardProps, 'pipelineExecution' | 'variant' | 'isCD'>): React.ReactElement {
   const fontVariation = variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL
   const variantSize = variant === CardVariant.Minimal ? 10 : 14
   return (
@@ -99,7 +99,7 @@ function ExecutionCardFooter({
         </Text>
       </div>
       <div className={css.timers}>
-        {isCDOverview ? (
+        {isCD ? (
           <TimePopoverWithLocal
             iconProps={{
               size: variantSize,
@@ -398,7 +398,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             ) : null}
           </div>
         </div>
-        <ExecutionCardFooter pipelineExecution={pipelineExecution} variant={variant} isCDOverview={IS_OVERVIEWPAGE} />
+        <ExecutionCardFooter pipelineExecution={pipelineExecution} variant={variant} isCD={HAS_CD} />
       </div>
     </Card>
   )

@@ -25,7 +25,7 @@ import {
 import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import { defaultChartOptions } from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
-import { TimePopoverWithLocal } from '@pipeline/components/ExecutionCard/TimeAgoPopoverWithLocal'
+import { TimePopoverWithLocal } from '@pipeline/components/ExecutionCard/TimePopoverWithLocal'
 import styles from './CardWithChart.module.scss'
 
 interface BuildCount {
