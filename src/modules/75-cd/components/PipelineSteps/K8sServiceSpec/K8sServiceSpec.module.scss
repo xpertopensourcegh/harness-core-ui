@@ -80,11 +80,13 @@
   position: absolute;
   border: solid 1px rgb(204, 204, 204);
   width: 400px;
-  max-height: 200px;
   overflow: auto;
   :global {
     .icon-container {
       display: none;
+    }
+    .bp3-menu {
+      max-height: 200px !important;
     }
     button.bp3-button {
       width: 90%;
