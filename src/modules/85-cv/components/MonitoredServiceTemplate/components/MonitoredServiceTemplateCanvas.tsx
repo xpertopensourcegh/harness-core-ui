@@ -13,6 +13,7 @@ import type { JsonNode } from 'services/template-ng'
 import { MonitoredServiceProvider } from '@cv/pages/monitored-service/MonitoredServiceContext'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
+import { DefaultSpec } from './MonitoredServiceTemplateCanvas.constants'
 
 const MonitoredServiceTemplateCanvas = (_props: unknown, formikRef: TemplateFormRef) => {
   const { state, updateTemplate } = React.useContext(TemplateContext)
@@ -35,6 +36,12 @@ const MonitoredServiceTemplateCanvas = (_props: unknown, formikRef: TemplateForm
       })
     }
   }
+
+  React.useEffect(() => {
+    if (!state.template?.spec) {
+      onUpdate(DefaultSpec)
+    }
+  }, [state.template])
 
   return (
     <MonitoredServiceProvider isTemplate>
