@@ -38,10 +38,6 @@
     font-size: var(--font-size-small);
     color: var(--grey-800);
 
-    .servicesIcon {
-      margin-right: var(--spacing-3) !important;
-    }
-
     p {
       color: var(--grey-800) !important;
       font-size: var(--font-size-small) !important;
@@ -83,6 +79,10 @@
       font-size: var(--font-size-small) !important;
     }
   }
+}
+
+.servicesIcon {
+  margin-right: var(--spacing-3) !important;
 }
 
 .mainPopover {

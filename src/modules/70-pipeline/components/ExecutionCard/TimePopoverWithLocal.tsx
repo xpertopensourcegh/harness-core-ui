@@ -47,7 +47,7 @@ function TimeDate(timeZone: string, time: number): JSX.Element {
           TIME
         </Text>
         <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.WHITE}>
-          {timeZone === TimeZone.UTC ? `${moment(time).utc().format('HH:MM:SS')}` : new Date(time).toLocaleTimeString()}
+          {timeZone === TimeZone.UTC ? `${moment(time).utc().format('HH:mm:ss')}` : new Date(time).toLocaleTimeString()}
         </Text>
       </Layout.Horizontal>
     </>
