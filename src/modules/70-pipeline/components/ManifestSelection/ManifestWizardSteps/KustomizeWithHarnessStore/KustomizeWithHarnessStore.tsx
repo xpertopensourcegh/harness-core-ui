@@ -79,9 +79,7 @@ function KustomizeWithHarnessStore({
     }
   }
 
-  const submitFormData = (
-    formData: KustomizeWithHarnessStorePropTypeDataType & { store?: string; connectorRef?: string }
-  ): void => {
+  const submitFormData = (formData: KustomizeWithHarnessStorePropTypeDataType & { store?: string }): void => {
     /* istanbul ignore else */
     if (formData) {
       const manifestObj: ManifestConfigWrapper = {

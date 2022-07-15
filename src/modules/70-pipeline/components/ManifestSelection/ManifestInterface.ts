@@ -197,7 +197,7 @@ export interface InlineDataType {
 export interface HarnessFileStoreDataType {
   identifier: string
   files: string[]
-  valuesPaths: any
+  valuesPaths: string[]
 }
 export interface HarnessFileStoreFormData {
   identifier: string

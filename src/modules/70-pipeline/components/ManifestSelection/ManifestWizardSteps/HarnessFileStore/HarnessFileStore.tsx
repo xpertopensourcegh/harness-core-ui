@@ -76,7 +76,7 @@ function HarnessFileStore({
     }
   }
 
-  const submitFormData = (formData: HarnessFileStoreFormData & { store?: string; connectorRef?: string }): void => {
+  const submitFormData = (formData: HarnessFileStoreFormData & { store?: string }): void => {
     /* istanbul ignore else */
     if (formData) {
       const manifestObj: ManifestConfigWrapper = {
@@ -134,7 +134,7 @@ function HarnessFileStore({
                   </div>
                   <div className={css.halfWidth}>
                     <MultiTypeFieldSelector
-                      defaultValueToReset={[{ path: '', scope: 'account' }]}
+                      defaultValueToReset={['']}
                       allowedTypes={allowableTypes.filter(allowedType => allowedType !== MultiTypeInputType.EXPRESSION)}
                       name="files"
                       label={getString('resourcePage.fileStore')}
