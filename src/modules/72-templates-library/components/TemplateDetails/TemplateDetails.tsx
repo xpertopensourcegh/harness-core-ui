@@ -301,7 +301,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                             <Container>
                               <Layout.Vertical spacing={'small'}>
                                 <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
-                                  {getString('templatesLibrary.createNewModal.versionLabel')}
+                                  {getString('common.versionLabel')}
                                 </Text>
                                 <DropDown
                                   filterable={false}

@@ -274,7 +274,7 @@ exports[`<TemplateDetails /> tests should match snapshot 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
                           >
-                            templatesLibrary.createNewModal.versionLabel
+                            common.versionLabel
                           </p>
                           <div
                             class="bp3-popover-wrapper DropDown--main"

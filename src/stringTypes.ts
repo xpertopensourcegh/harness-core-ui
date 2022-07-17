@@ -831,6 +831,7 @@ export interface StringsMap {
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
   'common.variables': string
+  'common.versionLabel': string
   'common.videoNotSupportedError': string
   'common.viewAndExecutePermissions': string
   'common.viewContent': string
@@ -3712,7 +3713,6 @@ export interface StringsMap {
   'templatesLibrary.createNewModal.lastPublishedVersion': string
   'templatesLibrary.createNewModal.nameError': string
   'templatesLibrary.createNewModal.namePlaceholder': string
-  'templatesLibrary.createNewModal.versionLabel': string
   'templatesLibrary.createNewModal.versionPlaceholder': string
   'templatesLibrary.created': string
   'templatesLibrary.default': string

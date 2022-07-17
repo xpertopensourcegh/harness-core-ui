@@ -1022,7 +1022,7 @@ export function PipelineProvider({
         ...queryParams,
         templateListType: 'Stable',
         repoIdentifier: state.gitDetails.repoIdentifier,
-        branch: state.gitDetails.repoIdentifier,
+        branch: state.gitDetails.branch,
         getDefaultFromOtherRepo: true
       },
       templateRefs
