@@ -526,13 +526,17 @@ export const createAppDFormData = (
 ): AppDynamicsFomikFormInterface => {
   const mappedMetricsData = mappedMetrics.get(selectedMetric) as MapAppDynamicsMetric
   const metricIdentifier = mappedMetricsData?.metricIdentifier || selectedMetric?.split(' ').join('_')
-  const { basePath = {}, metricPath = {}, completeMetricPath = '' } = mappedMetricsData || {}
+  const { basePath = {}, metricPath = {}, completeMetricPath = '', serviceInstanceMetricPath } = mappedMetricsData || {}
   const lastItemBasePath = Object.keys(basePath)[Object.keys(basePath).length - 1]
   const lastItemMetricPath = Object.keys(metricPath)[Object.keys(metricPath).length - 1]
   const fullPath =
     basePath[lastItemBasePath]?.path && metricPath[lastItemMetricPath]?.path && appDynamicsData.tierName
       ? `${basePath[lastItemBasePath]?.path}|${appDynamicsData.tierName}|${metricPath[lastItemMetricPath]?.path}`
       : ''
+
+  if (isTemplate && serviceInstanceMetricPath === '') {
+    mappedMetricsData.serviceInstanceMetricPath = RUNTIME_INPUT_VALUE
+  }
 
   return {
     name: appDynamicsData.name,
