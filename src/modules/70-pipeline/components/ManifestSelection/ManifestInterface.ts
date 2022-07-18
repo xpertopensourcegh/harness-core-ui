@@ -198,11 +198,13 @@ export interface HarnessFileStoreDataType {
   identifier: string
   files: string[]
   valuesPaths: string[]
+  paramsPaths: string[]
 }
 export interface HarnessFileStoreFormData {
   identifier: string
   files: Array<{ path: string }> | string
-  valuesPaths: Array<{ path: string }> | string
+  valuesPaths?: Array<{ path: string }> | string
+  paramsPaths?: Array<{ path: string }> | string
 }
 export interface KustomizeWithHarnessStorePropTypeDataType {
   identifier: string

@@ -114,7 +114,7 @@ function KustomizeWithHarnessStore({
         formName="kustomizeHarnessFileStore"
         validationSchema={Yup.object().shape({
           ...ManifestIdentifierValidation(manifestIdsList, initialValues?.identifier, getString('pipeline.uniqueName')),
-          manifestScope: Yup.mixed().required(getString('pipeline.manifestType.manifestScopeRequired'))
+          manifestScope: Yup.mixed().required(getString('pipeline.manifestType.folderPathRequired'))
         })}
         onSubmit={formData => {
           submitFormData({
@@ -151,7 +151,7 @@ function KustomizeWithHarnessStore({
                       name="manifestScope"
                       multiTextInputProps={{ expressions, allowableTypes }}
                       label={getString('pipeline.manifestType.manifestScope')}
-                      placeholder={getString('pipeline.manifestType.manifestScopePlaceholder')}
+                      placeholder={getString('pipeline.manifestType.folderPathPlaceholder')}
                     />
                     {getMultiTypeFromValue(get(formik, 'values.manifestScope')) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions

@@ -96,7 +96,7 @@ exports[`Harness File Store with Kustomize Manifest tests initial rendering 1`] 
                         autocomplete="off"
                         class="bp3-input"
                         name="manifestScope"
-                        placeholder="pipeline.manifestType.manifestScopePlaceholder"
+                        placeholder="pipeline.manifestType.folderPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -594,7 +594,7 @@ exports[`Harness File Store with Kustomize Manifest tests when fields are runtim
                         autocomplete="off"
                         class="bp3-input"
                         name="manifestScope"
-                        placeholder="pipeline.manifestType.manifestScopePlaceholder"
+                        placeholder="pipeline.manifestType.folderPathPlaceholder"
                         type="text"
                         value=""
                       />

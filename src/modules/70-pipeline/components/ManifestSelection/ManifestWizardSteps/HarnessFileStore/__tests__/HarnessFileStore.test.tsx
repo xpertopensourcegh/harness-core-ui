@@ -86,6 +86,32 @@ describe('Harness File Store tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('Params Path field is displayed when manifest is OpenshiftTemplate', () => {
+    const defaultProps = {
+      ...omit(props, 'selectedManifest'),
+      stepName: 'Manifest details',
+      selectedManifest: ManifestDataType.OpenshiftTemplate,
+      expressions: [],
+      initialValues: {
+        identifier: 'test',
+        files: RUNTIME_INPUT_VALUE,
+        valuesPaths: RUNTIME_INPUT_VALUE
+      },
+      prevStepData: {
+        store: 'Harness'
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <HarnessFileStore {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+    const paramsPaths = getByText('pipeline.manifestType.paramsYamlPath')
+    expect(paramsPaths).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
   test('submits with right payload', async () => {
     const prevStepData = {
       store: 'Harness'

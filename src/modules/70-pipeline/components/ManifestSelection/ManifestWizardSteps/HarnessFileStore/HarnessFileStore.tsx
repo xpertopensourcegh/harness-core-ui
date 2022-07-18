@@ -19,7 +19,7 @@ import {
 import { FontVariation } from '@harness/design-system'
 import { FieldArray, Form } from 'formik'
 import * as Yup from 'yup'
-import { defaultTo, get } from 'lodash-es'
+import { defaultTo, get, set } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -39,12 +39,10 @@ interface HarnessFileStorePropType {
 }
 
 const showValuesPaths = (selectedManifest: ManifestTypes): boolean => {
-  return [
-    ManifestDataType.K8sManifest,
-    ManifestDataType.HelmChart,
-    ManifestDataType.OpenshiftTemplate,
-    ManifestDataType.Kustomize
-  ].includes(selectedManifest)
+  return [ManifestDataType.K8sManifest, ManifestDataType.HelmChart].includes(selectedManifest)
+}
+const showParamsPaths = (selectedManifest: ManifestTypes): boolean => {
+  return selectedManifest === ManifestDataType.OpenshiftTemplate
 }
 
 function HarnessFileStore({
@@ -62,17 +60,20 @@ function HarnessFileStore({
   const getInitialValues = (): HarnessFileStoreDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
     const valuesPaths = get(initialValues, 'spec.valuesPaths')
+    const paramsPaths = get(initialValues, 'spec.paramsPaths')
     if (specValues) {
       return {
         ...specValues,
         identifier: initialValues.identifier,
-        valuesPaths
+        valuesPaths,
+        paramsPaths
       }
     }
     return {
       identifier: '',
       files: [''],
-      valuesPaths: ['']
+      valuesPaths: [''],
+      paramsPaths: ['']
     }
   }
 
@@ -89,11 +90,17 @@ function HarnessFileStore({
               spec: {
                 files: formData.files
               }
-            },
-            valuesPaths: formData.valuesPaths
+            }
           }
         }
       }
+      if (showValuesPaths(selectedManifest as ManifestTypes)) {
+        set(manifestObj, 'manifest.spec.valuesPaths', formData.valuesPaths)
+      }
+      if (showParamsPaths(selectedManifest as ManifestTypes)) {
+        set(manifestObj, 'manifest.spec.paramsPaths', formData.paramsPaths)
+      }
+
       handleSubmit(manifestObj)
     }
   }
@@ -185,6 +192,47 @@ function HarnessFileStore({
                               {defaultTo(get(formik, 'values.valuesPaths'), []).map((paths: string, index: number) => (
                                 <Layout.Horizontal key={paths} margin={{ top: 'medium' }}>
                                   <FileStoreSelectField name={`valuesPaths[${index}]`} />
+
+                                  {index !== 0 && (
+                                    /* istanbul ignore next */ <Button
+                                      minimal
+                                      icon="main-trash"
+                                      onClick={() => remove(index)}
+                                    />
+                                  )}
+                                </Layout.Horizontal>
+                              ))}
+                              <span>
+                                <Button
+                                  minimal
+                                  text={getString('add')}
+                                  variation={ButtonVariation.PRIMARY}
+                                  onClick={() => push('')}
+                                />
+                              </span>
+                            </Layout.Vertical>
+                          )}
+                        />
+                      </MultiTypeFieldSelector>
+                    </div>
+                  )}
+                  {showParamsPaths(selectedManifest as ManifestTypes) && (
+                    <div className={css.halfWidth}>
+                      <MultiTypeFieldSelector
+                        defaultValueToReset={['']}
+                        allowedTypes={allowableTypes.filter(
+                          allowedType => allowedType !== MultiTypeInputType.EXPRESSION
+                        )}
+                        name="paramsPaths"
+                        label={getString('pipeline.manifestType.paramsYamlPath')}
+                      >
+                        <FieldArray
+                          name="paramsPaths"
+                          render={({ push, remove }) => (
+                            <Layout.Vertical>
+                              {defaultTo(get(formik, 'values.paramsPaths'), []).map((paths: string, index: number) => (
+                                <Layout.Horizontal key={paths} margin={{ top: 'medium' }}>
+                                  <FileStoreSelectField name={`paramsPaths[${index}]`} />
 
                                   {index !== 0 && (
                                     /* istanbul ignore next */ <Button
