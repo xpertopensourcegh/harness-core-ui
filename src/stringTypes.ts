@@ -387,6 +387,7 @@ export interface StringsMap {
   'common.headerCompanyName': string
   'common.headerDefaultAccount': string
   'common.headers': string
+  'common.help': string
   'common.hideAll': string
   'common.home': string
   'common.hourly': string
