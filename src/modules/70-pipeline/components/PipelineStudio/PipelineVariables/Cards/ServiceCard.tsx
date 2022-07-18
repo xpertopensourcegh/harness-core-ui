@@ -58,13 +58,18 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
     stepsFactory
   } = props
 
-  const { getStageFromPipeline } = usePipelineContext()
+  const {
+    state: { templateServiceData },
+    getStageFromPipeline
+  } = usePipelineContext()
 
   const { getString } = useStrings()
   const stage = getStageFromPipeline(stageIdentifier)
   const selectedDeploymentType = getSelectedDeploymentType(
     stage as StageElementWrapper<DeploymentStageElementConfig> | undefined,
-    getStageFromPipeline
+    getStageFromPipeline,
+    false,
+    templateServiceData
   )
   return (
     <React.Fragment>

@@ -88,13 +88,14 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
   const defaultValueToReset = [{ value: '', id: uuid() }]
   const {
     state: {
-      selectionState: { selectedStageId }
+      selectionState: { selectedStageId },
+      templateServiceData
     },
     getStageFromPipeline
   } = usePipelineContext()
 
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
-  const selectedDeploymentType = getSelectedDeploymentType(stage, getStageFromPipeline)
+  const selectedDeploymentType = getSelectedDeploymentType(stage, getStageFromPipeline, false, templateServiceData)
 
   const { expressions } = useVariablesExpression()
 

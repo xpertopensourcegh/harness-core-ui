@@ -176,6 +176,7 @@ const stateMock = {
     selectedStepId: 'step1'
   },
   templateTypes: {},
+  templateServiceData: {},
   error: ''
 }
 
@@ -239,7 +240,8 @@ const pipelineContextMock: PipelineContextInterface = {
   setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
   setSelection: jest.fn(),
   getStagePathFromPipeline: () => '',
-  setTemplateTypes: jest.fn()
+  setTemplateTypes: jest.fn(),
+  setTemplateServiceData: jest.fn()
 }
 
 export const updateStageFnArg1 = {

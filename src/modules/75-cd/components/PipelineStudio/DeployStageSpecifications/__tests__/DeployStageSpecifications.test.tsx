@@ -64,7 +64,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
     gitDetails: {},
     entityValidityDetails: {},
     isUpdated: true,
-    templateTypes: {}
+    templateTypes: {},
+    templateServiceData: {}
   },
   contextType: PipelineContextType.Pipeline,
   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
@@ -93,7 +94,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSelectedStepId: jest.fn(),
   setSelection: jest.fn(),
   getStagePathFromPipeline: jest.fn(),
-  setTemplateTypes: jest.fn()
+  setTemplateTypes: jest.fn(),
+  setTemplateServiceData: jest.fn()
 })
 
 jest.mock('../../DeployStage/EditStageView/EditStageView', () => ({

@@ -234,7 +234,8 @@ const pipelineContextMock: PipelineContextInterface = {
   setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
   setSelection: (_selectedState: PipelineSelectionState) => undefined,
   getStagePathFromPipeline: () => '',
-  setTemplateTypes: () => undefined
+  setTemplateTypes: () => undefined,
+  setTemplateServiceData: () => undefined
 }
 
 export const updateStageFnArg1 = {

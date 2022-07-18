@@ -46,7 +46,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isInitialized: true,
     isLoading: false,
     isUpdated: true,
-    templateTypes: {}
+    templateTypes: {},
+    templateServiceData: {}
   },
   contextType: PipelineContextType.Pipeline,
   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
@@ -75,7 +76,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSelectedSectionId: jest.fn(),
   setSelection: jest.fn(),
   getStagePathFromPipeline: jest.fn(),
-  setTemplateTypes: jest.fn()
+  setTemplateTypes: jest.fn(),
+  setTemplateServiceData: jest.fn()
 })
 
 describe('StepWidget tests', () => {

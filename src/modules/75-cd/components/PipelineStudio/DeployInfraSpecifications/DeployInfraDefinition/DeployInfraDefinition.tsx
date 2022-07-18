@@ -95,7 +95,8 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
   const {
     state: {
       originalPipeline,
-      selectionState: { selectedStageId }
+      selectionState: { selectedStageId },
+      templateServiceData
     },
     allowableTypes,
     isReadonly,
@@ -176,7 +177,8 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
     return getSelectedDeploymentType(
       stage,
       getStageFromPipeline,
-      !!stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+      !!stage?.stage?.spec?.serviceConfig?.useFromStage?.stage,
+      templateServiceData
     )
   }, [stage, getStageFromPipeline])
 

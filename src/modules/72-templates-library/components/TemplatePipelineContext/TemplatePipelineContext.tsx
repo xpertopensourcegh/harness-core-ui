@@ -151,20 +151,26 @@ export function TemplatePipelineProvider({
       })
     )
     if (templateRefs.length > 0) {
+      const { templateTypes, templateServiceData } = await getTemplateTypesByRef(
+        {
+          accountIdentifier: queryParams.accountIdentifier,
+          orgIdentifier: queryParams.orgIdentifier,
+          projectIdentifier: queryParams.projectIdentifier,
+          templateListType: 'Stable',
+          repoIdentifier: queryParams.repoIdentifier,
+          branch: queryParams.branch,
+          getDefaultFromOtherRepo: true
+        },
+        templateRefs
+      )
       dispatch(
         PipelineContextActions.setTemplateTypes({
-          templateTypes: await getTemplateTypesByRef(
-            {
-              accountIdentifier: queryParams.accountIdentifier,
-              orgIdentifier: queryParams.orgIdentifier,
-              projectIdentifier: queryParams.projectIdentifier,
-              templateListType: 'Stable',
-              repoIdentifier: queryParams.repoIdentifier,
-              branch: queryParams.branch,
-              getDefaultFromOtherRepo: true
-            },
-            templateRefs
-          )
+          templateTypes
+        })
+      )
+      dispatch(
+        PipelineContextActions.setTemplateServiceData({
+          templateServiceData
         })
       )
     }
@@ -207,7 +213,10 @@ export function TemplatePipelineProvider({
       },
       templateRefs
     ).then(resp => {
-      PipelineContextActions.setTemplateTypes({ templateTypes: merge(state.templateTypes, resp) })
+      PipelineContextActions.setTemplateTypes({ templateTypes: merge(state.templateTypes, resp.templateTypes) })
+      PipelineContextActions.setTemplateServiceData({
+        templateServiceData: merge(state.templateServiceData, resp.templateServiceData)
+      })
     })
   }, [state.pipeline])
 
@@ -246,7 +255,8 @@ export function TemplatePipelineProvider({
         setSelectedSectionId: noop,
         setSelection,
         getStagePathFromPipeline,
-        setTemplateTypes: noop
+        setTemplateTypes: noop,
+        setTemplateServiceData: noop
       }}
     >
       {children}

@@ -47,7 +47,7 @@ import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { getTemplateTypesByRef } from '@pipeline/utils/templateUtils'
+import { getTemplateTypesByRef, TemplateServiceDataType } from '@pipeline/utils/templateUtils'
 import type { StoreMetadata } from '@common/constants/GitSyncTypes'
 import {
   ActionReturnType,
@@ -244,6 +244,7 @@ export interface PipelineContextInterface {
   fetchPipeline: (args: FetchPipelineUnboundProps) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   setTemplateTypes: (data: { [key: string]: string }) => void
+  setTemplateServiceData: (data: TemplateServiceDataType) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   updatePipelineStoreMetadata: (storeMetadata: StoreMetadata, gitDetails: EntityGitDetails) => Promise<void>
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
@@ -435,7 +436,9 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
       branch: defaultTo(gitDetails.branch, defaultTo(pipelineWithGitDetails?.gitDetails?.branch, ''))
     }
     if (data && !forceUpdate) {
-      const templateTypes = data.pipeline ? await getTemplateType(data.pipeline, templateQueryParams) : {}
+      const { templateTypes, templateServiceData } = data.pipeline
+        ? await getTemplateType(data.pipeline, templateQueryParams)
+        : { templateTypes: {}, templateServiceData: {} }
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -448,6 +451,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
               ? pipelineWithGitDetails.gitDetails
               : defaultTo(data?.gitDetails, {}),
           templateTypes,
+          templateServiceData,
           entityValidityDetails: defaultTo(
             pipelineWithGitDetails?.entityValidityDetails,
             defaultTo(data?.entityValidityDetails, {})
@@ -465,7 +469,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
       } catch (_) {
         logger.info(DBNotFoundErrorMessage)
       }
-      const templateTypes = await getTemplateType(pipeline, templateQueryParams)
+      const { templateTypes, templateServiceData } = await getTemplateType(pipeline, templateQueryParams)
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -476,6 +480,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           gitDetails: payload.gitDetails,
           entityValidityDetails: payload.entityValidityDetails,
           templateTypes,
+          templateServiceData,
           templateInputsErrorNodeSummary,
           yamlSchemaErrorWrapper: payload?.yamlSchemaErrorWrapper
         })
@@ -846,6 +851,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   getStageFromPipeline: () => ({ stage: undefined, parent: undefined }),
   setYamlHandler: () => undefined,
   setTemplateTypes: () => undefined,
+  setTemplateServiceData: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
   pipelineSaved: () => undefined,
   deletePipelineCache: () => new Promise<void>(() => undefined),
@@ -1026,8 +1032,9 @@ export function PipelineProvider({
         getDefaultFromOtherRepo: true
       },
       templateRefs
-    ).then(resp => {
-      setTemplateTypes(merge(state.templateTypes, resp))
+    ).then(({ templateTypes, templateServiceData }) => {
+      setTemplateTypes(merge(state.templateTypes, templateTypes))
+      setTemplateServiceData(merge(state.templateServiceData, templateServiceData))
     })
   }, [state.pipeline])
 
@@ -1053,6 +1060,10 @@ export function PipelineProvider({
 
   const setTemplateTypes = React.useCallback(templateTypes => {
     dispatch(PipelineContextActions.setTemplateTypes({ templateTypes }))
+  }, [])
+
+  const setTemplateServiceData = React.useCallback(templateServiceData => {
+    dispatch(PipelineContextActions.setTemplateServiceData({ templateServiceData }))
   }, [])
 
   const setSchemaErrorView = React.useCallback(flag => {
@@ -1152,7 +1163,8 @@ export function PipelineProvider({
         setSelectedSectionId,
         setSelection,
         getStagePathFromPipeline,
-        setTemplateTypes
+        setTemplateTypes,
+        setTemplateServiceData
       }}
     >
       {children}

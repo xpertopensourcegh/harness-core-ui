@@ -29,6 +29,7 @@ import type { DependencyElement } from 'services/ci'
 import type { PipelineGraphState } from '@pipeline/components/PipelineDiagram/types'
 import type { InputSetDTO } from './types'
 import type { DeploymentStageElementConfig, PipelineStageWrapper, StageElementWrapper } from './pipelineTypes'
+import type { TemplateServiceDataType } from './templateUtils'
 
 export enum StageType {
   DEPLOY = 'Deployment',
@@ -256,11 +257,16 @@ export const getSelectedDeploymentType = (
     stageId: string,
     pipeline?: PipelineInfoConfig
   ) => PipelineStageWrapper<T>,
-  isPropagating = false
+  isPropagating = false,
+  templateServiceData?: TemplateServiceDataType
 ): ServiceDefinition['type'] => {
   if (isPropagating) {
     const parentStageId = get(stage, 'stage.spec.serviceConfig.useFromStage.stage', null)
     const parentStage = getStageFromPipeline<DeploymentStageElementConfig>(defaultTo(parentStageId, ''))
+    const isParentStageTemplate = get(parentStage, 'stage.stage.template.templateRef')
+    if (isParentStageTemplate && templateServiceData) {
+      return get(templateServiceData, isParentStageTemplate)
+    }
     return get(parentStage, 'stage.stage.spec.serviceConfig.serviceDefinition.type', null)
   }
   return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
@@ -279,7 +285,8 @@ export const getServiceDefinitionType = (
     pipeline?: PipelineInfoConfig
   ) => PipelineStageWrapper<T>,
   isNewServiceEnvEntity: (isSvcEnvEntityEnabled: boolean, stage: DeploymentStageElementConfig) => boolean,
-  isSvcEnvEntityEnabled: boolean
+  isSvcEnvEntityEnabled: boolean,
+  templateServiceData: TemplateServiceDataType
 ): GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] => {
   const isPropagating = get(selectedStage, 'stage.spec.serviceConfig.useFromStage', null)
   if (isNewServiceEnvEntity(isSvcEnvEntityEnabled, selectedStage?.stage as DeploymentStageElementConfig)) {
@@ -288,7 +295,8 @@ export const getServiceDefinitionType = (
   return getSelectedDeploymentType(
     selectedStage as StageElementWrapper<DeploymentStageElementConfig>,
     getStageFromPipeline,
-    isPropagating
+    isPropagating,
+    templateServiceData
   )
 }
 

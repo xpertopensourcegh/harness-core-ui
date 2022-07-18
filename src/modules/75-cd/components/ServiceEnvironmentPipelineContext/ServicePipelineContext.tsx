@@ -291,7 +291,8 @@ export function ServicePipelineProvider({
         setSelectedSectionId: noop,
         setSelection,
         getStagePathFromPipeline,
-        setTemplateTypes: noop
+        setTemplateTypes: noop,
+        setTemplateServiceData: noop
       }}
     >
       {children}
