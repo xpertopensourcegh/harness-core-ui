@@ -17,7 +17,12 @@ import {
   mockedTemplateInputYaml,
   updatedSpecs
 } from './SelectMonitoredServiceType.mock'
-import { getUpdatedSpecs } from '../SelectMonitoredServiceType.utils'
+import {
+  getInitialHealthSources,
+  getInitialHealthSourceVariables,
+  getInitialServiceAndEnv,
+  getUpdatedSpecs
+} from '../SelectMonitoredServiceType.utils'
 
 jest.mock('services/cv', () => {
   return {
@@ -102,5 +107,39 @@ describe('Unit tests for SelectMonitoredServiceType', () => {
     expect(getUpdatedSpecs(mockedFormikWithTemplatesData.values, mockedTemplateInputYaml, mockedTemplateData)).toEqual(
       updatedSpecs
     )
+  })
+
+  test('Validate getInitialHealthSourceVariables method', () => {
+    expect(getInitialHealthSourceVariables(mockedFormikWithTemplatesData.values)).toEqual([
+      { name: 'connectorVariable', type: 'String', value: '<+input>' }
+    ])
+  })
+
+  test('Validate getInitialServiceAndEnv method', () => {
+    expect(getInitialServiceAndEnv(mockedFormikWithTemplatesData.values)).toEqual({
+      environmentRef: '<+input>',
+      serviceRef: '<+input>'
+    })
+  })
+
+  test('Validate getInitialHealthSources method', () => {
+    expect(getInitialHealthSources(mockedFormikWithTemplatesData.values)).toEqual([
+      {
+        identifier: 'Appd',
+        spec: {
+          applicationName: '<+input>',
+          connectorRef: '<+input>',
+          metricDefinitions: [
+            {
+              analysis: { deploymentVerification: { serviceInstanceMetricPath: '<+input>' } },
+              completeMetricPath: '<+input>',
+              identifier: 'appdMetric'
+            }
+          ],
+          tierName: '<+input>'
+        },
+        type: 'AppDynamics'
+      }
+    ])
   })
 })

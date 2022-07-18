@@ -8,7 +8,6 @@
 import React from 'react'
 import { Card, FormInput, MultiTypeInputType } from '@harness/uicore'
 import { Text } from '@wings-software/uicore'
-import cx from 'classnames'
 import {
   useGetHarnessEnvironments,
   useGetHarnessServices
@@ -18,6 +17,7 @@ import type { TemplateInputs } from '@cv/components/PipelineSteps/ContinousVerif
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import MonitoredServiceInputTemplatesHealthSources from '../MonitoredServiceInputTemplatesHealthSources/MonitoredServiceInputTemplatesHealthSources'
 import MonitoredServiceInputTemplatesHealthSourcesVariables from '../MonitoredServiceInputTemplatesHealthSourcesVariables/MonitoredServiceInputTemplatesHealthSourcesVariables'
+import type { ServiceAndEnv } from '../../SelectMonitoredServiceType.types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './VerifyStepMonitoredServiceInputTemplates.module.scss'
 
@@ -27,46 +27,58 @@ interface VerifyStepMonitoredServiceInputTemplatesProps {
   healthSourcesVariables: TemplateInputs['variables']
   versionLabel: string
   monitoredServiceTemplateRef: string
+  serviceAndEnv?: ServiceAndEnv
 }
 
 export default function VerifyStepMonitoredServiceInputTemplates(
   props: VerifyStepMonitoredServiceInputTemplatesProps
 ): JSX.Element {
   const { getString } = useStrings()
-  const { allowableTypes, healthSources, healthSourcesVariables, versionLabel, monitoredServiceTemplateRef } = props
+  const {
+    allowableTypes,
+    healthSources,
+    healthSourcesVariables,
+    versionLabel,
+    monitoredServiceTemplateRef,
+    serviceAndEnv
+  } = props
   const { expressions } = useVariablesExpression()
   const { serviceOptions } = useGetHarnessServices()
   const { environmentOptions } = useGetHarnessEnvironments()
+  const { serviceRef = '', environmentRef = '' } = serviceAndEnv || {}
 
   return (
     <>
       <Text padding={{ bottom: 'medium', top: 'medium' }}>{'Template Inputs'}</Text>
       <Card className={css.card}>
-        <div className={cx(stepCss.formGroup)}>
-          <FormInput.MultiTypeInput
-            name="spec.monitoredService.spec.templateInputs.serviceRef"
-            label={getString('service')}
-            selectItems={serviceOptions}
-            multiTypeInputProps={{
-              expressions,
-              allowableTypes
-            }}
-            useValue
-          />
-        </div>
-
-        <div className={cx(stepCss.formGroup)}>
-          <FormInput.MultiTypeInput
-            name="spec.monitoredService.spec.templateInputs.environmentRef"
-            label={getString('environment')}
-            selectItems={environmentOptions}
-            multiTypeInputProps={{
-              expressions,
-              allowableTypes
-            }}
-            useValue
-          />
-        </div>
+        {serviceRef ? (
+          <div className={stepCss.formGroup}>
+            <FormInput.MultiTypeInput
+              name="spec.monitoredService.spec.templateInputs.serviceRef"
+              label={getString('service')}
+              selectItems={serviceOptions}
+              multiTypeInputProps={{
+                expressions,
+                allowableTypes
+              }}
+              useValue
+            />
+          </div>
+        ) : null}
+        {environmentRef ? (
+          <div className={stepCss.formGroup}>
+            <FormInput.MultiTypeInput
+              name="spec.monitoredService.spec.templateInputs.environmentRef"
+              label={getString('environment')}
+              selectItems={environmentOptions}
+              multiTypeInputProps={{
+                expressions,
+                allowableTypes
+              }}
+              useValue
+            />
+          </div>
+        ) : null}
       </Card>
       <MonitoredServiceInputTemplatesHealthSources
         healthSources={healthSources}
