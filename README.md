@@ -149,7 +149,7 @@ $ yarn test
 5. Raise PR with these changes
 6. When this PR gets merged, this [Workflow](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/build_release_branch/executions) will create a new build for you automatically
 7. Please inform Ops/QE team to deploy your new build, especially in QA, UAT or prod environment.
-8. Make sure to raise a PR with the same changes (minus the version bump) for `master` branch too. Otherwise your changes will get overriden with next deployment.
+8. Make sure to raise a PR with the same changes (minus the version bump) for `develop` branch too. Otherwise your changes will get overriden with next deployment.
 
 ## For wndows environment setup only
 
