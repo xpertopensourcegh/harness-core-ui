@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { connect } from 'formik'
-import { Layout, MultiTypeInputType } from '@wings-software/uicore'
+import { Layout, AllowedTypes } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import { useStrings } from 'framework/strings'
@@ -40,7 +40,7 @@ export interface SshInputSetProps {
   stageIdentifier: string
   serviceIdentifier?: string
   formik?: any
-  allowableTypes: MultiTypeInputType[]
+  allowableTypes: AllowedTypes
 }
 const SshServiceSpecInputSetModeFormikForm = (props: SshInputSetProps): React.ReactElement => {
   const {

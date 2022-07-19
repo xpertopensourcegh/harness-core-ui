@@ -15,7 +15,8 @@ import {
   HarnessDocTooltip,
   FormInput,
   EXECUTION_TIME_INPUT_VALUE,
-  Container
+  Container,
+  AllowedTypes
 } from '@harness/uicore'
 import { IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import { FormikContextType, connect } from 'formik'
@@ -34,7 +35,7 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
   disableTypeSelection?: boolean
   skipRenderValueInExpressionLabel?: boolean
   expressionRender?(): React.ReactNode
-  allowedTypes?: MultiTypeInputType[]
+  allowedTypes?: AllowedTypes
   useExecutionTimeInput?: boolean
   isOptional?: boolean
   optionalLabel?: string

@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import type { MultiTypeInputType, IconName } from '@harness/uicore'
+import type { AllowedTypes, IconName } from '@harness/uicore'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 
 import type { ServiceDefinition, StageElementConfig } from 'services/cd-ng'
@@ -19,7 +19,7 @@ export interface ConfigFilesListViewProps {
   isReadonly: boolean
   isPropagating?: boolean
   deploymentType: ServiceDefinition['type']
-  allowableTypes: MultiTypeInputType[]
+  allowableTypes: AllowedTypes
   stage: StageElementWrapper | undefined
   updateStage: (stage: StageElementConfig) => Promise<void>
   selectedConfig: ConfigFileType

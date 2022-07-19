@@ -14,12 +14,13 @@ import {
   Formik,
   StepProps,
   getMultiTypeFromValue,
-  MultiTypeInputType,
+  AllowedTypes,
   ThumbnailSelect,
   IconName,
   ButtonVariation,
   FormikForm,
-  ButtonSize
+  ButtonSize,
+  MultiTypeInputType
 } from '@harness/uicore'
 import * as Yup from 'yup'
 import { FontVariation } from '@harness/design-system'
@@ -47,7 +48,7 @@ import css from './ConfigFilesType.module.scss'
 interface ConfigFileStorePropType {
   stepName: string
   expressions: string[]
-  allowableTypes: MultiTypeInputType[]
+  allowableTypes: AllowedTypes
   isReadonly: boolean
   configFilesStoreTypes: Array<ConfigFileType>
   initialValues: any

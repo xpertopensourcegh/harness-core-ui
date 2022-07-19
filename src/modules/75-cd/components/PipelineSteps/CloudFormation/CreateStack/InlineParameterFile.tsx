@@ -19,8 +19,8 @@ import {
   Text,
   useToaster,
   MultiSelectOption,
-  MultiTypeInputType,
-  PageSpinner
+  PageSpinner,
+  AllowedTypes
 } from '@harness/uicore'
 import { Form, FieldArray } from 'formik'
 import { Classes, Dialog } from '@blueprintjs/core'
@@ -56,7 +56,7 @@ interface InlineParameterFileProps {
   body: string
   git?: GitDetails
   readonly?: boolean
-  allowableTypes?: MultiTypeInputType[]
+  allowableTypes?: AllowedTypes
 }
 
 enum RequestTypes {

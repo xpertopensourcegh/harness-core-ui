@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import type { MultiTypeInputType } from '@wings-software/uicore'
+import type { AllowedTypes } from '@wings-software/uicore'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { ServiceDefinition, ServiceSpec, ConfigFileWrapper, ConfigFile } from 'services/cd-ng'
 import type { ConfigFileSourceBaseFactory } from '@cd/factory/ConfigFileSourceFactory/ConfigFileSourceBaseFactory'
@@ -31,7 +31,7 @@ export interface SshWinRmConfigFilesProps {
   stageIdentifier: string
   formik?: any
   fromTrigger?: boolean
-  allowableTypes: MultiTypeInputType[]
+  allowableTypes: AllowedTypes
   configFile?: ConfigFile
   configFilePath?: string
 }
@@ -46,5 +46,5 @@ export interface SshWinRmServiceInputFormProps {
   path?: string
   stageIdentifier: string
   formik?: any
-  allowableTypes: MultiTypeInputType[]
+  allowableTypes: AllowedTypes
 }
