@@ -57,6 +57,7 @@ import {
   getCustomStepProps,
   getSelectedDeploymentType,
   isServerlessDeploymentType,
+  isAzureWebAppDeploymentType,
   ServerlessInfraTypes,
   StageType
 } from '@pipeline/utils/stageHelpers'
@@ -397,10 +398,6 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
                   connectorRef: value.connectorRef,
                   subscriptionId: value.subscriptionId,
                   resourceGroup: value.resourceGroup,
-                  webApp: value.webApp,
-                  deploymentSlot: value.deploymentSlot,
-                  targetSlot: value.targetSlot,
-                  releaseName: value.releaseName,
                   allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
                 InfraDeploymentType.AzureWebApp
@@ -597,25 +594,27 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
           </div>
         </>
       )}
-      <Card className={stageCss.sectionCard}>
-        {!isServerlessDeploymentType(selectedDeploymentType) && (
-          <Text margin={{ bottom: 'medium' }} className={stageCss.info}>
-            <StringWithTooltip
-              tooltipId="pipelineStep.infrastructureDefinitionMethod"
-              stringId="pipelineSteps.deploy.infrastructure.selectMethod"
-            />
-          </Text>
-        )}
-        <SelectInfrastructureType
-          infraGroups={infraGroups}
-          isReadonly={isReadonly}
-          selectedInfrastructureType={selectedInfrastructureType}
-          onChange={deploymentType => {
-            setSelectedInfrastructureType(deploymentType)
-            resetInfrastructureDefinition(deploymentType)
-          }}
-        />
-      </Card>
+      {!isAzureWebAppDeploymentType(selectedDeploymentType) && (
+        <Card className={stageCss.sectionCard}>
+          {!isServerlessDeploymentType(selectedDeploymentType) && (
+            <Text margin={{ bottom: 'medium' }} className={stageCss.info}>
+              <StringWithTooltip
+                tooltipId="pipelineStep.infrastructureDefinitionMethod"
+                stringId="pipelineSteps.deploy.infrastructure.selectMethod"
+              />
+            </Text>
+          )}
+          <SelectInfrastructureType
+            infraGroups={infraGroups}
+            isReadonly={isReadonly}
+            selectedInfrastructureType={selectedInfrastructureType}
+            onChange={deploymentType => {
+              setSelectedInfrastructureType(deploymentType)
+              resetInfrastructureDefinition(deploymentType)
+            }}
+          />
+        </Card>
+      )}
       {contextType !== PipelineContextType.Standalone &&
       selectedInfrastructureType &&
       !isServerlessDeploymentType(selectedDeploymentType) ? (
