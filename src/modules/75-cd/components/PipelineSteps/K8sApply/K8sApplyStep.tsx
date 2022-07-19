@@ -7,6 +7,7 @@
 
 import React from 'react'
 import {
+  AllowedTypes,
   Button,
   ButtonVariation,
   Formik,
@@ -207,7 +208,9 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                               placeholder={getString('cd.filePathPlaceholder')}
                               name={`spec.filePaths[${index}].value`}
                               multiTextInputProps={{
-                                allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
+                                allowableTypes: (allowableTypes as MultiTypeInputType[]).filter(
+                                  item => item !== MultiTypeInputType.RUNTIME
+                                ) as AllowedTypes,
                                 expressions,
                                 textProps: { disabled: isDisabled }
                               }}

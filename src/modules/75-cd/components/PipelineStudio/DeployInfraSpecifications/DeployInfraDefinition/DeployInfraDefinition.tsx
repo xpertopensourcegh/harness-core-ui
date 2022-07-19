@@ -7,7 +7,15 @@
 
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Accordion, Card, Container, MultiTypeInputType, RUNTIME_INPUT_VALUE, Text } from '@wings-software/uicore'
+import {
+  Accordion,
+  AllowedTypes,
+  Card,
+  Container,
+  MultiTypeInputType,
+  RUNTIME_INPUT_VALUE,
+  Text
+} from '@wings-software/uicore'
 import { debounce, defaultTo, get, isEmpty, isNil, omit, set } from 'lodash-es'
 import produce from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -572,7 +580,9 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
               allowableTypes={
                 scope === Scope.PROJECT
                   ? allowableTypes
-                  : allowableTypes.filter(item => item !== MultiTypeInputType.FIXED)
+                  : ((allowableTypes as MultiTypeInputType[]).filter(
+                      item => item !== MultiTypeInputType.FIXED
+                    ) as AllowedTypes)
               }
               onUpdate={val => updateEnvStep(val)}
               factory={factory}
