@@ -88,6 +88,7 @@ export default function DeployServiceSpecifications({
     getStageFromPipeline,
     updateStage
   } = usePipelineContext()
+
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = useCallback(
