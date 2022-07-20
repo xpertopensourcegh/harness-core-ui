@@ -2112,6 +2112,10 @@ export interface StringsMap {
   'connectors.gcpKms.keyRing': string
   'connectors.gcpKms.keyRingRequired': string
   'connectors.gcrConnectorDetails': string
+  'connectors.gitProviderURLs.azureRepos': string
+  'connectors.gitProviderURLs.bitbucket': string
+  'connectors.gitProviderURLs.github': string
+  'connectors.gitProviderURLs.gitlab': string
   'connectors.hashiCorpVault.appRole': string
   'connectors.hashiCorpVault.appRoleId': string
   'connectors.hashiCorpVault.awsAuth': string
