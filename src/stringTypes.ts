@@ -2830,6 +2830,7 @@ export interface StringsMap {
   'pipeline.ciCodebase.validation.optionalLimitMemory': string
   'pipeline.ciCodebase.validation.optionalPrCloneStrategy': string
   'pipeline.ciCodebase.validation.optionalSslVerify': string
+  'pipeline.ciCodebase.validation.pullRequestNumber': string
   'pipeline.clickHere': string
   'pipeline.clickToExpandErrorDetails': string
   'pipeline.clone': string
