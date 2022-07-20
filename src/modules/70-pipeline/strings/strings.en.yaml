@@ -122,6 +122,7 @@ queueStep:
   scope: Run next queued execution after completion of
   queuedExecutions: Queued Executions
   queuedByResourceKey: 'Queued by Resource Key:'
+  noQueuedExecutions: No queued executions
 jenkinsStep:
   addJobParameters: Add Job Parameter
   validations:

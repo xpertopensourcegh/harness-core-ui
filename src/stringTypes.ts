@@ -3377,6 +3377,7 @@ export interface StringsMap {
   'pipeline.provisionerSteps': string
   'pipeline.queueStep.keyPlaceholder': string
   'pipeline.queueStep.keyRequired': string
+  'pipeline.queueStep.noQueuedExecutions': string
   'pipeline.queueStep.queuedByResourceKey': string
   'pipeline.queueStep.queuedExecutions': string
   'pipeline.queueStep.resourceKey': string
