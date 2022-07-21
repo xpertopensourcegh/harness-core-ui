@@ -2750,7 +2750,7 @@ export interface StringsMap {
   'pipeline.artifactTriggerConfigPanel.runtimeInput': string
   'pipeline.artifactTriggerConfigPanel.selectAManifest': string
   'pipeline.artifactTriggerConfigPanel.selectAnArtifact': string
-  'pipeline.artifactTriggerConfigPanel.tagArtifactPath': string
+  'pipeline.artifactTriggerConfigPanel.tagArtifactPathBuild': string
   'pipeline.artifactsSelection.amazonS3Title': string
   'pipeline.artifactsSelection.artifactDetails': string
   'pipeline.artifactsSelection.artifactDirectory': string
@@ -2923,6 +2923,7 @@ export interface StringsMap {
   'pipeline.dashboards.totalExecutions': string
   'pipeline.dashboards.workloads': string
   'pipeline.delegate.DelegateSelectorOptional': string
+  'pipeline.dependencyRequired': string
   'pipeline.deploymentFrequency': string
   'pipeline.depth': string
   'pipeline.discard': string
