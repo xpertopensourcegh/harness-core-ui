@@ -1203,14 +1203,13 @@ lastModified: 'Last Modified'
 executionId: Execution Id
 lastExecutedBy: Last Executed By
 imageTag: 'image: {{image}}'
+fileSource: 'File Source'
+fileDetails: 'File Details'
 appServiceConfig:
   title: App Services Configuration
   applicationSettings:
     name: Application Settings
     file: '{{$.pipeline.appServiceConfig.applicationSettings.name}} File'
-    scriptFile: '{{$.pipeline.appServiceConfig.applicationSettings.name}} Script File'
-    scriptFileSource: '{{$.pipeline.appServiceConfig.applicationSettings.name}} Script File Source'
-    scriptFileDetails: '{{$.pipeline.appServiceConfig.applicationSettings.name}} Script File Details'
     fileDetails: '{{$.pipeline.appServiceConfig.applicationSettings.name}} File Details'
     fileSource: '{{$.pipeline.appServiceConfig.applicationSettings.name}} File Source'
     filePath: '{{$.pipeline.appServiceConfig.applicationSettings.name}} File Path'
@@ -1218,9 +1217,6 @@ appServiceConfig:
   connectionStrings:
     name: Connection Strings
     file: '{{$.pipeline.appServiceConfig.connectionStrings.name}} File'
-    scriptFile: '{{$.pipeline.appServiceConfig.connectionStrings.name}} Script File'
-    scriptFileSource: '{{$.pipeline.appServiceConfig.connectionStrings.name}} Script File Source'
-    scriptFileDetails: '{{$.pipeline.appServiceConfig.connectionStrings.name}} Script File Details'
     fileDetails: '{{$.pipeline.appServiceConfig.connectionStrings.name}} File Details'
     fileSource: '{{$.pipeline.appServiceConfig.connectionStrings.name}} File Source'
     filePath: '{{$.pipeline.appServiceConfig.connectionStrings.name}} File Path'
@@ -1228,7 +1224,6 @@ appServiceConfig:
 startupScript:
   name: Startup Script
   subtitle: 'Specify Azure Web App Startup Script Type'
-  file: '{{$.pipeline.startupScript.name}} File'
   fileDetails: '{{$.pipeline.startupScript.name}} File Details'
   fileSource: '{{$.pipeline.startupScript.name}} File Source'
   scriptFilePath: 'Script File Path'
