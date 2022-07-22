@@ -10,7 +10,7 @@
   margin-top: 0 !important;
 
   &.emptyContainer {
-    height: calc(100vh - 303px);
+    height: calc(var(--page-min-height) - 303px);
   }
 
   .emptyIllustrationContainer {
