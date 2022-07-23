@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Accordion,
   AllowedTypes,
@@ -19,68 +19,90 @@ import {
   StepProps,
   Text
 } from '@harness/uicore'
-import cx from 'classnames'
 import { FontVariation } from '@harness/design-system'
+import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import { FormMultiTypeCheckboxField } from '@common/components'
-import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiConfigSelectField from '@pipeline/components/ConfigFilesSelection/ConfigFilesWizard/ConfigFilesSteps/MultiConfigSelectField/MultiConfigSelectField'
 import { FILE_TYPE_VALUES } from '@pipeline/components/ConfigFilesSelection/ConfigFilesHelper'
-import { ManifestIdentifierValidation, ManifestStoreMap } from '../../Manifesthelper'
-import type { KustomizeWithHarnessStorePropTypeDataType, ManifestTypes } from '../../ManifestInterface'
+import { helmVersions, ManifestIdentifierValidation, ManifestStoreMap } from '../../Manifesthelper'
+import type {
+  CommandFlags,
+  HelmHarnessFileStoreFormData,
+  HelmVersionOptions,
+  ManifestTypes
+} from '../../ManifestInterface'
+import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
+import { handleCommandFlagsSubmitData } from '../ManifestUtils'
 import css from '../K8sValuesManifest/ManifestDetails.module.scss'
+import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
-interface KustomizeWithHarnessStorePropType {
+interface HelmWithHarnessStorePropType {
   stepName: string
   allowableTypes: AllowedTypes
   initialValues: ManifestConfig
+  expressions: string[]
   selectedManifest: ManifestTypes | null
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
-  expressions: Array<string>
+  deploymentType?: string
   isReadonly?: boolean
 }
-
-function KustomizeWithHarnessStore({
+interface HelmWithHarnessStoreDataType {
+  identifier: string
+  files: string[]
+  valuesPaths: string[]
+  skipResourceVersioning: boolean
+  helmVersion: HelmVersionOptions
+  commandFlags: Array<CommandFlags>
+}
+function HelmWithHarnessStore({
   stepName,
   selectedManifest,
+  deploymentType,
   allowableTypes,
+  expressions,
   initialValues,
   handleSubmit,
   prevStepData,
   previousStep,
-  manifestIdsList,
-  expressions,
-  isReadonly
-}: StepProps<ConnectorConfigDTO> & KustomizeWithHarnessStorePropType): React.ReactElement {
+  manifestIdsList
+}: StepProps<ConnectorConfigDTO> & HelmWithHarnessStorePropType): React.ReactElement {
   const { getString } = useStrings()
+  const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
+  const [selectedHelmVersion, setHelmVersion] = useState(initialValues?.spec?.helmVersion ?? 'V2')
 
-  const getInitialValues = (): KustomizeWithHarnessStorePropTypeDataType => {
+  const getInitialValues = (): HelmWithHarnessStoreDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
-    const patchesPaths = get(initialValues, 'spec.patchesPaths')
+    const valuesPaths = get(initialValues, 'spec.valuesPaths')
     if (specValues) {
       return {
         ...specValues,
         identifier: initialValues.identifier,
-        manifestScope: get(initialValues, 'spec.manifestScope'),
+        helmVersion: initialValues.spec?.helmVersion,
+        valuesPaths,
         skipResourceVersioning: get(initialValues, 'spec.skipResourceVersioning'),
-        patchesPaths
+        commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
+          commandType: commandFlag.commandType,
+          flag: commandFlag.flag
+        })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
       }
     }
     return {
       identifier: '',
-      manifestScope: '',
       files: [''],
-      patchesPaths: [''],
-      skipResourceVersioning: false
+      valuesPaths: [''],
+      skipResourceVersioning: false,
+      helmVersion: 'V2',
+      commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
     }
   }
 
-  const submitFormData = (formData: KustomizeWithHarnessStorePropTypeDataType & { store?: string }): void => {
+  const submitFormData = (formData: HelmHarnessFileStoreFormData & { store?: string }): void => {
     /* istanbul ignore else */
     if (formData) {
       const manifestObj: ManifestConfigWrapper = {
@@ -94,12 +116,13 @@ function KustomizeWithHarnessStore({
                 files: formData.files
               }
             },
-            patchesPaths: formData.patchesPaths,
-            manifestScope: formData.manifestScope,
+            valuesPaths: formData.valuesPaths,
+            helmVersion: formData?.helmVersion,
             skipResourceVersioning: formData.skipResourceVersioning
           }
         }
       }
+      handleCommandFlagsSubmitData(manifestObj, formData)
       handleSubmit(manifestObj)
     }
   }
@@ -112,10 +135,9 @@ function KustomizeWithHarnessStore({
 
       <Formik
         initialValues={getInitialValues()}
-        formName="kustomizeHarnessFileStore"
+        formName="helmHarnessFileStore"
         validationSchema={Yup.object().shape({
           ...ManifestIdentifierValidation(manifestIdsList, initialValues?.identifier, getString('pipeline.uniqueName')),
-          manifestScope: Yup.mixed().required(getString('pipeline.manifestType.folderPathRequired')),
           files: Yup.lazy((value): Yup.Schema<unknown> => {
             if (getMultiTypeFromValue(value as string[]) === MultiTypeInputType.FIXED) {
               return Yup.array().of(Yup.string().required(getString('pipeline.manifestType.pathRequired')))
@@ -127,7 +149,7 @@ function KustomizeWithHarnessStore({
           submitFormData({
             ...prevStepData,
             ...formData
-          } as unknown as KustomizeWithHarnessStorePropTypeDataType)
+          } as unknown as HelmHarnessFileStoreFormData)
         }}
       >
         {formik => {
@@ -138,40 +160,29 @@ function KustomizeWithHarnessStore({
                 className={css.manifestForm}
               >
                 <div className={css.manifestStepWidth}>
-                  <div className={css.halfWidth}>
+                  <div className={helmcss.halfWidth}>
                     <FormInput.Text
                       name="identifier"
                       label={getString('pipeline.manifestType.manifestIdentifier')}
                       placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                     />
                   </div>
-                  <div
-                    className={cx(css.halfWidth, {
-                      [css.runtimeInput]:
-                        getMultiTypeFromValue(formik.values?.manifestScope) === MultiTypeInputType.RUNTIME
-                    })}
-                  >
-                    <FormInput.MultiTextInput
-                      name="manifestScope"
-                      multiTextInputProps={{ expressions, allowableTypes }}
-                      label={getString('pipeline.manifestType.manifestScope')}
-                      placeholder={getString('pipeline.manifestType.folderPathPlaceholder')}
+                  <div className={helmcss.halfWidth}>
+                    <FormInput.Select
+                      name="helmVersion"
+                      label={getString('helmVersion')}
+                      items={helmVersions}
+                      onChange={value => {
+                        if (value?.value !== selectedHelmVersion) {
+                          formik.setFieldValue('commandFlags', [
+                            { commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }
+                          ])
+                          setHelmVersion(value)
+                        }
+                      }}
                     />
-                    {getMultiTypeFromValue(get(formik, 'values.manifestScope')) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        style={{ alignSelf: 'center', marginBottom: 4 }}
-                        value={get(formik, 'values.manifestScope', '')}
-                        type="String"
-                        variableName="manifestScope"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={/* istanbul ignore next */ value => formik.setFieldValue('manifestScope', value)}
-                        isReadonly={isReadonly}
-                      />
-                    )}
                   </div>
-                  <div className={css.halfWidth}>
+                  <div className={helmcss.halfWidth}>
                     <MultiConfigSelectField
                       name="files"
                       allowableTypes={allowableTypes}
@@ -185,56 +196,39 @@ function KustomizeWithHarnessStore({
                       }}
                     />
                   </div>
-                  <div className={css.halfWidth}>
+                  <div className={helmcss.halfWidth}>
                     <MultiConfigSelectField
-                      name="patchesPaths"
-                      allowableTypes={allowableTypes}
+                      name="valuesPaths"
                       fileType={FILE_TYPE_VALUES.FILE_STORE}
                       formik={formik}
                       expressions={expressions}
-                      values={formik.values.files}
+                      allowableTypes={allowableTypes}
+                      values={formik.values.valuesPaths}
                       multiTypeFieldSelectorProps={{
                         disableTypeSelection: false,
-                        label: <Text>label={getString('pipeline.manifestTypeLabels.KustomizePatches')}</Text>
+                        label: <Text>{getString('pipeline.manifestType.valuesYamlPath')}</Text>
                       }}
                     />
                   </div>
                   <Accordion
-                    activeId={get(initialValues, 'spec.skipResourceVersioning') ? getString('advancedTitle') : ''}
-                    className={css.advancedStepOpen}
+                    activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                    className={cx({
+                      [helmcss.advancedStepOpen]: isActiveAdvancedStep
+                    })}
                   >
                     <Accordion.Panel
                       id={getString('advancedTitle')}
                       addDomId={true}
                       summary={getString('advancedTitle')}
                       details={
-                        <Layout.Horizontal
-                          width={'50%'}
-                          flex={{ justifyContent: 'flex-start', alignItems: 'center' }}
-                          margin={{ bottom: 'huge' }}
-                        >
-                          <FormMultiTypeCheckboxField
-                            name="skipResourceVersioning"
-                            label={getString('skipResourceVersion')}
-                            multiTypeTextbox={{ expressions, allowableTypes }}
-                            className={css.checkbox}
-                          />
-                          {getMultiTypeFromValue(get(formik, 'values.skipResourceVersioning')) ===
-                            MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={get(formik, 'values.skipResourceVersioning', '') as string}
-                              type="String"
-                              variableName="skipResourceVersioning"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
-                              style={{ alignSelf: 'center', marginTop: 11 }}
-                              className={css.addmarginTop}
-                              isReadonly={isReadonly}
-                            />
-                          )}
-                        </Layout.Horizontal>
+                        <HelmAdvancedStepSection
+                          formik={formik}
+                          expressions={expressions}
+                          allowableTypes={allowableTypes}
+                          helmVersion={formik.values?.helmVersion}
+                          deploymentType={deploymentType as string}
+                          helmStore={prevStepData?.store ?? ''}
+                        />
                       }
                     />
                   </Accordion>
@@ -263,4 +257,4 @@ function KustomizeWithHarnessStore({
   )
 }
 
-export default KustomizeWithHarnessStore
+export default HelmWithHarnessStore

@@ -199,12 +199,22 @@ export interface HarnessFileStoreDataType {
   files: string[]
   valuesPaths: string[]
   paramsPaths: string[]
+  skipResourceVersioning?: boolean
+}
+export interface HelmHarnessFileStoreFormData {
+  identifier: string
+  files: Array<{ path: string }> | string
+  valuesPaths?: Array<{ path: string }> | string
+  skipResourceVersioning: boolean
+  helmVersion: HelmVersionOptions
+  commandFlags: Array<CommandFlags>
 }
 export interface HarnessFileStoreFormData {
   identifier: string
   files: Array<{ path: string }> | string
   valuesPaths?: Array<{ path: string }> | string
   paramsPaths?: Array<{ path: string }> | string
+  skipResourceVersioning?: boolean
 }
 export interface KustomizeWithHarnessStorePropTypeDataType {
   identifier: string

@@ -7,26 +7,22 @@
 
 import React from 'react'
 import * as uuid from 'uuid'
-import {
-  act,
-  fireEvent,
-  queryByAttribute,
-  render,
-  waitFor,
-  getByText as getElementByText
-} from '@testing-library/react'
+import { queryByAttribute, render, waitFor, getByText as getElementByText } from '@testing-library/react'
 import { AllowedTypesWithRunTime, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
-import KustomizeWithHarnessStore from '../KustomizeWithHarnessStore'
+import HelmWithHarnessStore from '../HelmWithHarnessStore'
 
 jest.mock('uuid')
 jest.mock('services/portal', () => ({
   useGetDelegateSelectorsUpTheHierarchy: jest
     .fn()
     .mockImplementation(() => ['delegate-selector', 'delegate1', 'delegate2'])
+}))
+jest.mock('services/cd-ng', () => ({
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: { data: ['Template', 'Pull'] }, refetch: jest.fn() }))
 }))
 
 const props = {
@@ -38,7 +34,7 @@ const props = {
     MultiTypeInputType.EXPRESSION
   ] as AllowedTypesWithRunTime[],
   handleSubmit: jest.fn(),
-  selectedManifest: 'Kustomize' as ManifestTypes,
+  selectedManifest: 'HelmChart' as ManifestTypes,
   manifestIdsList: [],
   isReadonly: false,
   prevStepData: {}
@@ -46,20 +42,20 @@ const props = {
 const initialValues = {
   identifier: '',
   spec: {},
-  type: ManifestDataType.Kustomize,
+  type: ManifestDataType.HelmChart,
   files: [],
-  manifestScope: '',
   skipResourceVersioning: false,
-  patchesPaths: []
+  helmVersion: 'V2',
+  valuesPaths: []
 }
 
-describe('Harness File Store with Kustomize Manifest tests', () => {
+describe('Harness File Store with HelmChart Manifest tests', () => {
   beforeEach(() => jest.spyOn(uuid, 'v5').mockReturnValue('MockedUUID'))
 
   test('initial rendering', () => {
     const { container } = render(
       <TestWrapper>
-        <KustomizeWithHarnessStore {...props} initialValues={initialValues} />
+        <HelmWithHarnessStore {...props} initialValues={initialValues} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -73,9 +69,9 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
       initialValues: {
         identifier: 'test',
         files: RUNTIME_INPUT_VALUE,
-        manifestScope: RUNTIME_INPUT_VALUE,
-        patchesPaths: RUNTIME_INPUT_VALUE,
-        skipResourceVersioning: RUNTIME_INPUT_VALUE
+        valuesPaths: RUNTIME_INPUT_VALUE,
+        skipResourceVersioning: RUNTIME_INPUT_VALUE,
+        helmVersion: 'V2'
       },
       prevStepData: {
         store: 'Harness'
@@ -84,36 +80,14 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
     }
     const { container, getByText, getAllByText } = render(
       <TestWrapper>
-        <KustomizeWithHarnessStore {...defaultProps} initialValues={initialValues} />
+        <HelmWithHarnessStore {...defaultProps} initialValues={initialValues} />
       </TestWrapper>
     )
     const filePaths = getAllByText('fileFolderPathText')[0]
     expect(filePaths).toBeDefined()
-    const manifestScope = getByText('pipeline.manifestType.manifestScope')
-    expect(manifestScope).toBeDefined()
+    const helmVersion = getByText('helmVersion')
+    expect(helmVersion).toBeDefined()
     expect(container).toMatchSnapshot()
-  })
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('submits with right payload', async () => {
-    const prevStepData = {
-      store: 'Harness'
-    }
-    const { container } = render(
-      <TestWrapper>
-        <KustomizeWithHarnessStore {...props} prevStepData={prevStepData} initialValues={initialValues} />
-      </TestWrapper>
-    )
-
-    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    await act(async () => {
-      fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'test-identifier' } })
-      fireEvent.change(queryByNameAttribute('manifestScope')!, { target: { value: 'scope' } })
-    })
-
-    fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await waitFor(() => {
-      expect(props.handleSubmit).toHaveBeenCalledTimes(1)
-    })
   })
 
   test('renders form in edit mode', async () => {
@@ -128,11 +102,12 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
       ] as AllowedTypesWithRunTime[],
       initialValues: {
         identifier: 'testidentifier',
-        type: ManifestDataType.Kustomize,
+        type: ManifestDataType.HelmChart,
         spec: {
           skipResourceVersioning: false,
-          manifestScope: 'scope',
-          patchesPaths: ['test-path'],
+          valuesPaths: ['test-path'],
+          commandFlags: [{ commandType: 'Template', flag: 'flag' }],
+          helmVersion: 'V2',
           store: {
             spec: {
               files: ['file path']
@@ -144,13 +119,13 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
       prevStepData: {
         store: 'Harness'
       },
-      selectedManifest: 'Kustomize' as ManifestTypes,
+      selectedManifest: 'HelmChart' as ManifestTypes,
       handleSubmit: jest.fn(),
       previousStep: jest.fn()
     }
     const { getByText } = render(
       <TestWrapper>
-        <KustomizeWithHarnessStore {...defaultProps} />
+        <HelmWithHarnessStore {...defaultProps} />
       </TestWrapper>
     )
     const backButton = getByText('back').parentElement
@@ -167,9 +142,9 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
       initialValues: {
         identifier: 'test',
         spec: {
-          patchesPaths: RUNTIME_INPUT_VALUE,
-          manifestScope: RUNTIME_INPUT_VALUE,
+          valuesPaths: RUNTIME_INPUT_VALUE,
           skipResourceVersioning: RUNTIME_INPUT_VALUE,
+          helmVersion: 'V2',
           store: {
             spec: {
               files: RUNTIME_INPUT_VALUE
@@ -185,15 +160,12 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
     }
     const { container } = render(
       <TestWrapper>
-        <KustomizeWithHarnessStore {...defaultProps} />
+        <HelmWithHarnessStore {...defaultProps} />
       </TestWrapper>
     )
 
     const filesInput = queryByAttribute('name', container, 'files') as HTMLInputElement
     expect(filesInput.value).toBe('<+input>')
-
-    const manifestScope = queryByAttribute('name', container, 'manifestScope') as HTMLInputElement
-    expect(manifestScope.value).toBe('<+input>')
 
     const skipResourceVersioningField = queryByAttribute(
       'name',
@@ -215,11 +187,12 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
       ] as AllowedTypesWithRunTime[],
       initialValues: {
         identifier: 'testidentifier',
-        type: ManifestDataType.Kustomize,
+        type: ManifestDataType.HelmChart,
         spec: {
-          patchesPaths: ['values-path'],
+          valuesPaths: ['values-path'],
           skipResourceVersioning: true,
           manifestScope: 'manifest-scope',
+          helmVersion: 'V2',
           store: {
             spec: {
               files: RUNTIME_INPUT_VALUE
@@ -230,13 +203,13 @@ describe('Harness File Store with Kustomize Manifest tests', () => {
       prevStepData: {
         store: 'Harness'
       },
-      selectedManifest: 'Kustomize' as ManifestTypes,
+      selectedManifest: 'HelmChart' as ManifestTypes,
       handleSubmit: jest.fn(),
       previousStep: jest.fn()
     }
     const { container, getByText } = render(
       <TestWrapper>
-        <KustomizeWithHarnessStore {...defaultProps} />
+        <HelmWithHarnessStore {...defaultProps} />
       </TestWrapper>
     )
     const backButton = getByText('back').parentElement
