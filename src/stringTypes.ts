@@ -6484,6 +6484,7 @@ export interface StringsMap {
   'cv.notifications.serviceHealthDescription': string
   'cv.notifications.sloDescription': string
   'cv.notifications.thresholdBelow': string
+  'cv.notifications.validations.conditionIsRequired': string
   'cv.objectiveValue': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
