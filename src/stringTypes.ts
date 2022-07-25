@@ -2895,6 +2895,8 @@ export interface StringsMap {
   'pipeline.dashboardDeploymentsWidget.runningPipeline.singular': string
   'pipeline.dashboards.activeBuilds': string
   'pipeline.dashboards.activeDeployments': string
+  'pipeline.dashboards.baselineActivityComingSoon': string
+  'pipeline.dashboards.baselineTargets': string
   'pipeline.dashboards.buildExecutions': string
   'pipeline.dashboards.buildHealth': string
   'pipeline.dashboards.executionsLabel': string
