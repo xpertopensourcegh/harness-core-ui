@@ -3221,10 +3221,13 @@ export interface StringsMap {
   'pipeline.logs.sectionName': string
   'pipeline.loopingStrategy.deleteModal.content': string
   'pipeline.loopingStrategy.deleteModal.title': string
-  'pipeline.loopingStrategy.helperText.for': string
-  'pipeline.loopingStrategy.helperText.matrix': string
-  'pipeline.loopingStrategy.helperText.parallelism': string
   'pipeline.loopingStrategy.learnMore': string
+  'pipeline.loopingStrategy.matrix.helperText': string
+  'pipeline.loopingStrategy.matrix.label': string
+  'pipeline.loopingStrategy.parallelism.helperText': string
+  'pipeline.loopingStrategy.parallelism.label': string
+  'pipeline.loopingStrategy.repeat.helperText': string
+  'pipeline.loopingStrategy.repeat.label': string
   'pipeline.loopingStrategy.subTitle': string
   'pipeline.loopingStrategy.title': string
   'pipeline.loopingStrategy.toggleTypeModal.content': string
