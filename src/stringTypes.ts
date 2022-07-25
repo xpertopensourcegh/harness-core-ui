@@ -3510,8 +3510,11 @@ export interface StringsMap {
   'pipeline.startedOn': string
   'pipeline.startupScript.fileDetails': string
   'pipeline.startupScript.fileSource': string
+  'pipeline.startupScript.fileValidation': string
   'pipeline.startupScript.name': string
+  'pipeline.startupScript.plainText': string
   'pipeline.startupScript.scriptFilePath': string
+  'pipeline.startupScript.selectFileType': string
   'pipeline.startupScript.subtitle': string
   'pipeline.stepCommonFields.ifNotPresent': string
   'pipeline.stepCommonFields.runAsUser': string
