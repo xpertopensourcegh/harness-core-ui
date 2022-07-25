@@ -41,7 +41,7 @@ export enum StageType {
   Template = 'Template',
   SECURITY = 'SecurityTests',
   MATRIX = 'MATRIX',
-  FOR = 'FOR',
+  LOOP = 'LOOP',
   PARALLELISM = 'PARALLELISM'
 }
 
