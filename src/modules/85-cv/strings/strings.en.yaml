@@ -728,11 +728,11 @@ slos:
       selectMetric2: Select metric 2
   contextualHelp:
     sli:
-      intro: To evaluate the performance of the monitored service, a collection of performance metrics such as duration, error rate, and so on will be applied.
-      healthSource: A Health Source is a combination of a Harness Service and associated Environment that monitors changes in health trends of the service using logs or metrics collected from an Application Performance Management or logging tool.
+      intro: Metrics such as response time, error rate etc. are used to evaluate the performance of the monitored service.
+      healthSource: A Health Source is a combination of a Harness Service and associated Environment that monitors changes in health trends of the service using logs or metrics collected from an Application Performance Management(APM) or logging provider.
       whatIsSli: What is an SLI?
-      sliDefinition: An SLI (service level indicator), which measures the performance of the service. Also, an SLI measures compliance with an SLO (service level objective).
-      sliDefinition2: So, if your SLA (Service Level Agreement) specifies that your systems will be available 99.9% of the time, your SLO is likely 99.95% uptime and your SLI is the actual measurement of your uptime.
+      sliDefinition: An SLI (service level indicator) measures the performance of a service and compliance with an SLO (service level objective).
+      sliDefinition2: So, if your SLA (Service Level Agreement) specifies that your systems will be available 99.9% of the time, your SLO should be set higher than 99.9%
       availabilityDescription: Measures how available your service was to users or valid requests served successfully.
       latencyDescription: Measures how fast your service responded to users or how many valid request served faster than a defined thresholds.
       thresholdDescription: The number of valid requests is compared to the length of time.
