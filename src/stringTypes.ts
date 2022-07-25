@@ -3517,7 +3517,6 @@ export interface StringsMap {
   'pipeline.startupScript.name': string
   'pipeline.startupScript.plainText': string
   'pipeline.startupScript.scriptFilePath': string
-  'pipeline.startupScript.selectFileType': string
   'pipeline.startupScript.subtitle': string
   'pipeline.stepCommonFields.ifNotPresent': string
   'pipeline.stepCommonFields.runAsUser': string

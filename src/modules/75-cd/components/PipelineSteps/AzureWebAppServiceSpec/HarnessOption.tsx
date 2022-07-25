@@ -152,7 +152,7 @@ export function HarnessOption({
                     name="fileType"
                     className={css.selectFileType}
                     radioGroup={{ inline: true }}
-                    label={getString('pipeline.startupScript.selectFileType')}
+                    label={getString('pipeline.configFiles.selectFileType')}
                     onChange={() => {
                       if (getMultiTypeFromValue(formik.values.file) === MultiTypeInputType.FIXED) {
                         formik.setFieldValue('file', '')
