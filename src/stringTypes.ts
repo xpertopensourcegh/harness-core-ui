@@ -6638,6 +6638,7 @@ export interface StringsMap {
   'cv.slos.latencySLI': string
   'cv.slos.monitoredServiceText': string
   'cv.slos.noData': string
+  'cv.slos.noDataMS': string
   'cv.slos.noMatchingData': string
   'cv.slos.noSLOsStateMessage': string
   'cv.slos.pickMetricsSLI': string
