@@ -4112,6 +4112,7 @@ export interface StringsMap {
   'cd.serviceDashboard.deployedAt': string
   'cd.serviceDashboard.deployedBy': string
   'cd.serviceDashboard.deploymentDetails': string
+  'cd.serviceDashboard.deploymentSlot': string
   'cd.serviceDashboard.envName': string
   'cd.serviceDashboard.executionId': string
   'cd.serviceDashboard.frequency': string
@@ -4126,6 +4127,7 @@ export interface StringsMap {
   'cd.serviceDashboard.helmChartDetails': string
   'cd.serviceDashboard.helmChartName': string
   'cd.serviceDashboard.helmRopoUrl': string
+  'cd.serviceDashboard.host': string
   'cd.serviceDashboard.in': string
   'cd.serviceDashboard.instanceCountHistory': string
   'cd.serviceDashboard.instanceDetails': string
@@ -4153,6 +4155,7 @@ export interface StringsMap {
   'cd.serviceDashboard.totalPipelines': string
   'cd.serviceDashboard.totalServices': string
   'cd.serviceDashboard.unitDay': string
+  'cd.serviceDashboard.webApp': string
   'cd.serviceList.noIdentifier': string
   'cd.serviceOverrides.deleted': string
   'cd.serviceOverrides.deletedOneVariable': string
