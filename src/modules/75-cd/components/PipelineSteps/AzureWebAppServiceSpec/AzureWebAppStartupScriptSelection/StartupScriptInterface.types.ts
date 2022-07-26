@@ -125,7 +125,7 @@ export interface StartupScriptListViewProps {
   refetchConnectors: () => void
   isReadonly: boolean
   allowableTypes: MultiTypeAllowedTypes
-  startupScript: StoreConfigWrapper
+  startupCommand: StoreConfigWrapper
 }
 
 export interface StartupScriptLastStepProps {
@@ -137,7 +137,7 @@ export interface StartupScriptLastStepProps {
   initialValues: StoreConfigWrapper
   handleSubmit: (data: StoreConfigWrapper) => void
   isReadonly?: boolean
-  startupScript?: StoreConfigWrapper
+  startupCommand?: StoreConfigWrapper
 }
 
 export interface StartupScriptPropType {

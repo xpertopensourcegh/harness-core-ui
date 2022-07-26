@@ -353,6 +353,7 @@ export interface AccessControlCheckError {
     | 'TOO_MANY_REQUESTS'
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
+    | 'SCM_UNEXPECTED_ERROR'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -884,7 +885,7 @@ export type AuditFilterProperties = FilterProperties & {
   )[]
   endTime?: number
   environments?: Environment[]
-  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS')[]
   principals?: Principal[]
   resources?: ResourceDTO[]
   scopes?: ResourceScopeDTO[]
@@ -1255,10 +1256,8 @@ export type AzureWebAppInfrastructure = Infrastructure & {
 }
 
 export type AzureWebAppInfrastructureDetails = InfrastructureDetails & {
-  deploymentSlot?: string
   resourceGroup?: string
   subscriptionId?: string
-  webApp?: string
 }
 
 export type AzureWebAppInstanceInfoDTO = InstanceInfoDTO & {
@@ -1287,7 +1286,7 @@ export type AzureWebAppRollbackStepInfo = StepSpecType & {
 export type AzureWebAppServiceSpec = ServiceSpec & {
   applicationSettings?: StoreConfigWrapper
   connectionStrings?: StoreConfigWrapper
-  startupScript?: StoreConfigWrapper
+  startupCommand?: StoreConfigWrapper
 }
 
 export type AzureWebAppSlotDeploymentStepInfo = StepSpecType & {
@@ -1519,7 +1518,12 @@ export interface CcmConnectorFilter {
   azureTenantId?: string
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
   gcpProjectId?: string
-  k8sConnectorRef?: string
+  k8sConnectorRef?: string[]
+}
+
+export interface CcmK8sConnectorResponse {
+  ccmk8sConnector?: ConnectorResponse[]
+  k8sConnector?: ConnectorResponse
 }
 
 export interface CeLicenseInfo {
@@ -2814,6 +2818,7 @@ export interface EnvironmentDeploymentsInfo {
   envId?: string
   envName?: string
   envType?: string
+  infrastructureIdentifiers?: string[]
 }
 
 export interface EnvironmentFilterProperties {
@@ -3292,6 +3297,7 @@ export interface Error {
     | 'TOO_MANY_REQUESTS'
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
+    | 'SCM_UNEXPECTED_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -3706,6 +3712,7 @@ export interface Failure {
     | 'TOO_MANY_REQUESTS'
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
+    | 'SCM_UNEXPECTED_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -3854,7 +3861,7 @@ export interface FeatureRestrictionDetailRequestDTO {
 export interface FeatureRestrictionDetailsDTO {
   allowed?: boolean
   description?: string
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   name?:
     | 'TEST1'
     | 'TEST2'
@@ -3930,7 +3937,7 @@ export interface FeatureRestrictionDetailsDTO {
 
 export interface FeatureRestrictionMetadataDTO {
   edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   name?:
     | 'TEST1'
     | 'TEST2'
@@ -4001,7 +4008,7 @@ export interface FeatureRestrictionMetadataDTO {
 export interface FeedbackFormDTO {
   accountId?: string
   email?: string
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   score?: number
   suggestion?: string
 }
@@ -4076,6 +4083,8 @@ export type FilesFilterProperties = FilterProperties & {
 export interface Filter {
   ids?: string[]
 }
+
+export type FilterCreatorErrorResponse = ErrorMetadataDTO & {}
 
 export interface FilterDTO {
   filterProperties: FilterProperties
@@ -4357,7 +4366,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'AzureWebAppRollback'
     | 'JenkinsBuild'
   )[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   searchTerm?: string
 }
 
@@ -4456,7 +4465,7 @@ export interface GitEntityFilterProperties {
     | 'JenkinsBuild'
   )[]
   gitSyncConfigIdentifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   searchTerm?: string
 }
 
@@ -5141,7 +5150,7 @@ export interface GitSyncRepoFiles {
 
 export interface GitSyncRepoFilesList {
   gitSyncRepoFilesList?: GitSyncRepoFiles[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export interface GitSyncSettingsDTO {
@@ -5319,8 +5328,12 @@ export interface GovernanceMetadata {
 }
 
 export interface HarnessForConfig {
-  iteration?: number
+  end?: number
+  items?: string[]
   maxConcurrency?: number
+  start?: number
+  times?: number
+  unit?: 'Percentage' | 'Count'
 }
 
 export interface HarnessServiceInfoNG {
@@ -6304,6 +6317,11 @@ export interface LdapGroupSettings {
   userMembershipAttr?: string
 }
 
+export interface LdapLinkGroupRequest {
+  ldapGroupDN?: string
+  ldapGroupName?: string
+}
+
 export type LdapSettings = SSOSettings & {
   connectionSettings: LdapConnectionSettings
   cronExpression?: string
@@ -6376,7 +6394,7 @@ export interface LicensesWithSummaryDTO {
   edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   licenseType?: 'TRIAL' | 'PAID'
   maxExpiryTime?: number
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export type LocalConnectorDTO = ConnectorConfigDTO & {
@@ -6486,7 +6504,7 @@ export interface ModuleLicenseDTO {
   id?: string
   lastModifiedAt?: number
   licenseType?: 'TRIAL' | 'PAID'
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   premiumSupport?: boolean
   selfService?: boolean
   startTime?: number
@@ -6746,7 +6764,7 @@ export interface OAuthSettings {
 export interface OAuthSignupDTO {
   edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   email?: string
-  intent?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  intent?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   name?: string
   signupAction?: 'REGULAR' | 'TRIAL' | 'SUBSCRIBE'
   utmInfo?: UtmInfo
@@ -6938,6 +6956,16 @@ export interface PageActivitySummary {
 
 export interface PageApiKeyAggregateDTO {
   content?: ApiKeyAggregateDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
+export interface PageCcmK8sConnectorResponse {
+  content?: CcmK8sConnectorResponse[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -7393,7 +7421,7 @@ export interface ParameterFieldString {
 }
 
 export interface PartialSchemaDTO {
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   namespace?: string
   nodeName?: string
   nodeType?: string
@@ -7562,7 +7590,7 @@ export interface Project {
   color?: string
   description?: string
   identifier: string
-  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS')[]
   name: string
   orgIdentifier?: string
   tags?: {
@@ -7799,6 +7827,8 @@ export interface ResourceDTO {
     | 'MONITORED_SERVICE'
     | 'CHAOS_AGENT'
     | 'CHAOS_WORKFLOW'
+    | 'STO_TARGET'
+    | 'STO_EXEMPTION'
     | 'CHAOS_GITOPS'
     | 'SERVICE_LEVEL_OBJECTIVE'
     | 'PERSPECTIVE'
@@ -7810,6 +7840,7 @@ export interface ResourceDTO {
     | 'AUTOSTOPPING_RULE'
     | 'AUTOSTOPPING_LB'
     | 'AUTOSTOPPING_STARTSTOP'
+    | 'SETTING'
 }
 
 export interface ResourceGroup {
@@ -9195,6 +9226,7 @@ export interface ResponseMessage {
     | 'TOO_MANY_REQUESTS'
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
+    | 'SCM_UNEXPECTED_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -9312,6 +9344,13 @@ export interface ResponsePageActivitySummary {
 export interface ResponsePageApiKeyAggregateDTO {
   correlationId?: string
   data?: PageApiKeyAggregateDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageCcmK8sConnectorResponse {
+  correlationId?: string
+  data?: PageCcmK8sConnectorResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -10846,6 +10885,7 @@ export interface ServiceExecutionSummary {
   artifacts?: ArtifactsSummary
   deploymentType?: string
   displayName?: string
+  gitOpsEnabled?: boolean
   identifier?: string
 }
 
@@ -11031,7 +11071,9 @@ export interface SettingDTO {
   allowedValues?: string[]
   category: 'CD' | 'CI' | 'CCM' | 'CV' | 'CORE'
   defaultValue?: string
+  groupIdentifier: string
   identifier: string
+  isSettingEditable: boolean
   name: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -11238,7 +11280,7 @@ export interface StageWhenCondition {
 
 export interface StartTrialDTO {
   edition: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export type StaticLimitRestrictionDTO = RestrictionDTO & {
@@ -11317,6 +11359,7 @@ export interface StepGroupElementConfig {
   identifier: string
   name: string
   steps: ExecutionWrapperConfig[]
+  strategy?: StrategyConfig
   when?: StepWhenCondition
 }
 
@@ -11364,9 +11407,9 @@ export interface StoreConfigWrapperParameters {
 }
 
 export interface StrategyConfig {
-  for?: HarnessForConfig
   matrix?: MatrixConfigInterface
   parallelism?: number
+  repeat?: HarnessForConfig
 }
 
 export type StringNGVariable = NGVariable & {
@@ -11396,7 +11439,7 @@ export interface StripeBillingDTO {
 export interface SubscriptionDTO {
   customerId?: string
   items?: ItemParams[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   paymentMethodId?: string
 }
 
@@ -11408,7 +11451,7 @@ export interface SubscriptionDetailDTO {
   customerId?: string
   latestInvoice?: string
   latestInvoiceDetail?: InvoiceDetailDTO
-  moduletype?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduletype?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   pendingUpdate?: PendingUpdateDetailDTO
   status?: string
   subscriptionId?: string
@@ -11446,13 +11489,13 @@ export interface TechStack {
 export type TemplateFilterProperties = FilterProperties & {
   childTypes?: string[]
   description?: string
-  templateEntityTypes?: ('Step' | 'Stage' | 'Pipeline' | 'MonitoredService' | 'Script')[]
+  templateEntityTypes?: ('Step' | 'Stage' | 'Pipeline' | 'MonitoredService' | 'SecretManager')[]
   templateIdentifiers?: string[]
   templateNames?: string[]
 }
 
 export interface TemplateInfo {
-  templateEntityType?: 'Step' | 'Stage' | 'Pipeline' | 'MonitoredService' | 'Script'
+  templateEntityType?: 'Step' | 'Stage' | 'Pipeline' | 'MonitoredService' | 'SecretManager'
   templateIdentifier?: string
   versionLabel?: string
 }
@@ -11491,7 +11534,7 @@ export interface TemplateResponse {
   tags?: {
     [key: string]: string
   }
-  templateEntityType?: 'Step' | 'Stage' | 'Pipeline' | 'MonitoredService' | 'Script'
+  templateEntityType?: 'Step' | 'Stage' | 'Pipeline' | 'MonitoredService' | 'SecretManager'
   templateScope?: 'account' | 'org' | 'project' | 'unknown'
   version?: number
   versionLabel?: string
@@ -11813,6 +11856,7 @@ export interface UserGroupDTO {
   identifier: string
   linkedSsoDisplayName?: string
   linkedSsoId?: string
+  linkedSsoType?: string
   name: string
   notificationConfigs?: NotificationSettingConfigDTO[]
   orgIdentifier?: string
@@ -12112,7 +12156,19 @@ export type YamlSchemaErrorWrapperDTO = ErrorMetadataDTO & {
 export interface YamlSchemaMetadata {
   featureFlags?: string[]
   featureRestrictions?: string[]
-  modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE')[]
+  modulesSupported?: (
+    | 'CD'
+    | 'CI'
+    | 'CV'
+    | 'CF'
+    | 'CE'
+    | 'STO'
+    | 'CORE'
+    | 'PMS'
+    | 'TEMPLATESERVICE'
+    | 'GOVERNANCE'
+    | 'CHAOS'
+  )[]
   namespace?: string
   yamlGroup: YamlGroup
 }
@@ -12121,7 +12177,7 @@ export interface YamlSchemaWithDetails {
   availableAtAccountLevel?: boolean
   availableAtOrgLevel?: boolean
   availableAtProjectLevel?: boolean
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   schema?: JsonNode
   schemaClassName?: string
   yamlSchemaMetadata?: YamlSchemaMetadata
@@ -12149,6 +12205,8 @@ export type ApiKeyDTORequestBody = ApiKeyDTO
 export type CFParametersForAwsBodyRequestBody = string
 
 export type ConnectorRequestBody = Connector
+
+export type ConnectorFilterPropertiesRequestBody = ConnectorFilterProperties
 
 export type CustomerDTORequestBody = CustomerDTO
 
@@ -13990,7 +14048,7 @@ export interface GetProjectAggregateDTOListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   hasModule?: boolean
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   searchTerm?: string
   pageIndex?: number
   pageSize?: number
@@ -19450,6 +19508,94 @@ export const getConnectorCataloguePromise = (
     signal
   )
 
+export interface GetCCMK8SConnectorListQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  accountIdentifier?: string
+  searchTerm?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  filterIdentifier?: string
+  includeAllConnectorsAvailableAtScope?: boolean
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  getDistinctFromBranches?: boolean
+}
+
+export type GetCCMK8SConnectorListProps = Omit<
+  MutateProps<
+    ResponsePageCcmK8sConnectorResponse,
+    Failure | Error,
+    GetCCMK8SConnectorListQueryParams,
+    ConnectorFilterPropertiesRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets CCMK8S Connector list
+ */
+export const GetCCMK8SConnectorList = (props: GetCCMK8SConnectorListProps) => (
+  <Mutate<
+    ResponsePageCcmK8sConnectorResponse,
+    Failure | Error,
+    GetCCMK8SConnectorListQueryParams,
+    ConnectorFilterPropertiesRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/connectors/ccmK8sList`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetCCMK8SConnectorListProps = Omit<
+  UseMutateProps<
+    ResponsePageCcmK8sConnectorResponse,
+    Failure | Error,
+    GetCCMK8SConnectorListQueryParams,
+    ConnectorFilterPropertiesRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets CCMK8S Connector list
+ */
+export const useGetCCMK8SConnectorList = (props: UseGetCCMK8SConnectorListProps) =>
+  useMutate<
+    ResponsePageCcmK8sConnectorResponse,
+    Failure | Error,
+    GetCCMK8SConnectorListQueryParams,
+    ConnectorFilterPropertiesRequestBody,
+    void
+  >('POST', `/connectors/ccmK8sList`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets CCMK8S Connector list
+ */
+export const getCCMK8SConnectorListPromise = (
+  props: MutateUsingFetchProps<
+    ResponsePageCcmK8sConnectorResponse,
+    Failure | Error,
+    GetCCMK8SConnectorListQueryParams,
+    ConnectorFilterPropertiesRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePageCcmK8sConnectorResponse,
+    Failure | Error,
+    GetCCMK8SConnectorListQueryParams,
+    ConnectorFilterPropertiesRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/connectors/ccmK8sList`, props, signal)
+
 export interface GetAllAllowedFieldValuesQueryParams {
   accountIdentifier?: string
   connectorType:
@@ -19611,7 +19757,7 @@ export type GetConnectorListV2Props = Omit<
     ResponsePageConnectorResponse,
     Failure | Error,
     GetConnectorListV2QueryParams,
-    ConnectorFilterProperties,
+    ConnectorFilterPropertiesRequestBody,
     void
   >,
   'path' | 'verb'
@@ -19625,7 +19771,7 @@ export const GetConnectorListV2 = (props: GetConnectorListV2Props) => (
     ResponsePageConnectorResponse,
     Failure | Error,
     GetConnectorListV2QueryParams,
-    ConnectorFilterProperties,
+    ConnectorFilterPropertiesRequestBody,
     void
   >
     verb="POST"
@@ -19640,7 +19786,7 @@ export type UseGetConnectorListV2Props = Omit<
     ResponsePageConnectorResponse,
     Failure | Error,
     GetConnectorListV2QueryParams,
-    ConnectorFilterProperties,
+    ConnectorFilterPropertiesRequestBody,
     void
   >,
   'path' | 'verb'
@@ -19654,7 +19800,7 @@ export const useGetConnectorListV2 = (props: UseGetConnectorListV2Props) =>
     ResponsePageConnectorResponse,
     Failure | Error,
     GetConnectorListV2QueryParams,
-    ConnectorFilterProperties,
+    ConnectorFilterPropertiesRequestBody,
     void
   >('POST', `/connectors/listV2`, { base: getConfig('ng/api'), ...props })
 
@@ -19666,7 +19812,7 @@ export const getConnectorListV2Promise = (
     ResponsePageConnectorResponse,
     Failure | Error,
     GetConnectorListV2QueryParams,
-    ConnectorFilterProperties,
+    ConnectorFilterPropertiesRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -19675,7 +19821,7 @@ export const getConnectorListV2Promise = (
     ResponsePageConnectorResponse,
     Failure | Error,
     GetConnectorListV2QueryParams,
-    ConnectorFilterProperties,
+    ConnectorFilterPropertiesRequestBody,
     void
   >('POST', getConfig('ng/api'), `/connectors/listV2`, props, signal)
 
@@ -21279,6 +21425,7 @@ export interface GetServiceDetailsQueryParams {
   projectIdentifier: string
   startTime: number
   endTime: number
+  sort?: string[]
 }
 
 export type GetServiceDetailsProps = Omit<
@@ -25779,6 +25926,7 @@ export interface GetFolderNodesQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+  fileUsage?: 'MANIFEST_FILE' | 'CONFIG' | 'SCRIPT'
 }
 
 export type GetFolderNodesProps = Omit<
@@ -31277,6 +31425,379 @@ export const getTopProjectsPromise = (
     void
   >('POST', getConfig('ng/api'), `/landingDashboards/topProjects`, props, signal)
 
+export interface ValidateLdapConnectionSettingsQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateLdapConnectionSettingsProps = Omit<
+  MutateProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapConnectionSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validates Ldap Connection Setting
+ */
+export const ValidateLdapConnectionSettings = (props: ValidateLdapConnectionSettingsProps) => (
+  <Mutate<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapConnectionSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/ldap/settings/test/connection`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateLdapConnectionSettingsProps = Omit<
+  UseMutateProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapConnectionSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validates Ldap Connection Setting
+ */
+export const useValidateLdapConnectionSettings = (props: UseValidateLdapConnectionSettingsProps) =>
+  useMutate<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapConnectionSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >('POST', `/ldap/settings/test/connection`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Validates Ldap Connection Setting
+ */
+export const validateLdapConnectionSettingsPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapConnectionSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapConnectionSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/ldap/settings/test/connection`, props, signal)
+
+export interface ValidateLdapGroupSettingsQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateLdapGroupSettingsProps = Omit<
+  MutateProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapGroupSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validates Ldap Group Setting
+ */
+export const ValidateLdapGroupSettings = (props: ValidateLdapGroupSettingsProps) => (
+  <Mutate<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapGroupSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/ldap/settings/test/group`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateLdapGroupSettingsProps = Omit<
+  UseMutateProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapGroupSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validates Ldap Group Setting
+ */
+export const useValidateLdapGroupSettings = (props: UseValidateLdapGroupSettingsProps) =>
+  useMutate<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapGroupSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >('POST', `/ldap/settings/test/group`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Validates Ldap Group Setting
+ */
+export const validateLdapGroupSettingsPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapGroupSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapGroupSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/ldap/settings/test/group`, props, signal)
+
+export interface ValidateLdapUserSettingsQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateLdapUserSettingsProps = Omit<
+  MutateProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapUserSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validates Ldap User Setting
+ */
+export const ValidateLdapUserSettings = (props: ValidateLdapUserSettingsProps) => (
+  <Mutate<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapUserSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/ldap/settings/test/user`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateLdapUserSettingsProps = Omit<
+  UseMutateProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapUserSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validates Ldap User Setting
+ */
+export const useValidateLdapUserSettings = (props: UseValidateLdapUserSettingsProps) =>
+  useMutate<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapUserSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >('POST', `/ldap/settings/test/user`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Validates Ldap User Setting
+ */
+export const validateLdapUserSettingsPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapUserSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseLdapTestResponse,
+    Failure | Error,
+    ValidateLdapUserSettingsQueryParams,
+    LdapSettingsRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/ldap/settings/test/user`, props, signal)
+
+export interface SyncLdapGroupsQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type SyncLdapGroupsProps = Omit<
+  GetProps<RestResponseBoolean, Failure | Error, SyncLdapGroupsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Sync Ldap groups within an account
+ */
+export const SyncLdapGroups = (props: SyncLdapGroupsProps) => (
+  <Get<RestResponseBoolean, Failure | Error, SyncLdapGroupsQueryParams, void>
+    path={`/ldap/sync-groups`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSyncLdapGroupsProps = Omit<
+  UseGetProps<RestResponseBoolean, Failure | Error, SyncLdapGroupsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Sync Ldap groups within an account
+ */
+export const useSyncLdapGroups = (props: UseSyncLdapGroupsProps) =>
+  useGet<RestResponseBoolean, Failure | Error, SyncLdapGroupsQueryParams, void>(`/ldap/sync-groups`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Sync Ldap groups within an account
+ */
+export const syncLdapGroupsPromise = (
+  props: GetUsingFetchProps<RestResponseBoolean, Failure | Error, SyncLdapGroupsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseBoolean, Failure | Error, SyncLdapGroupsQueryParams, void>(
+    getConfig('ng/api'),
+    `/ldap/sync-groups`,
+    props,
+    signal
+  )
+
+export interface SearchLdapGroupsQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  name?: string
+}
+
+export interface SearchLdapGroupsPathParams {
+  ldapId: string
+}
+
+export type SearchLdapGroupsProps = Omit<
+  GetProps<
+    RestResponseCollectionLdapGroupResponse,
+    Failure | Error,
+    SearchLdapGroupsQueryParams,
+    SearchLdapGroupsPathParams
+  >,
+  'path'
+> &
+  SearchLdapGroupsPathParams
+
+/**
+ * Search Ldap groups with matching name
+ */
+export const SearchLdapGroups = ({ ldapId, ...props }: SearchLdapGroupsProps) => (
+  <Get<
+    RestResponseCollectionLdapGroupResponse,
+    Failure | Error,
+    SearchLdapGroupsQueryParams,
+    SearchLdapGroupsPathParams
+  >
+    path={`/ldap/${ldapId}/search/group`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSearchLdapGroupsProps = Omit<
+  UseGetProps<
+    RestResponseCollectionLdapGroupResponse,
+    Failure | Error,
+    SearchLdapGroupsQueryParams,
+    SearchLdapGroupsPathParams
+  >,
+  'path'
+> &
+  SearchLdapGroupsPathParams
+
+/**
+ * Search Ldap groups with matching name
+ */
+export const useSearchLdapGroups = ({ ldapId, ...props }: UseSearchLdapGroupsProps) =>
+  useGet<
+    RestResponseCollectionLdapGroupResponse,
+    Failure | Error,
+    SearchLdapGroupsQueryParams,
+    SearchLdapGroupsPathParams
+  >((paramsInPath: SearchLdapGroupsPathParams) => `/ldap/${paramsInPath.ldapId}/search/group`, {
+    base: getConfig('ng/api'),
+    pathParams: { ldapId },
+    ...props
+  })
+
+/**
+ * Search Ldap groups with matching name
+ */
+export const searchLdapGroupsPromise = (
+  {
+    ldapId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseCollectionLdapGroupResponse,
+    Failure | Error,
+    SearchLdapGroupsQueryParams,
+    SearchLdapGroupsPathParams
+  > & { ldapId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseCollectionLdapGroupResponse,
+    Failure | Error,
+    SearchLdapGroupsQueryParams,
+    SearchLdapGroupsPathParams
+  >(getConfig('ng/api'), `/ldap/${ldapId}/search/group`, props, signal)
+
 export interface GetAccountLicensesQueryParams {
   accountIdentifier?: string
 }
@@ -31327,7 +31848,7 @@ export const getAccountLicensesPromise = (
 
 export interface GetEditionActionsQueryParams {
   accountIdentifier: string
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export type GetEditionActionsProps = Omit<
@@ -31376,7 +31897,7 @@ export const getEditionActionsPromise = (
 
 export interface StartCommunityLicenseQueryParams {
   accountIdentifier: string
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export type StartCommunityLicenseProps = Omit<
@@ -31491,7 +32012,7 @@ export const extendTrialLicensePromise = (
 
 export interface StartFreeLicenseQueryParams {
   accountIdentifier: string
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export type StartFreeLicenseProps = Omit<
@@ -31542,7 +32063,7 @@ export const startFreeLicensePromise = (
   )
 
 export interface GetModuleLicensesByAccountAndModuleTypeQueryParams {
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export interface GetModuleLicensesByAccountAndModuleTypePathParams {
@@ -31757,7 +32278,7 @@ export const getLastModifiedTimeForAllModuleTypesPromise = (
   >('POST', getConfig('ng/api'), `/licenses/versions`, props, signal)
 
 export interface GetLicensesAndSummaryQueryParams {
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export interface GetLicensesAndSummaryPathParams {
@@ -31905,329 +32426,6 @@ export const getModuleLicenseByIdPromise = (
     GetModuleLicenseByIdQueryParams,
     GetModuleLicenseByIdPathParams
   >(getConfig('ng/api'), `/licenses/${identifier}`, props, signal)
-
-export interface ValidateLdapConnectionSettingsQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type ValidateLdapConnectionSettingsProps = Omit<
-  MutateProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapConnectionSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validates Ldap Connection Setting
- */
-export const ValidateLdapConnectionSettings = (props: ValidateLdapConnectionSettingsProps) => (
-  <Mutate<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapConnectionSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/ng/ldap/settings/test/connection`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateLdapConnectionSettingsProps = Omit<
-  UseMutateProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapConnectionSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validates Ldap Connection Setting
- */
-export const useValidateLdapConnectionSettings = (props: UseValidateLdapConnectionSettingsProps) =>
-  useMutate<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapConnectionSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >('POST', `/ng/ldap/settings/test/connection`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Validates Ldap Connection Setting
- */
-export const validateLdapConnectionSettingsPromise = (
-  props: MutateUsingFetchProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapConnectionSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapConnectionSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/ng/ldap/settings/test/connection`, props, signal)
-
-export interface ValidateLdapGroupSettingsQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type ValidateLdapGroupSettingsProps = Omit<
-  MutateProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapGroupSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validates Ldap Group Setting
- */
-export const ValidateLdapGroupSettings = (props: ValidateLdapGroupSettingsProps) => (
-  <Mutate<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapGroupSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/ng/ldap/settings/test/group`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateLdapGroupSettingsProps = Omit<
-  UseMutateProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapGroupSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validates Ldap Group Setting
- */
-export const useValidateLdapGroupSettings = (props: UseValidateLdapGroupSettingsProps) =>
-  useMutate<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapGroupSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >('POST', `/ng/ldap/settings/test/group`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Validates Ldap Group Setting
- */
-export const validateLdapGroupSettingsPromise = (
-  props: MutateUsingFetchProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapGroupSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapGroupSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/ng/ldap/settings/test/group`, props, signal)
-
-export interface ValidateLdapUserSettingsQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type ValidateLdapUserSettingsProps = Omit<
-  MutateProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapUserSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validates Ldap User Setting
- */
-export const ValidateLdapUserSettings = (props: ValidateLdapUserSettingsProps) => (
-  <Mutate<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapUserSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/ng/ldap/settings/test/user`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateLdapUserSettingsProps = Omit<
-  UseMutateProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapUserSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validates Ldap User Setting
- */
-export const useValidateLdapUserSettings = (props: UseValidateLdapUserSettingsProps) =>
-  useMutate<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapUserSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >('POST', `/ng/ldap/settings/test/user`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Validates Ldap User Setting
- */
-export const validateLdapUserSettingsPromise = (
-  props: MutateUsingFetchProps<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapUserSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    RestResponseLdapTestResponse,
-    Failure | Error,
-    ValidateLdapUserSettingsQueryParams,
-    LdapSettingsRequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/ng/ldap/settings/test/user`, props, signal)
-
-export interface SearchLdapGroupsQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  name?: string
-}
-
-export interface SearchLdapGroupsPathParams {
-  ldapId: string
-}
-
-export type SearchLdapGroupsProps = Omit<
-  GetProps<
-    RestResponseCollectionLdapGroupResponse,
-    Failure | Error,
-    SearchLdapGroupsQueryParams,
-    SearchLdapGroupsPathParams
-  >,
-  'path'
-> &
-  SearchLdapGroupsPathParams
-
-/**
- * Search Ldap groups with matching name
- */
-export const SearchLdapGroups = ({ ldapId, ...props }: SearchLdapGroupsProps) => (
-  <Get<
-    RestResponseCollectionLdapGroupResponse,
-    Failure | Error,
-    SearchLdapGroupsQueryParams,
-    SearchLdapGroupsPathParams
-  >
-    path={`/ng/ldap/${ldapId}/search/group`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseSearchLdapGroupsProps = Omit<
-  UseGetProps<
-    RestResponseCollectionLdapGroupResponse,
-    Failure | Error,
-    SearchLdapGroupsQueryParams,
-    SearchLdapGroupsPathParams
-  >,
-  'path'
-> &
-  SearchLdapGroupsPathParams
-
-/**
- * Search Ldap groups with matching name
- */
-export const useSearchLdapGroups = ({ ldapId, ...props }: UseSearchLdapGroupsProps) =>
-  useGet<
-    RestResponseCollectionLdapGroupResponse,
-    Failure | Error,
-    SearchLdapGroupsQueryParams,
-    SearchLdapGroupsPathParams
-  >((paramsInPath: SearchLdapGroupsPathParams) => `/ng/ldap/${paramsInPath.ldapId}/search/group`, {
-    base: getConfig('ng/api'),
-    pathParams: { ldapId },
-    ...props
-  })
-
-/**
- * Search Ldap groups with matching name
- */
-export const searchLdapGroupsPromise = (
-  {
-    ldapId,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseCollectionLdapGroupResponse,
-    Failure | Error,
-    SearchLdapGroupsQueryParams,
-    SearchLdapGroupsPathParams
-  > & { ldapId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    RestResponseCollectionLdapGroupResponse,
-    Failure | Error,
-    SearchLdapGroupsQueryParams,
-    SearchLdapGroupsPathParams
-  >(getConfig('ng/api'), `/ng/ldap/${ldapId}/search/group`, props, signal)
 
 export interface ConfigureOauthQueryParams {
   accountIdentifier?: string
@@ -33601,7 +33799,7 @@ export interface GetProjectListQueryParams {
   orgIdentifier?: string
   hasModule?: boolean
   identifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   searchTerm?: string
   pageIndex?: number
   pageSize?: number
@@ -33715,7 +33913,7 @@ export interface GetProjectListWithMultiOrgFilterQueryParams {
   orgIdentifiers?: string[]
   hasModule?: boolean
   identifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   searchTerm?: string
   pageIndex?: number
   pageSize?: number
@@ -37429,7 +37627,8 @@ export interface GetSettingsListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  category?: 'CD' | 'CI' | 'CCM' | 'CV' | 'CORE'
+  category: 'CD' | 'CI' | 'CCM' | 'CV' | 'CORE'
+  group?: string
 }
 
 export type GetSettingsListProps = Omit<
@@ -38442,7 +38641,7 @@ export const updateSourceCodeManagersPromise = (
 
 export interface ListSubscriptionsQueryParams {
   accountIdentifier: string
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export type ListSubscriptionsProps = Omit<
@@ -39021,7 +39220,7 @@ export const listPaymentMethodsPromise = (
 
 export interface RetrieveProductPricesQueryParams {
   accountIdentifier: string
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
 }
 
 export type RetrieveProductPricesProps = Omit<
@@ -41049,6 +41248,101 @@ export const getUsersInUserGroupPromise = (
     UserFilterRequestBody,
     GetUsersInUserGroupPathParams
   >('POST', getConfig('ng/api'), `/user-groups/${identifier}/users`, props, signal)
+
+export interface LinkToLdapGroupQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface LinkToLdapGroupPathParams {
+  userGroupId: string
+  ldapId: string
+}
+
+export type LinkToLdapGroupProps = Omit<
+  MutateProps<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    LinkToLdapGroupQueryParams,
+    LdapLinkGroupRequest,
+    LinkToLdapGroupPathParams
+  >,
+  'path' | 'verb'
+> &
+  LinkToLdapGroupPathParams
+
+/**
+ * Link to an LDAP group
+ */
+export const LinkToLdapGroup = ({ userGroupId, ldapId, ...props }: LinkToLdapGroupProps) => (
+  <Mutate<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    LinkToLdapGroupQueryParams,
+    LdapLinkGroupRequest,
+    LinkToLdapGroupPathParams
+  >
+    verb="PUT"
+    path={`/user-groups/${userGroupId}/link/ldap/${ldapId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseLinkToLdapGroupProps = Omit<
+  UseMutateProps<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    LinkToLdapGroupQueryParams,
+    LdapLinkGroupRequest,
+    LinkToLdapGroupPathParams
+  >,
+  'path' | 'verb'
+> &
+  LinkToLdapGroupPathParams
+
+/**
+ * Link to an LDAP group
+ */
+export const useLinkToLdapGroup = ({ userGroupId, ldapId, ...props }: UseLinkToLdapGroupProps) =>
+  useMutate<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    LinkToLdapGroupQueryParams,
+    LdapLinkGroupRequest,
+    LinkToLdapGroupPathParams
+  >(
+    'PUT',
+    (paramsInPath: LinkToLdapGroupPathParams) =>
+      `/user-groups/${paramsInPath.userGroupId}/link/ldap/${paramsInPath.ldapId}`,
+    { base: getConfig('ng/api'), pathParams: { userGroupId, ldapId }, ...props }
+  )
+
+/**
+ * Link to an LDAP group
+ */
+export const linkToLdapGroupPromise = (
+  {
+    userGroupId,
+    ldapId,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    LinkToLdapGroupQueryParams,
+    LdapLinkGroupRequest,
+    LinkToLdapGroupPathParams
+  > & { userGroupId: string; ldapId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    LinkToLdapGroupQueryParams,
+    LdapLinkGroupRequest,
+    LinkToLdapGroupPathParams
+  >('PUT', getConfig('ng/api'), `/user-groups/${userGroupId}/link/ldap/${ldapId}`, props, signal)
 
 export interface LinkToSamlGroupQueryParams {
   accountIdentifier: string

@@ -345,7 +345,9 @@ export default function DeployStageSetupShell(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(selectedStage)])
 
-  const originalStage = selectedStageId ? getStageFromPipeline(selectedStageId, originalPipeline).stage : undefined
+  const originalStage = selectedStageId
+    ? getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId, originalPipeline).stage
+    : undefined
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)

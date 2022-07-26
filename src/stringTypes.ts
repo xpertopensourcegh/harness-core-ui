@@ -3515,13 +3515,13 @@ export interface StringsMap {
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string
   'pipeline.startedOn': string
-  'pipeline.startupScript.fileDetails': string
-  'pipeline.startupScript.fileSource': string
-  'pipeline.startupScript.fileValidation': string
-  'pipeline.startupScript.name': string
-  'pipeline.startupScript.plainText': string
-  'pipeline.startupScript.scriptFilePath': string
-  'pipeline.startupScript.subtitle': string
+  'pipeline.startupCommand.fileDetails': string
+  'pipeline.startupCommand.fileSource': string
+  'pipeline.startupCommand.fileValidation': string
+  'pipeline.startupCommand.name': string
+  'pipeline.startupCommand.plainText': string
+  'pipeline.startupCommand.scriptFilePath': string
+  'pipeline.startupCommand.subtitle': string
   'pipeline.stepCommonFields.ifNotPresent': string
   'pipeline.stepCommonFields.runAsUser': string
   'pipeline.stepCommonFields.validation.invalidLimitCPU': string
