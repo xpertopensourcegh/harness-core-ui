@@ -159,7 +159,11 @@ function ServiceStudioDetails(props: ServiceStudioDetailsProps): React.ReactElem
       return (
         <>
           <ServiceConfiguration serviceData={props.serviceData} />
-          <Layout.Horizontal className={css.btnContainer} spacing="medium" margin={{ top: 'medium', bottom: 'medium' }}>
+          <Layout.Horizontal
+            className={css.stickyBtnContainer}
+            spacing="medium"
+            margin={{ top: 'medium', bottom: 'medium' }}
+          >
             <Button
               variation={ButtonVariation.PRIMARY}
               disabled={!isUpdated}

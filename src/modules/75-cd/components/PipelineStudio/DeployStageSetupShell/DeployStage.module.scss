@@ -69,6 +69,11 @@
   }
 }
 
+.divider {
+  margin: var(--spacing-7) 0px;
+  width: 1024px;
+}
+
 .stage-view {
   margin-top: var(--spacing-3);
   display: block;

@@ -241,23 +241,41 @@ function getServiceSchema(
       }
 }
 
+function getEnvironmentInfraSchema(
+  getString: UseStringsReturn['getString'],
+  isNewEnvInfraDef: boolean,
+  deploymentType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType']
+): Record<string, Yup.Schema<unknown>> {
+  return isNewEnvInfraDef
+    ? {
+        environment: Yup.object().shape({
+          environmentRef: getEnvironmentRefSchema(getString),
+          infrastructureDefinitions: Yup.mixed().required()
+        })
+      }
+    : {
+        infrastructure: Yup.object().shape({
+          environmentRef: getEnvironmentRefSchema(getString),
+          infrastructureDefinition: Yup.object().shape({
+            type: getInfraDeploymentTypeSchema(getString),
+            spec: getInfrastructureDefinitionValidationSchema(deploymentType, getString)
+          })
+        })
+      }
+}
+
 export function getCDStageValidationSchema(
   getString: UseStringsReturn['getString'],
   deploymentType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType'],
   isNewServiceEnvEntity: boolean,
+  isNewEnvInfraDef: boolean,
   contextType?: string
 ): Yup.Schema<unknown> {
   return Yup.object().shape({
     ...getNameAndIdentifierSchema(getString, contextType),
     spec: Yup.object().shape({
       ...getServiceSchema(getString, isNewServiceEnvEntity),
-      infrastructure: Yup.object().shape({
-        environmentRef: getEnvironmentRefSchema(getString),
-        infrastructureDefinition: Yup.object().shape({
-          type: getInfraDeploymentTypeSchema(getString),
-          spec: getInfrastructureDefinitionValidationSchema(deploymentType, getString)
-        })
-      }),
+      ...getEnvironmentInfraSchema(getString, isNewEnvInfraDef, deploymentType),
       execution: Yup.object().shape({
         steps: Yup.array().required().min(1, getString('cd.pipelineSteps.executionTab.stepsCount'))
       })
