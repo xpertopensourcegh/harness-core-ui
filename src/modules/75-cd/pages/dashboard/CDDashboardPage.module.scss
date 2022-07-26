@@ -230,3 +230,8 @@ $header-height: 80px;
     color: var(--grey-500);
   }
 }
+
+.ctn {
+  display: flex;
+  justify-content: space-between;
+}
