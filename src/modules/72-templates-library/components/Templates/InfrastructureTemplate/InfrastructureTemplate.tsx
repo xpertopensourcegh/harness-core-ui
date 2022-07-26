@@ -7,18 +7,17 @@
 
 import React from 'react'
 import { Color } from '@harness/design-system'
-import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 import { Template, TemplateProps } from '@templates-library/components/AbstractTemplate/Template'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import type { NGTemplateInfoConfig } from 'services/template-ng'
-import { StepTemplateCanvasWithRef } from '@templates-library/components/TemplateStudio/StepTemplateCanvas/StepTemplateCanvas'
 
-export class StepTemplate extends Template<NGTemplateInfoConfig> {
-  protected type = TemplateType.Step
-  protected label = 'Step'
+export class InfrastructureTemplate extends Template<NGTemplateInfoConfig> {
+  protected type = TemplateType.Infrastructure
+  protected label = 'Infrastructure'
   protected color = Color.PURPLE_700
+  protected isEnabled = false
 
-  renderTemplateCanvas(props: TemplateProps<NGTemplateInfoConfig>): JSX.Element {
-    return <StepTemplateCanvasWithRef ref={props.formikRef as TemplateFormRef<unknown> | undefined} />
+  renderTemplateCanvas(_props: TemplateProps<NGTemplateInfoConfig>): JSX.Element {
+    return <></>
   }
 }

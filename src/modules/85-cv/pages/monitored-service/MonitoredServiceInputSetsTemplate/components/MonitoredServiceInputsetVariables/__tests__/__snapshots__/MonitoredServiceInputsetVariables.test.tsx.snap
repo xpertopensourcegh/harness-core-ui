@@ -9,7 +9,7 @@ exports[`Validate MonitoredServiceInputsetVariables   should render MonitoredSer
       class="bp3-card bp3-elevation-0 Card--card cardStyle"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-normal"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-card-title"
       >
         common.variables
       </p>
@@ -46,7 +46,7 @@ exports[`Validate MonitoredServiceInputsetVariables   should render MonitoredSer
       class="bp3-card bp3-elevation-0 Card--card cardStyle"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-normal"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-card-title"
       >
         common.variables
       </p>
@@ -150,7 +150,7 @@ exports[`Validate MonitoredServiceInputsetVariables   should render MonitoredSer
       class="bp3-card bp3-elevation-0 Card--card cardStyle"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-normal"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-card-title"
       >
         common.variables
       </p>

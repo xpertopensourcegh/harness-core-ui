@@ -9,7 +9,7 @@ exports[`Validate HealthSourceInputset should render HealthSourceInputset 1`] = 
       class="bp3-card bp3-elevation-0 Card--card cardStyle"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-card-title StyledProps--color StyledProps--color-black"
       >
         cv.templates.healthSourceDetails
       </p>
@@ -505,7 +505,7 @@ exports[`Validate HealthSourceInputset should render HealthSourceInputset 2`] = 
       class="bp3-card bp3-elevation-0 Card--card cardStyle"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-card-title StyledProps--color StyledProps--color-black"
       >
         cv.templates.healthSourceDetails
       </p>
@@ -1054,7 +1054,7 @@ exports[`Validate HealthSourceInputset should render HealthSourceInputset in err
     class="bp3-card bp3-elevation-0 Card--card cardStyle"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-card-title StyledProps--color StyledProps--color-black"
     >
       cv.templates.healthSourceDetails
     </p>
@@ -1112,7 +1112,7 @@ exports[`Validate HealthSourceInputset should render HealthSourceInputset in loa
     class="bp3-card bp3-elevation-0 Card--card cardStyle"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-card-title StyledProps--color StyledProps--color-black"
     >
       cv.templates.healthSourceDetails
     </p>
@@ -1147,7 +1147,7 @@ exports[`Validate HealthSourceInputset should render HealthSourceInputset in no 
     class="bp3-card bp3-elevation-0 Card--card cardStyle"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-card-title StyledProps--color StyledProps--color-black"
     >
       cv.templates.healthSourceDetails
     </p>

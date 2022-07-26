@@ -46,7 +46,7 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for Monitored
         >
           <div>
             <div
-              class="Layout--vertical StyledProps--main tooltipStyle monitoredService StyledProps--margin-xxlarge"
+              class="Layout--vertical StyledProps--main tooltipStyle monitoredService StyledProps--margin-medium"
             >
               <p
                 class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
@@ -143,9 +143,6 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for Monitored
                     />
                   </div>
                 </div>
-                <hr
-                  class="divider"
-                />
               </div>
             </div>
             <p
@@ -154,7 +151,7 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for Monitored
               cv.healthSource.defineYourSource
             </p>
             <div
-              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-xxlarge"
+              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-medium"
             >
               <div
                 class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -241,7 +238,7 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for Monitored
               </div>
             </div>
             <div
-              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-xxlarge"
+              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-medium"
             >
               <div
                 class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -530,7 +527,7 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for default M
         >
           <div>
             <div
-              class="Layout--vertical StyledProps--main tooltipStyle monitoredService StyledProps--margin-xxlarge"
+              class="Layout--vertical StyledProps--main tooltipStyle monitoredService StyledProps--margin-medium"
             >
               <p
                 class="StyledProps--font StyledProps--main header StyledProps--color StyledProps--color-black"
@@ -627,9 +624,6 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for default M
                     />
                   </div>
                 </div>
-                <hr
-                  class="divider"
-                />
               </div>
             </div>
             <p
@@ -638,7 +632,7 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for default M
               cv.healthSource.defineYourSource
             </p>
             <div
-              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-xxlarge"
+              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-medium"
             >
               <div
                 class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -725,7 +719,7 @@ exports[`Test MonitoredTemplateCanvasWithRef should match snapshot for default M
               </div>
             </div>
             <div
-              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-xxlarge"
+              class="Layout--vertical StyledProps--main tooltipStyle StyledProps--margin-medium"
             >
               <div
                 class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"

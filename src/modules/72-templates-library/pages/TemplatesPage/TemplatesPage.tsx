@@ -41,8 +41,7 @@ import { getScopeFromDTO } from '@common/components/EntityReference/EntityRefere
 import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
 import { getLinkForAccountResources } from '@common/utils/BreadcrumbUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './TemplatesPage.module.scss'
 
 export default function TemplatesPage(): React.ReactElement {
@@ -62,11 +61,11 @@ export default function TemplatesPage(): React.ReactElement {
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
   const scope = getScopeFromDTO({ projectIdentifier, orgIdentifier, accountIdentifier: accountId })
-
-  const scriptTemplateEnabled = useFeatureFlag(FeatureFlag.CUSTOM_SECRET_MANAGER_NG)
-  const allowedTemplateTypes = getAllowedTemplateTypes(getString, module, scriptTemplateEnabled).filter(
-    item => !item.disabled
-  )
+  const { CUSTOM_SECRET_MANAGER_NG, CVNG_TEMPLATE_MONITORED_SERVICE } = useFeatureFlags()
+  const allowedTemplateTypes = getAllowedTemplateTypes(scope, {
+    [TemplateType.SecretManager]: !!CUSTOM_SECRET_MANAGER_NG,
+    [TemplateType.MonitoredService]: !!CVNG_TEMPLATE_MONITORED_SERVICE
+  }).filter(item => !item.disabled)
 
   useDocumentTitle([getString('common.templates')])
 
