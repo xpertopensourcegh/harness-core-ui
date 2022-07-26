@@ -810,7 +810,8 @@ function ExecutionGraphRef<T extends StageElementConfig>(
         'conditionalExecutionEnabled',
         'graphType',
         'isInComplete',
-        'isTemplateNode'
+        'isTemplateNode',
+        'loopingStrategyEnabled'
       ])
       const isRemove = removeStepOrGroup(state, event, undefined, newPipelineStudioEnabled)
       if (isRemove) {
