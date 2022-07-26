@@ -2732,6 +2732,7 @@ export interface StringsMap {
   'pipeline.artifactTriggerConfigPanel.artifact': string
   'pipeline.artifactTriggerConfigPanel.artifactReferenceUnique': string
   'pipeline.artifactTriggerConfigPanel.artifactRepository': string
+  'pipeline.artifactTriggerConfigPanel.artifactTagSetting': string
   'pipeline.artifactTriggerConfigPanel.buildTagArtifactPath': string
   'pipeline.artifactTriggerConfigPanel.chartVersionRuntimeInput': string
   'pipeline.artifactTriggerConfigPanel.configureArtifactRuntimeInputs': string
@@ -2742,6 +2743,7 @@ export interface StringsMap {
   'pipeline.artifactTriggerConfigPanel.locationRepoPath': string
   'pipeline.artifactTriggerConfigPanel.noArtifacts': string
   'pipeline.artifactTriggerConfigPanel.noSelectableArtifactsFound': string
+  'pipeline.artifactTriggerConfigPanel.noSelectableRuntimeArtifactsFound': string
   'pipeline.artifactTriggerConfigPanel.plusSelect': string
   'pipeline.artifactTriggerConfigPanel.runtimeInput': string
   'pipeline.artifactTriggerConfigPanel.selectAManifest': string

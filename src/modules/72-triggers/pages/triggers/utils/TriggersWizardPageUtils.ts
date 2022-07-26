@@ -1205,6 +1205,74 @@ export const getArtifactDetailsFromPipeline = ({
   return details
 }
 
+const checkForTypeArtifactOrManifest = (
+  artifactOrManifestArray: any[],
+  isManifest: boolean,
+  artifactType: string,
+  manifestType: string
+): boolean => {
+  let isTypeFound = false
+  artifactOrManifestArray.forEach(artifactOrManifest => {
+    if (isManifest) {
+      artifactOrManifest.some((manifest: { manifest: { type: string } }) => manifest.manifest.type === manifestType)
+        ? (isTypeFound = true)
+        : null
+    } else {
+      if (artifactOrManifest.primary?.type === artifactType) {
+        isTypeFound = true
+      }
+      artifactOrManifest.sidecars.some(
+        (sideCar: { sidecar: { type: string } }) => sideCar.sidecar.type === artifactType
+      )
+        ? (isTypeFound = true)
+        : null
+    }
+  })
+  return isTypeFound
+}
+export const getCorrectErrorString = (
+  resolvedPipeline: any,
+  isManifest: boolean,
+  artifactOrManifestString: string,
+  artifactOrManifestText: string,
+  artifactType: string,
+  manifestType: string,
+  getString: any
+): string => {
+  const artifactOrManifestArray = resolvedPipeline ? getArtifactsObjectFromPipeline(resolvedPipeline, isManifest) : []
+  if (!artifactOrManifestArray.length) {
+    return getString('pipeline.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
+      artifact: artifactOrManifestText
+    })
+  }
+  if (checkForTypeArtifactOrManifest(artifactOrManifestArray, isManifest, artifactType, manifestType)) {
+    return getString('pipeline.artifactTriggerConfigPanel.noSelectableRuntimeArtifactsFound', {
+      artifactOrManifest: artifactOrManifestString,
+      artifact: artifactOrManifestText
+    })
+  } else {
+    const type = isManifest ? manifestType : artifactType
+    return getString('pipeline.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
+      artifact: `${type} ${artifactOrManifestText}`
+    })
+  }
+}
+
+export const getArtifactsObjectFromPipeline = (pipelineObj: any, isManifest: boolean): any => {
+  const artifactOrManifestObj: any[] = []
+  const artifactPath = `stage.spec.serviceConfig.serviceDefinition.spec.artifacts`
+  const manifestPath = `stage.spec.serviceConfig.serviceDefinition.spec.manifests`
+  pipelineObj.stages.forEach((index: any) => {
+    const artifactDetail = get(index, isManifest ? manifestPath : artifactPath)
+    if (isManifest) {
+      if (!isEmpty(artifactDetail)) artifactOrManifestObj.push(artifactDetail)
+    } else {
+      if ('primary' in artifactDetail || artifactDetail.sidecars?.length) artifactOrManifestObj.push(artifactDetail)
+    }
+  })
+  return artifactOrManifestObj
+}
+
 export const getConnectorNameFromPipeline = ({
   manifests,
   manifestIdentifier,

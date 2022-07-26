@@ -587,7 +587,9 @@ artifactTriggerConfigPanel:
   selectAnArtifact: 'Select an Artifact Reference'
   selectAManifest: 'Select a Manifest Reference'
   configureArtifactRuntimeInputs: 'Configure {{artifact}} Runtime Inputs'
+  artifactTagSetting: 'Tag setting'
   noSelectableArtifactsFound: 'No selectable {{artifact}}s found. Please add one in the pipeline.'
+  noSelectableRuntimeArtifactsFound: 'The {{artifact}} {{artifactOrManifest}} must be set to Runtime Input (<+input>) to use an {{artifact}} as a Trigger.'
   noArtifacts: No artifacts for selected stage.
   configureInputs: Configure inputs
   hasRuntimeInputs: 'Has Runtime Inputs'
