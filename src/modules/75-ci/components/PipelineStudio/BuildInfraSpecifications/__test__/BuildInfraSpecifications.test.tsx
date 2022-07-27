@@ -355,7 +355,8 @@ describe('BuildInfraSpecifications snapshot tests for Advanced Panel K8s Build I
     await waitFor(() => expect(container.querySelector('[data-name="volumes"]')).toBeDefined())
   })
 
-  test('Renders advanced stage fields as readonly in propagate stage', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Renders advanced stage fields as readonly in propagate stage', async () => {
     jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
       CI_VM_INFRASTRUCTURE: false
     }))
@@ -422,7 +423,8 @@ describe('BuildInfraSpecifications snapshot tests for Advanced Panel K8s Build I
 })
 
 describe('Hosted by Harness', () => {
-  test('Renders view for delegate not yet provisioned', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Renders view for delegate not yet provisioned', () => {
     jest.spyOn(hostedBuilds, 'useHostedBuilds').mockReturnValue({
       enabledHostedBuildsForFreeUsers: true,
       enabledHostedBuilds: false

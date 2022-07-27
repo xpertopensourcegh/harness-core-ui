@@ -108,6 +108,7 @@ export interface StringsMap {
   'common.blank': string
   'common.branchName': string
   'common.by': string
+  'common.byType': string
   'common.capsAll': string
   'common.cardNumber': string
   'common.ce.autostopping': string
@@ -787,6 +788,7 @@ export interface StringsMap {
   'common.triggerLabel': string
   'common.triggerName': string
   'common.triggersLabel': string
+  'common.types': string
   'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
