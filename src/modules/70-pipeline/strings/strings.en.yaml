@@ -1237,3 +1237,4 @@ startupCommand:
   scriptFilePath: 'Script File Path'
   fileValidation: 'file is required'
   plainText: 'Plain Text'
+triggerInfo: 'Trigger Info'

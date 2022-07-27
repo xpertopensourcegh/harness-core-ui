@@ -3657,6 +3657,7 @@ export interface StringsMap {
   'pipeline.timeRemainingSuffix': string
   'pipeline.totalCount': string
   'pipeline.traffic': string
+  'pipeline.triggerInfo': string
   'pipeline.uniqueIdentifier': string
   'pipeline.uniqueName': string
   'pipeline.unsupportedImagesWarning': string
