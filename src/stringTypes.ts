@@ -3067,6 +3067,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.fieldLabels.retryCountLabel': string
   'pipeline.failureStrategies.fieldLabels.retryIntervalsLabel': string
   'pipeline.failureStrategies.helpText': string
+  'pipeline.failureStrategies.learnMoreLink': string
   'pipeline.failureStrategies.onFailureOfType': string
   'pipeline.failureStrategies.performAction': string
   'pipeline.failureStrategies.strategiesLabel.Abort': string

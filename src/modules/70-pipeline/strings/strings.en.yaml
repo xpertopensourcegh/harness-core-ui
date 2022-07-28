@@ -368,6 +368,7 @@ manifestToConnectorLabelMap:
 failureStrategies:
   performAction: '{{ $.common.performAction }}'
   title: Failure Strategy
+  learnMoreLink: https://docs.harness.io/article/0zvnn5s1ph
   helpText: |
     Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
   addedAllStrategies: You have added all possible failure strategies. There are no more options to add.
