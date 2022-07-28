@@ -394,6 +394,7 @@ export interface Account {
   nextGenEnabled?: boolean
   oauthEnabled?: boolean
   povAccount?: boolean
+  productLed?: boolean
   ringName?: string
   serviceAccountConfig?: ServiceAccountConfig
   serviceGuardLimit?: number
@@ -413,6 +414,7 @@ export interface AccountDTO {
   identifier?: string
   name?: string
   nextGenEnabled?: boolean
+  productLed?: boolean
   serviceAccountConfig?: ServiceAccountConfig
 }
 
@@ -1435,6 +1437,7 @@ export interface CDPipelineModuleInfo {
   envIdentifiers?: string[]
   environmentTypes?: ('PreProduction' | 'Production')[]
   infrastructureIdentifiers?: string[]
+  infrastructureNames?: string[]
   infrastructureTypes?: string[]
   serviceDefinitionTypes?: string[]
   serviceIdentifiers?: string[]
@@ -2818,7 +2821,7 @@ export interface EnvironmentDeploymentsInfo {
   envId?: string
   envName?: string
   envType?: string
-  infrastructureIdentifiers?: string[]
+  infrastructureDetails?: InfrastructureInfo[]
 }
 
 export interface EnvironmentFilterProperties {
@@ -4753,7 +4756,12 @@ export interface GitOpsInstanceRequest {
   envIdentifier?: string
   instanceInfo: K8sBasicInfo
   lastDeployedAt: number
+  lastDeployedById?: string
+  lastDeployedByName?: string
+  lastExecutedAt?: number
   orgIdentifier?: string
+  pipelineExecutionId?: string
+  pipelineName?: string
   projectIdentifier?: string
   serviceIdentifier?: string
 }
@@ -5519,6 +5527,7 @@ export type IgnoreFailureActionConfig = FailureStrategyActionConfig & {
 export interface InfraExecutionSummary {
   identifier?: string
   infrastructureIdentifier?: string
+  infrastructureName?: string
   name?: string
   type?: string
 }
@@ -5586,6 +5595,11 @@ export interface InfrastructureDefinitionConfig {
 
 export interface InfrastructureDetails {
   [key: string]: any
+}
+
+export interface InfrastructureInfo {
+  infrastructureIdentifier?: string
+  infrastructureName?: string
 }
 
 export interface InfrastructureRequestDTO {
@@ -10978,6 +10992,8 @@ export interface ServiceOverrides {
 }
 
 export interface ServicePipelineInfo {
+  deployedById?: string
+  deployedByName?: string
   identifier?: string
   lastExecutedAt?: number
   name?: string
@@ -15121,11 +15137,13 @@ export const getLastSuccessfulBuildForArtifactoryArtifactPromise = (
   >('POST', getConfig('ng/api'), `/artifacts/artifactory/getLastSuccessfulBuild`, props, signal)
 
 export interface GetRepositoriesDetailsForArtifactoryQueryParams {
-  connectorRef: string
+  connectorRef?: string
   repositoryType?: string
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  fqnPath?: string
+  serviceId?: string
 }
 
 export type GetRepositoriesDetailsForArtifactoryProps = Omit<

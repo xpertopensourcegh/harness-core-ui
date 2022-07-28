@@ -605,6 +605,7 @@ export interface StringsMap {
   'common.reportName': string
   'common.reportNameRequired': string
   'common.repositoryCertificates': string
+  'common.repositoryFormat': string
   'common.repositoryName': string
   'common.request': string
   'common.resolveConflict': string
