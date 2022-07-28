@@ -7,13 +7,6 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly disabled: string
-  readonly header: string
-  readonly healthsourcename: string
-  readonly healthsourcetype: string
-  readonly link: string
-  readonly noHealthSourceImage: string
-  readonly noHealthSourceImageClass: string
-  readonly table: string
+  readonly division: string
 }
 export default styles
