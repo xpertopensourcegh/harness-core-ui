@@ -322,9 +322,6 @@ exports[`ServiceStudio should render ServiceStudio 1`] = `
                             <div
                               class="Layout--horizontal StyledProps--main"
                             />
-                            <div
-                              class="Layout--horizontal StyledProps--main"
-                            />
                           </div>
                           <div
                             class="Layout--vertical StyledProps--main activeServiceInstancesEmpty StyledProps--flex StyledProps--flex-align-center-center"
