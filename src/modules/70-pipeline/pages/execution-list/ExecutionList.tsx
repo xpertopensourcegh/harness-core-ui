@@ -25,7 +25,6 @@ import { PipelineExecutionSummary, useGetListOfExecutions } from 'services/pipel
 import useTabVisible from '@common/hooks/useTabVisible'
 import routes from '@common/RouteDefinitions'
 import { ExecutionListEmpty } from './ExecutionListEmpty/ExecutionListEmpty'
-import { OverviewExecutionListEmpty } from './ExecutionListEmpty/OverviewExecutionListEmpty'
 import {
   ExecutionListFilterContextProvider,
   useExecutionListFilterContext
@@ -39,11 +38,10 @@ export interface ExecutionListProps {
   onRunPipeline(): void
   showHealthAndExecution?: boolean
   isPipelineInvalid?: boolean
-  isOverviewPage?: boolean
 }
 
 function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
-  const { showHealthAndExecution, isOverviewPage, ...rest } = props
+  const { showHealthAndExecution, ...rest } = props
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } =
     useParams<PipelineType<PipelinePathProps>>()
   const { isAnyFilterApplied, isSavedFilterApplied, queryParams } = useExecutionListFilterContext()
@@ -104,10 +102,6 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
   const isCommunityAndCDModule = module === 'cd' && isCommunity
   const executionList = data?.data
   const hasExecutions = executionList?.totalElements && executionList?.totalElements > 0
-
-  if (isOverviewPage && !initLoading && !hasExecutions) {
-    return <OverviewExecutionListEmpty {...rest} />
-  }
 
   return (
     <>

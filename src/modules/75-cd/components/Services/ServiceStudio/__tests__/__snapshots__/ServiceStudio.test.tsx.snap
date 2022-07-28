@@ -152,10 +152,7 @@ exports[`ServiceStudio should render ServiceStudio 1`] = `
           id="bp3-tab-panel_serviceDetailsTab_summaryTab"
           role="tabpanel"
         >
-          <div
-            class="StyledProps--font StyledProps--main PageBody--pageBody"
-            data-name="page-body"
-          >
+          <div>
             <div
               class="StyledProps--font StyledProps--main timeRangeContainer StyledProps--flex"
             >
