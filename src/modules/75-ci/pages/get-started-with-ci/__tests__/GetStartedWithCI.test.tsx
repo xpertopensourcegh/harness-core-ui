@@ -7,12 +7,17 @@
 
 import React from 'react'
 
-import { render } from '@testing-library/react'
+import { render, fireEvent, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import GetStartedWithCI from '../GetStartedWithCI'
 import * as hostedBuilds from '../../../hooks/useProvisionDelegateForHostedBuilds'
 import { ProvisioningStatus } from '../InfraProvisioningWizard/Constants'
+import { repos } from '../InfraProvisioningWizard/mocks/repositories'
 
+jest.useFakeTimers()
+
+const updateConnector = jest.fn()
+const createConnector = jest.fn()
 jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({
     mutate: async () => {
@@ -72,15 +77,40 @@ jest.mock('services/cd-ng', () => ({
         }
       }
     })
-  )
+  ),
+  useCreateDefaultScmConnector: jest.fn().mockImplementation(() => {
+    return {
+      mutate: () =>
+        Promise.resolve({
+          status: 'SUCCESS',
+          data: {
+            connectorResponseDTO: { connector: { identifier: 'identifier' } },
+            connectorValidationResult: { status: 'SUCCESS' },
+            secretResponseWrapper: { secret: { identifier: 'identifier' } }
+          }
+        })
+    }
+  }),
+  useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
+  useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
+  useGetListOfAllReposByRefConnector: jest.fn().mockImplementation(() => {
+    return {
+      data: { data: repos, status: 'SUCCESS' },
+      refetch: jest.fn(),
+      error: null,
+      loading: false,
+      cancel: jest.fn()
+    }
+  })
 }))
+
+jest.spyOn(hostedBuilds, 'useProvisionDelegateForHostedBuilds').mockReturnValue({
+  initiateProvisioning: jest.fn(),
+  delegateProvisioningStatus: ProvisioningStatus.SUCCESS
+})
 
 describe('Test Get Started With CI', () => {
   test('initial render', async () => {
-    jest.spyOn(hostedBuilds, 'useProvisionDelegateForHostedBuilds').mockReturnValue({
-      initiateProvisioning: jest.fn(),
-      delegateProvisioningStatus: ProvisioningStatus.SUCCESS
-    })
     const { getByText } = render(
       <TestWrapper
         path="/account/:accountId/ci/orgs/:orgId/projects/:projectId/get-started"
@@ -93,5 +123,44 @@ describe('Test Get Started With CI', () => {
     expect(getByText('ci.getStartedWithCI.firstPipeline')).toBeTruthy()
     const createPipelineBtn = getByText('getStarted')
     expect(createPipelineBtn).toBeInTheDocument()
+  })
+
+  test('User clicks on Get Started button', async () => {
+    const { getByText } = render(
+      <TestWrapper
+        path="/account/:accountId/ci/orgs/:orgId/projects/:projectId/get-started"
+        pathParams={{ accountId: 'test_account_id', orgId: 'orgId', projectId: 'projId' }}
+        queryParams={{ experience: 'TRIAL' }}
+      >
+        <GetStartedWithCI />
+      </TestWrapper>
+    )
+    expect(getByText('ci.getStartedWithCI.firstPipeline')).toBeInTheDocument()
+    const createPipelineBtn = getByText('getStarted')
+    expect(createPipelineBtn).toBeInTheDocument()
+    await act(async () => {
+      fireEvent.click(createPipelineBtn!)
+    })
+    expect(getByText('ci.getStartedWithCI.selectYourRepo')).toBeInTheDocument()
+  })
+
+  test('Clicking on Learn more scrolls the page', async () => {
+    const scrollIntoViewMock = jest.fn()
+    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+    const { getByText } = render(
+      <TestWrapper
+        path="/account/:accountId/ci/orgs/:orgId/projects/:projectId/get-started"
+        pathParams={{ accountId: 'test_account_id', orgId: 'orgId', projectId: 'projId' }}
+        queryParams={{ experience: 'TRIAL' }}
+      >
+        <GetStartedWithCI />
+      </TestWrapper>
+    )
+    await act(async () => {
+      fireEvent.click(getByText('ci.getStartedWithCI.learnMoreAboutCI'))
+    })
+    jest.runAllTimers()
+    expect(scrollIntoViewMock).toBeCalled()
+    expect(getByText('ci.getStartedWithCI.takeToTheNextLevel')).toBeInTheDocument()
   })
 })

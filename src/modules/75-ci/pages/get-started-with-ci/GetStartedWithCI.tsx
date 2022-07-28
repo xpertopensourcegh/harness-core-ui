@@ -311,7 +311,8 @@ export default function GetStartedWithCI(): React.ReactElement {
                   iconProps={{ size: 12 }}
                   text={getString('ci.getStartedWithCI.learnMoreAboutCI')}
                   onClick={() => {
-                    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+                    // Note: Without setTimeout, scrollIntoView does not work!
+                    setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: 'smooth' }), 0)
                   }}
                 />
               </Container>
