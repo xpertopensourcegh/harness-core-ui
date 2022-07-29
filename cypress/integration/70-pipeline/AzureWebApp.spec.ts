@@ -59,7 +59,7 @@ describe('Azure web app end to end test', () => {
     cy.get('input[name="name"]').should('be.visible').type('testService').should('have.value', 'testService')
     cy.get('button[data-id="service-save"]').click()
     cy.wait(2000)
-    cy.get('span[data-icon="microsoft-azure"]').click()
+    cy.get('span[data-icon="azurewebapp"]').click()
     // adding a startup command
     cy.contains('span', 'Add Startup Command').should('be.visible').click()
     cy.contains('p', 'Startup Command File Source').should('be.visible')
