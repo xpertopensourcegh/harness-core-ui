@@ -123,6 +123,149 @@ export const sourceData = {
   product: { label: 'Application Monitoring', value: 'Application Monitoring' }
 }
 
+export const templateSourceDataWithCustomMetric = {
+  connectorRef: '<+input>',
+  isEdit: true,
+  healthSourceList: [
+    {
+      name: 'appd',
+      identifier: 'appd',
+      type: 'AppDynamics',
+      spec: {
+        applicationName: '<+input>',
+        tierName: '<+input>',
+        metricData: { Errors: true, Performance: true },
+        metricDefinitions: [
+          {
+            identifier: 'appdMetric1',
+            metricName: 'appdMetric1',
+            baseFolder: '',
+            metricPath: '',
+            completeMetricPath: '<+input>',
+            groupName: 'g1',
+            sli: { enabled: true },
+            analysis: {
+              riskProfile: {
+                category: 'Performance',
+                metricType: 'THROUGHPUT',
+                thresholdTypes: ['ACT_WHEN_HIGHER']
+              },
+              liveMonitoring: { enabled: true },
+              deploymentVerification: {
+                enabled: true,
+                serviceInstanceMetricPath: '<+input>'
+              }
+            }
+          }
+        ],
+        feature: 'Application Monitoring',
+        connectorRef: '<+input>',
+        metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
+      }
+    }
+  ],
+  serviceRef: '<+input>',
+  environmentRef: 'prod',
+  monitoredServiceRef: { name: 'MS-appd2', identifier: 'MSappd2' },
+  existingMetricDetails: {
+    name: 'appd',
+    identifier: 'appd',
+    type: 'AppDynamics',
+    spec: {
+      applicationName: '<+input>',
+      tierName: '<+input>',
+      metricData: { Errors: true, Performance: true },
+      metricDefinitions: [
+        {
+          identifier: 'appdMetric1',
+          metricName: 'appdMetric1',
+          baseFolder: '',
+          metricPath: '',
+          completeMetricPath: '<+input>',
+          groupName: 'g1',
+          sli: { enabled: true },
+          analysis: {
+            riskProfile: {
+              category: 'Performance',
+              metricType: 'THROUGHPUT',
+              thresholdTypes: ['ACT_WHEN_HIGHER']
+            },
+            liveMonitoring: { enabled: true },
+            deploymentVerification: {
+              enabled: true,
+              serviceInstanceMetricPath: '<+input>'
+            }
+          }
+        }
+      ],
+      feature: 'Application Monitoring',
+      connectorRef: '<+input>',
+      metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
+    }
+  },
+  healthSourceName: 'appd',
+  healthSourceIdentifier: 'appd',
+  sourceType: 'AppDynamics',
+  product: {
+    label: 'Application Monitoring',
+    value: 'Application Monitoring'
+  }
+}
+
+export const templateSourceData = {
+  connectorRef: '<+input>',
+  isEdit: true,
+  healthSourceList: [
+    {
+      name: 'appd',
+      identifier: 'appd',
+      type: 'AppDynamics',
+      spec: {
+        applicationName: '<+input>',
+        tierName: '<+input>',
+        metricData: { Errors: true, Performance: true },
+        metricDefinitions: [],
+        feature: 'Application Monitoring',
+        connectorRef: '<+input>',
+        metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
+      }
+    }
+  ],
+  serviceRef: '<+input>',
+  environmentRef: '<+input>',
+  monitoredServiceRef: { name: 'MS-appd', identifier: 'MSappd' },
+  existingMetricDetails: {
+    name: 'appd',
+    identifier: 'appd',
+    type: 'AppDynamics',
+    spec: {
+      applicationName: '<+input>',
+      tierName: '<+input>',
+      metricData: { Errors: true, Performance: true },
+      metricDefinitions: [],
+      feature: 'Application Monitoring',
+      connectorRef: '<+input>',
+      metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
+    }
+  },
+  healthSourceName: 'appd',
+  healthSourceIdentifier: 'appd',
+  sourceType: 'AppDynamics',
+  product: { label: 'Application Monitoring', value: 'Application Monitoring' }
+}
+// {
+//   name: 'appd',
+//   identifier: 'appd',
+//   connectorRef: '<+input>',
+//   isEdit: true,
+//   product: { label: 'Application Monitoring', value: 'Application Monitoring' },
+//   type: 'AppDynamics',
+//   applicationName: '<+input>',
+//   tierName: '<+input>',
+//   metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }],
+//   mappedServicesAndEnvs: {}
+// }
+
 export const applicationName = {
   status: 'SUCCESS',
   data: {
@@ -557,6 +700,48 @@ export const onPreviousPayload = {
   monitoredServiceRef: { identifier: 'test112_TestEnv', name: 'test112_TestEnv' },
   product: { label: 'Application Monitoring', value: 'Application Monitoring' },
   serviceRef: 'test112',
+  sourceType: 'AppDynamics'
+}
+
+export const onPreviousPayloadTemplate = {
+  connectorRef: '<+input>',
+  environmentRef: '<+input>',
+  existingMetricDetails: {
+    identifier: 'appd',
+    name: 'appd',
+    spec: {
+      applicationName: '<+input>',
+      connectorRef: '<+input>',
+      feature: 'Application Monitoring',
+      metricData: { Errors: true, Performance: true },
+      metricDefinitions: [],
+      metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }],
+      tierName: '<+input>'
+    },
+    type: 'AppDynamics'
+  },
+  healthSourceIdentifier: 'appd',
+  healthSourceList: [
+    {
+      identifier: 'appd',
+      name: 'appd',
+      spec: {
+        applicationName: '<+input>',
+        connectorRef: '<+input>',
+        feature: 'Application Monitoring',
+        metricData: { Errors: true, Performance: true },
+        metricDefinitions: [],
+        metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }],
+        tierName: '<+input>'
+      },
+      type: 'AppDynamics'
+    }
+  ],
+  healthSourceName: 'appd',
+  isEdit: true,
+  monitoredServiceRef: { identifier: 'MSappd', name: 'MS-appd' },
+  product: { label: 'Application Monitoring', value: 'Application Monitoring' },
+  serviceRef: '<+input>',
   sourceType: 'AppDynamics'
 }
 
@@ -1026,6 +1211,31 @@ export const onSubmitPayload = {
     ],
     metricPacks: [{ identifier: 'Performance' }, { identifier: 'Errors' }],
     tierName: 'cvng'
+  },
+  type: 'AppDynamics'
+}
+
+export const onSubmitPayloadTemplate = {
+  identifier: 'appd',
+  name: 'appd',
+  spec: {
+    applicationName: '<+input>',
+    connectorRef: '<+input>',
+    feature: 'Application Monitoring',
+    metricData: {
+      Errors: true,
+      Performance: true
+    },
+    metricDefinitions: [],
+    metricPacks: [
+      {
+        identifier: 'Errors'
+      },
+      {
+        identifier: 'Performance'
+      }
+    ],
+    tierName: '<+input>'
   },
   type: 'AppDynamics'
 }

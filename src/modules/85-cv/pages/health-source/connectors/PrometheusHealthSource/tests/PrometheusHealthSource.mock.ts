@@ -57,6 +57,59 @@ export const MockManualQueryData = {
   product: {}
 }
 
+const mockPromethesuTemplate = {
+  type: 'Prometheus',
+  identifier: 'prometheus',
+  name: 'prometheus',
+  spec: {
+    connectorRef: '<+input>',
+    feature: 'apm',
+    metricDefinitions: [
+      {
+        metricName: 'Prometheus Metric',
+        identifier: 'prometheus_metric',
+        serviceFilter: [],
+        isManualQuery: true,
+        query: '<+input>',
+        envFilter: [],
+        additionalFilters: [],
+        groupName: 'g1',
+        sli: { enabled: true },
+        analysis: {
+          riskProfile: { category: 'Performance', metricType: 'ERROR', thresholdTypes: ['ACT_WHEN_HIGHER'] },
+          liveMonitoring: { enabled: true },
+          deploymentVerification: {
+            enabled: true,
+            serviceInstanceFieldName: '<+monitoredService.variables.serviceLabelInstance>'
+          }
+        }
+      }
+    ]
+  }
+}
+export const MockTemplateQueryData = {
+  connectorRef: '<+input>',
+  isEdit: true,
+  healthSourceList: [mockPromethesuTemplate],
+  serviceRef: '<+input>',
+  environmentRef: 'prod',
+  monitoredServiceRef: { name: 'prometheus', identifier: 'prometheus' },
+  existingMetricDetails: mockPromethesuTemplate,
+  healthSourceName: 'prometheus',
+  healthSourceIdentifier: 'prometheus',
+  sourceType: 'Prometheus',
+  product: { label: 'apm', value: 'Prometheus' }
+}
+
+export const submitTemplateData = [
+  {
+    ...MockTemplateQueryData
+  },
+  {
+    ...mockPromethesuTemplate
+  }
+]
+
 export const MockManualQueryDataWithoutIdentifier = {
   ...MockManualQueryData,
   healthSourceList: [
