@@ -330,6 +330,7 @@ manifestType:
   commitPlaceholder: Enter Commit Id / Git Tag
   filePathPlaceholder: Enter File or Folder Path
   kustomizeFolderPath: Kustomize Folder Path
+  kustomizeBasePath: Kustomize Base Path
   kustomizeFolderPathPlaceholder: Enter Kustomize Folder Path
   kustomizePluginPathPlaceholder: Enter Kustomize Plugin Path
   repoNamePlaceholder: Enter Repository Name
@@ -351,6 +352,9 @@ manifestType:
   oci:
     basePathRequired: 'Base Path is required'
     chartVersionValidation: '"latest" tag is not supported as chart version'
+  optimizedKustomizeManifestCollection: Optimized Kustomize Manifest Collection
+  kustomizeYamlFolderPath: Kustomize YAML Folder Path
+  kustomizeYamlFolderPathRequired: Kustomize YAML Folder Path is required
 manifestTypeLabels:
   K8sManifest: K8s Manifest
   ValuesYaml: Values YAML

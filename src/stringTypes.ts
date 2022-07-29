@@ -3281,12 +3281,15 @@ export interface StringsMap {
   'pipeline.manifestType.http.chartVersionPlaceHolder': string
   'pipeline.manifestType.http.chartVersionRequired': string
   'pipeline.manifestType.httpHelmRepoConnectorLabel': string
+  'pipeline.manifestType.kustomizeBasePath': string
   'pipeline.manifestType.kustomizeFolderPath': string
   'pipeline.manifestType.kustomizeFolderPathPlaceholder': string
   'pipeline.manifestType.kustomizeFolderPathRequired': string
   'pipeline.manifestType.kustomizePathHelperText': string
   'pipeline.manifestType.kustomizePathRequired': string
   'pipeline.manifestType.kustomizePluginPathPlaceholder': string
+  'pipeline.manifestType.kustomizeYamlFolderPath': string
+  'pipeline.manifestType.kustomizeYamlFolderPathRequired': string
   'pipeline.manifestType.manifestDetails': string
   'pipeline.manifestType.manifestIdentifier': string
   'pipeline.manifestType.manifestPathPlaceholder': string
@@ -3298,6 +3301,7 @@ export interface StringsMap {
   'pipeline.manifestType.oci.basePathRequired': string
   'pipeline.manifestType.oci.chartVersionValidation': string
   'pipeline.manifestType.ociHelmConnectorLabel': string
+  'pipeline.manifestType.optimizedKustomizeManifestCollection': string
   'pipeline.manifestType.osTemplatePath': string
   'pipeline.manifestType.osTemplatePathPlaceHolder': string
   'pipeline.manifestType.osTemplatePathRequired': string

@@ -175,6 +175,8 @@ export interface KustomizeWithGITDataType {
   folderPath: string
   pluginPath: string
   patchesPaths?: any
+  optimizedKustomizeManifestCollection?: boolean
+  kustomizeYamlFolderPath?: string
 }
 export interface OpenShiftParamDataType {
   identifier: string
