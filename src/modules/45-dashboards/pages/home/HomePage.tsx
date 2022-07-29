@@ -38,7 +38,7 @@ import ModuleTagsFilter from '@dashboards/components/ModuleTagsFilter/ModuleTags
 import { ErrorResponse, useDeleteDashboard, useGetFolderDetail, useSearch } from 'services/custom-dashboards'
 import routes from '@common/RouteDefinitions'
 
-import { DashboardLayoutViews, DashboardTags, MappedDashboardTagOptions } from '@dashboards/types/DashboardTypes'
+import { DashboardLayoutViews, DashboardTags, MappedDashboardTagOptions } from '@dashboards/types/DashboardTypes.types'
 import { SHARED_FOLDER_ID } from '@dashboards/constants'
 import { useStrings } from 'framework/strings'
 import Dashboards from './Dashboards'

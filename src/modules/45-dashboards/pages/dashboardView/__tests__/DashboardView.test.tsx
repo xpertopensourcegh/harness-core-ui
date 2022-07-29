@@ -18,11 +18,14 @@ const accountId = 'ggre4325'
 const folderId = 'gh544'
 const viewId = '45udb23'
 
-const renderComponent = (folder = folderId): RenderResult =>
+const iframeId = 'dashboard-iframe'
+
+const renderComponent = (folder = folderId, queryParams?: Record<string, unknown>): RenderResult =>
   render(
     <TestWrapper
       path={routes.toViewCustomDashboard({ ...accountPathProps, folderId: ':folderId', viewId: ':viewId' })}
       pathParams={{ accountId: accountId, folderId: folder, viewId: viewId }}
+      queryParams={queryParams}
     >
       <DashboardViewPage />
     </TestWrapper>
@@ -50,6 +53,7 @@ describe('DashboardView', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+
     useGetFolderDetailMock.mockReturnValue({ data: { resource: 'folder name' }, refetch: fetchFolderDetailMock } as any)
     useGetDashboardDetailMock.mockReturnValue({ resource: true, title: 'dashboard name' } as any)
     useDashboardsContextMock.mockReturnValue({ includeBreadcrumbs: includeBreadcrumbs, breadcrumbs: [] })
@@ -63,7 +67,7 @@ describe('DashboardView', () => {
   test('it should display loading message before dashboard request completes', async () => {
     renderComponent()
 
-    expect(screen.getByText('Loading, please wait...')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByText('Loading, please wait...')).toBeInTheDocument())
   })
 
   test('it should display Dashboard iframe when dashboard URL returned', async () => {
@@ -75,7 +79,7 @@ describe('DashboardView', () => {
 
     renderComponent()
 
-    await waitFor(() => expect(screen.getByTestId('dashboard-iframe')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId(iframeId)).toBeInTheDocument())
   })
 
   test('it should display Dashboard not available when dashboard request returns no URL', async () => {
@@ -87,7 +91,7 @@ describe('DashboardView', () => {
 
     renderComponent()
 
-    expect(screen.getByText('Dashboard not available')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByText('Dashboard not available')).toBeInTheDocument())
   })
 
   test('it should display an error message when dashboard request fails', async () => {
@@ -100,16 +104,18 @@ describe('DashboardView', () => {
 
     renderComponent()
 
-    expect(screen.getByText(testErrorMessage)).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByText(testErrorMessage)).toBeInTheDocument())
   })
 
   test('it should include a folder link in breadcrumbs when using a named folder', async () => {
     renderComponent()
 
-    expect(includeBreadcrumbs).toBeCalledWith([
-      { label: 'dashboards.homePage.folders', url: `/account/${accountId}/dashboards/folders` },
-      { label: 'folder name', url: `/account/${accountId}/dashboards/folder/${folderId}` }
-    ])
+    await waitFor(() =>
+      expect(includeBreadcrumbs).toBeCalledWith([
+        { label: 'dashboards.homePage.folders', url: `/account/${accountId}/dashboards/folders` },
+        { label: 'folder name', url: `/account/${accountId}/dashboards/folder/${folderId}` }
+      ])
+    )
   })
 
   test('it should include a dashboard in breadcrumbs when a dashboard details has been retrieved', async () => {
@@ -129,7 +135,7 @@ describe('DashboardView', () => {
     useGetDashboardDetailMock.mockReturnValue({ data: mockDashboardDetail } as any)
     renderComponent()
 
-    await waitFor(() => expect(screen.getByTestId('dashboard-iframe')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId(iframeId)).toBeInTheDocument())
 
     expect(includeBreadcrumbs).toBeCalledWith([
       { label: mockDashboardTitle, url: `/account/${accountId}/dashboards/folder/${folderId}/view/${viewId}` }
@@ -141,12 +147,12 @@ describe('DashboardView', () => {
 
     renderComponent('shared')
 
-    expect(includeBreadcrumbs).toBeCalledWith([])
+    await waitFor(() => expect(includeBreadcrumbs).toBeCalledWith([]))
   })
 
   test('it should not call the folder detail endpoint when using the shared folder', async () => {
     renderComponent('shared')
 
-    expect(fetchFolderDetailMock).not.toHaveBeenCalled()
+    await waitFor(() => expect(fetchFolderDetailMock).not.toHaveBeenCalled())
   })
 })
