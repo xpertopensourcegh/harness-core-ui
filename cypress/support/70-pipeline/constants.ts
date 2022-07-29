@@ -76,6 +76,7 @@ export const pipelineExecutionCall = `/pipeline/api/dashboard/pipelineExecution?
 export const abortPipelineCall = `pipeline/api/pipeline/execute/interrupt/${executionId}?routingId=${accountId}&orgIdentifier=${orgIdentifier}&accountIdentifier=${accountId}&projectIdentifier=${projectId}&interruptType=AbortAll`
 export const serverlessLambdaYamlSnippet = `/ng/api/pipelines/configuration/strategies/yaml-snippets?routingId=${accountId}&serviceDefinitionType=${serverlessLambdaServiceDefinitionType}&strategyType=${strategyType}`
 export const servicesV2 = `/ng/api/servicesV2?routingId=${accountId}&accountIdentifier=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectId}`
+export const postServiceCall = `ng/api/servicesV2?routingId=${accountId}&accountIdentifier=${accountId}`
 export const jobDetailsCall = `/ng/api/artifacts/jenkins/jobs?routingId=${accountId}&accountIdentifier=${accountId}&projectIdentifier=${projectId}&orgIdentifier=${orgIdentifier}&connectorRef=${connectorName}`
 export const jobDetailsCallAfterConnectorChange = `/ng/api/artifacts/jenkins/jobs?routingId=${accountId}&accountIdentifier=${accountId}&projectIdentifier=${projectId}&orgIdentifier=${orgIdentifier}&connectorRef=${anotherConnectorName}`
 export const jobDetailsForParentJob = `/ng/api/artifacts/jenkins/jobs?routingId=${accountId}&accountIdentifier=${accountId}&projectIdentifier=${projectId}&orgIdentifier=${orgIdentifier}&connectorRef=${anotherConnectorName}&parentJobName=${parentJob}`
@@ -97,6 +98,7 @@ export const executionListRoute = `#/account/${accountId}/cd/orgs/${orgIdentifie
 export const pipelinesExecutionDelegateRoute = `#/account/${accountId}/cd/orgs/${orgIdentifier}/projects/${projectId}/pipelines/${pipelineIdentifier}/executions/${delegateExecutionId}/pipeline`
 export const executionHistoryRoute = `#/account/accountId/cd/orgs/default/projects/${projectId}/pipelines/${pipelineIdentifier}/executions`
 export const pipelineStudioRoute = `#/account/accountId/cd/orgs/default/projects/${projectId}/pipelines/${pipelineIdentifier}/pipeline-studio/?stageId=j&sectionId=SERVICE`
+export const newPipelineRoute = `#/account/accountId/cd/orgs/default/projects/${projectId}/pipelines/-1/pipeline-studio/`
 export const inputSetsRoute = `#/account/accountId/cd/orgs/default/projects/${projectId}/pipelines/${pipelineIdentifier}/input-sets`
 export const environmentRoute = `#/account/${accountId}/cd/orgs/${orgIdentifier}/projects/${projectId}/environment`
 export const servicesRoute = `#/account/${accountId}/cd/orgs/${orgIdentifier}/projects/${projectId}/services`

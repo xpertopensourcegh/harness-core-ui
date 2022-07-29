@@ -12,6 +12,9 @@ export const createEnvironmentGroupsCall = `/ng/api/environmentGroup?accountIden
 export const environmentGroupDetailsCall = `/ng/api/environmentGroup/testEnvGroup?routingId=${accountIdentifier}&accountIdentifier=${accountIdentifier}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const environmentGroupYamlSchemaCall = `/ng/api/yaml-schema?routingId=${accountIdentifier}&entityType=EnvironmentGroup&projectIdentifier=${projectIdentifier}&orgIdentifier=${orgIdentifier}&accountIdentifier=${accountIdentifier}&scope=project`
 export const environmentConfigurationCall = `/ng/api/environmentsV2/${environmentIdentifier}?routingId=${accountIdentifier}&accountIdentifier=${accountIdentifier}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const environmentFetchCall = `/ng/api/environmentsV2?routingId=${accountIdentifier}&accountIdentifier=${accountIdentifier}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const environmentSaveCall = `/ng/api/environmentsV2?routingId=${accountIdentifier}&accountIdentifier=${accountIdentifier}`
+
 export const environmentConfigurationSecretCall = `/ng/api/v2/secrets?accountIdentifier=${accountIdentifier}&type=${secretText}&searchTerm=&projectIdentifier=${projectIdentifier}&orgIdentifier=${orgIdentifier}&pageIndex=0&pageSize=10`
 
 // BROWSER ROUTES
