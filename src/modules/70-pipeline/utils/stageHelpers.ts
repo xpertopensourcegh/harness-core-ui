@@ -63,7 +63,8 @@ export enum ServiceDeploymentType {
   ServerlessGoogleFunctions = 'ServerlessGoogleFunctions',
   AmazonSAM = 'AwsSAM',
   AzureFunctions = 'AzureFunctions',
-  AzureWebApp = 'AzureWebApp'
+  AzureWebApp = 'AzureWebApp',
+  ECS = 'ECS'
 }
 
 export enum RepositoryFormatTypes {

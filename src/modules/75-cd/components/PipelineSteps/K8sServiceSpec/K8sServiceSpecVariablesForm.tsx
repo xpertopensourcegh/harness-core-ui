@@ -26,7 +26,7 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
-import css from './K8sServiceSpec.module.scss'
+import css from '../Common/ServiceSpec/ServiceSpec.module.scss'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 export interface K8sServiceSpecVariablesFormProps {
   initialValues: ServiceSpec

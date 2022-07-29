@@ -41,7 +41,7 @@ import {
   isFieldfromTriggerTabDisabled,
   resetTags
 } from '../artifactSourceUtils'
-import css from '../../K8sServiceSpec.module.scss'
+import css from '../../../Common/ServiceSpec/ServiceSpec.module.scss'
 
 interface JenkinsRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps) => boolean

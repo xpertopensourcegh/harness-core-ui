@@ -140,7 +140,7 @@ export class ServerlessAwsLambdaServiceSpec extends Step<ServiceSpec> {
             includeAllConnectorsAvailableAtScope: true
           },
           body: {
-            types: [ArtifactToConnectorMap.ArtifactoryRegistry],
+            types: [ArtifactToConnectorMap.ArtifactoryRegistry, ArtifactToConnectorMap.Ecr],
             filterType: 'Connector'
           }
         }).then(this.returnConnectorListFromResponse)

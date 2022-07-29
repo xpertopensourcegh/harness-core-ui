@@ -6,35 +6,23 @@
  */
 
 import React from 'react'
-import { Card, HarnessDocTooltip } from '@wings-software/uicore'
 import cx from 'classnames'
+import { Card, HarnessDocTooltip } from '@wings-software/uicore'
+
+import { useStrings } from 'framework/strings'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { getSelectedDeploymentType, isServerlessDeploymentType } from '@pipeline/utils/stageHelpers'
-import { useStrings } from 'framework/strings'
-import type { ServiceDefinition } from 'services/cd-ng'
 import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import VariableListReadOnlyView from '@pipeline/components/WorkflowVariablesSelection/VariableListReadOnlyView'
-import { setupMode } from '../K8sServiceSpecHelper'
+import { getManifestsHeaderTooltipId } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import { getArtifactsHeaderTooltipId } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import type { KubernetesServiceInputFormProps } from '../K8sServiceSpecInterface'
-import css from '../K8sServiceSpec.module.scss'
-
-const getManifestsHeaderTooltipId = (selectedDeploymentType: ServiceDefinition['type']): string => {
-  if (isServerlessDeploymentType(selectedDeploymentType)) {
-    return 'serverlessDeploymentTypeManifests'
-  }
-  return 'deploymentTypeManifests'
-}
-
-const getArtifactsHeaderTooltipId = (selectedDeploymentType: ServiceDefinition['type']): string => {
-  if (isServerlessDeploymentType(selectedDeploymentType)) {
-    return 'serverlessDeploymentTypeArtifacts'
-  }
-  return 'deploymentTypeArtifacts'
-}
+import { setupMode } from '../../PipelineStepsUtil'
+import css from '../../Common/ServiceSpec/ServiceSpec.module.scss'
 
 const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues: { stageIndex = 0, setupModeType, deploymentType, isReadonlyServiceMode },
@@ -77,6 +65,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
               deploymentType={selectedDeploymentType}
               isReadonlyServiceMode={isReadonlyServiceMode as boolean}
               readonly={!!readonly}
+              allowOnlyOneManifest={isServerlessDeploymentType(selectedDeploymentType)}
             />
           </Card>
           <Card

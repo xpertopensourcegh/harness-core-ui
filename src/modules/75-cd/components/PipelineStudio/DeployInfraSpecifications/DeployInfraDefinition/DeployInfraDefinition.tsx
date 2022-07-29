@@ -85,7 +85,8 @@ export const deploymentTypeInfraTypeMap = {
   ServerlessGoogleFunctions: InfraDeploymentType.ServerlessGoogleFunctions,
   AmazonSAM: InfraDeploymentType.AmazonSAM,
   AzureFunctions: InfraDeploymentType.AzureFunctions,
-  AzureWebApp: InfraDeploymentType.AzureWebApp
+  AzureWebApp: InfraDeploymentType.AzureWebApp,
+  ECS: InfraDeploymentType.ECS
 }
 
 type InfraTypes =
@@ -410,7 +411,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
           />
         )
       }
-      case 'ServerlessAwsLambda': {
+      case InfraDeploymentType.ServerlessAwsLambda: {
         return (
           <StepWidget<ServerlessAwsLambdaSpec>
             factory={factory}
@@ -428,14 +429,14 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
                   region: value.region,
                   allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
-                'ServerlessAwsLambda'
+                InfraDeploymentType.ServerlessAwsLambda
               )
             }
             customStepProps={getCustomStepProps('ServerlessAwsLambda', getString)}
           />
         )
       }
-      case 'ServerlessGoogleFunctions': {
+      case InfraDeploymentType.ServerlessGoogleFunctions: {
         return (
           <StepWidget<ServerlessGCPSpec>
             factory={factory}
@@ -452,14 +453,14 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
                   stage: value.stage,
                   allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
-                'ServerlessGoogleFunctions'
+                InfraDeploymentType.ServerlessGoogleFunctions
               )
             }
             customStepProps={getCustomStepProps('ServerlessGoogleFunctions', getString)}
           />
         )
       }
-      case 'ServerlessAzureFunctions': {
+      case InfraDeploymentType.ServerlessAzureFunctions: {
         return (
           <StepWidget<ServerlessAzureSpec>
             factory={factory}
@@ -476,7 +477,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
                   stage: value.stage,
                   allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
-                'ServerlessAzureFunctions'
+                InfraDeploymentType.ServerlessAzureFunctions
               )
             }
             customStepProps={getCustomStepProps('ServerlessAzureFunctions', getString)}
@@ -605,6 +606,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
               <StringWithTooltip
                 tooltipId="pipelineStep.infrastructureDefinitionMethod"
                 stringId="pipelineSteps.deploy.infrastructure.selectMethod"
+                stringIdVars={{ deploymentSpecificText: selectedDeploymentType }}
               />
             </Text>
           )}

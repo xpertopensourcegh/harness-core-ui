@@ -38,7 +38,7 @@ import type {
 } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import { handleCommandFlagsSubmitData } from '../ManifestUtils'
-import css from '../K8sValuesManifest/ManifestDetails.module.scss'
+import css from '../CommonManifestDetails/CommonManifestDetails.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
 interface HelmWithHarnessStorePropType {

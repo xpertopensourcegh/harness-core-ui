@@ -20,7 +20,7 @@ import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/G
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
-import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper, ServiceDefinition } from 'services/cd-ng'
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
@@ -83,6 +83,7 @@ import HelmWithOCI from '../ManifestWizardSteps/HelmWithOCI/HelmWithOCI'
 import { getConnectorPath } from '../ManifestWizardSteps/ManifestUtils'
 import HarnessFileStore from '../ManifestWizardSteps/HarnessFileStore/HarnessFileStore'
 import KustomizeWithHarnessStore from '../ManifestWizardSteps/KustomizeWithHarnessStore/KustomizeWithHarnessStore'
+import { CommonManifestDetails } from '../ManifestWizardSteps/CommonManifestDetails/CommonManifestDetails'
 import HelmWithHarnessStore from '../ManifestWizardSteps/HelmWithHarnessStore/HelmWithHarnessStore'
 import css from '../ManifestSelection.module.scss'
 
@@ -96,6 +97,19 @@ const DIALOG_PROPS: IDialogProps = {
   style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
 }
 
+const getManifestTypeToSelect = (
+  deploymentType: ServiceDefinition['type'],
+  preSelectedManifestType?: ManifestTypes
+): ManifestTypes | null => {
+  if (preSelectedManifestType) {
+    return preSelectedManifestType
+  }
+  if (allowedManifestTypes[deploymentType]?.length === 1) {
+    return allowedManifestTypes[deploymentType][0]
+  }
+  return null
+}
+
 function ManifestListView({
   connectors,
   listOfManifests,
@@ -106,7 +120,9 @@ function ManifestListView({
   removeManifestConfig,
   attachPathYaml,
   removeValuesYaml,
-  allowOnlyOne = false
+  allowOnlyOneManifest = false,
+  addManifestBtnText,
+  preSelectedManifestType
 }: ManifestListViewProps): JSX.Element {
   const [selectedManifest, setSelectedManifest] = useState<ManifestTypes | null>(null)
   const [connectorView, setConnectorView] = useState(false)
@@ -121,9 +137,7 @@ function ManifestListView({
 
   const addNewManifest = (): void => {
     setEditIndex(listOfManifests.length)
-    setSelectedManifest(
-      allowedManifestTypes[deploymentType]?.length === 1 ? allowedManifestTypes[deploymentType][0] : null
-    )
+    setSelectedManifest(getManifestTypeToSelect(deploymentType, preSelectedManifestType))
     showConnectorModal()
   }
 
@@ -298,8 +312,10 @@ function ManifestListView({
         break
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest as ManifestTypes) &&
         isGitTypeStores:
-      default:
         manifestDetailStep = <K8sValuesManifest {...lastStepProps()} />
+        break
+      default:
+        manifestDetailStep = <CommonManifestDetails {...lastStepProps()} />
         break
     }
     arr.push(manifestDetailStep)
@@ -586,7 +602,7 @@ function ManifestListView({
         </Layout.Vertical>
       </Layout.Vertical>
       <Layout.Vertical spacing={'medium'} flex={{ alignItems: 'flex-start' }}>
-        {showAddManifestBtn(isReadonly, allowOnlyOne, listOfManifests, deploymentType) && (
+        {showAddManifestBtn(isReadonly, allowOnlyOneManifest, listOfManifests, deploymentType) && (
           <Button
             className={css.addManifest}
             id="add-manifest"
@@ -594,7 +610,7 @@ function ManifestListView({
             variation={ButtonVariation.LINK}
             data-test-id="addManifest"
             onClick={addNewManifest}
-            text={getString('pipelineSteps.serviceTab.manifestList.addManifest')}
+            text={addManifestBtnText ?? getString('pipelineSteps.serviceTab.manifestList.addManifest')}
           />
         )}
       </Layout.Vertical>

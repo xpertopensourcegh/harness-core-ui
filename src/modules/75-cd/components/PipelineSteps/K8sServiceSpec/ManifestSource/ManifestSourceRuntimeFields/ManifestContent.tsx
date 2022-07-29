@@ -24,10 +24,10 @@ import CustomRemoteManifestRuntimeFields from './CustomRemoteManifestRuntimeFiel
 import ManifestCommonRuntimeFields from './ManifestCommonRuntimeFields'
 import css from '../../KubernetesManifests/KubernetesManifests.module.scss'
 
-interface K8sValuesYamlManifestRenderProps extends ManifestSourceRenderProps {
+interface ManifestRenderProps extends ManifestSourceRenderProps {
   pathFieldlabel: StringKeys
 }
-const K8sValuesYamlManifestContent = (props: K8sValuesYamlManifestRenderProps): React.ReactElement => {
+export const ManifestContent = (props: ManifestRenderProps): React.ReactElement => {
   const {
     template,
     path,
@@ -127,5 +127,3 @@ const K8sValuesYamlManifestContent = (props: K8sValuesYamlManifestRenderProps): 
     </Layout.Vertical>
   )
 }
-
-export default K8sValuesYamlManifestContent

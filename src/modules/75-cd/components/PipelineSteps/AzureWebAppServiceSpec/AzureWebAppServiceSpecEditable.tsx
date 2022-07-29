@@ -18,24 +18,17 @@ import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/Depl
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import VariableListReadOnlyView from '@pipeline/components/WorkflowVariablesSelection/VariableListReadOnlyView'
-import { setupMode } from '../K8sServiceSpec/K8sServiceSpecHelper'
+import { getArtifactsHeaderTooltipId } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import type { AzureWebAppServiceSpecFormProps } from './AzureWebAppServiceSpecInterface.types'
 import AzureWebAppConfigSelection from './AzureWebAppServiceConfiguration/AzureWebAppServiceConfigSelection'
-//todo: css
-import css from '../K8sServiceSpec/K8sServiceSpec.module.scss'
+import { setupMode } from '../PipelineStepsUtil'
+import css from '../Common/ServiceSpec/ServiceSpec.module.scss'
 
 const getStartupScriptHeaderTooltipId = (selectedDeploymentType: ServiceDefinition['type']): string => {
   if (isServerlessDeploymentType(selectedDeploymentType)) {
     return 'serverlessDeploymentTypeStartupScript'
   }
   return 'deploymentTypeStartupScript'
-}
-
-const getArtifactsHeaderTooltipId = (selectedDeploymentType: ServiceDefinition['type']): string => {
-  if (isServerlessDeploymentType(selectedDeploymentType)) {
-    return 'serverlessDeploymentTypeArtifacts'
-  }
-  return 'deploymentTypeArtifacts'
 }
 
 const getAppConfigHeaderTooltipId = (selectedDeploymentType: ServiceDefinition['type']): string => {

@@ -6,6 +6,10 @@
  */
 
 import React from 'react'
+import { get, set, isEmpty } from 'lodash-es'
+import { Form, FormikProps } from 'formik'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
+import * as Yup from 'yup'
 import {
   Layout,
   Button,
@@ -17,26 +21,18 @@ import {
   ButtonVariation,
   AllowedTypes
 } from '@wings-software/uicore'
-import cx from 'classnames'
 import { FontVariation } from '@harness/design-system'
-import { Form, FormikProps } from 'formik'
-import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import * as Yup from 'yup'
 
-import { get, set, isEmpty } from 'lodash-es'
-
-import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import type { CommonManifestDataType, ManifestTypes } from '../../ManifestInterface'
 import { GitRepoName, ManifestDataType, ManifestIdentifierValidation, ManifestStoreMap } from '../../Manifesthelper'
-import DragnDropPaths from '../../DragnDropPaths'
-import { filePathWidth, getRepositoryName } from '../ManifestUtils'
-import { ManifestDetailsCoreSection } from '../CommonManifestDetails/ManifestDetailsCoreSection'
-import { ManifestDetailsAdvancedSection } from '../CommonManifestDetails/ManifestDetailsAdvancedSection'
-import css from '../CommonManifestDetails/CommonManifestDetails.module.scss'
+import { getRepositoryName } from '../ManifestUtils'
+import { ManifestDetailsCoreSection } from './ManifestDetailsCoreSection'
+import { ManifestDetailsAdvancedSection } from './ManifestDetailsAdvancedSection'
+import css from './CommonManifestDetails.module.scss'
 
-interface K8sValuesManifestPropType {
+interface CommonManifestDetailsProps {
   stepName: string
   expressions: string[]
   allowableTypes: AllowedTypes
@@ -48,10 +44,24 @@ interface K8sValuesManifestPropType {
 }
 
 const showAdvancedSection = (selectedManifest: ManifestTypes | null): boolean => {
-  return selectedManifest === ManifestDataType.K8sManifest
+  return !!(selectedManifest && [ManifestDataType.K8sManifest].includes(selectedManifest))
 }
 
-function K8sValuesManifest({
+const getConnectorRef = (prevStepData: ConnectorConfigDTO): string => {
+  return getMultiTypeFromValue(prevStepData.connectorRef) !== MultiTypeInputType.FIXED
+    ? prevStepData.connectorRef
+    : prevStepData.connectorRef?.value
+}
+
+const getConnectorId = (prevStepData?: ConnectorConfigDTO): string => {
+  return prevStepData?.identifier ? prevStepData?.identifier : ''
+}
+
+const getConnectorRefOrConnectorId = (prevStepData?: ConnectorConfigDTO): string => {
+  return prevStepData?.connectorRef ? getConnectorRef(prevStepData) : getConnectorId(prevStepData)
+}
+
+export function CommonManifestDetails({
   stepName,
   selectedManifest,
   expressions,
@@ -62,7 +72,7 @@ function K8sValuesManifest({
   previousStep,
   manifestIdsList,
   isReadonly = false
-}: StepProps<ConnectorConfigDTO> & K8sValuesManifestPropType): React.ReactElement {
+}: StepProps<ConnectorConfigDTO> & CommonManifestDetailsProps): React.ReactElement {
   const { getString } = useStrings()
 
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
@@ -84,11 +94,7 @@ function K8sValuesManifest({
         paths:
           typeof specValues.paths === 'string'
             ? specValues.paths
-            : specValues.paths?.map((path: string) => ({ path, uuid: uuid(path, nameSpace()) })),
-        valuesPaths:
-          typeof initialValues?.spec?.valuesPaths === 'string'
-            ? initialValues?.spec?.valuesPaths
-            : initialValues?.spec?.valuesPaths?.map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
+            : specValues.paths?.map((path: string) => ({ path, uuid: uuid(path, nameSpace()) }))
       }
     }
     return {
@@ -118,11 +124,7 @@ function K8sValuesManifest({
                   ? formData?.paths
                   : formData?.paths?.map((path: { path: string }) => path.path)
             }
-          },
-          valuesPaths:
-            typeof formData?.valuesPaths === 'string'
-              ? formData?.valuesPaths
-              : formData?.valuesPaths?.map((path: { path: string }) => path.path)
+          }
         }
       }
     }
@@ -138,9 +140,10 @@ function K8sValuesManifest({
       }
     }
 
-    if (selectedManifest === ManifestDataType.K8sManifest) {
+    if (showAdvancedSection(selectedManifest) && formData?.skipResourceVersioning) {
       set(manifestObj, 'manifest.spec.skipResourceVersioning', formData?.skipResourceVersioning)
     }
+
     handleSubmit(manifestObj)
   }
 
@@ -173,16 +176,6 @@ function K8sValuesManifest({
             }
             return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
           }),
-          valuesPaths: Yup.lazy((value): Yup.Schema<unknown> => {
-            if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
-              return Yup.array().of(
-                Yup.object().shape({
-                  path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
-                })
-              )
-            }
-            return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
-          }),
           repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
             if (
               connectionType === GitRepoName.Repo ||
@@ -197,13 +190,7 @@ function K8sValuesManifest({
           submitFormData({
             ...prevStepData,
             ...formData,
-            connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
-                ? prevStepData?.connectorRef
-                : prevStepData?.connectorRef?.value
-              : prevStepData?.identifier
-              ? prevStepData?.identifier
-              : ''
+            connectorRef: getConnectorRefOrConnectorId(prevStepData)
           })
         }}
       >
@@ -223,38 +210,6 @@ function K8sValuesManifest({
                     prevStepData={prevStepData}
                     isReadonly={isReadonly}
                   />
-
-                  {selectedManifest === ManifestDataType.K8sManifest && (
-                    <div
-                      className={cx({
-                        [css.runtimeInput]:
-                          getMultiTypeFromValue(formik.values?.valuesPaths) === MultiTypeInputType.RUNTIME
-                      })}
-                    >
-                      <DragnDropPaths
-                        formik={formik}
-                        expressions={expressions}
-                        allowableTypes={allowableTypes}
-                        fieldPath="valuesPaths"
-                        pathLabel={getString('pipeline.manifestType.valuesYamlPath')}
-                        placeholder={getString('pipeline.manifestType.manifestPathPlaceholder')}
-                        defaultValue={{ path: '', uuid: uuid('', nameSpace()) }}
-                        dragDropFieldWidth={filePathWidth}
-                      />
-                      {getMultiTypeFromValue(formik.values.valuesPaths) === MultiTypeInputType.RUNTIME && (
-                        <ConfigureOptions
-                          value={formik.values.valuesPaths}
-                          type={getString('string')}
-                          variableName={'valuesPaths'}
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          onChange={val => formik?.setFieldValue('valuesPaths', val)}
-                          isReadonly={isReadonly}
-                        />
-                      )}
-                    </div>
-                  )}
 
                   {showAdvancedSection(selectedManifest) && (
                     <ManifestDetailsAdvancedSection
@@ -289,5 +244,3 @@ function K8sValuesManifest({
     </Layout.Vertical>
   )
 }
-
-export default K8sValuesManifest

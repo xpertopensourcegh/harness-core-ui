@@ -31,7 +31,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ManifestDataType, ManifestIdentifierValidation, ManifestStoreMap } from '../../Manifesthelper'
 import type { HarnessFileStoreDataType, HarnessFileStoreFormData, ManifestTypes } from '../../ManifestInterface'
-import css from '../K8sValuesManifest/ManifestDetails.module.scss'
+import css from '../CommonManifestDetails/CommonManifestDetails.module.scss'
 
 interface HarnessFileStorePropType {
   stepName: string

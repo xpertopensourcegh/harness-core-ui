@@ -24,7 +24,7 @@ import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/Manifes
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 import { KubernetesArtifacts } from './KubernetesArtifacts/KubernetesArtifacts'
 import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
-import css from './K8sServiceSpec.module.scss'
+import css from '../Common/ServiceSpec/ServiceSpec.module.scss'
 
 export interface KubernetesInputSetProps {
   initialValues: K8SDirectServiceStep
