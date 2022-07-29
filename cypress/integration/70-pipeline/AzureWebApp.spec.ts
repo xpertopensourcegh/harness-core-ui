@@ -7,7 +7,7 @@ import {
 } from '../../support/70-pipeline/constants'
 import { environmentFetchCall, environmentSaveCall } from '../../support/75-cd/constants'
 
-describe('Azure web app end to end test', () => {
+describe.skip('Azure web app end to end test', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => {
       // returning false here prevents Cypress from
@@ -54,6 +54,7 @@ describe('Azure web app end to end test', () => {
     cy.get('input[name="name"]').should('be.visible').type('deploy').should('have.value', 'deploy')
     cy.contains('span', 'Set Up Stage').click()
     // adding a new service
+    cy.visitPageAssertion('#aboutService')
     cy.wait('@servicesListCall')
     cy.contains('span', 'New Service').should('be.visible').click()
     cy.get('input[name="name"]').should('be.visible').type('testService').should('have.value', 'testService')
@@ -86,7 +87,8 @@ describe('Azure web app end to end test', () => {
     })
     cy.wait(1000)
     cy.get('span[data-icon="service-github"]').should('be.visible')
-    cy.contains('span', 'Continue').should('be.visible').click()
+    cy.contains('span', 'Infrastructure').click({ force: true })
+    cy.wait(1000)
     // creating a new environment
     cy.wait('@environmentListCall')
 
