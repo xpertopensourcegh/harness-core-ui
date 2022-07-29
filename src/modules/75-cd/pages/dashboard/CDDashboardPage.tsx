@@ -227,7 +227,7 @@ export const CDDashboardPage: React.FC = () => {
 
   useEffect(() => {
     setShowOverviewDialog(!pipelineExecutionSummary?.content?.length)
-  }, [projectIdentifier])
+  }, [pipelineExecutionSummary])
 
   if (loadingWorkloads || pipelineLoading) {
     return (

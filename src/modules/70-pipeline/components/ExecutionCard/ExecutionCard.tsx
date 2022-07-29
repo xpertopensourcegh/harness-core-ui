@@ -9,7 +9,7 @@ import React, { useRef } from 'react'
 import { Card, Icon, Tag, TagsPopover, Text, Checkbox } from '@wings-software/uicore'
 import { FontVariation, Color } from '@harness/design-system'
 import { useHistory, useParams } from 'react-router-dom'
-import { Popover } from '@blueprintjs/core'
+import { Popover, Position } from '@blueprintjs/core'
 import { defaultTo, get, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
@@ -290,6 +290,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                     targetTagName="div"
                     interactionKind="hover"
                     popoverClassName={css.ignoreFailedPopover}
+                    position={Position.RIGHT}
+                    modifiers={{ preventOverflow: { escapeWithReference: true } }}
                     content={
                       <String
                         tagName="div"
