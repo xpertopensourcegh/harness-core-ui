@@ -497,8 +497,8 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
             onUpdate={value => {
               onUpdateInfrastructureDefinition(
                 {
-                  connectorRef: value.connectorRef?.connector?.identifier,
-                  credentialsRef: value.sshKey?.referenceString,
+                  connectorRef: value.connectorRef?.connector?.identifier || value.connectorRef,
+                  credentialsRef: value.credentialsRef,
                   attributeFilters: value.attributeFilters,
                   hostFilters: value.hostFilters,
                   hosts: value.hosts,
@@ -528,9 +528,9 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
                   connectorRef: value.connectorRef,
                   subscriptionId: value.subscriptionId,
                   resourceGroup: value.resourceGroup,
-                  cluster: value.cluster,
                   tags: value.tags,
-                  usePublicDns: value.usePublicDns
+                  usePublicDns: value.usePublicDns,
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
                 InfraDeploymentType.SshWinRmAzure
               )

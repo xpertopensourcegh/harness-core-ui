@@ -11,16 +11,14 @@ import type { FormikErrors } from 'formik'
 import { get, isEmpty } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import {
-  getAzureClustersPromise,
   getAzureResourceGroupsBySubscriptionPromise,
   getAzureSubscriptionsPromise,
   getConnectorListV2Promise,
   SshWinRmAzureInfrastructure,
   ConnectorResponse,
-  AzureResourceGroupDTO,
-  AzureClusterDTO
+  AzureResourceGroupDTO
 } from 'services/cd-ng'
 import type { AzureSubscriptionDTO } from 'services/cd-ng'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
@@ -29,19 +27,36 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { Connectors } from '@connectors/constants'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
 import {
   AzureInfrastructureSpecEditableProps,
   SshWinRmAzureInfrastructureTemplate,
   subscriptionLabel,
-  clusterLabel,
   resourceGroupLabel
 } from './SshWinRmAzureInfrastructureInterface'
 import { AzureInfrastructureSpecForm } from './SshWinRmAzureInfrastructureForm'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
 const yamlErrorMessage = 'cd.parsingYamlError'
+
+const AzureInfrastructureSpecVariablesForm: React.FC<AzureInfrastructureSpecEditableProps> = ({
+  metadataMap,
+  variablesData,
+  initialValues
+}) => {
+  const infraVariables = variablesData?.infrastructureDefinition?.spec
+  return infraVariables ? (
+    /* istanbul ignore next */ <VariablesListTable
+      data={infraVariables}
+      originalData={initialValues?.infrastructureDefinition?.spec || initialValues}
+      metadataMap={metadataMap}
+      className={pipelineVariableCss.variablePaddingL1}
+    />
+  ) : null
+}
 
 interface AzureInfrastructureSpecStep extends SshWinRmAzureInfrastructure {
   name?: string
@@ -51,7 +66,6 @@ interface AzureInfrastructureSpecStep extends SshWinRmAzureInfrastructure {
 export const AzureConnectorRegex = /^.+infrastructure\.infrastructureDefinition\.spec\.connectorRef$/
 export const AzureSubscriptionRegex = /^.+infrastructure\.infrastructureDefinition\.spec\.subscriptionId$/
 export const AzureResourceGroupRegex = /^.+infrastructure\.infrastructureDefinition\.spec\.resourceGroup$/
-export const AzureClusterRegex = /^.+infrastructure\.infrastructureDefinition\.spec\.cluster$/
 export const SshWinRmAzureType = StepType.SshWinRmAzure
 
 export class SshWinRmAzureInfrastructureSpec extends PipelineStep<AzureInfrastructureSpecStep> {
@@ -62,9 +76,9 @@ export class SshWinRmAzureInfrastructureSpec extends PipelineStep<AzureInfrastru
     connectorRef: '',
     subscriptionId: '',
     resourceGroup: '',
-    cluster: '',
     tags: {},
-    usePublicDns: false
+    usePublicDns: false,
+    allowSimultaneousDeployments: false
   }
 
   protected stepIcon: IconName = 'microsoft-azure'
@@ -81,7 +95,6 @@ export class SshWinRmAzureInfrastructureSpec extends PipelineStep<AzureInfrastru
     this.invocationMap.set(AzureConnectorRegex, this.getConnectorsListForYaml.bind(this))
     this.invocationMap.set(AzureSubscriptionRegex, this.getSubscriptionListForYaml.bind(this))
     this.invocationMap.set(AzureResourceGroupRegex, this.getResourceGroupListForYaml.bind(this))
-    this.invocationMap.set(AzureClusterRegex, this.getClusterListForYaml.bind(this))
 
     this._hasStepVariables = true
   }
@@ -214,59 +227,12 @@ export class SshWinRmAzureInfrastructureSpec extends PipelineStep<AzureInfrastru
     return Promise.resolve([])
   }
 
-  protected getClusterListForYaml(
-    path: string,
-    yaml: string,
-    params: Record<string, unknown>
-  ): Promise<CompletionItemInterface[]> {
-    let pipelineObj
-    try {
-      pipelineObj = parse(yaml)
-    } catch (err: any) {
-      /* istanbul ignore next */ logger.error(yamlErrorMessage, err)
-    }
-    const { accountId, projectIdentifier, orgIdentifier } = params as {
-      accountId: string
-      orgIdentifier: string
-      projectIdentifier: string
-    }
-    // /* istanbul ignore else */
-    if (pipelineObj) {
-      const obj = get(pipelineObj, path.replace('.spec.cluster', ''))
-      if (
-        get(obj, 'type', '') === SshWinRmAzureType &&
-        get(obj, 'spec.connectorRef', '') &&
-        get(obj, 'spec.subscriptionId', '') &&
-        get(obj, 'spec.resourceGroup', '')
-      ) {
-        return getAzureClustersPromise({
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier,
-            connectorRef: get(obj, 'spec.connectorRef', '')
-          },
-          subscriptionId: get(obj, 'spec.subscriptionId', ''),
-          resourceGroup: get(obj, 'spec.resourceGroup', '')
-        }).then(response =>
-          get(response, 'data.clusters', []).map((cl: AzureClusterDTO) => ({
-            label: cl.cluster,
-            insertText: cl.cluster,
-            kind: CompletionItemKind.Field
-          }))
-        )
-      }
-    }
-
-    return Promise.resolve([])
-  }
-
   validateInputSet({
     data,
     getString
   }: ValidateInputSetProps<SshWinRmAzureInfrastructure>): FormikErrors<SshWinRmAzureInfrastructure> {
     const errors: Partial<SshWinRmAzureInfrastructureTemplate> = {}
-    if (isEmpty(data.sshKey)) {
+    if (isEmpty(data.credentialsRef)) {
       errors.credentialsRef = getString?.('common.validation.fieldIsRequired', { name: getString('connector') })
     }
     if (isEmpty(data.connectorRef)) {
@@ -278,14 +244,24 @@ export class SshWinRmAzureInfrastructureSpec extends PipelineStep<AzureInfrastru
     if (isEmpty(data.resourceGroup)) {
       errors.resourceGroup = getString?.('common.validation.fieldIsRequired', { name: getString(resourceGroupLabel) })
     }
-    if (isEmpty(data.cluster)) {
-      errors.cluster = getString?.('common.validation.fieldIsRequired', { name: getString(clusterLabel) })
-    }
     return errors
   }
 
   renderStep(props: StepProps<SshWinRmAzureInfrastructure>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, customStepProps, readonly, allowableTypes } = props
+    const { initialValues, onUpdate, stepViewType, customStepProps, readonly, allowableTypes, inputSetData } = props
+
+    if (stepViewType === StepViewType.InputVariable) {
+      return (
+        <AzureInfrastructureSpecVariablesForm
+          onUpdate={onUpdate}
+          stepViewType={stepViewType}
+          template={inputSetData?.template as SshWinRmAzureInfrastructureTemplate}
+          {...(customStepProps as AzureInfrastructureSpecEditableProps)}
+          initialValues={initialValues}
+        />
+      )
+    }
+
     return (
       <AzureInfrastructureSpecForm
         onUpdate={onUpdate}

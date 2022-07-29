@@ -39,13 +39,14 @@ steps:
     hostsPlaceholder: Specify list of host names here (comma separated)
     specificHostsPlaceholder: Specify list of comma separated hosts here
     attributesPlaceholder: Specify list of comma separated attributes and values. E.g. hostType:DB, region:west
-    hostNameOption: Host names
-    hostAttributesOption: Host attributes
     specifyHostsOption: Specify hosts here
     preconfiguredHostsOption: Select preconfigured hosts from Physical Data Center
     pdcConnectorLabel: Physical Datacentar Connector
-    deployAllHostsOption: Deploy to All hosts
-    deploySpecificHostsOption: Deploy to specific hosts based on
+    includeAllHosts: Include all hosts
+    filterHostName: Filter by host name
+    filterHostAttributes: Filter by host attributes
+    specificHosts: Specific Hosts
+    specificAttributes: Specific Attributes
     previewHosts: Preview Hosts
     noHosts: No hosts provided
   azureInfraStep:
