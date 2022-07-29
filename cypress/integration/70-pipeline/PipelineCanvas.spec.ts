@@ -573,7 +573,7 @@ describe('Input Sets', () => {
     cy.wait(1000)
     cy.wait('@servicesCallV2').wait(1000)
     cy.fillField('name', 'testService')
-    cy.findByText('Specify Service').should('exist')
+    cy.findByText('Select Service').should('exist')
     cy.get('input[name="pipeline.stages[0].stage.spec.serviceConfig.serviceRef"]').click()
     cy.contains('p', 'testService').click({ force: true })
 

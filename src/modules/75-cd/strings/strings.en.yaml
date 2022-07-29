@@ -148,7 +148,7 @@ pipelineSteps:
     deploymentTypeRequired: Deployment type selection is required
     propagateFrom: Propagate from
     differentService: Deploy different Service
-    specifyYourService: Specify Service
+    specifyYourService: Select Service
     selectService: '- Select Service -'
     newService: '{{$.newService}}'
     plusNewService: '+ {{$.newService}}'
