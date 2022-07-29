@@ -210,6 +210,38 @@ describe('Test SelectGitProvider component', () => {
     expect(global.fetch).toBeCalled()
   })
 
+  test('Error callout should be visible for failed OAuth', async () => {
+    window.open = jest.fn()
+    window.addEventListener = jest.fn()
+    global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        text: () => Promise.reject('User not authorized')
+      })
+    )
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toGetStartedWithCI({
+          ...pathParams,
+          module: 'ci'
+        })}
+        pathParams={{
+          ...pathParams,
+          module: 'ci'
+        }}
+      >
+        <SelectGitProvider enableNextBtn={jest.fn()} disableNextBtn={jest.fn()} selectedHosting={Hosting.SaaS} />
+      </TestWrapper>
+    )
+    await act(async () => {
+      fireEvent.click((Array.from(container.querySelectorAll('div[class*="bp3-card"]')) as HTMLElement[])[0])
+    })
+
+    await act(async () => {
+      fireEvent.click(getByText('common.oAuthLabel'))
+    })
+    expect(getByText('connectors.oAuth.failed')).toBeInTheDocument()
+  })
+
   test('User selects Gitlab provider and OAuth authentication method', async () => {
     window.open = jest.fn()
     window.addEventListener = jest.fn()
