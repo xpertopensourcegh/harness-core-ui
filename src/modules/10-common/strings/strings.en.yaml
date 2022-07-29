@@ -705,6 +705,7 @@ module:
   ce: CCM
   cv: CV
   core: CORE
+  chaos: CHAOS
   pms: PMS
   templateService: TEMPLATESERVICE
   sto: STO

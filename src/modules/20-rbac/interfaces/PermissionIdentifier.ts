@@ -134,9 +134,17 @@ export enum PermissionIdentifier {
   DELETE_GITOPS_CERT = 'gitops_cert_delete',
 
   // Chaos Permissions
-  VIEW_CHAOSHUB = 'chaos_chaoshub_view',
-  EDIT_CHAOSHUB = 'chaos_chaoshub_edit',
-  DELETE_CHAOSHUB = 'chaos_chaoshub_delete',
+  VIEW_CHAOS_HUB = 'chaos_chaoshub_view',
+  EDIT_CHAOS_HUB = 'chaos_chaoshub_edit',
+  DELETE_CHAOS_HUB = 'chaos_chaoshub_delete',
+  VIEW_CHAOS_SCENARIO = 'chaos_chaosworkflow_view',
+  EDIT_CHAOS_SCENARIO = 'chaos_chaosworkflow_edit',
+  DELETE_CHAOS_SCENARIO = 'chaos_chaosworkflow_delete',
+  VIEW_CHAOS_DELEGATE = 'chaos_chaosagent_view',
+  EDIT_CHAOS_DELEGATE = 'chaos_chaosagent_edit',
+  DELETE_CHAOS_DELEGATE = 'chaos_chaosagent_delete',
+  VIEW_CHAOS_GITOPS = 'chaos_chaosgitops_view',
+  EDIT_CHAOS_GITOPS = 'chaos_chaosgitops_edit',
 
   // STO Permissions
   VIEW_STO_ISSUE = 'sto_issue_view',

@@ -429,6 +429,7 @@ export interface StringsMap {
   'common.module.cd': string
   'common.module.ce': string
   'common.module.cf': string
+  'common.module.chaos': string
   'common.module.ci': string
   'common.module.core': string
   'common.module.cv': string
@@ -5776,7 +5777,10 @@ export interface StringsMap {
   'cf.testTheFlag.testFlagTargetHeading': string
   'cf.testTheFlag.verify': string
   'cf.testTheFlag.verifyText': string
-  'chaos.chaoshub': string
+  'chaos.chaosDelegate': string
+  'chaos.chaosGitops': string
+  'chaos.chaosHub': string
+  'chaos.chaosScenario': string
   'chaos.homepage.chaosHomePageTitle': string
   'chaos.homepage.learnMore': string
   'chaos.homepage.slogan': string

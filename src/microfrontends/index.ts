@@ -24,6 +24,7 @@ import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import type { GitOpsCustomMicroFrontendProps } from '@cd/interfaces/GitOps.types'
 import type { STOAppCustomProps } from '@pipeline/interfaces/STOApp'
 import type { CCMUIAppCustomProps } from '@ce/interface/CCMUIApp.types'
+import type { ChaosCustomMicroFrontendProps } from '@chaos/interfaces/Chaos.types'
 
 export interface Scope {
   accountId?: string
@@ -80,5 +81,6 @@ export {
   PermissionIdentifier,
   GitOpsCustomMicroFrontendProps,
   STOAppCustomProps,
-  CCMUIAppCustomProps
+  CCMUIAppCustomProps,
+  ChaosCustomMicroFrontendProps
 }
