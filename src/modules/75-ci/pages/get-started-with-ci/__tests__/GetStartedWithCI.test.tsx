@@ -106,7 +106,8 @@ jest.mock('services/cd-ng', () => ({
 
 jest.spyOn(hostedBuilds, 'useProvisionDelegateForHostedBuilds').mockReturnValue({
   initiateProvisioning: jest.fn(),
-  delegateProvisioningStatus: ProvisioningStatus.SUCCESS
+  delegateProvisioningStatus: ProvisioningStatus.SUCCESS,
+  fetchingDelegateDetails: false
 })
 
 describe('Test Get Started With CI', () => {

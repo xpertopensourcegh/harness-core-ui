@@ -52,7 +52,8 @@ export default function GetStartedWithCI(): React.ReactElement {
   const { getString } = useStrings()
   const [showWizard, setShowWizard] = useState<boolean>(false)
   const [showProvisioningCarousel, setShowProvisioningCarousel] = useState<boolean>(false)
-  const { initiateProvisioning, delegateProvisioningStatus } = useProvisionDelegateForHostedBuilds()
+  const { initiateProvisioning, delegateProvisioningStatus, fetchingDelegateDetails } =
+    useProvisionDelegateForHostedBuilds()
   const [preSelectedGitConnector, setPreselectedGitConnector] = useState<ConnectorInfoDTO>()
   const [connectorsEligibleForPreSelection, setConnectorsEligibleForPreSelection] = useState<ConnectorInfoDTO[]>()
   const [secretForPreSelectedConnector, setSecretForPreSelectedConnector] = useState<SecretDTOV2>()
@@ -292,6 +293,7 @@ export default function GetStartedWithCI(): React.ReactElement {
                           initiateProvisioning()
                         }
                       }}
+                      disabled={fetchingDelegateDetails}
                     />
                   </Container>
                 </Layout.Vertical>
