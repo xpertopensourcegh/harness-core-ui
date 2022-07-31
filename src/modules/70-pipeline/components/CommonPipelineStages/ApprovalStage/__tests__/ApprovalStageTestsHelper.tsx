@@ -343,6 +343,7 @@ export const getDummyPipelineContextValue = (): PipelineContextInterface => {
     updatePipeline: jest.fn(),
     updatePipelineView: jest.fn(),
     updateStage: jest.fn().mockResolvedValue({}),
+    setSelectedSectionId: jest.fn(),
     setSelectedTabId: jest.fn(),
     getStagePathFromPipeline: jest.fn(),
     getStageFromPipeline: jest.fn(() => {
@@ -358,6 +359,7 @@ export const getDummyPipelineContextValueJiraApproval = (): PipelineContextInter
     updatePipeline: jest.fn(),
     updatePipelineView: jest.fn(),
     updateStage: jest.fn().mockResolvedValue({}),
+    setSelectedSectionId: jest.fn(),
     setSelectedTabId: jest.fn(),
     getStagePathFromPipeline: jest.fn(),
     getStageFromPipeline: jest.fn(() => {

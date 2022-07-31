@@ -8,7 +8,7 @@
 import React, { useRef } from 'react'
 import cx from 'classnames'
 import { Button, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
-import { capitalize as _capitalize } from 'lodash-es'
+import { capitalize as _capitalize, toUpper } from 'lodash-es'
 import { Expander } from '@blueprintjs/core'
 import { Color } from '@harness/design-system'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -34,12 +34,13 @@ export function CustomStageSetupShellMode(): React.ReactElement {
   const {
     state: {
       pipeline,
-      selectionState: { selectedStageId = '', selectedStepId },
+      selectionState: { selectedStageId = '', selectedStepId, selectedSectionId },
       gitDetails
     },
     contextType,
     getStageFromPipeline,
-    updatePipeline
+    updatePipeline,
+    setSelectedSectionId
   } = pipelineContext
   const query = useQueryParams()
 
@@ -50,9 +51,9 @@ export function CustomStageSetupShellMode(): React.ReactElement {
     if (sectionId?.length && tabHeadings.includes(_capitalize(sectionId))) {
       setSelectedTabId(_capitalize(sectionId))
     } else {
-      setSelectedTabId(tabHeadings[1])
+      setSelectedSectionId(toUpper(tabHeadings[1]))
     }
-  }, [])
+  }, [selectedSectionId])
 
   React.useEffect(() => {
     if (selectedStepId) {
@@ -88,7 +89,10 @@ export function CustomStageSetupShellMode(): React.ReactElement {
     <section ref={layoutRef} key={selectedStageId} className={approvalStepCss.approvalStageSetupShellWrapper}>
       <Tabs
         id="approvalStageSetupShell"
-        onChange={(tabId: string) => setSelectedTabId(tabId)}
+        onChange={(tabId: string) => {
+          setSelectedTabId(tabId)
+          setSelectedSectionId(toUpper(tabId))
+        }}
         selectedTabId={selectedTabId}
         data-tabId={selectedTabId}
       >
