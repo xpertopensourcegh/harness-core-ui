@@ -10,10 +10,8 @@ then
   exit 1
 fi
 VERSION=$(cat package.json | grep version | cut -d: -f2 | cut -d\" -f2)
-echo "version: $VERSION"
-echo "projects: $PROJECTS"
-KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\//{exit}" | grep -o -iE '(BT|CCE|CCM|CDS|CE|CI|COMP|CV|CVNG|DEL|DOC|DX|ER|FFM|OPS|OPA|PIE|PL|SEC|STO|SWAT|GTM|ONP|CHAOS)-[0-9]+' | sort | uniq`
-#KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\//{exit}" | grep -o -iE '('${PROJECTS}')-[0-9]+' | sort | uniq`
+echo $VERSION
+KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\//{exit}" | grep -o -iE '('${PROJECTS}')-[0-9]+' | sort | uniq`
 echo --- List of JIRA ---
 echo $KEYS
 echo --- End
