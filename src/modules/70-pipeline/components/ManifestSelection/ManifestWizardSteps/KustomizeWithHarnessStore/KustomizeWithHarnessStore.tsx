@@ -30,6 +30,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiConfigSelectField from '@pipeline/components/ConfigFilesSelection/ConfigFilesWizard/ConfigFilesSteps/MultiConfigSelectField/MultiConfigSelectField'
 import { FILE_TYPE_VALUES } from '@pipeline/components/ConfigFilesSelection/ConfigFilesHelper'
+import { FileUsage } from '@filestore/interfaces/FileStore'
 import { ManifestIdentifierValidation, ManifestStoreMap } from '../../Manifesthelper'
 import type { KustomizeWithHarnessStorePropTypeDataType, ManifestTypes } from '../../ManifestInterface'
 import css from '../CommonManifestDetails/CommonManifestDetails.module.scss'
@@ -189,6 +190,7 @@ function KustomizeWithHarnessStore({
                       formik={formik}
                       expressions={expressions}
                       values={formik.values.files}
+                      fileUsage={FileUsage.MANIFEST_FILE}
                       multiTypeFieldSelectorProps={{
                         disableTypeSelection: false,
                         label: <Text>{getString('pipeline.manifestType.kustomizeFolderPath')}</Text>
@@ -203,6 +205,7 @@ function KustomizeWithHarnessStore({
                       formik={formik}
                       expressions={expressions}
                       values={formik.values.files}
+                      fileUsage={FileUsage.MANIFEST_FILE}
                       multiTypeFieldSelectorProps={{
                         disableTypeSelection: false,
                         label: <Text>{getString('pipeline.manifestTypeLabels.KustomizePatches')}</Text>

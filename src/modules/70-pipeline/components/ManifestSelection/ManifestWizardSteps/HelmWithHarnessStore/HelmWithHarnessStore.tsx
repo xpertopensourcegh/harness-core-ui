@@ -29,6 +29,7 @@ import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import MultiConfigSelectField from '@pipeline/components/ConfigFilesSelection/ConfigFilesWizard/ConfigFilesSteps/MultiConfigSelectField/MultiConfigSelectField'
 import { FILE_TYPE_VALUES } from '@pipeline/components/ConfigFilesSelection/ConfigFilesHelper'
+import { FileUsage } from '@filestore/interfaces/FileStore'
 import { helmVersions, ManifestIdentifierValidation, ManifestStoreMap } from '../../Manifesthelper'
 import type {
   CommandFlags,
@@ -189,6 +190,7 @@ function HelmWithHarnessStore({
                       fileType={FILE_TYPE_VALUES.FILE_STORE}
                       formik={formik}
                       expressions={expressions}
+                      fileUsage={FileUsage.MANIFEST_FILE}
                       values={formik.values.files}
                       multiTypeFieldSelectorProps={{
                         disableTypeSelection: false,
@@ -203,6 +205,7 @@ function HelmWithHarnessStore({
                       formik={formik}
                       expressions={expressions}
                       allowableTypes={allowableTypes}
+                      fileUsage={FileUsage.MANIFEST_FILE}
                       values={formik.values.valuesPaths}
                       multiTypeFieldSelectorProps={{
                         disableTypeSelection: false,
