@@ -8,11 +8,8 @@
 import type { IconName } from '@harness/uicore'
 import type { ConnectorInfoDTO, ServiceDefinition } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
-
 import type { StringKeys } from 'framework/strings'
-import { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
-
-import type { ConfigFileType, ConfigFileStepTitle, ConfigFileHarnessDataType } from './ConfigFilesInterface'
+import type { ConfigFileType, ConfigFileHarnessDataType } from './ConfigFilesInterface'
 
 export const ConfigFilesMap: { [key: string]: ConfigFileType } = {
   Git: 'Git',
@@ -45,26 +42,6 @@ export const allowedConfigFilesTypes: Record<ServiceDefinition['type'], Array<Co
   AzureWebApp: [ConfigFilesMap.Harness],
   Ssh: [ConfigFilesMap.Harness],
   WinRm: [ConfigFilesMap.Harness]
-}
-
-export const getIconAndTitleByDeploymentType = (deploymentType: string): ConfigFileStepTitle => {
-  switch (deploymentType) {
-    case ServiceDeploymentType.Ssh:
-      return {
-        icon: 'secret-ssh',
-        label: 'SSH'
-      }
-    case ServiceDeploymentType.WinRm:
-      return {
-        icon: 'command-winrm',
-        label: 'WinRm'
-      }
-    default:
-      return {
-        icon: '' as IconName,
-        label: ''
-      }
-  }
 }
 
 export const ConfigFilesToConnectorLabelMap: Record<ConfigFileType, StringKeys> = {

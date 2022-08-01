@@ -12,7 +12,7 @@ import { MultiTypeInputType } from '@harness/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { GenericServiceSpecInputSetMode } from '../KubernetesServiceSpecInputSetMode'
+import { GenericServiceSpecInputSetMode } from '../../Common/GenericServiceSpec/GenericServiceSpecInputSetMode'
 
 describe('<KubernetesServiceSpecInputSetMode /> tests', () => {
   test('snapshot test for kubernetes service spec input set mode', () => {

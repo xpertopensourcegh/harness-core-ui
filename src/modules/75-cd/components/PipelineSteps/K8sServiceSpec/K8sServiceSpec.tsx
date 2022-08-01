@@ -30,10 +30,13 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { getConnectorName, getConnectorValue } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import type { ArtifactType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { GenericServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
+import {
+  GenericServiceSpecVariablesForm,
+  K8sServiceSpecVariablesFormProps
+} from '../Common/GenericServiceSpec/GenericServiceSpecVariablesForm'
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 import GenericServiceSpecEditable from '../Common/GenericServiceSpec/GenericServiceSpecEditable'
-import { GenericServiceSpecInputSetMode as GenericServiceSpecInputSetMode } from './KubernetesServiceSpecInputSetMode'
+import { GenericServiceSpecInputSetMode as GenericServiceSpecInputSetMode } from '../Common/GenericServiceSpec/GenericServiceSpecInputSetMode'
 
 const logger = loggerFor(ModuleName.CD)
 const tagExists = (value: unknown): boolean => typeof value === 'number' || !isEmpty(value)

@@ -21,10 +21,10 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/ManifestSourceBaseFactory'
-import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
-import { KubernetesArtifacts } from './KubernetesArtifacts/KubernetesArtifacts'
-import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
-import css from '../Common/GenericServiceSpec/GenericServiceSpec.module.scss'
+import type { K8SDirectServiceStep } from '../../K8sServiceSpec/K8sServiceSpecInterface'
+import { KubernetesArtifacts } from '../../K8sServiceSpec/KubernetesArtifacts/KubernetesArtifacts'
+import { KubernetesManifests } from '../../K8sServiceSpec/KubernetesManifests/KubernetesManifests'
+import css from './GenericServiceSpec.module.scss'
 
 export interface KubernetesInputSetProps {
   initialValues: K8SDirectServiceStep

@@ -24,8 +24,7 @@ import VariableListReadOnlyView from '@pipeline/components/WorkflowVariablesSele
 import { getArtifactsHeaderTooltipId } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import ConfigFilesSelection from '@pipeline/components/ConfigFilesSelection/ConfigFilesSelection'
 import { useServiceContext } from '@cd/context/ServiceContext'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AzureWebAppServiceSpecFormProps } from './AzureWebAppServiceSpecInterface.types'
 import AzureWebAppConfigSelection from './AzureWebAppServiceConfiguration/AzureWebAppServiceConfigSelection'
 import { setupMode } from '../PipelineStepsUtil'
@@ -63,12 +62,12 @@ const AzureWebAppServiceSpecEditable: React.FC<AzureWebAppServiceSpecFormProps> 
     getStageFromPipeline
   } = usePipelineContext()
   const { isServiceEntityPage } = useServiceContext()
-  const isSvcEnvEntityEnabled = useFeatureFlag(FeatureFlag.NG_SVC_ENV_REDESIGN)
+  const { NG_FILE_STORE, NG_SVC_ENV_REDESIGN } = useFeatureFlags()
 
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const selectedDeploymentType =
     deploymentType ?? getSelectedDeploymentType(stage, getStageFromPipeline, isPropagating, templateServiceData)
-  const isNewService = isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig)
+  const isNewService = isNewServiceEnvEntity(!!NG_SVC_ENV_REDESIGN, stage?.stage as DeploymentStageElementConfig)
 
   const updateStageData = async (newStage: any): Promise<void> => {
     setLoading(true)
@@ -134,22 +133,23 @@ const AzureWebAppServiceSpecEditable: React.FC<AzureWebAppServiceSpecFormProps> 
               readonly={!!readonly}
             />
           </Card>
-          {(isNewService || isServiceEntityPage) && ( //Config files are only available for creation or readonly mode for service V2
-            <Card className={css.sectionCard} id={getString('pipelineSteps.configFiles')}>
-              <div
-                className={cx(css.tabSubHeading, 'ng-tooltip-native')}
-                data-tooltip-id={getArtifactsHeaderTooltipId(selectedDeploymentType)}
-              >
-                {getString('pipelineSteps.configFiles')}
-              </div>
-              <ConfigFilesSelection
-                isReadonlyServiceMode={isReadonlyServiceMode as boolean}
-                isPropagating={isPropagating}
-                deploymentType={selectedDeploymentType}
-                readonly={!!readonly}
-              />
-            </Card>
-          )}
+          {(isNewService || isServiceEntityPage) &&
+            NG_FILE_STORE && ( //Config files are only available for creation or readonly mode for service V2
+              <Card className={css.sectionCard} id={getString('pipelineSteps.configFiles')}>
+                <div
+                  className={cx(css.tabSubHeading, 'ng-tooltip-native')}
+                  data-tooltip-id={getArtifactsHeaderTooltipId(selectedDeploymentType)}
+                >
+                  {getString('pipelineSteps.configFiles')}
+                </div>
+                <ConfigFilesSelection
+                  isReadonlyServiceMode={isReadonlyServiceMode as boolean}
+                  isPropagating={isPropagating}
+                  deploymentType={selectedDeploymentType}
+                  readonly={!!readonly}
+                />
+              </Card>
+            )}
         </>
       )}
 

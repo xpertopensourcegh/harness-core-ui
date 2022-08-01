@@ -34,8 +34,8 @@ import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerIn
 import {
   GenericServiceSpecVariablesForm,
   K8sServiceSpecVariablesFormProps
-} from '../K8sServiceSpec/K8sServiceSpecVariablesForm'
-import { GenericServiceSpecInputSetMode } from '../K8sServiceSpec/KubernetesServiceSpecInputSetMode'
+} from '../Common/GenericServiceSpec/GenericServiceSpecVariablesForm'
+import { GenericServiceSpecInputSetMode } from '../Common/GenericServiceSpec/GenericServiceSpecInputSetMode'
 import GenericServiceSpecEditable from '../Common/GenericServiceSpec/GenericServiceSpecEditable'
 
 const logger = loggerFor(ModuleName.CD)
