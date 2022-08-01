@@ -916,6 +916,7 @@ download: Download
 gitOps: GitOps
 showHarnessManagedError: Harness Managed Resource cannot be edited
 contentRequired: Content is required
+defaultSettings: Default Settings
 oAuthLabel: OAuth
 import: Import
 importEntityFromGit: Import {{resourceType}} From Git
@@ -936,4 +937,7 @@ cardNumber: Card number
 perDeveloper: per developer
 triggerName: Trigger Name
 versionLabel: Version Label
+true: 'true'
+false: 'false'
+saving: 'Saving'
 executedBy: Executed By
