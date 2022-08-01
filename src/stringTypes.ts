@@ -4333,6 +4333,9 @@ export interface StringsMap {
   'ce.anomalyDetection.tooltip.filterText': string
   'ce.anomalyDetection.trend': string
   'ce.anomalyDetection.userFeedbackSuccessMsg': string
+  'ce.biDashboard.bannerLinkText': string
+  'ce.biDashboard.bannerText': string
+  'ce.biDashboard.sideNavText': string
   'ce.budgets.addNewBudget': string
   'ce.budgets.budgetDeletedTxt': string
   'ce.budgets.confirmDeleteBudgetMsg': string
