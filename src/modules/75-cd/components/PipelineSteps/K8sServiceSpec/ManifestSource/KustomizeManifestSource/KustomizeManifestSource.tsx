@@ -80,16 +80,16 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
           />
         </div>
       )}
-      {isFieldRuntime(`${manifestPath}.spec.manifestScope`, template) && (
+      {isFieldRuntime(`${manifestPath}.spec.overlayConfiguration`, template) && (
         <div className={css.verticalSpacingInput}>
           <FormInput.MultiTextInput
-            disabled={isFieldDisabled(`${manifestPath}.spec.manifestScope`)}
-            name={`${path}.${manifestPath}.spec.manifestScope`}
+            disabled={isFieldDisabled(`${manifestPath}.spec.overlayConfiguration`)}
+            name={`${path}.${manifestPath}.spec.overlayConfiguration`}
             multiTextInputProps={{
               expressions,
               allowableTypes
             }}
-            label={getString('pipeline.manifestType.manifestScope')}
+            label={getString('pipeline.manifestType.kustomizeYamlFolderPath')}
           />
         </div>
       )}

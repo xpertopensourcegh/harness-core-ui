@@ -3295,7 +3295,6 @@ export interface StringsMap {
   'pipeline.manifestType.manifestPathPlaceholder': string
   'pipeline.manifestType.manifestPlaceholder': string
   'pipeline.manifestType.manifestRepoType': string
-  'pipeline.manifestType.manifestScope': string
   'pipeline.manifestType.manifestSource': string
   'pipeline.manifestType.manifestTyperequired': string
   'pipeline.manifestType.oci.basePathRequired': string

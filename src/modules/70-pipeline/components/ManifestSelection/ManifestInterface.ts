@@ -223,7 +223,12 @@ export interface HelmHarnessFileStoreFormData extends HarnessFileStoreFormData {
 }
 export interface KustomizeWithHarnessStorePropTypeDataType extends HarnessFileStoreFormData {
   patchesPaths: string[] | string
-  manifestScope: string
+  overlayConfiguration:
+    | string
+    | {
+        kustomizeYamlFolderPath: string
+      }
+  pluginPath: string
 }
 export interface CustomManifestManifestDataType {
   identifier: string
