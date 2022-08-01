@@ -8,7 +8,6 @@
 import React, { useEffect, useRef } from 'react'
 import cx from 'classnames'
 import { unset, capitalize as _capitalize, toUpper } from 'lodash-es'
-import YAML from 'yaml'
 import produce from 'immer'
 import { Button, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
@@ -29,6 +28,7 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useQueryParams } from '@common/hooks'
+import { parse } from '@common/utils/YamlHelperMethods'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import ApprovalAdvancedSpecifications from './ApprovalStageAdvanced'
@@ -114,7 +114,7 @@ export function ApprovalStageSetupShellMode(): React.ReactElement {
       if (!selectedStage?.stage?.spec?.execution) {
         updateStage(
           produce(selectedStage as StageElementWrapperConfig, draft => {
-            const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as ApprovalStageElementConfig
+            const jsonFromYaml = parse(yamlSnippet?.data || '') as ApprovalStageElementConfig
             if (draft?.stage && draft?.stage?.spec) {
               draft.stage.failureStrategies = jsonFromYaml.failureStrategies
               ;(draft.stage.spec as ApprovalStageConfig).execution =

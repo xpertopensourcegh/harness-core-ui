@@ -104,6 +104,8 @@ rules:
         - '!microfrontends/ChildAppMounter'
       paths:
         - lodash
+        - name: 'js-yaml'
+          message: 'Please use methods from @common/utils/YamlHelperMethods instead of using js-yaml'
         - name: yaml
           importNames:
             - stringify

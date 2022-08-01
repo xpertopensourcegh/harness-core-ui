@@ -7,9 +7,9 @@
 
 import React from 'react'
 import { defaultTo, isEqual, omit } from 'lodash-es'
-import { parse } from 'yaml'
 import { ButtonVariation, Tag } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { parse } from '@common/utils/YamlHelperMethods'
 import { YamlBuilderMemo } from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useStrings } from 'framework/strings'
@@ -21,6 +21,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { EntityValidityDetails } from 'services/pipeline-ng'
 import { getYamlFileName } from '@pipeline/utils/yamlUtils'
+import type { Pipeline } from '@pipeline/utils/types'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
@@ -83,7 +84,7 @@ function PipelineYamlView(): React.ReactElement {
       if (yamlHandler && !isDrawerOpened) {
         Interval = window.setInterval(() => {
           try {
-            const pipelineFromYaml = parse(yamlHandler.getLatestYaml())?.pipeline
+            const pipelineFromYaml = parse<Pipeline>(yamlHandler.getLatestYaml())?.pipeline
             if (
               (!isEqual(omit(pipeline, 'repo', 'branch'), pipelineFromYaml) ||
                 entityValidityDetails?.valid === false) &&

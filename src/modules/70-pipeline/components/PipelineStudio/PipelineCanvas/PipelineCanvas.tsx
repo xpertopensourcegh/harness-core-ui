@@ -24,9 +24,9 @@ import {
 } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
-import { parse } from 'yaml'
 import { defaultTo, isEmpty, isEqual, merge, omit } from 'lodash-es'
 import produce from 'immer'
+import { parse } from '@common/utils/YamlHelperMethods'
 import type { PipelineInfoConfig } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { AppStoreContext, useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -71,6 +71,7 @@ import { StoreMetadata, StoreType } from '@common/constants/GitSyncTypes'
 import GitRemoteDetails from '@common/components/GitRemoteDetails/GitRemoteDetails'
 import { OutOfSyncErrorStrip } from '@pipeline/components/TemplateLibraryErrorHandling/OutOfSyncErrorStrip/OutOfSyncErrorStrip'
 import { useTemplateSelector } from 'framework/Templates/TemplateSelectorContext/useTemplateSelector'
+import type { Pipeline } from '@pipeline/utils/types'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -292,7 +293,7 @@ export function PipelineCanvas({
   const isValidYaml = function (): boolean {
     if (yamlHandler) {
       try {
-        const parsedYaml = parse(yamlHandler.getLatestYaml())
+        const parsedYaml = parse<Pipeline>(yamlHandler.getLatestYaml())
         if (!parsedYaml) {
           clear()
           showError(getString('invalidYamlText'))
@@ -499,10 +500,10 @@ export function PipelineCanvas({
     [hideModal, pipeline, updatePipeline]
   )
 
-  const getPipelineTemplate = async () => {
+  const getPipelineTemplate = async (): Promise<void> => {
     const { template: newTemplate, isCopied } = await getTemplate({ templateType: 'Pipeline' })
     const processNode = isCopied
-      ? produce(defaultTo(parse(newTemplate?.yaml || '')?.template.spec, {}) as PipelineInfoConfig, draft => {
+      ? produce(defaultTo(parse<any>(newTemplate?.yaml || '')?.template.spec, {}) as PipelineInfoConfig, draft => {
           draft.name = defaultTo(pipeline?.name, '')
           draft.identifier = defaultTo(pipeline?.identifier, '')
         })
@@ -591,6 +592,7 @@ export function PipelineCanvas({
     if (executionId && executionId !== null) {
       refetch()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [executionId])
 
   function onCloseRunPipelineModal(): void {
@@ -774,7 +776,7 @@ export function PipelineCanvas({
             // This is special handler when user update yaml and immediately click on run
             if (isYaml && yamlHandler && isYamlEditable && !localUpdated) {
               try {
-                const parsedYaml = parse(yamlHandler.getLatestYaml())
+                const parsedYaml = parse<Pipeline>(yamlHandler.getLatestYaml())
                 if (!parsedYaml) {
                   clear()
                   showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')

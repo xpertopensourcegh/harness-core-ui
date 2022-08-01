@@ -11,7 +11,7 @@ import { Button, useConfirmationDialog } from '@wings-software/uicore'
 import { cloneDeep, defaultTo, get, isEmpty, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
-import { parse } from 'yaml'
+import { parse } from '@common/utils/YamlHelperMethods'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type {
   ExecutionElementConfig,
@@ -702,10 +702,13 @@ export function RightDrawer(): React.ReactElement {
       })
       const node = drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData
       const processNode = isCopied
-        ? produce(defaultTo(parse(defaultTo(template?.yaml, '')).template.spec, {}) as StepElementConfig, draft => {
-            draft.name = defaultTo(node?.name, '')
-            draft.identifier = defaultTo(node?.identifier, '')
-          })
+        ? produce(
+            defaultTo(parse<any>(defaultTo(template?.yaml, '')).template.spec, {}) as StepElementConfig,
+            draft => {
+              draft.name = defaultTo(node?.name, '')
+              draft.identifier = defaultTo(node?.identifier, '')
+            }
+          )
         : createTemplate<TemplateStepNode>(node as unknown as TemplateStepNode, template)
       await updateNode(processNode, drawerType, isRollback)
     } catch (_) {

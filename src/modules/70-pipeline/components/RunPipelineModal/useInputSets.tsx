@@ -7,9 +7,9 @@
 
 import { useMemo, useState } from 'react'
 import type { GetDataError } from 'restful-react'
-import { parse } from 'yaml'
 import { defaultTo, isUndefined, memoize } from 'lodash-es'
 
+import { parse } from '@common/utils/YamlHelperMethods'
 import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
 import {
   Failure,
@@ -25,13 +25,10 @@ import {
   StageSelectionData
 } from '@pipeline/utils/runPipelineUtils'
 
+import type { Pipeline } from '@pipeline/utils/types'
 import type { InputSetValue } from '../InputSetSelector/utils'
 
 const memoizedParse = memoize(parse)
-
-export interface Pipeline {
-  pipeline?: PipelineInfoConfig
-}
 
 export interface UseInputSetsProps {
   accountId: string
@@ -132,11 +129,11 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
   const inputSet = useMemo((): Pipeline => {
     const shouldUseDefaultValues = isUndefined(executionIdentifier)
     const parsedRunPipelineYaml = clearRuntimeInput(
-      memoizedParse(inputSetYamlResponse?.data?.inputSetTemplateYaml || 'pipeline: {}').pipeline
-    )
+      memoizedParse<Pipeline>(inputSetYamlResponse?.data?.inputSetTemplateYaml || 'pipeline: {}').pipeline
+    ) as PipelineInfoConfig
 
     if (rerunInputSetYaml) {
-      const parsedRerunPipelineYaml = memoizedParse(rerunInputSetYaml)
+      const parsedRerunPipelineYaml = memoizedParse<Pipeline>(rerunInputSetYaml)
 
       return mergeTemplateWithInputSetData({
         templatePipeline: { pipeline: parsedRunPipelineYaml },
@@ -149,7 +146,7 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
     if (hasRuntimeInputs) {
       if (shouldFetchInputSets && inputSetData?.data?.pipelineYaml) {
         setIsInputSetApplied(true)
-        const parsedInputSets = clearRuntimeInput(memoizedParse(inputSetData.data.pipelineYaml).pipeline)
+        const parsedInputSets = clearRuntimeInput(memoizedParse<Pipeline>(inputSetData.data.pipelineYaml).pipeline)
 
         return mergeTemplateWithInputSetData({
           templatePipeline: { pipeline: parsedRunPipelineYaml },
@@ -184,12 +181,12 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
     }
 
     if (inputSetYamlResponse?.data?.inputSetTemplateYaml) {
-      const parsedRunPipelineYaml = memoizedParse(inputSetYamlResponse.data.inputSetTemplateYaml).pipeline
+      const parsedRunPipelineYaml = memoizedParse<Pipeline>(inputSetYamlResponse.data.inputSetTemplateYaml).pipeline
 
       return { pipeline: parsedRunPipelineYaml }
     }
 
-    return {}
+    return {} as Pipeline
   }, [inputSetYamlResponse?.data?.inputSetTemplateYaml, executionInputSetTemplateYaml, executionView])
 
   return {

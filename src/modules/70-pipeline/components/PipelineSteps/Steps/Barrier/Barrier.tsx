@@ -20,7 +20,7 @@ import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { parse } from 'yaml'
+import { parse } from '@common/utils/YamlHelperMethods'
 import {
   StepFormikFowardRef,
   setFormikRef,
