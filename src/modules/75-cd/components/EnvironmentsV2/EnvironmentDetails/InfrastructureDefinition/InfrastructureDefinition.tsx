@@ -7,9 +7,8 @@
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import cx from 'classnames'
 
-import { Button, ButtonSize, ButtonVariation, Container, Dialog, Page } from '@harness/uicore'
+import { Button, ButtonSize, ButtonVariation, Container, ModalDialog, Page } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
 
 import { useGetInfrastructureList } from 'services/cd-ng'
@@ -31,7 +30,7 @@ export default function InfrastructureDefinition() {
   >()
   const { getString } = useStrings()
   const { getRBACErrorMessage } = useRBACError()
-  const [infrastructureToEdit, setInfrastructureToEdit] = useState<string | undefined>()
+  const [selectedInfrastructure, setSelectedInfrastructure] = useState<string>('')
 
   const { data, loading, error, refetch } = useGetInfrastructureList({
     queryParams: {
@@ -43,35 +42,39 @@ export default function InfrastructureDefinition() {
   })
 
   useEffect(() => {
-    if (infrastructureToEdit) {
+    if (selectedInfrastructure) {
       showModal()
     }
-  }, [infrastructureToEdit])
+  }, [selectedInfrastructure])
+
+  const onClose = () => {
+    setSelectedInfrastructure('')
+    hideModal()
+  }
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog
+      <ModalDialog
         isOpen
         isCloseButtonShown
         canEscapeKeyClose
         canOutsideClickClose
         enforceFocus={false}
-        onClose={() => {
-          setInfrastructureToEdit('')
-          hideModal()
-        }}
-        title={getString('cd.infrastructure.createNew')}
-        className={cx('padded-dialog', css.dialogStyles)}
+        onClose={onClose}
+        title={selectedInfrastructure ? getString('cd.infrastructure.edit') : getString('cd.infrastructure.createNew')}
+        width={1128}
+        height={840}
+        className={css.dialogStyles}
       >
         <InfrastructureModal
-          hideModal={hideModal}
+          hideModal={onClose}
           refetch={refetch}
-          infrastructureToEdit={infrastructureToEdit}
-          setInfrastructureToEdit={setInfrastructureToEdit}
+          environmentIdentifier={environmentIdentifier}
+          selectedInfrastructure={selectedInfrastructure}
         />
-      </Dialog>
+      </ModalDialog>
     ),
-    [refetch, infrastructureToEdit, setInfrastructureToEdit]
+    [refetch, selectedInfrastructure, setSelectedInfrastructure]
   )
 
   return (
@@ -94,7 +97,7 @@ export default function InfrastructureDefinition() {
             list={data?.data?.content}
             showModal={showModal}
             refetch={refetch}
-            setInfrastructureToEdit={setInfrastructureToEdit}
+            setSelectedInfrastructure={setSelectedInfrastructure}
           />
         </>
       )}

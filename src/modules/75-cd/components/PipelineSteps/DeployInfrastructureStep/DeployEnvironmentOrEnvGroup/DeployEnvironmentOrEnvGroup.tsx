@@ -16,14 +16,14 @@ import {
   Layout,
   MultiTypeInputType,
   SelectOption,
-  Dialog,
   FormInput,
   SplitButton,
   ButtonSize,
   ButtonVariation,
   SplitButtonOption,
   Text,
-  AllowedTypes
+  AllowedTypes,
+  ModalDialog
 } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
 
@@ -149,15 +149,17 @@ function DeployEnvironmentOrEnvGroup({
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [environmentsSelectOptions])
 
   useEffect(() => {
     if (!isNil(environmentsError)) {
       showError(getRBACErrorMessage(environmentsError))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [environmentsError])
 
-  const updateEnvironmentsList = (values: EnvironmentResponseDTO) => {
+  const updateEnvironmentsList = (values: EnvironmentResponseDTO): void => {
     const newEnvironmentsList = [...defaultTo(environments, [])]
     const existingIndex = newEnvironmentsList.findIndex(item => item.identifier === values.identifier)
     if (existingIndex >= 0) {
@@ -178,7 +180,7 @@ function DeployEnvironmentOrEnvGroup({
   const [showEnvironmentModal, hideEnvironmentModal] = useModalHook(() => {
     const environmentValues = parse(defaultTo(selectedEnvironment?.yaml, '{}'))
     return (
-      <Dialog
+      <ModalDialog
         isOpen={true}
         enforceFocus={false}
         onClose={hideEnvironmentModal}
@@ -195,7 +197,7 @@ function DeployEnvironmentOrEnvGroup({
           closeModal={hideEnvironmentModal}
           isEdit={Boolean(selectedEnvironment)}
         />
-      </Dialog>
+      </ModalDialog>
     )
   }, [environments, updateEnvironmentsList])
 
@@ -273,15 +275,17 @@ function DeployEnvironmentOrEnvGroup({
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [environmentGroupsSelectOptions])
 
   useEffect(() => {
     if (!isNil(environmentGroupsError)) {
       showError(getRBACErrorMessage(environmentGroupsError))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [environmentGroupsError])
 
-  const updateEnvironmentGroupsList = (values: EnvironmentGroupResponseDTO) => {
+  const updateEnvironmentGroupsList = (values: EnvironmentGroupResponseDTO): void => {
     const newEnvironmentGroupsList = [...defaultTo(environmentGroups, [])]
     const existingIndex = newEnvironmentGroupsList.findIndex(item => item.identifier === values.identifier)
     if (existingIndex >= 0) {
@@ -301,7 +305,7 @@ function DeployEnvironmentOrEnvGroup({
 
   const [showEnvironmentGroupModal, hideEnvironmentGroupModal] = useModalHook(() => {
     return (
-      <Dialog
+      <ModalDialog
         isOpen={true}
         enforceFocus={false}
         onClose={hideEnvironmentGroupModal}
@@ -310,7 +314,7 @@ function DeployEnvironmentOrEnvGroup({
             ? getString('common.editName', { name: getString('common.environmentGroup.label') })
             : getString('common.addName', { name: getString('common.environmentGroup.label') })
         }
-        className={css.dialogStyles}
+        width={1024}
       >
         <CreateEnvironmentGroupModal
           data={selectedEnvironmentGroup}
@@ -318,7 +322,7 @@ function DeployEnvironmentOrEnvGroup({
           closeModal={hideEnvironmentGroupModal}
           isEdit={Boolean(selectedEnvironmentGroup)}
         />
-      </Dialog>
+      </ModalDialog>
     )
   }, [environmentGroups, updateEnvironmentGroupsList])
 
