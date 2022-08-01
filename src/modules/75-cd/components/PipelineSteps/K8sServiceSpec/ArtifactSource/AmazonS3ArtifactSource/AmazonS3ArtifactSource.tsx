@@ -20,7 +20,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBase'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import { getDefaultQueryParam, isArtifactSourceRuntime, isFieldfromTriggerTabDisabled } from '../artifactSourceUtils'
-import css from '../../../Common/ServiceSpec/ServiceSpec.module.scss'
+import css from '../../../Common/GenericServiceSpec/GenericServiceSpec.module.scss'
 
 export const resetBuckets = (formik: FormikValues, bucketPath: string): void => {
   const bucketValue = get(formik.values, bucketPath, '')

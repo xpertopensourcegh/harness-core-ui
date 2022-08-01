@@ -20,7 +20,7 @@ import ExecutionGraph from '@pipeline/components/PipelineStudio/ExecutionGraph/E
 import { StageType } from '@pipeline/utils/stageHelpers'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { DeployServiceStep } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceStep'
-import { KubernetesServiceSpec } from '@cd/components/PipelineSteps/K8sServiceSpec/K8sServiceSpec'
+import { GenericServiceSpec } from '@cd/components/PipelineSteps/K8sServiceSpec/K8sServiceSpec'
 import { DeployEnvironmentStep } from '@cd/components/PipelineSteps/DeployEnvStep/DeployEnvStep'
 import { envs, services } from './mocks'
 import overridePipelineContext from './overrideSetPipeline.json'
@@ -96,7 +96,7 @@ window.HTMLElement.prototype.scrollTo = jest.fn()
 describe('DeployStageSetupShell tests', () => {
   beforeAll(() => {
     factory.registerStep(new DeployServiceStep())
-    factory.registerStep(new KubernetesServiceSpec())
+    factory.registerStep(new GenericServiceSpec())
     factory.registerStep(new DeployEnvironmentStep())
   })
   test('opens services tab by default', async () => {

@@ -14,17 +14,24 @@ import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/W
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { getSelectedDeploymentType, isServerlessDeploymentType } from '@pipeline/utils/stageHelpers'
-import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
+import {
+  DeployTabs,
+  isNewServiceEnvEntity
+} from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import VariableListReadOnlyView from '@pipeline/components/WorkflowVariablesSelection/VariableListReadOnlyView'
 import { getManifestsHeaderTooltipId } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { getArtifactsHeaderTooltipId } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
-import type { KubernetesServiceInputFormProps } from '../K8sServiceSpecInterface'
+import ConfigFilesSelection from '@pipeline/components/ConfigFilesSelection/ConfigFilesSelection'
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { useServiceContext } from '@cd/context/ServiceContext'
+import type { KubernetesServiceInputFormProps } from '../../K8sServiceSpec/K8sServiceSpecInterface'
 import { setupMode } from '../../PipelineStepsUtil'
-import css from '../../Common/ServiceSpec/ServiceSpec.module.scss'
+import css from './GenericServiceSpec.module.scss'
 
-const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
+const GenericServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues: { stageIndex = 0, setupModeType, deploymentType, isReadonlyServiceMode },
   factory,
   readonly
@@ -39,10 +46,13 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
     },
     getStageFromPipeline
   } = usePipelineContext()
+  const { isServiceEntityPage } = useServiceContext()
+  const isSvcEnvEntityEnabled = useFeatureFlag(FeatureFlag.NG_SVC_ENV_REDESIGN)
 
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const selectedDeploymentType =
     deploymentType ?? getSelectedDeploymentType(stage, getStageFromPipeline, isPropagating, templateServiceData)
+  const isNewService = isNewServiceEnvEntity(isSvcEnvEntityEnabled, stage?.stage as DeploymentStageElementConfig)
 
   return (
     <div className={css.serviceDefinition}>
@@ -86,6 +96,22 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
               readonly={!!readonly}
             />
           </Card>
+          {(isNewService || isServiceEntityPage) && ( //Config files are only available for creation or readonly mode for service V2
+            <Card className={css.sectionCard} id={getString('pipelineSteps.configFiles')}>
+              <div
+                className={cx(css.tabSubHeading, 'ng-tooltip-native')}
+                data-tooltip-id={getArtifactsHeaderTooltipId(selectedDeploymentType)}
+              >
+                {getString('pipelineSteps.configFiles')}
+              </div>
+              <ConfigFilesSelection
+                isReadonlyServiceMode={isReadonlyServiceMode as boolean}
+                isPropagating={isPropagating}
+                deploymentType={selectedDeploymentType}
+                readonly={!!readonly}
+              />
+            </Card>
+          )}
         </>
       )}
 
@@ -112,4 +138,4 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
   )
 }
 
-export default KubernetesServiceSpecEditable
+export default GenericServiceSpecEditable

@@ -30,10 +30,10 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { getConnectorName, getConnectorValue } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import type { ArtifactType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
+import { GenericServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
-import KubernetesServiceSpecEditable from './K8sServiceSpecForms/KubernetesServiceSpecEditable'
-import { KubernetesServiceSpecInputSetMode } from './KubernetesServiceSpecInputSetMode'
+import GenericServiceSpecEditable from '../Common/GenericServiceSpec/GenericServiceSpecEditable'
+import { GenericServiceSpecInputSetMode as GenericServiceSpecInputSetMode } from './KubernetesServiceSpecInputSetMode'
 
 const logger = loggerFor(ModuleName.CD)
 const tagExists = (value: unknown): boolean => typeof value === 'number' || !isEmpty(value)
@@ -51,7 +51,7 @@ const allowedArtifactTypes: Array<ArtifactType> = [
   ENABLED_ARTIFACT_TYPES.Ecr
 ]
 
-export class KubernetesServiceSpec extends Step<ServiceSpec> {
+export class GenericServiceSpec extends Step<ServiceSpec> {
   protected type = StepType.K8sServiceSpec
   protected defaultValues: ServiceSpec = {}
 
@@ -462,7 +462,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       props
     if (stepViewType === StepViewType.InputVariable) {
       return (
-        <K8sServiceSpecVariablesForm
+        <GenericServiceSpecVariablesForm
           {...(customStepProps as K8sServiceSpecVariablesFormProps)}
           initialValues={initialValues}
           stepsFactory={factory}
@@ -475,7 +475,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <KubernetesServiceSpecInputSetMode
+        <GenericServiceSpecInputSetMode
           {...(customStepProps as K8sServiceSpecVariablesFormProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}
@@ -490,7 +490,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     }
 
     return (
-      <KubernetesServiceSpecEditable
+      <GenericServiceSpecEditable
         {...(customStepProps as K8sServiceSpecVariablesFormProps)}
         factory={factory}
         initialValues={initialValues}

@@ -18,7 +18,7 @@ import { useQueryParams } from '@common/hooks'
 import type { KubernetesArtifactsProps } from '../../K8sServiceSpecInterface'
 import { isRuntimeMode } from '../../K8sServiceSpecHelper'
 import { fromPipelineInputTriggerTab, getPrimaryInitialValues } from '../../ArtifactSource/artifactSourceUtils'
-import css from '../../../Common/ServiceSpec/ServiceSpec.module.scss'
+import css from '../../../Common/GenericServiceSpec/GenericServiceSpec.module.scss'
 
 export const KubernetesPrimaryArtifacts = (props: KubernetesArtifactsProps): React.ReactElement | null => {
   const { getString } = useStrings()

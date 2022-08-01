@@ -26,7 +26,7 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
-import css from '../Common/ServiceSpec/ServiceSpec.module.scss'
+import css from '../Common/GenericServiceSpec/GenericServiceSpec.module.scss'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 export interface K8sServiceSpecVariablesFormProps {
   initialValues: ServiceSpec
@@ -47,7 +47,7 @@ export interface VariableRowProps {
   value: string
 }
 
-export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormProps): React.ReactElement {
+export function GenericServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormProps): React.ReactElement {
   const { initialValues, stepsFactory, onUpdate, variablesData, metadataMap, readonly, path, allowableTypes } = props
   const { manifests, artifacts, variables } = initialValues
   const { getString } = useStrings()

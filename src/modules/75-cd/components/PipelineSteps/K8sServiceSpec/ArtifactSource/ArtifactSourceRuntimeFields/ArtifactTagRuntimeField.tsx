@@ -18,7 +18,7 @@ import { useStrings } from 'framework/strings'
 import type { ArtifactSourceRenderProps } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBase'
 import ExperimentalInput from '../../K8sServiceSpecForms/ExperimentalInput'
 import { BuildDetailsDTO, getTagError } from '../artifactSourceUtils'
-import css from '../../../Common/ServiceSpec/ServiceSpec.module.scss'
+import css from '../../../Common/GenericServiceSpec/GenericServiceSpec.module.scss'
 
 interface TagsRenderContent extends ArtifactSourceRenderProps {
   isTagsSelectionDisabled: (data: ArtifactSourceRenderProps, isServerlessDeploymentTypeSelected: boolean) => boolean

@@ -24,7 +24,7 @@ import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/Manifes
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 import { KubernetesArtifacts } from './KubernetesArtifacts/KubernetesArtifacts'
 import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
-import css from '../Common/ServiceSpec/ServiceSpec.module.scss'
+import css from '../Common/GenericServiceSpec/GenericServiceSpec.module.scss'
 
 export interface KubernetesInputSetProps {
   initialValues: K8SDirectServiceStep
@@ -40,7 +40,7 @@ export interface KubernetesInputSetProps {
   formik?: any
   allowableTypes: AllowedTypes
 }
-const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetProps): React.ReactElement => {
+const GenericServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetProps): React.ReactElement => {
   const {
     template,
     path,
@@ -124,4 +124,4 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
   )
 }
 
-export const KubernetesServiceSpecInputSetMode = connect(KubernetesServiceSpecInputSetModeFormikForm)
+export const GenericServiceSpecInputSetMode = connect(GenericServiceSpecInputSetModeFormikForm)

@@ -32,11 +32,11 @@ import { getConnectorName, getConnectorValue } from '@triggers/pages/triggers/ut
 import type { ArtifactType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import {
-  K8sServiceSpecVariablesForm,
+  GenericServiceSpecVariablesForm,
   K8sServiceSpecVariablesFormProps
 } from '../K8sServiceSpec/K8sServiceSpecVariablesForm'
-import { KubernetesServiceSpecInputSetMode } from '../K8sServiceSpec/KubernetesServiceSpecInputSetMode'
-import KubernetesServiceSpecEditable from '../K8sServiceSpec/K8sServiceSpecForms/KubernetesServiceSpecEditable'
+import { GenericServiceSpecInputSetMode } from '../K8sServiceSpec/KubernetesServiceSpecInputSetMode'
+import GenericServiceSpecEditable from '../Common/GenericServiceSpec/GenericServiceSpecEditable'
 
 const logger = loggerFor(ModuleName.CD)
 const tagExists = (value: unknown): boolean => typeof value === 'number' || !isEmpty(value)
@@ -310,7 +310,7 @@ export class ServerlessAwsLambdaServiceSpec extends Step<ServiceSpec> {
 
     if (stepViewType === StepViewType.InputVariable) {
       return (
-        <K8sServiceSpecVariablesForm
+        <GenericServiceSpecVariablesForm
           {...(customStepProps as K8sServiceSpecVariablesFormProps)}
           initialValues={initialValues}
           stepsFactory={factory}
@@ -322,7 +322,7 @@ export class ServerlessAwsLambdaServiceSpec extends Step<ServiceSpec> {
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <KubernetesServiceSpecInputSetMode
+        <GenericServiceSpecInputSetMode
           {...(customStepProps as K8sServiceSpecVariablesFormProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}
@@ -337,7 +337,7 @@ export class ServerlessAwsLambdaServiceSpec extends Step<ServiceSpec> {
     }
 
     return (
-      <KubernetesServiceSpecEditable
+      <GenericServiceSpecEditable
         {...(customStepProps as K8sServiceSpecVariablesFormProps)}
         factory={factory}
         initialValues={initialValues}
