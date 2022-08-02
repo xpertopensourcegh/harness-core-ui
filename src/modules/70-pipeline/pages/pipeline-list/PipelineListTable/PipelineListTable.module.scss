@@ -9,6 +9,10 @@
   margin: var(--spacing-large);
 }
 
+.tableRow {
+  position: relative;
+}
+
 .avatar {
   width: var(--spacing-xxlarge);
   height: var(--spacing-xxlarge);
@@ -51,4 +55,28 @@
 .recentExecutions {
   flex-direction: row-reverse;
   justify-content: flex-end;
+}
+
+.draft {
+  position: absolute;
+  background-color: var(--grey-100);
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: var(--spacing-2);
+  border-bottom-left-radius: var(--spacing-2);
+
+  p {
+    text-transform: uppercase;
+    writing-mode: vertical-lr;
+    text-orientation: sideways;
+    transform: rotate(180deg);
+  }
+}
+
+.pipelineNameCell {
+  margin-left: var(--spacing-2) !important;
 }

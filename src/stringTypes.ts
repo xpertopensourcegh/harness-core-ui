@@ -2940,6 +2940,7 @@ export interface StringsMap {
   'pipeline.deploymentFrequency': string
   'pipeline.depth': string
   'pipeline.discard': string
+  'pipeline.draft': string
   'pipeline.duration': string
   'pipeline.enableVerificationHelpText': string
   'pipeline.enableVerificationOptions': string
@@ -3412,7 +3413,7 @@ export interface StringsMap {
   'pipeline.queueStep.scopePlaceholder': string
   'pipeline.queueStep.scopeRequired': string
   'pipeline.recentExecutionText': string
-  'pipeline.recentTenExecutions': string
+  'pipeline.recentExecutions': string
   'pipeline.reconcileDialog.originalYamlLabel': string
   'pipeline.reconcileDialog.refreshedYamlLabel': string
   'pipeline.reconcileDialog.subtitle': string

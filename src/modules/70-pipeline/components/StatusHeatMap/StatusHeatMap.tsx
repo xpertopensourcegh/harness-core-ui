@@ -39,7 +39,7 @@ export const getStatusMapping = (status: ExecutionStatus) => {
     colorMap.iconColor = Color.ORANGE_500
   } else if (isExecutionRunning(status)) {
     colorMap.primaryState = 'running'
-    colorMap.icon = 'circle'
+    colorMap.icon = 'spinner'
     colorMap.iconColor = Color.PRIMARY_7
   }
   return colorMap

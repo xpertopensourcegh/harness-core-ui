@@ -62,7 +62,10 @@ export const PipelineNameCell: CellType = ({ row }) => {
     module
   })
   return (
-    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Layout.Horizontal
+      flex={{ alignItems: 'center', justifyContent: 'space-between' }}
+      className={css.pipelineNameCell}
+    >
       <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
         <Layout.Horizontal spacing="medium">
           <Link to={href}>
@@ -97,6 +100,14 @@ export const PipelineNameCell: CellType = ({ row }) => {
             entityType={'Pipeline'}
           />
         </Container>
+      )}
+
+      {data.isDraft && (
+        <div className={css.draft}>
+          <Text font={{ size: 'small', weight: 'bold' }} color={Color.GREY_400}>
+            {getString('pipeline.draft')}
+          </Text>
+        </div>
       )}
     </Layout.Horizontal>
   )
@@ -286,7 +297,7 @@ export const MenuCell: CellType = ({ row, column }) => {
   )
 }
 
-export const RecentTenExecutionsCell: CellType = ({ row }) => {
+export const RecentExecutionsCell: CellType = ({ row }) => {
   const { getString } = useStrings()
   const data = row.original
   let recentExecutions = data.recentExecutionsInfo || []
