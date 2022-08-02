@@ -80,6 +80,7 @@ import StepArtifactoryAuthentication from '@connectors/components/CreateConnecto
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import {
   CommandTypes,
   onSubmitTFPlanData,
@@ -537,7 +538,7 @@ function TerraformPlanWidget(
                           multiTextInputProps={{
                             expressions,
                             allowableTypes: (allowableTypes as MultiTypeInputType[]).filter(
-                              item => item !== MultiTypeInputType.RUNTIME
+                              item => !isMultiTypeRuntime(item)
                             ) as AllowedTypes
                           }}
                           multiTypeFieldSelectorProps={{
@@ -558,7 +559,7 @@ function TerraformPlanWidget(
                           valueMultiTextInputProps={{
                             expressions,
                             allowableTypes: (allowableTypes as MultiTypeInputType[]).filter(
-                              item => item !== MultiTypeInputType.RUNTIME
+                              item => !isMultiTypeRuntime(item)
                             ) as AllowedTypes
                           }}
                           multiTypeFieldSelectorProps={{

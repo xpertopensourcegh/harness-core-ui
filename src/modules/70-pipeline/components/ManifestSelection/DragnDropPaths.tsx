@@ -22,6 +22,7 @@ import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautif
 import { defaultTo } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import css from './ManifestWizardSteps/CommonManifestDetails/CommonManifestDetails.module.scss'
 
 export interface DragnDropPathsProps<T = unknown> {
@@ -103,7 +104,7 @@ function DragnDropPaths({
                                 multiTextInputProps={{
                                   expressions,
                                   allowableTypes: (allowableTypes as MultiTypeInputType[]).filter(
-                                    allowedType => allowedType !== MultiTypeInputType.RUNTIME
+                                    allowedType => !isMultiTypeRuntime(allowedType)
                                   ) as AllowedTypes
                                 }}
                               />

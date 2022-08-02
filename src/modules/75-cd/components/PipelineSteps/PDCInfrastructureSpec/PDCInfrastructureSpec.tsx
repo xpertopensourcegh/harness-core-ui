@@ -64,6 +64,7 @@ import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/Depl
 import { DelegateSelectors } from '@common/components/DelegateSelectors/DelegateSelectors'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import ConnectivityStatus from './connectivityStatus/ConnectivityStatus'
 import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 import css from './PDCInfrastructureSpec.module.scss'
@@ -468,7 +469,7 @@ const PDCInfrastructureSpecEditable: React.FC<PDCInfrastructureSpecEditableProps
                           multiTypeProps={{ allowableTypes, expressions }}
                           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                           onChange={(value, _valueType, connectorRefType) => {
-                            if (connectorRefType === MultiTypeInputType.RUNTIME) {
+                            if (isMultiTypeRuntime(connectorRefType)) {
                               formikRef.current?.setFieldValue('connectorRef', value)
                             }
                           }}

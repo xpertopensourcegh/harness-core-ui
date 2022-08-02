@@ -63,6 +63,7 @@ import DelegateSelectorStep from '@connectors/components/CreateConnector/commonS
 
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import { TFMonaco } from './TFMonacoEditor'
 
 import TfVarFileList from './TFVarFileList'
@@ -527,7 +528,7 @@ export default function TerraformEditView(
                               multiTextInputProps={{
                                 expressions,
                                 allowableTypes: (allowableTypes as MultiTypeInputType[]).filter(
-                                  item => item !== MultiTypeInputType.RUNTIME
+                                  item => !isMultiTypeRuntime(item)
                                 ) as AllowedTypes
                               }}
                               name="spec.configuration.spec.targets"
@@ -549,7 +550,7 @@ export default function TerraformEditView(
                               valueMultiTextInputProps={{
                                 expressions,
                                 allowableTypes: (allowableTypes as MultiTypeInputType[]).filter(
-                                  item => item !== MultiTypeInputType.RUNTIME
+                                  item => !isMultiTypeRuntime(item)
                                 ) as AllowedTypes
                               }}
                               name="spec.configuration.spec.environmentVariables"

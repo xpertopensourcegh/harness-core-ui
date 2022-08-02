@@ -32,7 +32,7 @@ import {
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { getReference } from '@common/utils/utils'
+import { getReference, isMultiTypeRuntime } from '@common/utils/utils'
 import { Connectors } from '@connectors/constants'
 import { getCompleteConnectorUrl, GitAuthenticationProtocol } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -187,7 +187,7 @@ export const handleCIConnectorRefOnChange = ({
 
     setFieldValue(
       codeBaseInputFieldFormName?.repoName || 'repoName',
-      connectorRefType === MultiTypeInputType.RUNTIME ? RUNTIME_INPUT_VALUE : ''
+      isMultiTypeRuntime(connectorRefType) ? RUNTIME_INPUT_VALUE : ''
     )
   }
 }

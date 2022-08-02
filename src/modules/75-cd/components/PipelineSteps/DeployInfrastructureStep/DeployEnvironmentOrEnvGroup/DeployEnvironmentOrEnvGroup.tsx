@@ -46,6 +46,7 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import CreateEnvironmentGroupModal from '@cd/components/EnvironmentGroups/CreateEnvironmentGroupModal'
 
 import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import AddEditEnvironmentModal from '../AddEditEnvironmentModal'
 import { isEditEnvironmentOrEnvGroup } from '../utils'
 import DeployEnvironmentInEnvGroup from '../DeployEnvironmentInEnvGroup/DeployEnvironmentInEnvGroup'
@@ -332,7 +333,7 @@ function DeployEnvironmentOrEnvGroup({
         className={css.formRow}
         spacing="medium"
         flex={{ alignItems: flexStart, justifyContent: flexStart }}
-        margin={{ ...(environmentOrEnvGroupRefType === MultiTypeInputType.RUNTIME && { bottom: 'large' }) }}
+        margin={{ ...(isMultiTypeRuntime(environmentOrEnvGroupRefType) && { bottom: 'large' }) }}
       >
         <FormInput.SelectWithSubmenuTypeInput
           label={getString('cd.pipelineSteps.environmentTab.specifyEnvironmentOrGroup')}
@@ -448,7 +449,7 @@ function DeployEnvironmentOrEnvGroup({
             <DeployClusters environmentIdentifier={selectedEnvironment?.identifier} allowableTypes={allowableTypes} />
           )}
       </Layout.Horizontal>
-      {environmentOrEnvGroupRefType === MultiTypeInputType.RUNTIME && (
+      {isMultiTypeRuntime(environmentOrEnvGroupRefType) && (
         <Layout.Vertical>
           <Text>{getString('cd.pipelineSteps.environmentTab.environmentOrEnvGroupAsRuntime')}</Text>
           <FormInput.RadioGroup

@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import type { IconName } from '@harness/uicore'
+import { getMultiTypeFromValue, IconName, MultiSelectOption, MultiTypeInputType, SelectOption } from '@harness/uicore'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
@@ -109,4 +109,16 @@ export const isPR = (): boolean => {
 // Utility to check if environment is a local develop environment
 export const isLocalHost = (): boolean => {
   return location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+}
+
+export function isMultiTypeRuntime(type: MultiTypeInputType): boolean {
+  return [MultiTypeInputType.EXECUTION_TIME, MultiTypeInputType.RUNTIME].includes(type)
+}
+
+export function isValueRuntimeInput(
+  value: boolean | string | number | SelectOption | string[] | MultiSelectOption[]
+): boolean {
+  const type = getMultiTypeFromValue(value)
+
+  return isMultiTypeRuntime(type)
 }

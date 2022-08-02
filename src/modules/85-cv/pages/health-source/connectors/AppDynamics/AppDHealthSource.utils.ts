@@ -19,6 +19,7 @@ import type {
   TimeSeriesMetricPackDTO
 } from 'services/cv'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { HealthSourceTypes } from '../../types'
 import type {
@@ -579,7 +580,7 @@ export const setAppDynamicsApplication = (
 ): SelectOption | string | undefined => {
   const value = !appdApplication ? undefined : tierOptions.find((item: SelectOption) => item.label === appdApplication)
 
-  if (multiType === MultiTypeInputType.RUNTIME) {
+  if (multiType && isMultiTypeRuntime(multiType)) {
     return appdApplication
   }
   if (multiType === MultiTypeInputType.EXPRESSION) {
@@ -595,7 +596,7 @@ export const setAppDynamicsTier = (
   multiType?: MultiTypeInputType
 ) => {
   const value = tierLoading || !appDTier ? undefined : tierOptions.find((item: SelectOption) => item.label === appDTier)
-  if (multiType === MultiTypeInputType.RUNTIME) {
+  if (multiType && isMultiTypeRuntime(multiType)) {
     return appDTier
   }
   if (multiType === MultiTypeInputType.EXPRESSION) {

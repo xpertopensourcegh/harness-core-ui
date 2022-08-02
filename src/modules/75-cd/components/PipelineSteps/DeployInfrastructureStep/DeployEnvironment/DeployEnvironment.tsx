@@ -52,6 +52,7 @@ import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { clearRuntimeInput } from '@pipeline/utils/runPipelineUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useRunPipelineFormContext } from '@pipeline/context/RunPipelineFormContext'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import AddEditEnvironmentModal from '../AddEditEnvironmentModal'
 import { isEditEnvironment } from '../utils'
 
@@ -103,8 +104,7 @@ function DeployEnvironment({
     body: {
       filterType: 'Environment'
     },
-    lazy:
-      !orgIdentifier || (stepViewType === StepViewType.InputSet && environmentRefType === MultiTypeInputType.RUNTIME)
+    lazy: !orgIdentifier || (stepViewType === StepViewType.InputSet && isMultiTypeRuntime(environmentRefType))
   })
 
   const {

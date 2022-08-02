@@ -43,6 +43,7 @@ rules:
   aliased-module-imports: 2
   strings-restrict-modules: 2
   duplicate-data-tooltip-id: 'warn'
+  no-direct-runtime-comparision: 2
   jest-no-mock:
     - 2
     - module:
