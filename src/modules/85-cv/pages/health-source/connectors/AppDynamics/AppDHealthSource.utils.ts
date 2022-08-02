@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { cloneDeep, isEmpty } from 'lodash-es'
+import { cloneDeep, isEmpty, isEqual } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { AllowedTypes, getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@harness/uicore'
 import type { StringKeys } from 'framework/strings'
@@ -26,6 +26,8 @@ import type {
   AppDynamicsFomikFormInterface,
   MapAppDynamicsMetric,
   NonCustomFeildsInterface,
+  NonCustomFieldsInterface,
+  PersistCustomMetricInterface,
   ValidateMappingInterface
 } from './AppDHealthSource.types'
 import type { BasePathData } from './Components/BasePath/BasePath.types'
@@ -561,7 +563,7 @@ export const createAppDFormData = (
   }
 }
 
-export const initializeNonCustomFields = (appDynamicsData: AppDynamicsData) => {
+export const initializeNonCustomFields = (appDynamicsData: AppDynamicsData): NonCustomFieldsInterface => {
   return {
     appdApplication: appDynamicsData.applicationName || '',
     appDTier: appDynamicsData.tierName || '',
@@ -698,5 +700,36 @@ export const resetShowCustomMetric = (
 ) => {
   if (!selectedMetric && !mappedMetrics.size) {
     setShowCustomMetric(false)
+  }
+}
+
+export const persistCustomMetric = ({
+  mappedMetrics,
+  selectedMetric,
+  nonCustomFeilds,
+  formikValues,
+  setMappedMetrics
+}: PersistCustomMetricInterface): void => {
+  const mapValue = mappedMetrics.get(selectedMetric) as MapAppDynamicsMetric
+  if (!isEmpty(mapValue)) {
+    const nonCustomValuesFromSelectedMetric = {
+      appdApplication: mapValue?.appdApplication,
+      appDTier: mapValue?.appDTier,
+      metricPacks: mapValue?.metricPacks,
+      metricData: mapValue?.metricData
+    }
+    const areAllEmpty =
+      nonCustomValuesFromSelectedMetric.appdApplication &&
+      nonCustomValuesFromSelectedMetric.appDTier &&
+      nonCustomValuesFromSelectedMetric.metricData
+    if (
+      areAllEmpty &&
+      selectedMetric === formikValues?.metricName &&
+      !isEqual(nonCustomFeilds, nonCustomValuesFromSelectedMetric)
+    ) {
+      const clonedMappedMetrics = cloneDeep(mappedMetrics)
+      clonedMappedMetrics.set(selectedMetric, formikValues)
+      setMappedMetrics({ selectedMetric: selectedMetric, mappedMetrics: clonedMappedMetrics })
+    }
   }
 }

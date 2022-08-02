@@ -8,7 +8,7 @@
 import type { SelectOption } from '@wings-software/uicore'
 import type { StringKeys } from 'framework/strings'
 import type { MetricPackDTO } from 'services/cv'
-import type { CustomMappedMetric } from '../../common/CustomMetric/CustomMetric.types'
+import type { CustomMappedMetric, CustomSelectedAndMappedMetrics } from '../../common/CustomMetric/CustomMetric.types'
 import type { HealthSourceTypes } from '../../types'
 import type { BasePathData } from './Components/BasePath/BasePath.types'
 import type { MetricPathData } from './Components/MetricPath/MetricPath.types'
@@ -107,4 +107,20 @@ export interface NonCustomFeildsInterface {
   metricData: {
     [key: string]: boolean
   }
+}
+
+export interface NonCustomFieldsInterface {
+  appdApplication: string
+  appDTier: string
+  metricPacks: MetricPackDTO[] | undefined
+  metricData: {
+    [key: string]: boolean
+  }
+}
+export interface PersistCustomMetricInterface {
+  mappedMetrics: Map<string, CustomMappedMetric>
+  selectedMetric: string
+  nonCustomFeilds: NonCustomFeildsInterface
+  formikValues: AppDynamicsFomikFormInterface
+  setMappedMetrics: React.Dispatch<React.SetStateAction<CustomSelectedAndMappedMetrics>>
 }
