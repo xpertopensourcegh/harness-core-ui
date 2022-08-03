@@ -138,6 +138,7 @@ function ExecutionStrategyRef(
         setSelectedStrategy(ExecutionType.CANARY)
         break
     }
+    refetchStrategyYaml?.()
   }, [serviceDefinitionType])
 
   const infoByType: { [key: string]: string } = {
@@ -202,7 +203,8 @@ function ExecutionStrategyRef(
       strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Rolling',
       ...(isVerifyEnabled && { includeVerify: true })
     },
-    lazy: true
+    lazy: true,
+    debounce: 500
   })
 
   const getServiceDefintionType = serviceDefinitionType()
