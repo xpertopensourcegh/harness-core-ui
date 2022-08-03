@@ -26,6 +26,7 @@ import type { GitOpsCustomMicroFrontendProps } from '@cd/interfaces/GitOps.types
 import type { STOAppCustomProps } from '@pipeline/interfaces/STOApp'
 import type { CCMUIAppCustomProps } from '@ce/interface/CCMUIApp.types'
 import type { ChaosCustomMicroFrontendProps } from '@chaos/interfaces/Chaos.types'
+import type { RbacErrorReturn } from '@rbac/utils/useRBACError/useRBACError'
 
 export interface Scope {
   accountId?: string
@@ -48,6 +49,7 @@ export interface Hooks {
   useDocumentTitle(title: Title, accountLevel?: boolean): UseDocumentTitleReturn
   useTelemetry?: (pageParams: PageParams) => TelemetryReturnType
   useLogout?: () => UseLogoutReturn
+  useRBACError?: () => RbacErrorReturn
 }
 
 /**
