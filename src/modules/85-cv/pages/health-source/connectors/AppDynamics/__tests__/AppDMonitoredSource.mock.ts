@@ -5,6 +5,10 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import { HealthSourceTypes } from '@cv/pages/health-source/types'
+import { ThresholdTypes } from '../AppDHealthSource.constants'
+import type { AppDynamicsFomikFormInterface } from '../AppDHealthSource.types'
+
 export const sourceData = {
   isEdit: true,
   healthSourceList: [
@@ -312,6 +316,7 @@ export const metricPack = {
       metrics: [
         {
           name: 'Number of Errors',
+          metricIdentifier: 'Number of Errors',
           type: 'ERROR',
           path: 'Errors|__tier_name__|__metric_filter__|Number of Errors',
           validationPath: 'Overall Application Performance|__tier_name__|Exceptions per Minute',
@@ -334,6 +339,7 @@ export const metricPack = {
       metrics: [
         {
           name: 'Average Wait Time (ms)',
+          metricIdentifier: 'Average Wait Time (ms)',
           type: 'RESP_TIME',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Average Wait Time (ms)',
           validationPath: null,
@@ -344,6 +350,7 @@ export const metricPack = {
         },
         {
           name: 'Calls per Minute',
+          metricIdentifier: 'test 1',
           type: 'THROUGHPUT',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Calls per Minute',
           validationPath: 'Overall Application Performance|__tier_name__|Calls per Minute',
@@ -354,6 +361,7 @@ export const metricPack = {
         },
         {
           name: 'Stall Count',
+          metricIdentifier: 'test 1',
           type: 'ERROR',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Stall Count',
           validationPath: 'Overall Application Performance|__tier_name__|Stall Count',
@@ -364,6 +372,7 @@ export const metricPack = {
         },
         {
           name: 'Number of Slow Calls',
+          metricIdentifier: 'test 1',
           type: 'ERROR',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Number of Slow Calls',
           validationPath: 'Overall Application Performance|__tier_name__|Number of Slow Calls',
@@ -374,6 +383,7 @@ export const metricPack = {
         },
         {
           name: '95th Percentile Response Time (ms)',
+          metricIdentifier: 'test 1',
           type: 'RESP_TIME',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|95th Percentile Response Time (ms)',
           validationPath: null,
@@ -384,6 +394,7 @@ export const metricPack = {
         },
         {
           name: 'Normal Average Response Time (ms)',
+          metricIdentifier: 'test 1',
           type: 'RESP_TIME',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Normal Average Response Time (ms)',
           validationPath: 'Overall Application Performance|__tier_name__|Normal Average Response Time (ms)',
@@ -394,6 +405,7 @@ export const metricPack = {
         },
         {
           name: 'Errors per Minute',
+          metricIdentifier: 'test 1',
           type: 'ERROR',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Errors per Minute',
           validationPath: 'Overall Application Performance|__tier_name__|Errors per Minute',
@@ -404,6 +416,7 @@ export const metricPack = {
         },
         {
           name: 'Average Response Time (ms)',
+          metricIdentifier: 'test 1',
           type: 'RESP_TIME',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Average Response Time (ms)',
           validationPath: 'Overall Application Performance|__tier_name__|Average Response Time (ms)',
@@ -414,6 +427,7 @@ export const metricPack = {
         },
         {
           name: 'Average Block Time (ms)',
+          metricIdentifier: 'test 1',
           type: 'RESP_TIME',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Average Block Time (ms)',
           validationPath: null,
@@ -424,6 +438,7 @@ export const metricPack = {
         },
         {
           name: 'Average CPU Used (ms)',
+          metricIdentifier: 'test 1',
           type: 'INFRA',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Average CPU Used (ms)',
           validationPath: null,
@@ -434,6 +449,7 @@ export const metricPack = {
         },
         {
           name: 'Number of Very Slow Calls',
+          metricIdentifier: 'test 1',
           type: 'ERROR',
           path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Number of Very Slow Calls',
           validationPath: 'Overall Application Performance|__tier_name__|Number of Very Slow Calls',
@@ -570,6 +586,65 @@ export const expectedAppDynamicData = {
   mappedServicesAndEnvs,
   metricPacks: [
     {
+      identifier: 'Performance',
+      metricThresholds: [
+        {
+          metricType: 'Performance',
+          groupName: undefined,
+          metricName: undefined,
+          type: ThresholdTypes.IgnoreThreshold,
+          spec: {
+            action: 'Ignore'
+          },
+          criteria: {
+            type: 'Absolute',
+            spec: {
+              greaterThan: 0,
+              lessThan: 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      identifier: 'Errors',
+      metricThresholds: [
+        {
+          metricType: 'Errors',
+          groupName: undefined,
+          metricName: undefined,
+          type: ThresholdTypes.FailImmediately,
+          spec: {
+            action: 'FailImmediately',
+            spec: {}
+          },
+          criteria: {
+            type: 'Absolute',
+            spec: {
+              greaterThan: 0,
+              lessThan: 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  name: 'AppD Single',
+  product: {
+    label: 'Application Monitoring',
+    value: 'Application Monitoring'
+  },
+  tierName: 'cvng',
+  type: 'AppDynamics'
+}
+export const expectedAppDynamicDataForContainer = {
+  applicationName: 'PR-git-experiment',
+  connectorRef: 'TestAppD',
+  identifier: 'AppD_Single',
+  isEdit: true,
+  mappedServicesAndEnvs,
+  metricPacks: [
+    {
       identifier: 'Performance'
     },
     {
@@ -583,6 +658,60 @@ export const expectedAppDynamicData = {
   },
   tierName: 'cvng',
   type: 'AppDynamics'
+}
+
+export const expectedThresholdsInitialData = {
+  appDTier: 'cvng',
+  appdApplication: 'PR-git-experiment',
+  failFastThresholds: [
+    {
+      criteria: { spec: { greaterThan: 0, lessThan: 0 }, type: 'Absolute' },
+      groupName: undefined,
+      metricName: undefined,
+      metricType: 'Errors',
+      spec: { action: 'FailImmediately', spec: {} },
+      type: 'FailImmediately'
+    }
+  ],
+  ignoreThresholds: [
+    {
+      criteria: { spec: { greaterThan: 0, lessThan: 0 }, type: 'Absolute' },
+      groupName: undefined,
+      metricName: undefined,
+      metricType: 'Performance',
+      spec: { action: 'Ignore' },
+      type: 'IgnoreThreshold'
+    }
+  ],
+  metricData: { Errors: true, Performance: true },
+  metricPacks: [
+    {
+      identifier: 'Performance',
+      metricThresholds: [
+        {
+          criteria: { spec: { greaterThan: 0, lessThan: 0 }, type: 'Absolute' },
+          groupName: undefined,
+          metricName: undefined,
+          metricType: 'Performance',
+          spec: { action: 'Ignore' },
+          type: 'IgnoreThreshold'
+        }
+      ]
+    },
+    {
+      identifier: 'Errors',
+      metricThresholds: [
+        {
+          criteria: { spec: { greaterThan: 0, lessThan: 0 }, type: 'Absolute' },
+          groupName: undefined,
+          metricName: undefined,
+          metricType: 'Errors',
+          spec: { action: 'FailImmediately', spec: {} },
+          type: 'FailImmediately'
+        }
+      ]
+    }
+  ]
 }
 
 export const onPreviousPayload = {
@@ -745,15 +874,15 @@ export const onPreviousPayloadTemplate = {
   sourceType: 'AppDynamics'
 }
 
-export const validateMappingNoError = {
+export const validateMappingNoError: AppDynamicsFomikFormInterface = {
   name: 'AppD Single Metric',
   identifier: 'AppD_Multiple_Metric',
   metricIdentifier: 'AppD_Multiple_Metric',
-  connectorRef: 'account.appdtest',
+  connectorRef: { connector: { identifier: 'testID' } },
   isEdit: true,
-  product: { label: 'Application Monitoring', value: 'Application Monitoring' },
-  type: 'AppDynamics',
-  mappedServicesAndEnvs: {},
+  product: 'test',
+  type: HealthSourceTypes.AppDynamics,
+  mappedServicesAndEnvs: new Map(),
   appdApplication: 'PR-git-experiment',
   appDTier: 'cvng',
   metricPacks: [{ identifier: 'Performance' }, { identifier: 'Errors' }],
@@ -768,25 +897,26 @@ export const validateMappingNoError = {
   },
   metricName: 'appdMetric Two',
   riskCategory: 'Errors/ERROR',
-  serviceInstance: null,
   lowerBaselineDeviation: true,
   higherBaselineDeviation: false,
   groupName: { label: 'Two', value: 'Two' },
   continuousVerification: false,
   healthScore: true,
   sli: false,
-  showCustomMetric: true
+  showCustomMetric: true,
+  ignoreThresholds: [],
+  failFastThresholds: []
 }
 
-export const validateMappingWithMetricPathError = {
+export const validateMappingWithMetricPathError: AppDynamicsFomikFormInterface = {
   name: 'AppD Single Metric',
   identifier: 'AppD_Multiple_Metric',
   metricIdentifier: 'AppD_Multiple_Metric',
-  connectorRef: 'account.appdtest',
+  connectorRef: { connector: { identifier: 'testID' } },
   isEdit: true,
-  product: { label: 'Application Monitoring', value: 'Application Monitoring' },
-  type: 'AppDynamics',
-  mappedServicesAndEnvs: {},
+  product: 'test',
+  type: HealthSourceTypes.AppDynamics,
+  mappedServicesAndEnvs: new Map(),
   appdApplication: 'PR-git-experiment',
   appDTier: 'cvng',
   metricPacks: [{ identifier: 'Performance' }, { identifier: 'Errors' }],
@@ -801,7 +931,6 @@ export const validateMappingWithMetricPathError = {
   },
   metricName: 'appdMetric Two',
   riskCategory: 'Errors/ERROR',
-  serviceInstance: null,
   lowerBaselineDeviation: true,
   higherBaselineDeviation: false,
   groupName: { label: 'Two', value: 'Two' },
@@ -809,17 +938,19 @@ export const validateMappingWithMetricPathError = {
   healthScore: true,
   sli: false,
   showCustomMetric: true,
-  pathType: 'dropdownPath'
+  pathType: 'dropdownPath',
+  ignoreThresholds: [],
+  failFastThresholds: []
 }
 
-export const validateMappingWithErrors = {
+export const validateMappingWithErrors: AppDynamicsFomikFormInterface = {
   name: 'AppD Single Metric',
   identifier: 'AppD_Multiple_Metric',
-  connectorRef: 'account.appdtest',
+  connectorRef: { connector: { identifier: 'testID' } },
   isEdit: true,
-  product: { label: 'Application Monitoring', value: 'Application Monitoring' },
-  type: 'AppDynamics',
-  mappedServicesAndEnvs: {},
+  product: 'test',
+  type: HealthSourceTypes.AppDynamics,
+  mappedServicesAndEnvs: new Map(),
   appdApplication: '',
   appDTier: '',
   metricPacks: [],
@@ -828,7 +959,6 @@ export const validateMappingWithErrors = {
   basePath: {},
   metricName: '',
   riskCategory: '',
-  serviceInstance: null,
   lowerBaselineDeviation: false,
   higherBaselineDeviation: false,
   groupName: { label: 'Two', value: 'Two' },
@@ -836,7 +966,9 @@ export const validateMappingWithErrors = {
   healthScore: true,
   sli: false,
   showCustomMetric: true,
-  pathType: 'dropdownPath'
+  pathType: 'dropdownPath',
+  ignoreThresholds: [],
+  failFastThresholds: []
 }
 
 export const createAppDynamicsDataValue = {
@@ -951,6 +1083,112 @@ newMappedServicesAndEnvs.set('appdMetric One Updated', {
   showCustomMetric: true
 })
 
+export const ignoreThresholdsMockData = [
+  {
+    metricType: 'Performance',
+    groupName: 'testP2',
+    metricName: 'average_wait_time_ms',
+    type: 'IgnoreThreshold',
+    spec: {
+      action: 'Ignore'
+    },
+    criteria: {
+      type: 'Percentage',
+      spec: {
+        lessThan: 1
+      },
+      criteriaPercentageType: 'lessThan'
+    }
+  },
+  {
+    metricType: 'Performance',
+    groupName: 'testP',
+    metricName: 'stall_count',
+    type: 'IgnoreThreshold',
+    spec: {
+      action: 'Ignore'
+    },
+    criteria: {
+      type: 'Percentage',
+      spec: {
+        greaterThan: 12
+      },
+      criteriaPercentageType: 'greaterThan'
+    }
+  },
+  {
+    metricType: 'Custom',
+    groupName: 'testP',
+    metricName: 'stall_count',
+    type: 'IgnoreThreshold',
+    spec: {
+      action: 'Ignore'
+    },
+    criteria: {
+      type: 'Percentage',
+      spec: {
+        greaterThan: 12
+      },
+      criteriaPercentageType: 'greaterThan'
+    }
+  },
+  {
+    metricType: 'Errors',
+    groupName: 'testE',
+    metricName: 'number_of_errors',
+    type: 'IgnoreThreshold',
+    spec: {
+      action: 'Ignore'
+    },
+    criteria: {
+      type: 'Absolute',
+      spec: {
+        greaterThan: 13,
+        lessThan: 2
+      }
+    }
+  }
+]
+
+export const failFastThresholdsMockData = [
+  {
+    metricType: 'Performance',
+    groupName: 'testPE',
+    metricName: 'average_response_time_ms',
+    type: 'FailImmediately',
+    spec: {
+      action: 'FailAfterOccurrence',
+      spec: {
+        count: 2
+      }
+    },
+    criteria: {
+      type: 'Percentage',
+      spec: {
+        greaterThan: 22
+      },
+      criteriaPercentageType: 'greaterThan'
+    }
+  },
+  {
+    metricType: 'Errors',
+    groupName: 'testFE',
+    metricName: 'number_of_errors',
+    type: 'FailImmediately',
+    spec: {
+      action: 'FailImmediately',
+      spec: {}
+    },
+    criteria: {
+      type: 'Absolute',
+      spec: {
+        greaterThan: 12,
+        lessThan: 1
+      }
+    }
+  }
+]
+
 export const formData = {
   name: 'AppD Single Metric',
   identifier: 'AppD_Multiple_Metric',
@@ -979,7 +1217,9 @@ export const formData = {
   continuousVerification: true,
   healthScore: false,
   sli: false,
-  showCustomMetric: true
+  showCustomMetric: true,
+  ignoreThresholds: ignoreThresholdsMockData,
+  failFastThresholds: failFastThresholdsMockData
 }
 
 export const formDataExpectedOutput = {
@@ -1056,6 +1296,78 @@ export const formDataExpectedOutput = {
   type: 'AppDynamics'
 }
 
+export const payloadWithThreshold = {
+  ...formDataExpectedOutput,
+  spec: {
+    ...formDataExpectedOutput.spec,
+    metricPacks: [
+      {
+        identifier: 'Performance',
+        metricThresholds: [
+          {
+            criteria: { criteriaPercentageType: 'lessThan', spec: { lessThan: 1 }, type: 'Percentage' },
+            groupName: 'testP2',
+            metricName: 'average_wait_time_ms',
+            metricType: 'Performance',
+            spec: { action: 'Ignore' },
+            type: 'IgnoreThreshold'
+          },
+          {
+            criteria: { criteriaPercentageType: 'greaterThan', spec: { greaterThan: 12 }, type: 'Percentage' },
+            groupName: 'testP',
+            metricName: 'stall_count',
+            metricType: 'Performance',
+            spec: { action: 'Ignore' },
+            type: 'IgnoreThreshold'
+          },
+          {
+            criteria: { criteriaPercentageType: 'greaterThan', spec: { greaterThan: 22 }, type: 'Percentage' },
+            groupName: 'testPE',
+            metricName: 'average_response_time_ms',
+            metricType: 'Performance',
+            spec: { action: 'FailAfterOccurrence', spec: { count: 2 } },
+            type: 'FailImmediately'
+          }
+        ]
+      },
+      {
+        identifier: 'Errors',
+        metricThresholds: [
+          {
+            criteria: { spec: { greaterThan: 13, lessThan: 2 }, type: 'Absolute' },
+            groupName: 'testE',
+            metricName: 'number_of_errors',
+            metricType: 'Errors',
+            spec: { action: 'Ignore' },
+            type: 'IgnoreThreshold'
+          },
+          {
+            criteria: { spec: { greaterThan: 12, lessThan: 1 }, type: 'Absolute' },
+            groupName: 'testFE',
+            metricName: 'number_of_errors',
+            metricType: 'Errors',
+            spec: { action: 'FailImmediately', spec: {} },
+            type: 'FailImmediately'
+          }
+        ]
+      },
+      {
+        identifier: 'Custom',
+        metricThresholds: [
+          {
+            criteria: { criteriaPercentageType: 'greaterThan', spec: { greaterThan: 12 }, type: 'Percentage' },
+            groupName: 'testP',
+            metricName: 'stall_count',
+            metricType: 'Custom',
+            spec: { action: 'Ignore' },
+            type: 'IgnoreThreshold'
+          }
+        ]
+      }
+    ]
+  }
+}
+
 export const nonCustomFeilds = {
   appDTier: 'cvng',
   appdApplication: 'PR-git-experiment',
@@ -1070,7 +1382,9 @@ export const nonCustomFeilds = {
     {
       identifier: 'Errors'
     }
-  ]
+  ],
+  ignoreThresholds: [],
+  failFastThresholds: []
 }
 
 const appdMetricData = {
@@ -1179,7 +1493,9 @@ export const formikInitialData = {
   serviceInstanceMetricPath: 'Individual Nodes|*|Errors per Minute',
   showCustomMetric: true,
   sli: true,
-  type: 'AppDynamics'
+  type: 'AppDynamics',
+  failFastThresholds: [],
+  ignoreThresholds: []
 }
 
 export const onSubmitPayload = {
@@ -1209,7 +1525,10 @@ export const onSubmitPayload = {
         completeMetricPath: undefined
       }
     ],
-    metricPacks: [{ identifier: 'Performance' }, { identifier: 'Errors' }],
+    metricPacks: [
+      { identifier: 'Performance', metricThresholds: [] },
+      { identifier: 'Errors', metricThresholds: [] }
+    ],
     tierName: 'cvng'
   },
   type: 'AppDynamics'
@@ -1229,13 +1548,88 @@ export const onSubmitPayloadTemplate = {
     metricDefinitions: [],
     metricPacks: [
       {
-        identifier: 'Errors'
+        identifier: 'Errors',
+        metricThresholds: []
       },
       {
-        identifier: 'Performance'
+        identifier: 'Performance',
+        metricThresholds: []
       }
     ],
     tierName: '<+input>'
   },
   type: 'AppDynamics'
 }
+
+export const appDynamicsDataFull = {
+  name: 'appd',
+  identifier: 'appd',
+  connectorRef: 'org.appdprod',
+  isEdit: true,
+  type: 'AppDynamics',
+  applicationName: 'QA',
+  tierName: 'manager',
+  mappedServicesAndEnvs: new Map(),
+  metricPacks: [
+    {
+      identifier: 'Performance'
+    },
+    {
+      identifier: 'Errors'
+    }
+  ]
+}
+
+export const formDataMock = {
+  metricData: {
+    Performance: true,
+    Errors: false
+  },
+  ignoreThresholds: ignoreThresholdsMockData,
+  failFastThresholds: failFastThresholdsMockData
+}
+
+export const metricThresholdsPayloadMockData = [
+  {
+    identifier: 'Performance',
+    metricThresholds: [
+      {
+        criteria: { criteriaPercentageType: 'lessThan', spec: { lessThan: 1 }, type: 'Percentage' },
+        groupName: 'testP2',
+        metricName: 'average_wait_time_ms',
+        metricType: 'Performance',
+        spec: { action: 'Ignore' },
+        type: 'IgnoreThreshold'
+      },
+      {
+        criteria: { criteriaPercentageType: 'greaterThan', spec: { greaterThan: 12 }, type: 'Percentage' },
+        groupName: 'testP',
+        metricName: 'stall_count',
+        metricType: 'Performance',
+        spec: { action: 'Ignore' },
+        type: 'IgnoreThreshold'
+      },
+      {
+        criteria: { criteriaPercentageType: 'greaterThan', spec: { greaterThan: 22 }, type: 'Percentage' },
+        groupName: 'testPE',
+        metricName: 'average_response_time_ms',
+        metricType: 'Performance',
+        spec: { action: 'FailAfterOccurrence', spec: { count: 2 } },
+        type: 'FailImmediately'
+      }
+    ]
+  },
+  {
+    identifier: 'Custom',
+    metricThresholds: [
+      {
+        criteria: { criteriaPercentageType: 'greaterThan', spec: { greaterThan: 12 }, type: 'Percentage' },
+        groupName: 'testP',
+        metricName: 'stall_count',
+        metricType: 'Custom',
+        spec: { action: 'Ignore' },
+        type: 'IgnoreThreshold'
+      }
+    ]
+  }
+]

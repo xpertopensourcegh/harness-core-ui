@@ -10,6 +10,7 @@ import * as uuid from 'uuid'
 import { fireEvent, render, waitFor, act } from '@testing-library/react'
 import { Connectors } from '@connectors/constants'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as useFeatureFlagMock from '@common/hooks/useFeatureFlag'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import * as cvServices from 'services/cv'
 import AppDHealthSourceContainer from '../AppDHealthSourceContainer'
@@ -26,6 +27,7 @@ import {
 import AppDMonitoredSource from '../AppDHealthSource'
 
 jest.mock('uuid')
+jest.mock('@common/hooks/useFeatureFlag')
 
 const onNextMock = jest.fn().mockResolvedValue(jest.fn())
 const onPrevious = jest.fn().mockResolvedValue(jest.fn())
@@ -88,6 +90,7 @@ describe('Unit tests for createAppd monitoring source', () => {
   })
 
   test('Component renders in edit mode', async () => {
+    jest.spyOn(useFeatureFlagMock, 'useFeatureFlag').mockReturnValue(true)
     jest.spyOn(uuid, 'v4').mockReturnValue('MockedUUID')
     const submitData = jest.fn()
     const { getByText } = render(

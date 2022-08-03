@@ -22,7 +22,12 @@ import {
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import { Color } from '@harness/design-system'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetNewRelicApplications, MetricPackDTO, MetricPackValidationResponse } from 'services/cv'
+import {
+  useGetNewRelicApplications,
+  MetricPackDTO,
+  MetricPackValidationResponse,
+  TimeSeriesMetricPackDTO
+} from 'services/cv'
 import { Connectors } from '@connectors/constants'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
@@ -271,7 +276,9 @@ export default function NewRelicHealthSource({
                     }}
                     metricPackValue={formik.values.metricPacks}
                     metricDataValue={formik.values.metricData}
-                    setSelectedMetricPacks={setSelectedMetricPacks}
+                    setSelectedMetricPacks={
+                      setSelectedMetricPacks as React.Dispatch<React.SetStateAction<TimeSeriesMetricPackDTO[]>>
+                    }
                     connector={HealthSoureSupportedConnectorTypes.NEW_RELIC}
                     onChange={async metricValue => {
                       setNonCustomFeilds({

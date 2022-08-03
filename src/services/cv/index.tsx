@@ -2926,7 +2926,7 @@ export interface MetricThresholdCriteriaSpec {
 }
 
 export interface MetricThresholdSpec {
-  action?: 'Ignore' | 'FailImmediately' | 'FailAfterOccurrence' | 'FailAfterConsecutiveOccurrence'
+  action: 'Ignore' | 'FailImmediately' | 'FailAfterOccurrence' | 'FailAfterConsecutiveOccurrence'
 }
 
 export interface MetricValidationResponse {
@@ -3460,6 +3460,7 @@ export interface PrometheusFilter {
 
 export type PrometheusHealthSourceSpec = HealthSourceSpec & {
   metricDefinitions?: PrometheusMetricDefinition[]
+  metricPacks?: TimeSeriesMetricPackDTO[]
 }
 
 export interface PrometheusMetricDefinition {
@@ -5282,7 +5283,7 @@ export interface TimeSeriesMetricDataDTO {
 }
 
 export interface TimeSeriesMetricDefinition {
-  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
+  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES' | 'IGNORE'
   actionType?: 'IGNORE' | 'FAIL'
   comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
   metricGroupName?: string
@@ -5378,11 +5379,12 @@ export interface TimeSeriesThreshold {
   metricType: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
   orgIdentifier: string
   projectIdentifier: string
+  thresholdConfigType?: 'CUSTOMER' | 'DEFAULT'
   uuid?: string
 }
 
 export interface TimeSeriesThresholdCriteria {
-  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
+  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES' | 'IGNORE'
   criteria?: string
   occurrenceCount?: number
   type?: 'RATIO' | 'DELTA' | 'ABSOLUTE'

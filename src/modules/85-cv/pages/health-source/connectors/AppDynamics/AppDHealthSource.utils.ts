@@ -5,16 +5,17 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { cloneDeep, isEmpty, isEqual } from 'lodash-es'
+import { cloneDeep, isEmpty, isEqual, omit } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { AllowedTypes, getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@harness/uicore'
-import type { StringKeys } from 'framework/strings'
+import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import type { StringsMap } from 'framework/strings/StringsContext'
 import type {
   AppDMetricDefinitions,
   AppDynamicsHealthSourceSpec,
   AppdynamicsValidationResponse,
   MetricPackDTO,
+  MetricThreshold,
   RiskProfile,
   TimeSeriesMetricPackDTO
 } from 'services/cv'
@@ -26,16 +27,18 @@ import type {
   AppDynamicsData,
   AppDynamicsFomikFormInterface,
   MapAppDynamicsMetric,
+  MetricThresholdType,
   NonCustomFeildsInterface,
-  NonCustomFieldsInterface,
   PersistCustomMetricInterface,
   ValidateMappingInterface
 } from './AppDHealthSource.types'
 import type { BasePathData } from './Components/BasePath/BasePath.types'
 import type { MetricPathData } from './Components/MetricPath/MetricPath.types'
-import { AppDynamicsMonitoringSourceFieldNames, initCustomForm } from './AppDHealthSource.constants'
+import { AppDynamicsMonitoringSourceFieldNames, initCustomForm, ThresholdTypes } from './AppDHealthSource.constants'
 import { PATHTYPE } from './Components/AppDCustomMetricForm/AppDCustomMetricForm.constants'
 import type { CustomMappedMetric } from '../../common/CustomMetric/CustomMetric.types'
+import { MetricThresholdPropertyName, MetricTypeValues } from '../../common/MetricThresholds/MetricThresholds.constants'
+import { validateCommonFieldsForMetricThreshold } from '../../common/MetricThresholds/MetricThresholds.utils'
 
 export const convertStringBasePathToObject = (baseFolder: string | BasePathData): BasePathData => {
   let basePathObj = {} as any
@@ -79,11 +82,7 @@ export const createAppDynamicsData = (sourceData: any): AppDynamicsData => {
     (source: UpdatedHealthSource) => source.identifier === sourceData.healthSourceIdentifier
   )
 
-  const {
-    applicationName = '',
-    tierName = '',
-    metricPacks = undefined
-  } = (payload?.spec as AppDynamicsHealthSourceSpec) || {}
+  const { applicationName = '', tierName = '', metricPacks } = (payload?.spec as AppDynamicsHealthSourceSpec) || {}
 
   const appdData = {
     name: sourceData?.healthSourceName,
@@ -130,14 +129,40 @@ export const createAppDynamicsData = (sourceData: any): AppDynamicsData => {
   return appdData
 }
 
+const validateMetricThresholds = (
+  errors: Record<keyof AppDynamicsFomikFormInterface | string, string>,
+  values: AppDynamicsFomikFormInterface,
+  getString: UseStringsReturn['getString']
+): void => {
+  // ignoreThresholds Validation
+  validateCommonFieldsForMetricThreshold(
+    MetricThresholdPropertyName.IgnoreThreshold,
+    errors,
+    values[MetricThresholdPropertyName.IgnoreThreshold],
+    getString,
+    true
+  )
+
+  // failFastThresholds Validation
+  validateCommonFieldsForMetricThreshold(
+    MetricThresholdPropertyName.FailFastThresholds,
+    errors,
+    values[MetricThresholdPropertyName.FailFastThresholds],
+    getString,
+    true
+  )
+}
+
 export const validateMapping = ({
   values,
   createdMetrics,
   selectedMetricIndex,
   getString,
-  mappedMetrics
-}: ValidateMappingInterface): ((key: string | boolean | string[]) => string) => {
-  let errors = {} as any
+  mappedMetrics,
+  isMetricThresholdEnabled
+}: ValidateMappingInterface): Record<keyof AppDynamicsFomikFormInterface | string, string> => {
+  let errors = {} as Record<keyof AppDynamicsFomikFormInterface | string, string>
+
   const metricValueList = values?.metricData ? Object.values(values?.metricData).filter(val => val) : []
 
   if (!values.appdApplication) {
@@ -171,6 +196,10 @@ export const validateMapping = ({
     )
   }
 
+  if (isMetricThresholdEnabled) {
+    validateMetricThresholds(errors, values, getString)
+  }
+
   return errors
 }
 
@@ -181,7 +210,7 @@ const validateCustomMetricFields = (
   errors: any,
   getString: (key: StringKeys) => string,
   mappedMetrics?: Map<string, MapAppDynamicsMetric>
-): ((key: string | boolean | string[]) => string) => {
+): Record<keyof AppDynamicsFomikFormInterface | string, string> => {
   let _error = cloneDeep(errors)
 
   if (values.pathType === PATHTYPE.DropdownPath) {
@@ -379,7 +408,74 @@ export const convertFullPathToBaseAndMetric = (
   return { derivedBasePath, derivedMetricPath }
 }
 
-export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | null => {
+const getMetricPacksOfCustomMetrics = (
+  ignoreThresholds: MetricThresholdType[],
+  failFastThresholds: MetricThresholdType[]
+): TimeSeriesMetricPackDTO | null => {
+  const metricThresholds = [...ignoreThresholds, ...failFastThresholds]
+
+  const customMetricThresholdTypes = metricThresholds.filter(
+    metricThreshold => metricThreshold.metricType === MetricTypeValues.Custom
+  )
+
+  if (!customMetricThresholdTypes.length) {
+    return null
+  }
+
+  return {
+    identifier: MetricTypeValues.Custom,
+    metricThresholds: customMetricThresholdTypes
+  }
+}
+
+const getMetricThresholdsForPayload = (
+  metricPacksIdentifier: string,
+  ignoreThresholds: MetricThresholdType[],
+  failFastThresholds: MetricThresholdType[]
+): MetricThreshold[] => {
+  if (!metricPacksIdentifier) {
+    return []
+  }
+
+  const metricThresholds = [...ignoreThresholds, ...failFastThresholds]
+
+  return metricThresholds.filter(metricThreshold => metricThreshold.metricType === metricPacksIdentifier)
+}
+
+export const getMetricPacksForPayload = (
+  formData: AppDynamicsFomikFormInterface,
+  isMetricThresholdEnabled: boolean
+): TimeSeriesMetricPackDTO[] => {
+  const { metricData, ignoreThresholds, failFastThresholds } = formData
+
+  const metricPacks = Object.entries(metricData).map(item => {
+    return item[1]
+      ? {
+          identifier: item[0] as string,
+          metricThresholds: isMetricThresholdEnabled
+            ? getMetricThresholdsForPayload(item[0], ignoreThresholds, failFastThresholds)
+            : undefined
+        }
+      : {}
+  })
+
+  const filteredMetricPacks = metricPacks.filter(item => !isEmpty(item)) as TimeSeriesMetricPackDTO[]
+
+  if (filteredMetricPacks.length && isMetricThresholdEnabled) {
+    const customMetricThresholds = getMetricPacksOfCustomMetrics(ignoreThresholds, failFastThresholds)
+
+    if (customMetricThresholds) {
+      filteredMetricPacks.push(customMetricThresholds)
+    }
+  }
+
+  return filteredMetricPacks
+}
+
+export const createAppDynamicsPayload = (
+  formData: any,
+  isMetricThresholdEnabled: boolean
+): UpdatedHealthSource | null => {
   const specPayload = {
     applicationName: (formData?.appdApplication?.label as string) || (formData.appdApplication as string),
     tierName: (formData?.appDTier?.label as string) || (formData.appDTier as string),
@@ -456,15 +552,7 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
       ...specPayload,
       feature: 'Application Monitoring' as string,
       connectorRef: (formData?.connectorRef?.value as string) || (formData.connectorRef as string),
-      metricPacks: Object.entries(formData?.metricData)
-        .map(item => {
-          return item[1]
-            ? {
-                identifier: item[0]
-              }
-            : {}
-        })
-        .filter(item => !isEmpty(item)) as TimeSeriesMetricPackDTO[]
+      metricPacks: getMetricPacksForPayload(formData, isMetricThresholdEnabled)
     }
   }
 }
@@ -476,7 +564,8 @@ export const submitData = (
   selectedMetricIndex: number,
   createdMetrics: string[],
   getString: (key: StringKeys) => string,
-  onSubmit: (healthSourcePayload: any) => void
+  onSubmit: (healthSourcePayload: any) => void,
+  isMetricThresholdEnabled: boolean
 ): void => {
   formik.setTouched({
     ...formik.touched,
@@ -493,7 +582,13 @@ export const submitData = (
     [AppDynamicsMonitoringSourceFieldNames.METRIC_DATA]: { Errors: true, Performance: true },
     [PATHTYPE.FullPath]: true
   })
-  const errors = validateMapping({ values: formik.values, createdMetrics, selectedMetricIndex, getString })
+  const errors = validateMapping({
+    values: formik.values,
+    createdMetrics,
+    selectedMetricIndex,
+    getString,
+    isMetricThresholdEnabled
+  })
   if (Object.keys(errors || {})?.length > 0) {
     formik.validateForm()
     return
@@ -509,22 +604,49 @@ export const submitData = (
 export const convertMetricPackToMetricData = (value?: MetricPackDTO[]) => {
   const dataObject: { [key: string]: boolean } = {}
   const metricList: MetricPackDTO[] = value || []
-  metricList.forEach((i: MetricPackDTO) => (dataObject[i.identifier as string] = true))
+  metricList.forEach((i: MetricPackDTO) => {
+    // `Custom` is being used for Metric threshold's Custom metric metricType
+    if (i.identifier !== MetricTypeValues.Custom) {
+      dataObject[i.identifier as string] = true
+    }
+  })
   return dataObject
+}
+
+export const getIsMetricPacksSelected = (metricData: { [key: string]: boolean }): boolean => {
+  return Object.keys(metricData).some(metricPackKey => metricData[metricPackKey])
+}
+
+export const getAllMetricThresholds = (metricPacks?: TimeSeriesMetricPackDTO[]): MetricThresholdType[] => {
+  const availableMetricPacks: MetricThresholdType[] = []
+
+  metricPacks?.forEach((metricPack: TimeSeriesMetricPackDTO) =>
+    availableMetricPacks.push(
+      ...(metricPack?.metricThresholds ? (metricPack.metricThresholds as MetricThresholdType[]) : [])
+    )
+  )
+
+  return availableMetricPacks
+}
+
+export const getFilteredMetricThresholdValues = (
+  thresholdName: string,
+  metricPacks?: TimeSeriesMetricPackDTO[]
+): MetricThresholdType[] => {
+  if (!metricPacks?.length) {
+    return []
+  }
+
+  const metricThresholds = getAllMetricThresholds(metricPacks)
+
+  return metricThresholds.filter(metricThreshold => metricThreshold.type === thresholdName)
 }
 
 export const createAppDFormData = (
   appDynamicsData: AppDynamicsData,
   mappedMetrics: Map<string, CustomMappedMetric>,
   selectedMetric: string,
-  nonCustomFeilds: {
-    appdApplication: string
-    appDTier: string
-    metricPacks?: MetricPackDTO[]
-    metricData: {
-      [key: string]: boolean
-    }
-  },
+  nonCustomFeilds: NonCustomFeildsInterface,
   showCustomMetric: boolean,
   isTemplate = false
 ): AppDynamicsFomikFormInterface => {
@@ -553,23 +675,33 @@ export const createAppDFormData = (
     fullPath,
     completeMetricPath,
     mappedServicesAndEnvs: appDynamicsData.mappedServicesAndEnvs,
+    ...nonCustomFeilds,
     ...(mappedMetrics.get(selectedMetric) as MapAppDynamicsMetric),
-    appdApplication: nonCustomFeilds.appdApplication,
-    appDTier: nonCustomFeilds.appDTier,
-    metricPacks: nonCustomFeilds.metricPacks,
-    metricData: nonCustomFeilds.metricData,
     metricName: selectedMetric,
     showCustomMetric,
     metricIdentifier
   }
 }
 
-export const initializeNonCustomFields = (appDynamicsData: AppDynamicsData): NonCustomFieldsInterface => {
+export const initializeNonCustomFields = (
+  appDynamicsData: AppDynamicsData,
+  isMetricThresholdEnabled: boolean
+): NonCustomFeildsInterface => {
+  const ignoreThresholds = isMetricThresholdEnabled
+    ? getFilteredMetricThresholdValues(ThresholdTypes.IgnoreThreshold, appDynamicsData.metricPacks)
+    : []
+
+  const failFastThresholds = isMetricThresholdEnabled
+    ? getFilteredMetricThresholdValues(ThresholdTypes.FailImmediately, appDynamicsData.metricPacks)
+    : []
+
   return {
     appdApplication: appDynamicsData.applicationName || '',
     appDTier: appDynamicsData.tierName || '',
     metricPacks: appDynamicsData.metricPacks || undefined,
-    metricData: convertMetricPackToMetricData(appDynamicsData?.metricPacks)
+    metricData: convertMetricPackToMetricData(appDynamicsData?.metricPacks),
+    ignoreThresholds,
+    failFastThresholds
   }
 }
 
@@ -634,16 +766,7 @@ export const getTypeOfInput = (value: SelectOption | string) => {
 
 export const setCustomFieldAndValidation = (
   value: string,
-  setNonCustomFeilds: React.Dispatch<
-    React.SetStateAction<{
-      appdApplication: string
-      appDTier: string
-      metricPacks: MetricPackDTO[] | undefined
-      metricData: {
-        [key: string]: boolean
-      }
-    }>
-  >,
+  setNonCustomFeilds: React.Dispatch<React.SetStateAction<NonCustomFeildsInterface>>,
   nonCustomFeilds: NonCustomFeildsInterface,
   setAppDValidation: React.Dispatch<
     React.SetStateAction<{
@@ -726,7 +849,7 @@ export const persistCustomMetric = ({
     if (
       areAllEmpty &&
       selectedMetric === formikValues?.metricName &&
-      !isEqual(nonCustomFeilds, nonCustomValuesFromSelectedMetric)
+      !isEqual(omit(nonCustomFeilds, ['ignoreThresholds', 'failFastThresholds']), nonCustomValuesFromSelectedMetric)
     ) {
       const clonedMappedMetrics = cloneDeep(mappedMetrics)
       clonedMappedMetrics.set(selectedMetric, formikValues)
