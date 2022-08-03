@@ -117,7 +117,7 @@ function TerraformPlanWidget(
 ): React.ReactElement {
   const { initialValues, onUpdate, onChange, allowableTypes, isNewStep, readonly = false, stepViewType } = props
   const { getString } = useStrings()
-  const { TF_MODULE_SOURCE_INHERIT_SSH, EXPORT_TF_PLAN_JSON_NG } = useFeatureFlags()
+  const { EXPORT_TF_PLAN_JSON_NG } = useFeatureFlags()
   const { expressions } = useVariablesExpression()
   const [connectorView, setConnectorView] = useState(false)
   const [selectedConnector, setSelectedConnector] = useState<ConnectorTypes | ''>('')
@@ -660,9 +660,7 @@ function TerraformPlanWidget(
                               ...data.spec?.configuration?.configFiles
                             }
 
-                            if (TF_MODULE_SOURCE_INHERIT_SSH) {
-                              configObject.moduleSource = data.spec?.configuration?.configFiles?.moduleSource
-                            }
+                            configObject.moduleSource = data.spec?.configuration?.configFiles?.moduleSource
 
                             if (prevStepData.identifier && prevStepData.identifier !== data?.identifier) {
                               configObject.store.spec.connectorRef = prevStepData?.identifier
