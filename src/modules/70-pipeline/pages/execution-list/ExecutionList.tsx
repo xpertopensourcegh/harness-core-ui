@@ -64,6 +64,18 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
     path: routes.toExecutions({ projectIdentifier, orgIdentifier, accountId, module })
   })
 
+  const isExecutionHistoryView = !!matchPath(location.pathname, {
+    path: routes.toPipelineDeploymentList({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      accountId,
+      module,
+      repoIdentifier,
+      branch
+    })
+  })
+
   const {
     data,
     initLoading,
@@ -74,7 +86,6 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      module,
       size: 20,
       pipelineIdentifier: pipelineIdentifier || pipelineIdentifierFromQueryParam,
       page: page ? page - 1 : 0,
@@ -83,7 +94,8 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
       status,
       branch,
       searchTerm,
-      ...(isGitSyncEnabled ? { repoIdentifier } : {})
+      ...(isGitSyncEnabled ? { repoIdentifier } : {}),
+      ...(!isExecutionHistoryView ? { module } : {})
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
