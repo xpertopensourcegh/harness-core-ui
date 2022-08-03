@@ -18,7 +18,6 @@ jest.mock('framework/strings', () => ({
 }))
 
 jest.useFakeTimers()
-const timeoutSpy = jest.spyOn(window, 'setTimeout')
 
 describe('Test ConnectViaOAuth component', () => {
   const props: ConnectViaOAuthProps = {
@@ -98,6 +97,7 @@ describe('Test ConnectViaOAuth component', () => {
   })
 
   test('Render when OAuth fails after max timeout', async () => {
+    const timeoutSpy = jest.spyOn(window, 'setTimeout')
     window.open = jest.fn()
     window.addEventListener = jest.fn()
     global.fetch = jest.fn().mockImplementation(() =>
@@ -112,5 +112,28 @@ describe('Test ConnectViaOAuth component', () => {
 
     jest.runAllTimers()
     expect(timeoutSpy).toBeCalled()
+  })
+
+  test('Should clear previous timeout id if exists', async () => {
+    const clearTimeoutSpy = jest.spyOn(window, 'clearTimeout')
+    // Mock window webapis
+    const localGlobal = global as Record<string, any>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete global.window.location
+    global.window = Object.create(window)
+    localGlobal.window.setTimeout = jest.fn(() => 567)
+    localGlobal.window.open = jest.fn()
+    localGlobal.window.addEventListener = jest.fn()
+    global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        text: () => Promise.resolve('https://gitlab.com/auth/login')
+      })
+    )
+    const { getByText } = render(<ConnectViaOAuth {...Object.assign(props, { forceFailOAuthTimeoutId: 123 })} />)
+    await act(async () => {
+      fireEvent.click(getByText('connectors.relinkToGitProvider'))
+    })
+    expect(clearTimeoutSpy).toBeCalled()
   })
 })
