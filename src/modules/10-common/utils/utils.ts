@@ -11,6 +11,8 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { Editions } from '@common/constants/SubscriptionTypes'
 
+const PR_ENV_HOST_NAME = 'pr.harness.io'
+
 interface SetPageNumberProps {
   setPage: (value: React.SetStateAction<number>) => void
   pageItemsCount?: number
@@ -103,12 +105,19 @@ export const addHotJarSuppressionAttribute = (): { [HOTJAR_SUPPRESSION_ATTR]: bo
 
 // Utility to check if environment is a PR environment
 export const isPR = (): boolean => {
-  return location.hostname === 'pr.harness.io'
+  return location.hostname === PR_ENV_HOST_NAME
 }
 
 // Utility to check if environment is a local develop environment
 export const isLocalHost = (): boolean => {
   return location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+}
+
+export const getPREnvNameFromURL = (url: string): string => {
+  if (!url) {
+    return ''
+  }
+  return isPR() ? url.split(PR_ENV_HOST_NAME)?.[1]?.split('/')?.[1] : ''
 }
 
 export function isMultiTypeRuntime(type: MultiTypeInputType): boolean {

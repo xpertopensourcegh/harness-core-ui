@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import set from 'lodash-es/set'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -68,7 +68,10 @@ import {
   DEFAULT_HARNESS_KMS,
   AccessTokenPermissionsDocLinks
 } from './Constants'
-import { getOAuthConnectorPayload } from '../../../utils/HostedBuildsUtils'
+import {
+  DELEGATE_SELECTOR_FOR_HARNESS_PROVISIONED_DELEGATE,
+  getOAuthConnectorPayload
+} from '../../../utils/HostedBuildsUtils'
 
 import css from './InfraProvisioningWizard.module.scss'
 
@@ -128,9 +131,7 @@ const SelectGitProviderRef = (
   let timerId: NodeJS.Timeout
 
   //#region OAuth validation and integration
-  const disableOAuthForGitProvider = useMemo(() => {
-    return gitProvider?.type && [Connectors.GITLAB, Connectors.BITBUCKET].includes(gitProvider.type)
-  }, [gitProvider?.type])
+  const disableOAuthForGitProvider = gitProvider?.type === Connectors.BITBUCKET
 
   const createOAuthConnector = useCallback(
     ({ tokenRef, refreshTokenRef }: { tokenRef: string; refreshTokenRef?: string }): void => {
@@ -362,6 +363,7 @@ const SelectGitProviderRef = (
             type: 'Http',
             spec: {}
           },
+          delegateSelectors: [DELEGATE_SELECTOR_FOR_HARNESS_PROVISIONED_DELEGATE],
           apiAccess: {}
         }
       }
@@ -923,7 +925,9 @@ const SelectGitProviderRef = (
                             intent={authMethod === GitAuthenticationMethod.OAuth ? 'primary' : 'none'}
                             disabled={
                               disableOAuthForGitProvider ||
-                              (gitProvider?.type === Connectors.GITHUB && oAuthStatus === Status.IN_PROGRESS)
+                              (gitProvider?.type &&
+                                [Connectors.GITHUB, Connectors.GITLAB].includes(gitProvider.type) &&
+                                oAuthStatus === Status.IN_PROGRESS)
                             }
                             tooltipProps={
                               disableOAuthForGitProvider

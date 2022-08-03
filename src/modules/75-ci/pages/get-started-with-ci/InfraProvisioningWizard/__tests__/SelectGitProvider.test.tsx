@@ -245,7 +245,11 @@ describe('Test SelectGitProvider component', () => {
   test('User selects Gitlab provider and OAuth authentication method', async () => {
     window.open = jest.fn()
     window.addEventListener = jest.fn()
-    global.fetch = jest.fn()
+    global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        text: () => Promise.resolve('https://gitlab.com/auth/login')
+      })
+    )
     const { container, getByText } = render(
       <TestWrapper
         path={routes.toGetStartedWithCI({
@@ -267,7 +271,7 @@ describe('Test SelectGitProvider component', () => {
     await act(async () => {
       fireEvent.click(getByText('common.oAuthLabel'))
     })
-    expect(global.fetch).not.toBeCalled()
+    expect(global.fetch).toBeCalled()
   })
 
   test('User selects Gitlab provider and Access Key authentication method', async () => {

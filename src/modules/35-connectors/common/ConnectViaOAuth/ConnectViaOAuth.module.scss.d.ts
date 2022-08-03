@@ -7,12 +7,8 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly authHeaderRow: string
-  readonly formRow: string
-  readonly headingStepTwo: string
+  readonly linkToGitBtn: string
   readonly oAuthFailure: string
   readonly oAuthSuccess: string
-  readonly secondStep: string
-  readonly stepFormWrapper: string
 }
 export default styles

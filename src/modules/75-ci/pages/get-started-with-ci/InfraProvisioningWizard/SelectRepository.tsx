@@ -26,10 +26,11 @@ import {
   IconProps,
   IconName
 } from '@harness/uicore'
-import { ConnectorInfoDTO, useGetListOfAllReposByRefConnector, UserRepoResponse } from 'services/cd-ng'
+import { ConnectorInfoDTO, useGetListOfAllReposByRefConnector, UserRepoResponse, Error } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { ErrorHandler } from '@common/components/ErrorHandler/ErrorHandler'
 import { ACCOUNT_SCOPE_PREFIX, getFullRepoName } from './Constants'
 
 import css from './InfraProvisioningWizard.module.scss'
@@ -44,7 +45,6 @@ export type SelectRepositoryForwardRef =
   | null
 
 interface SelectRepositoryProps {
-  selectedRepository?: UserRepoResponse
   showError?: boolean
   validatedConnector?: ConnectorInfoDTO
   connectorsEligibleForPreSelection?: ConnectorInfoDTO[]
@@ -58,7 +58,6 @@ const SelectRepositoryRef = (
   forwardRef: SelectRepositoryForwardRef
 ): React.ReactElement => {
   const {
-    selectedRepository,
     showError,
     validatedConnector,
     disableNextBtn,
@@ -68,7 +67,7 @@ const SelectRepositoryRef = (
   } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const [repository, setRepository] = useState<UserRepoResponse | undefined>(selectedRepository)
+  const [repository, setRepository] = useState<UserRepoResponse | undefined>()
   const [query, setQuery] = useState<string>('')
   const [repositories, setRepositories] = useState<UserRepoResponse[]>()
   const [selectedConnectorOption, setSelectedConnectorOption] = useState<SelectOption>()
@@ -76,7 +75,8 @@ const SelectRepositoryRef = (
     data: repoData,
     loading: fetchingRepositories,
     refetch: fetchRepositories,
-    cancel: cancelRepositoriesFetch
+    cancel: cancelRepositoriesFetch,
+    error: errorWhileFetchingRepositories
   } = useGetListOfAllReposByRefConnector({
     queryParams: {
       accountIdentifier: accountId,
@@ -148,8 +148,10 @@ const SelectRepositoryRef = (
   }, [selectedConnectorOption, connectorsEligibleForPreSelection])
 
   useEffect(() => {
-    setRepositories(repoData?.data)
-  }, [repoData?.data])
+    if (!fetchingRepositories && !errorWhileFetchingRepositories) {
+      setRepositories(repoData?.data)
+    }
+  }, [fetchingRepositories, errorWhileFetchingRepositories, repoData?.data])
 
   const debouncedRepositorySearch = useCallback(
     debounce((queryText: string): void => {
@@ -165,12 +167,6 @@ const SelectRepositoryRef = (
       enableNextBtn()
     }
   }, [fetchingRepositories])
-
-  useEffect(() => {
-    if (selectedRepository) {
-      setRepository(selectedRepository)
-    }
-  }, [selectedRepository])
 
   useEffect(() => {
     if (query) {
@@ -204,16 +200,37 @@ const SelectRepositoryRef = (
           <Text font={{ variation: FontVariation.H6 }}>{getString('ci.getStartedWithCI.fetchingRepos')}</Text>
         </Layout.Horizontal>
       )
+    } else {
+      if (errorWhileFetchingRepositories) {
+        const { status: fetchRepoStatus, data: fetchRepoError } = errorWhileFetchingRepositories || {}
+        const errorMessages =
+          (fetchRepoError as Error)?.responseMessages || [
+            {
+              level: 'ERROR',
+              message: (fetchRepoError as any)?.error
+            }
+          ] ||
+          []
+        if (fetchRepoStatus !== 200 && errorMessages.length > 0) {
+          disableNextBtn()
+          return (
+            <Container padding={{ top: 'small' }}>
+              <ErrorHandler responseMessages={errorMessages} />
+            </Container>
+          )
+        }
+      } else if (repositories && Array.isArray(repositories)) {
+        return repositories.length > 0 ? (
+          <RepositorySelectionTable repositories={repositories} onRowClick={setRepository} />
+        ) : (
+          <Text flex={{ justifyContent: 'center' }} padding={{ top: 'medium' }}>
+            {getString('noSearchResultsFoundPeriod')}
+          </Text>
+        )
+      }
+      return <></>
     }
-    if (Array.isArray(repositories) && repositories.length > 0) {
-      return <RepositorySelectionTable repositories={repositories} onRowClick={setRepository} />
-    }
-    return (
-      <Text flex={{ justifyContent: 'center' }} padding={{ top: 'medium' }}>
-        {getString('noSearchResultsFoundPeriod')}
-      </Text>
-    )
-  }, [fetchingRepositories, repositories, repoData?.data, selectedConnectorOption])
+  }, [fetchingRepositories, repositories, selectedConnectorOption, errorWhileFetchingRepositories])
 
   const showValidationErrorForRepositoryNotSelected = useMemo((): boolean => {
     return (!fetchingRepositories && showError && !repository?.name) || false
