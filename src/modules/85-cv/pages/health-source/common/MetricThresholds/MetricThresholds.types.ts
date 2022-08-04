@@ -1,8 +1,15 @@
 import type { SelectOption, SelectProps } from '@harness/uicore'
+import type { MetricThreshold, MetricThresholdCriteria } from 'services/cv'
 import type {
   MetricThresholdType as AppDMetricThresholdType,
   MetricThresholdType
 } from '../../connectors/AppDynamics/AppDHealthSource.types'
+
+export type AvailableThresholdTypes = MetricThreshold['type']
+
+export type CriteriaThresholdValues = 'greaterThan' | 'lessThan'
+
+export type ThresholdsPropertyNames = 'ignoreThresholds' | 'failFastThresholds'
 
 export interface SelectItem {
   label: string
@@ -10,11 +17,11 @@ export interface SelectItem {
 }
 
 export interface ThresholdCriteriaPropsType {
-  criteriaType?: 'Absolute' | 'Percentage'
+  criteriaType?: MetricThresholdCriteria['type']
   index: number
-  thresholdTypeName: string
+  thresholdTypeName: ThresholdsPropertyNames
   replaceFn: (value: AppDMetricThresholdType) => void
-  criteriaPercentageType?: string
+  criteriaPercentageType?: CriteriaThresholdValues
 }
 
 export type ThresholdSelectProps = {
@@ -34,5 +41,3 @@ export interface ThresholdGroupType {
   placeholder: string
   replaceFn: (value: MetricThresholdType) => void
 }
-
-export type AvailableThresholdTypes = 'IgnoreThreshold' | 'FailImmediately'

@@ -31,7 +31,6 @@ export const CustomMetricDropdownOption: SelectItem = {
 
 export const NewDefaultVauesForIgnoreThreshold = {
   metricType: MetricTypeValues.Custom,
-  metricName: undefined,
   type: MetricThresholdTypes.IgnoreThreshold,
   spec: {
     action: IgnoreThresholdType
@@ -44,8 +43,6 @@ export const NewDefaultVauesForIgnoreThreshold = {
 
 export const NewDefaultVauesForFailFastThreshold = {
   metricType: MetricTypeValues.Custom,
-  groupName: undefined,
-  metricName: undefined,
   type: MetricThresholdTypes.FailImmediately,
   spec: {
     action: FailFastActionValues.FailImmediately,

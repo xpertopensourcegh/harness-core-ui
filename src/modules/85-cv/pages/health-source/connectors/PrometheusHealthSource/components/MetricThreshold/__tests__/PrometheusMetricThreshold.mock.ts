@@ -62,6 +62,46 @@ export const formikInitialValues = {
   recordCount: 1
 }
 
+export const formikInitialValuesCriteriaMock = {
+  ...formikInitialValues,
+  ignoreThresholds: [
+    {
+      metricType: 'Custom',
+      metricName: null,
+      type: 'IgnoreThreshold',
+      spec: {
+        action: 'Ignore'
+      },
+      criteria: {
+        type: 'Percentage',
+        spec: {
+          lessThan: 21
+        }
+      }
+    }
+  ]
+}
+
+export const formikInitialValuesCriteriaGreaterThanMock = {
+  ...formikInitialValues,
+  ignoreThresholds: [
+    {
+      metricType: 'Custom',
+      metricName: null,
+      type: 'IgnoreThreshold',
+      spec: {
+        action: 'Ignore'
+      },
+      criteria: {
+        type: 'Percentage',
+        spec: {
+          greaterThan: 21
+        }
+      }
+    }
+  ]
+}
+
 export const PrometheusThresholdProps = {
   formikValues: formikInitialValues,
   groupedCreatedMetrics: {

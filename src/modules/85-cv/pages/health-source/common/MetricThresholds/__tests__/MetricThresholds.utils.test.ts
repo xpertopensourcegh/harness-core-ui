@@ -5,6 +5,8 @@ import {
   getCriterialItems,
   getCriteriaPercentageDropdownOptions,
   getGroupDropdownOptions,
+  getIsShowGreaterThan,
+  getIsShowLessThan,
   isGroupTransationTextField,
   validateCommonFieldsForMetricThreshold
 } from '../MetricThresholds.utils'
@@ -287,5 +289,49 @@ describe('AppDIgnoreThresholdTabContent', () => {
     }
     validateCommonFieldsForMetricThreshold('failFastThresholds', errors, [testValue], key => key, true)
     expect(errors).toEqual({ 'failFastThresholds.0.spec.spec.count': 'cv.metricThresholds.validations.countValue' })
+  })
+
+  test('getIsShowGreaterThan function returns correct values', () => {
+    // Absolute criteria selected
+    let result = getIsShowGreaterThan('Absolute')
+
+    expect(result).toBe(true)
+
+    // Percentage criteria is selected and Greater than criteriaPercentageType is selected
+    result = getIsShowGreaterThan('Percentage', 'greaterThan')
+
+    expect(result).toBe(true)
+
+    // Percentage criteria is selected and API response has greaterThan value
+    result = getIsShowGreaterThan('Percentage', undefined, { greaterThan: 21, lessThan: undefined })
+
+    expect(result).toBe(true)
+
+    // False for less than selection it should be false
+    result = getIsShowGreaterThan('Percentage', 'lessThan', { greaterThan: undefined, lessThan: 4 })
+
+    expect(result).toBe(false)
+  })
+
+  test('getIsShowLessThan function returns correct values', () => {
+    // Absolute criteria selected
+    let result = getIsShowLessThan('Absolute')
+
+    expect(result).toBe(true)
+
+    // Percentage criteria is selected and Less than criteriaPercentageType is selected
+    result = getIsShowLessThan('Percentage', 'lessThan')
+
+    expect(result).toBe(true)
+
+    // Percentage criteria is selected and API response has lessThan value
+    result = getIsShowLessThan('Percentage', undefined, { greaterThan: undefined, lessThan: 21 })
+
+    expect(result).toBe(true)
+
+    // False for greaterThan selection it should be false
+    result = getIsShowLessThan('Percentage', 'greaterThan', { greaterThan: 44, lessThan: undefined })
+
+    expect(result).toBe(false)
   })
 })

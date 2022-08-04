@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Container, Text, Layout, Button, ButtonVariation, SelectOption } from '@harness/uicore'
+import { Container, Text, Layout, Button, ButtonVariation } from '@harness/uicore'
 import { Color } from '@harness/design-system'
 import { cloneDeep } from 'lodash-es'
 import { useFormikContext, FieldArray } from 'formik'
@@ -26,23 +26,6 @@ export default function PrometheusDIgnoreThresholdTabContent(): JSX.Element {
   const { values: formValues } = useFormikContext<AppDynamicsFomikFormInterface>()
 
   const { groupedCreatedMetrics, setMetricThresholds } = useContext(PrometheusMetricThresholdContext)
-
-  const handleMetricUpdate = (
-    index: number,
-    selectedValue: string,
-    replaceFn: (value: PrometheusMetricThresholdType) => void
-  ): void => {
-    const clonedIgnoreThreshold = [...formValues.ignoreThresholds]
-
-    const updatedIgnoreThreshold = { ...clonedIgnoreThreshold[index] }
-
-    updatedIgnoreThreshold.metricName = undefined
-    updatedIgnoreThreshold.metricType = selectedValue
-
-    clonedIgnoreThreshold[index] = updatedIgnoreThreshold
-
-    replaceFn(updatedIgnoreThreshold)
-  }
 
   useEffect(() => {
     setMetricThresholds((previousValues: MetricThresholdsState) => ({
@@ -94,9 +77,6 @@ export default function PrometheusDIgnoreThresholdTabContent(): JSX.Element {
                         disabled
                         key={`${data?.metricType}-${index}`}
                         name={`ignoreThresholds.${index}.${FieldName.METRIC_THRESHOLD_METRIC_TYPE}`}
-                        onChange={({ value }: SelectOption) => {
-                          handleMetricUpdate(index, value as string, props.replace.bind(null, index))
-                        }}
                       />
 
                       {/* ==== ⭐️ Metric ==== */}

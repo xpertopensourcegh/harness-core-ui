@@ -5,7 +5,7 @@ import { metricPacksMock } from './AppDThresholdSelectUtils.mock'
 describe('AppDIgnoreThresholdTabContent', () => {
   test('getMetricItems should return correct values', () => {
     const result = getMetricItems(metricPacksMock, 'Performance')
-    expect(result).toEqual([{ label: 'Performance test name', value: 'PerformanceID' }])
+    expect(result).toEqual([{ label: 'Performance test name', value: 'Performance test name' }])
   })
 
   test('getMetricItems should return correct values for custom type', () => {

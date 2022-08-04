@@ -1,4 +1,5 @@
 import type { UseStringsReturn } from 'framework/strings'
+import type { MetricThresholdCriteriaSpec } from 'services/cv'
 import type { MetricThresholdType } from '../../connectors/AppDynamics/AppDHealthSource.types'
 import type { GroupedCreatedMetrics } from '../CustomMetric/CustomMetric.types'
 import {
@@ -10,7 +11,7 @@ import {
   MetricTypesForTransactionTextField,
   PercentageCriteriaDropdownValues
 } from './MetricThresholds.constants'
-import type { SelectItem } from './MetricThresholds.types'
+import type { CriteriaThresholdValues, SelectItem, ThresholdCriteriaPropsType } from './MetricThresholds.types'
 
 export const getCriterialItems = (getString: UseStringsReturn['getString']): SelectItem[] => {
   return [
@@ -73,6 +74,97 @@ export function getGroupDropdownOptions(groupedCreatedMetrics: GroupedCreatedMet
   }))
 }
 
+function isPercentageSelectedAndAPIHasGreaterThanValue(
+  isAbsoluteSelected: boolean,
+  criteriaSpecValues: MetricThresholdCriteriaSpec | undefined
+): boolean {
+  return (
+    !isAbsoluteSelected &&
+    typeof criteriaSpecValues?.greaterThan !== 'undefined' &&
+    criteriaSpecValues?.greaterThan !== null
+  )
+}
+
+function isPercentageSelectedAndAPIHasLessThanValue(
+  isAbsoluteSelected: boolean,
+  criteriaSpecValues: MetricThresholdCriteriaSpec | undefined
+): boolean {
+  return (
+    !isAbsoluteSelected && typeof criteriaSpecValues?.lessThan !== 'undefined' && criteriaSpecValues?.lessThan !== null
+  )
+}
+
+/**
+ * A flag to show Greater than input or to hide it
+ *
+ * Conditions to show Greater than
+ *
+ * 1. Absolute criteria selected
+ * 2. Percentage criteria is selected and Greater than criteriaPercentageType is selected
+ * 3. Percentage criteria is selected and API response has greaterThan value
+ *
+ *
+ */
+export function getIsShowGreaterThan(
+  criteriaType: ThresholdCriteriaPropsType['criteriaType'],
+  criteriaPercentageType?: CriteriaThresholdValues,
+  criteriaSpecValues?: MetricThresholdCriteriaSpec
+): boolean {
+  const isAbsoluteSelected = criteriaType === MetricCriteriaValues.Absolute
+
+  // Absolute criteria selected
+  if (isAbsoluteSelected) {
+    return true
+  }
+
+  const isGreaterThanSelected = criteriaPercentageType === PercentageCriteriaDropdownValues.GreaterThan
+
+  // Percentage criteria is selected and Greater than criteriaPercentageType is selected
+  if (!isAbsoluteSelected && isGreaterThanSelected) {
+    return true
+  }
+
+  if (isPercentageSelectedAndAPIHasGreaterThanValue(isAbsoluteSelected, criteriaSpecValues)) {
+    return true
+  }
+
+  return false
+}
+
+/**
+ * A flag to show Less than input or to hide it
+ *
+ * 1. Absolute criteria selected
+ * 2. Percentage criteria is selected and Less than criteriaPercentageType is selected
+ * 3. Percentage criteria is selected and API response has lessThan value
+ *
+ */
+export function getIsShowLessThan(
+  criteriaType: ThresholdCriteriaPropsType['criteriaType'],
+  criteriaPercentageType?: CriteriaThresholdValues,
+  criteriaSpecValues?: MetricThresholdCriteriaSpec
+): boolean {
+  const isAbsoluteSelected = criteriaType === MetricCriteriaValues.Absolute
+
+  // Absolute criteria selected
+  if (isAbsoluteSelected) {
+    return true
+  }
+
+  const isLessThanSelected = criteriaPercentageType === PercentageCriteriaDropdownValues.LessThan
+
+  // Percentage criteria is selected and Less than criteriaPercentageType is selected
+  if (!isAbsoluteSelected && isLessThanSelected) {
+    return true
+  }
+
+  if (isPercentageSelectedAndAPIHasLessThanValue(isAbsoluteSelected, criteriaSpecValues)) {
+    return true
+  }
+
+  return false
+}
+
 /**
  *  Common validation for thresholds
  *
@@ -107,6 +199,7 @@ export function validateCommonFieldsForMetricThreshold(
       errors[`${thresholdName}.${index}.criteria.type`] = getString('cv.metricThresholds.validations.criteria')
     }
 
+    // For absolute type, greaterThan or lessThan any one of the field is mandatory.
     if (
       value.criteria?.type === MetricCriteriaValues.Absolute &&
       !value.criteria?.spec?.greaterThan &&
@@ -116,8 +209,11 @@ export function validateCommonFieldsForMetricThreshold(
       errors[`${thresholdName}.${index}.criteria.spec.lessThan`] = getString('cv.required')
     }
 
+    // If both the fields are filled, then less than value must be bigger than greater than value
     if (
       value.criteria?.type === MetricCriteriaValues.Absolute &&
+      (value.criteria?.spec?.lessThan as number) >= 1 &&
+      (value.criteria?.spec?.greaterThan as number) >= 1 &&
       (value.criteria?.spec?.lessThan as number) <= (value.criteria?.spec?.greaterThan as number)
     ) {
       errors[`${thresholdName}.${index}.criteria.spec.lessThan`] = getString(
@@ -131,7 +227,7 @@ export function validateCommonFieldsForMetricThreshold(
     if (
       value.criteria?.type === MetricCriteriaValues.Percentage &&
       value?.criteria?.spec &&
-      !value?.criteria?.spec[value?.criteria?.criteriaPercentageType as 'greaterThan' | 'lessThan']
+      !value?.criteria?.spec[value?.criteria?.criteriaPercentageType as CriteriaThresholdValues]
     ) {
       errors[`${thresholdName}.${index}.criteria.spec.${value.criteria.criteriaPercentageType}`] =
         getString('cv.required')

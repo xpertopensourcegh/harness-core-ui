@@ -1,4 +1,8 @@
-import type { AvailableThresholdTypes } from './MetricThresholds.types'
+import type {
+  AvailableThresholdTypes,
+  CriteriaThresholdValues,
+  ThresholdsPropertyNames
+} from './MetricThresholds.types'
 
 interface SelectItem {
   label: string
@@ -30,12 +34,12 @@ export const MetricThresholdTypes: Record<string, AvailableThresholdTypes> = {
   FailImmediately: 'FailImmediately'
 }
 
-export const MetricThresholdPropertyName: Record<string, 'ignoreThresholds' | 'failFastThresholds'> = {
+export const MetricThresholdPropertyName: Record<string, ThresholdsPropertyNames> = {
   IgnoreThreshold: 'ignoreThresholds',
   FailFastThresholds: 'failFastThresholds'
 }
 
-export const PercentageCriteriaDropdownValues = {
+export const PercentageCriteriaDropdownValues: Record<string, CriteriaThresholdValues> = {
   GreaterThan: 'greaterThan',
   LessThan: 'lessThan'
 }

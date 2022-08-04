@@ -47,6 +47,7 @@ export default function PrometheusFailFastThresholdTabContent(): JSX.Element {
 
     const updatedFailFastThresholds = { ...clonedFailFastThresholds[index] }
 
+    /* istanbul ignore next */
     if (typeof updatedFailFastThresholds.spec.spec === 'undefined') {
       updatedFailFastThresholds.spec.spec = {}
     }

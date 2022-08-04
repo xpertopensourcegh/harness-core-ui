@@ -15,6 +15,7 @@ import type {
   TimeSeriesMetricPackDTO
 } from 'services/cv'
 import type { CustomMappedMetric, CustomSelectedAndMappedMetrics } from '../../common/CustomMetric/CustomMetric.types'
+import type { CriteriaThresholdValues } from '../../common/MetricThresholds/MetricThresholds.types'
 import type { HealthSourceTypes } from '../../types'
 import type { BasePathData } from './Components/BasePath/BasePath.types'
 import type { MetricPathData } from './Components/MetricPath/MetricPath.types'
@@ -57,7 +58,7 @@ export interface AppDynamicsData {
 }
 
 interface CriteriaPercentageType {
-  criteriaPercentageType?: string
+  criteriaPercentageType?: CriteriaThresholdValues
 }
 
 export type MetricThresholdType = MetricThreshold & {

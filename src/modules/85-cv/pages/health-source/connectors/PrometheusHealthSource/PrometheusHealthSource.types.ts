@@ -1,7 +1,8 @@
 import type { FailMetricThresholdSpec, MetricThreshold, MetricThresholdSpec } from 'services/cv'
+import type { CriteriaThresholdValues } from '../../common/MetricThresholds/MetricThresholds.types'
 
 interface CriteriaPercentageType {
-  criteriaPercentageType?: string
+  criteriaPercentageType?: CriteriaThresholdValues
 }
 
 export type PrometheusMetricThresholdType = Omit<MetricThreshold, 'groupName'> & {

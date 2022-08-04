@@ -119,7 +119,6 @@ export default function AppDIgnoreThresholdTabContent(): JSX.Element {
                       <ErrorMessage name={`ignoreThresholds.${index}.${FieldName.METRIC_THRESHOLD_METRIC_TYPE}`} />
 
                       {/* ==== ⭐️ Group ==== */}
-
                       <ThresholdGroup
                         placeholder={getString('cv.monitoringSources.appD.groupTransaction')}
                         index={index}

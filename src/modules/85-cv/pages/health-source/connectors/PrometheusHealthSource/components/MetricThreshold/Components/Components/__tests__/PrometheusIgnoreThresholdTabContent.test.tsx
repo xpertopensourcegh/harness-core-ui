@@ -4,15 +4,17 @@ import { Formik, FormikForm } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   PrometheusThresholdProps as MockContextValues,
-  formikInitialValues
+  formikInitialValues,
+  formikInitialValuesCriteriaMock,
+  formikInitialValuesCriteriaGreaterThanMock
 } from '../../../__tests__/PrometheusMetricThreshold.mock'
 import PrometheusIgnoreThresholdTabContent from '../PrometheusIgnoreThresholdTabContent'
 import { PrometheusMetricThresholdContext } from '../../../PrometheusMetricThresholdConstants'
 
-const WrappingComponent = () => {
+const WrappingComponent = ({ formValues }: { formValues?: any }) => {
   return (
     <TestWrapper>
-      <Formik initialValues={formikInitialValues} onSubmit={jest.fn()} formName="appDHealthSourceform">
+      <Formik initialValues={formValues || formikInitialValues} onSubmit={jest.fn()} formName="appDHealthSourceform">
         <FormikForm>
           {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
           {/* @ts-ignore */}
@@ -126,5 +128,37 @@ describe('PrometheusIgnoreThresholdTabContent', () => {
     })
 
     expect(screen.getAllByTestId('ThresholdRow')).toHaveLength(1)
+  })
+
+  test('should check whether criteria section works correctly', () => {
+    const { container } = render(<WrappingComponent formValues={formikInitialValuesCriteriaMock} />)
+
+    const lessThanInput = container.querySelector('input[name="ignoreThresholds.0.criteria.spec.lessThan"]')
+    const greaterThanInput = container.querySelector('input[name="ignoreThresholds.0.criteria.spec.greaterThan"]')
+    const criteriaPercentageType = container.querySelector(
+      'input[name="ignoreThresholds.0.criteria.criteriaPercentageType"]'
+    )
+
+    expect(lessThanInput).toBeInTheDocument()
+    expect(lessThanInput).toHaveValue(21)
+    expect(criteriaPercentageType).toHaveValue('cv.monitoringSources.appD.lesserThan')
+    expect(greaterThanInput).toBeNull()
+  })
+
+  test('should check whether criteria section works correctly for greaterThan', () => {
+    const { container } = render(<WrappingComponent formValues={formikInitialValuesCriteriaGreaterThanMock} />)
+
+    const lessThanInput = container.querySelector('input[name="ignoreThresholds.0.criteria.spec.lessThan"]')
+    const greaterThanInput = container.querySelector('input[name="ignoreThresholds.0.criteria.spec.greaterThan"]')
+    const criteriaPercentageType = container.querySelector(
+      'input[name="ignoreThresholds.0.criteria.criteriaPercentageType"]'
+    )
+
+    screen.debug(container, 30000)
+
+    expect(greaterThanInput).toBeInTheDocument()
+    expect(greaterThanInput).toHaveValue(21)
+    expect(criteriaPercentageType).toHaveValue('cv.monitoringSources.appD.greaterThan')
+    expect(lessThanInput).toBeNull()
   })
 })

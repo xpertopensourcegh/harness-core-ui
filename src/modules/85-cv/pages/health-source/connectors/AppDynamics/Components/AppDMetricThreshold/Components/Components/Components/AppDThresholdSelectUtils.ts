@@ -69,7 +69,7 @@ export function getMetricItems(
 
   return (
     selectedMetricPackDetails?.metrics?.map(metric => {
-      return { label: metric.name as string, value: metric.metricIdentifier as string }
+      return { label: metric.name as string, value: metric.name as string }
     }) || []
   )
 }
