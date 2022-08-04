@@ -46,7 +46,7 @@ import {
   DefaultNewStageName,
   DefaultNewStageId,
   ServicePipelineConfig
-} from '../Services/utils/ServiceUtils'
+} from '../components/Services/utils/ServiceUtils'
 
 interface FetchServiceBoundProps {
   dispatch: React.Dispatch<ActionReturnType>

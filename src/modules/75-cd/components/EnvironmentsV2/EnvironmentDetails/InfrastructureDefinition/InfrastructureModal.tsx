@@ -35,6 +35,7 @@ import {
   InfrastructureDefinitionConfig,
   InfrastructureRequestDTORequestBody,
   InfrastructureResponseDTO,
+  ServiceDefinition,
   useCreateInfrastructure,
   useGetYamlSchema,
   useUpdateInfrastructure
@@ -60,11 +61,10 @@ import { DefaultNewStageId, DefaultNewStageName } from '@cd/components/Services/
 import { getInfrastructureDefinitionValidationSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import { InfrastructurePipelineProvider } from '@cd/context/InfrastructurePipelineContext'
-
+import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-
 import css from './InfrastructureDefinition.module.scss'
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -91,7 +91,7 @@ export default function InfrastructureModal({
   refetch: any
   selectedInfrastructure?: string
   environmentIdentifier: string
-}) {
+}): React.ReactElement {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
   const infrastructureDefinition = useMemo(() => {
@@ -140,12 +140,14 @@ export default function InfrastructureModal({
       initialValue={pipeline as PipelineInfoConfig}
       isReadOnly={false}
     >
-      <BootstrapDeployInfraDefinition
-        hideModal={hideModal}
-        refetch={refetch}
-        infrastructureDefinition={infrastructureDefinition}
-        environmentIdentifier={environmentIdentifier}
-      />
+      <PipelineVariablesContextProvider pipeline={pipeline}>
+        <BootstrapDeployInfraDefinition
+          hideModal={hideModal}
+          refetch={refetch}
+          infrastructureDefinition={infrastructureDefinition}
+          environmentIdentifier={environmentIdentifier}
+        />
+      </PipelineVariablesContextProvider>
     </InfrastructurePipelineProvider>
   )
 }
@@ -187,6 +189,7 @@ function BootstrapDeployInfraDefinition({
     setSelection({
       stageId: 'stage_id'
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { data: environmentSchema } = useGetYamlSchema({
@@ -326,6 +329,7 @@ function BootstrapDeployInfraDefinition({
         updateStage(stageData?.stage as StageElementConfig)
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [stage, updateStage]
   )
 
@@ -349,7 +353,10 @@ function BootstrapDeployInfraDefinition({
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('fieldRequired', { field: 'Name' }) }),
         identifier: IdentifierSchema(),
-        spec: getInfrastructureDefinitionValidationSchema(selectedDeploymentType as any, getString)
+        spec: getInfrastructureDefinitionValidationSchema(
+          selectedDeploymentType as ServiceDefinition['type'],
+          getString
+        )
       })}
     >
       {formikProps => {
