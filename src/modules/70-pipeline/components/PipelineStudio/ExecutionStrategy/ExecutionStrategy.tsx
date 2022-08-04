@@ -138,8 +138,7 @@ function ExecutionStrategyRef(
         setSelectedStrategy(ExecutionType.CANARY)
         break
     }
-    refetchStrategyYaml?.()
-  }, [serviceDefinitionType])
+  }, [])
 
   const infoByType: { [key: string]: string } = {
     BlueGreen: getString('pipeline.executionStrategy.strategies.blueGreen.description'),
