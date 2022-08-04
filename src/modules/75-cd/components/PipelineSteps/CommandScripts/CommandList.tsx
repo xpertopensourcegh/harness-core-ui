@@ -116,6 +116,7 @@ export function CommandList(props: CommandListProps): React.ReactElement {
                                       updateIndex: i
                                     })
                                   }}
+                                  data-testid={`edit-command-unit-${i}`}
                                 ></Button>
                               </Layout.Horizontal>
                               <Button
@@ -123,6 +124,7 @@ export function CommandList(props: CommandListProps): React.ReactElement {
                                 disabled={readonly}
                                 onClick={() => arrayHelpers.remove(i)}
                                 variation={ButtonVariation.ICON}
+                                data-testid={`delete-command-unit-${i}`}
                               ></Button>
                             </Layout.Horizontal>
                           )}

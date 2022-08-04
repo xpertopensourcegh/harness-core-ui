@@ -40,7 +40,7 @@ export interface CustomScriptCommandUnit extends StepCommandUnit {
 // Overall Command Unit Type
 export type CommandUnitType = CopyCommandUnit | CustomScriptCommandUnit
 
-interface CustomCommandUnitWrapper {
+export interface CustomCommandUnitWrapper {
   commandUnit: CommandUnitType
 }
 
