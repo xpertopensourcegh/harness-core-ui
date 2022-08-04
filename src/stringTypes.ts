@@ -2245,12 +2245,17 @@ export interface StringsMap {
   'connectors.pagerDutyConnectorDetails': string
   'connectors.parameters': string
   'connectors.pdc.editHosts': string
+  'connectors.pdc.errorParsingJsonFile': string
   'connectors.pdc.errorUploading': string
   'connectors.pdc.hosts': string
+  'connectors.pdc.hostsJson': string
   'connectors.pdc.hostsRule': string
   'connectors.pdc.hostsUpload1': string
   'connectors.pdc.hostsUpload2': string
+  'connectors.pdc.manuallyHosts': string
+  'connectors.pdc.selectLabel': string
   'connectors.pdc.testConnection.step1': string
+  'connectors.pdc.uploadJson': string
   'connectors.placeholder.harnessImageConnectorRef': string
   'connectors.policyEvaluations.failedToSave': string
   'connectors.policyEvaluations.warning': string
