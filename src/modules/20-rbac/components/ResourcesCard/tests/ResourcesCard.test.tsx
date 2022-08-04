@@ -28,7 +28,7 @@ describe('Resource Card', () => {
           resourceType={ResourceType.ENVIRONMENT}
           resourceValues={{ attributeName: 'test', attributeValues: ['testVal'] }}
           onResourceSelectionChange={jest.fn()}
-          disableSelection={false}
+          disableSpecificResourcesSelection={false}
         />
       </TestWrapper>
     )
@@ -46,7 +46,7 @@ describe('Resource Card', () => {
           resourceType={ResourceType.ENVIRONMENT}
           resourceValues={{ attributeName: 'test', attributeValues: ['testVal'] }}
           onResourceSelectionChange={jest.fn()}
-          disableSelection={false}
+          disableSpecificResourcesSelection={false}
         />
       </TestWrapper>
     )
