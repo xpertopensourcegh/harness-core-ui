@@ -367,6 +367,7 @@ manifestTypeLabels:
   ServerlessGCP: Serverless GCP Manifest
   AwsSAM: AWS SAM Manifest
   AzureFunctions: Azure Functions Manifest
+  ReleaseRepo: Release Repo Manifest
 manifestToConnectorLabelMap:
   AWSLabel: '{{ $.common.aws }}'
 failureStrategies:

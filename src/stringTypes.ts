@@ -3337,6 +3337,7 @@ export interface StringsMap {
   'pipeline.manifestTypeLabels.KustomizePatches': string
   'pipeline.manifestTypeLabels.OpenshiftParam': string
   'pipeline.manifestTypeLabels.OpenshiftTemplate': string
+  'pipeline.manifestTypeLabels.ReleaseRepo': string
   'pipeline.manifestTypeLabels.ServerlessAwsLambda': string
   'pipeline.manifestTypeLabels.ServerlessAzure': string
   'pipeline.manifestTypeLabels.ServerlessGCP': string
