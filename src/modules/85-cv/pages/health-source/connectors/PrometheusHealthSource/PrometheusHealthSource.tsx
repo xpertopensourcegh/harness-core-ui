@@ -170,7 +170,6 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
             [PrometheusMonitoringSourceFieldNames.METRIC_NAME]: true
           })
         }
-
         return (
           <FormikForm>
             <CustomMetric

@@ -355,7 +355,7 @@ export function transformPrometheusHealthSourceToSetupSource(
           getString('cv.monitoringSources.prometheus.prometheusMetric'),
           {
             metricName: getString('cv.monitoringSources.prometheus.prometheusMetric'),
-            isManualQuery: false,
+            isManualQuery: Boolean(isTemplate),
             query: isConnectorRuntimeOrExpression ? RUNTIME_INPUT_VALUE : '',
             identifier: 'prometheus_metric'
           }

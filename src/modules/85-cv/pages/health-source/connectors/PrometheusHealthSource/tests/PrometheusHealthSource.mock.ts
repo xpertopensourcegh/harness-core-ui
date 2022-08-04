@@ -162,6 +162,79 @@ export const MockManualQueryDataForIdentifierCheck = {
   ]
 }
 
+export const templateCreationData = {
+  connectorRef: '<+input>',
+  isEdit: false,
+  healthSourceList: [],
+  serviceRef: '<+input>',
+  environmentRef: '<+input>',
+  monitoredServiceRef: { name: 'MS_Prometheus', identifier: 'MS_Prometheus' },
+  existingMetricDetails: null,
+  product: { label: 'apm', value: 'Prometheus' },
+  sourceType: 'Prometheus',
+  healthSourceName: 'Test',
+  healthSourceIdentifier: 'Test',
+  connectorId: '<+input>'
+}
+
+export const fixedMetricDetail = {
+  type: 'Prometheus',
+  identifier: 'testtempprom',
+  name: 'testtempprom',
+  spec: {
+    connectorRef: 'prometheusConn',
+    feature: 'apm',
+    metricDefinitions: [
+      {
+        metricName: 'Prometheus Metric',
+        identifier: 'prometheus_metric',
+        serviceFilter: [],
+        isManualQuery: true,
+        query: 'test query',
+        envFilter: [],
+        additionalFilters: [],
+        groupName: 'g1',
+        sli: {
+          enabled: true
+        },
+        analysis: {
+          riskProfile: {
+            category: 'Performance',
+            metricType: 'ERROR',
+            thresholdTypes: ['ACT_WHEN_HIGHER']
+          },
+          liveMonitoring: {
+            enabled: true
+          },
+          deploymentVerification: {
+            enabled: true,
+            serviceInstanceFieldName: '<+input>'
+          }
+        }
+      }
+    ]
+  }
+}
+
+export const fixedValuesTemplate = {
+  connectorRef: '<+input>',
+  isEdit: true,
+  healthSourceList: [fixedMetricDetail],
+  serviceRef: '<+input>',
+  environmentRef: '<+input>',
+  monitoredServiceRef: {
+    name: 'MS_Prometheus',
+    identifier: 'MS_Prometheus'
+  },
+  existingMetricDetails: fixedMetricDetail,
+  healthSourceName: 'testtempprom',
+  healthSourceIdentifier: 'testtempprom',
+  sourceType: 'Prometheus',
+  product: {
+    label: 'apm',
+    value: 'Prometheus'
+  }
+}
 export const manualQueryMock = {
   connectorRef: 'prometheusConnector',
   healthSourceIdentifier: 'prometheus',

@@ -1561,6 +1561,42 @@ export const onSubmitPayloadTemplate = {
   type: 'AppDynamics'
 }
 
+export const defaultTemplateData = {
+  name: 'appdtemplate',
+  identifier: 'appdtemplate',
+  connectorRef: '<+input>',
+  isEdit: false,
+  product: { value: 'Application Monitoring', label: 'Application Monitoring' },
+  type: 'AppDynamics',
+  applicationName: '',
+  tierName: '',
+  mappedServicesAndEnvs: {}
+}
+export const defaultPayload = {
+  appDTier: 'manager',
+  appdApplication: 'cv-app',
+  completeMetricPath: '',
+  connectorRef: 'appdconnector',
+  fullPath: '',
+  identifier: 'appdtemplate',
+  isEdit: false,
+  metricData: {
+    Errors: true,
+    Performance: true
+  },
+  mappedServicesAndEnvs: new Map(),
+  metricIdentifier: 'cv.monitoringSources.appD.defaultAppDMetricName',
+  metricName: 'cv.monitoringSources.appD.defaultAppDMetricName',
+  metricPacks: undefined,
+  name: 'appdtemplate',
+  pathType: 'fullPath',
+  product: {
+    label: 'Application Monitoring',
+    value: 'Application Monitoring'
+  },
+  showCustomMetric: false,
+  type: 'AppDynamics'
+}
 export const appDynamicsDataFull = {
   name: 'appd',
   identifier: 'appd',

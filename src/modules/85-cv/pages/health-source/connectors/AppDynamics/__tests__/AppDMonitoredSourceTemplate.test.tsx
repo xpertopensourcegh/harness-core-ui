@@ -22,7 +22,9 @@ import {
   templateSourceData,
   onPreviousPayloadTemplate,
   onSubmitPayloadTemplate,
-  templateSourceDataWithCustomMetric
+  templateSourceDataWithCustomMetric,
+  defaultTemplateData,
+  defaultPayload
 } from './AppDMonitoredSource.mock'
 import AppDMonitoredSource from '../AppDHealthSource'
 
@@ -141,7 +143,59 @@ describe('Unit tests for createAppd monitoring source', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should render in create mode', () => {
+  test('should render when connector is runtime', () => {
+    const onSubmit = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <AppDMonitoredSource
+          data={{ ...defaultTemplateData } as any}
+          onSubmit={onSubmit}
+          onPrevious={jest.fn()}
+          isTemplate={true}
+          expressions={[]}
+        />
+      </TestWrapper>
+    )
+    // for runtime connector app and tier are runtime
+    expect(container.querySelector('input[name="appDTier"]')).toHaveValue('<+input>')
+    expect(container.querySelector('input[name="appdApplication"]')).toHaveValue('<+input>')
+    act(() => {
+      fireEvent.click(getByText('submit'))
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render in  when connector is fixed', () => {
+    const onSubmit = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <AppDMonitoredSource
+          data={
+            {
+              ...defaultTemplateData,
+              connectorRef: 'appdconnector',
+              applicationName: 'cv-app',
+              tierName: 'manager'
+            } as any
+          }
+          onSubmit={onSubmit}
+          onPrevious={jest.fn()}
+          isTemplate={true}
+          expressions={[]}
+        />
+      </TestWrapper>
+    )
+    // for fixed connector app and tier are fixed
+    expect(container.querySelector('input[value="manager"]')).toHaveValue('manager')
+    expect(container.querySelector('input[value="cv-app"]')).toHaveValue('cv-app')
+    act(() => {
+      fireEvent.click(getByText('submit'))
+    })
+    expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining(defaultPayload))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render in  when connector is fixed', () => {
     const { container } = render(
       <TestWrapper>
         <AppDMonitoredSource
@@ -149,12 +203,12 @@ describe('Unit tests for createAppd monitoring source', () => {
             {
               name: 'appdtemplate',
               identifier: 'appdtemplate',
-              connectorRef: '<+input>',
+              connectorRef: 'appdconnector',
               isEdit: false,
               product: { value: 'Application Monitoring', label: 'Application Monitoring' },
               type: 'AppDynamics',
-              applicationName: '',
-              tierName: '',
+              applicationName: 'cv-app',
+              tierName: 'manager',
               mappedServicesAndEnvs: {}
             } as any
           }
@@ -165,9 +219,9 @@ describe('Unit tests for createAppd monitoring source', () => {
         />
       </TestWrapper>
     )
-    // for runtime connector app and tier are runtime
-    expect(container.querySelector('input[name="appDTier"]')).toHaveValue('<+input>')
-    expect(container.querySelector('input[name="appdApplication"]')).toHaveValue('<+input>')
+    // for fixed connector app and tier are fixed
+    expect(container.querySelector('input[value="manager"]')).toHaveValue('manager')
+    expect(container.querySelector('input[value="cv-app"]')).toHaveValue('cv-app')
     expect(container).toMatchSnapshot()
   })
 })

@@ -10,25 +10,15 @@ import { Container } from '@wings-software/uicore'
 import { fireEvent, render, waitFor, act } from '@testing-library/react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
+import { setFieldValue, InputTypes } from '@common/utils/JestFormHelper'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { PrometheusHealthSource, PrometheusHealthSourceProps } from '../PrometheusHealthSource'
-import { PrometheusMonitoringSourceFieldNames } from '../PrometheusHealthSource.constants'
-import { MockTemplateQueryData, submitTemplateData } from './PrometheusHealthSource.mock'
-
-jest.mock('../components/PrometheusQueryViewer/PrometheusQueryViewer', () => ({
-  PrometheusQueryViewer: function MockComponent(props: any) {
-    return (
-      <Container>
-        <button
-          className="manualQuery"
-          onClick={() => {
-            props.onChange(PrometheusMonitoringSourceFieldNames.IS_MANUAL_QUERY, true)
-          }}
-        />
-      </Container>
-    )
-  }
-}))
+import {
+  fixedValuesTemplate,
+  MockTemplateQueryData,
+  submitTemplateData,
+  templateCreationData
+} from './PrometheusHealthSource.mock'
 
 jest.mock('../components/PrometheusQueryBuilder/PrometheusQueryBuilder', () => ({
   PrometheusQueryBuilder: function MockComponent() {
@@ -79,7 +69,7 @@ describe('Unit tests for PrometheusHealthSource', () => {
     jest.clearAllMocks()
   })
 
-  test('Load in editmode for template', async () => {
+  test('Load in editmode for template with runtime values', async () => {
     const onSubmitMock = jest.fn()
     const { container, getByText } = render(<WrapperComponent data={MockTemplateQueryData} onSubmit={onSubmitMock} />)
 
@@ -91,5 +81,48 @@ describe('Unit tests for PrometheusHealthSource', () => {
     })
     expect(container).toMatchSnapshot()
     await waitFor(() => expect(onSubmitMock).toHaveBeenLastCalledWith(submitTemplateData[0], submitTemplateData[1]))
+  })
+
+  test('load in edit case with fixed values', async () => {
+    const onSubmit = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <PrometheusHealthSource isTemplate data={fixedValuesTemplate} onSubmit={onSubmit} />
+      </TestWrapper>
+    )
+
+    expect(container.querySelector('textarea[name="query"]')).toHaveValue('test query')
+
+    // swicthing query updates records view
+    // change one value to fixed
+    const fixedInputIcon = container.querySelector('div[data-id="query-2"] span[data-icon="fixed-input"]')
+    fireEvent.click(fixedInputIcon!)
+    const runtimeBtn = await getByText('Runtime input')
+    expect(runtimeBtn).toBeInTheDocument()
+    fireEvent.click(runtimeBtn)
+    expect(getByText('cv.customHealthSource.chartRuntimeWarning')).toBeInTheDocument()
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render in create mode', async () => {
+    const onSubmit = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <PrometheusHealthSource isTemplate data={templateCreationData} onSubmit={onSubmit} />
+      </TestWrapper>
+    )
+    // query is runtime by default
+    expect(container.querySelector('input[name="query"]')).toHaveValue('<+input>')
+    expect(getByText('cv.customHealthSource.chartRuntimeWarning')).toBeInTheDocument()
+
+    setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'groupName', value: 'group 1' })
+    fireEvent.click(getByText('cv.monitoringSources.assign'))
+    setFieldValue({ container, type: InputTypes.CHECKBOX, fieldId: 'sli', value: true })
+    act(() => {
+      fireEvent.click(getByText('submit'))
+    })
+    expect(onSubmit).toHaveBeenCalled()
+    expect(container).toMatchSnapshot()
   })
 })
