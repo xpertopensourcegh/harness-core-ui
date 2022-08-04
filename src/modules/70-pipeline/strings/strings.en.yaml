@@ -1245,3 +1245,4 @@ startupCommand:
   plainText: 'Plain Text'
 triggerInfo: 'Trigger Info'
 draft: 'Draft'
+duplicateStepIdentifiers: 'Duplicate identifiers found: {{duplicateIdString}}'

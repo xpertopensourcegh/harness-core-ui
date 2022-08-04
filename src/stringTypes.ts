@@ -2941,6 +2941,7 @@ export interface StringsMap {
   'pipeline.depth': string
   'pipeline.discard': string
   'pipeline.draft': string
+  'pipeline.duplicateStepIdentifiers': string
   'pipeline.duration': string
   'pipeline.enableVerificationHelpText': string
   'pipeline.enableVerificationOptions': string
