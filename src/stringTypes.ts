@@ -5460,14 +5460,18 @@ export interface StringsMap {
   'cf.featureFlags.flagPipeline.drawerDescription': string
   'cf.featureFlags.flagPipeline.drawerTitle': string
   'cf.featureFlags.flagPipeline.envText': string
+  'cf.featureFlags.flagPipeline.flagState': string
   'cf.featureFlags.flagPipeline.noAvailablePipelines': string
   'cf.featureFlags.flagPipeline.noDataButtonText': string
   'cf.featureFlags.flagPipeline.noDataDescription': string
   'cf.featureFlags.flagPipeline.noDataMessage': string
   'cf.featureFlags.flagPipeline.noExecutionDescription': string
   'cf.featureFlags.flagPipeline.noExecutionMessage': string
+  'cf.featureFlags.flagPipeline.openExecution': string
   'cf.featureFlags.flagPipeline.saveSuccess': string
   'cf.featureFlags.flagPipeline.title': string
+  'cf.featureFlags.flagPipeline.to': string
+  'cf.featureFlags.flagPipeline.triggerDetails': string
   'cf.featureFlags.flagWillTurnOff': string
   'cf.featureFlags.flagWillTurnOn': string
   'cf.featureFlags.ifClause': string
