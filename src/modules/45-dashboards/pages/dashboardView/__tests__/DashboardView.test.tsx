@@ -6,11 +6,12 @@
  */
 
 import React from 'react'
-import { render, RenderResult, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { useDashboardsContext } from '@dashboards/pages/DashboardsContext'
+import { LookerEventType } from '@dashboards/constants/LookerEventType'
 import * as sharedService from 'services/custom-dashboards'
 import DashboardViewPage from '../DashboardView'
 
@@ -67,7 +68,7 @@ describe('DashboardView', () => {
   test('it should display loading message before dashboard request completes', async () => {
     renderComponent()
 
-    await waitFor(() => expect(screen.getByText('Loading, please wait...')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('common.loading')).toBeInTheDocument())
   })
 
   test('it should display Dashboard iframe when dashboard URL returned', async () => {
@@ -80,6 +81,22 @@ describe('DashboardView', () => {
     renderComponent()
 
     await waitFor(() => expect(screen.getByTestId(iframeId)).toBeInTheDocument())
+    expect(screen.getByText('Loading, please wait...')).toBeInTheDocument()
+
+    const lookerEvent: any = {
+      type: LookerEventType.DASHBOARD_LOADED
+    }
+    await act(async () => {
+      fireEvent(
+        window,
+        new MessageEvent<string>('message', {
+          data: JSON.stringify(lookerEvent),
+          origin: 'https://dashboards.harness.io'
+        })
+      )
+    })
+
+    expect(screen.queryByText('Loading, please wait...')).not.toBeInTheDocument()
   })
 
   test('it should display Dashboard not available when dashboard request returns no URL', async () => {

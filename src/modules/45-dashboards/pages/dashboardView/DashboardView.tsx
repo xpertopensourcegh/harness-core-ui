@@ -33,6 +33,7 @@ const DashboardViewPage: React.FC = () => {
   const { accountId, viewId, folderId } = useParams<AccountPathProps & { viewId: string; folderId: string }>()
   const [embedUrl, setEmbedUrl] = React.useState<string>()
   const [dashboardFilters, setDashboardFilters] = useQueryParamsState<string | undefined>('filters', undefined)
+  const [dashboardLoading, setDashboardLoading] = React.useState<boolean>(false)
   const history = useHistory()
 
   const signedQueryUrl: string = useMemo(() => {
@@ -47,6 +48,11 @@ const DashboardViewPage: React.FC = () => {
   } = useCreateSignedUrl({ queryParams: { accountId, dashboardId: viewId, src: signedQueryUrl } })
 
   const responseMessages = useMemo(() => (error?.data as ErrorResponse)?.responseMessages, [error])
+
+  const loadingMessage = useMemo(() => {
+    const message = getString('common.loading')
+    return loading ? message.replace('...', '.') : undefined
+  }, [getString, loading])
 
   const lookerDashboardFilterChangedEvent = React.useCallback(
     (eventData: DashboardFiltersChangedEvent): void => {
@@ -73,6 +79,9 @@ const DashboardViewPage: React.FC = () => {
         case LookerEventType.DASHBOARD_FILTERS_CHANGED:
           lookerDashboardFilterChangedEvent(lookerEvent as DashboardFiltersChangedEvent)
           break
+        case LookerEventType.DASHBOARD_LOADED:
+          setDashboardLoading(false)
+          break
       }
     },
     [lookerDashboardFilterChangedEvent, lookerPageChangedEvent]
@@ -81,7 +90,10 @@ const DashboardViewPage: React.FC = () => {
   React.useEffect(() => {
     const generateSignedUrl = async (): Promise<void> => {
       const { resource } = (await createSignedUrl()) || {}
-      setEmbedUrl(resource)
+      if (resource) {
+        setDashboardLoading(true)
+        setEmbedUrl(resource)
+      }
     }
 
     generateSignedUrl()
@@ -127,7 +139,8 @@ const DashboardViewPage: React.FC = () => {
   return (
     <Page.Body
       className={css.pageContainer}
-      loading={loading}
+      loading={loading || dashboardLoading}
+      loadingMessage={loadingMessage}
       error={responseMessages}
       noData={{
         when: () => embedUrl === undefined,
