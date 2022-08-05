@@ -8,7 +8,6 @@
 import { Container, PageSpinner } from '@wings-software/uicore'
 import React from 'react'
 import { matchPath, useLocation, useParams } from 'react-router-dom'
-import { HelpPanel, HelpPanelType } from '@harness/help-panel'
 import { Page } from '@common/exports'
 import { useMutateAsGet } from '@common/hooks'
 import { useModuleInfo } from '@common/hooks/useModuleInfo'
@@ -154,7 +153,6 @@ export function ExecutionList(props: ExecutionListProps): React.ReactElement {
           </ExecutionCompareProvider>
         </ExecutionListFilterContextProvider>
       </GitSyncStoreProvider>
-      <HelpPanel referenceId="ExecutionHistory" type={HelpPanelType.FLOATING_CONTAINER} />
     </>
   )
 }
