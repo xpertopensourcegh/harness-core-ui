@@ -50,9 +50,6 @@ export function CommandEdit(props: CommandEditProps): React.ReactElement {
         destinationPath: Yup.string().trim().required(getString('cd.steps.commands.validation.destinationPathRequired'))
       }),
       otherwise: Yup.object().shape({
-        workingDirectory: Yup.string()
-          .trim()
-          .required(getString('common.validation.fieldIsRequired', { name: getString('workingDirectory') })),
         shell: Yup.string()
           .trim()
           .required(getString('common.validation.fieldIsRequired', { name: getString('scriptType') })),

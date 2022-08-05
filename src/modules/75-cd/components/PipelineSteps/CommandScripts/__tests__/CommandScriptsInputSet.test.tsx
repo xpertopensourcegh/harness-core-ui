@@ -12,14 +12,16 @@ import { Formik, MultiTypeInputType } from '@harness/uicore'
 import { queryByNameAttribute, TestWrapper } from '@common/utils/testUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { CommandScriptsInputSet } from '../CommandScriptsInputSet'
-import type { CommandScriptsData, CommandScriptsFormData } from '../CommandScriptsTypes'
+import type { CommandScriptsData } from '../CommandScriptsTypes'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
-const template = {
+const template: CommandScriptsData = {
   identifier: 'commandstep',
+  name: 'commandstep',
   type: 'Command',
   spec: {
+    onDelegate: false,
     environmentVariables: [
       {
         name: 'iv',
@@ -29,25 +31,25 @@ const template = {
     ],
     commandUnits: [
       {
-        commandUnit: {
-          identifier: 'Copy_Cmd_Runtime',
-          type: 'Copy',
-          spec: {
-            destinationPath: '<+input>'
-          }
+        identifier: 'Copy_Cmd_Runtime',
+        name: 'Copy Cmd Runtime',
+        type: 'Copy',
+        spec: {
+          destinationPath: '<+input>',
+          sourceType: 'Artifact'
         }
       },
       {
-        commandUnit: {
-          identifier: 'Script_Cmd_Runtime',
-          type: 'Script',
-          spec: {
-            workingDirectory: '<+input>',
-            source: {
-              type: 'Inline',
-              spec: {
-                script: '<+input>'
-              }
+        identifier: 'Script_Cmd_Runtime',
+        name: 'Script Cmd Runtime',
+        type: 'Script',
+        spec: {
+          workingDirectory: '<+input>',
+          shell: 'Bash',
+          source: {
+            type: 'Inline',
+            spec: {
+              script: '<+input>'
             }
           }
         }
@@ -73,59 +75,59 @@ describe('test Command Scripts input set', () => {
         <Formik initialValues={{}} onSubmit={jest.fn()} formName="testForm">
           <CommandScriptsInputSet
             allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
-            initialValues={
-              {
-                identifier: 'commandstep',
-                type: 'Command',
-                spec: {
-                  environmentVariables: [
-                    {
-                      name: 'iv',
-                      type: 'String',
-                      value: '',
-                      id: '1f964a4f-a0bc-49b5-a8f2-9d23dde58b82'
+            initialValues={{
+              identifier: 'commandstep',
+              name: 'commandstep',
+              type: 'Command',
+              timeout: '',
+              spec: {
+                onDelegate: false,
+                commandUnits: [
+                  {
+                    identifier: 'Copy_Cmd_Runtime',
+                    name: 'Copy Cmd Runtime',
+                    type: 'Copy',
+                    spec: {
+                      destinationPath: '',
+                      sourceType: 'Artifact'
                     }
-                  ],
-                  commandUnits: [
-                    {
-                      commandUnit: {
-                        identifier: 'Copy_Cmd_Runtime',
-                        type: 'Copy',
+                  },
+                  {
+                    identifier: 'Script_Cmd_Runtime',
+                    name: 'Script Cmd Runtime',
+                    type: 'Script',
+                    spec: {
+                      workingDirectory: '',
+                      shell: 'Bash',
+                      source: {
+                        type: 'Inline',
                         spec: {
-                          destinationPath: ''
-                        }
-                      }
-                    },
-                    {
-                      commandUnit: {
-                        identifier: 'Script_Cmd_Runtime',
-                        type: 'Script',
-                        spec: {
-                          workingDirectory: '',
-                          source: {
-                            type: 'Inline',
-                            spec: {
-                              script: ''
-                            }
-                          }
+                          script: ''
                         }
                       }
                     }
-                  ],
-                  outputVariables: [
-                    {
-                      name: 'ov',
-                      type: 'String',
-                      value: '',
-                      id: 'b9b49383-2d63-4f58-b827-e1a96c97906d'
-                    }
-                  ]
-                },
-                timeout: ''
-              } as CommandScriptsFormData
-            }
+                  }
+                ],
+                environmentVariables: [
+                  {
+                    name: 'iv',
+                    type: 'String',
+                    value: '',
+                    id: '1f964a4f-a0bc-49b5-a8f2-9d23dde58b82'
+                  }
+                ],
+                outputVariables: [
+                  {
+                    name: 'ov',
+                    type: 'String',
+                    value: '',
+                    id: 'b9b49383-2d63-4f58-b827-e1a96c97906d'
+                  }
+                ]
+              }
+            }}
             inputSetData={{
-              template: template as CommandScriptsData,
+              template: template,
               readonly: false
             }}
             stepViewType={StepViewType.InputSet}
@@ -149,17 +151,13 @@ describe('test Command Scripts input set', () => {
   test('should render runtime inputs in commandUnits', async () => {
     const { container, getByText } = renderResult
 
-    template.spec.commandUnits.forEach(commandUnit => {
-      expect(getByText(commandUnit.commandUnit.identifier)).toBeInTheDocument()
+    template.spec.commandUnits?.forEach(commandUnit => {
+      expect(getByText(commandUnit.name)).toBeInTheDocument()
     })
 
-    expect(queryByNameAttribute('spec.commandUnits[0].commandUnit.spec.destinationPath', container)).toBeInTheDocument()
-    expect(
-      queryByNameAttribute('spec.commandUnits[1].commandUnit.spec.workingDirectory', container)
-    ).toBeInTheDocument()
-    expect(
-      queryByNameAttribute('spec.commandUnits[1].commandUnit.spec.source.spec.script', container)
-    ).toBeInTheDocument()
+    expect(queryByNameAttribute('spec.commandUnits[0].spec.destinationPath', container)).toBeInTheDocument()
+    expect(queryByNameAttribute('spec.commandUnits[1].spec.workingDirectory', container)).toBeInTheDocument()
+    expect(queryByNameAttribute('spec.commandUnits[1].spec.source.spec.script', container)).toBeInTheDocument()
   })
 
   describe.each([
@@ -169,7 +167,7 @@ describe('test Command Scripts input set', () => {
     test(`should render runtime inputs in ${testName}`, () => {
       const { container } = renderResult
 
-      variables.forEach((variable, index) => {
+      variables?.forEach((variable, index) => {
         Object.entries(variable).forEach(([key, _value]) => {
           const field = queryByNameAttribute(`${fieldName}[${index}].${key}`, container)
           expect(field).toBeInTheDocument()

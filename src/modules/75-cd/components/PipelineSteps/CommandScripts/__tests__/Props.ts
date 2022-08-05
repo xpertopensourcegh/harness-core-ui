@@ -21,29 +21,25 @@ export const environmentVariables = [
 ]
 export const commandUnits = [
   {
-    commandUnit: {
-      identifier: 'Copy_Cmd_1',
-      name: 'Copy Cmd 1',
-      type: 'Copy',
-      spec: {
-        sourceType: 'Artifact',
-        destinationPath: 'abc'
-      }
+    identifier: 'Copy_Cmd_1',
+    name: 'Copy Cmd 1',
+    type: 'Copy',
+    spec: {
+      sourceType: 'Artifact',
+      destinationPath: 'abc'
     }
   },
   {
-    commandUnit: {
-      identifier: 'Script_Cmd_1',
-      name: 'Script Cmd 1',
-      type: 'Script',
-      spec: {
-        workingDirectory: 'def',
-        shell: 'Bash',
-        source: {
-          type: 'Inline',
-          spec: {
-            script: "echo 'def'"
-          }
+    identifier: 'Script_Cmd_1',
+    name: 'Script Cmd 1',
+    type: 'Script',
+    spec: {
+      workingDirectory: 'def',
+      shell: 'Bash',
+      source: {
+        type: 'Inline',
+        spec: {
+          script: "echo 'def'"
         }
       }
     }

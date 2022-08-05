@@ -73,11 +73,7 @@ export function CommandList(props: CommandListProps): React.ReactElement {
                   return (
                     <>
                       {formik.values.spec.commandUnits?.map((command, i) => (
-                        <Draggable
-                          key={command.commandUnit?.name}
-                          draggableId={command.commandUnit?.name || ''}
-                          index={i}
-                        >
+                        <Draggable key={command.name} draggableId={defaultTo(command.name, '')} index={i}>
                           {providedDrag => (
                             <Layout.Horizontal
                               spacing="medium"
@@ -101,7 +97,7 @@ export function CommandList(props: CommandListProps): React.ReactElement {
                                     style={{ width: 200 }}
                                     font={{ variation: FontVariation.SMALL_SEMI }}
                                   >
-                                    {command.commandUnit?.name}
+                                    {command.name}
                                   </Text>
                                 </Layout.Horizontal>
                                 <Button
@@ -112,7 +108,7 @@ export function CommandList(props: CommandListProps): React.ReactElement {
                                     openCommandModal({
                                       arrayHelpers,
                                       isUpdate: true,
-                                      initialModalValues: command.commandUnit,
+                                      initialModalValues: command,
                                       updateIndex: i
                                     })
                                   }}

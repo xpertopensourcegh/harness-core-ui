@@ -167,7 +167,9 @@ const processNodeImpl = (
       set(node, 'spec.commandOptions', (item as StepElementConfig)?.spec?.commandOptions)
     }
 
-    if (item.tab === TabTypes.Advanced) {
+    // strategy: { repeat: { items: '<+stage.output.hosts>'}} will be added by default for Command Script step
+    // even if user does not go to Advanced tab
+    if (item.tab === TabTypes.Advanced || (item as StepElementConfig).type === StepType.Command) {
       if (isEmpty(item.strategy)) {
         delete (node as any).strategy
       } else {

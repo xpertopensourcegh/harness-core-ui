@@ -16,7 +16,7 @@ import { getIdentifierFromName } from '@common/utils/StringUtils'
 import { queryByNameAttribute, TestWrapper } from '@common/utils/testUtils'
 import { name, commandUnits, environmentVariables, outputVariables, timeout } from './Props'
 import { CommandScriptsEdit } from '../CommandScriptsEdit'
-import type { CommandScriptStepVariable, CustomCommandUnitWrapper } from '../CommandScriptsTypes'
+import type { CommandScriptStepVariable, CommandUnitType } from '../CommandScriptsTypes'
 
 describe('test <CommandScriptsEdit />', () => {
   describe('test CRUD of command units (<CommandList />)', () => {
@@ -34,7 +34,7 @@ describe('test <CommandScriptsEdit />', () => {
               identifier: getIdentifierFromName(name),
               spec: {
                 onDelegate: false,
-                commandUnits: commandUnits as CustomCommandUnitWrapper[],
+                commandUnits: commandUnits as unknown as CommandUnitType[],
                 environmentVariables: environmentVariables.map(variable => ({
                   ...variable,
                   id: uuid()
@@ -57,7 +57,7 @@ describe('test <CommandScriptsEdit />', () => {
     test('should render all commands', async () => {
       const { getByText } = renderResult
 
-      commandUnits.forEach(({ commandUnit }) => {
+      commandUnits.forEach(commandUnit => {
         expect(getByText(commandUnit.name)).toBeVisible()
       })
     })
@@ -67,12 +67,12 @@ describe('test <CommandScriptsEdit />', () => {
       const commandUnitIndex = 0
       const deleteButton = getByTestId(`delete-command-unit-${commandUnitIndex}`)
 
-      expect(queryByText(commandUnits[commandUnitIndex].commandUnit.name)).toBeVisible()
+      expect(queryByText(commandUnits[commandUnitIndex].name)).toBeVisible()
 
       userEvent.click(deleteButton)
 
       await waitFor(() => {
-        expect(queryByText(commandUnits[commandUnitIndex].commandUnit.name)).not.toBeInTheDocument()
+        expect(queryByText(commandUnits[commandUnitIndex].name)).not.toBeInTheDocument()
       })
     })
 
@@ -123,7 +123,7 @@ describe('test <CommandScriptsEdit />', () => {
 
       await waitFor(() => {
         expect(queryByText(updatedCommandUnitName)).toBeVisible()
-        expect(queryByText(commandUnits[commandUnitIndex].commandUnit.name)).toBeNull()
+        expect(queryByText(commandUnits[commandUnitIndex].name)).toBeNull()
       })
     })
   })
@@ -143,7 +143,7 @@ describe('test <CommandScriptsEdit />', () => {
               identifier: getIdentifierFromName(name),
               spec: {
                 onDelegate: false,
-                commandUnits: commandUnits as CustomCommandUnitWrapper[],
+                commandUnits: commandUnits as unknown as CommandUnitType[],
                 environmentVariables: environmentVariables.map(variable => ({
                   ...variable,
                   id: uuid()

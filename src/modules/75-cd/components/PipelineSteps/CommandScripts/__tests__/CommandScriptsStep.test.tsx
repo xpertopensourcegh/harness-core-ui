@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { RUNTIME_INPUT_VALUE } from '@harness/uicore'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -42,15 +42,33 @@ describe('Command Scripts step', () => {
 
     const nameInput = queryByNameAttribute('name', container)
     userEvent.type(nameInput!, name)
-
     await waitFor(() => expect(nameInput).toHaveDisplayValue(name))
     expect(getByText(getIdentifierFromName(name))).toBeInTheDocument()
 
     const timeoutInput = queryByNameAttribute('timeout', container)
     userEvent.clear(timeoutInput!)
     userEvent.type(timeoutInput!, timeout)
-
     await waitFor(() => expect(timeoutInput).toHaveDisplayValue(timeout))
+
+    act(() => {
+      ref.current?.submitForm()
+    })
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'commandstep',
+        name: 'command-step',
+        spec: {
+          environmentVariables: [],
+          onDelegate: false,
+          outputVariables: []
+        },
+        strategy: {
+          repeat: { items: '<+stage.output.hosts>' }
+        },
+        timeout: '10s',
+        type: 'Command'
+      })
+    )
   })
 
   test('Should render edit view with initial values', async () => {
@@ -80,7 +98,7 @@ describe('Command Scripts step', () => {
     const timeoutInput = queryByNameAttribute('timeout', container)
     expect(timeoutInput).toHaveDisplayValue(timeout)
 
-    commandUnits.forEach(({ commandUnit }) => {
+    commandUnits.forEach(commandUnit => {
       getByText(commandUnit.name)
     })
 
