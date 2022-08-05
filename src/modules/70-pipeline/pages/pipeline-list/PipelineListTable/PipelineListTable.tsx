@@ -71,14 +71,14 @@ export function PipelineListTable({
       {
         Header: getString('pipeline.codeSource'),
         accessor: 'storeType',
-        width: '10%',
+        width: '12%',
         disableSortBy: true,
         Cell: CodeSourceCell
       },
       {
         Header: getString('pipeline.recentExecutions').toUpperCase(),
         accessor: 'recentExecutions',
-        width: '25%',
+        width: '28%',
         Cell: RecentExecutionsCell,
         disableSortBy: true
       },
@@ -92,14 +92,14 @@ export function PipelineListTable({
       {
         Header: getString('pipeline.lastModified').toUpperCase(),
         accessor: 'lastUpdatedAt',
-        width: '15%',
+        width: '12%',
         Cell: LastModifiedCell,
         serverSortProps: getServerSortProps('lastUpdatedAt')
       },
       {
         Header: '',
         accessor: 'menu',
-        width: '5%',
+        width: '3%',
         Cell: MenuCell,
         disableSortBy: true,
         onDeletePipeline,
