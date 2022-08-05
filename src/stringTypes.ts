@@ -2894,7 +2894,7 @@ export interface StringsMap {
   'pipeline.customApprovalStep.execution.conditions.in': string
   'pipeline.customApprovalStep.execution.conditions.not_equals': string
   'pipeline.customApprovalStep.execution.conditions.not_in': string
-  'pipeline.customApprovalStep.execution.customApprovalTicket': string
+  'pipeline.customApprovalStep.execution.customApprovalPending': string
   'pipeline.customApprovalStep.execution.wasAborted': string
   'pipeline.customApprovalStep.execution.wasApproved': string
   'pipeline.customApprovalStep.execution.wasExpired': string

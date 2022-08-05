@@ -270,7 +270,7 @@ customApprovalStep:
     wasRejected: 'Rejection Criteria was met for Custom Shell Script Approval'
     wasExpired: 'Custom Shell Script Approval expired'
     wasAborted: 'Custom Shell Script Approval aborted'
-    customApprovalTicket: 'Custom Shell Script Approval Pending Approval'
+    customApprovalPending: 'Custom Shell Script Approval Pending Approval'
     conditions:
       equals: '{{ key }} equals'
       not_equals: '{{ key }} does not equals'
