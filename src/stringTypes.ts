@@ -440,6 +440,7 @@ export interface StringsMap {
   'common.module.sto': string
   'common.module.templateService': string
   'common.moduleLabel': string
+  'common.monitoredServices': string
   'common.monthly': string
   'common.moreInfo': string
   'common.moreOptions': string

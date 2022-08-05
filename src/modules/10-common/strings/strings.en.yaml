@@ -742,6 +742,7 @@ feature:
     planMessage: is supported in {{plan}} plan(s).
 repositoryName: Repository Name
 mostActiveServices: Most active services
+monitoredServices: Monitored Services
 allErrors: All Errors
 connectivityErrors: Connectivity Errors
 apply: '{{ $.filters.apply }}'
