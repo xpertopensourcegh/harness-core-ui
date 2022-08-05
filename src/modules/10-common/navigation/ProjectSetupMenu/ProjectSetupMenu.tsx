@@ -25,8 +25,14 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { OPA_PIPELINE_GOVERNANCE, NG_VARIABLES, CVNG_TEMPLATE_MONITORED_SERVICE, NG_FILE_STORE, NG_SETTINGS } =
-    useFeatureFlags()
+  const {
+    OPA_PIPELINE_GOVERNANCE,
+    NG_VARIABLES,
+    CVNG_TEMPLATE_MONITORED_SERVICE,
+    NG_FILE_STORE,
+    NG_SETTINGS,
+    CD_ONBOARDING_ENABLED
+  } = useFeatureFlags()
   const { showGetStartedTabInMainMenu } = useSideNavContext()
   const { enabledHostedBuildsForFreeUsers } = useHostedBuilds()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
@@ -68,6 +74,10 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
         )}
         {enabledHostedBuildsForFreeUsers && !showGetStartedTabInMainMenu && module === 'ci' && (
           <SidebarLink label={getString('getStarted')} to={routes.toGetStartedWithCI({ ...params, module })} />
+        )}
+
+        {CD_ONBOARDING_ENABLED && module === 'cd' && !showGetStartedTabInMainMenu && (
+          <SidebarLink label={getString('getStarted')} to={routes.toGetStartedWithCD({ ...params, module })} />
         )}
       </Layout.Vertical>
     </NavExpandable>

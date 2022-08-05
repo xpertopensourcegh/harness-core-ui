@@ -40,7 +40,6 @@ proceedToEdit: Proceed to Edit
 filter: Filter
 allMetrics: All Metrics
 selectNamespace: Select Namespace
-selectWorkload: Select Workload
 riskTimeline: Risk Timeline
 perHeatMapCell: per heat map cell
 allServices: All Services
@@ -527,7 +526,6 @@ monitoredServices:
     serviceHealth: Service Health
     configurations: Configurations
   table:
-    serviceName: Service Name
     lastestHealthTrend: Health trend (Last 24h)
     serviceHealthScore: service Health Score
     healthMonitoring: Health Monitoring

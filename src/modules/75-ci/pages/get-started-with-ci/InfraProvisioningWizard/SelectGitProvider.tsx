@@ -327,7 +327,7 @@ const SelectGitProviderRef = (
 
   const getSecretPayload = React.useCallback((): SecretDTOV2 => {
     const gitProviderLabel = gitProvider?.type as string
-    const secretName = `${gitProviderLabel} ${getString('ci.getStartedWithCI.accessTokenLabel')}`
+    const secretName = `${gitProviderLabel} ${getString('common.getStarted.accessTokenLabel')}`
     const secretPayload: SecretDTOV2 = {
       name: secretName,
       identifier: secretName.split(' ').join('_'), // an identifier cannot contain spaces
@@ -459,7 +459,7 @@ const SelectGitProviderRef = (
                           if (!connectorId) {
                             errorMsgs.push({
                               level: 'ERROR',
-                              message: getString('ci.getStartedWithCI.fieldIsMissing', {
+                              message: getString('common.getStarted.fieldIsMissing', {
                                 field: `${getString('connector')} ${getString('identifier').toLowerCase()}`
                               })
                             })
@@ -467,7 +467,7 @@ const SelectGitProviderRef = (
                           if (!secretId) {
                             errorMsgs.push({
                               level: 'ERROR',
-                              message: getString('ci.getStartedWithCI.fieldIsMissing', {
+                              message: getString('common.getStarted.fieldIsMissing', {
                                 field: `${getString('secretType')} ${getString('identifier').toLowerCase()}`
                               })
                             })
@@ -534,9 +534,9 @@ const SelectGitProviderRef = (
   const getButtonLabel = React.useCallback((): string => {
     switch (gitProvider?.type) {
       case Connectors.GITHUB:
-        return getString('ci.getStartedWithCI.accessTokenLabel')
+        return getString('common.getStarted.accessTokenLabel')
       case Connectors.BITBUCKET:
-        return `${getString('username')} & ${getString('ci.getStartedWithCI.appPassword')}`
+        return `${getString('username')} & ${getString('common.getStarted.appPassword')}`
       case Connectors.GITLAB:
         return getString('common.accessKey')
       default:
@@ -576,7 +576,7 @@ const SelectGitProviderRef = (
     (_formikProps: FormikProps<SelectGitProviderInterface>): JSX.Element => {
       const apiUrlField = renderTextField({
         name: 'url',
-        label: 'ci.getStartedWithCI.apiUrlLabel',
+        label: 'common.getStarted.apiUrlLabel',
         tooltipId: 'url'
       })
       switch (gitProvider?.type) {
@@ -586,7 +586,7 @@ const SelectGitProviderRef = (
               {selectedHosting === Hosting.OnPrem ? apiUrlField : null}
               {renderTextField({
                 name: 'accessToken',
-                label: 'ci.getStartedWithCI.accessTokenLabel',
+                label: 'common.getStarted.accessTokenLabel',
                 tooltipId: 'accessToken',
                 inputGroupType: 'password'
               })}
@@ -603,7 +603,7 @@ const SelectGitProviderRef = (
               })}
               {renderTextField({
                 name: 'applicationPassword',
-                label: 'ci.getStartedWithCI.appPassword',
+                label: 'common.getStarted.appPassword',
                 tooltipId: 'applicationPassword',
                 inputGroupType: 'password'
               })}
@@ -737,7 +737,7 @@ const SelectGitProviderRef = (
         .trim()
         .required(
           getString('fieldRequired', {
-            field: getString('ci.getStartedWithCI.apiUrlLabel')
+            field: getString('common.getStarted.apiUrlLabel')
           })
         )
     })
@@ -748,7 +748,7 @@ const SelectGitProviderRef = (
           .shape({
             accessToken: Yup.string()
               .trim()
-              .required(getString('fieldRequired', { field: getString('ci.getStartedWithCI.accessTokenLabel') }))
+              .required(getString('fieldRequired', { field: getString('common.getStarted.accessTokenLabel') }))
           })
           .required()
         return selectedHosting === Hosting.SaaS ? baseSchema : urlSchema.concat(baseSchema)
@@ -769,7 +769,7 @@ const SelectGitProviderRef = (
               .required(getString('fieldRequired', { field: getString('username') })),
             applicationPassword: Yup.string()
               .trim()
-              .required(getString('fieldRequired', { field: getString('ci.getStartedWithCI.appPassword') }))
+              .required(getString('fieldRequired', { field: getString('common.getStarted.appPassword') }))
           })
           .required()
         return selectedHosting === Hosting.SaaS ? baseSchema : urlSchema.concat(baseSchema)
@@ -869,8 +869,8 @@ const SelectGitProviderRef = (
                   <Container padding={{ top: 'xsmall' }}>
                     <FormError
                       name={'gitProvider'}
-                      errorMessage={getString('ci.getStartedWithCI.plsChoose', {
-                        field: `a ${getString('ci.getStartedWithCI.codeRepoLabel').toLowerCase()}`
+                      errorMessage={getString('common.getStarted.plsChoose', {
+                        field: `a ${getString('common.getStarted.codeRepoLabel').toLowerCase()}`
                       })}
                     />
                   </Container>
@@ -885,7 +885,7 @@ const SelectGitProviderRef = (
                     <Text font={{ variation: FontVariation.H5 }} padding={{ top: 'xlarge', bottom: 'small' }}>
                       {getString(
                         selectedHosting === Hosting.SaaS
-                          ? 'ci.getStartedWithCI.authMethod'
+                          ? 'common.getStarted.authMethod'
                           : 'ci.getStartedWithCI.setUpAuth'
                       )}
                     </Text>
@@ -967,8 +967,8 @@ const SelectGitProviderRef = (
                           <Container padding={{ top: 'xsmall' }}>
                             <FormError
                               name={'gitAuthenticationMethod'}
-                              errorMessage={getString('ci.getStartedWithCI.plsChoose', {
-                                field: `an ${getString('ci.getStartedWithCI.authMethodLabel').toLowerCase()}`
+                              errorMessage={getString('common.getStarted.plsChoose', {
+                                field: `an ${getString('common.getStarted.authMethodLabel').toLowerCase()}`
                               })}
                             />
                           </Container>
@@ -982,7 +982,7 @@ const SelectGitProviderRef = (
                         </Container>
                         <Button
                           variation={ButtonVariation.LINK}
-                          text={getString('ci.getStartedWithCI.learnMoreAboutPermissions')}
+                          text={getString('common.getStarted.learnMoreAboutPermissions')}
                           className={css.learnMore}
                           tooltipProps={{ dataTooltipId: 'learnMoreAboutPermissions' }}
                           rightIcon="link"
@@ -1011,7 +1011,7 @@ const SelectGitProviderRef = (
                   {shouldRenderAuthFormFields() ? (
                     <Layout.Vertical padding={{ top: formikProps.errors.url ? 'xsmall' : 'large' }} spacing="small">
                       <Text font={{ variation: FontVariation.H5 }}>{getString('common.smtp.testConnection')}</Text>
-                      <Text>{getString('ci.getStartedWithCI.verifyConnection')}</Text>
+                      <Text>{getString('common.getStarted.verifyConnection')}</Text>
                       <Container padding={{ top: 'small' }}>
                         <TestConnection />
                       </Container>

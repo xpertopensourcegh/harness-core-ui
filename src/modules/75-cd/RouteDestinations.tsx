@@ -84,6 +84,7 @@ import { KubernetesManifests } from './components/PipelineSteps/K8sServiceSpec/K
 import manifestSourceBaseFactory from './factory/ManifestSourceFactory/ManifestSourceBaseFactory'
 import { getBannerText } from './utils/renderMessageUtils'
 import ServiceStudio from './components/Services/ServiceStudio/ServiceStudio'
+import GetStartedWithCD from './pages/get-started-with-cd/GetStartedWithCD'
 
 RbacFactory.registerResourceCategory(ResourceCategory.GITOPS, {
   icon: 'gitops-blue-circle',
@@ -264,6 +265,15 @@ export default (
       <RedirectToCDProject />
     </Route>
     <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      pageName={PAGE_NAME.GetStartedWithCI}
+      path={routes.toGetStartedWithCD({ ...accountPathProps, ...projectPathProps, ...moduleParams })}
+    >
+      <GetStartedWithCD />
+    </RouteWithLayout>
+    <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       path={routes.toCDHome({ ...accountPathProps })}
@@ -272,6 +282,7 @@ export default (
     >
       <CDHomePage />
     </RouteWithLayout>
+
     <RouteWithLayout
       layout={MinimalLayout}
       path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cd' })}

@@ -200,7 +200,7 @@ const SelectRepositoryRef = (
       return (
         <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="small" padding={{ top: 'xsmall' }}>
           <Icon name="steps-spinner" color="primary7" size={25} />
-          <Text font={{ variation: FontVariation.H6 }}>{getString('ci.getStartedWithCI.fetchingRepos')}</Text>
+          <Text font={{ variation: FontVariation.H6 }}>{getString('common.getStarted.fetchingRepos')}</Text>
         </Layout.Horizontal>
       )
     } else {
@@ -241,13 +241,13 @@ const SelectRepositoryRef = (
 
   return (
     <Layout.Vertical spacing="xsmall">
-      <Text font={{ variation: FontVariation.H4 }}>{getString('ci.getStartedWithCI.selectYourRepo')}</Text>
-      <Text font={{ variation: FontVariation.BODY2 }}>{getString('ci.getStartedWithCI.codebaseHelptext')}</Text>
+      <Text font={{ variation: FontVariation.H4 }}>{getString('common.selectYourRepo')}</Text>
+      <Text font={{ variation: FontVariation.BODY2 }}>{getString('common.getStarted.codebaseHelptext')}</Text>
       <Container padding={{ top: 'small' }} width="65%">
         <Layout.Horizontal>
           <TextInput
             leftIcon="search"
-            placeholder={getString('ci.getStartedWithCI.searchRepo')}
+            placeholder={getString('common.getStarted.searchRepo')}
             className={css.repositorySearch}
             leftIconProps={{ name: 'search', size: 18, padding: 'xsmall' }}
             onChange={e => {
@@ -272,7 +272,7 @@ const SelectRepositoryRef = (
           <Container padding={{ top: 'xsmall' }}>
             <FormError
               name={'repository'}
-              errorMessage={getString('ci.getStartedWithCI.plsChoose', {
+              errorMessage={getString('common.getStarted.plsChoose', {
                 field: `a ${getString('repository').toLowerCase()}`
               })}
             />

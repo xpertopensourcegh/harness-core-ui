@@ -287,6 +287,25 @@ export interface StringsMap {
   'common.genericErrors.inviteExpired': string
   'common.genericErrors.licenseCallFailed': string
   'common.genericErrors.unauthorized': string
+  'common.getStarted.accessTokenLabel': string
+  'common.getStarted.apiUrlLabel': string
+  'common.getStarted.appPassword': string
+  'common.getStarted.authMethod': string
+  'common.getStarted.authMethodLabel': string
+  'common.getStarted.buildPipeline': string
+  'common.getStarted.codeRepoLabel': string
+  'common.getStarted.codebaseHelptext': string
+  'common.getStarted.fetchingRepos': string
+  'common.getStarted.fieldIsMissing': string
+  'common.getStarted.firstPipeline': string
+  'common.getStarted.learnMoreAboutPermissions': string
+  'common.getStarted.plsChoose': string
+  'common.getStarted.quicklyCreate': string
+  'common.getStarted.searchRepo': string
+  'common.getStarted.selectArtifact': string
+  'common.getStarted.selectInfra': string
+  'common.getStarted.specificDelegate': string
+  'common.getStarted.verifyConnection': string
   'common.git.APIAccessDescription': string
   'common.git.APIAuthentication': string
   'common.git.addUserCredentialLabel': string
@@ -661,6 +680,8 @@ export interface StringsMap {
   'common.selectType': string
   'common.selectUserGroups': string
   'common.selectVersion': string
+  'common.selectWorkload': string
+  'common.selectYourRepo': string
   'common.selected': string
   'common.serviceCreated': string
   'common.serviceOverrides': string
@@ -4059,6 +4080,29 @@ export interface StringsMap {
   'cd.featureRestriction.banners.serviceWarningActive': string
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
+  'cd.getStartedWithCD.artifactLocation': string
+  'cd.getStartedWithCD.artifactManifest': string
+  'cd.getStartedWithCD.artifactManifestContent': string
+  'cd.getStartedWithCD.awsElasticK8s': string
+  'cd.getStartedWithCD.azureK8s': string
+  'cd.getStartedWithCD.codeRepos': string
+  'cd.getStartedWithCD.configureRepo': string
+  'cd.getStartedWithCD.delegateInfo': string
+  'cd.getStartedWithCD.directK8s': string
+  'cd.getStartedWithCD.envName': string
+  'cd.getStartedWithCD.googleK8s': string
+  'cd.getStartedWithCD.inManifest': string
+  'cd.getStartedWithCD.inManifestContent': string
+  'cd.getStartedWithCD.infraName': string
+  'cd.getStartedWithCD.manifestFile': string
+  'cd.getStartedWithCD.provideManifest': string
+  'cd.getStartedWithCD.reposubheading': string
+  'cd.getStartedWithCD.serverless': string
+  'cd.getStartedWithCD.serviceDeploy': string
+  'cd.getStartedWithCD.serviceHeading': string
+  'cd.getStartedWithCD.setupDelegate': string
+  'cd.getStartedWithCD.setupaNewDelegate': string
+  'cd.getStartedWithCD.workloadDeploy': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
   'cd.gitOpsCluster': string
@@ -4199,6 +4243,7 @@ export interface StringsMap {
   'cd.serviceDashboard.unitDay': string
   'cd.serviceDashboard.webApp': string
   'cd.serviceList.noIdentifier': string
+  'cd.serviceName': string
   'cd.serviceOverrides.deleted': string
   'cd.serviceOverrides.deletedOneVariable': string
   'cd.serviceOverrides.helperText': string
@@ -5846,14 +5891,8 @@ export interface StringsMap {
   'ci.description': string
   'ci.executionLabel': string
   'ci.fileStore': string
-  'ci.getStartedWithCI.accessTokenLabel': string
-  'ci.getStartedWithCI.apiUrlLabel': string
-  'ci.getStartedWithCI.appPassword': string
-  'ci.getStartedWithCI.authMethod': string
-  'ci.getStartedWithCI.authMethodLabel': string
   'ci.getStartedWithCI.awsBuildLocation': string
   'ci.getStartedWithCI.buildLocation': string
-  'ci.getStartedWithCI.buildPipeline': string
   'ci.getStartedWithCI.buildyourOwnPipeline': string
   'ci.getStartedWithCI.carousel.helptext.complexPipelines': string
   'ci.getStartedWithCI.carousel.helptext.connectToRepo': string
@@ -5872,8 +5911,6 @@ export interface StringsMap {
   'ci.getStartedWithCI.carousel.labels.usePlugins': string
   'ci.getStartedWithCI.chooseDiffInfra': string
   'ci.getStartedWithCI.codeRepo': string
-  'ci.getStartedWithCI.codeRepoLabel': string
-  'ci.getStartedWithCI.codebaseHelptext': string
   'ci.getStartedWithCI.configInfra': string
   'ci.getStartedWithCI.connectRepo': string
   'ci.getStartedWithCI.createPipeline': string
@@ -5884,7 +5921,6 @@ export interface StringsMap {
   'ci.getStartedWithCI.duration': string
   'ci.getStartedWithCI.fetchingRepos': string
   'ci.getStartedWithCI.fieldIsMissing': string
-  'ci.getStartedWithCI.firstPipeline': string
   'ci.getStartedWithCI.flexibleInfra': string
   'ci.getStartedWithCI.flexibleInfraHelpText': string
   'ci.getStartedWithCI.genericGit': string
@@ -5898,7 +5934,6 @@ export interface StringsMap {
   'ci.getStartedWithCI.languageAgnostic': string
   'ci.getStartedWithCI.languageAgnosticHelpText': string
   'ci.getStartedWithCI.learnMoreAboutCI': string
-  'ci.getStartedWithCI.learnMoreAboutPermissions': string
   'ci.getStartedWithCI.onCloudLabel': string
   'ci.getStartedWithCI.onPremLabel': string
   'ci.getStartedWithCI.parallelization': string
@@ -5910,12 +5945,10 @@ export interface StringsMap {
   'ci.getStartedWithCI.provisioningFailed': string
   'ci.getStartedWithCI.provisioningHelpText': string
   'ci.getStartedWithCI.provisioningSuccessful': string
-  'ci.getStartedWithCI.searchRepo': string
   'ci.getStartedWithCI.security': string
   'ci.getStartedWithCI.securityHelpText': string
   'ci.getStartedWithCI.selectInfra': string
   'ci.getStartedWithCI.selectRepo': string
-  'ci.getStartedWithCI.selectYourRepo': string
   'ci.getStartedWithCI.setUpAuth': string
   'ci.getStartedWithCI.settingUpCIPipeline': string
   'ci.getStartedWithCI.startProvisioning': string
@@ -5923,7 +5956,6 @@ export interface StringsMap {
   'ci.getStartedWithCI.ti': string
   'ci.getStartedWithCI.tiHelpText': string
   'ci.getStartedWithCI.troubleShootFailedProvisioning': string
-  'ci.getStartedWithCI.verifyConnection': string
   'ci.gradleNote1': string
   'ci.gradleNote2': string
   'ci.gradleNotesTitle': string
@@ -6313,7 +6345,6 @@ export interface StringsMap {
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string
   'cv.monitoredServices.table.serviceHealthScore': string
-  'cv.monitoredServices.table.serviceName': string
   'cv.monitoredServices.title': string
   'cv.monitoredServices.youHaveNoMonitoredServices': string
   'cv.monitoringSources.addMetric': string
@@ -6653,7 +6684,6 @@ export interface StringsMap {
   'cv.selectOrCreateEnv': string
   'cv.selectQuery': string
   'cv.selectTimeRange': string
-  'cv.selectWorkload': string
   'cv.selectedTimeInterval': string
   'cv.sensitivityValidation': string
   'cv.serviceDashboardPage.fifteenMinutes': string

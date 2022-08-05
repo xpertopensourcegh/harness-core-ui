@@ -121,7 +121,7 @@ describe('Test Get Started With CI', () => {
         <GetStartedWithCI />
       </TestWrapper>
     )
-    expect(getByText('ci.getStartedWithCI.firstPipeline')).toBeTruthy()
+    expect(getByText('common.getStarted.firstPipeline')).toBeTruthy()
     const createPipelineBtn = getByText('getStarted')
     expect(createPipelineBtn).toBeInTheDocument()
   })
@@ -136,13 +136,13 @@ describe('Test Get Started With CI', () => {
         <GetStartedWithCI />
       </TestWrapper>
     )
-    expect(getByText('ci.getStartedWithCI.firstPipeline')).toBeInTheDocument()
+    expect(getByText('common.getStarted.firstPipeline')).toBeInTheDocument()
     const createPipelineBtn = getByText('getStarted')
     expect(createPipelineBtn).toBeInTheDocument()
     await act(async () => {
       fireEvent.click(createPipelineBtn!)
     })
-    expect(getByText('ci.getStartedWithCI.selectYourRepo')).toBeInTheDocument()
+    expect(getByText('common.selectYourRepo')).toBeInTheDocument()
   })
 
   test('Clicking on Learn more scrolls the page', async () => {

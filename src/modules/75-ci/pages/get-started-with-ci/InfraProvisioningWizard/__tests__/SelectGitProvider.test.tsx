@@ -95,7 +95,7 @@ describe('Test SelectGitProvider component', () => {
     expect(gitProviderCards[0].classList.contains('Card--selected')).toBe(true)
 
     expect(getByText('common.oAuthLabel')).toBeInTheDocument()
-    expect(getByText('ci.getStartedWithCI.accessTokenLabel')).toBeInTheDocument()
+    expect(getByText('common.getStarted.accessTokenLabel')).toBeInTheDocument()
   })
 
   test('User selects Github provider and Access Token authentication method', async () => {
@@ -132,7 +132,7 @@ describe('Test SelectGitProvider component', () => {
     }
 
     await act(async () => {
-      fireEvent.click(getByText('ci.getStartedWithCI.accessTokenLabel'))
+      fireEvent.click(getByText('common.getStarted.accessTokenLabel'))
     })
 
     expect(container.querySelector('span[data-tooltip-id="accessToken"]')).toBeTruthy()
@@ -175,7 +175,7 @@ describe('Test SelectGitProvider component', () => {
       fireEvent.click(testConnectionBtn)
     })
     // should show correct error messages once test connection is done
-    expect(getAllByText('ci.getStartedWithCI.fieldIsMissing').length).toBe(2)
+    expect(getAllByText('common.getStarted.fieldIsMissing').length).toBe(2)
   })
 
   test('User selects Github provider and OAuth authentication method', async () => {
@@ -379,7 +379,7 @@ describe('Test SelectGitProvider component', () => {
     }
 
     await act(async () => {
-      fireEvent.click(getByText('username & ci.getStartedWithCI.appPassword'))
+      fireEvent.click(getByText('username & common.getStarted.appPassword'))
     })
 
     expect(container.querySelector('span[data-tooltip-id="username"]')).toBeTruthy()
@@ -449,7 +449,7 @@ describe('Test SelectGitProvider component', () => {
 
     // Schema validation error should show up for if Git Provider is not selected
     expect(container.querySelector('div[class*="FormError--errorDiv"][data-name="gitProvider"]')).toBeInTheDocument()
-    expect(getByText('ci.getStartedWithCI.plsChoose')).toBeTruthy()
+    expect(getByText('common.getStarted.plsChoose')).toBeTruthy()
 
     const gitProviderCards = Array.from(container.querySelectorAll('div[class*="bp3-card"]')) as HTMLElement[]
 
@@ -471,7 +471,7 @@ describe('Test SelectGitProvider component', () => {
     })
 
     await act(async () => {
-      fireEvent.click(getByText('ci.getStartedWithCI.accessTokenLabel'))
+      fireEvent.click(getByText('common.getStarted.accessTokenLabel'))
     })
 
     expect(gitAuthenticationMethodValidationError).not.toBeInTheDocument()

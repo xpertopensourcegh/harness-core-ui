@@ -87,7 +87,7 @@ describe('Test SelectRepository component', () => {
       'div[class*="FormError--errorDiv"][data-name="repository"]'
     )
     expect(repositoryValidationError).toBeInTheDocument()
-    expect(getByText('ci.getStartedWithCI.plsChoose')).toBeTruthy()
+    expect(getByText('common.getStarted.plsChoose')).toBeTruthy()
     const testRepoName = getFullRepoName(repos[1])
     const testRepository = getByText(testRepoName)
     expect(testRepository).toBeInTheDocument()
@@ -97,7 +97,7 @@ describe('Test SelectRepository component', () => {
     expect(repositoryValidationError).not.toBeInTheDocument()
 
     const repositorySearch = container.querySelector(
-      'input[placeholder="ci.getStartedWithCI.searchRepo"]'
+      'input[placeholder="common.getStarted.searchRepo"]'
     ) as HTMLInputElement
     expect(repositorySearch).toBeTruthy()
     await act(async () => {
