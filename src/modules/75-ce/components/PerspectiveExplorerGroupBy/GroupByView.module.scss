@@ -114,3 +114,6 @@
     background-color: var(--primary-1);
   }
 }
+.disabledPopover {
+  cursor: not-allowed !important;
+}

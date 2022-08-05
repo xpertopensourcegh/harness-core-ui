@@ -154,6 +154,7 @@ type CCMMetaData {
   inventoryDataPresent: Boolean!
   isSampleClusterPresent: Boolean!
   k8sClusterConnectorPresent: Boolean!
+  showCostOverview: Boolean!
 }
 
 type ClusterData {

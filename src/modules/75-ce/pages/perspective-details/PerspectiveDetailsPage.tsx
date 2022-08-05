@@ -71,6 +71,10 @@ import { useDeepCompareEffect, useQueryParams, useUpdateQueryParams } from '@com
 import type { PerspectiveQueryParams, TimeRangeFilterType } from '@ce/types'
 import { useQueryParamsState } from '@common/hooks/useQueryParamsState'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { getToolTip } from '@ce/components/PerspectiveViews/PerspectiveMenuItems'
 import css from './PerspectiveDetailsPage.module.scss'
 
 const PAGE_SIZE = 10
@@ -109,6 +113,16 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
         label: getString('ce.perspectives.sideNavText')
       }
     ],
+    []
+  )
+
+  const [canEdit] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CCM_PERSPECTIVE
+      },
+      permissions: [PermissionIdentifier.EDIT_CCM_PERSPECTIVE]
+    },
     []
   )
 
@@ -163,7 +177,14 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
       content={getHeaderContent()}
       toolbar={
         <Button
-          disabled={isDefaultPerspective}
+          disabled={isDefaultPerspective || !canEdit}
+          tooltip={getToolTip(
+            canEdit,
+            PermissionIdentifier.EDIT_CCM_PERSPECTIVE,
+            ResourceType.CCM_PERSPECTIVE,
+            isDefaultPerspective,
+            getString('ce.perspectives.editDefaultPerspective')
+          )}
           text={getString('edit')}
           icon="edit"
           intent="primary"

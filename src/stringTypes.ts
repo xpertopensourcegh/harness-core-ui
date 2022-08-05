@@ -4962,6 +4962,7 @@ export interface StringsMap {
   'ce.overview.cardtitles.multipleCloud': string
   'ce.overview.cardtitles.topClusters': string
   'ce.overview.cardtitles.topRecommendation': string
+  'ce.overview.costPermissionError': string
   'ce.overview.ecsService': string
   'ce.overview.noData.autoStopping': string
   'ce.overview.noData.connector': string
@@ -4987,6 +4988,7 @@ export interface StringsMap {
   'ce.pageErrorMsg.perspectiveNoData': string
   'ce.pageErrorMsg.recommendationDesc': string
   'ce.pageErrorMsg.recommendationNoData': string
+  'ce.permissionError': string
   'ce.perspectives.allPerspectiveTxt': string
   'ce.perspectives.budgets.actualSpend': string
   'ce.perspectives.budgets.addBudget': string
@@ -5079,6 +5081,8 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.deleteDefaultPerspective': string
+  'ce.perspectives.editDefaultPerspective': string
   'ce.perspectives.emptyStateDesc': string
   'ce.perspectives.emptyStateTitle': string
   'ce.perspectives.enterAmount': string

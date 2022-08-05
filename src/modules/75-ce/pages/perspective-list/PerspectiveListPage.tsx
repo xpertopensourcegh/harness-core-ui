@@ -56,11 +56,18 @@ import { Utils } from '@ce/common/Utils'
 import { PAGE_NAMES, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import RbacButton from '@rbac/components/Button/Button'
-import useRBACError from '@rbac/utils/useRBACError/useRBACError'
+import useRBACError, { RBACError } from '@rbac/utils/useRBACError/useRBACError'
 import PerspectiveFoldersSideNav from '@ce/components/PerspectiveFolders/PerspectiveFoldersSideNav'
 import { useQueryParamsState } from '@common/hooks/useQueryParamsState'
 import EmptyPage from '@ce/common/EmptyPage/EmptyPage'
 import { folderViewType } from '@ce/constants'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import HandleError from '@ce/components/PermissionError/PermissionError'
+import PermissionError from '@ce/images/permission-error.svg'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { getPermissionErrorMsg } from '@ce/utils/rbacUtils'
+import { getToolTip } from '@ce/components/PerspectiveViews/PerspectiveMenuItems'
 import bgImage from './images/perspectiveBg.png'
 import css from './PerspectiveListPage.module.scss'
 
@@ -342,11 +349,12 @@ const PerspectiveListPage: React.FC = () => {
       folderId: selectedFolderId || ''
     }
   })
-  const { data, fetching } = result
+  const { data, fetching, error: perspectiveError } = result
 
   const {
     data: foldersListResullt,
     loading: foldersLoading,
+    error: folderListError,
     refetch: fetchFoldersList
   } = useGetFolders({
     queryParams: {
@@ -427,6 +435,16 @@ const PerspectiveListPage: React.FC = () => {
   const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
 
   const { cloudDataPresent, clusterDataPresent } = (ccmData?.ccmMetaData || {}) as CcmMetaData
+
+  const [canEdit] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CCM_PERSPECTIVE
+      },
+      permissions: [PermissionIdentifier.EDIT_CCM_PERSPECTIVE]
+    },
+    []
+  )
 
   const createNewPerspective: (values: QlceView | Record<string, string>) => void = async (values = {}) => {
     const valuesToBeSent = pick(values, ['name', 'viewTimeRange', 'viewVisualization'])
@@ -632,104 +650,126 @@ const PerspectiveListPage: React.FC = () => {
         }
         breadcrumbs={<NGBreadcrumbs />}
       />
-      <Page.Body className={css.pageContainer}>
-        <Layout.Horizontal className={css.bodyWrapper}>
-          <PerspectiveFoldersSideNav
-            setSelectedFolder={setSelectedFolder}
-            selectedFolderId={selectedFolderId || ''}
-            foldersList={foldersList}
-            setRefetchFolders={setRefetchFolders}
-            foldersLoading={foldersLoading}
-            defaultFolderId={defaultFolderId}
-            deleteFolder={deleteFolder}
-            updateFolder={updateFolder}
-          />
-          <div className={css.listContainer}>
-            {pespectiveList.length ? (
-              <Layout.Horizontal spacing="large" className={css.header}>
-                <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
-                  <RbacButton
-                    intent="primary"
-                    text={getString('ce.perspectives.newPerspective')}
-                    icon="plus"
-                    featuresProps={{
-                      featuresRequest: {
-                        featureNames: [FeatureIdentifier.PERSPECTIVES]
-                      }
+      {perspectiveError || folderListError ? (
+        <HandleError
+          errorMsg={
+            folderListError
+              ? getRBACErrorMessage(folderListError as RBACError)
+              : getPermissionErrorMsg(perspectiveError?.message || '')
+          }
+          imgSrc={PermissionError}
+        />
+      ) : (
+        <Page.Body className={css.pageContainer}>
+          <Layout.Horizontal className={css.bodyWrapper}>
+            <PerspectiveFoldersSideNav
+              setSelectedFolder={setSelectedFolder}
+              selectedFolderId={selectedFolderId || ''}
+              foldersList={foldersList}
+              setRefetchFolders={setRefetchFolders}
+              foldersLoading={foldersLoading}
+              defaultFolderId={defaultFolderId}
+              deleteFolder={deleteFolder}
+              updateFolder={updateFolder}
+            />
+            <div className={css.listContainer}>
+              {pespectiveList.length ? (
+                <Layout.Horizontal spacing="large" className={css.header}>
+                  <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
+                    <RbacButton
+                      intent="primary"
+                      text={getString('ce.perspectives.newPerspective')}
+                      icon="plus"
+                      featuresProps={{
+                        featuresRequest: {
+                          featureNames: [FeatureIdentifier.PERSPECTIVES]
+                        }
+                      }}
+                      permission={{
+                        permission: PermissionIdentifier.EDIT_CCM_PERSPECTIVE,
+                        resource: {
+                          resourceType: ResourceType.CCM_PERSPECTIVE
+                        }
+                      }}
+                      onClick={() => {
+                        trackEvent(USER_JOURNEY_EVENTS.CREATE_NEW_PERSPECTIVE, {})
+                        createNewPerspective({})
+                      }}
+                    />
+                  </Layout.Horizontal>
+                  <FlexExpander />
+                  <QuickFilters quickFilters={quickFilters} setQuickFilters={setQuickFilters} countInfo={countInfo} />
+                  <ExpandingSearchInput
+                    placeholder={getString('ce.perspectives.searchPerspectives')}
+                    onChange={text => {
+                      setSearchParam(text.trim())
                     }}
-                    onClick={() => {
-                      trackEvent(USER_JOURNEY_EVENTS.CREATE_NEW_PERSPECTIVE, {})
-                      createNewPerspective({})
-                    }}
+                    ref={searchRef}
+                    className={css.search}
                   />
+                  <Layout.Horizontal>
+                    <Button
+                      minimal
+                      icon="grid-view"
+                      intent={view === Views.GRID ? 'primary' : undefined}
+                      onClick={() => {
+                        setView(Views.GRID)
+                      }}
+                    />
+                    <Button
+                      minimal
+                      icon="list"
+                      intent={view === Views.LIST ? 'primary' : undefined}
+                      onClick={() => {
+                        setView(Views.LIST)
+                      }}
+                    />
+                  </Layout.Horizontal>
                 </Layout.Horizontal>
-                <FlexExpander />
-
-                <QuickFilters quickFilters={quickFilters} setQuickFilters={setQuickFilters} countInfo={countInfo} />
-                <ExpandingSearchInput
-                  placeholder={getString('ce.perspectives.searchPerspectives')}
-                  onChange={text => {
-                    setSearchParam(text.trim())
+              ) : null}
+              {(fetching || createViewLoading) && <Page.Spinner />}
+              {!pespectiveList.length ? (
+                <EmptyPage
+                  title={getString('ce.perspectives.emptyStateTitle')}
+                  subtitle={getString('ce.perspectives.emptyStateDesc')}
+                  buttonText={getString('ce.perspectives.newPerspective')}
+                  buttonAction={() => {
+                    trackEvent(USER_JOURNEY_EVENTS.CREATE_NEW_PERSPECTIVE, {})
+                    createNewPerspective({})
                   }}
-                  ref={searchRef}
-                  className={css.search}
+                  isBtnDisabled={!canEdit}
+                  buttonTooltip={getToolTip(
+                    canEdit,
+                    PermissionIdentifier.EDIT_CCM_PERSPECTIVE,
+                    ResourceType.CCM_PERSPECTIVE
+                  )}
                 />
-                <Layout.Horizontal>
-                  <Button
-                    minimal
-                    icon="grid-view"
-                    intent={view === Views.GRID ? 'primary' : undefined}
-                    onClick={() => {
-                      setView(Views.GRID)
-                    }}
-                  />
-                  <Button
-                    minimal
-                    icon="list"
-                    intent={view === Views.LIST ? 'primary' : undefined}
-                    onClick={() => {
-                      setView(Views.LIST)
-                    }}
-                  />
-                </Layout.Horizontal>
-              </Layout.Horizontal>
-            ) : null}
-            {(fetching || createViewLoading) && <Page.Spinner />}
-            {!pespectiveList.length ? (
-              <EmptyPage
-                title={getString('ce.perspectives.emptyStateTitle')}
-                subtitle={getString('ce.perspectives.emptyStateDesc')}
-                buttonText={getString('ce.perspectives.newPerspective')}
-                buttonAction={() => {
-                  trackEvent(USER_JOURNEY_EVENTS.CREATE_NEW_PERSPECTIVE, {})
-                  createNewPerspective({})
+              ) : null}
+              <Container
+                padding={{
+                  right: 'xxxlarge',
+                  left: 'xxxlarge',
+                  bottom: 'large',
+                  top: 'large'
                 }}
-              />
-            ) : null}
-            <Container
-              padding={{
-                right: 'xxxlarge',
-                left: 'xxxlarge',
-                bottom: 'large',
-                top: 'large'
-              }}
-            >
-              <PerspectiveListGridView
-                pespectiveList={pespectiveList}
-                navigateToPerspectiveDetailsPage={navigateToPerspectiveDetailsPage}
-                deletePerpsective={deletePerpsective}
-                createNewPerspective={createNewPerspective}
-                clonePerspective={clonePerspective}
-                filteredPerspectiveData={filteredPerspectiveData}
-                view={view}
-                setRefetchFolders={setRefetchFolders}
-                setSelectedFolder={setSelectedFolder}
-                setRefetchPerspectives={setRefetchPerspectives}
-              />
-            </Container>
-          </div>
-        </Layout.Horizontal>
-      </Page.Body>
+              >
+                <PerspectiveListGridView
+                  pespectiveList={pespectiveList}
+                  navigateToPerspectiveDetailsPage={navigateToPerspectiveDetailsPage}
+                  deletePerpsective={deletePerpsective}
+                  createNewPerspective={createNewPerspective}
+                  clonePerspective={clonePerspective}
+                  filteredPerspectiveData={filteredPerspectiveData}
+                  view={view}
+                  setRefetchFolders={setRefetchFolders}
+                  setSelectedFolder={setSelectedFolder}
+                  setRefetchPerspectives={setRefetchPerspectives}
+                />
+              </Container>
+            </div>
+          </Layout.Horizontal>
+        </Page.Body>
+      )}
     </>
   )
 }

@@ -30,6 +30,7 @@ export const CcmMetaDataDocument = gql`
       defaultAwsPerspectiveId
       defaultGcpPerspectiveId
       defaultClusterPerspectiveId
+      showCostOverview
     }
   }
 `
@@ -228,6 +229,7 @@ export const FetchCcmMetaDataDocument = gql`
       defaultAwsPerspectiveId
       defaultGcpPerspectiveId
       defaultClusterPerspectiveId
+      showCostOverview
     }
   }
 `
@@ -1210,6 +1212,7 @@ export type CcmMetaDataQuery = {
     defaultAwsPerspectiveId: string | null
     defaultGcpPerspectiveId: string | null
     defaultClusterPerspectiveId: string | null
+    showCostOverview: boolean
   } | null
 }
 
@@ -1410,6 +1413,7 @@ export type FetchCcmMetaDataQuery = {
     defaultAwsPerspectiveId: string | null
     defaultGcpPerspectiveId: string | null
     defaultClusterPerspectiveId: string | null
+    showCostOverview: boolean
   } | null
 }
 
@@ -2414,6 +2418,7 @@ export type CcmMetaData = {
   inventoryDataPresent: Scalars['Boolean']
   isSampleClusterPresent: Scalars['Boolean']
   k8sClusterConnectorPresent: Scalars['Boolean']
+  showCostOverview: Scalars['Boolean']
 }
 
 export type ClusterData = {

@@ -1,6 +1,7 @@
 gridColumnSelector: 'Columns'
 continuous: '{{$.common.purpose.ce.continuous}}'
 trialCta: 'Start 14 day CCM trial'
+permissionError: Please contact your Account Admin
 common:
   newBudget: 'New Budget'
   budget: 'Budget'
@@ -678,6 +679,8 @@ savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
   newPerspective: New Perspective
+  editDefaultPerspective: These perspectives are not allowed to edit
+  deleteDefaultPerspective: These perspectives are not allowed to delete
   newPerspectiveLimitWarning: You have used {{count}} / {{limit}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
   allPerspectiveTxt: 'All ({{ count }})'
   recentPerspectiveTxt: 'Recent ({{ count }})'
@@ -931,6 +934,7 @@ overview:
     idleAndUnallocatedClusters: 'Idle + Unallocated clusters'
     fromClousUsageTitle: 'Carbon emissions from Cloud Usage'
     tillDate: 'till date'
+  costPermissionError: You don't have access to View Cost Overview
 sideNav:
   perspective: 'Perspective'
 nodeRecommendation:
