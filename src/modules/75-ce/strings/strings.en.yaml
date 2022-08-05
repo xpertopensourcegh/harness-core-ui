@@ -700,6 +700,8 @@ perspectives:
   noOfRowsLessThan: 'Number of rows should be less than {{ number }}'
   noOfRowsGreaterThan: 'Number of rows should be greater than or equal to 1'
   excludeRowswithCost: Exclude rows with cost below
+  top12GroupBy: Top 12 {{ groupBy }}
+  groupByByCost: '{{ groupBy }} by cost'
   workloadDetails:
     aggregation:
       text: 'Aggregation:'

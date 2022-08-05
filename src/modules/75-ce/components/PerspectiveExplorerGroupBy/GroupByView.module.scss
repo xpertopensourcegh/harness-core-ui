@@ -27,24 +27,29 @@
 
 .groupByContainer {
   display: grid;
-  grid-template-columns: 76px auto 90px;
+  grid-template-columns: 90px auto;
+  column-gap: var(--spacing-medium);
   align-items: center;
   padding: 8px 0px;
 
   .groupByLabel {
-    margin-bottom: 2px;
+    font-weight: 500 !important;
   }
 
   .groupBys {
     display: flex;
+    column-gap: var(--spacing-large);
 
     .groupByItems {
-      margin: 0px 10px;
+      font-weight: 500;
       cursor: pointer;
+      color: var(--grey-700);
+      align-self: center;
 
       &.activeItem {
-        color: var(--blue-500);
-        border-bottom: 1px solid var(--blue-500);
+        padding-bottom: var(--spacing-xsmall);
+        color: var(--grey-900);
+        border-bottom: 2px solid var(--primary-7);
       }
     }
   }

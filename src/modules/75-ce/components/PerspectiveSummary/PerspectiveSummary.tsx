@@ -110,7 +110,7 @@ const CostCard: (val: CostCardProps) => JSX.Element = ({
       <Container className={css.mainCard}>
         {!isEmpty ? (
           <>
-            <Text color={Color.GREY_500} font="small">
+            <Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL_BOLD }}>
               {statsLabel}
             </Text>
             <Layout.Horizontal
@@ -297,7 +297,7 @@ const BudgetCardsCarousel: () => JSX.Element | null = () => {
     return (
       <Card className={css.cardContainer} elevation={1} interactive={false}>
         <Container className={cx(css.budgetCard)}>
-          <Text color="grey800" font="small">
+          <Text color="grey800" font={{ variation: FontVariation.SMALL_BOLD }}>
             {getString('ce.perspectives.budgets.title')}
           </Text>
           <Text

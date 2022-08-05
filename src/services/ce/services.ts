@@ -564,6 +564,7 @@ export const FetchperspectiveGridDocument = gql`
         }
       }
     }
+    perspectiveTotalCount(filters: $filters, groupBy: $groupBy, isClusterQuery: $isClusterOnly)
   }
 `
 
@@ -1594,6 +1595,7 @@ export type FetchperspectiveGridQueryVariables = Exact<{
 
 export type FetchperspectiveGridQuery = {
   __typename?: 'Query'
+  perspectiveTotalCount: number | null
   perspectiveGrid: {
     __typename?: 'PerspectiveEntityStatsData'
     data: Array<{
@@ -2826,7 +2828,8 @@ export enum QlceViewFilterOperator {
   Like = 'LIKE',
   NotIn = 'NOT_IN',
   NotNull = 'NOT_NULL',
-  Null = 'NULL'
+  Null = 'NULL',
+  Search = 'SEARCH'
 }
 
 export type QlceViewFilterWrapperInput = {
@@ -2937,6 +2940,8 @@ export type Query = {
   recommendationStatsV2: Maybe<RecommendationOverviewStats>
   /** The list of all types of recommendations for overview page */
   recommendationsV2: Maybe<RecommendationsDto>
+  /** Labels for workloads */
+  workloadLabels: Maybe<Scalars['Map_String_Map_String_StringScalar']>
 }
 
 /** Query root */
@@ -3082,6 +3087,12 @@ export type QueryRecommendationStatsV2Args = {
 /** Query root */
 export type QueryRecommendationsV2Args = {
   filter?: InputMaybe<K8sRecommendationFilterDtoInput>
+}
+
+/** Query root */
+export type QueryWorkloadLabelsArgs = {
+  filters: InputMaybe<Array<InputMaybe<QlceViewFilterWrapperInput>>>
+  workloads: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
 export type RecommendClusterRequest = {

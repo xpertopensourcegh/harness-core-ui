@@ -5111,6 +5111,7 @@ export interface StringsMap {
   'ce.perspectives.folders.newFolder': string
   'ce.perspectives.folders.selectPerspectiveLabel': string
   'ce.perspectives.folders.title': string
+  'ce.perspectives.groupByByCost': string
   'ce.perspectives.largeNoOfRowsWarning': string
   'ce.perspectives.newPerspective': string
   'ce.perspectives.newPerspectiveLimitWarning': string
@@ -5163,6 +5164,7 @@ export interface StringsMap {
   'ce.perspectives.timeRangeConstants.thisYear': string
   'ce.perspectives.timeRangeLimitWarning.currentPlanOffer': string
   'ce.perspectives.timeRangeLimitWarning.upgradeOffer': string
+  'ce.perspectives.top12GroupBy': string
   'ce.perspectives.validations.emailRequired': string
   'ce.perspectives.validations.invalidEmails': string
   'ce.perspectives.validations.reportNameRequired': string

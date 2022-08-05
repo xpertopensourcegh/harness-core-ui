@@ -69,7 +69,6 @@ const ChartLegend: React.FC<ChartLegendProps> = ({ chartRefObj }) => {
     <Container
       className={cx(css.legendContainer, { [css.preferences]: chartRefObj.series.length > 12 })}
       padding={{
-        left: 'medium',
         top: 'small',
         bottom: 'small'
       }}

@@ -6,7 +6,8 @@
  */
 
 import React, { useState } from 'react'
-import { ExpandingSearchInput, Button, ButtonVariation } from '@wings-software/uicore'
+import { ExpandingSearchInput, Button, ButtonVariation, Text } from '@wings-software/uicore'
+import { Color } from '@harness/design-system'
 import { Popover, Position, PopoverInteractionKind, Classes, MenuItem } from '@blueprintjs/core'
 import cx from 'classnames'
 import { sortBy } from 'lodash-es'
@@ -273,7 +274,14 @@ const GroupByComponent: React.FC<GroupByComponentProps> = ({
 
   return (
     <section className={css.groupByContainer}>
-      <label className={css.groupByLabel}> {getString('ce.perspectives.createPerspective.preview.groupBy')}</label>
+      <Text
+        color={Color.GREY_400}
+        className={css.groupByLabel}
+        iconProps={{ color: Color.GREY_400 }}
+        icon="default-dashboard"
+      >
+        {getString('ce.perspectives.createPerspective.preview.groupBy')}
+      </Text>
       <div className={css.groupBys}>
         {otherFields.map(field => {
           return field.values.length ? (

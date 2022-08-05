@@ -34,7 +34,8 @@ import {
   ViewType,
   QlceViewAggregateOperation,
   useFetchPerspectiveTotalCountQuery,
-  QlceViewPreferencesInput
+  QlceViewPreferencesInput,
+  QlceViewFilterWrapperInput
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
@@ -367,10 +368,25 @@ const PerspectiveDetailsPage: React.FC = () => {
     return af
   }
 
+  const [gridSearchParam, setGridSearchParam] = useState('')
+
+  const gridSearchFilter = useMemo(() => {
+    if (gridSearchParam) {
+      return {
+        idFilter: {
+          field: groupBy,
+          operator: QlceViewFilterOperator.Search,
+          values: [gridSearchParam]
+        }
+      } as QlceViewFilterWrapperInput
+    }
+    return undefined
+  }, [groupBy, gridSearchParam])
+
   const [gridResults, executePerspectiveGridQuery] = useFetchperspectiveGridQuery({
     variables: {
       aggregateFunction: getAggregationFunc(),
-      filters: queryFilters,
+      filters: gridSearchFilter ? [...queryFilters, gridSearchFilter] : queryFilters,
       isClusterOnly: isClusterOnly,
       limit: PAGE_SIZE,
       offset: gridPageOffset,
@@ -502,6 +518,7 @@ const PerspectiveDetailsPage: React.FC = () => {
                 aggregation={aggregation}
                 xAxisPointCount={chartData?.perspectiveTimeSeriesStats?.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
                 anomaliesCountData={anomaliesCountData}
+                groupBy={groupBy}
               />
             )}
           </Container>
@@ -547,7 +564,7 @@ const PerspectiveDetailsPage: React.FC = () => {
             }
             setColumnSequence={colSeq => setColumnSequence(colSeq)}
             groupBy={groupBy}
-            totalItemCount={perspectiveTotalCount || 0}
+            totalItemCount={gridData?.perspectiveTotalCount || 0}
             gridPageIndex={gridPageIndex}
             pageSize={PAGE_SIZE}
             fetchData={(pageIndex, pageSize) => {
@@ -556,6 +573,8 @@ const PerspectiveDetailsPage: React.FC = () => {
             }}
             allowExportAsCSV={true}
             openDownloadCSVModal={openDownloadCSVModal}
+            setGridSearchParam={setGridSearchParam}
+            isPerspectiveDetailsPage
           />
         </Container>
       </PageBody>
