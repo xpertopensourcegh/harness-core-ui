@@ -1247,3 +1247,5 @@ startupCommand:
 triggerInfo: 'Trigger Info'
 draft: 'Draft'
 duplicateStepIdentifiers: 'Duplicate identifiers found: {{duplicateIdString}}'
+alwaysEditModeYAML: Enable read/write mode always
+warningForInvalidYAMLDiscard: Enabling this sets the YAML editor in read/write mode for the Pipelines you view. You can enable/disable this setting in any Pipeline.

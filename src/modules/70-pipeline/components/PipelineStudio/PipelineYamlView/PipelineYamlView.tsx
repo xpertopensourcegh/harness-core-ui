@@ -7,8 +7,9 @@
 
 import React from 'react'
 import { defaultTo, isEqual, omit } from 'lodash-es'
-import { ButtonVariation, Tag } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { ButtonVariation, Checkbox, Tag, Text, useConfirmationDialog } from '@wings-software/uicore'
+import { Intent } from '@blueprintjs/core'
 import { parse } from '@common/utils/YamlHelperMethods'
 import { YamlBuilderMemo } from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -22,6 +23,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { EntityValidityDetails } from 'services/pipeline-ng'
 import { getYamlFileName } from '@pipeline/utils/yamlUtils'
 import type { Pipeline } from '@pipeline/utils/types'
+import { PreferenceScope, usePreferenceStore } from 'framework/PreferenceStore/PreferenceStoreContext'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
@@ -56,11 +58,17 @@ function PipelineYamlView(): React.ReactElement {
       accountId: string
     }>
   >()
+  const { preference, setPreference: setYamlAlwaysEditMode } = usePreferenceStore<string | undefined>(
+    PreferenceScope.USER,
+    'YamlAlwaysEditMode'
+  )
+  const userPreferenceEditMode = React.useMemo(() => defaultTo(Boolean(preference === 'true'), false), [preference])
   const { pipelineSchema } = usePipelineSchema()
   const { isGitSyncEnabled, isGitSimplificationEnabled } = useAppStore()
   const isPipelineRemote = isGitSimplificationEnabled && storeMetadata?.storeType === StoreType.REMOTE
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [yamlFileName, setYamlFileName] = React.useState<string>(defaultFileName)
+  const [isAlwaysEditMode, setIsAlwaysEditMode] = React.useState<boolean>(userPreferenceEditMode)
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const expressionRef = React.useRef<string[]>([])
@@ -126,10 +134,54 @@ function PipelineYamlView(): React.ReactElement {
     }
   }, [gitDetails, isGitSyncEnabled, isPipelineRemote, pipeline?.identifier])
 
+  const onEnableEditMode = (didConfirm?: boolean): void => {
+    updatePipelineView({ ...pipelineView, isYamlEditable: Boolean(didConfirm) })
+    setYamlAlwaysEditMode(String(isAlwaysEditMode))
+  }
+
   const yamlOrJsonProp =
     entityValidityDetails?.valid === false && entityValidityDetails?.invalidYaml
       ? { existingYaml: entityValidityDetails?.invalidYaml }
       : { existingJSON: { pipeline: omit(pipeline, 'repo', 'branch') } }
+
+  React.useEffect(() => {
+    !isYamlEditable && updatePipelineView({ ...pipelineView, isYamlEditable: userPreferenceEditMode })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preference])
+
+  function EditModePreferenceComp(): JSX.Element {
+    return (
+      <div className={css.editModeCheckbox}>
+        <Checkbox
+          onChange={() => {
+            setIsAlwaysEditMode(!isAlwaysEditMode)
+            isYamlEditable && setYamlAlwaysEditMode(String(!isAlwaysEditMode))
+          }}
+          checked={isAlwaysEditMode}
+          large
+          label={getString('pipeline.alwaysEditModeYAML')}
+        />
+        {isAlwaysEditMode && !isYamlEditable && (
+          <Text font={{ size: 'small' }} margin="small" intent="warning">
+            {getString('pipeline.warningForInvalidYAMLDiscard')}
+          </Text>
+        )}
+      </div>
+    )
+  }
+  const { openDialog } = useConfirmationDialog({
+    contentText: getString('yamlBuilder.enableEditContext'),
+    titleText: getString('confirm'),
+    confirmButtonText: getString('enable'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
+    children: <EditModePreferenceComp />,
+    onCloseDialog: (didConfirm): void => {
+      if (didConfirm) {
+        onEnableEditMode?.(didConfirm)
+      }
+    }
+  })
 
   return (
     <div className={css.yamlBuilder}>
@@ -152,10 +204,9 @@ function PipelineYamlView(): React.ReactElement {
             width="calc(100vw - 400px)"
             invocationMap={stepsFactory.getInvocationMap()}
             schema={pipelineSchema?.data}
-            onEnableEditMode={() => {
-              updatePipelineView({ ...pipelineView, isYamlEditable: true })
-            }}
+            onEnableEditMode={onEnableEditMode}
             isEditModeSupported={!isReadonly}
+            openDialogProp={openDialog}
             {...yamlOrJsonProp}
           />
         )}
@@ -179,11 +230,15 @@ function PipelineYamlView(): React.ReactElement {
             variation={ButtonVariation.SECONDARY}
             text={getString('common.editYaml')}
             onClick={() => {
-              updatePipelineView({ ...pipelineView, isYamlEditable: true })
+              openDialog()
             }}
           />
         </div>
-      ) : null}
+      ) : (
+        <div className={css.buttonsWrapper}>
+          <EditModePreferenceComp />
+        </div>
+      )}
     </div>
   )
 }

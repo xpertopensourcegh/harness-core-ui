@@ -305,6 +305,55 @@ describe('Pipeline Canvas - new pipeline', () => {
     )
     expect(queryByText('unsavedChanges')).toBeTruthy()
   })
+
+  test('Enabling Edit Mode in YAML editor and checking for retention', async () => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    putPipelinePromise.mockResolvedValue(mockApiDataEmpty)
+    // eslint-disable-next-line
+    // @ts-ignore
+    createPipelinePromise.mockResolvedValue(mockApiDataEmpty)
+
+    const props = getProps()
+    const contextValue = getDummyPipelineCanvasContextValue({ isLoading: false, isUpdated: true })
+    const { getByText, getByRole } = render(
+      <TestWrapper>
+        <PipelineContext.Provider
+          value={{
+            ...contextValue,
+            state: {
+              ...contextValue.state,
+              pipelineView: {
+                ...contextValue.state.pipelineView,
+                isYamlEditable: false
+              }
+            },
+            view: 'YAML'
+          }}
+        >
+          <PipelineCanvas {...props} />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+
+    // Click on Edit YAML
+    act(() => {
+      fireEvent.click(getByText('common.editYaml'))
+    })
+    // Edit mode option on modal
+    expect(getByText('pipeline.alwaysEditModeYAML')).toBeTruthy()
+    const enableEditModeCheckbox = getByRole('checkbox', { name: 'pipeline.alwaysEditModeYAML' })
+    act(() => {
+      fireEvent.click(enableEditModeCheckbox)
+    })
+    // warning text on selection
+    expect(getByText('pipeline.warningForInvalidYAMLDiscard')).toBeTruthy()
+    expect(getByText('enable')).toBeTruthy()
+    await act(() => {
+      fireEvent.click(getByText('enable'))
+    })
+    await waitFor(() => expect(contextValue.updatePipelineView).toBeCalled())
+  })
 })
 
 describe('Existing pipeline', () => {

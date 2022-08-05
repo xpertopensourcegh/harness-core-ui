@@ -2695,6 +2695,7 @@ export interface StringsMap {
   'pipeline.additionalConfiguration': string
   'pipeline.advancedOptions': string
   'pipeline.allStages': string
+  'pipeline.alwaysEditModeYAML': string
   'pipeline.and': string
   'pipeline.appServiceConfig.applicationSettings.file': string
   'pipeline.appServiceConfig.applicationSettings.fileDetails': string
@@ -3754,6 +3755,7 @@ export interface StringsMap {
   'pipeline.verificationResult': string
   'pipeline.viewLatestExecution': string
   'pipeline.viewPipeline': string
+  'pipeline.warningForInvalidYAMLDiscard': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.alwaysUseStableVersion': string
   'templatesLibrary.changeTemplate': string
