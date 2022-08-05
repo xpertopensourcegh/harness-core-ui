@@ -321,7 +321,7 @@ exports[`Test MonitoredServiceInputSetsTemplate Should render when props are pas
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.0.spec.connectorRef"
                 >
-                  connectors.selectConnector
+                  connector
                 </span>
                  
                 <span
@@ -364,7 +364,7 @@ exports[`Test MonitoredServiceInputSetsTemplate Should render when props are pas
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.0.spec.tierName"
                 >
-                  cv.healthSource.connectors.AppDynamics.trierLabel
+                  cv.monitoringSources.appD.tierName
                 </span>
                  
                 <span
@@ -407,7 +407,7 @@ exports[`Test MonitoredServiceInputSetsTemplate Should render when props are pas
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.0.spec.applicationName"
                 >
-                  cv.healthSource.connectors.AppDynamics.applicationLabel
+                  cv.monitoringSources.appD.applicationName
                 </span>
                  
                 <span
@@ -461,7 +461,7 @@ exports[`Test MonitoredServiceInputSetsTemplate Should render when props are pas
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.1.spec.connectorRef"
                 >
-                  connectors.selectConnector
+                  connector
                 </span>
                  
                 <span
@@ -504,7 +504,7 @@ exports[`Test MonitoredServiceInputSetsTemplate Should render when props are pas
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.1.spec.tierName"
                 >
-                  cv.healthSource.connectors.AppDynamics.trierLabel
+                  cv.monitoringSources.appD.tierName
                 </span>
                  
                 <span
@@ -547,7 +547,7 @@ exports[`Test MonitoredServiceInputSetsTemplate Should render when props are pas
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.1.spec.applicationName"
                 >
-                  cv.healthSource.connectors.AppDynamics.applicationLabel
+                  cv.monitoringSources.appD.applicationName
                 </span>
                  
                 <span
@@ -598,7 +598,7 @@ exports[`Test MonitoredServiceInputSetsTemplate Should render when props are pas
                     class="Tooltip--acenter"
                     data-tooltip-id="MonitoredServiceForm_sources.healthSources.1.spec.metricDefinitions.0.completeMetricPath"
                   >
-                    cv.healthSource.connectors.AppDynamics.metricPathType.text
+                    cv.monitoringSources.appD.completeMetricPath
                   </span>
                    
                   <span
@@ -1673,7 +1673,7 @@ exports[`Test MonitoredServiceInputSetsTemplate should render with ms inputset 1
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.0.spec.tierName"
                 >
-                  cv.healthSource.connectors.AppDynamics.trierLabel
+                  cv.monitoringSources.appD.tierName
                 </span>
                  
                 <span
@@ -1711,7 +1711,7 @@ exports[`Test MonitoredServiceInputSetsTemplate should render with ms inputset 1
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.0.spec.applicationName"
                 >
-                  cv.healthSource.connectors.AppDynamics.applicationLabel
+                  cv.monitoringSources.appD.applicationName
                 </span>
                  
                 <span
@@ -1821,7 +1821,7 @@ exports[`Test MonitoredServiceInputSetsTemplate should render with ms inputset 1
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.1.spec.tierName"
                 >
-                  cv.healthSource.connectors.AppDynamics.trierLabel
+                  cv.monitoringSources.appD.tierName
                 </span>
                  
                 <span
@@ -1859,7 +1859,7 @@ exports[`Test MonitoredServiceInputSetsTemplate should render with ms inputset 1
                   class="Tooltip--acenter"
                   data-tooltip-id="MonitoredServiceForm_sources.healthSources.1.spec.applicationName"
                 >
-                  cv.healthSource.connectors.AppDynamics.applicationLabel
+                  cv.monitoringSources.appD.applicationName
                 </span>
                  
                 <span
@@ -1905,7 +1905,7 @@ exports[`Test MonitoredServiceInputSetsTemplate should render with ms inputset 1
                     class="Tooltip--acenter"
                     data-tooltip-id="MonitoredServiceForm_sources.healthSources.1.spec.metricDefinitions.0.completeMetricPath"
                   >
-                    cv.healthSource.connectors.AppDynamics.metricPathType.text
+                    cv.monitoringSources.appD.completeMetricPath
                   </span>
                    
                   <span
