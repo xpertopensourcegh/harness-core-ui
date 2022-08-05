@@ -78,7 +78,7 @@ export function SavePipelinePopover({ toPipelineStudio }: SavePipelinePopoverPro
   const { showSuccess, showError, clear } = useToaster()
   const { getRBACErrorMessage } = useRBACError()
   const { getString } = useStrings()
-  const { OPA_PIPELINE_GOVERNANCE, NG_TEMPLATES: templatesFeatureFlagEnabled } = useFeatureFlags()
+  const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const history = useHistory()
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } =
     useParams<PipelineType<PipelinePathProps>>()
@@ -117,7 +117,7 @@ export function SavePipelinePopover({ toPipelineStudio }: SavePipelinePopoverPro
     permissions: [PermissionIdentifier.EDIT_TEMPLATE]
   })
 
-  const isTemplatesEnabled = templatesFeatureEnabled && templatesFeatureFlagEnabled && canEdit && !pipeline?.template
+  const isTemplatesEnabled = templatesFeatureEnabled && canEdit && !pipeline?.template
 
   const isSaveEnabled = !isReadonly && isUpdated
 

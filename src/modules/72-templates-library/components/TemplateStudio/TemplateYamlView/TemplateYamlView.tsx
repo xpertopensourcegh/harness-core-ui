@@ -17,8 +17,6 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useGetTemplateSchema } from 'services/template-ng'
@@ -49,7 +47,6 @@ const TemplateYamlView: React.FC = () => {
   const [yamlFileName, setYamlFileName] = React.useState<string>(defaultFileName)
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const isTemplateSchemaValidationEnabled = useFeatureFlag(FeatureFlag.TEMPLATE_SCHEMA_VALIDATION)
   const expressionRef = React.useRef<string[]>([])
   expressionRef.current = expressions
 
@@ -98,8 +95,7 @@ const TemplateYamlView: React.FC = () => {
       orgIdentifier,
       accountIdentifier: accountId,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    },
-    lazy: !isTemplateSchemaValidationEnabled
+    }
   })
 
   return (

@@ -13,8 +13,6 @@ import type { FormikProps } from 'formik'
 import { isEmpty, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -74,7 +72,6 @@ export function StepCommands(
     gitDetails
   } = props
   const { getString } = useStrings()
-  const templatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
@@ -254,8 +251,7 @@ export function StepCommands(
                 />
               }
             />
-            {templatesEnabled &&
-            !isStepGroup &&
+            {!isStepGroup &&
             viewType === StepCommandsViews.Pipeline &&
             module !== 'cf' &&
             (step as StepElementConfig).type !== StepType.FlagConfiguration ? (

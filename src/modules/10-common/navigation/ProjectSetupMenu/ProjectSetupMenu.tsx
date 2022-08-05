@@ -25,14 +25,8 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const {
-    NG_TEMPLATES,
-    OPA_PIPELINE_GOVERNANCE,
-    NG_VARIABLES,
-    CVNG_TEMPLATE_MONITORED_SERVICE,
-    NG_FILE_STORE,
-    NG_SETTINGS
-  } = useFeatureFlags()
+  const { OPA_PIPELINE_GOVERNANCE, NG_VARIABLES, CVNG_TEMPLATE_MONITORED_SERVICE, NG_FILE_STORE, NG_SETTINGS } =
+    useFeatureFlags()
   const { showGetStartedTabInMainMenu } = useSideNavContext()
   const { enabledHostedBuildsForFreeUsers } = useHostedBuilds()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
@@ -59,9 +53,7 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
             to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
           />
         ) : null}
-        {NG_TEMPLATES && isCIorCDorSTO && (
-          <SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} />
-        )}
+        {isCIorCDorSTO && <SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} />}
         {CVNG_TEMPLATE_MONITORED_SERVICE && isCV && (
           <SidebarLink
             label={getString('common.templates')}

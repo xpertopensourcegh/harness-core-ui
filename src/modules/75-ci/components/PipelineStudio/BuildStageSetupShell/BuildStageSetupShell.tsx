@@ -79,7 +79,6 @@ const TabsOrder = [BuildTabs.OVERVIEW, BuildTabs.INFRASTRUCTURE, BuildTabs.EXECU
 const BuildStageSetupShell: React.FC<BuildStageSetupShellProps> = ({ moduleIcon }) => {
   const icon = moduleIcon ? moduleIcon : 'ci-main'
   const { getString } = useStrings()
-  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const ciStepGroupEnabled = useFeatureFlag(FeatureFlag.CI_STEP_GROUP_ENABLED)
   const [selectedTabId, setSelectedTabId] = React.useState<BuildTabs>(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
@@ -468,7 +467,7 @@ const BuildStageSetupShell: React.FC<BuildStageSetupShellProps> = ({ moduleIcon 
           panel={<BuildAdvancedSpecifications>{navBtns}</BuildAdvancedSpecifications>}
           data-testid={getString('ci.advancedLabel')}
         />
-        {isTemplatesEnabled && isContextTypeNotStageTemplate(contextType) && selectedStage?.stage && (
+        {isContextTypeNotStageTemplate(contextType) && selectedStage?.stage && (
           <>
             <Expander />
             <SaveTemplateButton data={selectedStage?.stage} type={'Stage'} gitDetails={gitDetails} />

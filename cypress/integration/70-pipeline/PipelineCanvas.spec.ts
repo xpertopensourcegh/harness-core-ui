@@ -674,7 +674,7 @@ describe('Add stage view with disabled licences', () => {
     cy.intercept('GET', gitSyncEnabledCall, { connectivityMode: null, gitSyncEnabled: false })
 
     cy.fixture('api/users/feature-flags/accountId').then(featureFlagsData => {
-      const disabledLicenses = ['NG_TEMPLATES', 'SECURITY_STAGE', 'CING_ENABLED']
+      const disabledLicenses = ['SECURITY_STAGE', 'CING_ENABLED']
 
       const updatedFeatureFlagsList = featureFlagsData.resource.reduce((acc, currentFlagData) => {
         if (disabledLicenses.includes(currentFlagData.name)) {
@@ -712,8 +712,6 @@ describe('Add stage view with disabled licences', () => {
     cy.findByTestId('stage-Approval').should('be.visible')
     cy.findByTestId('stage-Custom').should('be.visible')
 
-    cy.get('[data-icon="template-library"]').should('not.exist')
-    cy.contains('span', 'Use template').should('not.exist')
     cy.findByTestId('stage-CI').should('not.exist')
     cy.findByTestId('stage-SecurityTests').should('not.exist')
   })

@@ -15,8 +15,6 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { useStrings } from 'framework/strings'
 import type { StageElementConfig } from 'services/cd-ng'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
 import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useQueryParams } from '@common/hooks'
 import ApprovalAdvancedSpecifications from '../ApprovalStage/ApprovalStageAdvanced'
@@ -27,7 +25,6 @@ import approvalStepCss from '../ApprovalStage/ApprovalStageSetupShellMode.module
 export function CustomStageSetupShellMode(): React.ReactElement {
   const { getString } = useStrings()
   const tabHeadings = [getString('overview'), getString('executionText'), getString('advancedTitle')]
-  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const layoutRef = useRef<HTMLDivElement>(null)
   const [selectedTabId, setSelectedTabId] = React.useState<string>(tabHeadings[1])
   const pipelineContext = usePipelineContext()
@@ -156,14 +153,12 @@ export function CustomStageSetupShellMode(): React.ReactElement {
           data-testid={tabHeadings[2]}
         />
         {/* istanbul ignore next */}
-        {isTemplatesEnabled &&
-          isContextTypeNotStageTemplate(contextType) &&
-          /* istanbul ignore next */ selectedStage?.stage && (
-            <>
-              <Expander />
-              <SaveTemplateButton data={selectedStage.stage} type={'Stage'} gitDetails={gitDetails} />
-            </>
-          )}
+        {isContextTypeNotStageTemplate(contextType) && /* istanbul ignore next */ selectedStage?.stage && (
+          <>
+            <Expander />
+            <SaveTemplateButton data={selectedStage.stage} type={'Stage'} gitDetails={gitDetails} />
+          </>
+        )}
       </Tabs>
     </section>
   )

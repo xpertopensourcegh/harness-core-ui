@@ -24,8 +24,6 @@ import {
 import type { StageElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
 import { isContextTypeNotStageTemplate } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useQueryParams } from '@common/hooks'
 import { parse } from '@common/utils/YamlHelperMethods'
@@ -41,7 +39,6 @@ interface ApprovalStageElementConfig extends StageElementConfig {
 export function ApprovalStageSetupShellMode(): React.ReactElement {
   const { getString } = useStrings()
   const tabHeadings = [getString('overview'), getString('executionText'), getString('advancedTitle')]
-  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const layoutRef = useRef<HTMLDivElement>(null)
   const [selectedTabId, setSelectedTabId] = React.useState<string>(tabHeadings[1])
   const pipelineContext = usePipelineContext()
@@ -210,7 +207,7 @@ export function ApprovalStageSetupShellMode(): React.ReactElement {
           panel={<ApprovalAdvancedSpecifications />}
           data-testid={tabHeadings[2]}
         />
-        {isTemplatesEnabled && isContextTypeNotStageTemplate(contextType) && selectedStage?.stage && (
+        {isContextTypeNotStageTemplate(contextType) && selectedStage?.stage && (
           <>
             <Expander />
             <SaveTemplateButton data={selectedStage?.stage} type={'Stage'} gitDetails={gitDetails} />

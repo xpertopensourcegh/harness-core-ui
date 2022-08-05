@@ -283,7 +283,7 @@ describe('Pipeline Canvas - new pipeline', () => {
       </TestWrapper>
     )
     expect(queryByText('common.viewAndExecutePermissions')).toBeTruthy()
-    expect(queryByText('save')).toBeNull()
+    expect(queryByText('save')).toBeTruthy()
   })
 
   test('isUpdated true and execute permissions', () => {
