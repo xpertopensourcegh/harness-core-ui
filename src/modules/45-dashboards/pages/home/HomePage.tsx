@@ -307,7 +307,7 @@ const HomePage: React.FC = () => {
       <Layout.Vertical className={css.homeContent}>
         <Layout.Horizontal padding={{ top: 'large', right: 'xxxlarge', bottom: 'large', left: 'xxxlarge' }}>
           <ExpandingSearchInput
-            placeholder={getString('dashboards.homePage.searchPlaceholder')}
+            placeholder={getString('common.searchByNamePlaceholder')}
             defaultValue={searchTerm}
             onChange={(text: string) => {
               setSearchTerm(text)

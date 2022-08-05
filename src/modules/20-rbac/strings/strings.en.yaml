@@ -148,6 +148,8 @@ userDetails:
     delinkText: Do you want to delink the Harness User Group '{{name}}' from '{{ssoName}}'
     selectSSOSetting: Search SSO Settings
     groupNameLabel: Group name
+    groupSearchLabel: LDAP Group Search Query
+    groupSearchInfo: Only 10 queries will be fetched. Please be specific with your search.
     retainMembersLabel: Retain all members in the user group
     btnDisabledTooltipText: New members cannot be added to SSOLinked UserGroups manually, They will be synced automatically by SSO Provider GroupDetails
     saml: 'SAML: '

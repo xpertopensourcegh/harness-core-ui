@@ -643,6 +643,7 @@ export interface StringsMap {
   'common.saving': string
   'common.scope': string
   'common.scriptRequired': string
+  'common.searchByNamePlaceholder': string
   'common.searchOther': string
   'common.searchPlaceholder': string
   'common.seconds': string
@@ -1094,6 +1095,8 @@ export interface StringsMap {
   'rbac.userDetails.linkToSSOProviderModal.delinkText': string
   'rbac.userDetails.linkToSSOProviderModal.group': string
   'rbac.userDetails.linkToSSOProviderModal.groupNameLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.groupSearchInfo': string
+  'rbac.userDetails.linkToSSOProviderModal.groupSearchLabel': string
   'rbac.userDetails.linkToSSOProviderModal.linkLabel': string
   'rbac.userDetails.linkToSSOProviderModal.retainMembersLabel': string
   'rbac.userDetails.linkToSSOProviderModal.saml': string
@@ -2535,7 +2538,6 @@ export interface StringsMap {
   'dashboards.homePage.noFolderAvailable': string
   'dashboards.homePage.noTags': string
   'dashboards.homePage.removeTagFromFilter': string
-  'dashboards.homePage.searchPlaceholder': string
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string

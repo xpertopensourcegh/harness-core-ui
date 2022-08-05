@@ -74,6 +74,17 @@ jest.mock('services/cd-ng', () => ({
   }),
   useUnlinkSsoGroup: jest.fn().mockImplementation(() => {
     return { mutate: unLinkToSSoMock }
+  }),
+  useSearchLdapGroups: jest.fn().mockImplementation(() => {
+    return {
+      data: mockResponse,
+      loading: false,
+      refetch: jest.fn().mockReturnValue(mockResponse),
+      error: null
+    }
+  }),
+  useLinkToLdapGroup: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve(mockResponse) }
   })
 }))
 

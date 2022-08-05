@@ -672,6 +672,7 @@ environmentCreated: Environment created successfully
 environmentUpdated: Environment updated successfully
 discard: Discard
 default: Default
+searchByNamePlaceholder: Search by name
 searchPlaceholder: Search by name or Id
 monthly: Monthly
 perMonth: /month
