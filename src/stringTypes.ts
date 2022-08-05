@@ -5499,6 +5499,9 @@ export interface StringsMap {
   'cf.featureFlags.multiBtnText': string
   'cf.featureFlags.newFlag': string
   'cf.featureFlags.newPrerequisite': string
+  'cf.featureFlags.noFlagsDescription': string
+  'cf.featureFlags.noFlagsInProject': string
+  'cf.featureFlags.noFlagsToGetStarted': string
   'cf.featureFlags.percentageRollout': string
   'cf.featureFlags.prerequisitesDesc': string
   'cf.featureFlags.resetFilters': string
@@ -5579,7 +5582,6 @@ export interface StringsMap {
   'cf.multivariate': string
   'cf.noEnvironment.message': string
   'cf.noEnvironment.title': string
-  'cf.noFlag': string
   'cf.noResultMatch': string
   'cf.onboarding.allSet': string
   'cf.onboarding.backToStart': string

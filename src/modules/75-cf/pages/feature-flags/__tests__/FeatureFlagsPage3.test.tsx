@@ -148,7 +148,7 @@ describe('FeatureFlagsPage', () => {
       renderComponent()
 
       expect(screen.queryAllByTestId('filter-card')).toHaveLength(0)
-      expect(screen.getByText('cf.noFlag')).toBeVisible()
+      expect(screen.getByText('cf.featureFlags.noFlagsInProject')).toBeVisible()
     })
   })
 
