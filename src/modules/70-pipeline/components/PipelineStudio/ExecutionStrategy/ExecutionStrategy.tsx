@@ -140,13 +140,25 @@ function ExecutionStrategyRef(
     }
   }, [])
 
-  const infoByType: { [key: string]: string } = {
+  const azureWebAppDeploymentDescriptions = {
+    BlueGreen: getString('pipeline.azureWebApp.strategy.blueGreen'),
+    Canary: getString('pipeline.azureWebApp.strategy.canary'),
+    Basic: getString('pipeline.azureWebApp.strategy.basic'),
+    Default: getString('pipeline.executionStrategy.strategies.default.description')
+  }
+
+  const defaultDeploymentDescriptions = {
     BlueGreen: getString('pipeline.executionStrategy.strategies.blueGreen.description'),
     Rolling: getString('pipeline.executionStrategy.strategies.rolling.description'),
     Canary: getString('pipeline.executionStrategy.strategies.canary.description'),
     Default: getString('pipeline.executionStrategy.strategies.default.description'),
     Basic: getString('pipeline.executionStrategy.strategies.basic.description')
   }
+
+  const infoByType: { [key: string]: string } =
+    serviceDefinitionType() === ServiceDeploymentType.AzureWebApp
+      ? azureWebAppDeploymentDescriptions
+      : defaultDeploymentDescriptions
 
   const learnMoreLinkByType: { [key: string]: string } = {
     BlueGreen: getString('pipeline.executionStrategy.strategies.blueGreen.learnMoreLink'),
