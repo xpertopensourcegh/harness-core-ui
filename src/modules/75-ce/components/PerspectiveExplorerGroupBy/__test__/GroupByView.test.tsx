@@ -7,6 +7,7 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import type { QlceViewFieldIdentifierData } from 'services/ce/services'
 import { GroupByDropDown, LabelDropDown } from '../GroupByView'
 
@@ -69,7 +70,9 @@ describe('test cases for groupby views', () => {
 
   test('should be able to render label view popover', async () => {
     const { container } = render(
-      <LabelDropDown setGroupBy={jest.fn()} data={['value1', 'value2', 'value3', 'value4', 'value5', 'value6']} />
+      <TestWrapper>
+        <LabelDropDown setGroupBy={jest.fn()} data={['value1', 'value2', 'value3', 'value4', 'value5', 'value6']} />
+      </TestWrapper>
     )
 
     expect(container).toMatchSnapshot()

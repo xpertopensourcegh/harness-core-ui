@@ -787,6 +787,7 @@ perspectives:
       selectValuesText: 'SELECT VALUES'
       selectAll: 'Select all'
       chooseOperand: 'Choose Operand'
+      searchValue: Search Value
     preview:
       groupBy: 'Group By'
       title: '{{$.executionStrategy.preview}}'
