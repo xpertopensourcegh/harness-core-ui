@@ -41,6 +41,8 @@ export type MapAppDynamicsMetric = {
   fullPath?: string
   pathType?: string
   completeMetricPath?: string
+  ignoreThresholds: MetricThresholdType[]
+  failFastThresholds: MetricThresholdType[]
 }
 
 export interface AppDynamicsData {

@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { cloneDeep, isEmpty, isEqual, omit } from 'lodash-es'
+import { cloneDeep, isEmpty, isEqual } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { AllowedTypes, getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@harness/uicore'
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
@@ -840,19 +840,27 @@ export const persistCustomMetric = ({
       appdApplication: mapValue?.appdApplication,
       appDTier: mapValue?.appDTier,
       metricPacks: mapValue?.metricPacks,
-      metricData: mapValue?.metricData
+      metricData: mapValue?.metricData,
+      ignoreThresholds: mapValue?.ignoreThresholds,
+      failFastThresholds: mapValue?.failFastThresholds
     }
-    const areAllEmpty =
+    const areAllFilled =
       nonCustomValuesFromSelectedMetric.appdApplication &&
       nonCustomValuesFromSelectedMetric.appDTier &&
       nonCustomValuesFromSelectedMetric.metricData
     if (
-      areAllEmpty &&
+      areAllFilled &&
       selectedMetric === formikValues?.metricName &&
-      !isEqual(omit(nonCustomFeilds, ['ignoreThresholds', 'failFastThresholds']), nonCustomValuesFromSelectedMetric)
+      !isEqual(nonCustomFeilds, nonCustomValuesFromSelectedMetric)
     ) {
       const clonedMappedMetrics = cloneDeep(mappedMetrics)
-      clonedMappedMetrics.set(selectedMetric, formikValues)
+      clonedMappedMetrics.forEach((data, key) => {
+        if (selectedMetric === data.metricName) {
+          clonedMappedMetrics.set(selectedMetric, { ...formikValues, ...nonCustomFeilds })
+        } else {
+          clonedMappedMetrics.set(key, { ...data, ...nonCustomFeilds })
+        }
+      })
       setMappedMetrics({ selectedMetric: selectedMetric, mappedMetrics: clonedMappedMetrics })
     }
   }

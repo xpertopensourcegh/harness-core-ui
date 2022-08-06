@@ -49,6 +49,7 @@ import {
   getIsMetricPacksSelected,
   initAppDCustomFormValue,
   initializeNonCustomFields,
+  persistCustomMetric,
   resetShowCustomMetric,
   setAppAndTierAsInputIfConnectorIsInput,
   setCustomFieldAndValidation,
@@ -291,13 +292,14 @@ export default function AppDMonitoredSource({
       onSubmit={noop}
     >
       {formik => {
-        // persistCustomMetric({
-        //   mappedMetrics,
-        //   selectedMetric,
-        //   nonCustomFeilds,
-        //   formikValues: formik.values,
-        //   setMappedMetrics
-        // })
+        // This is a temporary fix to persist data
+        persistCustomMetric({
+          mappedMetrics,
+          selectedMetric,
+          nonCustomFeilds,
+          formikValues: formik.values,
+          setMappedMetrics
+        })
         return (
           <FormikForm className={css.formFullheight}>
             <CardWithOuterTitle title={getString('cv.healthSource.connectors.AppDynamics.applicationsAndTiers')}>
