@@ -25,6 +25,11 @@ import { useStrings } from 'framework/strings'
 import { getResourceIcon, getServiceIcons } from '@ce/utils/iconsUtils'
 import routes from '@common/RouteDefinitions'
 import { BIDashboardSummary, useListBIDashboards } from 'services/ce'
+import { isEnterprisePlan, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import LevelUpBanner from '@common/components/FeatureWarning/LevelUpBanner'
+import { useModuleInfo } from '@common/hooks/useModuleInfo'
+import { ModuleName, moduleToModuleNameMapping } from 'framework/types/ModuleName'
+import { NoConnectorDataHandling } from '@ce/components/CreateConnector/CreateConnector'
 import { QuickFilters } from '../perspective-list/PerspectiveListPage'
 import css from './BIDashboard.module.scss'
 
@@ -58,38 +63,29 @@ const filterDashboardData: (
     })
 }
 
-const BIDashboard: React.FC = () => {
+export const BIDashboardData: React.FC = () => {
+  const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()
   const [quickFilters, setQuickFilters] = useState<Record<string, boolean>>({})
   const [searchParam, setSearchParam] = useState<string>('')
-  const { accountId } = useParams<{ accountId: string }>()
 
   const { data: dashboardList, loading } = useListBIDashboards({
     queryParams: {
       accountIdentifier: accountId
     }
   })
-
   const data = dashboardList?.data || /* istanbul ignore next */ []
 
   const filteredDashboardData = useMemo(() => {
     return filterDashboardData(data, searchParam, quickFilters)
   }, [data, searchParam, quickFilters])
 
+  if (!data.length) {
+    return <NoConnectorDataHandling showConnectorModal />
+  }
+
   return (
     <>
-      <PageHeader
-        title={
-          <Text
-            color={Color.GREY_800}
-            font={{ variation: FontVariation.H4 }}
-            tooltipProps={{ dataTooltipId: 'ccmBIDashboards' }}
-          >
-            {getString('ce.biDashboard.sideNavText')}
-          </Text>
-        }
-        breadcrumbs={<NGBreadcrumbs />}
-      />
       <Layout.Horizontal className={css.header}>
         <QuickFilters
           quickFilters={quickFilters}
@@ -121,7 +117,6 @@ const BIDashboard: React.FC = () => {
                 {getString('ce.biDashboard.bannerLinkText')}
               </Link>
             </Text>
-            <Icon name="cross" size={18} />
           </Layout.Horizontal>
         </Container>
         <Container className={css.pageBodyWrapper}>
@@ -168,6 +163,33 @@ const BIDashboard: React.FC = () => {
           />
         </Container>
       </PageBody>
+    </>
+  )
+}
+
+const BIDashboard: React.FC = () => {
+  const { getString } = useStrings()
+  const { module } = useModuleInfo()
+  const { licenseInformation } = useLicenseStore()
+  /* istanbul ignore next */
+  const moduleName: ModuleName = module ? moduleToModuleNameMapping[module] : ModuleName.CE
+  const isEnterpriseEdition = isEnterprisePlan(licenseInformation, moduleName)
+
+  return (
+    <>
+      <PageHeader
+        title={
+          <Text
+            color={Color.GREY_800}
+            font={{ variation: FontVariation.H4 }}
+            tooltipProps={{ dataTooltipId: 'ccmBIDashboards' }}
+          >
+            {getString('ce.biDashboard.sideNavText')}
+          </Text>
+        }
+        breadcrumbs={<NGBreadcrumbs />}
+      />
+      {isEnterpriseEdition ? <BIDashboardData /> : <LevelUpBanner message={getString('dashboards.upgrade')} />}
     </>
   )
 }

@@ -48,10 +48,8 @@ import {
   ViewType
 } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
-import NoData from '@ce/components/OverviewPage/OverviewNoData'
 import PerspectiveListView from '@ce/components/PerspectiveViews/PerspectiveListView'
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
-import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
 import { Utils } from '@ce/common/Utils'
 import { PAGE_NAMES, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -68,7 +66,7 @@ import PermissionError from '@ce/images/permission-error.svg'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { getPermissionErrorMsg } from '@ce/utils/rbacUtils'
 import { getToolTip } from '@ce/components/PerspectiveViews/PerspectiveMenuItems'
-import bgImage from './images/perspectiveBg.png'
+import { NoConnectorDataHandling } from '@ce/components/CreateConnector/CreateConnector'
 import css from './PerspectiveListPage.module.scss'
 
 const perspectiveSortFunction: (a: any, b: any) => number = (a, b) => {
@@ -171,7 +169,7 @@ export const QuickFilters: (props: QuickFiltersProps) => JSX.Element | null = ({
     return (
       <Container
         padding="small"
-        className={cx(css.quickFilter, { [css.disabledMode]: isDisabled }, { [css.selected]: isSelected })}
+        className={cx(css.quickFilter, { [css.disabledMode]: isDisabled }, { [css.selected]: isSelected && showCount })}
         onClick={() => {
           const selectedFilters = { ...quickFilters }
           if (isSelected) {
@@ -183,7 +181,7 @@ export const QuickFilters: (props: QuickFiltersProps) => JSX.Element | null = ({
         }}
       >
         {!showCount && <Checkbox checked={isSelected} />}
-        {isSelected ? <Icon color={Color.WHITE} name={icon} /> : <Icon name={icon} />}
+        {isSelected && showCount ? <Icon color={Color.WHITE} name={icon} /> : <Icon name={icon} />}
         {showCount && (
           <Text
             padding={{
@@ -227,36 +225,6 @@ export const QuickFilters: (props: QuickFiltersProps) => JSX.Element | null = ({
 enum Views {
   LIST,
   GRID
-}
-
-interface NoDataPerspectivePageProps {
-  showConnectorModal?: boolean
-}
-
-const NoDataPerspectivePage: (props: NoDataPerspectivePageProps) => JSX.Element = ({ showConnectorModal }) => {
-  const { openModal, closeModal } = useCreateConnectorMinimal({
-    portalClassName: css.excludeSideNavOverlay,
-    onSuccess: () => {
-      closeModal()
-    }
-  })
-
-  const [showNoDataOverlay, setShowNoDataOverlay] = useState(!showConnectorModal)
-
-  useEffect(() => {
-    showConnectorModal && openModal()
-  }, [])
-
-  const handleConnectorClick = (): void => {
-    setShowNoDataOverlay(false)
-    openModal()
-  }
-
-  return (
-    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}>
-      {showNoDataOverlay && <NoData onConnectorCreateClick={handleConnectorClick} />}
-    </div>
-  )
 }
 
 interface PerspectiveListGridViewProps {
@@ -362,7 +330,7 @@ const PerspectiveListPage: React.FC = () => {
     }
   })
 
-  const foldersList = foldersListResullt?.data || []
+  const foldersList = foldersListResullt?.data || /* istanbul ignore next */ []
 
   useEffect(() => {
     if (isRefetchFolders) {
@@ -393,8 +361,8 @@ const PerspectiveListPage: React.FC = () => {
     if (foldersList) {
       const defaultFolder = foldersList.filter(folders => folders.viewType === folderViewType.DEFAULT)
       const sampleFolder = foldersList.filter(folders => folders.viewType === folderViewType.SAMPLE)
-      setDefaultFolderId(defaultFolder[0]?.uuid || '')
-      setSampleFolderId(sampleFolder[0]?.uuid || '')
+      setDefaultFolderId(defaultFolder[0]?.uuid || /* istanbul ignore next */ '')
+      setSampleFolderId(sampleFolder[0]?.uuid || /* istanbul ignore next */ '')
     }
   }, [foldersList])
 
@@ -629,11 +597,11 @@ const PerspectiveListPage: React.FC = () => {
   }
 
   if (ccmData && !Utils.accountHasConnectors(ccmData.ccmMetaData as CcmMetaData)) {
-    return <NoDataPerspectivePage showConnectorModal />
+    return <NoConnectorDataHandling showConnectorModal />
   }
 
   if (ccmData && !cloudDataPresent && !clusterDataPresent) {
-    return <NoDataPerspectivePage />
+    return <NoConnectorDataHandling />
   }
 
   return (
@@ -726,7 +694,7 @@ const PerspectiveListPage: React.FC = () => {
                     />
                   </Layout.Horizontal>
                 </Layout.Horizontal>
-              ) : null}
+              ) : /* istanbul ignore next */ null}
               {(fetching || createViewLoading) && <Page.Spinner />}
               {!pespectiveList.length ? (
                 <EmptyPage
