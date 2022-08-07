@@ -354,6 +354,7 @@ export interface AccessControlCheckError {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -3306,6 +3307,7 @@ export interface Error {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -3653,6 +3655,7 @@ export interface ErrorMetadata {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
   errorMessage?: string
 }
 
@@ -4057,6 +4060,7 @@ export interface Failure {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -9607,6 +9611,7 @@ export interface ResponseMessage {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -11217,6 +11222,7 @@ export interface ServiceDeployment {
 
 export interface ServiceDeploymentInfo {
   image?: string
+  serviceId?: string
   serviceName?: string
   serviceTag?: string
 }

@@ -1059,9 +1059,10 @@ noApprovalInstanceCreated: Approval instance not created, no details to display
 approvalTypeRequired: Approval type is required
 executionList:
   servicesDeployedText: 'Services deployed ({{size}})'
+  servicesDeployed: 'Services deployed'
   artifactDeployedText: 'Artifacts deployed ({{size}})'
   EnvironmentsText: 'Environments ({{size}})'
-
+artifactImageTag: 'Artifact (Image: Tag)'
 replacedExpressions: Replaced Expressions
 expressionRequired: Expression value is required.
 nativeHelm: Native Helm

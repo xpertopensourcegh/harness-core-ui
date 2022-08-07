@@ -2768,6 +2768,7 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
   'pipeline.approvalTypeRequired': string
+  'pipeline.artifactImageTag': string
   'pipeline.artifactPathDependencyRequired': string
   'pipeline.artifactPathFilterLabel': string
   'pipeline.artifactPathLabel': string
@@ -3047,6 +3048,7 @@ export interface StringsMap {
   'pipeline.executionId': string
   'pipeline.executionList.EnvironmentsText': string
   'pipeline.executionList.artifactDeployedText': string
+  'pipeline.executionList.servicesDeployed': string
   'pipeline.executionList.servicesDeployedText': string
   'pipeline.executionStatus.Aborted': string
   'pipeline.executionStatus.Aborting': string

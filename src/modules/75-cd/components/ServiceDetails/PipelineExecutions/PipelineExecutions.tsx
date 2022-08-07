@@ -80,6 +80,7 @@ export const PipelineExecutions: React.FC = () => {
         overscan={10}
         style={{ height: 600 }}
         totalCount={filteredDeployments.length}
+        className={css.overide}
         itemContent={index => {
           const deployment = filteredDeployments[index]
           return (

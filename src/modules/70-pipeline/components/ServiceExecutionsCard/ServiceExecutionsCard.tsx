@@ -26,7 +26,9 @@ export enum DashboardSelected {
 enum EnvironmentDetailsTab {
   CONFIGURATION = 'CONFIGURATION'
 }
-
+enum ServiceArtifacts {
+  SERVICEARTIFACT = 'serviceArtifact'
+}
 interface ListProps {
   listName: string[]
   className?: string
@@ -45,11 +47,16 @@ export interface ServiceExecutionsCardProps {
   caller: string
 }
 export interface ServicePopoveCardProps {
-  service: ServiceDeploymentInfo
+  service: string[]
 }
 
-interface ServicesTableProps {
+interface ServicesProps {
   services: ServiceDeploymentInfo[]
+}
+
+interface ServiceTableProps {
+  services: string[][]
+  serviceMap: Map<string, string>
 }
 
 export interface ServicesListProps {
@@ -60,24 +67,18 @@ export interface ServicesListProps {
 
 export function ServicePopoverCard(props: ServicePopoveCardProps): React.ReactElement {
   const { service } = props
-  const { getString } = useStrings()
 
   return (
     <div className={css.mainPopover}>
-      <String tagName="div" className={css.titlePopover} stringID="pipeline.artifactTriggerConfigPanel.artifact" />
-      {service.serviceTag ? (
-        <>
-          {!!service.image && (
-            <Text color="grey800" font={'small'}>
-              {getString('imageLabel')}: {service.image}
+      <String tagName="div" className={css.titlePopover} stringID="pipeline.artifactImageTag" />
+      {service && service.length ? (
+        <Layout.Vertical>
+          {service.map(item => (
+            <Text color="grey800" font={'small'} key={item[1]}>
+              {item[0]}
             </Text>
-          )}
-          {!!service.serviceTag && (
-            <Text color="grey800" font={'small'}>
-              {getString('common.artifactTag')}: {service.serviceTag}
-            </Text>
-          )}
-        </>
+          ))}
+        </Layout.Vertical>
       ) : (
         <String tagName="div" stringID="noArtifact" />
       )}
@@ -86,7 +87,7 @@ export function ServicePopoverCard(props: ServicePopoveCardProps): React.ReactEl
 }
 
 /* istanbul ignore next */
-function ServicesTable({ services }: ServicesTableProps): React.ReactElement {
+function ServicesTable({ services, serviceMap }: ServiceTableProps): React.ReactElement {
   const { getString } = useStrings()
 
   return (
@@ -95,15 +96,13 @@ function ServicesTable({ services }: ServicesTableProps): React.ReactElement {
         <tr>
           <th>{getString('service')}</th>
           <th>{getString('pipeline.artifactTriggerConfigPanel.artifact')}</th>
-          <th>{getString('imageLabel')}</th>
         </tr>
       </thead>
       <tbody>
-        {services?.map((service, i) => (
-          <tr key={`${service.serviceName}-${i}`}>
-            <td>{service.serviceName}</td>
-            <td>{service.serviceTag ? getString('artifactDisplay', { tag: service.serviceTag }) : '-'} </td>
-            <td>{service.image ? getString('pipeline.imageTag', { image: service.image }) : '-'}</td>
+        {services?.map(service => (
+          <tr key={service[1]}>
+            <td>{service[0]}</td>
+            <td>{defaultTo(serviceMap.get(service[1])?.[0][0], '')}</td>
           </tr>
         ))}
       </tbody>
@@ -111,28 +110,48 @@ function ServicesTable({ services }: ServicesTableProps): React.ReactElement {
   )
 }
 
+//sonar recommendation
+const ImageTagString = (image?: string, tag?: string) => {
+  const serviceImage = image ? image : ' - '
+  const serviceTag = tag ? tag : ' - '
+  return `${serviceImage}: ${serviceTag}`
+}
+
 function ServicesList({ services, limit = 2, className }: ServicesListProps): React.ReactElement {
+  const serviceMap = new Map()
+  services.forEach(
+    item =>
+      item.serviceId &&
+      !(!item.image && !item.serviceTag) &&
+      (serviceMap.has(item.serviceId)
+        ? serviceMap.get(item.serviceId).push([ImageTagString(item.image, item.serviceTag), item.serviceId])
+        : serviceMap.set(item.serviceId, [[ImageTagString(item.image, item.serviceTag), item.serviceId]]))
+  )
+
+  const uniqList = uniqBy(services, item => item.serviceId)
+  const keyList = uniqList.map(item => [item.serviceName, item.serviceId])
+
   return (
     <div className={css.main}>
       <Icon name="services" className={css.icon} size={18} />
       <div className={className}>
-        {services.slice(0, limit).map(service => {
-          const { serviceName } = service
+        {keyList.slice(0, limit).map(item => {
+          const service = serviceMap.get(item[1]) as string[]
           return (
             <Popover
-              key={serviceName}
+              key={item[1]}
               wrapperTagName="div"
               targetTagName="div"
               interactionKind="hover"
               position={Position.BOTTOM_RIGHT}
               className={css.serviceWrapper}
             >
-              <div className={css.serviceName}>{serviceName}</div>
+              <div className={css.serviceName}>{item[0]}</div>
               <ServicePopoverCard service={service} />
             </Popover>
           )
         })}
-        {services.length > limit ? (
+        {keyList && keyList.length > limit ? (
           <Popover
             wrapperTagName="div"
             targetTagName="div"
@@ -145,9 +164,9 @@ function ServicesList({ services, limit = 2, className }: ServicesListProps): Re
               tagName="div"
               className={cx(css.serviceName, css.count)}
               stringID={'common.plusNumberNoSpace'}
-              vars={{ number: Math.abs(services.length - limit) }}
+              vars={{ number: Math.abs(keyList.length - limit) }}
             />
-            <ServicesTable services={services.slice(limit)} />
+            <ServicesTable services={keyList.slice(limit) as string[][]} serviceMap={serviceMap} />
           </Popover>
         ) : null}
       </div>
@@ -155,15 +174,71 @@ function ServicesList({ services, limit = 2, className }: ServicesListProps): Re
   )
 }
 
+function ServiceArtifact({ services }: ServicesProps): React.ReactElement {
+  const serviceArtifactList: string[] = []
+  const serviceName = services[0].serviceName
+  services.forEach(
+    item =>
+      item.serviceName &&
+      !(!item.image && !item.serviceTag) &&
+      serviceArtifactList.push(ImageTagString(item.image, item.serviceTag))
+  )
+
+  //here we will only have one serviceName and all the image/tags will be mapped to it
+  const values = [...new Set(serviceArtifactList)]
+  if (services.length === 0) return <></>
+
+  return (
+    <Layout.Horizontal>
+      <Icon name={'services'} className={css.icon} size={18} />
+      <Text
+        color={Color.PRIMARY_7}
+        font={{ size: 'small', weight: 'semi-bold' }}
+        margin={{ left: 'xsmall' }}
+        style={{ maxWidth: values.length ? 'var(--spacing-13)' : 'var(--spacing-14)' }}
+        lineClamp={1}
+      >
+        {serviceName}
+      </Text>
+      {values.length ? (
+        <>
+          <Text color={Color.PRIMARY_7} font={{ size: 'small', weight: 'semi-bold' }} margin={{ left: 'xsmall' }}>
+            &nbsp;{'('}
+          </Text>
+          <InfraList
+            className={css.environments}
+            listName={values}
+            limit={1}
+            caller={ServiceArtifacts.SERVICEARTIFACT}
+          />
+          <Text
+            color={Color.PRIMARY_7}
+            font={{ size: 'small', weight: 'semi-bold' }}
+            margin={{ left: 'xsmall' }}
+          >{`)`}</Text>
+        </>
+      ) : null}
+    </Layout.Horizontal>
+  )
+}
+
 function InfraList({ listName, limit = 2, className, caller }: ListProps): React.ReactElement {
-  const visibleList = listName.slice(0, limit).join(', ')
+  const visibleList = listName.slice(0, limit)
+  const lenListName = visibleList.length
   return (
     <div className={css.main}>
       {listName.length > 0 ? (
         <>
           <div className={className}>
             {caller == DashboardSelected.OVERVIEW && <Icon name={'environments'} className={css.icon} size={14} />}
-            <Text>{visibleList}</Text>
+            {visibleList.map((cur, idx) => (
+              <Layout.Horizontal key={cur}>
+                <Text lineClamp={1} style={{ maxWidth: caller !== ServiceArtifacts.SERVICEARTIFACT ? 90 : '' }}>
+                  {cur}
+                </Text>
+                {idx < lenListName - 1 ? <Text>{`,`}&nbsp;</Text> : null}
+              </Layout.Horizontal>
+            ))}
           </div>
           {listName.length > limit ? (
             <>
@@ -252,7 +327,7 @@ function EnvList({ envIdentifiers, limit = 2 }: EnvListProp): React.ReactElement
           >
             <Text
               color={Color.PRIMARY_7}
-              font={{ size: 'small' }}
+              font={{ size: 'small', weight: 'semi-bold' }}
               margin={{ left: 'xsmall' }}
               style={{ maxWidth: 'var(--spacing-13)' }}
               key={item.envId}
@@ -262,12 +337,7 @@ function EnvList({ envIdentifiers, limit = 2 }: EnvListProp): React.ReactElement
             </Text>
             {checkInfraNotNull(defaultTo(item.infrastructureDetails, [])) ? (
               <>
-                <Text
-                  color={Color.PRIMARY_7}
-                  font={{ size: 'small' }}
-                  margin={{ left: 'xsmall' }}
-                  style={{ maxWidth: 'var(--spacing-13)' }}
-                >
+                <Text color={Color.PRIMARY_7} font={{ size: 'small', weight: 'semi-bold' }} margin={{ left: 'xsmall' }}>
                   &nbsp;{'('}
                 </Text>
                 <InfraList
@@ -279,18 +349,12 @@ function EnvList({ envIdentifiers, limit = 2 }: EnvListProp): React.ReactElement
                 />
                 <Text
                   color={Color.PRIMARY_7}
-                  font={{ size: 'small' }}
+                  font={{ size: 'small', weight: 'semi-bold' }}
                   margin={{ left: 'xsmall' }}
-                  style={{ maxWidth: 'var(--spacing-13)' }}
                 >{`)`}</Text>
               </>
             ) : null}
-            <Text
-              color={Color.PRIMARY_7}
-              font={{ size: 'small' }}
-              margin={{ left: 'xsmall' }}
-              style={{ maxWidth: 'var(--spacing-13)' }}
-            >
+            <Text color={Color.PRIMARY_7} font={{ size: 'small', weight: 'semi-bold' }} margin={{ left: 'xsmall' }}>
               {idx !== countOfEnv - 1 ? ',' : ''}
             </Text>
           </Layout.Horizontal>
@@ -344,13 +408,12 @@ export function ServiceExecutionsCard(data: ServiceExecutionsCardProps): React.R
     <Layout.Horizontal spacing="medium" className={css.moduleData}>
       <Icon name="cd-main" size={20} className={css.moduleIcon} />
       <div className={css.cardSummary}>
-        <String
-          tagName="div"
-          className={css.heading}
-          stringID={'pipeline.executionList.servicesDeployedText'}
-          vars={{ size: serviceIdentifiers.length }}
-        />
-        <ServicesList className={css.services} services={serviceIdentifiers} limit={limit} />
+        <String tagName="div" className={css.heading} stringID={'pipeline.executionList.servicesDeployed'} />
+        {data.caller === DashboardSelected.OVERVIEW ? (
+          <ServicesList className={css.services} services={serviceIdentifiers} limit={limit} />
+        ) : (
+          <ServiceArtifact services={serviceIdentifiers} />
+        )}
       </div>
       <div className={css.cardSummary}>
         <String

@@ -140,6 +140,7 @@ exports[`PipelineExecutions should render PipelineExecutions 1`] = `
         class="StyledProps--font StyledProps--main executionCardContainer"
       >
         <div
+          class="overide"
           data-test-id="virtuoso-scroller"
           data-virtuoso-scroller="true"
           style="height: 600px; outline: none; overflow-y: auto; position: relative;"
