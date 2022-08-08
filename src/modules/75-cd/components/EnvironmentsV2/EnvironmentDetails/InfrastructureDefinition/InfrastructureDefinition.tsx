@@ -8,7 +8,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { Button, ButtonSize, ButtonVariation, Container, ModalDialog, Page } from '@harness/uicore'
+import { ButtonSize, ButtonVariation, Container, ModalDialog, Page } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
 
 import { useGetInfrastructureList } from 'services/cd-ng'
@@ -18,13 +18,16 @@ import type { EnvironmentPathProps, ProjectPathProps } from '@common/interfaces/
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
 
 import InfrastructureList from './InfrastructureList/InfrastructureList'
 import InfrastructureModal from './InfrastructureModal'
 
 import css from './InfrastructureDefinition.module.scss'
 
-export default function InfrastructureDefinition() {
+export default function InfrastructureDefinition(): JSX.Element {
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier } = useParams<
     ProjectPathProps & EnvironmentPathProps
   >()
@@ -41,13 +44,7 @@ export default function InfrastructureDefinition() {
     }
   })
 
-  useEffect(() => {
-    if (selectedInfrastructure) {
-      showModal()
-    }
-  }, [selectedInfrastructure])
-
-  const onClose = () => {
+  const onClose = (): void => {
     setSelectedInfrastructure('')
     hideModal()
   }
@@ -77,6 +74,12 @@ export default function InfrastructureDefinition() {
     [refetch, selectedInfrastructure, setSelectedInfrastructure]
   )
 
+  useEffect(() => {
+    if (selectedInfrastructure) {
+      showModal()
+    }
+  }, [selectedInfrastructure, showModal])
+
   return (
     <Container padding={{ left: 'medium', right: 'medium' }}>
       {loading ? (
@@ -85,13 +88,19 @@ export default function InfrastructureDefinition() {
         <Page.Error>{getRBACErrorMessage(error)}</Page.Error>
       ) : (
         <>
-          <Button
+          <RbacButton
             text={getString('pipelineSteps.deploy.infrastructure.infraDefinition')}
             font={{ weight: 'bold' }}
             icon="plus"
             onClick={showModal}
             size={ButtonSize.SMALL}
             variation={ButtonVariation.LINK}
+            permission={{
+              resource: {
+                resourceType: ResourceType.ENVIRONMENT
+              },
+              permission: PermissionIdentifier.EDIT_ENVIRONMENT
+            }}
           />
           <InfrastructureList
             list={data?.data?.content}

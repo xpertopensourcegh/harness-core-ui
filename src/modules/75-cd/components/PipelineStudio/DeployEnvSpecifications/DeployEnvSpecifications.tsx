@@ -118,10 +118,10 @@ export default function DeployEnvSpecifications(props: PropsWithChildren<unknown
             initialValues={{
               gitOpsEnabled: get(stage, 'stage.spec.gitOpsEnabled', false),
               ...(get(stage, 'stage.spec.environment', false) && {
-                environment:
-                  scope === Scope.ACCOUNT
-                    ? { environmentRef: RUNTIME_INPUT_VALUE }
-                    : get(stage, 'stage.spec.environment')
+                environment: get(stage, 'stage.spec.environment')
+              }),
+              ...(scope === Scope.ACCOUNT && {
+                environment: { environmentRef: RUNTIME_INPUT_VALUE }
               }),
               ...(get(stage, 'stage.spec.environmentGroup', false) && {
                 environmentGroup: get(stage, 'stage.spec.environmentGroup')
