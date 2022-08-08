@@ -985,9 +985,6 @@ export interface StringsMap {
   'rbac.categoryLabels.sharedResources': string
   'rbac.communityErrorMessages.resourceGroup': string
   'rbac.communityErrorMessages.role': string
-  'rbac.copyGroup.copyToProjects': string
-  'rbac.copyGroup.success': string
-  'rbac.copyGroup.title': string
   'rbac.customResourceGroups': string
   'rbac.customRoles': string
   'rbac.forUser': string
