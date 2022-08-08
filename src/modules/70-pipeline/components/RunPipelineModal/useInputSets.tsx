@@ -94,7 +94,8 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
       pipelineIdentifier,
       branch,
       repoIdentifier
-    }
+    },
+    lazy: executionInputSetTemplateYaml
   })
 
   // Reason for sending repoIdentifier and pipelineRepoID both as same values
@@ -133,11 +134,14 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
     ) as PipelineInfoConfig
 
     if (rerunInputSetYaml) {
-      const parsedRerunPipelineYaml = memoizedParse<Pipeline>(rerunInputSetYaml)
+      const templatePipeline = executionView
+        ? clearRuntimeInput(memoizedParse<Pipeline>(executionInputSetTemplateYaml))
+        : { pipeline: parsedRunPipelineYaml }
+      const inputSetPortion = memoizedParse<Pipeline>(rerunInputSetYaml)
 
       return mergeTemplateWithInputSetData({
-        templatePipeline: { pipeline: parsedRunPipelineYaml },
-        inputSetPortion: parsedRerunPipelineYaml,
+        templatePipeline,
+        inputSetPortion,
         allValues: { pipeline: defaultTo(resolvedPipeline, {} as PipelineInfoConfig) },
         shouldUseDefaultValues
       })
@@ -172,7 +176,9 @@ export function useInputSets(props: UseInputSetsProps): UseInputSetsReturn {
     shouldFetchInputSets,
     resolvedPipeline,
     executionIdentifier,
-    hasRuntimeInputs
+    hasRuntimeInputs,
+    executionInputSetTemplateYaml,
+    executionView
   ])
 
   const inputSetTemplate = useMemo((): Pipeline => {
