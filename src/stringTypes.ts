@@ -1118,6 +1118,7 @@ export interface StringsMap {
   'rbac.userDetails.linkToSSOProviderModal.groupNameLabel': string
   'rbac.userDetails.linkToSSOProviderModal.groupSearchInfo': string
   'rbac.userDetails.linkToSSOProviderModal.groupSearchLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.ldap': string
   'rbac.userDetails.linkToSSOProviderModal.linkLabel': string
   'rbac.userDetails.linkToSSOProviderModal.retainMembersLabel': string
   'rbac.userDetails.linkToSSOProviderModal.saml': string

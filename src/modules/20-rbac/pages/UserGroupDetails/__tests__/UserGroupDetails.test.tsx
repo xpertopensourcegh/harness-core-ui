@@ -178,6 +178,7 @@ describe('UserGroupDetails Test', () => {
       </TestWrapper>
     )
     await waitFor(() => getAllByTextLinked('accessControl: common.userGroups'))
+    await waitFor(() => expect(getAllByTextLinked('rbac.userDetails.linkToSSOProviderModal.ldap')).not.toBeNull())
     const unLinkSSOButton = getAllByTextLinked('rbac.userDetails.linkToSSOProviderModal.delinkLabel')[0]
     fireEvent.click(unLinkSSOButton)
     await act(async () => {

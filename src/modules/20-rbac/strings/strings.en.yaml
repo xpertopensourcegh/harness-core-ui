@@ -152,6 +152,7 @@ userDetails:
     groupSearchInfo: Only 10 queries will be fetched. Please be specific with your search.
     retainMembersLabel: Retain all members in the user group
     btnDisabledTooltipText: New members cannot be added to SSOLinked UserGroups manually, They will be synced automatically by SSO Provider GroupDetails
+    ldap: 'LDAP: '
     saml: 'SAML: '
     group: 'Group: '
     validation:
