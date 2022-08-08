@@ -132,6 +132,7 @@ class StepFactory extends AbstractStepFactory {
 class StepOne extends Step<Record<string, any>> {
   protected type = StepType.HarnessApproval
   protected stepName = 'stepOne'
+  protected referenceId = 'stepOne'
   protected stepIcon: IconName = 'cross'
   validateInputSet(): Record<string, any> {
     return {}
@@ -145,6 +146,7 @@ class StepOne extends Step<Record<string, any>> {
 class StepTwo extends Step<Record<string, any>> {
   protected type = StepType.CustomVariable
   protected stepName = 'stepTwo'
+  protected referenceId = 'stepTwo'
   protected stepIcon: IconName = 'cross'
   validateInputSet(): Record<string, any> {
     return {}

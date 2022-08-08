@@ -45,6 +45,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     this.invocationMap.set(UserGroupRegex, this.getUgListForYaml.bind(this))
   }
 
+  protected referenceId = 'harnessApprovalStep'
   protected isHarnessSpecific = true
   protected type = StepType.HarnessApproval
   protected stepName = 'Manual Approval'

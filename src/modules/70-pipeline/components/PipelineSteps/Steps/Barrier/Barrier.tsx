@@ -384,6 +384,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   protected type = StepType.Barrier
   protected stepName = 'Synchronization Barrier'
   protected stepIcon: IconName = 'barrier-open'
+  protected referenceId = 'barrierStep'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Barrier'
 
   protected defaultValues: BarrierData = {

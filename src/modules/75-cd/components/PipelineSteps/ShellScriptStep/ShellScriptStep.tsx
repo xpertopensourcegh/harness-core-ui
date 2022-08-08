@@ -212,6 +212,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   protected stepIcon: IconName = 'command-shell-script'
   protected stepIconColor = Color.GREY_700
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.SHELLSCRIPT'
+  protected referenceId = 'shellScriptHelpPanel'
   protected isHarnessSpecific = true
   protected invocationMap: Map<
     RegExp,

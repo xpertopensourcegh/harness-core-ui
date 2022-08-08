@@ -709,6 +709,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
+  protected referenceId = 'terraformPlanStep'
   protected type = StepType.TerraformPlan
   protected defaultValues: TFPlanFormData = {
     identifier: '',
