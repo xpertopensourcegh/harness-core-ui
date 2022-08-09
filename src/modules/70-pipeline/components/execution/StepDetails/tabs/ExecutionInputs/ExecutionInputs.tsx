@@ -21,7 +21,12 @@ import {
 import { Spinner } from '@blueprintjs/core'
 import type { FormikErrors } from 'formik'
 
-import { ExecutionNode, useGetExecutionInputTemplate, useSubmitExecutionInput } from 'services/pipeline-ng'
+import {
+  ExecutionNode,
+  StageElementConfig,
+  useGetExecutionInputTemplate,
+  useSubmitExecutionInput
+} from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -32,6 +37,8 @@ import { yamlParse, yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { StepElementConfig } from 'services/cd-ng'
 import useRBACError, { RBACError } from '@rbac/utils/useRBACError/useRBACError'
 import { clearRuntimeInput } from '@pipeline/utils/runPipelineUtils'
+import { NodeType, NonSelectableNodes } from '@pipeline/utils/executionUtils'
+import { StageFormInternal } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import css from './ExecutionInputs.module.scss'
 
 export interface ExecutionInputsProps {
@@ -64,9 +71,13 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
   })
 
   const stepType = step.stepType as StepType
-  const template = yamlParse<{ step: StepElementConfig }>(defaultTo(data?.data?.inputTemplate, '{}'))
+  const isStageForm = NonSelectableNodes.includes(step.stepType as NodeType)
+  const template = yamlParse<{ step: StepElementConfig; stage: StageElementConfig }>(
+    defaultTo(data?.data?.inputTemplate, '{}')
+  )
   const parsedStep = defaultTo(template.step, {})
-  const initialValues = clearRuntimeInput(parsedStep, true) // TODO: handle default values
+  const parsedStage = defaultTo(template, {})
+  const initialValues = clearRuntimeInput(isStageForm ? parsedStage : parsedStep, true) // TODO: handle default values
   const stepDef = factory.getStep<Partial<StepElementConfig>>(stepType)
 
   function handleValidation(formData: Partial<StepElementConfig>): FormikErrors<Partial<StepElementConfig>> {
@@ -82,7 +93,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
 
   async function handleSubmit(formData: Partial<StepElementConfig>): Promise<Partial<StepElementConfig>> {
     try {
-      await submitInput(yamlStringify({ step: formData }))
+      await submitInput(yamlStringify(isStageForm ? formData : { step: formData }))
       setHasSubmitted(true)
       showSuccess(getString('common.dataSubmitSuccess'))
     } catch (e: unknown) {
@@ -90,6 +101,11 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
     }
     return formData
   }
+
+  React.useEffect(() => {
+    // reset on step change
+    setHasSubmitted(false)
+  }, [nodeExecutionId])
 
   return (
     <div className={css.main}>
@@ -105,14 +121,24 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
           onSubmit={handleSubmit}
         >
           <FormikForm>
-            <StepWidget<Partial<StepElementConfig>>
-              factory={factory}
-              type={stepType}
-              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
-              stepViewType={StepViewType.DeploymentForm}
-              initialValues={initialValues}
-              template={parsedStep}
-            />
+            {isStageForm ? (
+              <StageFormInternal
+                template={parsedStage}
+                path="stage"
+                viewType={StepViewType.DeploymentForm}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+              />
+            ) : (
+              <StepWidget<Partial<StepElementConfig>>
+                factory={factory}
+                type={stepType}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                stepViewType={StepViewType.DeploymentForm}
+                initialValues={initialValues}
+                template={parsedStep}
+              />
+            )}
+
             <Layout.Horizontal spacing="medium">
               <Button type="submit" variation={ButtonVariation.PRIMARY}>
                 {getString('submit')}
