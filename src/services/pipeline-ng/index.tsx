@@ -116,7 +116,7 @@ export interface ApproverInputInfoDTO {
 export interface Approvers {
   disallowPipelineExecutor: boolean
   minimumCount: number
-  userGroups?: string[]
+  userGroups: string[]
 }
 
 export interface ApproversDTO {
@@ -129,7 +129,7 @@ export type ArtifactTriggerConfig = NGTriggerSpecV2 & {
   artifactRef?: string
   spec?: ArtifactTypeSpec
   stageIdentifier?: string
-  type?: 'Gcr' | 'Ecr' | 'DockerRegistry' | 'Nexus3Registry' | 'ArtifactoryRegistry' | 'Acr' | 'AmazonS3'
+  type?: 'Gcr' | 'Ecr' | 'DockerRegistry' | 'Nexus3Registry' | 'ArtifactoryRegistry' | 'Acr' | 'AmazonS3' | 'Jenkins'
 }
 
 export interface ArtifactTypeSpec {
@@ -942,6 +942,8 @@ export interface Error {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
+    | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1283,6 +1285,8 @@ export interface ErrorMetadata {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
+    | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
   errorMessage?: string
 }
 
@@ -1370,6 +1374,7 @@ export interface ExecutionInputDTO {
   inputInstanceId?: string
   inputTemplate?: string
   nodeExecutionId?: string
+  userInput?: string
 }
 
 export interface ExecutionInputStatus {
@@ -1805,6 +1810,8 @@ export interface Failure {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
+    | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -2117,6 +2124,7 @@ export interface InputSetErrorResponse {
 
 export type InputSetErrorWrapper = ErrorMetadataDTO & {
   errorPipelineYaml?: string
+  invalidInputSetReferences?: string[]
   uuidToErrorResponseMap?: {
     [key: string]: InputSetErrorResponse
   }
@@ -2207,6 +2215,7 @@ export interface InputSetValidator {
 
 export interface InputSetYamlDiff {
   inputSetEmpty?: boolean
+  invalidReferences?: string[]
   newYAML?: string
   noUpdatePossible?: boolean
   oldYAML?: string
@@ -2250,6 +2259,13 @@ export interface IssuedBy {
   manualIssuer?: ManualIssuer
   timeoutIssuer?: TimeoutIssuer
   triggerIssuer?: TriggerIssuer
+}
+
+export type JenkinsRegistrySpec = ArtifactTypeSpec & {
+  artifactPath?: string
+  connectorRef?: string
+  eventConditions?: TriggerEventDataCondition[]
+  jobName?: string
 }
 
 export type JexlCriteriaSpec = CriteriaSpec & {
@@ -3104,6 +3120,7 @@ export interface RecentExecutionInfoDTO {
   endTs?: number
   executorInfo?: ExecutorInfoDTO
   planExecutionId?: string
+  runSequence?: number
   startTs?: number
   status?:
     | 'Running'
@@ -3857,6 +3874,8 @@ export interface ResponseMessage {
     | 'INVALID_IDENTIFIER_REF'
     | 'SPOTINST_NULL_ERROR'
     | 'SCM_UNEXPECTED_ERROR'
+    | 'DUPLICATE_FILE_IMPORT'
+    | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -4100,6 +4119,13 @@ export interface ResponseVariableMergeServiceResponse {
 export interface ResponseWebhookEventProcessingDetails {
   correlationId?: string
   data?: WebhookEventProcessingDetails
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseWebhookExecutionDetails {
+  correlationId?: string
+  data?: WebhookExecutionDetails
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4516,6 +4542,8 @@ export interface StepData {
     | 'MONTHLY_ACTIVE_USERS'
     | 'JENKINS_ARTIFACT'
     | 'STRATEGY_MAX_CONCURRENT'
+    | 'MAX_CHAOS_SCENARIO_RUNS_PER_MONTH'
+    | 'MAX_CHAOS_DELEGATES'
   name?: string
   type?: string
 }
@@ -4794,6 +4822,11 @@ export interface WebhookEventProcessingDetails {
   runtimeInput?: string
   status?: string
   triggerIdentifier?: string
+}
+
+export interface WebhookExecutionDetails {
+  executionDetails?: { [key: string]: any }
+  webhookProcessingDetails?: WebhookEventProcessingDetails
 }
 
 export type WebhookTriggerConfigV2 = NGTriggerSpecV2 & {
@@ -12705,6 +12738,89 @@ export const webhookEndpointPromise = (
     props,
     signal
   )
+
+export interface TriggerExecutionDetailsQueryParams {
+  accountIdentifier: string
+}
+
+export interface TriggerExecutionDetailsPathParams {
+  eventId: string
+}
+
+export type TriggerExecutionDetailsProps = Omit<
+  GetProps<
+    ResponseWebhookExecutionDetails,
+    Failure | Error,
+    TriggerExecutionDetailsQueryParams,
+    TriggerExecutionDetailsPathParams
+  >,
+  'path'
+> &
+  TriggerExecutionDetailsPathParams
+
+/**
+ * fetch webhook event details with execution summary
+ */
+export const TriggerExecutionDetails = ({ eventId, ...props }: TriggerExecutionDetailsProps) => (
+  <Get<
+    ResponseWebhookExecutionDetails,
+    Failure | Error,
+    TriggerExecutionDetailsQueryParams,
+    TriggerExecutionDetailsPathParams
+  >
+    path={`/webhook/triggerExecutionDetails/${eventId}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseTriggerExecutionDetailsProps = Omit<
+  UseGetProps<
+    ResponseWebhookExecutionDetails,
+    Failure | Error,
+    TriggerExecutionDetailsQueryParams,
+    TriggerExecutionDetailsPathParams
+  >,
+  'path'
+> &
+  TriggerExecutionDetailsPathParams
+
+/**
+ * fetch webhook event details with execution summary
+ */
+export const useTriggerExecutionDetails = ({ eventId, ...props }: UseTriggerExecutionDetailsProps) =>
+  useGet<
+    ResponseWebhookExecutionDetails,
+    Failure | Error,
+    TriggerExecutionDetailsQueryParams,
+    TriggerExecutionDetailsPathParams
+  >((paramsInPath: TriggerExecutionDetailsPathParams) => `/webhook/triggerExecutionDetails/${paramsInPath.eventId}`, {
+    base: getConfig('pipeline/api'),
+    pathParams: { eventId },
+    ...props
+  })
+
+/**
+ * fetch webhook event details with execution summary
+ */
+export const triggerExecutionDetailsPromise = (
+  {
+    eventId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseWebhookExecutionDetails,
+    Failure | Error,
+    TriggerExecutionDetailsQueryParams,
+    TriggerExecutionDetailsPathParams
+  > & { eventId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseWebhookExecutionDetails,
+    Failure | Error,
+    TriggerExecutionDetailsQueryParams,
+    TriggerExecutionDetailsPathParams
+  >(getConfig('pipeline/api'), `/webhook/triggerExecutionDetails/${eventId}`, props, signal)
 
 export interface TriggerProcessingDetailsQueryParams {
   accountIdentifier: string
