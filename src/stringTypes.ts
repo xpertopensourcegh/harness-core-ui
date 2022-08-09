@@ -5415,6 +5415,8 @@ export interface StringsMap {
   'cf.environments.environmentID': string
   'cf.environments.modifiedBy': string
   'cf.environments.title': string
+  'cf.featureFlagDetail.serviceDescription': string
+  'cf.featureFlagDetail.serviceUpdateSuccess': string
   'cf.featureFlagDetail.variationCount': string
   'cf.featureFlags.activity': string
   'cf.featureFlags.andClause': string
