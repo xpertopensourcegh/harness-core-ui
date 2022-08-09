@@ -196,7 +196,8 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
       orgIdentifier,
       projectIdentifier
     },
-    serviceIdentifier: serviceIdentifier as string
+    serviceIdentifier: serviceIdentifier as string,
+    lazy: !serviceIdentifier
   })
 
   const selectedDeploymentType: ServiceDeploymentType = useMemo(() => {

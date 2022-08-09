@@ -41,7 +41,8 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetACRRepositories: jest.fn().mockImplementation(() => {
     return { data: mockRepositories, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useGetService: jest.fn().mockImplementation(() => ({ loading: false, data: {}, refetch: jest.fn() }))
 }))
 
 jest.spyOn(artifactSourceUtils, 'fromPipelineInputTriggerTab')
