@@ -1247,6 +1247,10 @@ startupCommand:
   fileValidation: 'file is required'
   plainText: 'Plain Text'
 triggerInfo: 'Trigger Info'
+phasesForm:
+  phases: 'Phases'
+  phase: 'Phase'
+  packageType: 'Package Type'
 draft: 'Draft'
 duplicateStepIdentifiers: 'Duplicate identifiers found: {{duplicateIdString}}'
 alwaysEditModeYAML: Enable read/write mode always

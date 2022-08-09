@@ -3410,6 +3410,9 @@ export interface StringsMap {
   'pipeline.parallelSelectedStages': string
   'pipeline.parallelStages': string
   'pipeline.parentStageDeleteWarning': string
+  'pipeline.phasesForm.packageType': string
+  'pipeline.phasesForm.phase': string
+  'pipeline.phasesForm.phases': string
   'pipeline.pipelineInputPanel.automaticallyExtractedFromText': string
   'pipeline.pipelineInputPanel.existing': string
   'pipeline.pipelineInputPanel.noRuntimeInputs': string

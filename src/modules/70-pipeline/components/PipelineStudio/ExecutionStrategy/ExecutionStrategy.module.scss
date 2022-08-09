@@ -207,3 +207,45 @@
 .enableVerificationImage {
   max-width: 100%;
 }
+
+.phaseName {
+  height: var(--spacing-xxlarge);
+  display: flex;
+  align-items: center;
+  padding-left: var(--spacing-small);
+}
+.phaseLabel {
+  margin-bottom: var(--spacing-xsmall) !important;
+}
+.phaseForm {
+  :global {
+    .bp3-input {
+      min-width: 290px !important;
+    }
+  }
+}
+.removePhase {
+  height: 100%;
+  position: relative;
+  :global {
+    .bp3-button {
+      position: absolute;
+      top: var(--spacing-small);
+    }
+  }
+}
+.phaseContainer {
+  max-height: 600px;
+}
+.phaseFormWrapper {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .selectPackageType {
+    width: 320px;
+  }
+  .phasesSubmit {
+    width: 133px;
+  }
+}
