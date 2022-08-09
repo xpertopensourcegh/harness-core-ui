@@ -404,42 +404,24 @@ describe('Test Pipeline Deployment list', () => {
     })
   })
 
-  test('Polling works', async () => {
-    const { getByTestId } = render(
+  test('Polling works with 5s interval', async () => {
+    const useGetListOfExecutionsMock = useGetListOfExecutions as jest.MockedFunction<any>
+    const mutateListOfExecutions = jest.fn(() => Promise.resolve(executionList))
+    useGetListOfExecutionsMock.mockReturnValue({
+      mutate: mutateListOfExecutions,
+      loading: false,
+      cancel: jest.fn()
+    })
+
+    render(
       <TestWrapper {...testWrapperProps}>
         <ComponentWrapper />
       </TestWrapper>
     )
-
-    expect(getByTestId('location')).toMatchInlineSnapshot(`
-      <div
-        data-testid="location"
-      >
-        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments
-      </div>
-    `)
-
-    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
-      body: {
-        filterType: 'PipelineExecution'
-      },
-      queryParamStringifyOptions: { arrayFormat: 'repeat' },
-      queryParams: {
-        accountIdentifier: 'testAcc',
-        orgIdentifier: 'testOrg',
-        page: 0,
-        pipelineIdentifier: undefined,
-        projectIdentifier: 'testProject',
-        status: [],
-        filterIdentifier: undefined,
-        module: 'cd',
-        myDeployments: false,
-        repoIdentifier: undefined,
-        searchTerm: undefined,
-        size: 20,
-        branch: undefined
-      }
-    })
+    expect(mutateListOfExecutions).toHaveBeenCalledTimes(1)
+    await screen.findAllByText('http_pipeline')
+    jest.advanceTimersByTime(5000)
+    expect(mutateListOfExecutions).toHaveBeenCalledTimes(2) // gets called in 5 seconds
   })
 
   test('should compare executions of various deployments', async () => {
