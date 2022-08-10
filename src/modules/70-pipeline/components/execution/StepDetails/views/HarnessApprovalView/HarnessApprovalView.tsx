@@ -85,6 +85,15 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
     )
   }
 
+  // When approvalInstanceId is missing - show error
+  if (!approvalInstanceId && !loadingApprovalData && !loadingAuthData && step?.failureInfo?.message) {
+    return (
+      <Layout.Vertical height="100%">
+        <PageError message={step.failureInfo.message} />
+      </Layout.Vertical>
+    )
+  }
+
   if (loadingApprovalData || loadingAuthData || !shouldFetchData) {
     return (
       <Layout.Vertical height="100%" flex={{ alignItems: 'center', justifyContent: 'center' }}>
