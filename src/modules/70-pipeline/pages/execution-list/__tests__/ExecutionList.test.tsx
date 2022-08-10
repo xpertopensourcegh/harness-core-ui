@@ -26,11 +26,11 @@ import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mo
 import MonacoEditor from '@common/components/MonacoEditor/__mocks__/MonacoEditor'
 import filters from '@pipeline/pages/execution-list/__mocks__/filters.json'
 import executionList from '@pipeline/pages/execution-list/__mocks__/execution-list.json'
-import { ExecutionList } from '../ExecutionList'
+import deploymentTypes from '@pipeline/pages/pipeline-list/__tests__/mocks/deploymentTypes.json'
+import services from '@pipeline/pages/pipeline-list/__tests__/mocks/services.json'
+import environments from '@pipeline/pages/pipeline-list/__tests__/mocks/environments.json'
 import pipelines from '../../../components/PipelineModalListView/__tests__/RunPipelineListViewMocks'
-import deploymentTypes from '../../pipelines/__tests__/mocks/deploymentTypes.json'
-import services from '../../pipelines/__tests__/mocks/services.json'
-import environments from '../../pipelines/__tests__/mocks/environments.json'
+import { ExecutionList } from '../ExecutionList'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
