@@ -17,7 +17,6 @@ import {
   SelectOption,
   Text
 } from '@wings-software/uicore'
-import { parse } from 'yaml'
 import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBase'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useMutateAsGet } from '@common/hooks'
@@ -26,8 +25,7 @@ import {
   useGetBuildDetailsForAcrArtifactWithYaml,
   useGetAzureSubscriptions,
   useGetACRRegistriesBySubscription,
-  useGetACRRepositories,
-  useGetService
+  useGetACRRepositories
 } from 'services/cd-ng'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggerDefaultFieldList } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
@@ -117,26 +115,6 @@ const Content = (props: ACRRenderContent): JSX.Element => {
     get(initialValues?.artifacts, `${artifactPath}.spec.repository`, '')
   )
 
-  const { data: service, loading: serviceLoading } = useGetService({
-    queryParams: {
-      accountId,
-      orgIdentifier,
-      projectIdentifier
-    },
-    serviceIdentifier: serviceIdentifier as string,
-    lazy: !serviceIdentifier
-  })
-
-  React.useEffect(() => {
-    const serviceInstance = service && service?.data?.yaml ? parse(service?.data?.yaml) : null
-    if (artifact?.spec && serviceInstance) {
-      artifact.spec = {
-        ...artifact?.spec,
-        ...get(serviceInstance, `service.serviceDefinition.spec.artifacts.${artifactPath}.spec`)
-      }
-    }
-  }, [service, artifact, artifactPath])
-
   const {
     data: acrTagsData,
     loading: fetchingTags,
@@ -185,10 +163,7 @@ const Content = (props: ACRRenderContent): JSX.Element => {
   })
 
   useEffect(() => {
-    if (
-      artifact?.spec?.connectorRef &&
-      getMultiTypeFromValue(artifact?.spec?.connectorRef) === MultiTypeInputType.FIXED
-    ) {
+    if (getMultiTypeFromValue(artifact?.spec?.connectorRef) === MultiTypeInputType.FIXED) {
       refetchSubscriptions({
         queryParams: {
           connectorRef: artifact?.spec?.connectorRef,
@@ -229,9 +204,7 @@ const Content = (props: ACRRenderContent): JSX.Element => {
 
   useEffect(() => {
     if (
-      artifact?.spec?.connectorRef &&
       getMultiTypeFromValue(artifact?.spec?.connectorRef) === MultiTypeInputType.FIXED &&
-      artifact?.spec?.subscriptionId &&
       getMultiTypeFromValue(artifact?.spec?.subscriptionId) === MultiTypeInputType.FIXED
     ) {
       refetchRegistries({
@@ -276,11 +249,8 @@ const Content = (props: ACRRenderContent): JSX.Element => {
 
   useEffect(() => {
     if (
-      artifact?.spec?.connectorRef &&
       getMultiTypeFromValue(artifact?.spec?.connectorRef) === MultiTypeInputType.FIXED &&
-      artifact?.spec?.subscriptionId &&
       getMultiTypeFromValue(artifact?.spec?.subscriptionId) === MultiTypeInputType.FIXED &&
-      artifact?.spec?.registry &&
       getMultiTypeFromValue(artifact?.spec?.registry) === MultiTypeInputType.FIXED
     ) {
       refetchRepositories({
@@ -335,7 +305,6 @@ const Content = (props: ACRRenderContent): JSX.Element => {
   const isFieldDisabled = (fieldName: string, isTag = false): boolean => {
     if (
       readonly ||
-      serviceLoading ||
       isFieldfromTriggerTabDisabled(
         fieldName,
         formik,
