@@ -9915,10 +9915,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  secureToken: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   seeAll: string
   /**
    * @deprecated migrate this string to module level file

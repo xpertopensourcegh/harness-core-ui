@@ -363,7 +363,6 @@ serviceAccount: Service Account
 usernamePassword: 'Username and Password'
 usernameToken: 'Username and Token'
 kerberos: 'Kerberos'
-secureToken: 'Secure Token'
 anonymous: 'Anonymous (no credentials required)'
 saveAndContinue: 'Save and Continue'
 errorWhileSaving: 'Error occurred when saving'
