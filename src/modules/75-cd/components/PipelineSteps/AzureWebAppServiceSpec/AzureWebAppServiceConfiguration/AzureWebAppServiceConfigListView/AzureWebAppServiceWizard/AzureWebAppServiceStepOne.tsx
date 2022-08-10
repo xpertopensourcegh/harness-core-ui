@@ -87,11 +87,11 @@ function AzureWebAppServiceConfigWizardStepOne({
 
   function shouldGotoNextStep(connectorRefValue: ConnectorSelectedValue | string): boolean {
     return (
-      !isLoadingConnectors &&
-      !!selectedStore &&
-      ((getMultiTypeFromValue(connectorRefValue) === MultiTypeInputType.FIXED &&
-        !isEmpty((connectorRefValue as ConnectorSelectedValue)?.connector)) ||
-        !isEmpty(connectorRefValue))
+      !isLoadingConnectors ||
+      (!!selectedStore &&
+        ((getMultiTypeFromValue(connectorRefValue) === MultiTypeInputType.FIXED &&
+          !isEmpty((connectorRefValue as ConnectorSelectedValue)?.connector)) ||
+          !isEmpty(connectorRefValue)))
     )
   }
   const handleOptionSelection = /* istanbul ignore next */ (formikData: any, storeSelected: ConnectorTypes): void => {

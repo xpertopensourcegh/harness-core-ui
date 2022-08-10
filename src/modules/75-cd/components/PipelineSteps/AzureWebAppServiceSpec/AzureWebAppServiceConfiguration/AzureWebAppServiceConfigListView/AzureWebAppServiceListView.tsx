@@ -22,7 +22,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import { Connectors } from '@connectors/constants'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
@@ -39,6 +39,7 @@ import {
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { AzureWebAppServiceConfigWizard } from '@cd/components/PipelineSteps/AzureWebAppServiceSpec/AzureWebAppServiceConfiguration/AzureWebAppServiceConfigListView/AzureWebAppServiceWizard/AzureWebAppServiceConfigWizard'
 import { ServiceConfigActions } from '@common/constants/TrackingConstants'
+import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import AzureWebAppServiceStepTwo from './AzureWebAppServiceWizard/AzureWebAppServiceStepTwo'
 import ConnectorField from './AzureWebAppServiceConnectorField'
 import {
@@ -279,7 +280,8 @@ function AzureWebAppListView({
             isEditMode={isEditMode}
             gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
           />
-          {connectorType === Connectors.GIT ? (
+          <GitDetailsStep type={type} name={getString('details')} isEditMode={isEditMode} connectorInfo={undefined} />
+          {type === Connectors.GIT ? (
             <StepGitAuthentication
               name={getString('credentials')}
               onConnectorCreated={() => {
@@ -293,7 +295,7 @@ function AzureWebAppListView({
               projectIdentifier={projectIdentifier}
             />
           ) : null}
-          {connectorType === Connectors.GITHUB ? (
+          {type === Connectors.GITHUB ? (
             <StepGithubAuthentication
               name={getString('credentials')}
               onConnectorCreated={() => {
@@ -307,7 +309,7 @@ function AzureWebAppListView({
               projectIdentifier={projectIdentifier}
             />
           ) : null}
-          {connectorType === Connectors.BITBUCKET ? (
+          {type === Connectors.BITBUCKET ? (
             <StepBitbucketAuthentication
               name={getString('credentials')}
               onConnectorCreated={() => {
@@ -321,10 +323,9 @@ function AzureWebAppListView({
               projectIdentifier={projectIdentifier}
             />
           ) : null}
-          {connectorType === Connectors.GITLAB ? (
+          {type === Connectors.GITLAB ? (
             <StepGitlabAuthentication
               name={getString('credentials')}
-              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               onConnectorCreated={() => {
                 // Handle on success
               }}

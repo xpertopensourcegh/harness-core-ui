@@ -25,7 +25,7 @@ import type { ConnectorConfigDTO, ConnectorInfoDTO, StageElementConfig, StoreCon
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
 import StepGitlabAuthentication from '@connectors/components/CreateConnector/GitlabConnector/StepAuth/StepGitlabAuthentication'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import { Connectors } from '@connectors/constants'
 import {
   buildBitbucketPayload,
   buildGithubPayload,
@@ -219,10 +219,8 @@ function StartupScriptListView({
             isEditMode={isEditMode}
             gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
           />
-          {connectorType !== Connectors.ARTIFACTORY ? (
-            <GitDetailsStep type={type} name={getString('details')} isEditMode={isEditMode} connectorInfo={undefined} />
-          ) : null}
-          {connectorType === Connectors.GIT ? (
+          <GitDetailsStep type={type} name={getString('details')} isEditMode={isEditMode} connectorInfo={undefined} />
+          {type === Connectors.GIT ? (
             <StepGitAuthentication
               name={getString('credentials')}
               onConnectorCreated={() => {
@@ -236,7 +234,7 @@ function StartupScriptListView({
               projectIdentifier={projectIdentifier}
             />
           ) : null}
-          {connectorType === Connectors.GITHUB ? (
+          {type === Connectors.GITHUB ? (
             <StepGithubAuthentication
               name={getString('credentials')}
               onConnectorCreated={() => {
@@ -250,7 +248,7 @@ function StartupScriptListView({
               projectIdentifier={projectIdentifier}
             />
           ) : null}
-          {connectorType === Connectors.BITBUCKET ? (
+          {type === Connectors.BITBUCKET ? (
             <StepBitbucketAuthentication
               name={getString('credentials')}
               onConnectorCreated={() => {
@@ -264,10 +262,9 @@ function StartupScriptListView({
               projectIdentifier={projectIdentifier}
             />
           ) : null}
-          {connectorType === Connectors.GITLAB ? (
+          {type === Connectors.GITLAB ? (
             <StepGitlabAuthentication
               name={getString('credentials')}
-              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               onConnectorCreated={() => {
                 // Handle on success
               }}
