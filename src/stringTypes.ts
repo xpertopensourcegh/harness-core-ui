@@ -729,11 +729,13 @@ export interface StringsMap {
   'common.specify': string
   'common.stable': string
   'common.stage': string
+  'common.stageName': string
   'common.start14dayTrial': string
   'common.startFree': string
   'common.startFreePlan': string
   'common.startTrial': string
   'common.state': string
+  'common.stepName': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
   'common.subscribed': string
@@ -10157,10 +10159,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   stageDetails: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  stageName: string
   /**
    * @deprecated migrate this string to module level file
    */

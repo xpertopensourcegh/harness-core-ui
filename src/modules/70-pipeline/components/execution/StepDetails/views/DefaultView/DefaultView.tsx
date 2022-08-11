@@ -32,13 +32,14 @@ enum StepDetailTab {
 }
 
 export function DefaultView(props: StepDetailProps): React.ReactElement {
-  const { step, stageType = StageType.DEPLOY } = props
+  const { step, stageType = StageType.DEPLOY, isStageExecutionInputConfigured } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepDetailTab.STEP_DETAILS)
   const manuallySelected = React.useRef(false)
   const isWaitingOnExecInputs = isExecutionWaitingForInput(step.status)
   const shouldShowExecutionInputs = !!step.executionInputConfigured
-  const shouldShowInputOutput = ((step?.stepType ?? '') as string) !== 'liteEngineTask'
+  const shouldShowInputOutput =
+    ((step?.stepType ?? '') as string) !== 'liteEngineTask' && !isStageExecutionInputConfigured
   const isManualInterruption = isExecutionWaitingForIntervention(step.status)
   const failureStrategies = allowedStrategiesAsPerStep(stageType)[StepMode.STEP].filter(
     st => st !== Strategy.ManualIntervention
@@ -48,14 +49,20 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
     if (!manuallySelected.current) {
       let tab = StepDetailTab.STEP_DETAILS
 
-      if (shouldShowExecutionInputs) {
+      if (shouldShowExecutionInputs && (isWaitingOnExecInputs || isStageExecutionInputConfigured)) {
         tab = StepDetailTab.STEP_EXECUTION_INPUTS
       } else if (isManualInterruption) {
         tab = StepDetailTab.MANUAL_INTERVENTION
       }
       setActiveTab(tab)
     }
-  }, [step.identifier, isManualInterruption, shouldShowExecutionInputs])
+  }, [
+    step.identifier,
+    isManualInterruption,
+    shouldShowExecutionInputs,
+    isWaitingOnExecInputs,
+    isStageExecutionInputConfigured
+  ])
 
   return (
     <div className={css.tabs}>
@@ -68,14 +75,10 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
         }}
         renderAllTabPanels={false}
       >
-        {shouldShowExecutionInputs ? (
-          <Tab
-            id={StepDetailTab.STEP_EXECUTION_INPUTS}
-            title={getString('pipeline.runtimeInputs')}
-            panel={<ExecutionInputs step={step} />}
-          />
-        ) : null}
-        <Tab id={StepDetailTab.STEP_DETAILS} title={getString('details')} panel={<StepDetailsTab step={step} />} />
+        {isStageExecutionInputConfigured ? null : (
+          <Tab id={StepDetailTab.STEP_DETAILS} title={getString('details')} panel={<StepDetailsTab step={step} />} />
+        )}
+
         {shouldShowInputOutput && (
           <Tab
             id={StepDetailTab.INPUT}
@@ -98,6 +101,13 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
             }
           />
         )}
+        {shouldShowExecutionInputs ? (
+          <Tab
+            id={StepDetailTab.STEP_EXECUTION_INPUTS}
+            title={getString('pipeline.runtimeInputs')}
+            panel={<ExecutionInputs step={step} />}
+          />
+        ) : null}
         {isManualInterruption ? (
           <Tab
             id={StepDetailTab.MANUAL_INTERVENTION}

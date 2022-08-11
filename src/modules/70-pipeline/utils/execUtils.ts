@@ -25,7 +25,8 @@ import {
   StepTypeIconsMap,
   ServiceDependency,
   STATIC_SERVICE_GROUP_NAME,
-  isNodeTypeMatrixOrFor
+  isNodeTypeMatrixOrFor,
+  NonSelectableNodes
 } from './executionUtils'
 import type { ExecutionStatus } from './statusHelpers'
 interface ProcessParalellNodeArgs {
@@ -726,7 +727,7 @@ export const processExecutionDataV1 = (graph?: ExecutionGraph): any => {
     let nodeId = nodeAdjacencyListMap[rootNodeId].children?.[0]
 
     // handling for stage level execution inputs
-    if (!nodeId && rootNode?.executionInputConfigured) {
+    if (rootNode?.executionInputConfigured && NonSelectableNodes.includes(rootNode.stepType as NodeType)) {
       items.push({
         name: 'Runtime Inputs',
         identifier: rootNodeId,
@@ -739,7 +740,6 @@ export const processExecutionDataV1 = (graph?: ExecutionGraph): any => {
           ...rootNode
         }
       })
-      return items
     }
 
     while (nodeId && nodeAdjacencyListMap[nodeId]) {
@@ -840,6 +840,7 @@ export const processExecutionDataV1 = (graph?: ExecutionGraph): any => {
       nodeId = nodeAdjacencyListMap[nodeId].nextIds?.[0]
     }
   }
+
   return items
 }
 

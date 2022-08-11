@@ -7,7 +7,7 @@
 
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { defaultTo } from 'lodash-es'
+import { defaultTo, get } from 'lodash-es'
 import {
   MultiTypeInputType,
   Formik,
@@ -34,22 +34,25 @@ import { useStrings } from 'framework/strings'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
-import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import pipelineFactory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { yamlParse, yamlStringify } from '@common/utils/YamlHelperMethods'
+import { parse, stringify } from '@common/utils/YamlHelperMethods'
 import type { StepElementConfig } from 'services/cd-ng'
 import useRBACError, { RBACError } from '@rbac/utils/useRBACError/useRBACError'
 import { clearRuntimeInput } from '@pipeline/utils/runPipelineUtils'
 import { NodeType, NonSelectableNodes } from '@pipeline/utils/executionUtils'
 import { StageFormInternal } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import css from './ExecutionInputs.module.scss'
 
 export interface ExecutionInputsProps {
   step: ExecutionNode
+  factory?: AbstractStepFactory
 }
 
 export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement {
-  const { step } = props
+  const { step, factory = pipelineFactory } = props
   const { accountId, projectIdentifier, orgIdentifier, executionIdentifier } = useParams<ExecutionPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -57,6 +60,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
   const nodeExecutionId = defaultTo(step.uuid, '')
+  const isDone = isExecutionComplete(step.status)
   const { data, loading } = useGetExecutionInputTemplate({
     nodeExecutionId,
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
@@ -75,12 +79,13 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
 
   const stepType = step.stepType as StepType
   const isStageForm = NonSelectableNodes.includes(step.stepType as NodeType)
-  const template = yamlParse<{ step: StepElementConfig; stage: StageElementConfig }>(
-    defaultTo(data?.data?.inputTemplate, '{}')
-  )
+  const template = parse<{ step: StepElementConfig; stage: StageElementConfig }>(get(data, 'data.inputTemplate', '{}'))
+  const userInput = parse<{ step: StepElementConfig; stage: StageElementConfig }>(get(data, 'data.userInput', '{}'))
+  const finalUserInput = defaultTo(isStageForm ? userInput : userInput.step, {})
   const parsedStep = defaultTo(template.step, {})
   const parsedStage = defaultTo(template, {})
-  const initialValues = clearRuntimeInput(isStageForm ? parsedStage : parsedStep, true) // TODO: handle default values
+  const initialValues = isDone ? finalUserInput : clearRuntimeInput(isStageForm ? parsedStage : parsedStep, true)
+
   const stepDef = factory.getStep<Partial<StepElementConfig>>(stepType)
   const {
     isOpen: isAbortConfirmationOpen,
@@ -109,7 +114,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
 
   async function handleSubmit(formData: Partial<StepElementConfig>): Promise<Partial<StepElementConfig>> {
     try {
-      await submitInput(yamlStringify(isStageForm ? formData : { step: formData }))
+      await submitInput(stringify(isStageForm ? formData : { step: formData }))
       setHasSubmitted(true)
       showSuccess(getString('common.dataSubmitSuccess'))
     } catch (e: unknown) {
@@ -122,7 +127,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
     // istanbul ignore else
     if (isConfirmed) {
       try {
-        await abortPipeline()
+        await abortPipeline({} as never)
         showSuccess(getString('pipeline.execution.pipelineActionMessages.abortedMessage'))
       } catch (e: unknown) {
         showError(getRBACErrorMessage(e as RBACError))
@@ -157,8 +162,10 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
               <StageFormInternal
                 template={parsedStage}
                 path="stage"
+                readonly={isDone}
                 viewType={StepViewType.DeploymentForm}
                 allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                stageClassName={css.stage}
               />
             ) : (
               <StepWidget<Partial<StepElementConfig>>
@@ -168,26 +175,33 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
                 stepViewType={StepViewType.DeploymentForm}
                 initialValues={initialValues}
                 template={parsedStep}
+                readonly={isDone}
               />
             )}
-
-            <Layout.Horizontal spacing="medium">
-              <Button type="submit" variation={ButtonVariation.PRIMARY}>
-                {getString('submit')}
-              </Button>
-              <Button intent="danger" variation={ButtonVariation.PRIMARY} onClick={openAbortConfirmation}>
-                {getString('pipeline.execution.actions.abortPipeline')}
-              </Button>
-              <ConfirmationDialog
-                isOpen={isAbortConfirmationOpen}
-                cancelButtonText={getString('cancel')}
-                contentText={getString('pipeline.execution.dialogMessages.abortExecution')}
-                titleText={getString('pipeline.execution.dialogMessages.abortTitle')}
-                confirmButtonText={getString('confirm')}
-                intent={Intent.WARNING}
-                onClose={onAbortConfirmationClose}
-              />
-            </Layout.Horizontal>
+            {isDone ? null : (
+              <Layout.Horizontal spacing="medium">
+                <Button type="submit" data-testid="submit" variation={ButtonVariation.PRIMARY}>
+                  {getString('submit')}
+                </Button>
+                <Button
+                  intent="danger"
+                  data-testid="abort"
+                  variation={ButtonVariation.PRIMARY}
+                  onClick={openAbortConfirmation}
+                >
+                  {getString('pipeline.execution.actions.abortPipeline')}
+                </Button>
+                <ConfirmationDialog
+                  isOpen={isAbortConfirmationOpen}
+                  cancelButtonText={getString('cancel')}
+                  contentText={getString('pipeline.execution.dialogMessages.abortExecution')}
+                  titleText={getString('pipeline.execution.dialogMessages.abortTitle')}
+                  confirmButtonText={getString('confirm')}
+                  intent={Intent.WARNING}
+                  onClose={onAbortConfirmationClose}
+                />
+              </Layout.Horizontal>
+            )}
           </FormikForm>
         </Formik>
       )}
