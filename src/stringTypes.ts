@@ -6303,6 +6303,7 @@ export interface StringsMap {
   'cv.metricIsRequired': string
   'cv.metricThresholds.validations.countValue': string
   'cv.metricThresholds.validations.criteria': string
+  'cv.metricThresholds.validations.duplicateThreshold': string
   'cv.metricThresholds.validations.greaterThanSmaller': string
   'cv.metricThresholds.validations.groupTransaction': string
   'cv.metricThresholds.validations.lessThanBigger': string
