@@ -212,7 +212,7 @@
   height: var(--spacing-xxlarge);
   display: flex;
   align-items: center;
-  padding-left: var(--spacing-small);
+  padding-left: var(--spacing-small) !important;
 }
 .phaseLabel {
   margin-bottom: var(--spacing-xsmall) !important;
@@ -242,10 +242,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  :global {
+    .bp3-form-group label.bp3-label {
+      margin-bottom: var(--spacing-xsmall) !important;
+    }
+  }
   .selectPackageType {
     width: 320px;
   }
   .phasesSubmit {
     width: 133px;
+  }
+  .addBtn {
+    margin: var(--spacing-xxlarge) 0px;
+    padding: none;
   }
 }

@@ -61,7 +61,8 @@ import css from './ExecutionStrategy.module.scss'
 export enum ExecutionType {
   BASIC = 'Basic',
   CANARY = 'Canary',
-  ROLLING = 'Rolling'
+  ROLLING = 'Rolling',
+  DEFAULT = 'Default'
 }
 
 export interface ExecutionStrategyProps {
@@ -441,7 +442,7 @@ function ExecutionStrategyRef(
                 </section>
               </section>
               <Container className={css.phaseContainer}>
-                {isSshOrWinrmDeploymentType(serviceDefinitionType()) ? (
+                {isSshOrWinrmDeploymentType(serviceDefinitionType()) && selectedStrategy !== ExecutionType.DEFAULT ? (
                   <Phases
                     selectedStrategy={selectedStrategy}
                     isVerifyEnabled={isVerifyEnabled}
@@ -452,7 +453,7 @@ function ExecutionStrategyRef(
               </Container>
             </Container>
 
-            {!isSshOrWinrmDeploymentType(serviceDefinitionType()) ? (
+            {selectedStrategy === ExecutionType.DEFAULT || !isSshOrWinrmDeploymentType(serviceDefinitionType()) ? (
               <Container className={css.strategyDetailsFooter}>
                 <Button
                   data-testid="execution-use-strategy"

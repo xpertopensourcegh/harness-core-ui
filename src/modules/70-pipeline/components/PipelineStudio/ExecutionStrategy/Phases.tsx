@@ -54,7 +54,8 @@ enum PackageTypeItems {
 enum ExecutionType {
   BASIC = 'Basic',
   CANARY = 'Canary',
-  ROLLING = 'Rolling'
+  ROLLING = 'Rolling',
+  DEFAULT = 'Default'
 }
 
 const packageTypeItems = [
@@ -245,7 +246,7 @@ function Phases({
                   const previousIndex = currentIndex - 1
                   if (currentIndex === 0 && phases[0].type === InstanceTypes.Instances) return true
                   if (phases[0].type === InstanceTypes.Percentage && phase?.spec?.percentage) {
-                    if (currentIndex === 0 && phase?.spec?.percentage < 100) {
+                    if (currentIndex === 0 && phase?.spec?.percentage <= 100) {
                       return true
                     }
                     if (phase?.spec?.percentage > 100) {
@@ -380,6 +381,7 @@ function Phases({
                             <Button
                               intent="primary"
                               minimal
+                              className={css.addBtn}
                               text={`+ ${getString('pipeline.phasesForm.phases')}`}
                               data-testid={`add-phase`}
                               onClick={() => {
@@ -403,7 +405,6 @@ function Phases({
                                 }
                               }}
                               disabled={loading}
-                              style={{ padding: 0, marginTop: 24 }}
                             />
                           ) : null}
                         </>
