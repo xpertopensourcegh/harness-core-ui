@@ -101,6 +101,7 @@ export function ScriptCommandEdit(props: ScriptCommandEditProps): React.ReactEle
             scriptType={scriptType}
             disabled={readonly}
             expressions={expressions}
+            title={getString('commandLabel')}
           />
         </MultiTypeFieldSelector>
         {getMultiTypeFromValue((formik.values as CustomScriptCommandUnit).spec.source?.spec?.script) ===
