@@ -6974,6 +6974,7 @@ export interface NGServiceV2InfoConfig {
   tags?: {
     [key: string]: string
   }
+  useFromStage?: ServiceUseFromStageV2
 }
 
 export interface NGTag {
@@ -11472,6 +11473,11 @@ export interface ServiceUseFromStage {
   stage: string
 }
 
+export interface ServiceUseFromStageV2 {
+  metadata?: string
+  stage: string
+}
+
 export interface ServiceYaml {
   description?: string
   identifier: string
@@ -11483,7 +11489,8 @@ export interface ServiceYaml {
 
 export interface ServiceYamlV2 {
   serviceInputs?: JsonNode
-  serviceRef: string
+  serviceRef?: string
+  useFromStage?: ServiceUseFromStageV2
 }
 
 export interface ServicesCount {
