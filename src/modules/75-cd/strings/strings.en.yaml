@@ -407,3 +407,8 @@ getStartedWithCD:
   delegateInfo: Delegates are worker processes that run on your infrastructure to execute tasks on behalf of the Harness platform.
   setupaNewDelegate: + Setup a New Delegate
 serviceName: Service Name
+credentialsRef: credentialsRef
+connectorRefText: connectorRef
+hosts: hosts
+hostFilters: hostFilters
+attributeFilters: attributeFilters

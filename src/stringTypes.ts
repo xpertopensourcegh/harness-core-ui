@@ -3994,6 +3994,7 @@ export interface StringsMap {
   'cd.artifactName': string
   'cd.artifactPaths': string
   'cd.artifactRepoTooltip': string
+  'cd.attributeFilters': string
   'cd.azureWebAppRollbackDescription': string
   'cd.azureWebAppSwapSlotDescription': string
   'cd.backEndConfig': string
@@ -4063,11 +4064,13 @@ export interface StringsMap {
   'cd.confirmProviderDelete': string
   'cd.connectionIssueInfo': string
   'cd.connectionIssueSuggestion': string
+  'cd.connectorRefText': string
   'cd.continuous': string
   'cd.createdGitOpsServerSuccessfully': string
   'cd.createdSuccessfully': string
   'cd.creating': string
   'cd.creatingGitOpsServer': string
+  'cd.credentialsRef': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
@@ -4128,6 +4131,8 @@ export interface StringsMap {
   'cd.gitOpsCluster': string
   'cd.gitOpsWizardTitle': string
   'cd.harnessManagedGitOpsWizardTitle': string
+  'cd.hostFilters': string
+  'cd.hosts': string
   'cd.infrastructure.createNew': string
   'cd.infrastructure.created': string
   'cd.infrastructure.delete': string
