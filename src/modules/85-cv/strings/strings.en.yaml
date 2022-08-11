@@ -923,3 +923,4 @@ metricThresholds:
     greaterThanSmaller: Greater than must be smaller than Less than
     countValue: Enter 2 or more
     duplicateThreshold: Duplicate threshold
+    percentageValidation: Enter value between 1 - 100 for Percentage

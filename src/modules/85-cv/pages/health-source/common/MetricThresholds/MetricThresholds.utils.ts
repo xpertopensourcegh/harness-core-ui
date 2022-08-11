@@ -308,6 +308,7 @@ export function validateCommonFieldsForMetricThreshold(
       )
     }
 
+    // Percentage value is required for selected criteria percentage type
     if (
       value.criteria?.type === MetricCriteriaValues.Percentage &&
       value?.criteria?.spec &&
@@ -315,6 +316,17 @@ export function validateCommonFieldsForMetricThreshold(
     ) {
       errors[`${thresholdName}.${index}.criteria.spec.${value.criteria.criteriaPercentageType}`] =
         getString('cv.required')
+    }
+
+    // Percentage value must not be greater than 100
+    if (
+      value.criteria?.type === MetricCriteriaValues.Percentage &&
+      value?.criteria?.spec &&
+      (value?.criteria?.spec[value?.criteria?.criteriaPercentageType as CriteriaThresholdValues] as number) > 100
+    ) {
+      errors[`${thresholdName}.${index}.criteria.spec.${value.criteria.criteriaPercentageType}`] = getString(
+        'cv.metricThresholds.validations.percentageValidation'
+      )
     }
 
     if (thresholdName === MetricThresholdPropertyName.FailFastThresholds) {

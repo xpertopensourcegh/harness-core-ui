@@ -6309,6 +6309,7 @@ export interface StringsMap {
   'cv.metricThresholds.validations.lessThanBigger': string
   'cv.metricThresholds.validations.metricName': string
   'cv.metricThresholds.validations.metricType': string
+  'cv.metricThresholds.validations.percentageValidation': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
   'cv.minValueN': string

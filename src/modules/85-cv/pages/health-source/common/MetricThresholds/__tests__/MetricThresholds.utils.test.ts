@@ -388,6 +388,33 @@ describe('AppDIgnoreThresholdTabContent', () => {
     expect(errors).toEqual({})
   })
 
+  test('should check percentage validation', () => {
+    const errors = {}
+    const testValue: MetricThresholdType = {
+      metricType: 'test',
+      groupName: 'test',
+      metricName: 'test',
+      type: 'FailImmediately',
+      spec: {
+        action: 'FailAfterOccurrence',
+        spec: {
+          count: 4
+        }
+      },
+      criteria: {
+        type: MetricCriteriaValues.Percentage,
+        criteriaPercentageType: PercentageCriteriaDropdownValues.LessThan,
+        spec: {
+          lessThan: 101
+        }
+      }
+    }
+    validateCommonFieldsForMetricThreshold('failFastThresholds', errors, [testValue], key => key, true)
+    expect(errors).toEqual({
+      'failFastThresholds.0.criteria.spec.lessThan': 'cv.metricThresholds.validations.percentageValidation'
+    })
+  })
+
   test('getIsShowGreaterThan function returns correct values', () => {
     // Absolute criteria selected
     let result = getIsShowGreaterThan('Absolute')
