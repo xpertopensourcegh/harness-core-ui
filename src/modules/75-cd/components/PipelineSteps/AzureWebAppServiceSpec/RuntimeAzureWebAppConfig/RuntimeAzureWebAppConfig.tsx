@@ -42,8 +42,8 @@ const AzureWebAppConfigInputField = (props: AzureWebAppConfigProps): React.React
     return null
   }
 
-  if (props.azureWebAppConfig?.type === 'Harness') {
-    if (props.azureWebAppConfig.spec.secretFiles) {
+  if (props.azureWebAppConfig?.store?.type === 'Harness') {
+    if (props.azureWebAppConfig?.store.spec.secretFiles) {
       return (
         <Layout.Vertical className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
           <FileStoreList

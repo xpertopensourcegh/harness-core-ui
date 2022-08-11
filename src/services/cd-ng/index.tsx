@@ -759,6 +759,11 @@ export interface AppPermission {
     | 'MANAGE_RESTRICTED_ACCESS'
 }
 
+export interface ApplicationSettingsConfiguration {
+  metadata?: string
+  store: StoreConfigWrapper
+}
+
 export interface ArtifactConfig {
   [key: string]: any
 }
@@ -1301,9 +1306,9 @@ export type AzureWebAppRollbackStepInfo = StepSpecType & {
 }
 
 export type AzureWebAppServiceSpec = ServiceSpec & {
-  applicationSettings?: StoreConfigWrapper
-  connectionStrings?: StoreConfigWrapper
-  startupCommand?: StoreConfigWrapper
+  applicationSettings?: ApplicationSettingsConfiguration
+  connectionStrings?: ConnectionStringsConfiguration
+  startupCommand?: StartupCommandConfiguration
 }
 
 export type AzureWebAppSlotDeploymentStepInfo = StepSpecType & {
@@ -1714,6 +1719,11 @@ export interface ConfigFileWrapper {
 
 export type ConnectedArgoGitOpsInfoDTO = GitOpsInfoDTO & {
   adapterUrl: string
+}
+
+export interface ConnectionStringsConfiguration {
+  metadata?: string
+  store: StoreConfigWrapper
 }
 
 export interface ConnectivityCheckSummary {
@@ -11700,6 +11710,11 @@ export interface StageWhenCondition {
 export interface StartTrialDTO {
   edition: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
+}
+
+export interface StartupCommandConfiguration {
+  metadata?: string
+  store: StoreConfigWrapper
 }
 
 export type StaticLimitRestrictionDTO = RestrictionDTO & {
