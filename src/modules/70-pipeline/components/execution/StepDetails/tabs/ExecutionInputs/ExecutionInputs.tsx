@@ -16,15 +16,18 @@ import {
   Button,
   ButtonVariation,
   useToaster,
-  Text
+  Text,
+  useToggleOpen,
+  ConfirmationDialog
 } from '@harness/uicore'
-import { Spinner } from '@blueprintjs/core'
+import { Intent, Spinner } from '@blueprintjs/core'
 import type { FormikErrors } from 'formik'
 
 import {
   ExecutionNode,
   StageElementConfig,
   useGetExecutionInputTemplate,
+  useHandleInterrupt,
   useSubmitExecutionInput
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -47,7 +50,7 @@ export interface ExecutionInputsProps {
 
 export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement {
   const { step } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ExecutionPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, executionIdentifier } = useParams<ExecutionPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { getRBACErrorMessage } = useRBACError()
@@ -79,7 +82,20 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
   const parsedStage = defaultTo(template, {})
   const initialValues = clearRuntimeInput(isStageForm ? parsedStage : parsedStep, true) // TODO: handle default values
   const stepDef = factory.getStep<Partial<StepElementConfig>>(stepType)
-
+  const {
+    isOpen: isAbortConfirmationOpen,
+    open: openAbortConfirmation,
+    close: closeAbortConfirmation
+  } = useToggleOpen()
+  const { mutate: abortPipeline } = useHandleInterrupt({
+    planExecutionId: executionIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      interruptType: 'AbortAll'
+    }
+  })
   function handleValidation(formData: Partial<StepElementConfig>): FormikErrors<Partial<StepElementConfig>> {
     return (
       stepDef?.validateInputSet({
@@ -102,10 +118,26 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
     return formData
   }
 
+  async function onAbortConfirmationClose(isConfirmed: boolean): Promise<void> {
+    // istanbul ignore else
+    if (isConfirmed) {
+      try {
+        await abortPipeline()
+        showSuccess(getString('pipeline.execution.pipelineActionMessages.abortedMessage'))
+      } catch (e: unknown) {
+        showError(getRBACErrorMessage(e as RBACError))
+      }
+    }
+
+    closeAbortConfirmation()
+  }
+
   React.useEffect(() => {
     // reset on step change
     setHasSubmitted(false)
   }, [nodeExecutionId])
+
+  // https://github.com/harness/harness-core-ui/blob/8b2acdbdb7b6ca71f79fc2e3f76c4b55734b392e/src/modules/70-pipeline/components/PipelineStudio/StepUtil.ts#L184
 
   return (
     <div className={css.main}>
@@ -143,9 +175,18 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
               <Button type="submit" variation={ButtonVariation.PRIMARY}>
                 {getString('submit')}
               </Button>
-              <Button intent="danger" variation={ButtonVariation.PRIMARY}>
+              <Button intent="danger" variation={ButtonVariation.PRIMARY} onClick={openAbortConfirmation}>
                 {getString('pipeline.execution.actions.abortPipeline')}
               </Button>
+              <ConfirmationDialog
+                isOpen={isAbortConfirmationOpen}
+                cancelButtonText={getString('cancel')}
+                contentText={getString('pipeline.execution.dialogMessages.abortExecution')}
+                titleText={getString('pipeline.execution.dialogMessages.abortTitle')}
+                confirmButtonText={getString('confirm')}
+                intent={Intent.WARNING}
+                onClose={onAbortConfirmationClose}
+              />
             </Layout.Horizontal>
           </FormikForm>
         </Formik>

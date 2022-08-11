@@ -36,7 +36,8 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepDetailTab.STEP_DETAILS)
   const manuallySelected = React.useRef(false)
-  const shouldShowExecutionInputs = isExecutionWaitingForInput(step.status)
+  const isWaitingOnExecInputs = isExecutionWaitingForInput(step.status)
+  const shouldShowExecutionInputs = !!step.executionInputConfigured
   const shouldShowInputOutput = ((step?.stepType ?? '') as string) !== 'liteEngineTask'
   const isManualInterruption = isExecutionWaitingForIntervention(step.status)
   const failureStrategies = allowedStrategiesAsPerStep(stageType)[StepMode.STEP].filter(
@@ -79,6 +80,7 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
           <Tab
             id={StepDetailTab.INPUT}
             title={getString('common.input')}
+            disabled={isWaitingOnExecInputs}
             panel={<InputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} />}
           />
         )}
@@ -86,6 +88,7 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
           <Tab
             id={StepDetailTab.OUTPUT}
             title={getString('outputLabel')}
+            disabled={isWaitingOnExecInputs}
             panel={
               <InputOutputTab
                 baseFqn={step.baseFqn}

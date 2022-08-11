@@ -27,7 +27,7 @@ import {
   STATIC_SERVICE_GROUP_NAME,
   isNodeTypeMatrixOrFor
 } from './executionUtils'
-import { ExecutionStatus, isExecutionWaitingForInput } from './statusHelpers'
+import type { ExecutionStatus } from './statusHelpers'
 interface ProcessParalellNodeArgs {
   nodeMap: ExecutionGraph['nodeMap']
   nodeAdjacencyListMap: ExecutionGraph['nodeAdjacencyListMap']
@@ -726,7 +726,7 @@ export const processExecutionDataV1 = (graph?: ExecutionGraph): any => {
     let nodeId = nodeAdjacencyListMap[rootNodeId].children?.[0]
 
     // handling for stage level execution inputs
-    if (!nodeId && isExecutionWaitingForInput(rootNode?.status)) {
+    if (!nodeId && rootNode?.executionInputConfigured) {
       items.push({
         name: 'Runtime Inputs',
         identifier: rootNodeId,
