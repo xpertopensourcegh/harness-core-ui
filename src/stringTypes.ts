@@ -5507,6 +5507,7 @@ export interface StringsMap {
   'cf.featureFlags.flagPipeline.noExecutionDescription': string
   'cf.featureFlags.flagPipeline.noExecutionMessage': string
   'cf.featureFlags.flagPipeline.openExecution': string
+  'cf.featureFlags.flagPipeline.pipelineDeleted': string
   'cf.featureFlags.flagPipeline.saveSuccess': string
   'cf.featureFlags.flagPipeline.title': string
   'cf.featureFlags.flagPipeline.to': string
