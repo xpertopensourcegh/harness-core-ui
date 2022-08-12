@@ -46,7 +46,10 @@ steps:
     filterHostName: Filter by host name
     filterHostAttributes: Filter by host attributes
     specificHosts: Specific Hosts
+    specificHostsOptional: Specific Hosts (Optional)
     specificAttributes: Specific Attributes
+    specificAttributesOptional: Specific Attributes (Optional)
+    hostsOptional: Hosts (Optional)
     previewHosts: Preview Hosts
     noHosts: No hosts provided
   azureInfraStep:

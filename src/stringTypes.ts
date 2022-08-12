@@ -4325,6 +4325,7 @@ export interface StringsMap {
   'cd.steps.pdcStep.attributesPlaceholder': string
   'cd.steps.pdcStep.filterHostAttributes': string
   'cd.steps.pdcStep.filterHostName': string
+  'cd.steps.pdcStep.hostsOptional': string
   'cd.steps.pdcStep.hostsPlaceholder': string
   'cd.steps.pdcStep.includeAllHosts': string
   'cd.steps.pdcStep.no': string
@@ -4333,7 +4334,9 @@ export interface StringsMap {
   'cd.steps.pdcStep.preconfiguredHostsOption': string
   'cd.steps.pdcStep.previewHosts': string
   'cd.steps.pdcStep.specificAttributes': string
+  'cd.steps.pdcStep.specificAttributesOptional': string
   'cd.steps.pdcStep.specificHosts': string
+  'cd.steps.pdcStep.specificHostsOptional': string
   'cd.steps.pdcStep.specificHostsPlaceholder': string
   'cd.steps.pdcStep.specifyHostsOption': string
   'cd.steps.serverless.regionPlaceholder': string
