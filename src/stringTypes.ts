@@ -1932,6 +1932,12 @@ export interface StringsMap {
   'connectors.ceAzure.billing.subscriptionId': string
   'connectors.ceAzure.billing.tooltipBtn': string
   'connectors.ceAzure.billing.tooltipInstruction': string
+  'connectors.ceAzure.chooseRequirements.billing.feat1': string
+  'connectors.ceAzure.chooseRequirements.billing.feat2': string
+  'connectors.ceAzure.chooseRequirements.billing.feat3': string
+  'connectors.ceAzure.chooseRequirements.billing.feat4': string
+  'connectors.ceAzure.chooseRequirements.billing.feat5': string
+  'connectors.ceAzure.chooseRequirements.billing.footer': string
   'connectors.ceAzure.chooseRequirements.featureDesc': string
   'connectors.ceAzure.chooseRequirements.heading': string
   'connectors.ceAzure.chooseRequirements.info': string
@@ -1946,10 +1952,7 @@ export interface StringsMap {
   'connectors.ceAzure.chooseRequirements.subHeading': string
   'connectors.ceAzure.chooseRequirements.visibility.feat1': string
   'connectors.ceAzure.chooseRequirements.visibility.feat2': string
-  'connectors.ceAzure.chooseRequirements.visibility.feat3': string
-  'connectors.ceAzure.chooseRequirements.visibility.feat4': string
-  'connectors.ceAzure.chooseRequirements.visibility.feat5': string
-  'connectors.ceAzure.chooseRequirements.visibility.footer': string
+  'connectors.ceAzure.chooseRequirements.visibility.heading': string
   'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
   'connectors.ceAzure.existingExports.hints.nextStepHint1': string
@@ -1971,6 +1974,7 @@ export interface StringsMap {
   'connectors.ceAzure.servicePrincipal.assignRoleCmd': string
   'connectors.ceAzure.servicePrincipal.costVisibilityCmd': string
   'connectors.ceAzure.servicePrincipal.heading': string
+  'connectors.ceAzure.servicePrincipal.inventoryMgtCmd': string
   'connectors.ceAzure.servicePrincipal.optimisationCmd': string
   'connectors.ceAzure.servicePrincipal.registerCommand': string
   'connectors.ceAzure.servicePrincipal.subHeading1': string
