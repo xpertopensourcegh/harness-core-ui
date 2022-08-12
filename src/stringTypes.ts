@@ -4275,6 +4275,7 @@ export interface StringsMap {
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string
+  'cd.skipRendering': string
   'cd.specifyTargetHost': string
   'cd.specifyTfVarStore': string
   'cd.stepName': string
