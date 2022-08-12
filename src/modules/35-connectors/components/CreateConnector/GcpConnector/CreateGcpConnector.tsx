@@ -56,6 +56,7 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
           {...commonProps}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          helpPanelReferenceId="GoogleCloudProviderDetails"
         />
         <DelegateSelectorStep
           name={getString('delegate.DelegateselectionLabel')}

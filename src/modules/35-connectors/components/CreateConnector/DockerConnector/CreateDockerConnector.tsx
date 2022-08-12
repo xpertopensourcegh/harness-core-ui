@@ -57,6 +57,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           {...commonProps}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          helpPanelReferenceId="DockerConnectorDetails"
         />
         <DelegateSelectorStep
           name={getString('delegate.DelegateselectionLabel')}

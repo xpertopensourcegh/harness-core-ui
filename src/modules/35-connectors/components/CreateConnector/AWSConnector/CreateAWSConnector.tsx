@@ -56,6 +56,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
           {...commonProps}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          helpPanelReferenceId="AwsConnectorCredentials"
         />
         <DelegateSelectorStep
           name={getString('delegate.DelegateselectionLabel')}
