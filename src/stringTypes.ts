@@ -612,6 +612,7 @@ export interface StringsMap {
   'common.recommended': string
   'common.references': string
   'common.refresh': string
+  'common.refreshDelegateLogs': string
   'common.refreshPage': string
   'common.reject': string
   'common.releaseName': string
