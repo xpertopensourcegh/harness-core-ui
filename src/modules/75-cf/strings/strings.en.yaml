@@ -274,6 +274,8 @@ featureFlagDetail:
   variationCount: '{{ count }} variations'
   serviceDescription: Services this flag is associated with
   serviceUpdateSuccess: Services updated
+  noServices: 'No Monitored Service available'
+  newService: 'Add New Service'
 flagFilters:
   active: Active Flags
   allFlags: All Flags
