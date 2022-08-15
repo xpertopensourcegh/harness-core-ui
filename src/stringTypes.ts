@@ -1376,6 +1376,7 @@ export interface StringsMap {
   'secrets.secret.newSSHCredential': string
   'secrets.secret.newSecretFile': string
   'secrets.secret.newSecretText': string
+  'secrets.secret.newWinRmCredential': string
   'secrets.secret.noSecretsFound': string
   'secrets.secret.placeholderSecretReference': string
   'secrets.secret.placeholderSecretValue': string
