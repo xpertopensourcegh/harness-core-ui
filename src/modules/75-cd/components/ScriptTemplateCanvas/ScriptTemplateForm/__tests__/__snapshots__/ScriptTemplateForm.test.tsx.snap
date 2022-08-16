@@ -534,7 +534,7 @@ exports[`Test OptionalConfigurations initial render 1`] = `
             class="formGroup sm"
           >
             <div
-              class="bp3-form-group bp3-disabled"
+              class="bp3-form-group"
             >
               <label
                 class="bp3-label"
@@ -561,12 +561,11 @@ exports[`Test OptionalConfigurations initial render 1`] = `
                     class="bp3-popover-target"
                   >
                     <div
-                      class="bp3-input-group bp3-disabled"
+                      class="bp3-input-group"
                     >
                       <input
                         autocomplete="off"
                         class="bp3-input"
-                        disabled=""
                         name="spec.shell"
                         placeholder="- common.scriptType -"
                         style="padding-right: 0px;"
