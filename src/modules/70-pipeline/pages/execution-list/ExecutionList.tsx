@@ -76,6 +76,7 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
 
   const {
     data,
+    loading,
     initLoading,
     refetch: fetchExecutions,
     error
@@ -107,13 +108,13 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
   })
 
   // Only do polling on first page and not initial default loading
-  usePolling(fetchExecutions, page === 1 && !initLoading)
+  const isPolling = usePolling(fetchExecutions, page === 1 && !loading)
 
   const isCommunity = useGetCommunity()
   const isCommunityAndCDModule = module === 'cd' && isCommunity
   const executionList = data?.data
   const hasExecutions = executionList?.totalElements && executionList?.totalElements > 0
-
+  const showSpinner = initLoading || (loading && !isPolling)
   return (
     <>
       {(hasExecutions || isAnyFilterApplied) && <ExecutionListSubHeader {...rest} />}
@@ -127,7 +128,7 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
         )}
 
         <ExecutionCompiledYaml onClose={() => setViewCompiledYaml(undefined)} executionSummary={viewCompiledYaml} />
-        {initLoading ? (
+        {showSpinner ? (
           <PageSpinner />
         ) : hasExecutions ? (
           isExecutionListPage ? (
