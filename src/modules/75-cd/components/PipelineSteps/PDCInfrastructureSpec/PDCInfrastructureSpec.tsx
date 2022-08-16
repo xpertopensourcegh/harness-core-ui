@@ -27,7 +27,7 @@ import type { Column } from 'react-table'
 import { Radio, RadioGroup } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, set, get, isEmpty } from 'lodash-es'
+import { debounce, noop, set, get, isEmpty, defaultTo } from 'lodash-es'
 import type { FormikErrors, FormikProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { loggerFor } from 'framework/logging/logging'
@@ -152,8 +152,14 @@ const PDCInfrastructureSpecEditable: React.FC<PDCInfrastructureSpecEditableProps
     const setInitial = async () => {
       const values = {
         ...initialValues,
-        hosts: initialValues.hosts ? initialValues.hosts.join('\n') : '',
-        hostFilters: initialValues.hostFilters ? initialValues.hostFilters.join('\n') : '',
+        hosts:
+          getMultiTypeFromValue(initialValues?.hosts) !== MultiTypeInputType.RUNTIME
+            ? initialValues?.hosts?.join('\n')
+            : defaultTo(initialValues?.hosts, ''),
+        hostFilters:
+          getMultiTypeFromValue(initialValues?.hostFilters) !== MultiTypeInputType.RUNTIME
+            ? initialValues?.hostFilters?.join('\n')
+            : defaultTo(initialValues?.hostFilters, ''),
         attributeFilters: getAttributeFilters(initialValues)
       }
       if (initialValues.connectorRef) {
