@@ -15,7 +15,6 @@ import type { StringKeys } from 'framework/strings/StringsContext'
 import { ALLOWED_VALUES_TYPE } from './constants'
 import { VALIDATORS } from './validators'
 import type { FormValues } from './ConfigureOptionsUtils'
-
 import css from './ConfigureOptions.module.scss'
 
 export interface AllowedValuesFieldsProps {
@@ -28,17 +27,11 @@ export interface AllowedValuesFieldsProps {
   allowedValuesValidator?: Yup.Schema<unknown>
 }
 
-interface RenderFieldProps {
+interface RenderFieldProps extends Omit<AllowedValuesFieldsProps, 'showAdvanced'> {
   getString(key: StringKeys, vars?: Record<string, any>): string
-  formik: FormikContextType<FormValues>
-  isReadonly: boolean
-  fetchValues?: (done: (response: SelectOption[] | MultiSelectOption[]) => void) => void
-  options: SelectOption[] | MultiSelectOption[]
-  allowedValuesType?: ALLOWED_VALUES_TYPE
-  allowedValuesValidator?: Yup.Schema<unknown>
 }
 
-const renderField = ({
+export const RenderField = ({
   fetchValues,
   getString,
   options,
@@ -48,6 +41,7 @@ const renderField = ({
   formik
 }: RenderFieldProps) => {
   const { setErrors, errors, setFieldTouched, setFieldValue } = formik
+  const [inputValue, setInputValue] = React.useState('')
   if (fetchValues) {
     return (
       <FormInput.MultiSelect
@@ -69,6 +63,7 @@ const renderField = ({
           const values: string[] = changed as string[]
 
           // There is only one value, and we are removing it
+          /* istanbul ignore next */
           if (!values.length) {
             setFieldTouched('allowedValues', true, false)
             setFieldValue('allowedValues', values)
@@ -80,14 +75,18 @@ const renderField = ({
             validator.validateSync({ timeout: values[values.length - 1] })
             setFieldTouched('allowedValues', true, false)
             setFieldValue('allowedValues', values)
+            setInputValue('')
           } catch (e) {
             /* istanbul ignore else */
             if (e instanceof Yup.ValidationError) {
               const err = yupToFormErrors<{ timeout: string }>(e)
+              setFieldTouched('allowedValues', true, false)
               setErrors({ ...errors, allowedValues: err.timeout })
+              setInputValue(values[values.length - 1])
             }
           }
-        }
+        },
+        inputValue
       }
     }
   }
@@ -137,17 +136,15 @@ export default function AllowedValuesFields(props: AllowedValuesFieldsProps): Re
           disabled={isReadonly}
         />
       ) : (
-        <>
-          {renderField({
-            fetchValues,
-            getString,
-            options,
-            isReadonly,
-            allowedValuesType,
-            allowedValuesValidator,
-            formik
-          })}
-        </>
+        <RenderField
+          fetchValues={fetchValues}
+          getString={getString}
+          options={options}
+          isReadonly={isReadonly}
+          allowedValuesType={allowedValuesType}
+          allowedValuesValidator={allowedValuesValidator}
+          formik={formik}
+        />
       )}
     </div>
   )
