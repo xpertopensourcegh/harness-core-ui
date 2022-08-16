@@ -1348,7 +1348,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -1375,11 +1375,12 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
               class="bp3-popover-target"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-input-group bp3-disabled"
               >
                 <input
                   autocomplete="off"
                   class="bp3-input"
+                  disabled=""
                   name="spec.shell"
                   placeholder="- common.scriptType -"
                   style="padding-right: 0px;"
@@ -1754,7 +1755,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -1781,11 +1782,12 @@ exports[`Test Shell Script Step should render edit view 1`] = `
               class="bp3-popover-target"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-input-group bp3-disabled"
               >
                 <input
                   autocomplete="off"
                   class="bp3-input"
+                  disabled=""
                   name="spec.shell"
                   placeholder="- common.scriptType -"
                   style="padding-right: 0px;"
@@ -2144,7 +2146,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -2171,11 +2173,12 @@ exports[`Test Shell Script Step should render edit view 2`] = `
               class="bp3-popover-target"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-input-group bp3-disabled"
               >
                 <input
                   autocomplete="off"
                   class="bp3-input"
+                  disabled=""
                   name="spec.shell"
                   placeholder="- common.scriptType -"
                   style="padding-right: 0px;"
@@ -2534,7 +2537,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -2561,11 +2564,12 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
               class="bp3-popover-target"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-input-group bp3-disabled"
               >
                 <input
                   autocomplete="off"
                   class="bp3-input"
+                  disabled=""
                   name="spec.shell"
                   placeholder="- common.scriptType -"
                   style="padding-right: 0px;"
@@ -2920,7 +2924,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -2947,11 +2951,12 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
               class="bp3-popover-target"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-input-group bp3-disabled"
               >
                 <input
                   autocomplete="off"
                   class="bp3-input"
+                  disabled=""
                   name="spec.shell"
                   placeholder="- common.scriptType -"
                   style="padding-right: 0px;"

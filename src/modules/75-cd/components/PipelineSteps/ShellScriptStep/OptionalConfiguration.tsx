@@ -237,13 +237,9 @@ export default function OptionalConfiguration(props: {
             </div>
             <div className={cx(stepCss.formGroup, stepCss.md)}>
               <MultiTypeSecretInput
-                type={formValues.spec.shell === 'PowerShell' ? 'WinRmCredentials' : 'SSHKey'}
+                type="SSHKey"
                 name="spec.executionTarget.connectorRef"
-                label={
-                  formValues.spec.shell === 'PowerShell'
-                    ? getString('secrets.secret.winrmCredential')
-                    : getString('sshConnector')
-                }
+                label={getString('sshConnector')}
                 expressions={expressions}
                 allowableTypes={allowableTypes}
                 disabled={readonly}

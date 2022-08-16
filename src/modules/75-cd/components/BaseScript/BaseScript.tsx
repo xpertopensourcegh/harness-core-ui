@@ -52,6 +52,7 @@ export default function BaseScript(props: {
           name="spec.shell"
           label={getString('common.scriptType')}
           placeholder={getString('common.scriptType')}
+          disabled
         />
       </div>
       <div className={cx(stepCss.formGroup)}>
