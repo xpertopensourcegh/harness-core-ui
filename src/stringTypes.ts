@@ -662,7 +662,9 @@ export interface StringsMap {
   'common.savedSuccessfully': string
   'common.saving': string
   'common.scope': string
+  'common.script': string
   'common.scriptRequired': string
+  'common.scriptType': string
   'common.searchByNamePlaceholder': string
   'common.searchOther': string
   'common.searchPlaceholder': string
@@ -9911,14 +9913,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   saveConnectorSuccess: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  script: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  scriptType: string
   /**
    * @deprecated migrate this string to module level file
    */
