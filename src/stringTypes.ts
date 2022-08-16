@@ -472,6 +472,7 @@ export interface StringsMap {
   'common.namespace': string
   'common.new': string
   'common.newLines': string
+  'common.newName': string
   'common.newVersion': string
   'common.noAPIKeys': string
   'common.noConnectorAvailable': string
