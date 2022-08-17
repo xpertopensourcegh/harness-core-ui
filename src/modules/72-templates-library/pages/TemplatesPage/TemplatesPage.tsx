@@ -58,7 +58,8 @@ export default function TemplatesPage(): React.ReactElement {
   const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
   const searchRef = React.useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const scope = getScopeFromDTO({ projectIdentifier, orgIdentifier, accountIdentifier: accountId })
   const { CUSTOM_SECRET_MANAGER_NG, CVNG_TEMPLATE_MONITORED_SERVICE } = useFeatureFlags()
   const allowedTemplateTypes = getAllowedTemplateTypes(scope, {

@@ -48,7 +48,8 @@ export function YamlDiffView({
   originalEntityYaml = ''
 }: YamlDiffViewProps) {
   const { getString } = useStrings()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const params = useParams<ProjectPathProps>()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()

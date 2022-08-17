@@ -135,7 +135,8 @@ export function PipelineCanvas({
   toPipelineStudio,
   getOtherModal
 }: PipelineCanvasProps): JSX.Element {
-  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = React.useContext(AppStoreContext)
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const {
     state,
     updatePipeline,
@@ -227,7 +228,7 @@ export function PipelineCanvas({
   })
 
   const history = useHistory()
-  const { isGitSimplificationEnabled } = useAppStore()
+  const { supportingGitSimplification } = useAppStore()
   const { openPipelineErrorsModal } = usePipelineErrors()
   const isYaml = view === SelectedView.YAML
   const [isYamlError, setYamlError] = React.useState(false)
@@ -235,7 +236,8 @@ export function PipelineCanvas({
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
   const [disableVisualView, setDisableVisualView] = React.useState(entityValidityDetails?.valid === false)
   const [useTemplate, setUseTemplate] = React.useState<boolean>(false)
-  const isPipelineRemote = isGitSimplificationEnabled && storeType === StoreType.REMOTE
+
+  const isPipelineRemote = supportingGitSimplification && storeType === StoreType.REMOTE
   const savePipelineHandleRef = React.useRef<SavePipelineHandle | null>(null)
 
   React.useEffect(() => {
@@ -324,9 +326,15 @@ export function PipelineCanvas({
 
   useSaveTemplateListener()
 
-  const [showModal, hideModal] = useModalHook(() => {
-    const dialogWidth = isGitSimplificationEnabled ? '800px' : isGitSyncEnabled ? '614px' : 'auto'
+  const getDialogWidth = () => {
+    if (supportingGitSimplification) {
+      return '800px'
+    } else {
+      return isGitSyncEnabled ? '614px' : 'auto'
+    }
+  }
 
+  const [showModal, hideModal] = useModalHook(() => {
     if (getOtherModal) {
       pipeline.identifier = ''
       updatePipeline(pipeline)
@@ -340,7 +348,7 @@ export function PipelineCanvas({
         <PipelineVariablesContextProvider pipeline={pipeline}>
           <Dialog
             style={{
-              width: dialogWidth,
+              width: getDialogWidth(),
               background: 'var(--form-bg)',
               paddingTop: '36px'
             }}
@@ -371,7 +379,7 @@ export function PipelineCanvas({
       )
     }
   }, [
-    isGitSimplificationEnabled,
+    supportingGitSimplification,
     isGitSyncEnabled,
     pipeline,
     pipelineIdentifier,
@@ -485,7 +493,7 @@ export function PipelineCanvas({
                 { repoIdentifier: updatedGitDetails.repoIdentifier, branch: updatedGitDetails.branch },
                 { skipNulls: true }
               )
-            } else if (isGitSimplificationEnabled && currStoreMetadata?.storeType === StoreType.REMOTE) {
+            } else if (supportingGitSimplification && currStoreMetadata?.storeType === StoreType.REMOTE) {
               updateQueryParams(
                 {
                   connectorRef: currStoreMetadata.connectorRef,

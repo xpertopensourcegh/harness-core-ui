@@ -87,7 +87,8 @@ export function TemplateStudio(): React.ReactElement {
   const { showError } = useToaster()
   const history = useHistory()
   const templateFormikRef = React.useRef<TemplateFormikRef | null>(null)
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const templateStudioSubHeaderHandleRef = React.useRef<TemplateStudioSubHeaderHandle | null>(null)
 
   useDocumentTitle([parse(defaultTo(template?.name, getString('common.templates')))])

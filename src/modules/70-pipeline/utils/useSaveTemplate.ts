@@ -77,7 +77,8 @@ export function useSaveTemplate(TemplateContextMetadata: TemplateContextMetadata
     view,
     isTemplateStudio = true
   } = TemplateContextMetadata
-  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = React.useContext(AppStoreContext)
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const { templateIdentifier, templateType, projectIdentifier, orgIdentifier, accountId, module } = useParams<
     TemplateStudioPathProps & ModulePathParams
   >()

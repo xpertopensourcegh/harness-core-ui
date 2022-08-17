@@ -92,7 +92,7 @@ interface FormikInputSetFormProps {
   executionView?: boolean
   isEdit: boolean
   isGitSyncEnabled?: boolean
-  isGitSimplificationEnabled?: boolean
+  supportingGitSimplification?: boolean
   yamlHandler?: YamlBuilderHandlerBinding
   setYamlHandler: React.Dispatch<React.SetStateAction<YamlBuilderHandlerBinding | undefined>>
   className?: string
@@ -215,7 +215,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
     executionView,
     isEdit,
     isGitSyncEnabled,
-    isGitSimplificationEnabled,
+    supportingGitSimplification,
     yamlHandler,
     setYamlHandler,
     className,
@@ -310,12 +310,11 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
     filePath: defaultTo(inputSet.gitDetails?.filePath, filePath)
   }
 
+  const isPipelineRemote = supportingGitSimplification && storeType === StoreType.REMOTE
   React.useEffect(() => {
     const initialValues = getPipelineData()
     formikRef.current?.setFieldValue('pipeline', initialValues.pipeline)
   }, [inputSet, isEdit, resolvedPipeline])
-
-  const isPipelineRemote = isGitSimplificationEnabled && storeType === StoreType.REMOTE
 
   return (
     <Container className={cx(css.inputSetForm, className, hasError ? css.withError : '')}>

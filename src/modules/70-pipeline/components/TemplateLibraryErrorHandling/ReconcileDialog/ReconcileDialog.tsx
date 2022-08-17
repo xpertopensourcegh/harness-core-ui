@@ -65,7 +65,8 @@ export function ReconcileDialog({
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const [loading, setLoading] = React.useState<boolean>(false)
   const { showError } = useToaster()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const { getString } = useStrings()
   const { getRBACErrorMessage } = useRBACError()
 

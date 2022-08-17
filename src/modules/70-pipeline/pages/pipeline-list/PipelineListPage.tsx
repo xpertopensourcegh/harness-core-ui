@@ -74,7 +74,8 @@ export function PipelineListPage(): React.ReactElement {
   const history = useHistory()
   const { getRBACErrorMessage } = useRBACError()
   const { showSuccess, showError } = useToaster()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const [pipelineToDelete, setPipelineToDelete] = useState<PMSPipelineSummaryResponse>()
   const [pipelineToClone, setPipelineToClone] = useState<PMSPipelineSummaryResponse>()
   const {

@@ -59,7 +59,8 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
   const { module, ...params } = useParams<ProjectPathProps & ModulePathParams>()
   const { projectIdentifier, orgIdentifier, accountId } = params
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const [selectedChildType, setSelectedChildType] = React.useState<string | undefined>(
     allChildTypes.length === 1 ? allChildTypes[0] : undefined
   )

@@ -75,8 +75,12 @@ function SavePipelinePopover(
   ref: React.ForwardedRef<SavePipelineHandle>
 ): React.ReactElement {
   const { toPipelineStudio } = props
-  const { isGitSyncEnabled, isGitSimplificationEnabled } = useAppStore()
-
+  const {
+    isGitSyncEnabled: isGitSyncEnabledForProject,
+    gitSyncEnabledOnlyForFF,
+    isGitSimplificationEnabled
+  } = useAppStore()
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const {
     state: { pipeline, yamlHandler, storeMetadata, gitDetails, isUpdated },
     deletePipelineCache,

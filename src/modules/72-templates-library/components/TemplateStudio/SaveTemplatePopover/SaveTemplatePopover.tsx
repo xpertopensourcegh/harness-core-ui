@@ -70,7 +70,8 @@ function SaveTemplatePopover(
   const { templateIdentifier } = useParams<TemplateStudioPathProps & ModulePathParams>()
   const [modalProps, setModalProps] = React.useState<ModalProps>()
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = React.useContext(AppStoreContext)
+  const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const { getComments } = useCommentModal()
   const { showError, clear } = useToaster()
   const { openTemplateErrorsModal } = useTemplateErrors({ entity: TemplateErrorEntity.TEMPLATE })
