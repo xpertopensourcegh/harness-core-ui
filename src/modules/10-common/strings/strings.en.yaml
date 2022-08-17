@@ -125,6 +125,7 @@ configureOptions:
   values: 'Values'
   enterTags: 'Enter values'
   askDuringExecution: Request input value when the stage/step is being executed
+  selectAllowedValuesPlaceholder: Select Allowed Values
   validationErrors:
     regExIsRequired: 'Regex value is required'
     defaultRegExValid: Default value should validate with regex provided

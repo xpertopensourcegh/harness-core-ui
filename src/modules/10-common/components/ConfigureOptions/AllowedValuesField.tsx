@@ -7,24 +7,27 @@
 
 import React from 'react'
 import * as Yup from 'yup'
+import { noop } from 'lodash-es'
 import { FormikContextType, yupToFormErrors } from 'formik'
-import { Button, ButtonVariation, FormInput, Layout, MultiSelectOption, SelectOption } from '@harness/uicore'
+import { Button, ButtonVariation, FormInput, Layout, MultiSelectOption } from '@harness/uicore'
 import { Position } from '@blueprintjs/core'
 import { useStrings, String } from 'framework/strings'
 import type { StringKeys } from 'framework/strings/StringsContext'
 import { ALLOWED_VALUES_TYPE } from './constants'
 import { VALIDATORS } from './validators'
-import type { FormValues } from './ConfigureOptionsUtils'
+import type { AllowedValuesCustomComponentProps, FormValues } from './ConfigureOptionsUtils'
+
 import css from './ConfigureOptions.module.scss'
 
 export interface AllowedValuesFieldsProps {
   showAdvanced: boolean
   formik: FormikContextType<FormValues>
   isReadonly: boolean
-  fetchValues?: (done: (response: SelectOption[] | MultiSelectOption[]) => void) => void
-  options: SelectOption[] | MultiSelectOption[]
   allowedValuesType?: ALLOWED_VALUES_TYPE
   allowedValuesValidator?: Yup.Schema<unknown>
+  getAllowedValuesCustomComponent?: (
+    allowedValuesCustomComponentProps: AllowedValuesCustomComponentProps
+  ) => React.ReactElement
 }
 
 interface RenderFieldProps extends Omit<AllowedValuesFieldsProps, 'showAdvanced'> {
@@ -32,29 +35,21 @@ interface RenderFieldProps extends Omit<AllowedValuesFieldsProps, 'showAdvanced'
 }
 
 export const RenderField = ({
-  fetchValues,
   getString,
-  options,
   allowedValuesType,
   allowedValuesValidator,
   isReadonly,
-  formik
+  formik,
+  getAllowedValuesCustomComponent
 }: RenderFieldProps) => {
   const { setErrors, errors, setFieldTouched, setFieldValue } = formik
   const [inputValue, setInputValue] = React.useState('')
-  if (fetchValues) {
-    return (
-      <FormInput.MultiSelect
-        items={options}
-        label={getString('common.configureOptions.values')}
-        name="allowedValues"
-        disabled={isReadonly}
-      />
-    )
-  }
+
   const extraProps = {
     tagsProps: {}
   }
+
+  const onChange: (values: MultiSelectOption[]) => void = noop
 
   switch (allowedValuesType) {
     case ALLOWED_VALUES_TYPE.TIME: {
@@ -92,18 +87,27 @@ export const RenderField = ({
   }
 
   return (
-    <FormInput.KVTagInput
-      label={getString('allowedValues')}
-      name="allowedValues"
-      isArray={true}
-      disabled={isReadonly}
-      {...extraProps}
-    />
+    getAllowedValuesCustomComponent?.({ onChange }) ?? (
+      <FormInput.KVTagInput
+        label={getString('allowedValues')}
+        name="allowedValues"
+        isArray={true}
+        disabled={isReadonly}
+        {...extraProps}
+      />
+    )
   )
 }
 
 export default function AllowedValuesFields(props: AllowedValuesFieldsProps): React.ReactElement {
-  const { showAdvanced, isReadonly, fetchValues, options, allowedValuesType, allowedValuesValidator, formik } = props
+  const {
+    showAdvanced,
+    isReadonly,
+    allowedValuesType,
+    allowedValuesValidator,
+    formik,
+    getAllowedValuesCustomComponent
+  } = props
   const values = formik.values
   const { getString } = useStrings()
   return (
@@ -137,12 +141,11 @@ export default function AllowedValuesFields(props: AllowedValuesFieldsProps): Re
         />
       ) : (
         <RenderField
-          fetchValues={fetchValues}
           getString={getString}
-          options={options}
           isReadonly={isReadonly}
           allowedValuesType={allowedValuesType}
           allowedValuesValidator={allowedValuesValidator}
+          getAllowedValuesCustomComponent={getAllowedValuesCustomComponent}
           formik={formik}
         />
       )}

@@ -5,15 +5,10 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-.scriptTab {
-  padding: var(--spacing-xlarge);
-}
-
-.configurationTabs {
+.multiSelector {
   :global {
-    .bp3-tab-list {
-      background-color: var(--white);
-      padding: var(--spacing-none) var(--spacing-medium) !important;
+    .bp3-active {
+      background-color: var(--white) !important;
     }
   }
 }

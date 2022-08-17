@@ -149,6 +149,7 @@ export interface StringsMap {
   'common.configureOptions.regex': string
   'common.configureOptions.requiredDuringExecution': string
   'common.configureOptions.returnToBasic': string
+  'common.configureOptions.selectAllowedValuesPlaceholder': string
   'common.configureOptions.validation': string
   'common.configureOptions.validationErrors.defaultAllowedValid': string
   'common.configureOptions.validationErrors.defaultRegExValid': string
