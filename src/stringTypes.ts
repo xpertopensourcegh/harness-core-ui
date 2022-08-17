@@ -5515,6 +5515,9 @@ export interface StringsMap {
   'cf.featureFlags.flagFilters.term': string
   'cf.featureFlags.flagOff': string
   'cf.featureFlags.flagOn': string
+  'cf.featureFlags.flagPipeline.buildID': string
+  'cf.featureFlags.flagPipeline.defaultOffVariation': string
+  'cf.featureFlags.flagPipeline.defaultServe': string
   'cf.featureFlags.flagPipeline.deleteModalText': string
   'cf.featureFlags.flagPipeline.deleteModalTitle': string
   'cf.featureFlags.flagPipeline.drawerButtonText': string
@@ -5531,6 +5534,7 @@ export interface StringsMap {
   'cf.featureFlags.flagPipeline.openExecution': string
   'cf.featureFlags.flagPipeline.pipelineDeleted': string
   'cf.featureFlags.flagPipeline.saveSuccess': string
+  'cf.featureFlags.flagPipeline.targeting': string
   'cf.featureFlags.flagPipeline.title': string
   'cf.featureFlags.flagPipeline.to': string
   'cf.featureFlags.flagPipeline.triggerDetails': string
