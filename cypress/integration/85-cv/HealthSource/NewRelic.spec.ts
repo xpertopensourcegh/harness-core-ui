@@ -168,7 +168,7 @@ describe('Create empty monitored service', () => {
 
     cy.get('.TableV2--clickable').scrollIntoView().click()
 
-    cy.findByText(/Customize Health Source/i).click()
+    cy.findByText(/Next/i).click()
 
     cy.wait('@SampleDataCall').then(interception => {
       expect(interception.request.url).contains(
