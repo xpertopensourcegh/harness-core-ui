@@ -11511,7 +11511,7 @@ export interface ServicesDashboardInfo {
 export interface SettingDTO {
   allowOverrides: boolean
   allowedValues?: string[]
-  category: 'CD' | 'CI' | 'CCM' | 'CV' | 'CORE'
+  category: 'CD' | 'CI' | 'CE' | 'CV' | 'CF' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   defaultValue?: string
   groupIdentifier: string
   identifier: string
@@ -38700,7 +38700,7 @@ export interface GetSettingsListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  category: 'CD' | 'CI' | 'CCM' | 'CV' | 'CORE'
+  category: 'CD' | 'CI' | 'CE' | 'CV' | 'CF' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   group?: string
 }
 
