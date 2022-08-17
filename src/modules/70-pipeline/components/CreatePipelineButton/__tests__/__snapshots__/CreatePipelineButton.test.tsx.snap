@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CreatePipelineButton tests when not supportingGitSimplification RbacButton should be rendered 1`] = `
+exports[`CreatePipelineButton tests when supportingGitSimplification is false RbacButton should be rendered 1`] = `
 <div>
   <div
     class="Button--withDocsTooltip"

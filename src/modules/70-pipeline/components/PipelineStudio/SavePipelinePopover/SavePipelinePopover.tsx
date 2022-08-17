@@ -78,7 +78,7 @@ function SavePipelinePopover(
   const {
     isGitSyncEnabled: isGitSyncEnabledForProject,
     gitSyncEnabledOnlyForFF,
-    isGitSimplificationEnabled
+    supportingGitSimplification
   } = useAppStore()
   const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const {
@@ -102,7 +102,7 @@ function SavePipelinePopover(
   const isYaml = view === SelectedView.YAML
   const { openTemplateErrorsModal } = useTemplateErrors({ entity: TemplateErrorEntity.PIPELINE })
   const [governanceMetadata, setGovernanceMetadata] = React.useState<GovernanceMetadata>()
-  const isPipelineRemote = isGitSimplificationEnabled && storeType === StoreType.REMOTE
+  const isPipelineRemote = supportingGitSimplification && storeType === StoreType.REMOTE
 
   const [showOPAErrorModal, closeOPAErrorModal] = useModalHook(
     () => (

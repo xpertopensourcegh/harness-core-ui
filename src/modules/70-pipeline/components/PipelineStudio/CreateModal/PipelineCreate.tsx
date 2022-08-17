@@ -124,7 +124,7 @@ export default function CreatePipelines({
         identifier: IdentifierSchema(),
         ...getGitValidationSchema()
       }),
-    [getString, supportingGitSimplification, isGitSyncEnabled, storeTypeParam]
+    [getString, supportingGitSimplification, oldGitSyncEnabled, storeTypeParam]
   )
 
   const isEdit = React.useMemo(

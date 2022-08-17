@@ -45,7 +45,7 @@ describe('CreatePipelineButton tests', () => {
     expect(addPipelineBtn).toBeDefined()
   })
 
-  test('when not supportingGitSimplification RbacButton should be rendered', () => {
+  test('when supportingGitSimplification is false RbacButton should be rendered', () => {
     const { container } = render(
       <TestWrapper defaultAppStoreValues={{ supportingGitSimplification: false }}>
         <CreatePipelineButton onCreatePipelineClick={jest.fn()} onImportPipelineClick={jest.fn()} />
@@ -54,7 +54,7 @@ describe('CreatePipelineButton tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('when not supportingGitSimplification and label is passed', () => {
+  test('when supportingGitSimplification is false and label is passed', () => {
     const { getByText } = render(
       <TestWrapper defaultAppStoreValues={{ supportingGitSimplification: false }}>
         <CreatePipelineButton
