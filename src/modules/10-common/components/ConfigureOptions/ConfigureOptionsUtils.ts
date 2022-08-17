@@ -161,6 +161,10 @@ export function isExecutionInput(input: string): boolean {
 }
 
 export function parseInput(input: string): ParsedInput | null {
+  if (typeof input !== 'string') {
+    return null
+  }
+
   const INPUT_EXPRESSION_REGEX = new RegExp(`^${INPUT_EXPRESSION_REGEX_STRING}$`, 'g')
 
   const match = input.match(INPUT_EXPRESSION_REGEX)
