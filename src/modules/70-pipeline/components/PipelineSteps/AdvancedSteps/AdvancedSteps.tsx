@@ -190,6 +190,7 @@ export function AdvancedTabForm(props: AdvancedTabFormProps): React.ReactElement
                   onUpdateStrategy={strategy => {
                     formikProps.setValues({ ...formikProps.values, strategy })
                   }}
+                  stepType={stepType}
                 />
               }
             />
