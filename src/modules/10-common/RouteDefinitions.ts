@@ -1492,6 +1492,7 @@ const routes = {
   toCECORules: withAccountId(
     ({ params }: { params: string }) => `/ce/autostopping-rules` + (params ? `?${params}` : '')
   ),
+  toCECORuleDetails: withAccountId(({ id }: { id: string }) => `/ce/autostopping-rules/rule/${id}`),
   toCERecommendations: withAccountId(() => `/ce/recommendations`),
   toCERecommendationDetails: withAccountId(
     ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>

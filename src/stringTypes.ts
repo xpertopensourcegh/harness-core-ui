@@ -4847,6 +4847,28 @@ export interface StringsMap {
   'ce.co.resourcesManagedDescription.gcpVm': string
   'ce.co.resourcesManagedDescription.k8s': string
   'ce.co.resourcesManagedDescription.rds': string
+  'ce.co.ruleDetails.costGraphHeader': string
+  'ce.co.ruleDetails.detailsTab.label.delayInSec': string
+  'ce.co.ruleDetails.detailsTab.label.dependantRule': string
+  'ce.co.ruleDetails.detailsTab.label.ruleId': string
+  'ce.co.ruleDetails.detailsTab.label.vmsManaged': string
+  'ce.co.ruleDetails.detailsTab.managedVmTableHeaders.ip': string
+  'ce.co.ruleDetails.detailsTab.managedVmTableHeaders.name': string
+  'ce.co.ruleDetails.enableRuleMessage': string
+  'ce.co.ruleDetails.lastActiveMessage': string
+  'ce.co.ruleDetails.logsHeader': string
+  'ce.co.ruleDetails.potentialCost': string
+  'ce.co.ruleDetails.sshTab.cli': string
+  'ce.co.ruleDetails.sshTab.description': string
+  'ce.co.ruleDetails.sshTab.header': string
+  'ce.co.ruleDetails.sshTab.step1.indicator': string
+  'ce.co.ruleDetails.sshTab.step1.info': string
+  'ce.co.ruleDetails.sshTab.step2.indicator': string
+  'ce.co.ruleDetails.sshTab.step2.info': string
+  'ce.co.ruleDetails.sshTab.step2.title': string
+  'ce.co.ruleDetails.successfulResponse': string
+  'ce.co.ruleDetails.totalActualSpend': string
+  'ce.co.ruleDetails.totalSavings': string
   'ce.co.ruleDetailsHeader.computeType': string
   'ce.co.ruleDetailsHeader.customDomain': string
   'ce.co.ruleDetailsHeader.hostName': string
@@ -4895,6 +4917,7 @@ export interface StringsMap {
   'ce.common.budget': string
   'ce.common.collapse': string
   'ce.common.containerService': string
+  'ce.common.copied': string
   'ce.common.database': string
   'ce.common.disabled': string
   'ce.common.emissionUnitHTML': string
@@ -4902,7 +4925,9 @@ export interface StringsMap {
   'ce.common.newBudget': string
   'ce.common.or': string
   'ce.common.refresh': string
+  'ce.common.rule': string
   'ce.common.spendTillDate': string
+  'ce.common.toggleLabel': string
   'ce.common.totalCount': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string

@@ -63,6 +63,7 @@ import BusinessMapping from './pages/business-mapping/BusinessMapping'
 import ECSRecommendationDetailsPage from './pages/ecs-recommendation-details/ECSRecommendationDetailsPage'
 import OverviewAddCluster from './components/OverviewPage/OverviewAddCluster'
 import BIDashboard from './pages/bi-dashboards/BIDashboard'
+import CORuleDetailsPage from './pages/co-rule-details/CORuleDetailsPage'
 
 RbacFactory.registerResourceCategory(ResourceCategory.CLOUD_COSTS, {
   icon: 'ccm-solid',
@@ -424,6 +425,15 @@ const CERoutes: React.FC = () => {
           pageName={PAGE_NAME.CECODashboardPage}
         >
           <CECODashboardPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCECORuleDetails({ ...accountPathProps, id: ':ruleId' })}
+          exact
+          pageName={PAGE_NAME.CECORuleDetailsPage}
+        >
+          <CORuleDetailsPage />
         </RouteWithLayout>
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
