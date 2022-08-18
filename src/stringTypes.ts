@@ -4294,6 +4294,8 @@ export interface StringsMap {
   'cd.serviceOverrides.deleted': string
   'cd.serviceOverrides.deletedOneVariable': string
   'cd.serviceOverrides.helperText': string
+  'cd.serviceOverrides.manifestOverrides': string
+  'cd.serviceOverrides.variableOverrides': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string

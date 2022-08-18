@@ -7,14 +7,13 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly actionButtons: string
-  readonly dialogStyles: string
-  readonly headerRow: string
-  readonly serviceOverrideDialog: string
-  readonly serviceOverridesContainer: string
-  readonly tableRow: string
-  readonly tooltip: string
-  readonly valueColumn: string
-  readonly valueString: string
+  readonly columnId: string
+  readonly createConnectorWizard: string
+  readonly crossIcon: string
+  readonly listHeader: string
+  readonly manifestList: string
+  readonly manifestLocation: string
+  readonly rowItem: string
+  readonly type: string
 }
 export default styles
