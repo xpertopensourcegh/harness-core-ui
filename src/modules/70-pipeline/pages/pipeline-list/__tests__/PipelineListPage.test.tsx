@@ -163,10 +163,9 @@ describe('CD Pipeline List Page', () => {
 
   test('should be able to run pipeline from menu', async () => {
     renderPipelinesListPage()
-    const moreOptions = await screen.findAllByRole('button', {
-      name: /more/i
-    })
-    userEvent.click(moreOptions[0])
+    const row = await screen.findAllByRole('row')
+    const moreOptions = within(row[1]).getByRole('button')
+    userEvent.click(moreOptions)
     const menuContent = findPopoverContainer() as HTMLElement
     const runPipeline = await within(menuContent).findByText('runPipelineText')
     userEvent.click(runPipeline)
@@ -175,10 +174,9 @@ describe('CD Pipeline List Page', () => {
 
   test('should be able to view pipeline from menu', async () => {
     renderPipelinesListPage()
-    const moreOptions = await screen.findAllByRole('button', {
-      name: /more/i
-    })
-    userEvent.click(moreOptions[0])
+    const row = await screen.findAllByRole('row')
+    const moreOptions = within(row[1]).getByRole('button')
+    userEvent.click(moreOptions)
     const menuContent = findPopoverContainer() as HTMLElement
     const viewPipeline = await within(menuContent).findByText('pipeline.viewPipeline')
     userEvent.click(viewPipeline)
@@ -196,10 +194,9 @@ describe('CD Pipeline List Page', () => {
 
   test('should be able delete pipeline from the menu', async () => {
     renderPipelinesListPage()
-    const moreOptions = await screen.findAllByRole('button', {
-      name: /more/i
-    })
-    userEvent.click(moreOptions[0])
+    const row = await screen.findAllByRole('row')
+    const moreOptions = within(row[1]).getByRole('button')
+    userEvent.click(moreOptions)
     const menuContent = findPopoverContainer() as HTMLElement
     const deleteBtn = await within(menuContent).findByText('delete')
     userEvent.click(deleteBtn)
@@ -269,7 +266,7 @@ describe('CI Pipeline List Page', () => {
 
     // test sorting
     mutateListOfPipelines.mockReset()
-    userEvent.click(screen.getByText('PIPELINE.LASTEXECUTION'))
+    userEvent.click(screen.getByText('pipeline.lastExecution'))
     expect(mutateListOfPipelines).toHaveBeenCalledWith(
       { filterType: 'PipelineSetup' },
       {

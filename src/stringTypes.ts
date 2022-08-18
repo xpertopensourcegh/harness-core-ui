@@ -3398,6 +3398,7 @@ export interface StringsMap {
   'pipeline.manifestTypeLabels.ServerlessAzure': string
   'pipeline.manifestTypeLabels.ServerlessGCP': string
   'pipeline.manifestTypeLabels.ValuesYaml': string
+  'pipeline.mostRecentDirection': string
   'pipeline.moveStage.description': string
   'pipeline.moveStage.title': string
   'pipeline.multiStageExecution': string

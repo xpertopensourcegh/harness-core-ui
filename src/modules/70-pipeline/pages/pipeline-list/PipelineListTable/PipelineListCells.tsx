@@ -65,12 +65,9 @@ export const PipelineNameCell: CellType = ({ row }) => {
     module
   })
   return (
-    <Layout.Horizontal
-      flex={{ alignItems: 'center', justifyContent: 'space-between' }}
-      className={css.pipelineNameCell}
-    >
+    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
       <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
-        <Layout.Horizontal spacing="medium">
+        <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
           <Link to={href}>
             <Text
               font={{ size: 'normal' }}
@@ -87,7 +84,14 @@ export const PipelineNameCell: CellType = ({ row }) => {
               {data.name}
             </Text>
           </Link>
-          {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
+          {data.tags && Object.keys(data.tags || {}).length ? (
+            <TagsPopover
+              tags={data.tags}
+              iconProps={{ size: 12, color: Color.GREY_600 }}
+              popoverProps={{ className: Classes.DARK }}
+              className={css.tags}
+            />
+          ) : null}
         </Layout.Horizontal>
         <Text color={Color.GREY_600} font="xsmall">
           {getString('idLabel', { id: data.identifier })}
@@ -131,13 +135,13 @@ export const CodeSourceCell: CellType = ({ row }) => {
         className={Classes.DARK}
         content={
           <Layout.Vertical spacing="small" padding="large" style={{ maxWidth: 400 }}>
-            <Layout.Horizontal spacing="small">
+            <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'start' }}>
               <Icon name="github" size={14} color={Color.GREY_200} />
               <Text color={Color.WHITE} font={{ variation: FontVariation.SMALL }}>
                 {gitDetails?.repoName || gitDetails?.repoIdentifier}
               </Text>
             </Layout.Horizontal>
-            <Layout.Horizontal spacing="small">
+            <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'start' }}>
               <Icon name="remotefile" size={14} color={Color.GREY_200} />
               <Text color={Color.WHITE} font={{ variation: FontVariation.SMALL }}>
                 {gitDetails?.filePath}
@@ -147,7 +151,7 @@ export const CodeSourceCell: CellType = ({ row }) => {
         }
       >
         <div className={css.storeTypeColumn}>
-          <Icon name={isRemote ? 'remote-setup' : 'repository'} size={10} color={Color.GREY_600} />
+          <Icon name={isRemote ? 'remote-setup' : 'repository'} size={isRemote ? 12 : 10} color={Color.GREY_600} />
           <Text margin={{ left: 'xsmall' }} font={{ variation: FontVariation.TINY_SEMI }} color={Color.GREY_600}>
             {isRemote ? getString('repository') : getString('inline')}
           </Text>
@@ -250,18 +254,17 @@ export const MenuCell: CellType = ({ row, column }) => {
           setMenuOpen(nextOpenState)
         }}
         className={Classes.DARK}
-        position={Position.BOTTOM_RIGHT}
+        position={Position.LEFT}
       >
         <Button
           minimal
-          className={css.actionButton}
-          icon="more"
+          icon="Options"
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
           }}
         />
-        <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
+        <Menu style={{ minWidth: 'unset', backgroundColor: 'unset' }} onClick={e => e.stopPropagation()}>
           <RbacMenuItem
             icon="play"
             text={getString('runPipelineText')}

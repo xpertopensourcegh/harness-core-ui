@@ -277,7 +277,14 @@ export function PipelineListPage(): React.ReactElement {
               <Text color={Color.GREY_800} font={{ weight: 'bold' }}>
                 {`${getString('total')}: ${pipelineList?.totalElements}`}
               </Text>
-              <Button intent="primary" icon="refresh" onClick={() => fetchPipelines()} minimal title="refresh" />
+              <Button
+                intent="primary"
+                icon="refresh"
+                onClick={() => fetchPipelines()}
+                minimal
+                tooltipProps={{ isDark: true }}
+                tooltip="refresh"
+              />
             </div>
             <PipelineListTable
               gotoPage={pageNumber => updateQueryParams({ page: pageNumber })}

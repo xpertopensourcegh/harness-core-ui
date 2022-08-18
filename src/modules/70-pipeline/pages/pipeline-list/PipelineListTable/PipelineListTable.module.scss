@@ -25,10 +25,6 @@
   text-transform: uppercase;
 }
 
-.actionButton {
-  transform: rotate(90deg);
-}
-
 .storeTypeColumn {
   display: flex;
   justify-content: center;
@@ -62,7 +58,7 @@
   background-color: var(--grey-100);
   top: -1px;
   bottom: -1px;
-  left: -1px;
+  left: -8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,10 +73,23 @@
   }
 }
 
-.pipelineNameCell {
-  margin-left: var(--spacing-2) !important;
-}
-
 .statusLabel {
   margin-bottom: var(--spacing-small);
+}
+
+.tags {
+  p {
+    color: var(--grey-600) !important;
+    font-size: var(--font-size-small) !important;
+  }
+}
+
+.recentExecutionHeader {
+  position: relative;
+}
+
+.latestExecutionText {
+  position: absolute;
+  text-transform: lowercase;
+  top: -16px;
 }
