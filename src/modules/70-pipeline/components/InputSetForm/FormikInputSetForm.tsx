@@ -48,7 +48,7 @@ import {
 import { mergeTemplateWithInputSetData } from '@pipeline/utils/runPipelineUtils'
 import { YamlBuilderMemo } from '@common/components/YAMLBuilder/YamlBuilder'
 import { getYamlFileName } from '@pipeline/utils/yamlUtils'
-import { parse } from '@common/utils/YamlHelperMethods'
+import { memoizedParse, parse } from '@common/utils/YamlHelperMethods'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -229,7 +229,7 @@ export default function FormikInputSetForm(props: FormikInputSetFormProps): Reac
   const { repoIdentifier, branch, connectorRef, storeType, repoName } = useQueryParams<InputSetGitQueryParams>()
   const history = useHistory()
   const resolvedPipeline = defaultTo(
-    parse<Pipeline>(defaultTo(resolvedTemplatesPipelineYaml, ''))?.pipeline,
+    memoizedParse<Pipeline>(defaultTo(resolvedTemplatesPipelineYaml, ''))?.pipeline,
     {} as PipelineInfoConfig
   )
 
