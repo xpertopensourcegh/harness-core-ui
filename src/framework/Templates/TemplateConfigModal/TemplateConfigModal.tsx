@@ -306,9 +306,13 @@ const BasicTemplateDetails = (
                             padding={'small'}
                             margin={{ bottom: 'medium' }}
                           >
-                            <Layout.Horizontal spacing="small" flex={{ justifyContent: 'start' }}>
+                            <Layout.Horizontal spacing="small" flex={{ justifyContent: 'start' }} width={'100%'}>
                               <Icon name="info-messaging" size={18} />
-                              <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'small' }}>
+                              <Text
+                                color={Color.BLACK}
+                                font={{ weight: 'semi-bold', size: 'small' }}
+                                className={css.lastPublishedVersionLabel}
+                              >
                                 {getString('templatesLibrary.createNewModal.lastPublishedVersion')}
                               </Text>
                               <Text
