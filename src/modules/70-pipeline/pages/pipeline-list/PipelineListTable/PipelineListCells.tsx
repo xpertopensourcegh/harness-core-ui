@@ -65,7 +65,7 @@ export const PipelineNameCell: CellType = ({ row }) => {
     module
   })
   return (
-    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'start' }}>
       <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
         <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
           <Link to={href}>
@@ -256,15 +256,8 @@ export const MenuCell: CellType = ({ row, column }) => {
         className={Classes.DARK}
         position={Position.LEFT}
       >
-        <Button
-          minimal
-          icon="Options"
-          onClick={e => {
-            e.stopPropagation()
-            setMenuOpen(true)
-          }}
-        />
-        <Menu style={{ minWidth: 'unset', backgroundColor: 'unset' }} onClick={e => e.stopPropagation()}>
+        <Button minimal icon="Options" onClick={() => setMenuOpen(true)} />
+        <Menu style={{ minWidth: 'unset', backgroundColor: 'unset' }}>
           <RbacMenuItem
             icon="play"
             text={getString('runPipelineText')}
