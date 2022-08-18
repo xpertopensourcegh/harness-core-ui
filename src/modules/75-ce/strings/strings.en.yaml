@@ -1183,3 +1183,65 @@ biDashboard:
   sideNavText: BI Dashboards
   bannerText: 'These are dashboards created by Harness for you. You can head to the Dashboards section and create your own '
   bannerLinkText: '{{ $.dashboards.getStarted.title }}'
+commitmentOrchestration:
+  sideNavLabel: 'Commitment Orchestrator'
+  exitSetupBtn: 'Exit Setup'
+  coverage: 'Coverage'
+  filterPanel:
+    allAccounts: 'All Accounts'
+    allInstanceFamilies: 'All Instance Families'
+  computeSpend: 'Compute spend'
+  monthToDate: 'month-to-date'
+  computeCoverage: 'Compute coverage'
+  savings: 'Savings'
+  commitmentUtilisation: 'Commitment Utilisation'
+  savingsPlans: 'Savings Plans'
+  reservedInstances: 'Reserved Instances'
+  onDemandInstances: 'On-demand Instances'
+  enableBanner:
+    initialText: 'Enable Harness Commitment Orchestrator to save upto'
+    finalText: 'additionally {{savingsPercentage}} per month on your Compute Spend.'
+  setup:
+    checkboxLabel: 'I understand and approve the action plan based on my preferences'
+    steps:
+      step1Label: 'Coverage Percentage'
+      step2Label: 'Instance Types'
+      step3Label: 'Savings Plans v/s RIs'
+    step1:
+      heading: 'Specify Coverage Percentage'
+      description: Coverage % is the % of your compute spend that you want to be covered by RIs or Savings Plans. The remaining compute spend that is not covered by any commitments will continue to run as on-demand (or spot, if applicable). This will be the target Coverage % for AutoCUD's automation, and will apply across your linked
+      awsPayerAcs: 'AWS Payer Account(s)'
+      resetLabel: 'Reset to recommended'
+    step2:
+      description:
+        'Below is a table of all the EC2 instance types currently in use. All the selected rows will be used to calculate
+        the Total Compute Spend that has to be covered by RIs or Savings Plans. If you expect to stop using any of the
+        instance types listed below, please uncheck them. Excluded rows will not be calculated against the total compute
+        spend for coverage by RIs/Savings Plans.'
+      proTipLabel: 'Pro Tip: '
+      proTipText: 'You may exclude instance types individually or by region (filter) from the table.'
+      tableHeaders:
+        coveragePerc: 'coverage(%)'
+      searchPlaceholder: 'Search by name or region'
+      past30Days: 'past 30 days'
+    step3:
+      heading: 'Specify the split between Savings Plans and RIs'
+      description: 'Enter the target split between Convertible RIs and Compute Savings Plans that will cover your total compute spend.'
+      computeSpendForLast30Days: 'Compute Spend for Last 30 days'
+      computeSavingsPlan: 'Compute Savings Plan'
+      convertibleRI: 'Convertible RI'
+      savingsPlanTerm: 'Savings plan Term'
+      savingsPlanPaymentStrategy: 'Savings plan Payment Strategy'
+      riTerm: 'RI Term'
+      riPaymentStrategy: 'RI Payment Strategy'
+      savingsPlanCoverage: 'Savings plan coverage'
+      riCoverage: 'RI coverage'
+    step4:
+      description: 'Target Coverage based on your Preferences'
+      targetComputeSpend: 'Target Compute Spend'
+      afterPurchase: 'after Commitment purchases'
+      targetSavings: 'Target Savings'
+      actionPlan: 'Action Plan'
+      coveredBySavigsPlan: 'to be covered by Savings Plans'
+      coveredByRI: 'to be covered by Reserved instances'
+      remainOnDemand: 'to remain on On-demand instances'

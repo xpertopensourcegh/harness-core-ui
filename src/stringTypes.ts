@@ -4913,6 +4913,54 @@ export interface StringsMap {
   'ce.co.summarySection.totalSavings': string
   'ce.co.summarySection.totalSpend': string
   'ce.co.totalEmissions': string
+  'ce.commitmentOrchestration.commitmentUtilisation': string
+  'ce.commitmentOrchestration.computeCoverage': string
+  'ce.commitmentOrchestration.computeSpend': string
+  'ce.commitmentOrchestration.coverage': string
+  'ce.commitmentOrchestration.enableBanner.finalText': string
+  'ce.commitmentOrchestration.enableBanner.initialText': string
+  'ce.commitmentOrchestration.exitSetupBtn': string
+  'ce.commitmentOrchestration.filterPanel.allAccounts': string
+  'ce.commitmentOrchestration.filterPanel.allInstanceFamilies': string
+  'ce.commitmentOrchestration.monthToDate': string
+  'ce.commitmentOrchestration.onDemandInstances': string
+  'ce.commitmentOrchestration.reservedInstances': string
+  'ce.commitmentOrchestration.savings': string
+  'ce.commitmentOrchestration.savingsPlans': string
+  'ce.commitmentOrchestration.setup.checkboxLabel': string
+  'ce.commitmentOrchestration.setup.step1.awsPayerAcs': string
+  'ce.commitmentOrchestration.setup.step1.description': string
+  'ce.commitmentOrchestration.setup.step1.heading': string
+  'ce.commitmentOrchestration.setup.step1.resetLabel': string
+  'ce.commitmentOrchestration.setup.step2.description': string
+  'ce.commitmentOrchestration.setup.step2.past30Days': string
+  'ce.commitmentOrchestration.setup.step2.proTipLabel': string
+  'ce.commitmentOrchestration.setup.step2.proTipText': string
+  'ce.commitmentOrchestration.setup.step2.searchPlaceholder': string
+  'ce.commitmentOrchestration.setup.step2.tableHeaders.coveragePerc': string
+  'ce.commitmentOrchestration.setup.step3.computeSavingsPlan': string
+  'ce.commitmentOrchestration.setup.step3.computeSpendForLast30Days': string
+  'ce.commitmentOrchestration.setup.step3.convertibleRI': string
+  'ce.commitmentOrchestration.setup.step3.description': string
+  'ce.commitmentOrchestration.setup.step3.heading': string
+  'ce.commitmentOrchestration.setup.step3.riCoverage': string
+  'ce.commitmentOrchestration.setup.step3.riPaymentStrategy': string
+  'ce.commitmentOrchestration.setup.step3.riTerm': string
+  'ce.commitmentOrchestration.setup.step3.savingsPlanCoverage': string
+  'ce.commitmentOrchestration.setup.step3.savingsPlanPaymentStrategy': string
+  'ce.commitmentOrchestration.setup.step3.savingsPlanTerm': string
+  'ce.commitmentOrchestration.setup.step4.actionPlan': string
+  'ce.commitmentOrchestration.setup.step4.afterPurchase': string
+  'ce.commitmentOrchestration.setup.step4.coveredByRI': string
+  'ce.commitmentOrchestration.setup.step4.coveredBySavigsPlan': string
+  'ce.commitmentOrchestration.setup.step4.description': string
+  'ce.commitmentOrchestration.setup.step4.remainOnDemand': string
+  'ce.commitmentOrchestration.setup.step4.targetComputeSpend': string
+  'ce.commitmentOrchestration.setup.step4.targetSavings': string
+  'ce.commitmentOrchestration.setup.steps.step1Label': string
+  'ce.commitmentOrchestration.setup.steps.step2Label': string
+  'ce.commitmentOrchestration.setup.steps.step3Label': string
+  'ce.commitmentOrchestration.sideNavLabel': string
   'ce.common.and': string
   'ce.common.budget': string
   'ce.common.collapse': string

@@ -64,6 +64,8 @@ import ECSRecommendationDetailsPage from './pages/ecs-recommendation-details/ECS
 import OverviewAddCluster from './components/OverviewPage/OverviewAddCluster'
 import BIDashboard from './pages/bi-dashboards/BIDashboard'
 import CORuleDetailsPage from './pages/co-rule-details/CORuleDetailsPage'
+import CommitmentOrchestration from './pages/CommitmentOrchestration/CommitmentOrchestration'
+import CommitmentOrchestrationSetup from './pages/CommitmentOrchestration/CommitmentOrchestrationSetup'
 
 RbacFactory.registerResourceCategory(ResourceCategory.CLOUD_COSTS, {
   icon: 'ccm-solid',
@@ -717,6 +719,26 @@ const CERoutes: React.FC = () => {
             />
           </RouteWithLayout>
         ) : null}
+
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCommitmentOrchestration({ ...accountPathProps })}
+          exact
+          pageName={PAGE_NAME.CECommitmentOrchestrationPage}
+        >
+          <CommitmentOrchestration />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCommitmentOrchestrationSetup({ ...accountPathProps })}
+          exact
+          pageName={PAGE_NAME.CECommitmentOrchestrationPage}
+        >
+          <CommitmentOrchestrationSetup />
+        </RouteWithLayout>
+
         <Route path="*">
           <NotFoundPage />
         </Route>

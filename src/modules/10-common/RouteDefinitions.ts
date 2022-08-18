@@ -1583,6 +1583,8 @@ const routes = {
       `/ce/recommendations/ecs/${recommendation}/name/${recommendationName}/details`
   ),
   toCEDashboards: withAccountId(() => '/ce/bi-dashboards'),
+  toCommitmentOrchestration: withAccountId(() => `/ce/commitment-orchestration`),
+  toCommitmentOrchestrationSetup: withAccountId(() => `/ce/commitment-orchestration/setup`),
   /********************************************************************************************************************/
   toSTO: withAccountId(() => `/sto`),
   toSTOHome: withAccountId(() => `/sto/home`),
