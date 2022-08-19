@@ -32,6 +32,8 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { StoreMetadata, StoreType } from '@common/constants/GitSyncTypes'
 import { InlineRemoteSelect } from '@common/components/InlineRemoteSelect/InlineRemoteSelect'
 import { yamlPathRegex } from '@common/utils/StringUtils'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import css from './PipelineCreate.module.scss'
 
@@ -223,7 +225,7 @@ export default function CreatePipelines({
 
             {!isEdit && (
               <Container padding={{ top: 'large' }}>
-                <Button
+                <RbacButton
                   text={getString('common.templateStartLabel')}
                   icon={'template-library'}
                   iconProps={{
@@ -235,6 +237,11 @@ export default function CreatePipelines({
                     window.requestAnimationFrame(() => {
                       formikProps.submitForm()
                     })
+                  }}
+                  featuresProps={{
+                    featuresRequest: {
+                      featureNames: [FeatureIdentifier.TEMPLATE_SERVICE]
+                    }
                   }}
                 />
               </Container>
