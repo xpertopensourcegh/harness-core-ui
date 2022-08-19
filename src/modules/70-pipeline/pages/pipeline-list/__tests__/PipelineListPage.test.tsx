@@ -107,7 +107,7 @@ const renderPipelinesListPage = (module = 'cd'): RenderResult =>
 describe('CD Pipeline List Page', () => {
   test('should render pipeline table and able to go to a pipeline', async () => {
     renderPipelinesListPage()
-    await screen.findByText(/total: 5/i)
+    await screen.findByText(/total: 6/i)
     const pipelineRow = screen.getAllByRole('row')[1]
     expect(
       within(pipelineRow).getByRole('link', {
@@ -115,7 +115,7 @@ describe('CD Pipeline List Page', () => {
       })
     ).toHaveAttribute(
       'href',
-      routes.toPipelineStudio({ ...getModuleParams(), pipelineIdentifier: 'Sonar_Develop' } as any)
+      routes.toPipelineStudio({ ...getModuleParams(), pipelineIdentifier: 'Sonar_Develop', storeType: 'INLINE' } as any)
     )
 
     expect(
@@ -253,7 +253,7 @@ describe('CI Pipeline List Page', () => {
     })
 
     renderPipelinesListPage('ci')
-    await screen.findByText(/total: 5/i)
+    await screen.findByText(/total: 6/i)
     const pipelineRow = screen.getAllByRole('row')[1]
     expect(
       within(pipelineRow).getByRole('link', {
@@ -261,7 +261,11 @@ describe('CI Pipeline List Page', () => {
       })
     ).toHaveAttribute(
       'href',
-      routes.toPipelineStudio({ ...getModuleParams('ci'), pipelineIdentifier: 'Sonar_Develop' } as any)
+      routes.toPipelineStudio({
+        ...getModuleParams('ci'),
+        pipelineIdentifier: 'Sonar_Develop',
+        storeType: 'INLINE'
+      } as any)
     )
 
     // test sorting
@@ -280,6 +284,36 @@ describe('CI Pipeline List Page', () => {
           sort: ['executionSummaryInfo.lastExecutionTs', 'ASC']
         }
       }
+    )
+  })
+})
+
+describe('Pipeline List Page with git details', () => {
+  test('url contains git info', async () => {
+    const useGetPipelineListMock = useGetPipelineList as jest.MockedFunction<any>
+    const mutateListOfPipelines = jest.fn().mockResolvedValue(pipelines)
+    useGetPipelineListMock.mockReturnValue({
+      mutate: mutateListOfPipelines,
+      loading: false,
+      cancel: jest.fn()
+    })
+
+    renderPipelinesListPage('ci')
+    await screen.findByText(/total: 6/i)
+    const pipelineRow = screen.getAllByRole('row')[6]
+    expect(
+      within(pipelineRow).getByRole('link', {
+        name: /mb-gh-work-abcd/i
+      })
+    ).toHaveAttribute(
+      'href',
+      routes.toPipelineStudio({
+        ...getModuleParams('ci'),
+        pipelineIdentifier: 'mbghworkabcd',
+        repoName: 'Repo1',
+        connectorRef: 'Connector1',
+        storeType: 'REMOTE'
+      } as any)
     )
   })
 })

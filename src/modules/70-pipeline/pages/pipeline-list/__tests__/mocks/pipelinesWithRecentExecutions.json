@@ -458,6 +458,43 @@
           "invalidYaml": null
         },
         "storeType": "INLINE"
+      },
+      {
+        "name": "mb-gh-work-abcd",
+        "identifier": "mbghworkabcd",
+        "tags": {},
+        "version": 518,
+        "numOfStages": 12,
+        "createdAt": 1658411394681,
+        "lastUpdatedAt": 1658424604926,
+        "modules": ["ci", "pms"],
+        "executionSummaryInfo": {
+          "numOfErrors": [0, 0, 0, 0, 0, 0, 0],
+          "deployments": [0, 0, 0, 0, 0, 0, 0],
+          "lastExecutionTs": 1658424457416,
+          "lastExecutionStatus": "Success",
+          "lastExecutionId": "Ns15O7gwTwe8kISu0QJWfg"
+        },
+        "recentExecutionsInfo": [],
+        "filters": {
+          "ci": {
+            "repoNames": []
+          },
+          "pms": {
+            "stageTypes": [],
+            "featureFlagStepCount": 0
+          }
+        },
+        "stageNames": ["ReadRepos"],
+        "entityValidityDetails": {
+          "valid": true,
+          "invalidYaml": null
+        },
+        "storeType": "REMOTE",
+        "connectorRef": "Connector1",
+        "gitDetails": {
+          "repoName": "Repo1"
+        }
       }
     ],
     "pageable": {
@@ -474,7 +511,7 @@
     },
     "last": false,
     "totalPages": 1,
-    "totalElements": 5,
+    "totalElements": 6,
     "first": true,
     "sort": {
       "sorted": true,
