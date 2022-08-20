@@ -26,7 +26,7 @@ import { useModalHook } from '@harness/use-modal'
 import { matchPath, useHistory, useParams } from 'react-router-dom'
 import { defaultTo, isEmpty, isEqual, merge, omit } from 'lodash-es'
 import produce from 'immer'
-import { parse } from '@common/utils/YamlHelperMethods'
+import { parse, yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { PipelineInfoConfig } from 'services/pipeline-ng'
 import {
   EntityGitDetails,
@@ -75,7 +75,7 @@ import GitRemoteDetails from '@common/components/GitRemoteDetails/GitRemoteDetai
 import { OutOfSyncErrorStrip } from '@pipeline/components/TemplateLibraryErrorHandling/OutOfSyncErrorStrip/OutOfSyncErrorStrip'
 import { useTemplateSelector } from 'framework/Templates/TemplateSelectorContext/useTemplateSelector'
 import type { Pipeline } from '@pipeline/utils/types'
-import { TemplateErrorEntity } from '@pipeline/components/TemplateLibraryErrorHandling/ReconcileDialog/ReconcileDialog'
+import { TemplateErrorEntity } from '@pipeline/components/TemplateLibraryErrorHandling/utils'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -979,6 +979,7 @@ export function PipelineCanvas({
             <OutOfSyncErrorStrip
               errorNodeSummary={templateInputsErrorNodeSummary}
               entity={TemplateErrorEntity.PIPELINE}
+              originalYaml={yamlStringify({ pipeline: originalPipeline })}
               isReadOnly={isReadonly}
               onRefreshEntity={() => {
                 fetchPipeline({ forceFetch: true, forceUpdate: true })

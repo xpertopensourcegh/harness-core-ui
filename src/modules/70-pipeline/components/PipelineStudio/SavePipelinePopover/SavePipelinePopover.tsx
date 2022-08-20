@@ -55,7 +55,7 @@ import { SCHEMA_VALIDATION_FAILED } from '@common/interfaces/GitSyncInterface'
 import type { Pipeline } from '@pipeline/utils/types'
 import useTemplateErrors from '@pipeline/components/TemplateErrors/useTemplateErrors'
 import { sanitize } from '@common/utils/JSONUtils'
-import { TemplateErrorEntity } from '@pipeline/components/TemplateLibraryErrorHandling/ReconcileDialog/ReconcileDialog'
+import { TemplateErrorEntity } from '@pipeline/components/TemplateLibraryErrorHandling/utils'
 import usePipelineErrors from '../PipelineCanvas/PipelineErrors/usePipelineErrors'
 
 export default interface SavePipelinePopoverProps extends PopoverProps {
@@ -257,7 +257,8 @@ function SavePipelinePopover(
                 (parse(refreshedYaml) as { pipeline: PipelineInfoConfig }).pipeline,
                 storeMetadata
               )
-            }
+            },
+            isEdit
           })
         } else {
           showError(

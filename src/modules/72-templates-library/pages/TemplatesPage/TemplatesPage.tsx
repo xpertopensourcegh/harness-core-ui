@@ -162,6 +162,10 @@ export default function TemplatesPage(): React.ReactElement {
     )
   }
 
+  const onRetry = React.useCallback(() => {
+    reloadTemplates()
+  }, [reloadTemplates])
+
   return (
     <>
       <Page.Header
@@ -225,7 +229,7 @@ export default function TemplatesPage(): React.ReactElement {
         loading={loading}
         error={(error?.data as Error)?.message || error?.message}
         className={css.templatesPageBody}
-        retryOnError={reloadTemplates}
+        retryOnError={onRetry}
       >
         {!templateFeatureEnabled ? (
           <FeatureWarningBanner featureName={FeatureIdentifier.TEMPLATE_SERVICE} className={css.featureWarningBanner} />
