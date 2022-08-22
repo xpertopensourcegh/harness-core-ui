@@ -39,7 +39,7 @@ import {
 } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import {
   isAzureWebAppDeploymentType,
-  isAzureWebAppGenericDeploymentType,
+  isAzureWebAppOrSshWinrmGenericDeploymentType,
   isServerlessDeploymentType,
   isSshOrWinrmDeploymentType,
   repositoryFormats,
@@ -97,7 +97,8 @@ function Artifactory({
   const isSSHWinRmDeploymentType = isSshOrWinrmDeploymentType(selectedDeploymentType)
   const isServerlessWinRmSshDeploymentType = isServerlessDeploymentTypeSelected || isSSHWinRmDeploymentType
   const isAzureWebAppDeploymentTypeSelected = isAzureWebAppDeploymentType(selectedDeploymentType)
-  const isAzureWebAppGenericTypeSelected = isAzureWebAppGenericDeploymentType(
+  const isAzureWebAppOrSshWinrmDeploymentTypeSelected = isAzureWebAppDeploymentTypeSelected || isSSHWinRmDeploymentType
+  const isAzureWebAppGenericTypeSelected = isAzureWebAppOrSshWinrmGenericDeploymentType(
     selectedDeploymentType,
     getRepositoryFormat(initialValues)
   )
@@ -109,8 +110,7 @@ function Artifactory({
 
   useLayoutEffect(() => {
     let repoFormat = RepositoryFormatTypes.Docker
-    if (isServerlessWinRmSshDeploymentType) repoFormat = RepositoryFormatTypes.Generic
-    if (isAzureWebAppDeploymentTypeSelected) {
+    if (isAzureWebAppOrSshWinrmDeploymentTypeSelected) {
       repoFormat = getRepositoryFormat(initialValues)
         ? (getRepositoryFormat(initialValues) as RepositoryFormatTypes)
         : RepositoryFormatTypes.Generic
@@ -294,19 +294,20 @@ function Artifactory({
           <Form>
             <div className={css.connectorForm}>
               {context === ModalViewFor.SIDECAR && <SideCarArtifactIdentifier />}
-              {isAzureWebAppDeploymentTypeSelected && (
+              {isAzureWebAppOrSshWinrmDeploymentTypeSelected && (
                 <div className={css.imagePathContainer}>
                   <FormInput.Select
                     name="repositoryFormat"
                     label={getString('common.repositoryFormat')}
                     items={repositoryFormats}
                     onChange={value => {
-                      if (isAzureWebAppDeploymentTypeSelected) {
+                      if (isAzureWebAppOrSshWinrmDeploymentTypeSelected) {
                         selectedArtifact && formik.setValues(defaultArtifactInitialValues(selectedArtifact))
                         formik.setFieldValue('repositoryFormat', value?.value)
                         setRepositoryFormat(value?.value as string)
                         setIsAzureWebAppGeneric(
-                          isAzureWebAppDeploymentTypeSelected && value?.value === RepositoryFormatTypes.Generic
+                          isAzureWebAppOrSshWinrmDeploymentTypeSelected &&
+                            value?.value === RepositoryFormatTypes.Generic
                         )
                       }
                     }}
