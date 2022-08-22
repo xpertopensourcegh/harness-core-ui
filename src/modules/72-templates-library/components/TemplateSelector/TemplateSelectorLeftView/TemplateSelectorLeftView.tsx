@@ -40,6 +40,7 @@ import { getScopeFromDTO } from '@common/components/EntityReference/EntityRefere
 import { getScopeOptions } from '@templates-library/components/TemplateSelector/TemplateSelectorLeftView/TemplateSelectorLeftViewUtils'
 import { areTemplatesSame } from '@pipeline/utils/templateUtils'
 import { useTemplateSelectorContext } from 'framework/Templates/TemplateSelectorContext/TemplateSelectorContext'
+import templateFactory from '@templates-library/components/Templates/TemplatesFactory'
 import css from './TemplateSelectorLeftView.module.scss'
 
 export interface TemplateSelectorLeftViewProps {
@@ -50,7 +51,7 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
   const {
     state: { selectorData }
   } = useTemplateSelectorContext()
-  const { templateType, allChildTypes = [], selectedTemplate: defaultTemplate } = selectorData || {}
+  const { templateType = '', allChildTypes = [], selectedTemplate: defaultTemplate } = selectorData || {}
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
@@ -189,7 +190,9 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
                 },
                 {
                   url: '/',
-                  label: getString('templatesLibrary.templatesLabel', { entity: templateType })
+                  label: getString('templatesLibrary.templatesLabel', {
+                    entity: templateFactory.getTemplateLabel(templateType)
+                  })
                 }
               ]}
             />
