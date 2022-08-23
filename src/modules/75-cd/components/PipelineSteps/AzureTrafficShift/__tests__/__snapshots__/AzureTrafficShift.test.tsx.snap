@@ -172,7 +172,7 @@ exports[`Azure Traffic Shift step Should render edit view as edit step 1`] = `
             class="Tooltip--acenter"
             data-tooltip-id="AzureTrafficShift-_spec.traffic"
           >
-            pipeline.traffic
+            pipeline.trafficPercentage
           </span>
            
           <span
@@ -444,7 +444,7 @@ exports[`Azure Traffic Shift step Should render edit view as edit step for runti
             class="Tooltip--acenter"
             data-tooltip-id="AzureTrafficShift-_spec.traffic"
           >
-            pipeline.traffic
+            pipeline.trafficPercentage
           </span>
            
           <span
@@ -640,7 +640,7 @@ exports[`Azure Traffic Shift step Should render input set view 1`] = `
                 class="Tooltip--acenter"
                 data-tooltip-id="stepTestUtilForm_/abc.spec.traffic"
               >
-                pipeline.traffic
+                pipeline.trafficPercentage
               </span>
                
               <span

@@ -102,7 +102,7 @@ exports[`Test Azure Traffic Shift input set Should render edit view as new step 
                     class="Tooltip--acenter"
                     data-tooltip-id="wrapperComponentTestForm_spec.traffic"
                   >
-                    pipeline.traffic
+                    pipeline.trafficPercentage
                   </span>
                    
                   <span

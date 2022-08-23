@@ -103,7 +103,7 @@ export const AzureTrafficShiftRef = (props: AzureTrafficShiftProps, formikRef: S
               <FormInput.MultiTextInput
                 name="spec.traffic"
                 placeholder={getString('pipeline.traffic')}
-                label={getString('pipeline.traffic')}
+                label={getString('pipeline.trafficPercentage')}
                 multiTextInputProps={{ expressions, allowableTypes }}
                 disabled={readonly}
               />

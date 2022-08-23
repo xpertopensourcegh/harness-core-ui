@@ -1220,6 +1220,7 @@ fieldLabels:
 fieldPlaceholders:
   commandType: Enter Command Type
 traffic: Traffic
+trafficPercentage: '{{$.pipeline.traffic}} %'
 viewPipeline: View Pipeline
 codeSource: 'Code Source'
 recentExecutions: 'Recent Executions'
