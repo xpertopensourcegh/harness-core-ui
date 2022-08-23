@@ -23,16 +23,15 @@ import {
 import css from './PipelineListTable.module.scss'
 
 export interface PipelineListColumnActions {
-  onDeletePipeline: (commitMsg: string) => Promise<void>
+  onDeletePipeline: (commitMsg: string, pipeline: PMSPipelineSummaryResponse) => Promise<void>
   onClonePipeline: (pipeline: PMSPipelineSummaryResponse) => void
-  onDelete: (pipeline: PMSPipelineSummaryResponse) => void
 }
 
 export interface PipelineListTableProps extends PipelineListColumnActions {
   data: PagePMSPipelineSummaryResponse
-  sortBy: string[]
   gotoPage: (pageNumber: number) => void
   setSortBy: (sortBy: string[]) => void
+  sortBy: string[]
 }
 
 export function PipelineListTable({
@@ -40,7 +39,6 @@ export function PipelineListTable({
   gotoPage,
   onDeletePipeline,
   onClonePipeline,
-  onDelete,
   sortBy,
   setSortBy
 }: PipelineListTableProps): React.ReactElement {
@@ -119,8 +117,7 @@ export function PipelineListTable({
         Cell: MenuCell,
         disableSortBy: true,
         onDeletePipeline,
-        onClonePipeline,
-        onDelete
+        onClonePipeline
       }
     ] as unknown as Column<PMSPipelineSummaryResponse>[]
   }, [currentOrder, currentSort])

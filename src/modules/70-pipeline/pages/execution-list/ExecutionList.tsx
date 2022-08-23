@@ -149,14 +149,12 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
 
 export function ExecutionList(props: ExecutionListProps): React.ReactElement {
   return (
-    <>
-      <GitSyncStoreProvider>
-        <ExecutionListFilterContextProvider>
-          <ExecutionCompareProvider>
-            <ExecutionListInternal {...props} />
-          </ExecutionCompareProvider>
-        </ExecutionListFilterContextProvider>
-      </GitSyncStoreProvider>
-    </>
+    <GitSyncStoreProvider>
+      <ExecutionListFilterContextProvider>
+        <ExecutionCompareProvider>
+          <ExecutionListInternal {...props} />
+        </ExecutionCompareProvider>
+      </ExecutionListFilterContextProvider>
+    </GitSyncStoreProvider>
   )
 }

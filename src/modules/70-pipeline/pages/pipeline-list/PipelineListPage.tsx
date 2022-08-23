@@ -76,7 +76,6 @@ export function PipelineListPage(): React.ReactElement {
   const { showSuccess, showError } = useToaster()
   const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
   const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
-  const [pipelineToDelete, setPipelineToDelete] = useState<PMSPipelineSummaryResponse>()
   const [pipelineToClone, setPipelineToClone] = useState<PMSPipelineSummaryResponse>()
   const {
     open: openClonePipelineModal,
@@ -182,17 +181,17 @@ export function PipelineListPage(): React.ReactElement {
     openClonePipelineModal()
   }
 
-  const onDeletePipeline = async (commitMsg: string): Promise<void> => {
+  const onDeletePipeline = async (commitMsg: string, pipeline: PMSPipelineSummaryResponse): Promise<void> => {
     try {
-      const gitParams = pipelineToDelete?.gitDetails?.objectId
+      const gitParams = pipeline.gitDetails?.objectId
         ? {
-            ...pick(pipelineToDelete?.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+            ...pick(pipeline.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
             commitMsg,
-            lastObjectId: pipelineToDelete?.gitDetails?.objectId
+            lastObjectId: pipeline.gitDetails?.objectId
           }
         : {}
 
-      const { status } = await deletePipeline(defaultTo(pipelineToDelete?.identifier, ''), {
+      const { status } = await deletePipeline(defaultTo(pipeline.identifier, ''), {
         queryParams: {
           accountIdentifier: accountId,
           orgIdentifier,
@@ -202,7 +201,7 @@ export function PipelineListPage(): React.ReactElement {
       })
 
       if (status === 'SUCCESS') {
-        showSuccess(getString('pipeline-list.pipelineDeleted', { name: pipelineToDelete?.name }))
+        showSuccess(getString('pipeline-list.pipelineDeleted', { name: pipeline.name }))
       } else {
         throw getString('somethingWentWrong')
       }
@@ -289,7 +288,6 @@ export function PipelineListPage(): React.ReactElement {
             <PipelineListTable
               gotoPage={pageNumber => updateQueryParams({ page: pageNumber })}
               data={pipelineList}
-              onDelete={setPipelineToDelete}
               onDeletePipeline={onDeletePipeline}
               onClonePipeline={onClonePipeline}
               setSortBy={sortArray => {

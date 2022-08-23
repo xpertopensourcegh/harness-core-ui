@@ -233,12 +233,10 @@ export const MenuCell: CellType = ({ row, column }) => {
     accountId: string
   }>()
 
-  const { confirmDelete } = useDeleteConfirmationDialog(data, 'pipeline', (column as any).onDeletePipeline)
-  const {
-    isGitSyncEnabled: isGitSyncEnabledForProject,
-    gitSyncEnabledOnlyForFF,
-    supportingGitSimplification
-  } = useAppStore()
+  const { confirmDelete } = useDeleteConfirmationDialog(data, 'pipeline', commitMsg =>
+    column.onDeletePipeline(commitMsg, data)
+  )
+  const { isGitSyncEnabled: isGitSyncEnabledForProject, gitSyncEnabledOnlyForFF } = useAppStore()
   const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const [canDelete, canRun] = usePermission(
     {
@@ -309,7 +307,7 @@ export const MenuCell: CellType = ({ row, column }) => {
           <Menu.Item
             icon="duplicate"
             text={getString('projectCard.clone')}
-            disabled={isGitSyncEnabled || supportingGitSimplification}
+            disabled={isGitSyncEnabled}
             onClick={() => {
               column.onClonePipeline(data)
               setMenuOpen(false)
@@ -320,7 +318,6 @@ export const MenuCell: CellType = ({ row, column }) => {
             text={getString('delete')}
             disabled={!canDelete}
             onClick={() => {
-              column.onDelete(data)
               confirmDelete()
               setMenuOpen(false)
             }}
