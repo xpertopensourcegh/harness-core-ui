@@ -777,6 +777,7 @@ function StageBuilder(): JSX.Element {
             }}
           >
             <CDPipelineStudioNew
+              readonly={isReadonly}
               selectedNodeId={selectedStageId}
               data={stageData}
               loaderComponent={DiagramLoader}

@@ -1185,6 +1185,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
         <>
           <NodeDimensionProvider>
             <CDPipelineStudioNew
+              readonly={isReadonly}
               parentSelector=".Pane2"
               selectedNodeId={selectedStepId}
               loaderComponent={DiagramLoader}
