@@ -420,6 +420,7 @@ export interface StringsMap {
   'common.importFromGit': string
   'common.in': string
   'common.input': string
+  'common.inputVariables': string
   'common.instanceLabel': string
   'common.instanceValidation.maximumCountInstance': string
   'common.instanceValidation.maximumCountPercentage': string
@@ -2133,6 +2134,13 @@ export interface StringsMap {
   'connectors.customHealth.validationPath': string
   'connectors.customHealth.valueRequired': string
   'connectors.customLabel': string
+  'connectors.customSM.details': string
+  'connectors.customSM.executeOnDelegate': string
+  'connectors.customSM.selectTemplate': string
+  'connectors.customSM.sshKey': string
+  'connectors.customSM.templateRef': string
+  'connectors.customSM.templateVersion': string
+  'connectors.customSM.validation.template': string
   'connectors.datadog.encryptedAPPKeyLabel': string
   'connectors.datadog.encryptedAPPKeyValidation': string
   'connectors.datadog.urlValidation': string
@@ -2367,6 +2375,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.azureKeyVault': string
   'connectors.testConnectionStep.validationText.azureRepos': string
   'connectors.testConnectionStep.validationText.bitbucket': string
+  'connectors.testConnectionStep.validationText.customSM': string
   'connectors.testConnectionStep.validationText.datadog': string
   'connectors.testConnectionStep.validationText.docker': string
   'connectors.testConnectionStep.validationText.gcp': string
@@ -2399,6 +2408,7 @@ export interface StringsMap {
   'connectors.title.bitbucketConnector': string
   'connectors.title.ceAws': string
   'connectors.title.ceAzureConnector': string
+  'connectors.title.customSecretManager': string
   'connectors.title.datadog': string
   'connectors.title.delegateSelection': string
   'connectors.title.gcpConnector': string

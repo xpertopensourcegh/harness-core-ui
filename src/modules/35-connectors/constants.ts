@@ -9,6 +9,10 @@ import type { ConnectivityModeType } from '@common/components/ConnectivityMode/C
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import type {
+  GetTemplateProps,
+  GetTemplateResponse
+} from 'framework/Templates/TemplateSelectorContext/useTemplateSelector'
+import type {
   ConnectorInfoDTO,
   ConnectorConnectivityDetails,
   Activity,
@@ -60,6 +64,7 @@ export interface CreateConnectorModalProps {
   orgIdentifier: string
   projectIdentifier: string
   mock?: ResponseBoolean
+  getTemplate?: (data: GetTemplateProps) => Promise<GetTemplateResponse>
 }
 
 export const Connectors: ConnectorType = {
@@ -103,7 +108,8 @@ export const Connectors: ConnectorType = {
   ERROR_TRACKING: 'ErrorTracking',
   AZURE: 'Azure',
   AWSSECRETMANAGER: 'AwsSecretManager',
-  JENKINS: 'Jenkins'
+  JENKINS: 'Jenkins',
+  CUSTOM_SECRET_MANAGER: 'CustomSecretManager'
 }
 
 export const ConnectorInfoText = {

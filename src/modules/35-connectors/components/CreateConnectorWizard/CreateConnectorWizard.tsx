@@ -7,6 +7,10 @@
 
 import React from 'react'
 import { pick } from 'lodash-es'
+import type {
+  GetTemplateProps,
+  GetTemplateResponse
+} from 'framework/Templates/TemplateSelectorContext/useTemplateSelector'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ConnectorInfoDTO, ConnectorConnectivityDetails } from 'services/cd-ng'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
@@ -53,6 +57,7 @@ import CreateAzureConnector from '../CreateConnector/AzureConnector/CreateAzureC
 import { ConnectorWizardContextProvider } from './ConnectorWizardContext'
 import CreateJenkinsConnector from '../CreateConnector/JenkinsConnector/CreateJenkinsConnector'
 import OCIHelmConnector from '../CreateConnector/OCIHelmConnector.tsx/OCIHelmConnector'
+import CreateCustomSMConnector from '../CreateConnector/CustomSecretManagerConnector/CreateCustomSMConnector'
 
 interface CreateConnectorWizardProps {
   accountId: string
@@ -68,6 +73,7 @@ interface CreateConnectorWizardProps {
   status?: ConnectorConnectivityDetails
   onClose: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
+  getTemplate?: (data: GetTemplateProps) => Promise<GetTemplateResponse>
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
@@ -92,7 +98,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     'orgIdentifier',
     'projectIdentifier',
     'connectivityMode',
-    'setConnectivityMode'
+    'setConnectivityMode',
+    'getTemplate'
   ])
   commonProps = {
     ...commonProps,
@@ -183,6 +190,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return NG_AZURE ? <CreateAzureConnector {...commonProps} /> : null
     case Connectors.JENKINS:
       return <CreateJenkinsConnector {...commonProps} />
+    case Connectors.CUSTOM_SECRET_MANAGER:
+      return <CreateCustomSMConnector {...commonProps} />
     default:
       return null
   }

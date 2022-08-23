@@ -82,6 +82,7 @@ connectivityMode:
   connectToProvider: 'Connect to the provider'
   selectText: 'Select how you would like to connect to the provider'
 title:
+  customSecretManager: 'Custom Secret Manager'
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'
   pdcConnector: 'Physical Data Center'
@@ -179,6 +180,7 @@ testConnectionStep:
     sumologic: Validating Sumologic authentication and permissions
     gcpKms: Validating GCP Key Management Service authentication and permissions
     testingURLReachability: Testing reachability to the URL
+    customSM: Validating Custom Secret Manager authentication and permissions
 validation:
   serviceNowUrl: 'ServiceNow URL is required.'
   personalAccessToken: Personal Access Token is required
@@ -912,3 +914,12 @@ gitProviderURLs:
   gitlab: 'https://gitlab.com'
   bitbucket: 'https://bitbucket.org'
   azureRepos: 'https://dev.azure.com'
+customSM:
+  details: Custom Secret Manager Details
+  selectTemplate: Select Template
+  executeOnDelegate: Execute on Delegate
+  templateRef: Template Reference
+  templateVersion: Template Version
+  sshKey: SSH Key Reference
+  validation:
+    template: Please select a template
