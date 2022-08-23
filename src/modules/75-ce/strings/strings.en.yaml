@@ -82,6 +82,7 @@ co:
     lastWeekDataLabel: 'Showing data for Last 7 days'
   autoStoppingRule:
     limitWarningMessage: You have used {{count}} / {{limit}} free Autostopping rules included in your current plan. Consider upgrading for unlimited Autostopping rules.
+    serviceFetchFailureMessage: 'Failed to fetch services'
     helpText:
       step1:
         title: 'Idle Time'
