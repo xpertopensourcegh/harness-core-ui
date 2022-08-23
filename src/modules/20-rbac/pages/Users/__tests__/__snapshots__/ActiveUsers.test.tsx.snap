@@ -851,7 +851,7 @@ exports[`UsersPage Test Invite a User 1`] = `
               class="bp3-form-content"
             >
               <div
-                class="Layout--vertical StyledProps--main"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <div
                   class="Text--withDocsTooltip"

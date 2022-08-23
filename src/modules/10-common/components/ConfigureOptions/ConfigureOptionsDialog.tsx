@@ -16,7 +16,8 @@ import {
   Layout,
   ButtonVariation,
   useToaster,
-  MultiSelectOption
+  MultiSelectOption,
+  FormikForm
 } from '@harness/uicore'
 import { FormGroup } from '@blueprintjs/core'
 
@@ -92,7 +93,7 @@ export default function ConfigureOptionsDialog(props: ConfigureOptionsDialogProp
   const isAdvanced = !!parsedValues.allowedValues?.jexlExpression
   const advancedValue = defaultTo(parsedValues.allowedValues?.jexlExpression, '')
 
-  const getInitialAllowedValues = () => {
+  const getInitialAllowedValues = (): string[] | MultiSelectOption[] => {
     switch (allowedValuesType) {
       case ALLOWED_VALUES_TYPE.MULTI_SELECT:
         return allowedValues.map(currValue => ({ label: currValue, value: currValue }))
@@ -143,7 +144,7 @@ export default function ConfigureOptionsDialog(props: ConfigureOptionsDialogProp
       {formik => {
         const { submitForm, values } = formik
         return (
-          <>
+          <FormikForm>
             <div>
               <FormGroup className={css.label} label={getString('variableLabel')} inline>
                 <Text lineClamp={1}>{variableName}</Text>
@@ -222,7 +223,7 @@ export default function ConfigureOptionsDialog(props: ConfigureOptionsDialogProp
                 onClick={() => closeModal()}
               />
             </Layout.Horizontal>
-          </>
+          </FormikForm>
         )
       }}
     </Formik>

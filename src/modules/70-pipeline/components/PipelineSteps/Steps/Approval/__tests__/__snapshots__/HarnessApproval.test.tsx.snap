@@ -142,7 +142,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
               class="bp3-form-content"
             >
               <div
-                class="Layout--vertical StyledProps--main"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <div
                   class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
@@ -393,7 +393,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
               class="bp3-form-content"
             >
               <div
-                class="Layout--vertical StyledProps--main"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <div
                   class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
@@ -824,7 +824,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
               class="bp3-form-content"
             >
               <div
-                class="Layout--vertical StyledProps--main"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <div
                   class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
@@ -1360,7 +1360,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <div
                       class="StyledProps--font StyledProps--main bp3-input bp3-disabled userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
@@ -3830,7 +3830,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
                   class="bp3-form-content"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <div
                       class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"

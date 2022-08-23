@@ -9,7 +9,7 @@ exports[`Render with tooltip context hook if formname is empty: tooltipId formna
       class="bp3-form-content"
     >
       <div
-        class="Layout--vertical StyledProps--main"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
@@ -44,7 +44,7 @@ exports[`Render with tooltip context hook if tooltip ID taken from form name: to
       class="bp3-form-content"
     >
       <div
-        class="Layout--vertical StyledProps--main"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
       >
         <div
           class="Text--withDocsTooltip"
@@ -298,7 +298,7 @@ exports[`Rendering should render 1`] = `
       class="bp3-form-content"
     >
       <div
-        class="Layout--vertical StyledProps--main"
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
       >
         <div
           class="Text--withDocsTooltip"

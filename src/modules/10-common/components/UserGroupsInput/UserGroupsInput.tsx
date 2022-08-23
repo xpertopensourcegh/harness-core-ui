@@ -133,7 +133,7 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
       intent={errorCheck(name, formik) ? Intent.DANGER : Intent.NONE}
       className={formGroupClass}
     >
-      <Layout.Vertical>
+      <Layout.Vertical spacing="xsmall">
         {label ? (
           <Text tooltipProps={{ dataTooltipId }} font={{ variation: FontVariation.FORM_LABEL }}>
             {label}
