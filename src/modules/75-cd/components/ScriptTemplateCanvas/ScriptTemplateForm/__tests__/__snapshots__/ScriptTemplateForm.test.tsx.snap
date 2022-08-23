@@ -21,26 +21,26 @@ exports[`Test OptionalConfigurations Switch the tabs with data 1`] = `
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_configurationTabs_common.script"
+          aria-controls="bp3-tab-panel_configurationTabs_Script"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab scriptTab"
-          data-tab-id="common.script"
-          id="bp3-tab-title_configurationTabs_common.script"
+          data-tab-id="Script"
+          id="bp3-tab-title_configurationTabs_Script"
           role="tab"
           tabindex="0"
         >
           common.script
         </div>
         <div
-          aria-controls="bp3-tab-panel_configurationTabs_configuration"
+          aria-controls="bp3-tab-panel_configurationTabs_Configurations"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab scriptTab"
-          data-tab-id="configuration"
-          id="bp3-tab-title_configurationTabs_configuration"
+          data-tab-id="Configurations"
+          id="bp3-tab-title_configurationTabs_Configurations"
           role="tab"
           tabindex="0"
         >
@@ -49,9 +49,9 @@ exports[`Test OptionalConfigurations Switch the tabs with data 1`] = `
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_configurationTabs_configuration"
+        aria-labelledby="bp3-tab-title_configurationTabs_Configurations"
         class="bp3-tab-panel scriptTab"
-        id="bp3-tab-panel_configurationTabs_configuration"
+        id="bp3-tab-panel_configurationTabs_Configurations"
         role="tabpanel"
       >
         <div
@@ -494,26 +494,26 @@ exports[`Test OptionalConfigurations initial render 1`] = `
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_configurationTabs_common.script"
+          aria-controls="bp3-tab-panel_configurationTabs_Script"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab scriptTab"
-          data-tab-id="common.script"
-          id="bp3-tab-title_configurationTabs_common.script"
+          data-tab-id="Script"
+          id="bp3-tab-title_configurationTabs_Script"
           role="tab"
           tabindex="0"
         >
           common.script
         </div>
         <div
-          aria-controls="bp3-tab-panel_configurationTabs_configuration"
+          aria-controls="bp3-tab-panel_configurationTabs_Configurations"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab scriptTab"
-          data-tab-id="configuration"
-          id="bp3-tab-title_configurationTabs_configuration"
+          data-tab-id="Configurations"
+          id="bp3-tab-title_configurationTabs_Configurations"
           role="tab"
           tabindex="0"
         >
@@ -522,9 +522,9 @@ exports[`Test OptionalConfigurations initial render 1`] = `
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_configurationTabs_common.script"
+        aria-labelledby="bp3-tab-title_configurationTabs_Script"
         class="bp3-tab-panel scriptTab"
-        id="bp3-tab-panel_configurationTabs_common.script"
+        id="bp3-tab-panel_configurationTabs_Script"
         role="tabpanel"
       >
         <div

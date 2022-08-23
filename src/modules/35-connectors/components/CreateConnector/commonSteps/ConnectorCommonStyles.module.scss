@@ -84,3 +84,7 @@
 .bottomMargin5 {
   padding-bottom: var(--spacing-5) !important;
 }
+.maxHeightScroll {
+  max-height: 300px;
+  overflow: auto;
+}

@@ -23,6 +23,10 @@ import { TemplateSummaryResponse, useGetTemplateInputSetYaml } from 'services/te
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { PageSpinner, useToaster } from '@common/components'
+import {
+  SecretManagerTemplateInputSet,
+  ScriptVariablesRuntimeInput
+} from '@secrets/components/ScriptVariableRuntimeInput/ScriptVariablesRuntimeInput'
 import type { StageElementConfig, StepElementConfig, PipelineInfoConfig } from 'services/pipeline-ng'
 import type { NGTemplateInfoConfigWithGitDetails } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -40,7 +44,7 @@ export interface TemplateInputsProps {
 
 export const TemplateInputs: React.FC<TemplateInputsProps> = ({ template }) => {
   const templateSpec =
-    parse((template as TemplateSummaryResponse)?.yaml || '').template.spec ||
+    parse((template as TemplateSummaryResponse)?.yaml || '')?.template?.spec ||
     (template as NGTemplateInfoConfigWithGitDetails).spec
   const [inputSetTemplate, setInputSetTemplate] = React.useState<
     StepElementConfig | StageElementConfig | PipelineInfoConfig
@@ -85,6 +89,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = ({ template }) => {
     try {
       const templateInput = parse(templateInputYaml?.data || '')
       setCount(getTemplateRuntimeInputsCount(templateInput))
+
       setInputSetTemplate(templateInput)
     } catch (error) {
       showError(getRBACErrorMessage(error), undefined, 'template.parse.inputSet.error')
@@ -125,7 +130,9 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = ({ template }) => {
                   </Text>
                 </Layout.Horizontal>
               </Container>
-              <Formik<{ data: StepElementConfig | StageElementConfig | PipelineInfoConfig }>
+              <Formik<{
+                data: StepElementConfig | StageElementConfig | PipelineInfoConfig | SecretManagerTemplateInputSet
+              }>
                 onSubmit={noop}
                 initialValues={{ data: templateSpec }}
                 formName="templateInputs"
@@ -175,6 +182,15 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = ({ template }) => {
                             onUpdate={noop}
                           />
                         </Container>
+                      )}
+                      {templateEntityType === TemplateType.SecretManager && (
+                        <ScriptVariablesRuntimeInput
+                          template={inputSetTemplate as SecretManagerTemplateInputSet['templateInputs']}
+                          allowableTypes={[]}
+                          readonly
+                          enabledExecutionDetails
+                          path={'data'}
+                        />
                       )}
                     </>
                   )

@@ -40,10 +40,11 @@ import type {
 } from 'framework/Templates/TemplateSelectorContext/useTemplateSelector'
 import RbacButton from '@rbac/components/Button/Button'
 import { getTemplateInputSetYamlPromise } from 'services/template-ng'
-import { ScriptVariablesRuntimeInput } from '@common/components/ScriptVariableRuntimeInput/ScriptVariablesRuntimeInput'
+import { ScriptVariablesRuntimeInput } from '@secrets/components/ScriptVariableRuntimeInput/ScriptVariablesRuntimeInput'
 import { MultiTypeSecretInput } from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { getRefFromIdAndScopeParams, setupCustomSMFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { CustomSMFormInterface } from '@connectors/interfaces/ConnectorInterface'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 
 interface StepCustomSMConfigStepProps extends ConnectorInfoDTO {
   name: string
@@ -236,7 +237,8 @@ const CustomSMConfigStep: React.FC<StepProps<StepCustomSMConfigStepProps> & Step
                   <ScriptVariablesRuntimeInput
                     allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                     template={templateInputSets}
-                    enableFixed
+                    path={'templateInputs'}
+                    className={commonStyles.maxHeightScroll}
                   />
                 ) : null}
 

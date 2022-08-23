@@ -11,7 +11,7 @@ import type { FormikContextType } from 'formik'
 import { useStrings } from 'framework/strings'
 
 import type { JsonNode, SecretDTOV2 } from 'services/cd-ng'
-import { ScriptVariablesRuntimeInput } from '@common/components/ScriptVariableRuntimeInput/ScriptVariablesRuntimeInput'
+import { ScriptVariablesRuntimeInput } from '@secrets/components/ScriptVariableRuntimeInput/ScriptVariablesRuntimeInput'
 import css from './CustomFormFields.module.scss'
 
 interface CustomFormFieldsProps {
@@ -32,6 +32,7 @@ const CustomFormFields: React.FC<CustomFormFieldsProps & FormikContextProps<any>
         allowableTypes={[MultiTypeInputType.FIXED]}
         template={templateInputSets}
         className={css.inputVarWrapper}
+        path={'templateInputs'}
       />
       <FormInput.TextArea name="description" isOptional={true} label={getString('description')} />
       <FormInput.KVTagInput name="tags" isOptional={true} label={getString('tagsLabel')} />

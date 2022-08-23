@@ -11,7 +11,7 @@ import { Template } from '@templates-library/components/AbstractTemplate/Templat
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 import { ScriptTemplateCanvasWithRef } from '@cd/components/ScriptTemplateCanvas/ScriptTemplateCanvas'
-import type { TemplateInputsProps } from '@templates-library/components/TemplateInputs/TemplateInputs'
+import { TemplateInputs, TemplateInputsProps } from '@templates-library/components/TemplateInputs/TemplateInputs'
 import { Scope } from '@common/interfaces/SecretsInterface'
 
 export class SecretManagerTemplate extends Template {
@@ -29,7 +29,7 @@ export class SecretManagerTemplate extends Template {
     return <ScriptTemplateCanvasWithRef ref={formikRef} />
   }
 
-  renderTemplateInputsForm(_props: TemplateInputsProps & { accountId: string }): JSX.Element {
-    return <></>
+  renderTemplateInputsForm(props: TemplateInputsProps & { accountId: string }): JSX.Element {
+    return <TemplateInputs template={props.template} />
   }
 }

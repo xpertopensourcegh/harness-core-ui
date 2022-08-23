@@ -21,13 +21,29 @@ export interface InputSetSchema {
   useAsDefault?: boolean
 }
 
+export interface ExecutionTarget {
+  host: string
+  connectorRef: string
+  workingDirectory: string
+}
+
+export interface SceretManagerTemplateInputs {
+  environmentVariables?: Array<InputSetSchema>
+  outputVariables?: Array<InputSetSchema>
+  executionTarget?: ExecutionTarget
+}
+
+export interface SecretManagerTemplateInputSet {
+  templateInputs: SceretManagerTemplateInputs
+}
+
 interface InputOutputVariablesInputSetProps {
   allowableTypes: AllowedTypes
-  // todo: to change with type in BE
   template?: any
   path?: string
   readonly?: boolean
   enableFixed?: boolean
+  enabledExecutionDetails?: boolean
   className?: string
 }
 
@@ -37,24 +53,32 @@ export const scriptInputType: SelectOption[] = [
 ]
 
 export function ScriptVariablesRuntimeInput(props: InputOutputVariablesInputSetProps): React.ReactElement {
-  const { allowableTypes, readonly, template, path, enableFixed = false, className } = props
+  const {
+    allowableTypes,
+    readonly,
+    template,
+    path,
+    enableFixed = false,
+    className,
+    enabledExecutionDetails = false
+  } = props
 
   const { getString } = useStrings()
-  const prefix = isEmpty(path) ? '' : `${path}.`
+  const prefix = isEmpty(path) ? '' : `${path}`
 
   return (
     <>
       {template?.environmentVariables && isArray(template.environmentVariables) ? (
         <div className={css.formGroup}>
           <MultiTypeFieldSelector
-            name="templateInputs.environmentVariables"
+            name={`${prefix}.environmentVariables`}
             label={getString('common.inputVariables')}
             defaultValueToReset={[]}
             disableTypeSelection
           >
             <FieldArray
               key="secretmanager-inputs"
-              name="templateInputs.environmentVariables"
+              name={`${prefix}.environmentVariables`}
               render={() => {
                 return (
                   <div className={cx(css.panel, className)}>
@@ -79,18 +103,18 @@ export function ScriptVariablesRuntimeInput(props: InputOutputVariablesInputSetP
                           key={`${type.name}${type.type}${type.value}`}
                         >
                           <FormInput.Text
-                            name={`${prefix}templateInputs.environmentVariables[${i}].name`}
+                            name={`${prefix}.environmentVariables[${i}].name`}
                             placeholder={getString('name')}
                             disabled={true}
                           />
                           <FormInput.Select
                             items={scriptInputType}
-                            name={`${prefix}templateInputs.environmentVariables[${i}].type`}
+                            name={`${prefix}.environmentVariables[${i}].type`}
                             placeholder={getString('typeLabel')}
                             disabled={true}
                           />
                           <FormInput.MultiTextInput
-                            name={`${prefix}templateInputs.environmentVariables[${i}].value`}
+                            name={`${prefix}.environmentVariables[${i}].value`}
                             multiTextInputProps={{
                               allowableTypes,
 
@@ -102,7 +126,7 @@ export function ScriptVariablesRuntimeInput(props: InputOutputVariablesInputSetP
                           {enableFixed ? (
                             <FormInput.CheckBox
                               label=""
-                              name={`${prefix}templateInputs.environmentVariables[${i}].useAsDefault`}
+                              name={`${prefix}.environmentVariables[${i}].useAsDefault`}
                               disabled={false}
                               className={css.fixed}
                             />
@@ -115,6 +139,38 @@ export function ScriptVariablesRuntimeInput(props: InputOutputVariablesInputSetP
               }}
             />
           </MultiTypeFieldSelector>
+          {enabledExecutionDetails ? (
+            <>
+              {template.executionTarget.host ? (
+                <FormInput.Text
+                  name={`${prefix}.executionTarget.host`}
+                  placeholder={getString('pipelineSteps.hostLabel')}
+                  label={getString('targetHost')}
+                  style={{ marginTop: 'var(--spacing-small)' }}
+                  disabled={readonly}
+                />
+              ) : null}
+              {/* {skipping showing connector Ref as runtime input - for now. - does not impact functionality} */}
+              {/* {template.executionTarget.connectorRef ? (
+                <MultiTypeSecretInput
+                  type="SSHKey"
+                  name={`${prefix}.executionTarget.connectorRef`}
+                  label={getString('sshConnector')}
+                  disabled={readonly}
+                  allowableTypes={[]}
+                />
+              ) : null} */}
+              {template.executionTarget.workingDirectory ? (
+                <FormInput.Text
+                  name={`${prefix}.executionTarget.workingDirectory`}
+                  placeholder={getString('workingDirectory')}
+                  label={getString('workingDirectory')}
+                  style={{ marginTop: 'var(--spacing-medium)' }}
+                  disabled={readonly}
+                />
+              ) : null}
+            </>
+          ) : null}
         </div>
       ) : null}
     </>
