@@ -85,6 +85,7 @@
     "immer": "^9.0.6",
     "js-yaml": "^4.1.0",
     "jsonc-parser": "^2.0.2",
+    "linkifyjs": "^3.0.5",
     "lodash-es": "^4.17.15",
     "marked": "^4.0.12",
     "masonry-layout": "^4.2.2",

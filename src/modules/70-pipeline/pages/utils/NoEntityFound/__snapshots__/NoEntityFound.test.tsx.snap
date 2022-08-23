@@ -167,8 +167,28 @@ exports[`NoEntityFound tests when errorObj is passed and it has responseMessages
                     class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
                   >
                     - The requested file path doesn't exist in git. Possible reasons can be:
-1. The requested file path doesn't exist for given branch and repo
-2. The given branch or repo is invalid
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    
+
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    1. The requested file path doesn't exist for given branch and repo
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    
+
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    2. The given branch or repo is invalid
                   </span>
                 </div>
               </div>
@@ -482,8 +502,28 @@ exports[`NoEntityFound tests when isGitSyncEnabled is true 1`] = `
                     class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
                   >
                     - The requested file path doesn't exist in git. Possible reasons can be:
-1. The requested file path doesn't exist for given branch and repo
-2. The given branch or repo is invalid
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    
+
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    1. The requested file path doesn't exist for given branch and repo
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    
+
+                  </span>
+                  <span
+                    class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--inline"
+                  >
+                    2. The given branch or repo is invalid
                   </span>
                 </div>
               </div>
