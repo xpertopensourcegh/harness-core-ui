@@ -41,15 +41,15 @@ const mockFeature: Feature = {
   permanent: false,
   prerequisites: [
     {
-      feature: 'Bool_2',
+      feature: 'Test_Paging_Flag',
       variations: ['false']
     },
     {
-      feature: 'Multivar_1',
-      variations: ['adminOnly']
+      feature: 'X_Flag_11',
+      variations: ['false']
     },
     {
-      feature: 'Test_Bool_1',
+      feature: 'X_Flag_10',
       variations: ['true']
     }
   ],
