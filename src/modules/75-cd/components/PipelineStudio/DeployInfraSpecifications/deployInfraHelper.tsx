@@ -154,17 +154,24 @@ export const getInfrastructureDefaultValue = (
       }
     }
     case InfraDeploymentType.SshWinRmAzure: {
-      const { credentialsRef, connectorRef, subscriptionId, resourceGroup, tags, usePublicDns } =
-        infrastructure?.spec || {}
+      const { credentialsRef, connectorRef, resourceGroup, tags, usePublicDns } = infrastructure?.spec || {}
       return {
         credentialsRef,
         connectorRef,
-        subscriptionId,
         resourceGroup,
         tags,
         usePublicDns,
         allowSimultaneousDeployments,
         serviceType
+      }
+    }
+    case InfraDeploymentType.SshWinRmAws: {
+      const { credentialsRef, connectorRef, region, awsInstanceFilter } = infrastructure?.spec || {}
+      return {
+        credentialsRef,
+        connectorRef,
+        region,
+        awsInstanceFilter
       }
     }
     case InfraDeploymentType.ECS: {
@@ -225,7 +232,10 @@ export const getInfraGroups = (
   const sshWinRMInfraGroups: InfrastructureGroup[] = [
     {
       groupLabel: '',
-      items: getInfraGroupItems([InfraDeploymentType.PDC, InfraDeploymentType.SshWinRmAzure], getString)
+      items: getInfraGroupItems(
+        [InfraDeploymentType.PDC, InfraDeploymentType.SshWinRmAzure, InfraDeploymentType.SshWinRmAws],
+        getString
+      )
     }
   ]
 
@@ -300,6 +310,11 @@ const infraGroupItems: {
     label: 'common.azure',
     icon: 'service-azure',
     value: InfraDeploymentType.SshWinRmAzure
+  },
+  [InfraDeploymentType.SshWinRmAws]: {
+    label: 'common.aws',
+    icon: 'service-aws',
+    value: InfraDeploymentType.SshWinRmAws
   },
   [InfraDeploymentType.KubernetesDirect]: {
     label: 'pipelineSteps.deploymentTypes.kubernetes',
