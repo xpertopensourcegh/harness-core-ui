@@ -125,7 +125,7 @@ describe('Test SshWinRmAwsEdit form', () => {
 
   test('Render and basic flow on edit form', async () => {
     const onUpdateHandler = jest.fn()
-    const { container, getByPlaceholderText } = render(
+    const { container } = render(
       <TestStepWidget
         initialValues={getInitialValues()}
         template={getRuntimeInputsValues()}
@@ -135,10 +135,6 @@ describe('Test SshWinRmAwsEdit form', () => {
         onUpdate={onUpdateHandler}
       />
     )
-
-    const regionIdSelect = getByPlaceholderText('pipeline.regionPlaceholder')
-    regionIdSelect.focus()
-    await waitFor(() => expect(regionsResponse.refetch).toBeCalled())
 
     const tagsSelect = queryByAttribute('name', container, 'tags')
     tagsSelect!.focus()
