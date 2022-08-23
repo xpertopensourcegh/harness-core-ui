@@ -17,7 +17,7 @@ import PipelineBuildExecutionsChart from '@pipeline/components/Dashboards/BuildE
 import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
 import { ExecutionCompareProvider } from '@pipeline/components/ExecutionCompareYaml/ExecutionCompareContext'
 import { ExecutionCompiledYaml } from '@pipeline/components/ExecutionCompiledYaml/ExecutionCompiledYaml'
-import { usePolling } from '@pipeline/hooks/usePolling'
+import { usePolling } from '@common/hooks/usePolling'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PipelineExecutionSummary, useGetListOfExecutions } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
@@ -113,7 +113,7 @@ function ExecutionListInternal(props: ExecutionListProps): React.ReactElement {
   })
 
   // Only do polling on first page and not initial default loading
-  const isPolling = usePolling(fetchExecutions, page === DEFAULT_PAGE_INDEX && !loading)
+  const isPolling = usePolling(fetchExecutions, { startPolling: page === DEFAULT_PAGE_INDEX && !loading })
 
   const isCommunity = useGetCommunity()
   const isCommunityAndCDModule = module === 'cd' && isCommunity

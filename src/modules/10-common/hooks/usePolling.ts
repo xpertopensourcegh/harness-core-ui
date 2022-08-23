@@ -6,11 +6,29 @@
  */
 
 import { useEffect, useRef, useState, useLayoutEffect } from 'react'
-import useTabVisible from '@common/hooks/useTabVisible'
+import useTabVisible from './useTabVisible'
 
-const POLLING_INTERVAL_IN_MS = 5_000
+const DEFAULT_POLLING_INTERVAL_IN_MS = 5_000
 
-export function usePolling(callback: () => Promise<void> | undefined, startPolling: boolean): boolean {
+interface UsePollingOptions {
+  // in milliseconds. Default is 5ms
+  pollingInterval?: number
+  // startPolling based on a condition Ex: poll only on first page
+  startPolling?: boolean
+}
+
+/**
+ *
+ * @param callback a promise returning function that will be called in every pollingInterval, ex: refetch
+ * @param options: UsePollingOptions
+ *
+ * remembers last call and re-poll only after its resolved
+ * @returns boolean
+ */
+export function usePolling(
+  callback: () => Promise<void> | undefined,
+  { startPolling = false, pollingInterval = DEFAULT_POLLING_INTERVAL_IN_MS }: UsePollingOptions
+): boolean {
   const savedCallback = useRef(callback)
   const [isPolling, setIsPolling] = useState(false)
   const tabVisible = useTabVisible()
@@ -23,7 +41,6 @@ export function usePolling(callback: () => Promise<void> | undefined, startPolli
   useEffect(() => {
     // Poll only if tab is visible and additional polling condition from component is met
     if (!(tabVisible && startPolling)) {
-      // setIsPolling(false)
       return
     }
 
@@ -34,11 +51,11 @@ export function usePolling(callback: () => Promise<void> | undefined, startPolli
         savedCallback.current()?.finally(() => {
           setIsPolling(false)
         })
-      }, POLLING_INTERVAL_IN_MS)
+      }, pollingInterval)
 
       return () => clearTimeout(timerId)
     }
-  }, [isPolling, startPolling, tabVisible])
+  }, [isPolling, pollingInterval, startPolling, tabVisible])
 
   return isPolling
 }
