@@ -301,21 +301,6 @@ export function validateCommonFieldsForMetricThreshold(
       errors[`${thresholdName}.${index}.criteria.spec.lessThan`] = getString('cv.required')
     }
 
-    // If both the fields are filled, then less than value must be bigger than greater than value
-    if (
-      value.criteria?.type === MetricCriteriaValues.Absolute &&
-      (value.criteria?.spec?.lessThan as number) >= 1 &&
-      (value.criteria?.spec?.greaterThan as number) >= 1 &&
-      (value.criteria?.spec?.lessThan as number) <= (value.criteria?.spec?.greaterThan as number)
-    ) {
-      errors[`${thresholdName}.${index}.criteria.spec.lessThan`] = getString(
-        'cv.metricThresholds.validations.lessThanBigger'
-      )
-      errors[`${thresholdName}.${index}.criteria.spec.greaterThan`] = getString(
-        'cv.metricThresholds.validations.greaterThanSmaller'
-      )
-    }
-
     // Percentage value is required for selected criteria percentage type
     if (
       value.criteria?.type === MetricCriteriaValues.Percentage &&

@@ -150,32 +150,6 @@ describe('AppDIgnoreThresholdTabContent', () => {
     })
   })
 
-  test('should check validateCommonFieldsForMetricThreshold for greater than should be smaller than less than', () => {
-    const errors = {}
-    const testValue: MetricThresholdType = {
-      metricType: 'test',
-      groupName: 'test',
-      metricName: 'test',
-      type: 'FailImmediately',
-      spec: {
-        action: 'FailImmediately',
-        spec: {}
-      },
-      criteria: {
-        type: MetricCriteriaValues.Absolute,
-        spec: {
-          greaterThan: 10,
-          lessThan: 5
-        }
-      }
-    }
-    validateCommonFieldsForMetricThreshold('ignoreThresholds', errors, [testValue], key => key, true)
-    expect(errors).toEqual({
-      'ignoreThresholds.0.criteria.spec.greaterThan': 'cv.metricThresholds.validations.greaterThanSmaller',
-      'ignoreThresholds.0.criteria.spec.lessThan': 'cv.metricThresholds.validations.lessThanBigger'
-    })
-  })
-
   test('should check validateCommonFieldsForMetricThreshold for greater than and less than are non mandatory fields - greater than empty', () => {
     const errors = {}
     const testValue: MetricThresholdType = {
