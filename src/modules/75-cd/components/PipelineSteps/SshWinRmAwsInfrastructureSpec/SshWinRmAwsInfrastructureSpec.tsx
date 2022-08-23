@@ -41,7 +41,9 @@ import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
-import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
+import MultiTypeSecretInput, {
+  getMultiTypeSecretInputType
+} from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -264,7 +266,7 @@ const SshWinRmAwsInfrastructureSpecEditable: React.FC<SshWinRmAwsInfrastructureS
                   <div className={css.inputWidth}>
                     <MultiTypeSecretInput
                       name="sshKey"
-                      type="SSHKey"
+                      type={getMultiTypeSecretInputType(initialValues.serviceType)}
                       label={getString('cd.steps.common.specifyCredentials')}
                       onSuccess={secret => {
                         if (secret) {

@@ -171,7 +171,8 @@ export const getInfrastructureDefaultValue = (
         credentialsRef,
         connectorRef,
         region,
-        awsInstanceFilter
+        awsInstanceFilter,
+        serviceType
       }
     }
     case InfraDeploymentType.ECS: {
