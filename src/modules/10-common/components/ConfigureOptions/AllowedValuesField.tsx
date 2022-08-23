@@ -34,6 +34,47 @@ interface RenderFieldProps extends Omit<AllowedValuesFieldsProps, 'showAdvanced'
   getString(key: StringKeys, vars?: Record<string, any>): string
 }
 
+interface GetTagProps extends Omit<AllowedValuesFieldsProps, 'showAdvanced' | 'isReadonly'> {
+  fieldKey: string
+  inputValue: string
+  setInputValue: any
+}
+
+const getTagProps = ({ formik, setInputValue, allowedValuesValidator, inputValue, fieldKey }: GetTagProps) => {
+  const { setErrors, errors, setFieldTouched, setFieldValue } = formik
+  return {
+    onChange: (changed: unknown) => {
+      const values: string[] = changed as string[]
+
+      // There is only one value, and we are removing it
+      /* istanbul ignore next */
+      if (!values.length) {
+        setFieldTouched('allowedValues', true, false)
+        setFieldValue('allowedValues', values)
+        return
+      }
+
+      try {
+        allowedValuesValidator?.validateSync({ [fieldKey]: values[values.length - 1] })
+        setFieldTouched('allowedValues', true, false)
+        setFieldValue('allowedValues', values)
+        setInputValue('')
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+          setFieldTouched('allowedValues', true, false)
+          // eslint-disable-next-line
+          // @ts-ignore
+          setErrors({ ...errors, allowedValues: err[fieldKey] as string })
+          setInputValue(values[values.length - 1])
+        }
+      }
+    },
+    inputValue
+  }
+}
+
 export const RenderField = ({
   getString,
   allowedValuesType,
@@ -42,7 +83,6 @@ export const RenderField = ({
   formik,
   getAllowedValuesCustomComponent
 }: RenderFieldProps) => {
-  const { setErrors, errors, setFieldTouched, setFieldValue } = formik
   const [inputValue, setInputValue] = React.useState('')
 
   const extraProps = {
@@ -53,36 +93,25 @@ export const RenderField = ({
 
   switch (allowedValuesType) {
     case ALLOWED_VALUES_TYPE.TIME: {
-      extraProps.tagsProps = {
-        onChange: (changed: unknown) => {
-          const values: string[] = changed as string[]
+      extraProps.tagsProps = getTagProps({
+        formik,
+        inputValue,
+        setInputValue,
+        allowedValuesValidator: allowedValuesValidator || VALIDATORS[allowedValuesType]({ minimum: '10s' }),
+        fieldKey: 'timeout'
+      })
+      break
+    }
 
-          // There is only one value, and we are removing it
-          /* istanbul ignore next */
-          if (!values.length) {
-            setFieldTouched('allowedValues', true, false)
-            setFieldValue('allowedValues', values)
-            return
-          }
-
-          const validator = allowedValuesValidator || VALIDATORS[ALLOWED_VALUES_TYPE.TIME]({ minimum: '10s' })
-          try {
-            validator.validateSync({ timeout: values[values.length - 1] })
-            setFieldTouched('allowedValues', true, false)
-            setFieldValue('allowedValues', values)
-            setInputValue('')
-          } catch (e) {
-            /* istanbul ignore else */
-            if (e instanceof Yup.ValidationError) {
-              const err = yupToFormErrors<{ timeout: string }>(e)
-              setFieldTouched('allowedValues', true, false)
-              setErrors({ ...errors, allowedValues: err.timeout })
-              setInputValue(values[values.length - 1])
-            }
-          }
-        },
-        inputValue
-      }
+    case ALLOWED_VALUES_TYPE.URL: {
+      extraProps.tagsProps = getTagProps({
+        formik,
+        inputValue,
+        setInputValue,
+        allowedValuesValidator: allowedValuesValidator || VALIDATORS[allowedValuesType](getString),
+        fieldKey: 'url'
+      })
+      break
     }
   }
 
