@@ -621,19 +621,17 @@ function RunPipelineFormBasic({
     let errors = formErrors
     function validateErrors(): Promise<FormikErrors<InputSetDTO>> {
       return new Promise(resolve => {
-        setTimeout(() => {
-          const validatedErrors =
-            (validatePipeline({
-              pipeline: { ...clearRuntimeInput(latestPipeline.pipeline) },
-              template: latestYamlTemplate,
-              originalPipeline: orgPipeline,
-              resolvedPipeline,
-              getString,
-              viewType: StepViewType.DeploymentForm,
-              selectedStageData: selectedStages
-            }) as any) || formErrors
-          resolve(validatedErrors)
-        }, 300)
+        const validatedErrors =
+          (validatePipeline({
+            pipeline: { ...clearRuntimeInput(latestPipeline.pipeline) },
+            template: latestYamlTemplate,
+            originalPipeline: orgPipeline,
+            resolvedPipeline,
+            getString,
+            viewType: StepViewType.DeploymentForm,
+            selectedStageData: selectedStages
+          }) as any) || formErrors
+        resolve(validatedErrors)
       })
     }
     if (latestPipeline?.pipeline && latestYamlTemplate && orgPipeline) {

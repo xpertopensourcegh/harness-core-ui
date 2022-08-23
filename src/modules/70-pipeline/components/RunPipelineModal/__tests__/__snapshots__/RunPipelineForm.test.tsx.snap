@@ -514,7 +514,21 @@ exports[`STUDIO MODE Valid input set enables Run button if it was disabled due t
                   </span>
                   <div
                     class="bp3-overlay bp3-overlay-inline"
-                  />
+                  >
+                    <div
+                      class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
+                      style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
+                    >
+                      <div
+                        class="bp3-popover bp3-minimal"
+                        style="transform-origin: center top;"
+                      >
+                        <div
+                          class="bp3-popover-content"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </span>
               </div>
               <div
