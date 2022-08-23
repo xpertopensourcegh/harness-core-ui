@@ -147,11 +147,12 @@ function DeployServiceWidget({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (error?.message) {
-    if (shouldShowError(error)) {
+  useEffect(() => {
+    if (error?.message && shouldShowError(error)) {
       showError(getRBACErrorMessage(error))
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error?.message])
 
   const updateServicesList = (value: ServiceRequestDTO): void => {
     formikRef.current?.setValues({ serviceRef: value.identifier, ...(state.isService && { service: {} }) })
