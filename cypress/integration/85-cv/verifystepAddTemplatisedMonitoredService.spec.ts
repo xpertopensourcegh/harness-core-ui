@@ -1,6 +1,6 @@
 import { featureFlagsCall } from '../../support/70-pipeline/constants'
 
-describe.only('Verify Step Addition', () => {
+describe('Verify Step Addition', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => {
       // returning false here prevents Cypress from
@@ -189,7 +189,7 @@ describe.only('Verify Step Addition', () => {
     cy.get('button[type="submit"]').click()
   })
 
-  it.only('should be able to create a verify step template with templatised monitored service', () => {
+  it('should be able to create a verify step template with templatised monitored service', () => {
     cy.apiMocksForVerifyStep()
 
     cy.contains('p', 'Project Setup').click()
