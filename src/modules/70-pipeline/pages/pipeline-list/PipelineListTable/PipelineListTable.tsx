@@ -22,14 +22,17 @@ import {
 } from './PipelineListCells'
 import css from './PipelineListTable.module.scss'
 
-interface PipelineListTableProps {
-  data: PagePMSPipelineSummaryResponse
-  gotoPage: (pageNumber: number) => void
+export interface PipelineListColumnActions {
   onDeletePipeline: (commitMsg: string) => Promise<void>
   onClonePipeline: (pipeline: PMSPipelineSummaryResponse) => void
   onDelete: (pipeline: PMSPipelineSummaryResponse) => void
-  setSortBy: (sortBy: string[]) => void
+}
+
+export interface PipelineListTableProps extends PipelineListColumnActions {
+  data: PagePMSPipelineSummaryResponse
   sortBy: string[]
+  gotoPage: (pageNumber: number) => void
+  setSortBy: (sortBy: string[]) => void
 }
 
 export function PipelineListTable({

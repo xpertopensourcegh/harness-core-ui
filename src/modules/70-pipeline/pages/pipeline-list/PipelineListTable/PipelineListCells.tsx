@@ -11,7 +11,7 @@ import { Color, FontVariation } from '@harness/design-system'
 import { Button, Icon, Layout, Popover, Text, Container, TagsPopover } from '@harness/uicore'
 import defaultTo from 'lodash-es/defaultTo'
 import { useParams, Link } from 'react-router-dom'
-import type { CellProps, Renderer } from 'react-table'
+import type { Cell, CellValue, ColumnInstance, Renderer, Row, TableInstance } from 'react-table'
 import ReactTimeago from 'react-timeago'
 import React, { ReactNode } from 'react'
 import cx from 'classnames'
@@ -36,6 +36,7 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
 import { getRouteProps } from '../PipelineListUtils'
 import type { PipelineListPagePathParams } from '../types'
+import type { PipelineListColumnActions } from './PipelineListTable'
 import css from './PipelineListTable.module.scss'
 
 const LabeValue = ({ label, value }: { label: string; value: ReactNode }) => {
@@ -51,7 +52,14 @@ const LabeValue = ({ label, value }: { label: string; value: ReactNode }) => {
   )
 }
 
-type CellType = Renderer<CellProps<PMSPipelineSummaryResponse>>
+type CellTypeWithActions<D extends Record<string, any>, V = any> = TableInstance<D> & {
+  column: ColumnInstance<D> & PipelineListColumnActions
+  row: Row<D>
+  cell: Cell<D, V>
+  value: CellValue<V>
+}
+
+type CellType = Renderer<CellTypeWithActions<PMSPipelineSummaryResponse>>
 
 export const PipelineNameCell: CellType = ({ row }) => {
   const data = row.original
@@ -303,7 +311,7 @@ export const MenuCell: CellType = ({ row, column }) => {
             text={getString('projectCard.clone')}
             disabled={isGitSyncEnabled || supportingGitSimplification}
             onClick={() => {
-              ;(column as any).onClonePipeline(data)
+              column.onClonePipeline(data)
               setMenuOpen(false)
             }}
           />
@@ -312,7 +320,7 @@ export const MenuCell: CellType = ({ row, column }) => {
             text={getString('delete')}
             disabled={!canDelete}
             onClick={() => {
-              ;(column as any).onDelete(data)
+              column.onDelete(data)
               confirmDelete()
               setMenuOpen(false)
             }}

@@ -13,7 +13,7 @@ import { get, isEmpty, omit } from 'lodash-es'
 import defaultTo from 'lodash-es/defaultTo'
 import React, { useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import type { CellProps, Renderer, UseExpandedRowProps } from 'react-table'
+import type { Cell, CellValue, ColumnInstance, Renderer, Row, TableInstance, UseExpandedRowProps } from 'react-table'
 import { Duration, TimeAgoPopover, UserLabel } from '@common/components'
 import type { StoreType } from '@common/constants/GitSyncTypes'
 import { useModuleInfo } from '@common/hooks/useModuleInfo'
@@ -49,10 +49,17 @@ import { CardVariant } from '@pipeline/utils/constants'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { getRouteProps } from '@pipeline/pages/pipeline-list/PipelineListUtils'
+import type { ExecutionListColumnActions } from './ExecutionListTable'
 import css from './ExecutionListTable.module.scss'
 
-type CellType = Renderer<CellProps<PipelineExecutionSummary>>
-type ColumnWithActions = { isPipelineInvalid: boolean; onViewCompiledYaml: () => void }
+type CellTypeWithActions<D extends Record<string, any>, V = any> = TableInstance<D> & {
+  column: ColumnInstance<D> & ExecutionListColumnActions
+  row: Row<D>
+  cell: Cell<D, V>
+  value: CellValue<V>
+}
+
+type CellType = Renderer<CellTypeWithActions<PipelineExecutionSummary>>
 
 export const RowSelectCell: CellType = ({ row }) => {
   const data = row.original
@@ -203,7 +210,7 @@ export const DurationCell: CellType = ({ row }) => {
 }
 
 export const MenuCell: CellType = ({ row, column }) => {
-  const { onViewCompiledYaml, isPipelineInvalid } = column as unknown as ColumnWithActions
+  const { onViewCompiledYaml, isPipelineInvalid } = column
   const data = row.original
   const { projectIdentifier, orgIdentifier, accountId, module, pipelineIdentifier } =
     useParams<PipelineType<PipelinePathProps>>()
@@ -246,7 +253,7 @@ export const MenuCell: CellType = ({ row, column }) => {
         }}
         isPipelineInvalid={isPipelineInvalid}
         canEdit={canEdit}
-        onViewCompiledYaml={onViewCompiledYaml}
+        onViewCompiledYaml={() => onViewCompiledYaml(data)}
         onCompareExecutions={() => addToCompare(data)}
         source={source}
         canExecute={canExecute}

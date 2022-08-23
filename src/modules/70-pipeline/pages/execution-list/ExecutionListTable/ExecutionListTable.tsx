@@ -32,10 +32,13 @@ import type { SortBy } from '../types'
 import { useExecutionListFilterContext } from '../ExecutionListFilterContext/ExecutionListFilterContext'
 import css from './ExecutionListTable.module.scss'
 
-export interface ExecutionListTableProps {
-  executionList: PagePipelineExecutionSummary
-  isPipelineInvalid?: boolean
+export interface ExecutionListColumnActions {
   onViewCompiledYaml: (pipelineExecutionSummary: PipelineExecutionSummary) => void
+  isPipelineInvalid?: boolean
+}
+
+export interface ExecutionListTableProps extends ExecutionListColumnActions {
+  executionList: PagePipelineExecutionSummary
 }
 
 export function ExecutionListTable({
