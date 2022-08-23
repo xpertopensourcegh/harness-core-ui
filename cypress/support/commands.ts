@@ -64,7 +64,18 @@ import {
   strategiesYamlSnippets3,
   variables,
   inputSetsCall,
-  variablesV2PostResponse
+  variablesV2PostResponse,
+  configurableMonitoredServicesResponse,
+  monitoredServiceResponse,
+  templatesAPIResponse,
+  allTemplatesResponse,
+  applyTemplatesResponse,
+  applyTemplatesResponseData,
+  templateInputsResponse,
+  specificTemplatesResponse,
+  variablesResponse,
+  servicesResponsePipelines,
+  environmentResponsePipelines
 } from './85-cv/verifyStep/constants'
 
 declare global {
@@ -95,6 +106,8 @@ declare global {
       verifyStepSelectConnector(): void
       verifyStepChooseRuntimeInput(): void
       verifyStepSelectStrategyAndVerifyStep(): void
+      configureStaticFieldsVerifyStep(): void
+      configureStaticFieldsVerifyStepInStepTemplate(): void
       // https://github.com/jaredpalmer/cypress-image-snapshot
       matchImageSnapshot(snapshotName?: string, options?: unknown): void
     }
@@ -320,15 +333,58 @@ Cypress.Commands.add('apiMocksForVerifyStep', () => {
   cy.intercept('GET', strategiesYamlSnippets3, strategiesYAMLResponse).as('strategiesYaml')
   cy.intercept('GET', strategiesYamlSnippets2, strategiesYAMLResponse).as('strategiesYaml')
   cy.intercept('GET', monitoresServices, monitoresServicesResponse).as('monitoredServices')
-  cy.intercept('POST', variables, variablesV2PostResponse).as('variables')
   cy.intercept('POST', pipelineSteps, pipelineStepsResponse).as('pipelineSteps')
   cy.intercept('GET', verifyStepServicesCall, { fixture: 'ng/api/servicesV2' }).as('service')
-
   cy.intercept('GET', stagesExecutionList, stagesExecutionListResponse).as('stagesExecutionList')
   cy.intercept('POST', inputSetsCall, inputSetsTemplateCallResponse).as('inputSetsTemplateCallResponse')
   cy.intercept('GET', '/ng/api/pipelines/configuration/cd-stage-yaml-snippet?routingId=accountId', {
     fixture: 'pipeline/api/pipelines/failureStrategiesYaml'
   }).as('cdFailureStrategiesYaml')
+  cy.intercept(
+    'GET',
+    '/cv/api/monitored-service/all/time-series-health-sources?routingId=accountId&accountId=accountId&orgIdentifier=default&projectIdentifier=project1',
+    configurableMonitoredServicesResponse
+  )
+  cy.intercept(
+    'GET',
+    '/cv/api/monitored-service/orders_prod?routingId=accountId&accountId=accountId&orgIdentifier=default&projectIdentifier=project1',
+    monitoredServiceResponse
+  ).as('monitoredServiceResponse')
+
+  cy.intercept(
+    'POST',
+    '/template/api/templates/list?routingId=accountId&accountIdentifier=accountId&orgIdentifier=default&projectIdentifier=project1&templateListType=Stable&searchTerm=&page=0&size=20&includeAllTemplatesAvailableAtScope=true',
+    templatesAPIResponse
+  )
+  cy.intercept(
+    'POST',
+    '/template/api/templates/list?routingId=accountId&accountIdentifier=accountId&orgIdentifier=default&projectIdentifier=project1&templateListType=All&module=cd',
+    allTemplatesResponse
+  )
+
+  cy.intercept(
+    'GET',
+    '/template/api/templates/templateInputs/Verify_step_mon_template?routingId=accountId&accountIdentifier=accountId&orgIdentifier=default&projectIdentifier=project1&versionLabel=1.0&getDefaultFromOtherRepo=true',
+    templateInputsResponse
+  ).as('templateInputsResponse')
+
+  cy.intercept(
+    'POST',
+    '/template/api/templates/applyTemplates?routingId=accountId&accountIdentifier=accountId&orgIdentifier=default&projectIdentifier=project1&getDefaultFromOtherRepo=true',
+    applyTemplatesResponseData
+  )
+
+  cy.intercept(
+    'GET',
+    '/template/api/templates/Verify_step_mon_template?routingId=accountId&accountIdentifier=accountId&projectIdentifier=project1&orgIdentifier=default&versionLabel=1.0&getDefaultFromOtherRepo=true',
+    specificTemplatesResponse
+  ).as('specificTemplatesResponse')
+
+  cy.intercept(
+    'POST',
+    '/template/api/templates/variables?routingId=accountId&accountIdentifier=accountId&orgIdentifier=default&projectIdentifier=project1',
+    variablesResponse
+  )
 })
 
 Cypress.Commands.add('verifyStepInitialSetup', () => {
@@ -338,8 +394,6 @@ Cypress.Commands.add('verifyStepInitialSetup', () => {
 
   cy.fillName('testStage_Cypress')
   cy.clickSubmit()
-
-  cy.wait('@cdFailureStrategiesYaml')
   cy.wait('@pipelineSteps')
   cy.wait('@service')
 })
@@ -358,11 +412,8 @@ Cypress.Commands.add('verifyStepSelectConnector', () => {
 
   cy.wait('@connectors')
 
-  cy.contains('p', 'test1111', { timeout: 5000 }).should('be.visible')
-
-  cy.contains('p', 'test1111').click({ force: true })
-
-  // cy.wait(500)
+  cy.contains('p', 'dynatrace', { timeout: 5000 }).should('be.visible')
+  cy.contains('p', 'dynatrace').click({ force: true })
 
   cy.findByRole('button', { name: 'Apply Selected' }).should('be.visible')
 
@@ -384,7 +435,6 @@ Cypress.Commands.add('verifyStepSelectStrategyAndVerifyStep', () => {
   cy.findByTestId('execution').scrollIntoView().click()
 
   cy.wait('@strategiesList')
-  cy.wait('@strategiesYaml')
 
   // choosing deployment strategy
   cy.findByRole('button', { name: /Use Strategy/i }).click()
@@ -400,4 +450,23 @@ Cypress.Commands.add('verifyStepSelectStrategyAndVerifyStep', () => {
 
   // click verify step
   cy.findByText(/Verify/i).click()
+})
+
+Cypress.Commands.add('configureStaticFieldsVerifyStep', () => {
+  cy.get('input[name="spec.type"]').click({ force: true })
+  cy.contains('p', 'Rolling Update').click({ force: true })
+  cy.get('input[name="spec.spec.sensitivity"]').click({ force: true })
+  cy.contains('p', 'High').click({ force: true })
+  cy.get('input[name="spec.spec.duration"]').click({ force: true })
+  cy.contains('p', '5 min').click({ force: true })
+})
+
+Cypress.Commands.add('configureStaticFieldsVerifyStepInStepTemplate', () => {
+  cy.get('input[name="spec.type"]').click({ force: true })
+  cy.contains('p', 'Rolling Update').click({ force: true })
+  cy.get('span[icon="cross"]').click({ force: true })
+  cy.get('input[name="spec.spec.sensitivity"]').click({ force: true })
+  cy.contains('p', 'High').click({ force: true })
+  cy.get('input[name="spec.spec.duration"]').click({ force: true })
+  cy.contains('p', '5 min').click({ force: true })
 })
