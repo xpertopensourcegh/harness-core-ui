@@ -34,7 +34,6 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
 import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { StringsMap } from 'framework/strings/StringsContext'
 import { CDFirstGenTrial } from './CDFirstGenTrial'
 import type { DeploymentTypeItem } from './DeploymentInterface'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
@@ -104,48 +103,6 @@ const CardList = ({
   )
 }
 
-const getServerlessDeploymentTypes = (
-  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
-  SERVERLESS_SUPPORT = false
-): DeploymentTypeItem[] => {
-  if (SERVERLESS_SUPPORT) {
-    return [
-      {
-        label: getString('pipeline.serviceDeploymentTypes.serverlessAwsLambda'),
-        icon: 'service-serverless-aws',
-        value: ServiceDeploymentType.ServerlessAwsLambda
-      }
-      // Keeping these for now. If we do not support these in near future, we will remove these.
-      //
-      // {
-      //   label: getString('pipeline.serviceDeploymentTypes.serverlessAzureFunctions'),
-      //   icon: 'service-serverless-azure',
-      //   value: ServiceDeploymentType.ServerlessAzureFunctions,
-      //   disabled: true
-      // },
-      // {
-      //   label: getString('pipeline.serviceDeploymentTypes.serverlessGoogleFunctions'),
-      //   icon: 'service-serverless-gcp',
-      //   value: ServiceDeploymentType.ServerlessGoogleFunctions,
-      //   disabled: true
-      // },
-      // {
-      //   label: getString('pipeline.serviceDeploymentTypes.awsSAM'),
-      //   icon: 'service-aws-sam',
-      //   value: ServiceDeploymentType.AmazonSAM,
-      //   disabled: true
-      // },
-      // {
-      //   label: getString('pipeline.serviceDeploymentTypes.azureFunctions'),
-      //   icon: 'service-azure-functions',
-      //   value: ServiceDeploymentType.AzureFunctions,
-      //   disabled: true
-      // }
-    ]
-  }
-  return []
-}
-
 export default function SelectDeploymentType({
   selectedDeploymentType,
   gitOpsEnabled,
@@ -158,7 +115,7 @@ export default function SelectDeploymentType({
   const { getString } = useStrings()
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
   const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
-  const { SERVERLESS_SUPPORT, SSH_NG, AZURE_WEBAPP_NG } = useFeatureFlags()
+  const { SSH_NG, AZURE_WEBAPP_NG } = useFeatureFlags()
 
   const { accountId } = useParams<{
     accountId: string
@@ -177,6 +134,11 @@ export default function SelectDeploymentType({
         label: getString('pipeline.nativeHelm'),
         icon: 'service-helm',
         value: ServiceDeploymentType.NativeHelm
+      },
+      {
+        label: getString('pipeline.serviceDeploymentTypes.serverlessAwsLambda'),
+        icon: 'service-serverless-aws',
+        value: ServiceDeploymentType.ServerlessAwsLambda
       }
     ]
     if (SSH_NG) {
@@ -198,8 +160,8 @@ export default function SelectDeploymentType({
         value: ServiceDeploymentType.AzureWebApp
       })
     }
-    return [...baseTypes, ...getServerlessDeploymentTypes(getString, SERVERLESS_SUPPORT)] as DeploymentTypeItem[]
-  }, [getString, SERVERLESS_SUPPORT, SSH_NG, AZURE_WEBAPP_NG])
+    return baseTypes as DeploymentTypeItem[]
+  }, [getString, SSH_NG, AZURE_WEBAPP_NG])
 
   // Suppported in CG (First Gen - Old Version of Harness App)
   const cgSupportedDeploymentTypes: DeploymentTypeItem[] = React.useMemo(() => {

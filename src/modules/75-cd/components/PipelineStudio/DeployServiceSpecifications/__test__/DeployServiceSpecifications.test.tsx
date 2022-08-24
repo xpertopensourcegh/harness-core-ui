@@ -213,7 +213,7 @@ describe('Deploy service stage specifications', () => {
   test('Deployment types should have Serverless Lambda as a part of it', async () => {
     getOverrideContextValue().state.selectionState.selectedStageId = 'st1'
     const { getByText } = render(
-      <TestWrapper defaultFeatureFlagValues={{ SERVERLESS_SUPPORT: true }}>
+      <TestWrapper>
         <PipelineContext.Provider value={getOverrideContextValue()}>
           <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
             {mockchildren}
@@ -231,7 +231,7 @@ describe('Deploy service stage specifications', () => {
   test('Add manifest dialog should display manifest store screen directly if Serverless Lambda is deployment type', async () => {
     getOverrideContextValue().state.selectionState.selectedStageId = 'st1'
     const { getByText } = render(
-      <TestWrapper defaultFeatureFlagValues={{ SERVERLESS_SUPPORT: true }}>
+      <TestWrapper>
         <PipelineContext.Provider value={getOverrideContextValue()}>
           <DeployServiceSpecifications setDefaultServiceSchema={setDefaultServiceSchema}>
             {mockchildren}

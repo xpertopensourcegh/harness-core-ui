@@ -74,8 +74,7 @@ describe('Infrastructure Modal Test', () => {
         pathParams={{ ...projectPathProps, ...environmentPathProps }}
         defaultFeatureFlagValues={{
           SSH_NG: true,
-          AZURE_WEBAPP_NG: true,
-          SERVERLESS_SUPPORT: true
+          AZURE_WEBAPP_NG: true
         }}
       >
         <InfrastructureModal environmentIdentifier="test_env" hideModal={jest.fn()} refetch={jest.fn()} />
@@ -131,8 +130,7 @@ describe('Infrastructure Modal Test', () => {
         pathParams={{ ...projectPathProps, ...environmentPathProps }}
         defaultFeatureFlagValues={{
           SSH_NG: true,
-          AZURE_WEBAPP_NG: true,
-          SERVERLESS_SUPPORT: true
+          AZURE_WEBAPP_NG: true
         }}
       >
         <InfrastructureModal

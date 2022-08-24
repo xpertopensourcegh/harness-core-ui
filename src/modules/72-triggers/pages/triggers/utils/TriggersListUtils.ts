@@ -82,8 +82,7 @@ export const getTriggerIcon = ({
 const triggerDrawerMap = (
   getString: (key: StringKeys) => string,
   isNewService: boolean,
-  includeAzureReposTrigger?: boolean,
-  isServerlessEnabled?: boolean
+  includeAzureReposTrigger?: boolean
 ): AddDrawerMapInterface => ({
   drawerLabel: getString('common.triggersLabel'),
   showAllLabel: getString('triggers.showAllTriggers'),
@@ -170,16 +169,12 @@ const triggerDrawerMap = (
           iconName: ArtifactIconByType.Acr,
           disabled: isNewService
         },
-        ...(isServerlessEnabled
-          ? [
-              {
-                itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.AmazonS3]),
-                value: ENABLED_ARTIFACT_TYPES.AmazonS3,
-                iconName: ArtifactIconByType.AmazonS3 as IconName,
-                disabled: isNewService
-              }
-            ]
-          : []),
+        {
+          itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.AmazonS3]),
+          value: ENABLED_ARTIFACT_TYPES.AmazonS3,
+          iconName: ArtifactIconByType.AmazonS3 as IconName,
+          disabled: isNewService
+        },
         ...(isNewService
           ? [
               {
@@ -246,9 +241,8 @@ export const getSourceRepoOptions = (getString: (str: StringKeys) => string): { 
 export const getCategoryItems = (
   getString: (key: StringKeys) => string,
   isNewService: boolean,
-  includeAzureReposTrigger?: boolean,
-  isServerlessEnabled?: boolean
-): AddDrawerMapInterface => triggerDrawerMap(getString, isNewService, includeAzureReposTrigger, isServerlessEnabled)
+  includeAzureReposTrigger?: boolean
+): AddDrawerMapInterface => triggerDrawerMap(getString, isNewService, includeAzureReposTrigger)
 
 export interface ItemInterface {
   itemLabel: string
