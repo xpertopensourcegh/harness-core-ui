@@ -365,7 +365,7 @@ export const stepsData = {
 
 export const triggersListData = {
   Webhook: ['GitHub', 'GitLab', 'BitBucket', 'AWS Code Commit', 'Custom'],
-  Artifact: ['GCR', 'ECR', 'Docker Registry', 'Artifactory', 'Amazon S3'],
+  Artifact: ['GCR', 'ECR', 'Docker Registry', 'Artifactory', 'Amazon S3', 'ACR'],
   Manifest: ['Helm Chart'],
   Scheduled: ['Cron']
 }

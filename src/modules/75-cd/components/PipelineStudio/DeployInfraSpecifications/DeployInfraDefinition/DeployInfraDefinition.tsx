@@ -66,7 +66,7 @@ import {
 import type { ServerlessAwsLambdaSpec } from '@cd/components/PipelineSteps/ServerlessAWSLambda/ServerlessAwsLambdaSpec'
 import type { ServerlessGCPSpec } from '@cd/components/PipelineSteps/ServerlessGCP/ServerlessGCPSpec'
 import type { ServerlessAzureSpec } from '@cd/components/PipelineSteps/ServerlessAzure/ServerlessAzureSpec'
-import { useFeatureFlag, useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { isNewServiceEnvEntity } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import {
@@ -111,7 +111,6 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
     React.useState<Infrastructure>({})
 
   const { getString } = useStrings()
-  const { NG_AZURE } = useFeatureFlags()
 
   const {
     state: {
@@ -147,14 +146,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
   >(getServiceDefinitionType(stage, getStageFromPipeline, isNewServiceEnvEntity, isSvcEnvEnabled, templateServiceData))
 
   const [infraGroups, setInfraGroups] = React.useState<InfrastructureGroup[]>(
-    getInfraGroups(
-      selectedDeploymentType,
-      getString,
-      {
-        NG_AZURE: defaultTo(NG_AZURE, false)
-      },
-      selectedInfrastructureType
-    )
+    getInfraGroups(selectedDeploymentType, getString, {}, selectedInfrastructureType)
   )
 
   useEffect(() => {
@@ -228,14 +220,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
       infraReset = true
     }
 
-    const initialInfraGroups = getInfraGroups(
-      newDeploymentType,
-      getString,
-      {
-        NG_AZURE: defaultTo(NG_AZURE, false)
-      },
-      selectedInfrastructureType
-    )
+    const initialInfraGroups = getInfraGroups(newDeploymentType, getString, {}, selectedInfrastructureType)
 
     const filteredInfraGroups = initialInfraGroups.map(group => ({
       ...group,
@@ -249,16 +234,7 @@ export default function DeployInfraDefinition(props: React.PropsWithChildren<unk
         : deploymentTypeInfraTypeMap[newDeploymentType])
 
     setSelectedInfrastructureType(infrastructureType)
-    setInfraGroups(
-      getInfraGroups(
-        newDeploymentType,
-        getString,
-        {
-          NG_AZURE: defaultTo(NG_AZURE, false)
-        },
-        infrastructureType
-      )
-    )
+    setInfraGroups(getInfraGroups(newDeploymentType, getString, {}, infrastructureType))
 
     const initialInfraDefValues = getInfrastructureDefaultValue(stage, infrastructureType)
     setInitialInfrastructureDefinitionValues(initialInfraDefValues)

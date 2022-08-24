@@ -149,7 +149,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   useDocumentTitle(getString('connectorsLabel'))
   const isCustomHealthEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
   const isErrorTrackingEnabled = useFeatureFlag(FeatureFlag.ERROR_TRACKING_ENABLED)
-  const isAzureEnabled = useFeatureFlag(FeatureFlag.NG_AZURE)
   const isCustomSMEnabled = useFeatureFlag(FeatureFlag.CUSTOM_SECRET_MANAGER_NG)
   const { trackEvent } = useTelemetry()
   const { checkPermission } = usePermissionsContext()
@@ -371,8 +370,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       switch (connector) {
         case Connectors.ERROR_TRACKING:
           return isErrorTrackingEnabled
-        case Connectors.AZURE:
-          return isAzureEnabled
         case Connectors.CUSTOM_SECRET_MANAGER:
           return isCustomSMEnabled
         default:

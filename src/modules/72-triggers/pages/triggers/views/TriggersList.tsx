@@ -18,12 +18,11 @@ import { useGetTriggerListForTarget } from 'services/pipeline-ng'
 import { useGetListOfBranchesWithStatus } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { AddDrawer } from '@common/components'
-import { AddDrawerMapInterface, DrawerContext } from '@common/components/AddDrawer/AddDrawer'
+import { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { isNewServiceEnvEntity } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
@@ -55,35 +54,11 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
 
-  const { NG_AZURE, AZURE_REPO_CONNECTOR, NG_SVC_ENV_REDESIGN = false } = useFeatureFlags()
+  const { AZURE_REPO_CONNECTOR, NG_SVC_ENV_REDESIGN = false } = useFeatureFlags()
   const isNewService = isNewServiceEnvEntity(
     NG_SVC_ENV_REDESIGN,
     pipeline?.stages?.[0]?.stage as DeploymentStageElementConfig
   )
-
-  const getCategories = (): AddDrawerMapInterface => {
-    const categories = getCategoryItems(getString, isNewService, AZURE_REPO_CONNECTOR)
-
-    return {
-      ...categories,
-      categories: categories?.categories?.map(category => {
-        return {
-          ...category,
-          items:
-            category.categoryValue === 'Artifact'
-              ? category?.items?.filter(item => {
-                  switch (item.value) {
-                    case ENABLED_ARTIFACT_TYPES.Acr:
-                      return NG_AZURE
-                    default:
-                      return true
-                  }
-                })
-              : category?.items
-        }
-      })
-    }
-  }
 
   const {
     data: triggerListResponse,
@@ -206,7 +181,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
 
     return (
       <AddDrawer
-        addDrawerMap={getCategories()}
+        addDrawerMap={getCategoryItems(getString, isNewService, AZURE_REPO_CONNECTOR)}
         onSelect={onSelect}
         onClose={hideDrawer}
         drawerContext={DrawerContext.STUDIO}

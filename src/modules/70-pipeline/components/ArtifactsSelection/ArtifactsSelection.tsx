@@ -85,7 +85,6 @@ import {
   ModalViewFor,
   isAdditionAllowed,
   isAllowedCustomArtifactDeploymentTypes,
-  isAllowedACRArtifactDeploymentTypes,
   isSidecarAllowed
 } from './ArtifactHelper'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -128,7 +127,7 @@ export default function ArtifactsSelection({
   const { expressions } = useVariablesExpression()
 
   const stepWizardTitle = getString('connectors.createNewConnector')
-  const { CUSTOM_ARTIFACT_NG, NG_AZURE } = useFeatureFlags()
+  const { CUSTOM_ARTIFACT_NG } = useFeatureFlags()
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const getServiceCacheId = `${pipeline.identifier}-${selectedStageId}-service`
   const { getCache } = useCache([getServiceCacheId])
@@ -140,14 +139,6 @@ export default function ArtifactsSelection({
       isAllowedCustomArtifactDeploymentTypes(deploymentType)
     ) {
       allowedArtifactTypes[deploymentType].push(ENABLED_ARTIFACT_TYPES.CustomArtifact)
-    }
-
-    if (
-      NG_AZURE &&
-      !allowedArtifactTypes[deploymentType]?.includes(ENABLED_ARTIFACT_TYPES.Acr) &&
-      isAllowedACRArtifactDeploymentTypes(deploymentType)
-    ) {
-      allowedArtifactTypes[deploymentType].push(ENABLED_ARTIFACT_TYPES.Acr)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deploymentType])

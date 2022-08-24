@@ -207,7 +207,7 @@ export const getInfraGroups = (
   featureFlags: Record<string, boolean>,
   infrastructureType?: string
 ): InfrastructureGroup[] => {
-  const { NG_AZURE, AZURE_WEBAPP_NG } = featureFlags
+  const { AZURE_WEBAPP_NG } = featureFlags
 
   const serverlessInfraGroups: InfrastructureGroup[] = [
     {
@@ -247,9 +247,7 @@ export const getInfraGroups = (
     },
     {
       groupLabel: getString('pipelineSteps.deploy.infrastructure.viaCloudProvider'),
-      items: NG_AZURE
-        ? getInfraGroupItems([InfraDeploymentType.KubernetesGcp, InfraDeploymentType.KubernetesAzure], getString)
-        : getInfraGroupItems([InfraDeploymentType.KubernetesGcp], getString)
+      items: getInfraGroupItems([InfraDeploymentType.KubernetesGcp, InfraDeploymentType.KubernetesAzure], getString)
     }
   ]
 

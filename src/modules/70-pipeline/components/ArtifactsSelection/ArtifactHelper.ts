@@ -22,14 +22,6 @@ export enum ModalViewFor {
   SIDECAR = 2
 }
 
-export const isAllowedACRArtifactDeploymentTypes = (deploymentType: ServiceDefinition['type']): boolean => {
-  return (
-    deploymentType === ServiceDeploymentType.Kubernetes ||
-    deploymentType === ServiceDeploymentType.NativeHelm ||
-    deploymentType === ServiceDeploymentType.AzureWebApp
-  )
-}
-
 export const isAllowedCustomArtifactDeploymentTypes = (deploymentType: ServiceDefinition['type']): boolean => {
   return deploymentType === ServiceDeploymentType.Kubernetes || deploymentType === ServiceDeploymentType.NativeHelm
 }
@@ -113,14 +105,16 @@ export const allowedArtifactTypes: Record<ServiceDefinition['type'], Array<Artif
     ENABLED_ARTIFACT_TYPES.Gcr,
     ENABLED_ARTIFACT_TYPES.Ecr,
     ENABLED_ARTIFACT_TYPES.Nexus3Registry,
-    ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
+    ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry,
+    ENABLED_ARTIFACT_TYPES.Acr
   ],
   NativeHelm: [
     ENABLED_ARTIFACT_TYPES.DockerRegistry,
     ENABLED_ARTIFACT_TYPES.Gcr,
     ENABLED_ARTIFACT_TYPES.Ecr,
     ENABLED_ARTIFACT_TYPES.Nexus3Registry,
-    ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
+    ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry,
+    ENABLED_ARTIFACT_TYPES.Acr
   ],
   ServerlessAwsLambda: [
     ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry,
@@ -134,7 +128,8 @@ export const allowedArtifactTypes: Record<ServiceDefinition['type'], Array<Artif
     ENABLED_ARTIFACT_TYPES.Gcr,
     ENABLED_ARTIFACT_TYPES.Ecr,
     ENABLED_ARTIFACT_TYPES.Nexus3Registry,
-    ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
+    ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry,
+    ENABLED_ARTIFACT_TYPES.Acr
   ]
 }
 
