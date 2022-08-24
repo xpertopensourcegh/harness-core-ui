@@ -47,24 +47,24 @@ describe('StartupScriptListView', () => {
         <StartupScriptListView {...propListView} />
       </TestWrapper>
     )
-    let gitConnector = await findByText(container, 'Github2')
+    const gitConnector = await findByText(container, 'Github2')
     expect(gitConnector).toBeTruthy()
     const deleteBtn = container.querySelector('[data-icon="main-trash"]') as Element
     expect(deleteBtn).toBeDefined()
     fireEvent.click(deleteBtn)
 
     //should be closed
-    gitConnector = await findByText(container, 'Github2')
-    waitFor(() => expect(gitConnector).not.toBeTruthy())
+    await waitFor(() => expect(container).not.toContain(gitConnector))
   })
 
   test(`should edit correctly`, async () => {
     propListView.isPropagating = false
-    const { container, getByText } = render(
+    const { container } = render(
       <TestWrapper>
         <StartupScriptListView {...propListView} />
       </TestWrapper>
     )
+
     const gitConnector = await findByText(container, 'Github2')
     expect(gitConnector).toBeTruthy()
     const editBtn = container.querySelectorAll('[data-icon="Edit"]')[0]
@@ -76,7 +76,7 @@ describe('StartupScriptListView', () => {
     fireEvent.click(closeButton)
 
     //should be closed
-    waitFor(() => expect(getByText('pipeline.startupCommand.fileSource')).not.toBeTruthy())
+    await waitFor(() => expect(container).not.toContain(closeButton))
   })
 
   test(`renders empty`, () => {
