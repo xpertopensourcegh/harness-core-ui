@@ -44,6 +44,7 @@ import { PreferenceScope, usePreferenceStore } from 'framework/PreferenceStore/P
 import { ExecutionHeader } from './ExecutionHeader/ExecutionHeader'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
+import { ExecutionPipelineVariables } from './ExecutionPipelineVariables'
 
 import css from './ExecutionLandingPage.module.scss'
 
@@ -308,58 +309,66 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
         }
       }}
     >
-      {loading && !data ? <PageSpinner /> : null}
-      {error ? (
-        <PageError message={getRBACErrorMessage(error) as string} />
-      ) : (
-        <main className={css.main}>
-          <div className={css.lhs}>
-            <header className={css.header}>
-              <ExecutionHeader />
-              <ExecutionMetadata />
-            </header>
-            <ExecutionTabs savedExecutionView={savedExecutionView} setSavedExecutionView={setSavedExecutionView} />
-            {module === 'ci' && (
-              <>
-                {deprecatedImages?.length ? (
-                  <PipelineExecutionWarning
-                    warning={
-                      <>
-                        <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
-                          <Icon name="warning-sign" intent={Intent.DANGER} />
-                          <Text color={Color.ORANGE_900} font={{ variation: FontVariation.SMALL_BOLD }}>
-                            {getString('pipeline.imageVersionDeprecated')}
+      <ExecutionPipelineVariables
+        shouldFetch={data?.data?.pipelineExecutionSummary?.executionInputConfigured}
+        accountIdentifier={accountId}
+        orgIdentifier={orgIdentifier}
+        projectIdentifier={projectIdentifier}
+        planExecutionId={executionIdentifier}
+      >
+        {loading && !data ? <PageSpinner /> : null}
+        {error ? (
+          <PageError message={getRBACErrorMessage(error) as string} />
+        ) : (
+          <main className={css.main}>
+            <div className={css.lhs}>
+              <header className={css.header}>
+                <ExecutionHeader />
+                <ExecutionMetadata />
+              </header>
+              <ExecutionTabs savedExecutionView={savedExecutionView} setSavedExecutionView={setSavedExecutionView} />
+              {module === 'ci' && (
+                <>
+                  {deprecatedImages?.length ? (
+                    <PipelineExecutionWarning
+                      warning={
+                        <>
+                          <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
+                            <Icon name="warning-sign" intent={Intent.DANGER} />
+                            <Text color={Color.ORANGE_900} font={{ variation: FontVariation.SMALL_BOLD }}>
+                              {getString('pipeline.imageVersionDeprecated')}
+                            </Text>
+                          </Layout.Horizontal>
+                          <Text font={{ weight: 'semi-bold', size: 'small' }} color={Color.PRIMARY_10} lineClamp={2}>
+                            <String
+                              stringID="pipeline.unsupportedImagesWarning"
+                              vars={{
+                                summary: `${getDeprecatedImageSummary(deprecatedImages)}.`
+                              }}
+                              useRichText
+                            />
                           </Text>
-                        </Layout.Horizontal>
-                        <Text font={{ weight: 'semi-bold', size: 'small' }} color={Color.PRIMARY_10} lineClamp={2}>
-                          <String
-                            stringID="pipeline.unsupportedImagesWarning"
-                            vars={{
-                              summary: `${getDeprecatedImageSummary(deprecatedImages)}.`
-                            }}
-                            useRichText
-                          />
-                        </Text>
-                        {/* <Link to={'/'}>{getString('learnMore')}</Link> */}
-                      </>
-                    }
-                  />
-                ) : null}
-              </>
-            )}
-            <div
-              className={css.childContainer}
-              data-view={selectedPageTab === PageTabs.PIPELINE && isLogView ? 'log' : 'graph'}
-              id="pipeline-execution-container"
-            >
-              {props.children}
+                          {/* <Link to={'/'}>{getString('learnMore')}</Link> */}
+                        </>
+                      }
+                    />
+                  ) : null}
+                </>
+              )}
+              <div
+                className={css.childContainer}
+                data-view={selectedPageTab === PageTabs.PIPELINE && isLogView ? 'log' : 'graph'}
+                id="pipeline-execution-container"
+              >
+                {props.children}
+              </div>
+              {!!location?.state?.shouldShowGovernanceEvaluations && (
+                <EvaluationModal accountId={accountId} metadata={location?.state?.governanceMetadata} />
+              )}
             </div>
-            {!!location?.state?.shouldShowGovernanceEvaluations && (
-              <EvaluationModal accountId={accountId} metadata={location?.state?.governanceMetadata} />
-            )}
-          </div>
-        </main>
-      )}
+          </main>
+        )}
+      </ExecutionPipelineVariables>
     </ExecutionContext.Provider>
   )
 }

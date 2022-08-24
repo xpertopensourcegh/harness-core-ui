@@ -108,7 +108,7 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
                 text={getString('save')}
                 onClick={submitForm}
                 data-testid="addVariableSave"
-              />{' '}
+              />
               &nbsp; &nbsp;
               <Button
                 variation={ButtonVariation.TERTIARY}

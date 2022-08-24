@@ -7,7 +7,7 @@
 
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { defaultTo, get } from 'lodash-es'
+import { defaultTo, get, isEmpty } from 'lodash-es'
 import {
   MultiTypeInputType,
   Formik,
@@ -26,6 +26,7 @@ import type { FormikErrors } from 'formik'
 import {
   ExecutionNode,
   StageElementConfig,
+  StageElementWrapperConfig,
   useGetExecutionInputTemplate,
   useHandleInterrupt,
   useSubmitExecutionInput
@@ -44,6 +45,7 @@ import { clearRuntimeInput } from '@pipeline/utils/runPipelineUtils'
 import { NodeType, NonSelectableNodes } from '@pipeline/utils/executionUtils'
 import { StageFormInternal } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import { validateStage } from '@pipeline/components/PipelineStudio/StepUtil'
 import css from './ExecutionInputs.module.scss'
 
 export interface ExecutionInputsProps {
@@ -85,9 +87,12 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
   const userInput = parse<{ step: StepElementConfig; stage: StageElementConfig }>(
     defaultTo(get(data, 'data.userInput'), '{}')
   )
+  const fieldYaml = parse<{ step: StepElementConfig; stage: StageElementConfig }>(
+    defaultTo(get(data, 'data.fieldYaml'), '{}')
+  )
   const finalUserInput = defaultTo(isStageForm ? userInput : userInput.step, {})
   const parsedStep = defaultTo(template.step, {})
-  const parsedStage = defaultTo(template, {})
+  const parsedStage = defaultTo(template, {}) as StageElementWrapperConfig
   const initialValues = isDone ? finalUserInput : clearRuntimeInput(isStageForm ? parsedStage : parsedStep, true)
 
   const stepDef = factory.getStep<Partial<StepElementConfig>>(stepType)
@@ -105,10 +110,24 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
       interruptType: 'AbortAll'
     }
   })
-  function handleValidation(formData: Partial<StepElementConfig>): FormikErrors<Partial<StepElementConfig>> {
+  function handleValidation(
+    formData: Partial<StepElementConfig | StageElementWrapperConfig>
+  ): FormikErrors<Partial<StepElementConfig | StageElementWrapperConfig>> {
+    if (isStageForm) {
+      const errors = validateStage({
+        stage: (formData as Required<StageElementWrapperConfig>).stage,
+        template: parsedStage.stage,
+        viewType: StepViewType.DeploymentForm,
+        originalStage: fieldYaml.stage,
+        getString
+      })
+
+      return isEmpty(errors) ? {} : ({ stage: errors } as FormikErrors<StageElementWrapperConfig>)
+    }
+
     return (
       stepDef?.validateInputSet({
-        data: formData,
+        data: formData as StepElementConfig,
         template: parsedStep,
         viewType: StepViewType.DeploymentForm,
         getString
@@ -116,7 +135,9 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
     )
   }
 
-  async function handleSubmit(formData: Partial<StepElementConfig>): Promise<Partial<StepElementConfig>> {
+  async function handleSubmit(
+    formData: Partial<StepElementConfig | StageElementWrapperConfig>
+  ): Promise<Partial<StepElementConfig | StageElementWrapperConfig>> {
     try {
       await submitInput(stringify(isStageForm ? formData : { step: formData }))
       setHasSubmitted(true)
@@ -124,6 +145,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
     } catch (e: unknown) {
       showError(getRBACErrorMessage(e as RBACError))
     }
+
     return formData
   }
 
@@ -156,7 +178,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
     content = <Text>{getString('pipeline.runtimeInputsSubmittedMsg')}</Text>
   } else {
     content = (
-      <Formik<Partial<StepElementConfig>>
+      <Formik<Partial<StepElementConfig | StageElementWrapperConfig>>
         formName="execution-input"
         validate={handleValidation}
         initialValues={initialValues}
@@ -171,6 +193,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
               viewType={StepViewType.DeploymentForm}
               allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
               stageClassName={css.stage}
+              allValues={fieldYaml}
             />
           ) : (
             <StepWidget<Partial<StepElementConfig>>
@@ -181,6 +204,7 @@ export function ExecutionInputs(props: ExecutionInputsProps): React.ReactElement
               initialValues={initialValues}
               template={parsedStep}
               readonly={isDone}
+              allValues={fieldYaml.step}
             />
           )}
           {isDone ? null : (

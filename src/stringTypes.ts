@@ -3139,6 +3139,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
   'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning': string
+  'pipeline.failureStrategies.errorTypeLabels.ExecutionInputTimeoutError': string
   'pipeline.failureStrategies.errorTypeLabels.PolicyEvaluationFailure': string
   'pipeline.failureStrategies.errorTypeLabels.Timeout': string
   'pipeline.failureStrategies.errorTypeLabels.Unknown': string

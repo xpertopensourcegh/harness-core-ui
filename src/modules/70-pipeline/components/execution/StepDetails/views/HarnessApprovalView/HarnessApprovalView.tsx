@@ -105,7 +105,7 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
     )
   }
 
-  if (loadingApprovalData || loadingAuthData || (!shouldFetchData && !isWaitingOnExecInputs)) {
+  if (loadingApprovalData || loadingAuthData || (!shouldFetchData && !shouldShowExecutionInputs)) {
     return (
       <Layout.Vertical height="100%" flex={{ alignItems: 'center', justifyContent: 'center' }}>
         <Spinner />

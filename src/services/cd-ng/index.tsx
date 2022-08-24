@@ -1135,7 +1135,7 @@ export interface AzureCreateARMResourceStepConfiguration {
   connectorRef: string
   parameters?: AzureCreateARMResourceParameterFile
   scope: AzureCreateARMResourceStepScope
-  template: AzureCreateARMResourceTemplateFile
+  template: AzureTemplateFile
   type?: string
 }
 
@@ -1151,8 +1151,18 @@ export interface AzureCreateARMResourceStepScope {
   type: string
 }
 
-export interface AzureCreateARMResourceTemplateFile {
-  store: StoreConfigWrapper
+export interface AzureCreateBPStepConfiguration {
+  assignmentName?: string
+  connectorRef: string
+  scope: 'Subscription' | 'ManagementGroup'
+  template: AzureTemplateFile
+}
+
+export type AzureCreateBPStepInfo = StepSpecType & {
+  configuration: AzureCreateBPStepConfiguration
+  delegateSelectors?: string[]
+  metadata?: string
+  provisionerIdentifier: string
 }
 
 export interface AzureCredential {
@@ -1201,8 +1211,16 @@ export type AzureKeyVaultMetadataSpecDTO = SecretManagerMetadataSpecDTO & {
   vaultNames?: string[]
 }
 
+export interface AzureLocationsDTO {
+  locations?: string[]
+}
+
 export interface AzureMSIAuth {
   [key: string]: any
+}
+
+export interface AzureManagementGroupsDTO {
+  managementGroups?: ManagementGroupData[]
 }
 
 export type AzureManagementSpec = AzureScopeType & {
@@ -1327,6 +1345,10 @@ export interface AzureTagDTO {
 
 export interface AzureTagsDTO {
   tags?: AzureTagDTO[]
+}
+
+export interface AzureTemplateFile {
+  store: StoreConfigWrapper
 }
 
 export type AzureTenantSpec = AzureScopeType & {
@@ -2210,8 +2232,8 @@ export type CustomSecretManager = ConnectorConfigDTO & {
   default?: boolean
   delegateSelectors?: string[]
   host?: string
-  onDelegate?: boolean
-  template?: TemplateLinkConfig
+  onDelegate: boolean
+  template: TemplateLinkConfigForCustomSecretManager
   workingDirectory?: string
 }
 
@@ -2866,6 +2888,7 @@ export interface EntityDetail {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
 }
 
 export interface EntityGitDetails {
@@ -4192,7 +4215,15 @@ export interface Failure {
 }
 
 export interface FailureStrategyActionConfig {
-  type: 'Ignore' | 'Retry' | 'MarkAsSuccess' | 'Abort' | 'StageRollback' | 'StepGroupRollback' | 'ManualIntervention'
+  type:
+    | 'Ignore'
+    | 'Retry'
+    | 'MarkAsSuccess'
+    | 'Abort'
+    | 'StageRollback'
+    | 'StepGroupRollback'
+    | 'ManualIntervention'
+    | 'ProceedWithDefaultValue'
 }
 
 export interface FailureStrategyConfig {
@@ -4258,6 +4289,7 @@ export interface FeatureRestrictionDetailListRequestDTO {
     | 'AZURE_WEBAPP_ROLLBACK'
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
+    | 'AZURE_CREATE_BP_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4327,6 +4359,7 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'AZURE_WEBAPP_ROLLBACK'
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
+    | 'AZURE_CREATE_BP_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4398,6 +4431,7 @@ export interface FeatureRestrictionDetailsDTO {
     | 'AZURE_WEBAPP_ROLLBACK'
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
+    | 'AZURE_CREATE_BP_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4477,6 +4511,7 @@ export interface FeatureRestrictionMetadataDTO {
     | 'AZURE_WEBAPP_ROLLBACK'
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
+    | 'AZURE_CREATE_BP_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4857,6 +4892,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   searchTerm?: string
@@ -4958,6 +4994,7 @@ export interface GitEntityFilterProperties {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
@@ -5092,6 +5129,7 @@ export interface GitFullSyncEntityInfoDTO {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   errorMessage?: string
   filePath?: string
   identifier?: string
@@ -5201,6 +5239,7 @@ export interface GitFullSyncEntityInfoFilterKeys {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   )[]
   syncStatus?: 'QUEUED' | 'SUCCESS' | 'FAILED' | 'OVERRIDDEN'
 }
@@ -5418,6 +5457,7 @@ export interface GitSyncEntityDTO {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   entityUrl?: string
   folderPath?: string
   gitConnectorId?: string
@@ -5521,6 +5561,7 @@ export interface GitSyncEntityListDTO {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -5641,6 +5682,7 @@ export interface GitSyncErrorDTO {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
   failureReason?: string
   repoId?: string
@@ -5848,6 +5890,7 @@ export interface HarnessForConfig {
   end?: number
   items?: string[]
   maxConcurrency?: number
+  partitions?: number
   start?: number
   times?: number
   unit?: 'Percentage' | 'Count'
@@ -6256,6 +6299,7 @@ export interface InstanceDetailsDTO {
 }
 
 export interface InstanceGroupedByArtifact {
+  artifactPath?: string
   artifactVersion?: string
   instanceGroupedByEnvironmentList?: InstanceGroupedByEnvironment[]
 }
@@ -6847,6 +6891,11 @@ export interface LdapLinkGroupRequest {
   ldapGroupName?: string
 }
 
+export interface LdapResponse {
+  message?: string
+  status?: 'SUCCESS' | 'FAILURE'
+}
+
 export type LdapSettings = SSOSettings & {
   connectionSettings: LdapConnectionSettings
   cronExpression?: string
@@ -6948,6 +6997,12 @@ export type ManagedArgoGitOpsInfoDTO = GitOpsInfoDTO & {
   namespace: string
 }
 
+export interface ManagementGroupData {
+  displayName?: string
+  id?: string
+  name?: string
+}
+
 export interface ManifestAttributes {
   [key: string]: any
 }
@@ -7011,6 +7066,7 @@ export interface Member {
 
 export type MergePRStepInfo = StepSpecType & {
   delegateSelectors?: string[]
+  deleteSourceBranch: boolean
 }
 
 export type MicrosoftTeamsConfig = NotificationSettingConfig & {
@@ -7053,11 +7109,17 @@ export interface NGEnvironmentConfig {
   environment?: NGEnvironmentInfoConfig
 }
 
+export interface NGEnvironmentGlobalOverride {
+  manifests?: ManifestConfigWrapper[]
+  metadata?: string
+}
+
 export interface NGEnvironmentInfoConfig {
   description?: string
   identifier: string
   name: string
   orgIdentifier?: string
+  overrides?: NGEnvironmentGlobalOverride
   projectIdentifier?: string
   tags?: {
     [key: string]: string
@@ -7378,6 +7440,7 @@ export interface OnFailureConfig {
     | 'Verification'
     | 'DelegateProvisioning'
     | 'PolicyEvaluationFailure'
+    | 'ExecutionInputTimeoutError'
   )[]
 }
 
@@ -8119,6 +8182,10 @@ export interface Principal {
   type: 'USER' | 'SERVICE' | 'API_KEY' | 'SERVICE_ACCOUNT'
 }
 
+export type ProceedWithDefaultValuesFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'ProceedWithDefaultValue'
+}
+
 export interface Project {
   color?: string
   description?: string
@@ -8308,6 +8375,7 @@ export interface ReferencedByDTO {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
 }
 
 export type ReleaseRepoManifest = ManifestAttributes & {
@@ -8384,6 +8452,7 @@ export interface ResourceDTO {
     | 'AUTOSTOPPING_LB'
     | 'AUTOSTOPPING_STARTSTOP'
     | 'SETTING'
+    | 'NG_LOGIN_SETTINGS'
 }
 
 export interface ResourceGroup {
@@ -8535,6 +8604,20 @@ export interface ResponseAzureClustersDTO {
 export interface ResponseAzureDeploymentSlotsDTO {
   correlationId?: string
   data?: AzureDeploymentSlotsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseAzureLocationsDTO {
+  correlationId?: string
+  data?: AzureLocationsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseAzureManagementGroupsDTO {
+  correlationId?: string
+  data?: AzureManagementGroupsDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -9177,6 +9260,7 @@ export interface ResponseListEntityType {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   )[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
@@ -9796,6 +9880,7 @@ export interface ResponseMessage {
     | 'AUTHORIZATION_ERROR'
     | 'TIMEOUT_ERROR'
     | 'POLICY_EVALUATION_FAILURE'
+    | 'EXECUTION_INPUT_TIMEOUT_FAILURE'
   )[]
   level?: 'INFO' | 'ERROR'
   message?: string
@@ -10616,6 +10701,14 @@ export interface RestResponseLDAPSettings {
     [key: string]: { [key: string]: any }
   }
   resource?: LDAPSettings
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLdapResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LdapResponse
   responseMessages?: ResponseMessage[]
 }
 
@@ -11901,6 +11994,7 @@ export interface StepData {
     | 'Command'
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
+    | 'AzureCreateBPResource'
 }
 
 export interface StepElementConfig {
@@ -12103,6 +12197,14 @@ export interface TemplateLinkConfig {
   templateInputs?: JsonNode
   templateRef: string
   versionLabel?: string
+}
+
+export interface TemplateLinkConfigForCustomSecretManager {
+  templateInputs?: {
+    [key: string]: { [key: string]: any }
+  }
+  templateRef: string
+  versionLabel: string
 }
 
 export interface TemplateResponse {
@@ -13460,6 +13562,7 @@ export interface ListActivitiesQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   referredByEntityType?:
     | 'CreatePR'
     | 'GITOPS_MERGE_PR'
@@ -13555,6 +13658,7 @@ export interface ListActivitiesQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -13754,6 +13858,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   referredByEntityType?:
     | 'CreatePR'
     | 'GITOPS_MERGE_PR'
@@ -13849,6 +13954,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -18037,6 +18143,57 @@ export const deleteSamlMetaDataPromise = (
     signal
   )
 
+export interface PostLdapLoginTestQueryParams {
+  accountIdentifier: string
+}
+
+export type PostLdapLoginTestProps = Omit<
+  MutateProps<RestResponseLdapResponse, unknown, PostLdapLoginTestQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Perform LDAP Login Test
+ */
+export const PostLdapLoginTest = (props: PostLdapLoginTestProps) => (
+  <Mutate<RestResponseLdapResponse, unknown, PostLdapLoginTestQueryParams, void, void>
+    verb="POST"
+    path={`/authentication-settings/ldap-login-test`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostLdapLoginTestProps = Omit<
+  UseMutateProps<RestResponseLdapResponse, unknown, PostLdapLoginTestQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Perform LDAP Login Test
+ */
+export const usePostLdapLoginTest = (props: UsePostLdapLoginTestProps) =>
+  useMutate<RestResponseLdapResponse, unknown, PostLdapLoginTestQueryParams, void, void>(
+    'POST',
+    `/authentication-settings/ldap-login-test`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Perform LDAP Login Test
+ */
+export const postLdapLoginTestPromise = (
+  props: MutateUsingFetchProps<RestResponseLdapResponse, unknown, PostLdapLoginTestQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseLdapResponse, unknown, PostLdapLoginTestQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/authentication-settings/ldap-login-test`,
+    props,
+    signal
+  )
+
 export interface DeleteLdapSettingsQueryParams {
   accountIdentifier?: string
 }
@@ -19382,6 +19539,109 @@ export const vpcsPromise = (
   getUsingFetch<ResponseListAwsVPC, Failure | Error, VpcsQueryParams, void>(
     getConfig('ng/api'),
     `/aws/aws-helper/vpcs`,
+    props,
+    signal
+  )
+
+export interface GetLocationsBySubscriptionQueryParams {
+  connectorRef: string
+  subscriptionId?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetLocationsBySubscriptionProps = Omit<
+  GetProps<ResponseAzureLocationsDTO, Failure | Error, GetLocationsBySubscriptionQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets azure locations defined for a subscription
+ */
+export const GetLocationsBySubscription = (props: GetLocationsBySubscriptionProps) => (
+  <Get<ResponseAzureLocationsDTO, Failure | Error, GetLocationsBySubscriptionQueryParams, void>
+    path={`/azure/locations`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLocationsBySubscriptionProps = Omit<
+  UseGetProps<ResponseAzureLocationsDTO, Failure | Error, GetLocationsBySubscriptionQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets azure locations defined for a subscription
+ */
+export const useGetLocationsBySubscription = (props: UseGetLocationsBySubscriptionProps) =>
+  useGet<ResponseAzureLocationsDTO, Failure | Error, GetLocationsBySubscriptionQueryParams, void>(`/azure/locations`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets azure locations defined for a subscription
+ */
+export const getLocationsBySubscriptionPromise = (
+  props: GetUsingFetchProps<ResponseAzureLocationsDTO, Failure | Error, GetLocationsBySubscriptionQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseAzureLocationsDTO, Failure | Error, GetLocationsBySubscriptionQueryParams, void>(
+    getConfig('ng/api'),
+    `/azure/locations`,
+    props,
+    signal
+  )
+
+export interface GetManagementGroupsQueryParams {
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetManagementGroupsProps = Omit<
+  GetProps<ResponseAzureManagementGroupsDTO, Failure | Error, GetManagementGroupsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets azure management groups
+ */
+export const GetManagementGroups = (props: GetManagementGroupsProps) => (
+  <Get<ResponseAzureManagementGroupsDTO, Failure | Error, GetManagementGroupsQueryParams, void>
+    path={`/azure/management-groups`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetManagementGroupsProps = Omit<
+  UseGetProps<ResponseAzureManagementGroupsDTO, Failure | Error, GetManagementGroupsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets azure management groups
+ */
+export const useGetManagementGroups = (props: UseGetManagementGroupsProps) =>
+  useGet<ResponseAzureManagementGroupsDTO, Failure | Error, GetManagementGroupsQueryParams, void>(
+    `/azure/management-groups`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets azure management groups
+ */
+export const getManagementGroupsPromise = (
+  props: GetUsingFetchProps<ResponseAzureManagementGroupsDTO, Failure | Error, GetManagementGroupsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseAzureManagementGroupsDTO, Failure | Error, GetManagementGroupsQueryParams, void>(
+    getConfig('ng/api'),
+    `/azure/management-groups`,
     props,
     signal
   )
@@ -24186,6 +24446,7 @@ export interface FetchFeatureRestrictionMetadataPathParams {
     | 'AZURE_WEBAPP_ROLLBACK'
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
+    | 'AZURE_CREATE_BP_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -24325,6 +24586,7 @@ export const fetchFeatureRestrictionMetadataPromise = (
       | 'AZURE_WEBAPP_ROLLBACK'
       | 'JENKINS_BUILD'
       | 'AZURE_CREATE_ARM_RESOURCE'
+      | 'AZURE_CREATE_BP_RESOURCE'
       | 'SECURITY'
       | 'DEVELOPERS'
       | 'MONTHLY_ACTIVE_USERS'
@@ -24444,6 +24706,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -24596,6 +24859,7 @@ export interface ListAllEntityUsageByFqnQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   searchTerm?: string
 }
 
@@ -27502,6 +27766,7 @@ export interface GetReferencedByQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   searchTerm?: string
 }
 
@@ -28860,6 +29125,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -29023,6 +29289,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'JenkinsBuild'
       | 'AzureCreateARMResource'
       | 'BuildAndPushACR'
+      | 'AzureCreateBPResource'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -34217,6 +34484,7 @@ export interface GetStepYamlSchemaQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   yamlGroup?: string
 }
 
@@ -34440,6 +34708,7 @@ export interface GetEntityYamlSchemaQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
 }
 
 export type GetEntityYamlSchemaProps = Omit<
@@ -40370,7 +40639,6 @@ export const payInvoicePromise = (
 
 export interface ListPaymentMethodsQueryParams {
   accountIdentifier: string
-  customerId: string
 }
 
 export type ListPaymentMethodsProps = Omit<
@@ -46007,6 +46275,7 @@ export interface GetYamlSchemaQueryParams {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
+    | 'AzureCreateBPResource'
   subtype?:
     | 'K8sCluster'
     | 'Git'

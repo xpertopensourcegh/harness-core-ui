@@ -37,6 +37,7 @@ import {
   usePipelineVariables
 } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { isValueRuntimeInput } from '@common/utils/utils'
 import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
 import { VariableType } from './CustomVariableUtils'
@@ -139,7 +140,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
             }
 
             function handleUpdate(index: number, variable: AllNGVariables): void {
-              variable.value = ''
+              variable.value = isValueRuntimeInput(variable.value) ? variable.value : ''
               replace(index, variable)
             }
 

@@ -28,6 +28,9 @@ jest.mock('services/pipeline-ng', () => ({
       data: { pipelineExecution: {}, stageGraph: {} }
     }
   })),
+  useCreateVariablesForPipelineExecution: jest.fn().mockReturnValue({
+    mutate: jest.fn()
+  }),
   useHandleInterrupt: jest.fn(() => ({
     mutate: jest.fn()
   })),

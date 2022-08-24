@@ -33,6 +33,7 @@ import type { NGVariable } from 'services/cd-ng'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { getVariablesValidationField } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/validation'
+import { isValueRuntimeInput } from '@common/utils/utils'
 import type { CustomVariableEditableProps, CustomVariablesData } from './CustomVariableEditable'
 import { VariableType, labelStringMap } from './CustomVariableUtils'
 import AddEditCustomVariable, { VariableState } from './AddEditCustomVariable'
@@ -106,7 +107,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
               }
 
               function handleUpdate(index: number, variable: AllNGVariables): void {
-                variable.value = ''
+                variable.value = isValueRuntimeInput(variable.value) ? variable.value : ''
                 replace(index, variable)
               }
 
