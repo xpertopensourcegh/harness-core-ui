@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: minmax(500px, 1fr) 1fr;
   overflow: hidden !important;
+  overflow-y: auto !important;
 
   .tableContent {
     position: relative;
