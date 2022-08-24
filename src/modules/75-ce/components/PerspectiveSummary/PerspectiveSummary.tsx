@@ -28,7 +28,8 @@ import {
   Maybe,
   useFetchPerspectiveBudgetQuery,
   BudgetSummary,
-  K8sRecommendationFilterDtoInput
+  K8sRecommendationFilterDtoInput,
+  QlceViewFilterWrapperInput
 } from 'services/ce/services'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
 import formatCost from '@ce/utils/formatCost'
@@ -36,7 +37,6 @@ import { useGetLastMonthCost, useGetForecastCost } from 'services/ce'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
-import { getViewFilterForId } from '@ce/utils/perspectiveUtils'
 import { PAGE_NAMES } from '@ce/TrackingEventsConstants'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -392,6 +392,7 @@ interface PerspectiveSummaryProps {
   errors?: any[] | null
   isDefaultPerspective: boolean
   hasClusterAsSource: boolean
+  filters: QlceViewFilterWrapperInput[]
 }
 
 const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
@@ -399,12 +400,9 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
   data,
   forecastedCostData,
   isDefaultPerspective,
-  hasClusterAsSource
+  hasClusterAsSource,
+  filters
 }) => {
-  const { perspectiveId } = useParams<{
-    perspectiveId: string
-  }>()
-
   let showForecastedCostCard = true
   if (!fetching && !forecastedCostData?.cost?.statsValue) {
     showForecastedCostCard = false
@@ -413,9 +411,9 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
   const recommendationFilters = useMemo(
     () =>
       ({
-        perspectiveFilters: [getViewFilterForId(perspectiveId)]
+        perspectiveFilters: filters
       } as K8sRecommendationFilterDtoInput),
-    [perspectiveId]
+    [filters]
   )
 
   return (

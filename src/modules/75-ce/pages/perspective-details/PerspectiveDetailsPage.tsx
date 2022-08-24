@@ -483,6 +483,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           forecastedCostData={summaryData?.perspectiveForecastCost as any}
           isDefaultPerspective={!!(perspectiveData?.viewType === ViewType.Default)}
           hasClusterAsSource={hasClusterAsSource}
+          filters={queryFilters}
         />
         <Container
           margin="xlarge"
