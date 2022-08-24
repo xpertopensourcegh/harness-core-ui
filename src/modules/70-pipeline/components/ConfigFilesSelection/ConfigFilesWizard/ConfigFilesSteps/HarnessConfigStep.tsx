@@ -162,24 +162,26 @@ export function HarnessConfigStep({
                       ]}
                     />
                   )}
-                  <MultiConfigSelectField
-                    name="files"
-                    fileType={formikProps.values.fileType}
-                    formik={formikProps}
-                    expressions={expressions}
-                    values={formikProps.values.files}
-                    fileUsage={FileUsage.CONFIG}
-                    multiTypeFieldSelectorProps={{
-                      disableTypeSelection: false,
-                      label: (
-                        <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                          {formikProps.values.fileType === FILE_TYPE_VALUES.FILE_STORE
-                            ? getString('fileFolderPathText')
-                            : getString('pipeline.configFiles.encryptedFiles')}
-                        </Text>
-                      )
-                    }}
-                  />
+                  <div className={css.multiConfigFile}>
+                    <MultiConfigSelectField
+                      name="files"
+                      fileType={formikProps.values.fileType}
+                      formik={formikProps}
+                      expressions={expressions}
+                      values={formikProps.values.files}
+                      fileUsage={FileUsage.CONFIG}
+                      multiTypeFieldSelectorProps={{
+                        disableTypeSelection: false,
+                        label: (
+                          <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
+                            {formikProps.values.fileType === FILE_TYPE_VALUES.FILE_STORE
+                              ? getString('fileFolderPathText')
+                              : getString('pipeline.configFiles.encryptedFiles')}
+                          </Text>
+                        )
+                      }}
+                    />
+                  </div>
                 </div>
                 <Layout.Horizontal>
                   <Button

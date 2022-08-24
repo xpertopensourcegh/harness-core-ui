@@ -148,6 +148,13 @@
       }
     }
   }
+
+  .multiConfigFile {
+    width: 340px;
+    button[id='configureOptions_files'] {
+      margin-top: var(--spacing-6) !important;
+    }
+  }
 }
 
 .blackText {

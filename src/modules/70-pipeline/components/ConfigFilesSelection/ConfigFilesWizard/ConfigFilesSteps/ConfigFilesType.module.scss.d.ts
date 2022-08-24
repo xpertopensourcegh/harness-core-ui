@@ -26,6 +26,7 @@ declare const styles: {
   readonly heading: string
   readonly identifierField: string
   readonly imagePathContainer: string
+  readonly multiConfigFile: string
   readonly optionsViewContainer: string
   readonly optionsViewGrid: string
   readonly padSmall: string

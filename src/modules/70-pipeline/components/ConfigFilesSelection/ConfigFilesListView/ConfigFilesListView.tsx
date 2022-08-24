@@ -26,7 +26,7 @@ import { FontVariation, Color } from '@harness/design-system'
 import cx from 'classnames'
 import get from 'lodash/get'
 import set from 'lodash-es/set'
-import { noop, defaultTo, isEmpty } from 'lodash-es'
+import { noop, defaultTo, isEmpty, isArray } from 'lodash-es'
 import produce from 'immer'
 import { useModalHook } from '@harness/use-modal'
 import type { ConfigFileWrapper, StageElementConfig, ServiceDefinition } from 'services/cd-ng'
@@ -436,13 +436,17 @@ function ConfigFilesListView({
                           color={Color.BLACK}
                           lineClamp={1}
                           inline
-                          tooltip={filesLocation.map((field: string, i: number) => {
-                            return (
-                              <Text padding="small" key={i}>
-                                {field}
-                              </Text>
-                            )
-                          })}
+                          tooltip={
+                            isArray(filesLocation)
+                              ? filesLocation.map((field: string, i: number) => {
+                                  return (
+                                    <Text padding="small" key={i}>
+                                      {field}
+                                    </Text>
+                                  )
+                                })
+                              : filesLocation
+                          }
                         >
                           {filesLocation}
                         </Text>
