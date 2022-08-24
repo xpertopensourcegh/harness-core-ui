@@ -295,7 +295,7 @@ exports[`ServicesList render 1`] = `
           class="TableV2--cell"
           colspan="1"
           role="columnheader"
-          style="width: 18%;"
+          style="width: 19%;"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -307,7 +307,7 @@ exports[`ServicesList render 1`] = `
           class="TableV2--cell"
           colspan="1"
           role="columnheader"
-          style="width: 4%;"
+          style="width: 3%;"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
@@ -541,12 +541,12 @@ exports[`ServicesList render 1`] = `
             <div
               class="TableV2--cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 19%;"
             />
             <div
               class="TableV2--cell"
               role="cell"
-              style="width: 4%;"
+              style="width: 3%;"
             >
               <div
                 class="Layout--horizontal StyledProps--main"
@@ -875,7 +875,7 @@ exports[`ServicesList render 1`] = `
             <div
               class="TableV2--cell"
               role="cell"
-              style="width: 18%;"
+              style="width: 19%;"
             >
               <div
                 class="Layout--horizontal StyledProps--main lastDeployment"
@@ -898,21 +898,41 @@ exports[`ServicesList render 1`] = `
                   dummy date
                 </div>
                 <div
-                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                  class="Layout--horizontal StyledProps--main StyledProps--flex"
                 >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main statusText StyledProps--background-green600 StyledProps--color StyledProps--color-white StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall"
-                    style="--text-line-clamp: 1;"
+                  <div
+                    class="status success"
                   >
-                    SUCCESS
-                  </p>
+                    <span
+                      class="bp3-icon bp3-icon-tick-circle StyledProps--main icon"
+                      icon="tick-circle"
+                    >
+                      <svg
+                        data-icon="tick-circle"
+                        height="9"
+                        viewBox="0 0 16 16"
+                        width="9"
+                      >
+                        <desc>
+                          tick-circle
+                        </desc>
+                        <path
+                          d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span>
+                      pipeline.executionStatus.Success
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
             <div
               class="TableV2--cell"
               role="cell"
-              style="width: 4%;"
+              style="width: 3%;"
             >
               <div
                 class="Layout--horizontal StyledProps--main"

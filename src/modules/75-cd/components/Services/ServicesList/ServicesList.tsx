@@ -52,8 +52,10 @@ import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { NewEditServiceModal } from '@cd/components/PipelineSteps/DeployServiceStep/NewEditServiceModal'
-import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
+import { isExecutionIgnoreFailed, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import { Sort, SortFields } from '@cd/utils/listUtils'
+import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
+import { mapToExecutionStatus } from '@pipeline/components/Dashboards/shared'
 import { ServiceTabs } from '../utils/ServiceUtils'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
 
@@ -341,12 +343,6 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
       showError(getString('cd.serviceDashboard.noLastDeployment'))
     }
   }
-  const [statusBackgroundColor, statusText] =
-    status?.toLocaleLowerCase() === DeploymentStatus.SUCCESS
-      ? [Color.GREEN_600, getString('success')]
-      : status?.toLocaleLowerCase() === DeploymentStatus.FAILED
-      ? [Color.RED_600, getString('failed')]
-      : [Color.YELLOW_600, status]
 
   if (!id) {
     return <></>
@@ -386,16 +382,16 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
           />
         )}
       </Layout.Vertical>
-      <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
-        <Text
-          background={statusBackgroundColor}
-          color={Color.WHITE}
-          font={{ weight: 'semi-bold', size: 'xsmall' }}
-          className={css.statusText}
-          lineClamp={1}
-        >
-          {statusText?.toLocaleUpperCase()}
-        </Text>
+      <Layout.Horizontal flex>
+        <ExecutionStatusLabel status={mapToExecutionStatus(status.toUpperCase())} />
+        {isExecutionIgnoreFailed(mapToExecutionStatus(status.toUpperCase())) ? (
+          <Text
+            icon={'warning-sign'}
+            intent={Intent.WARNING}
+            tooltip={getString('pipeline.execution.ignoreFailedWarningText')}
+            tooltipProps={{ position: Position.LEFT }}
+          />
+        ) : null}
       </Layout.Horizontal>
     </Layout.Horizontal>
   )
@@ -651,12 +647,12 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
         {
           Header: getString('cd.serviceDashboard.lastPipelineExecution').toLocaleUpperCase(),
           id: 'lastDeployment',
-          width: '18%',
+          width: '19%',
           Cell: RenderLastDeployment
         },
         {
           Header: '',
-          width: '4%',
+          width: '3%',
           id: 'action',
           Cell: RenderColumnMenu,
           reload: refetch,
