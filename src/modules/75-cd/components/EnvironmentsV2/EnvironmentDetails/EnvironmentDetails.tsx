@@ -142,28 +142,36 @@ export default function EnvironmentDetails(): React.ReactElement {
     })
     setSelectedTabId(tabId)
   }
+  const parsedYamlEnvironment = useMemo(
+    () => (yamlParse(defaultTo(yaml, '{}')) as NGEnvironmentConfig)?.environment,
+    [yaml]
+  )
+  const variables = defaultTo(parsedYamlEnvironment?.variables, [])
+  const overrides = parsedYamlEnvironment?.overrides
 
   const validate = (values: NGEnvironmentInfoConfig): void => {
-    const { name: newName, description: newDescription, tags: newTags, type: newType, variables: newVariables } = values
+    const {
+      name: newName,
+      description: newDescription,
+      tags: newTags,
+      type: newType,
+      variables: newVariables,
+      overrides: newOverrides
+    } = values
 
     if (
       name == newName &&
       (isNull(description) || description === newDescription) &&
       isEqual(tags, newTags) &&
       type === newType &&
-      isEqual(variables, newVariables)
+      isEqual(variables, newVariables) &&
+      isEqual(overrides, newOverrides)
     ) {
       setIsModified(false)
     } else {
       setIsModified(true)
     }
   }
-
-  const parsedYamlEnvironment = useMemo(
-    () => (yamlParse(defaultTo(yaml, '{}')) as NGEnvironmentConfig)?.environment,
-    [yaml]
-  )
-  const variables = defaultTo(parsedYamlEnvironment?.variables, [])
 
   return (
     <>
@@ -188,7 +196,8 @@ export default function EnvironmentDetails(): React.ReactElement {
                 type: defaultTo(type, ''),
                 orgIdentifier: defaultTo(orgIdentifier, ''),
                 projectIdentifier: defaultTo(projectIdentifier, ''),
-                variables
+                variables,
+                overrides
               } as NGEnvironmentInfoConfig
             }
             formName="editEnvironment"
@@ -288,7 +297,7 @@ export default function EnvironmentDetails(): React.ReactElement {
                         />
                         <Button
                           variation={ButtonVariation.TERTIARY}
-                          text={getString('cancel')}
+                          text={getString('pipeline.discard')}
                           onClick={
                             /* istanbul ignore next */ () => {
                               formikRef?.current?.setValues({
@@ -299,7 +308,8 @@ export default function EnvironmentDetails(): React.ReactElement {
                                 orgIdentifier: defaultTo(orgIdentifier, ''),
                                 projectIdentifier: defaultTo(projectIdentifier, ''),
                                 type: defaultTo(type, 'Production'),
-                                variables: defaultTo(variables, [])
+                                variables,
+                                overrides
                               })
                               setIsModified(false)
                             }

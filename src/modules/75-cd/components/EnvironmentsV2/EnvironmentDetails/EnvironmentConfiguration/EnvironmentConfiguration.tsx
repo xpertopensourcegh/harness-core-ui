@@ -8,10 +8,9 @@
 import React, { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import { useParams, useHistory, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import { defaultTo } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
-
 import {
   Container,
   Layout,
@@ -32,23 +31,27 @@ import routes from '@common/RouteDefinitions'
 import { projectPathProps, modulePathProps, environmentPathProps } from '@common/utils/routeUtils'
 import { NavigationCheck } from '@common/exports'
 import { useStrings } from 'framework/strings'
-import { NGEnvironmentInfoConfig, ResponseEnvironmentResponse, useGetYamlSchema } from 'services/cd-ng'
-
+import {
+  ManifestConfigWrapper,
+  NGEnvironmentInfoConfig,
+  ResponseEnvironmentResponse,
+  useGetYamlSchema
+} from 'services/cd-ng'
 import type { EnvironmentPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { NameIdDescriptionTags } from '@common/components'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-
 import { CustomVariablesEditableStage } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariablesEditableStage'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { PipelineContextType } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
-
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import ServiceManifestOverride from '../ServiceOverrides/ServiceManifestOverride/ServiceManifestOverride'
 import css from '../EnvironmentDetails.module.scss'
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -111,6 +114,13 @@ export default function EnvironmentConfiguration({
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps & EnvironmentPathProps>()
   const history = useHistory()
+  const isServiceManifestEnabled = useFeatureFlag(FeatureFlag.NG_SERVICE_MANIFEST_OVERRIDE)
+  const [canEdit] = usePermission({
+    resource: {
+      resourceType: ResourceType.ENVIRONMENT
+    },
+    permissions: [PermissionIdentifier.EDIT_ENVIRONMENT]
+  })
 
   const typeList: { label: string; value: string }[] = [
     {
@@ -122,6 +132,7 @@ export default function EnvironmentConfiguration({
       value: 'PreProduction'
     }
   ]
+  const [isYamlEditable, setIsYamlEditable] = useState(false)
 
   const { data: environmentSchema } = useGetYamlSchema({
     queryParams: {
@@ -132,15 +143,6 @@ export default function EnvironmentConfiguration({
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })
-
-  const [canEdit] = usePermission({
-    resource: {
-      resourceType: ResourceType.ENVIRONMENT
-    },
-    permissions: [PermissionIdentifier.EDIT_ENVIRONMENT]
-  })
-
-  const [isYamlEditable, setIsYamlEditable] = useState(false)
 
   const handleYamlChange = useCallback((): void => {
     const yaml = defaultTo(yamlHandler?.getLatestYaml(), '{}')
@@ -189,6 +191,32 @@ export default function EnvironmentConfiguration({
   }, [yamlHandler])
 
   const invalidYaml = isInvalidYaml()
+
+  /**********************************************Service Manifest CRUD Operations ************************************************/
+  const handleManifestOverrideSubmit = useCallback(
+    (manifestObj: ManifestConfigWrapper, manifestIndex: number): void => {
+      const manifestOverrides = formikProps?.values?.overrides
+      const manifestDefaultValue = defaultTo([...(manifestOverrides?.manifests as ManifestConfigWrapper[])], [])
+      if (manifestDefaultValue?.length) {
+        manifestDefaultValue.splice(manifestIndex, 1, manifestObj)
+      } else {
+        manifestDefaultValue.push(manifestObj)
+      }
+      formikProps?.setFieldValue('overrides.manifests', manifestDefaultValue)
+    },
+    [formikProps]
+  )
+
+  const removeManifestConfig = useCallback(
+    (index: number): void => {
+      const manifestOverrides = formikProps?.values?.overrides
+      const manifestDefaultValue = defaultTo([...(manifestOverrides?.manifests as ManifestConfigWrapper[])], [])
+      manifestDefaultValue.splice(index, 1)
+      formikProps?.setFieldValue('overrides.manifests', manifestDefaultValue)
+    },
+    [formikProps]
+  )
+  /**********************************************Service Manifest CRUD Operations ************************************************/
 
   return (
     <Container padding={{ left: 'xxlarge', right: 'medium' }}>
@@ -268,8 +296,7 @@ export default function EnvironmentConfiguration({
                 addDomId={true}
                 summary={
                   <Text color={Color.GREY_700} font={{ weight: 'bold' }} margin={{ left: 'small', right: 'small' }}>
-                    {getString('common.advanced')}
-                    {getString('titleOptional')}
+                    {`${getString('common.advanced')}  ${getString('titleOptional')}`}
                   </Text>
                 }
                 details={
@@ -298,6 +325,23 @@ export default function EnvironmentConfiguration({
                         }}
                       />
                     </Card>
+                    {isServiceManifestEnabled && (
+                      <Card
+                        className={cx(css.sectionCard, { [css.fullWidth]: context !== PipelineContextType.Standalone })}
+                        id="manifests"
+                      >
+                        <Text color={Color.GREY_700} font={{ weight: 'bold' }} margin={{ bottom: 'small' }}>
+                          {getString('cd.serviceOverrides.manifestOverrides')}
+                        </Text>
+                        <ServiceManifestOverride
+                          manifestOverrides={defaultTo(formikProps.values.overrides?.manifests, [])}
+                          handleManifestOverrideSubmit={handleManifestOverrideSubmit}
+                          removeManifestConfig={removeManifestConfig}
+                          isReadonly={!canEdit}
+                          fromEnvConfigPage
+                        />
+                      </Card>
+                    )}
                   </Layout.Vertical>
                 }
               />
@@ -318,7 +362,10 @@ export default function EnvironmentConfiguration({
                 type: defaultTo(formikProps.values.type, 'Production'),
                 orgIdentifier: defaultTo(formikProps.values.orgIdentifier, ''),
                 projectIdentifier: defaultTo(formikProps.values.projectIdentifier, ''),
-                variables: defaultTo(formikProps.values.variables, [])
+                variables: defaultTo(formikProps.values.variables, []),
+                overrides: !isEmpty(formikProps.values.overrides)
+                  ? { manifests: formikProps.values.overrides?.manifests }
+                  : undefined
               }
             }}
             key={isYamlEditable.toString()}

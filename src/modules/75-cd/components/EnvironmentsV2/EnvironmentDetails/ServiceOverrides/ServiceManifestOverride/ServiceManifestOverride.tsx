@@ -53,6 +53,7 @@ interface ManifestVariableOverrideProps {
   isReadonly: boolean
   handleManifestOverrideSubmit: (val: ManifestConfigWrapper, index: number) => void
   removeManifestConfig: (index: number) => void
+  fromEnvConfigPage?: boolean
 }
 const DIALOG_PROPS: IDialogProps = {
   isOpen: true,
@@ -67,7 +68,8 @@ function ServiceManifestOverride({
   manifestOverrides,
   handleManifestOverrideSubmit,
   removeManifestConfig,
-  isReadonly
+  isReadonly,
+  fromEnvConfigPage
 }: ManifestVariableOverrideProps): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -240,6 +242,18 @@ function ServiceManifestOverride({
     )
   }, [selectedManifest, expressions.length, expressions, allowableTypes])
 
+  const addBtnCommonProps = {
+    size: ButtonSize.SMALL,
+    variation: ButtonVariation.LINK,
+    permission: {
+      resource: {
+        resourceType: ResourceType.ENVIRONMENT
+      },
+      permission: PermissionIdentifier.EDIT_ENVIRONMENT
+    },
+    onClick: createNewManifestOverride
+  }
+
   return (
     <Layout.Vertical flex={{ alignItems: 'flex-start' }}>
       <ServiceManifestOverridesList
@@ -248,18 +262,14 @@ function ServiceManifestOverride({
         editManifestOverride={editManifestOverride}
         removeManifestConfig={removeManifestConfig}
       />
-      <RbacButton
-        size={ButtonSize.SMALL}
-        variation={ButtonVariation.LINK}
-        text={getString('common.plusNewName', { name: getString('common.override') })}
-        onClick={createNewManifestOverride}
-        permission={{
-          resource: {
-            resourceType: ResourceType.ENVIRONMENT
-          },
-          permission: PermissionIdentifier.EDIT_ENVIRONMENT
-        }}
-      />
+      {fromEnvConfigPage ? (
+        <RbacButton {...addBtnCommonProps} icon="plus" text={getString('pipeline.manifestType.addManifestLabel')} />
+      ) : (
+        <RbacButton
+          {...addBtnCommonProps}
+          text={getString('common.plusNewName', { name: getString('common.override') })}
+        />
+      )}
     </Layout.Vertical>
   )
 }
