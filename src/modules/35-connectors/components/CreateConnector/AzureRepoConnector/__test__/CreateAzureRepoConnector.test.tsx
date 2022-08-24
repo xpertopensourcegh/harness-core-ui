@@ -13,9 +13,21 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
 
 import { GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import routes from '@common/RouteDefinitions'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import CreateAzureRepoConnector from '../CreateAzureRepoConnector'
-import { mockResponse, mockSecret, usernameToken, usernameTokenWithAPIAccess, backButtonMock } from './azureRepoMocks'
+import {
+  mockResponse,
+  mockSecret,
+  usernameToken,
+  usernameTokenWithAPIAccess,
+  backButtonMock,
+  hostedMock
+} from './azureRepoMocks'
 import { backButtonTest } from '../../commonTest'
+
+const testPath = routes.toConnectors({ accountId: ':accountId' })
+const testPathParams = { accountId: 'dummy' }
 
 const commonProps = {
   accountId: 'dummy',
@@ -53,8 +65,14 @@ describe('Create AzureRepoconnector Wizard', () => {
 
   test('Creating AzureRepo connector step one', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateAzureRepoConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      <TestWrapper path={testPath} pathParams={testPathParams}>
+        <CreateAzureRepoConnector
+          {...commonProps}
+          isEditMode={false}
+          connectorInfo={undefined}
+          mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
+        />
       </TestWrapper>
     )
     // fill step 1
@@ -67,8 +85,14 @@ describe('Create AzureRepoconnector Wizard', () => {
 
   test('Creating AzureRepo connector step one and step two for HTTPS', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateAzureRepoConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      <TestWrapper path={testPath} pathParams={testPathParams}>
+        <CreateAzureRepoConnector
+          {...commonProps}
+          isEditMode={false}
+          connectorInfo={undefined}
+          mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
+        />
       </TestWrapper>
     )
 
@@ -103,8 +127,14 @@ describe('Create AzureRepoconnector Wizard', () => {
 
   test('Creating AzureRepo connector step two for SSH key', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateAzureRepoConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      <TestWrapper path={testPath} pathParams={testPathParams}>
+        <CreateAzureRepoConnector
+          {...commonProps}
+          isEditMode={false}
+          connectorInfo={undefined}
+          mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
+        />
       </TestWrapper>
     )
 
@@ -145,12 +175,13 @@ describe('Create AzureRepoconnector Wizard', () => {
 
   test('form for edit http and authtype username-token without API access', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper path={testPath} pathParams={testPathParams}>
         <CreateAzureRepoConnector
           {...commonProps}
           isEditMode={true}
           connectorInfo={usernameToken}
           mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
         />
       </TestWrapper>
     )
@@ -177,6 +208,10 @@ describe('Create AzureRepoconnector Wizard', () => {
       clickSubmit(container)
     })
 
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     expect(updateConnector).toBeCalledWith(
       {
         connector: usernameToken
@@ -188,12 +223,13 @@ describe('Create AzureRepoconnector Wizard', () => {
   test('form for edit http and authtype username-token with API access', async () => {
     updateConnector.mockReset()
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper path={testPath} pathParams={testPathParams}>
         <CreateAzureRepoConnector
           {...commonProps}
           isEditMode={true}
           connectorInfo={usernameTokenWithAPIAccess}
           mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
         />
       </TestWrapper>
     )
@@ -230,6 +266,10 @@ describe('Create AzureRepoconnector Wizard', () => {
       clickSubmit(container)
     })
 
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     // expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith(
       {
@@ -239,14 +279,58 @@ describe('Create AzureRepoconnector Wizard', () => {
     )
   })
 
+  test('should render edit form for hosted', async () => {
+    const { container } = render(
+      <TestWrapper path={testPath} pathParams={testPathParams}>
+        <CreateAzureRepoConnector
+          {...commonProps}
+          isEditMode={true}
+          connectorInfo={hostedMock}
+          mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Manager}
+        />
+      </TestWrapper>
+    )
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    // step 3
+    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
+    expect(container).toMatchSnapshot()
+
+    // delegate selector step
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    // test connection
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: hostedMock
+      },
+      { queryParams: {} } // gitSync disabled for account level
+    )
+  })
+
   backButtonTest({
     Element: (
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper path={testPath} pathParams={testPathParams}>
         <CreateAzureRepoConnector
           {...commonProps}
           isEditMode={true}
           connectorInfo={backButtonMock}
           mock={mockResponse}
+          connectivityMode={ConnectivityModeType.Delegate}
         />
       </TestWrapper>
     ),

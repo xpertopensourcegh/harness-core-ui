@@ -341,6 +341,7 @@ export const buildGitlabPayload = (formData: FormData) => {
     type: Connectors.GITLAB,
     spec: {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      executeOnDelegate: getExecuteOnDelegateValue(formData.connectivityMode),
       type: formData.urlType,
       url: formData.url,
       ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
@@ -391,6 +392,7 @@ export const buildBitbucketPayload = (formData: FormData) => {
     type: Connectors.BITBUCKET,
     spec: {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      executeOnDelegate: getExecuteOnDelegateValue(formData.connectivityMode),
       type: formData.urlType,
       url: formData.url,
       ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
@@ -432,6 +434,7 @@ export const buildAzureRepoPayload = (formData: FormData) => {
     type: Connectors.AZURE_REPO,
     spec: {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      executeOnDelegate: getExecuteOnDelegateValue(formData.connectivityMode),
       type: formData.urlType,
       url: formData.url,
       ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
@@ -550,7 +553,8 @@ export const setupBitbucketFormData = async (connectorInfo: ConnectorInfoDTO, ac
         : undefined,
 
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
-    accessToken: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.tokenRef, scopeQueryParams)
+    accessToken: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.tokenRef, scopeQueryParams),
+    connectivityMode: getConnectivityMode(connectorInfo?.spec?.executeOnDelegate)
   }
 
   return formData
@@ -581,7 +585,8 @@ export const setupAzureRepoFormData = async (connectorInfo: ConnectorInfoDTO, ac
     ),
     enableAPIAccess: !!connectorInfo?.spec?.apiAccess,
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
-    apiAccessToken: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.tokenRef, scopeQueryParams)
+    apiAccessToken: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.tokenRef, scopeQueryParams),
+    connectivityMode: getConnectivityMode(connectorInfo?.spec?.executeOnDelegate)
   }
   return formData
 }

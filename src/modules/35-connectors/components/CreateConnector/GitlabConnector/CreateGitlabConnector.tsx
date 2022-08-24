@@ -18,10 +18,12 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { useStrings } from 'framework/strings'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildGitlabPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepGitlabAuthentication from './StepAuth/StepGitlabAuthentication'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import ConnectivityModeStep from '../commonSteps/ConnectivityModeStep/ConnectivityModeStep'
 
 const CreateGitlabConnector = (props: CreateConnectorModalProps): JSX.Element => {
   const { getString } = useStrings()
@@ -33,7 +35,9 @@ const CreateGitlabConnector = (props: CreateConnectorModalProps): JSX.Element =>
     'setIsEditMode',
     'accountId',
     'orgIdentifier',
-    'projectIdentifier'
+    'projectIdentifier',
+    'connectivityMode',
+    'setConnectivityMode'
   ])
 
   return (
@@ -63,16 +67,32 @@ const CreateGitlabConnector = (props: CreateConnectorModalProps): JSX.Element =>
         {...commonProps}
         onConnectorCreated={props.onSuccess}
       />
-      <DelegateSelectorStep
-        name={getString('delegate.DelegateselectionLabel')}
+      <ConnectivityModeStep
+        name={getString('connectors.selectConnectivityMode')}
+        type={Connectors.GITLAB}
+        gitDetails={props.gitDetails}
+        connectorInfo={props.connectorInfo}
         isEditMode={props.isEditMode}
         setIsEditMode={props.setIsEditMode}
         buildPayload={buildGitlabPayload}
+        connectivityMode={props.connectivityMode}
+        setConnectivityMode={props.setConnectivityMode}
         hideModal={props.onClose}
         onConnectorCreated={props.onSuccess}
-        connectorInfo={props.connectorInfo}
-        gitDetails={props.gitDetails}
       />
+      {props.connectivityMode === ConnectivityModeType.Delegate ? (
+        <DelegateSelectorStep
+          name={getString('delegate.DelegateselectionLabel')}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
+          buildPayload={buildGitlabPayload}
+          hideModal={props.onClose}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
+          helpPanelReferenceId="ConnectorDelegatesSetup"
+        />
+      ) : null}
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         connectorInfo={props.connectorInfo}
