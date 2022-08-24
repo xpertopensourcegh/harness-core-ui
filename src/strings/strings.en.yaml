@@ -481,7 +481,7 @@ inputSets:
   inputSetSavedError: Error while saving Input Set
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
-  saveAsInputSet: Save as Input Set
+  saveAsInputSet: Save as New Input Set
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
