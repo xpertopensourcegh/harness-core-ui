@@ -1756,10 +1756,10 @@
     "@contentful/rich-text-react-renderer" "^15.12.0"
     contentful "^9.1.20"
 
-"@harness/icons@^1.49.0":
-  version "1.51.0"
-  resolved "https://npm.pkg.github.com/download/@harness/icons/1.51.0/62f0f0a467b09a69771d1a0eb9c94502ab3769921cdd79aa80247b9845e35b07#88f3da86126c8d7761d19d594759198cf6312b6b"
-  integrity sha512-Gwt9LVxHQpghJrvgQ5Fb1n+Dr93tOKPBQvJvy5tk9obOIj9g8FkglwjXrJroGnUCICdIwccIlk/sf6tdw03zMg==
+"@harness/icons@^1.55.0":
+  version "1.56.0"
+  resolved "https://npm.pkg.github.com/download/@harness/icons/1.56.0/5ee234c3932e86738da03a2392698af052218b04#5ee234c3932e86738da03a2392698af052218b04"
+  integrity sha512-pF1Bh8Sfg8XIa+23CxoFN8Q0F8Na/gzEk/B/Go3gCJCSwOpP3sxpbZNEQjHmyqmVJ+Pbo0L3OT2CyGVAF7An0Q==
 
 "@harness/jarvis@0.16.0":
   version "0.16.0"
