@@ -96,11 +96,22 @@ export function StrategyFormInternal(
 ): React.ReactElement {
   const { readonly, path, formik } = props
   const { getString } = useStrings()
+  const isChanged = React.useRef(false)
 
-  const value = yamlStringify(get(formik.values, path, '')).replace(': null\n', ': \n')
+  const formikValue = yamlStringify(get(formik.values, path, ''))
+  const [value, setValue] = React.useState(formikValue)
+
+  React.useEffect(() => {
+    // do not update values from formik once user has changed the input
+    if (!isChanged.current) {
+      setValue(formikValue)
+    }
+  }, [formikValue])
 
   function handleChange(newValue: string): void {
     try {
+      isChanged.current = true
+      setValue(newValue)
       const parsed = yamlParse(newValue)
       formik.setValues(
         produce(formik.values, (draft: any) => {
