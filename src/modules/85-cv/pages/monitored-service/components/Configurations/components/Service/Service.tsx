@@ -217,6 +217,18 @@ function Service(
                   serviceFormFormik={formik}
                   isTemplate={isTemplate}
                   expressions={expressions}
+                  onSave={data => {
+                    onSave({
+                      formik: {
+                        ...formik,
+                        values: {
+                          ...(formik?.values || {}),
+                          sources: { ...formik.values?.sources, healthSources: data }
+                        }
+                      },
+                      onSuccess
+                    })
+                  }}
                 />
                 {!isTemplate && (
                   <MonitoredServiceNotificationsContainer
