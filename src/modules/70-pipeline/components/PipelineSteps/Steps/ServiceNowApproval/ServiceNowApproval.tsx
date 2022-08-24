@@ -239,6 +239,7 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <SnowApprovalDeploymentModeWithFormik
+          formik={formikRef}
           stepViewType={stepViewType}
           initialValues={initialValues}
           allowableTypes={allowableTypes}

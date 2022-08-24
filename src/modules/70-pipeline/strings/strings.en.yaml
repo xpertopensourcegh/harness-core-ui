@@ -218,9 +218,14 @@ serviceNowApprovalStep:
   issueNumberPlaceholder: Enter Ticket Number
   fetchingTicketTypesPlaceholder: Fetching Ticket Types...
   fetchTicketTypesError: Failed to fetch ticket types
+  fetching: Fetching...
+  failedToFetch: Failed to fetch
   jexlExpressionPlaceholder: |
     Example: <+ticket.state.value> == "Done"
   serviceNowField: Service Now Field
+  approvalChangeWindow: Approval Change Window
+  windowStart: Window Start
+  windowEnd: Window End
   execution:
     wasApproved: 'Approval Criteria was met for ServiceNow Ticket:'
     wasRejected: 'Rejection Criteria was met for ServiceNow Ticket:'
@@ -235,6 +240,8 @@ serviceNowApprovalStep:
     connectorRef: ServiceNow Connector is required
     ticketType: Ticket Type is required
     issueNumber: Ticket Number is required
+    windowStart: Window Start is required
+    windowEnd: Window End is required
 serviceNowCreateStep:
   fieldType:
     configureFields: Configure Fields
