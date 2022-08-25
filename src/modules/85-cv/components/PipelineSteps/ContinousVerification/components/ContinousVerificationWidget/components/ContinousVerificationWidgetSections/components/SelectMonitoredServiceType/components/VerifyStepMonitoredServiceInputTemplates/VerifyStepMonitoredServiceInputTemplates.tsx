@@ -21,7 +21,7 @@ import type { ServiceAndEnv } from '../../SelectMonitoredServiceType.types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './VerifyStepMonitoredServiceInputTemplates.module.scss'
 
-interface VerifyStepMonitoredServiceInputTemplatesProps {
+export interface VerifyStepMonitoredServiceInputTemplatesProps {
   allowableTypes: AllowedTypes
   healthSources: TemplateInputs['sources']['healthSources']
   healthSourcesVariables: TemplateInputs['variables']
@@ -50,36 +50,38 @@ export default function VerifyStepMonitoredServiceInputTemplates(
   return (
     <>
       <Text padding={{ bottom: 'medium', top: 'medium' }}>{'Template Inputs'}</Text>
-      <Card className={css.card}>
-        {serviceRef ? (
-          <div className={stepCss.formGroup}>
-            <FormInput.MultiTypeInput
-              name="spec.monitoredService.spec.templateInputs.serviceRef"
-              label={getString('service')}
-              selectItems={serviceOptions}
-              multiTypeInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              useValue
-            />
-          </div>
-        ) : null}
-        {environmentRef ? (
-          <div className={stepCss.formGroup}>
-            <FormInput.MultiTypeInput
-              name="spec.monitoredService.spec.templateInputs.environmentRef"
-              label={getString('environment')}
-              selectItems={environmentOptions}
-              multiTypeInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              useValue
-            />
-          </div>
-        ) : null}
-      </Card>
+      {serviceRef || environmentRef ? (
+        <Card className={css.card}>
+          {serviceRef ? (
+            <div className={stepCss.formGroup}>
+              <FormInput.MultiTypeInput
+                name="spec.monitoredService.spec.templateInputs.serviceRef"
+                label={getString('service')}
+                selectItems={serviceOptions}
+                multiTypeInputProps={{
+                  expressions,
+                  allowableTypes
+                }}
+                useValue
+              />
+            </div>
+          ) : null}
+          {environmentRef ? (
+            <div className={stepCss.formGroup}>
+              <FormInput.MultiTypeInput
+                name="spec.monitoredService.spec.templateInputs.environmentRef"
+                label={getString('environment')}
+                selectItems={environmentOptions}
+                multiTypeInputProps={{
+                  expressions,
+                  allowableTypes
+                }}
+                useValue
+              />
+            </div>
+          ) : null}
+        </Card>
+      ) : null}
       <MonitoredServiceInputTemplatesHealthSources
         healthSources={healthSources}
         templateIdentifier={monitoredServiceTemplateRef}

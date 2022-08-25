@@ -87,7 +87,7 @@ export default function TemplatisedRunTimeMonitoredService(
                       accountIdentifier={accountId}
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
-                      width={370}
+                      width={330}
                       name={`${prefix}spec.monitoredService.spec.templateInputs.${input.path}`}
                       label={getString('connector')}
                       placeholder={getString('cv.healthSource.connectors.selectConnector', {
