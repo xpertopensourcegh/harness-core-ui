@@ -345,6 +345,10 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       delete modifiedData.spec.executionTarget.connectorRef
     }
 
+    if (modifiedData.spec.onDelegate) {
+      delete modifiedData.spec.executionTarget
+    }
+
     return modifiedData
   }
 }

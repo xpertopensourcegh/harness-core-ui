@@ -286,7 +286,6 @@ describe('Test Shell Script Step', () => {
             script: 'script test'
           }
         },
-        executionTarget: {},
         environmentVariables: [
           {
             name: 'testInput1',
