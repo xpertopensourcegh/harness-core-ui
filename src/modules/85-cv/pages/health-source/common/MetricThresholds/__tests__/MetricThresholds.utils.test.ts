@@ -15,14 +15,18 @@ import {
   getCriterialItems,
   getCriteriaPercentageDropdownOptions,
   getDefaultMetricTypeValue,
+  getDefaultValueForMetricType,
   getFilteredMetricThresholdValues,
   getGroupDropdownOptions,
   getIsMetricPacksSelected,
   getIsShowGreaterThan,
   getIsShowLessThan,
   getMetricItems,
+  getMetricItemsForOnlyCustomMetrics,
+  getMetricNameItems,
   getMetricPacksForPayload,
   isGroupTransationTextField,
+  updateThresholdState,
   validateCommonFieldsForMetricThreshold
 } from '../MetricThresholds.utils'
 import {
@@ -32,7 +36,8 @@ import {
   groupedCreatedMetricsDefault,
   metricPacksMock,
   metricThresholdsPayloadMockData,
-  mockThresholdValue
+  mockThresholdValue,
+  singleIgnoreThreshold
 } from './MetricThresholds.utils.mock'
 
 describe('AppDIgnoreThresholdTabContent', () => {
@@ -458,6 +463,38 @@ describe('AppDIgnoreThresholdTabContent', () => {
     expect(result).toEqual([])
   })
 
+  test('getDefaultValueForMetricType should return correct value', () => {
+    let result = getDefaultValueForMetricType({ Performance: false, Errors: true })
+
+    expect(result).toBe(undefined)
+
+    result = getDefaultValueForMetricType({ Performance: false, Errors: true }, metricPacksMock)
+    expect(result).toBe('Errors')
+
+    result = getDefaultValueForMetricType({ Performance: true, Errors: false }, metricPacksMock)
+    expect(result).toBe('Performance')
+
+    result = getDefaultValueForMetricType({ Performance: false, Errors: false }, metricPacksMock)
+    expect(result).toBe(undefined)
+
+    result = getDefaultValueForMetricType({ Performance: false, Errors: false }, metricPacksMock, true)
+    expect(result).toBe('Custom')
+  })
+
+  test('updateThresholdState should return correct value', () => {
+    const result = updateThresholdState(
+      { ignoreThresholds: [], failFastThresholds: [] },
+      {
+        ignoreThresholds: [singleIgnoreThreshold]
+      }
+    )
+
+    expect(result).toEqual({
+      failFastThresholds: [],
+      ignoreThresholds: [singleIgnoreThreshold]
+    })
+  })
+
   test('getDefaultMetricTypeValue should return correct value', () => {
     let result = getDefaultMetricTypeValue({ Performance: false, Errors: true })
 
@@ -522,5 +559,23 @@ describe('AppDIgnoreThresholdTabContent', () => {
     const result = getIsMetricPacksSelected({ Performance: false, Errors: false })
 
     expect(result).toBe(false)
+  })
+
+  test('getMetricItemsForOnlyCustomMetrics should return correct output', () => {
+    const result = getMetricItemsForOnlyCustomMetrics(groupedCreatedMetrics)
+
+    expect(result).toEqual([{ label: 'test metric', value: 'test metric' }])
+  })
+
+  test('getMetricItemsForOnlyCustomMetrics should return empty array if no group is created', () => {
+    const result = getMetricItemsForOnlyCustomMetrics({})
+
+    expect(result).toEqual([])
+  })
+
+  test('getMetricNameItems should return all the metric names if the isOnlyCustomMetricHealthSource flag is true', () => {
+    const result = getMetricNameItems(groupedCreatedMetrics, [], '', '', true)
+
+    expect(result).toEqual([{ label: 'test metric', value: 'test metric' }])
   })
 })

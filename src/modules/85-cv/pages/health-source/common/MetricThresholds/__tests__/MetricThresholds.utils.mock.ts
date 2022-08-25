@@ -7,6 +7,7 @@ import {
   MetricCriteriaValues,
   PercentageCriteriaDropdownValues
 } from '../MetricThresholds.constants'
+import type { MetricThresholdType } from '../MetricThresholds.types'
 
 export const groupedCreatedMetrics = {
   'group 1': [
@@ -136,4 +137,43 @@ export const formDataMock = {
   },
   ignoreThresholds: ignoreThresholdsMockData,
   failFastThresholds: failFastThresholdsMockData
+}
+
+export const formikInitialValuesCriteriaMock = {
+  ignoreThresholds: [
+    {
+      metricType: 'Custom',
+      metricName: null,
+      type: 'IgnoreThreshold',
+      spec: {
+        action: 'Ignore'
+      },
+      criteria: {
+        type: 'Percentage',
+        spec: {
+          lessThan: 21
+        }
+      }
+    }
+  ],
+  failFastThresholds: []
+}
+
+export const singleIgnoreThreshold: MetricThresholdType = {
+  metricType: 'Custom',
+  type: 'IgnoreThreshold',
+  spec: {
+    action: 'Ignore'
+  },
+  criteria: {
+    type: 'Percentage',
+    spec: {
+      greaterThan: 21
+    }
+  }
+}
+
+export const formikInitialValuesCriteriaGreaterThanMock = {
+  ignoreThresholds: [singleIgnoreThreshold],
+  failFastThresholds: []
 }

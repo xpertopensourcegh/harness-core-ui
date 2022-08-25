@@ -24,8 +24,10 @@ import {
 import type {
   AvailableThresholdTypes,
   CriteriaThresholdValues,
+  MetricThresholdsState,
   SelectItem,
-  ThresholdCriteriaPropsType
+  ThresholdCriteriaPropsType,
+  ThresholdsPropertyNames
 } from './MetricThresholds.types'
 
 export const getCriterialItems = (getString: UseStringsReturn['getString']): SelectItem[] => {
@@ -39,6 +41,28 @@ export const getCriterialItems = (getString: UseStringsReturn['getString']): Sel
       value: MetricCriteriaValues.Percentage
     }
   ]
+}
+
+export const getDefaultValueForMetricType = (
+  metricData?: Record<string, boolean>,
+  metricPacks?: MetricPackDTO[],
+  isOnlyCustomMetricHealthSource?: boolean
+): string | undefined => {
+  return isOnlyCustomMetricHealthSource
+    ? MetricTypeValues.Custom
+    : getDefaultMetricTypeValue(metricData as Record<string, boolean>, metricPacks)
+}
+
+type ThresholdObject = Partial<Record<ThresholdsPropertyNames, MetricThresholdType[]>>
+
+export function updateThresholdState(
+  previousValues: MetricThresholdsState,
+  updatedThreshold: ThresholdObject
+): MetricThresholdsState {
+  return {
+    ...previousValues,
+    ...updatedThreshold
+  }
 }
 
 export const getCriteriaPercentageDropdownOptions = (getString: UseStringsReturn['getString']): SelectItem[] => [
@@ -341,23 +365,26 @@ export const getIsMetricPacksSelected = (metricData: { [key: string]: boolean })
 }
 
 export function getMetricTypeItems(
-  metricPacks: MetricPackDTO[],
-  metricData: Record<string, boolean>,
-  groupedCreatedMetrics: GroupedCreatedMetrics
+  groupedCreatedMetrics: GroupedCreatedMetrics,
+  metricPacks?: MetricPackDTO[],
+  metricData?: Record<string, boolean>,
+  isOnlyCustomMetricHealthSource?: boolean
 ): SelectItem[] {
-  if (!metricPacks || !metricPacks.length) return []
+  if ((!metricPacks || !metricPacks.length) && !isOnlyCustomMetricHealthSource) return []
 
   const options: SelectItem[] = []
 
-  metricPacks.forEach(metricPack => {
-    // Adding only the Metric type options which are checked in metric packs
-    if (metricData[metricPack.identifier as string]) {
-      options.push({
-        label: metricPack.identifier as string,
-        value: metricPack.identifier as string
-      })
-    }
-  })
+  if (!isOnlyCustomMetricHealthSource && metricPacks && metricData) {
+    metricPacks.forEach(metricPack => {
+      // Adding only the Metric type options which are checked in metric packs
+      if (metricData[metricPack.identifier as string]) {
+        options.push({
+          label: metricPack.identifier as string,
+          value: metricPack.identifier as string
+        })
+      }
+    })
+  }
 
   // Adding Custom metric option only if there are any custom metric is present
   const isCustomMetricPresent = Boolean(getCustomMetricGroupNames(groupedCreatedMetrics).length)
@@ -515,4 +542,48 @@ export const getMetricPacksForPayload = (
   }
 
   return filteredMetricPacks
+}
+
+// Utils for only custom metrics health source, like Prometheus, Datadog
+function getAllMetricsNameOptions(groupedCreatedMetrics: GroupedCreatedMetrics): SelectItem[] {
+  const groups = Object.keys(groupedCreatedMetrics)
+
+  if (!groups.length) {
+    return []
+  }
+
+  const options: SelectItem[] = []
+
+  groups.forEach(group => {
+    const groupDetails = groupedCreatedMetrics[group]
+    const metricNameOptions = groupDetails.map(groupDetail => {
+      return {
+        label: groupDetail.metricName as string,
+        value: groupDetail.metricName as string
+      }
+    })
+
+    options.push(...metricNameOptions)
+  })
+
+  return options
+}
+
+export function getMetricItemsForOnlyCustomMetrics(groupedCreatedMetrics: GroupedCreatedMetrics): SelectItem[] {
+  return getAllMetricsNameOptions(groupedCreatedMetrics)
+}
+
+export function getMetricNameItems(
+  groupedCreatedMetrics: GroupedCreatedMetrics,
+  metricPacks?: TimeSeriesMetricPackDTO[],
+  metricType?: string,
+  groupName?: string,
+  isOnlyCustomMetricHealthSource?: boolean
+): SelectItem[] {
+  // Should return all the metric names if it is isOnlyCustomMetricHealthSource
+  if (isOnlyCustomMetricHealthSource) {
+    return getMetricItemsForOnlyCustomMetrics(groupedCreatedMetrics)
+  }
+
+  return getMetricItems(metricPacks as TimeSeriesMetricPackDTO[], metricType, groupName, groupedCreatedMetrics)
 }
