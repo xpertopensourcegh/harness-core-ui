@@ -78,7 +78,7 @@ const EditServicesModal: FC<EditServicesProps> = ({
         <ExpandingSearchInput
           name="serviceSearch"
           alwaysExpanded
-          placeholder={getString('search')}
+          placeholder={getString('cf.featureFlagDetail.searchService')}
           throttle={200}
           onChange={onSearch}
         />
@@ -188,7 +188,10 @@ const ServicesList: React.FC<ServicesListProps> = props => {
     error,
     refetch
   } = useGetServiceList({
-    queryParams
+    queryParams: {
+      ...queryParams,
+      searchTerm
+    }
   })
 
   useEffect(() => {
@@ -298,6 +301,7 @@ const ServicesList: React.FC<ServicesListProps> = props => {
             closeModal={() => {
               setServices(initialServices)
               setShowModal(false)
+              setSearchTerm('')
             }}
             loading={loading || patchLoading}
             onChange={handleChange}

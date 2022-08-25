@@ -17,6 +17,7 @@ import mockServiceList from './__data__/mockService'
 import ServicesList from '../ServicesList'
 
 const refetchFlagMock = jest.fn()
+const loadingMessage = 'Loading, please wait...'
 
 const renderComponent = (): RenderResult => {
   return render(
@@ -144,7 +145,7 @@ describe('ServiceList', () => {
 
     userEvent.click(screen.getByRole('button', { name: 'save' }))
 
-    await waitFor(() => expect(screen.getByText('Loading, please wait...')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText(loadingMessage)).toBeInTheDocument())
   })
 
   test('it should check removed and readded logic', async () => {
@@ -231,7 +232,7 @@ describe('EditServicesModal', () => {
     renderComponent()
     userEvent.click(screen.getByRole('button', { name: 'edit-services' }))
 
-    await waitFor(() => expect(screen.getByText('Loading, please wait...')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText(loadingMessage)).toBeInTheDocument())
   })
 
   test('it should display error message when fail to fetch Services', async () => {
@@ -280,6 +281,23 @@ describe('EditServicesModal', () => {
 
     userEvent.click(service)
     expect(service).toHaveClass('bp3-active')
+  })
+
+  test('it should show the spinner when loading search results', async () => {
+    renderComponent()
+
+    useGetServiceListMock.mockReturnValue({
+      data: null,
+      loading: true,
+      error: null,
+      refetch: jest.fn()
+    } as any)
+
+    userEvent.click(screen.getByRole('button', { name: 'edit-services' }))
+
+    userEvent.type(screen.getByRole('searchbox'), 'Support', { allAtOnce: true })
+
+    await waitFor(() => expect(screen.getByText(loadingMessage)).toBeInTheDocument())
   })
 
   test('it should return searched options', async () => {

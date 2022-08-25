@@ -5605,8 +5605,8 @@ export interface StringsMap {
   'cf.environments.environmentID': string
   'cf.environments.modifiedBy': string
   'cf.environments.title': string
-  'cf.featureFlagDetail.newService': string
   'cf.featureFlagDetail.noServices': string
+  'cf.featureFlagDetail.searchService': string
   'cf.featureFlagDetail.serviceDescription': string
   'cf.featureFlagDetail.serviceUpdateSuccess': string
   'cf.featureFlagDetail.variationCount': string
