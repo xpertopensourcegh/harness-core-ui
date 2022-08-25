@@ -188,7 +188,7 @@ export function InputSetSelector({
       }}
       onClosing={() => {
         setOpenInputSetsList(false)
-        onChange?.(selectedInputSets)
+        setSelectedInputSets(defaultTo(value, []))
       }}
     >
       <RenderValue
