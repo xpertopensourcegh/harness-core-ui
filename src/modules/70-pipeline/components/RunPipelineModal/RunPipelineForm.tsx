@@ -258,7 +258,7 @@ function RunPipelineFormBasic({
     executionView
   })
 
-  const { mutate: runPipeline, loading: runLoading } = usePostPipelineExecuteWithInputSetYaml({
+  const { mutate: runPipeline } = usePostPipelineExecuteWithInputSetYaml({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -275,7 +275,7 @@ function RunPipelineFormBasic({
     }
   })
 
-  const { mutate: runStage, loading: runStageLoading } = useRunStagesWithRuntimeInputYaml({
+  const { mutate: runStage } = useRunStagesWithRuntimeInputYaml({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -288,7 +288,7 @@ function RunPipelineFormBasic({
   })
   const { executionId } = useQueryParams<{ executionId?: string }>()
   const pipelineExecutionId = executionIdentifier ?? executionId
-  const { mutate: reRunPipeline, loading: reRunLoading } = useRePostPipelineExecuteWithInputSetYaml({
+  const { mutate: reRunPipeline } = useRePostPipelineExecuteWithInputSetYaml({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -305,7 +305,7 @@ function RunPipelineFormBasic({
       }
     }
   })
-  const { mutate: reRunStages, loading: reRunStagesLoading } = useRerunStagesWithRuntimeInputYaml({
+  const { mutate: reRunStages } = useRerunStagesWithRuntimeInputYaml({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -440,16 +440,16 @@ function RunPipelineFormBasic({
   }, [])
 
   const handleRunPipeline = useCallback(
-    async (valuesPipeline?: PipelineInfoConfig, forceSkipFlightCheck = false) => {
+    async (valuesPipeline?: PipelineInfoConfig, forceSkipFlightCheck = false): Promise<PipelineInfoConfig> => {
       if (Object.keys(formErrors).length) {
-        return
+        return valuesPipeline as PipelineInfoConfig
       }
 
       valuesPipelineRef.current = valuesPipeline
       if (!skipPreFlightCheck && !forceSkipFlightCheck) {
         // Not skipping pre-flight check - open the new modal
         showPreflightCheckModal()
-        return
+        return valuesPipeline as PipelineInfoConfig
       }
       const expressionValues: KVPair = {}
       Object.entries(expressionFormState).forEach(([key, value]: string[]) => {
@@ -519,6 +519,8 @@ function RunPipelineFormBasic({
       } catch (error: any) {
         showWarning(defaultTo(getRBACErrorMessage(error), getString('runPipelineForm.runPipelineFailed')))
       }
+
+      return valuesPipeline as PipelineInfoConfig
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -651,15 +653,7 @@ function RunPipelineFormBasic({
   }
 
   const shouldShowPageSpinner = (): boolean => {
-    return (
-      loadingPipeline ||
-      runLoading ||
-      runStageLoading ||
-      reRunLoading ||
-      reRunStagesLoading ||
-      loadingInputSets ||
-      loadingValidateTemplateInputs
-    )
+    return loadingPipeline || loadingInputSets || loadingValidateTemplateInputs
   }
 
   const formRefDom = React.useRef<HTMLElement | undefined>()
@@ -718,7 +712,7 @@ function RunPipelineFormBasic({
           initialValues={defaultTo(inputSet.pipeline, {} as PipelineInfoConfig)}
           formName="runPipeline"
           onSubmit={values => {
-            handleRunPipeline(values, false)
+            return handleRunPipeline(values, false)
           }}
           validate={handleValidation}
         >
