@@ -84,9 +84,10 @@ export default function ImportResource({
       showSuccess(getString('pipeline.importSuccessMessage', { resourceType: getReourceTypeText() }))
       onSuccess?.()
     } else if (!isEmpty((response as Error).responseMessages)) {
-      setErrorResponse((response as Error).responseMessages)
       if ((response as Error).code === 'DUPLICATE_FILE_IMPORT') {
         openForceImportDialog()
+      } else {
+        setErrorResponse((response as Error).responseMessages)
       }
       onFailure?.()
     } else {
