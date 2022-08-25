@@ -121,7 +121,7 @@ describe('Test BaseScriptWithRef', () => {
   })
 
   test('should match snapshot for BaseScriptWithRef without initial values ', async () => {
-    const updateTemplateRef = jest.fn()
+    const onChangeMock = jest.fn()
     const { container } = render(
       <TestWrapper>
         <Formik<any> formName="test-form" initialValues={defaultInitialValuesCorrect} onSubmit={jest.fn()}>
@@ -132,7 +132,7 @@ describe('Test BaseScriptWithRef', () => {
                   initialValues={defaultInitialValuesCorrect}
                   allowableTypes={[]}
                   ref={formik as any}
-                  updateTemplate={updateTemplateRef}
+                  onChange={onChangeMock}
                 />
               </Form>
             )
@@ -155,7 +155,7 @@ describe('Test BaseScriptWithRef', () => {
       ])
     })
 
-    expect(updateTemplateRef).toBeCalledWith({
+    expect(onChangeMock).toBeCalledWith({
       identifier: 'id',
       name: 'name',
       type: '',

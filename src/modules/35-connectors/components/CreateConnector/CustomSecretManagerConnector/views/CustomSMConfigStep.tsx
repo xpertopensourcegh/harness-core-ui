@@ -92,17 +92,17 @@ const CustomSMConfigStep: React.FC<StepProps<StepCustomSMConfigStepProps> & Step
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
 
   React.useEffect(() => {
-    if (isEditMode) {
-      if (prevStepData?.templateInputs) {
-        setTemplateInputSets(prevStepData.templateInputs)
-      } else if (connectorInfo) {
+    if (prevStepData?.templateInputs) {
+      setTemplateInputSets(prevStepData.templateInputs)
+    } else if (isEditMode) {
+      if (connectorInfo) {
         setupCustomSMFormData(connectorInfo).then(data => {
           setInitialValues(data as CustomSMFormInterface)
           setTemplateInputSets(data.templateInputs)
         })
       }
-      setLoadingFormData(false)
     }
+    setLoadingFormData(false)
   }, [isEditMode, connectorInfo, prevStepData])
 
   const { trackEvent } = useTelemetry()

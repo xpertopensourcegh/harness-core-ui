@@ -69,7 +69,8 @@ describe('Test OptionalConfigurations', () => {
 
   test('should match snapshot for OptionalConfigurations without initial values ', async () => {
     let formikCopy: any
-    const updateTemplateRef = jest.fn()
+    const onChangeMock = jest.fn()
+    const updateTemplateMock = jest.fn()
     const { container, getByTestId } = render(
       <TestWrapper>
         <Formik<ShellScriptFormData> formName="test-form" initialValues={initialValues} onSubmit={jest.fn()}>
@@ -84,7 +85,8 @@ describe('Test OptionalConfigurations', () => {
                   initialValues={initialValues}
                   allowableTypes={[]}
                   ref={formik as any}
-                  updateTemplate={updateTemplateRef}
+                  onChange={onChangeMock}
+                  updateTemplate={updateTemplateMock}
                 />
               </Form>
             )
@@ -103,12 +105,12 @@ describe('Test OptionalConfigurations', () => {
         target: { value: 'hello' }
       })
     })
-    expect(updateTemplateRef).toBeCalled()
-
+    expect(onChangeMock).toBeCalled()
     act(() => {
       formikCopy.submitForm()
     })
-    expect(updateTemplateRef).toBeCalled()
+    expect(onChangeMock).toBeCalled()
+
     expect(container).toMatchSnapshot()
   })
 })
