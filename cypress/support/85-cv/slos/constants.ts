@@ -46,6 +46,7 @@ export const getSLORiskCountWithLatency = `/cv/api/slo-dashboard/risk-count?rout
 export const getMonitoredService = `/cv/api/monitored-service/cvng_prod?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const deleteSLOData = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const saveSLO = `/cv/api/slo?routingId=${accountId}&accountId=${accountId}`
+export const saveMonitoredServiceCall = `/cv/api/monitored-service?routingId=${accountId}&accountId=${accountId}`
 export const updateSLO = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const errorBudgetResetHistory = `/cv/api/slo/SLO1/errorBudgetResetHistory?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const resetErrorBudget = `/cv/api/slo/SLO1/resetErrorBudget?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
@@ -64,6 +65,8 @@ export const getSLODetailsForSLO_2 = `/cv/api/slo-dashboard/widget/SLO_2?routing
 export const getSLODetailsForSLO_3 = `/cv/api/slo-dashboard/widget/SLO_3?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&startTime=1651717500000&endTime=1651731600000`
 export const getSLODetailsForSLO_4 = `/cv/api/slo-dashboard/widget/SLO_4?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&startTime=1651717500000&endTime=1651731600000`
 export const createNotification = `/cv/api/notification-rule?routingId=${accountId}&accountId=${accountId}`
+export const getServicesCall = `/ng/api/services?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getEnvironmentsCall = `/ng/api/environments?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 
 export const listSLOsCallResponse = {
   status: 'SUCCESS',
@@ -1316,8 +1319,8 @@ export const createNotificationResponse = {
     notificationRule: {
       orgIdentifier: 'SRM',
       projectIdentifier: 'SRMSLOTesting',
-      identifier: 'slonotification',
-      name: 'slo-notification',
+      identifier: 'notification',
+      name: 'notification',
       type: 'ServiceLevelObjective',
       conditions: [
         {
@@ -1341,4 +1344,117 @@ export const createNotificationResponse = {
     lastModifiedAt: 1654005710328
   },
   responseMessages: []
+}
+
+export const createMonitoredServiceNotificationResponse = {
+  metaData: {},
+  resource: {
+    notificationRule: {
+      orgIdentifier: 'SRM',
+      projectIdentifier: 'SRMSLOTesting',
+      identifier: 'notification',
+      name: 'notification',
+      type: 'MonitoredService',
+      conditions: [
+        {
+          type: 'ErrorBudgetBurnRate',
+          spec: {
+            threshold: 5,
+            lookBackDuration: '60m'
+          }
+        }
+      ],
+      notificationMethod: {
+        type: 'Slack',
+        spec: {
+          userGroups: null,
+          webhookUrl: 'https://hooks.slack.com/services/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'
+        }
+      }
+    },
+    enabled: false,
+    createdAt: 1654005710328,
+    lastModifiedAt: 1654005710328
+  },
+  responseMessages: []
+}
+
+export const getServicesCallResponse = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 5,
+    pageItemCount: 5,
+    pageSize: 100,
+    content: [
+      {
+        accountId: accountId,
+        identifier: 'service200',
+        orgIdentifier,
+        projectIdentifier,
+        name: 'service-200',
+        description: null,
+        deleted: false,
+        tags: {},
+        yaml: 'service:\n  name: "service-200"\n  identifier: "service200"\n  tags: {}\n  gitOpsEnabled: false\n'
+      },
+      {
+        accountId,
+        identifier: 'testpd',
+        orgIdentifier,
+        projectIdentifier,
+        name: 'testpd',
+        description: null,
+        deleted: false,
+        tags: {},
+        yaml: 'service:\n  name: "testpd"\n  identifier: "testpd"\n  tags: {}\n  gitOpsEnabled: false\n'
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: null,
+  correlationId: '7308c69b-1a03-4202-973a-826c1765b406'
+}
+
+export const getEnvironmentsCallResponse = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 5,
+    pageItemCount: 5,
+    pageSize: 100,
+    content: [
+      {
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        identifier: 'env1',
+        name: 'env-1',
+        description: '',
+        color: '#0063F7',
+        type: 'Production',
+        deleted: false,
+        tags: {},
+        yaml: 'environment:\n  orgIdentifier: "SRM"\n  projectIdentifier: "SRMSLOTesting"\n  identifier: "env1"\n  tags: {}\n  name: "env-1"\n  description: ""\n  type: "Production"\n'
+      },
+      {
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        identifier: 'prod3',
+        name: 'prod3',
+        description: '',
+        color: '#0063F7',
+        type: 'Production',
+        deleted: false,
+        tags: {},
+        yaml: 'environment:\n  orgIdentifier: "SRM"\n  projectIdentifier: "SRMSLOTesting"\n  identifier: "prod3"\n  tags: {}\n  name: "prod3"\n  description: ""\n  type: "Production"\n'
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: null,
+  correlationId: 'd5ad5f5f-c3da-4b4d-bf7f-1573a294683f'
 }
