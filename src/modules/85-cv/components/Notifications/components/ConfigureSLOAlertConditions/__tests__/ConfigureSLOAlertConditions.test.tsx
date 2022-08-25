@@ -24,7 +24,7 @@ const WrapperComponent = (props: ConfigureSLOAlertConditionsProps): JSX.Element 
 }
 
 // eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Unit tests for ConfigureSLOAlertConditions ', () => {
+describe('Unit tests for ConfigureSLOAlertConditions ', () => {
   const props = {
     prevStepData: {
       type: SRMNotificationType.SERVICE_LEVEL_OBJECTIVE
@@ -64,7 +64,7 @@ describe.skip('Unit tests for ConfigureSLOAlertConditions ', () => {
     const { getByText, container } = render(<WrapperComponent {...props} />)
     const sloConditionType = 'Error Budget remaining percentage'
 
-    // Selecting condition
+    // Selecting condition 1
     const conditionDropdown = container.querySelector('input[name="conditions.0.condition"]') as any
     userEvent.click(conditionDropdown)
     const typeToSelect = getByText(sloConditionType)
@@ -78,33 +78,43 @@ describe.skip('Unit tests for ConfigureSLOAlertConditions ', () => {
       target: { value: '5' }
     })
     expect(valueInputField.value).toBe('5')
+
+    // Selecting condition 2
+    const conditionDropdownOne = container.querySelector('input[name="conditions.0.condition"]') as any
+    userEvent.click(conditionDropdownOne)
+    const typeToSelectOne = getByText(sloConditionType)
+    userEvent.click(typeToSelectOne)
+    expect(conditionDropdownOne.value).toBe(sloConditionType)
+
+    //Selecting threshold
+    const valueInputFieldOne = container.querySelector('input[name="0.threshold"]') as any
+    expect(valueInputFieldOne).toBeInTheDocument()
+    fireEvent.change(valueInputFieldOne, {
+      target: { value: '5' }
+    })
+    expect(valueInputFieldOne.value).toBe('5')
+
+    // Selecting condition 3
+    const conditionDropdownThree = container.querySelector('input[name="conditions.0.condition"]') as any
+    userEvent.click(conditionDropdownThree)
+    const typeToSelectThree = getByText(sloConditionType)
+    userEvent.click(typeToSelectThree)
+    expect(conditionDropdownThree.value).toBe(sloConditionType)
+
+    //Selecting threshold
+    const valueInputFieldThree = container.querySelector('input[name="0.threshold"]') as any
+    expect(valueInputFieldThree).toBeInTheDocument()
+    fireEvent.change(valueInputFieldThree, {
+      target: { value: '5' }
+    })
+    expect(valueInputFieldThree.value).toBe('5')
   })
 
-  test('should be able to fill all the fields of a condition Row when condition is Error Budget remaining minutes', async () => {
+  test('should be able to preserve data when we click on back and submit button', async () => {
     const { getByText, container } = render(<WrapperComponent {...props} />)
-    const sloConditionType = 'Error Budget remaining minutes'
+    const sloConditionType = 'Error Budget remaining percentage'
 
-    // Selecting condition
-    const conditionDropdown = container.querySelector('input[name="conditions.0.condition"]') as any
-    userEvent.click(conditionDropdown)
-    const typeToSelect = getByText(sloConditionType)
-    userEvent.click(typeToSelect)
-    expect(conditionDropdown.value).toBe(sloConditionType)
-
-    //Selecting threshold
-    const valueInputField = container.querySelector('input[name="0.threshold"]') as any
-    expect(valueInputField).toBeInTheDocument()
-    fireEvent.change(valueInputField, {
-      target: { value: '5' }
-    })
-    expect(valueInputField.value).toBe('5')
-  })
-
-  test('should be able to fill all the fields of a condition Row when condition is Error Budget Burn Rate is above', async () => {
-    const { getByText, container } = render(<WrapperComponent {...props} />)
-    const sloConditionType = 'Error Budget Burn Rate is above'
-
-    // Selecting condition
+    // Selecting condition 1
     const conditionDropdown = container.querySelector('input[name="conditions.0.condition"]') as any
     userEvent.click(conditionDropdown)
     const typeToSelect = getByText(sloConditionType)
@@ -119,12 +129,11 @@ describe.skip('Unit tests for ConfigureSLOAlertConditions ', () => {
     })
     expect(valueInputField.value).toBe('5')
 
-    // Selecting Duration
-    const durationInputField = container.querySelector('input[name="0.lookBackDuration"]') as any
-    expect(durationInputField).toBeInTheDocument()
-    fireEvent.change(durationInputField, {
-      target: { value: '10' }
-    })
-    expect(durationInputField.value).toBe('10')
+    const continueButton = getByText('continue')
+    const backButton = getByText('back')
+    userEvent.click(continueButton)
+    userEvent.click(backButton)
+    expect(continueButton).toBeInTheDocument()
+    expect(backButton).toBeInTheDocument()
   })
 })
