@@ -102,11 +102,12 @@ export default function AddEditServiceOverride({
   const getVariableOptions = (): SelectOption[] => {
     if (!isEmpty(selectedVariable?.serviceRef)) {
       if (isEmpty(selectedVariable?.variable?.name)) {
-        if (!isEmpty(selectedServiceOverride)) {
-          const parsedServiceOverride = yamlParse<NGServiceOverrideConfig>(
-            defaultTo(selectedServiceOverride?.yaml, '')
-          ).serviceOverrides
-          const serviceVars = defaultTo(parsedServiceOverride?.variables, [])
+        const serviceSelected = services.find(
+          serviceObj => serviceObj.service?.identifier === selectedVariable?.serviceRef
+        )
+        if (serviceSelected) {
+          const parsedServiceYaml = yamlParse<NGServiceConfig>(defaultTo(serviceSelected?.service?.yaml, '')).service
+          const serviceVars = defaultTo(parsedServiceYaml?.serviceDefinition?.spec?.variables, [])
           return serviceVars?.map(variable => ({
             label: defaultTo(variable.name, ''),
             value: defaultTo(variable.name, '')
@@ -237,6 +238,8 @@ export default function AddEditServiceOverride({
     }
     return [...otherVariables, variableOverride]
   }
+
+  /**********************************************Service Manifest CRUD Operations ************************************************/
   const getManifestOverrideObject = (): Array<ManifestConfigWrapper> => {
     if (!isEmpty(selectedServiceOverride)) {
       const parsedServiceOverride = yamlParse<NGServiceOverrideConfig>(
@@ -246,6 +249,7 @@ export default function AddEditServiceOverride({
     }
     return []
   }
+
   const getManifestOverrideValues = (): Array<ManifestConfigWrapper> => {
     const formikManifestOverrideData = formikRef.current?.values.manifests
     if (formikManifestOverrideData?.length) {
@@ -253,6 +257,35 @@ export default function AddEditServiceOverride({
     }
     return getManifestOverrideObject()
   }
+
+  const getManifestOverrideFormdata = (
+    values: AddEditServiceOverrideFormProps
+  ): ManifestConfigWrapper[] | undefined => {
+    if (selectedView === SelectedView.YAML) {
+      return values.manifests
+    }
+    return !isEmpty(formikRef.current?.values.manifests) ? formikRef.current?.values.manifests : undefined
+  }
+
+  const handleManifestOverrideSubmit = useCallback(
+    (manifestObj: ManifestConfigWrapper, manifestIndex: number): void => {
+      const manifestDefaultValue = [...(formikRef.current?.values?.manifests as ManifestConfigWrapper[])]
+      if (manifestDefaultValue?.length) {
+        manifestDefaultValue.splice(manifestIndex, 1, manifestObj)
+      } else {
+        manifestDefaultValue.push(manifestObj)
+      }
+      formikRef.current?.setFieldValue('manifests', manifestDefaultValue)
+    },
+    []
+  )
+
+  const removeManifestConfig = useCallback((index: number): void => {
+    const manifestDefaultValue = [...(formikRef.current?.values?.manifests as ManifestConfigWrapper[])]
+    manifestDefaultValue.splice(index, 1)
+    formikRef.current?.setFieldValue('manifests', manifestDefaultValue)
+  }, [])
+  /**********************************************Service Manifest CRUD Operations ************************************************/
 
   const onSubmit = async (values: AddEditServiceOverrideFormProps): Promise<void> => {
     try {
@@ -272,7 +305,7 @@ export default function AddEditServiceOverride({
                 serviceOverrides?.find(svcOverride => svcOverride.serviceRef === values.serviceRef),
                 true
               ),
-            manifests: !isEmpty(formikRef.current?.values.manifests) ? formikRef.current?.values.manifests : undefined
+            manifests: getManifestOverrideFormdata(values)
           }
         } as NGServiceOverrideConfig)
       })
@@ -301,10 +334,7 @@ export default function AddEditServiceOverride({
 
   const handleYamlChange = useCallback((): void => {
     const parsedYaml = parse(defaultTo(yamlHandler?.getLatestYaml(), '{}'))
-    const anyVariableEmpty = parsedYaml.serviceOverrides.variables?.find(
-      (serviceVariable: any) => isEmpty(serviceVariable.name) || isEmpty(serviceVariable.value)
-    )
-    if (isEqual(existingJSON, parsedYaml) || anyVariableEmpty) {
+    if (isEqual(existingJSON, parsedYaml)) {
       setIsModified(false)
     } else {
       setIsModified(true)
@@ -314,27 +344,6 @@ export default function AddEditServiceOverride({
   const handleTabChange = (nextTab: ServiceOverrideTab): void => {
     setSelectedTab(nextTab)
   }
-
-  /**********************************************Service Manifest CRUD Operations ************************************************/
-  const handleManifestOverrideSubmit = useCallback(
-    (manifestObj: ManifestConfigWrapper, manifestIndex: number): void => {
-      const manifestDefaultValue = [...(formikRef.current?.values?.manifests as ManifestConfigWrapper[])]
-      if (manifestDefaultValue?.length) {
-        manifestDefaultValue.splice(manifestIndex, 1, manifestObj)
-      } else {
-        manifestDefaultValue.push(manifestObj)
-      }
-      formikRef.current?.setFieldValue('manifests', manifestDefaultValue)
-    },
-    []
-  )
-
-  const removeManifestConfig = useCallback((index: number): void => {
-    const manifestDefaultValue = [...(formikRef.current?.values?.manifests as ManifestConfigWrapper[])]
-    manifestDefaultValue.splice(index, 1)
-    formikRef.current?.setFieldValue('manifests', manifestDefaultValue)
-  }, [])
-  /**********************************************Service Manifest CRUD Operations ************************************************/
 
   return (
     <Formik<AddEditServiceOverrideFormProps>
