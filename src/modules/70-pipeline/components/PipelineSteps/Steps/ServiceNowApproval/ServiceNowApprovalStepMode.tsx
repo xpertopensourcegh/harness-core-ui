@@ -423,14 +423,19 @@ function ServiceNowApprovalStepMode(
               })
             })
           }),
-          enableChangeWindow: Yup.boolean(),
-          changeWindow: Yup.object().when('enableChangeWindow', {
-            is: true,
-            then: Yup.object().shape({
-              startField: Yup.string().required(getString('pipeline.serviceNowApprovalStep.validations.windowStart')),
-              endField: Yup.string().required(getString('pipeline.serviceNowApprovalStep.validations.windowEnd'))
-            })
-          })
+          changeWindow: Yup.object().shape(
+            {
+              startField: Yup.string().when('endField', {
+                is: endField => !!endField,
+                then: Yup.string().required(getString('pipeline.serviceNowApprovalStep.validations.windowStart'))
+              }),
+              endField: Yup.string().when('startField', {
+                is: startField => !!startField,
+                then: Yup.string().required(getString('pipeline.serviceNowApprovalStep.validations.windowEnd'))
+              })
+            },
+            [['startField', 'endField']]
+          )
         })
       })}
     >

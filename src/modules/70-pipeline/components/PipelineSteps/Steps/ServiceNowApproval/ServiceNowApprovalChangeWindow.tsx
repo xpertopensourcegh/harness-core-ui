@@ -36,7 +36,6 @@ export const getDateTimeOptions = (serviceNowIssueCreateMetadataFields: ServiceN
 }
 
 export function ServiceNowApprovalChangeWindow({
-  formik,
   readonly,
   serviceNowIssueCreateMetadataFields,
   fetchingServiceNowMetadata,
@@ -50,7 +49,7 @@ export function ServiceNowApprovalChangeWindow({
   }, [serviceNowIssueCreateMetadataFields])
 
   const commonMultiTypeInputProps = (placeholder: string) => ({
-    disabled: !formik.values?.spec.enableChangeWindow || readonly,
+    disabled: readonly,
     selectItems: selectOptions,
     placeholder: fetchingServiceNowMetadata
       ? getString('pipeline.serviceNowApprovalStep.fetching')
@@ -67,32 +66,28 @@ export function ServiceNowApprovalChangeWindow({
 
   return (
     <div className={css.approvalChangeWindow}>
-      <Text color={Color.GREY_800} font={{ weight: 'semi-bold', size: 'normal' }}>
+      <Text
+        color={Color.GREY_800}
+        font={{ weight: 'semi-bold', size: 'normal' }}
+        tooltipProps={{
+          dataTooltipId: 'serviceNowApprovalChangeWindow'
+        }}
+      >
         {getString('pipeline.serviceNowApprovalStep.approvalChangeWindow')}
       </Text>
 
-      <Layout.Vertical spacing="medium" className={css.windowSelection}>
-        <FormInput.CheckBox
-          disabled={readonly}
-          name="spec.enableChangeWindow"
-          label={getString('enable')}
-          tooltipProps={{
-            dataTooltipId: 'serviceNowApprovalEnableChangeWindow'
-          }}
+      <Layout.Horizontal spacing="medium" className={css.windowSelection}>
+        <FormInput.MultiTypeInput
+          name="spec.changeWindow.startField"
+          label={getString('pipeline.serviceNowApprovalStep.windowStart')}
+          {...commonMultiTypeInputProps(getString('pipeline.serviceNowApprovalStep.windowStart'))}
         />
-        <Layout.Horizontal spacing="medium">
-          <FormInput.MultiTypeInput
-            name="spec.changeWindow.startField"
-            label={getString('pipeline.serviceNowApprovalStep.windowStart')}
-            {...commonMultiTypeInputProps(getString('pipeline.serviceNowApprovalStep.windowStart'))}
-          />
-          <FormInput.MultiTypeInput
-            name="spec.changeWindow.endField"
-            label={getString('pipeline.serviceNowApprovalStep.windowEnd')}
-            {...commonMultiTypeInputProps(getString('pipeline.serviceNowApprovalStep.windowEnd'))}
-          />
-        </Layout.Horizontal>
-      </Layout.Vertical>
+        <FormInput.MultiTypeInput
+          name="spec.changeWindow.endField"
+          label={getString('pipeline.serviceNowApprovalStep.windowEnd')}
+          {...commonMultiTypeInputProps(getString('pipeline.serviceNowApprovalStep.windowEnd'))}
+        />
+      </Layout.Horizontal>
     </div>
   )
 }

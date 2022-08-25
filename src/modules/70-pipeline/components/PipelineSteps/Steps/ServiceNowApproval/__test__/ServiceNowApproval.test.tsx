@@ -200,25 +200,21 @@ describe('ServiceNow Approval tests', () => {
     userEvent.click(screen.getByText('common.optionalConfig'))
     expect(queryByDisplayValue("<+state> == 'Blocked'")).toBeTruthy()
 
-    const enableApprovalChangeWindow = await screen.findByRole('checkbox', {
-      name: 'enable'
-    })
-    expect(enableApprovalChangeWindow).not.toBeChecked()
-    userEvent.click(enableApprovalChangeWindow)
-    expect(enableApprovalChangeWindow).toBeChecked()
-
+    // Approval change window
     const windowStart = await screen.findByPlaceholderText('select pipeline.serviceNowApprovalStep.windowStart')
     userEvent.click(windowStart)
     const startPopOver = findPopoverContainer()!
     userEvent.click(getByText(startPopOver, 'updated'))
+    await waitFor(() => expect(startPopOver).not.toBeInTheDocument()) // wait for the popover to close, we have a transition delay for popover
 
-    // wait for the popover to close, we have a transition delay for popover
-    await waitFor(() => expect(startPopOver).not.toBeInTheDocument())
+    await act(() => ref.current?.submitForm()!)
+    expect(screen.getByText('pipeline.serviceNowApprovalStep.validations.windowEnd')).toBeInTheDocument()
+
     const windowEnd = screen.getByPlaceholderText('select pipeline.serviceNowApprovalStep.windowEnd')
     userEvent.click(windowEnd)
     userEvent.click(getByText(findPopoverContainer()!, 'Due Date'))
-
     await act(() => ref.current?.submitForm()!)
+
     expect(props.onUpdate).toBeCalledWith({
       identifier: 'serviceNow_approval_step',
       timeout: '10m',

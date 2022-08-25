@@ -26,22 +26,19 @@ export const processInitialValues = (values: ServiceNowApprovalData): ServiceNow
     spec: {
       ...values.spec,
       approvalCriteria: getApprovalRejectionCriteriaForInitialValues(values.spec.approvalCriteria),
-      rejectionCriteria: getApprovalRejectionCriteriaForInitialValues(values.spec.rejectionCriteria),
-      enableChangeWindow: !!values.spec.changeWindow
+      rejectionCriteria: getApprovalRejectionCriteriaForInitialValues(values.spec.rejectionCriteria)
     }
   }
 }
 
 export const processFormData = (values: ServiceNowApprovalData): ServiceNowApprovalData => {
-  const { enableChangeWindow, changeWindow, ...restOfSpec } = values.spec
   return {
     ...values,
     spec: {
-      ...restOfSpec,
+      ...values.spec,
       connectorRef: values.spec.connectorRef,
       approvalCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.approvalCriteria),
-      rejectionCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.rejectionCriteria),
-      ...(enableChangeWindow && { changeWindow })
+      rejectionCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.rejectionCriteria)
     }
   }
 }
