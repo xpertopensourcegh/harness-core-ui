@@ -44,7 +44,10 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
 import { getVersionLabelText } from '@templates-library/utils/templatesUtils'
 import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
 import { EntityType } from '@common/pages/entityUsage/EntityConstants'
-import { VersionsDropDown } from '@templates-library/components/VersionsDropDown/VersionsDropDown'
+import {
+  DefaultStableVersionValue,
+  VersionsDropDown
+} from '@templates-library/components/VersionsDropDown/VersionsDropDown'
 import templateFactory from '@templates-library/components/Templates/TemplatesFactory'
 import { TemplateActivityLog } from '../TemplateActivityLog/TemplateActivityLog'
 import css from './TemplateDetails.module.scss'
@@ -65,8 +68,6 @@ export enum ParentTemplateTabs {
   BASIC = 'BASIC',
   ACTVITYLOG = 'ACTVITYLOG'
 }
-
-const DefaultStableVersionValue = '-1'
 
 interface Params {
   selectedTemplate: TemplateSummaryResponse

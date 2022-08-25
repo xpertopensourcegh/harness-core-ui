@@ -74,7 +74,7 @@ describe('<TemplateDetails /> tests', () => {
       </TestWrapper>
     )
     const dropValue = getByTestId('dropdown-value')
-    expect(dropValue).toHaveTextContent('-1')
+    expect(dropValue).toHaveTextContent('templatesLibrary.alwaysUseStableVersion')
   })
 
   test('should open template studio on clicking open in template studio', async () => {

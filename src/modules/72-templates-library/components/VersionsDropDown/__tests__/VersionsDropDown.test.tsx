@@ -9,6 +9,7 @@ import React from 'react'
 import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import {
+  DefaultStableVersionValue,
   VersionsDropDown,
   VersionsDropDownProps
 } from '@templates-library/components/VersionsDropDown/VersionsDropDown'
@@ -24,8 +25,8 @@ const baseProps: VersionsDropDownProps = {
       value: 'v2'
     },
     {
-      label: 'v3',
-      value: 'v3'
+      label: 'Always use stable version',
+      value: DefaultStableVersionValue
     }
   ],
   onChange: jest.fn(),
@@ -38,6 +39,16 @@ describe('test <VersionsDropDown/>', () => {
     const { container } = render(
       <TestWrapper>
         <VersionsDropDown {...baseProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should match snapshot when always using stable version is selected', () => {
+    const { container } = render(
+      <TestWrapper>
+        <VersionsDropDown {...baseProps} value={DefaultStableVersionValue} />
       </TestWrapper>
     )
 
@@ -66,5 +77,13 @@ describe('test <VersionsDropDown/>', () => {
       fireEvent.click(menuItems[1])
     })
     expect(baseProps.onChange).toBeCalledWith({ label: 'v2', value: 'v2' }, expect.anything())
+
+    act(() => {
+      fireEvent.click(menuItems[2])
+    })
+    expect(baseProps.onChange).toBeCalledWith(
+      { label: 'Always use stable version', value: DefaultStableVersionValue },
+      expect.anything()
+    )
   })
 })

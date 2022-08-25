@@ -12,6 +12,8 @@ import type { DropDownProps } from '@wings-software/uicore/dist/components/DropD
 import { useStrings } from 'framework/strings'
 import css from './VersionsDropDown.module.scss'
 
+export const DefaultStableVersionValue = '-1'
+
 export interface VersionsDropDownProps extends DropDownProps {
   stableVersion?: string
 }
@@ -24,7 +26,7 @@ export const VersionsDropDown: React.FC<VersionsDropDownProps> = props => {
       <Container className={css.container}>
         <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Text lineClamp={1} font={{ variation: FontVariation.BODY }}>
-            {item.value}
+            {item.value === DefaultStableVersionValue ? item.label : item.value}
           </Text>
           {(item.value as string) === stableVersion && (
             <Tag className={css.tag}>{getString('common.stable').toUpperCase()}</Tag>
