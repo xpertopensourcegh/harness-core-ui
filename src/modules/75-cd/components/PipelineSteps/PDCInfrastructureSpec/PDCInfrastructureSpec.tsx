@@ -323,6 +323,12 @@ const PDCInfrastructureSpecEditable: React.FC<PDCInfrastructureSpecEditableProps
           tags={get(formikRef.current, 'values.delegateSelectors', [])}
           host={get(row.original, 'host', '')}
           status={row.original.status}
+          resetError={(status: string) => {
+            set(row.original, 'status', defaultTo(status, 'UNKNOWN'))
+            if (!isEmpty(errors)) {
+              setErrors([])
+            }
+          }}
         />
       )
     },

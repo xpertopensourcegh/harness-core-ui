@@ -37,6 +37,7 @@ export interface ConnectivityStatusProps {
   host: string
   tags: string[]
   status: any
+  resetError: (status: string) => void
 }
 
 interface WarningTooltipProps {
@@ -82,7 +83,7 @@ const ConnectivityStatus: React.FC<ConnectivityStatusProps> = data => {
 
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>()
   const { getString } = useStrings()
-  const { identifier, host, tags } = data
+  const { identifier, host, tags, resetError } = data
   const [stepDetails, setStepDetails] = useState<any>({
     step: 1,
     intent: Intent.WARNING,
@@ -124,6 +125,7 @@ const ConnectivityStatus: React.FC<ConnectivityStatusProps> = data => {
         })
       }
       setTesting(false)
+      resetError(hostResponse.status)
     } catch (err: any) {
       /* istanbul ignore next */
       setStatus('FAILURE')
@@ -146,6 +148,7 @@ const ConnectivityStatus: React.FC<ConnectivityStatusProps> = data => {
       })
       /* istanbul ignore next */
       setTesting(false)
+      resetError('FAILURE')
     }
   }
 

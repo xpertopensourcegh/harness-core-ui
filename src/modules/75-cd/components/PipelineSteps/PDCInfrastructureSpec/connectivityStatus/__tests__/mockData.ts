@@ -10,19 +10,22 @@ const mockData = {
     identifier: 'failureIdentifier',
     host: 'localhost',
     tags: ['tag1'],
-    status: 'FAILURE'
+    status: 'FAILURE',
+    resetError: jest.fn()
   },
   unknownType: {
     identifier: 'unknownIdentifier',
     host: '1.2.3.4',
     tags: ['tag2'],
-    status: 'UNKNOWN'
+    status: 'UNKNOWN',
+    resetError: jest.fn()
   },
   success: {
     identifier: 'successIdentifier',
     host: '2.2.2.2',
     tags: ['tag3'],
-    status: 'SUCCESS'
+    status: 'SUCCESS',
+    resetError: jest.fn()
   },
   failureWithErrorSummary: {
     identifier: 'failureIdentifier',
@@ -31,7 +34,8 @@ const mockData = {
     status: {
       status: 'FAILURE',
       errorSummary: 'ErrorSummaryStatus'
-    }
+    },
+    resetError: jest.fn()
   }
 }
 
