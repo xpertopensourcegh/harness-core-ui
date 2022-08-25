@@ -470,7 +470,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       allowableTypes,
       onChange
     } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <K8sApplyInputStep
           initialValues={initialValues}

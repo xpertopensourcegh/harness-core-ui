@@ -159,7 +159,7 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <RestoreCacheS3StepInputSet
           initialValues={initialValues}

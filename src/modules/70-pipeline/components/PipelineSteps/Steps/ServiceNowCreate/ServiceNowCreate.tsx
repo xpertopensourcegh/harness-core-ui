@@ -184,7 +184,7 @@ export class ServiceNowCreate extends PipelineStep<ServiceNowCreateData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <ServiceNowCreateDeploymentModeWithFormik
           stepViewType={stepViewType}

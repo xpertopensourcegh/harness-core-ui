@@ -469,7 +469,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
       readonly = false,
       allowableTypes
     } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <KubernetesInfraSpecInputForm
           {...(customStepProps as KubernetesInfraSpecEditableProps)}

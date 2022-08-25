@@ -16,6 +16,7 @@ import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import type { DeployStageConfig } from '@pipeline/utils/DeployStageInterface'
 import { DeployInfrastructureWidget } from './DeployInfrastructureWidget'
 import DeployInfrastructureInputStep from './DeployInfrastructureInputStep'
@@ -101,7 +102,7 @@ export class DeployInfrastructureStep extends Step<DeployStageConfig> {
       customStepProps
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (isTemplatizedView(stepViewType)) {
       return (
         <DeployInfrastructureInputStep
           initialValues={this.processInputSetInitialValues(initialValues, customStepProps as CustomStepProps)}

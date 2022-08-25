@@ -64,7 +64,7 @@ export class PolicyStep extends PipelineStep<PolicyStepData> {
       customStepProps
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <PolicyInputSetStep
           readonly={!!inputSetData?.readonly}

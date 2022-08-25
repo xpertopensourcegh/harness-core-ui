@@ -8,7 +8,6 @@
 import { get } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { ServiceSpec } from 'services/cd-ng'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 
 export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }): string => {
   const fields: { [key: string]: any } = {}
@@ -26,6 +25,3 @@ export const isFieldRuntime = (fieldPath: string, template?: ServiceSpec): boole
 
 export const isFieldFixedType = (fieldPath: string, initialValues?: ServiceSpec): boolean =>
   getMultiTypeFromValue(get(initialValues, fieldPath)) === MultiTypeInputType.FIXED
-
-export const isRuntimeMode = (stepViewType?: string): boolean =>
-  stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm

@@ -201,7 +201,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
       isNewStep
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <HelmRollbackInputStep
           initialValues={initialValues}

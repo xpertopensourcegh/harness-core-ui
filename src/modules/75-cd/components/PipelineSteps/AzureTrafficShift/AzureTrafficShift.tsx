@@ -107,7 +107,7 @@ export class AzureTrafficShift extends PipelineStep<AzureTrafficShiftStepInfo> {
       customStepProps
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <AzureTrafficShiftInputSet
           initialValues={initialValues}

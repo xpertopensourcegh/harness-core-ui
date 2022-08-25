@@ -80,7 +80,7 @@ export class CustomApproval extends PipelineStep<CustomApprovalData> {
       readonly
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <CustomApprovalInputSetStep
           initialValues={this.getInitialValues(initialValues)}

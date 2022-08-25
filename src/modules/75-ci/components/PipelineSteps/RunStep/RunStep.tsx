@@ -193,7 +193,7 @@ export class RunStep extends PipelineStep<RunStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <RunStepInputSet
           initialValues={initialValues}

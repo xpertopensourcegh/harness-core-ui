@@ -320,7 +320,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <K8ScaleInputStep
           initialValues={initialValues}

@@ -141,7 +141,7 @@ export class ACRStep extends PipelineStep<ACRStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <ACRStepInputSet
           initialValues={initialValues}

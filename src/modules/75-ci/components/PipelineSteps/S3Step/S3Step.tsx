@@ -124,7 +124,7 @@ export class S3Step extends PipelineStep<S3StepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <S3StepInputSet
           initialValues={initialValues}

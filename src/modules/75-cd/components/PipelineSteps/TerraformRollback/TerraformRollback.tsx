@@ -291,7 +291,7 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
       customStepProps,
       isNewStep
     } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <TerraformRollbackInputStep
           initialValues={initialValues}

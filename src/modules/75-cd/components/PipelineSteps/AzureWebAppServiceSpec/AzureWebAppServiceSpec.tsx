@@ -30,6 +30,7 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { getConnectorName, getConnectorValue } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import type { ArtifactType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import AzureWebAppServiceSpecEditable from './AzureWebAppServiceSpecEditable'
 import { AzureWebAppServiceSpecInputSetForm } from './AzureWebAppServiceSpecInputSetForm'
 import { AzureWebAppServiceSpecVariablesForm } from './AzureWebAppServiceSpecVariableForm'
@@ -477,7 +478,7 @@ export class AzureWebAppServiceSpec extends Step<ServiceSpec> {
       )
     }
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (isTemplatizedView(stepViewType)) {
       return (
         <AzureWebAppServiceSpecInputSetForm
           {...(customStepProps as AzureWebAppServiceSpecFormProps)}

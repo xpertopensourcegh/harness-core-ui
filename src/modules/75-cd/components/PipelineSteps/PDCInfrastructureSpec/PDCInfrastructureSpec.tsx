@@ -905,7 +905,7 @@ export class PDCInfrastructureSpec extends PipelineStep<PDCInfrastructureSpecSte
   renderStep(props: StepProps<PdcInfrastructure>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, customStepProps, readonly, allowableTypes, inputSetData } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <PDCInfrastructureSpecInputForm
           {...(customStepProps as PDCInfrastructureSpecEditableProps)}

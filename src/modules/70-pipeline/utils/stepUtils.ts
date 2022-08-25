@@ -21,6 +21,7 @@ import {
   Values
 } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { sanitize } from '@common/utils/JSONUtils'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { DeploymentStageElementConfigWrapper } from './pipelineTypes'
 
 export enum StepMode {
@@ -190,4 +191,12 @@ export function getStepDataFromValues(
   })
   sanitize(processNode, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
   return processNode
+}
+
+const TEMPLATIZED_VIEWS = [StepViewType.DeploymentForm, StepViewType.InputSet, StepViewType.TemplateUsage]
+
+export function isTemplatizedView(
+  stepViewType?: StepViewType
+): stepViewType is StepViewType.DeploymentForm | StepViewType.InputSet | StepViewType.TemplateUsage {
+  return !!stepViewType && TEMPLATIZED_VIEWS.includes(stepViewType)
 }

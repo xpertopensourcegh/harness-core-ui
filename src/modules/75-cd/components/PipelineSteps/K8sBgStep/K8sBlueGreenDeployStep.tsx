@@ -223,7 +223,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <K8BGDeployInputStep
           initialValues={initialValues}

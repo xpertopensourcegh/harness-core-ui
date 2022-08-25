@@ -275,7 +275,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
       allowableTypes,
       onChange
     } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <K8CanaryDeployInputStep
           initialValues={initialValues}

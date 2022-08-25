@@ -314,7 +314,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <BarrierInputStep
           initialValues={initialValues}

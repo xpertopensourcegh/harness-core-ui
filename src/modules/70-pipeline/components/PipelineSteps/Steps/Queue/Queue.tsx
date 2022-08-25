@@ -40,7 +40,7 @@ export class QueueStep extends PipelineStep<QueueData> {
       allowableTypes,
       customStepProps
     } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <QueueInputStep
           initialValues={initialValues}

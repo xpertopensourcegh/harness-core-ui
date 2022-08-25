@@ -141,7 +141,7 @@ export class GitCloneStep extends PipelineStep<GitCloneStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <GitCloneStepInputSet
           initialValues={initialValues}

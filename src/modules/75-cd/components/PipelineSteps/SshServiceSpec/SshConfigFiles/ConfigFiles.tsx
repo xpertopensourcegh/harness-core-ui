@@ -10,7 +10,7 @@ import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/in
 import { useQueryParams } from '@common/hooks'
 import type { ConfigFile } from 'services/cd-ng'
 import type { SshWinRmConfigFilesProps } from '@cd/components/PipelineSteps/SshServiceSpec/SshServiceSpecInterface'
-import { isRuntimeMode } from '@cd/components/PipelineSteps/K8sServiceSpec/K8sServiceSpecHelper'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import {
   fromPipelineInputTriggerTab,
   getManifestTriggerSetValues
@@ -26,7 +26,7 @@ const ConfigFileInputField = (props: ConfigFileInputFieldProps): React.ReactElem
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
-  const runtimeMode = isRuntimeMode(props.stepViewType)
+  const runtimeMode = isTemplatizedView(props.stepViewType)
   const isConfigFileRuntime = runtimeMode && !!get(props.template, 'configFiles', false)
 
   const configFileSource = configFileSourceBaseFactory.getConfigFileSource(props?.configFile?.spec?.store?.type)

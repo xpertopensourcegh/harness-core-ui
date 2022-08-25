@@ -566,7 +566,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       /* istanbul ignore next */
       return (
         <K8sDeleteInputStep

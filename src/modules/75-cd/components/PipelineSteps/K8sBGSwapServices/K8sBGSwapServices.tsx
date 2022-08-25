@@ -217,7 +217,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <K8sBGSwapInputStep
           initialValues={initialValues}

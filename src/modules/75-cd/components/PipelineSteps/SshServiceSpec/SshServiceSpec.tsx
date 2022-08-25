@@ -31,6 +31,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { getConnectorName, getConnectorValue } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import type { ArtifactType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import type { K8SDirectServiceStep } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import { SshServiceSpecVariablesForm, SshServiceSpecVariablesFormProps } from './SshServiceSpecVariablesForm'
 import { SshServiceSpecInputSetMode } from './SshServiceSpecInputSetMode'
 import SshServiceSpecEditable from './SshServiceSpecForm/SshServiceSpecEditable'
@@ -317,7 +318,7 @@ export class SshServiceSpec extends Step<ServiceSpec> {
       )
     }
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (isTemplatizedView(stepViewType)) {
       return (
         <SshServiceSpecInputSetMode
           {...(customStepProps as SshServiceSpecVariablesFormProps)}

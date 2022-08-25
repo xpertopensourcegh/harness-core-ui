@@ -18,6 +18,7 @@ import { StepViewType, ValidateInputSetProps, Step } from '@pipeline/components/
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { CustomVariableEditable, CustomVariableEditableExtraProps } from './CustomVariableEditable'
 import { CustomVariableInputSet, CustomVariableInputSetExtraProps } from './CustomVariableInputSet'
@@ -52,7 +53,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
   ): JSX.Element {
     const { initialValues, onUpdate, stepViewType, customStepProps, inputSetData, readonly, allowableTypes } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (isTemplatizedView(stepViewType)) {
       return (
         <CustomVariableInputSet
           initialValues={initialValues}

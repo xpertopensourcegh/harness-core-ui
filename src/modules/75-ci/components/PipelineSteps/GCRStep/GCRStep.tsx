@@ -145,7 +145,7 @@ export class GCRStep extends PipelineStep<GCRStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <GCRStepInputSet
           initialValues={initialValues}

@@ -1456,7 +1456,7 @@ export class AzureInfrastructureSpec extends PipelineStep<AzureInfrastructureSpe
 
   renderStep(props: StepProps<K8sAzureInfrastructure>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly, allowableTypes } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <AzureInfrastructureSpecInputForm
           {...(customStepProps as AzureInfrastructureSpecEditableProps)}

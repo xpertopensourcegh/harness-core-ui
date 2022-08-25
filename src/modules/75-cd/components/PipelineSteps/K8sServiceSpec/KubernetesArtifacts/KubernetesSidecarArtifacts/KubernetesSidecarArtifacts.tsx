@@ -17,8 +17,8 @@ import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/Artifac
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import type { SidecarArtifact } from 'services/cd-ng'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import type { KubernetesArtifactsProps } from '../../K8sServiceSpecInterface'
-import { isRuntimeMode } from '../../K8sServiceSpecHelper'
 import { fromPipelineInputTriggerTab, getSidecarInitialValues } from '../../ArtifactSource/artifactSourceUtils'
 import css from '../../../Common/GenericServiceSpec/GenericServiceSpec.module.scss'
 
@@ -28,7 +28,7 @@ const ArtifactInputField = (props: KubernetesArtifactsProps): React.ReactElement
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const artifactSource = props.artifact ? artifactSourceBaseFactory.getArtifactSource(props.artifact.type) : null
-  const runtimeMode = isRuntimeMode(props.stepViewType)
+  const runtimeMode = isTemplatizedView(props.stepViewType)
   const isArtifactsRuntime = runtimeMode && !!get(props.template, 'artifacts', false)
   const isPrimaryArtifactsRuntime = runtimeMode && !!get(props.template, 'artifacts.primary', false)
   const isSidecarRuntime = runtimeMode && !!get(props.template, 'artifacts.sidecars', false)

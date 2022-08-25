@@ -131,7 +131,7 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <JiraApprovalDeploymentModeWithFormik
           stepViewType={stepViewType}

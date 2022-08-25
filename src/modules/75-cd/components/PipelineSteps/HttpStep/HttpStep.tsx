@@ -48,7 +48,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <HttpInputSetStep
           initialValues={this.processInitialValues(initialValues, true)}

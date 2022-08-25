@@ -320,7 +320,7 @@ export class CFCreateStack extends PipelineStep<CreateStackStepInfo> {
     path,
     customStepProps
   }: StepProps<CreateStackStepInfo>): JSX.Element {
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <CreateStackInputStep
           initialValues={initialValues}

@@ -149,7 +149,7 @@ export class CFDeleteStack extends PipelineStep<CFDeleteStackStepInfo> {
       customStepProps
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <DeleteStackInputStep
           initialValues={initialValues}

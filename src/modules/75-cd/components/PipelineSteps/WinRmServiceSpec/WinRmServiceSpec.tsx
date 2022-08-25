@@ -37,6 +37,7 @@ import {
 } from '@cd/components/PipelineSteps/SshServiceSpec/SshServiceSpecVariablesForm'
 import { SshServiceSpecInputSetMode } from '@cd/components/PipelineSteps/SshServiceSpec/SshServiceSpecInputSetMode'
 import SshServiceSpecEditable from '@cd/components/PipelineSteps/SshServiceSpec/SshServiceSpecForm/SshServiceSpecEditable'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 
 const logger = loggerFor(ModuleName.CD)
 const tagExists = (value: unknown): boolean => typeof value === 'number' || !isEmpty(value)
@@ -320,7 +321,7 @@ export class WinRmServiceSpec extends Step<ServiceSpec> {
       )
     }
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (isTemplatizedView(stepViewType)) {
       return (
         <SshServiceSpecInputSetMode
           {...(customStepProps as SshServiceSpecVariablesFormProps)}

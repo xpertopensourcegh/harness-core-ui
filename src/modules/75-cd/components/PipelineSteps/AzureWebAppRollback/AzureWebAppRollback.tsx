@@ -97,7 +97,7 @@ export class AzureWebAppRollback extends PipelineStep<AzureWebAppRollbackStepInf
       customStepProps
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <AzureWebAppRollbackInputStep
           initialValues={initialValues}

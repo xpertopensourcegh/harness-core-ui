@@ -17,6 +17,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import type { DeployServiceCustomStepPropType, DeployServiceData } from './DeployServiceInterface'
 import { ServiceRegex } from './DeployServiceUtils'
 import { DeployServiceInputStepFormik } from './DeployServiceInputStep'
@@ -89,7 +90,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
       allowableTypes,
       customStepProps
     } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (isTemplatizedView(stepViewType)) {
       if (customStepProps?.isNewServiceEntity) {
         return (
           <DeployServiceEntityInputStepFormik

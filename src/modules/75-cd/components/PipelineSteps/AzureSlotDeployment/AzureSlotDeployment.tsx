@@ -114,7 +114,7 @@ export class AzureSlotDeployment extends PipelineStep<AzureSlotDeploymentStepInf
       customStepProps
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <AzureSlotDeploymentInputSet
           initialValues={initialValues}

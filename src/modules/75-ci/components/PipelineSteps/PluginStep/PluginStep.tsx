@@ -142,7 +142,7 @@ export class PluginStep extends PipelineStep<PluginStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <PluginStepInputSet
           initialValues={initialValues}

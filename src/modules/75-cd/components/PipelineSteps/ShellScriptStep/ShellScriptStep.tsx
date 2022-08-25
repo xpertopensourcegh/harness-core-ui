@@ -75,7 +75,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       readonly
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <ShellScriptInputSetStep
           initialValues={this.getInitialValues(initialValues)}

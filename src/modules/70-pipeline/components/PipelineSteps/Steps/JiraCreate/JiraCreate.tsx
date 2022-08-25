@@ -136,7 +136,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <JiraCreateDeploymentModeWithFormik
           stepViewType={stepViewType}

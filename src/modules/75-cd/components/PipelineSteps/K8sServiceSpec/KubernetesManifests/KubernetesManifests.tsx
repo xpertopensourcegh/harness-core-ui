@@ -16,8 +16,8 @@ import manifestSourceBaseFactory from '@cd/factory/ManifestSourceFactory/Manifes
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import type { ManifestConfig } from 'services/cd-ng'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import type { KubernetesManifestsProps } from '../K8sServiceSpecInterface'
-import { isRuntimeMode } from '../K8sServiceSpecHelper'
 import { fromPipelineInputTriggerTab, getManifestTriggerSetValues } from '../ManifestSource/ManifestSourceUtils'
 import css from './KubernetesManifests.module.scss'
 
@@ -30,7 +30,7 @@ const ManifestInputField = (props: ManifestInputFieldProps): React.ReactElement 
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
-  const runtimeMode = isRuntimeMode(props.stepViewType)
+  const runtimeMode = isTemplatizedView(props.stepViewType)
   const isManifestsRuntime = runtimeMode && !!get(props.template, 'manifests', false)
   const manifestSource = manifestSourceBaseFactory.getManifestSource(props.manifest.type)
   const manifestDefaultValue = defaultTo(props.manifests, props.template.manifests)?.find(

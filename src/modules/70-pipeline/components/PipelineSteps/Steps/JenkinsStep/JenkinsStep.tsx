@@ -179,7 +179,7 @@ export class JenkinsStep extends PipelineStep<JenkinsStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <JenkinsStepInputSet
           initialValues={initialValues}

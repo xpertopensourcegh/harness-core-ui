@@ -153,7 +153,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <JFrogArtifactoryStepInputSet
           initialValues={initialValues}

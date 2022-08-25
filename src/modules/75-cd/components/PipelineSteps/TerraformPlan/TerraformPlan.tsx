@@ -831,7 +831,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
       isNewStep
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <TerraformInputStep
           initialValues={this.getInitialValues(initialValues)}

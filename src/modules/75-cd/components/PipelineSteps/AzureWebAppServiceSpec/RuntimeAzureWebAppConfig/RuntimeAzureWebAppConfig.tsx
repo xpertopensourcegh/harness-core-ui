@@ -17,7 +17,7 @@ import { useQueryParams } from '@common/hooks'
 import type { StoreConfigWrapper } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
 import FileStoreList from '@filestore/components/FileStoreList/FileStoreList'
-import { isRuntimeMode } from '../../K8sServiceSpec/K8sServiceSpecHelper'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import { AzureWebAppConfigProps, AzureWebAppConfigType } from '../AzureWebAppServiceSpecInterface.types'
 import { fileTypes } from '../AzureWebAppStartupScriptSelection/StartupScriptInterface.types'
 import css from './RuntimeAzureWebAppConfig.module.scss'
@@ -27,7 +27,7 @@ const AzureWebAppConfigInputField = (props: AzureWebAppConfigProps): React.React
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const runtimeMode = isRuntimeMode(props.stepViewType)
+  const runtimeMode = isTemplatizedView(props.stepViewType)
 
   const isAzureWebAppConfigRuntime = runtimeMode && !!get(props.template, props.azureWebAppConfigPath as string, false)
 

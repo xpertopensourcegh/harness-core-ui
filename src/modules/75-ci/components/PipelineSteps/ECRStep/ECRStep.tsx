@@ -145,7 +145,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <ECRStepInputSet
           initialValues={initialValues}

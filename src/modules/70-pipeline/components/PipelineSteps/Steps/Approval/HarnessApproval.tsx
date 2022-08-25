@@ -218,7 +218,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       onChange
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <HarnessApprovalDeploymentModeWithFormik
           stepViewType={stepViewType}

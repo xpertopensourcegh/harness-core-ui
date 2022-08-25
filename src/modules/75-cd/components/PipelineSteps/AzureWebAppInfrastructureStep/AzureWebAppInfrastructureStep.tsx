@@ -271,7 +271,7 @@ export class AzureWebAppInfrastructureSpec extends PipelineStep<AzureWebAppInfra
 
   renderStep(props: StepProps<AzureWebAppInfrastructure>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly, allowableTypes } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <AzureWebAppInfrastructureSpecInputForm
           {...(customStepProps as AzureWebAppInfrastructureSpecEditableProps)}

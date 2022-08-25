@@ -76,6 +76,7 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { getEnvironmentRefSchema } from '@cd/components/PipelineSteps/PipelineStepsUtil'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { isTemplatizedView } from '@pipeline/utils/stepUtils'
 import { Category, EnvironmentActions, ExitModalActions } from '@common/constants/TrackingConstants'
 import ExperimentalInput from '../K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 import css from './DeployEnvStep.module.scss'
@@ -914,7 +915,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
   }
   renderStep(props: StepProps<DeployEnvData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false, allowableTypes } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (isTemplatizedView(stepViewType)) {
       return (
         <DeployEnvironmentInputStepFormik
           initialValues={initialValues}

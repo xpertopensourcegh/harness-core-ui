@@ -222,7 +222,7 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
       onChange,
       allowableTypes
     } = props
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <K8sRollingRollbackInputStep
           allowableTypes={allowableTypes}

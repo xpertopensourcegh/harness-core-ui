@@ -48,7 +48,7 @@ export class CommandScriptsStep extends PipelineStep<CommandScriptsData> {
       inputSetData
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <CommandScriptsInputSet
           initialValues={this.getInitialValues(initialValues)}

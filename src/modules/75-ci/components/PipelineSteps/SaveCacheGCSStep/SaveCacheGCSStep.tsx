@@ -131,7 +131,7 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
       allowableTypes
     } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <SaveCacheGCSStepInputSet
           initialValues={initialValues}

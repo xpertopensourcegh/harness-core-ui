@@ -278,7 +278,7 @@ export class SshWinRmAzureInfrastructureSpec extends PipelineStep<AzureInfrastru
   renderStep(props: StepProps<SshWinRmAzureInfrastructure>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, customStepProps, readonly, allowableTypes, inputSetData } = props
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (this.isTemplatizedView(stepViewType)) {
       return (
         <SshWinRmAzureInfrastructureSpecInputForm
           {...(customStepProps as AzureInfrastructureSpecEditableProps)}
