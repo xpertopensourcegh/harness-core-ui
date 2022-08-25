@@ -9,7 +9,7 @@ import React from 'react'
 import { isEmpty } from 'lodash-es'
 import { Heading, Layout, TabNavigation } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
-import { matchPath, useLocation, useParams, useRouteMatch } from 'react-router-dom'
+import { matchPath, useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener, useQueryParams, useUpdateQueryParams } from '@common/hooks'
@@ -27,6 +27,7 @@ import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorH
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import GitRemoteDetails from '@common/components/GitRemoteDetails/GitRemoteDetails'
 import { StoreType } from '@common/constants/GitSyncTypes'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import NoEntityFound from '../utils/NoEntityFound/NoEntityFound'
 import css from './PipelineDetails.module.scss'
 // add custom event to the global scope
@@ -46,6 +47,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   } = useAppStore()
   const isGitSyncEnabled = isGitSyncEnabledForProject && !gitSyncEnabledOnlyForFF
   const location = useLocation()
+  const history = useHistory()
   const { trackEvent } = useTelemetry()
   const { branch, repoIdentifier, storeType, repoName, connectorRef } = useQueryParams<GitQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams()
@@ -84,6 +86,19 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   const [pipelineName, setPipelineName] = React.useState('')
   const [triggerTabDisabled, setTriggerTabDisabled] = React.useState(false)
 
+  const routeParams = {
+    orgIdentifier,
+    projectIdentifier,
+    pipelineIdentifier,
+    accountId,
+    module,
+    repoIdentifier,
+    branch,
+    repoName,
+    connectorRef,
+    storeType
+  }
+
   React.useEffect(() => {
     if (repoIdentifier && !storeType) {
       getDefaultBranchName()
@@ -103,18 +118,6 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   }, [pipeline?.data?.gitDetails?.branch])
 
   React.useEffect(() => {
-    const routeParams = {
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      accountId,
-      module,
-      repoIdentifier,
-      branch,
-      repoName,
-      connectorRef,
-      storeType
-    }
     // Pipeline View
     const isPipeLineStudioView = !!matchPath(location.pathname, {
       path: routes.toPipelineStudio(routeParams)
@@ -185,6 +188,28 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     })
   ) || { isExact: false }
 
+  const isExecutionHistoryView = !!matchPath(location.pathname, {
+    path: routes.toPipelineDeploymentList({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      accountId,
+      module
+    })
+  })
+
+  const onGitBranchChange = (selectedFilter: GitFilterScope, defaultSelected = false): void => {
+    if (!defaultSelected && branch !== selectedFilter.branch && isExecutionHistoryView) {
+      history.push(
+        routes.toPipelineDeploymentList({
+          ...routeParams,
+          branch: selectedFilter.branch
+        })
+      )
+      window.location.reload()
+    }
+  }
+
   if (error?.data && !isGitSyncEnabled && !supportingGitSimplification) {
     return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
   }
@@ -216,11 +241,13 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   {isPipelineRemote ? (
                     <div className={css.gitRemoteDetailsWrapper}>
                       <GitRemoteDetails
+                        connectorRef={connectorRef}
                         repoName={pipeline?.data?.gitDetails?.repoName}
                         branch={pipeline?.data?.gitDetails?.branch}
                         filePath={pipeline?.data?.gitDetails?.filePath}
                         fileUrl={pipeline?.data?.gitDetails?.fileUrl}
-                        flags={{ readOnly: true }}
+                        onBranchChange={onGitBranchChange}
+                        flags={{ readOnly: !isExecutionHistoryView }}
                       />
                     </div>
                   ) : isGitSyncEnabled && repoIdentifier ? (
