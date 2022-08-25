@@ -7,7 +7,7 @@
 
 .commandUnitForm {
   height: 636px;
-  overflow: scroll;
+  overflow: auto;
   margin-left: var(--spacing-xsmall);
 
   :global {
