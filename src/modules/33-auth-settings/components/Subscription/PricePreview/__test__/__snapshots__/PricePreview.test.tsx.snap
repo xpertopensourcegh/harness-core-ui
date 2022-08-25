@@ -113,7 +113,7 @@ exports[`PricePreview render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
           >
-            $900.00
+            $0.00
             common.perMonth
           </p>
         </div>
@@ -126,20 +126,13 @@ exports[`PricePreview render 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              12 x $75.00 authSettings.costCalculator.mau.permMau
+              12 authSettings.costCalculator.maus
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
-            >
-              authSettings.costCalculator.mau.mMauFree
-            </p>
+            />
           </div>
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            $10,800.00
-            common.perYear
-          </p>
+          0
         </div>
       </div>
       <div
@@ -149,20 +142,6 @@ exports[`PricePreview render 1`] = `
           class="StyledProps--font StyledProps--main"
         >
           authSettings.costCalculator.premiumSupport
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main"
-        >
-          authSettings.pricePreview.calculatedNextStep
-        </p>
-      </div>
-      <div
-        class="Layout--horizontal StyledProps--main line StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--padding-top-small StyledProps--padding-bottom-small"
-      >
-        <p
-          class="StyledProps--font StyledProps--main"
-        >
-          authSettings.costCalculator.tax
         </p>
         <p
           class="StyledProps--font StyledProps--main"
@@ -185,15 +164,24 @@ exports[`PricePreview render 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-h2"
         >
-          $10,800.00
+          $0.00
           common.perYear
         </p>
       </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
       >
-        authSettings.autoRenewal
-      </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+        >
+          authSettings.autoRenewal
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+        >
+          authSettings.salesTax
+        </p>
+      </div>
     </div>
   </div>
 </div>

@@ -32,7 +32,6 @@ export function usePolling(
   const savedCallback = useRef(callback)
   const [isPolling, setIsPolling] = useState(false)
   const tabVisible = useTabVisible()
-
   // Remember the latest callback if it changes.
   useLayoutEffect(() => {
     savedCallback.current = callback

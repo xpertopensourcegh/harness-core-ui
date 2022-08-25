@@ -90,22 +90,48 @@ exports[`useSubscriptionModal render 1`] = `
                 class="Layout--vertical StyledProps--main StyledProps--flex"
               >
                 <div
-                  class="MultiStepProgressIndicator--dotNameSuccess"
+                  class="MultiStepProgressIndicator--dotNameFailed"
                 >
                   <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength StyledProps--color StyledProps--color-primary7"
+                    class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
                     style="--text-line-clamp: 1;"
                   />
                 </div>
                 <div
-                  class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotSuccess MultiStepProgressIndicator--spacing"
+                  class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
                 />
               </div>
               <div
                 class="MultiStepProgressIndicator--statusBar"
               >
                 <div
-                  class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--barSuccess MultiStepProgressIndicator--fullBar"
+                  class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
+                />
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex"
+            >
+              <div
+                class="Layout--vertical StyledProps--main StyledProps--flex"
+              >
+                <div
+                  class="MultiStepProgressIndicator--dotNameFailed"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
+                    style="--text-line-clamp: 1;"
+                  />
+                </div>
+                <div
+                  class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
+                />
+              </div>
+              <div
+                class="MultiStepProgressIndicator--statusBar"
+              >
+                <div
+                  class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
                 />
               </div>
             </div>
@@ -156,7 +182,7 @@ exports[`useSubscriptionModal render 1`] = `
             </div>
           </div>
           <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
+            class="Layout--vertical StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"
@@ -229,7 +255,7 @@ exports[`useSubscriptionModal render 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
                       >
-                        authSettings.unitPrice: $50.00 common.perDeveloper common.perMonth
+                        authSettings.unitPrice: $0.00 common.perDeveloper common.perMonth
                       </p>
                     </div>
                   </div>
@@ -393,20 +419,6 @@ exports[`useSubscriptionModal render 1`] = `
                     >
                       authSettings.costCalculator.mau.title
                     </p>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-size-xsmall"
-                      >
-                        authSettings.costCalculator.mau.mau
-                      </p>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
-                      >
-                        authSettings.unitPrice: $90.00 authSettings.costCalculator.mau.perkMau authSettings.costCalculator.mau.kMauFree
-                      </p>
-                    </div>
                   </div>
                   <div
                     class="Layout--horizontal StyledProps--main subscriptionInfo StyledProps--flex StyledProps--flex-justifyContent-space-between"
@@ -562,7 +574,7 @@ exports[`useSubscriptionModal render 1`] = `
                                 data-testid="dropdown-value"
                                 style="--text-line-clamp: 1;"
                               >
-                                  K
+                                  
                               </p>
                             </div>
                             <div
@@ -773,12 +785,6 @@ exports[`useSubscriptionModal render 1`] = `
                 >
                   common.subscriptions.usage.developers
                 </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
-                >
-                  $0.00
-                  common.perMonth
-                </p>
               </div>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-start"
@@ -786,8 +792,9 @@ exports[`useSubscriptionModal render 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  0 x $90.00 common.perDeveloper
+                  0 x $0.00 common.perDeveloper
                 </p>
+                0
               </div>
             </div>
             <div
@@ -801,12 +808,6 @@ exports[`useSubscriptionModal render 1`] = `
                 >
                   authSettings.costCalculator.maus
                 </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
-                >
-                  $0.00
-                  common.perMonth
-                </p>
               </div>
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-start"
@@ -817,29 +818,14 @@ exports[`useSubscriptionModal render 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    0 x $120.00 authSettings.costCalculator.mau.perkMau
+                    0 authSettings.costCalculator.maus
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
-                  >
-                    authSettings.costCalculator.mau.kMauFree
-                  </p>
+                  />
                 </div>
+                0
               </div>
-            </div>
-            <div
-              class="Layout--horizontal StyledProps--main line StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--padding-top-small StyledProps--padding-bottom-small"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                authSettings.costCalculator.tax
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                authSettings.pricePreview.calculatedNextStep
-              </p>
             </div>
           </div>
           <div
@@ -860,11 +846,20 @@ exports[`useSubscriptionModal render 1`] = `
                 common.perMonth
               </p>
             </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
             >
-              authSettings.autoRenewal
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                authSettings.autoRenewal
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                authSettings.salesTax
+              </p>
+            </div>
           </div>
         </div>
       </div>

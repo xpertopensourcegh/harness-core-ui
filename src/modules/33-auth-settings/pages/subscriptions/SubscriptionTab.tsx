@@ -15,7 +15,7 @@ import { SubscriptionTabNames, ModuleLicenseType } from '@common/constants/Subsc
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { ModuleName } from 'framework/types/ModuleName'
-import type { ModuleLicenseDTO } from 'services/cd-ng'
+import type { AccountDTO, ModuleLicenseDTO } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 
@@ -58,16 +58,16 @@ interface TrialInformation {
 }
 
 interface SubscriptionTabProps {
-  accountName?: string
   trialInfo: TrialInformation
   hasLicense?: boolean
   selectedModule: ModuleName
   licenseData?: ModuleLicenseDTO
   refetchGetLicense: () => void
+  accountData?: AccountDTO
 }
 
 const SubscriptionTab = ({
-  accountName,
+  accountData,
   trialInfo,
   selectedModule,
   hasLicense,
@@ -141,7 +141,7 @@ const SubscriptionTab = ({
       default:
         return (
           <SubscriptionOverview
-            accountName={accountName}
+            accountName={accountData?.name}
             module={selectedModule}
             licenseData={licenseData}
             trialInformation={trialInfo}
@@ -155,7 +155,7 @@ const SubscriptionTab = ({
     <React.Fragment>
       {hasLicense && getBanner()}
       <Layout.Horizontal className={css.subscriptionTabButtons} spacing="medium">
-        {getSubscriptionTabButtons()}
+        {accountData?.productLed && getSubscriptionTabButtons()}
       </Layout.Horizontal>
       {getTabComponent()}
     </React.Fragment>

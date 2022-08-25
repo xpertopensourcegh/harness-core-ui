@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { Layout, Text } from '@harness/uicore'
-import { capitalize } from 'lodash-es'
+import { capitalize, isNil } from 'lodash-es'
 import { Color } from '@harness/design-system'
 import { useStrings } from 'framework/strings'
 import { SubscriptionProps, Product, CurrencyType } from '@common/constants/SubscriptionTypes'
@@ -17,7 +17,6 @@ import css from './PricePreview.module.scss'
 
 interface SubscriptionDetailsProps {
   subscriptionDetails: SubscriptionProps
-  taxAmount?: number
   premiumSupportAmount: number
   products: Product[]
 }
@@ -53,14 +52,17 @@ const PremiumSupportLine: React.FC<{ premiumSupportAmount: number }> = ({ premiu
     </Layout.Horizontal>
   )
 }
+
 const SubscriptionDetails: React.FC<SubscriptionDetailsProps> = ({
-  taxAmount,
   subscriptionDetails,
   products,
   premiumSupportAmount
 }) => {
   const { getString } = useStrings()
   const { premiumSupport } = subscriptionDetails
+  const unit = subscriptionDetails?.sampleDetails?.sampleUnit
+  const minValue = subscriptionDetails?.sampleDetails?.minValue
+
   return (
     <Layout.Vertical padding={{ bottom: 'large' }} spacing="large">
       <Text>{getString('common.subscriptions.overview.details')}</Text>
@@ -68,10 +70,10 @@ const SubscriptionDetails: React.FC<SubscriptionDetailsProps> = ({
         'common.subscriptions.overview.plan'
       )}`}</Text>
       {products.map(product => {
-        return <PricePreviewLine {...product} key={product.description} />
+        return <PricePreviewLine {...product} key={product.description} unit={unit} minValue={minValue} />
       })}
       {premiumSupport && <PremiumSupportLine premiumSupportAmount={premiumSupportAmount} />}
-      <TaxLine taxAmount={taxAmount} />
+      {!isNil(subscriptionDetails.taxAmount) && <TaxLine taxAmount={subscriptionDetails.taxAmount} />}
     </Layout.Vertical>
   )
 }

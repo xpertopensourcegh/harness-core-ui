@@ -218,7 +218,8 @@ const subscriptionProps = {
       numberOfDevelopers: 25,
       numberOfMau: 12
     }
-  }
+  },
+  isValid: false
 }
 
 describe('CostCalculator', () => {
@@ -230,8 +231,8 @@ describe('CostCalculator', () => {
           setView={jest.fn()}
           setSubscriptionProps={jest.fn()}
           subscriptionProps={subscriptionProps}
-          setInvoiceData={jest.fn()}
           className=""
+          onPriceSkewsLoad={jest.fn()}
         />
       </TestWrapper>
     )
@@ -246,7 +247,7 @@ describe('CostCalculator', () => {
           setView={jest.fn()}
           setSubscriptionProps={jest.fn()}
           subscriptionProps={subscriptionProps}
-          setInvoiceData={jest.fn()}
+          onPriceSkewsLoad={jest.fn()}
           className=""
         />
       </TestWrapper>
@@ -267,7 +268,7 @@ describe('CostCalculator', () => {
           setView={jest.fn()}
           setSubscriptionProps={jest.fn()}
           subscriptionProps={props}
-          setInvoiceData={jest.fn()}
+          onPriceSkewsLoad={jest.fn()}
           className=""
         />
       </TestWrapper>
@@ -284,7 +285,7 @@ describe('CostCalculator', () => {
           setView={setViewMock}
           setSubscriptionProps={jest.fn()}
           subscriptionProps={subscriptionProps}
-          setInvoiceData={jest.fn()}
+          onPriceSkewsLoad={jest.fn()}
           className=""
         />
       </TestWrapper>

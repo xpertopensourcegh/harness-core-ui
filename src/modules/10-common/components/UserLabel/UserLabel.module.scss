@@ -28,3 +28,8 @@
 .profilePicture {
   margin: 0 !important;
 }
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+}

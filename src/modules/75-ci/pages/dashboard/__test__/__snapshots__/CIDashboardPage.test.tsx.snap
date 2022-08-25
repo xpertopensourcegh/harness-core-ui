@@ -569,11 +569,15 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                               />
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny"
+                          <div
+                            class="userDetails"
                           >
-                            Anonymous
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny"
+                            >
+                              Anonymous
+                            </p>
+                          </div>
                         </div>
                       </span>
                     </span>
@@ -735,11 +739,15 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                               />
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny"
+                          <div
+                            class="userDetails"
                           >
-                            Anonymous
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny"
+                            >
+                              Anonymous
+                            </p>
+                          </div>
                         </div>
                       </span>
                     </span>
@@ -1006,11 +1014,15 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                               />
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny"
+                          <div
+                            class="userDetails"
                           >
-                            Anonymous
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny"
+                            >
+                              Anonymous
+                            </p>
+                          </div>
                         </div>
                       </span>
                     </span>

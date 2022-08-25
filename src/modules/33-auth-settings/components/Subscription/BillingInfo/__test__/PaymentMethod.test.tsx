@@ -11,7 +11,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
-import PaymentMethod from '../PaymentMethod'
+import PaymentMethod from '../../PaymentMethod/PaymentMethod'
 
 const clientSecret = 'dummy secret'
 const stripePromise = loadStripe('dummy promise')
@@ -19,7 +19,8 @@ const stripePromise = loadStripe('dummy promise')
 describe('PaymentMethod', () => {
   const props = {
     nameOnCard: 'Jane Doe',
-    setNameOnCard: jest.fn()
+    setNameOnCard: jest.fn(),
+    setValidCard: jest.fn()
   }
   test('render', async () => {
     const { container } = render(

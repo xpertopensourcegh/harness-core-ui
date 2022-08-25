@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Classes } from '@blueprintjs/core'
 import { Layout, Dialog, Text, IconName, FontVariation } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
@@ -24,8 +24,12 @@ import { Editions, SubscribeViews, SubscriptionProps, TimeType } from '@common/c
 import type { InvoiceDetailDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import PricePreview from '@auth-settings/components/Subscription/PricePreview/PricePreview'
+import SubscriptionPoll from '@auth-settings/components/Subscription/PaymentMethod/SubscriptionPoll'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { getTiltleByModule } from '../../components/Subscription/subscriptionUtils'
+import useRegionList, { Country, StateByCountryMap } from '@common/hooks/useRegionList'
+import PaymentMethodStep from '@auth-settings/components/Subscription/PaymentMethod/PaymentMethodStep'
+import { getTitleByModule } from '../../components/Subscription/subscriptionUtils'
+import { SubscriptionProvider, useSubscriptionContext, getSkewsMap } from './SubscriptionStore'
 import css from './useSubscriptionModal.module.scss'
 
 interface UseSubscribeModalReturns {
@@ -38,12 +42,17 @@ interface OpenSubscribeModalProps {
   _time: TimeType
   _plan: Editions
 }
-
+interface LabelValue {
+  label: string
+  value: string
+}
 interface UseSubscribeModalProps {
   module: Module
   time: TimeType
   plan: Editions
   onClose: () => void
+  countries: LabelValue[]
+  states: StateByCountryMap
 }
 
 interface LeftViewProps {
@@ -54,11 +63,18 @@ interface LeftViewProps {
   setInvoiceData: (value: InvoiceDetailDTO) => void
   view: SubscribeViews
   setView: (value: SubscribeViews) => void
+  countries: LabelValue[]
+  states: StateByCountryMap
+  onPriceSkewsLoad: (skews: KVPair[]) => void
+}
+
+interface KVPair {
+  [key: string]: any
 }
 
 const stripePromise = window.stripeApiKey ? loadStripe(window.stripeApiKey) : Promise.resolve(null)
 
-const View: React.FC<UseSubscribeModalProps> = ({ module, plan, time, onClose }) => {
+const View: React.FC<UseSubscribeModalProps> = ({ module, plan, time, onClose, countries, states }) => {
   const { accountId } = useParams<AccountPathProps>()
   const { currentUserInfo } = useAppStore()
   const { email, accounts } = currentUserInfo
@@ -86,11 +102,18 @@ const View: React.FC<UseSubscribeModalProps> = ({ module, plan, time, onClose })
       last4digits: '',
       nameOnCard: ''
     },
-    productPrices: { monthly: [], yearly: [] }
+    productPrices: { monthly: [], yearly: [] },
+    sampleDetails: { sampleUnit: '', sampleMultiplier: 0, minValue: 0 },
+    isValid: false
   })
 
   const [invoiceData, setInvoiceData] = useState<InvoiceDetailDTO>()
   const { getString } = useStrings()
+  const { updateStore } = useSubscriptionContext()
+  const onPriceSkewsLoad = (skews: KVPair[]): void => {
+    const skewsMap = getSkewsMap(skews)
+    updateStore(skewsMap)
+  }
 
   if (view === SubscribeViews.SUCCESS) {
     return (
@@ -104,7 +127,7 @@ const View: React.FC<UseSubscribeModalProps> = ({ module, plan, time, onClose })
     )
   }
 
-  const { icon, description } = getTiltleByModule(module)
+  const { icon, description } = getTitleByModule(module)
 
   const titleDescr = `${getString(description as keyof StringsMap)} ${getString('common.plans.subscription')}`
   const title: React.ReactElement = (
@@ -123,6 +146,8 @@ const View: React.FC<UseSubscribeModalProps> = ({ module, plan, time, onClose })
       {title}
       <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'start' }} className={css.view}>
         <LeftView
+          countries={countries}
+          states={states}
           module={module}
           subscriptionProps={subscriptionProps}
           invoiceData={invoiceData}
@@ -130,6 +155,7 @@ const View: React.FC<UseSubscribeModalProps> = ({ module, plan, time, onClose })
           setInvoiceData={setInvoiceData}
           view={view}
           setView={setView}
+          onPriceSkewsLoad={onPriceSkewsLoad}
         />
         <PricePreview
           subscriptionDetails={subscriptionProps}
@@ -148,7 +174,10 @@ const LeftView = ({
   setInvoiceData,
   setSubscriptionProps,
   view,
-  setView
+  setView,
+  countries,
+  states,
+  onPriceSkewsLoad
 }: LeftViewProps): React.ReactElement => {
   switch (view) {
     case SubscribeViews.FINALREVIEW:
@@ -160,10 +189,10 @@ const LeftView = ({
           className={css.leftView}
         />
       )
-    case SubscribeViews.BILLINGINFO:
-      return invoiceData?.clientSecret ? (
-        <Elements stripe={stripePromise} options={{ clientSecret: invoiceData.clientSecret }}>
-          <BillingInfo
+    case SubscribeViews.PAYMENT_METHOD:
+      return invoiceData?.paymentIntent?.clientSecret ? (
+        <Elements stripe={stripePromise} options={{ clientSecret: invoiceData?.paymentIntent?.clientSecret }}>
+          <PaymentMethodStep
             setView={setView}
             subscriptionProps={subscriptionProps}
             setInvoiceData={setInvoiceData}
@@ -172,7 +201,23 @@ const LeftView = ({
           />
         </Elements>
       ) : (
-        <></>
+        <SubscriptionPoll
+          subscriptionProps={subscriptionProps}
+          setInvoiceData={setInvoiceData}
+          setSubscriptionProps={setSubscriptionProps}
+        />
+      )
+    case SubscribeViews.BILLINGINFO:
+      return (
+        <BillingInfo
+          setView={setView}
+          subscriptionProps={subscriptionProps}
+          setInvoiceData={setInvoiceData}
+          setSubscriptionProps={setSubscriptionProps}
+          className={css.leftView}
+          countries={countries}
+          states={states}
+        />
       )
     case SubscribeViews.CALCULATE:
     default:
@@ -182,8 +227,8 @@ const LeftView = ({
           setView={setView}
           subscriptionProps={subscriptionProps}
           setSubscriptionProps={setSubscriptionProps}
-          setInvoiceData={setInvoiceData}
           className={css.leftView}
+          onPriceSkewsLoad={onPriceSkewsLoad}
         />
       )
   }
@@ -193,10 +238,16 @@ export const useSubscribeModal = ({ onClose }: { onClose?: () => void }): UseSub
   const [newPlan, setNewPlan] = useState<Editions>(Editions.FREE)
   const [time, setTime] = useState<TimeType>(TimeType.YEARLY)
   const [module, setModule] = useState<Module>('cf')
+  const { countries, states } = useRegionList()
+
   const handleClose = (): void => {
     onClose?.()
     hideModal()
   }
+  const countryList = useMemo(
+    () => countries.map((country: Country) => ({ label: country.name, value: country.countryCode })),
+    [countries]
+  )
 
   const [openModal, hideModal] = useModalHook(
     () => (
@@ -207,7 +258,16 @@ export const useSubscribeModal = ({ onClose }: { onClose?: () => void }): UseSub
         className={cx(css.dialog, Classes.DIALOG)}
         isCloseButtonShown
       >
-        <View module={module} plan={newPlan} time={time} onClose={handleClose} />
+        <SubscriptionProvider>
+          <View
+            countries={countryList}
+            states={states}
+            module={module}
+            plan={newPlan}
+            time={time}
+            onClose={handleClose}
+          />
+        </SubscriptionProvider>
       </Dialog>
     ),
     [newPlan, time, module]

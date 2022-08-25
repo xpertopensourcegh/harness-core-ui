@@ -38,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({ setView, invoiceId = '' }) => {
   })
 
   function handleBack(): void {
-    setView(SubscribeViews.BILLINGINFO)
+    setView(SubscribeViews.PAYMENT_METHOD)
   }
 
   async function handleNext(): Promise<void> {

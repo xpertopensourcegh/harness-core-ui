@@ -13,14 +13,12 @@ import { SubscribeViews } from '@common/constants/SubscriptionTypes'
 interface FooterProps {
   disabled?: boolean
   setView: (view: SubscribeViews) => void
-  createSubscription: () => Promise<void>
 }
 
-export const Footer: React.FC<FooterProps> = ({ disabled, setView, createSubscription }) => {
+export const Footer: React.FC<FooterProps> = ({ disabled, setView }) => {
   const { getString } = useStrings()
 
-  async function handleNext(): Promise<void> {
-    await createSubscription()
+  function handleNext(): void {
     setView(SubscribeViews.BILLINGINFO)
   }
 

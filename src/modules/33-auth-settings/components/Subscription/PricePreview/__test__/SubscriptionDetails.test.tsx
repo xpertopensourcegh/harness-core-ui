@@ -39,7 +39,8 @@ describe('SubscriptionDetails', () => {
       productPrices: {
         monthly: [],
         yearly: []
-      }
+      },
+      isValid: false
     },
     products: [],
     premiumSupportAmount: 20

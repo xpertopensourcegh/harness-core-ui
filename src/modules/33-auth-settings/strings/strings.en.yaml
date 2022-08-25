@@ -143,8 +143,10 @@ cdCommunityPlan:
     item5: Template Library & Custom Dashboards
 
 autoRenewal: Auto renewal on {{date}}
+salesTax: Plus sales tax
 unitPrice: Unit Price
 recomendation: Recomendation
+priceBreakdown: Subscription Price Breakdown
 costCalculator:
   tax: Tax
   using: Using
@@ -164,13 +166,15 @@ costCalculator:
   mau:
     title: How many Monthly Active Users will view Feature Flags?
     mau: Who is a Monthly Active User?
-    perkMau: per 100k / month
+    perkMau: 'per {{quantity}}K / month'
     kMauFree: (first 100k included free)
-    permMau: per 1M / month
-    mMauFree: (first 1M included free)
+    permMau: 'per {{quantity}}M / month'
+    mMauFree: '(first {{minValue}} included free)'
 billing:
   totalDuetoday: 'Total due today: '
-  next: 'Next: Final review'
+  next: 'Next: Payment Method'
+paymentMethod:
+  next: 'Next: Final Review'
 finalReview:
   premiumSupport: Premium 24x7
   ofTotalSpend: (20% of total spend)
@@ -184,9 +188,26 @@ choosePlan: Choose a plan
 pricePreview:
   title: Price preview
   calculatedNextStep: Calculated in final review
-  discount: (20% discount)
+  discount: ' (2 months free)'
 billingInfo:
-  billingContact: Billing Contact
+  address: Address
+  billingContact: '{{$.common.billing}} Contact'
   paymentMethod: Payment Method
-  saveCardWarning: By providing your card information, you allow Harness Inc. charge your card for future payment in accordance with their terms.
-  emailWarning: This email address will receive billing notifications
+  paymentMethods: Payment Methods
+  billingAdmin: '{{$.common.billing}} Admin'
+  saveCardWarning: By providing your card information, you allow Harness Inc. to charge your card for future payments in accordance with our Terms of Use.
+  emailWarning: This billing email will recieve billing notifications. Change this in Billing.
+  nobills: There are no Team / Enterprise subscriptions in your Account
+  firstSubscription: Let’s get started with your first subscription.
+  explorePlans: Explore Plans
+  addCC: Add a credit card
+  priceBreakdown: Price breakdown
+  nextBillingDate: 'Next billing date is on {{billingDate}}'
+  monthlyTotal: 'Monthly Total: '
+  annualTotal: 'Annual Total: '
+  endingIn: ending in
+  expires: Expires
+  updateCard: Update Card
+  monthlySubscriptions: Monthly Subscriptions
+  annualSubscriptions: Annual Subscriptions
+  selectPaymentMethod: Select Payment Method

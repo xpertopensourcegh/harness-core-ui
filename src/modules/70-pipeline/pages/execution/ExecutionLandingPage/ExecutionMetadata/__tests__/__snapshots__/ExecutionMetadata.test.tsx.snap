@@ -132,11 +132,20 @@ exports[`<ExecutionMetadata.test /> tests Tag type 1`] = `
                   />
                 </svg>
               </span>
-              <p
-                class="StyledProps--font StyledProps--main"
+              <div
+                class="userDetails"
               >
-                Admin
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  Admin
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main UserLabel--email StyledProps--font-size-small StyledProps--color StyledProps--color-grey200"
+                >
+                  admin@harness.io
+                </p>
+              </div>
             </div>
           </span>
         </span>

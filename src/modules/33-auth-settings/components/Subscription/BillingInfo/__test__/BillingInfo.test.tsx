@@ -75,7 +75,8 @@ const subscriptionProps = {
       numberOfDevelopers: 25,
       numberOfMau: 12
     }
-  }
+  },
+  isValid: false
 }
 
 const clientSecret = 'dummy secret'
@@ -92,6 +93,8 @@ describe('BillingInfo', () => {
             setInvoiceData={jest.fn()}
             setSubscriptionProps={jest.fn()}
             className=""
+            states={{}}
+            countries={[]}
           />
         </Elements>
       </TestWrapper>
@@ -112,6 +115,8 @@ describe('BillingInfo', () => {
             setInvoiceData={jest.fn()}
             setSubscriptionProps={jest.fn()}
             className=""
+            states={{}}
+            countries={[]}
           />
         </Elements>
       </TestWrapper>

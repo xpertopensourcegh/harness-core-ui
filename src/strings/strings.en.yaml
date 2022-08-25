@@ -930,7 +930,6 @@ pipelineSteps:
       enableProvisionerLabel: Provision your target infrastructure dynamically during the execution of your Pipeline
   feature:
     create:
-      featureStageName: Feature Flag
       specifyEnvironment: Specify the Environment
       whatIsFor: What is your flag used for?
 

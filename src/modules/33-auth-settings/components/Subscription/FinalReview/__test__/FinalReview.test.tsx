@@ -73,7 +73,8 @@ const subscriptionProps = {
       numberOfDevelopers: 25,
       numberOfMau: 12
     }
-  }
+  },
+  isValid: false
 }
 
 const invoiceData = {
@@ -113,7 +114,7 @@ describe('FinalReview', () => {
     )
     userEvent.click(getByText('back'))
     await waitFor(() => {
-      expect(setViewMock).toBeCalledWith(SubscribeViews.BILLINGINFO)
+      expect(setViewMock).toBeCalledWith(SubscribeViews.PAYMENT_METHOD)
     })
   })
 })

@@ -5,32 +5,25 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Layout, PageError, Container } from '@harness/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { getErrorMessage } from '@auth-settings/utils'
 import type { Module, ModuleName } from 'framework/types/ModuleName'
-import {
-  InvoiceDetailDTO,
-  useCreateFfSubscription,
-  RetrieveProductPricesQueryParams,
-  useRetrieveProductPrices
-} from 'services/cd-ng/index'
+import { RetrieveProductPricesQueryParams, useRetrieveProductPrices } from 'services/cd-ng/index'
 import {
   Editions,
   SubscribeViews,
   SubscriptionProps,
   ProductPricesProp,
   TimeType,
-  LookUpKeyType,
   LookUpKeyFrequencyType
 } from '@common/constants/SubscriptionTypes'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetUsageAndLimit } from '@common/hooks/useGetUsageAndLimit'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { getCostCalculatorBodyByModule } from '@auth-settings/components/Subscription/subscriptionUtils'
+import { getCostCalculatorBodyByModule, PLAN_TYPES } from '@auth-settings/components/Subscription/subscriptionUtils'
 import ChoosePlan from './ChoosePlan'
 import { Footer } from './Footer'
 import { PremiumSupport } from './PremiumSupport'
@@ -42,8 +35,8 @@ interface CostCalculatorProps {
   setView: (view: SubscribeViews) => void
   setSubscriptionProps: (props: SubscriptionProps) => void
   subscriptionProps: SubscriptionProps
-  setInvoiceData: (value: InvoiceDetailDTO) => void
   className: string
+  onPriceSkewsLoad: (skews: { [key: string]: any }[]) => void
 }
 
 export const CostCalculator: React.FC<CostCalculatorProps> = ({
@@ -51,18 +44,13 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
   setView,
   setSubscriptionProps,
   subscriptionProps,
-  setInvoiceData,
+  onPriceSkewsLoad,
   className
 }) => {
   const { licenseInformation } = useLicenseStore()
   const currentPlan = (licenseInformation[module.toUpperCase()]?.edition || Editions.FREE) as Editions
   const usageAndLimitInfo = useGetUsageAndLimit(module.toUpperCase() as ModuleName)
   const { accountId } = useParams<AccountPathProps>()
-  const [err, setErr] = useState<string>()
-
-  const { mutate: createFFNewSubscription, loading: creatingNewSubscription } = useCreateFfSubscription({
-    queryParams: { accountIdentifier: accountId }
-  })
 
   const {
     data,
@@ -77,52 +65,32 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
   })
 
   const prices = data?.data?.prices
-  React.useMemo(() => {
+
+  React.useEffect(() => {
     const newProductPrices: ProductPricesProp = { monthly: [], yearly: [] }
     if (prices) {
       prices.forEach(price => {
-        if (price.lookupKey?.includes(LookUpKeyFrequencyType.MONTHLY)) {
+        if (price.metaData?.billed?.includes(LookUpKeyFrequencyType.MONTHLY)) {
           newProductPrices.monthly.push(price)
         }
-        if (price.lookupKey?.includes(LookUpKeyFrequencyType.YEARLY)) {
+        if (price.metaData?.billed?.includes(LookUpKeyFrequencyType.YEARLY)) {
           newProductPrices.yearly.push(price)
         }
-        if (price.lookupKey === LookUpKeyType.PREMIUM_SUPPORT) {
+        if (price.lookupKey === PLAN_TYPES.PREMIUM_SUPPORT) {
           newProductPrices.yearly.push(price)
         }
       })
+
       setSubscriptionProps({
         ...subscriptionProps,
         productPrices: newProductPrices
       })
+      onPriceSkewsLoad(prices)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prices])
 
-  async function createNewSubscription(): Promise<void> {
-    try {
-      // TODO: add a function to return create subscription function based of module
-      const res = await createFFNewSubscription({
-        accountId,
-        edition: subscriptionProps.edition,
-        paymentFreq: subscriptionProps.paymentFreq,
-        premiumSupport: subscriptionProps.premiumSupport,
-        ...subscriptionProps.quantities?.featureFlag
-      })
-
-      if (res.data) {
-        setInvoiceData(res.data)
-        setSubscriptionProps({
-          ...subscriptionProps,
-          subscriptionId: res.data.subscriptionId || ''
-        })
-      }
-    } catch (error) {
-      setErr(getErrorMessage(error))
-    }
-  }
-
-  if (creatingNewSubscription || retrievingProductPrices) {
+  if (retrievingProductPrices) {
     return <ContainerSpinner />
   }
 
@@ -134,25 +102,18 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
     )
   }
 
-  if (err) {
-    return (
-      <Container width={300}>
-        <PageError message={err} onClick={createNewSubscription} />
-      </Container>
-    )
-  }
-
   return (
     <Layout.Vertical className={className}>
-      <Header step={1} />
-      <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} spacing={'large'} className={css.body}>
+      <Header step={0} />
+      <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.body}>
         <ChoosePlan
           plan={subscriptionProps.edition}
           module={module}
           setPlan={(value: Editions) => {
             setSubscriptionProps({
               ...subscriptionProps,
-              edition: value
+              edition: value,
+              sampleDetails: { sampleMultiplier: 0, sampleUnit: '', minValue: 0 }
             })
           }}
         />
@@ -176,11 +137,7 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
           disabled={subscriptionProps.paymentFreq === TimeType.MONTHLY}
         />
       </Layout.Vertical>
-      <Footer
-        setView={setView}
-        disabled={isEmpty(subscriptionProps.quantities)}
-        createSubscription={createNewSubscription}
-      />
+      <Footer setView={setView} disabled={isEmpty(subscriptionProps.quantities)} />
     </Layout.Vertical>
   )
 }

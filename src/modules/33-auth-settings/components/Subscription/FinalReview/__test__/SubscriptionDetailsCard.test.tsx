@@ -17,7 +17,8 @@ describe('SubscriptionDetailsCard', () => {
   const props = {
     newPlan: Editions.ENTERPRISE,
     items: ['item 1', 'item 2'],
-    setView: setViewMock
+    setView: setViewMock,
+    subscriptionId: ''
   }
 
   test('render', async () => {

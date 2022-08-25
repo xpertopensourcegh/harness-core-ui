@@ -74,7 +74,8 @@ const subscriptionDetails = {
       numberOfDevelopers: 25,
       numberOfMau: 12
     }
-  }
+  },
+  isValid: false
 }
 
 describe('PricePreview', () => {

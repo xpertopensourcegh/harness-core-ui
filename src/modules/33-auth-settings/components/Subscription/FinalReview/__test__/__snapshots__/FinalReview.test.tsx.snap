@@ -78,6 +78,32 @@ exports[`FinalReview render 1`] = `
             class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotSuccess MultiStepProgressIndicator--spacing"
           />
         </div>
+        <div
+          class="MultiStepProgressIndicator--statusBar"
+        >
+          <div
+            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--barSuccess MultiStepProgressIndicator--fullBar"
+          />
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="MultiStepProgressIndicator--dotNameFailed"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
+              style="--text-line-clamp: 1;"
+            />
+          </div>
+          <div
+            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
+          />
+        </div>
       </div>
     </div>
     <div

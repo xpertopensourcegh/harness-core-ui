@@ -6,15 +6,29 @@
  */
 import React from 'react'
 import { Layout } from '@harness/uicore'
-import type { PriceDTO } from 'services/cd-ng/index'
-import type { Editions, ProductPricesProp, SubscriptionProps, Product } from '@common/constants/SubscriptionTypes'
-import { TimeType, LookUpKeyType } from '@common/constants/SubscriptionTypes'
+import { defaultTo, get, toInteger } from 'lodash-es'
+import type { PriceDTO, SubscriptionDetailDTO } from 'services/cd-ng/index'
+import type {
+  Editions,
+  ProductPricesProp,
+  SubscriptionProps,
+  Product,
+  SampleData
+} from '@common/constants/SubscriptionTypes'
+import { TimeType } from '@common/constants/SubscriptionTypes'
 import { getDollarAmount } from '@auth-settings/utils'
 import type { Module } from 'framework/types/ModuleName'
 import type { UsageAndLimitReturn } from '@common/hooks/useGetUsageAndLimit'
 import FFDeveloperCard from './CostCalculator/FFDeveloperCard'
 import FFMAUCard from './CostCalculator/FFMAUCard'
 
+export const PLAN_TYPES: { [key: string]: string } = {
+  DEVELOPERS: 'DEVELOPERS',
+  MAU: 'MAU',
+  MAU_SUPPORT: 'MAU_SUPPORT',
+  PREMIUM_SUPPORT: 'PREMIUM_SUPPORT',
+  DEVELOPERS_SUPPORT: 'DEVELOPERS_SUPPORT'
+}
 export function getRenewDate(time: TimeType): string {
   const today = new Date()
   if (time === TimeType.MONTHLY) {
@@ -38,7 +52,7 @@ export function getProductPrices(plan: Editions, time: TimeType, productPrices: 
 
   if (time === TimeType.MONTHLY) {
     productPrices.monthly.forEach(price => {
-      if (price.lookupKey?.includes(plan)) {
+      if (price.metaData?.edition?.includes(plan)) {
         prices.push(price)
       }
     })
@@ -46,7 +60,7 @@ export function getProductPrices(plan: Editions, time: TimeType, productPrices: 
 
   if (time === TimeType.YEARLY) {
     productPrices.yearly.forEach(price => {
-      if (price.lookupKey?.includes(plan)) {
+      if (price.metaData?.edition?.includes(plan)) {
         prices.push(price)
       }
     })
@@ -78,17 +92,23 @@ export function getCostCalculatorBodyByModule({
   const productPricesByPayFreq = getProductPrices(edition, paymentFreq, productPrices)
   switch (module) {
     case 'cf': {
+      const planType = getPlanType(PLAN_TYPES.MAU)
+      const sampleData = getSampleData(planType, productPricesByPayFreq)
       let licenseUnitPrice = getDollarAmount(
-        productPricesByPayFreq.find(price => price.lookupKey?.includes(LookUpKeyType.DEVELOPERS))?.unitAmount
+        productPricesByPayFreq.find(price => price.metaData?.type === getPlanType(PLAN_TYPES.DEVELOPERS))?.unitAmount
       )
 
       let mauUnitPrice = getDollarAmount(
-        productPricesByPayFreq.find(price => price.lookupKey?.includes(LookUpKeyType.MAU))?.unitAmount
+        productPricesByPayFreq.find(price => price.metaData?.type === getPlanType(PLAN_TYPES.MAU))?.unitAmount
       )
 
       if (paymentFrequency === TimeType.YEARLY) {
         licenseUnitPrice = licenseUnitPrice / 12
         mauUnitPrice = mauUnitPrice / 12
+      }
+
+      if (!subscriptionDetails.sampleDetails?.sampleUnit && sampleData.sampleUnit) {
+        setSubscriptionDetails({ ...subscriptionDetails, sampleDetails: sampleData })
       }
 
       return (
@@ -106,29 +126,35 @@ export function getCostCalculatorBodyByModule({
                 quantities: {
                   ...subscriptionDetails.quantities,
                   featureFlag: {
-                    numberOfMau: subscriptionDetails.quantities?.featureFlag?.numberOfMau || 0,
-                    numberOfDevelopers: value
+                    numberOfMau: subscriptionDetails.quantities?.featureFlag?.numberOfMau || sampleData.minValue,
+                    numberOfDevelopers: value || 1
                   }
                 }
               })
             }}
           />
           <FFMAUCard
+            key={sampleData.minValue}
+            minValue={sampleData.minValue}
+            unit={sampleData.sampleUnit}
             currentPlan={currentPlan}
             newPlan={edition}
             paymentFreq={paymentFreq}
             currentSubscribed={usageAndLimitInfo.limitData.limit?.ff?.totalClientMAUs || 0}
             unitPrice={mauUnitPrice}
             usage={usageAndLimitInfo.usageData.usage?.ff?.activeClientMAUs?.count || 0}
-            selectedNumberOfMAUs={subscriptionDetails.quantities?.featureFlag?.numberOfMau}
+            selectedNumberOfMAUs={defaultTo(
+              subscriptionDetails.quantities?.featureFlag?.numberOfMau,
+              sampleData.minValue
+            )}
             setNumberOfMAUs={(value: number) => {
               setSubscriptionDetails({
                 ...subscriptionDetails,
                 quantities: {
                   ...subscriptionDetails.quantities,
                   featureFlag: {
-                    numberOfMau: value,
-                    numberOfDevelopers: subscriptionDetails.quantities?.featureFlag?.numberOfDevelopers || 0
+                    numberOfMau: value || sampleData.minValue,
+                    numberOfDevelopers: subscriptionDetails.quantities?.featureFlag?.numberOfDevelopers || 1
                   }
                 }
               })
@@ -142,22 +168,25 @@ export function getCostCalculatorBodyByModule({
   return <></>
 }
 
-export function getTiltleByModule(module: Module): { icon?: string; description?: string } {
-  let icon, description
+export function getTitleByModule(module: Module): { icon?: string; description?: string; title?: string } {
+  let icon, description, title
   switch (module) {
     case 'cf': {
       icon = 'ff-solid'
       description = 'common.purpose.cf.continuous'
+      title = 'common.moduleTitles.cf'
       break
     }
     case 'cd': {
       icon = 'cd-solid'
       description = 'common.purpose.cd.continuous'
+
       break
     }
     case 'ci': {
       icon = 'ci-solid'
       description = 'common.purpose.ci.continuous'
+
       break
     }
     case 'ce': {
@@ -177,7 +206,7 @@ export function getTiltleByModule(module: Module): { icon?: string; description?
     }
   }
 
-  return { icon, description }
+  return { icon, description, title }
 }
 
 export function getSubscriptionBreakdownsByModuleAndFrequency({
@@ -189,12 +218,13 @@ export function getSubscriptionBreakdownsByModuleAndFrequency({
 }): Product[] {
   const { productPrices, quantities, paymentFreq } = subscriptionDetails
   const products: Product[] = []
-
   switch (module) {
     case 'cf': {
       if (paymentFreq === TimeType.MONTHLY) {
         const developerUnitPrice = getDollarAmount(
-          productPrices.monthly?.find(product => product.lookupKey?.includes(LookUpKeyType.DEVELOPERS))?.unitAmount
+          productPrices.monthly?.find(product => {
+            return isSelectedPlan(product, false, subscriptionDetails.edition, PLAN_TYPES.DEVELOPERS)
+          })?.unitAmount
         )
         products.push({
           paymentFrequency: paymentFreq,
@@ -203,23 +233,38 @@ export function getSubscriptionBreakdownsByModuleAndFrequency({
           quantity: quantities?.featureFlag?.numberOfDevelopers || 0,
           unitPrice: developerUnitPrice
         })
+
+        const numberOfMauMonthly = quantities?.featureFlag?.numberOfMau || 0
         const mauUnitPrice = getDollarAmount(
-          productPrices.monthly?.find(product => product.lookupKey?.includes(LookUpKeyType.MAU))?.unitAmount
+          productPrices.monthly?.find(productPrice => {
+            const isSamePlan = isSelectedPlan(productPrice, false, subscriptionDetails.edition, PLAN_TYPES.MAU)
+            if (isSamePlan) {
+              const numMausFromMap = numberOfMauMonthly * toInteger(productPrice.metaData?.sampleMultiplier)
+              const priceMin = strToNumber(productPrice.metaData?.min || '')
+              const priceMax = strToNumber(productPrice.metaData?.max || '')
+              const isValidRange = numMausFromMap >= priceMin && numMausFromMap <= priceMax
+              if (isValidRange) {
+                return productPrice
+              }
+            }
+          })?.unitAmount
         )
         products.push({
           paymentFrequency: paymentFreq,
           description: 'authSettings.costCalculator.maus',
           unitDescription: 'authSettings.costCalculator.mau.perkMau',
           underComment: 'authSettings.costCalculator.mau.kMauFree',
-          quantity: quantities?.featureFlag?.numberOfMau || 0,
+          quantity: numberOfMauMonthly,
           unitPrice: mauUnitPrice
         })
       }
       if (paymentFreq === TimeType.YEARLY) {
         const developerUnitPrice = getDollarAmount(
-          productPrices.yearly?.find(product => product.lookupKey?.includes(LookUpKeyType.DEVELOPERS))?.unitAmount,
-          true
+          productPrices.yearly?.find(product => {
+            return isSelectedPlan(product, false, subscriptionDetails.edition, PLAN_TYPES.DEVELOPERS)
+          })?.unitAmount
         )
+
         products.push({
           paymentFrequency: paymentFreq,
           description: 'common.subscriptions.usage.developers',
@@ -227,16 +272,28 @@ export function getSubscriptionBreakdownsByModuleAndFrequency({
           quantity: quantities?.featureFlag?.numberOfDevelopers || 0,
           unitPrice: developerUnitPrice
         })
+        const numberOfMauYearly = quantities?.featureFlag?.numberOfMau || 0
+
         const mauUnitPrice = getDollarAmount(
-          productPrices.yearly?.find(product => product.lookupKey?.includes(LookUpKeyType.MAU))?.unitAmount,
-          true
+          productPrices.yearly?.find(productPrice => {
+            const isSamePlan = isSelectedPlan(productPrice, false, subscriptionDetails.edition, PLAN_TYPES.MAU)
+            if (isSamePlan) {
+              const numMausFromMap = numberOfMauYearly * toInteger(productPrice.metaData?.sampleMultiplier)
+              const priceMin = strToNumber(productPrice.metaData?.min || '')
+              const priceMax = strToNumber(productPrice.metaData?.max || '')
+              const isValidRange = numMausFromMap >= priceMin && numMausFromMap <= priceMax
+              if (isValidRange) {
+                return productPrice
+              }
+            }
+          })?.unitAmount
         )
         products.push({
           paymentFrequency: paymentFreq,
           description: 'authSettings.costCalculator.maus',
           unitDescription: 'authSettings.costCalculator.mau.permMau',
           underComment: 'authSettings.costCalculator.mau.mMauFree',
-          quantity: quantities?.featureFlag?.numberOfMau || 0,
+          quantity: numberOfMauYearly,
           unitPrice: mauUnitPrice
         })
       }
@@ -244,4 +301,71 @@ export function getSubscriptionBreakdownsByModuleAndFrequency({
   }
 
   return products
+}
+
+export const strToNumber = (str: string): number => {
+  return Number.parseInt(str.replace(/,/g, ''))
+}
+
+export const getPlanType = (plan: string, isSupport?: boolean): string => {
+  return isSupport ? `${PLAN_TYPES[plan]}_SUPPORT` : PLAN_TYPES[plan]
+}
+
+export const isSelectedPlan = (
+  price: PriceDTO,
+  premiumSupport: boolean,
+  edition: string,
+  planType: string
+): boolean => {
+  const hasSamePlan = price.metaData?.type === getPlanType(planType, premiumSupport)
+  const hasSameEdition = price.metaData?.edition === edition
+  if (hasSameEdition && hasSamePlan) {
+    return true
+  }
+  return false
+}
+
+export const getSampleData = (planType: string, productPrices: PriceDTO[]): SampleData => {
+  const sampleData: SampleData = { sampleUnit: '', sampleMultiplier: 0, minValue: 0 }
+  productPrices.forEach(price => {
+    if (price.metaData?.type === planType) {
+      sampleData.sampleMultiplier = toInteger(price.metaData?.sampleMultiplier)
+      sampleData.sampleUnit = price.metaData?.sampleUnit
+      const currMinValue = toInteger(strToNumber(price.metaData?.min))
+      sampleData.minValue = sampleData.minValue === 0 ? currMinValue : Math.min(sampleData.minValue, currMinValue)
+    }
+  })
+
+  sampleData.minValue =
+    (sampleData.minValue - (sampleData.minValue % sampleData.sampleMultiplier)) / sampleData.sampleMultiplier
+  return sampleData
+}
+
+export const getSubscriptionByPaymentFrequency = (
+  data: SubscriptionDetailDTO[]
+): { [key: string]: SubscriptionDetailDTO[] } => {
+  const subscriptionByPaymentFrequencyMap = {
+    [TimeType.YEARLY]: [] as SubscriptionDetailDTO[],
+    [TimeType.MONTHLY]: [] as SubscriptionDetailDTO[]
+  }
+  data.forEach(subs => {
+    if (get(subs, 'latestInvoiceDetail.items[1].price.metaData.billed') === TimeType.YEARLY) {
+      subscriptionByPaymentFrequencyMap[TimeType.YEARLY].push(subs)
+    }
+    if (get(subs, 'latestInvoiceDetail.items[1].price.metaData.billed') === TimeType.MONTHLY) {
+      subscriptionByPaymentFrequencyMap[TimeType.MONTHLY].push(subs)
+    }
+  })
+  return subscriptionByPaymentFrequencyMap
+}
+
+export const toDollars = (num = 0): number => (num === 0 ? 0 : num / 100)
+
+export const getSampleMinValue = (unit?: string): string => (unit === 'K' ? `100K` : `1M`)
+
+export const getQuantityFromValue = (value: string, multiplier: string, unit: string): string => {
+  const currValue = toInteger(strToNumber(value))
+  const sampleMultiplier = toInteger(strToNumber(multiplier))
+
+  return `${currValue / sampleMultiplier}${unit}`
 }

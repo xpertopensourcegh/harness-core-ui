@@ -177,5 +177,9 @@ export enum PermissionIdentifier {
   DELETE_CCM_AUTOSTOPPING_RULE = 'ccm_autoStoppingRule_delete',
   VIEW_CCM_LOADBALANCER = 'ccm_loadBalancer_view',
   EDIT_CCM_LOADBALANCER = 'ccm_loadBalancer_edit',
-  DELETE_CCM_LOADBALANCER = 'ccm_loadBalancer_delete'
+  DELETE_CCM_LOADBALANCER = 'ccm_loadBalancer_delete',
+  // Billing Permissions
+  EDIT_LICENSE = 'core_license_edit',
+  DELETE_LICENSE = 'core_license_delete',
+  VIEW_LICENSE = 'core_license_view'
 }

@@ -7,9 +7,12 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
+  readonly billingContact: string
   readonly body: string
   readonly creditCard: string
+  readonly paymentCard: string
   readonly paymentMethodInfo: string
+  readonly paymentgrid: string
   readonly powerByStripe: string
   readonly warning: string
 }

@@ -11,11 +11,14 @@ import cx from 'classnames'
 import { Color } from '@harness/design-system'
 import { Layout, Text, Button, ButtonVariation, Popover } from '@wings-software/uicore'
 import { Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import type { EditionActionDTO } from 'services/cd-ng'
 import type { StringsMap } from 'stringTypes'
 import type { PlansFragment, Maybe } from 'services/common/services'
 import { TimeType } from '@common/constants/SubscriptionTypes'
+import RbacButton from '@rbac/components/Button/Button'
 import type { PlanCalculatedProps, BtnProps } from './PlanContainer'
 import css from './Plan.module.scss'
 
@@ -172,9 +175,26 @@ export function getBtns({ isPlanDisabled, btnProps, getString }: GetBtnsProps): 
 
     // or else, just a button
     btns.push(
-      <Button key={buttonText} onClick={onClick} loading={btnLoading} variation={ButtonVariation.PRIMARY}>
-        {buttonText}
-      </Button>
+      buttonText === 'Upgrade' ? (
+        <RbacButton
+          permission={{
+            permission: PermissionIdentifier.EDIT_LICENSE,
+            resource: {
+              resourceType: ResourceType.LICENSE
+            }
+          }}
+          key={buttonText}
+          onClick={onClick}
+          loading={btnLoading}
+          variation={ButtonVariation.PRIMARY}
+        >
+          {buttonText}
+        </RbacButton>
+      ) : (
+        <Button key={buttonText} onClick={onClick} loading={btnLoading} variation={ButtonVariation.PRIMARY}>
+          {buttonText}
+        </Button>
+      )
     )
   })
 

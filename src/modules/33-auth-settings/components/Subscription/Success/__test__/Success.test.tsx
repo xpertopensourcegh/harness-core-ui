@@ -72,7 +72,8 @@ const subscriptionProps = {
       numberOfDevelopers: 25,
       numberOfMau: 12
     }
-  }
+  },
+  isValid: false
 }
 
 const invoiceData = {

@@ -6,6 +6,7 @@ dashboards: Dashboards
 setup: Setup
 agent: Agent
 agents: Agents
+perModule: Per Module
 application: Application
 certificate: Certificate
 subscriptionId: Subscription Id
@@ -14,6 +15,7 @@ notEnabled: 'Not Enabled'
 apiStatus: 'API Status'
 gpgkey: 'GPG Key'
 gnupgKeys: GnuPG Keys
+featureComingSoon: This feature is coming soon.
 skip: Skip
 sync: Sync
 inputVariables: Input Variables
@@ -433,12 +435,12 @@ local: Local
 subscribed: Subscribed
 overSubscribed: Oversubscribed
 unlimited: Unlimited
+billing: Billing
 subscriptions:
   title: Subscriptions
   tabs:
     overview: Subscription Overview
     plans: Plans
-    billing: Billing
   overview:
     details: Subscription Details
     plan: Plan
@@ -478,6 +480,7 @@ subscriptions:
     monthlyUsers: Monthly Active Users
     activeDevelopers: Active Developers
     developers: Developers
+    developer: Developer
     cloudSpend: Total Cloud Spend
     ccmUsers: Active CCM Users
     ccmTooltip: Cloud Spend refers to the total spend (dollars) managed and optimized by Harness Cloud Cost Management.
@@ -678,7 +681,10 @@ default: Default
 searchByNamePlaceholder: Search by name
 searchPlaceholder: Search by name or Id
 monthly: Monthly
+per: per
 perMonth: /month
+perMonthWithoutSlash: per Month
+perYearWithoutSlash: per year
 perYear: /year
 hourly: Hourly
 daily: Daily
@@ -975,3 +981,6 @@ getStarted:
 selectYourRepo: Select your Repository
 stageName: 'Stage: {{ name }}'
 stepName: 'Step: {{ name }}'
+moduleTitles:
+  cf: Feature Flag
+  cd: Continuous Devlivery

@@ -377,18 +377,7 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main subscriptionTabButtons"
-    >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main subscriptionTabButton selected Button--with-current-color Button--round Button--iconOnly"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          common.subscriptions.tabs.overview
-        </span>
-      </button>
-    </div>
+    />
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       style="width: 90%;"
@@ -773,18 +762,7 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main subscriptionTabButtons"
-    >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main subscriptionTabButton selected Button--with-current-color Button--round Button--iconOnly"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          common.subscriptions.tabs.overview
-        </span>
-      </button>
-    </div>
+    />
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       style="width: 90%;"
@@ -1169,18 +1147,7 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main subscriptionTabButtons"
-    >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main subscriptionTabButton selected Button--with-current-color Button--round Button--iconOnly"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          common.subscriptions.tabs.overview
-        </span>
-      </button>
-    </div>
+    />
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       style="width: 90%;"
@@ -1536,18 +1503,7 @@ exports[`Subscriptions Page it renders trial not started information 1`] = `
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main subscriptionTabButtons"
-    >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main subscriptionTabButton selected Button--with-current-color Button--round Button--iconOnly"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          common.subscriptions.tabs.overview
-        </span>
-      </button>
-    </div>
+    />
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       style="width: 90%;"
@@ -1914,18 +1870,7 @@ exports[`Subscriptions Page it should update the license store 1`] = `
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main subscriptionTabButtons"
-    >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main subscriptionTabButton selected Button--with-current-color Button--round Button--iconOnly"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          common.subscriptions.tabs.overview
-        </span>
-      </button>
-    </div>
+    />
     <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
       style="width: 90%;"

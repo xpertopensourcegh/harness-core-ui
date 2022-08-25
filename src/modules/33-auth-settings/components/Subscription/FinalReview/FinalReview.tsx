@@ -28,11 +28,17 @@ export const FinalReview: React.FC<FinalReviewProps> = ({ setView, invoiceData, 
       acc.push(`${curr.quantity} ${curr.description}`)
       return acc
     }, []) || []
+
   return (
     <Layout.Vertical className={className}>
       <Header step={3} />
       <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} spacing={'large'} className={css.body}>
-        <SubscriptionDetailsCard items={items} newPlan={subscriptionProps.edition} setView={setView} />
+        <SubscriptionDetailsCard
+          subscriptionId={subscriptionProps.subscriptionId}
+          items={items}
+          newPlan={subscriptionProps.edition}
+          setView={setView}
+        />
         <BillingContactCard billingContactInfo={subscriptionProps.billingContactInfo} setView={setView} />
         <PaymentMethodCard paymentMethodInfo={subscriptionProps.paymentMethodInfo} setView={setView} />
       </Layout.Vertical>

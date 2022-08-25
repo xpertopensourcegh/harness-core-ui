@@ -521,11 +521,20 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
                           />
                         </svg>
                       </span>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                      <div
+                        class="userDetails"
                       >
-                        Admin
-                      </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                        >
+                          Admin
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main UserLabel--email StyledProps--font-size-small StyledProps--color StyledProps--color-grey200"
+                        >
+                          admin@harness.io
+                        </p>
+                      </div>
                     </div>
                   </span>
                 </span>
@@ -897,11 +906,20 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
                           />
                         </svg>
                       </span>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                      <div
+                        class="userDetails"
                       >
-                        Admin
-                      </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                        >
+                          Admin
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main UserLabel--email StyledProps--font-size-small StyledProps--color StyledProps--color-grey200"
+                        >
+                          admin@harness.io
+                        </p>
+                      </div>
                     </div>
                   </span>
                 </span>
@@ -1295,11 +1313,20 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
                           />
                         </svg>
                       </span>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                      <div
+                        class="userDetails"
                       >
-                        Admin
-                      </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                        >
+                          Admin
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main UserLabel--email StyledProps--font-size-small StyledProps--color StyledProps--color-grey200"
+                        >
+                          admin@harness.io
+                        </p>
+                      </div>
                     </div>
                   </span>
                 </span>

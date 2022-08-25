@@ -14,7 +14,8 @@ function getProgressMap(step: number): Map<number, { StepStatus: StepStatus }> {
   const progressMap = new Map<number, { StepStatus: StepStatus }>([
     [1, { StepStatus: 'TODO' }],
     [2, { StepStatus: 'TODO' }],
-    [3, { StepStatus: 'TODO' }]
+    [3, { StepStatus: 'TODO' }],
+    [4, { StepStatus: 'TODO' }]
   ])
 
   while (step > 0) {

@@ -104,6 +104,7 @@ export interface StringsMap {
   'common.banners.trial.success': string
   'common.bash': string
   'common.billed': string
+  'common.billing': string
   'common.billingAddress': string
   'common.blank': string
   'common.branchName': string
@@ -271,6 +272,7 @@ export interface StringsMap {
   'common.feature.upgradeRequired.pleaseUpgrade': string
   'common.feature.upgradeRequired.requiredPlans': string
   'common.feature.upgradeRequired.title': string
+  'common.featureComingSoon': string
   'common.fetchingBranches': string
   'common.file': string
   'common.files': string
@@ -461,6 +463,8 @@ export interface StringsMap {
   'common.module.sto': string
   'common.module.templateService': string
   'common.moduleLabel': string
+  'common.moduleTitles.cd': string
+  'common.moduleTitles.cf': string
   'common.monitoredServices': string
   'common.monthly': string
   'common.moreInfo': string
@@ -510,9 +514,13 @@ export interface StringsMap {
   'common.path': string
   'common.payload': string
   'common.pendingInvitation': string
+  'common.per': string
   'common.perDeveloper': string
+  'common.perModule': string
   'common.perMonth': string
+  'common.perMonthWithoutSlash': string
   'common.perYear': string
+  'common.perYearWithoutSlash': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
@@ -763,7 +771,6 @@ export interface StringsMap {
   'common.subscriptions.overview.subscribe': string
   'common.subscriptions.overview.trialExpiry': string
   'common.subscriptions.paid': string
-  'common.subscriptions.tabs.billing': string
   'common.subscriptions.tabs.overview': string
   'common.subscriptions.tabs.plans': string
   'common.subscriptions.title': string
@@ -777,6 +784,7 @@ export interface StringsMap {
   'common.subscriptions.usage.ciTooltip': string
   'common.subscriptions.usage.ciUsers': string
   'common.subscriptions.usage.cloudSpend': string
+  'common.subscriptions.usage.developer': string
   'common.subscriptions.usage.developers': string
   'common.subscriptions.usage.ffActiveUserTootip': string
   'common.subscriptions.usage.ffDeveloperTooltip': string
@@ -1488,10 +1496,27 @@ export interface StringsMap {
   'authSettings.azure': string
   'authSettings.billing.next': string
   'authSettings.billing.totalDuetoday': string
+  'authSettings.billingInfo.addCC': string
+  'authSettings.billingInfo.address': string
+  'authSettings.billingInfo.annualSubscriptions': string
+  'authSettings.billingInfo.annualTotal': string
+  'authSettings.billingInfo.billingAdmin': string
   'authSettings.billingInfo.billingContact': string
   'authSettings.billingInfo.emailWarning': string
+  'authSettings.billingInfo.endingIn': string
+  'authSettings.billingInfo.expires': string
+  'authSettings.billingInfo.explorePlans': string
+  'authSettings.billingInfo.firstSubscription': string
+  'authSettings.billingInfo.monthlySubscriptions': string
+  'authSettings.billingInfo.monthlyTotal': string
+  'authSettings.billingInfo.nextBillingDate': string
+  'authSettings.billingInfo.nobills': string
   'authSettings.billingInfo.paymentMethod': string
+  'authSettings.billingInfo.paymentMethods': string
+  'authSettings.billingInfo.priceBreakdown': string
   'authSettings.billingInfo.saveCardWarning': string
+  'authSettings.billingInfo.selectPaymentMethod': string
+  'authSettings.billingInfo.updateCard': string
   'authSettings.cdCommunityPlan.communityLinkText': string
   'authSettings.cdCommunityPlan.communityPlanStrings.item1': string
   'authSettings.cdCommunityPlan.communityPlanStrings.item2': string
@@ -1615,10 +1640,12 @@ export interface StringsMap {
   'authSettings.passwordStrengthDisabled': string
   'authSettings.passwordStrengthEnabled': string
   'authSettings.passwordStrengthUpdated': string
+  'authSettings.paymentMethod.next': string
   'authSettings.periodicallyExpirePassword': string
   'authSettings.periodicallyExpirePasswordNote': string
   'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
   'authSettings.plusSAMLProvider': string
+  'authSettings.priceBreakdown': string
   'authSettings.pricePreview.calculatedNextStep': string
   'authSettings.pricePreview.discount': string
   'authSettings.pricePreview.title': string
@@ -1627,6 +1654,7 @@ export interface StringsMap {
   'authSettings.recomendation': string
   'authSettings.restrictUsersToEmailDomains': string
   'authSettings.saas': string
+  'authSettings.salesTax': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
   'authSettings.samlProviderDeleted': string
@@ -9363,10 +9391,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.endpointPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.feature.create.featureStageName': string
   /**
    * @deprecated migrate this string to module level file
    */

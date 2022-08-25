@@ -8,8 +8,8 @@
 import type { PriceDTO } from 'services/cd-ng/index'
 
 export enum TimeType {
-  YEARLY = 'yearly',
-  MONTHLY = 'monthly'
+  YEARLY = 'Yearly',
+  MONTHLY = 'Monthly'
 }
 
 export enum Editions {
@@ -47,6 +47,7 @@ export enum CDLicenseType {
 export enum SubscribeViews {
   CALCULATE,
   BILLINGINFO,
+  PAYMENT_METHOD,
   FINALREVIEW,
   SUCCESS
 }
@@ -75,6 +76,11 @@ export interface PaymentMethodProps {
   nameOnCard: string
 }
 
+export interface SampleData {
+  sampleUnit: string
+  sampleMultiplier: number
+  minValue: number
+}
 export interface SubscriptionProps {
   edition: Editions
   premiumSupport: boolean
@@ -89,6 +95,9 @@ export interface SubscriptionProps {
       numberOfMau: number
     }
   }
+  sampleDetails?: SampleData
+  isValid: boolean
+  taxAmount?: number
 }
 
 export interface Product {
@@ -105,13 +114,7 @@ export enum CurrencyType {
   EUR = 'EUR'
 }
 
-export enum LookUpKeyType {
-  DEVELOPERS = 'DEVELOPERS',
-  MAU = 'MAU',
-  PREMIUM_SUPPORT = 'PREMIUM_SUPPORT'
-}
-
 export enum LookUpKeyFrequencyType {
-  YEARLY = 'YEARLY',
-  MONTHLY = 'MONTHLY'
+  YEARLY = 'Yearly',
+  MONTHLY = 'Monthly'
 }

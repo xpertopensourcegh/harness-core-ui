@@ -14,6 +14,7 @@
   border-radius: 4px !important;
   align-items: baseline !important;
   justify-content: start !important;
+  color: var(--black) !important;
 }
 
 .creditCard {
@@ -24,10 +25,21 @@
 }
 
 .powerByStripe {
-  width: 50%;
+  width: 40%;
   height: 50%;
 }
 
 .body {
   overflow-y: auto;
+}
+
+.billingContact {
+  align-items: center;
+  margin-top: var(--spacing-small) !important;
+}
+
+.paymentCard {
+  .paymentgrid {
+    justify-content: space-between;
+  }
 }

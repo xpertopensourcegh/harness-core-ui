@@ -15,22 +15,48 @@ exports[`CostCalculator not cf module 1`] = `
           class="Layout--vertical StyledProps--main StyledProps--flex"
         >
           <div
-            class="MultiStepProgressIndicator--dotNameSuccess"
+            class="MultiStepProgressIndicator--dotNameFailed"
           >
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength StyledProps--color StyledProps--color-primary7"
+              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
               style="--text-line-clamp: 1;"
             />
           </div>
           <div
-            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotSuccess MultiStepProgressIndicator--spacing"
+            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
           />
         </div>
         <div
           class="MultiStepProgressIndicator--statusBar"
         >
           <div
-            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--barSuccess MultiStepProgressIndicator--fullBar"
+            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
+          />
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="MultiStepProgressIndicator--dotNameFailed"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
+              style="--text-line-clamp: 1;"
+            />
+          </div>
+          <div
+            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
+          />
+        </div>
+        <div
+          class="MultiStepProgressIndicator--statusBar"
+        >
+          <div
+            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
           />
         </div>
       </div>
@@ -81,7 +107,7 @@ exports[`CostCalculator not cf module 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
+      class="Layout--vertical StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"
@@ -244,22 +270,48 @@ exports[`CostCalculator render 1`] = `
           class="Layout--vertical StyledProps--main StyledProps--flex"
         >
           <div
-            class="MultiStepProgressIndicator--dotNameSuccess"
+            class="MultiStepProgressIndicator--dotNameFailed"
           >
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength StyledProps--color StyledProps--color-primary7"
+              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
               style="--text-line-clamp: 1;"
             />
           </div>
           <div
-            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotSuccess MultiStepProgressIndicator--spacing"
+            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
           />
         </div>
         <div
           class="MultiStepProgressIndicator--statusBar"
         >
           <div
-            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--barSuccess MultiStepProgressIndicator--fullBar"
+            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
+          />
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="MultiStepProgressIndicator--dotNameFailed"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
+              style="--text-line-clamp: 1;"
+            />
+          </div>
+          <div
+            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
+          />
+        </div>
+        <div
+          class="MultiStepProgressIndicator--statusBar"
+        >
+          <div
+            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
           />
         </div>
       </div>
@@ -310,7 +362,7 @@ exports[`CostCalculator render 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
+      class="Layout--vertical StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"
@@ -547,20 +599,6 @@ exports[`CostCalculator render 1`] = `
               >
                 authSettings.costCalculator.mau.title
               </p>
-              <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-size-xsmall"
-                >
-                  authSettings.costCalculator.mau.mau
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
-                >
-                  authSettings.unitPrice: $90.00 authSettings.costCalculator.mau.perkMau authSettings.costCalculator.mau.kMauFree
-                </p>
-              </div>
             </div>
             <div
               class="Layout--horizontal StyledProps--main subscriptionInfo StyledProps--flex StyledProps--flex-justifyContent-space-between"
@@ -716,7 +754,7 @@ exports[`CostCalculator render 1`] = `
                           data-testid="dropdown-value"
                           style="--text-line-clamp: 1;"
                         >
-                            K
+                            
                         </p>
                       </div>
                       <div
@@ -865,22 +903,48 @@ exports[`CostCalculator yearly and enterprise 1`] = `
           class="Layout--vertical StyledProps--main StyledProps--flex"
         >
           <div
-            class="MultiStepProgressIndicator--dotNameSuccess"
+            class="MultiStepProgressIndicator--dotNameFailed"
           >
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength StyledProps--color StyledProps--color-primary7"
+              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
               style="--text-line-clamp: 1;"
             />
           </div>
           <div
-            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotSuccess MultiStepProgressIndicator--spacing"
+            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
           />
         </div>
         <div
           class="MultiStepProgressIndicator--statusBar"
         >
           <div
-            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--barSuccess MultiStepProgressIndicator--fullBar"
+            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
+          />
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="MultiStepProgressIndicator--dotNameFailed"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main MultiStepProgressIndicator--textmaxlength"
+              style="--text-line-clamp: 1;"
+            />
+          </div>
+          <div
+            class="MultiStepProgressIndicator--dot MultiStepProgressIndicator--dotOutLine MultiStepProgressIndicator--spacing"
+          />
+        </div>
+        <div
+          class="MultiStepProgressIndicator--statusBar"
+        >
+          <div
+            class="MultiStepProgressIndicator--bar MultiStepProgressIndicator--fullBar"
           />
         </div>
       </div>
@@ -931,7 +995,7 @@ exports[`CostCalculator yearly and enterprise 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
+      class="Layout--vertical StyledProps--main body StyledProps--padding-top-large StyledProps--padding-bottom-large"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"
@@ -1078,11 +1142,11 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                   />
                   <div
                     class="bp3-slider-progress bp3-intent-primary"
-                    style="left: 0.00%; right: 100.00%; top: 0px;"
+                    style="left: 0.00%; right: 0.00%; top: 0px;"
                   />
                   <div
                     class="bp3-slider-progress"
-                    style="left: 0.00%; right: 0.00%; top: 0px;"
+                    style="left: 100.00%; right: 0.00%; top: 0px;"
                   />
                 </div>
                 <div
@@ -1092,30 +1156,12 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                     class="bp3-slider-label"
                     style="left: 0.00%;"
                   >
-                    25
-                  </div>
-                  <div
-                    class="bp3-slider-label"
-                    style="left: 33.33%;"
-                  >
-                    50
-                  </div>
-                  <div
-                    class="bp3-slider-label"
-                    style="left: 66.67%;"
-                  >
-                    75
-                  </div>
-                  <div
-                    class="bp3-slider-label"
-                    style="left: 100.00%;"
-                  >
-                    100
+                    0
                   </div>
                 </div>
                 <span
                   class="bp3-slider-handle"
-                  style="left: calc(0.00% - 0px);"
+                  style="left: calc(2500.00% - 0px);"
                   tabindex="0"
                 >
                   <span
@@ -1156,20 +1202,6 @@ exports[`CostCalculator yearly and enterprise 1`] = `
               >
                 authSettings.costCalculator.mau.title
               </p>
-              <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-size-xsmall"
-                >
-                  authSettings.costCalculator.mau.mau
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
-                >
-                  authSettings.unitPrice: $0.00 authSettings.costCalculator.mau.permMau authSettings.costCalculator.mau.mMauFree
-                </p>
-              </div>
             </div>
             <div
               class="Layout--horizontal StyledProps--main subscriptionInfo StyledProps--flex StyledProps--flex-justifyContent-space-between"
@@ -1244,11 +1276,11 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                   />
                   <div
                     class="bp3-slider-progress bp3-intent-primary"
-                    style="left: 0.00%; right: 52.00%; top: 0px;"
+                    style="left: 0.00%; right: 40.00%; top: 0px;"
                   />
                   <div
                     class="bp3-slider-progress"
-                    style="left: 48.00%; right: 0.00%; top: 0px;"
+                    style="left: 60.00%; right: 0.00%; top: 0px;"
                   />
                 </div>
                 <div
@@ -1262,38 +1294,32 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                   </div>
                   <div
                     class="bp3-slider-label"
-                    style="left: 20.00%;"
+                    style="left: 25.00%;"
                   >
                     5
                   </div>
                   <div
                     class="bp3-slider-label"
-                    style="left: 40.00%;"
+                    style="left: 50.00%;"
                   >
                     10
                   </div>
                   <div
                     class="bp3-slider-label"
-                    style="left: 60.00%;"
+                    style="left: 75.00%;"
                   >
                     15
                   </div>
                   <div
                     class="bp3-slider-label"
-                    style="left: 80.00%;"
-                  >
-                    20
-                  </div>
-                  <div
-                    class="bp3-slider-label"
                     style="left: 100.00%;"
                   >
-                    25
+                    20
                   </div>
                 </div>
                 <span
                   class="bp3-slider-handle"
-                  style="left: calc(48.00% - 0px);"
+                  style="left: calc(60.00% - 0px);"
                   tabindex="0"
                 >
                   <span
@@ -1325,7 +1351,7 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                           data-testid="dropdown-value"
                           style="--text-line-clamp: 1;"
                         >
-                            M
+                            
                         </p>
                       </div>
                       <div

@@ -92,7 +92,13 @@ interface FFDeveloperCardProps {
   toggledNumberOfDevelopers?: number
   setNumberOfDevelopers: (value: number) => void
 }
-
+// const generateRangeArray = (min: number, max: number, stepSize: number): number[] => {
+//   const rangeArray = []
+//   for (let i = min; i <= max; i += stepSize) {
+//     rangeArray.push(i)
+//   }
+//   return rangeArray
+// }
 const FFDeveloperCard: React.FC<FFDeveloperCardProps> = ({
   unitPrice,
   currentSubscribed,
@@ -108,7 +114,7 @@ const FFDeveloperCard: React.FC<FFDeveloperCardProps> = ({
     max: number
     stepSize: number
     labelStepSize: number
-  }>({ min: 0, max: 0, stepSize: 1, labelStepSize: 1 })
+  }>({ min: 1, max: 0, stepSize: 1, labelStepSize: 1 })
 
   useEffect(() => {
     // TODO: get tier from prices api call
@@ -121,14 +127,23 @@ const FFDeveloperCard: React.FC<FFDeveloperCardProps> = ({
       })
     } else {
       setLicensesRange({
-        min: 25,
-        max: 100,
+        min: 0,
+        max: 1,
         stepSize: 1,
         labelStepSize: 25
       })
     }
   }, [newPlan])
 
+  // const _rangeArray = React.useMemo((): number[] => {
+
+  //   let range = [] as number[]
+  //   if (newPlan === Editions.TEAM) {
+  //     return generateRangeArray(0, 50, 1)
+  //   } else {
+  //     return generateRangeArray(25, 50, 25)
+  //   }
+  // }, [newPlan])
   return (
     <Card>
       <Layout.Vertical>
@@ -139,8 +154,11 @@ const FFDeveloperCard: React.FC<FFDeveloperCardProps> = ({
           max={licenseRange.max}
           stepSize={licenseRange.stepSize}
           labelStepSize={licenseRange.labelStepSize}
-          value={numberOfDevelopers}
+          value={numberOfDevelopers === 0 ? licenseRange.min : numberOfDevelopers}
           setValue={setNumberOfDevelopers}
+          labelRenderer={(value: number) => {
+            return `${value === 0 ? licenseRange.min : value}`
+          }}
         />
       </Layout.Vertical>
     </Card>

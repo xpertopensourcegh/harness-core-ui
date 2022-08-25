@@ -25,6 +25,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import { AccountSideNavProps } from '@common/RouteDestinations'
 import { PAGE_NAME } from '@common/pages/pageContext/PageName'
+import Billing from './pages/Billing/BillingPage'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ACCOUNT, {
   icon: 'nav-settings',
@@ -96,6 +97,14 @@ const AuthSettingsRoutes: React.FC = () => {
           pageName={PAGE_NAME.AccountOverview}
         >
           <AccountOverview />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={AccountSideNavProps}
+          path={routes.toBilling({ ...accountPathProps })}
+          exact
+          pageName={PAGE_NAME.BillingPage}
+        >
+          <Billing />
         </RouteWithLayout>
         <RouteWithLayout
           sidebarProps={AccountSideNavProps}

@@ -83,6 +83,7 @@ const routes = {
   ),
 
   toUser: withAccountId(() => '/user'),
+  toBilling: withAccountId(() => '/settings/billing'),
   toSubscriptions: withAccountId(({ moduleCard, tab }: SubscriptionQueryParams) => {
     const url = '/settings/subscriptions'
     if (moduleCard && tab) {

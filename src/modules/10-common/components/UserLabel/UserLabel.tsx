@@ -21,12 +21,13 @@ export interface UserLabelProps {
   className?: string
   iconProps?: Omit<IconProps, 'name'>
   textProps?: TextProps
+  showUsernameInitial?: boolean
 }
 
 const handleClickOnPopoverContent = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => e.stopPropagation()
 
 export function UserLabel(props: UserLabelProps): React.ReactElement {
-  const { name, email, profilePictureUrl, className, iconProps, textProps } = props
+  const { name, email, profilePictureUrl, className, iconProps, textProps, showUsernameInitial } = props
 
   return (
     <div className={css.wrapper}>
@@ -43,6 +44,8 @@ export function UserLabel(props: UserLabelProps): React.ReactElement {
           >
             {profilePictureUrl ? (
               <Avatar className={css.profilePicture} size={'small'} src={profilePictureUrl} hoverCard={false} />
+            ) : showUsernameInitial ? (
+              <Avatar className={css.profilePicture} size={'small'} name={name} hoverCard={false} />
             ) : (
               <Icon name="user" size={36} />
             )}
@@ -62,10 +65,19 @@ export function UserLabel(props: UserLabelProps): React.ReactElement {
         <div className={cx(css.userLabel, className)}>
           {profilePictureUrl ? (
             <Avatar className={css.profilePicture} size={'xsmall'} src={profilePictureUrl} hoverCard={false} />
+          ) : showUsernameInitial ? (
+            <Avatar className={css.profilePicture} size={'small'} name={name} hoverCard={false} />
           ) : (
             <Icon name="user" size={18} {...iconProps} />
           )}
-          <Text {...textProps}>{name}</Text>
+          <div className={css.userDetails}>
+            <Text {...textProps}>{name}</Text>
+            {email ? (
+              <Text font={{ size: 'small' }} color={Color.GREY_200} className="UserLabel--email">
+                {email}
+              </Text>
+            ) : null}
+          </div>
         </div>
       </Popover>
     </div>

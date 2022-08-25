@@ -116,12 +116,16 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
                     />
                   </svg>
                 </span>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-tiny"
-                  style="--text-line-clamp: 1;"
+                <div
+                  class="userDetails"
                 >
-                  John Doe
-                </p>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-tiny"
+                    style="--text-line-clamp: 1;"
+                  >
+                    John Doe
+                  </p>
+                </div>
               </div>
             </span>
           </span>
@@ -315,12 +319,16 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
                     />
                   </svg>
                 </span>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-tiny"
-                  style="--text-line-clamp: 1;"
+                <div
+                  class="userDetails"
                 >
-                  John Doe
-                </p>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-tiny"
+                    style="--text-line-clamp: 1;"
+                  >
+                    John Doe
+                  </p>
+                </div>
               </div>
             </span>
           </span>

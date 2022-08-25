@@ -8,17 +8,31 @@
 import React from 'react'
 import { capitalize } from 'lodash-es'
 import { Layout, Card, Text, Button, ButtonVariation, FontVariation, Color } from '@harness/uicore'
+// import { useParams } from 'react-router-dom'
 import { Editions, SubscribeViews } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
+// import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+// import { useRetrieveSubscription } from 'services/cd-ng'
 import css from './FinalReview.module.scss'
 
 interface SubscriptionDetailsCardProps {
   newPlan: Editions
   items: string[]
   setView: (view: SubscribeViews) => void
+  subscriptionId: string
 }
-const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = ({ newPlan, items, setView }) => {
+const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = ({
+  newPlan,
+  items,
+  setView
+  // subscriptionId
+}) => {
   const { getString } = useStrings()
+  // const { accountId } = useParams<AccountPathProps>()
+
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const { data } = useRetrieveSubscription({ subscriptionId, queryParams: { accountIdentifier: accountId } })
+
   return (
     <Card>
       <Layout.Vertical>
