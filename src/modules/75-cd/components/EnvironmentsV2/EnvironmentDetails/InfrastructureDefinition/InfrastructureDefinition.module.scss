@@ -15,6 +15,11 @@
   :global {
     .ModalDialog--body {
       padding: 0 !important;
+
+      &::before,
+      &::after {
+        margin: 0 !important;
+      }
     }
   }
 
