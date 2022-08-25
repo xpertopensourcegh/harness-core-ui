@@ -22,9 +22,10 @@ import sectionCss from './Section.module.scss'
 export interface TargetBasedOnConditionsProps {
   targetGroup: Segment
   values: { rules: Clause[] }
+  setFieldValue: (name: string, value: [string]) => void
 }
 
-const TargetBasedOnConditions: FC<TargetBasedOnConditionsProps> = ({ targetGroup, values }) => {
+const TargetBasedOnConditions: FC<TargetBasedOnConditionsProps> = ({ targetGroup, values, setFieldValue }) => {
   const { getString } = useStrings()
 
   const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
@@ -83,6 +84,8 @@ const TargetBasedOnConditions: FC<TargetBasedOnConditionsProps> = ({ targetGroup
                         namePrefix={`${arrayHelpers.name}[${index}]`}
                         targetAttributeItems={targetAttributeItems}
                         onDelete={() => arrayHelpers.remove(index)}
+                        selectedOp={values.rules[index].op}
+                        setFieldValue={setFieldValue}
                       />
                     ))}
                   </div>

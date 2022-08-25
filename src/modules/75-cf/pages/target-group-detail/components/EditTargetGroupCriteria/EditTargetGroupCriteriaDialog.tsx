@@ -111,7 +111,7 @@ const EditTargetGroupCriteriaDialog: FC<EditTargetGroupCriteriaDialogProps> = ({
         rules: targetGroup.rules || []
       }}
     >
-      {({ submitForm, values }) => (
+      {({ submitForm, values, setFieldValue }) => (
         <Dialog
           className={css.dialog}
           isOpen
@@ -137,7 +137,7 @@ const EditTargetGroupCriteriaDialog: FC<EditTargetGroupCriteriaDialogProps> = ({
           <FormikForm>
             <Layout.Vertical spacing="small" className={css.body} padding="xsmall">
               <SpecifyIndividualTargets targetGroup={targetGroup} />
-              <TargetBasedOnConditions targetGroup={targetGroup} values={values} />
+              <TargetBasedOnConditions targetGroup={targetGroup} values={values} setFieldValue={setFieldValue} />
             </Layout.Vertical>
           </FormikForm>
         </Dialog>
