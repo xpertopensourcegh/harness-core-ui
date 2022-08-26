@@ -341,6 +341,15 @@ function ExecutionStrategyRef(
                   </Card>
                 ))}
               </section>
+              <Container className={css.phaseContainer}>
+                {isSshOrWinrmDeploymentType(serviceDefinitionType()) && selectedStrategy !== ExecutionType.DEFAULT ? (
+                  <Phases
+                    selectedStrategy={selectedStrategy}
+                    serviceDefinitionType={serviceDefinitionType}
+                    selectedStage={selectedStage}
+                  />
+                ) : null}
+              </Container>
             </section>
           </Layout.Vertical>
 
@@ -446,15 +455,6 @@ function ExecutionStrategyRef(
                   )}
                 </section>
               </section>
-              <Container className={css.phaseContainer}>
-                {isSshOrWinrmDeploymentType(serviceDefinitionType()) && selectedStrategy !== ExecutionType.DEFAULT ? (
-                  <Phases
-                    selectedStrategy={selectedStrategy}
-                    serviceDefinitionType={serviceDefinitionType}
-                    selectedStage={selectedStage}
-                  />
-                ) : null}
-              </Container>
             </Container>
 
             {selectedStrategy === ExecutionType.DEFAULT || !isSshOrWinrmDeploymentType(serviceDefinitionType()) ? (

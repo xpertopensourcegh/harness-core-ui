@@ -9,6 +9,8 @@
 declare const styles: {
   readonly active: string
   readonly addBtn: string
+  readonly btnContainer: string
+  readonly canary: string
   readonly card: string
   readonly cvEnableSwitch: string
   readonly enableVerification: string
@@ -25,6 +27,7 @@ declare const styles: {
   readonly phaseFormWrapper: string
   readonly phaseLabel: string
   readonly phaseName: string
+  readonly phasesListContainer: string
   readonly phasesSubmit: string
   readonly playButton: string
   readonly player: string

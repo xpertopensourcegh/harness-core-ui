@@ -598,10 +598,10 @@ describe('ExecutionStrategy test', () => {
 
     await act(async () => {
       fireEvent.change(packageSelect!, {
-        target: { value: 'WAR' }
+        target: { value: 'JAR' }
       })
     })
-    expect(packageSelect!).toHaveValue('WAR')
+    expect(packageSelect!).toHaveValue('JAR')
 
     const submitBtnPhases = await findByTestId(container, 'execution-use-strategy-phases')
     expect(submitBtnPhases).toBeInTheDocument()

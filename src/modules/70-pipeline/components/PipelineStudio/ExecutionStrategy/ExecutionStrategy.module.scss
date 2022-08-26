@@ -220,7 +220,17 @@
 .phaseForm {
   :global {
     .bp3-input {
-      min-width: 290px !important;
+      min-width: 320px !important;
+    }
+  }
+  .canary {
+    :global {
+      .bp3-input {
+        min-width: 218px !important;
+      }
+      .bp3-button {
+        padding: 0 !important;
+      }
     }
   }
 }
@@ -243,6 +253,8 @@
   }
 }
 .phaseFormWrapper {
+  padding-top: var(--spacing-xxlarge);
+  position: relative;
   min-height: 280px;
   display: flex;
   flex-direction: column;
@@ -265,5 +277,14 @@
   .cvEnableSwitch {
     margin-top: var(--spacing-medium);
     margin-bottom: var(--spacing-xxlarge);
+  }
+  .btnContainer {
+    position: absolute;
+    right: -250px;
+    top: 380px;
+  }
+  .phasesListContainer {
+    height: 350px;
+    overflow: scroll;
   }
 }

@@ -15,8 +15,7 @@ import {
   Text,
   FormError,
   ButtonVariation,
-  useToaster,
-  MultiTypeInputType
+  useToaster
 } from '@harness/uicore'
 import { Switch } from '@blueprintjs/core'
 
@@ -24,6 +23,7 @@ import { Form, FieldArray } from 'formik'
 import produce from 'immer'
 import * as Yup from 'yup'
 import { get, defaultTo } from 'lodash-es'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { parse } from '@common/utils/YamlHelperMethods'
 
@@ -38,53 +38,17 @@ import {
 } from 'services/cd-ng'
 import type { StageElementConfig, StageElementWrapperConfig } from 'services/pipeline-ng'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-
+import {
+  packageTypeItems,
+  ExecutionType,
+  PackageTypeItem,
+  PackageTypeItems,
+  onPhaseFieldChange
+} from './ExecutionStrategyHelpers'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 
 import css from './ExecutionStrategy.module.scss'
-
-enum PackageTypeItems {
-  WAR = 'WAR',
-  RPM = 'RPM',
-  JAR = 'JAR',
-  ZIP = 'ZIP',
-  TAR = 'TAR',
-  OTHERS = 'OTHER'
-}
-enum ExecutionType {
-  BASIC = 'Basic',
-  CANARY = 'Canary',
-  ROLLING = 'Rolling',
-  DEFAULT = 'Default'
-}
-
-const packageTypeItems = [
-  {
-    label: 'WAR',
-    value: PackageTypeItems.WAR
-  },
-  {
-    label: 'RPM',
-    value: PackageTypeItems.RPM
-  },
-  {
-    label: 'JAR',
-    value: PackageTypeItems.JAR
-  },
-  {
-    label: 'ZIP',
-    value: PackageTypeItems.ZIP
-  },
-  {
-    label: 'TAR',
-    value: PackageTypeItems.TAR
-  },
-  {
-    label: 'OTHER',
-    value: PackageTypeItems.OTHERS
-  }
-]
 
 interface StrategyPayload extends StrategyParameters {
   instances?: number
@@ -150,7 +114,7 @@ function Phases({ selectedStrategy, serviceDefinitionType, selectedStage }: Phas
   const [isVerifyEnabled, setIsVerifyEnabled] = React.useState(false)
 
   const [initialValues, setInitialValues] = React.useState<PhasesValues>({
-    packageType: PackageTypeItems.WAR,
+    packageType: PackageTypeItems.JAR,
     phases: [
       {
         type: InstanceTypes.Instances,
@@ -167,7 +131,7 @@ function Phases({ selectedStrategy, serviceDefinitionType, selectedStage }: Phas
       return
     }
     setInitialValues({
-      packageType: PackageTypeItems.WAR,
+      packageType: PackageTypeItems.JAR,
       phases: [
         {
           type: InstanceTypes.Instances,
@@ -303,7 +267,7 @@ function Phases({ selectedStrategy, serviceDefinitionType, selectedStage }: Phas
           }
           return (
             <Form className={css.phaseFormWrapper}>
-              <Container>
+              <Container className={cx(selectedStrategy === ExecutionType.CANARY ? css.canary : '')}>
                 <FormInput.Select
                   className={css.selectPackageType}
                   value={
@@ -314,7 +278,10 @@ function Phases({ selectedStrategy, serviceDefinitionType, selectedStage }: Phas
                         }
                       : null
                   }
-                  items={packageTypeItems}
+                  items={packageTypeItems.map((item: PackageTypeItem) => ({
+                    ...item,
+                    label: getString(item.label).toUpperCase()
+                  }))}
                   name="packageType"
                   label={getString('pipeline.phasesForm.packageType')}
                 />
@@ -325,79 +292,62 @@ function Phases({ selectedStrategy, serviceDefinitionType, selectedStage }: Phas
                     render={({ push, remove }) => {
                       return (
                         <>
-                          {Array.isArray(formikProps.values.phases) &&
-                            formikProps.values.phases.map((field: InstanceFieldValue, index: number) => {
-                              return (
-                                <Layout.Vertical key={index}>
-                                  <Layout.Horizontal
-                                    key={index}
-                                    flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}
-                                  >
-                                    <Layout.Vertical>
-                                      <Text className={css.phaseLabel}>{getString('pipeline.phasesForm.phase')}</Text>
-                                      <Text
-                                        className={css.phaseName}
-                                        margin={{ top: 'small', right: 'small' }}
-                                        border
-                                        font={{ align: 'center' }}
-                                        width={95}
-                                      >
-                                        {getString('pipeline.phasesForm.phase')} {isCanary ? index + 1 : null}
-                                      </Text>
-                                    </Layout.Vertical>
-                                    <FormInstanceDropdown
-                                      name={`phases[${index}]`}
-                                      label={getString('common.instanceLabel')}
-                                      readonly={false}
-                                      onChange={value => {
-                                        const currentValue = get(formikProps?.values, `phases[${index}]`)
-
-                                        if (currentValue.type !== value.type) {
-                                          formikProps.setFieldValue(
-                                            `phases`,
-                                            get(formikProps?.values, `phases`).map(() => ({
-                                              type: value.type || field.type,
-                                              spec:
-                                                value.type === InstanceTypes.Instances
-                                                  ? {
-                                                      count: currentValue?.spec?.count || 1
-                                                    }
-                                                  : {
-                                                      percentage: currentValue?.spec?.percentage || 1
-                                                    }
-                                            }))
-                                          )
-                                          return
-                                        }
-                                        formikProps.setFieldValue(`phases[${index}]`, { ...value })
-                                      }}
-                                      expressions={expressions}
-                                      allowableTypes={[MultiTypeInputType.FIXED]}
-                                    />
-                                    {isCanary ? (
-                                      <Container className={css.removePhase}>
-                                        <Button
-                                          icon="main-trash"
-                                          iconProps={{ size: 20 }}
-                                          minimal
-                                          data-testid={`remove-phases-[${index}]`}
-                                          onClick={() => remove(index)}
-                                          disabled={loading || formikProps.values.phases.length <= 1}
-                                        />
-                                      </Container>
-                                    ) : null}
-                                  </Layout.Horizontal>
-                                  {get(formikProps?.errors, `phases[${index}]`) ? (
-                                    <>
-                                      <FormError
+                          <div className={css.phasesListContainer}>
+                            {Array.isArray(formikProps.values.phases) &&
+                              formikProps.values.phases.map((field: InstanceFieldValue, index: number) => {
+                                return (
+                                  <Layout.Vertical key={index}>
+                                    <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                                      {selectedStrategy === ExecutionType.CANARY ? (
+                                        <Layout.Vertical>
+                                          <Text className={css.phaseLabel}>
+                                            {getString('pipeline.phasesForm.phase')}
+                                          </Text>
+                                          <Text
+                                            className={css.phaseName}
+                                            margin={{ top: 'small', right: 'small' }}
+                                            border
+                                            font={{ align: 'center' }}
+                                            width={95}
+                                          >
+                                            {getString('pipeline.phasesForm.phase')} {isCanary ? index + 1 : null}
+                                          </Text>
+                                        </Layout.Vertical>
+                                      ) : null}
+                                      <FormInstanceDropdown
                                         name={`phases[${index}]`}
-                                        errorMessage={get(formikProps?.errors, `phases[${index}]`)}
+                                        label={getString('common.instanceLabel')}
+                                        readonly={false}
+                                        onChange={value => {
+                                          onPhaseFieldChange(formikProps, 'phases', index, value, field)
+                                        }}
+                                        expressions={expressions}
                                       />
-                                    </>
-                                  ) : null}
-                                </Layout.Vertical>
-                              )
-                            })}
+                                      {isCanary ? (
+                                        <Container className={css.removePhase}>
+                                          <Button
+                                            icon="main-trash"
+                                            iconProps={{ size: 20 }}
+                                            minimal
+                                            data-testid={`remove-phases-[${index}]`}
+                                            onClick={() => remove(index)}
+                                            disabled={loading || formikProps.values.phases.length <= 1}
+                                          />
+                                        </Container>
+                                      ) : null}
+                                    </Layout.Horizontal>
+                                    {get(formikProps?.errors, `phases[${index}]`) ? (
+                                      <>
+                                        <FormError
+                                          name={`phases[${index}]`}
+                                          errorMessage={get(formikProps?.errors, `phases[${index}]`)}
+                                        />
+                                      </>
+                                    ) : null}
+                                  </Layout.Vertical>
+                                )
+                              })}
+                          </div>
 
                           {isCanary ? (
                             <Button
@@ -426,32 +376,32 @@ function Phases({ selectedStrategy, serviceDefinitionType, selectedStage }: Phas
                               disabled={loading}
                             />
                           ) : null}
-                          <Switch
-                            checked={isVerifyEnabled}
-                            onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
-                            data-testid="enable-verification-options-switch"
-                            className={css.cvEnableSwitch}
-                            labelElement={
-                              <Text style={{ fontWeight: 500 }}>
-                                {getString('pipeline.phasesForm.useVerification')}
-                              </Text>
-                            }
-                          />
                         </>
                       )
                     }}
                   />
                 ) : null}
               </Container>
-              <Button
-                data-testid="execution-use-strategy-phases"
-                type="submit"
-                variation={ButtonVariation.PRIMARY}
-                text={getString('pipeline.executionStrategy.useStrategy')}
-                disabled={loading || !formikProps.isValid}
-                className={css.phasesSubmit}
-                loading={loading}
-              />
+              <Container className={css.btnContainer}>
+                <Switch
+                  checked={isVerifyEnabled}
+                  onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
+                  data-testid="enable-verification-options-switch"
+                  className={css.cvEnableSwitch}
+                  labelElement={
+                    <Text style={{ fontWeight: 500 }}>{getString('pipeline.phasesForm.useVerification')}</Text>
+                  }
+                />
+                <Button
+                  data-testid="execution-use-strategy-phases"
+                  type="submit"
+                  variation={ButtonVariation.PRIMARY}
+                  text={getString('pipeline.executionStrategy.useStrategy')}
+                  disabled={loading || !formikProps.isValid}
+                  className={css.phasesSubmit}
+                  loading={loading}
+                />
+              </Container>
             </Form>
           )
         }}

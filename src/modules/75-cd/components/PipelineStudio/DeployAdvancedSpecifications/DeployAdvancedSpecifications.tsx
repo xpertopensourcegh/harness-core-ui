@@ -18,11 +18,16 @@ import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/Fail
 import { DelegateSelectorWithRef } from '@pipeline/components/PipelineStudio/DelegateSelector/DelegateSelector'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
+import SkipInstances from '@pipeline/components/PipelineStudio/SkipInstances/SkipInstances'
 import { useStrings } from 'framework/strings'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
 import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { isSSHWinRMDeploymentType } from '@pipeline/utils/stageHelpers'
+import type { DeploymentStageConfig } from 'services/cd-ng'
+
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export interface AdvancedSpecifications {
@@ -41,6 +46,12 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
   } = usePipelineContext()
   const { stage } = getStageFromPipeline(selectedStageId)
 
+  const getSshOrWinRmType = React.useCallback(() => {
+    const { deploymentType } = stage?.stage?.spec as DeploymentStageConfig
+    return isSSHWinRMDeploymentType(deploymentType as string)
+  }, [stage])
+
+  const { SSH_NG } = useFeatureFlags()
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { submitFormsForTab } = React.useContext(StageErrorContext)
@@ -188,6 +199,31 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
             </div>
           </Layout.Horizontal>
         </Card>
+        {SSH_NG && getSshOrWinRmType() ? (
+          <div data-testid="skip-instances" className={stageCss.tabHeading}>
+            <SkipInstances
+              selectedStage={stage?.stage}
+              isReadonly={isReadonly}
+              onUpdate={checked => {
+                const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
+
+                if (pipelineStage?.stage) {
+                  const stageData = produce(pipelineStage, draft => {
+                    if (!checked) {
+                      unset(draft, 'stage.skipInstances')
+                    } else {
+                      set(draft, 'stage.skipInstances', checked)
+                    }
+                  })
+                  /* istanbul ignore else */
+                  if (stageData.stage) {
+                    updateStage(stageData.stage)
+                  }
+                }
+              }}
+            />
+          </div>
+        ) : null}
         <Container margin={{ top: 'xxlarge' }}>{children}</Container>
       </div>
     </div>

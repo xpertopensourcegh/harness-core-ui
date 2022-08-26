@@ -1277,6 +1277,12 @@ phasesForm:
     prevLimitError: 'This field should be more than'
     wrongPercentageFormat: 'Wrong percentage format'
     duplicationValue: 'Duplication of previous value'
+  packageTypes:
+    jar: 'Jar'
+    tar: 'Tar'
+    war: 'War'
+    rpm: 'Rpm'
+    zip: 'Zip'
 draft: 'Draft'
 duplicateStepIdentifiers: 'Duplicate identifiers found: {{duplicateIdString}}'
 alwaysEditModeYAML: Enable read/write mode always
@@ -1287,3 +1293,5 @@ azureWebApp:
     basic: In a Basic deployment, a new Service/Artifact version is deployed to the deployment slot. Basic deployments are useful for development, learning Harness, and any non-mission critical workflows.
     canary: 'Harness performs a three phase deployment: Phase 1 deploys a new service version to the deployment slot. Phase 2 performs a Traffic Shift to that deployment slot. Phase 3 swaps the deployment slot with target slot.'
     blueGreen: 'Harness performs a two phase deployment: Phase 1 deploys a new service version to deployment slot. Phase 2 swaps the deployment slot with target slot.'
+skipInstances:
+  title: 'Skip instances with the same artifact version already deployed'
