@@ -20,6 +20,7 @@ import { repositoryFormat } from '@pipeline/components/ArtifactsSelection/Artifa
 import { TriggerDefaultFieldList } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { TextFieldInputSetView } from '@pipeline/components/InputSetView/TextFieldInputSetView/TextFieldInputSetView'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   getDefaultQueryParam,
@@ -221,15 +222,14 @@ const Content = (props: NexusRenderContent): JSX.Element => {
           )}
 
           {isFieldRuntime(`artifacts.${artifactPath}.spec.artifactPath`, template) && (
-            <FormInput.MultiTextInput
-              label={getString('pipeline.artifactPathLabel')}
+            <TextFieldInputSetView
+              fieldLabel={'pipeline.artifactPathLabel'}
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.artifactPath`)}
-              multiTextInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              name={`${path}.artifacts.${artifactPath}.spec.artifactPath`}
+              fieldName={`${path}.artifacts.${artifactPath}.spec.artifactPath`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
+              allowableTypes={allowableTypes}
+              fieldPath={`artifacts.${artifactPath}.spec.artifactPath`}
+              template={template}
             />
           )}
 

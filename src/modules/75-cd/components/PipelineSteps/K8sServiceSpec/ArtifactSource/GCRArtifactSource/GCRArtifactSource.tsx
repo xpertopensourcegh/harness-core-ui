@@ -17,6 +17,7 @@ import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/compon
 import { TriggerDefaultFieldList } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { TextFieldInputSetView } from '@pipeline/components/InputSetView/TextFieldInputSetView/TextFieldInputSetView'
 import ExperimentalInput from '../../K8sServiceSpecForms/ExperimentalInput'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
@@ -183,15 +184,14 @@ const Content = (props: GCRRenderContent): JSX.Element => {
           )}
 
           {isFieldRuntime(`artifacts.${artifactPath}.spec.imagePath`, template) && (
-            <FormInput.MultiTextInput
-              label={getString('pipeline.imagePathLabel')}
+            <TextFieldInputSetView
+              fieldLabel={'pipeline.imagePathLabel'}
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.imagePath`)}
-              multiTextInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              name={`${path}.artifacts.${artifactPath}.spec.imagePath`}
+              fieldName={`${path}.artifacts.${artifactPath}.spec.imagePath`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
+              allowableTypes={allowableTypes}
+              fieldPath={`artifacts.${artifactPath}.spec.imagePath`}
+              template={template}
             />
           )}
 

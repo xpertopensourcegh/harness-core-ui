@@ -39,6 +39,7 @@ import {
 import ServerlessArtifactoryRepository from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/Artifactory/ServerlessArtifactoryRepository'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import { getStageFromPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/helpers'
+import { TextFieldInputSetView } from '@pipeline/components/InputSetView/TextFieldInputSetView/TextFieldInputSetView'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import {
   getConnectorRefFqnPath,
@@ -461,28 +462,26 @@ const Content = (props: ArtifactoryRenderContent): JSX.Element => {
           )}
 
           {isFieldRuntime(`artifacts.${artifactPath}.spec.artifactDirectory`, template) && isGenericArtifactory && (
-            <FormInput.MultiTextInput
-              label={getString('pipeline.artifactsSelection.artifactDirectory')}
+            <TextFieldInputSetView
+              fieldLabel={'pipeline.artifactsSelection.artifactDirectory'}
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.artifactDirectory`)}
-              multiTextInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              name={`${path}.artifacts.${artifactPath}.spec.artifactDirectory`}
+              fieldName={`${path}.artifacts.${artifactPath}.spec.artifactDirectory`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.artifactPath`)}
+              allowableTypes={allowableTypes}
+              fieldPath={`artifacts.${artifactPath}.spec.artifactDirectory`}
+              template={template}
             />
           )}
 
           {isFieldRuntime(`artifacts.${artifactPath}.spec.artifactPath`, template) && !isGenericArtifactory && (
-            <FormInput.MultiTextInput
-              label={getString('pipeline.artifactPathLabel')}
+            <TextFieldInputSetView
+              fieldLabel={'pipeline.artifactPathLabel'}
               disabled={isFieldDisabled(`artifacts.${artifactPath}.spec.artifactPath`)}
-              multiTextInputProps={{
-                expressions,
-                allowableTypes
-              }}
-              name={`${path}.artifacts.${artifactPath}.spec.artifactPath`}
+              fieldName={`${path}.artifacts.${artifactPath}.spec.artifactPath`}
               onChange={() => resetTags(formik, `${path}.artifacts.${artifactPath}.spec.tag`)}
+              allowableTypes={allowableTypes}
+              fieldPath={`artifacts.${artifactPath}.spec.artifactPath`}
+              template={template}
             />
           )}
 

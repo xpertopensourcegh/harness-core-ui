@@ -20,11 +20,12 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { FormMultiTypeCheckboxField } from '@common/components'
 import List from '@common/components/List/List'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useListAwsRegions } from 'services/portal'
+import { NameValuePair, useListAwsRegions } from 'services/portal'
 import { GitConfigDTO, useGetBucketListForS3, useGetGCSBucketList } from 'services/cd-ng'
 import { TriggerDefaultFieldList } from '@triggers/pages/triggers/utils/TriggersWizardPageUtils'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { CommandFlags } from '@pipeline/components/ManifestSelection/ManifestInterface'
+import { TextFieldInputSetView } from '@pipeline/components/InputSetView/TextFieldInputSetView/TextFieldInputSetView'
 import { FileSelectList } from '@filestore/components/FileStoreList/FileStoreList'
 import { SELECT_FILES_TYPE } from '@filestore/utils/constants'
 import {
@@ -102,7 +103,7 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
     lazy: true
   })
 
-  const regions = (regionData?.resource || []).map((region: any) => ({
+  const regions = (regionData?.resource || []).map((region: NameValuePair) => ({
     value: region.value,
     label: region.name
   }))
@@ -314,14 +315,13 @@ const Content = (props: ManifestSourceRenderProps): React.ReactElement => {
 
       {isFieldRuntime(`${manifestPath}.spec.store.spec.branch`, template) && (
         <div className={css.verticalSpacingInput}>
-          <FormInput.MultiTextInput
+          <TextFieldInputSetView
+            fieldName={`${path}.${manifestPath}.spec.store.spec.branch`}
+            fieldLabel={'pipelineSteps.deploy.inputSet.branch'}
             disabled={isFieldDisabled(`${manifestPath}.spec.store.spec.branch`)}
-            name={`${path}.${manifestPath}.spec.store.spec.branch`}
-            multiTextInputProps={{
-              expressions,
-              allowableTypes
-            }}
-            label={getString('pipelineSteps.deploy.inputSet.branch')}
+            allowableTypes={allowableTypes}
+            fieldPath={`${manifestPath}.spec.store.spec.branch`}
+            template={template}
           />
         </div>
       )}

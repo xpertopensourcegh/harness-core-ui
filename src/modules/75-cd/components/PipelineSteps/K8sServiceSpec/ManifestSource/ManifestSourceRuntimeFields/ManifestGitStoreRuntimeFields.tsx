@@ -15,6 +15,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import type { GitConfigDTO } from 'services/cd-ng'
 import { ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import { TextFieldInputSetView } from '@pipeline/components/InputSetView/TextFieldInputSetView/TextFieldInputSetView'
 import { isFieldRuntime } from '../../K8sServiceSpecHelper'
 import { isFieldfromTriggerTabDisabled, shouldDisplayRepositoryName } from '../ManifestSourceUtils'
 import css from '../../KubernetesManifests/KubernetesManifests.module.scss'
@@ -107,14 +108,13 @@ const ManifestGitStoreRuntimeFields = ({
 
       {isFieldRuntime(`${manifestPath}.spec.store.spec.branch`, template) && (
         <div className={css.verticalSpacingInput}>
-          <FormInput.MultiTextInput
+          <TextFieldInputSetView
+            fieldName={`${path}.${manifestPath}.spec.store.spec.branch`}
+            fieldLabel={'pipelineSteps.deploy.inputSet.branch'}
             disabled={isFieldDisabled(`${manifestPath}.spec.store.spec.branch`)}
-            name={`${path}.${manifestPath}.spec.store.spec.branch`}
-            multiTextInputProps={{
-              expressions,
-              allowableTypes
-            }}
-            label={getString('pipelineSteps.deploy.inputSet.branch')}
+            allowableTypes={allowableTypes}
+            fieldPath={`${manifestPath}.spec.store.spec.branch`}
+            template={template}
           />
         </div>
       )}
