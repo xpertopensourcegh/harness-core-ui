@@ -69,6 +69,7 @@ export interface ZeroNorthStepProps {
   onUpdate?: (data: ZeroNorthStepData) => void
   onChange?: (data: ZeroNorthStepData) => void
   allowableTypes: AllowedTypes
+  formik?: any
 }
 
 export class ZeroNorthStep extends PipelineStep<ZeroNorthStepData> {
