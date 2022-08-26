@@ -25,8 +25,8 @@ import {
   getPipelineStagesMap,
   getActiveStageForPipeline,
   getActiveStep,
-  addServiceDependenciesFromLiteTaskEngine,
-  isNodeTypeMatrixOrFor
+  isNodeTypeMatrixOrFor,
+  processForCIData
 } from '@pipeline/utils/executionUtils'
 import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
@@ -225,9 +225,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
 
   // combine steps and dependencies(ci stage)
   useDeepCompareEffect(() => {
-    const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
-    // NOTE: add dependencies from "liteEngineTask" (ci stage)
-    addServiceDependenciesFromLiteTaskEngine(nodeMap, data?.data?.executionGraph?.nodeAdjacencyListMap)
+    let nodeMap = { ...data?.data?.executionGraph?.nodeMap }
+
+    nodeMap = processForCIData({ nodeMap, data })
+
     setAllNodeMap(oldNodeMap => {
       const interruptHistories = pickBy(oldNodeMap, val => get(val, '__isInterruptNode'))
 

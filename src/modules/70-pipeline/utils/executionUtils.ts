@@ -25,7 +25,8 @@ import type {
   PipelineExecutionSummary,
   ExecutionGraph,
   ExecutionNode,
-  ExecutionNodeAdjacencyList
+  ExecutionNodeAdjacencyList,
+  ResponsePipelineExecutionDetail
 } from 'services/pipeline-ng'
 import {
   ExecutionPipelineNode,
@@ -805,7 +806,7 @@ export function getIconDataBasedOnType(nodeData?: ExecutionNode): {
 }
 
 /** Add dependency services to nodeMap */
-export const addServiceDependenciesFromLiteTaskEngine = (
+const addServiceDependenciesFromLiteTaskEngine = (
   nodeMap: { [key: string]: ExecutionNode },
   adjacencyMap?: { [key: string]: ExecutionNodeAdjacencyList }
 ): void => {
@@ -1123,4 +1124,107 @@ export const processExecutionDataForGraph = (stages?: PipelineGraphState[]): Pip
     }
   })
   return items
+}
+
+const updateBackgroundStepNodeStatuses = ({
+  runningStageId,
+  nodeMap
+}: {
+  runningStageId?: string | null
+  nodeMap: { [key: string]: ExecutionNode }
+}): {
+  [key: string]: ExecutionNode
+} => {
+  const newNodeMap: { [key: string]: ExecutionNode } = { ...nodeMap }
+  const nodeMapValues: ExecutionNode[] = Object.values(nodeMap)
+  // Find stepIdentifiers in running stage
+  const runningStageStepIdentifiers: string[] =
+    nodeMapValues.find(node => node.setupId === runningStageId)?.stepParameters?.specConfig?.stepIdentifiers || []
+  // Overwrite status for stepType Background in running stage
+  nodeMapValues.forEach(node => {
+    if (
+      node?.uuid &&
+      node.identifier &&
+      runningStageStepIdentifiers.includes(node.identifier) &&
+      node.stepType === StepType.Background
+    ) {
+      newNodeMap[node.uuid].status = ExecutionStatusEnum.Running
+    }
+  })
+  return newNodeMap
+}
+
+// Get accurate status for Background Steps from allNodeMap
+export const getBackgroundStepStatus = ({
+  allNodeMap,
+  identifier
+}: {
+  allNodeMap: Record<string, ExecutionNode>
+  identifier: string
+}): Omit<ExecutionStatus, 'NOT_STARTED'> | undefined => {
+  return allNodeMap[identifier]?.status
+}
+
+// Get accurate status for Background Steps from allNodeMap
+// allNodeMap already has the status where UI overwrites when stage is running
+export const getStepsTreeStatus = ({
+  allNodeMap,
+  step
+}: {
+  allNodeMap: Record<string, ExecutionNode>
+  step: ExecutionPipelineNode<ExecutionNode>
+}): Omit<ExecutionStatus, 'NOT_STARTED'> | undefined => {
+  const stepIdentifier = step?.item?.identifier
+  const groupIdentifier = step?.group?.identifier
+  if (stepIdentifier && step.item?.data) {
+    return (
+      (step.item.data?.stepType === StepType.Background &&
+        getBackgroundStepStatus({ identifier: step.item.identifier, allNodeMap })) ||
+      step.item.status
+    )
+  } else if (groupIdentifier && step.group?.data) {
+    return (
+      (step.group.data?.stepType === StepType.Background &&
+        getBackgroundStepStatus({ identifier: step.group.identifier, allNodeMap })) ||
+      step.group.status
+    )
+  }
+}
+
+export const processForCIData = ({
+  nodeMap,
+  data
+}: {
+  nodeMap: { [key: string]: ExecutionNode }
+  data?: ResponsePipelineExecutionDetail | null
+}): { [key: string]: ExecutionNode } => {
+  // NOTE: add dependencies from "liteEngineTask" (ci stage)
+  const adjacencyMap = data?.data?.executionGraph?.nodeAdjacencyListMap
+  addServiceDependenciesFromLiteTaskEngine(nodeMap, adjacencyMap)
+
+  // NOTE: Update Background stepType status as Running if the stage is still running
+  let newNodeMap = { ...nodeMap }
+  const newNodeMapValues = Object.values(newNodeMap)
+  if (
+    data?.data?.pipelineExecutionSummary?.status &&
+    isExecutionRunning(data.data.pipelineExecutionSummary.status) &&
+    !isEmpty(nodeMap)
+  ) {
+    const runningStageId = getActiveStageForPipeline(
+      data.data.pipelineExecutionSummary,
+      data.data.pipelineExecutionSummary.status as ExecutionStatus
+    )
+
+    newNodeMap = updateBackgroundStepNodeStatuses({ runningStageId, nodeMap })
+  }
+
+  // NOTE: Remove Duration for Background stepType similar to Service Dependency
+  newNodeMapValues.forEach(node => {
+    if (node?.uuid && node.stepType === StepType.Background) {
+      newNodeMap[node.uuid].startTs = 0
+      newNodeMap[node.uuid].endTs = 0
+    }
+  })
+
+  return newNodeMap
 }

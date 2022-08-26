@@ -66,7 +66,7 @@ export interface CIStepOptionalConfigProps {
   stepType?: StepType // See RunAndRunTestStepInputCommonFields
 }
 
-const PathnameParams = {
+export const PathnameParams = {
   PIPELINE_STUDIO: 'pipeline-studio',
   TEMPLATE_STUDIO: 'template-studio'
 }
@@ -208,10 +208,11 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
     accountId: string
   }>()
   const pathnameParams = useLocation()?.pathname?.split('/') || []
+  // Fields dependent on VM infra will always appear in Template Studio
+  const isTemplateStudio = pathnameParams.includes(PathnameParams.TEMPLATE_STUDIO)
   // applying template should allow editing and all runtime inputs
   const isApplyingTemplate =
-    isInputSetView &&
-    (pathnameParams.includes(PathnameParams.PIPELINE_STUDIO) || pathnameParams.includes(PathnameParams.TEMPLATE_STUDIO))
+    isInputSetView && (pathnameParams.includes(PathnameParams.PIPELINE_STUDIO) || isTemplateStudio)
   const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
   const renderMultiTypeMap = React.useCallback(
     ({

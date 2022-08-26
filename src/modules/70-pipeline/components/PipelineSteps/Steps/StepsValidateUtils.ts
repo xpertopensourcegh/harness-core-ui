@@ -59,6 +59,7 @@ interface Field {
   isInputSet?: boolean
   isActive?: boolean
   notAllowed?: string[]
+  allowNumericKeys?: boolean // default not allowed with Map schema
 }
 
 interface SchemaField {
@@ -219,7 +220,7 @@ export function generateSchemaForNumeric(
 }
 
 function generateSchemaForMap(
-  { label, isRequired, isInputSet }: Field,
+  { label, isRequired, isInputSet, allowNumericKeys }: Field,
   { getString }: GenerateSchemaDependencies,
   objectShape?: Schema<unknown>
 ): Lazy {
@@ -229,7 +230,7 @@ function generateSchemaForMap(
       if (!values || getMultiTypeFromValue(values as string) === MultiTypeInputType.RUNTIME) {
         return true
       }
-      if (typeof values === 'object' && !Array.isArray(values) && values !== null) {
+      if (typeof values === 'object' && !Array.isArray(values) && values !== null && !allowNumericKeys) {
         return Object.keys(values).every(key => keyRegexIdentifier.test(key))
       }
       return true
