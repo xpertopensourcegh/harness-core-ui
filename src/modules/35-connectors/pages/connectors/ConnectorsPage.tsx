@@ -318,8 +318,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
     connectorCatalogueOrder.forEach(catalogueItem => {
       const catalogueEntry = originalData.find(item => item['category'] === catalogueItem)
-      if (catalogueEntry && !(projectIdentifier != undefined && catalogueEntry.category == 'CLOUD_COST')) {
-        // CLOUD_COST should not be displayed at project level drawer
+      const isProjectOrOrg = projectIdentifier != undefined || orgIdentifier != undefined
+      if (catalogueEntry && !(catalogueEntry.category == 'CLOUD_COST' && isProjectOrOrg)) {
+        // CLOUD_COST should not be displayed at project or org level drawer
         orderedCatalogue.push(catalogueEntry)
       }
     })
