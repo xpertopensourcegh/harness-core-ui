@@ -9,7 +9,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Button,
-  ButtonVariation,
+  Checkbox,
   Container,
   ExpandingSearchInput,
   FlexExpander,
@@ -17,21 +17,23 @@ import {
   Layout,
   ModalDialog,
   Page,
+  TableV2,
+  Tag,
   Text,
   useToaster
 } from '@harness/uicore'
 import { Color, FontVariation } from '@harness/design-system'
-import { Tag } from '@blueprintjs/core'
 import { clone } from 'lodash-es'
 import type { GetDataError } from 'restful-react'
 import type { Failure, ServiceResponseDTO } from 'services/cd-ng'
-import { getErrorMessage } from '@cf/utils/CFUtils'
+import { getErrorMessage, CF_DEFAULT_PAGE_SIZE } from '@cf/utils/CFUtils'
 import useResponseError from '@cf/hooks/useResponseError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useStrings } from 'framework/strings'
 import { useGetServiceList } from 'services/cd-ng'
 import { usePatchFeature } from 'services/cf'
 import type { Feature } from 'services/cf'
+import ServicesFooter from './ServicesFooter'
 
 import css from './ServicesList.module.scss'
 
@@ -39,10 +41,19 @@ export type ServiceType = {
   name?: string
   identifier?: string
 }
+
+export type PaginationProps = {
+  itemCount: number
+  pageSize: number
+  pageCount: number
+  pageIndex: number
+  gotoPage: (pageNumber: number) => void
+}
 export interface EditServicesProps {
   closeModal: () => void
   loading: boolean
   filteredServices: ServiceResponseDTO[]
+  paginationProps: PaginationProps
   onChange: (service: ServiceType) => void
   onSearch: (name: string) => void
   editedServices: ServiceType[]
@@ -59,17 +70,31 @@ const EditServicesModal: FC<EditServicesProps> = ({
   onChange,
   onSave,
   onSearch,
+  paginationProps,
   serviceError,
   refetchServices
 }) => {
   const { getString } = useStrings()
   const noServices = Boolean(!filteredServices?.length && !loading)
 
+  const column = [
+    {
+      id: 'name',
+      onChange: onChange,
+      Cell: ({ row }: { row: { original: ServiceResponseDTO } }) => (
+        <Checkbox
+          label={row.original.name}
+          name={`service.${row.original.name}.added`}
+          checked={editedServices.some((serv: ServiceType) => serv.identifier === row.original.identifier)}
+        />
+      )
+    }
+  ]
+
   return (
     <ModalDialog
-      className={css.servicesListModal}
-      width={835}
-      height={560}
+      width={650}
+      height={700}
       enforceFocus={false}
       isOpen
       title={getString('common.monitoredServices')}
@@ -84,17 +109,7 @@ const EditServicesModal: FC<EditServicesProps> = ({
         />
       }
       footer={
-        <Layout.Horizontal spacing={'small'}>
-          <Button
-            type="submit"
-            text={getString('save')}
-            intent="primary"
-            variation={ButtonVariation.PRIMARY}
-            disabled={loading}
-            onClick={onSave}
-          />
-          <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={closeModal} />
-        </Layout.Horizontal>
+        <ServicesFooter loading={loading} onSave={onSave} onClose={closeModal} paginationProps={paginationProps} />
       }
     >
       {loading && <ContainerSpinner height="100%" margin="0" flex={{ align: 'center-center' }} />}
@@ -115,28 +130,20 @@ const EditServicesModal: FC<EditServicesProps> = ({
           flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
           spacing="small"
         >
-          {filteredServices.map((service: ServiceResponseDTO, idx: number) => {
-            return (
-              <Tag
-                aria-label={`${service.name}-${idx}`}
-                round
-                interactive
-                onClick={() => onChange({ name: service.name, identifier: service.identifier })}
-                className={css.tags}
-                key={idx}
-                large
-                active={editedServices.some((serv: ServiceType) => serv.identifier === service.identifier)}
-              >
-                {service.name}
-              </Tag>
-            )
-          })}
+          <TableV2
+            className={css.serviceTable}
+            columns={column}
+            data={filteredServices}
+            hideHeaders
+            onRowClick={(service: ServiceResponseDTO) =>
+              onChange({ name: service.name, identifier: service.identifier })
+            }
+          />
         </Layout.Horizontal>
       )}
     </ModalDialog>
   )
 }
-
 export interface ServicesListProps {
   featureFlag: Feature
   refetchFlag: () => void
@@ -155,6 +162,7 @@ const ServicesList: React.FC<ServicesListProps> = props => {
   const [initialServices, setInitialServices] = useState<ServiceType[]>([])
   const [filteredServices, setFilteredServices] = useState<ServiceType[]>([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [page, setPage] = useState(0)
 
   const queryParams = {
     accountIdentifier,
@@ -190,7 +198,9 @@ const ServicesList: React.FC<ServicesListProps> = props => {
   } = useGetServiceList({
     queryParams: {
       ...queryParams,
-      searchTerm
+      searchTerm,
+      page,
+      size: CF_DEFAULT_PAGE_SIZE
     }
   })
 
@@ -302,11 +312,19 @@ const ServicesList: React.FC<ServicesListProps> = props => {
               setServices(initialServices)
               setShowModal(false)
               setSearchTerm('')
+              setPage(0)
             }}
             loading={loading || patchLoading}
             onChange={handleChange}
             onSave={handleSave}
             onSearch={onSearchInputChanged}
+            paginationProps={{
+              itemCount: servicesResponse?.data?.totalItems || 0,
+              pageSize: CF_DEFAULT_PAGE_SIZE,
+              pageCount: servicesResponse?.data?.totalPages ?? 1,
+              pageIndex: servicesResponse?.data?.pageIndex ?? 0,
+              gotoPage: pageNumber => setPage(pageNumber)
+            }}
             editedServices={services}
             filteredServices={filteredServices}
             serviceError={error}

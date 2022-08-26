@@ -74,10 +74,10 @@ describe('ServiceList', () => {
     userEvent.click(screen.getByRole('button', { name: 'edit-services' }))
 
     // add a new service
-    userEvent.click(screen.getByRole('generic', { name: 'Support-0' }))
+    userEvent.click(screen.getByRole('checkbox', { name: 'Support' }))
 
     // delete existing service
-    userEvent.click(screen.getByRole('generic', { name: 'My Service 1-3' }))
+    userEvent.click(screen.getByRole('checkbox', { name: 'My Service 1' }))
 
     userEvent.click(screen.getByRole('button', { name: 'save' }))
 
@@ -120,10 +120,12 @@ describe('ServiceList', () => {
     userEvent.click(screen.getByRole('button', { name: 'edit-services' }))
 
     // add a new service
-    userEvent.click(screen.getByRole('generic', { name: 'Support-0' }))
+    userEvent.click(screen.getByRole('checkbox', { name: 'Support' }))
+    await waitFor(() => expect(screen.getByRole('checkbox', { name: 'Support' })).toBeChecked())
 
     // delete existing service
-    userEvent.click(screen.getByRole('generic', { name: 'My Service 1-3' }))
+    userEvent.click(screen.getByRole('checkbox', { name: 'My Service 1' }))
+    await waitFor(() => expect(screen.getByRole('checkbox', { name: 'My Service 1' })).not.toBeChecked())
 
     userEvent.click(screen.getByRole('button', { name: 'save' }))
     await waitFor(() => {
@@ -141,7 +143,7 @@ describe('ServiceList', () => {
     renderComponent()
     userEvent.click(screen.getByRole('button', { name: 'edit-services' }))
 
-    userEvent.click(screen.getByRole('generic', { name: 'My Service 1-3' }))
+    userEvent.click(screen.getByRole('checkbox', { name: 'My Service 1' }))
 
     userEvent.click(screen.getByRole('button', { name: 'save' }))
 
@@ -166,9 +168,9 @@ describe('ServiceList', () => {
     userEvent.click(screen.getByRole('button', { name: 'edit-services' }))
 
     // delete existing service
-    userEvent.click(screen.getByRole('generic', { name: 'My Service 1-3' }))
+    userEvent.click(screen.getByRole('checkbox', { name: 'My Service 1' }))
     // re-add the deleted service
-    userEvent.click(screen.getByRole('generic', { name: 'My Service 1-3' }))
+    userEvent.click(screen.getByRole('checkbox', { name: 'My Service 1' }))
 
     userEvent.click(screen.getByRole('button', { name: 'save' }))
 
@@ -259,7 +261,7 @@ describe('EditServicesModal', () => {
     await waitFor(() => expect(refetch).toBeCalled())
   })
 
-  test('it should already display existing services as selected in modal and can toggle to unselected', async () => {
+  test('it should already display existing services as checked in modal', async () => {
     useGetServiceListMock.mockReturnValue({
       loading: false,
       data: mockServiceList,
@@ -270,17 +272,9 @@ describe('EditServicesModal', () => {
     renderComponent()
     userEvent.click(screen.getByRole('button', { name: 'edit-services' }))
 
-    const service = screen.getByRole('generic', { name: 'My Service 1-3' })
+    const service = screen.getByRole('checkbox', { name: 'My Service 1' })
 
-    await waitFor(() => {
-      expect(service).toHaveClass('bp3-active')
-    })
-
-    userEvent.click(service)
-    expect(service).not.toHaveClass('bp3-active')
-
-    userEvent.click(service)
-    expect(service).toHaveClass('bp3-active')
+    await waitFor(() => expect(service).toBeChecked())
   })
 
   test('it should show the spinner when loading search results', async () => {
@@ -316,10 +310,10 @@ describe('EditServicesModal', () => {
 
     await waitFor(() => {
       expect(searchbox).toBeInTheDocument()
-      expect(screen.getByRole('generic', { name: 'Support-0' })).toBeInTheDocument()
-      expect(screen.getByRole('generic', { name: 'Messages-1' })).toBeInTheDocument()
-      expect(screen.getByRole('generic', { name: 'Account-2' })).toBeInTheDocument()
-      expect(screen.getByRole('generic', { name: 'My Service 1-3' })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: 'Support' })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: 'Messages' })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: 'Account' })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: 'My Service 1' })).toBeInTheDocument()
     })
 
     userEvent.type(searchbox, 'Support', { allAtOnce: true })
@@ -327,11 +321,11 @@ describe('EditServicesModal', () => {
 
     // expect only the searched service to be returned
     await waitFor(() => {
-      expect(screen.getByRole('generic', { name: 'Support-0' })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: 'Support' })).toBeInTheDocument()
 
-      expect(screen.queryByRole('generic', { name: 'Messages-1' })).not.toBeInTheDocument()
-      expect(screen.queryByRole('generic', { name: 'Account-2' })).not.toBeInTheDocument()
-      expect(screen.queryByRole('generic', { name: 'My Service 1-3' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('checkbox', { name: 'Messages' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('checkbox', { name: 'Account' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('checkbox', { name: 'My Service 1' })).not.toBeInTheDocument()
     })
   })
 

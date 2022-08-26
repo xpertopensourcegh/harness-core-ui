@@ -5,20 +5,6 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-.displayTags {
-  background: var(--primary-2) !important;
-  margin: var(--spacing-xsmall) 0;
-}
-
-.serviceTable {
-  width: -webkit-fill-available;
-}
-
-.serviceCheckbox {
-  padding-left: 0;
-  list-style: none;
-
-  li {
-    padding-bottom: var(--spacing-medium);
-  }
+.pagination {
+  padding-top: 0 !important;
 }

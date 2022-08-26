@@ -7,8 +7,6 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly displayTags: string
-  readonly serviceCheckbox: string
-  readonly serviceTable: string
+  readonly pagination: string
 }
 export default styles
