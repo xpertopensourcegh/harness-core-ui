@@ -67,10 +67,12 @@ describe('GIT SYNC DISABLED', () => {
     cy.contains('span', 'Create a Pipeline').should('be.visible')
   })
 
-  it.skip('should display the error returned by pipeline save API', () => {
+  it('should display the error returned by pipeline save API', () => {
     cy.intercept('POST', pipelineSaveCall, { fixture: 'pipeline/api/pipelines.post' }).as('pipelineSaveCall')
+    cy.intercept('GET', strategiesYamlSnippets, { fixture: 'ng/api/pipelines/kubernetesYamlSnippet' }).as(
+      'kubernetesYamlSnippet'
+    )
 
-    cy.wait('@cdFailureStrategiesYaml')
     cy.contains('span', 'New Service').click()
     cy.fillName('testService')
     cy.get('[data-id="service-save"]').click()
@@ -79,7 +81,12 @@ describe('GIT SYNC DISABLED', () => {
 
     cy.get('[value="testService"]').should('be.visible')
 
-    cy.contains('span', '+ Add Variable').click()
+    // Select Kubernetes as deployment type
+    cy.contains('p', 'Kubernetes').click()
+    cy.findByDisplayValue('Kubernetes').should('be.checked')
+    cy.wait('@kubernetesYamlSnippet')
+
+    cy.contains('span', 'Add Variable').click()
     cy.fillName('testVariable')
     cy.findByTestId('addVariableSave').click()
 
@@ -101,13 +108,12 @@ describe('GIT SYNC DISABLED', () => {
     // Enable YAML editing
     cy.contains('span', 'Edit YAML').click({ force: true })
 
-    cy.get('[data-name="toggle-option-one"]').click()
+    cy.contains('span', 'Enable').should('be.visible').click()
 
     // try to save the pipleine, the mock data has error
     cy.contains('span', 'Save').click({ force: true })
 
     cy.wait('@pipelineSaveCall')
-    cy.wait('@cdFailureStrategiesYaml')
     cy.wait(500)
     cy.contains(
       'span',
@@ -115,7 +121,7 @@ describe('GIT SYNC DISABLED', () => {
     ).should('be.visible')
   })
 
-  it.skip('should display the success message if pipeline save is success', () => {
+  it('should display the success message if pipeline save is success', () => {
     cy.intercept('POST', pipelineSaveCall, { fixture: 'pipeline/api/pipelines.postsuccess' }).as('pipelineSaveCall')
     cy.contains('span', 'Save').click({ force: true })
     cy.wait('@pipelineSaveCall')
