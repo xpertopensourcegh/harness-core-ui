@@ -210,7 +210,12 @@ function ExecutionStrategyRef(
     }
   }, [strategies?.data, serviceDefinitionType])
 
+  const isDefaultStrategySelected = (selectedType?: string): boolean => {
+    return selectedType === getString('pipeline.executionStrategy.strategies.default.actualName')
+  }
+
   const {
+    loading: loadingStrategiesYaml,
     data: yamlSnippet,
     error,
     refetch: refetchStrategyYaml
@@ -218,20 +223,13 @@ function ExecutionStrategyRef(
     queryParams: {
       serviceDefinitionType: serviceDefinitionType(),
       strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Rolling',
-      ...(isVerifyEnabled && { includeVerify: true })
+      ...(isVerifyEnabled && !isDefaultStrategySelected(selectedStrategy) && { includeVerify: true })
     },
     lazy: true,
     debounce: 500
   })
 
   const getServiceDefintionType = serviceDefinitionType()
-
-  useEffect(() => {
-    if (getServiceDefintionType) {
-      refetchStrategyYaml?.()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getServiceDefintionType, selectedStrategy, isVerifyEnabled])
 
   useEffect(() => {
     if (error) {
@@ -243,19 +241,26 @@ function ExecutionStrategyRef(
 
   useEffect(() => {
     if (yamlSnippet?.data) {
-      updateStage(
-        produce(selectedStage, draft => {
-          const jsonFromYaml = parse(defaultTo(yamlSnippet?.data, '{}')) as StageElementConfig
-          set(draft, 'stage.failureStrategies', jsonFromYaml.failureStrategies)
-          set(draft, 'stage.spec.execution', defaultTo((jsonFromYaml.spec as DeploymentStageConfig)?.execution, {}))
-        }).stage as StageElementConfig
-      )
-    }
-    if (selectedStrategy === getString('pipeline.executionStrategy.strategies.default.actualName')) {
-      setIsVerifyEnabled(false)
-    }
-  }, [yamlSnippet?.data, selectedStrategy])
+      const newStage = produce(selectedStage, draft => {
+        const jsonFromYaml = parse(defaultTo(yamlSnippet?.data, '')) as StageElementConfig
+        if (draft.stage && draft.stage.spec) {
+          draft.stage.failureStrategies = jsonFromYaml?.failureStrategies
+          ;(draft.stage.spec as DeploymentStageConfig).execution = (jsonFromYaml?.spec as DeploymentStageConfig)
+            ?.execution ?? { steps: [], rollbackSteps: [] }
+        }
+      }).stage
 
+      if (isDefaultStrategySelected(selectedStrategy)) {
+        setIsVerifyEnabled(false)
+      }
+
+      if (newStage) {
+        updateStage(newStage).then(() => {
+          updatePipelineViewState()
+        })
+      }
+    }
+  }, [yamlSnippet?.data])
   const updatePipelineViewState = (): void => {
     updatePipelineView({
       ...pipelineView,
@@ -295,7 +300,7 @@ function ExecutionStrategyRef(
   }
   return (
     <>
-      {loading && (
+      {(loading || loadingStrategiesYaml) && (
         <Container data-test="executionStrategyListLoader">
           <PageSpinner />
         </Container>
@@ -459,20 +464,8 @@ function ExecutionStrategyRef(
                   variation={ButtonVariation.PRIMARY}
                   text={getString('pipeline.executionStrategy.useStrategy')}
                   onClick={() => {
-                    const newStage = produce(selectedStage, draft => {
-                      const jsonFromYaml = parse(defaultTo(yamlSnippet?.data, '')) as StageElementConfig
-                      if (draft.stage && draft.stage.spec) {
-                        draft.stage.failureStrategies = jsonFromYaml?.failureStrategies
-                        ;(draft.stage.spec as DeploymentStageConfig).execution = (
-                          jsonFromYaml?.spec as DeploymentStageConfig
-                        )?.execution ?? { steps: [], rollbackSteps: [] }
-                      }
-                    }).stage
-
-                    if (newStage) {
-                      updateStage(newStage).then(() => {
-                        updatePipelineViewState()
-                      })
+                    if (getServiceDefintionType) {
+                      refetchStrategyYaml?.()
                     }
                   }}
                   disabled={isSubmitDisabled}
