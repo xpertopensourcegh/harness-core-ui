@@ -188,6 +188,18 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     })
   ) || { isExact: false }
 
+  if (error?.data && !isGitSyncEnabled && (!supportingGitSimplification || storeType !== StoreType.REMOTE)) {
+    return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
+  }
+
+  if (
+    error?.data &&
+    isEmpty(pipeline) &&
+    (isGitSyncEnabled || (supportingGitSimplification && storeType === StoreType.REMOTE))
+  ) {
+    return <NoEntityFound identifier={pipelineIdentifier} entityType={'pipeline'} errorObj={error.data as Error} />
+  }
+
   const isExecutionHistoryView = !!matchPath(location.pathname, {
     path: routes.toPipelineDeploymentList({
       orgIdentifier,
@@ -208,14 +220,6 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
       )
       window.location.reload()
     }
-  }
-
-  if (error?.data && !isGitSyncEnabled && !supportingGitSimplification) {
-    return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
-  }
-
-  if (error?.data && isEmpty(pipeline) && (isGitSyncEnabled || supportingGitSimplification)) {
-    return <NoEntityFound identifier={pipelineIdentifier} entityType={'pipeline'} errorObj={error.data as Error} />
   }
 
   return (
