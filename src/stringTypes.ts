@@ -4069,6 +4069,7 @@ export interface StringsMap {
   'cd.artifactPaths': string
   'cd.artifactRepoTooltip': string
   'cd.attributeFilters': string
+  'cd.azureArmRollback.description': string
   'cd.azureWebAppRollbackDescription': string
   'cd.azureWebAppSwapSlotDescription': string
   'cd.backEndConfig': string

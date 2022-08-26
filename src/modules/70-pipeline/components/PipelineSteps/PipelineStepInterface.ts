@@ -92,7 +92,8 @@ export enum StepType {
   AzureSlotDeployment = 'AzureSlotDeployment',
   JenkinsBuild = 'JenkinsBuild',
   AzureTrafficShift = 'AzureTrafficShift',
-  AzureSwapSlot = 'AzureSwapSlot'
+  AzureSwapSlot = 'AzureSwapSlot',
+  AzureArmRollback = 'AzureARMRollback'
 }
 
 export interface PipelineInfrastructureV2 extends PipelineInfrastructure {
