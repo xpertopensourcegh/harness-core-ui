@@ -29,7 +29,7 @@ import {
 import { useDeepCompareEffect } from '@common/hooks'
 import type { ServiceNowFieldNG } from 'services/cd-ng'
 import { errorCheck } from '@common/utils/formikHelpers'
-import { filterOutMultiOperators, handleOperatorChange, operatorValues } from '../JiraApproval/helper'
+import { handleOperatorChange, operatorValues } from '../JiraApproval/helper'
 import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from '../Common/ApprovalRejectionCriteria.module.scss'
@@ -61,12 +61,13 @@ function RenderValueSelects({
   readonly?: boolean
 }): JSX.Element {
   const { getString } = useStrings()
+  const name = `spec.${mode}.spec.conditions`
   if (condition.operator === 'in' || condition.operator === 'not in') {
     return (
       <FormInput.MultiSelectTypeInput
         label=""
         className={css.multiSelect}
-        name={`spec.${mode}.spec.conditions[${index}].value`}
+        name={`${name}[${index}].value`}
         selectItems={allowedValuesForFields[condition.key]}
         placeholder={getString(valuePlaceholder)}
         multiSelectTypeInputProps={{
@@ -80,7 +81,7 @@ function RenderValueSelects({
   return (
     <FormInput.MultiTypeInput
       label=""
-      name={`spec.${mode}.spec.conditions[${index}].value`}
+      name={`${name}[${index}].value`}
       selectItems={allowedValuesForFields[condition.key]}
       placeholder={getString(valuePlaceholder)}
       multiTypeInputProps={{
@@ -145,20 +146,20 @@ export function Conditions({
                     {isEmpty(fieldList) ? (
                       <FormInput.Text
                         disabled={isApprovalStepFieldDisabled(readonly)}
-                        name={`spec.${mode}.spec.conditions[${i}].key`}
+                        name={`${name}[${i}].key`}
                         placeholder={getString('pipeline.keyPlaceholder')}
                       />
                     ) : (
                       <FormInput.Select
                         items={allowedFieldKeys}
-                        name={`spec.${mode}.spec.conditions[${i}].key`}
+                        name={`${name}[${i}].key`}
                         placeholder={getString('pipeline.keyPlaceholder')}
                         disabled={isApprovalStepFieldDisabled(readonly)}
                       />
                     )}
                     <FormInput.Select
-                      items={allowedValuesForFields[condition.key] ? operatorValues : filterOutMultiOperators()}
-                      name={`spec.${mode}.spec.conditions[${i}].operator`}
+                      items={operatorValues}
+                      name={`${name}[${i}].operator`}
                       placeholder={getString('pipeline.operatorPlaceholder')}
                       disabled={isApprovalStepFieldDisabled(readonly)}
                       onChange={(selectedOperator: SelectOption) => {
@@ -177,7 +178,7 @@ export function Conditions({
                     ) : (
                       <FormInput.MultiTextInput
                         label=""
-                        name={`spec.${mode}.spec.conditions[${i}].value`}
+                        name={`${name}[${i}].value`}
                         placeholder={getString(valuePlaceholder)}
                         disabled={isApprovalStepFieldDisabled(readonly)}
                         multiTextInputProps={{

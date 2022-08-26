@@ -163,9 +163,6 @@ export const operatorValues: SelectOption[] = [
   }
 ]
 
-export const filterOutMultiOperators = (): SelectOption[] =>
-  operatorValues.filter(opValue => opValue.value === 'equals' || opValue.value === 'not equals')
-
 export const setIssueTypeOptions = (issuetypes: { [key: string]: JiraIssueTypeNG } = {}): JiraProjectSelectOption[] => {
   const keys = Object.keys(issuetypes)
   const toReturn: JiraProjectSelectOption[] = []

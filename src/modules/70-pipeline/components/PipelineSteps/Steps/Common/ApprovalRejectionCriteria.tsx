@@ -34,7 +34,6 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { errorCheck } from '@common/utils/formikHelpers'
 import { isApprovalStepFieldDisabled } from './ApprovalCommons'
 import {
-  filterOutMultiOperators,
   handleOperatorChange,
   operatorValues,
   removeDuplicateFieldKeys,
@@ -150,20 +149,20 @@ export function Conditions({
                     {isEmpty(fieldList) ? (
                       <FormInput.Text
                         disabled={isApprovalStepFieldDisabled(readonly)}
-                        name={`spec.${mode}.spec.conditions[${i}].key`}
+                        name={`${name}[${i}].key`}
                         placeholder={getString('pipeline.keyPlaceholder')}
                       />
                     ) : (
                       <FormInput.Select
                         items={allowedFieldKeys}
-                        name={`spec.${mode}.spec.conditions[${i}].key`}
+                        name={`${name}[${i}].key`}
                         placeholder={getString('pipeline.keyPlaceholder')}
                         disabled={isApprovalStepFieldDisabled(readonly)}
                       />
                     )}
                     <FormInput.Select
-                      items={allowedValuesForFields[condition.key] ? operatorValues : filterOutMultiOperators()}
-                      name={`spec.${mode}.spec.conditions[${i}].operator`}
+                      items={operatorValues}
+                      name={`${name}[${i}].operator`}
                       placeholder={getString('pipeline.operatorPlaceholder')}
                       disabled={isApprovalStepFieldDisabled(readonly)}
                       onChange={(selectedOperator: SelectOption) => {
@@ -182,7 +181,7 @@ export function Conditions({
                     ) : (
                       <FormInput.MultiTextInput
                         label=""
-                        name={`spec.${mode}.spec.conditions[${i}].value`}
+                        name={`${name}[${i}].value`}
                         placeholder={getString('common.valuePlaceholder')}
                         disabled={isApprovalStepFieldDisabled(readonly)}
                         multiTextInputProps={{
