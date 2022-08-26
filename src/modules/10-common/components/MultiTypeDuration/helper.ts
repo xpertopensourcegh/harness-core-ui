@@ -20,6 +20,8 @@ export interface GetDurationValidationSchemaProps {
   inValidSyntaxMessage?: string
   minimumErrorMessage?: string
   maximumErrorMessage?: string
+  /* list of values that will be exempt from the invalid time syntax check */
+  explicitAllowedValues?: string[]
 }
 
 export function isValidTimeString(value: string): boolean {
@@ -41,9 +43,11 @@ export function getDurationValidationSchema(
 
   return Yup.string().test({
     test(value: string): boolean | Yup.ValidationError {
-      const { inValidSyntaxMessage, maximumErrorMessage, minimumErrorMessage } = props
+      const { inValidSyntaxMessage, maximumErrorMessage, minimumErrorMessage, explicitAllowedValues } = props
 
       if (!value) return true
+
+      if (explicitAllowedValues?.includes(value)) return true
 
       if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
         return true

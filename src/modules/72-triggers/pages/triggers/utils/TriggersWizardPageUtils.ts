@@ -28,6 +28,7 @@ import {
 import { getStageFromPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/helpers'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { StringsMap } from 'framework/strings/StringsContext'
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/helper'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 import type {
@@ -341,6 +342,11 @@ export const getValidationSchema = (
           return this.parent.sourceRepo === CUSTOM || event
         }
       ),
+      pollInterval: getDurationValidationSchema({
+        minimum: '2m',
+        maximum: '60m',
+        explicitAllowedValues: ['0']
+      }),
       connectorRef: object().test(
         getString('triggers.validation.connector'),
         getString('triggers.validation.connector'),

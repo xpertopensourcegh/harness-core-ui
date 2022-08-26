@@ -79,6 +79,7 @@ triggerConfigurationPanel:
   autoAbortPR: 'If a PR is updated, Harness will automatically cancel active builds for the same PR if invoked by the same Trigger.'
   autoAbortIssueComment: 'If a PR is updated with a new comment, Harness will automatically cancel active builds for the same PR.'
   eventPlaceholder: Select Event
+  pollingFrequency: Polling Frequency
 conditionsPanel:
   subtitle: 'Specify the conditions for running the Pipeline. For example, when an artifact tag, label, filename, or build matches a certain value or pattern.'
   subtitleManifest: '{{$.triggers.conditionsPanel.subtitle}}'

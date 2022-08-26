@@ -13,6 +13,8 @@ import { isEmpty } from 'lodash-es'
 import { useGetGitTriggerEventDetails } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import { GitSourceProviders, getSourceRepoOptions } from '../utils/TriggersListUtils'
 import {
   renderNonCustomEventFields,
@@ -44,6 +46,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
   const [actionsOptions, setActionsOptions] = useState<SelectOption[]>([])
   const [actionsOptionsMap, setActionsOptionsMap] = useState<{ [key: string]: string[] }>({})
   const { getString } = useStrings()
+  const isGitWebhookPollingEnabled = useFeatureFlag(FeatureFlag.GIT_WEBHOOK_POLLING)
   const loading = false
 
   useEffect(() => {
@@ -142,7 +145,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 eventOptions,
                 getString,
                 actionsOptions,
-                actions
+                actions,
+                isGitWebhookPollingEnabled
               })
             : null}
         </section>

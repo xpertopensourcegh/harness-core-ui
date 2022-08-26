@@ -3375,7 +3375,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           </div>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main autoAbortDescription"
+                          class="StyledProps--font StyledProps--main autoAbortDescription StyledProps--margin-bottom-small"
                         >
                           triggers.triggerConfigurationPanel.autoAbortIssueComment
                         </p>
@@ -4362,7 +4362,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           </div>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main autoAbortDescription"
+                          class="StyledProps--font StyledProps--main autoAbortDescription StyledProps--margin-bottom-small"
                         >
                           triggers.triggerConfigurationPanel.autoAbortPR
                         </p>

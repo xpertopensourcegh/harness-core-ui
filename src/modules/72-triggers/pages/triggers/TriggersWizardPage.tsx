@@ -73,6 +73,8 @@ import { useConfirmAction, useMutateAsGet, useDeepCompareEffect, useQueryParams 
 import type { FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import type { InputSetValue } from '@pipeline/components/InputSetSelector/utils'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import {
   scheduleTabsId,
   getDefaultExpressionBreakdownValues,
@@ -190,6 +192,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   const isGitSyncEnabled = useMemo(() => !!pipelineResponse?.data?.gitDetails?.branch, [pipelineResponse])
   const { supportingGitSimplification } = useAppStore()
+  const isGitWebhookPollingEnabled = useFeatureFlag(FeatureFlag.GIT_WEBHOOK_POLLING)
 
   const gitAwareForTriggerEnabled = useMemo(
     () => isGitSyncEnabled && supportingGitSimplification,
@@ -511,7 +514,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       payloadConditions = [],
       jexlCondition,
       autoAbortPreviousExecutions = false,
-      pipelineBranchName = getDefaultPipelineReferenceBranch(formikValueTriggerType, event)
+      pipelineBranchName = getDefaultPipelineReferenceBranch(formikValueTriggerType, event),
+      pollInterval
     } = val
     const inputSetRefs = get(val, 'inputSetSelected', []).map((_inputSet: InputSetValue) => _inputSet.value)
 
@@ -583,6 +587,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipelineIdentifier,
         source: {
           type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
+          pollInterval,
           spec: {
             type: formikValueSourceRepo, // Github
             spec: {
@@ -698,6 +703,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             inputYaml,
             inputSetRefs = [],
             source: {
+              pollInterval,
               spec: {
                 type: sourceRepo,
                 spec: {
@@ -764,6 +770,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           sourceRepo,
           triggerType: TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           event,
+          pollInterval,
           autoAbortPreviousExecutions,
           connectorRef,
           repoName,
@@ -1349,7 +1356,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         resolvedPipeline,
         anyAction: false,
         autoAbortPreviousExecutions: false,
-        pipelineBranchName: getDefaultPipelineReferenceBranch(triggerType)
+        pipelineBranchName: getDefaultPipelineReferenceBranch(triggerType),
+        // setDefaultValue only when polling is enabled and for Github Webhook Trigger
+        ...(isGitWebhookPollingEnabled && sourceRepoOnNew === GitSourceProviders.GITHUB.value && { pollInterval: '0' })
       }
     } else if (triggerType === TriggerTypes.SCHEDULE) {
       return {

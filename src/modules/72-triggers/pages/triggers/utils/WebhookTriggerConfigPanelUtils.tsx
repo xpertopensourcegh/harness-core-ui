@@ -7,10 +7,11 @@
 
 import React, { SetStateAction, Dispatch } from 'react'
 import cx from 'classnames'
-import { FormInput, SelectOption, Text, Container } from '@wings-software/uicore'
+import { FormInput, SelectOption, Text, Container, MultiTypeInputType } from '@wings-software/uicore'
 import { FontVariation, Color } from '@harness/design-system'
 import { isEmpty, isUndefined, sortBy } from 'lodash-es'
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { GitSourceProviders } from './TriggersListUtils'
 import { ConnectorSection } from '../views/ConnectorSection'
 import { eventTypes } from './TriggersWizardPageUtils'
@@ -49,7 +50,8 @@ export const renderNonCustomEventFields = ({
   eventOptions,
   getString,
   actionsOptions,
-  actions
+  actions,
+  isGitWebhookPollingEnabled
 }: {
   sourceRepo?: string
   formikProps: any
@@ -58,6 +60,7 @@ export const renderNonCustomEventFields = ({
   getString: UseStringsReturn['getString']
   actionsOptions: SelectOption[]
   actions: SelectOption[]
+  isGitWebhookPollingEnabled?: boolean
 }): JSX.Element => {
   return (
     <>
@@ -145,8 +148,25 @@ export const renderNonCustomEventFields = ({
                 label="Auto-abort Previous Execution"
                 className={css.checkboxAlignment}
               />
-              <Text className={css.autoAbortDescription}>{getAutoAbortDescription({ event, getString })}</Text>
+              <Text className={css.autoAbortDescription} margin={{ bottom: 'small' }}>
+                {getAutoAbortDescription({ event, getString })}
+              </Text>
             </>
+          )}
+
+          {isGitWebhookPollingEnabled && sourceRepo === GitSourceProviders.GITHUB.value && (
+            <FormMultiTypeDurationField
+              name="pollInterval"
+              label={getString('triggers.triggerConfigurationPanel.pollingFrequency')}
+              tooltipProps={{
+                dataTooltipId: 'pollInterval'
+              }}
+              multiTypeDurationProps={{
+                enableConfigureOptions: false,
+                allowableTypes: [MultiTypeInputType.FIXED],
+                width: 324
+              }}
+            />
           )}
         </>
       )}
