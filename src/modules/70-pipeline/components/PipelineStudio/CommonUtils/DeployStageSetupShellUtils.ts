@@ -22,10 +22,6 @@ export const isEmptyServiceConfigPath = (stage: DeploymentStageElementConfig): b
 export const isEmptyInfraPath = (stage: DeploymentStageElementConfig): boolean => {
   return isEmpty(stage?.spec?.infrastructure)
 }
-export const getServiceEntityServiceRef = (stage: any): boolean => {
-  return !isEmpty((stage?.spec as any)?.service?.serviceRef)
-}
-
 export const isNewServiceEnvEntity = (isSvcEnvEntityEnabled: boolean, stage: DeploymentStageElementConfig): boolean => {
   return isSvcEnvEntityEnabled && isEmptyServiceConfigPath(stage)
 }

@@ -195,24 +195,28 @@ export default function EnvironmentConfiguration({
   /**********************************************Service Manifest CRUD Operations ************************************************/
   const handleManifestOverrideSubmit = useCallback(
     (manifestObj: ManifestConfigWrapper, manifestIndex: number): void => {
-      const manifestOverrides = formikProps?.values?.overrides
-      const manifestDefaultValue = defaultTo([...(manifestOverrides?.manifests as ManifestConfigWrapper[])], [])
-      if (manifestDefaultValue?.length) {
+      const manifestOverrides = formikProps.values.overrides
+      const manifestDefaultValue = Array.isArray(manifestOverrides?.manifests)
+        ? [...(manifestOverrides?.manifests as ManifestConfigWrapper[])]
+        : []
+      if (manifestDefaultValue.length > 0) {
         manifestDefaultValue.splice(manifestIndex, 1, manifestObj)
       } else {
         manifestDefaultValue.push(manifestObj)
       }
-      formikProps?.setFieldValue('overrides.manifests', manifestDefaultValue)
+      formikProps.setFieldValue('overrides.manifests', manifestDefaultValue)
     },
     [formikProps]
   )
 
   const removeManifestConfig = useCallback(
     (index: number): void => {
-      const manifestOverrides = formikProps?.values?.overrides
-      const manifestDefaultValue = defaultTo([...(manifestOverrides?.manifests as ManifestConfigWrapper[])], [])
+      const manifestOverrides = formikProps.values.overrides
+      const manifestDefaultValue = Array.isArray(manifestOverrides?.manifests)
+        ? [...(manifestOverrides?.manifests as ManifestConfigWrapper[])]
+        : []
       manifestDefaultValue.splice(index, 1)
-      formikProps?.setFieldValue('overrides.manifests', manifestDefaultValue)
+      formikProps.setFieldValue('overrides.manifests', manifestDefaultValue)
     },
     [formikProps]
   )

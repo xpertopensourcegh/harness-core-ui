@@ -44,10 +44,7 @@ import type { K8SDirectServiceStep } from '@cd/components/PipelineSteps/K8sServi
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
-import {
-  DeployTabs,
-  getServiceEntityServiceRef
-} from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
+import { DeployTabs } from '@pipeline/components/PipelineStudio/CommonUtils/DeployStageSetupShellUtils'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { getStepTypeByDeploymentType, ServiceDeploymentType } from '@pipeline/utils/stageHelpers'
@@ -183,12 +180,11 @@ export default function DeployServiceEntitySpecifications({
 
   useEffect(() => {
     //When service.serviceRef is present refetch serviceAPI to populate deployment type and service definition
-    if (getServiceEntityServiceRef(stage?.stage)) {
-      const stageServiceRef = stage?.stage?.spec?.service?.serviceRef
-      if (!isEmpty(stageServiceRef)) {
+    if (typeof stage !== 'undefined') {
+      if (typeof stage.stage?.spec?.service?.serviceRef !== 'undefined') {
         const params = {
           pathParams: {
-            serviceIdentifier: stageServiceRef
+            serviceIdentifier: stage.stage.spec.service.serviceRef
           },
           queryParams: memoizedQueryParam
         }
@@ -201,18 +197,14 @@ export default function DeployServiceEntitySpecifications({
           })
         ])
       } else {
-        if (
-          scope !== Scope.PROJECT &&
-          stage?.stage?.spec?.service &&
-          isEmpty(stage?.stage?.spec?.service?.serviceRef)
-        ) {
+        // When Account level template, populate serviceRef and serviceInputs with RUNTIME_INPUT_VALUE as the default value
+        if (scope !== Scope.PROJECT) {
           const stageData = produce(stage, draft => {
-            if (draft) {
-              set(draft, 'stage.spec.service.serviceRef', RUNTIME_INPUT_VALUE)
-            }
+            set(draft, 'stage.spec.service.serviceRef', RUNTIME_INPUT_VALUE)
+            set(draft, 'stage.spec.service.serviceInputs', RUNTIME_INPUT_VALUE)
           })
-          if (stageData?.stage) {
-            debounceUpdateStage(stageData?.stage)
+          if (stageData.stage) {
+            updateStage(stageData.stage)
           }
         }
       }
