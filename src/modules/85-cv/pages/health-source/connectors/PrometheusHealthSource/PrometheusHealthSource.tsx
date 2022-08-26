@@ -71,7 +71,7 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
     sourceData: { existingMetricDetails }
   } = useContext(SetupSourceTabsContext)
 
-  const isMetricThresholdEnabled = useFeatureFlag(FeatureFlag.CVNG_METRIC_THRESHOLD)
+  const isMetricThresholdEnabled = useFeatureFlag(FeatureFlag.CVNG_METRIC_THRESHOLD) && !isTemplate
 
   const metricDefinitions = existingMetricDetails?.spec?.metricDefinitions
 

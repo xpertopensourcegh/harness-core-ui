@@ -1549,11 +1549,11 @@ export const onSubmitPayloadTemplate = {
     metricPacks: [
       {
         identifier: 'Errors',
-        metricThresholds: []
+        metricThresholds: undefined
       },
       {
         identifier: 'Performance',
-        metricThresholds: []
+        metricThresholds: undefined
       }
     ],
     tierName: '<+input>'

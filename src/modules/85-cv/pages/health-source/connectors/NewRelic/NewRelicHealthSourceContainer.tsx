@@ -24,7 +24,7 @@ export default function NewrelicMonitoredSourceContainer(props: NewRelicHealthSo
   const { data: sourceData, onSubmit, isTemplate, expressions } = props
   const { onPrevious } = useContext(SetupSourceTabsContext)
 
-  const isMetricThresholdEnabled = useFeatureFlag(FeatureFlag.CVNG_METRIC_THRESHOLD)
+  const isMetricThresholdEnabled = useFeatureFlag(FeatureFlag.CVNG_METRIC_THRESHOLD) && !isTemplate
 
   const handleSubmit = useCallback(
     async (formValues: UpdatedHealthSource) => {
