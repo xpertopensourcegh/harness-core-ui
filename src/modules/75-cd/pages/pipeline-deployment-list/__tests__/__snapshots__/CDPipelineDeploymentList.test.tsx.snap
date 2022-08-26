@@ -472,19 +472,17 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                     >
                       <span
                         class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey900"
-                        data-icon="user"
+                        data-icon="nav-user-profile"
                       >
                         <svg
-                          fill="currentColor"
                           height="18"
-                          viewBox="0 0 61 73"
+                          viewBox="0 0 24 24"
                           width="18"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            clip-rule="evenodd"
-                            d="M18.001 17.512c0-6.732 5.458-12.19 12.19-12.19 6.732 0 12.19 5.458 12.19 12.19 0 6.732-5.458 12.19-12.19 12.19-6.732 0-12.19-5.458-12.19-12.19zM30.191.522c-9.383 0-16.99 7.607-16.99 16.99 0 5.651 2.76 10.659 7.005 13.747L.466 68.8a2.4 2.4 0 002.123 3.517h55.206a2.4 2.4 0 002.105-3.552L39.608 31.656c4.565-3.046 7.573-8.244 7.573-14.144 0-9.383-7.607-16.99-16.99-16.99zm-5.744 32.984a16.96 16.96 0 005.744.996c1.77 0 3.476-.27 5.08-.773l18.476 33.787H6.563l17.884-34.01z"
-                            fill-rule="evenodd"
+                            d="M11.5 2C5.701 2 1 6.701 1 12.5S5.701 23 11.5 23 22 18.299 22 12.5 17.299 2 11.5 2zm0 3.151a3.152 3.152 0 11-3.152 3.152A3.144 3.144 0 0111.5 5.151zm0 14.936a7.558 7.558 0 01-6.296-3.383c0-2.09 4.197-3.233 6.296-3.233s6.266 1.142 6.296 3.233a7.558 7.558 0 01-6.296 3.354z"
+                            fill="#747d88"
                           />
                         </svg>
                       </span>
@@ -495,11 +493,6 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                           class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
                         >
                           Admin
-                        </p>
-                        <p
-                          class="StyledProps--font StyledProps--main UserLabel--email StyledProps--font-size-small StyledProps--color StyledProps--color-grey200"
-                        >
-                          admin@harness.io
                         </p>
                       </div>
                     </div>

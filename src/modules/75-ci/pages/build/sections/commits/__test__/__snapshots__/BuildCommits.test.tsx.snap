@@ -96,11 +96,6 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
                     >
                       userid
                     </p>
-                    <p
-                      class="StyledProps--font StyledProps--main UserLabel--email StyledProps--font-size-small StyledProps--color StyledProps--color-grey200"
-                    >
-                      userid@a.a
-                    </p>
                   </div>
                 </div>
               </span>
@@ -235,11 +230,6 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       userid
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main UserLabel--email StyledProps--font-size-small StyledProps--color StyledProps--color-grey200"
-                    >
-                      userid@a.a
                     </p>
                   </div>
                 </div>
