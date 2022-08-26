@@ -9,9 +9,10 @@
 declare const styles: {
   readonly avatar: string
   readonly draft: string
-  readonly hidden: string
+  readonly icon: string
   readonly latestExecutionText: string
   readonly link: string
+  readonly neverRan: string
   readonly recentExecutionHeader: string
   readonly recentExecutions: string
   readonly statusLabel: string
@@ -20,6 +21,7 @@ declare const styles: {
   readonly table: string
   readonly tableRow: string
   readonly tags: string
+  readonly timeAgo: string
   readonly trigger: string
 }
 export default styles

@@ -230,7 +230,7 @@ export function PipelineListPage(): React.ReactElement {
         }
         breadcrumbs={<NGBreadcrumbs links={[]} />}
       />
-      <Page.SubHeader>
+      <Page.SubHeader className={css.subHeader}>
         <Layout.Horizontal>
           {createPipelineButton}
           {isGitSyncEnabled && (

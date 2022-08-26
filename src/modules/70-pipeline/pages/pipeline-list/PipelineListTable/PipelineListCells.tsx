@@ -69,10 +69,10 @@ export const PipelineNameCell: CellType = ({ row }) => {
   return (
     <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'start' }}>
       <Layout.Vertical spacing="xsmall" data-testid={data.identifier}>
-        <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
+        <Layout.Horizontal spacing="xsmall" flex={{ alignItems: 'center' }}>
           <Link to={routes.toPipelineStudio(getRouteProps(pathParams, data))}>
             <Text
-              font={{ size: 'normal' }}
+              font={{ variation: FontVariation.LEAD }}
               color={Color.PRIMARY_7}
               tooltipProps={{ isDark: true }}
               tooltip={
@@ -175,40 +175,44 @@ export const LastExecutionCell: CellType = ({ row }) => {
 
   return (
     <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-      <div className={cx(css.trigger, !isAutoTrigger && css.avatar, !executor && css.hidden)}>
-        {isAutoTrigger ? (
-          <Link
-            to={routes.toTriggersDetailPage({
-              ...getRouteProps(pathParams, data),
-              triggerIdentifier: executorInfo?.username || ''
-            })}
-          >
-            <Icon
-              size={16}
-              name={executorInfo?.triggerType === 'SCHEDULER_CRON' ? 'stopwatch' : 'trigger-execution'}
-              aria-label="trigger"
-            />
-          </Link>
+      <div className={cx(css.avatar, executor ? css.trigger : css.neverRan)}>
+        {executor ? (
+          isAutoTrigger ? (
+            <Link
+              to={routes.toTriggersDetailPage({
+                ...getRouteProps(pathParams, data),
+                triggerIdentifier: executorInfo?.username || ''
+              })}
+            >
+              <Icon
+                size={12}
+                name={executorInfo?.triggerType === 'SCHEDULER_CRON' ? 'stopwatch' : 'trigger-execution'}
+                aria-label="trigger"
+                className={css.icon}
+              />
+            </Link>
+          ) : (
+            executor?.charAt(0)
+          )
         ) : (
-          executor?.charAt(0)
+          <Icon size={12} name="ci-build-pipeline" aria-label="trigger" color={Color.GREY_400} />
         )}
       </div>
-      <Layout.Vertical spacing="xsmall">
-        {executor && (
+
+      {executor && startTs ? (
+        <div>
           <Text color={Color.GREY_900} font={{ variation: FontVariation.SMALL }}>
             {executor}
           </Text>
-        )}
-        {startTs ? (
-          <Text color={Color.GREY_600} font={{ variation: FontVariation.TINY }}>
+          <Text color={Color.GREY_600} font={{ variation: FontVariation.TINY }} className={css.timeAgo}>
             <ReactTimeago date={startTs} />
           </Text>
-        ) : (
-          <Text color={Color.GREY_400} font={{ variation: FontVariation.SMALL }}>
-            {startTs ? <ReactTimeago date={startTs} /> : getString('pipeline.neverRan')}
-          </Text>
-        )}
-      </Layout.Vertical>
+        </div>
+      ) : (
+        <Text color={Color.GREY_400} font={{ variation: FontVariation.SMALL }}>
+          {getString('pipeline.neverRan')}
+        </Text>
+      )}
     </Layout.Horizontal>
   )
 }

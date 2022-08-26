@@ -14,18 +14,36 @@
 }
 
 .avatar {
-  background-color: var(--primary-2);
-  color: var(--primary-8);
-  text-transform: uppercase;
-}
-
-.trigger {
-  width: var(--spacing-xxlarge);
-  height: var(--spacing-xxlarge);
+  width: var(--spacing-xlarge);
+  height: var(--spacing-xlarge);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.trigger {
+  background-color: var(--primary-1);
+  color: var(--primary-7);
+  text-transform: uppercase;
+  font-size: var(--spacing-4);
+  font-weight: 500;
+}
+
+.neverRan {
+  background-color: var(--grey-100);
+}
+
+.timeAgo {
+  margin-top: var(--spacing-xsmall) !important;
+}
+
+.icon {
+  svg {
+    path {
+      fill: var(--primary-7) !important;
+    }
+  }
 }
 
 .storeTypeColumn {
@@ -45,10 +63,6 @@
     text-decoration: none;
     color: var(--grey-0) !important;
   }
-}
-
-.hidden {
-  visibility: hidden;
 }
 
 .recentExecutions {
