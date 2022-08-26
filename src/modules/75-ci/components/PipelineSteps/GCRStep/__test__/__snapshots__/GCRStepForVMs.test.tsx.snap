@@ -235,7 +235,7 @@ exports[`GCR Step Edit View should render properly for AWS VMs build infra 1`] =
               <p
                 class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
               >
-                pipelineSteps.hostLabel
+                common.hostLabel
               </p>
             </div>
             <div

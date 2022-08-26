@@ -306,7 +306,7 @@ const PDCInfrastructureSpecEditable: React.FC<PDCInfrastructureSpecEditableProps
       Cell: ({ row }) => row.index + 1
     },
     {
-      Header: getString('pipelineSteps.hostLabel').toUpperCase(),
+      Header: getString('common.hostLabel').toUpperCase(),
       accessor: 'host',
       id: 'host',
       width: '20%',

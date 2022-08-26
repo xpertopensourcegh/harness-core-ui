@@ -416,6 +416,7 @@ export interface StringsMap {
   'common.help': string
   'common.hideAll': string
   'common.home': string
+  'common.hostLabel': string
   'common.hourly': string
   'common.ignore': string
   'common.import': string
@@ -841,6 +842,7 @@ export interface StringsMap {
   'common.unsavedChanges': string
   'common.updating': string
   'common.upgrade': string
+  'common.useSSL': string
   'common.useTemplate': string
   'common.userGroup': string
   'common.userGroups': string
@@ -1152,6 +1154,8 @@ export interface StringsMap {
   'rbac.userGroupForm.addMemberSuccess': string
   'rbac.userGroupForm.createSuccess': string
   'rbac.userGroupForm.editSuccess': string
+  'rbac.userGroupForm.ldapLinkSuccess': string
+  'rbac.userGroupForm.samlLinkSuccess': string
   'rbac.userGroupPage.addMembers': string
   'rbac.userGroupPage.addUsers': string
   'rbac.userGroupPage.assignRoles': string
@@ -1165,6 +1169,7 @@ export interface StringsMap {
   'rbac.userGroupPage.roleAssignSuccess': string
   'rbac.userGroupPage.search': string
   'rbac.userGroupPage.successMessage': string
+  'rbac.userGroupPage.unlinkSuccessMessage': string
   'rbac.userGroupPage.userGroupEmptyState': string
   'rbac.userGroupPage.userList.deleteConfirmation': string
   'rbac.userGroupPage.userList.deleteFailureMessage': string
@@ -1439,7 +1444,6 @@ export interface StringsMap {
   'secrets.winRmAuthFormFields.ntlm': string
   'secrets.winRmAuthFormFields.skipCertCheck': string
   'secrets.winRmAuthFormFields.useNoProfile': string
-  'secrets.winRmAuthFormFields.useSSL': string
   'filestore.cantDeleteFile': string
   'filestore.confirmDeleteFile': string
   'filestore.deletedSuccessMessage': string
@@ -1572,6 +1576,8 @@ export interface StringsMap {
   'authSettings.costCalculator.using': string
   'authSettings.daysBeforePasswordExpires': string
   'authSettings.daysBeforeUserNotified': string
+  'authSettings.deleteLdapProvider': string
+  'authSettings.deleteLdapProviderDescription': string
   'authSettings.deleteSamlProvider': string
   'authSettings.deleteSamlProviderDescription': string
   'authSettings.disableLockoutPolicy': string
@@ -1615,13 +1621,58 @@ export interface StringsMap {
   'authSettings.haveOneUppercase': string
   'authSettings.identityProvider': string
   'authSettings.keepAtLeastOneProviderEnabled': string
+  'authSettings.ldap.addGroupQueryDescription': string
+  'authSettings.ldap.addGroupQueryHeading': string
+  'authSettings.ldap.addLdap': string
+  'authSettings.ldap.addUserQueryDescription': string
+  'authSettings.ldap.addUserQueryHeading': string
+  'authSettings.ldap.baseDN': string
+  'authSettings.ldap.connSettings.bindDN': string
+  'authSettings.ldap.connSettings.bindDNPlaceholder': string
+  'authSettings.ldap.connSettings.connectionTimeout': string
+  'authSettings.ldap.connSettings.enableReferrals': string
+  'authSettings.ldap.connSettings.hostAddress': string
+  'authSettings.ldap.connSettings.maximumReferralHops': string
+  'authSettings.ldap.connSettings.passwordPlaceholder': string
+  'authSettings.ldap.connSettings.recursiveSearch': string
+  'authSettings.ldap.connSettings.responseTime': string
+  'authSettings.ldap.connSettings.validateBindDN': string
+  'authSettings.ldap.connSettings.validateConnectionTimeout': string
+  'authSettings.ldap.connSettings.validateHost': string
+  'authSettings.ldap.connSettings.validateReferralHops': string
+  'authSettings.ldap.connSettings.validateResponseTime': string
+  'authSettings.ldap.connectionSettings': string
+  'authSettings.ldap.descriptionAttributes': string
+  'authSettings.ldap.editLdapConfiguration': string
+  'authSettings.ldap.emailAttributes': string
+  'authSettings.ldap.groupMembershipAttributes': string
+  'authSettings.ldap.groupQueries': string
+  'authSettings.ldap.groupQueryTitle': string
+  'authSettings.ldap.nameAttributes': string
+  'authSettings.ldap.newGroupQuery': string
+  'authSettings.ldap.newUserQuery': string
+  'authSettings.ldap.queryTestFail': string
+  'authSettings.ldap.queryTestSuccessful': string
+  'authSettings.ldap.scheduledSyncs': string
+  'authSettings.ldap.searchFilter': string
+  'authSettings.ldap.setScopeForGroupQuery': string
+  'authSettings.ldap.setScopeForUserQuery': string
+  'authSettings.ldap.syncUserGroups': string
+  'authSettings.ldap.syncUserGroupsResult.fail': string
+  'authSettings.ldap.syncUserGroupsResult.success': string
+  'authSettings.ldap.updateStepFailMessage': string
+  'authSettings.ldap.userQueries': string
+  'authSettings.ldap.userQueryTitle': string
+  'authSettings.ldapProviderDeleted': string
   'authSettings.lockoutDuration': string
   'authSettings.lockoutPolicy': string
   'authSettings.lockoutPolicyDisabled': string
   'authSettings.lockoutPolicyEnabled': string
   'authSettings.lockoutPolicyUpdated': string
   'authSettings.loginSettingsHaveBeenUpdated': string
+  'authSettings.loginViaLDAP': string
   'authSettings.loginViaSAML': string
+  'authSettings.loginViaSAMLorLDAP': string
   'authSettings.logoutUrl': string
   'authSettings.minLength': string
   'authSettings.multipleOrganizations': string
@@ -6952,7 +7003,6 @@ export interface StringsMap {
   'cv.resetErrorBudget': string
   'cv.response': string
   'cv.responseBody': string
-  'cv.responseTime': string
   'cv.riskCardTooltip.allServicesGreen': string
   'cv.riskCardTooltip.header': string
   'cv.riskScore': string
@@ -9467,10 +9517,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.gcpConnectorLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.hostLabel': string
   /**
    * @deprecated migrate this string to module level file
    */

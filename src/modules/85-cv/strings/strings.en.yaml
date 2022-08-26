@@ -51,7 +51,6 @@ lastSuccessfulRun: Last Successful Job Run
 jobNamePlaceholder: Enter a Job Name
 identifierPlaceholder: Enter an Identifier
 throughput: Throughput
-responseTime: Response Time
 serviceHealthTrend: Service Health Score and SLO Performance Trend
 query: Query
 selectQuery: Select Query (Optional)

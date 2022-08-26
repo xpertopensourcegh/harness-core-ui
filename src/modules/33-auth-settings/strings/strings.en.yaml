@@ -25,6 +25,8 @@ authorizationEnabledFor: 'Authorization enabled for: '
 authorizationNotEnabled: Authorization not enabled
 plusSAMLProvider: + SAML Provider
 loginViaSAML: Login via SAML
+loginViaLDAP: Login via LDAP
+loginViaSAMLorLDAP: Login via SAML / LDAP
 accountOrOAuthLogin: Login via a Harness Account or Public OAuth Providers
 usePublicOAuth: Use Public OAuth Providers
 useHarnessUsernameAndPassword: Use Harness username and password
@@ -78,8 +80,11 @@ lockoutPolicyUpdated: Lockout policy has been updated successfully
 lockoutPolicyDisabled: Lockout policy has been disabled successfully
 SAMLProvider: SAML Provider
 deleteSamlProvider: Delete SAML provider
-deleteSamlProviderDescription: 'Do you want to delete the SAML Provider:'
+deleteLdapProvider: Delete LDAP provider
+deleteSamlProviderDescription: 'Do you want to delete the SAML Provider: <strong> {{displayName}} </strong> ?'
+deleteLdapProviderDescription: 'Do you want to delete the LDAP Provider: <strong> {{displayName}} </strong> ?'
 samlProviderDeleted: SAML provider has been deleted successfully
+ldapProviderDeleted: LDAP provider has been deleted successfully
 enableSamlProvider: Enable SAML Provider
 enableSamlProviderDescription: Before you change the SSO provider to SAML, please use the Test button to ensure your settings are correct.
 samlLoginEnabled: SAML login enabled successfully
@@ -189,6 +194,51 @@ pricePreview:
   title: Price preview
   calculatedNextStep: Calculated in final review
   discount: ' (2 months free)'
+ldap:
+  addLdap: + LDAP Provider
+  connectionSettings: Connection Settings
+  userQueries: User Queries
+  groupQueries: Group Queries
+  scheduledSyncs: Scheduled Syncs
+  baseDN: Base DN
+  searchFilter: Search Filter
+  nameAttributes: Name Attribute
+  emailAttributes: Email Attribute
+  descriptionAttributes: Description Attribute
+  groupMembershipAttributes: Group Membership Attribute
+  userQueryTitle: User Query {{index}}
+  groupQueryTitle: Group Query {{index}}
+  setScopeForUserQuery: Set the scope of any searches for LDAP users
+  setScopeForGroupQuery: Set the scope of any searches for LDAP groups
+  newUserQuery: New User Query
+  newGroupQuery: New Group Query
+  queryTestSuccessful: Query test successful
+  queryTestFail: Query test failed
+  addUserQueryHeading: Add a User Query
+  addUserQueryDescription: With user queries, you are setting the scope within which any searches for LDAP users will be performed by Harness.
+  addGroupQueryHeading: Add a Group Query
+  addGroupQueryDescription: With group queries, you are setting the scope within which any searches for LDAP users will be performed by Harness.
+  editLdapConfiguration: Edit LDAP configuration
+  syncUserGroups: Synchronize User Groups
+  syncUserGroupsResult:
+    success: User Groups synchronization initiated
+    fail: User Groups synchronization failed
+  connSettings:
+    hostAddress: Enter host address
+    maximumReferralHops: Max Referral Hops
+    enableReferrals: Enable Referrals
+    connectionTimeout: Connection Timeout
+    responseTime: Response Time
+    recursiveSearch: Recursive Membership Search
+    bindDN: Bind DN
+    bindDNPlaceholder: Enter Distinguished Name
+    passwordPlaceholder: Enter Password
+    validateHost: 'Hostname or IP is required'
+    validateReferralHops: 'Referral Hops is required'
+    validateConnectionTimeout: 'Connection timeout is required'
+    validateResponseTime: 'Response timeout is required'
+    validateBindDN: 'Bind Distinguished Name is required'
+  updateStepFailMessage: 'Update failed'
 billingInfo:
   address: Address
   billingContact: '{{$.common.billing}} Contact'

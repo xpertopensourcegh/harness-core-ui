@@ -165,7 +165,7 @@ exports[`Test WinRmAuthFormFields renders winrm form fields with Kerberos auth s
                   class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                   data-tooltip-id="winRmForm_useSSL"
                 >
-                  secrets.winRmAuthFormFields.useSSL
+                  common.useSSL
                 </span>
               </label>
             </div>
@@ -539,7 +539,7 @@ exports[`Test WinRmAuthFormFields renders winrm form fields with Kerberos auth s
                   class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                   data-tooltip-id="winRmForm_useSSL"
                 >
-                  secrets.winRmAuthFormFields.useSSL
+                  common.useSSL
                 </span>
               </label>
             </div>
@@ -1035,7 +1035,7 @@ exports[`Test WinRmAuthFormFields renders winrm form fields with NTLM auth schem
                   class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                   data-tooltip-id="winRmForm_useSSL"
                 >
-                  secrets.winRmAuthFormFields.useSSL
+                  common.useSSL
                 </span>
               </label>
             </div>

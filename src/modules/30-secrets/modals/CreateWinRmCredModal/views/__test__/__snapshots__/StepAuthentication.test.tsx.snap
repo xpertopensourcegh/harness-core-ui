@@ -300,7 +300,7 @@ exports[`Create WinRm Cred Wizard Step Authentication Test for adding required f
                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                     data-tooltip-id="stepAuthenticationForm_useSSL"
                   >
-                    secrets.winRmAuthFormFields.useSSL
+                    common.useSSL
                   </span>
                 </label>
               </div>
@@ -724,7 +724,7 @@ exports[`Create WinRm Cred Wizard Step Authentication Test for adding required f
                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                     data-tooltip-id="stepAuthenticationForm_useSSL"
                   >
-                    secrets.winRmAuthFormFields.useSSL
+                    common.useSSL
                   </span>
                 </label>
               </div>
@@ -1148,7 +1148,7 @@ exports[`Create WinRm Cred Wizard Step Authentication Test for adding required f
                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                     data-tooltip-id="stepAuthenticationForm_useSSL"
                   >
-                    secrets.winRmAuthFormFields.useSSL
+                    common.useSSL
                   </span>
                 </label>
               </div>
@@ -1572,7 +1572,7 @@ exports[`Create WinRm Cred Wizard Step Authentication Test for adding required f
                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                     data-tooltip-id="stepAuthenticationForm_useSSL"
                   >
-                    secrets.winRmAuthFormFields.useSSL
+                    common.useSSL
                   </span>
                 </label>
               </div>
@@ -1996,7 +1996,7 @@ exports[`Create WinRm Cred Wizard Step Authentication Test for adding required f
                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                     data-tooltip-id="stepAuthenticationForm_useSSL"
                   >
-                    secrets.winRmAuthFormFields.useSSL
+                    common.useSSL
                   </span>
                 </label>
               </div>
@@ -2357,7 +2357,7 @@ exports[`Create WinRm Cred Wizard Step Authentication should render form Kerbero
                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                     data-tooltip-id="stepAuthenticationForm_useSSL"
                   >
-                    secrets.winRmAuthFormFields.useSSL
+                    common.useSSL
                   </span>
                 </label>
               </div>
@@ -2985,7 +2985,7 @@ exports[`Create WinRm Cred Wizard Step Authentication should render form NTLM 1`
                     class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                     data-tooltip-id="stepAuthenticationForm_useSSL"
                   >
-                    secrets.winRmAuthFormFields.useSSL
+                    common.useSSL
                   </span>
                 </label>
               </div>

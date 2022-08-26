@@ -69,7 +69,7 @@ const SmtpDetails: React.FC = () => {
     if (smtpData) {
       return [
         { label: getString('name'), value: smtpData?.name || emtpyString },
-        { label: getString('pipelineSteps.hostLabel'), value: smtpData?.value?.host || emtpyString },
+        { label: getString('common.hostLabel'), value: smtpData?.value?.host || emtpyString },
         { label: getString('common.smtp.port'), value: smtpData?.value?.port || emtpyString },
         {
           label: '',

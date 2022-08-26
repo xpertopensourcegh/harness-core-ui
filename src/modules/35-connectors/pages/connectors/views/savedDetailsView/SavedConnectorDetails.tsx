@@ -339,7 +339,7 @@ const getCustomSMSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRo
       value: connector?.spec?.onDelegate
     },
     {
-      label: 'pipelineSteps.hostLabel',
+      label: 'common.hostLabel',
       value: connector?.spec?.host
     },
     {

@@ -68,7 +68,7 @@ const WinRmAuthFormFields: React.FC<WinRmAuthFormFieldsProps> = props => {
           <FormInput.Text name="username" label={getString('username')} />
           <SecretInput name={'password'} label={getString('password')} />
           <Layout.Horizontal margin={{ bottom: 'medium' }} flex>
-            <FormInput.CheckBox name="useSSL" label={getString('secrets.winRmAuthFormFields.useSSL')} />
+            <FormInput.CheckBox name="useSSL" label={getString('common.useSSL')} />
             <FormInput.CheckBox name="skipCertChecks" label={getString('secrets.winRmAuthFormFields.skipCertCheck')} />
             <FormInput.CheckBox name="useNoProfile" label={getString('secrets.winRmAuthFormFields.useNoProfile')} />
           </Layout.Horizontal>
@@ -80,7 +80,7 @@ const WinRmAuthFormFields: React.FC<WinRmAuthFormFieldsProps> = props => {
           <FormInput.Text name="principal" label={getString('secrets.sshAuthFormFields.labelPrincipal')} />
           <FormInput.Text name="realm" label={getString('secrets.sshAuthFormFields.labelRealm')} />
           <Layout.Horizontal margin={{ bottom: 'medium' }} flex>
-            <FormInput.CheckBox name="useSSL" label={getString('secrets.winRmAuthFormFields.useSSL')} />
+            <FormInput.CheckBox name="useSSL" label={getString('common.useSSL')} />
             <FormInput.CheckBox name="skipCertChecks" label={getString('secrets.winRmAuthFormFields.skipCertCheck')} />
             <FormInput.CheckBox name="useNoProfile" label={getString('secrets.winRmAuthFormFields.useNoProfile')} />
           </Layout.Horizontal>

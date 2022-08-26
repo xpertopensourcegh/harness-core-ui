@@ -701,7 +701,7 @@ exports[`Create WinRm Cred Wizard should render form 2`] = `
                         class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
                         data-tooltip-id="stepAuthenticationForm_useSSL"
                       >
-                        secrets.winRmAuthFormFields.useSSL
+                        common.useSSL
                       </span>
                     </label>
                   </div>

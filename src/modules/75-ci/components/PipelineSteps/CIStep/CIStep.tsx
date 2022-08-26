@@ -425,7 +425,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
           {renderMultiTypeTextField({
             name: `${prefix}spec.host`,
             tooltipId: 'gcrHost',
-            labelKey: 'pipelineSteps.hostLabel',
+            labelKey: 'common.hostLabel',
             inputProps: {
               placeholder: getString('pipelineSteps.hostPlaceholder'),
               multiTextInputProps: {

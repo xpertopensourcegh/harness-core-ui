@@ -251,7 +251,7 @@ const CustomSMConfigStep: React.FC<StepProps<StepCustomSMConfigStepProps> & Step
                   <>
                     <FormInput.Text
                       name="executionTarget.host"
-                      placeholder={getString('pipelineSteps.hostLabel')}
+                      placeholder={getString('common.hostLabel')}
                       label={getString('targetHost')}
                       style={{ marginTop: 'var(--spacing-small)' }}
                       disabled={false}

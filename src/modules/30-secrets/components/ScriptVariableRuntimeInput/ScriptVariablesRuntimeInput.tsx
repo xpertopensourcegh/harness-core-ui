@@ -144,7 +144,7 @@ export function ScriptVariablesRuntimeInput(props: InputOutputVariablesInputSetP
               {template.executionTarget?.host ? (
                 <FormInput.Text
                   name={`${prefix}.executionTarget.host`}
-                  placeholder={getString('pipelineSteps.hostLabel')}
+                  placeholder={getString('common.hostLabel')}
                   label={getString('targetHost')}
                   style={{ marginTop: 'var(--spacing-small)' }}
                   disabled={readonly}

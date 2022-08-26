@@ -626,7 +626,7 @@ exports[`CustomSMConfigStep CustomSMConfigStep - input sets are empty 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="executionTarget.host"
-                    placeholder="pipelineSteps.hostLabel"
+                    placeholder="common.hostLabel"
                     type="text"
                     value="host"
                   />
@@ -1412,7 +1412,7 @@ exports[`CustomSMConfigStep CustomSMConfigStep in Edit mode - submit data 1`] = 
                     autocomplete="off"
                     class="bp3-input"
                     name="executionTarget.host"
-                    placeholder="pipelineSteps.hostLabel"
+                    placeholder="common.hostLabel"
                     type="text"
                     value="changes"
                   />
@@ -2198,7 +2198,7 @@ exports[`CustomSMConfigStep CustomSMConfigStep in Edit mode 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="executionTarget.host"
-                    placeholder="pipelineSteps.hostLabel"
+                    placeholder="common.hostLabel"
                     type="text"
                     value="changes"
                   />
@@ -2916,7 +2916,7 @@ exports[`CustomSMConfigStep CustomSMConfigStep when onDelegate is false in selec
                     autocomplete="off"
                     class="bp3-input"
                     name="executionTarget.host"
-                    placeholder="pipelineSteps.hostLabel"
+                    placeholder="common.hostLabel"
                     type="text"
                     value="host"
                   />
@@ -3795,7 +3795,7 @@ exports[`CustomSMConfigStep CustomSMConfigStep when onDelegate is false in selec
                     autocomplete="off"
                     class="bp3-input"
                     name="executionTarget.host"
-                    placeholder="pipelineSteps.hostLabel"
+                    placeholder="common.hostLabel"
                     type="text"
                     value=""
                   />

@@ -72,7 +72,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
           value: ((secret.spec as WinRmCredentialsSpecDTO)?.auth.spec as NTLMConfigDTO).username
         })
         items.push({
-          label: getString('secrets.winRmAuthFormFields.useSSL'),
+          label: getString('common.useSSL'),
           value: ((secret.spec as WinRmCredentialsSpecDTO)?.auth.spec as NTLMConfigDTO).useSSL!.toString()
         })
         items.push({
@@ -94,7 +94,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
           value: ((secret.spec as WinRmCredentialsSpecDTO)?.auth.spec as KerberosConfigDTO).realm
         })
         items.push({
-          label: getString('secrets.winRmAuthFormFields.useSSL'),
+          label: getString('common.useSSL'),
           value: ((secret.spec as WinRmCredentialsSpecDTO)?.auth.spec as KerberosConfigDTO).useSSL!.toString()
         })
         items.push({

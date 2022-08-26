@@ -937,6 +937,8 @@ importEntityFromGit: Import {{resourceType}} From Git
 serviceOverrides: Service Overrides
 invalidIdentifiers: 'Identifier must not be one of the following values: {{identifiers}}'
 repositoryFormat: Repository Format
+hostLabel: Host
+useSSL: Use SSL
 
 # Chaos Module
 chaosText: Chaos
