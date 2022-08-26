@@ -37,7 +37,7 @@ const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   const history = useHistory()
   const { getString } = useStrings()
-  const { NG_VARIABLES, GITOPS_BYO_ARGO, NG_FILE_STORE, NG_SETTINGS } = useFeatureFlags()
+  const { GITOPS_BYO_ARGO, NG_FILE_STORE, NG_SETTINGS } = useFeatureFlags()
 
   const { isOpen: showGitOpsEntities, toggle: toggleShowGitOpsEntities } = useToggleOpen()
   const { loading, data, refetch } = useGetSmtpConfig({ queryParams: { accountId } })
@@ -138,16 +138,13 @@ const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
       colorClass: css.templates,
       route: routes.toTemplates({ accountId, orgIdentifier })
     } as ResourceOption,
-    ...(NG_VARIABLES
-      ? [
-          {
-            label: <String stringID="common.variables" />,
-            icon: 'runtime-input',
-            colorClass: css.variables,
-            route: routes.toVariables({ accountId, orgIdentifier })
-          } as ResourceOption
-        ]
-      : []),
+
+    {
+      label: <String stringID="common.variables" />,
+      icon: 'runtime-input',
+      colorClass: css.variables,
+      route: routes.toVariables({ accountId, orgIdentifier })
+    } as ResourceOption,
     ...(showGitOpsCard ? gitOpsCard : []),
     ...(NG_SETTINGS ? defaultSettingsCard : [])
   ]
