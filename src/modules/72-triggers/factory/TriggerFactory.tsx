@@ -6,6 +6,7 @@
  */
 
 import { Github } from '@triggers/components/Triggers/WebhookTrigger/Github/Github'
+import { Gitlab } from '@triggers/components/Triggers/WebhookTrigger/Gitlab/Gitlab'
 
 import { AbstractTriggerFactory } from './AbstractTriggerFactory'
 //Webhook Triggers
@@ -20,5 +21,6 @@ const TriggerFactory = new Factory()
 
 // Webhook Triggers
 TriggerFactory.registerTrigger(new Github())
+TriggerFactory.registerTrigger(new Gitlab())
 
 export default TriggerFactory

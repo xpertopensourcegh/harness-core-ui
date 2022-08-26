@@ -16,7 +16,7 @@ import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { connectorUrlType } from '@connectors/constants'
 import type { AddConditionInterface } from '@triggers/components/AddConditionsSection/AddConditionsSection'
 import type { SourceRepo, TriggerBaseType } from '../TriggerInterface'
-import { ciCodebaseBuild, CUSTOM, isUndefinedOrEmptyString, TriggerGitEvent } from '../utils'
+import { ciCodebaseBuild, CUSTOM, TriggerGitEvent } from '../utils'
 
 export function getDefaultPipelineReferenceBranch(event = ''): string {
   switch (event) {
@@ -72,9 +72,7 @@ const checkValidTriggerConfiguration = ({
 }
 
 const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
-  const truthyValuesLength = Object.values(payloadCondition).filter(val =>
-    isUndefinedOrEmptyString(val?.trim?.())
-  )?.length
+  const truthyValuesLength = Object.values(payloadCondition).filter(val => !!val?.trim())?.length
   return truthyValuesLength > 0 && truthyValuesLength < 3
 }
 

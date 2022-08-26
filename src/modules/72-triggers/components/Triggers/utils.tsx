@@ -11,7 +11,7 @@ import type { IconName } from '@wings-software/uicore'
 import { isNull, isUndefined, omitBy, get, set } from 'lodash-es'
 import type { ConnectorResponse, ConnectorInfoDTO } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { PipelineInfoConfig, NGVariable } from 'services/pipeline-ng'
+import type { NGVariable } from 'services/pipeline-ng'
 import type { StringKeys } from 'framework/strings'
 import type { AddConditionInterface } from '../AddConditionsSection/AddConditionsSection'
 import type { TriggerConfigDTO } from './WebhookTrigger/WizardInterface'
@@ -59,14 +59,6 @@ export const ResponseStatus = {
 // todo: revisit to see how to require identifier w/o type issue
 export const clearNullUndefined = /* istanbul ignore next */ (data: TriggerConfigDTO): TriggerConfigDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
-
-export const clearRuntimeInputValue = (template: PipelineInfoConfig): PipelineInfoConfig => {
-  return JSON.parse(
-    JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
-  )
-}
-
-export const isUndefinedOrEmptyString = (str: string | undefined): boolean => isUndefined(str) || str?.trim() === ''
 
 export const isRowFilled = (payloadCondition: AddConditionInterface): boolean => {
   const truthyValuesLength = Object.values(payloadCondition).filter(val => val?.trim?.())?.length
