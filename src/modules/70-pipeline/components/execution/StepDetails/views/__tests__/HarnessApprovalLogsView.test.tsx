@@ -54,7 +54,7 @@ describe('HarnessApprovalLogsView - Loading', () => {
       </TestWrapper>
     )
     expect(() => getByText('pipeline.approvalStage.approvalStageLogsViewMessage')).toThrow()
-    expect(() => getByText('approvalStage.title')).toThrow()
+    expect(() => getByText('pipeline.approveOrReject')).toThrow()
     expect(getByText('common.logs.noLogsText')).toBeDefined()
     const node = getByTestId('harnessApprovalLogsTest')
     expect(node).toMatchSnapshot('Loading State - missing approvalInstanceId')
@@ -76,7 +76,7 @@ describe('HarnessApprovalLogsView - Success', () => {
     )
     expect(getByText('execution.consoleLogs')).toBeDefined()
     expect(getByText('pipeline.approvalStage.approvalStageLogsViewMessage')).toBeDefined()
-    expect(getByText('approvalStage.title')).toBeDefined()
+    expect(getByText('pipeline.approveOrReject')).toBeDefined()
     expect(getByText('common.logs.noLogsText')).toBeDefined()
     const node = getByTestId('harnessApprovalLogsTest')
     expect(node).toMatchSnapshot()
@@ -115,7 +115,7 @@ describe('HarnessApprovalLogsView - Success', () => {
       </TestWrapper>
     )
     expect(getByText('User is not authorised')).toBeDefined()
-    expect(() => getByText('approvalStage.title')).toThrow()
+    expect(() => getByText('pipeline.approveOrReject')).toThrow()
     expect(getByText('common.logs.noLogsText')).toBeDefined()
     expect(container).toMatchSnapshot()
   })

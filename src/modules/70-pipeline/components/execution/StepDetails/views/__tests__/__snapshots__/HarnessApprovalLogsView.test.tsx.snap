@@ -127,13 +127,14 @@ exports[`HarnessApprovalLogsView - Success Render proper in case of successful A
     <button
       class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-xlarge StyledProps--intent-primary Button--with-current-color Button--without-shadow"
       data-testid="approvalButton"
+      style="min-width: 170px;"
       type="button"
     >
       <span
         class="bp3-button-text"
       >
         <span>
-          approvalStage.title
+          pipeline.approveOrReject
         </span>
       </span>
     </button>

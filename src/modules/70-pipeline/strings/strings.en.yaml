@@ -576,6 +576,7 @@ duration: Duration
 and: '{{ $.common.andCaps }}'
 gitDetails: git details
 runtimeInputs: Runtime Inputs
+approveOrReject: Approve or Reject
 jenkinsBuild: Jenkins Builds
 enterBuildRegex: Enter Build Regex
 buildRegex: Build Regex

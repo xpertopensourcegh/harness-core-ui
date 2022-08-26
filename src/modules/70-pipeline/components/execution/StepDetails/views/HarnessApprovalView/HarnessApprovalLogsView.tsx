@@ -98,12 +98,13 @@ export function HarnessApprovalLogsView(props: ConsoleViewStepDetailProps): Reac
         </div>
         <Button
           margin={{ left: 'xlarge' }}
+          style={{ minWidth: '170px' }}
           withoutBoxShadow
           intent="primary"
           onClick={showApproveRejectModal}
           data-testid="approvalButton"
         >
-          <String stringID="approvalStage.title" />
+          <String stringID="pipeline.approveOrReject" />
         </Button>
       </div>
     )
