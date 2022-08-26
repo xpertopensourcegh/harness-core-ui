@@ -7,7 +7,7 @@
 
 import React from 'react'
 import cx from 'classnames'
-import { defaultTo } from 'lodash-es'
+import { debounce, defaultTo } from 'lodash-es'
 import { Icon, Text, Button, ButtonVariation, IconName } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
 import { DiagramDrag, DiagramType, Event } from '@pipeline/components/Diagram'
@@ -62,7 +62,9 @@ function PipelineStageNode(props: PipelineStageNodeProps): JSX.Element {
     }
     setVisibilityOfAdd(visibility)
   }
-
+  const debounceHideVisibility = debounce(() => {
+    setVisibilityOfAdd(false)
+  }, 300)
   const isSelectedNode = (): boolean => props.isSelected || props.id === props?.selectedNodeId
   const isTemplateNode = props?.data?.isTemplateNode
   return (
@@ -71,7 +73,7 @@ function PipelineStageNode(props: PipelineStageNodeProps): JSX.Element {
         draggable: !props.readonly
       })}
       onMouseOver={() => setAddVisibility(true)}
-      onMouseLeave={() => setAddVisibility(false)}
+      onMouseLeave={debounceHideVisibility}
       onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation()
         if (props?.onClick) {
@@ -100,7 +102,7 @@ function PipelineStageNode(props: PipelineStageNodeProps): JSX.Element {
         event.stopPropagation()
 
         if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
-          setAddVisibility(false)
+          debounceHideVisibility()
         }
       }}
       onDrop={event => {
@@ -156,7 +158,7 @@ function PipelineStageNode(props: PipelineStageNodeProps): JSX.Element {
           })
         }}
         onMouseLeave={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-          setAddVisibility(false)
+          debounceHideVisibility()
           event.stopPropagation()
           props?.fireEvent?.({
             type: Event.MouseLeaveNode,
@@ -294,7 +296,8 @@ function PipelineStageNode(props: PipelineStageNodeProps): JSX.Element {
       {allowAdd && CreateNode && !props.readonly && showAddNode && (
         <CreateNode
           onMouseOver={() => setAddVisibility(true)}
-          onMouseLeave={() => setAddVisibility(false)}
+          onMouseLeave={debounceHideVisibility}
+          onDragLeave={debounceHideVisibility}
           onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             event.stopPropagation()
             props?.fireEvent?.({

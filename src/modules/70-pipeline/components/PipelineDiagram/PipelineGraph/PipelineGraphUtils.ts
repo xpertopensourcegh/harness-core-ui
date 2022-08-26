@@ -607,7 +607,7 @@ const transformStepsData = (
           status: get(stepData, 'status', ''),
           data: {
             step: {
-              ...get(stepData, 'data.step', {})
+              ...get(stepData, 'data.step', stepData)
             },
             type: stepData?.name as string,
             nodeType: stepData?.name as string,

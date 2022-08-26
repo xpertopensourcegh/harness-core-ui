@@ -7,7 +7,7 @@
 
 import React, { CSSProperties, useRef } from 'react'
 import cx from 'classnames'
-import { defaultTo } from 'lodash-es'
+import { debounce, defaultTo } from 'lodash-es'
 import { Icon, IconName, Text, Layout, Container } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
 import { DiagramDrag, DiagramType, Event } from '@pipeline/components/Diagram'
@@ -182,6 +182,11 @@ function GroupNode(props: GroupNodeProps): React.ReactElement {
     }
     setVisibilityOfAdd(visibility)
   }
+
+  const debounceHideVisibility = debounce(() => {
+    setVisibilityOfAdd(false)
+  }, 300)
+
   const isExecutionView = Boolean(props?.data?.status)
   const { secondaryIconProps, secondaryIcon, secondaryIconStyle } = getStatusProps(
     ExecutionStatusEnum.Failed as ExecutionStatus,
@@ -212,7 +217,7 @@ function GroupNode(props: GroupNodeProps): React.ReactElement {
           )
         }}
         onMouseOver={() => setAddVisibility(true)}
-        onMouseLeave={() => setAddVisibility(false)}
+        onMouseLeave={() => debounceHideVisibility()}
         onDragOver={event => {
           if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
             setAddVisibility(true)
@@ -221,7 +226,7 @@ function GroupNode(props: GroupNodeProps): React.ReactElement {
         }}
         onDragLeave={event => {
           if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
-            setAddVisibility(false)
+            debounceHideVisibility()
           }
         }}
         onDrop={event => {
@@ -322,7 +327,7 @@ function GroupNode(props: GroupNodeProps): React.ReactElement {
         <CreateNode
           id={props.id}
           onMouseOver={() => setAddVisibility(true)}
-          onMouseLeave={() => setAddVisibility(false)}
+          onMouseLeave={debounceHideVisibility}
           onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             event.stopPropagation()
             props?.fireEvent?.({

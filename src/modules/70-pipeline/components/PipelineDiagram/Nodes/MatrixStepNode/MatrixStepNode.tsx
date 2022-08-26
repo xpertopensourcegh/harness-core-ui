@@ -9,7 +9,7 @@ import * as React from 'react'
 import cx from 'classnames'
 import { Icon, Layout, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
-import { defaultTo, get, lowerCase } from 'lodash-es'
+import { debounce, defaultTo, get, lowerCase } from 'lodash-es'
 import { Event, DiagramDrag, DiagramType } from '@pipeline/components/Diagram'
 import { STATIC_SERVICE_GROUP_NAME } from '@pipeline/utils/executionUtils'
 import { useStrings } from 'framework/strings'
@@ -17,8 +17,8 @@ import { useDeepCompareEffect } from '@common/hooks'
 import { BaseReactComponentProps, NodeType, PipelineGraphState } from '../../types'
 import { getPositionOfAddIcon } from '../utils'
 import { Dimensions, useNodeDimensionContext } from '../NodeDimensionStore'
-import { NodeStatusIndicator } from '../NodeStatusIndicator'
 import MatrixNodeLabelWrapper from '../MatrixNodeLabelWrapper'
+import { NodeStatusIndicator } from '../../NodeStatusIndicator/NodeStatusIndicator'
 import css from './MatrixStepNode.module.scss'
 import defaultCss from '../DefaultNode/DefaultNode.module.scss'
 
@@ -98,7 +98,7 @@ export function MatrixStepNode(props: any): JSX.Element {
   const nodeType = defaultTo(props?.data?.nodeType, props?.data?.step?.data?.nodeType)
 
   const isNestedStepGroup = Boolean(get(props, 'data.step.data.isNestedGroup'))
-  const hasChildrenToBeCollapsed = stepGroupData.length > COLLAPSED_MATRIX_NODE_LENGTH
+  const hasChildrenToBeCollapsed = stepGroupData?.length > COLLAPSED_MATRIX_NODE_LENGTH
 
   const { updateDimensions, childrenDimensions } = useNodeDimensionContext()
   React.useEffect(() => {
@@ -121,6 +121,10 @@ export function MatrixStepNode(props: any): JSX.Element {
     }
   }, [stepGroupData, isNodeCollapsed, props?.isNodeCollapsed, showAllNodes])
 
+  const debounceHideVisibility = debounce(() => {
+    setVisibilityOfAdd(false)
+  }, 300)
+
   useDeepCompareEffect(() => {
     if (stepGroupData?.length) {
       setLayoutStyles(getCalculatedStepNodeStyles(stepGroupData, maxParallelism, showAllNodes, childrenDimensions))
@@ -142,9 +146,9 @@ export function MatrixStepNode(props: any): JSX.Element {
           }}
           onMouseLeave={e => {
             e.stopPropagation()
-            allowAdd && setVisibilityOfAdd(false)
+            allowAdd && debounceHideVisibility()
           }}
-          onDragLeave={() => allowAdd && setVisibilityOfAdd(false)}
+          onDragLeave={() => allowAdd && debounceHideVisibility()}
           style={stepGroupData?.containerCss ? stepGroupData?.containerCss : undefined}
           className={cx(
             css.stepGroup,
@@ -212,7 +216,7 @@ export function MatrixStepNode(props: any): JSX.Element {
                     })
                   }}
                   onMouseLeave={event => {
-                    setVisibilityOfAdd(false)
+                    debounceHideVisibility()
                     props?.fireEvent?.({
                       type: Event.MouseLeaveNode,
                       target: event.target,
@@ -222,7 +226,7 @@ export function MatrixStepNode(props: any): JSX.Element {
                   lineClamp={1}
                   onClick={event => {
                     event.stopPropagation()
-                    setVisibilityOfAdd(false)
+                    debounceHideVisibility()
                     props?.fireEvent?.({
                       type: Event.StepGroupClicked,
                       target: event.target,
@@ -251,7 +255,7 @@ export function MatrixStepNode(props: any): JSX.Element {
                 {...props}
                 icon="looping"
                 showMarkers={false}
-                name={`[+] ${stepGroupData.length} Steps`} //matrix collapsed node
+                name={`[+] ${stepGroupData?.length} Steps`} //matrix collapsed node
               />
             ) : (
               <>
@@ -327,7 +331,7 @@ export function MatrixStepNode(props: any): JSX.Element {
                     withoutCurrentColor={true}
                   />
                 )}
-                {hasChildrenToBeCollapsed && (
+                {maxParallelism && (
                   <Layout.Horizontal className={css.matrixFooter}>
                     <Layout.Horizontal className={css.matrixBorderWrapper}>
                       <Layout.Horizontal margin={0} className={css.showNodes}>
@@ -335,9 +339,9 @@ export function MatrixStepNode(props: any): JSX.Element {
                           <>
                             <Text padding={0}>{`${
                               !showAllNodes
-                                ? Math.min(stepGroupData.length, COLLAPSED_MATRIX_NODE_LENGTH)
-                                : stepGroupData.length
-                            }/ ${stepGroupData.length}`}</Text>
+                                ? Math.min(stepGroupData?.length, COLLAPSED_MATRIX_NODE_LENGTH)
+                                : stepGroupData?.length
+                            }/ ${stepGroupData?.length}`}</Text>
                             <Text
                               className={css.showNodeText}
                               padding={0}
@@ -413,8 +417,9 @@ export function MatrixStepNode(props: any): JSX.Element {
                       { [defaultCss.visible]: showAdd },
                       { [defaultCss.marginBottom]: props?.isParallelNode }
                     )}
+                    onDragLeave={debounceHideVisibility}
                     onMouseOver={() => allowAdd && setVisibilityOfAdd(true)}
-                    onMouseLeave={() => allowAdd && setVisibilityOfAdd(false)}
+                    onMouseLeave={() => allowAdd && debounceHideVisibility()}
                     onDrop={(event: any) => {
                       props?.fireEvent?.({
                         type: Event.DropNodeEvent,

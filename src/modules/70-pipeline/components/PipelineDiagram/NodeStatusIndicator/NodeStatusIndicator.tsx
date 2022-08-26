@@ -21,7 +21,7 @@ export function NodeStatusIndicator(props: NodeStatusIndicatorProps): JSX.Elemen
   let failedStagesCount = 0
   let runningStagesCount = 0
 
-  nodeState.forEach((stateVal: PipelineGraphState & any) => {
+  nodeState?.forEach((stateVal: PipelineGraphState & any) => {
     const nodeStatus = defaultTo(stateVal?.status, stateVal?.step?.status)
 
     if (nodeStatus === ExecutionStatusEnum.Success) {

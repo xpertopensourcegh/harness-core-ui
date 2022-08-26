@@ -9,7 +9,7 @@ import * as React from 'react'
 import cx from 'classnames'
 import { Icon, Layout, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
-import { defaultTo, get } from 'lodash-es'
+import { debounce, defaultTo, get } from 'lodash-es'
 import { Event, DiagramDrag, DiagramType } from '@pipeline/components/Diagram'
 import { STATIC_SERVICE_GROUP_NAME } from '@pipeline/utils/executionUtils'
 import { useStrings } from 'framework/strings'
@@ -54,6 +54,9 @@ export function StepGroupNode(props: any): JSX.Element {
     }
   }, [stepsData])
 
+  const debounceHideVisibility = debounce(() => {
+    setVisibilityOfAdd(false)
+  }, 300)
   const nodeType = Object.keys(props?.data?.stepGroup?.strategy || {})[0]
   return (
     <>
@@ -77,9 +80,9 @@ export function StepGroupNode(props: any): JSX.Element {
             }}
             onMouseLeave={e => {
               e.stopPropagation()
-              allowAdd && setVisibilityOfAdd(false)
+              allowAdd && debounceHideVisibility()
             }}
-            onDragLeave={() => allowAdd && setVisibilityOfAdd(false)}
+            onDragLeave={() => allowAdd && debounceHideVisibility()}
             style={stepGroupData?.containerCss ? stepGroupData?.containerCss : undefined}
             className={cx(
               css.stepGroup,
@@ -166,7 +169,7 @@ export function StepGroupNode(props: any): JSX.Element {
                   }}
                   onMouseLeave={event => {
                     event.stopPropagation()
-                    setVisibilityOfAdd(false)
+                    debounceHideVisibility()
                     props?.fireEvent?.({
                       type: Event.MouseLeaveNode,
                       target: event.target,
@@ -176,7 +179,7 @@ export function StepGroupNode(props: any): JSX.Element {
                   lineClamp={1}
                   onClick={event => {
                     event.stopPropagation()
-                    setVisibilityOfAdd(false)
+                    debounceHideVisibility()
                     props?.fireEvent?.({
                       type: Event.StepGroupClicked,
                       target: event.target,
@@ -276,7 +279,8 @@ export function StepGroupNode(props: any): JSX.Element {
                 { [defaultCss.marginBottom]: props?.isParallelNode }
               )}
               onMouseOver={() => allowAdd && setVisibilityOfAdd(true)}
-              onMouseLeave={() => allowAdd && setVisibilityOfAdd(false)}
+              onMouseLeave={() => allowAdd && debounceHideVisibility()}
+              onDragLeave={debounceHideVisibility}
               onDrop={(event: any) => {
                 props?.fireEvent?.({
                   type: Event.DropNodeEvent,

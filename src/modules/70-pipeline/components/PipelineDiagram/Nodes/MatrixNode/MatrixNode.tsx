@@ -9,7 +9,7 @@ import * as React from 'react'
 import cx from 'classnames'
 import { Icon, Layout, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
-import { defaultTo, get, isEmpty } from 'lodash-es'
+import { debounce, defaultTo, get, isEmpty } from 'lodash-es'
 import { Event, DiagramDrag, DiagramType } from '@pipeline/components/Diagram'
 import { STATIC_SERVICE_GROUP_NAME } from '@pipeline/utils/executionUtils'
 import { useStrings } from 'framework/strings'
@@ -23,8 +23,8 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import { BaseReactComponentProps, NodeType, PipelineGraphState, PipelineGraphType } from '../../types'
 import { getPositionOfAddIcon } from '../utils'
 import { getPipelineGraphData } from '../../PipelineGraph/PipelineGraphUtils'
-import { NodeStatusIndicator } from '../NodeStatusIndicator'
 import MatrixNodeLabelWrapper from '../MatrixNodeLabelWrapper'
+import { NodeStatusIndicator } from '../../NodeStatusIndicator/NodeStatusIndicator'
 import css from './MatrixNode.module.scss'
 import defaultCss from '../DefaultNode/DefaultNode.module.scss'
 
@@ -108,6 +108,10 @@ export function MatrixNode(props: any): JSX.Element {
   const stagePath = getStagePathFromPipeline(props?.identifier || '', 'pipeline.stages')
   const hasChildrenToBeCollapsed = state.length > COLLAPSED_MATRIX_NODE_LENGTH
 
+  const debounceHideVisibility = debounce(() => {
+    setVisibilityOfAdd(false)
+  }, 300)
+
   React.useEffect(() => {
     props?.updateGraphLinks?.()
   }, [isNodeCollapsed])
@@ -167,9 +171,9 @@ export function MatrixNode(props: any): JSX.Element {
           }}
           onMouseLeave={e => {
             e.stopPropagation()
-            !props.readonly && allowAdd && setVisibilityOfAdd(false)
+            !props.readonly && allowAdd && debounceHideVisibility()
           }}
-          onDragLeave={() => !props.readonly && allowAdd && setVisibilityOfAdd(false)}
+          onDragLeave={() => !props.readonly && allowAdd && debounceHideVisibility()}
           className={cx(css.stepGroup, {
             [css.firstnode]: !props?.isParallelNode,
             [css.marginBottom]: props?.isParallelNode,
@@ -233,7 +237,7 @@ export function MatrixNode(props: any): JSX.Element {
                     })
                   }}
                   onMouseLeave={event => {
-                    setVisibilityOfAdd(false)
+                    debounceHideVisibility()
                     props?.fireEvent?.({
                       type: Event.MouseLeaveNode,
                       target: event.target,
@@ -243,7 +247,7 @@ export function MatrixNode(props: any): JSX.Element {
                   lineClamp={1}
                   onClick={event => {
                     event.stopPropagation()
-                    setVisibilityOfAdd(false)
+                    debounceHideVisibility()
                     props?.fireEvent?.({
                       type: Event.StepGroupClicked,
                       target: event.target,
@@ -345,7 +349,7 @@ export function MatrixNode(props: any): JSX.Element {
                     withoutCurrentColor={true}
                   />
                 )}
-                {hasChildrenToBeCollapsed && (
+                {maxParallelism && (
                   <Layout.Horizontal className={css.matrixFooter}>
                     <Layout.Horizontal className={css.matrixBorderWrapper}>
                       <Layout.Horizontal className={css.showNodes}>
@@ -427,8 +431,9 @@ export function MatrixNode(props: any): JSX.Element {
                       { [defaultCss.visible]: showAdd },
                       { [defaultCss.marginBottom]: props?.isParallelNode }
                     )}
+                    onDragLeave={debounceHideVisibility}
                     onMouseOver={() => !props.readonly && allowAdd && setVisibilityOfAdd(true)}
-                    onMouseLeave={() => !props.readonly && allowAdd && setVisibilityOfAdd(false)}
+                    onMouseLeave={() => !props.readonly && allowAdd && debounceHideVisibility()}
                     onDrop={(event: any) => {
                       props?.fireEvent?.({
                         type: Event.DropNodeEvent,

@@ -94,14 +94,25 @@ const getCalculatedStyles = (data: PipelineGraphState[], childrenDimensions: Dim
         const dimensions = getCalculatedStepNodeStyles(childSteps, maxParallelism, false)
         width += dimensions.width
         height += dimensions.height
-        // height += 50 // 30 for matrixWrapper type + padding
       } else if (childSteps) {
         const count = getNestedStepGroupHeight(childSteps)
         maxChildLength = Math.max(maxChildLength, count)
         width += childSteps.length * 170
       }
       if (node.children?.length && data.length > 1) {
-        width += 40
+        let nodeWidth = 0
+        node.children?.map(childNode => {
+          if (childrenDimensions[childNode.id]) {
+            const dimension = childrenDimensions[childNode.id]
+            let nodeHeight = 0
+            nodeHeight += dimension?.height || 0
+            nodeWidth = Math.max(nodeWidth, dimension?.width || 0)
+            nodeHeight += 120 //nodeGap
+
+            height = Math.max(height, nodeHeight) + 40 //(each node)
+          }
+        })
+        width = width + nodeWidth + 120 // gap
       }
       width += 150
       maxChildLength = Math.max(maxChildLength, node?.children?.length || 0)

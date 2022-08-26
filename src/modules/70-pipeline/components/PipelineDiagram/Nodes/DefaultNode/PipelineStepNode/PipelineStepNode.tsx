@@ -7,7 +7,7 @@
 
 import React from 'react'
 import cx from 'classnames'
-import { defaultTo } from 'lodash-es'
+import { debounce, defaultTo } from 'lodash-es'
 import { Icon, Text, Button, ButtonVariation, IconName, Utils } from '@wings-software/uicore'
 import { Color } from '@harness/design-system'
 import { DiagramDrag, DiagramType, Event } from '@pipeline/components/Diagram'
@@ -71,6 +71,10 @@ function PipelineStepNode(props: PipelineStepNodeProps): JSX.Element {
       }
     })
   }
+
+  const debounceHideVisibility = debounce(() => {
+    setVisibilityOfAdd(false)
+  }, 300)
   // const isPrevNodeParallel = !!defaultTo(props.prevNode?.children?.length, 1)
   const isTemplateNode = props?.data?.isTemplateNode
   return (
@@ -84,7 +88,7 @@ function PipelineStepNode(props: PipelineStepNodeProps): JSX.Element {
       }}
       onMouseLeave={e => {
         e.stopPropagation()
-        setAddVisibility(false)
+        debounceHideVisibility()
       }}
       onClick={event => {
         event.stopPropagation()
@@ -114,7 +118,7 @@ function PipelineStepNode(props: PipelineStepNodeProps): JSX.Element {
         event.stopPropagation()
 
         if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
-          setAddVisibility(false)
+          debounceHideVisibility()
         }
       }}
       onDrop={onDropEvent}
@@ -296,7 +300,8 @@ function PipelineStepNode(props: PipelineStepNodeProps): JSX.Element {
           onMouseOver={() => setAddVisibility(true)}
           onDragOver={() => setAddVisibility(true)}
           onDrop={onDropEvent}
-          onMouseLeave={() => setAddVisibility(false)}
+          onMouseLeave={debounceHideVisibility}
+          onDragLeave={debounceHideVisibility}
           onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             event.stopPropagation()
             props?.fireEvent?.({
