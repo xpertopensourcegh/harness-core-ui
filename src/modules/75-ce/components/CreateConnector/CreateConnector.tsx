@@ -10,6 +10,7 @@ import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import { Button, CardSelect, Carousel, Container, Heading, Icon, Layout, Text } from '@wings-software/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { Color } from '@harness/design-system'
+import { useStrings } from 'framework/strings'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
@@ -38,6 +39,8 @@ const modalProps: IDialogProps = {
 interface CloudProviderListProps {
   onChange?: (selectedProvider: string) => void
   selected?: string
+  iconSize?: number
+  kubernetesFirst?: boolean
 }
 
 export interface UseCreateConnectorProps {
@@ -46,25 +49,32 @@ export interface UseCreateConnectorProps {
   onClose?: () => void
 }
 
-const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selected }) => {
-  const providers = [
-    {
-      icon: 'service-aws',
-      title: 'AWS'
-    },
-    {
-      icon: 'gcp',
-      title: 'GCP'
-    },
-    {
-      icon: 'service-azure',
-      title: 'Azure'
-    },
-    {
-      icon: 'service-kubernetes',
-      title: 'Kubernetes'
+export const CloudProviderList: React.FC<CloudProviderListProps> = ({
+  onChange,
+  selected,
+  iconSize = 26,
+  kubernetesFirst
+}) => {
+  const { getString } = useStrings()
+
+  const providers = useMemo(() => {
+    const list = [
+      { icon: 'service-aws', title: getString('common.aws') },
+      { icon: 'gcp', title: getString('common.gcp') },
+      { icon: 'service-azure', title: getString('common.azure') }
+    ]
+
+    const kubernetes = { icon: 'service-kubernetes', title: getString('kubernetesText') }
+
+    if (kubernetesFirst) {
+      list.unshift(kubernetes)
+    } else {
+      list.push(kubernetes)
     }
-  ]
+
+    return list
+  }, [kubernetesFirst, getString])
+
   return (
     <div className={css.cloudProviderListContainer}>
       <CardSelect
@@ -72,7 +82,7 @@ const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selecte
         cornerSelected={true}
         renderItem={item => (
           <div>
-            <Icon name={item.icon as IconName} size={26} />
+            <Icon name={item.icon as IconName} size={iconSize} />
           </div>
         )}
         onChange={value => onChange?.(value.title)}

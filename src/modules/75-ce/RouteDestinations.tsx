@@ -66,6 +66,7 @@ import BIDashboard from './pages/bi-dashboards/BIDashboard'
 import CORuleDetailsPage from './pages/co-rule-details/CORuleDetailsPage'
 import CommitmentOrchestration from './pages/CommitmentOrchestration/CommitmentOrchestration'
 import CommitmentOrchestrationSetup from './pages/CommitmentOrchestration/CommitmentOrchestrationSetup'
+import CloudIntegrationPage from './pages/cloud-integration/CloudIntegrationPage'
 
 RbacFactory.registerResourceCategory(ResourceCategory.CLOUD_COSTS, {
   icon: 'ccm-solid',
@@ -685,7 +686,15 @@ const CERoutes: React.FC = () => {
         >
           <BIDashboard />
         </RouteWithLayout>
-
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCECloudIntegration({ ...accountPathProps })}
+          pageName={PAGE_NAME.CECloudIntegration}
+          exact
+        >
+          <CloudIntegrationPage />
+        </RouteWithLayout>
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}

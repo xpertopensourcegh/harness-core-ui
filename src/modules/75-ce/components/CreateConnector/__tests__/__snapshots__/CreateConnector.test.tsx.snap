@@ -179,22 +179,22 @@ exports[`Should render the create connector dialog Should render the connector m
             <p
               class="StyledProps--font StyledProps--main"
             >
-              AWS
+              common.aws
             </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              GCP
+              common.gcp
             </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Azure
+              common.azure
             </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Kubernetes
+              kubernetesText
             </p>
           </div>
         </div>
@@ -540,22 +540,22 @@ exports[`Should render the create connector dialog Should render the minimal con
       <p
         class="StyledProps--font StyledProps--main"
       >
-        AWS
+        common.aws
       </p>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        GCP
+        common.gcp
       </p>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Azure
+        common.azure
       </p>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Kubernetes
+        kubernetesText
       </p>
     </div>
   </div>

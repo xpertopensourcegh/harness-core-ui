@@ -1249,3 +1249,69 @@ commitmentOrchestration:
       coveredBySavigsPlan: 'to be covered by Savings Plans'
       coveredByRI: 'to be covered by Reserved instances'
       remainOnDemand: 'to remain on On-demand instances'
+cloudIntegration:
+  sideNavText: Cloud Integration
+  createConnector: What would you like to start with?
+  newConnectorBtn: New Cluster/Cloud account
+  selectProvider: Select Cloud Provider
+  k8sClusters: Kubernetes Clusters
+  cloudAccounts: Cloud Accounts
+  emptyStateDesc: 'You can add Clusters and Cloud Accounts to Harness Cloud Cost Management by creating a <b>Connector</b>.<br>You can Create and Manage Connectors here in <b>Cloud Integration</b>.'
+  connectorStatus: Connector Status
+  featuresEnabled: Features Enabled
+  clusterPermissions: Cluster Permissions
+  reporting: Reporting
+  enableCloudCosts: Enable Cloud Costs
+  enableAutoStopping: Enable AutoStopping
+  manageAutoStopping: Manage AutoStopping
+  disableReporting: Disable Cost Reporting
+  disableAutoStopping: Disable AutoStopping
+  editConnector: Edit Connector
+  deleteConnector: '{{ $.connectors.confirmDeleteTitle }}'
+  deleteConnectorDialog:
+    header: 'Delete connector?'
+    desc: Deleting the Connector would delete the Connector from the Account.This will impact any other modules that use this connector.<br><br>Are you sure you want to Delete the connector from the Account?
+  disbaleReportingDialog:
+    header: 'Disable cost reporting?'
+    desc: Are you sure you want to disable cost reporting for the connector {{ name }}?
+  noSearchResults: There are not connector by the name you are searching for.
+  editCostAccessFeatures: Edit Cost access Features
+  costVisibilityDialog:
+    step1:
+      title: Enable Cost Reporting
+      desc: By enabling Cost Reporting, you are allowing the connector {{ connectorName }} to collect cost data.
+      step1: Validating if required components installed and permissions are correct.
+      permissionsError: Follow instructions given below and click Retry.
+    step2:
+      title: Enable AutoStopping (optional)
+    popover:
+      title: '<b>Cost Reporting</b> gives you:'
+      permissions: 'This is done by collecting Cost data on your existing Connector with <a target="_blank" href="https://ngdocs.harness.io/article/ltt65r6k39-set-up-cost-visibility-for-kubernetes#prerequisites">these permissions<a/>.'
+      feat1: Costs by pods, nodes, namespaces, workloads
+      feat2: Idle and unallocated cluster costs
+      feat3: '{{ $.connectors.ceAzure.chooseRequirements.billing.feat3 }}'
+      feat4: Workload recommendations
+      feat5: Node recommendations
+      feat6: Budgets and alerts
+  viewCosts: View costs
+  autoStoppingModal:
+    createSecret:
+      title: '{{ $.secrets.createSecret }}'
+      desc: Follow these steps to create a secret
+      step1: Create a api key
+      createKey: Create api key
+    installComponents:
+      title: Install Components
+      desc: 'In order to get AutoStopping working, you will have to install a few components on the cluster. This is done by applying a YAML file. The YAML file contains:'
+      previewYaml: Preview YAML
+      step1: Download the YAML file
+      step2: 'Apply the YAML using the command:'
+    testComponents:
+      title: Test Components
+    popover:
+      title: '<b>AutoStopping</b> gives you:'
+      feat1: Works for custom clusters and EKS, AKS, GKE, etc
+      feat2: Orchestrate pods based on idleness
+      feat3: Set dependencies between workloads like pods, VMs, etc.
+      feat4: '{{ $.connectors.ceAzure.chooseRequirements.billing.feat3 }}'
+      feat5: '{{ $.connectors.ceAzure.chooseRequirements.billing.feat4 }}'

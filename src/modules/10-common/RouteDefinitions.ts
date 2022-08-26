@@ -1586,6 +1586,7 @@ const routes = {
   toCEDashboards: withAccountId(() => '/ce/bi-dashboards'),
   toCommitmentOrchestration: withAccountId(() => `/ce/commitment-orchestration`),
   toCommitmentOrchestrationSetup: withAccountId(() => `/ce/commitment-orchestration/setup`),
+  toCECloudIntegration: withAccountId(() => `/ce/cloud-integrations/`),
   /********************************************************************************************************************/
   toSTO: withAccountId(() => `/sto`),
   toSTOHome: withAccountId(() => `/sto/home`),

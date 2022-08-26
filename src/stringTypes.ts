@@ -417,6 +417,7 @@ export interface StringsMap {
   'common.hideAll': string
   'common.home': string
   'common.hourly': string
+  'common.ignore': string
   'common.import': string
   'common.importEntityFromGit': string
   'common.importFromGit': string
@@ -4585,6 +4586,60 @@ export interface StringsMap {
   'ce.ceTrialHomePage.modal.welcome': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.ceTrialHomePage.startTrial.startBtn.description': string
+  'ce.cloudIntegration.autoStoppingModal.createSecret.createKey': string
+  'ce.cloudIntegration.autoStoppingModal.createSecret.desc': string
+  'ce.cloudIntegration.autoStoppingModal.createSecret.step1': string
+  'ce.cloudIntegration.autoStoppingModal.createSecret.title': string
+  'ce.cloudIntegration.autoStoppingModal.installComponents.desc': string
+  'ce.cloudIntegration.autoStoppingModal.installComponents.previewYaml': string
+  'ce.cloudIntegration.autoStoppingModal.installComponents.step1': string
+  'ce.cloudIntegration.autoStoppingModal.installComponents.step2': string
+  'ce.cloudIntegration.autoStoppingModal.installComponents.title': string
+  'ce.cloudIntegration.autoStoppingModal.popover.feat1': string
+  'ce.cloudIntegration.autoStoppingModal.popover.feat2': string
+  'ce.cloudIntegration.autoStoppingModal.popover.feat3': string
+  'ce.cloudIntegration.autoStoppingModal.popover.feat4': string
+  'ce.cloudIntegration.autoStoppingModal.popover.feat5': string
+  'ce.cloudIntegration.autoStoppingModal.popover.title': string
+  'ce.cloudIntegration.autoStoppingModal.testComponents.title': string
+  'ce.cloudIntegration.cloudAccounts': string
+  'ce.cloudIntegration.clusterPermissions': string
+  'ce.cloudIntegration.connectorStatus': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.feat1': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.feat2': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.feat3': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.feat4': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.feat5': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.feat6': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.permissions': string
+  'ce.cloudIntegration.costVisibilityDialog.popover.title': string
+  'ce.cloudIntegration.costVisibilityDialog.step1.desc': string
+  'ce.cloudIntegration.costVisibilityDialog.step1.permissionsError': string
+  'ce.cloudIntegration.costVisibilityDialog.step1.step1': string
+  'ce.cloudIntegration.costVisibilityDialog.step1.title': string
+  'ce.cloudIntegration.costVisibilityDialog.step2.title': string
+  'ce.cloudIntegration.createConnector': string
+  'ce.cloudIntegration.deleteConnector': string
+  'ce.cloudIntegration.deleteConnectorDialog.desc': string
+  'ce.cloudIntegration.deleteConnectorDialog.header': string
+  'ce.cloudIntegration.disableAutoStopping': string
+  'ce.cloudIntegration.disableReporting': string
+  'ce.cloudIntegration.disbaleReportingDialog.desc': string
+  'ce.cloudIntegration.disbaleReportingDialog.header': string
+  'ce.cloudIntegration.editConnector': string
+  'ce.cloudIntegration.editCostAccessFeatures': string
+  'ce.cloudIntegration.emptyStateDesc': string
+  'ce.cloudIntegration.enableAutoStopping': string
+  'ce.cloudIntegration.enableCloudCosts': string
+  'ce.cloudIntegration.featuresEnabled': string
+  'ce.cloudIntegration.k8sClusters': string
+  'ce.cloudIntegration.manageAutoStopping': string
+  'ce.cloudIntegration.newConnectorBtn': string
+  'ce.cloudIntegration.noSearchResults': string
+  'ce.cloudIntegration.reporting': string
+  'ce.cloudIntegration.selectProvider': string
+  'ce.cloudIntegration.sideNavText': string
+  'ce.cloudIntegration.viewCosts': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
   'ce.co.accessPoint.asssociatedRules': string

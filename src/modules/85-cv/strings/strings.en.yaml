@@ -813,7 +813,7 @@ saturday: Saturday
 sunday: Sunday
 good: Good
 bad: Bad
-ignore: Ignore
+ignore: '{{ $.common.ignore }}'
 errorBudget: Error Budget
 mins: mins
 minValueN: 'Min value {{n}}'

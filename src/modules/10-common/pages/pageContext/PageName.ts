@@ -118,6 +118,7 @@ export enum PAGE_NAME {
   CEAnomaliesOverviewPage = 'CEAnomaliesOverviewPage',
   CEBusinessMapping = 'CEBusinessMapping',
   CEDashboards = 'CEDashboards',
+  CECloudIntegration = 'CECloudIntegration',
   ErrorTrackingListPage = 'ErrorTrackingListPage',
   OPAPolicyDashboard = 'OPAPolicyDashboard',
   ExecutionList = 'ExecutionList'
