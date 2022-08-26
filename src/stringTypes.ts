@@ -5035,9 +5035,12 @@ export interface StringsMap {
   'ce.common.containerService': string
   'ce.common.copied': string
   'ce.common.database': string
+  'ce.common.detailsCtaLabel': string
   'ce.common.disabled': string
   'ce.common.emissionUnitHTML': string
   'ce.common.expand': string
+  'ce.common.hoverErrorHeader': string
+  'ce.common.hoverWarningHeader': string
   'ce.common.newBudget': string
   'ce.common.or': string
   'ce.common.refresh': string

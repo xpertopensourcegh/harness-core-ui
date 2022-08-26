@@ -206,6 +206,11 @@ export const channelImgMap = {
   PAGERDUTY: 'service-pagerduty'
 }
 
+export enum ServiceErrorType {
+  error = 'Error',
+  warning = 'Warning'
+}
+
 export enum RulesMode {
   ACTIVE = 'active',
   DRY = 'dryrun'

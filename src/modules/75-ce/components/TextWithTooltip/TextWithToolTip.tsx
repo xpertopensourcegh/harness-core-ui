@@ -8,9 +8,11 @@
 import React from 'react'
 import { Text, Layout } from '@wings-software/uicore'
 import type { IconName } from '@blueprintjs/core'
+import { defaultTo, isEmpty } from 'lodash-es'
 import { Color } from '@harness/design-system'
 import { useStrings } from 'framework/strings'
 import type { ServiceError } from 'services/lw'
+import type { ServiceWarning } from '@ce/types'
 import useErrorModalHook from '../../common/useErrorModalHook'
 import css from './TextWithToolTip.module.scss'
 
@@ -24,6 +26,7 @@ interface TextWithToolTipProps {
   messageText?: string
   showDetails?: boolean
   errors: ServiceError[]
+  warnings?: ServiceWarning[]
   iconSize?: number
   icon?: IconName
   indicatorColor?: string // TEMP: to set color for circle icon
@@ -31,7 +34,10 @@ interface TextWithToolTipProps {
 
 const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
   const { getString } = useStrings()
-  const { openErrorModal } = useErrorModalHook({ errorSummary: 'ERROR FOUND!!' })
+  const { openErrorModal } = useErrorModalHook({
+    errorSummary: getString('error'),
+    warningSummary: getString('ce.common.hoverWarningHeader')
+  })
   const isSuccess: boolean = props.status === textWithToolTipStatus.SUCCESS
   return (
     <Text
@@ -45,17 +51,22 @@ const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
         !isSuccess ? (
           <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
             <Text font={{ size: 'normal' }} color={Color.WHITE}>
-              {'ERROR' + (props.messageText ? `: ${props.messageText}` : '')}
+              {getString(
+                !isEmpty(props.warnings) && isEmpty(props.errors)
+                  ? 'ce.common.hoverWarningHeader'
+                  : 'ce.common.hoverErrorHeader',
+                { message: props.messageText ? `: ${props.messageText}` : '' }
+              )}
             </Text>
             <Text
               color={Color.BLUE_400}
               onClick={e => {
                 e.stopPropagation()
-                openErrorModal(props.errors || [])
+                openErrorModal(defaultTo(props.errors, []), props.warnings)
               }}
               className={css.viewDetails}
             >
-              {getString('connectors.testConnectionStep.errorDetails')}
+              {getString('ce.common.detailsCtaLabel')}
             </Text>
           </Layout.Vertical>
         ) : undefined

@@ -19,6 +19,9 @@ common:
   rule: 'Rule'
   copied: 'Copied'
   toggleLabel: 'Enable/Disable'
+  detailsCtaLabel: 'Click to view details'
+  hoverErrorHeader: 'ERROR {{message}}'
+  hoverWarningHeader: 'WARNING {{message}}'
 allRegions: 'All Regions'
 allClusters: 'All Clusters'
 enforcementMessage:

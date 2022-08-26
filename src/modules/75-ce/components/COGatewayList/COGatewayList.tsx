@@ -47,7 +47,8 @@ import {
   useFetchRules,
   FetchRulesResponseRecords,
   FetchRulesBody,
-  FilterDTO
+  FilterDTO,
+  ServiceDiagnostics
 } from 'services/lw'
 import { String, useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
@@ -62,7 +63,7 @@ import type { FeatureDetail } from 'framework/featureStore/featureStoreUtil'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { allProviders, ceConnectorTypes, RulesMode } from '@ce/constants'
+import { allProviders, ceConnectorTypes, RulesMode, ServiceErrorType } from '@ce/constants'
 import { Utils } from '@ce/common/Utils'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
@@ -555,19 +556,34 @@ const RuleStatus = ({ rule }: { rule: Service }) => {
       accountIdentifier: accountId
     }
   })
-  const diagnosticsErrors = (data?.response || [])
-    .filter(item => !item.success)
-    .map(item => ({ action: item.name, error: item.message }))
-  const hasError: boolean = !_isEmpty(rule.metadata?.service_errors) || !_isEmpty(diagnosticsErrors)
+
+  const getServiceDiagnosticsData = (diagnostics?: ServiceDiagnostics[], type?: ServiceErrorType) => {
+    return _defaultTo(diagnostics, [])
+      .filter(item => !item.success && item.type === type)
+      .map(item => ({ action: item.name, [type === ServiceErrorType.error ? 'error' : 'warning']: item.message }))
+  }
+
+  const diagnosticsErrors = getServiceDiagnosticsData(data?.response, ServiceErrorType.error)
+  const diagnosticsWarnings = getServiceDiagnosticsData(data?.response, ServiceErrorType.warning)
   const combinedErrors: ServiceError[] = (rule.metadata?.service_errors || []).concat(diagnosticsErrors)
+  const hasError: boolean = !_isEmpty(combinedErrors) || !_isEmpty(diagnosticsWarnings)
   const showError = rule.status === 'errored' || hasError
   return !loading ? (
     <TextWithToolTip
       icon={rule.status === 'submitted' ? 'time' : showError ? 'warning-sign' : 'tick-circle'}
       iconSize={14}
-      errors={hasError ? combinedErrors : []}
+      errors={combinedErrors}
+      warnings={diagnosticsWarnings}
       status={showError ? textWithToolTipStatus.ERROR : textWithToolTipStatus.SUCCESS}
-      indicatorColor={rule.status === 'submitted' ? Color.ORANGE_900 : showError ? Color.RED_700 : Color.GREEN_700}
+      indicatorColor={
+        rule.status === 'submitted'
+          ? Color.ORANGE_900
+          : showError
+          ? _isEmpty(combinedErrors)
+            ? Color.YELLOW_700
+            : Color.RED_700
+          : Color.GREEN_700
+      }
     />
   ) : null
 }

@@ -175,3 +175,8 @@ export interface AzureFiltersProps {
   resourceGroup?: SelectOption
   tags?: SelectedTagFilter
 }
+
+export interface ServiceWarning {
+  action?: string
+  warning?: string
+}
