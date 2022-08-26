@@ -177,17 +177,28 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     if (data?.createPr) {
       setPRCreateStatus('ABORTED')
     }
+
+    const isV2 = resource?.storeMetadata?.storeType === StoreType.REMOTE
     if (
       ((e?.responseMessages as ResponseMessage[]) || (e.data?.responseMessages as ResponseMessage[]) || [])?.findIndex(
-        (mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR'
+        (mssg: ResponseMessage) => mssg.code === (isV2 ? 'SCM_CONFLICT_ERROR_V2' : 'SCM_CONFLICT_ERROR')
       ) !== -1
     ) {
       const conflictCommitId = defaultTo(e?.metadata?.conflictCommitId, e?.data?.metadata?.conflictCommitId)
 
-      openGitDiffDialog(payloadData, {
-        ...(data as SaveToGitFormInterface),
-        resolvedConflictCommitId: defaultTo(conflictCommitId, '')
-      })
+      openGitDiffDialog(
+        payloadData,
+        {
+          ...(data as SaveToGitFormInterface),
+          resolvedConflictCommitId: defaultTo(conflictCommitId, ''),
+          isV2
+        },
+        {
+          ...resource?.storeMetadata,
+          filePath: resource?.gitDetails?.filePath,
+          repoName: resource?.gitDetails?.repoName
+        }
+      )
     }
   }
 
@@ -197,7 +208,9 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     onSuccess: (payload, objectId: EntityGitDetails['objectId'], gitData?: SaveToGitFormInterface): void => {
       try {
         if (gitData) {
-          handleSuccess(gitData, payload as T, objectId)
+          resource?.storeMetadata?.storeType === StoreType.REMOTE
+            ? handleSuccessV2(gitData, payload as T, objectId)
+            : handleSuccess(gitData, payload as T, objectId)
         }
       } catch (e) {
         //ignore error

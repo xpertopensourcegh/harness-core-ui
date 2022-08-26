@@ -26,7 +26,7 @@ import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveT
 import { getFormattedErrors } from '@pipeline/utils/runPipelineUtils'
 import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import type { SaveToGitFormV2Interface } from '@common/components/SaveToGitFormV2/SaveToGitFormV2'
+import type { GitData } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import { useStrings } from 'framework/strings'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { clearNullUndefined } from '@pipeline/utils/inputSetUtils'
@@ -42,14 +42,15 @@ const getUpdatedGitDetails = (
   isEdit: boolean,
   gitDetails: SaveToGitFormInterface | undefined,
   lastObjectId: string,
-  initialGitDetails: EntityGitDetails
+  initialGitDetails: EntityGitDetails,
+  conflictCommitId?: string
 ): GetUpdatedGitDetailsReturnType => {
   let updatedGitDetails: GetUpdatedGitDetailsReturnType = {}
   if (gitDetails) {
     updatedGitDetails = { ...gitDetails }
     if (isEdit) {
       updatedGitDetails['lastObjectId'] = lastObjectId
-      updatedGitDetails['lastCommitId'] = initialGitDetails.commitId
+      updatedGitDetails['lastCommitId'] = conflictCommitId || initialGitDetails.commitId
     }
     if (gitDetails.isNewBranch) {
       updatedGitDetails['baseBranch'] = initialGitDetails.branch
@@ -116,11 +117,18 @@ export function useSaveInputSet(inputSetInfo: InputSetInfo): UseSaveInputSetRetu
       inputSetObj: InputSetDTO,
       gitDetails?: SaveToGitFormInterface,
       objectId = '',
-      onCreateInputSetSuccess: (response: ResponseInputSetResponse) => void = noop
+      onCreateInputSetSuccess: (response: ResponseInputSetResponse) => void = noop,
+      conflictCommitId?: string
     ): CreateUpdateInputSetsReturnType => {
       let response: ResponseInputSetResponse | null = null
       try {
-        const updatedGitDetails = getUpdatedGitDetails(isEdit, gitDetails, objectId, initialGitDetails)
+        const updatedGitDetails = getUpdatedGitDetails(
+          isEdit,
+          gitDetails,
+          objectId,
+          initialGitDetails,
+          conflictCommitId
+        )
         if (isEdit) {
           if (inputSetObj.identifier) {
             response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }), {
@@ -206,12 +214,14 @@ export function useSaveInputSet(inputSetInfo: InputSetInfo): UseSaveInputSetRetu
   )
 
   const { openSaveToGitDialog } = useSaveToGitDialog<SaveInputSetDTO>({
-    onSuccess: (
-      gitData: SaveToGitFormInterface & SaveToGitFormV2Interface,
-      payload?: SaveInputSetDTO,
-      objectId?: string
-    ): Promise<UseSaveSuccessResponse> =>
-      createUpdateInputSet(payload?.inputSet || savedInputSetObj, gitData, objectId, onCreateSuccess)
+    onSuccess: (gitData: GitData, payload?: SaveInputSetDTO, objectId?: string): Promise<UseSaveSuccessResponse> =>
+      createUpdateInputSet(
+        payload?.inputSet || savedInputSetObj,
+        gitData,
+        objectId,
+        onCreateSuccess,
+        gitData?.resolvedConflictCommitId
+      )
   })
 
   const handleSubmit = React.useCallback(

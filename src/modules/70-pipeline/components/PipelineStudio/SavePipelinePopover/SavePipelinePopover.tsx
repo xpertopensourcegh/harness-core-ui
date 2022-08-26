@@ -29,6 +29,7 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useFeature } from '@common/hooks/useFeatures'
 import { savePipeline, usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import type { GitData } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { PipelineActions } from '@common/constants/TrackingConstants'
@@ -307,12 +308,13 @@ function SavePipelinePopover(
   }
 
   const { openSaveToGitDialog } = useSaveToGitDialog<SavePipelineObj>({
-    onSuccess: (
-      gitData: SaveToGitFormV2Interface,
-      payload?: SavePipelineObj,
-      objectId?: string
-    ): Promise<UseSaveSuccessResponse> =>
-      saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '', gitDetails.commitId)
+    onSuccess: (gitData: GitData, payload?: SavePipelineObj, objectId?: string): Promise<UseSaveSuccessResponse> =>
+      saveAngPublishWithGitInfo(
+        gitData,
+        payload,
+        objectId || gitDetails?.objectId || '',
+        gitData?.resolvedConflictCommitId || gitDetails.commitId
+      )
   })
 
   const saveAndPublish = React.useCallback(async () => {

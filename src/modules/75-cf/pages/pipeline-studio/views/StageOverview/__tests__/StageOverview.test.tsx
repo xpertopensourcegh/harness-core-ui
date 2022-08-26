@@ -41,7 +41,8 @@ jest.mock('services/cd-ng', () => ({
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve({ response: { data: { content: [] } } })),
   useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useCreatePRV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() }))
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useGetFileByBranch: jest.fn().mockImplementation(() => ({ refetch: jest.fn() }))
 }))
 
 // eslint-disable-next-line jest-no-mock

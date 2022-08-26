@@ -58,6 +58,7 @@ import { useStrings } from 'framework/strings'
 import type { InputSetGitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import type { GitData } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { useQueryParams } from '@common/hooks'
 import { GitSyncForm } from '@gitsync/components/GitSyncForm/GitSyncForm'
@@ -379,7 +380,8 @@ export function OverlayInputSetForm({
   const createUpdateOverlayInputSet = async (
     inputSetObj: InputSetDTO,
     gitDetails?: SaveToGitFormInterface,
-    objectId = ''
+    objectId = '',
+    conflictCommitId?: string
   ): CreateUpdateInputSetsReturnType => {
     let response: ResponseOverlayInputSetResponse | null = null
     try {
@@ -394,7 +396,8 @@ export function OverlayInputSetForm({
         pipelineIdentifier,
         gitDetails,
         objectId,
-        initialStoreMetadata
+        initialStoreMetadata,
+        conflictCommitId
       })
       response = isEdit
         ? await updateOverlayInputSet(requestData as unknown as void, {
@@ -442,11 +445,16 @@ export function OverlayInputSetForm({
 
   const { openSaveToGitDialog } = useSaveToGitDialog<SaveOverlayInputSetDTO>({
     onSuccess: (
-      gitData: SaveToGitFormInterface,
+      gitData: GitData,
       payload?: SaveOverlayInputSetDTO,
       objectId?: string
     ): Promise<UseSaveSuccessResponse> =>
-      createUpdateOverlayInputSet(defaultTo(payload?.overlayInputSet, savedInputSetObj), gitData, objectId)
+      createUpdateOverlayInputSet(
+        defaultTo(payload?.overlayInputSet, savedInputSetObj),
+        gitData,
+        objectId,
+        gitData?.resolvedConflictCommitId
+      )
   })
 
   const handleSubmit = React.useCallback(

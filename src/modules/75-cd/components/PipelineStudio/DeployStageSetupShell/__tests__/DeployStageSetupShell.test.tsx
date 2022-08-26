@@ -83,7 +83,8 @@ jest.mock('services/cd-ng', () => ({
   useGetRuntimeInputsServiceEntity: jest.fn().mockReturnValue({}),
   useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useCreatePRV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() }))
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useGetFileByBranch: jest.fn().mockImplementation(() => ({ refetch: jest.fn() }))
 }))
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
