@@ -69,6 +69,7 @@ export default function AppDynamicsTier({
       <MultiTypeInput
         key={multitypeInputValue + formikValues?.appdApplication}
         name={'appDTier'}
+        data-testid="appDTier"
         placeholder={getPlaceholder(tierLoading, 'cv.healthSource.connectors.AppDynamics.tierPlaceholder', getString)}
         selectProps={{
           items: tierOptions

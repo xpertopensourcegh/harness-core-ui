@@ -7,6 +7,7 @@
 
 import { featureFlagsCall } from '../../../support/85-cv/common'
 import {
+  countOfServiceAPI,
   dataforMS,
   monitoredServiceListCall,
   monitoredServiceListResponse
@@ -32,11 +33,7 @@ describe('Create empty monitored service', () => {
     })
     cy.login('test', 'test')
     cy.intercept('GET', monitoredServiceListCall, monitoredServiceListResponse)
-    cy.intercept(
-      'GET',
-      '/cv/api/monitored-service/count-of-services?routingId=accountId&accountId=accountId&orgIdentifier=default&projectIdentifier=project1',
-      { allServicesCount: 1, servicesAtRiskCount: 0 }
-    )
+    cy.intercept('GET', countOfServiceAPI, { allServicesCount: 1, servicesAtRiskCount: 0 })
     cy.visitChangeIntelligence()
     cy.visitSRMMonitoredServicePage()
   })
@@ -414,11 +411,7 @@ describe('Metric thresholds in AppDynamics', () => {
     })
     cy.login('test', 'test')
     cy.intercept('GET', monitoredServiceListCall, monitoredServiceListResponse)
-    cy.intercept(
-      'GET',
-      '/cv/api/monitored-service/count-of-services?routingId=accountId&accountId=accountId&orgIdentifier=default&projectIdentifier=project1',
-      { allServicesCount: 1, servicesAtRiskCount: 0 }
-    )
+    cy.intercept('GET', countOfServiceAPI, { allServicesCount: 1, servicesAtRiskCount: 0 })
     cy.visitChangeIntelligence()
     cy.visitSRMMonitoredServicePage()
   })

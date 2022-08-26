@@ -219,25 +219,39 @@ const validateCustomMetricFields = (
   }
 
   if (values.pathType === PATHTYPE.FullPath) {
-    const isfullPathEmpty = !values.fullPath.length
-    const hasCompleteMetricPath = Boolean(values?.completeMetricPath)
+    const isfullPathEmpty = !values.completeMetricPath?.length
+    const hasCompleteMetricPath =
+      Boolean(values?.completeMetricPath) &&
+      getMultiTypeFromValue(values?.completeMetricPath) !== MultiTypeInputType.FIXED
 
-    if (hasCompleteMetricPath) {
-      const incorrectPairing = values.completeMetricPath.split('|').filter((item: string) => !item.length).length
+    if (isfullPathEmpty) {
+      _error[PATHTYPE.CompleteMetricPath] = getString('cv.healthSource.connectors.AppDynamics.validation.fullPath')
+    } else if (hasCompleteMetricPath) {
+      const incorrectPairing = values.completeMetricPath
+        ?.split('|')
+        ?.filter((item: string) => !item?.trim()?.length)?.length
       if (incorrectPairing) {
-        _error[PATHTYPE.FullPath] = getString('cv.healthSource.connectors.AppDynamics.validation.fullPath')
+        _error[PATHTYPE.CompleteMetricPath] = getString(
+          'cv.healthSource.connectors.AppDynamics.validation.inCorrectMetricPath'
+        )
       }
     } else {
-      const fullPathContainsTierInfo = values.fullPath
-        .split('|')
-        .map((item: string) => item.trim())
-        .includes(values?.appDTier)
-      const incorrectPairing = values.fullPath.split('|').filter((item: string) => !item.length).length
+      const fullPathContainsTierInfo = values.completeMetricPath
+        ?.split('|')
+        ?.map((item: string) => item.trim())
+        ?.includes(values?.appDTier)
+      const incorrectPairing = values.completeMetricPath
+        ?.split('|')
+        ?.filter((item: string) => !item?.trim()?.length)?.length
 
-      if (incorrectPairing && isfullPathEmpty) {
-        _error[PATHTYPE.FullPath] = getString('cv.healthSource.connectors.AppDynamics.validation.fullPath')
+      if (incorrectPairing) {
+        _error[PATHTYPE.CompleteMetricPath] = getString(
+          'cv.healthSource.connectors.AppDynamics.validation.inCorrectMetricPath'
+        )
       } else if (!fullPathContainsTierInfo) {
-        _error[PATHTYPE.FullPath] = getString('cv.healthSource.connectors.AppDynamics.validation.missingTierInFullPath')
+        _error[PATHTYPE.CompleteMetricPath] = getString(
+          'cv.healthSource.connectors.AppDynamics.validation.missingTierInFullPath'
+        )
       }
     }
   }

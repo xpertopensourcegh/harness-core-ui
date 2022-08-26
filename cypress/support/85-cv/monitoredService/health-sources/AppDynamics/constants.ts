@@ -24,7 +24,7 @@ export const applicationsResponse = {
 }
 
 export const metricPackCall =
-  '/cv/api/metric-pack?routingId=accountId&accountId=accountId&orgIdentifier=default&projectIdentifier=project1&dataSourceType=APP_DYNAMICS'
+  '/cv/api/metric-pack?*&dataSourceType=APP_DYNAMICS'
 export const metricPackResponse = {
   metaData: {},
   resource: [

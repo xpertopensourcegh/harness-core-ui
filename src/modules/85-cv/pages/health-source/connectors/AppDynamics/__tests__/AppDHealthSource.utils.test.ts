@@ -97,7 +97,7 @@ describe('Test Util funcitons', () => {
         getString: val => val,
         isMetricThresholdEnabled: false
       })
-    ).toEqual({ fullPath: 'cv.healthSource.connectors.AppDynamics.validation.missingTierInFullPath' })
+    ).toEqual({ completeMetricPath: 'cv.healthSource.connectors.AppDynamics.validation.fullPath' })
   })
 
   test('thresholds validation errors', () => {
@@ -149,7 +149,7 @@ describe('Test Util funcitons', () => {
       'failFastThresholds.0.groupName': 'cv.metricThresholds.validations.groupTransaction',
       'failFastThresholds.0.metricName': 'cv.metricThresholds.validations.metricName',
       'failFastThresholds.0.metricType': 'cv.metricThresholds.validations.metricType',
-      fullPath: 'cv.healthSource.connectors.AppDynamics.validation.missingTierInFullPath',
+      completeMetricPath: 'cv.healthSource.connectors.AppDynamics.validation.fullPath',
       'ignoreThresholds.0.criteria.spec.greaterThan': 'cv.required',
       'ignoreThresholds.0.criteria.spec.lessThan': 'cv.required',
       'ignoreThresholds.0.groupName': 'cv.metricThresholds.validations.groupTransaction',

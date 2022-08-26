@@ -83,6 +83,7 @@ export default function AppDApplications({
       </Text>
       <MultiTypeInput
         key={inputType}
+        data-testid="appdApplication"
         name={'appdApplication'}
         placeholder={getPlaceholder(
           applicationLoading,

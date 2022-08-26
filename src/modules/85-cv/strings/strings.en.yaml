@@ -663,8 +663,9 @@ healthSource:
         basePath: Please select base path
         metricPath: Please select metric path
         metricPathWithoutLeafNode: Please select metric in metric path
-        fullPath: Please provide full metric path
+        fullPath: Please provide complete metric path
         missingTierInFullPath: Path should have Tier as well
+        inCorrectMetricPath: Please provide correct complete metric path
         missingServiceInstanceMetricPath: Service instance metric path is missing
       metricPathType:
         text: Specify a complete metric path

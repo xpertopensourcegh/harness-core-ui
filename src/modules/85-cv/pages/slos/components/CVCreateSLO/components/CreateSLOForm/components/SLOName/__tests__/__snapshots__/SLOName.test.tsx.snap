@@ -317,6 +317,7 @@ exports[`Test SLOName component should render SLOName component 1`] = `
             >
               <div
                 class="StyledProps--font StyledProps--main"
+                data-testid="service"
               >
                 <div
                   class="bp3-popover-wrapper Select--main bp3-fill"

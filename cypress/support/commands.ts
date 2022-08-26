@@ -62,20 +62,15 @@ import {
   strategiesYAMLResponse,
   strategiesYamlSnippets2,
   strategiesYamlSnippets3,
-  variables,
   inputSetsCall,
-  variablesV2PostResponse,
   configurableMonitoredServicesResponse,
   monitoredServiceResponse,
   templatesAPIResponse,
   allTemplatesResponse,
-  applyTemplatesResponse,
   applyTemplatesResponseData,
   templateInputsResponse,
   specificTemplatesResponse,
-  variablesResponse,
-  servicesResponsePipelines,
-  environmentResponsePipelines
+  variablesResponse
 } from './85-cv/verifyStep/constants'
 
 declare global {
@@ -90,6 +85,8 @@ declare global {
       visitPipelinesList(): void
       visitExecutionsList(): void
       visitChangeIntelligence(): void
+      visitSRMTemplate(): void
+      populateTemplateDetails(name: string, version: string): void
       visitSRMMonitoredServicePage(): void
       fillName(name: string): void
       initializeRoute(): void
@@ -106,6 +103,10 @@ declare global {
       verifyStepSelectConnector(): void
       verifyStepChooseRuntimeInput(): void
       verifyStepSelectStrategyAndVerifyStep(): void
+      setServiceEnvRuntime(): void
+      setConnectorRuntime(): void
+      setMultiTypeService(expression?: string): void
+      setMultiTypeEnvironment(expression?: string): void
       configureStaticFieldsVerifyStep(): void
       configureStaticFieldsVerifyStepInStepTemplate(): void
       // https://github.com/jaredpalmer/cypress-image-snapshot
@@ -208,6 +209,30 @@ Cypress.Commands.add('visitChangeIntelligence', () => {
   cy.contains('p', 'Project 1').click()
 })
 
+Cypress.Commands.add('visitSRMTemplate', () => {
+  cy.visitPageAssertion('[class^=SideNav-module_main]')
+  cy.contains('span', 'Service Reliability').click()
+  cy.contains('p', 'Select a Project').click()
+  cy.contains('p', 'Project 1').click()
+  cy.contains('p', 'Project Setup').click()
+  cy.contains('p', 'Templates').click()
+  cy.contains('span', 'New Template').click()
+  cy.contains('li', 'Monitored Service').should('be.visible')
+  cy.contains('li', 'Monitored Service').should('not.be.disabled')
+  cy.contains('li', 'Monitored Service').click()
+  cy.intercept('GET', servicesCall, servicesResponse).as('ServiceCall')
+  cy.intercept('GET', environmentsCall, environmentResponse).as('EnvCall')
+  cy.wait('@ServiceCall')
+  cy.wait('@EnvCall')
+})
+
+Cypress.Commands.add('populateTemplateDetails', (name, version) => {
+  cy.get('.bp3-overlay input[name="name"]').type(name)
+  cy.get('.bp3-overlay input[name="versionLabel"]').type(version)
+  cy.get('.bp3-overlay button[type="submit"]').click({ force: true })
+  cy.wait(1000)
+})
+
 Cypress.Commands.add('visitSRMMonitoredServicePage', () => {
   cy.contains('p', 'Monitored Services').click()
 })
@@ -303,11 +328,13 @@ Cypress.Commands.add('populateDefineHealthSource', (connectorType, connectorName
   cy.contains('span', 'Source selection is required').should('not.exist')
   cy.contains('span', 'Name is required.').should('not.exist')
 
-  cy.contains('span', 'Connector Selection is required.').should('be.visible')
-  cy.get('button[data-testid="cr-field-connectorRef"]').click()
-  cy.contains('p', connectorName).click()
-  cy.contains('span', 'Apply Selected').click()
-  cy.contains('span', 'Connector Selection is required.').should('not.exist')
+  if (connectorName) {
+    cy.contains('span', 'Connector Selection is required.').should('be.visible')
+    cy.get('button[data-testid="cr-field-connectorRef"]').click()
+    cy.contains('p', connectorName).click()
+    cy.contains('span', 'Apply Selected').click()
+    cy.contains('span', 'Connector Selection is required.').should('not.exist')
+  }
 })
 
 Cypress.Commands.add('selectFeature', featureName => {
@@ -452,6 +479,51 @@ Cypress.Commands.add('verifyStepSelectStrategyAndVerifyStep', () => {
   cy.findByText(/Verify/i).click()
 })
 
+Cypress.Commands.add('setServiceEnvRuntime', () => {
+  cy.get('div[data-testid="service"] span[data-icon="fixed-input"]').should('be.visible').click()
+  cy.get('a.bp3-menu-item').should('have.length', 2).as('valueList')
+  cy.get('@valueList').eq(0).should('contain.text', 'Fixed value').as('fixedValue')
+  cy.get('@valueList').eq(1).should('contain.text', 'Runtime input').as('runtimeValue')
+  cy.get('@runtimeValue').click()
+  cy.get('div[data-testid="environment"] span[data-icon="fixed-input"]').should('be.visible').click()
+  cy.get('a.bp3-menu-item').should('have.length', 2).as('valueList')
+  cy.get('@valueList').eq(0).should('contain.text', 'Fixed value').as('fixedValue')
+  cy.get('@valueList').eq(1).should('contain.text', 'Runtime input').as('runtimeValue')
+  cy.get('@runtimeValue').click()
+})
+
+Cypress.Commands.add('setMultiTypeService', (expression: string) => {
+  cy.get('div[data-testid="service"] span[data-icon="fixed-input"]').should('be.visible').click()
+  cy.get('a.bp3-menu-item').should('have.length', 2).as('valueList')
+  cy.get('@valueList').eq(0).should('contain.text', 'Fixed value').as('fixedValue')
+  cy.get('@valueList').eq(1).should('contain.text', 'Runtime input').as('runtimeValue')
+  if (expression) {
+    cy.get('input[name="service"]').type(expression)
+  } else {
+    cy.get('@runtimeValue').click()
+  }
+})
+
+Cypress.Commands.add('setMultiTypeEnvironment', (expression: string) => {
+  cy.get('div[data-testid="environment"] span[data-icon="fixed-input"]').should('be.visible').click()
+  cy.get('a.bp3-menu-item').should('have.length', 2).as('valueList')
+  cy.get('@valueList').eq(0).should('contain.text', 'Fixed value').as('fixedValue')
+  cy.get('@valueList').eq(1).should('contain.text', 'Runtime input').as('runtimeValue')
+  if (expression) {
+    cy.get('input[name="environment"]').type(expression)
+  } else {
+    cy.get('@runtimeValue').click()
+  }
+})
+
+Cypress.Commands.add('setConnectorRuntime', () => {
+  cy.get('span[data-icon="fixed-input"]').first().should('be.visible').click()
+  cy.get('a.bp3-menu-item').should('have.length', 3).as('valueList')
+  cy.get('@valueList').eq(0).should('contain.text', 'Fixed value').as('fixedValue')
+  cy.get('@valueList').eq(1).should('contain.text', 'Runtime input').as('runtimeValue')
+  cy.get('@valueList').eq(2).should('contain.text', 'Expression').as('expressionValue')
+  cy.get('@runtimeValue').click()
+})
 Cypress.Commands.add('configureStaticFieldsVerifyStep', () => {
   cy.get('input[name="spec.type"]').click({ force: true })
   cy.contains('p', 'Rolling Update').click({ force: true })

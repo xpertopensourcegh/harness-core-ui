@@ -686,3 +686,6 @@ export const newRelicServiceResponse = {
   metaData: null,
   correlationId: 'af75987e-8e87-408b-b921-8d2ec73af1a2'
 }
+
+export const countOfServiceAPI =
+  '/cv/api/monitored-service/count-of-services?routingId=accountId&accountId=accountId&orgIdentifier=default&projectIdentifier=project1'
