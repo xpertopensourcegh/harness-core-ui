@@ -8,23 +8,32 @@
 import { Color } from '@harness/design-system'
 import { FormInput, Layout, SelectOption, Text } from '@harness/uicore'
 import type { FormikContextType } from 'formik'
-import React, { useMemo } from 'react'
-import type { GetDataError } from 'restful-react'
+import React, { ReactElement, useMemo } from 'react'
+import type { UseGetReturn } from 'restful-react'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/strings'
-import type { Failure, ServiceNowFieldNG } from 'services/cd-ng'
+import type {
+  Failure,
+  GetServiceNowIssueCreateMetadataQueryParams,
+  ResponseListServiceNowFieldNG,
+  ServiceNowFieldNG
+} from 'services/cd-ng'
 import type { ServiceNowApprovalData } from './types'
 import css from '../Common/ApprovalRejectionCriteria.module.scss'
 
 interface ServiceNowApprovalChangeWindowProps {
   formik: FormikContextType<ServiceNowApprovalData>
   readonly: boolean
-  serviceNowIssueCreateMetadataFields: ServiceNowFieldNG[]
-  fetchingServiceNowMetadata: boolean
-  serviceNowMetadataFetchError: GetDataError<Error | Failure> | null | undefined
+  fieldList: ServiceNowFieldNG[]
+  getServiceNowIssueCreateMetadataQuery: UseGetReturn<
+    ResponseListServiceNowFieldNG,
+    Failure | Error,
+    GetServiceNowIssueCreateMetadataQueryParams,
+    unknown
+  >
 }
 
-export const getDateTimeOptions = (serviceNowIssueCreateMetadataFields: ServiceNowFieldNG[]) => {
+export const getDateTimeOptions = (serviceNowIssueCreateMetadataFields?: ServiceNowFieldNG[]) => {
   const dateTimeSelectOptions: SelectOption[] = []
   serviceNowIssueCreateMetadataFields?.forEach(field => {
     if (field.schema.type === 'glide_date_time') {
@@ -37,23 +46,22 @@ export const getDateTimeOptions = (serviceNowIssueCreateMetadataFields: ServiceN
 
 export function ServiceNowApprovalChangeWindow({
   readonly,
-  serviceNowIssueCreateMetadataFields,
-  fetchingServiceNowMetadata,
-  serviceNowMetadataFetchError
-}: ServiceNowApprovalChangeWindowProps): React.ReactElement {
+  fieldList,
+  getServiceNowIssueCreateMetadataQuery
+}: ServiceNowApprovalChangeWindowProps): ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
   const selectOptions = useMemo(() => {
-    return getDateTimeOptions(serviceNowIssueCreateMetadataFields)
-  }, [serviceNowIssueCreateMetadataFields])
+    return getDateTimeOptions(fieldList)
+  }, [fieldList])
 
   const commonMultiTypeInputProps = (placeholder: string) => ({
     disabled: readonly,
     selectItems: selectOptions,
-    placeholder: fetchingServiceNowMetadata
+    placeholder: getServiceNowIssueCreateMetadataQuery.loading
       ? getString('pipeline.serviceNowApprovalStep.fetching')
-      : serviceNowMetadataFetchError?.message || `${getString('select')} ${placeholder}`,
+      : getServiceNowIssueCreateMetadataQuery.error?.message || `${getString('select')} ${placeholder}`,
     useValue: true,
     multiTypeInputProps: {
       selectProps: {

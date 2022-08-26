@@ -8,14 +8,14 @@
 import type { AllowedTypes, SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 
-import type { GetDataError } from 'restful-react'
+import type { UseGetReturn } from 'restful-react'
 import type {
   ResponseListServiceNowTicketTypeDTO,
   StepElementConfig,
-  UseGetServiceNowIssueCreateMetadataProps,
-  UseGetServiceNowTicketTypesProps,
   Failure,
-  ResponseListServiceNowFieldNG
+  ResponseListServiceNowFieldNG,
+  GetServiceNowTicketTypesQueryParams,
+  GetServiceNowIssueCreateMetadataQueryParams
 } from 'services/cd-ng'
 import type { InputSetData, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { getDefaultCriterias } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/helper'
@@ -71,16 +71,20 @@ export interface ServiceNowFormContentInterface {
   allowableTypes: AllowedTypes
   isNewStep?: boolean
   readonly?: boolean
-  refetchServiceNowTicketTypes: (props: UseGetServiceNowTicketTypesProps) => Promise<void>
-  serviceNowTicketTypesFetchError?: GetDataError<Failure | Error> | null
-  fetchingServiceNowTicketTypes: boolean
-  serviceNowTicketTypesResponse: ResponseListServiceNowTicketTypeDTO | null
-  refetchServiceNowMetadata: (props: UseGetServiceNowIssueCreateMetadataProps) => Promise<void>
-  serviceNowMetadataFetchError?: GetDataError<Failure | Error> | null
-  fetchingServiceNowMetadata: boolean
-  serviceNowMetadataResponse: ResponseListServiceNowFieldNG | null
+  getServiceNowTicketTypesQuery: UseGetReturn<
+    ResponseListServiceNowTicketTypeDTO,
+    Failure | Error,
+    GetServiceNowTicketTypesQueryParams,
+    unknown
+  >
+  getServiceNowIssueCreateMetadataQuery: UseGetReturn<
+    ResponseListServiceNowFieldNG,
+    Failure | Error,
+    GetServiceNowIssueCreateMetadataQueryParams,
+    unknown
+  >
 }
-export const resetForm = (formik: FormikProps<ServiceNowApprovalData>, parent: string) => {
+export const resetForm = (formik: FormikProps<ServiceNowApprovalData>, parent: string): void => {
   if (parent === 'connectorRef') {
     formik.setFieldValue('spec.ticketType', '')
     formik.setFieldValue('spec.ticketNumber', '')

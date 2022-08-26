@@ -32,10 +32,12 @@ export const processInitialValues = (values: ServiceNowApprovalData): ServiceNow
 }
 
 export const processFormData = (values: ServiceNowApprovalData): ServiceNowApprovalData => {
+  const { changeWindow, ...restOfSpec } = values.spec
   return {
     ...values,
     spec: {
-      ...values.spec,
+      ...restOfSpec,
+      ...(changeWindow?.startField && changeWindow?.endField ? { changeWindow } : {}),
       connectorRef: values.spec.connectorRef,
       approvalCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.approvalCriteria),
       rejectionCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.rejectionCriteria)

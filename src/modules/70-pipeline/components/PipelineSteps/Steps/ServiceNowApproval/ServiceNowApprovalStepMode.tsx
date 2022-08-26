@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, Fragment, useEffect, useState } from 'react'
 import {
   Accordion,
   Formik,
@@ -46,12 +46,7 @@ import { isApprovalStepFieldDisabled } from '@pipeline/components/PipelineSteps/
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
-import {
-  useGetServiceNowIssueCreateMetadata,
-  useGetServiceNowTicketTypes,
-  ServiceNowFieldNG,
-  ServiceNowTicketTypeDTO
-} from 'services/cd-ng'
+import { useGetServiceNowIssueCreateMetadata, useGetServiceNowTicketTypes } from 'services/cd-ng'
 import {
   getApprovalRejectionCriteriaForInitialValues,
   getGenuineValue
@@ -71,25 +66,15 @@ function FormContent({
   readonly,
   allowableTypes,
   stepViewType,
-  refetchServiceNowTicketTypes,
-  fetchingServiceNowTicketTypes,
-  serviceNowTicketTypesResponse,
-  serviceNowTicketTypesFetchError,
-  refetchServiceNowMetadata,
-  serviceNowMetadataResponse,
-  fetchingServiceNowMetadata,
-  serviceNowMetadataFetchError
+  getServiceNowTicketTypesQuery,
+  getServiceNowIssueCreateMetadataQuery
 }: ServiceNowFormContentInterface): JSX.Element {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [ticketFieldList, setTicketFieldList] = useState<ServiceNowFieldNG[]>([])
-  const [count, setCount] = React.useState(0)
-  const [serviceNowTicketTypesOptions, setServiceNowTicketTypesOptions] = useState<ServiceNowTicketTypeSelectOption[]>(
-    []
-  )
+  const [count, setCount] = useState(0)
   const [connectorValueType, setConnectorValueType] = useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
   const commonParams = {
     accountIdentifier: accountId,
@@ -99,21 +84,30 @@ function FormContent({
     branch
   }
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
+
   const ticketTypeKeyFixedValue =
     getMultiTypeFromValue(formik.values.spec.ticketType) === MultiTypeInputType.FIXED &&
     !isEmpty(formik.values.spec.ticketType)
       ? formik.values.spec.ticketType
       : undefined
 
-  useEffect(() => {
-    if (ticketTypeKeyFixedValue && serviceNowMetadataResponse?.data) {
-      setTicketFieldList(serviceNowMetadataResponse?.data)
-    }
-  }, [serviceNowMetadataResponse?.data, ticketTypeKeyFixedValue])
+  const serviceNowTicketTypesOptions: ServiceNowTicketTypeSelectOption[] =
+    connectorRefFixedValue && connectorValueType === MultiTypeInputType.FIXED && !getServiceNowTicketTypesQuery.loading
+      ? getServiceNowTicketTypesQuery.data?.data?.map(ticketType => ({
+          label: defaultTo(ticketType.name, ''),
+          value: defaultTo(ticketType.key, ''),
+          key: defaultTo(ticketType.key, '')
+        })) || []
+      : []
+
+  const fieldList =
+    connectorRefFixedValue && ticketTypeKeyFixedValue && !getServiceNowIssueCreateMetadataQuery.loading
+      ? getServiceNowIssueCreateMetadataQuery?.data?.data || []
+      : []
 
   useEffect(() => {
     if (connectorRefFixedValue && connectorValueType === MultiTypeInputType.FIXED) {
-      refetchServiceNowTicketTypes({
+      getServiceNowTicketTypesQuery.refetch({
         queryParams: {
           ...commonParams,
           connectorRef: connectorRefFixedValue.toString()
@@ -124,7 +118,7 @@ function FormContent({
 
   useDeepCompareEffect(() => {
     if (ticketTypeKeyFixedValue && connectorRefFixedValue) {
-      refetchServiceNowMetadata({
+      getServiceNowIssueCreateMetadataQuery.refetch({
         queryParams: {
           ...commonParams,
           connectorRef: connectorRefFixedValue.toString(),
@@ -136,22 +130,10 @@ function FormContent({
       const rejectionCriteria = getApprovalRejectionCriteriaForInitialValues(formik.values.spec.rejectionCriteria)
       formik.setFieldValue('spec.rejectionCriteria', rejectionCriteria)
     }
-  }, [serviceNowTicketTypesOptions, ticketTypeKeyFixedValue])
-
-  useEffect(() => {
-    // Set ticket types
-    let options: ServiceNowTicketTypeSelectOption[] = []
-    const ticketTypesResponseList: ServiceNowTicketTypeDTO[] = serviceNowTicketTypesResponse?.data || []
-    options = ticketTypesResponseList.map((ticketType: ServiceNowTicketTypeDTO) => ({
-      label: defaultTo(ticketType.name, ''),
-      value: defaultTo(ticketType.key, ''),
-      key: defaultTo(ticketType.key, '')
-    }))
-    setServiceNowTicketTypesOptions(options)
-  }, [serviceNowTicketTypesResponse?.data])
+  }, [ticketTypeKeyFixedValue, connectorRefFixedValue])
 
   return (
-    <React.Fragment>
+    <Fragment>
       {stepViewType !== StepViewType.Template && (
         <div className={cx(stepCss.formGroup, stepCss.lg)}>
           <FormInput.InputWithIdentifier
@@ -215,10 +197,6 @@ function FormContent({
             if (value?.record?.identifier !== connectorRefFixedValue) {
               resetForm(formik, 'connectorRef')
               setCount(count + 1)
-              if (multiType !== MultiTypeInputType.FIXED) {
-                setServiceNowTicketTypesOptions([])
-                setTicketFieldList([])
-              }
             }
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -238,32 +216,30 @@ function FormContent({
           />
         )}
       </div>
-      <React.Fragment key={count}>
+      <Fragment key={count}>
         <div className={cx(stepCss.formGroup, stepCss.lg)}>
           <FormInput.MultiTypeInput
             tooltipProps={{
               dataTooltipId: 'serviceNowApprovalTicketType'
             }}
             selectItems={
-              fetchingServiceNowTicketTypes
+              getServiceNowTicketTypesQuery.loading
                 ? [{ label: getString(fetchingTicketTypesPlaceholder), value: '' }]
                 : serviceNowTicketTypesOptions
             }
             label={getString('pipeline.serviceNowApprovalStep.ticketType')}
             name="spec.ticketType"
             placeholder={
-              fetchingServiceNowTicketTypes
+              getServiceNowTicketTypesQuery.loading
                 ? getString(fetchingTicketTypesPlaceholder)
-                : serviceNowTicketTypesFetchError?.message
-                ? serviceNowTicketTypesFetchError?.message
-                : getString('select')
+                : getServiceNowTicketTypesQuery.error?.message || getString('select')
             }
             useValue
-            disabled={isApprovalStepFieldDisabled(readonly, fetchingServiceNowTicketTypes)}
+            disabled={isApprovalStepFieldDisabled(readonly, getServiceNowTicketTypesQuery.loading)}
             multiTypeInputProps={{
               selectProps: {
                 addClearBtn: true,
-                items: fetchingServiceNowTicketTypes
+                items: getServiceNowTicketTypesQuery.loading
                   ? [{ label: getString(fetchingTicketTypesPlaceholder), value: '' }]
                   : serviceNowTicketTypesOptions
               },
@@ -311,7 +287,7 @@ function FormContent({
           )}
         </div>
         <ServiceNowApprovalRejectionCriteria
-          fieldList={ticketFieldList}
+          fieldList={fieldList}
           title={getString('pipeline.approvalCriteria.approvalCriteria')}
           isFetchingFields={false}
           mode="approvalCriteria"
@@ -320,7 +296,7 @@ function FormContent({
           formik={formik}
           readonly={readonly}
         />
-      </React.Fragment>
+      </Fragment>
       <div className={stepCss.noLookDivider} />
       <Accordion className={stepCss.accordion}>
         <Accordion.Panel
@@ -329,7 +305,7 @@ function FormContent({
           details={
             <Layout.Vertical spacing="medium">
               <ServiceNowApprovalRejectionCriteria
-                fieldList={ticketFieldList}
+                fieldList={fieldList}
                 title={getString('pipeline.approvalCriteria.rejectionCriteria')}
                 isFetchingFields={false}
                 mode="rejectionCriteria"
@@ -340,18 +316,18 @@ function FormContent({
               />
               <ServiceNowApprovalChangeWindow
                 formik={formik}
-                serviceNowIssueCreateMetadataFields={ticketFieldList}
                 readonly={!!readonly}
-                fetchingServiceNowMetadata={fetchingServiceNowMetadata}
-                serviceNowMetadataFetchError={serviceNowMetadataFetchError}
+                fieldList={fieldList}
+                getServiceNowIssueCreateMetadataQuery={getServiceNowIssueCreateMetadataQuery}
               />
             </Layout.Vertical>
           }
         />
       </Accordion>
-    </React.Fragment>
+    </Fragment>
   )
 }
+
 function ServiceNowApprovalStepMode(
   props: ServiceNowApprovalStepModeProps,
   formikRef: StepFormikFowardRef<ServiceNowApprovalData>
@@ -368,12 +344,7 @@ function ServiceNowApprovalStepMode(
     branch,
     repoIdentifier
   }
-  const {
-    refetch: refetchServiceNowTicketTypes,
-    data: serviceNowTicketTypesResponse,
-    error: serviceNowTicketTypesFetchError,
-    loading: fetchingServiceNowTicketTypes
-  } = useGetServiceNowTicketTypes({
+  const getServiceNowTicketTypesQuery = useGetServiceNowTicketTypes({
     lazy: true,
     queryParams: {
       ...commonParams,
@@ -381,12 +352,7 @@ function ServiceNowApprovalStepMode(
     }
   })
 
-  const {
-    refetch: refetchServiceNowMetadata,
-    data: serviceNowMetadataResponse,
-    error: serviceNowMetadataFetchError,
-    loading: fetchingServiceNowMetadata
-  } = useGetServiceNowIssueCreateMetadata({
+  const getServiceNowIssueCreateMetadataQuery = useGetServiceNowIssueCreateMetadata({
     lazy: true,
     queryParams: {
       ...commonParams,
@@ -449,14 +415,8 @@ function ServiceNowApprovalStepMode(
               stepViewType={stepViewType}
               readonly={readonly}
               isNewStep={isNewStep}
-              refetchServiceNowTicketTypes={refetchServiceNowTicketTypes}
-              fetchingServiceNowTicketTypes={fetchingServiceNowTicketTypes}
-              serviceNowTicketTypesResponse={serviceNowTicketTypesResponse}
-              serviceNowTicketTypesFetchError={serviceNowTicketTypesFetchError}
-              refetchServiceNowMetadata={refetchServiceNowMetadata}
-              fetchingServiceNowMetadata={fetchingServiceNowMetadata}
-              serviceNowMetadataResponse={serviceNowMetadataResponse}
-              serviceNowMetadataFetchError={serviceNowMetadataFetchError}
+              getServiceNowTicketTypesQuery={getServiceNowTicketTypesQuery}
+              getServiceNowIssueCreateMetadataQuery={getServiceNowIssueCreateMetadataQuery}
             />
           </FormikForm>
         )
@@ -464,5 +424,5 @@ function ServiceNowApprovalStepMode(
     </Formik>
   )
 }
-const ServiceNowApprovalStepModeWithRef = React.forwardRef(ServiceNowApprovalStepMode)
+const ServiceNowApprovalStepModeWithRef = forwardRef(ServiceNowApprovalStepMode)
 export default ServiceNowApprovalStepModeWithRef

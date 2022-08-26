@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { FieldArray } from 'formik'
 import { get, isEmpty, set } from 'lodash-es'
 import {
@@ -243,7 +243,7 @@ export function Jexl(props: SnowApprovalRejectionCriteriaProps): JSX.Element {
   )
 }
 
-export function ServiceNowApprovalRejectionCriteria(props: SnowApprovalRejectionCriteriaProps): React.ReactElement {
+export function ServiceNowApprovalRejectionCriteria(props: SnowApprovalRejectionCriteriaProps): ReactElement {
   const { values, onChange, title, readonly } = props
   const [type, setType] = useState<ApprovalRejectionCriteriaType>(values.type)
   const [allowedFieldKeys, setAllowedFieldKeys] = useState<SelectOption[]>([])
