@@ -1519,6 +1519,20 @@ const routes = {
     }) =>
       `/ce/recommendations/${recommendation}/name/${recommendationName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
+  toCERecommendationServiceDetails: withAccountId(
+    ({
+      recommendation,
+      clusterName,
+      serviceName,
+      recommendationName
+    }: {
+      recommendation: string
+      serviceName: string
+      clusterName: string
+      recommendationName: string
+    }) =>
+      `/ce/recommendations/${recommendation}/name/${recommendationName}/cluster/${clusterName}/service/${serviceName}/details`
+  ),
   toPerspectiveDetails: withAccountId(
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
       `/ce/perspectives/${perspectiveId}/name/${perspectiveName}`
@@ -1574,6 +1588,20 @@ const routes = {
       clusterName: string
       nodeId: string
     }) => `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/node/${nodeId}/details`
+  ),
+  toCEPerspectiveServiceDetails: withAccountId(
+    ({
+      perspectiveId,
+      perspectiveName,
+      clusterName,
+      serviceName
+    }: AccountPathProps & {
+      perspectiveId: string
+      perspectiveName: string
+      clusterName: string
+      serviceName: string
+    }) =>
+      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/service/${serviceName}/details`
   ),
   toCEOverview: withAccountId(() => '/ce/overview'),
   toCEPerspectiveDashboard: withAccountId(() => `/ce/perspective`),

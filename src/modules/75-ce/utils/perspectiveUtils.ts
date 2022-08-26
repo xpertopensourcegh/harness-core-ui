@@ -109,6 +109,13 @@ export const GROUP_BY_POD = {
   identifierName: ViewFieldIdentifier.Cluster
 }
 
+export const GROUP_BY_TASK_ID = {
+  fieldId: 'instanceId',
+  fieldName: 'ECS Task Id',
+  identifier: ViewFieldIdentifier.Cluster,
+  identifierName: ViewFieldIdentifier.Cluster
+}
+
 export const generateId: (length: number) => string = length => {
   let result = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -303,4 +310,10 @@ export enum UnallocatedCostClusterFields {
   CLOUD_SERVICE_NAME_FIELD_ID = 'cloudServiceName',
   TASK_FIELD_ID = 'taskId',
   LAUNCH_TYPE_FIELD_ID = 'launchType'
+}
+
+export enum ClusterFieldNames {
+  WorkloadId = 'Workload Id',
+  Node = 'Node',
+  EcsServiceId = 'ECS Service Id'
 }

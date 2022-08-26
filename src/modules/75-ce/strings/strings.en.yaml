@@ -1315,3 +1315,6 @@ cloudIntegration:
       feat3: Set dependencies between workloads like pods, VMs, etc.
       feat4: '{{ $.connectors.ceAzure.chooseRequirements.billing.feat3 }}'
       feat5: '{{ $.connectors.ceAzure.chooseRequirements.billing.feat4 }}'
+serviceDetails:
+  title: '{{ $.common.serviceDetails }}'
+  launchType: Launch Type

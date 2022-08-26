@@ -950,6 +950,199 @@ export function useRecommendationFiltersQuery(
 ) {
   return Urql.useQuery<RecommendationFiltersQuery>({ query: RecommendationFiltersDocument, ...options })
 }
+export const FetchServiceGridDocument = gql`
+  query FetchServiceGrid($filters: [QLCEViewFilterWrapperInput], $isClusterQuery: Boolean) {
+    perspectiveGrid(
+      filters: $filters
+      isClusterQuery: $isClusterQuery
+      aggregateFunction: [
+        { operationType: SUM, columnName: "networkcost" }
+        { operationType: SUM, columnName: "storageActualIdleCost" }
+        { operationType: SUM, columnName: "cost" }
+        { operationType: SUM, columnName: "memoryBillingAmount" }
+        { operationType: SUM, columnName: "cpuBillingAmount" }
+        { operationType: SUM, columnName: "storageCost" }
+        { operationType: SUM, columnName: "unallocatedcost" }
+        { operationType: SUM, columnName: "storageUnallocatedCost" }
+        { operationType: SUM, columnName: "memoryUnallocatedCost" }
+        { operationType: SUM, columnName: "cpuUnallocatedCost" }
+        { operationType: SUM, columnName: "actualidlecost" }
+        { operationType: SUM, columnName: "memoryActualIdleCost" }
+        { operationType: SUM, columnName: "cpuActualIdleCost" }
+        { operationType: SUM, columnName: "systemcost" }
+        { operationType: MAX, columnName: "storageUtilizationValue" }
+        { operationType: MAX, columnName: "storageRequest" }
+      ]
+      sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
+      groupBy: { entityGroupBy: { fieldId: "instanceId", fieldName: "ECS Task Id", identifier: CLUSTER } }
+      limit: 100
+      offset: 0
+    ) {
+      data {
+        id
+        name
+        cost
+        costTrend
+        clusterData {
+          name
+          id
+          taskId
+          clusterName
+          clusterId
+          launchType
+          totalCost
+          idleCost
+          systemCost
+          networkCost
+          unallocatedCost
+          memoryBillingAmount
+          cpuBillingAmount
+          storageUnallocatedCost
+          memoryUnallocatedCost
+          cpuUnallocatedCost
+          cpuActualIdleCost
+          memoryIdleCost
+          cpuIdleCost
+          storageCost
+          storageActualIdleCost
+          storageUtilizationValue
+          storageRequest
+          cloudServiceName
+        }
+      }
+    }
+  }
+`
+
+export function useFetchServiceGridQuery(options?: Omit<Urql.UseQueryArgs<FetchServiceGridQueryVariables>, 'query'>) {
+  return Urql.useQuery<FetchServiceGridQuery>({ query: FetchServiceGridDocument, ...options })
+}
+export const FetchServiceSummaryDocument = gql`
+  query FetchServiceSummary($filters: [QLCEViewFilterWrapperInput], $isClusterQuery: Boolean) {
+    perspectiveTrendStats(
+      filters: $filters
+      isClusterQuery: $isClusterQuery
+      aggregateFunction: [
+        { operationType: SUM, columnName: "billingamount" }
+        { operationType: SUM, columnName: "actualidlecost" }
+        { operationType: SUM, columnName: "unallocatedcost" }
+        { operationType: MAX, columnName: "startTime" }
+        { operationType: MIN, columnName: "startTime" }
+      ]
+    ) {
+      cost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      idleCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      utilizedCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+    }
+    perspectiveGrid(
+      filters: $filters
+      isClusterQuery: $isClusterQuery
+      aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
+      sortCriteria: []
+      groupBy: { entityGroupBy: { fieldId: "instanceId", fieldName: "ECS Task Id", identifier: CLUSTER } }
+      limit: 100
+      offset: 0
+    ) {
+      data {
+        clusterData {
+          name
+          id
+          taskId
+          clusterName
+          clusterId
+          launchType
+          cloudServiceName
+        }
+      }
+    }
+  }
+`
+
+export function useFetchServiceSummaryQuery(
+  options?: Omit<Urql.UseQueryArgs<FetchServiceSummaryQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<FetchServiceSummaryQuery>({ query: FetchServiceSummaryDocument, ...options })
+}
+export const FetchServiceTimeSeriesDocument = gql`
+  query FetchServiceTimeSeries(
+    $filters: [QLCEViewFilterWrapperInput]
+    $aggregateFunction: [QLCEViewAggregationInput]
+    $isClusterQuery: Boolean
+    $groupBy: [QLCEViewGroupByInput]
+  ) {
+    perspectiveTimeSeriesStats(
+      filters: $filters
+      isClusterQuery: $isClusterQuery
+      aggregateFunction: $aggregateFunction
+      groupBy: $groupBy
+      limit: 100
+      offset: 0
+      preferences: { includeOthers: false, includeUnallocatedCost: false }
+    ) {
+      cpuRequest {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      cpuUtilValues {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      memoryRequest {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      memoryUtilValues {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+    }
+  }
+`
+
+export function useFetchServiceTimeSeriesQuery(
+  options?: Omit<Urql.UseQueryArgs<FetchServiceTimeSeriesQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<FetchServiceTimeSeriesQuery>({ query: FetchServiceTimeSeriesDocument, ...options })
+}
 export const FetchViewFieldsDocument = gql`
   query FetchViewFields($filters: [QLCEViewFilterWrapperInput]) {
     perspectiveFields(filters: $filters) {
@@ -2027,6 +2220,151 @@ export type RecommendationFiltersQuery = {
     key: string | null
     values: Array<string | null> | null
   } | null> | null
+}
+
+export type FetchServiceGridQueryVariables = Exact<{
+  filters: InputMaybe<Array<InputMaybe<QlceViewFilterWrapperInput>> | InputMaybe<QlceViewFilterWrapperInput>>
+  isClusterQuery: InputMaybe<Scalars['Boolean']>
+}>
+
+export type FetchServiceGridQuery = {
+  __typename?: 'Query'
+  perspectiveGrid: {
+    __typename?: 'PerspectiveEntityStatsData'
+    data: Array<{
+      __typename?: 'QLCEViewEntityStatsDataPoint'
+      id: string | null
+      name: string | null
+      cost: any | null
+      costTrend: any | null
+      clusterData: {
+        __typename?: 'ClusterData'
+        name: string | null
+        id: string | null
+        taskId: string | null
+        clusterName: string | null
+        clusterId: string | null
+        launchType: string | null
+        totalCost: number | null
+        idleCost: number | null
+        systemCost: number | null
+        networkCost: number | null
+        unallocatedCost: number | null
+        memoryBillingAmount: number | null
+        cpuBillingAmount: number | null
+        storageUnallocatedCost: number | null
+        memoryUnallocatedCost: number | null
+        cpuUnallocatedCost: number | null
+        cpuActualIdleCost: number | null
+        memoryIdleCost: number | null
+        cpuIdleCost: number | null
+        storageCost: number | null
+        storageActualIdleCost: number | null
+        storageUtilizationValue: number | null
+        storageRequest: number | null
+        cloudServiceName: string | null
+      } | null
+    } | null> | null
+  } | null
+}
+
+export type FetchServiceSummaryQueryVariables = Exact<{
+  filters: InputMaybe<Array<InputMaybe<QlceViewFilterWrapperInput>> | InputMaybe<QlceViewFilterWrapperInput>>
+  isClusterQuery: InputMaybe<Scalars['Boolean']>
+}>
+
+export type FetchServiceSummaryQuery = {
+  __typename?: 'Query'
+  perspectiveTrendStats: {
+    __typename?: 'PerspectiveTrendStats'
+    cost: {
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: any | null
+      statsValue: string
+      statsDescription: string
+    } | null
+    idleCost: {
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: any | null
+      statsValue: string
+      statsDescription: string
+    } | null
+    utilizedCost: {
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: any | null
+      statsValue: string
+      statsDescription: string
+    } | null
+  } | null
+  perspectiveGrid: {
+    __typename?: 'PerspectiveEntityStatsData'
+    data: Array<{
+      __typename?: 'QLCEViewEntityStatsDataPoint'
+      clusterData: {
+        __typename?: 'ClusterData'
+        name: string | null
+        id: string | null
+        taskId: string | null
+        clusterName: string | null
+        clusterId: string | null
+        launchType: string | null
+        cloudServiceName: string | null
+      } | null
+    } | null> | null
+  } | null
+}
+
+export type FetchServiceTimeSeriesQueryVariables = Exact<{
+  filters: InputMaybe<Array<InputMaybe<QlceViewFilterWrapperInput>> | InputMaybe<QlceViewFilterWrapperInput>>
+  aggregateFunction: InputMaybe<Array<InputMaybe<QlceViewAggregationInput>> | InputMaybe<QlceViewAggregationInput>>
+  isClusterQuery: InputMaybe<Scalars['Boolean']>
+  groupBy: InputMaybe<Array<InputMaybe<QlceViewGroupByInput>> | InputMaybe<QlceViewGroupByInput>>
+}>
+
+export type FetchServiceTimeSeriesQuery = {
+  __typename?: 'Query'
+  perspectiveTimeSeriesStats: {
+    __typename?: 'PerspectiveTimeSeriesData'
+    cpuRequest: Array<{
+      __typename?: 'TimeSeriesDataPoints'
+      time: any
+      values: Array<{
+        __typename?: 'DataPoint'
+        value: any
+        key: { __typename?: 'Reference'; name: string; id: string }
+      } | null>
+    } | null> | null
+    cpuUtilValues: Array<{
+      __typename?: 'TimeSeriesDataPoints'
+      time: any
+      values: Array<{
+        __typename?: 'DataPoint'
+        value: any
+        key: { __typename?: 'Reference'; name: string; id: string }
+      } | null>
+    } | null> | null
+    memoryRequest: Array<{
+      __typename?: 'TimeSeriesDataPoints'
+      time: any
+      values: Array<{
+        __typename?: 'DataPoint'
+        value: any
+        key: { __typename?: 'Reference'; name: string; id: string }
+      } | null>
+    } | null> | null
+    memoryUtilValues: Array<{
+      __typename?: 'TimeSeriesDataPoints'
+      time: any
+      values: Array<{
+        __typename?: 'DataPoint'
+        value: any
+        key: { __typename?: 'Reference'; name: string; id: string }
+      } | null>
+    } | null> | null
+  } | null
 }
 
 export type FetchViewFieldsQueryVariables = Exact<{

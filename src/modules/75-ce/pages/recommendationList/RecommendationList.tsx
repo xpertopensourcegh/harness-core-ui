@@ -143,20 +143,18 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
     }
 
     const iconName = iconMapping[resourceType]
-    const perspectiveKey = 'defaultClusterPerspectiveId'
-    const cloudProvider = 'CLUSTER'
+    const cloudProvider = CloudProvider.CLUSTER
+    const defaultPerspectiveId = (defaultTo(ccmData, {}) as CcmMetaData)['defaultClusterPerspectiveId'] as string
 
     const clusterLink = useMemo(
       () => ({
         pathname: routes.toPerspectiveDetails({
           accountId: accountId,
-          perspectiveId: (defaultTo(ccmData, {}) as CcmMetaData)[perspectiveKey] as string,
-          perspectiveName: (defaultTo(ccmData, {}) as CcmMetaData)[perspectiveKey] as string
+          perspectiveId: defaultPerspectiveId,
+          perspectiveName: defaultPerspectiveId
         }),
         search: `?${qs.stringify({
-          filters: JSON.stringify(
-            generateFilters({ clusterName } as Record<string, string>, cloudProvider as CloudProvider)
-          ),
+          filters: JSON.stringify(generateFilters({ clusterName } as Record<string, string>, cloudProvider)),
           groupBy: JSON.stringify(GROUP_BY_CLUSTER_NAME)
         })}`
       }),
@@ -167,32 +165,41 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
       () => ({
         pathname: routes.toPerspectiveDetails({
           accountId: accountId,
-          perspectiveId: (defaultTo(ccmData, {}) as CcmMetaData)[perspectiveKey] as string,
-          perspectiveName: (defaultTo(ccmData, {}) as CcmMetaData)[perspectiveKey] as string
+          perspectiveId: defaultPerspectiveId,
+          perspectiveName: defaultPerspectiveId
         }),
         search: `?${qs.stringify({
-          filters: JSON.stringify(
-            generateFilters({ clusterName, namespace } as Record<string, string>, cloudProvider as CloudProvider)
-          ),
+          filters: JSON.stringify(generateFilters({ clusterName, namespace } as Record<string, string>, cloudProvider)),
           groupBy: JSON.stringify(GROUP_BY_CLUSTER_NAME)
         })}`
       }),
       []
     )
 
-    const resourceDetailsLink = useMemo(
-      () => ({
-        pathname: routes.toCEPerspectiveWorkloadDetails({
-          accountId,
-          clusterName: defaultTo(clusterName, ''),
-          namespace: defaultTo(namespace, ''),
-          perspectiveId: (defaultTo(ccmData, {}) as CcmMetaData)[perspectiveKey] as string,
-          perspectiveName: (defaultTo(ccmData, {}) as CcmMetaData)[perspectiveKey] as string,
-          workloadName: cell.value
-        })
-      }),
-      []
-    )
+    const resourceDetailsLink = useMemo(() => {
+      if (resourceType === ResourceType.Workload) {
+        return {
+          pathname: routes.toCERecommendationWorkloadDetails({
+            accountId,
+            clusterName: defaultTo(clusterName, ''),
+            namespace: defaultTo(namespace, ''),
+            recommendation: originalRowData.id,
+            recommendationName: originalRowData.resourceName || '',
+            workloadName: cell.value
+          })
+        }
+      } else {
+        return {
+          pathname: routes.toCERecommendationServiceDetails({
+            accountId,
+            clusterName: defaultTo(clusterName, ''),
+            recommendation: originalRowData.id,
+            recommendationName: originalRowData.resourceName || '',
+            serviceName: cell.value
+          })
+        }
+      }
+    }, [])
 
     const resourceTypeStringKey: Record<ResourceType, keyof StringsMap> = {
       [ResourceType.EcsService]: 'ce.recommendation.listPage.service',
@@ -230,7 +237,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
             <Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL_BOLD }}>
               {`${getString(resourceTypeStringKey[resourceType])}: `}
             </Text>
-            {resourceType === ResourceType.Workload ? (
+            {resourceType !== ResourceType.NodePool ? (
               <Link to={resourceDetailsLink} onClick={e => e.stopPropagation()}>
                 <Text color={Color.PRIMARY_7} font={{ variation: FontVariation.BODY2 }} lineClamp={1}>
                   {cell.value}

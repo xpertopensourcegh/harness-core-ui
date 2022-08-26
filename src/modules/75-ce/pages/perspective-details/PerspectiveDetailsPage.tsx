@@ -453,6 +453,19 @@ const PerspectiveDetailsPage: React.FC = () => {
     })
   }
 
+  const goToServiceDetails = (clusterName: string, serviceName: string) => {
+    history.push({
+      pathname: routes.toCEPerspectiveServiceDetails({
+        accountId,
+        perspectiveId,
+        perspectiveName: persName,
+        clusterName,
+        serviceName
+      }),
+      search: `?${qs.stringify({ timeRange: JSON.stringify(timeRange) })}`
+    })
+  }
+
   const isChartGridEmpty =
     chartData?.perspectiveTimeSeriesStats?.stats?.length === 0 &&
     gridData?.perspectiveGrid?.data?.length === 0 &&
@@ -547,6 +560,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           <PerspectiveGrid
             goToWorkloadDetails={goToWorkloadDetails}
             goToNodeDetails={goToNodeDetails}
+            goToServiceDetails={goToServiceDetails}
             isClusterOnly={isClusterOnly}
             gridData={gridData?.perspectiveGrid?.data as any}
             gridFetching={gridFetching}

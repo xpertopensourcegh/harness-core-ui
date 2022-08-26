@@ -699,6 +699,8 @@ export interface StringsMap {
   'common.selectYourRepo': string
   'common.selected': string
   'common.serviceCreated': string
+  'common.serviceDetails': string
+  'common.serviceName': string
   'common.serviceOverrides': string
   'common.serviceReliabilityManagement': string
   'common.serviceType': string
@@ -5532,6 +5534,8 @@ export interface StringsMap {
   'ce.recommendation.recommendationChart.willBeMet': string
   'ce.recommendation.sideNavText': string
   'ce.savedYamlSuccess': string
+  'ce.serviceDetails.launchType': string
+  'ce.serviceDetails.title': string
   'ce.sideNav.perspective': string
   'ce.trialCta': string
   'ce.uploadCertiHeader': string

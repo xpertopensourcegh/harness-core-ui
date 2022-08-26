@@ -67,6 +67,7 @@ import CORuleDetailsPage from './pages/co-rule-details/CORuleDetailsPage'
 import CommitmentOrchestration from './pages/CommitmentOrchestration/CommitmentOrchestration'
 import CommitmentOrchestrationSetup from './pages/CommitmentOrchestration/CommitmentOrchestrationSetup'
 import CloudIntegrationPage from './pages/cloud-integration/CloudIntegrationPage'
+import ServiceDetailsPage from './pages/service-details/ServiceDetailsPage'
 
 RbacFactory.registerResourceCategory(ResourceCategory.CLOUD_COSTS, {
   icon: 'ccm-solid',
@@ -641,6 +642,36 @@ const CERoutes: React.FC = () => {
           pageName={PAGE_NAME.CEWorkloadDetailsPage}
         >
           <WorkloadDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEPerspectiveServiceDetails({
+            ...accountPathProps,
+            perspectiveId: ':perspectiveId',
+            perspectiveName: ':perspectiveName',
+            clusterName: ':clusterName',
+            serviceName: ':serviceName'
+          })}
+          exact
+          pageName={PAGE_NAME.CEServiceDetailsPage}
+        >
+          <ServiceDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCERecommendationServiceDetails({
+            ...accountPathProps,
+            recommendation: ':recommendation',
+            recommendationName: ':recommendationName',
+            clusterName: ':clusterName',
+            serviceName: ':serviceName'
+          })}
+          exact
+          pageName={PAGE_NAME.CEServiceDetailsPage}
+        >
+          <ServiceDetailsPage />
         </RouteWithLayout>
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}

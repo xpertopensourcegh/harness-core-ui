@@ -11,6 +11,7 @@ import { Color } from '@harness/design-system'
 import type { Column, Row } from 'react-table'
 import { isEqual } from 'lodash-es'
 import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } from 'services/ce/services'
+import { ClusterFieldNames } from '@ce/utils/perspectiveUtils'
 import ColumnSelector from './ColumnSelector'
 import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, DEFAULT_COLS } from './Columns'
 import Grid from './Grid'
@@ -27,6 +28,7 @@ export interface PerspectiveGridProps {
   gridFetching: boolean
   isClusterOnly?: boolean
   goToWorkloadDetails?: (clusterName: string, namespace: string, workloadName: string) => void
+  goToServiceDetails?: (clusterName: string, serviceName: string) => void
   highlightNode?: (id: string) => void
   resetNodeState?: () => void
   showPagination?: boolean
@@ -61,7 +63,8 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     allowExportAsCSV = false,
     openDownloadCSVModal,
     setGridSearchParam,
-    isPerspectiveDetailsPage
+    isPerspectiveDetailsPage,
+    goToServiceDetails
   } = props
 
   const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
@@ -88,7 +91,7 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
   const { fieldName } = groupBy
 
   const onRowClick = (row: Row<GridData>) => {
-    if (fieldName === 'Workload Id' && isClusterOnly) {
+    if (fieldName === ClusterFieldNames.WorkloadId && isClusterOnly) {
       const { clusterName, namespace, workloadName } = row.original
       goToWorkloadDetails &&
         clusterName &&
@@ -96,13 +99,23 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
         workloadName &&
         goToWorkloadDetails(clusterName, namespace, workloadName)
     }
-    if (fieldName === 'Node' && isClusterOnly) {
+    if (fieldName === ClusterFieldNames.Node && isClusterOnly) {
       const { clusterName, nodeId } = row.original as any
       goToNodeDetails && clusterName && nodeId && goToNodeDetails(clusterName, nodeId)
     }
+
+    if (fieldName === ClusterFieldNames.EcsServiceId && isClusterOnly) {
+      const { clusterName, name } = row.original as any
+
+      goToServiceDetails && name && goToServiceDetails(clusterName, name)
+    }
   }
 
-  const isRowClickable = fieldName === 'Workload Id' || fieldName === 'Node'
+  const isRowClickable = [
+    ClusterFieldNames.WorkloadId,
+    ClusterFieldNames.Node,
+    ClusterFieldNames.EcsServiceId
+  ].includes(fieldName as ClusterFieldNames)
 
   return (
     <Container background="white">

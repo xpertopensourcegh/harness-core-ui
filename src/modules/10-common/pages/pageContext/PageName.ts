@@ -114,6 +114,7 @@ export enum PAGE_NAME {
   CECreatePerspectivePage = 'CECreatePerspectivePage',
   CEPerspectiveListPage = 'CEPerspectiveListPage',
   CEWorkloadDetailsPage = 'CEWorkloadDetailsPage',
+  CEServiceDetailsPage = 'CEServiceDetailsPage',
   CENodeDetailsPage = 'CENodeDetailsPage',
   CEAnomaliesOverviewPage = 'CEAnomaliesOverviewPage',
   CEBusinessMapping = 'CEBusinessMapping',

@@ -84,7 +84,8 @@ export enum NodepoolTimeRangeType {
 
 export enum CCM_PAGE_TYPE {
   Workload = 'WORKLOAD',
-  Node = 'NODE'
+  Node = 'NODE',
+  Service = 'SERVICE'
 }
 
 export interface YamlDependency {
