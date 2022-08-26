@@ -12,8 +12,8 @@ export default function PrometheusMetricThresholdTab(): JSX.Element {
 
   const { values: formValues } = useFormikContext<MapPrometheusQueryToService>()
 
-  const ignoreThresholdsLength = formValues.ignoreThresholds.length
-  const failFastThresholdsLength = formValues.failFastThresholds.length
+  const ignoreThresholdsLength = formValues.ignoreThresholds?.length
+  const failFastThresholdsLength = formValues.failFastThresholds?.length
 
   return (
     <Tabs
@@ -23,12 +23,12 @@ export default function PrometheusMetricThresholdTab(): JSX.Element {
       tabList={[
         {
           id: getString('cv.monitoringSources.appD.ignoreThresholds'),
-          title: `${getString('cv.monitoringSources.appD.ignoreThresholds')} (${ignoreThresholdsLength})`,
+          title: `${getString('cv.monitoringSources.appD.ignoreThresholds')} (${ignoreThresholdsLength ?? 0})`,
           panel: <PrometheusDIgnoreThresholdTabContent />
         },
         {
           id: getString('cv.monitoringSources.appD.failFastThresholds'),
-          title: `${getString('cv.monitoringSources.appD.failFastThresholds')} (${failFastThresholdsLength})`,
+          title: `${getString('cv.monitoringSources.appD.failFastThresholds')} (${failFastThresholdsLength ?? 0})`,
           panel: <PrometheusFailFastThresholdTabContent />
         }
       ]}

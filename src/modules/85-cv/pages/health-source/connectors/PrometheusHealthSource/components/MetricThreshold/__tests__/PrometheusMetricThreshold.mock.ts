@@ -5,6 +5,9 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
+import type { MapPrometheusQueryToService } from '../../../PrometheusHealthSource.constants'
+import type { PrometheusMetricThresholdContextType } from '../PrometheusMetricThreshold.types'
+
 export const formikInitialValues = {
   identifier: 'prometheus_metric',
   metricName: 'Prometheus Metric',
@@ -39,7 +42,6 @@ export const formikInitialValues = {
   ignoreThresholds: [
     {
       metricType: 'Custom',
-      metricName: null,
       type: 'IgnoreThreshold',
       spec: {
         action: 'Ignore'
@@ -54,7 +56,6 @@ export const formikInitialValues = {
     {
       metricType: 'Custom',
       groupName: null,
-      metricName: null,
       type: 'FailImmediately',
       spec: {
         action: 'FailImmediately',
@@ -109,8 +110,14 @@ export const formikInitialValuesCriteriaGreaterThanMock = {
   ]
 }
 
-export const PrometheusThresholdProps = {
-  formikValues: formikInitialValues,
+export const formikInitialValuesNullThresholds = {
+  ...formikInitialValues,
+  ignoreThresholds: null,
+  failFastThresholds: null
+}
+
+export const PrometheusThresholdProps: PrometheusMetricThresholdContextType = {
+  formikValues: formikInitialValues as MapPrometheusQueryToService,
   groupedCreatedMetrics: {
     g1: [
       {

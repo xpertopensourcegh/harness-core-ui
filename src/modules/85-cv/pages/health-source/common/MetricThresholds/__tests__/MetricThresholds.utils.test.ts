@@ -289,6 +289,13 @@ describe('AppDIgnoreThresholdTabContent', () => {
     expect(errors).toEqual({ 'failFastThresholds.0.spec.spec.count': 'cv.metricThresholds.validations.countValue' })
   })
 
+  test('should check validateCommonFieldsForMetricThreshold handles null threshold value', () => {
+    const errors = {}
+
+    validateCommonFieldsForMetricThreshold('failFastThresholds', errors, null, key => key, true)
+    expect(errors).toEqual({})
+  })
+
   test('checkDuplicate function should show error if there are duplicate thresholds', () => {
     const errors = {}
 

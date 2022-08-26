@@ -264,10 +264,6 @@ export function checkDuplicate(
   isValidateGroup: boolean,
   getString: UseStringsReturn['getString']
 ): void {
-  if (thresholdValues.length < 2) {
-    return void 0
-  }
-
   thresholdValues.some((thresholdValue, index) => {
     return checkForDuplicateThresholds(
       thresholdName,
@@ -295,69 +291,71 @@ export function checkDuplicate(
 export function validateCommonFieldsForMetricThreshold(
   thresholdName: string,
   errors: Record<string, string>,
-  thresholdValues: MetricThresholdType[],
+  thresholdValues: MetricThresholdType[] | null,
   getString: UseStringsReturn['getString'],
   isValidateGroup = false
 ): void {
-  thresholdValues.forEach((value: MetricThresholdType, index: number) => {
-    if (!value.metricType) {
-      errors[`${thresholdName}.${index}.metricType`] = getString('cv.metricThresholds.validations.metricType')
-    }
-    if (!value.metricName) {
-      errors[`${thresholdName}.${index}.metricName`] = getString('cv.metricThresholds.validations.metricName')
-    }
-
-    if (isValidateGroup && !value.groupName) {
-      errors[`${thresholdName}.${index}.groupName`] = getString('cv.metricThresholds.validations.groupTransaction')
-    }
-
-    if (!value.criteria?.type) {
-      errors[`${thresholdName}.${index}.criteria.type`] = getString('cv.metricThresholds.validations.criteria')
-    }
-
-    // For absolute type, greaterThan or lessThan any one of the field is mandatory.
-    if (
-      value.criteria?.type === MetricCriteriaValues.Absolute &&
-      !value.criteria?.spec?.greaterThan &&
-      !value.criteria?.spec?.lessThan
-    ) {
-      errors[`${thresholdName}.${index}.criteria.spec.greaterThan`] = getString('cv.required')
-      errors[`${thresholdName}.${index}.criteria.spec.lessThan`] = getString('cv.required')
-    }
-
-    // Percentage value is required for selected criteria percentage type
-    if (
-      value.criteria?.type === MetricCriteriaValues.Percentage &&
-      value?.criteria?.spec &&
-      !value?.criteria?.spec[value?.criteria?.criteriaPercentageType as CriteriaThresholdValues]
-    ) {
-      errors[`${thresholdName}.${index}.criteria.spec.${value.criteria.criteriaPercentageType}`] =
-        getString('cv.required')
-    }
-
-    // Percentage value must not be greater than 100
-    if (
-      value.criteria?.type === MetricCriteriaValues.Percentage &&
-      value?.criteria?.spec &&
-      (value?.criteria?.spec[value?.criteria?.criteriaPercentageType as CriteriaThresholdValues] as number) > 100
-    ) {
-      errors[`${thresholdName}.${index}.criteria.spec.${value.criteria.criteriaPercentageType}`] = getString(
-        'cv.metricThresholds.validations.percentageValidation'
-      )
-    }
-
-    if (thresholdName === MetricThresholdPropertyName.FailFastThresholds) {
-      if (value.spec.action !== FailFastActionValues.FailImmediately && !value.spec.spec?.count) {
-        errors[`${thresholdName}.${index}.spec.spec.count`] = getString('cv.required')
+  if (Array.isArray(thresholdValues) && thresholdValues.length) {
+    thresholdValues.forEach((value: MetricThresholdType, index: number) => {
+      if (!value.metricType) {
+        errors[`${thresholdName}.${index}.metricType`] = getString('cv.metricThresholds.validations.metricType')
+      }
+      if (!value.metricName) {
+        errors[`${thresholdName}.${index}.metricName`] = getString('cv.metricThresholds.validations.metricName')
       }
 
-      if (value.spec.action !== FailFastActionValues.FailImmediately && (value.spec?.spec?.count as number) <= 1) {
-        errors[`${thresholdName}.${index}.spec.spec.count`] = getString('cv.metricThresholds.validations.countValue')
+      if (isValidateGroup && !value.groupName) {
+        errors[`${thresholdName}.${index}.groupName`] = getString('cv.metricThresholds.validations.groupTransaction')
       }
-    }
-  })
 
-  checkDuplicate(thresholdName, thresholdValues, errors, isValidateGroup, getString)
+      if (!value.criteria?.type) {
+        errors[`${thresholdName}.${index}.criteria.type`] = getString('cv.metricThresholds.validations.criteria')
+      }
+
+      // For absolute type, greaterThan or lessThan any one of the field is mandatory.
+      if (
+        value.criteria?.type === MetricCriteriaValues.Absolute &&
+        !value.criteria?.spec?.greaterThan &&
+        !value.criteria?.spec?.lessThan
+      ) {
+        errors[`${thresholdName}.${index}.criteria.spec.greaterThan`] = getString('cv.required')
+        errors[`${thresholdName}.${index}.criteria.spec.lessThan`] = getString('cv.required')
+      }
+
+      // Percentage value is required for selected criteria percentage type
+      if (
+        value.criteria?.type === MetricCriteriaValues.Percentage &&
+        value?.criteria?.spec &&
+        !value?.criteria?.spec[value?.criteria?.criteriaPercentageType as CriteriaThresholdValues]
+      ) {
+        errors[`${thresholdName}.${index}.criteria.spec.${value.criteria.criteriaPercentageType}`] =
+          getString('cv.required')
+      }
+
+      // Percentage value must not be greater than 100
+      if (
+        value.criteria?.type === MetricCriteriaValues.Percentage &&
+        value?.criteria?.spec &&
+        (value?.criteria?.spec[value?.criteria?.criteriaPercentageType as CriteriaThresholdValues] as number) > 100
+      ) {
+        errors[`${thresholdName}.${index}.criteria.spec.${value.criteria.criteriaPercentageType}`] = getString(
+          'cv.metricThresholds.validations.percentageValidation'
+        )
+      }
+
+      if (thresholdName === MetricThresholdPropertyName.FailFastThresholds) {
+        if (value.spec.action !== FailFastActionValues.FailImmediately && !value.spec.spec?.count) {
+          errors[`${thresholdName}.${index}.spec.spec.count`] = getString('cv.required')
+        }
+
+        if (value.spec.action !== FailFastActionValues.FailImmediately && (value.spec?.spec?.count as number) <= 1) {
+          errors[`${thresholdName}.${index}.spec.spec.count`] = getString('cv.metricThresholds.validations.countValue')
+        }
+      }
+    })
+
+    checkDuplicate(thresholdName, thresholdValues, errors, isValidateGroup, getString)
+  }
 }
 
 export const getIsMetricPacksSelected = (metricData: { [key: string]: boolean }): boolean => {

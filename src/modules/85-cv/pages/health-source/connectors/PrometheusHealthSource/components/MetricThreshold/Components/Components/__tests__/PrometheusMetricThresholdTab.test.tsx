@@ -5,6 +5,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   formikInitialValues,
+  formikInitialValuesNullThresholds,
   PrometheusThresholdProps as MockPropValues
 } from '../../../__tests__/PrometheusMetricThreshold.mock'
 import PrometheusMetricThresholdTab from '../PrometheusMetricThresholdTab'
@@ -23,8 +24,6 @@ describe('PrometheusMetricThresholdTab', () => {
       <TestWrapper>
         <Formik initialValues={formikInitialValues} onSubmit={jest.fn()} formName="prometheusHealthSourceform">
           <FormikForm>
-            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-            {/* @ts-ignore */}
             <PrometheusMetricThresholdContext.Provider value={MockPropValues}>
               <PrometheusMetricThresholdTab />
             </PrometheusMetricThresholdContext.Provider>
@@ -40,6 +39,34 @@ describe('PrometheusMetricThresholdTab', () => {
     fireEvent.click(screen.getByText(/cv.monitoringSources.appD.failFastThresholds/))
 
     expect(screen.getByText('cv.monitoringSources.appD.failFastThresholds (1)')).toBeInTheDocument()
+    expect(screen.queryByTestId('PrometheusIgnoreThresholdTabContent')).not.toBeInTheDocument()
+    expect(screen.getByTestId('PrometheusFailFastThresholdTabContent')).toBeInTheDocument()
+  })
+
+  test('should handle null thresholds value', () => {
+    render(
+      <TestWrapper>
+        <Formik
+          initialValues={formikInitialValuesNullThresholds}
+          onSubmit={jest.fn()}
+          formName="prometheusHealthSourceform"
+        >
+          <FormikForm>
+            <PrometheusMetricThresholdContext.Provider value={MockPropValues}>
+              <PrometheusMetricThresholdTab />
+            </PrometheusMetricThresholdContext.Provider>
+          </FormikForm>
+        </Formik>
+      </TestWrapper>
+    )
+
+    expect(screen.getByText('cv.monitoringSources.appD.ignoreThresholds (0)')).toBeInTheDocument()
+    expect(screen.getByTestId('PrometheusIgnoreThresholdTabContent')).toBeInTheDocument()
+    expect(screen.queryByTestId('PrometheusFailFastThresholdTabContent')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByText(/cv.monitoringSources.appD.failFastThresholds/))
+
+    expect(screen.getByText('cv.monitoringSources.appD.failFastThresholds (0)')).toBeInTheDocument()
     expect(screen.queryByTestId('PrometheusIgnoreThresholdTabContent')).not.toBeInTheDocument()
     expect(screen.getByTestId('PrometheusFailFastThresholdTabContent')).toBeInTheDocument()
   })
