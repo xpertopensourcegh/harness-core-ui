@@ -15,6 +15,112 @@ export const mockResponse: RestResponseBoolean = {
   responseMessages: []
 }
 
+export const mockAuthSettingsResponse = {
+  metaData: {},
+  resource: {
+    ngAuthSettings: [
+      {
+        origin: 'login.microsoftonline.com',
+        identifier: '58_yNTnmRPCYWl0H-wnn8A',
+        logoutUrl: null,
+        groupMembershipAttr: null,
+        displayName: 'SAML002',
+        authorizationEnabled: false,
+        entityIdentifier: null,
+        samlProviderType: 'AZURE',
+        clientId: null,
+        clientSecret: null,
+        settingsType: 'SAML'
+      },
+      {
+        connectionSettings: {
+          host: 'ldap.jumpcloud.com',
+          port: 389,
+          sslEnabled: false,
+          referralsEnabled: true,
+          maxReferralHops: 5,
+          bindDN: 'uid=ldap_user1,ou=Users,o=611a119873e7186e37f75599,dc=jumpcloud,dc=com',
+          bindPassword: '*****',
+          passwordType: 'INLINE',
+          bindSecret: null,
+          connectTimeout: 80000,
+          responseTimeout: 8000,
+          useRecursiveGroupMembershipSearch: false,
+          accountId: null,
+          settingType: 'LDAP'
+        },
+        identifier: 'vBnRLowtTCKHdAFA-22_fg',
+        userSettingsList: [
+          {
+            baseDN: 'ou=Users,o=611a119873e7186e37f75599,dc=jumpcloud,dc=com',
+            searchFilter: '(objectClass=inetOrgPerson)',
+            uidAttr: 'uid',
+            samAccountNameAttr: 'sAMAccountName',
+            emailAttr: 'mail',
+            displayNameAttr: 'cn',
+            groupMembershipAttr: 'memberOf'
+          }
+        ],
+        groupSettingsList: [
+          {
+            baseDN: 'ou=Users,o=611a119873e7186e37f75599,dc=jumpcloud,dc=com',
+            searchFilter: '(objectClass=groupOfNames)',
+            nameAttr: 'cn',
+            descriptionAttr: 'description',
+            userMembershipAttr: 'member',
+            referencedUserAttr: 'dn'
+          }
+        ],
+        displayName: 'ldap11223355',
+        cronExpression: '0 0/15 * 1/1 * ? *',
+        nextIterations: [
+          1661413500000, 1661414400000, 1661415300000, 1661416200000, 1661417100000, 1661418000000, 1661418900000,
+          1661419800000
+        ],
+        settingsType: 'LDAP'
+      },
+      {
+        filter: null,
+        allowedProviders: ['LINKEDIN', 'GITHUB', 'AZURE', 'GOOGLE', 'GITLAB', 'BITBUCKET'],
+        settingsType: 'OAUTH'
+      },
+      {
+        loginSettings: {
+          uuid: 'KM3A-8vETmCI7nV7j5jzDg',
+          accountId: 'mGS7wFvWQ3mVLkTxCyYtVQ',
+          lastUpdatedBy: null,
+          lastUpdatedAt: 1632562527975,
+          userLockoutPolicy: {
+            enableLockoutPolicy: false,
+            numberOfFailedAttemptsBeforeLockout: 5,
+            lockOutPeriod: 24,
+            notifyUser: true,
+            userGroupsToNotify: null
+          },
+          passwordExpirationPolicy: {
+            enabled: false,
+            daysBeforePasswordExpires: 90,
+            daysBeforeUserNotifiedOfPasswordExpiration: 5
+          },
+          passwordStrengthPolicy: {
+            enabled: false,
+            minNumberOfCharacters: 8,
+            minNumberOfUppercaseCharacters: 0,
+            minNumberOfLowercaseCharacters: 0,
+            minNumberOfSpecialCharacters: 0,
+            minNumberOfDigits: 0
+          }
+        },
+        settingsType: 'USER_PASSWORD'
+      }
+    ],
+    whitelistedDomains: [],
+    authenticationMechanism: 'USER_PASSWORD',
+    twoFactorEnabled: false
+  },
+  responseMessages: []
+}
+
 export const loginSettings: LoginSettings = {
   uuid: '123',
   accountId: '123',

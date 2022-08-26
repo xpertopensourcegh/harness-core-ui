@@ -195,6 +195,9 @@ pricePreview:
   calculatedNextStep: Calculated in final review
   discount: ' (2 months free)'
 ldap:
+  authChangeSuccessful: Authentication mechanism changed to LDAP successfuly
+  ldapTestSuccessful: LDAP connection test successful
+  verifyAndEnableConfig: Verify and Enable LDAP Configuration
   addLdap: + LDAP Provider
   connectionSettings: Connection Settings
   userQueries: User Queries

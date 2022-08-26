@@ -1626,6 +1626,7 @@ export interface StringsMap {
   'authSettings.ldap.addLdap': string
   'authSettings.ldap.addUserQueryDescription': string
   'authSettings.ldap.addUserQueryHeading': string
+  'authSettings.ldap.authChangeSuccessful': string
   'authSettings.ldap.baseDN': string
   'authSettings.ldap.connSettings.bindDN': string
   'authSettings.ldap.connSettings.bindDNPlaceholder': string
@@ -1648,6 +1649,7 @@ export interface StringsMap {
   'authSettings.ldap.groupMembershipAttributes': string
   'authSettings.ldap.groupQueries': string
   'authSettings.ldap.groupQueryTitle': string
+  'authSettings.ldap.ldapTestSuccessful': string
   'authSettings.ldap.nameAttributes': string
   'authSettings.ldap.newGroupQuery': string
   'authSettings.ldap.newUserQuery': string
@@ -1663,6 +1665,7 @@ export interface StringsMap {
   'authSettings.ldap.updateStepFailMessage': string
   'authSettings.ldap.userQueries': string
   'authSettings.ldap.userQueryTitle': string
+  'authSettings.ldap.verifyAndEnableConfig': string
   'authSettings.ldapProviderDeleted': string
   'authSettings.lockoutDuration': string
   'authSettings.lockoutPolicy': string
