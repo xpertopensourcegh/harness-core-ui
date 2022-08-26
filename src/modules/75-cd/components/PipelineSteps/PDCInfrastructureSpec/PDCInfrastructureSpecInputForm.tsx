@@ -10,23 +10,16 @@ import cx from 'classnames'
 import { defaultTo, get, isArray, isString, noop } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import {
-  AllowedTypes,
-  EXECUTION_TIME_INPUT_VALUE,
-  Formik,
-  getMultiTypeFromValue,
-  Layout,
-  MultiTypeInputType
-} from '@harness/uicore'
+import { AllowedTypes, Formik, getMultiTypeFromValue, Layout, MultiTypeInputType } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { isMultiTypeRuntime } from '@common/utils/utils'
+
 import type { PdcInfrastructure } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { Connectors } from '@connectors/constants'
-import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
+import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
@@ -88,8 +81,8 @@ export const PDCInfrastructureSpecInputForm: React.FC<PDCInfrastructureSpecInput
     serviceType: ''
   }
 
-  useDeepCompareEffect(() => {
-    formikRef.current?.setValues({
+  const getInitialValues = (): PDCInfrastructureUI => {
+    return {
       ...initialValues,
       hosts: isArray(initialValues.hosts) ? initialValues.hosts.join(', ') : defaultTo(initialValues.hosts, ''),
       hostFilters: isArray(initialValues.hostFilters)
@@ -97,15 +90,7 @@ export const PDCInfrastructureSpecInputForm: React.FC<PDCInfrastructureSpecInput
         : defaultTo(initialValues.hostFilters, ''),
       attributeFilters: getAttributeFilters(initialValues),
       serviceType: defaultTo(initialValues.serviceType, '')
-    })
-  }, [initialValues])
-
-  const multiTypeValueSelected = (value?: string): MultiTypeInputType => {
-    if (value === EXECUTION_TIME_INPUT_VALUE) {
-      return MultiTypeInputType.EXECUTION_TIME
     }
-    const type = getMultiTypeFromValue(value)
-    return isMultiTypeRuntime(type) ? MultiTypeInputType.FIXED : type
   }
 
   return (
@@ -113,7 +98,7 @@ export const PDCInfrastructureSpecInputForm: React.FC<PDCInfrastructureSpecInput
       {formikInitialValues && (
         <Formik<PDCInfrastructureUI>
           formName="pdcInfraRuntime"
-          initialValues={formikInitialValues}
+          initialValues={getInitialValues()}
           enableReinitialize={true}
           validationSchema={getValidationSchemaAll(getString) as Partial<PDCInfrastructureYAML>}
           validate={
@@ -171,7 +156,6 @@ export const PDCInfrastructureSpecInputForm: React.FC<PDCInfrastructureSpecInput
                       gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                       setRefValue
                       className={css.runtimeWidth}
-                      multitypeInputValue={multiTypeValueSelected(formikRef.current.values.connectorRef)}
                     />
                   </div>
                 )}
@@ -184,8 +168,7 @@ export const PDCInfrastructureSpecInputForm: React.FC<PDCInfrastructureSpecInput
                       label={getString('connectors.pdc.hosts')}
                       multiTypeTextArea={{
                         expressions,
-                        allowableTypes,
-                        multitypeInputValue: multiTypeValueSelected(formikRef.current.values.hosts)
+                        allowableTypes
                       }}
                     />
                   </div>
@@ -203,8 +186,7 @@ export const PDCInfrastructureSpecInputForm: React.FC<PDCInfrastructureSpecInput
                       }}
                       multiTypeTextArea={{
                         expressions,
-                        allowableTypes,
-                        multitypeInputValue: multiTypeValueSelected(formikRef.current.values.hostFilters)
+                        allowableTypes
                       }}
                     />
                   </div>
@@ -222,8 +204,7 @@ export const PDCInfrastructureSpecInputForm: React.FC<PDCInfrastructureSpecInput
                       }}
                       multiTypeTextArea={{
                         expressions,
-                        allowableTypes,
-                        multitypeInputValue: multiTypeValueSelected(formikRef.current.values.attributeFilters)
+                        allowableTypes
                       }}
                     />
                   </div>

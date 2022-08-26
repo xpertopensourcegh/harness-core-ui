@@ -481,7 +481,7 @@ const PDCInfrastructureSpecEditable: React.FC<PDCInfrastructureSpecEditableProps
                 } else if (hostsScope === HostScope.HOST_ATTRIBUTES) {
                   /* istanbul ignore next */
                   data.attributeFilters =
-                    getMultiTypeFromValue(value.attributeFilters) === MultiTypeInputType.RUNTIME
+                    getMultiTypeFromValue(value.attributeFilters) !== MultiTypeInputType.FIXED
                       ? value.attributeFilters
                       : parseAttributes(value.attributeFilters || '')
                 }
