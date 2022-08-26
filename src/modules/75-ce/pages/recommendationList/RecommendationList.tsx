@@ -27,9 +27,12 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { CCM_PAGE_TYPE, CloudProvider } from '@ce/types'
 import { calculateSavingsPercentage, getProviderIcon, resourceTypeToRoute } from '@ce/utils/recommendationUtils'
 import { generateFilters } from '@ce/utils/anomaliesUtils'
+import { getIdentifierFromName } from '@common/utils/StringUtils'
+import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import { useQueryParamsState } from '@common/hooks/useQueryParamsState'
 import {
   CCMRecommendationFilterProperties,
+  FilterDTO,
   QLCEViewFilterWrapper,
   RecommendationItemDTO,
   RecommendationOverviewStats,
@@ -63,7 +66,7 @@ interface RecommendationListProps {
     gotoPage: (pageNumber: number) => void
   }
   onAddClusterSuccess: () => void
-  filters: CCMRecommendationFilterProperties
+  filters?: CCMRecommendationFilterProperties
 }
 
 const RecommendationsList: React.FC<RecommendationListProps> = ({
@@ -364,8 +367,10 @@ const RecommendationListPage: React.FC = () => {
     origin: string
   }>()
 
-  const [selectedFilterProperties, setSelectedFilterProperties] =
-    useQueryParamsState<CCMRecommendationFilterProperties>('filters', {})
+  const [selectedFilter, setSelectedFilter] = useQueryParamsState<Partial<FilterDTO>>('filters', {
+    identifier: getIdentifierFromName(UNSAVED_FILTER),
+    filterProperties: {}
+  })
   const [recommendationStats, setRecommendationStats] = useState<RecommendationOverviewStats>()
   const [recommendationCount, setRecommendationCount] = useState<number>()
   const [recommendationList, setRecommendationList] = useState<RecommendationItemDTO[]>([])
@@ -453,13 +458,13 @@ const RecommendationListPage: React.FC = () => {
       const [stats, count] = await Promise.all([
         fetchRecommendationStats({
           minSaving: 1,
-          ...selectedFilterProperties,
+          ...selectedFilter.filterProperties,
           filterType: 'CCMRecommendation',
           perspectiveFilters
         }),
         fetchRecommendationCount({
           minSaving: 1,
-          ...selectedFilterProperties,
+          ...selectedFilter.filterProperties,
           filterType: 'CCMRecommendation',
           perspectiveFilters
         })
@@ -475,7 +480,7 @@ const RecommendationListPage: React.FC = () => {
   const getRecommendationList = async () => {
     const response = await fetchRecommendationList({
       minSaving: 1,
-      ...selectedFilterProperties,
+      ...selectedFilter.filterProperties,
       filterType: 'CCMRecommendation',
       perspectiveFilters,
       offset: page * 10,
@@ -487,11 +492,11 @@ const RecommendationListPage: React.FC = () => {
 
   useDeepCompareEffect(() => {
     getRecommendationData()
-  }, [selectedFilterProperties])
+  }, [selectedFilter.filterProperties])
 
   useDeepCompareEffect(() => {
     getRecommendationList()
-  }, [selectedFilterProperties, page])
+  }, [selectedFilter.filterProperties, page])
 
   const isPageLoading = listLoading || countLoading || statsLoading
 
@@ -524,10 +529,11 @@ const RecommendationListPage: React.FC = () => {
       <Card style={{ width: '100%' }}>
         <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
           <RecommendationFilters
-            applyFilters={(properties: CCMRecommendationFilterProperties) => {
+            applyFilters={(filter: Partial<FilterDTO>) => {
               setPage(0)
-              setSelectedFilterProperties(properties)
+              setSelectedFilter({ identifier: filter.identifier, filterProperties: filter.filterProperties })
             }}
+            appliedFilter={selectedFilter}
           />
         </Layout.Horizontal>
       </Card>
@@ -555,7 +561,7 @@ const RecommendationListPage: React.FC = () => {
                 pagination={pagination}
                 fetching={listLoading || fetchingCCMMetaData}
                 data={recommendationList}
-                filters={selectedFilterProperties}
+                filters={selectedFilter.filterProperties}
               />
             </Layout.Vertical>
           </Container>

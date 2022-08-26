@@ -14,13 +14,9 @@ import { defaultTo } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { CcmMetaData, QlceViewTimeFilterOperator, useFetchCcmMetaDataQuery } from 'services/ce/services'
-import {
-  AnomalyData,
-  AnomalyFilterProperties,
-  AnomalySummary,
-  useGetAnomalyWidgetsData,
-  useListAnomalies
-} from 'services/ce'
+import { StringUtils } from '@common/exports'
+import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
+import { AnomalyData, AnomalySummary, FilterDTO, useGetAnomalyWidgetsData, useListAnomalies } from 'services/ce'
 import AnomaliesSummary from '@ce/components/AnomaliesSummary/AnomaliesSummary'
 import AnomalyFilters from '@ce/components/AnomaliesFilter/AnomaliesFilter'
 import AnomaliesListGridView from '@ce/components/AnomaliesListView/AnomaliesListView'
@@ -71,7 +67,10 @@ const AnomaliesOverviewPage: React.FC = () => {
   const [perspectiveAnomaliesData, setPerspectiveANomaliesData] = useState([])
   const [cloudProvidersWiseData, setCloudProvidersWiseData] = useState([])
   const [statusWiseData, setStatusWiseData] = useState([])
-  const [selectedFilterProperties, setSelectedFilterProperties] = useState<AnomalyFilterProperties>({})
+  const [selectedFilter, setSelectedFilter] = useQueryParamsState<Partial<FilterDTO>>('filters', {
+    identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER),
+    filterProperties: {}
+  })
   const { trackEvent } = useTelemetry()
   const { getRBACErrorMessage } = useRBACError()
 
@@ -127,7 +126,7 @@ const AnomaliesOverviewPage: React.FC = () => {
     const getList = async () => {
       try {
         const response = await getAnomaliesList({
-          ...selectedFilterProperties,
+          ...selectedFilter.filterProperties,
           timeFilters: getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
           groupBy: [],
           orderBy: [
@@ -148,13 +147,20 @@ const AnomaliesOverviewPage: React.FC = () => {
     }
 
     getList()
-  }, [JSON.stringify(selectedFilterProperties), sortByObj, getAnomaliesList, searchText, timeRange.from, timeRange.to])
+  }, [
+    JSON.stringify(selectedFilter.filterProperties),
+    sortByObj,
+    getAnomaliesList,
+    searchText,
+    timeRange.from,
+    timeRange.to
+  ])
 
   useEffect(() => {
     const getSummary = async () => {
       try {
         const response = await getAnomalySummary({
-          ...selectedFilterProperties,
+          ...selectedFilter.filterProperties,
           searchText: [searchText],
           timeFilters: getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
           filterType: 'Anomaly'
@@ -166,14 +172,14 @@ const AnomaliesOverviewPage: React.FC = () => {
       }
     }
     getSummary()
-  }, [JSON.stringify(selectedFilterProperties), getAnomalySummary, searchText, timeRange.from, timeRange.to])
+  }, [JSON.stringify(selectedFilter.filterProperties), getAnomalySummary, searchText, timeRange.from, timeRange.to])
 
   useEffect(() => {
     if (listData && costData) {
       trackEvent(PAGE_NAMES.ANOMALY_LANDING_PAGE, {
         count: listData.length,
         totalCostImpact: costData?.anomalousCost,
-        ...selectedFilterProperties,
+        ...selectedFilter.filterProperties,
         timeFilters: getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to))
       })
     }
@@ -230,9 +236,10 @@ const AnomaliesOverviewPage: React.FC = () => {
         breadcrumbs={<NGBreadcrumbs />}
       />
       <AnomalyFilters
-        applyFilters={(properties: AnomalyFilterProperties) => {
-          setSelectedFilterProperties(properties)
+        applyFilters={(filter: Partial<FilterDTO>) => {
+          setSelectedFilter({ identifier: filter.identifier, filterProperties: filter.filterProperties })
         }}
+        appliedFilter={selectedFilter}
         ccmMetaData={ccmMetaData}
         setTimeRange={setTimeRange}
         timeRange={timeRange}

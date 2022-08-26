@@ -13,14 +13,9 @@ import { useModalHook } from '@harness/use-modal'
 import { useStrings } from 'framework/strings'
 import TimeRangePicker from '@ce/common/TimeRangePicker/TimeRangePicker'
 import type { setTimeRangeFn } from '@ce/types'
-import {
-  AnomalyFilterProperties,
-  FilterDTO,
-  FilterStatsDTO,
-  useAnomalyFilterValues,
-  useGetFilterList
-} from 'services/ce'
-import { flattenObject, removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
+import { getIdentifierFromName } from '@common/utils/StringUtils'
+import { FilterDTO, FilterStatsDTO, useAnomalyFilterValues, useGetFilterList } from 'services/ce'
+import { flattenObject, removeNullAndEmpty, UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { anomalyFilterValueColumns } from '@ce/utils/anomaliesUtils'
 import type { CcmMetaData } from 'services/ce/services'
@@ -34,15 +29,29 @@ interface AnomalyFiltersProps {
     from: string
   }
   setTimeRange: setTimeRangeFn
-  applyFilters: (filterProperties: AnomalyFilterProperties) => void
+  applyFilters: (filter: Partial<FilterDTO>) => void
+  appliedFilter: Partial<FilterDTO>
   ccmMetaData: CcmMetaData
 }
 
-const AnomalyFilters: React.FC<AnomalyFiltersProps> = ({ applyFilters, timeRange, setTimeRange, ccmMetaData }) => {
+const AnomalyFilters: React.FC<AnomalyFiltersProps> = ({
+  applyFilters,
+  timeRange,
+  setTimeRange,
+  ccmMetaData,
+  appliedFilter
+}) => {
   const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()
+  const unsavedFilter = {
+    name: UNSAVED_FILTER,
+    identifier: getIdentifierFromName(UNSAVED_FILTER)
+  }
 
-  const [selectedFilter, setSelectedFilter] = useState<FilterDTO | undefined>()
+  const [selectedFilter, setSelectedFilter] = useState<FilterDTO | undefined>({
+    ...unsavedFilter,
+    ...(appliedFilter as FilterDTO)
+  })
 
   const [fetchedFilterValues, setFetchedFilterValues] = useState<FilterStatsDTO[]>([])
 
@@ -81,10 +90,14 @@ const AnomalyFilters: React.FC<AnomalyFiltersProps> = ({ applyFilters, timeRange
       filter = savedFilters.find(item => item.identifier === identifier)
     }
     setSelectedFilter(filter)
-    applyFilters(filter?.filterProperties || {})
+    applyFilters({
+      identifier,
+      filterProperties: filter?.filterProperties
+    })
   }
 
-  const onClearAll = (): void => applyFilters({})
+  const onClearAll = (): void =>
+    applyFilters({ identifier: getIdentifierFromName(UNSAVED_FILTER), filterProperties: {} })
 
   const [openDrawer, closeDrawer] = useModalHook(() => {
     return (
@@ -98,7 +111,10 @@ const AnomalyFilters: React.FC<AnomalyFiltersProps> = ({ applyFilters, timeRange
         applyFilter={(filter: FilterDTO) => {
           closeDrawer()
           setSelectedFilter(filter)
-          applyFilters(filter.filterProperties)
+          applyFilters({
+            identifier: filter.identifier,
+            filterProperties: filter?.filterProperties
+          })
         }}
         fetchedFilterValues={fetchedFilterValues}
         onClearAll={onClearAll}
