@@ -664,6 +664,7 @@ export type AmazonS3ArtifactConfig = ArtifactConfig & {
   connectorRef: string
   filePath?: string
   filePathRegex?: string
+  region?: string
 }
 
 export interface ApiKeyAggregateDTO {
@@ -983,6 +984,7 @@ export type AwsConnector = ConnectorConfigDTO & {
 
 export interface AwsCredential {
   crossAccountAccess?: CrossAccountAccess
+  region?: string
   spec?: AwsCredentialSpec
   type: 'InheritFromDelegate' | 'ManualConfig' | 'Irsa'
 }
@@ -2193,7 +2195,27 @@ export interface CrossAccountAccess {
 }
 
 export type CustomArtifactConfig = ArtifactConfig & {
-  version: ParameterFieldString
+  delegateSelectors?: string[]
+  inputs?: NGVariable[]
+  metadata?: string
+  scripts?: CustomArtifactScripts
+  timeout?: string
+  version: string
+  versionRegex?: string
+}
+
+export interface CustomArtifactScriptInfo {
+  shell: 'Bash' | 'PowerShell'
+  source: CustomArtifactScriptSourceWrapper
+}
+
+export interface CustomArtifactScriptSourceWrapper {
+  spec: CustomScriptBaseSource
+  type: string
+}
+
+export interface CustomArtifactScripts {
+  fetchAllArtifacts: FetchAllArtifacts
 }
 
 export type CustomArtifactSummary = ArtifactSummary & {
@@ -2226,6 +2248,14 @@ export type CustomRemoteStoreConfig = StoreConfig & {
 export type CustomRestrictionDTO = RestrictionDTO & { [key: string]: any }
 
 export type CustomRestrictionMetadataDTO = RestrictionMetadataDTO & {}
+
+export interface CustomScriptBaseSource {
+  type?: string
+}
+
+export type CustomScriptInlineSource = CustomScriptBaseSource & {
+  script?: string
+}
 
 export type CustomSecretManager = ConnectorConfigDTO & {
   connectorRef?: string
@@ -4532,6 +4562,13 @@ export interface FeedbackFormDTO {
   suggestion?: string
 }
 
+export interface FetchAllArtifacts {
+  artifactsArrayPath?: ParameterFieldString
+  attributes?: NGVariable[]
+  spec: CustomArtifactScriptInfo
+  versionPath?: ParameterFieldString
+}
+
 export interface FfSubscriptionDTO {
   accountId?: string
   customer?: CustomerDTO
@@ -6409,13 +6446,13 @@ export type JenkinsBearerTokenDTO = JenkinsAuthCredentialsDTO & {
 }
 
 export type JenkinsBuildStepInfo = StepSpecType & {
-  captureEnvironmentVariable?: boolean
   connectorRef: string
   delegateSelectors?: string[]
   jobName: string
   jobParameter?: JenkinsParameterField[]
   metadata?: string
   unstableStatusAsSuccess?: boolean
+  useConnectorUrlForJobExecution?: boolean
 }
 
 export type JenkinsConnectorDTO = ConnectorConfigDTO & {
@@ -6429,6 +6466,7 @@ export interface JenkinsJobDetailsDTO {
 }
 
 export interface JenkinsParameterField {
+  metadata?: string
   name?: string
   value: string
 }
@@ -19267,6 +19305,7 @@ export interface GetIamRolesForAwsQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  region: string
 }
 
 export type GetIamRolesForAwsProps = Omit<
