@@ -176,6 +176,15 @@ export const getArtifactsHeaderTooltipId = (selectedDeploymentType: ServiceDefin
   switch (selectedDeploymentType) {
     case ServiceDeploymentType.ServerlessAwsLambda:
       return 'serverlessDeploymentTypeArtifacts'
+    case ServiceDeploymentType.NativeHelm:
+      return 'nativeHelmDeploymentTypeArtifacts'
+    case ServiceDeploymentType.AzureWebApp:
+      return 'azureWebAppDeploymentTypeArtifacts'
+    case ServiceDeploymentType.Ssh:
+      return 'sshDeploymentTypeArtifacts'
+    case ServiceDeploymentType.WinRm:
+      return 'winRmDeploymentTypeArtifacts'
+    case ServiceDeploymentType.Kubernetes:
     default:
       return 'deploymentTypeArtifacts'
   }

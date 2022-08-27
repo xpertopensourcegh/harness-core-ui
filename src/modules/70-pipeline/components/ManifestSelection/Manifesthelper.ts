@@ -326,6 +326,15 @@ export const getManifestsHeaderTooltipId = (selectedDeploymentType: ServiceDefin
   switch (selectedDeploymentType) {
     case ServiceDeploymentType.ServerlessAwsLambda:
       return 'serverlessDeploymentTypeManifests'
+    case ServiceDeploymentType.NativeHelm:
+      return 'nativeHelmDeploymentTypeManifests'
+    case ServiceDeploymentType.AzureWebApp:
+      return 'azureWebAppDeploymentTypeManifests'
+    case ServiceDeploymentType.Ssh:
+      return 'sshDeploymentTypeManifests'
+    case ServiceDeploymentType.WinRm:
+      return 'winRmDeploymentTypeManifests'
+    case ServiceDeploymentType.Kubernetes:
     default:
       return 'deploymentTypeManifests'
   }
