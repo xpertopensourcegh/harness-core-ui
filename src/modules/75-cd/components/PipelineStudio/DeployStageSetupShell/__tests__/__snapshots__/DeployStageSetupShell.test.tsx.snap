@@ -1323,7 +1323,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                   >
                     <div
                       class="tabSubHeading ng-tooltip-native"
-                      data-tooltip-id="deploymentTypeManifests"
+                      data-tooltip-id="KubernetesDeploymentTypeManifests"
                     >
                       pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests
                     </div>
@@ -1368,7 +1368,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                   >
                     <div
                       class="tabSubHeading ng-tooltip-native"
-                      data-tooltip-id="deploymentTypeArtifacts"
+                      data-tooltip-id="KubernetesDeploymentTypeArtifacts"
                     >
                       pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts
                     </div>

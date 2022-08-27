@@ -173,19 +173,5 @@ export const ArtifactIdentifierValidation = (
 }
 
 export const getArtifactsHeaderTooltipId = (selectedDeploymentType: ServiceDefinition['type']): string => {
-  switch (selectedDeploymentType) {
-    case ServiceDeploymentType.ServerlessAwsLambda:
-      return 'serverlessDeploymentTypeArtifacts'
-    case ServiceDeploymentType.NativeHelm:
-      return 'nativeHelmDeploymentTypeArtifacts'
-    case ServiceDeploymentType.AzureWebApp:
-      return 'azureWebAppDeploymentTypeArtifacts'
-    case ServiceDeploymentType.Ssh:
-      return 'sshDeploymentTypeArtifacts'
-    case ServiceDeploymentType.WinRm:
-      return 'winRmDeploymentTypeArtifacts'
-    case ServiceDeploymentType.Kubernetes:
-    default:
-      return 'deploymentTypeArtifacts'
-  }
+  return `${selectedDeploymentType}DeploymentTypeArtifacts`
 }
