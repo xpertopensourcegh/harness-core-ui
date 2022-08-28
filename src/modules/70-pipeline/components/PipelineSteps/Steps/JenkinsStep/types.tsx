@@ -25,8 +25,8 @@ export interface jobParameterInterface {
 
 export interface JenkinsStepSpec {
   connectorRef: string
-  jobName: string
-  jobParameter: jobParameterInterface[]
+  jobName: SubmenuSelectOption | string
+  jobParameter: jobParameterInterface[] | string
   delegateSelectors: string[]
   unstableStatusAsSuccess?: boolean
   captureEnvironmentVariable?: boolean

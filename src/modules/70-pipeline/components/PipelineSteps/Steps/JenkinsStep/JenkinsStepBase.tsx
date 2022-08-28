@@ -15,7 +15,8 @@ import {
   Accordion,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  SelectOption
+  SelectOption,
+  RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
@@ -24,7 +25,7 @@ import { FieldArray } from 'formik'
 import cx from 'classnames'
 import { PopoverInteractionKind, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { cloneDeep, isEqual } from 'lodash-es'
+import { cloneDeep, isArray, isEqual } from 'lodash-es'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { StepFormikFowardRef, StepViewType, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -127,7 +128,7 @@ function FormContent({
           ...formik.values,
           spec: {
             ...formik.values.spec,
-            jobName: targetJob as any
+            jobName: targetJob
           }
         })
       } else {
@@ -141,7 +142,7 @@ function FormContent({
               ...formik.values,
               spec: {
                 ...formik.values.spec,
-                jobName: targetChildJob as any
+                jobName: targetChildJob as SubmenuSelectOption
               }
             })
           } else {
@@ -153,6 +154,14 @@ function FormContent({
               }
             })
           }
+        } else if (
+          getMultiTypeFromValue(formik.values.spec.jobName) === MultiTypeInputType.FIXED &&
+          formik.values?.spec?.jobName?.length > 0
+        ) {
+          setJobDetails([
+            ...jobDetails,
+            { label: formik.values?.spec?.jobName, value: formik.values?.spec?.jobName, submenuItems: [] }
+          ])
         }
       }
     }
@@ -275,7 +284,7 @@ function FormContent({
                 formik,
                 'connectorRef',
                 '',
-                getMultiTypeFromValue(formik.values.spec.jobName) === MultiTypeInputType.RUNTIME ? false : true
+                !(getMultiTypeFromValue(formik.values.spec.jobName) === MultiTypeInputType.RUNTIME)
               )
             }
             lastOpenedJob.current = null
@@ -328,8 +337,9 @@ function FormContent({
                   ...formik.values,
                   spec: {
                     ...formik.values.spec,
-                    jobName: newJobName as any,
-                    jobParameter: []
+                    jobName: newJobName as SubmenuSelectOption,
+                    jobParameter:
+                      getMultiTypeFromValue(newJobName) === MultiTypeInputType.RUNTIME ? RUNTIME_INPUT_VALUE : []
                   }
                 })
                 if (type === MultiTypeInputType.FIXED && newJobName?.label?.length) {
@@ -376,12 +386,13 @@ function FormContent({
       <div className={stepCss.formGroup}>
         <MultiTypeFieldSelector
           name="spec.jobParameter"
+          key={getMultiTypeFromValue(formik.values.spec.jobParameter as string)}
           label={getString('pipeline.jenkinsStep.jobParameter')}
           isOptional
           allowedTypes={allowableTypes}
           optionalLabel={getString('common.optionalLabel')}
           defaultValueToReset={[]}
-          disableTypeSelection={true}
+          disableTypeSelection={false}
         >
           <FieldArray
             name="spec.jobParameter"
@@ -396,6 +407,7 @@ function FormContent({
                   {fetchingJobParameters ? (
                     <Spinner />
                   ) : (
+                    isArray(formValues.spec.jobParameter) &&
                     formValues.spec.jobParameter?.map(({ id }: jobParameterInterface, i: number) => {
                       return (
                         <div className={css.jobParameter} key={id}>
@@ -447,10 +459,9 @@ function FormContent({
             }}
           />
         </MultiTypeFieldSelector>
-        {/* Uncomment the below code when making jobParameter runtime */}
-        {/* {getMultiTypeFromValue(formik.values?.spec?.jobParameter as any) === MultiTypeInputType.RUNTIME && (
+        {getMultiTypeFromValue(formik.values?.spec?.jobParameter as string) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={formik.values?.spec?.jobParameter as any}
+            value={formik.values?.spec?.jobParameter as string}
             type="String"
             variableName="spec.jobParameter"
             className={css.minConfigBtn}
@@ -462,13 +473,13 @@ function FormContent({
                 ...formik.values,
                 spec: {
                   ...formik.values.spec,
-                  jobParameter: value as any
+                  jobParameter: value
                 }
               })
             }}
             isReadonly={readonly}
           />
-        )} */}
+        )}
       </div>
 
       <div className={stepCss.noLookDivider} />
@@ -477,7 +488,7 @@ function FormContent({
         <Accordion.Panel
           id="optional-config"
           summary={getString('common.optionalConfig')}
-          details={<OptionalConfiguration readonly={readonly} allowableTypes={allowableTypes} />}
+          details={<OptionalConfiguration readonly={readonly} />}
         />
       </Accordion>
     </React.Fragment>
@@ -499,10 +510,14 @@ export function JenkinsStepBase(
       ),
       jobName: Yup.lazy(value =>
         typeof value === 'object'
-          ? Yup.object().required('abc') // typeError is necessary here, otherwise we get a bad-looking yup error
+          ? Yup.object().required(getString('pipeline.jenkinsStep.validations.jobName')) // typeError is necessary here, otherwise we get a bad-looking yup error
           : Yup.string().required(getString('pipeline.jenkinsStep.validations.jobName'))
       ),
-      jobParameter: variableSchema(getString)
+      jobParameter: Yup.lazy(value =>
+        typeof value === 'object'
+          ? variableSchema(getString) // typeError is necessary here, otherwise we get a bad-looking yup error
+          : Yup.string()
+      )
     }),
     ...getNameAndIdentifierSchema(getString, stepViewType)
   })

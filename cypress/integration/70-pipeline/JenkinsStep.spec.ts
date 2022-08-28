@@ -95,7 +95,7 @@ describe('Connectors list', () => {
     cy.contains('span', 'Save').click()
   })
 
-  it('jenkins step addition, with jobName as runtime values', () => {
+  it.skip('jenkins step addition, with jobName as runtime values', () => {
     cy.contains('p', 'Jenkins').should('be.visible')
     cy.contains('p', 'Jenkins').click()
     cy.get('span[data-icon="service-jenkins"]').click({ force: true })
@@ -126,7 +126,7 @@ describe('Connectors list', () => {
     cy.contains('span', 'Run Pipeline').click()
   })
 
-  it('jenkins step addition, with jobName and connector as runtime values', () => {
+  it.skip('jenkins step addition, with jobName and connector as runtime values', () => {
     cy.contains('p', 'Jenkins').should('be.visible')
     cy.contains('p', 'Jenkins').click()
     cy.get('span[data-icon="service-jenkins"]').click({ force: true })

@@ -6,36 +6,31 @@
  */
 
 import React from 'react'
-import type { AllowedTypes } from '@wings-software/uicore'
 import cx from 'classnames'
-import { FormMultiTypeCheckboxField } from '@common/components'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-function OptionalConfiguration(props: { readonly?: boolean; allowableTypes: AllowedTypes }): React.ReactElement {
-  const { readonly, allowableTypes } = props
-  const { expressions } = useVariablesExpression()
+function OptionalConfiguration(props: { readonly?: boolean }): React.ReactElement {
+  const { readonly } = props
   const { getString } = useStrings()
   return (
-    <>
+    <div className={stepCss.stepPanel}>
       <div className={cx(stepCss.formGroup)}>
-        <FormMultiTypeCheckboxField
+        <FormInput.CheckBox
           name="spec.unstableStatusAsSuccess"
           label={getString('pipeline.jenkinsStep.unstableStatusAsSuccess')}
-          multiTypeTextbox={{ expressions, disabled: readonly, allowableTypes }}
           disabled={readonly}
         />
       </div>
       <div className={cx(stepCss.formGroup)}>
-        <FormMultiTypeCheckboxField
-          name="spec.captureEnvironmentVariable"
-          label={getString('pipeline.jenkinsStep.captureEnvironmentVariable')}
-          multiTypeTextbox={{ expressions, disabled: readonly, allowableTypes }}
+        <FormInput.CheckBox
+          name="spec.useConnectorUrlForJobExecution"
+          label={getString('pipeline.jenkinsStep.useConnectorUrlForJobExecution')}
           disabled={readonly}
         />
       </div>
-    </>
+    </div>
   )
 }
 
