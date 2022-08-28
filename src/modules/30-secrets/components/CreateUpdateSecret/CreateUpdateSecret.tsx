@@ -456,6 +456,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                   formikProps={formikProps}
                   type={type}
                   templateInputSets={templateInputSets as JsonNode}
+                  modalErrorHandler={modalErrorHandler}
                 />
               ) : null}
               {LocalFormFieldsSMList.findIndex(val => val === typeOfSelectedSecretManager) !== -1 ? (

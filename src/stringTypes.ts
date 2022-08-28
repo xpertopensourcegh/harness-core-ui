@@ -1380,6 +1380,7 @@ export interface StringsMap {
   'secrets.createWinRmCredWizard.titleDetails': string
   'secrets.createWinRmCredWizard.validateDomain': string
   'secrets.createWinRmCredWizard.validatePassword': string
+  'secrets.fileNotSupported': string
   'secrets.incompleteSecret': string
   'secrets.labelPath': string
   'secrets.labelSecretName': string

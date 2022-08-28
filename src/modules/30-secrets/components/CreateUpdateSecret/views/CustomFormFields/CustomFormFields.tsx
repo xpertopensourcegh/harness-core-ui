@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { FormInput, MultiTypeInputType } from '@wings-software/uicore'
+import { FormInput, ModalErrorHandlerBinding, MultiTypeInputType } from '@wings-software/uicore'
 import type { FormikContextType } from 'formik'
 import { useStrings } from 'framework/strings'
 
@@ -18,22 +18,31 @@ interface CustomFormFieldsProps {
   type: SecretDTOV2['type']
   readonly?: boolean
   templateInputSets: JsonNode
+  modalErrorHandler: ModalErrorHandlerBinding | undefined
 }
 
 interface FormikContextProps<T> {
   formikProps?: FormikContextType<T>
 }
 
-const CustomFormFields: React.FC<CustomFormFieldsProps & FormikContextProps<any>> = ({ templateInputSets }) => {
+const CustomFormFields: React.FC<CustomFormFieldsProps & FormikContextProps<any>> = ({
+  templateInputSets,
+  type,
+  modalErrorHandler
+}) => {
   const { getString } = useStrings()
   return (
     <>
-      <ScriptVariablesRuntimeInput
-        allowableTypes={[MultiTypeInputType.FIXED]}
-        template={templateInputSets}
-        className={css.inputVarWrapper}
-        path={'templateInputs'}
-      />
+      {type === 'SecretText' ? (
+        <ScriptVariablesRuntimeInput
+          allowableTypes={[MultiTypeInputType.FIXED]}
+          template={templateInputSets}
+          className={css.inputVarWrapper}
+          path={'templateInputs'}
+        />
+      ) : (
+        modalErrorHandler?.showDanger(getString('secrets.fileNotSupported'))
+      )}
       <FormInput.TextArea name="description" isOptional={true} label={getString('description')} />
       <FormInput.KVTagInput name="tags" isOptional={true} label={getString('tagsLabel')} />
     </>

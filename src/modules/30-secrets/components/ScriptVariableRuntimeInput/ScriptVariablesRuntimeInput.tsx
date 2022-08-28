@@ -68,7 +68,9 @@ export function ScriptVariablesRuntimeInput(props: InputOutputVariablesInputSetP
 
   return (
     <>
-      {template?.environmentVariables && isArray(template.environmentVariables) ? (
+      {template?.environmentVariables &&
+      isArray(template.environmentVariables) &&
+      template?.environmentVariables.length ? (
         <div className={css.formGroup}>
           <MultiTypeFieldSelector
             name={`${prefix}.environmentVariables`}
@@ -144,7 +146,6 @@ export function ScriptVariablesRuntimeInput(props: InputOutputVariablesInputSetP
               {template.executionTarget?.host ? (
                 <FormInput.Text
                   name={`${prefix}.executionTarget.host`}
-                  placeholder={getString('common.hostLabel')}
                   label={getString('targetHost')}
                   style={{ marginTop: 'var(--spacing-small)' }}
                   disabled={readonly}
