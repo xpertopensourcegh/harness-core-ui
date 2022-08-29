@@ -46,6 +46,7 @@ import { useCFCapabilitiesForAws, useCFStatesForAws, useGetIamRolesForAws } from
 import { Connectors } from '@connectors/constants'
 import { useQueryParams } from '@common/hooks'
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { isMultiTypeRuntime } from '@common/utils/utils'
 import { TFMonaco } from '../../Common/Terraform/Editview/TFMonacoEditor'
 import CFRemoteWizard from './RemoteFilesForm/CFRemoteWizard'
 import { InlineParameterFile } from './InlineParameterFile'
@@ -369,12 +370,12 @@ export const CreateStack = (
                 disabled={readonly}
                 width={300}
                 setRefValue
-                onChange={(value: any, _unused, _multiType) => {
+                onChange={(value: any, _unused, multiType) => {
                   const scope = value?.scope
                   let newConnectorRef: string
                   if (scope === 'org' || scope === 'account') {
                     newConnectorRef = `${scope}.${value?.record?.identifier}`
-                  } else if (getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME) {
+                  } else if (isMultiTypeRuntime(multiType) || multiType === MultiTypeInputType.EXPRESSION) {
                     newConnectorRef = value
                   } else {
                     newConnectorRef = value?.record?.identifier
