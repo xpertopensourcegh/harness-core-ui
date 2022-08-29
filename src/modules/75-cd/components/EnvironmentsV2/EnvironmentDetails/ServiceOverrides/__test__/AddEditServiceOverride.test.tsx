@@ -40,10 +40,8 @@ describe('Add Edit Service Override Test', () => {
         <AddEditServiceOverride
           defaultTab="variableoverride"
           closeModal={jest.fn()}
-          selectedVariable={{
-            serviceRef: '',
-            variable: { name: '', type: 'String', value: '' }
-          }}
+          expressions={['']}
+          selectedService={null}
           isReadonly={false}
           services={mockServicesListForOverride.data.content}
         />
@@ -65,6 +63,10 @@ describe('Add Edit Service Override Test', () => {
       expect(screen.getByText('variableLabel')).toBeInTheDocument()
     })
     userEvent.click(screen.getByText('variableLabel'))
+
+    const newOverrideText = screen.getByText('common.plusNewName')
+    expect(newOverrideText).toBeDefined()
+    userEvent.click(newOverrideText)
 
     // select variable
     const variableTextBox = screen.getAllByRole('textbox')

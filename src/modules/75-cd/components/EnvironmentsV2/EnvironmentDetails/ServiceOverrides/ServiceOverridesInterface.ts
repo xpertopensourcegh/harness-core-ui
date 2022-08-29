@@ -5,21 +5,16 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import type { AllNGVariables } from '@pipeline/utils/types'
 import type { ManifestConfigWrapper } from 'services/cd-ng'
 
-export interface VariableState {
-  serviceRef: string
-  variable: AllNGVariables
-}
-interface VariableOverride {
+export interface VariableOverride {
   name?: string
   type?: 'String' | 'Number' | 'Secret'
   value?: string
 }
 
 export interface AddEditServiceOverrideFormProps {
-  serviceRef?: string
+  serviceRef: string | null
   environmentRef?: string
   variableOverride?: VariableOverride
   variables?: VariableOverride[]

@@ -5,64 +5,189 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React from 'react'
-import { FormInput, getMultiTypeFromValue, SelectOption } from '@harness/uicore'
-import { useFormikContext } from 'formik'
+import React, { useCallback, useMemo, useState } from 'react'
+import {
+  Button,
+  ButtonSize,
+  ButtonVariation,
+  Dialog,
+  Formik,
+  FormInput,
+  getMultiTypeFromValue,
+  Layout,
+  SelectOption
+} from '@harness/uicore'
+import { Form } from 'formik'
+import { useModalHook } from '@harness/use-modal'
+import type { IDialogProps } from '@blueprintjs/core'
+import { defaultTo } from 'lodash-es'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getVariableTypeOptions, VariableType } from './ServiceOverridesUtils'
+import type { VariableOverride } from './ServiceOverridesInterface'
+import ServiceVariablesOverridesList from './ServiceVariablesOverrides/ServiceVariablesOverridesList'
 
 interface ServiceVariableOverrideProps {
   variablesOptions: SelectOption[]
-  handleVariableChange: (val: SelectOption) => void
+  variableOverrides: VariableOverride[]
+  isReadonly: boolean
+  handleVariableSubmit: (val: VariableOverride, variableIndex: number) => void
+  onServiceVarDelete: (index: number) => void
+}
+
+const DIALOG_PROPS: IDialogProps = {
+  isOpen: true,
+  enforceFocus: false,
+  canEscapeKeyClose: false,
+  canOutsideClickClose: false
 }
 
 function ServiceVariableOverride({
   variablesOptions,
-  handleVariableChange
+  variableOverrides,
+  handleVariableSubmit,
+  isReadonly,
+  onServiceVarDelete
 }: ServiceVariableOverrideProps): React.ReactElement {
   const { getString } = useStrings()
-  const formikProps = useFormikContext<any>()
+  const [variableIndex, setEditIndex] = useState(0)
+
+  const variableListItems = useMemo(() => {
+    const serviceOverideVars = variableOverrides.map(varOverride => varOverride.name)
+    const serviceServiceVars = variablesOptions.map(option => option.value)
+    const finalList = new Set([...serviceOverideVars, ...serviceServiceVars] as string[])
+
+    return Array.from(finalList).map(list => ({
+      label: defaultTo(list, ''),
+      value: defaultTo(list, '')
+    }))
+  }, [variableOverrides, variablesOptions])
+
+  const createNewVariableOverride = (): void => {
+    setEditIndex(variableOverrides.length)
+    showModal()
+  }
+
+  const handleSubmit = (variableObj: VariableOverride): void => {
+    hideModal()
+    const variableOldIndex = variableOverrides.findIndex(override => override.name === variableObj.name)
+    handleVariableSubmit(variableObj, variableOldIndex !== -1 ? variableOldIndex : variableIndex)
+  }
+
+  const onServiceVarEdit = useCallback(
+    (index: number): void => {
+      setEditIndex(index)
+      showModal()
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
+
+  const getInitialValues = (): VariableOverride => {
+    const defaultOverrideValues = variableOverrides[variableIndex]
+    return defaultTo(defaultOverrideValues, {
+      name: '',
+      type: VariableType.String,
+      value: ''
+    })
+  }
+
+  const [showModal, hideModal] = useModalHook(() => {
+    const onClose = (): void => {
+      hideModal()
+    }
+
+    return (
+      <Dialog title={getString('common.addVariable')} onClose={onClose} {...DIALOG_PROPS}>
+        <Formik
+          initialValues={getInitialValues()}
+          formName="serviceVariableOverride"
+          onSubmit={formData => handleSubmit(formData)}
+        >
+          {formik => {
+            return (
+              <Form>
+                <FormInput.Select
+                  name="name"
+                  selectProps={{
+                    allowCreatingNewItems: true
+                  }}
+                  items={variableListItems}
+                  label={getString('variableNameLabel')}
+                  placeholder={getString('common.selectName', { name: getString('variableLabel') })}
+                />
+                <FormInput.Select
+                  name="type"
+                  items={getVariableTypeOptions(getString)}
+                  label={getString('typeLabel')}
+                  placeholder={getString('common.selectName', { name: getString('service') })}
+                  onChange={() => {
+                    formik.setFieldValue('value', '')
+                  }}
+                />
+                {formik.values?.type === VariableType.Secret ? (
+                  <MultiTypeSecretInput name="value" label={getString('cd.overrideValue')} isMultiType />
+                ) : (
+                  <FormInput.MultiTextInput
+                    name="value"
+                    className="variableInput"
+                    label={getString('cd.overrideValue')}
+                    multiTextInputProps={{
+                      defaultValueToReset: '',
+                      textProps: {
+                        type: formik.values?.type === VariableType.Number ? 'number' : 'text'
+                      },
+                      multitypeInputValue: getMultiTypeFromValue(formik.values?.value)
+                    }}
+                  />
+                )}
+                <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
+                  <Button
+                    variation={ButtonVariation.SECONDARY}
+                    text={getString('back')}
+                    icon="chevron-left"
+                    onClick={onClose}
+                  />
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    type="submit"
+                    text={getString('submit')}
+                    rightIcon="chevron-right"
+                  />
+                </Layout.Horizontal>
+              </Form>
+            )
+          }}
+        </Formik>
+      </Dialog>
+    )
+  }, [variableIndex, variableListItems])
 
   return (
-    <>
-      <FormInput.Select
-        name="variableOverride.name"
-        selectProps={{
-          allowCreatingNewItems: true
-        }}
-        items={variablesOptions}
-        label={getString('variableNameLabel')}
-        placeholder={getString('common.selectName', { name: getString('variableLabel') })}
-        onChange={handleVariableChange}
+    <Layout.Vertical flex={{ alignItems: 'flex-start' }}>
+      <ServiceVariablesOverridesList
+        variableOverrides={variableOverrides}
+        isReadonly={isReadonly}
+        onServiceVarEdit={onServiceVarEdit}
+        onServiceVarDelete={onServiceVarDelete}
       />
-      <FormInput.Select
-        name="variableOverride.type"
-        items={getVariableTypeOptions(getString)}
-        label={getString('typeLabel')}
-        placeholder={getString('common.selectName', { name: getString('service') })}
-        onChange={() => {
-          formikProps.setFieldValue('variableOverride.value', '')
+
+      <RbacButton
+        text={getString('common.plusNewName', { name: getString('common.override') })}
+        size={ButtonSize.SMALL}
+        variation={ButtonVariation.LINK}
+        permission={{
+          resource: {
+            resourceType: ResourceType.ENVIRONMENT
+          },
+          permission: PermissionIdentifier.EDIT_ENVIRONMENT
         }}
+        onClick={createNewVariableOverride}
       />
-      {formikProps.values.variableOverride?.type !== VariableType.Secret && (
-        <FormInput.MultiTextInput
-          className="variableInput"
-          name={`variableOverride.value`}
-          label={getString('cd.overrideValue')}
-          multiTextInputProps={{
-            defaultValueToReset: '',
-            textProps: {
-              type: formikProps.values.variableOverride?.type === VariableType.Number ? 'number' : 'text'
-            },
-            multitypeInputValue: getMultiTypeFromValue(formikProps.values.variableOverride?.value)
-          }}
-        />
-      )}
-      {formikProps.values.variableOverride?.type === VariableType.Secret && (
-        <MultiTypeSecretInput name={`variableOverride.value`} label={getString('cd.overrideValue')} isMultiType />
-      )}
-    </>
+    </Layout.Vertical>
   )
 }
 

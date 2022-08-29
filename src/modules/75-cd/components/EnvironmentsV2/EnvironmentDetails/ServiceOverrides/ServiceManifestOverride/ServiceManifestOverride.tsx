@@ -23,7 +23,6 @@ import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ManifestWizard } from '@pipeline/components/ManifestSelection/ManifestWizard/ManifestWizard'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { isGitTypeManifestStore } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import OpenShiftParamWithGit from '@pipeline/components/ManifestSelection/ManifestWizardSteps/OpenShiftParam/OSWithGit'
@@ -53,6 +52,7 @@ interface ManifestVariableOverrideProps {
   isReadonly: boolean
   handleManifestOverrideSubmit: (val: ManifestConfigWrapper, index: number) => void
   removeManifestConfig: (index: number) => void
+  expressions: string[]
   fromEnvConfigPage?: boolean
 }
 const DIALOG_PROPS: IDialogProps = {
@@ -69,10 +69,10 @@ function ServiceManifestOverride({
   handleManifestOverrideSubmit,
   removeManifestConfig,
   isReadonly,
-  fromEnvConfigPage
+  fromEnvConfigPage,
+  expressions
 }: ManifestVariableOverrideProps): React.ReactElement {
   const { getString } = useStrings()
-  const { expressions } = useVariablesExpression()
   const allowableTypes: AllowedTypesWithRunTime[] = [
     MultiTypeInputType.FIXED,
     MultiTypeInputType.RUNTIME,
@@ -86,6 +86,7 @@ function ServiceManifestOverride({
     setEditIndex(manifestOverrides.length)
     showModal()
   }
+
   const editManifestOverride = (
     manifestType: OverrideManifestTypes,
     store: OverrideManifestStoresTypes,

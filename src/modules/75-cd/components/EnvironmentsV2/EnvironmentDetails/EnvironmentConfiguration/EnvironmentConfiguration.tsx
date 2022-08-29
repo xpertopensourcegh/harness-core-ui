@@ -51,6 +51,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import ServiceManifestOverride from '../ServiceOverrides/ServiceManifestOverride/ServiceManifestOverride'
 import css from '../EnvironmentDetails.module.scss'
 
@@ -114,6 +115,7 @@ export default function EnvironmentConfiguration({
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps & EnvironmentPathProps>()
   const history = useHistory()
+  const { expressions } = useVariablesExpression()
   const isServiceManifestEnabled = useFeatureFlag(FeatureFlag.NG_SERVICE_MANIFEST_OVERRIDE)
   const [canEdit] = usePermission({
     resource: {
@@ -335,7 +337,7 @@ export default function EnvironmentConfiguration({
                         id="manifests"
                       >
                         <Text color={Color.GREY_700} font={{ weight: 'bold' }} margin={{ bottom: 'small' }}>
-                          {getString('cd.serviceOverrides.manifestOverrides')}
+                          {getString('manifests')}
                         </Text>
                         <ServiceManifestOverride
                           manifestOverrides={defaultTo(formikProps.values.overrides?.manifests, [])}
@@ -343,6 +345,7 @@ export default function EnvironmentConfiguration({
                           removeManifestConfig={removeManifestConfig}
                           isReadonly={!canEdit}
                           fromEnvConfigPage
+                          expressions={expressions}
                         />
                       </Card>
                     )}

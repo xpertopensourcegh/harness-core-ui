@@ -7,12 +7,10 @@
 
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { defaultTo, get, isNil } from 'lodash-es'
+import { defaultTo, get } from 'lodash-es'
 import cx from 'classnames'
 import { parse } from 'yaml'
 import {
-  FormInput,
-  getMultiTypeFromValue,
   ButtonSize,
   ButtonVariation,
   Text,
@@ -21,7 +19,8 @@ import {
   Container,
   Dialog,
   useToaster,
-  Accordion
+  Accordion,
+  IconName
 } from '@harness/uicore'
 import { useModalHook } from '@harness/use-modal'
 import { FontVariation, Color } from '@harness/design-system'
@@ -36,8 +35,7 @@ import {
   useGetServiceList,
   useGetServiceOverridesList
 } from 'services/cd-ng'
-import { String, useStrings } from 'framework/strings'
-import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/TextInputWithCopyBtn'
+import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import type { EnvironmentPathProps, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
@@ -45,13 +43,12 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { VariableType, labelStringMap, ServiceOverrideTab } from './ServiceOverridesUtils'
+import { ServiceOverrideTab } from './ServiceOverridesUtils'
 import AddEditServiceOverride from './AddEditServiceOverride'
-import type { VariableState } from './ServiceOverridesInterface'
 import ServiceManifestOverridesList from './ServiceManifestOverride/ServiceManifestOverridesList'
+import ServiceVariablesOverridesList from './ServiceVariablesOverrides/ServiceVariablesOverridesList'
 import css from './ServiceOverrides.module.scss'
 
 export function ServiceOverrides(): React.ReactElement {
@@ -74,7 +71,7 @@ export function ServiceOverrides(): React.ReactElement {
     },
     permissions: [PermissionIdentifier.EDIT_ENVIRONMENT]
   })
-  const [selectedServiceOverrideObj, setSelectedServiceOverrideObj] = useState<VariableState | null>(null)
+  const [selectedService, setSelectedService] = useState<string | null>(null)
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const [selectedTab, setSelectedTab] = useState(ServiceOverrideTab.VARIABLE)
 
@@ -176,10 +173,7 @@ export function ServiceOverrides(): React.ReactElement {
 
   const createNewOverride = (): void => {
     setIsEdit(false)
-    setSelectedServiceOverrideObj({
-      serviceRef: '',
-      variable: { name: '', type: 'String', value: '' }
-    })
+    setSelectedService(null)
     showModal()
   }
 
@@ -195,7 +189,8 @@ export function ServiceOverrides(): React.ReactElement {
         title={getString(isEdit ? 'common.editName' : 'common.addName', { name: getString('common.override') })}
       >
         <AddEditServiceOverride
-          selectedVariable={selectedServiceOverrideObj}
+          selectedService={selectedService}
+          expressions={expressions}
           closeModal={closeModal}
           services={defaultTo(services?.data?.content, [])}
           serviceOverrides={serviceOverrides}
@@ -204,12 +199,12 @@ export function ServiceOverrides(): React.ReactElement {
         />
       </Dialog>
     ),
-    [selectedServiceOverrideObj, services, isEdit, serviceOverrides]
+    [selectedService, services, isEdit, serviceOverrides]
   )
 
   const closeModal = (updateServiceOverride?: boolean): void => {
     hideModal()
-    setSelectedServiceOverrideObj(null)
+    setSelectedService(null)
     setSelectedTab(ServiceOverrideTab.VARIABLE)
     if (updateServiceOverride) {
       refetchServiceOverrides()
@@ -227,15 +222,17 @@ export function ServiceOverrides(): React.ReactElement {
           </Text>
           <RbacButton
             size={ButtonSize.SMALL}
+            icon="plus"
             variation={ButtonVariation.SECONDARY}
             onClick={createNewOverride}
             text={getString('common.newName', { name: getString('common.override') })}
             permission={rbacPermission}
+            margin={{ right: 'small' }}
           />
         </Layout.Horizontal>
         <Text>{getString('cd.serviceOverrides.helperText')}</Text>
-        <Accordion activeId={serviceOverrides[0]?.serviceRef}>
-          {serviceOverrides.map((serviceOverride: ServiceOverrideResponseDTO, serviceOverrideIndex: number) => {
+        <Accordion activeId={serviceOverrides[0]?.serviceRef} allowMultiOpen>
+          {serviceOverrides.map((serviceOverride: ServiceOverrideResponseDTO) => {
             const { serviceOverrides: { serviceRef, variables = [], manifests = [] } = {} } = parse(
               defaultTo(serviceOverride.yaml, '{}')
             ) as NGServiceOverrideConfig
@@ -251,15 +248,14 @@ export function ServiceOverrides(): React.ReactElement {
               size: ButtonSize.SMALL,
               variation: ButtonVariation.LINK,
               onClick: () => {
-                setSelectedServiceOverrideObj({
-                  serviceRef: defaultTo(serviceRef, ''),
-                  variable: { name: '', type: 'String', value: '' }
-                })
+                setSelectedService(defaultTo(serviceRef, ''))
                 setIsEdit(false)
                 showModal()
               },
-              text: getString('common.addName', { name: getString('common.override') }),
-              permission: rbacPermission
+              icon: 'plus' as IconName,
+              text: getString('common.newName', { name: getString('common.override') }),
+              permission: rbacPermission,
+              margin: { top: 'medium' }
             }
 
             return (
@@ -283,88 +279,19 @@ export function ServiceOverrides(): React.ReactElement {
                         <Text color={Color.GREY_900} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
                           {getString('cd.serviceOverrides.variableOverrides')}
                         </Text>
-                        {!isNil(variables) && variables.length > 0 && (
-                          <div className={cx(css.tableRow, css.headerRow)}>
-                            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>
-                              {getString('cd.configurationVariable')}
-                            </Text>
-                            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('typeLabel')}</Text>
-                            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>
-                              {getString('cd.overrideValue')}
-                            </Text>
-                          </div>
-                        )}
-                        {variables?.map?.((variable: any, index: number) => (
-                          <div key={`${serviceRef}-${variable.name}`} className={css.tableRow}>
-                            <TextInputWithCopyBtn
-                              name={`serviceOverrides[${serviceOverrideIndex}]variables[${index}].name`}
-                              disabled={true}
-                              staticDisplayValue={variable.name}
-                            />
-                            <String
-                              className={css.valueString}
-                              stringID={labelStringMap[variable.type as VariableType]}
-                              data-testid={`serviceOverrides[${serviceOverrideIndex}]variables[${index}].type`}
-                            />
-                            <div
-                              className={css.valueColumn}
-                              data-type={getMultiTypeFromValue(variable.value as string)}
-                            >
-                              {variable.type === VariableType.Secret ? (
-                                <MultiTypeSecretInput
-                                  name={`serviceOverrides[${serviceOverrideIndex}]variables[${index}].value`}
-                                  disabled={true}
-                                  defaultValue={variable.value}
-                                />
-                              ) : (
-                                <FormInput.MultiTextInput
-                                  className="variableInput"
-                                  name={`serviceOverrides[${serviceOverrideIndex}]variables[${index}].value`}
-                                  label=""
-                                  disabled={true}
-                                  multiTextInputProps={{
-                                    defaultValueToReset: '',
-                                    expressions,
-                                    textProps: {
-                                      type: variable.type === VariableType.Number ? 'number' : 'text'
-                                    },
-                                    value: variable.value
-                                  }}
-                                />
-                              )}
-                              <div className={css.actionButtons}>
-                                <React.Fragment>
-                                  <RbacButton
-                                    icon="Edit"
-                                    tooltip={<String className={css.tooltip} stringID="common.editVariableType" />}
-                                    data-testid={`edit-variable-${index}`}
-                                    onClick={() => {
-                                      setSelectedServiceOverrideObj({
-                                        serviceRef: defaultTo(serviceRef, ''),
-                                        variable
-                                      })
-                                      setSelectedTab(ServiceOverrideTab.VARIABLE)
-                                      setIsEdit(true)
-                                      showModal()
-                                    }}
-                                    minimal
-                                    permission={rbacPermission}
-                                  />
-                                  <RbacButton
-                                    icon="main-trash"
-                                    data-testid={`delete-variable-${index}`}
-                                    tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
-                                    onClick={() =>
-                                      handleDeleteOverride('variables', variables, index, isSingleOverride, serviceRef)
-                                    }
-                                    minimal
-                                    permission={rbacPermission}
-                                  />
-                                </React.Fragment>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                        <ServiceVariablesOverridesList
+                          variableOverrides={variables}
+                          isReadonly={!canEdit}
+                          onServiceVarEdit={() => {
+                            setSelectedTab(ServiceOverrideTab.VARIABLE)
+                            setSelectedService(defaultTo(serviceRef, ''))
+                            setIsEdit(true)
+                            showModal()
+                          }}
+                          onServiceVarDelete={index =>
+                            handleDeleteOverride('variables', variables, index, isSingleOverride, serviceRef)
+                          }
+                        />
                         <RbacButton {...addOverrideBtnProps} />
                       </Card>
                     )}
@@ -378,10 +305,7 @@ export function ServiceOverrides(): React.ReactElement {
                           isReadonly={!canEdit}
                           editManifestOverride={() => {
                             setSelectedTab(ServiceOverrideTab.MANIFEST)
-                            setSelectedServiceOverrideObj({
-                              serviceRef: defaultTo(serviceRef, ''),
-                              variable: { name: '', type: 'String', value: '' }
-                            })
+                            setSelectedService(defaultTo(serviceRef, ''))
                             setIsEdit(true)
                             showModal()
                           }}

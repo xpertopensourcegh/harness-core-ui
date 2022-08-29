@@ -81,7 +81,6 @@ function ServiceManifestOverridesList({
                       <Layout.Horizontal>
                         <Button
                           icon="Edit"
-                          iconProps={{ size: 18 }}
                           onClick={() =>
                             editManifestOverride(
                               manifest?.type as OverrideManifestTypes,
@@ -91,12 +90,7 @@ function ServiceManifestOverridesList({
                           }
                           minimal
                         />
-                        <Button
-                          iconProps={{ size: 18 }}
-                          icon="main-trash"
-                          onClick={() => removeManifestConfig(index)}
-                          minimal
-                        />
+                        <Button icon="main-trash" onClick={() => removeManifestConfig(index)} minimal />
                       </Layout.Horizontal>
                     </span>
                   )}

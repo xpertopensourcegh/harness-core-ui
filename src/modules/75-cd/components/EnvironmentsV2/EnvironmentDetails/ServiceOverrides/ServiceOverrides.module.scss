@@ -24,10 +24,16 @@
 
 .table-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 3fr;
+  grid-template-columns: 2fr 1fr 3fr minmax(10px, 1fr);
   column-gap: var(--spacing-8);
-  margin-bottom: var(--spacing-medium);
   align-items: baseline;
+  &.row-value {
+    padding-top: var(--spacing-medium);
+    padding-bottom: var(--spacing-medium);
+    padding-left: var(--spacing-medium);
+    border-bottom: solid 1px var(--grey-100);
+    font-size: medium;
+  }
 
   & :global(.bp3-form-group) {
     margin: 0;
@@ -63,6 +69,7 @@
     letter-spacing: 0.2px;
     color: var(--grey-600);
     text-transform: uppercase;
+    padding-left: var(--spacing-medium);
   }
 }
 
