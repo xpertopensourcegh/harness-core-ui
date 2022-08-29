@@ -156,6 +156,20 @@ function Service(
         }
         const onSuccessChangeSource = (data: ChangeSourceDTO[]): void => {
           updateChangeSource(data, formik)
+          formik.setFieldValue('sources', {
+            ...formik.values?.sources,
+            changeSources: data
+          })
+          onSave({
+            formik: {
+              ...formik,
+              values: {
+                ...(formik?.values || {}),
+                sources: { ...(formik?.values?.sources || {}), changeSources: data }
+              }
+            },
+            onSuccess
+          })
           hideDrawer()
         }
         if (isTemplate && formik.dirty) {
