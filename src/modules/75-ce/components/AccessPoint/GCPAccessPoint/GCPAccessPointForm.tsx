@@ -319,8 +319,8 @@ const GCPAccessPointForm: React.FC<GCPAccessPointFormProps> = ({
               />
               <FormInput.MultiSelect
                 name="securityGroups"
-                label={getString('ce.co.accessPoint.securityGroupsLabel')}
-                placeholder={getString('ce.co.accessPoint.select.securityGroups')}
+                label={getString('ce.co.accessPoint.networkTagsLabel')}
+                placeholder={getString('ce.co.accessPoint.select.networkTags')}
                 multiSelectProps={{
                   itemRender: (_item, { handleClick }) => (
                     <Menu.Item

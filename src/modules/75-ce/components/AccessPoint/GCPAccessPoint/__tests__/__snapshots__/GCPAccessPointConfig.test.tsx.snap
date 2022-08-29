@@ -1087,7 +1087,7 @@ exports[`GCP DNS mapping screen render second step 1`] = `
                       class="Tooltip--acenter"
                       data-tooltip-id="lbFormSecond_securityGroups"
                     >
-                      ce.co.accessPoint.securityGroupsLabel
+                      ce.co.accessPoint.networkTagsLabel
                     </span>
                      
                     <span

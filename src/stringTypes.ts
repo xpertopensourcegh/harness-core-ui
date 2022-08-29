@@ -4743,12 +4743,12 @@ export interface StringsMap {
   'ce.co.accessPoint.loadbalancers': string
   'ce.co.accessPoint.machineType': string
   'ce.co.accessPoint.mapDomain': string
+  'ce.co.accessPoint.networkTagsLabel': string
   'ce.co.accessPoint.new': string
   'ce.co.accessPoint.newAppGateway': string
   'ce.co.accessPoint.others': string
   'ce.co.accessPoint.proceed': string
   'ce.co.accessPoint.route53': string
-  'ce.co.accessPoint.securityGroupsLabel': string
   'ce.co.accessPoint.select.aCertificate': string
   'ce.co.accessPoint.select.accessPoint': string
   'ce.co.accessPoint.select.account': string
@@ -4757,6 +4757,7 @@ export interface StringsMap {
   'ce.co.accessPoint.select.dnsProvider': string
   'ce.co.accessPoint.select.existingALB': string
   'ce.co.accessPoint.select.machineType': string
+  'ce.co.accessPoint.select.networkTags': string
   'ce.co.accessPoint.select.regionToInstall': string
   'ce.co.accessPoint.select.route53': string
   'ce.co.accessPoint.select.route53zone': string
