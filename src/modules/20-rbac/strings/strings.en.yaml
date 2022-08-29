@@ -94,7 +94,7 @@ UserGroupRoleAssignmentForm:
 userGroupForm:
   createSuccess: User Group '{{name}}' created successfully
   samlLinkSuccess: User Group '{{name}}' linked successfully
-  ldapLinkSuccess: User Group '{{name}}' is now linked with LDAP Group '{{ldapGrpName}}'.<br> Users in this group will be synced in the next LDAP sync cycle.<br> To sync Users immediately please go to Authentication Settings,<br> click on three dots on the LDAP settings and select 'Synchronize User Groups'
+  ldapLinkSuccess: "User Group '{{name}}' is now linked with LDAP Group '{{ldapGrpName}}'.\r\n\r\nUsers in this group will be synced in the next LDAP sync cycle.\r\n\r\nTo sync Users immediately please go to Authentication Settings,\r\nclick on three dots on the LDAP settings and select 'Synchronize User Groups'"
   editSuccess: User Group '{{name}}' edited successfully
   addMemberSuccess: Members added successfully
 roleAssignment:

@@ -5,8 +5,8 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { AuthenticationMechanisms } from '@rbac/utils/utils'
 
 export const mockAuthSettingsResponse = {
   ngAuthSettings: [
@@ -61,6 +61,11 @@ export const mockAuthSettingsResponse = {
   authenticationMechanism: AuthenticationMechanisms.LDAP
 }
 
+export const mockAuthSettingsResponseWithoutLdap = {
+  ngAuthSettings: [],
+  authenticationMechanism: AuthenticationMechanisms.LDAP
+}
+
 export const permissionRequest = {
   resourceScope: {
     accountIdentifier: 'accountId'
@@ -68,4 +73,34 @@ export const permissionRequest = {
   resource: {
     resourceType: ResourceType.AUTHSETTING
   }
+}
+
+export const successTestConnectionSettingsResponse = {
+  metaData: {},
+  resource: { status: 'SUCCESS', message: 'Connection successful.' },
+  responseMessages: []
+}
+
+export const errorTestConnectionSettingsResponse = {
+  status: 'ERROR',
+  code: 'GENERAL_ERROR',
+  message: 'Failed to fetch',
+  correlationId: '7bed084a-5916-4ed5-8480-654d3cab284e',
+  detailedMessage: null,
+  responseMessages: [
+    { code: 'GENERAL_ERROR', level: 'ERROR', message: '${message}', exception: null, failureTypes: [] }
+  ],
+  metadata: null
+}
+
+export const testQuerySuccessResponse = {
+  metaData: {},
+  resource: { status: 'SUCCESS', message: 'Query successful.' },
+  responseMessages: []
+}
+
+export const testQuerySuccessFailure = {
+  metaData: {},
+  resource: { status: 'FAILURE', message: 'Query failed.' },
+  responseMessages: []
 }

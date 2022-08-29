@@ -41,6 +41,13 @@ import type { AttributeFilter } from 'services/resourcegroups'
 export const DEFAULT_RG = '_all_resources_including_child_scopes'
 export const PROJECT_DEFAULT_RG = '_all_project_level_resources'
 
+export enum AuthenticationMechanisms {
+  SAML = 'SAML',
+  OAUTH = 'OAUTH',
+  LDAP = 'LDAP',
+  USER_PASSWORD = 'USER_PASSWORD'
+}
+
 export enum PrincipalType {
   USER = 'USER',
   USER_GROUP = 'USER_GROUP',

@@ -31,7 +31,6 @@ import {
   syncLdapGroupsPromise,
   useDeleteLdapSettings
 } from 'services/cd-ng'
-import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
@@ -41,7 +40,9 @@ import useRBACError from '@rbac/utils/useRBACError/useRBACError'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
+import useCreateUpdateLdapProvider from '@auth-settings/modals/LdapProvider/useCreateUpdateLdapProvider'
 import useLdapTestConfigurationProvider from '@auth-settings/modals/LdapTestConfiguration/useLdapTestConfigurationProvider'
+import { AuthenticationMechanisms } from '@rbac/utils/utils'
 import css from './LDAPProvider.module.scss'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 
@@ -73,10 +74,12 @@ const LDAPProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
 
   const isNgLDAPFFEnabled = useFeatureFlag(FeatureFlag.NG_ENABLE_LDAP_CHECK)
   const onSuccess = (): void => {
+    closeLdapModal()
     refetchAuthSettings()
   }
 
   const { openLdapTestModal } = useLdapTestConfigurationProvider({ onSuccess })
+  const { openLdapModal, closeLdapModal } = useCreateUpdateLdapProvider({ onSuccess })
 
   const { mutate: deleteLdapSettings, loading: deletingLdapSettings } = useDeleteLdapSettings({
     queryParams: {
@@ -165,7 +168,12 @@ const LDAPProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
                 position="left-top"
                 content={
                   <Menu data-testid="ldap-popover-menu">
-                    <MenuItem text={getString('edit')} disabled={!canEdit} />
+                    <MenuItem
+                      text={getString('edit')}
+                      onClick={() => openLdapModal(ldapSettings)}
+                      disabled={!canEdit}
+                      data-testid="ldap-edit-config"
+                    />
                     <RbacMenuItem
                       text={getString('delete')}
                       onClick={confirmLdapSettingsDelete}
@@ -192,7 +200,7 @@ const LDAPProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
                           } else {
                             showError(getString('authSettings.ldap.syncUserGroupsResult.fail'), 5000)
                           }
-                        } catch (e) {
+                        } catch (e) /* istanbul ignore next */ {
                           showError(getString('authSettings.ldap.syncUserGroupsResult.fail'), 5000)
                         } finally {
                           setIsLdapSyncInProgress(false)
@@ -217,8 +225,10 @@ const LDAPProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
               <Radio
                 checked={false}
                 font={{ weight: 'semi-bold', size: 'normal' }}
+                onClick={() => openLdapModal()}
                 color={Color.PRIMARY_7}
                 label={getString('authSettings.ldap.addLdap')}
+                data-testid="open-add-ldap-modal"
                 disabled={!featureEnabled || !canEdit}
               />
             </Container>

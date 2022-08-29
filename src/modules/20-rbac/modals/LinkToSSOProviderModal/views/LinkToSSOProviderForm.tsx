@@ -40,6 +40,7 @@ import {
   useLinkToLdapGroup,
   SSOSettings
 } from 'services/cd-ng'
+import { AuthenticationMechanisms } from '@rbac/utils/utils'
 import LinkToLDAPProviderForm from './LinkToLDAPProviderForm'
 import css from '../useLinkToSSOProviderModal.module.scss'
 
@@ -139,12 +140,13 @@ const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
     return ssoSettings.find(setting => setting.value === identifier)
   }
 
-  const handleOnSubmit = async (values: LinkToSSOProviderFormData): Promise<void> => {
+  const handleOnSubmit = async (values: LinkToSSOProviderFormData | LinkToLdapProviderFormData): Promise<void> => {
     modalErrorHandler?.hide()
     try {
       let created
-      if (getSelectedSSOType(values.sso)?.ssoType === 'LDAP') {
-        const ldapFormValues = values as LinkToLdapProviderFormData
+      let ldapFormValues
+      if (getSelectedSSOType(values.sso)?.ssoType === AuthenticationMechanisms.LDAP) {
+        ldapFormValues = values as LinkToLdapProviderFormData
         created = await linkLdapGroup(
           {
             ldapGroupName: ldapFormValues.selectedRadioValue?.name,
@@ -152,17 +154,26 @@ const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
           },
           { pathParams: { userGroupId: userGroupData.identifier, ldapId: values.sso } }
         )
-      } else if (getSelectedSSOType(values.sso)?.ssoType === 'SAML') {
+      } else if (getSelectedSSOType(values.sso)?.ssoType === AuthenticationMechanisms.SAML) {
         created = await linkSsoGroup(
           { samlGroupName: values.groupName },
           { pathParams: { userGroupId: userGroupData.identifier, samlId: values.sso } }
         )
       }
       if (created) {
-        showSuccess(getString('rbac.userGroupForm.createSuccess', { name: values.groupName }))
+        if (getSelectedSSOType(values.sso)?.ssoType === AuthenticationMechanisms.LDAP) {
+          showSuccess(
+            getString('rbac.userGroupForm.ldapLinkSuccess', {
+              name: userGroupData.name,
+              ldapGrpName: ldapFormValues?.selectedRadioValue?.name
+            })
+          )
+        } else {
+          showSuccess(getString('rbac.userGroupForm.samlLinkSuccess', { name: values.groupName }))
+        }
         onSubmit?.()
       }
-    } catch (err) {
+    } /* istanbul ignore next */ catch (err) {
       if (shouldShowError(err)) {
         modalErrorHandler?.showDanger(getRBACErrorMessage(err))
       }

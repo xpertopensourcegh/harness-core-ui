@@ -28,7 +28,7 @@ import { EmailSchema } from '@common/utils/Validation'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePostLdapLoginTest, useUpdateAuthMechanism } from 'services/cd-ng'
-import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
+import { AuthenticationMechanisms } from '@rbac/utils/utils'
 import css from './useLdapTestConfiguration.module.scss'
 
 export interface useLdapTestConfigurationModalReturn {

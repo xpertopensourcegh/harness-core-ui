@@ -20,7 +20,7 @@ import TwoFactorAuthentication from '@user-profile/components/TwoFactorAuthentic
 import useSwitchAccountModal from '@common/modals/SwitchAccount/useSwitchAccountModal'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { addHotJarSuppressionAttribute, useGetCommunity } from '@common/utils/utils'
-import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
+import { AuthenticationMechanisms } from '@rbac/utils/utils'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 

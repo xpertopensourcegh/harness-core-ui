@@ -6,8 +6,9 @@
  */
 
 import type { RestResponseBoolean, LoginSettings } from 'services/cd-ng'
-import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
+import { InputTypes } from '@common/utils/JestFormHelper'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { AuthenticationMechanisms } from '@rbac/utils/utils'
 
 export const mockResponse: RestResponseBoolean = {
   metaData: {},
@@ -170,3 +171,114 @@ export const permissionRequest = {
     resourceType: ResourceType.AUTHSETTING
   }
 }
+
+export const getConnectionFormFieldValues = (wizardDialog: HTMLElement) => [
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'host',
+    value: 'test.ldap.com'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'port',
+    value: '380'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'maxReferralHops',
+    value: '2'
+  },
+  {
+    container: wizardDialog,
+    fieldId: 'referralsEnabled',
+    type: InputTypes.CHECKBOX,
+    value: true
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'connectTimeout',
+    value: '5000'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'responseTimeout',
+    value: '7000'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'bindDN',
+    value: 'uid=testBindDN'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'bindPassword',
+    value: 'testPwd'
+  }
+]
+
+export const getUserQueryFormFieldValues = (wizardDialog: HTMLElement) => [
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'baseDN',
+    value: 'ou=Users,o=611a119873e7186e37f75599,dc=jumpcloud,dc=com'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'searchFilter',
+    value: '(objectClass=inetOrgPerson)'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'displayNameAttr',
+    value: 'cn'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'emailAttr',
+    value: 'mail'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'groupMembershipAttr',
+    value: 'memberOf'
+  }
+]
+
+export const getGroupQueryFormFieldValues = (wizardDialog: HTMLElement) => [
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'baseDN',
+    value: 'ou=Users,o=611a119873e7186e37f75599,dc=jumpcloud,dc=com'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'searchFilter',
+    value: '(objectClass=inetOrgPerson)'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'nameAttr',
+    value: 'mail'
+  },
+  {
+    container: wizardDialog,
+    type: InputTypes.TEXTFIELD,
+    fieldId: 'descriptionAttr',
+    value: 'description'
+  }
+]
