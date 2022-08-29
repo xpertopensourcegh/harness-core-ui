@@ -9,7 +9,6 @@ import React from 'react'
 import type { ExecutionNode, ResponseApprovalInstanceResponse } from 'services/pipeline-ng'
 import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import { BaseApprovalView } from '@pipeline/components/execution/StepDetails/views/BaseApprovalView/BaseApprovalView'
-
 import { JiraApprovalTab } from '@pipeline/components/execution/StepDetails/tabs/JiraApprovalTab/JiraApprovalTab'
 
 export const REFRESH_APPROVAL = 'REFRESH_APPROVAL'
