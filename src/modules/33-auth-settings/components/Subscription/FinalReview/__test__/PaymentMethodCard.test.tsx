@@ -44,7 +44,7 @@ describe('PaymentMethodCard', () => {
     )
     userEvent.click(getByText('edit'))
     await waitFor(() => {
-      expect(setViewMock).toHaveBeenCalledWith(SubscribeViews.BILLINGINFO)
+      expect(setViewMock).toHaveBeenCalledWith(SubscribeViews.PAYMENT_METHOD)
     })
   })
 })

@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ButtonVariation, FontVariation, Button, Text, Card, OverlaySpinner } from '@harness/uicore'
+import { ButtonVariation, FontVariation, Button, Text, Card, OverlaySpinner, Color } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import { ResponsePageUserAggregate, useGetAggregatedUsers, UserAggregate } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -34,7 +34,7 @@ function BillingAdminsCard(): JSX.Element {
     <OverlaySpinner show={isFetchingBillingAdmins}>
       <Card className={css.card}>
         <div className={css.adminAdd}>
-          <Text font={{ variation: FontVariation.CARD_TITLE }}>
+          <Text color={Color.GREY_500} font={{ variation: FontVariation.CARD_TITLE }}>
             {getString('authSettings.billingInfo.billingAdmin')}
           </Text>
           <Button

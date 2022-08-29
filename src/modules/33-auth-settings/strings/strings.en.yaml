@@ -190,6 +190,8 @@ success:
   title: Bravo. You’re all set.
   msg: Your {{time}} {{module}} subscription is successfully set up.
 choosePlan: Choose a plan
+ffPlans:
+  team: Team
 pricePreview:
   title: Price preview
   calculatedNextStep: Calculated in final review
@@ -264,3 +266,9 @@ billingInfo:
   monthlySubscriptions: Monthly Subscriptions
   annualSubscriptions: Annual Subscriptions
   selectPaymentMethod: Select Payment Method
+  formikErrors:
+    city: City is required
+    state: State is required
+    address: Address is required
+    zipCode: Zip is required
+    company: Company Name is required

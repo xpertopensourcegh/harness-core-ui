@@ -9,7 +9,6 @@ import React from 'react'
 import { Layout, Card, Text, Button, ButtonVariation, FontVariation } from '@harness/uicore'
 import { SubscribeViews, PaymentMethodProps } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
-
 interface PaymentMethodCardProps {
   paymentMethodInfo: PaymentMethodProps
   setView: (view: SubscribeViews) => void
@@ -28,7 +27,7 @@ const PaymentMethodCard: React.FC<PaymentMethodCardProps> = ({ paymentMethodInfo
           <Button
             variation={ButtonVariation.LINK}
             onClick={() => {
-              setView(SubscribeViews.BILLINGINFO)
+              setView(SubscribeViews.PAYMENT_METHOD)
             }}
           >
             {getString('edit')}

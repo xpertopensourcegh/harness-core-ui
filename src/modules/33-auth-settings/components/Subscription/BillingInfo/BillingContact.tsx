@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import cx from 'classnames'
 import { defaultTo, isEmpty } from 'lodash-es'
 import { FormikContextType, useFormikContext } from 'formik'
 import { Card, Layout, Text, DropDown, FontVariation, Color, SelectOption, FormInput } from '@harness/uicore'
@@ -83,6 +84,7 @@ const BillingContact: React.FC<BillingContactProp> = ({ billingInfo, countries, 
                     buttonTestId="countryOrRegion"
                     items={countries}
                     value={formik.values.country}
+                    className={cx({ [css.errorBorder]: formik.errors.country })}
                     onChange={(item: SelectOption, event?: React.SyntheticEvent<HTMLElement, Event> | undefined) => {
                       event?.stopPropagation()
                       formik.setFieldValue('country', String(item.value))
@@ -92,21 +94,32 @@ const BillingContact: React.FC<BillingContactProp> = ({ billingInfo, countries, 
                       })
                     }}
                   />
+                  {formik.errors.country && (
+                    <Text icon="circle-cross" iconProps={{ size: 10, color: Color.RED_600 }} color={Color.RED_600}>
+                      {formik.errors.country}
+                    </Text>
+                  )}
                 </Layout.Vertical>
 
                 <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'baseline' }} width={'70%'}>
-                  <Layout.Vertical width={130} spacing="small">
+                  <Layout.Vertical width={132} spacing="small">
                     <Text>{getString('common.state')}</Text>
                     <DropDown
                       disabled={isEmpty(formik.values.country)}
                       buttonTestId="state"
                       items={statesList}
                       value={formik.values.state}
+                      className={cx({ [css.errorBorder]: formik.errors.state })}
                       onChange={(item: SelectOption, event?: React.SyntheticEvent<HTMLElement, Event> | undefined) => {
                         event?.stopPropagation()
                         formik.setFieldValue('state', String(item.value))
                       }}
                     />
+                    {formik.errors.state && (
+                      <Text icon="circle-cross" iconProps={{ size: 10, color: Color.RED_600 }} color={Color.RED_600}>
+                        {formik.errors.state}{' '}
+                      </Text>
+                    )}
                   </Layout.Vertical>
                   <Layout.Vertical width={130} spacing="small" padding={{ right: 'large' }}>
                     <Text>{getString('common.city')}</Text>

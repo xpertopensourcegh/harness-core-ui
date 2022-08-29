@@ -357,6 +357,7 @@ export interface AccessControlCheckError {
     | 'SCM_UNEXPECTED_ERROR'
     | 'DUPLICATE_FILE_IMPORT'
     | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
+    | 'MEDIA_NOT_SUPPORTED'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -1097,6 +1098,11 @@ export interface AwsVPC {
   name?: string
 }
 
+export type AzureARMRollbackStepInfo = StepSpecType & {
+  delegateSelectors?: string[]
+  provisionerIdentifier: string
+}
+
 export interface AzureAuthCredentialDTO {
   [key: string]: any
 }
@@ -1138,7 +1144,6 @@ export interface AzureCreateARMResourceStepConfiguration {
   parameters?: AzureCreateARMResourceParameterFile
   scope: AzureCreateARMResourceStepScope
   template: AzureTemplateFile
-  type?: string
 }
 
 export type AzureCreateARMResourceStepInfo = StepSpecType & {
@@ -2274,6 +2279,7 @@ export interface CustomerDTO {
 }
 
 export interface CustomerDetailDTO {
+  address?: AddressDto
   billingEmail?: string
   companyName?: string
   customerId?: string
@@ -2919,6 +2925,7 @@ export interface EntityDetail {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
 }
 
 export interface EntityGitDetails {
@@ -3481,6 +3488,7 @@ export interface Error {
     | 'SCM_UNEXPECTED_ERROR'
     | 'DUPLICATE_FILE_IMPORT'
     | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
+    | 'MEDIA_NOT_SUPPORTED'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -3831,6 +3839,7 @@ export interface ErrorMetadata {
     | 'SCM_UNEXPECTED_ERROR'
     | 'DUPLICATE_FILE_IMPORT'
     | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
+    | 'MEDIA_NOT_SUPPORTED'
   errorMessage?: string
 }
 
@@ -4238,6 +4247,7 @@ export interface Failure {
     | 'SCM_UNEXPECTED_ERROR'
     | 'DUPLICATE_FILE_IMPORT'
     | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
+    | 'MEDIA_NOT_SUPPORTED'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -4320,6 +4330,7 @@ export interface FeatureRestrictionDetailListRequestDTO {
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
     | 'AZURE_CREATE_BP_RESOURCE'
+    | 'AZURE_ROLLBACK_ARM_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4390,6 +4401,7 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
     | 'AZURE_CREATE_BP_RESOURCE'
+    | 'AZURE_ROLLBACK_ARM_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4462,6 +4474,7 @@ export interface FeatureRestrictionDetailsDTO {
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
     | 'AZURE_CREATE_BP_RESOURCE'
+    | 'AZURE_ROLLBACK_ARM_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4542,6 +4555,7 @@ export interface FeatureRestrictionMetadataDTO {
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
     | 'AZURE_CREATE_BP_RESOURCE'
+    | 'AZURE_ROLLBACK_ARM_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -4930,6 +4944,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
   searchTerm?: string
@@ -5032,6 +5047,7 @@ export interface GitEntityFilterProperties {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'STO' | 'CORE' | 'PMS' | 'TEMPLATESERVICE' | 'GOVERNANCE' | 'CHAOS'
@@ -5167,6 +5183,7 @@ export interface GitFullSyncEntityInfoDTO {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   errorMessage?: string
   filePath?: string
   identifier?: string
@@ -5277,6 +5294,7 @@ export interface GitFullSyncEntityInfoFilterKeys {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   )[]
   syncStatus?: 'QUEUED' | 'SUCCESS' | 'FAILED' | 'OVERRIDDEN'
 }
@@ -5495,6 +5513,7 @@ export interface GitSyncEntityDTO {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   entityUrl?: string
   folderPath?: string
   gitConnectorId?: string
@@ -5599,6 +5618,7 @@ export interface GitSyncEntityListDTO {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -5720,6 +5740,7 @@ export interface GitSyncErrorDTO {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
   failureReason?: string
   repoId?: string
@@ -7148,6 +7169,7 @@ export interface NGEnvironmentConfig {
 }
 
 export interface NGEnvironmentGlobalOverride {
+  configFiles?: ConfigFileWrapper[]
   manifests?: ManifestConfigWrapper[]
   metadata?: string
 }
@@ -7176,6 +7198,7 @@ export interface NGServiceOverrideConfig {
 }
 
 export interface NGServiceOverrideInfoConfig {
+  configFiles?: ConfigFileWrapper[]
   environmentRef: string
   manifests?: ManifestConfigWrapper[]
   serviceRef: string
@@ -8414,6 +8437,7 @@ export interface ReferencedByDTO {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
 }
 
 export type ReleaseRepoManifest = ManifestAttributes & {
@@ -9299,6 +9323,7 @@ export interface ResponseListEntityType {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   )[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
@@ -9907,6 +9932,7 @@ export interface ResponseMessage {
     | 'SCM_UNEXPECTED_ERROR'
     | 'DUPLICATE_FILE_IMPORT'
     | 'AZURE_APP_SERVICES_TASK_EXCEPTION'
+    | 'MEDIA_NOT_SUPPORTED'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -12033,6 +12059,7 @@ export interface StepData {
     | 'JenkinsBuild'
     | 'AzureCreateARMResource'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
 }
 
 export interface StepElementConfig {
@@ -12995,9 +13022,9 @@ export type ScimUserRequestBody = ScimUser
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = void
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
-export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+export type SecretRequestWrapper2RequestBody = void
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -13601,6 +13628,7 @@ export interface ListActivitiesQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   referredByEntityType?:
     | 'CreatePR'
     | 'GITOPS_MERGE_PR'
@@ -13697,6 +13725,7 @@ export interface ListActivitiesQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -13897,6 +13926,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   referredByEntityType?:
     | 'CreatePR'
     | 'GITOPS_MERGE_PR'
@@ -13993,6 +14023,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -24486,6 +24517,7 @@ export interface FetchFeatureRestrictionMetadataPathParams {
     | 'JENKINS_BUILD'
     | 'AZURE_CREATE_ARM_RESOURCE'
     | 'AZURE_CREATE_BP_RESOURCE'
+    | 'AZURE_ROLLBACK_ARM_RESOURCE'
     | 'SECURITY'
     | 'DEVELOPERS'
     | 'MONTHLY_ACTIVE_USERS'
@@ -24626,6 +24658,7 @@ export const fetchFeatureRestrictionMetadataPromise = (
       | 'JENKINS_BUILD'
       | 'AZURE_CREATE_ARM_RESOURCE'
       | 'AZURE_CREATE_BP_RESOURCE'
+      | 'AZURE_ROLLBACK_ARM_RESOURCE'
       | 'SECURITY'
       | 'DEVELOPERS'
       | 'MONTHLY_ACTIVE_USERS'
@@ -24746,6 +24779,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -24899,6 +24933,7 @@ export interface ListAllEntityUsageByFqnQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   searchTerm?: string
 }
 
@@ -27806,6 +27841,7 @@ export interface GetReferencedByQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   searchTerm?: string
 }
 
@@ -29165,6 +29201,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -29329,6 +29366,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'AzureCreateARMResource'
       | 'BuildAndPushACR'
       | 'AzureCreateBPResource'
+      | 'AzureARMRollback'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -34524,6 +34562,7 @@ export interface GetStepYamlSchemaQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   yamlGroup?: string
 }
 
@@ -34748,6 +34787,7 @@ export interface GetEntityYamlSchemaQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
 }
 
 export type GetEntityYamlSchemaProps = Omit<
@@ -40308,6 +40348,54 @@ export const updateBillingPromise = (
     signal
   )
 
+export interface RetrieveCustomerQueryParams {
+  accountIdentifier: string
+}
+
+export type RetrieveCustomerProps = Omit<
+  GetProps<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Retrieves the customer
+ */
+export const RetrieveCustomer = (props: RetrieveCustomerProps) => (
+  <Get<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, void>
+    path={`/subscriptions/customer`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseRetrieveCustomerProps = Omit<
+  UseGetProps<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Retrieves the customer
+ */
+export const useRetrieveCustomer = (props: UseRetrieveCustomerProps) =>
+  useGet<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, void>(`/subscriptions/customer`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Retrieves the customer
+ */
+export const retrieveCustomerPromise = (
+  props: GetUsingFetchProps<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, void>(
+    getConfig('ng/api'),
+    `/subscriptions/customer`,
+    props,
+    signal
+  )
+
 export interface CreateCustomerQueryParams {
   accountIdentifier: string
 }
@@ -40361,68 +40449,6 @@ export const createCustomerPromise = (
     'POST',
     getConfig('ng/api'),
     `/subscriptions/customers`,
-    props,
-    signal
-  )
-
-export interface RetrieveCustomerQueryParams {
-  accountIdentifier: string
-}
-
-export interface RetrieveCustomerPathParams {
-  customerId: string
-}
-
-export type RetrieveCustomerProps = Omit<
-  GetProps<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>,
-  'path'
-> &
-  RetrieveCustomerPathParams
-
-/**
- * Retrieves the customer
- */
-export const RetrieveCustomer = ({ customerId, ...props }: RetrieveCustomerProps) => (
-  <Get<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>
-    path={`/subscriptions/customers/${customerId}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseRetrieveCustomerProps = Omit<
-  UseGetProps<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>,
-  'path'
-> &
-  RetrieveCustomerPathParams
-
-/**
- * Retrieves the customer
- */
-export const useRetrieveCustomer = ({ customerId, ...props }: UseRetrieveCustomerProps) =>
-  useGet<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>(
-    (paramsInPath: RetrieveCustomerPathParams) => `/subscriptions/customers/${paramsInPath.customerId}`,
-    { base: getConfig('ng/api'), pathParams: { customerId }, ...props }
-  )
-
-/**
- * Retrieves the customer
- */
-export const retrieveCustomerPromise = (
-  {
-    customerId,
-    ...props
-  }: GetUsingFetchProps<
-    ResponseCustomerDetailDTO,
-    Failure | Error,
-    RetrieveCustomerQueryParams,
-    RetrieveCustomerPathParams
-  > & { customerId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseCustomerDetailDTO, Failure | Error, RetrieveCustomerQueryParams, RetrieveCustomerPathParams>(
-    getConfig('ng/api'),
-    `/subscriptions/customers/${customerId}`,
     props,
     signal
   )
@@ -44891,7 +44917,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -44901,7 +44927,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -44914,7 +44940,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -44928,7 +44954,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -44940,7 +44966,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -44949,7 +44975,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -45342,7 +45368,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -45356,7 +45382,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >
     verb="POST"
@@ -45371,7 +45397,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -45385,7 +45411,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -45397,7 +45423,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -45406,7 +45432,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -45541,7 +45567,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -45556,7 +45582,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -45571,7 +45597,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -45586,7 +45612,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -45605,7 +45631,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -45614,7 +45640,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -45633,7 +45659,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -45648,7 +45674,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -45663,7 +45689,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -45678,7 +45704,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -45697,7 +45723,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -45706,7 +45732,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 
@@ -46315,6 +46341,7 @@ export interface GetYamlSchemaQueryParams {
     | 'AzureCreateARMResource'
     | 'BuildAndPushACR'
     | 'AzureCreateBPResource'
+    | 'AzureARMRollback'
   subtype?:
     | 'K8sCluster'
     | 'Git'

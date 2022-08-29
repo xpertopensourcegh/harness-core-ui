@@ -10,7 +10,11 @@ import { Layout, PageError, Container } from '@harness/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { Module, ModuleName } from 'framework/types/ModuleName'
-import { RetrieveProductPricesQueryParams, useRetrieveProductPrices } from 'services/cd-ng/index'
+import {
+  RetrieveProductPricesQueryParams,
+  useRetrieveProductPrices
+  // useRetrieveRecommendation
+} from 'services/cd-ng/index'
 import {
   Editions,
   SubscribeViews,
@@ -63,7 +67,12 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({
       moduleType: module.toUpperCase() as RetrieveProductPricesQueryParams['moduleType']
     }
   })
-
+  // const { data: recommendation, refetch } = useRetrieveRecommendation({
+  //   queryParams: {
+  //     accountIdentifier: accountId
+  //   },
+  //   lazy: true
+  // })
   const prices = data?.data?.prices
 
   React.useEffect(() => {

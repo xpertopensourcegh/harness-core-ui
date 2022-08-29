@@ -174,3 +174,14 @@
     }
   }
 }
+
+.activeSubscriptionCard {
+  .planTitle {
+    margin-top: var(--spacing-4);
+    padding-left: var(--spacing-small);
+    text-transform: lowercase;
+  }
+  .supportButton {
+    padding-left: 0 !important;
+  }
+}

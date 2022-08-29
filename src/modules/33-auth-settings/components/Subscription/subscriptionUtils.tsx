@@ -303,7 +303,7 @@ export function getSubscriptionBreakdownsByModuleAndFrequency({
   return products
 }
 
-export const strToNumber = (str: string): number => {
+export const strToNumber = (str = '0'): number => {
   return Number.parseInt(str.replace(/,/g, ''))
 }
 

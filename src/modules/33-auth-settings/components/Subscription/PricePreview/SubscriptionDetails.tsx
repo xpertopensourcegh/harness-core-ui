@@ -23,7 +23,7 @@ interface SubscriptionDetailsProps {
 
 const TaxLine: React.FC<{ taxAmount?: number }> = ({ taxAmount }) => {
   const { getString } = useStrings()
-  const taxAmountDescr = taxAmount ? taxAmount / 100 : getString('authSettings.pricePreview.calculatedNextStep')
+  const taxAmountDescr = taxAmount ? taxAmount : getString('authSettings.pricePreview.calculatedNextStep')
   return (
     <Layout.Horizontal
       flex={{ justifyContent: 'space-between' }}
@@ -31,7 +31,7 @@ const TaxLine: React.FC<{ taxAmount?: number }> = ({ taxAmount }) => {
       padding={{ top: 'small', bottom: 'small' }}
     >
       <Text>{getString('authSettings.costCalculator.tax')}</Text>
-      <Text>{taxAmountDescr}</Text>
+      <Text>{`$${taxAmountDescr}`}</Text>
     </Layout.Horizontal>
   )
 }

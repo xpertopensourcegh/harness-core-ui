@@ -9,6 +9,7 @@ import React from 'react'
 import cx from 'classnames'
 import { ButtonVariation, Card, Color, FontVariation, Icon, IconName, Layout, Text } from '@harness/uicore'
 import { defaultTo, lowerCase } from 'lodash-es'
+import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import { getModuleIcon } from '@common/utils/utils'
 import type { Module, ModuleName } from 'framework/types/ModuleName'
@@ -26,11 +27,14 @@ import {
 } from '@auth-settings/components/Subscription/subscriptionUtils'
 import type { StringsMap } from 'stringTypes'
 import { TimeType } from '@common/constants/SubscriptionTypes'
+import routes from '@common/RouteDefinitions'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './BillingPage.module.scss'
 interface SubscriptionTableProps {
   data?: SubscriptionDetailDTO[]
   frequency?: TimeType
 }
+
 interface PriceDetails {
   tax?: number
   premiumSupport?: number
@@ -64,6 +68,7 @@ const getParsedData = (items?: ItemDTO[]): PriceDetails => {
 
 function SubscriptionTable({ data = [], frequency }: SubscriptionTableProps): JSX.Element {
   const { getString } = useStrings()
+
   const annualTotal = React.useMemo((): number => {
     let finalAmount = 0
     data.forEach((subscription: SubscriptionDetailDTO) => {
@@ -133,6 +138,9 @@ interface TableRowProps {
 }
 const TableRow = ({ name, using = '-', module, data }: TableRowProps): JSX.Element => {
   const { getString } = useStrings()
+  const history = useHistory()
+
+  const { accountId } = useParams<AccountPathProps>()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     | DynamicPopoverHandlerBinding<{ priceData?: InvoiceDetailDTO; hideDialog?: () => void; moduleName: Module }>
     | undefined
@@ -182,6 +190,7 @@ const TableRow = ({ name, using = '-', module, data }: TableRowProps): JSX.Eleme
               resourceType: ResourceType.LICENSE
             }
           }}
+          onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: 'cf' }))}
         />
       </Text>
       <Layout.Vertical className={css.lastCol}>

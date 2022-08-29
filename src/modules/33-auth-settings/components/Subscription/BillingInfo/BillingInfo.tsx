@@ -54,50 +54,61 @@ export const BillingInfo: React.FC<BillingInfoProp> = ({
     queryParams: { accountIdentifier: accountId }
   })
 
-  async function createNewSubscription(data?: InitialBillingInfo): Promise<string | undefined> {
+  async function createNewSubscription(data?: InitialBillingInfo, update?: boolean): Promise<string | undefined> {
     try {
-      const sampleMultiplier = subscriptionProps.sampleDetails?.sampleMultiplier
-      const numberOfMau =
-        defaultTo(subscriptionProps.quantities?.featureFlag?.numberOfMau, 0) * defaultTo(sampleMultiplier, 0)
-      // TODO: add a function to return create subscription function based of module
-      const res = await createFFNewSubscription({
-        accountId,
-        edition: subscriptionProps.edition,
-        paymentFreq: subscriptionProps.paymentFreq,
-        premiumSupport: subscriptionProps.premiumSupport,
-        ...subscriptionProps.quantities?.featureFlag,
-        numberOfMau,
-        customer: {
-          address: {
-            postalCode: data?.zipCode,
-            line1: data?.billingAddress,
-            city: data?.city,
-            country: data?.country,
-            state: data?.state
-          },
-          billingEmail: subscriptionProps.billingContactInfo.email,
-          companyName: subscriptionProps.billingContactInfo.companyName
-        }
-      })
+      let res
 
+      if (!update) {
+        const sampleMultiplier = subscriptionProps.sampleDetails?.sampleMultiplier
+        const numberOfMau =
+          defaultTo(subscriptionProps.quantities?.featureFlag?.numberOfMau, 0) * defaultTo(sampleMultiplier, 0)
+        // TODO: add a function to return create subscription function based of module
+        res = await createFFNewSubscription({
+          accountId,
+          edition: subscriptionProps.edition,
+          paymentFreq: subscriptionProps.paymentFreq,
+          premiumSupport: subscriptionProps.premiumSupport,
+          ...subscriptionProps.quantities?.featureFlag,
+          numberOfMau,
+          customer: {
+            address: {
+              postalCode: data?.zipCode,
+              line1: data?.billingAddress,
+              city: data?.city,
+              country: data?.country,
+              state: data?.state
+            },
+            billingEmail: subscriptionProps.billingContactInfo.email,
+            companyName: subscriptionProps.billingContactInfo.companyName
+          }
+        })
+      } else {
+        // res = await updateSubscription({ customerId: '', data: {} })
+      }
+      setErr('')
       return res?.data?.subscriptionId
     } catch (error) {
-      setErr(getErrorMessage(error))
+      const errorMessage = getErrorMessage(error)
+      setErr(errorMessage)
+      throw new Error(errorMessage)
     }
   }
-  if (err) {
-    return (
-      <Container width={300}>
-        <PageError
-          message={err}
-          onClick={() => {
-            createNewSubscription()
-          }}
-        />
-      </Container>
-    )
+  const updateSubscriptionProps = (values: InitialBillingInfo, subscriptionId?: string): void => {
+    setSubscriptionProps({
+      ...subscriptionProps,
+      ...(subscriptionId ? { subscriptionId } : {}),
+      billingContactInfo: {
+        ...subscriptionProps.billingContactInfo,
+        country: values.country,
+        billingAddress: values.billingAddress,
+        city: values.city,
+        state: values.state,
+        zipCode: values.zipCode,
+        companyName: values.companyName
+      }
+    })
+    setView(SubscribeViews.PAYMENT_METHOD)
   }
-
   if (creatingNewSubscription) {
     return <ContainerSpinner />
   }
@@ -106,64 +117,57 @@ export const BillingInfo: React.FC<BillingInfoProp> = ({
     <Formik
       initialValues={initValues}
       validationSchema={Yup.object().shape({
-        country: Yup.string().required(),
-        billingAddress: Yup.string().required(),
-        city: Yup.string().required(),
-        state: Yup.string().required(),
-        zipCode: Yup.string().required(),
-        companyName: Yup.string().required()
+        country: Yup.string().required(getString('common.banners.trial.contactSalesForm.countryValidation')),
+        billingAddress: Yup.string().required(getString('authSettings.billingInfo.formikErrors.address')),
+        city: Yup.string().required(getString('authSettings.billingInfo.formikErrors.city')),
+        state: Yup.string().required(getString('authSettings.billingInfo.formikErrors.state')),
+        zipCode: Yup.string().required(getString('authSettings.billingInfo.formikErrors.zipCode')),
+        companyName: Yup.string().required(getString('authSettings.billingInfo.formikErrors.company'))
       })}
       onSubmit={(values: InitialBillingInfo): void => {
-        createNewSubscription(values).then((subscriptionId?: string): void => {
-          setSubscriptionProps({
-            ...subscriptionProps,
-            subscriptionId: subscriptionId as string,
-            billingContactInfo: {
-              ...subscriptionProps.billingContactInfo,
-              country: values.country,
-              billingAddress: values.billingAddress,
-              city: values.city,
-              state: values.state,
-              zipCode: values.zipCode,
-              companyName: values.companyName
-            }
-          })
-          setView(SubscribeViews.PAYMENT_METHOD)
+        createNewSubscription(values).then((subscriptionId?: string) => {
+          updateSubscriptionProps(values, subscriptionId)
         })
       }}
       formName="subscriptionUserInfo"
     >
       {formik => (
         <FormikForm>
-          <Layout.Vertical className={className}>
-            <Header step={1} />
-            <Layout.Vertical padding={{ top: 'small', bottom: 'large' }} spacing={'large'} className={css.body}>
-              <BillingContact
-                formik={formik}
-                countries={countries}
-                states={states}
-                billingInfo={subscriptionProps.billingContactInfo}
-                setBillingInfo={(value: BillingContactProps) => {
-                  setSubscriptionProps({
-                    ...subscriptionProps,
-                    billingContactInfo: value
-                  })
-                }}
-              />
+          {err && !subscriptionProps.subscriptionId ? (
+            <Container width={300}>
+              <PageError message={err} onClick={formik.submitForm} />
+            </Container>
+          ) : (
+            <Layout.Vertical className={className}>
+              <Header step={1} />
+              <Layout.Vertical padding={{ top: 'small', bottom: 'large' }} spacing={'large'} className={css.body}>
+                <BillingContact
+                  formik={formik}
+                  countries={countries}
+                  states={states}
+                  billingInfo={subscriptionProps.billingContactInfo}
+                  setBillingInfo={(value: BillingContactProps) => {
+                    setSubscriptionProps({
+                      ...subscriptionProps,
+                      billingContactInfo: value
+                    })
+                  }}
+                />
+              </Layout.Vertical>
+              <Layout.Horizontal spacing="small">
+                <Button variation={ButtonVariation.SECONDARY} onClick={handleBack} icon="chevron-left">
+                  {getString('back')}
+                </Button>
+                <Button
+                  variation={ButtonVariation.PRIMARY}
+                  onClick={() => formik.handleSubmit()}
+                  rightIcon="chevron-right"
+                >
+                  {getString('authSettings.billing.next')}
+                </Button>
+              </Layout.Horizontal>
             </Layout.Vertical>
-            <Layout.Horizontal spacing="small">
-              <Button variation={ButtonVariation.SECONDARY} onClick={handleBack} icon="chevron-left">
-                {getString('back')}
-              </Button>
-              <Button
-                variation={ButtonVariation.PRIMARY}
-                onClick={() => formik.handleSubmit()}
-                rightIcon="chevron-right"
-              >
-                {getString('authSettings.billing.next')}
-              </Button>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+          )}
         </FormikForm>
       )}
     </Formik>

@@ -7,6 +7,7 @@
  **/
 // this is an auto-generated file, do not update this manually
 declare const styles: {
+  readonly activeSubscriptionCard: string
   readonly adminAdd: string
   readonly alignSpace: string
   readonly billingList: string
@@ -22,11 +23,13 @@ declare const styles: {
   readonly leftGrid: string
   readonly mangeButton: string
   readonly paymentMethodBody: string
+  readonly planTitle: string
   readonly pointer: string
   readonly right: string
   readonly rightGrid: string
   readonly subscriptionGrid: string
   readonly subscriptionTable: string
+  readonly supportButton: string
   readonly tableHeader: string
   readonly tableRow: string
   readonly tableTitle: string

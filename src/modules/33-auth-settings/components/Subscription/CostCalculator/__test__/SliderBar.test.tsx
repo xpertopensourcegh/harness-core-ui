@@ -70,7 +70,7 @@ describe('SliderBar', () => {
     fireEvent.click(listItem)
     expect(listItem).toHaveTextContent('5m')
     await waitFor(() => {
-      expect(setValueMock).toHaveBeenCalledWith(5)
+      expect(setValueMock).toHaveBeenCalledWith(1)
     })
   })
 

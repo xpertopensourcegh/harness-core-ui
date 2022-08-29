@@ -117,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({
   }
 
   function handleBack(): void {
-    setView(SubscribeViews.CALCULATE)
+    setView(SubscribeViews.BILLINGINFO)
   }
 
   if (loading) {

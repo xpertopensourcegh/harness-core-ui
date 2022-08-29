@@ -357,7 +357,7 @@ exports[`BillingInfo render 1`] = `
                       >
                         <div
                           class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                          style="width: 130px;"
+                          style="width: 132px;"
                         >
                           <p
                             class="StyledProps--font StyledProps--main"

@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { defaultTo } from 'lodash-es'
 import { Slider } from '@blueprintjs/core'
 import { DropDown, Layout, TextInput, SelectOption } from '@harness/uicore'
 import css from './CostCalculator.module.scss'
@@ -52,6 +53,7 @@ interface SliderBarProps {
   setValue: (value: number) => void
   unit?: string
   labelRenderer?: (value: number) => string | JSX.Element
+  inputValue?: number
 }
 
 const SliderBar: React.FC<SliderBarProps> = ({
@@ -61,6 +63,7 @@ const SliderBar: React.FC<SliderBarProps> = ({
   labelStepSize,
   list,
   value,
+  inputValue,
   setValue,
   unit,
   labelRenderer
@@ -76,7 +79,10 @@ const SliderBar: React.FC<SliderBarProps> = ({
       }, []) || []
     )
   }, [list, unit])
-
+  const updateFromDropdown = (val: number): void => {
+    const valueIndex = list?.indexOf(val)
+    setValue(valueIndex as number)
+  }
   return (
     <Layout.Horizontal spacing={'large'}>
       <SliderWrapper
@@ -96,8 +102,10 @@ const SliderBar: React.FC<SliderBarProps> = ({
           filterable={false}
           width={70}
           items={dropdownList}
-          value={value.toString()}
-          onChange={selected => setValue(Number(selected.value))}
+          value={defaultTo(inputValue, value).toString()}
+          onChange={selected => {
+            updateFromDropdown(Number(selected.value))
+          }}
           placeholder={`  ${unit}`}
           className={css.dropdown}
         />
@@ -109,7 +117,7 @@ const SliderBar: React.FC<SliderBarProps> = ({
             const maxValue = Math.abs(Number(max))
             return setValue(val > maxValue ? maxValue : val)
           }}
-          value={value.toString()}
+          value={defaultTo(inputValue, value).toString()}
           className={css.textInput}
         />
       )}

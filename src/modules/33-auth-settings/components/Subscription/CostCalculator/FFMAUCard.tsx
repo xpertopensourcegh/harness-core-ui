@@ -18,28 +18,6 @@ import css from './CostCalculator.module.scss'
 export const getRecommendedNumbers = (usage: number, currentSubscribed: number): number =>
   Math.max(Math.ceil(usage * 1.2), currentSubscribed)
 
-export const getNearestValidValue = (
-  selectedVal: number,
-  _list: number[],
-  minValue: number,
-  _stepSize: number
-): number => {
-  const finalValue = selectedVal
-  if (selectedVal === 0) {
-    return minValue
-  }
-  // if (!list.includes(finalValue)){
-  //   list?.forEach((currVal:number, index:number)=>{
-  //     const lastValidStep = selectedVal > list[index-1]
-
-  //     if(selectedVal>list[index] ){
-
-  //     }
-  //   })
-  // }
-
-  return finalValue
-}
 const Header: React.FC<{ unitPrice: number; paymentFreq: TimeType }> = () => {
   const { getString } = useStrings()
   // const mauUnitDecr =
@@ -117,7 +95,7 @@ interface FFMAUCardProps {
 }
 
 const TEAM_MAU_LIST = [100, 200, 300, 400, 500]
-const ENTERPRISE_MAU_LIST = [0, 1, 5, 10, 15, 20]
+const ENTERPRISE_MAU_LIST = [1, 5, 10, 15, 20]
 
 const FFMAUCard: React.FC<FFMAUCardProps> = ({
   unitPrice,
@@ -159,28 +137,30 @@ const FFMAUCard: React.FC<FFMAUCardProps> = ({
     // TODO: get tier from prices api call
     if (newPlan === Editions.TEAM) {
       setMausRange({
-        min: defaultTo(minValue, 0),
-        max: 500,
-        stepSize: 100,
-        labelStepSize: 100,
+        min: 0,
+        max: 4,
+        stepSize: 1,
+        labelStepSize: 1,
         list: TEAM_MAU_LIST,
         unit: defaultTo(unit, '')
       })
     } else {
       setMausRange({
         min: 0,
-        max: 20,
-        stepSize: 5,
-        labelStepSize: 5,
+        max: 4,
+        stepSize: 1,
+        labelStepSize: 1,
         list: ENTERPRISE_MAU_LIST,
         unit: defaultTo(unit, '')
       })
     }
   }, [newPlan])
   const setMaus = (val: number): void => {
-    const finalValue = getNearestValidValue(val, mausRange.list, minValue, mausRange.stepSize)
+    const finalValue = mausRange.list[val]
     setNumberOfMAUs(finalValue)
   }
+
+  const selectedValue = mausRange.list.findIndex((num: number) => num === numberOfMAUs)
   return (
     <Card>
       <Layout.Vertical>
@@ -192,11 +172,12 @@ const FFMAUCard: React.FC<FFMAUCardProps> = ({
           stepSize={mausRange.stepSize}
           labelStepSize={mausRange.labelStepSize}
           list={mausRange.list}
-          value={numberOfMAUs === 0 ? minValue : numberOfMAUs}
+          value={selectedValue === -1 ? mausRange.min : selectedValue}
           setValue={setMaus}
           unit={mausRange.unit}
+          inputValue={selectedValue === -1 ? mausRange.list[mausRange.min] : mausRange.list[selectedValue]}
           labelRenderer={(value: number) => {
-            return `${value === 0 ? mausRange.min : value}`
+            return `${mausRange.list[value]}`
           }}
         />
       </Layout.Vertical>

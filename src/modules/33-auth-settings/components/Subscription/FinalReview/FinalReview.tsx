@@ -25,7 +25,7 @@ interface FinalReviewProps {
 export const FinalReview: React.FC<FinalReviewProps> = ({ setView, invoiceData, subscriptionProps, className }) => {
   const items =
     invoiceData?.items?.reduce((acc: string[], curr) => {
-      acc.push(`${curr.quantity} ${curr.description}`)
+      acc.push(`${curr.description}`)
       return acc
     }, []) || []
 

@@ -668,16 +668,16 @@ exports[`CostCalculator render 1`] = `
                   class="bp3-slider-track"
                 >
                   <div
+                    class="bp3-slider-progress bp3-intent-primary"
+                    style="left: 0.00%; right: 100.00%; top: 0px;"
+                  />
+                  <div
                     class="bp3-slider-progress"
                     style="left: 0.00%; right: 100.00%; top: 0px;"
                   />
                   <div
-                    class="bp3-slider-progress bp3-intent-primary"
-                    style="left: 0.00%; right: 97.60%; top: 0px;"
-                  />
-                  <div
                     class="bp3-slider-progress"
-                    style="left: 2.40%; right: 0.00%; top: 0px;"
+                    style="left: 0.00%; right: 0.00%; top: 0px;"
                   />
                 </div>
                 <div
@@ -687,29 +687,23 @@ exports[`CostCalculator render 1`] = `
                     class="bp3-slider-label"
                     style="left: 0.00%;"
                   >
-                    0
-                  </div>
-                  <div
-                    class="bp3-slider-label"
-                    style="left: 20.00%;"
-                  >
                     100
                   </div>
                   <div
                     class="bp3-slider-label"
-                    style="left: 40.00%;"
+                    style="left: 25.00%;"
                   >
                     200
                   </div>
                   <div
                     class="bp3-slider-label"
-                    style="left: 60.00%;"
+                    style="left: 50.00%;"
                   >
                     300
                   </div>
                   <div
                     class="bp3-slider-label"
-                    style="left: 80.00%;"
+                    style="left: 75.00%;"
                   >
                     400
                   </div>
@@ -722,13 +716,13 @@ exports[`CostCalculator render 1`] = `
                 </div>
                 <span
                   class="bp3-slider-handle"
-                  style="left: calc(2.40% - 0px);"
+                  style="left: calc(0.00% - 0px);"
                   tabindex="0"
                 >
                   <span
                     class="bp3-slider-label"
                   >
-                    12
+                    100
                   </span>
                 </span>
               </div>
@@ -754,7 +748,7 @@ exports[`CostCalculator render 1`] = `
                           data-testid="dropdown-value"
                           style="--text-line-clamp: 1;"
                         >
-                            
+                          100
                         </p>
                       </div>
                       <div
@@ -1137,16 +1131,16 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                   class="bp3-slider-track"
                 >
                   <div
+                    class="bp3-slider-progress bp3-intent-primary"
+                    style="left: 0.00%; right: 100.00%; top: 0px;"
+                  />
+                  <div
                     class="bp3-slider-progress"
                     style="left: 0.00%; right: 100.00%; top: 0px;"
                   />
                   <div
-                    class="bp3-slider-progress bp3-intent-primary"
-                    style="left: 0.00%; right: 0.00%; top: 0px;"
-                  />
-                  <div
                     class="bp3-slider-progress"
-                    style="left: 100.00%; right: 0.00%; top: 0px;"
+                    style="left: 0.00%; right: 0.00%; top: 0px;"
                   />
                 </div>
                 <div
@@ -1156,12 +1150,18 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                     class="bp3-slider-label"
                     style="left: 0.00%;"
                   >
-                    0
+                    25
+                  </div>
+                  <div
+                    class="bp3-slider-label"
+                    style="left: 100.00%;"
+                  >
+                    50
                   </div>
                 </div>
                 <span
                   class="bp3-slider-handle"
-                  style="left: calc(2500.00% - 0px);"
+                  style="left: calc(0.00% - 0px);"
                   tabindex="0"
                 >
                   <span
@@ -1271,16 +1271,16 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                   class="bp3-slider-track"
                 >
                   <div
+                    class="bp3-slider-progress bp3-intent-primary"
+                    style="left: 0.00%; right: 100.00%; top: 0px;"
+                  />
+                  <div
                     class="bp3-slider-progress"
                     style="left: 0.00%; right: 100.00%; top: 0px;"
                   />
                   <div
-                    class="bp3-slider-progress bp3-intent-primary"
-                    style="left: 0.00%; right: 40.00%; top: 0px;"
-                  />
-                  <div
                     class="bp3-slider-progress"
-                    style="left: 60.00%; right: 0.00%; top: 0px;"
+                    style="left: 0.00%; right: 0.00%; top: 0px;"
                   />
                 </div>
                 <div
@@ -1290,7 +1290,7 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                     class="bp3-slider-label"
                     style="left: 0.00%;"
                   >
-                    0
+                    1
                   </div>
                   <div
                     class="bp3-slider-label"
@@ -1319,13 +1319,13 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                 </div>
                 <span
                   class="bp3-slider-handle"
-                  style="left: calc(60.00% - 0px);"
+                  style="left: calc(0.00% - 0px);"
                   tabindex="0"
                 >
                   <span
                     class="bp3-slider-label"
                   >
-                    12
+                    1
                   </span>
                 </span>
               </div>
@@ -1351,7 +1351,7 @@ exports[`CostCalculator yearly and enterprise 1`] = `
                           data-testid="dropdown-value"
                           style="--text-line-clamp: 1;"
                         >
-                            
+                          1
                         </p>
                       </div>
                       <div

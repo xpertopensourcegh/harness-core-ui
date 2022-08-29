@@ -47,7 +47,7 @@ export function getReleaseNodeLink(): string {
 export const openFileATicket = (
   e: React.MouseEvent<Element, MouseEvent>,
   currentUserInfo: UserInfo,
-  setShow: React.Dispatch<React.SetStateAction<boolean>>
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>
 ): void => {
   e.stopPropagation()
   e.preventDefault()
@@ -56,7 +56,7 @@ export const openFileATicket = (
       Email: currentUserInfo.email // set default value for email field
     }
   })
-  setShow(false)
+  setShow?.(false)
   window.Saber.do?.('open')
 }
 export const openWhatsNew = (e: React.MouseEvent<Element, MouseEvent>): void => {

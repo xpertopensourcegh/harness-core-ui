@@ -1515,6 +1515,11 @@ export interface StringsMap {
   'authSettings.billingInfo.expires': string
   'authSettings.billingInfo.explorePlans': string
   'authSettings.billingInfo.firstSubscription': string
+  'authSettings.billingInfo.formikErrors.address': string
+  'authSettings.billingInfo.formikErrors.city': string
+  'authSettings.billingInfo.formikErrors.company': string
+  'authSettings.billingInfo.formikErrors.state': string
+  'authSettings.billingInfo.formikErrors.zipCode': string
   'authSettings.billingInfo.monthlySubscriptions': string
   'authSettings.billingInfo.monthlyTotal': string
   'authSettings.billingInfo.nextBillingDate': string
@@ -1608,6 +1613,7 @@ export interface StringsMap {
   'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
   'authSettings.failedLoginsBeforeLocked': string
   'authSettings.failedLoginsBeforeLockedAccount': string
+  'authSettings.ffPlans.team': string
   'authSettings.finalReview.ofTotalSpend': string
   'authSettings.finalReview.premiumSupport': string
   'authSettings.finalReview.subscribeNPay': string

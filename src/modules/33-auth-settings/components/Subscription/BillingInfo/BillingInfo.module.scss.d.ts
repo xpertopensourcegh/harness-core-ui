@@ -10,6 +10,7 @@ declare const styles: {
   readonly billingContact: string
   readonly body: string
   readonly creditCard: string
+  readonly errorBorder: string
   readonly paymentCard: string
   readonly paymentMethodInfo: string
   readonly paymentgrid: string

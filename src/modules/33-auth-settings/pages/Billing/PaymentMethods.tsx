@@ -34,16 +34,18 @@ function PaymentMethods(): JSX.Element {
     <OverlaySpinner show={loading}>
       <Card className={css.card}>
         <div className={css.adminAdd}>
-          <Text font={{ variation: FontVariation.CARD_TITLE }}>
+          <Text color={Color.GREY_500} font={{ variation: FontVariation.CARD_TITLE }}>
             {getString('authSettings.billingInfo.paymentMethods')}
           </Text>
-          <Button
-            disabled
-            tooltip={getString('common.featureComingSoon')}
-            tooltipProps={{ isDark: true }}
-            variation={ButtonVariation.LINK}
-            text={getString('authSettings.billingInfo.updateCard')}
-          />
+          {!isEmpty(data?.data?.paymentMethods) && (
+            <Button
+              disabled
+              tooltip={getString('common.featureComingSoon')}
+              tooltipProps={{ isDark: true }}
+              variation={ButtonVariation.LINK}
+              text={getString('authSettings.billingInfo.updateCard')}
+            />
+          )}
         </div>
 
         {!isEmpty(data?.data?.paymentMethods) && (
