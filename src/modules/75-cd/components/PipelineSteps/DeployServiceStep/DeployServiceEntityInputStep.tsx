@@ -205,9 +205,6 @@ function DeployServiceEntityInputStep({
     hideModal()
   }, [hideModal])
 
-  if (!services?.length) {
-    return null
-  }
   if (error?.message) {
     clear()
     showError(getRBACErrorMessage(error), undefined, 'cd.svc.list.error')
@@ -236,6 +233,10 @@ function DeployServiceEntityInputStep({
         queryParams
       })
     }
+  }
+
+  if (!services?.length && !inputSetData?.readonly) {
+    return null
   }
 
   return (
@@ -275,7 +276,7 @@ function DeployServiceEntityInputStep({
                     permission: PermissionIdentifier.EDIT_SERVICE,
                     resource: {
                       resourceType: ResourceType.SERVICE,
-                      resourceIdentifier: services[0]?.value as string
+                      resourceIdentifier: services?.[0]?.value as string
                     },
                     options: {
                       skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
