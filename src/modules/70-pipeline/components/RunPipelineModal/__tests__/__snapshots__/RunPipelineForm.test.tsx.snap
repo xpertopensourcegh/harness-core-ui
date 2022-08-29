@@ -254,7 +254,6 @@ exports[`STUDIO MODE Valid input set enables Run button if it was disabled due t
                         class="bp3-control bp3-radio bp3-inline valueProviderRadio"
                       >
                         <input
-                          checked=""
                           name="existingProvideRadio"
                           type="radio"
                           value="provide"
@@ -268,6 +267,7 @@ exports[`STUDIO MODE Valid input set enables Run button if it was disabled due t
                         class="bp3-control bp3-radio bp3-inline valueProviderRadio selectedValueProvider"
                       >
                         <input
+                          checked=""
                           name="existingProvideRadio"
                           type="radio"
                           value="existing"
@@ -863,7 +863,6 @@ exports[`STUDIO MODE invalid input sets should not be applied 1`] = `
                         class="bp3-control bp3-radio bp3-inline valueProviderRadio"
                       >
                         <input
-                          checked=""
                           name="existingProvideRadio"
                           type="radio"
                           value="provide"
@@ -877,6 +876,7 @@ exports[`STUDIO MODE invalid input sets should not be applied 1`] = `
                         class="bp3-control bp3-radio bp3-inline valueProviderRadio selectedValueProvider"
                       >
                         <input
+                          checked=""
                           name="existingProvideRadio"
                           type="radio"
                           value="existing"
@@ -1393,7 +1393,6 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         class="bp3-control bp3-radio bp3-inline valueProviderRadio"
                       >
                         <input
-                          checked=""
                           name="existingProvideRadio"
                           type="radio"
                           value="provide"
@@ -1407,6 +1406,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         class="bp3-control bp3-radio bp3-inline valueProviderRadio selectedValueProvider"
                       >
                         <input
+                          checked=""
                           name="existingProvideRadio"
                           type="radio"
                           value="existing"

@@ -721,6 +721,13 @@ function RunPipelineFormBasic({
             formikRef.current = formik
             valuesPipelineRef.current = values
 
+            // The values are updated in next tick.
+            // Due to this, some fields do not work properly.
+            // We need to delay the render in such scenario
+            if (hasRuntimeInputs && isEmpty(values)) {
+              return <PageSpinner />
+            }
+
             return (
               <Layout.Vertical
                 ref={ref => {

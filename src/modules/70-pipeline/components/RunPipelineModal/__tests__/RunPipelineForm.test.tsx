@@ -142,20 +142,26 @@ describe('STUDIO MODE', () => {
   })
 
   test('should toggle visual and yaml mode', async () => {
-    const { container, getByText, queryByText } = render(
+    const { container, getByText, findByText } = render(
       <TestWrapper>
         <RunPipelineForm {...commonProps} source="executions" />
       </TestWrapper>
     )
 
+    await findByText('pipeline.pipelineInputPanel.selectedExisitingOrProvide')
+
     const yamlSwitch = getByText('YAML')
     await waitFor(() => expect(yamlSwitch).not.toHaveClass('disabledMode'))
     userEvent.click(yamlSwitch)
-    const editorDiv = container.querySelector('.editor')
-    await waitFor(() => expect(editorDiv).toBeTruthy())
+
+    await waitFor(() => {
+      const editorDiv = container.querySelector('.editor')
+      expect(editorDiv).not.toBe(null)
+      expect(editorDiv).toBeInTheDocument()
+    })
 
     fireEvent.click(getByText('VISUAL'))
-    await waitFor(() => expect(queryByText('pipeline.pipelineInputPanel.selectedExisitingOrProvide')).toBeTruthy())
+    await waitFor(() => findByText('pipeline.pipelineInputPanel.selectedExisitingOrProvide'))
   })
 
   test('should display the help text on hover', async () => {
@@ -301,7 +307,7 @@ describe('STUDIO MODE', () => {
         <RunPipelineForm {...commonProps} onClose={onCloseMocked} source="executions" />
       </TestWrapper>
     )
-
+    await findByText('pipeline.pipelineInputPanel.selectedExisitingOrProvide')
     const cancel = await findByText('cancel')
 
     fireEvent.click(cancel)
