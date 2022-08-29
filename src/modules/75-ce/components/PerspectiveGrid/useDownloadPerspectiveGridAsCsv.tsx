@@ -48,6 +48,7 @@ interface DownloadConfig {
 export const useDownloadPerspectiveGridAsCsv = (options: Props) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { perspectiveTotalCount, variables, selectedColumnsToDownload, perspectiveName } = options
 
@@ -55,7 +56,7 @@ export const useDownloadPerspectiveGridAsCsv = (options: Props) => {
   const dataRefetchRef = useRef(perspectiveTotalCount)
 
   const [downloadGridData, executeQuery] = useFetchperspectiveGridQuery({
-    pause: Boolean(downloadConfig?.exportRowsUpto),
+    pause: !isModalOpen,
     variables: { ...variables, limit: Number(downloadConfig?.exportRowsUpto) || perspectiveTotalCount } as any
   })
 
@@ -96,13 +97,23 @@ export const useDownloadPerspectiveGridAsCsv = (options: Props) => {
   const [openDownloadCSVModal, closeDownloadCSVModal] = useModalHook(() => {
     const maxNoOfRows = Math.min(perspectiveTotalCount, MAX_ROWS_ALLOWED)
 
+    const onModalClost: () => void = () => {
+      setIsModalOpen(false)
+      closeDownloadCSVModal()
+    }
+
+    const onModalOpen: () => void = () => {
+      setIsModalOpen(true)
+    }
+
     return (
       <Dialog
         isOpen={true}
         enforceFocus={false}
-        onClose={closeDownloadCSVModal}
+        onClose={onModalClost}
         className={css.dialog}
         title={getString('ce.perspectives.exportCSV')}
+        onOpening={onModalOpen}
       >
         <Formik
           formName="formikFormBasic"

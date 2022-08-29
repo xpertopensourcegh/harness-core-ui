@@ -33,7 +33,6 @@ import {
   ViewChartType,
   ViewType,
   QlceViewAggregateOperation,
-  useFetchPerspectiveTotalCountQuery,
   QlceViewPreferencesInput,
   QlceViewFilterWrapperInput
 } from 'services/ce/services'
@@ -243,6 +242,8 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const perspectiveData = perspectiveRes?.data
 
+  const isPageReady = !loading && perspectiveData
+
   const { isClusterOnly, hasClusterAsSource } = clusterInfoUtil(perspectiveData?.dataSources)
 
   const [gridPageOffset, setGridPageOffset] = useState(0) // This tells us the starting point of next data fetching(used in the api call)
@@ -293,12 +294,14 @@ const PerspectiveDetailsPage: React.FC = () => {
   }, [timeRange.from, timeRange.to, filters, groupBy])
 
   useDeepCompareEffect(() => {
-    executePerspectiveGridQuery({
-      requestPolicy: 'network-only'
-    })
-    executePerspectiveChartQuery({
-      requestPolicy: 'network-only'
-    })
+    if (isPageReady) {
+      executePerspectiveGridQuery({
+        requestPolicy: 'network-only'
+      })
+      executePerspectiveChartQuery({
+        requestPolicy: 'network-only'
+      })
+    }
   }, [groupBy])
 
   const setFilterUsingChartClick: (value: string) => void = value => {
@@ -340,7 +343,8 @@ const PerspectiveDetailsPage: React.FC = () => {
       limit: 12,
       groupBy: [getTimeRangeFilter(aggregation), getGroupByFilter(groupBy)],
       preferences
-    }
+    },
+    pause: !isPageReady
   })
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryWithBudgetQuery({
@@ -352,7 +356,8 @@ const PerspectiveDetailsPage: React.FC = () => {
         { operationType: QlceViewAggregateOperation.Min, columnName: 'startTime' }
       ],
       filters: queryFilters
-    }
+    },
+    pause: !isPageReady
   })
 
   const getAggregationFunc = () => {
@@ -391,22 +396,14 @@ const PerspectiveDetailsPage: React.FC = () => {
       limit: PAGE_SIZE,
       offset: gridPageOffset,
       groupBy: [getGroupByFilter(groupBy)]
-    }
-  })
-
-  const [perspectiveTotalCountResult] = useFetchPerspectiveTotalCountQuery({
-    variables: {
-      filters: queryFilters,
-      groupBy: [getGroupByFilter(groupBy)],
-      isClusterQuery: isClusterOnly
-    }
+    },
+    pause: !isPageReady
   })
 
   const { data: chartData, fetching: chartFetching } = chartResult
   const { data: gridData, fetching: gridFetching } = gridResults
 
   const { data: summaryData, fetching: summaryFetching } = summaryResult
-  const { data: { perspectiveTotalCount } = {} } = perspectiveTotalCountResult
 
   const persName = perspectiveData?.name || perspectiveName
 
@@ -415,7 +412,7 @@ const PerspectiveDetailsPage: React.FC = () => {
   const [openDownloadCSVModal] = useDownloadPerspectiveGridAsCsv({
     perspectiveName: persName,
     selectedColumnsToDownload: getGridColumnsByGroupBy(groupBy, isClusterOnly),
-    perspectiveTotalCount: perspectiveTotalCount || 0,
+    perspectiveTotalCount: gridData?.perspectiveTotalCount || 0,
     variables: {
       aggregateFunction: getAggregationFunc(),
       filters: queryFilters,
