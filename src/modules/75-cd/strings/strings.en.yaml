@@ -4,6 +4,7 @@ learnMore: Learn more about Continuous Delivery
 moreIssue: '+ {{count}} More Issue'
 moreIssues: '+ {{count}} More Issues'
 dynamicProvisioning: Dynamic provisioning
+deleteSourceBranch: Delete Source Branch
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery
   createProject: '{{$.createProject}}'

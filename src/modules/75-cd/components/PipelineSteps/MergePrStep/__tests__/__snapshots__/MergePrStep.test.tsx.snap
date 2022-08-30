@@ -222,6 +222,35 @@ exports[`Test MergePrStep should render edit view as edit step 1`] = `
         </span>
       </span>
     </div>
+    <div
+      class="formGroup sm"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <div
+          class="bp3-form-content"
+        >
+          <label
+            class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+          >
+            <input
+              name="spec.deleteSourceBranch"
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            <span
+              class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+              data-tooltip-id="mergepr_spec.deleteSourceBranch"
+            >
+              cd.deleteSourceBranch
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -447,6 +476,35 @@ exports[`Test MergePrStep should render edit view as edit step with runtime inpu
           </button>
         </span>
       </span>
+    </div>
+    <div
+      class="formGroup sm"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <div
+          class="bp3-form-content"
+        >
+          <label
+            class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+          >
+            <input
+              name="spec.deleteSourceBranch"
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            <span
+              class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+              data-tooltip-id="mergepr_spec.deleteSourceBranch"
+            >
+              cd.deleteSourceBranch
+            </span>
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -736,6 +794,35 @@ exports[`Test MergePrStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="formGroup sm"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <div
+          class="bp3-form-content"
+        >
+          <label
+            class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+          >
+            <input
+              name="spec.deleteSourceBranch"
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            <span
+              class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+              data-tooltip-id="mergepr_spec.deleteSourceBranch"
+            >
+              cd.deleteSourceBranch
+            </span>
+          </label>
         </div>
       </div>
     </div>

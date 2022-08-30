@@ -142,6 +142,10 @@ function MergePRWidget(props: MergePrProps, formikRef: StepFormikFowardRef<StepE
                   />
                 )}
               </div>
+
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormInput.CheckBox name="spec.deleteSourceBranch" label={getString('cd.deleteSourceBranch')} />
+              </div>
             </>
           )
         }}
