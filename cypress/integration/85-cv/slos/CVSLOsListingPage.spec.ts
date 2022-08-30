@@ -6,8 +6,6 @@ import {
   listUserJourneysCallResponse,
   updatedListSLOsCallResponse,
   getSLORiskCount,
-  getSLORiskCountWithUserJourneyNewOne,
-  getSLORiskCountWithUserJourneySecondJourney,
   getMonitoredService,
   listSLOsCallResponse,
   deleteSLOData,
@@ -15,16 +13,10 @@ import {
   listSLOsCallWithUserJourneySecondJourney,
   listSLOsCallWithCVNGProd,
   listSLOsCallWithCVNGDev,
-  getSLORiskCountWithCVNGDev,
-  getSLORiskCountWithCVNGProd,
   listSLOsCallWithCalender,
   listSLOsCallWithRolling,
-  getSLORiskCountWithCalender,
-  getSLORiskCountWithRolling,
   listSLOsCallWithAvailability,
   listSLOsCallWithLatency,
-  getSLORiskCountWithAvailability,
-  getSLORiskCountWithLatency,
   listSLOsCallWithUnhealthy,
   listSLOsCallWithHealthy,
   errorResponse,
@@ -33,36 +25,32 @@ import {
   sloDashboardWidgetResponseForCalender,
   errorBudgetResetHistory,
   errorBudgetResetHistoryResponse,
-  resetErrorBudget
+  resetErrorBudget,
+  getChangeEventTimeline,
+  changeEventTimelineResponse,
+  updatedListSLOsCallResponseCalenderType
 } from '../../../support/85-cv/slos/constants'
 
-describe.skip('CVSLOsListingPage', () => {
+describe('CVSLOsListingPage', () => {
   beforeEach(() => {
     cy.on('uncaught:exception', () => false)
     cy.login('test', 'test')
-    cy.visitChangeIntelligence()
-  })
 
-  it.skip('it should ensure SLO card features are working fine', () => {
-    cy.intercept('GET', listSLOsCall, errorResponse)
-    cy.intercept('DELETE', deleteSLOData, errorResponse).as('deleteSLOData')
+    cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponseCalenderType)
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
     cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
     cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
     cy.intercept('GET', getMonitoredService, getMonitoredServiceResponse)
+    cy.intercept('GET', getChangeEventTimeline, changeEventTimelineResponse)
+    cy.visitChangeIntelligenceForSLOs()
+  })
 
-    cy.contains('p', 'SLOs').click()
-
-    cy.contains('p', 'Oops, something went wrong on our end. Please contact Harness Support.').should('be.visible')
-
-    cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
-
-    cy.contains('span', 'Retry').click()
-
+  it('it should ensure SLO card features are working fine', () => {
+    cy.intercept('DELETE', deleteSLOData, errorResponse).as('deleteSLOData')
     cy.contains('p', 'cvng_prod').should('be.visible')
     cy.contains('p', 'Latency').should('be.visible')
     cy.contains('p', 'appd_cvng_prod').should('be.visible')
-    cy.contains('p', 'Rolling').should('be.visible')
+    cy.contains('p', 'Calender').should('be.visible')
     cy.contains('p', '7 days').should('be.visible')
     cy.contains('h2', '138.44%').should('be.visible')
     cy.contains('h2', '6').should('be.visible')
@@ -94,9 +82,7 @@ describe.skip('CVSLOsListingPage', () => {
     cy.contains('span', 'Oops, something went wrong on our end. Please contact Harness Support.').should('be.visible')
   })
 
-  it.skip('should verify filters', () => {
-    cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
-    cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
+  it('should verify filters', () => {
     cy.intercept('GET', listSLOsCallWithUserJourneySecondJourney, listSLOsCallResponse)
     cy.intercept('GET', listSLOsCallWithUserJourneyNewOne, updatedListSLOsCallResponse)
     cy.intercept('GET', listSLOsCallWithCVNGDev, listSLOsCallResponse)
@@ -107,16 +93,6 @@ describe.skip('CVSLOsListingPage', () => {
     cy.intercept('GET', listSLOsCallWithLatency, updatedListSLOsCallResponse)
     cy.intercept('GET', listSLOsCallWithUnhealthy, listSLOsCallResponse)
     cy.intercept('GET', listSLOsCallWithHealthy, updatedListSLOsCallResponse)
-    cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithUserJourneySecondJourney, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithUserJourneyNewOne, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithCVNGDev, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithCVNGProd, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithCalender, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithRolling, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithAvailability, getSLORiskCountResponse)
-    cy.intercept('GET', getSLORiskCountWithLatency, getSLORiskCountResponse)
-    cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
 
     cy.contains('p', 'SLOs').click()
 
@@ -124,7 +100,7 @@ describe.skip('CVSLOsListingPage', () => {
 
     cy.findByTestId('userJourney-filter').click()
     cy.contains('p', 'Second Journey').click({ force: true })
-    cy.contains('p', 'No matching data').should('be.visible')
+    cy.contains('h2', 'You don’t have any SLO created yet').should('be.visible')
     cy.findByTestId('userJourney-filter').click()
     cy.contains('p', 'new-one').click({ force: true })
     cy.contains('h2', 'SLO-1').should('be.visible')
@@ -134,7 +110,7 @@ describe.skip('CVSLOsListingPage', () => {
 
     cy.findAllByTestId('monitoredServices-filter').click()
     cy.contains('p', 'cvng_dev').click({ force: true })
-    cy.contains('p', 'No matching data').should('be.visible')
+    cy.contains('h2', 'You don’t have any SLO created yet').should('be.visible')
     cy.findAllByTestId('monitoredServices-filter').click()
     cy.contains('p', 'cvng_prod').click({ force: true })
     cy.contains('h2', 'SLO-1').should('be.visible')
@@ -144,7 +120,7 @@ describe.skip('CVSLOsListingPage', () => {
 
     cy.findAllByTestId('sloTargetAndBudget-filter').click()
     cy.contains('p', 'Calender').click({ force: true })
-    cy.contains('p', 'No matching data').should('be.visible')
+    cy.contains('h2', 'You don’t have any SLO created yet').should('be.visible')
     cy.findAllByTestId('sloTargetAndBudget-filter').click()
     cy.contains('p', 'Rolling').click({ force: true })
     cy.contains('h2', 'SLO-1').should('be.visible')
@@ -154,7 +130,7 @@ describe.skip('CVSLOsListingPage', () => {
 
     cy.findAllByTestId('sliType-filter').click()
     cy.contains('p', 'Availability').click({ force: true })
-    cy.contains('p', 'No matching data').should('be.visible')
+    cy.contains('h2', 'You don’t have any SLO created yet').should('be.visible')
     cy.findAllByTestId('sliType-filter').click()
     cy.contains('p', 'Latency').click({ force: true })
     cy.contains('h2', 'SLO-1').should('be.visible')
@@ -163,12 +139,12 @@ describe.skip('CVSLOsListingPage', () => {
     cy.contains('span', 'Clear Filters').should('not.exist')
 
     cy.contains('p', 'Unhealthy').click()
-    cy.contains('p', 'No matching data').should('be.visible')
+    cy.contains('h2', 'No matching data').should('be.visible')
     cy.contains('p', 'Healthy').click()
     cy.contains('h2', 'SLO-1').should('be.visible')
   })
 
-  it.skip('should not render Error Budget reset option for type Rolling', () => {
+  it('should not render Error Budget reset option for type Rolling', () => {
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
     cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)

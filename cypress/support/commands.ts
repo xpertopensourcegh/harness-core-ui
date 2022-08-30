@@ -85,6 +85,7 @@ declare global {
       visitPipelinesList(): void
       visitExecutionsList(): void
       visitChangeIntelligence(): void
+      visitChangeIntelligenceForSLOs(): void
       visitSRMTemplate(): void
       populateTemplateDetails(name: string, version: string): void
       visitSRMMonitoredServicePage(): void
@@ -208,6 +209,13 @@ Cypress.Commands.add('visitChangeIntelligence', () => {
   cy.intercept('GET', listSLOsCall, listSLOsCallResponse).as('listSLOsCall')
   cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
 
+  cy.visitPageAssertion('[class^=SideNav-module_main]')
+  cy.contains('span', 'Service Reliability').click()
+  cy.contains('p', 'Select a Project').click()
+  cy.contains('p', 'Project 1').click()
+})
+
+Cypress.Commands.add('visitChangeIntelligenceForSLOs', () => {
   cy.visitPageAssertion('[class^=SideNav-module_main]')
   cy.contains('span', 'Service Reliability').click()
   cy.contains('p', 'Select a Project').click()

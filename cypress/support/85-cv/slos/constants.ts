@@ -33,7 +33,7 @@ export const getSliGraph = `/cv/api/monitored-service/cvng_prod/sli/onboarding-g
 export const getServiceLevelObjective = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const getSLODetails = `/cv/api/slo-dashboard/widget/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const getServiceLevelObjectiveForNewerProject = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${newOrgIdentifier}&projectIdentifier=${newProjectIdentifier}`
-export const getSLORiskCount = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getSLORiskCount = `/cv/api/slo-dashboard/risk-count?routingId=accountId&accountId=accountId&orgIdentifier=default&projectIdentifier=project1`
 export const getSLORiskCountForNewerProject = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${newOrgIdentifier}&projectIdentifier=${newProjectIdentifier}`
 export const getSLORiskCountWithUserJourneyNewOne = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&userJourneyIdentifiers=newone`
 export const getSLORiskCountWithUserJourneySecondJourney = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&userJourneyIdentifiers=Second_Journey`
@@ -54,8 +54,8 @@ export const getSLOExecutionLogs = `/cv/api/slo/SLO1/logs?routingId=${accountId}
 export const getSLO_APICallLogs = `cv/api/slo/SLO1/logs?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&logType=ApiCallLog&errorLogsOnly=false&pageNumber=0&startTime=*&endTime=*&pageSize=20`
 export const getChangeEventTimeline = `/cv/api/account/${accountId}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/timeline?routingId=${accountId}&monitoredServiceIdentifiers=cvng_prod&startTime=1641364526709&endTime=1641450926709`
 export const getMonitoredServiceChangeDetails = `/cv/api/monitored-service/cvng_prod/change-details?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
-export const getChangeEventList = `/cv/api/account/${accountId}/org/${orgIdentifier}/project/${projectIdentifier}/change-event?routingId=${accountId}&monitoredServiceIdentifiers=cvng_prod&startTime=1641364526709&endTime=1641450926709&pageIndex=0&pageSize=10`
-export const getMonitoredServiceChangeEventSummary = `/cv/api/change-event/monitored-service-summary?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&monitoredServiceIdentifier=cvng_prod&startTime=1641364526709&endTime=1641450926709`
+export const getChangeEventList = `/cv/api/account/${accountId}/org/${orgIdentifier}/project/${projectIdentifier}/change-event?routingId=${accountId}&monitoredServiceIdentifiers=cvng_prod&startTime=*&endTime=*&pageIndex=0&pageSize=10`
+export const getMonitoredServiceChangeEventSummary = `/cv/api/change-event/monitored-service-summary?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&monitoredServiceIdentifier=cvng_prod&startTime=*&endTime=*`
 export const getChangeEventDetail = `/cv/api/account/${accountId}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/_bDpV3daRFm7MYlqidI5Sw?routingId=${accountId}`
 export const getExecutionDetailv2 = `pipeline/api/pipelines/execution/v2/FIUabw9tRhqLSHMZY1BcKg?routingId=accountId&accountIdentifier=accountId&orgIdentifier=default&projectIdentifier=project1&stageNodeId=VyUkWiR7T_uXkwajusV88Q`
 export const getMonitoredServiceOverAllHealthScore = `/cv/api/monitored-service/cvng_prod/overall-health-score?routingId=${accountId}&accountId=${accountId}&projectIdentifier=${projectIdentifier}&orgIdentifier=${orgIdentifier}&duration=FOUR_HOURS&endTime=1651731852793`
@@ -200,6 +200,58 @@ export const updatedListSLOsCallResponse = {
   correlationId: '95d58b07-33b2-4501-8d6c-71bfd140bba1'
 }
 
+export const updatedListSLOsCallResponseCalenderType = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 1,
+    pageItemCount: 1,
+    pageSize: 4,
+    content: [
+      {
+        sloIdentifier: 'SLO1',
+        title: 'SLO-1',
+        monitoredServiceIdentifier: 'cvng_prod',
+        monitoredServiceName: 'cvng_prod',
+        healthSourceIdentifier: healthSource,
+        healthSourceName: healthSource,
+        serviceIdentifier: 'cvng',
+        environmentIdentifier: 'prod',
+        environmentName: 'prod',
+        serviceName: 'cvng',
+        tags: {},
+        type: 'Latency',
+        burnRate: {
+          currentRatePercentage: 138.44167025398193
+        },
+        timeRemainingDays: 6,
+        errorBudgetRemainingPercentage: 100,
+        errorBudgetRemaining: 104,
+        totalErrorBudget: 104,
+        sloTargetType: 'Calender',
+        currentPeriodLengthDays: 7,
+        currentPeriodStartTime: 1641364526709,
+        currentPeriodEndTime: 1641450926709,
+        sloTargetPercentage: 99,
+        errorBudgetBurndown: [
+          { timestamp: 1641407726709, value: 100 },
+          { timestamp: 1641450926709, value: 100 }
+        ],
+        sloPerformanceTrend: [
+          { timestamp: 1641407726709, value: 100 },
+          { timestamp: 1641450926709, value: 100 }
+        ],
+        errorBudgetRisk: 'HEALTHY',
+        recalculatingSLI: false
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: null,
+  correlationId: '95d58b07-33b2-4501-8d6c-71bfd140bba1'
+}
+
 export const getSLODashboardWidgetsAfterEdit = {
   ...updatedListSLOsCallResponse,
   data: {
@@ -246,7 +298,7 @@ export const getTwoSLODashboardWidgets = {
 export const getSLORiskCountResponse = {
   status: 'SUCCESS',
   data: {
-    totalCount: 0,
+    totalCount: 1,
     riskCounts: [
       {
         count: 1,
